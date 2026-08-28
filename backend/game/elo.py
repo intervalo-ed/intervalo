@@ -34,6 +34,14 @@ RAMP_UPDATES = 5
 # Al sumar cadena en v2, reservar {6: 1.4, 7: 2.0, 8: 2.6}.
 BETA_SEED: dict[int, float] = {0: -2.2, 1: -1.6, 2: -1.0, 3: -0.4, 4: 0.3, 5: 0.9}
 
+# Cuántos ESTUDIANTES DISTINTOS "vale" la semilla del tier. Ver `effective_beta`.
+#
+# Ocho es la respuesta a «cuánta gente distinta tiene que haber probado esto para
+# que su promedio valga tanto como el criterio con el que pusimos la semilla».
+# Con 2 personas la plantilla queda 80% semilla, que es lo correcto cuando dos
+# personas son toda la evidencia; con 30 queda 79% aprendida.
+BETA_PRIOR_PLAYERS = 8.0
+
 # Castigo de θ al saltear un ejercicio. Plano a propósito: el lr de `update`
 # decae con la experiencia, y con ese decaimiento un jugador veterano podría
 # saltear sin que el juego le bajara nunca la dificultad — justo lo contrario de
@@ -48,18 +56,86 @@ _A_TEMPLATE = 1.2
 _B_TEMPLATE = 0.05
 
 
+def effective_beta(beta: float, tier: int, n_players: int) -> float:
+    """La β que el motor CREE, que no es la que tiene guardada.
+
+    **El problema.** `beta` no tiene ancla: se va a donde la empuje la evidencia.
+    Y la evidencia de cada plantilla la genera quien la ve, que es justo a quien
+    el motor eligió mandársela. Un motor adaptativo sirve lo difícil solo a los
+    que van bien → lo difícil solo recibe evidencia de gente que va bien → lo
+    difícil parece fácil. El círculo se alimenta solo y no es un bug de código
+    sino del diseño.
+
+    En el primer día de producción el 90% de las observaciones de los cocientes
+    (T5) las generó UNA persona con θ = 2.07, así que sus β se desplomaron hasta
+    quedar por debajo de las de `a^x` y `log_a(x)`. El motor terminó creyendo que
+    un cociente era más fácil que una exponencial.
+
+    **El arreglo.** Promedio ponderado entre lo aprendido y la semilla del tier,
+    con el peso de lo aprendido creciendo con la evidencia — encogimiento, o
+    Bayes empírico, que es lo mismo que ya hace la capa de ítem del motor de
+    sesiones. Con 0 estudiantes devuelve la semilla; con BETA_PRIOR_PLAYERS es
+    mitad y mitad; con muchos la semilla se lava sola.
+
+    **La evidencia se cuenta en PERSONAS y no en respuestas**, y esa es la parte
+    que hace el trabajo. Veinte respuestas de una sola persona no son veinte
+    datos sobre la plantilla: son veinte datos sobre esa persona. El tamaño de
+    muestra que importa es el de sorteos independientes, y cada estudiante es
+    uno. Los números de producción muestran por qué: `t0_x` tenía 54
+    observaciones de 45 personas —casi 1 a 1, todos la ven una vez— pero
+    `t5_pow_over_linear` tenía 12 de **2**, y `t3_ax` 11 de **2**. Contando
+    respuestas, esas dos parecían tan conocidas como el resto; contando gente,
+    quedan donde corresponde, que es al lado de su semilla.
+
+    **Dónde va y dónde NO.** Esto es corrección de LECTURA: se usa para elegir
+    plantilla, para el p̂ que se guarda al servir y para mover θ. La β guardada
+    en `game_template_stats` se sigue actualizando contra su propio p̂ crudo, y
+    eso no es un descuido: si se la actualizara con el error calculado desde acá
+    —que al estar más cerca de la semilla da un error más grande— la β cruda se
+    dispararía todavía más rápido. Cada uno se corrige contra su propia
+    creencia; el encogimiento decide cuánto se le cree a la de la plantilla.
+
+    Poner BETA_PRIOR_PLAYERS en 0 desactiva todo esto sin tocar nada más.
+    """
+    if BETA_PRIOR_PLAYERS <= 0:
+        return beta
+    if n_players <= 0:
+        return BETA_SEED.get(tier, 0.0)
+    seed = BETA_SEED.get(tier, 0.0)
+    return (n_players * beta + BETA_PRIOR_PLAYERS * seed) / (n_players + BETA_PRIOR_PLAYERS)
+
+
 def predict(theta: float, beta: float) -> float:
     """p̂ de acierto al primer intento para (jugador, plantilla)."""
     return 1.0 / (1.0 + math.exp(-(theta - beta) * SCALE))
 
 
 def update(
-    theta: float, n_user: int, beta: float, n_template: int, correct: bool
+    theta: float, n_user: int, beta: float, n_template: int, correct: bool,
+    tier: int | None = None, n_players: int = 0,
 ) -> tuple[float, float]:
-    """Devuelve (theta', beta') tras el resultado del PRIMER intento."""
-    e = (1.0 if correct else 0.0) - predict(theta, beta)
-    theta_next = theta + _A_USER / (1.0 + _B_USER * n_user) * e
-    beta_next = beta - _A_TEMPLATE / (1.0 + _B_TEMPLATE * n_template) * e
+    """Devuelve (theta', beta') tras el resultado del PRIMER intento.
+
+    `n_template` son respuestas y gobierna el paso de aprendizaje de β, que es
+    cuánto se mueve. `n_players` son personas distintas y gobierna el ancla, que
+    es cuánto se le cree. Son dos cosas distintas y por eso van separadas.
+
+    Con `tier`, cada número se mueve contra SU propia creencia (ver
+    `effective_beta`): θ contra la β encogida, que es lo que el motor cree de
+    verdad, y β contra la cruda, que es su propio estadístico. Sin `tier` se
+    comporta como antes — las dos contra la cruda.
+
+    Que θ se mueva contra la β encogida no es un efecto colateral: es la mitad
+    del arreglo. La sorpresa de un acierto tiene que ir a algún lado, y si el
+    ancla impide que se la coma la plantilla, se la lleva la persona. Es el
+    diagnóstico dado vuelta — el modelo venía concluyendo «esta derivada era
+    fácil» cuando lo correcto era «esta persona sabe», y por eso la θ mediana
+    llevaba 475 respuestas clavada en 0,1.
+    """
+    hit = 1.0 if correct else 0.0
+    beta_creida = beta if tier is None else effective_beta(beta, tier, n_players)
+    theta_next = theta + _A_USER / (1.0 + _B_USER * n_user) * (hit - predict(theta, beta_creida))
+    beta_next = beta - _A_TEMPLATE / (1.0 + _B_TEMPLATE * n_template) * (hit - predict(theta, beta))
     return theta_next, beta_next
 
 

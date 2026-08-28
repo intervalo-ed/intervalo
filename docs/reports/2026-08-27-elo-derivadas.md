@@ -112,7 +112,7 @@ Es un solo cambio de dos constantes en `elo.py` una vez que el dato exista.
 
 ---
 
-## 4 · Los cinco agujeros del modelo actual
+## 4 · Los agujeros del modelo
 
 ### a) No sabe de tiempo
 
@@ -181,6 +181,65 @@ cosa contada dos veces.
 teléfono), pero `θ` puede llevar un ajuste por aparato, igual que un handicap. Es la
 última opción: antes hay que intentar que el input no falle.
 
+### f) β no tenía ancla, y una sola persona calibraba el juego · **ARREGLADO**
+
+Este no estaba en la lista original y resultó ser el peor. Lo destapó el primer día de
+producción.
+
+`β` no tenía a qué agarrarse: la semilla del tier se usaba una vez, al crear la fila, y
+después se tiraba. Y la evidencia de cada plantilla la genera **quien la ve**, que es
+justo a quien el motor eligió mandársela:
+
+> Un motor adaptativo sirve lo difícil solo a los que van bien → lo difícil solo recibe
+> evidencia de gente que va bien → **lo difícil parece fácil**.
+
+El círculo se alimenta solo. No es un bug de código sino del diseño, y es inherente a
+cualquier motor adaptativo. Los números del 28/08, con 486 servidas:
+
+| | observaciones | personas distintas |
+|---|---:|---:|
+| `t0_x` (`y = x`) | 54 | **45** |
+| `t3_ax` (`aˣ`) | 11 | **2** |
+| `t5_pow_over_linear` | 12 | **2** |
+
+Un solo estudiante con `θ = 2,07` generó **el 90% de las observaciones de los cocientes**.
+Sus `β` se desplomaron y la escalera quedó dada vuelta: 35 pares de tiers invertidos, el
+motor creyendo que un cociente era más fácil que `aˣ` y que derivar `3x` era más fácil que
+derivar `x`.
+
+**El arreglo** (`elo.effective_beta`): la β que el motor **usa** no es la guardada, sino un
+promedio ponderado con la semilla del tier.
+
+```
+β_creída = (personas · β_aprendida + 8 · semilla) / (personas + 8)
+```
+
+Dos decisiones que hacen el trabajo:
+
+1. **Se cuenta en PERSONAS, no en respuestas.** Veinte respuestas de una sola persona no
+   son veinte datos sobre la plantilla: son veinte datos sobre esa persona. El tamaño de
+   muestra que importa es el de sorteos independientes, y cada estudiante es uno. La
+   columna nueva es `game_template_stats.n_players` (migración `20260828_0051`, con
+   backfill: sin él, el ancla habría devuelto la semilla pelada para todo el banco).
+2. **Es corrección de LECTURA.** La `β` guardada se sigue actualizando contra su propio
+   `p̂` crudo. Si se la actualizara contra la encogida —que al estar más cerca de la
+   semilla da un error más grande— la β cruda se dispararía todavía más rápido. Cada uno
+   se corrige contra su propia creencia.
+
+**Resultado medido:** 35 → 9 inversiones, y las medias por tier vuelven a subir monótonas
+(`T0 −2,56 < T1 −2,39 < T2 −2,03 < T3 −1,07 < T4 −0,56 < T5 +0,70`).
+
+**Y de yapa, descongela θ.** La sorpresa de un acierto tiene que ir a algún lado: si el
+ancla impide que se la coma la plantilla, se la lleva la persona. Medido, **θ se mueve
+1,9× más rápido** (+0,132 vs +0,067 por acierto). Es el diagnóstico dado vuelta — el
+modelo venía concluyendo *«esta derivada era fácil»* cuando lo correcto era *«esta
+persona sabe»*, y por eso la θ mediana llevaba 475 respuestas clavada en 0,1.
+
+Se apaga entero poniendo `BETA_PRIOR_PLAYERS = 0`, sin migración de vuelta.
+
+**Lo que queda:** el ancla frena la deriva pero no arregla que dos personas sean toda la
+evidencia — solo hace que se le crea poco. Eso se resuelve con volumen, no con código.
+
 ---
 
 ## 5 · Qué dato se junta hoy, y qué se agregó para esto
@@ -219,6 +278,11 @@ podía contestar preguntas que ya se estaban haciendo:
 
 - **`game_exercises.params_json`** — la expresión concreta que se sirvió, que hasta
   ahora se escribía siempre en `NULL` (ver §4b).
+- **`game_template_stats.n_players`** (migración `20260828_0051`) — cuántos estudiantes
+  **distintos** aportaron una observación a cada plantilla. Es el tamaño de muestra con el
+  que se decide cuánto creerle a una `β` aprendida (ver §4f). `n_observations` sigue
+  existiendo y gobierna otra cosa: el paso de aprendizaje, o sea cuánto se mueve `β`.
+  Cuánto se mueve y cuánto se le cree no son lo mismo.
 
 ---
 

@@ -72,6 +72,18 @@ def stats_for(db: Session, templates: list[GameTemplate]) -> dict[str, GameTempl
     return encontradas
 
 
+def beta_of(stat: GameTemplateStat) -> float:
+    """La dificultad que el motor le cree a una plantilla.
+
+    Existe para que ningún punto de decisión lea `stat.beta` crudo por
+    distracción: la β cruda es el estadístico, esta es la creencia.
+
+    `n_players` y no `n_observations`: el ancla se pesa en personas distintas,
+    porque veinte respuestas de una sola no son veinte datos sobre la
+    plantilla."""
+    return elo.effective_beta(stat.beta, stat.tier, stat.n_players)
+
+
 def _recent_template_keys(db: Session, player: GamePlayer) -> set[str]:
     rows = (
         db.query(GameExercise.template_key)
@@ -116,8 +128,11 @@ def pick_template(
         candidates = list(TEMPLATES)
 
     stats = stats_for(db, candidates)
+    # `effective_beta` y no `stat.beta`: la β guardada de una plantilla que
+    # todavía vio poca gente está dominada por quien haya pasado por ahí, y a
+    # quien pasa lo elige este mismo motor. Ver el docstring de elo.effective_beta.
     scored: list[tuple[GameTemplate, GameTemplateStat, float]] = [
-        (template, stats[template.key], elo.predict(player.theta, stats[template.key].beta))
+        (template, stats[template.key], elo.predict(player.theta, beta_of(stats[template.key])))
         for template in candidates
     ]
 
@@ -169,7 +184,10 @@ def serve_exercise(
             [{"expr": str(expr), "feedback": feedback} for expr, feedback in generated.common_errors]
         ),
         theta_at_serve=player.theta,
-        beta_at_serve=stat.beta,
+        # Se guarda la β CREÍDA y no la cruda, porque es la que produjo este
+        # `p_hat`: si se guardara la otra, la calibración del panel compararía
+        # una predicción contra una dificultad que no la generó.
+        beta_at_serve=beta_of(stat),
         p_hat=p_hat,
         status="served",
         created_at=datetime.utcnow(),

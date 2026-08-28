@@ -186,6 +186,112 @@ check(theta1 > 0 and beta1 < 0, "acierto: sube θ, baja β")
 check(theta2 < 0 and beta2 > 0, "fallo: baja θ, sube β")
 check(abs(elo.update(0.0, 100, 0.0, 0, True)[0]) < abs(theta1), "learning rate decrece con n")
 
+# ── Ancla de β a la semilla del tier ─────────────────────────────────────────
+# Lo que se defiende acá es que una plantilla que vio poca GENTE no pueda dar
+# vuelta la escalera de dificultad. El caso real: en el primer día de producción
+# `t5_pow_over_linear` tenía 12 observaciones de 2 personas y `t3_ax` 11 de 2,
+# porque el motor solo le sirve lo difícil a los que van bien. Contadas como 12 y
+# 11 respuestas parecían plantillas conocidas; contadas como 2 personas, no.
+print("\n— ancla de β —")
+K = elo.BETA_PRIOR_PLAYERS
+check(elo.effective_beta(-9.0, 5, 0) == elo.BETA_SEED[5],
+      "sin nadie que la haya visto, la β creída ES la semilla")
+mitad = elo.effective_beta(-9.0, 5, int(K))
+check(abs(mitad - (-9.0 + elo.BETA_SEED[5]) / 2) < 1e-9,
+      f"con K personas queda a mitad de camino ({mitad:.2f})")
+check(abs(elo.effective_beta(-9.0, 5, 2000) - (-9.0)) < 0.06,
+      "con mucha gente la semilla se lava sola")
+check(elo.BETA_SEED[5] > elo.effective_beta(-9.0, 5, 3) > -9.0,
+      "y siempre queda entre la semilla y lo aprendido")
+
+# EL punto de contar personas y no respuestas: dos plantillas con la MISMA β
+# aprendida y las mismas observaciones, pero una vista por mucha gente y la otra
+# por dos personas, no pueden valer lo mismo.
+mucha_gente = elo.effective_beta(-0.36, 5, 20)
+dos_personas = elo.effective_beta(-0.36, 5, 2)
+check(dos_personas > mucha_gente,
+      f"lo que vieron 2 personas queda más cerca de la semilla que lo que vieron 20 "
+      f"({dos_personas:.2f} vs {mucha_gente:.2f})")
+check(abs(dos_personas - elo.BETA_SEED[5]) < abs(dos_personas - (-0.36)),
+      "con 2 personas manda la semilla, no lo aprendido")
+
+# Regresión con la foto de producción del 28/08: 26 plantillas, un tercio de las
+# respuestas de un solo estudiante. Una INVERSIÓN es un par de plantillas de
+# tiers distintos donde la del tier más bajo quedó más difícil que la del más
+# alto: la escalera dada vuelta.
+#
+# Los números son una FOTO, no una verdad eterna: si el banco cambia se releen
+# de la base. Lo que se defiende no es el 9 sino que el ancla reduzca mucho las
+# inversiones y devuelva el orden entre tiers.
+# (clave, tier, β cruda, observaciones, personas distintas)
+BETAS_28_08 = [
+    ("t0_const", 0, -3.08, 16, 11), ("t0_x", 0, -2.45, 54, 45),
+    ("t1_kpow", 1, -2.39, 23, 16), ("t1_kx", 1, -3.28, 11, 6), ("t1_pow", 1, -3.10, 34, 24),
+    ("t2_pow_plus_const", 2, -2.93, 13, 7), ("t2_sum2", 2, -2.85, 20, 10),
+    ("t2_sum3", 2, -2.48, 48, 31),
+    ("t3_ax", 3, -0.42, 11, 2), ("t3_cos", 3, -2.76, 17, 8), ("t3_exp", 3, -2.31, 12, 7),
+    ("t3_ln", 3, -1.72, 13, 8), ("t3_loga", 3, -0.21, 16, 6), ("t3_mix_sum", 3, -1.44, 23, 14),
+    ("t3_sin", 3, -2.70, 16, 7), ("t3_trig_sum", 3, -1.91, 19, 13),
+    ("t4_exp_cos", 4, -0.77, 17, 4), ("t4_exp_sin", 4, -1.52, 14, 8),
+    ("t4_pow_exp", 4, -1.78, 14, 9), ("t4_pow_ln", 4, -2.05, 17, 10),
+    ("t4_pow_sin", 4, -0.92, 13, 8),
+    ("t5_exp_over_pow", 5, 0.02, 13, 4), ("t5_linear_over_linear", 5, -0.77, 19, 5),
+    ("t5_ln_over_x", 5, 1.69, 1, 1), ("t5_pow_over_linear", 5, -0.36, 12, 2),
+    ("t5_sin_over_x", 5, 1.67, 1, 1),
+]
+
+
+def _inversiones(pares: list[tuple[int, float]]) -> int:
+    return sum(1 for i, (ta, ba) in enumerate(pares)
+               for tb, bb in pares[i + 1:] if ta < tb and ba > bb)
+
+
+def _medias(pares: list[tuple[int, float]]) -> list[float]:
+    m: dict[int, list[float]] = {}
+    for t, b in pares:
+        m.setdefault(t, []).append(b)
+    return [sum(m[t]) / len(m[t]) for t in sorted(m)]
+
+
+crudas = [(t, b) for _, t, b, _, _ in BETAS_28_08]
+ancladas = [(t, elo.effective_beta(b, t, gente)) for _, t, b, _, gente in BETAS_28_08]
+inv_cruda, inv_anclada = _inversiones(crudas), _inversiones(ancladas)
+check(inv_cruda >= 30, f"la foto de producción tenía la escalera dada vuelta ({inv_cruda} inversiones)")
+check(inv_anclada <= inv_cruda / 3, f"y el ancla la endereza ({inv_cruda} → {inv_anclada})")
+check(not _medias(crudas) == sorted(_medias(crudas)), "las medias por tier crudas no subían")
+orden = _medias(ancladas)
+check(orden == sorted(orden),
+      "y ancladas vuelven a subir monótonas: "
+      + " < ".join(f"T{t} {m:+.2f}" for t, m in zip(sorted({t for t, _ in ancladas}), orden)))
+
+# Contar personas gana justo donde tiene que ganar: las plantillas que vieron
+# 2 personas quedan más cerca de su semilla que contándolas por respuestas.
+POR_RESPUESTAS = {k: (n, gente) for k, _, _, n, gente in BETAS_28_08}
+for clave in ("t5_pow_over_linear", "t3_ax", "t4_exp_cos"):
+    _, tier, cruda, n_obs, gente = next(r for r in BETAS_28_08 if r[0] == clave)
+    semilla = elo.BETA_SEED[tier]
+    por_gente = elo.effective_beta(cruda, tier, gente)
+    por_obs = elo.effective_beta(cruda, tier, n_obs)
+    check(abs(por_gente - semilla) <= abs(por_obs - semilla),
+          f"{clave} ({n_obs} respuestas de {gente} personas): contar gente la deja "
+          f"en {por_gente:+.2f} y contar respuestas en {por_obs:+.2f} (semilla {semilla:+.2f})")
+
+# La otra mitad del arreglo: con el ancla, la sorpresa que la plantilla ya no se
+# come se la lleva la persona. θ tiene que moverse MÁS, no igual.
+t_anclado = elo.update(0.1, 5, -2.05, 17, correct=True, tier=4, n_players=10)[0]
+t_crudo = elo.update(0.1, 5, -2.05, 17, correct=True)[0]
+check(t_anclado - 0.1 > 1.5 * (t_crudo - 0.1),
+      f"θ se mueve más rápido con el ancla (+{t_anclado - 0.1:.3f} vs +{t_crudo - 0.1:.3f})")
+check(elo.update(0.1, 5, -2.05, 17, True, tier=4, n_players=10)[1]
+      == elo.update(0.1, 5, -2.05, 17, True)[1],
+      "pero la β guardada se sigue corrigiendo contra su propia p̂ cruda")
+
+elo_k = elo.BETA_PRIOR_PLAYERS
+elo.BETA_PRIOR_PLAYERS = 0.0
+check(elo.effective_beta(-9.0, 5, 17) == -9.0, "con BETA_PRIOR_PLAYERS=0 el ancla se apaga entera")
+elo.BETA_PRIOR_PLAYERS = elo_k
+print()
+
 served = serve_exercise(db, player)
 db.commit()
 check(served.status == "served" and served.expected_derivative, "serve_exercise persiste")

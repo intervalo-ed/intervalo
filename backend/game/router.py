@@ -379,6 +379,32 @@ def reset_player(
     return _player_out(db, player)
 
 
+def _ya_la_habia_visto(db: Session, player: GamePlayer, exercise: GameExercise) -> bool:
+    """¿Este estudiante ya le había aportado una observación a esta plantilla?
+
+    Es lo que mantiene `game_template_stats.n_players`, el tamaño de muestra con
+    el que se decide cuánto creerle a una β aprendida (ver elo.effective_beta).
+    Sin este contador, veinte respuestas de una sola persona se leerían como
+    veinte datos sobre la plantilla.
+
+    Se excluye el ejercicio actual explícitamente en vez de confiar en que
+    todavía no se escribió: el orden de los `db.add` de este endpoint no tiene
+    por qué quedar congelado para que esta cuenta siga siendo cierta.
+    """
+    return db.query(
+        db.query(GameAttempt.id)
+        .join(GameExercise, GameExercise.id == GameAttempt.exercise_id)
+        .filter(
+            GameAttempt.player_id == player.id,
+            GameAttempt.attempt_number == 1,
+            GameExercise.template_key == exercise.template_key,
+            GameExercise.id != exercise.id,
+            GameExercise.peeked.is_(False),
+        )
+        .exists()
+    ).scalar()
+
+
 def _stamp_platform(player: GamePlayer, exercise: GameExercise, platform: str | None) -> None:
     """Marca el ejercicio con el aparato que lo pidió, y rellena el del jugador
     si nunca se llenó.
@@ -694,11 +720,22 @@ def _aplicar_elo(
     if not peeked:
         stat = get_or_create_stat(db, template_for(exercise))
         theta_before = player.theta
+        # `tier` y `n_players` no son decorativos: son lo que hace que θ se mueva
+        # contra la β encogida —la que el motor cree de verdad— mientras la β
+        # guardada se sigue corrigiendo contra la suya cruda. Ver
+        # elo.effective_beta.
         theta_after, beta_after = elo.update(
-            player.theta, player.n_updates, stat.beta, stat.n_observations, correct
+            player.theta, player.n_updates, stat.beta, stat.n_observations, correct,
+            tier=stat.tier, n_players=stat.n_players,
         )
         player.theta = theta_after
         player.n_updates += 1
+        # El contador de personas se toca ANTES de que esta respuesta exista en
+        # la tabla, así que la consulta ve solo los encuentros anteriores. Se
+        # excluyen los ejercicios mirados con la tabla abierta por el mismo
+        # motivo que no mueven β: no aportaron ninguna observación.
+        if not _ya_la_habia_visto(db, player, exercise):
+            stat.n_players += 1
         stat.beta = beta_after
         stat.n_observations += 1
         if correct:
