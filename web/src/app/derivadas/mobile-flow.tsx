@@ -146,7 +146,15 @@ type Slide =
   // Lo que pasó en el juego mientras jugabas. Va DESPUÉS del ranking: primero
   // el marcador propio, después el mundo.
   | { kind: "novedades" }
-  | { kind: "cafecito"; trigger: CafecitoTrigger; correctToday: number }
+  // `back` solo viaja cuando la persona abrió la diapo ella misma: ahí interrumpió
+  // algo y hay que devolvérselo. Cuando la dispara un hito no hay a dónde volver,
+  // porque llega después de responder y lo que sigue es la derivada siguiente.
+  | {
+      kind: "cafecito"
+      trigger: CafecitoTrigger
+      correctToday: number
+      back?: Slide
+    }
 
 // Hitos del embudo: primero enganchar; carrera/universidad cuando ya está
 // metido; el registro (con el gancho del @ propio) al final.
@@ -865,6 +873,14 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   pendingRef.current = null
                   loadNext()
                 }}
+                onCafecito={() =>
+                  goTo({
+                    kind: "cafecito",
+                    trigger: "pedido",
+                    correctToday: 0,
+                    back: slide,
+                  })
+                }
                 onNeedsRegister={() => goTo({ kind: "register" })}
               />
             </div>
@@ -965,8 +981,8 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   // La diapo que abrió la persona interrumpió lo que estaba
                   // haciendo y hay que devolvérselo; la que dispara un hito
                   // llega DESPUÉS de responder, y ahí sí toca seguir.
-                  if (slide.trigger === "pedido") goTo({ kind: "exercise" })
-                  else advanceAfterAnswer("cafecito")
+                  if (slide.trigger !== "pedido") advanceAfterAnswer("cafecito")
+                  else goTo(slide.back ?? { kind: "exercise" })
                 }}
                 className="flex-none"
               />

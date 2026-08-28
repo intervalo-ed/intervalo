@@ -8,7 +8,6 @@ import { useEffect } from "react"
 import { Coffee, Share2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { UNIVERSITY_TAG_BY_KEY } from "@/lib/university-tags"
-import { useCafecitoIntent } from "./UseGameLeaderboard"
 import { useCachedPlayer } from "./UseGamePlayer"
 import {
   readCafecitoLastShownAt,
@@ -39,7 +38,11 @@ const EN_DESARROLLO = process.env.NODE_ENV === "development"
 export const CAFECITO_EVERY = EN_DESARROLLO ? 1 : 20
 export const CAFECITO_COOLDOWN = EN_DESARROLLO ? 0 : 10
 
-export type CafecitoTrigger = "record" | "big_climb" | "milestone"
+// Por qué apareció la diapo. Los tres primeros los decide el juego después de
+// una respuesta; `pedido` es cuando la persona la abrió ella misma con el botón
+// de la barra, y eso cambia dos cosas: no se la felicita por un hito que no
+// acaba de pasar, y al salir vuelve a SU ejercicio en vez de pedir uno nuevo.
+export type CafecitoTrigger = "record" | "big_climb" | "milestone" | "pedido"
 
 export function shouldShowCafecito(
   solvedCount: number,
@@ -89,6 +92,7 @@ function useImpresionPorPartida(
 
 export function CafecitoButton({
   placement,
+  onOpen,
   compact = false,
   className,
 }: {
@@ -101,6 +105,19 @@ export function CafecitoButton({
   // layout se elige por user agent y no por ancho— sobra lugar para mostrarla.
   // Y mostrarla es lo que se quiere: es el propósito del juego, no un adorno.
   compact?: boolean
+  // Abre la diapo del cafecito, en vez de mandar directo a Cafecito.
+  //
+  // Antes esto era un enlace que abría Cafecito en otra pestaña y anotaba la
+  // intención de paso. Eso dejaba DOS caminos al mismo lugar —este y la diapo—
+  // con la mitad de las cosas cada uno: el botón se saltaba el slider (o sea que
+  // nadie veía cuánto multiplica lo que está por invitar) y, sobre todo, se
+  // saltaba la pantalla de vuelta, así que quien donaba por acá volvía a
+  // encontrar todo igual que como lo había dejado.
+  //
+  // Ahora el botón solo abre la diapo, y la diapo hace lo que ya sabía hacer:
+  // anotar la intención, abrir Cafecito y contarle a la persona qué pasó cuando
+  // vuelve. Un solo camino, y todo lo que se arregla se arregla una vez.
+  onOpen: () => void
   className?: string
 }) {
   const cta = useCta()
@@ -109,18 +126,13 @@ export function CafecitoButton({
   // Ese es justo el denominador que hace falta para poder decir qué fracción de
   // los que jugaron llegó a tocarlo.
   useImpresionPorPartida(cta, "cafecito", placement)
-  const intent = useCafecitoIntent()
   return (
-    <a
-      href={CAFECITO_URL}
-      target="_blank"
-      rel="noreferrer"
+    <button
+      type="button"
       aria-label="Invitar un cafecito"
       onClick={() => {
         cta("cafecito", "click", { placement })
-        // Antes de irse: es lo único que le dice al servidor de qué
-        // universidad viene el cafecito que quizás llegue en un rato.
-        intent.mutate()
+        onOpen()
       }}
       className={cn(
         "inline-flex items-center gap-1.5 rounded-md border border-[#A8703C]/60 px-2.5 py-1.5 text-sm text-[#A8703C] transition-colors hover:bg-[#A8703C]/10",
@@ -129,7 +141,7 @@ export function CafecitoButton({
     >
       <Coffee size={15} />
       {!compact && <span className="hidden sm:inline">cafecito</span>}
-    </a>
+    </button>
   )
 }
 
