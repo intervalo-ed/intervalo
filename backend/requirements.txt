@@ -14,3 +14,7 @@ tzdata
 # Minijuego de derivadas (backend/game/): deriva con sympy.diff y valida por
 # equivalencia numérica con lambdify. Sin numpy ni antlr4 a propósito.
 sympy
+# El oyente de donaciones de Cafecito (backend/game/cafecito_stream.py) habla
+# socket.io a mano sobre un WebSocket: es lo que hace que el empuje aparezca en el
+# momento en que alguien dona, en vez de tener que aplicarlo a mano.
+websocket-client

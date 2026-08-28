@@ -4,6 +4,7 @@ import json
 import os
 import re
 import sys
+import threading
 import time
 import traceback
 from contextlib import asynccontextmanager
@@ -29,6 +30,7 @@ from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
 import emoji_tree
+from game import cafecito_stream as game_cafecito
 from session_store import get_user_progress_db
 from database import SessionLocal
 from auth import (
@@ -152,7 +154,26 @@ async def lifespan(app: FastAPI):
     # Guardar la referencia: sin esto el GC puede llevarse el task y con él la
     # excepción, y el fallo del seed pasaría inadvertido.
     app.state.seed_task = task
+
+    # El oyente de Cafecito: escucha las donaciones y aplica el empuje solo, en
+    # el momento (game/cafecito_stream.py). Sin CAFECITO_STREAM_TOKEN se apaga
+    # solo, así que en desarrollo no hace nada.
+    #
+    # Thread propio y no una tarea del event loop: adentro hay un socket
+    # sincrónico y SQLAlchemy, que en el loop bloquearían todo. Daemon, para que
+    # no impida que el proceso termine si el apagado ordenado no llega a correr.
+    parar_cafecito = threading.Event()
+    hilo_cafecito = threading.Thread(
+        target=game_cafecito.escuchar,
+        args=(parar_cafecito,),
+        name="cafecito-stream",
+        daemon=True,
+    )
+    hilo_cafecito.start()
+    app.state.cafecito_stop = parar_cafecito
+
     yield
+    parar_cafecito.set()
     task.cancel()
 
 
