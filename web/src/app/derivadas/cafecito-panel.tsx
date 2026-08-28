@@ -37,6 +37,7 @@ import {
 } from "./UseGameLeaderboard"
 import { KeyCap } from "./exercise-card"
 import { useCta } from "./game-telemetry"
+import { useTeclas } from "./teclas"
 
 // Marrón de marca. `solid` para el relleno del botón —es el que tiene contraste
 // suficiente con texto blanco encima— y `onDark` para todo lo que es tinta
@@ -329,6 +330,7 @@ function PanelDeVuelta({
   onContinue: () => void
 }) {
   const sfx = useSfx()
+  const teclas = useTeclas()
   const llego = estado.state === "credited"
   // Si ya llegó manda el número REAL, que es el que se cobró. Si todavía no,
   // manda la intención: la barra es una calculadora y quien marcó cinco puede
@@ -413,7 +415,7 @@ function PanelDeVuelta({
         style={{ backgroundColor: CAFE }}
       >
         Continuar
-        {keyboard && <KeyCap>enter</KeyCap>}
+        {keyboard && <KeyCap>{teclas.enter}</KeyCap>}
       </button>
     </div>
   )
@@ -463,6 +465,7 @@ export function CafecitoPanel({
   const t = (n - 1) / (SLIDER_MAX - 1)
   // Ídem el slider: con movimiento reducido, aura fija.
   const quieto = !!useReducedMotion()
+  const teclas = useTeclas()
   const sliderRef = useRef<HTMLInputElement | null>(null)
 
   useEffect(() => {
@@ -675,7 +678,7 @@ export function CafecitoPanel({
                   quedaba descentrado con la tecla del otro lado. */}
               Invitar {n === 1 ? "un cafecito" : `${n} cafecitos`}
               <Coffee size={18} />
-              {keyboard && <KeyCap>shift + enter</KeyCap>}
+              {keyboard && <KeyCap>{teclas.shiftEnter}</KeyCap>}
             </motion.button>
           </>
         ) : (
@@ -723,7 +726,7 @@ export function CafecitoPanel({
           className="mt-3 flex w-full items-center justify-center rounded-md border border-border px-4 py-3 text-base text-muted-foreground transition-colors hover:bg-accent hover:text-foreground disabled:pointer-events-none disabled:opacity-45"
         >
           {listo ? "Ahora no" : `Ahora no (${restante})`}
-          {keyboard && listo && <KeyCap>enter</KeyCap>}
+          {keyboard && listo && <KeyCap>{teclas.enter}</KeyCap>}
         </button>
       </div>
       )}

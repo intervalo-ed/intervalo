@@ -42,6 +42,7 @@ import { GameIntroLogo, type GameIntro } from "./game-intro"
 import { GameRanking } from "./game-ranking"
 import { IntroPanel, IntroStartButton } from "./intro-panel"
 import { SlideFlip } from "./slide-flip"
+import { useTeclas } from "./teclas"
 import { MathInput, tipFor, type MathInputHandle } from "./math-input"
 import { MathKeyboard } from "./math-keyboard"
 import { parseAnswerToMathJson, warmupComputeEngine } from "./parse-answer"
@@ -139,6 +140,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   const answerMutation = useAnswerExercise()
   const skipMutation = useSkipExercise()
   const sfx = useSfx()
+  const teclas = useTeclas()
 
   const [exercise, setExercise] = useState<GameExercise | null>(null)
   const [lastAnswer, setLastAnswer] = useState<GameAnswer | null>(null)
@@ -1006,6 +1008,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                                 autoFocus
                                 tone={tone}
                                 hint={tipFor({
+                                  teclas,
                                   seed: exercise.exercise_id,
                                   attempted: player?.exercises_attempted ?? 0,
                                   keys: exercise.keys,

@@ -16,6 +16,7 @@
 
 import { Button } from "@/components/ui/button"
 import { KeyCap } from "./exercise-card"
+import { useTeclas, type Teclas } from "./teclas"
 
 // El texto de la intro, uno solo para las dos versiones: es lo único que se
 // explica en todo el juego y no puede decir una cosa en el teléfono y otra en
@@ -103,16 +104,17 @@ export function IntroParagraphs({ className }: { className?: string }) {
 // convierte tres atajos sueltos en un consejo.
 const KEYBOARD_HINT = "Te conviene jugar con el teclado."
 
-// Los rótulos son sustantivos y verbos sueltos, en mayúscula inicial: la lista
-// se lee de un vistazo como los tres botones que son, y no como tres frases.
-const SHORTCUTS: { keys: string; what: string }[] = [
-  { keys: "enter", what: "Revisar" },
-  { keys: "alt + enter", what: "Saltear" },
+// Verbo y complemento: "Revisar" a secas no decía qué se revisa, y en una lista
+// de tres renglones cortos entra la palabra que lo aclara. El nombre de la tecla
+// sale de `useTeclas` porque en una Mac son otras (teclas.ts).
+const atajos = (t: Teclas): { keys: string; what: string }[] => [
+  { keys: t.enter, what: "Revisar solución" },
+  { keys: t.altEnter, what: "Saltear ejercicio" },
   // Alt es un gesto SOSTENIDO —la tabla se cierra al soltar, y tarda un instante
   // en abrir a propósito (ver PEEK_OPEN_MS en desktop-layout.tsx)—, cosa que el
-  // rótulo ya no dice. Lo enseña el tip de la card, que aparece jugando y ahí sí
-  // lo explica entero ("Mantené {k} para ver la tabla de derivadas").
-  { keys: "alt", what: "Derivadas" },
+  // rótulo no dice. Lo enseña el tip de la card, que aparece jugando y ahí sí lo
+  // explica entero ("Mantené {k} para ver la tabla de derivadas").
+  { keys: t.alt, what: "Ver tabla" },
 ]
 
 // La card y el botón son DOS componentes y no uno que devuelve los dos, aunque
@@ -124,6 +126,7 @@ const SHORTCUTS: { keys: string; what: string }[] = [
 // El historial lo pone la columna, que es la que sabe que va desenfocado hasta
 // que se empieza.
 export function IntroPanel() {
+  const teclas = useTeclas()
   return (
       <div className="flex min-h-0 flex-1 flex-col rounded-lg border border-border bg-card p-6">
       <div className="mx-auto flex min-h-0 w-full max-w-sm flex-1 flex-col items-center justify-center gap-6 text-center">
@@ -142,7 +145,7 @@ export function IntroPanel() {
         <div className="flex flex-col items-center gap-3">
           <p>{KEYBOARD_HINT}</p>
           <dl className="grid grid-cols-[1fr_auto] items-center gap-x-3 gap-y-2 text-sm text-muted-foreground">
-            {SHORTCUTS.map((s) => (
+            {atajos(teclas).map((s) => (
               <div key={s.keys} className="contents">
                 <dt className="text-right">{s.what}</dt>
                 <dd className="text-left">
@@ -171,6 +174,7 @@ export function IntroStartButton({
   onStart: () => void
   disabled?: boolean
 }) {
+  const teclas = useTeclas()
   return (
     <Button
       size="lg"
@@ -179,7 +183,7 @@ export function IntroStartButton({
       className="h-[var(--cta-h)] w-full shrink-0 rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
     >
       Empezar
-      <KeyCap>enter</KeyCap>
+      <KeyCap>{teclas.enter}</KeyCap>
     </Button>
   )
 }

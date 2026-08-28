@@ -16,6 +16,7 @@ import MathText from "@/components/math-text"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { fmtMultiplier } from "./cafecito-cta"
+import { useTeclas } from "./teclas"
 import type { GameAnswer } from "./UseGameExercise"
 
 // No hay pregunta escrita. La consigna es siempre la misma —derivar— así que se
@@ -715,6 +716,7 @@ export function AnswerButton({
   showKeyHint?: boolean
   className?: string
 }) {
+  const teclas = useTeclas()
   const reduceMotion = useReducedMotion()
   const shaking = useMoment(tone === "wrong", seq, SHAKE_S * 1000 + 60) && !reduceMotion
   const flashing = useMoment(tone !== null, seq, FLASH_MS)
@@ -741,9 +743,7 @@ export function AnswerButton({
         onClick={onClick}
       >
         {closed ? "Continuar" : "Revisar"}
-        {showKeyHint && (
-          <KeyCap>enter</KeyCap>
-        )}
+        {showKeyHint && <KeyCap>{teclas.enter}</KeyCap>}
       </Button>
     </motion.div>
   )
@@ -765,6 +765,7 @@ export function SkipButton({
   onClick: () => void
   showKeyHint?: boolean
 }) {
+  const teclas = useTeclas()
   return (
     <Button
       size="lg"
@@ -774,7 +775,7 @@ export function SkipButton({
       className="h-[var(--cta-h)] shrink-0 rounded-md bg-background px-5 font-normal dark:bg-background"
     >
       Saltear
-      {showKeyHint && <KeyCap>alt + enter</KeyCap>}
+      {showKeyHint && <KeyCap>{teclas.altEnter}</KeyCap>}
     </Button>
   )
 }

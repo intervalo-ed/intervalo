@@ -14,6 +14,7 @@ import {
   type Ref,
 } from "react"
 import { KeyCap } from "./exercise-card"
+import type { Teclas } from "./teclas"
 
 export type MathInputHandle = {
   insert: (latex: string) => void
@@ -95,9 +96,11 @@ const CON_HUECOS = [
 
 // Todos cierran con punto ANTES del emoji: la frase termina y el emoji la
 // acompaña, igual que en las novedades del historial (backend/game/events.py).
-export const DESKTOP_TIPS: readonly Tip[] = [
+// Función y no constante: dos de los tips nombran teclas, y en una Mac esas
+// teclas se llaman distinto (teclas.ts).
+export const tipsDeEscritorio = (t: Teclas): readonly Tip[] => [
   { text: "Usá tu teclado, es mucho más rápido. 🏃" },
-  { text: "Enter revisa, Alt+Enter saltea. ↩️" },
+  { text: `${t.enter} revisa, ${t.altEnter} saltea. ↩️` },
   { text: "Para el exponente, escribí x^2. ⬆️", needs: ["pow", "sq"] },
   { text: "La barra / te arma la fracción. ➗", needs: ["frac"] },
   { text: "Escribí sqrt y brota la raíz. 🌱", needs: ["sqrt"] },
@@ -108,7 +111,7 @@ export const DESKTOP_TIPS: readonly Tip[] = [
   // El único tip que enseña algo que CUESTA: la consulta baja el XP de este
   // ejercicio (ver `peeked` en desktop-layout.tsx). Se dice igual — esconder una
   // ayuda que existe no la vuelve gratis, solo la vuelve secreta.
-  { text: "Mantené {k} para ver la tabla de derivadas. 👀", key: "alt" },
+  { text: "Mantené {k} para ver la tabla de derivadas. 👀", key: t.alt },
   { text: "Tab te lleva al próximo hueco. ⏭️", needs: CON_HUECOS },
 ]
 
@@ -121,16 +124,19 @@ export function tipFor({
   seed,
   attempted,
   keys,
+  teclas,
 }: {
   seed: number
   attempted: number
   keys: readonly string[]
+  teclas: Teclas
 }): React.ReactNode {
+  const TIPS = tipsDeEscritorio(teclas)
   const elegido =
     attempted < PRIMER_TIPS
-      ? DESKTOP_TIPS[0]
+      ? TIPS[0]
       : (() => {
-          const elegibles = DESKTOP_TIPS.filter(
+          const elegibles = TIPS.filter(
             (t) => !t.needs || t.needs.some((k) => keys.includes(k)),
           )
           // Nunca queda vacío: los dos primeros no piden nada.
