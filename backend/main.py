@@ -2122,22 +2122,26 @@ def _game_panel_payload(week, db: Session) -> dict:
 
 
 def _game_panel_week(w: str | None):
-    """Igual que `_panel_week` pero sin piso: el juego no tiene semanas previas
-    a la difusión que haya que esconder — nació difundido. Solo se acota por
-    arriba, porque una semana futura solo puede dar ceros y un cero se lee como
-    caída."""
+    """`?w=YYYY-MM-DD` → el lunes de esa semana. Sin parámetro, la semana en
+    curso. Una fecha inválida cae a la semana actual en vez de tirar 422: es un
+    panel, no una API.
+
+    Se acota con `clamp_week` por los dos lados. Por arriba porque una semana
+    futura solo puede dar ceros y un cero se lee como caída; por abajo porque
+    antes de la difusión el juego no tenía a nadie, y esas semanas vacías no son
+    una caída sino la ausencia de producto (ver game_queries.FIRST_WEEK)."""
     from datetime import date as _date
 
+    from metrics.game_queries import clamp_week
     from metrics.game_render import week_of_today
     from metrics.queries import week_start
 
-    hoy = week_of_today()
     if w:
         try:
-            return min(week_start(_date.fromisoformat(w)), hoy)
+            return clamp_week(week_start(_date.fromisoformat(w)))
         except ValueError:
             pass
-    return hoy
+    return clamp_week(week_of_today())
 
 
 @app.get("/panel/{token}/derivemos", response_class=HTMLResponse, include_in_schema=False)

@@ -28,7 +28,7 @@ from datetime import date, datetime, timedelta
 
 from . import charts as ch
 from .charts import esc, num
-from .game_queries import PHAT_LABELS
+from .game_queries import FIRST_WEEK, PHAT_LABELS
 
 # Los tokens salen del tema del front (web/src/app/globals.css) para que el
 # panel y el juego sean literalmente el mismo color y no dos azules parecidos.
@@ -118,6 +118,9 @@ th{color:var(--muted);font-weight:600;font-size:11px;letter-spacing:.04em;
 tbody tr:last-child td{border-bottom:0}
 td.dim{color:var(--muted)}
 td.key{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px}
+/* Ejemplo de lo que genera cada plantilla. MathML nativo: lo dibuja el
+   navegador, sin una línea de JS (ver _ejemplo_mathml en game_queries.py). */
+math.ej{font-size:15px;color:var(--fg)}
 
 /* Chip de universidad: el mismo del ranking del juego
    (web/src/components/university-tag.tsx). */
@@ -142,8 +145,14 @@ footer b{color:var(--fg)}
 # hay dando vueltas, y una cuarta sería la que se olvida de actualizarse.
 from .render import _uni_chip  # noqa: E402
 
-CAREER_LABEL = {"E": "Ingeniería", "S": "Salud", "T": "Sociales", "M": "Matemática",
-                "Otra": "Otra / sin cargar"}
+# Carreras: se reusa el mapa del panel de Intervalo, que es el que está al día
+# con `CAREERS` de web/src/components/onboarding-fields.tsx. Copiarlo acá fue el
+# error que hizo que el panel dijera «Salud» y «Sociales» durante un día: son
+# «Ciencia» y «Tecnología», y el mapa viejo venía de un onboarding anterior.
+from .render import CAREER_LABEL as _CARRERA_EMOJI  # noqa: E402
+
+CAREER_LABEL = {k: v[1] for k, v in _CARRERA_EMOJI.items()}
+CAREER_LABEL["Otra"] = "Otra / sin cargar"
 
 # Cómo se llama cada disparador del cartel de cafecito en el código
 # (desktop-layout.tsx) y qué significa en castellano.
@@ -247,7 +256,11 @@ def page(p: dict, *, token: str) -> str:
     today = week_of_today()
     nav = []
     for i in range(4, -1, -1):
+        # Sin bajar del piso del panel: ofrecer semanas anteriores a la difusión
+        # es ofrecer ceros estructurales con forma de historia.
         w = today - timedelta(weeks=i)
+        if w < FIRST_WEEK:
+            continue
         lab = w.strftime("%d/%m")
         nav.append(f'<span class="cur">{lab}</span>' if w == week else
                    f'<a href="/panel/{esc(token)}/derivemos?w={w.isoformat()}">{lab}</a>')
@@ -265,7 +278,7 @@ def page(p: dict, *, token: str) -> str:
             ("embudo", "Embudo"), ("profundidad", "Profundidad"), ("motor", "Motor"),
             ("plantillas", "Plantillas"), ("sesiones", "Sesiones"), ("cafecito", "Cafecito"),
             ("rivalidad", "Rivalidad"), ("difusion", "Difusión"),
-            ("dispositivo", "Dispositivo"), ("puente", "Puente"), ("entrada", "Entrada")])
+            ("dispositivo", "Dispositivo"), ("entrada", "Entrada")])
     out.append(f"<nav class='jump'>{jump}</nav>")
 
     # ── 0 · Titulares ────────────────────────────────────────────────────────
@@ -368,50 +381,83 @@ def page(p: dict, *, token: str) -> str:
     esc_series = [{"label": "θ mediano", "values": [e["theta"] for e in mo["escalera"]],
                    "weak": [e["estudiantes"] < 10 for e in mo["escalera"]]}]
 
+    peor = max(cal, key=lambda c: abs((c["observado"] or 0) - (c["predicho"] or 0))
+               if c["n"] else -1)
     out.append(_section(
         3, "El motor de dificultad",
-        '<div class="grid g2">'
-        + _box("¿Está calibrado?",
-               ch.lines(cal_series, list(PHAT_LABELS), suffix="%", height=250, y_max=100),
-               note=f'Error medio de calibración: <b>{_pct_txt(mo["ece"])}</b> '
-                    f'(diferencia absoluta entre lo predicho y lo observado, pesada por volumen). '
-                    f'Si las dos líneas se separan de forma sistemática, la banda objetivo no '
-                    f'existe: el juego cree estar sirviendo 75% y sirve otra cosa. Es lo primero '
-                    f'a mirar, porque si esto falla el resto de la sección mide otra cosa.')
-        + _box("¿Le pega a la banda?",
+        _box("¿Está calibrado? — lo que el modelo promete contra lo que pasa",
+             ch.lines(cal_series, list(PHAT_LABELS), suffix="%", height=330, y_max=100),
+             note='<b>Cómo se lee.</b> Cada punto del eje horizontal es un grupo de derivadas '
+                  'servidas, agrupadas por lo que el modelo predijo. La línea de abajo es esa '
+                  'promesa; la de arriba, lo que realmente pasó. <b>Si el modelo estuviera '
+                  'perfecto, las dos líneas serían la misma.</b>'
+                  '<br><br>La distancia entre ellas es el error: si la de arriba va por encima, '
+                  'el modelo <b>subestima</b> a la gente — cree que una derivada es más difícil '
+                  'de lo que es, y termina sirviendo más fácil de lo que quería. Al revés, la '
+                  'sobreestima y sirve más difícil.'
+                  f'<br><br>Hoy el error medio es <b>{_pct_txt(mo["ece"])}</b> (diferencia '
+                  f'absoluta promedio, pesada por cuántas derivadas hay en cada grupo). '
+                  + (f'Donde más se separa es en «{esc(peor["label"])}»: prometía '
+                     f'{_pct_txt(peor["predicho"])} y salió {_pct_txt(peor["observado"])}. '
+                     if peor["n"] else "")
+                  + '<b>Es lo primero a mirar de toda la sección</b>: si el modelo no sabe '
+                    'predecir, la banda objetivo no significa nada y el resto mide otra cosa.')
+        + _box("¿Le pega a la banda? — qué tan difícil salió lo que se sirvió",
                ch.stack([{"label": h["label"], "n": h["n"]} for h in mo["histograma"]]),
-               note=f'<b>{_pct_txt(mo["en_banda"])}</b> de las {num(mo["servidos"])} derivadas '
-                    f'servidas cayó en la banda objetivo 70–80%. Errarle a la banda con el modelo '
-                    f'bien calibrado no es culpa del Elo sino del banco: con 26 plantillas y la '
-                    f'regla de no repetir las últimas 3, a veces no hay nada en banda para servir.')
-        + '</div><div class="grid g2">'
-        + _box("¿La banda es la correcta?",
-               ch.lines(cont_series, list(PHAT_LABELS), suffix="%", height=250, y_max=100),
-               note="Es la única pregunta que el modelo no puede contestarse solo: de las "
-                    "derivadas de cada dificultad, qué fracción fue seguida por otra. "
-                    "<b>Si el pico no cae en 70–80%, la banda está mal elegida</b> y hay que "
-                    "moverla. Está cortado por resultado a propósito: que errar una fácil "
-                    "espante más que errar una difícil sería frustración por expectativa rota, "
-                    "y eso se arregla con copy, no con dificultad.")
-        + _box("La escalera",
+               note=f'<b>Cómo se lee.</b> Cada franja es una porción de las '
+                    f'{num(mo["servidos"])} derivadas servidas, agrupadas por dificultad. La '
+                    f'franja «70–80%» es la que el generador estaba buscando; todo lo demás es '
+                    f'lo que sirvió cuando no encontró nada mejor.'
+                    f'<br><br>Hoy le pega al <b>{_pct_txt(mo["en_banda"])}</b>. Errarle con el '
+                    f'modelo bien calibrado <b>no es culpa del Elo sino del banco</b>: con 26 '
+                    f'plantillas y la regla de no repetir las últimas 3, a veces no hay nada en '
+                    f'banda para servir y hay que dar lo más cercano. Si esta franja no crece al '
+                    f'sumar plantillas, entonces sí es el motor.')
+        + _box("¿La banda es la correcta? — qué dificultad hace que sigan jugando",
+               ch.lines(cont_series, list(PHAT_LABELS), suffix="%", height=330, y_max=100),
+               note="<b>Cómo se lee.</b> De todas las derivadas de cada dificultad, qué fracción "
+                    "fue <b>seguida por otra derivada</b>. O sea: cuántos siguieron jugando "
+                    "después de esa. Alto es bueno."
+                    "<br><br><b>Es la única pregunta que el modelo no puede contestarse solo.</b> "
+                    "El Elo predice acierto; nosotros queremos retención, y que la derivada que "
+                    "retiene sea la que se saca 3 de cada 4 veces es una <b>hipótesis</b> que "
+                    "está escrita a mano en el código. Este gráfico es lo que la puede refutar: "
+                    "<b>donde esté el pico, ahí va la banda.</b> Si cae más a la derecha, "
+                    "conviene servir más fácil de lo que creemos."
+                    "<br><br>Las dos líneas separan por resultado a propósito. Si errar una fácil "
+                    "espanta más que errar una difícil, el problema no es la dificultad sino la "
+                    "expectativa rota — y eso se arregla con copy, no moviendo el motor.")
+        + _box("La escalera — cuánto aprende la gente a medida que juega",
                ch.lines(esc_series, [str(e["n"]) for e in mo["escalera"]], suffix="",
-                        height=250, legend=False),
-               note=f'θ mediano según cuántas respuestas lleva encima el estudiante. Es la curva de '
-                    f'aprendizaje y, de paso, el chequeo de que el Elo se mueve: si quedara '
-                    f'plana en 0, el motor no estaría aprendiendo nada. Hoy el θ mediano de los '
-                    f'{num(mo["con_elo"])} estudiantes con historial es '
-                    f'<b>{num(mo["theta_mediano"])}</b>.')
-        + "</div>"
-        + _box("Los escapes",
+                        height=330, legend=False),
+               note=f'<b>Cómo se lee.</b> El eje horizontal es cuántas derivadas lleva '
+                    f'respondidas alguien, y la línea es el θ —la habilidad que el modelo le '
+                    f'atribuye— de la persona mediana en ese punto. No es una persona siguiendo '
+                    f'su camino: es una foto de todos, ordenada por experiencia.'
+                    f'<br><br>La escala se lee contra los cortes de nivel del ranking: '
+                    f'<b>0,3</b> es «las sumas ya salen cómodas», <b>1,6</b> «los productos» y '
+                    f'<b>2,2</b> «los cocientes». Que suba significa que el motor está '
+                    f'aprendiendo quién es cada uno; <b>si quedara plana en 0, no estaría '
+                    f'aprendiendo nada</b> y todos recibirían el mismo juego.'
+                    f'<br><br>Hoy el θ mediano de los {num(mo["con_elo"])} estudiantes con '
+                    f'historial es <b>{num(mo["theta_mediano"])}</b>. El tramo punteado es donde '
+                    f'quedan menos de diez personas: ahí la mediana se mueve con cada respuesta '
+                    f'y conviene no leer la forma.')
+        + _box("Los escapes — qué hacen cuando no les sale",
                _table(["Dificultad", "Servidas", "Salteos", "% salteo"],
                       [[b["label"], num(h["n"]), num(b["n"]), _pct_txt(b["pct"])]
                        for b, h in zip(mo["salteo_por_bin"], mo["histograma"])]),
-               note=f'Se saltea el <b>{_pct_txt(mo["salteo_pct"])}</b> de lo servido y se mira la '
-                    f'tabla en el <b>{_pct_txt(mo["peek_pct"])}</b>. Los dos son válvulas: si el '
-                    f'salteo se concentra en un bin, ese bin está mal servido; si crece parejo, '
-                    f'el problema es la banda. Ninguna de las dos cosas ensucia el Elo —saltear '
-                    f'baja θ sin tocar β, y mirar la tabla no actualiza nada— pero las dos son '
-                    f'señal.'),
+               note=f'El juego tiene dos salidas para cuando una derivada no sale: saltearla, '
+                    f'y abrir la tabla de derivadas. Se saltea el '
+                    f'<b>{_pct_txt(mo["salteo_pct"])}</b> de lo servido y se mira la tabla en el '
+                    f'<b>{_pct_txt(mo["peek_pct"])}</b>.'
+                    f'<br><br><b>Cómo se lee.</b> Si el salteo se concentra en una dificultad, '
+                    f'ese grupo está mal servido y hay que mirar qué plantillas cayeron ahí. Si '
+                    f'crece parejo en todas, el problema no son las plantillas sino la banda: se '
+                    f'está sirviendo difícil en general.'
+                    f'<br><br>Ninguna de las dos ensucia el Elo —saltear baja θ sin tocar β, y '
+                    f'mirar la tabla no actualiza nada— pero las dos son señal, y la más honesta '
+                    f'que hay: es la persona diciendo «esta no» sin tener que preguntarle.'),
         sub="p̂ es la probabilidad que el modelo le asigna a que este estudiante acierte esta "
             "derivada al primer intento. El generador apunta a servir siempre entre 70% y 80%.",
         anchor="motor"))
@@ -421,10 +467,36 @@ def page(p: dict, *, token: str) -> str:
     # El acierto real de una plantilla con tres respuestas es ruido con formato
     # de dato: se dibuja apagado para que no se lea como un hallazgo.
     def p1_cell(r: dict) -> str:
+        """El acierto real, teñido por cuánto se aparta de lo que el modelo cree.
+
+        El heatmap va acá y no en el valor absoluto porque un 92% no es bueno ni
+        malo por sí solo: lo que importa es si el modelo lo vio venir. Verde =
+        el motor le acertó a esta plantilla; naranja = todavía no la entiende.
+
+        Suave a propósito (alfa 0.10–0.22): es una guía para el ojo, no una
+        alarma. Y solo se pinta con base suficiente — teñir una fila de tres
+        respuestas sería darle color a ruido."""
         txt = _pct_txt(r["p1"])
-        return txt if r["n"] >= 20 else f'<span style="color:var(--muted)">{txt}</span>'
+        if r["n"] < 20:
+            return f'<span style="color:var(--muted)">{txt}</span>'
+        if r["p1"] is None or r["p_hat"] is None:
+            return txt
+        brecha = abs(r["p1"] - r["p_hat"])
+        # 0 pt → sin color; 20 pt o más → tope. Lineal en el medio.
+        fuerza = min(brecha / 20.0, 1.0)
+        rgb = "249,115,22" if brecha >= 10 else "34,197,94"
+        alfa = 0.10 + 0.12 * fuerza
+        return (f'<span title="el modelo esperaba {_pct_txt(r["p_hat"])}" '
+                f'style="background:rgba({rgb},{alfa:.2f});border-radius:4px;'
+                f'padding:2px 6px">{txt}</span>')
+
+    def ejemplo_cell(r: dict) -> str:
+        if not r["ejemplo"]:
+            return '<span class="dim">—</span>'
+        return f'<math class="ej" xmlns="http://www.w3.org/1998/Math/MathML">{r["ejemplo"]}</math>'
 
     filas = [[f'<span class="key">{esc(r["key"])}</span>',
+              ejemplo_cell(r),
               f'T{r["tier"]}' if r["tier"] is not None else "—",
               num(r["servidos"]), _pct_txt(r["p_hat"]), num(r["n"]), p1_cell(r),
               num(r["beta"]), _pct_txt(r["salteo"]),
@@ -439,9 +511,13 @@ def page(p: dict, *, token: str) -> str:
     out.append(_section(
         4, "Plantillas",
         _box("", _table(
-            ["Plantilla", "Tier", "Servidas", "p̂ medio", "Respuestas", "Acierto real",
-             "β", "% salteo", "Mediana"], filas),
-            note=f'{desv_txt}<br><br><b>β es el estado del modelo</b> y «acierto real» son los '
+            ["Plantilla", "Ejemplo", "Tier", "Servidas", "p̂ medio", "Respuestas",
+             "Acierto real", "β", "% salteo", "Mediana"], filas),
+            note=f'<b>La columna «acierto real» está teñida por cuánto se aparta de lo que el '
+                 f'modelo esperaba</b>, no por su valor: un 92% no es bueno ni malo solo, lo que '
+                 f'importa es si el motor lo vio venir. Verde, le acertó; naranja, todavía no '
+                 f'entiende esa plantilla. Las filas con poca base van en gris y sin teñir.'
+                 f'<br><br>{desv_txt}<br><br><b>β es el estado del modelo</b> y «acierto real» son los '
                  f'hechos: ponerlos al lado es lo que deja ver dónde el motor todavía no aprendió. '
                  f'Las plantillas con menos de 20 respuestas ({num(len(pl["verdes"]))} de '
                  f'{num(pl["total"])}) siguen casi con la β semilla de su tier, así que su p̂ es '
@@ -704,34 +780,14 @@ def page(p: dict, *, token: str) -> str:
         sub=f"Sobre los {num(de['nuevos'])} estudiantes nuevos de las semanas visibles.",
         anchor="dispositivo"))
 
-    # ── 10 · Puente ──────────────────────────────────────────────────────────
-    pu = p["puente"]
-    out.append(_section(
-        10, "Puente a Intervalo",
-        '<div class="grid g3">'
-        + _box("", f'<div class="label sub">Con cuenta</div>'
-                   f'<div class="big">{_pct_txt(pu["pct_cuenta"])}</div>'
-                   f'<p class="sub">{num(pu["con_cuenta"])} de {num(pu["nuevos"])} estudiantes.</p>')
-        + _box("", f'<div class="label sub">Cuenta creada desde el juego</div>'
-                   f'<div class="big">{num(pu["cuentas_nuevas"])}</div>'
-                   f'<p class="sub">El resto ya tenía cuenta antes de jugar.</p>')
-        + _box("", f'<div class="label sub">Estudiaron de verdad</div>'
-                   f'<div class="big">{_pct_txt(pu["pct_estudiaron"])}</div>'
-                   f'<p class="sub">{num(pu["estudiaron"])} terminaron una sesión de estudio.</p>')
-        + "</div>"
-        + _box("", "", note="<b>Tener cuenta no es usar el producto.</b> El escalón que importa "
-                            "es haber terminado una sesión de <code>main</code> o "
-                            "<code>practice</code> — la misma definición del panel de Intervalo, "
-                            "que es lo que evita que las de onboarding inflen el número. Y "
-                            "«cuenta creada desde el juego» descuenta a los que ya eran usuarios: "
-                            "contarlos como adquisición sería regalarle al juego gente que ya "
-                            "estaba adentro."),
-        anchor="puente"))
-
-    # ── 11 · Entrada ─────────────────────────────────────────────────────────
+    # ── 10 · Entrada ─────────────────────────────────────────────────────────
     en = p["entrada"]
+    ileg_rows = [[f'<code>{esc(i["texto"])}</code>', num(i["n"])] for i in en["ilegibles"]]
+    t_rows = [[t["label"], num(t["n"]),
+               "—" if t["seg"] is None else num(t["seg"], " s")]
+              for t in en["tiempo_por_dificultad"] if t["n"]]
     out.append(_section(
-        11, "Entrada",
+        10, "Entrada",
         '<div class="grid g2">'
         + _box("Fricción del teclado matemático",
                f'<div class="big">{_pct_txt(en["pct_fallos"])}</div>'
@@ -740,19 +796,61 @@ def page(p: dict, *, token: str) -> str:
                f'{_pct_txt(en["estudiantes_con_fallo"])} de los que jugaron.</p>',
                note="Una respuesta que no parsea se ve, del otro lado de la pantalla, igual que "
                     "una equivocada: la persona escribió algo, el juego le dijo que no, y se "
-                    "fue. <b>Es la única parte del juego donde el que pierde no es el estudiante</b>, "
-                    "y por eso tiene sección propia. No consume intento ni mueve el Elo.")
-        + _box("Ritmo y vocabulario",
+                    "fue. <b>Es la única parte del juego donde el que pierde no es el "
+                    "estudiante</b>, y por eso tiene sección propia. No consume intento ni "
+                    "mueve el Elo."
+                    "<br><br>La tasa sobre envíos y sobre personas dicen cosas distintas: si la "
+                    "primera es baja y la segunda alta, es poca gente chocando muchas veces "
+                    "contra el mismo símbolo — y eso se arregla mirando la tabla de al lado.")
+        + _box("Qué escribieron que no se entendió",
+               _table(["Lo que se envió", "Veces"], ileg_rows,
+                      empty="nada quedó sin entender en esta ventana"),
+               note="<b>Es la lista de arreglos pendientes del parser, escrita por los "
+                    "usuarios.</b> Cada fila es o una notación válida que no aceptamos, o una "
+                    "tecla que falta, o un símbolo que el teclado deja escribir y el parser no "
+                    "sabe leer — los tres son bugs nuestros, no errores de nadie."
+                    "<br><br>Se agrupa por texto porque el mismo símbolo imposible se reintenta "
+                    "varias veces antes de abandonar: un texto con muchas repeticiones es una "
+                    "persona peleando, no un error suelto.")
+        + "</div>"
+        + '<div class="grid g2">'
+        + _box("Ritmo",
                _table(["", ""],
-                      [["Mediana de respuesta", num(en["seg_mediana"], " s")],
-                       ["p90 de respuesta", num(en["seg_p90"], " s")],
-                       ["Van a un segundo intento", _pct_txt(en["segundo_intento"])]])
-               + ch.stack([{"label": f'{t["label"]} teclas', "n": t["n"]}
-                           for t in en["teclas"]] or [{"label": "sin datos", "n": 0}]),
+                      [["Rápido (p25)", num(en["seg_p25"], " s")],
+                       ["Mediana", num(en["seg_mediana"], " s")],
+                       ["Lento (p90)", num(en["seg_p90"], " s")],
+                       ["Menos de 3 s", _pct_txt(en["relampago"])],
+                       ["Van a un segundo intento", _pct_txt(en["segundo_intento"])],
+                       ["…y lo aciertan",
+                        f'{_pct_txt(en["rescate"])} <span class="dim">de {num(en["rescate_n"])}</span>']]),
+               note=f'<b>«Menos de 3 s» no da para leer la derivada y escribirla</b>: o la sabía '
+                    f'de memoria —las de tier bajo salen así— o tiró cualquier cosa. Si ese '
+                    f'número crece junto con el salteo, hay gente pasando de largo.'
+                    f'<br><br><b>El rescate es el que decide si dar dos intentos sirve.</b> Si '
+                    f'el segundo casi nunca salva, dar dos es una cortesía vacía; si salva mucho, '
+                    f'el primer error suele ser de tipeo y no de matemática — y entonces el '
+                    f'problema está en la entrada, no en la dificultad.')
+        + _box("¿Pensar tarda más que escribir?",
+               _table(["Dificultad", "Respuestas", "Mediana"], t_rows,
+                      empty="todavía no hay respuestas cronometradas"),
+               note="<b>Cómo se lee.</b> Si el tiempo <b>sube</b> a medida que la derivada se "
+                    "pone difícil, lo que se está midiendo es a la gente pensando, y el número "
+                    "es una señal de dificultad percibida — la más honesta que hay, porque nadie "
+                    "la puede falsear."
+                    "<br><br>Si queda <b>plano</b>, lo que domina no es pensar sino tipear: el "
+                    "cuello está en el teclado matemático y no en el banco de ejercicios. Es el "
+                    "mismo diagnóstico que la tabla de arriba, por otra vía.")
+        + "</div>"
+        + _box("Vocabulario desbloqueado",
+               ch.stack([{"label": f'{t["label"]} teclas', "n": t["n"]}
+                         for t in en["teclas"]] or [{"label": "sin datos", "n": 0}]),
                note="El inventario del teclado es acumulativo: una tecla que apareció una vez no "
                     "se va más. Su tamaño mide cuán lejos llegó cada uno en el vocabulario del "
-                    "juego — el bloque fijo son 0 teclas desbloqueadas y el techo son 11.")
-        + "</div>",
+                    "juego — el bloque fijo son 0 teclas desbloqueadas y el techo son 11."
+                    "<br><br>Es una <b>medida de progresión disfrazada de teclado</b>: alguien "
+                    "con 7 teclas vio exponenciales, logaritmos y trigonométricas; alguien con 1 "
+                    "no salió de las potencias. Si la mayoría se amontona en el extremo bajo, la "
+                    "gente se está yendo antes de que el juego muestre lo que tiene."),
         anchor="entrada"))
 
     out.append(
