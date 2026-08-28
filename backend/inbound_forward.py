@@ -69,6 +69,17 @@ def forward_received_email(email_id: str) -> None:
     resend.api_key = api_key
     email = resend.EmailsReceiving.get(email_id)
 
+    # Antes de reenviar nada: si esto es el aviso de un pago de Cafecito, que el
+    # empuje salga YA y que el mail no siga viaje. Viene del buzón personal —lo
+    # reenvía un filtro de Gmail— así que devolvérselo ahí sería duplicarle un
+    # correo que ya tiene. `procesar` nunca levanta excepción: un problema
+    # repartiendo cafecitos no puede terminar en un mail que no llega.
+    from game import cafecito_email
+
+    if cafecito_email.procesar(email):
+        logger.info("Inbound email %s consumed as a payment notice", email_id)
+        return
+
     sender = email.get("from") or "(remitente desconocido)"
     subject = email.get("subject") or "(sin asunto)"
     text = email.get("text")
