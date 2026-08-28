@@ -64,6 +64,25 @@ MILESTONES: tuple[int, ...] = (1, 3, 5, 10, 12, 20, 25, 40)
 # Hasta dónde se dibuja la curva de supervivencia por ejercicio.
 DEPTH_MAX = 40
 
+# Primera semana que el panel del juego muestra: la de la difusión.
+#
+# Antes de esto el juego existía pero no lo había abierto nadie, así que todas
+# las cohortes anteriores son ceros estructurales. Ceros que igual se dibujan:
+# el sparkline arrancaba con tres semanas planas, cada titular decía «+72 vs.
+# semana anterior» comparando contra una semana en la que el producto no estaba
+# difundido, y las métricas de tasa quedaban en «sin base». Nada de eso es
+# información — es la ausencia de producto con formato de tendencia.
+#
+# El piso es del PANEL, no de los datos: si alguna vez hay filas anteriores, las
+# consultas las cuentan igual. Lo único que se corta es ofrecer esas semanas
+# como si fueran comparables. Mismo criterio que FIRST_WEEK en metrics/queries.py.
+FIRST_WEEK = date(2026, 8, 24)
+
+
+def clamp_week(w: date) -> date:
+    """No dejar salir del rango que el panel sabe mostrar."""
+    return min(max(w, FIRST_WEEK), week_start(local_date(datetime.utcnow())))
+
 # Una partida se considera CERRADA si el estudiante no respondió nada en las
 # últimas 24 h. La supervivencia se calcula solo sobre partidas cerradas: quien
 # está jugando ahora mismo todavía puede sumar ejercicios, y meterlo en el
@@ -128,7 +147,8 @@ def load(db: DBSession) -> dict:
             FROM game_exercises"""),
         "attempts": _rows(db, """
             SELECT id, exercise_id, player_id, attempt_number, parse_ok, is_correct,
-                   response_ms, xp_awarded, theta_before, theta_after, created_at
+                   response_ms, xp_awarded, theta_before, theta_after, answer_latex,
+                   created_at
             FROM game_attempts"""),
         "templates": _rows(db, """
             SELECT template_key, tier, beta, n_observations, n_correct
@@ -166,7 +186,12 @@ def load(db: DBSession) -> dict:
 
 
 def _weeks_back(week: date, n: int) -> list[date]:
-    return [week - timedelta(weeks=i) for i in range(n - 1, -1, -1)]
+    """La semana elegida y las n-1 anteriores, de más vieja a más nueva.
+
+    Corta en `FIRST_WEEK`: antes de la difusión el juego no tenía a nadie, y esas
+    semanas vacías no son una caída sino la ausencia de producto."""
+    ws = [week - timedelta(weeks=i) for i in range(n - 1, -1, -1)]
+    return [w for w in ws if w >= FIRST_WEEK] or [week]
 
 
 def _in_week(dt: datetime | None, week: date) -> bool:
@@ -568,6 +593,41 @@ def motor(data: dict, weeks: list[date]) -> dict:
 
 # ── 5 · Plantillas ───────────────────────────────────────────────────────────
 
+def _ejemplo_mathml(key: str) -> str | None:
+    """Un ejemplo concreto de lo que genera esta plantilla, en MathML.
+
+    Una fila que dice `t5_pow_over_linear` no le dice nada a nadie; una que
+    muestra x³/(2x+1) se entiende sin leer el código. La plantilla se ejecuta acá
+    con una semilla derivada de su nombre, así que el ejemplo es SIEMPRE el mismo
+    —el panel no puede cambiar de forma entre dos F5— y aun así es una muestra
+    real del generador y no un string escrito a mano que se desactualiza.
+
+    **MathML y no LaTeX** aunque el juego hable LaTeX: los navegadores lo
+    renderizan solos. Un `<span>` con LaTeX necesitaría KaTeX, o sea un CDN o un
+    `.min.js` vendorizado, y el panel entero existe sin una línea de JS (ver la
+    cabecera de charts.py). Esto es la única forma de mostrar matemática de
+    verdad manteniendo esa promesa.
+    """
+    import random
+    import zlib
+
+    from sympy.printing.mathml import mathml
+
+    from game.templates import TEMPLATE_BY_KEY
+
+    plantilla = TEMPLATE_BY_KEY.get(key)
+    if plantilla is None:
+        return None
+    try:
+        # crc32 y no hash(): el hash de un str está salteado por proceso, así que
+        # el ejemplo cambiaría en cada reinicio del backend.
+        generado = plantilla.build(random.Random(zlib.crc32(key.encode())))
+        return mathml(generado.f, printer="presentation")
+    except Exception:  # noqa: BLE001
+        # Una plantilla que no se puede dibujar no puede voltear el panel entero.
+        return None
+
+
 def plantillas(data: dict, weeks: list[date]) -> dict:
     """Una fila por plantilla generadora: qué tan difícil es, y qué tan odiada.
 
@@ -608,6 +668,7 @@ def plantillas(data: dict, weeks: list[date]) -> dict:
         n = intentos.get(key, 0)
         filas.append({
             "key": key,
+            "ejemplo": _ejemplo_mathml(key),
             "tier": st.get("tier"),
             "beta": round(st["beta"], 2) if st.get("beta") is not None else None,
             "servidos": servidos.get(key, 0),
@@ -1062,43 +1123,7 @@ def dispositivo(data: dict, weeks: list[date], now: datetime | None = None) -> d
     }
 
 
-# ── 10 · Puente al producto ──────────────────────────────────────────────────
-
-def puente(data: dict, weeks: list[date]) -> dict:
-    """El juego como canal de adquisición de Intervalo.
-
-    Tener `user_id` es tener cuenta, y tener cuenta no es usar el producto: el
-    escalón que importa es haber terminado una sesión de estudio de verdad
-    (`mode IN ('main','practice')`, la misma definición del otro panel).
-    """
-    desde = weeks[0]
-    nuevos = [p for p in data["players"] if (local_date(p["created_at"]) or date.min) >= desde]
-    con_cuenta = [p for p in nuevos if p["user_id"]]
-    ids = {p["user_id"] for p in con_cuenta}
-
-    estudiaron = {s["user_id"] for s in data["sessions"]
-                  if s["mode"] in REAL_MODES and s["user_id"] in ids and s["finished_at"]}
-
-    # Cuál vino primero: la cuenta o el juego. Si la cuenta es anterior, esa
-    # persona ya era usuaria y el juego no la trajo — contarla como adquisición
-    # sería regalarle al juego gente que ya estaba adentro.
-    users_by = {u["id"]: u for u in data["users"]}
-    trajo = sum(
-        1 for p in con_cuenta
-        if (u := users_by.get(p["user_id"])) and p["created_at"] and u["created_at"]
-        and u["created_at"] >= p["created_at"] - timedelta(minutes=10))
-
-    return {
-        "nuevos": len(nuevos),
-        "con_cuenta": len(con_cuenta),
-        "cuentas_nuevas": trajo,
-        "estudiaron": len(estudiaron),
-        "pct_cuenta": _pct(len(con_cuenta), len(nuevos)),
-        "pct_estudiaron": _pct(len(estudiaron), len(con_cuenta)),
-    }
-
-
-# ── 11 · Entrada ─────────────────────────────────────────────────────────────
+# ── 10 · Entrada ─────────────────────────────────────────────────────────────
 
 def entrada(data: dict, weeks: list[date]) -> dict:
     """Fricción del teclado matemático.
@@ -1126,17 +1151,58 @@ def entrada(data: dict, weeks: list[date]) -> dict:
     inv = Counter(len([k for k in (p["unlocked_keys"] or "").split(",") if k])
                   for p in data["players"] if p["id"] in jugaron)
 
+    # ── Qué se escribió, no solo cuánto falló ────────────────────────────────
+    # Sin esto la sección dice "1,8% no parsea" y no se puede hacer nada con eso.
+    # Con el texto crudo al lado, cada fila es un arreglo concreto del parser o
+    # del teclado. Se agrupa por texto porque el mismo símbolo imposible se
+    # reintenta varias veces antes de abandonar.
+    ilegibles = Counter(
+        (a["answer_latex"] or "").strip()[:60] for a in fallos if (a["answer_latex"] or "").strip()
+    )
+
+    # ── ¿El segundo intento rescata? ─────────────────────────────────────────
+    # El juego da dos intentos. Si el segundo casi nunca salva, dar dos es una
+    # cortesía vacía; si salva mucho, el primer error suele ser de tipeo y no de
+    # matemática — y eso es un problema de entrada, no de dificultad.
+    segundos_intentos = [a for a in data["_answers"] if a["attempt_number"] == 2]
+    rescatados = sum(1 for a in segundos_intentos if a["is_correct"])
+
+    # ── ¿Pensar tarda más que escribir? ──────────────────────────────────────
+    # El tiempo por dificultad separa las dos cosas que se mezclan en la mediana.
+    # Si el tiempo NO sube con la dificultad, lo que se está midiendo es cuánto
+    # tarda la gente en tipear, y entonces el cuello está en el teclado.
+    ex = data["_ex_by_id"]
+    por_bin: dict[int, list[float]] = defaultdict(list)
+    for a in _clean_firsts(data):
+        e = ex.get(a["exercise_id"])
+        if e and a["response_ms"]:
+            por_bin[_bin_index(e["p_hat"])].append(a["response_ms"] / 1000.0)
+    tiempo_por_dificultad = [
+        {"label": PHAT_LABELS[i], "n": len(por_bin.get(i, [])), "seg": _median(por_bin.get(i, []))}
+        for i in range(len(PHAT_LABELS))
+    ]
+
+    # Respuestas de menos de tres segundos: no da el tiempo de leer la derivada y
+    # escribirla, así que o la sabía de memoria (las de tier bajo) o tiró algo.
+    relampago = sum(1 for x in segundos if x < 3)
+
     return {
         "intentos": len(intentos),
         "fallos": len(fallos),
         "pct_fallos": _pct(len(fallos), len(intentos)),
         "estudiantes_con_fallo": _pct(con_fallo, activos),
         "seg_mediana": _median(segundos),
+        "seg_p25": _p(segundos, 0.25),
         "seg_p90": _p(segundos, 0.90),
+        "relampago": _pct(relampago, len(segundos)),
         "teclas": [{"label": f"{n}", "n": c} for n, c in sorted(inv.items())],
         "segundo_intento": _pct(
             sum(1 for a in data["_answers"] if a["attempt_number"] == 2),
             sum(1 for a in data["_answers"] if a["attempt_number"] == 1)),
+        "rescate": _pct(rescatados, len(segundos_intentos)),
+        "rescate_n": len(segundos_intentos),
+        "ilegibles": [{"texto": t, "n": c} for t, c in ilegibles.most_common(8)],
+        "tiempo_por_dificultad": tiempo_por_dificultad,
     }
 
 
@@ -1168,6 +1234,5 @@ def build(db: DBSession, week: date, weeks_shown: int = 4) -> dict:
         "rivalidad": rivalidad(data, weeks),
         "difusion": difusion(data, weeks),
         "dispositivo": dispositivo(data, weeks),
-        "puente": puente(data, weeks),
         "entrada": entrada(data, weeks),
     }

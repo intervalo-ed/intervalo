@@ -100,6 +100,21 @@ check(empujes() == [], "no deja ninguna fila")
 
 print("5. eventos rotos: se ignoran sin romper nada")
 limpiar()
+# La alerta de prueba de la plataforma llega por el mismo socket y con la misma
+# forma que una donación. El 28/08 dos de estas entraron como donaciones y el
+# panel informó 28 cafecitos contra los 19 que decía Cafecito.
+limpiar()
+prueba = cs.aplicar({"name": "Juan Carlos", "count": 2, "message": "aguante la UBA"})
+check(prueba == [] and empujes() == [],
+      "la alerta de prueba de la plataforma no crea ningún empuje")
+check(cs.aplicar({"name": "Juan Carlos Cafecito", "count": 2, "message": "x"}) == [],
+      "tampoco con el apellido que a veces le agrega")
+limpiar()
+real = cs.aplicar({"name": "Juan Carlota", "count": 2, "message": "aguante la UBA"})
+check(real != [], "y un nombre que solo empieza parecido sí dona")
+# Los checks que siguen cuentan filas desde cero.
+limpiar()
+
 check(cs.aplicar({"name": "X", "message": "hola"}) == [], "sin count, ignorado")
 check(cs.aplicar({"count": 0, "message": "hola"}) == [], "count 0, ignorado")
 check(cs.aplicar({"count": "dos", "message": "hola"}) == [], "count no numérico, ignorado")
@@ -228,7 +243,14 @@ check(sorted(ambas) == ["ITBA", "UBA"], f"cobran las dos ({ambas})")
 
 print("16. un nombre sin sigla no inventa destinos")
 limpiar()
-comun = cs.aplicar({"name": "Juan Carlos", "count": 1, "message": "gracias"})
+# El nombre de acá NO puede ser "Juan Carlos": así se llama la alerta de prueba
+# de la plataforma y ahora se descarta (ver _es_prueba). Que este check haya
+# usado justo ese nombre es la mejor prueba de que el falso positivo existe —
+# alguien que se llame así y done de verdad no va a cobrar. Es el precio de que
+# Cafecito no marque sus pruebas de ninguna otra forma, y el error barato es
+# este: una donación no contada se reclama, una prueba contada como ingreso no
+# se ve nunca.
+comun = cs.aplicar({"name": "Roberto Gómez", "count": 1, "message": "gracias"})
 check(comun == ["TODOS"], f"sin sigla en ningun lado, sigue siendo global ({comun})")
 
 print("17. con varias intenciones abiertas, a nadie se le dice que llego lo suyo")
