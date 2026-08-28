@@ -142,8 +142,12 @@ export function ListaDeReclutas({
   // que está PUNTEADO y tiene fondo verde, dos cosas que ninguna fila real
   // tiene. Con esas dos haciendo el trabajo, la opacidad puede quedarse en el
   // hilo que hace falta para que la caja no se lea como definitiva.
+  // El `py-1` que sí lleva la lista del ranking no está acá a propósito: ver el
+  // comentario de `RecruitsRanking` en game-ranking.tsx. El punteado se dibuja
+  // hacia adentro de la caja (offset negativo), así que sin relleno vertical
+  // tampoco hay nada que se pueda recortar.
   return (
-    <ul className={cn("flex flex-col gap-2 py-1", vacia && "opacity-90", className)}>
+    <ul className={cn("flex flex-col gap-2", vacia && "opacity-90", className)}>
       {filas.map((entry) => (
         <Fila key={entry.player_id} entry={entry} ejemplo={vacia} />
       ))}

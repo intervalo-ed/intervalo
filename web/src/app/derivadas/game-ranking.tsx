@@ -1162,7 +1162,16 @@ function RecruitsRanking({ enabled }: { enabled: boolean }) {
   // que decía otra cosa— y de ahí en más el caché lo tiene resuelto.
   const { data } = useGameRecruits(enabled)
   return (
-    <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain py-1">
+    // El MISMO contenedor que la vista individual, incluido el par `-mx-1 px-1`
+    // que le da aire lateral al anillo de cada fila sin correr la lista.
+    //
+    // Sin relleno vertical, y ahí está la única diferencia que hay que pensar:
+    // la vista individual arranca SCROLLEADA —se acomoda sola para dejar la fila
+    // propia a cuatro del techo— así que su `py-1` queda por encima del borde y
+    // no se ve nunca. Esta no scrollea (son los reclutas de una persona, y son
+    // pocos), así que los mismos cuatro píxeles sí se verían: la lista arrancaría
+    // más abajo que la del ranking sin que nada lo justifique.
+    <div className="no-scrollbar relative -mx-1 min-h-0 flex-1 overflow-y-auto overscroll-contain px-1">
       <ListaDeReclutas entries={data?.entries ?? []} />
     </div>
   )
