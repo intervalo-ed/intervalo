@@ -59,6 +59,15 @@ en silencio antes de la primera alerta—, así que una donación que llegue con
 proceso caído no se recupera sola. Es el motivo por el que
 `backend/scripts/grant_game_boost.py` NO se borra: sigue siendo la red para
 aplicar a mano lo que se haya perdido.
+
+Y hay algo peor que el proceso caído, que ya pasó: el 28/08 entraron cinco
+cafecitos que NUNCA salieron por este canal. El oyente estaba sano —conexión
+establecida contra el borde de Cloudflare, pongs al día, ni un reintento en media
+hora— y no llegó una sola trama `newMessage`, cuando ese mismo día habían entrado
+bien dos alertas de prueba y dos donaciones reales. O sea: Cafecito a veces no
+empuja, y no avisa. Contra eso este módulo no puede hacer nada; lo único que
+puede hacer es no dejar dudas de qué lado estuvo la falla, y para eso está el
+latido (`PINGS_POR_LATIDO`).
 """
 
 from __future__ import annotations
@@ -105,6 +114,20 @@ TIMEOUT_RECV_S = 60.0
 
 # Ventana de la deduplicación. Ver `_ya_aplicado`.
 VENTANA_REPETIDO_S = 120
+
+# Cada cuántos pings se deja constancia de que el oyente sigue vivo. Doce pings
+# son cinco minutos.
+#
+# El latido existe porque el silencio de este módulo es ambiguo, y esa ambigüedad
+# ya costó una tarde. Cuando alguien dona y el empuje no aparece, el log no
+# distingue tres cosas muy distintas: que el socket estaba mudo, que el thread se
+# murió sin avisar, o que Cafecito no empujó nada. Las tres se ven igual: nada.
+#
+# Con el latido, la respuesta se lee de un vistazo: si hay latidos hasta la hora
+# de la donación, el oyente estaba sano y el evento nunca salió del otro lado —y
+# entonces no hay nada que arreglar acá, hay que aplicar a mano con
+# grant_game_boost.py y mirar para el lado de Cafecito.
+PINGS_POR_LATIDO = 12
 
 
 
@@ -223,10 +246,17 @@ def _una_vuelta(token: str, parar: threading.Event) -> None:
     def identificarse() -> None:
         ws.send('42["assignUserIdStream",%s]' % json.dumps({"token": token}))
 
+    pings = 0
+    donaciones = 0
+
     try:
         while not parar.is_set():
             trama = ws.recv()
             if not trama:
+                # `recv` devuelve "" para todo lo que no sea texto ni binario: un
+                # cierre, un ping del propio websocket. No debería pasar seguido,
+                # y si pasa seguido es justo lo que hay que ver.
+                log("trama vacia (cierre o ping de websocket)")
                 continue
             if trama.startswith("0"):
                 ws.send("40")
@@ -255,11 +285,20 @@ def _una_vuelta(token: str, parar: threading.Event) -> None:
                 # no necesiten coordinarse: el lugar rota entre ellas y cada
                 # donación le llega a exactamente una.
                 identificarse()
+
+                pings += 1
+                if pings % PINGS_POR_LATIDO == 0:
+                    log(f"vivo: {pings} pings, {donaciones} donaciones en esta conexion")
             elif trama.startswith("42"):
                 nombre, *resto = json.loads(trama[2:])
                 if nombre != "newMessage":
+                    # No se conoce ningún otro evento en este canal, así que si
+                    # aparece uno hay que verlo entero: puede ser el aviso que
+                    # estamos esperando con otro nombre.
+                    log(f"evento {nombre!r} ignorado: {trama[:300]}")
                     continue
                 evento = resto[0] if resto else {}
+                donaciones += 1
                 log(f"donacion {evento!r}")
                 try:
                     otorgados = aplicar(evento)
@@ -267,6 +306,8 @@ def _una_vuelta(token: str, parar: threading.Event) -> None:
                     continue  # ya quedó registrado adentro de `aplicar`
                 if otorgados:
                     log(f"empuje para {', '.join(otorgados)}")
+            else:
+                log(f"trama inesperada: {trama[:120]!r}")
     finally:
         try:
             ws.close()
