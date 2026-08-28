@@ -47,7 +47,8 @@ import {
 import { CafecitoPanel } from "./cafecito-panel"
 import { GameIntroLogo, type GameIntro } from "./game-intro"
 import { INTRO_CLOSE, IntroParagraphs } from "./intro-panel"
-import { SlideFlip } from "./slide-flip"
+import { DerivativesTable, TableButton } from "./derivatives-table"
+import { EventFeed } from "./event-feed"
 import { GameRanking } from "./game-ranking"
 import { HINT_MOBILE, MathInput, type MathInputHandle } from "./math-input"
 import { MathKeyboard } from "./math-keyboard"
@@ -63,7 +64,7 @@ import {
   type GameExercise,
 } from "./UseGameExercise"
 import { useGameIdentity } from "./game-telemetry"
-import { useGamePulse, useMyBoost } from "./UseGameLeaderboard"
+import { useGameEvents, useGamePulse, useMyBoost } from "./UseGameLeaderboard"
 import { gameKeys, useGamePlayer } from "./UseGamePlayer"
 import { useXpBurst, XpOrbs } from "./xp-burst"
 
@@ -77,6 +78,48 @@ const slideVariants = {
 }
 const SLIDE_TRANSITION = { duration: 0.28, ease: "easeInOut" } as const
 
+/** Cambia una caja por otra deslizando, con el MISMO gesto que las slides.
+ *
+ * Existe para el salteo, que era lo último que en el teléfono giraba en 3D
+ * (slide-flip.tsx, el volteo que sigue usando escritorio). Acá no va: todo lo
+ * demás —configuración, carrera, universidad, el @, el ranking, el cafecito—
+ * entra y sale corriéndose de costado, y una sola caja que gira sobre su eje en
+ * medio de eso se lee como otro idioma. En el teléfono el juego es una tira que
+ * avanza siempre para el mismo lado, y esto lo mantiene así.
+ *
+ * Reusa `slideVariants` a propósito: si algún día cambia el ritmo de las slides,
+ * cambia también el del salteo y no quedan dos velocidades conviviendo. */
+function SwapHorizontal({
+  llave,
+  className,
+  children,
+}: {
+  llave: string
+  className?: string
+  children: React.ReactNode
+}) {
+  return (
+    // Grilla de una celda: las dos cajas se apilan en el mismo lugar mientras
+    // dura el cruce, sin sacarlas del flujo con `absolute` —que le haría perder
+    // el alto al contenedor justo cuando las dos conviven.
+    <div className={cn("relative grid overflow-hidden", className)}>
+      <AnimatePresence mode="sync" initial={false}>
+        <motion.div
+          key={llave}
+          variants={slideVariants}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          transition={SLIDE_TRANSITION}
+          className="col-start-1 row-start-1 flex min-h-0 min-w-0 flex-col"
+        >
+          {children}
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  )
+}
+
 
 type Slide =
   | { kind: "intro" }
@@ -88,12 +131,30 @@ type Slide =
   // entra desde el ejercicio Y desde el ranking, y volver siempre al ejercicio
   // se comería el festejo que estaba en pantalla.
   | { kind: "settings"; back: Slide }
+  // La tabla de derivadas. Guarda a dónde volver por lo mismo que configuración:
+  // se entra desde el ejercicio y desde el ranking.
+  | { kind: "tabla"; back: Slide }
+  // Lo que pasó en el juego mientras jugabas. Va DESPUÉS del ranking: primero
+  // el marcador propio, después el mundo.
+  | { kind: "novedades" }
   | { kind: "cafecito"; trigger: CafecitoTrigger; correctToday: number }
 
 // Hitos del embudo: primero enganchar; carrera/universidad cuando ya está
 // metido; el registro (con el gancho del @ propio) al final.
 const PROFILE_MILESTONE = 5
 const REGISTER_MILESTONE = 12
+
+// Cuántas novedades sin ver hacen falta para frenar a alguien y mostrárselas.
+//
+// El pedido era "cada vez que haya novedades", y ese número es 1 — pero con la
+// actividad del juego corriendo hay eventos casi todo el tiempo, así que con 1
+// la pantalla aparecería después de CADA respuesta y dejaría de ser una novedad
+// para ser un peaje. Con tres, la interrupción llega cuando de verdad pasó algo
+// y el resto del tiempo el juego no se detiene.
+//
+// Es la perilla de esta feature: subirlo la hace más rara, bajarlo más
+// frecuente.
+const NOVEDADES_MINIMAS = 3
 
 // El "gancho" post-respuesta que queda pendiente de mostrar tras el Continuar.
 type PendingAfter = { answer: GameAnswer } | null
@@ -104,7 +165,16 @@ type PendingAfter = { answer: GameAnswer } | null
 // solo en una, la mitad del juego se pasa sin poder tocar ninguna de las tres.
 // En las pantallas de trámite (registro, carrera, cafecito) no está a propósito:
 // ahí lo que hay que hacer es eso y nada más.
-function GameHeader({ onSettings }: { onSettings: () => void }) {
+function GameHeader({
+  onSettings,
+  onTable,
+}: {
+  onSettings: () => void
+  // La tabla va PRIMERA de las tres de la derecha: es la única que hace algo
+  // adentro del juego, y las otras dos sacan de él. Puesta al final quedaba
+  // agrupada con las que se van.
+  onTable: () => void
+}) {
   return (
     <div className="flex shrink-0 items-center justify-between">
       <button
@@ -116,6 +186,7 @@ function GameHeader({ onSettings }: { onSettings: () => void }) {
         <Settings size={17} />
       </button>
       <span className="flex items-center gap-1.5">
+        <TableButton open={false} onToggle={onTable} keyboard={false} />
         <ShareButton placement="header_mobile" />
         <CafecitoButton placement="header_mobile" />
       </span>
@@ -208,6 +279,52 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
     setSlideSeq((n) => n + 1)
   }, [])
 
+  // La tabla se consultó en ESTE ejercicio. Va en un ref y no en estado porque
+  // solo se lee al responder: que cambie no tiene por qué redibujar nada. Es el
+  // mismo mecanismo que en escritorio (desktop-layout.tsx :: peekedRef).
+  //
+  // Y NO es opcional que esté: mirar la tabla baja la XP del ejercicio a un
+  // puñado y saltea el ajuste de Elo. Sin esto, el teléfono tendría la tabla
+  // gratis mientras el escritorio la paga —y los dos comparten el mismo
+  // ranking, así que sería una ventaja de plataforma.
+  const peekedRef = useRef(false)
+
+  // Las novedades del juego. Se consultan siempre —el mismo latido que en
+  // escritorio— para que en el momento de decidir el dato ya esté y no haya que
+  // esperar una request con la persona mirando una pantalla en blanco.
+  const eventos = useGameEvents(true)
+
+  // El id de la última novedad que esta persona YA VIO. Arranca en null y se fija
+  // con la primera lista que llega: lo que pasó antes de sentarse a jugar no es
+  // novedad para nadie.
+  //
+  // Estado y no un ref, y se ajusta durante el render: es el patrón que React
+  // documenta para acomodar estado cuando cambian los datos de afuera, y además
+  // el lint del compilador no deja leer un ref mientras se renderiza.
+  const [visto, setVisto] = useState<number | null>(null)
+  const novedades = eventos.data?.events ?? []
+  const ultimoId =
+    novedades.length > 0 ? Math.max(...novedades.map((e) => e.id)) : null
+  if (visto === null && ultimoId !== null) setVisto(ultimoId)
+  const sinVer = visto === null ? 0 : novedades.filter((e) => e.id > visto).length
+
+  // Espejo para los handlers. `advanceAfterAnswer` está memoizada y este número
+  // cambia con cada latido de las novedades: en sus dependencias la rehacía cada
+  // ocho segundos, y con ella todo lo que cuelga. Es el mismo recurso que ya usa
+  // el estado de la tabla en escritorio.
+  const sinVerRef = useRef(0)
+  useEffect(() => {
+    sinVerRef.current = sinVer
+  })
+
+  // Sin `useCallback`: se llama solo desde un onClick y necesita la slide de
+  // AHORA para saber a dónde volver. Memoizada tendría que llevar `slide` en las
+  // dependencias, o sea rehacerse igual en cada cambio.
+  const verTabla = () => {
+    peekedRef.current = true
+    goTo({ kind: "tabla", back: slide })
+  }
+
   const loadNext = useCallback(() => {
     next.mutate(undefined, {
       onSuccess: (data) => {
@@ -215,6 +332,8 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
         setLastAnswer(null)
         setTonoLocal(null)
         setClimbFrom(null)
+        // Ejercicio nuevo, cuenta limpia: la consulta anterior no lo penaliza.
+        peekedRef.current = false
         servedAtRef.current = Date.now()
         inputRef.current?.clear()
         posthog.capture("game_exercise_served", {
@@ -231,7 +350,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
 
   // Después de resolver (o del ranking/hito/cafecito), decide la próxima slide.
   const advanceAfterAnswer = useCallback(
-    (consumed: "ranking" | "milestone" | "cafecito" | null) => {
+    (consumed: "ranking" | "novedades" | "milestone" | "cafecito" | null) => {
       const pending = pendingRef.current
       if (!pending) {
         loadNext()
@@ -300,7 +419,16 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
       // universidad la diapo se encarga sola: tiene su propia versión para ese caso.
       const faltaPreguntarUniversidad = sinUniversidad && !askedProfileRef.current
 
-      if (consumed === null || consumed === "ranking") {
+      // Recién salido del ranking: si mientras jugaba pasaron cosas, se muestran
+      // antes de seguir. Va acá y no antes del ranking porque el orden importa —
+      // primero el marcador propio, que es la consecuencia de LO QUE ACABA DE
+      // HACER, y después el mundo.
+      if (consumed === "ranking" && sinVerRef.current >= NOVEDADES_MINIMAS) {
+        goTo({ kind: "novedades" })
+        return
+      }
+
+      if (consumed === null || consumed === "ranking" || consumed === "novedades") {
         // La universidad va ANTES que el cafecito, siempre. La diapo del café
         // ofrece multiplicar el XP "de toda tu universidad": sin universidad no
         // tiene qué ofrecer, y lo que quedaba era una pantalla que pedía algo y
@@ -371,6 +499,9 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
         answer_latex: latex,
         answer_mathjson: mathjson,
         response_ms: Date.now() - servedAtRef.current,
+        // Si se miró la tabla, este ejercicio paga menos y no mueve el Elo. Lo
+        // decide el servidor; acá solo se le cuenta lo que pasó.
+        peeked: peekedRef.current,
       },
       {
         onSuccess: (data) => {
@@ -454,6 +585,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
           setExercise(data)
           setLastAnswer(null)
           setTonoLocal(null)
+          peekedRef.current = false
           servedAtRef.current = Date.now()
           inputRef.current?.clear()
           posthog.capture("game_exercise_served", {
@@ -565,19 +697,24 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   sfx.select()
                   goTo({ kind: "settings", back: { kind: "exercise" } })
                 }}
+                onTable={() => {
+                  sfx.select()
+                  verTabla()
+                }}
               />
               {/* Cambiar de ejercicio SIN cambiar de pantalla —o sea, saltear—
-                  voltea la card entera y del otro lado está la derivada nueva.
-                  Es el mismo gesto que en escritorio (desktop-layout.tsx) y la
-                  misma llave: el id del ejercicio.
+                  desliza la card y entra la derivada nueva por la derecha, con
+                  la llave de siempre: el id del ejercicio. En escritorio el
+                  mismo gesto es un volteo 3D (desktop-layout.tsx) y acá no,
+                  porque acá todo se mueve de costado.
 
                   Solo se ve al saltear, y es a propósito. Después de responder
                   se pasa por el ranking, así que el ejercicio siguiente entra
                   con el deslizamiento de la slide y esta caja se monta de cero
                   —y `AnimatePresence` con `initial={false}` no anima la primera
                   cara—. Dos transiciones encimadas se leerían como un tirón. */}
-              <SlideFlip
-                slide={String(exercise.exercise_id)}
+              <SwapHorizontal
+                llave={String(exercise.exercise_id)}
                 className="min-h-0 flex-1"
               >
               <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-lg border border-border bg-card">
@@ -620,9 +757,9 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   className={closed ? "pointer-events-none opacity-45" : undefined}
                 />
               </div>
-              </SlideFlip>
-              {/* Los botones quedan FUERA del volteo: no son parte del
-                  ejercicio, y girarlos dejaría un instante sin dónde tocar. */}
+              </SwapHorizontal>
+              {/* Los botones quedan FUERA del deslizamiento: no son parte del
+                  ejercicio, y moverlos dejaría un instante sin dónde tocar. */}
               <div className="flex items-stretch gap-2">
                 <AnswerButton
                   className="flex-1"
@@ -661,6 +798,10 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                 sfx.select()
                 goTo({ kind: "settings", back: slide })
               }}
+              onTable={() => {
+                sfx.select()
+                verTabla()
+              }}
             />
           )}
 
@@ -692,6 +833,57 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                 }}
                 onNeedsRegister={() => goTo({ kind: "register" })}
               />
+            </div>
+          )}
+
+          {slide.kind === "tabla" && (
+            <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col gap-3 px-4 pb-[var(--cta-pb)] pt-4">
+              {/* La MISMA tabla que en escritorio, sin una copia para el
+                  teléfono: es una lista de reglas y no cambia con el aparato.
+                  Scrollea sola adentro de su caja. */}
+              <DerivativesTable />
+              {/* Volver es un botón de ancho completo y no una flecha arriba:
+                  esta pantalla se abre en medio de un ejercicio y lo que se
+                  quiere es salir rápido con el pulgar, que está abajo. */}
+              <Button
+                size="lg"
+                className={ctaCls}
+                onClick={() => {
+                  sfx.select()
+                  const back = slide.back
+                  if (back.kind !== "exercise") goTo(back)
+                  else if (exercise) goTo(back)
+                  else loadNext()
+                }}
+              >
+                Volver
+              </Button>
+            </div>
+          )}
+
+          {slide.kind === "novedades" && (
+            <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col gap-3 px-4 pb-[var(--cta-pb)] pt-4">
+              <p className="shrink-0 text-center text-lg font-medium">
+                Mientras jugabas…
+              </p>
+              {/* El MISMO historial que en escritorio. Allá vive apretado abajo
+                  del botón; acá tiene la pantalla entera, que es lo que en el
+                  teléfono le faltaba para poder leerse. */}
+              <EventFeed enabled className="min-h-0 flex-1" />
+              <Button
+                size="lg"
+                className={ctaCls}
+                onClick={() => {
+                  sfx.select()
+                  // Leídas: la próxima vez solo frenan las que pasen de acá en
+                  // más. Se marca al SALIR y no al entrar por si alguien cierra
+                  // la pestaña con la pantalla abierta.
+                  if (ultimoId !== null) setVisto(ultimoId)
+                  advanceAfterAnswer("novedades")
+                }}
+              >
+                Seguir
+              </Button>
             </div>
           )}
 
@@ -758,6 +950,7 @@ function RankingSlide({
   onContinue,
   continueDisabled,
   onSettings,
+  onTable,
 }: {
   answer: GameAnswer
   climbFrom: number | null
@@ -770,6 +963,7 @@ function RankingSlide({
   onContinue: () => void
   continueDisabled: boolean
   onSettings: () => void
+  onTable: () => void
 }) {
   // Red de seguridad, no el disparo: quien suelta el imán es el toque en
   // Continuar (ver advanceAfterAnswer), para que los orbes viajen durante el
@@ -788,7 +982,7 @@ function RankingSlide({
       {/* La misma barra que en el ejercicio, y en el mismo lugar: entre las dos
           pantallas se rebota después de cada respuesta, y una barra que aparece
           y desaparece hace saltar todo lo de abajo en cada rebote. */}
-      <GameHeader onSettings={onSettings} />
+      <GameHeader onSettings={onSettings} onTable={onTable} />
       {/* Sin cartel de "+21 de experiencia" arriba: el XP ya se ve —y mejor—
           como bolitas cayendo sobre la fila propia y el número subiendo ahí
           mismo. Un renglón que dice lo que la animación está mostrando le saca

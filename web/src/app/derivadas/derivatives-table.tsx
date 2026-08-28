@@ -132,10 +132,14 @@ export function DerivativesTable() {
 export function TableButton({
   open,
   onToggle,
+  keyboard = true,
   className,
 }: {
   open: boolean
   onToggle: () => void
+  // El chip de la tecla solo donde hay tecla. En el teléfono se toca, y un
+  // "alt" impreso al lado sería prometer un atajo que no existe.
+  keyboard?: boolean
   className?: string
 }) {
   return (
@@ -155,7 +159,7 @@ export function TableButton({
       <TableIcon size={15} />
       {/* "alt" y no "option": la tecla de Mac lleva las dos palabras impresas,
           y "alt" es además la que entiende quien está en Windows. */}
-      <KeyCap className="ml-0">alt</KeyCap>
+      {keyboard && <KeyCap className="ml-0">alt</KeyCap>}
     </button>
   )
 }

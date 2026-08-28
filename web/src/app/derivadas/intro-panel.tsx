@@ -21,26 +21,27 @@ import { KeyCap } from "./exercise-card"
 // explica en todo el juego y no puede decir una cosa en el teléfono y otra en
 // escritorio.
 //
-// Cada párrafo presenta una de las tres cosas que el juego tiene y las nombra
-// con el MISMO emoji con el que después aparecen en el marcador
-// (exercise-card.tsx :: Counters): 🧩 los ejercicios, ♟ el Elo, ☕ los
-// cafecitos. Así, cuando la partida arranca, los contadores ya se leyeron una
-// vez y no hay que adivinar qué es cada número.
+// Cada párrafo presenta una de las cosas que el juego tiene y las nombra con el
+// MISMO emoji con el que después aparecen en el marcador (exercise-card.tsx ::
+// Counters): 🧩 los ejercicios, ♟ el Elo, ☕ los cafecitos. Así, cuando la
+// partida arranca, los contadores ya se leyeron una vez y no hay que adivinar
+// qué es cada número. El cuarto —la tabla— no tiene contador, pero sigue la
+// misma forma: una palabra en negrita y su emoji.
 // El `︎` del peón fuerza presentación de TEXTO: sin él el navegador lo
 // dibuja como emoji, una imagen oscura de color fijo que sobre este fondo se
 // apaga. Es el mismo tratamiento que en el contador.
 // El mismo peso y el mismo color que los números de la lista: lo que resalta en
-// estos tres párrafos es la numeración y la palabra clave, y si cada una tuviera
-// su tratamiento serían dos jerarquías compitiendo en tres renglones.
+// estos párrafos es la numeración y la palabra clave, y si cada una tuviera su
+// tratamiento serían dos jerarquías compitiendo en cuatro renglones.
 function Fuerte({ children }: { children: React.ReactNode }) {
   return <strong className="font-semibold text-foreground">{children}</strong>
 }
 
 export const INTRO_CLOSE = "¿Arrancamos?"
 
-// Los tres párrafos numerados. El número NO va en el texto sino acá, sobre el
-// índice: son tres cosas que se cuentan una por vez, y si alguna vez se suma o
-// se saca una, la numeración se acomoda sola en las dos pantallas.
+// Los párrafos numerados. El número NO va en el texto sino acá, sobre el
+// índice: son cosas que se cuentan una por vez, y si alguna vez se suma o se
+// saca una, la numeración se acomoda sola en las dos pantallas.
 //
 // Componente y no un `map` en cada layout porque son dos —teléfono y
 // escritorio— y lo único que cambia entre ellos es el cuerpo de letra, que
@@ -70,6 +71,14 @@ export function IntroParagraphs({ className }: { className?: string }) {
     <>
       Podés usar <Fuerte>cafecitos</Fuerte> ☕ para que vos y tu universidad
       escalen el ranking más rápido que el resto.
+    </>,
+    // El cuarto llegó con la tabla en el teléfono, pero se explica en los dos
+    // lados porque en los dos existe: acá se toca un botón y en escritorio se
+    // mantiene Alt. Lo que importa es lo mismo — que se puede mirar, y que no
+    // sale gratis.
+    <>
+      Si te trabás podés mirar la <Fuerte>tabla</Fuerte> 📖, pero esa derivada
+      te va a sumar mucho menos.
     </>,
   ]
   return (
