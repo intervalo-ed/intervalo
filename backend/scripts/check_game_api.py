@@ -15,6 +15,7 @@ Sale con código 1 si algo falla.
 import json
 import os
 import sys
+import time
 import tempfile
 from pathlib import Path
 
@@ -910,6 +911,64 @@ check(
     f"el teclado se une, no se pisa (dio {fusionado.unlocked_keys})",
 )
 db.close()
+
+print("14. el parser rebota las bombas antes de construirlas")
+# guard_candidate corre sobre la expresion YA construida, o sea tarde: sympy
+# evalua Integer ** Integer en el acto. Estas guardas van durante el recorrido.
+from game.mathjson import to_sympy as _to_sympy, MathJsonError as _MJE  # noqa: E402
+
+torre = ["Power", 10, 12]
+for _ in range(30):
+    torre = ["Square", torre]
+bombas = [
+    ("10^(10^10)", ["Power", 10, ["Power", 10, 10]]),
+    ("torre de 30 Square", torre),
+    ("Add con 200k hermanos", ["Add"] + [1] * 200_000),
+    ("entero gigante", 10**40),
+]
+for nombre, cuerpo in bombas:
+    t0 = time.perf_counter()
+    try:
+        _to_sympy(cuerpo)
+        check(False, f"{nombre} deberia rebotar y paso")
+    except _MJE:
+        ms = (time.perf_counter() - t0) * 1000
+        check(ms < 50, f"{nombre} rebota en {ms:.1f} ms")
+
+# Y lo que el teclado del juego SI puede escribir tiene que seguir pasando.
+legitimas = [
+    ("3x^2", ["Multiply", 3, ["Power", "x", 2]]),
+    ("x^12", ["Power", "x", 12]),
+    ("(x+1)^2", ["Square", ["Add", "x", 1]]),
+    ("e^(x^2)", ["Exp", ["Power", "x", 2]]),
+    ("1/x^2", ["Divide", 1, ["Power", "x", 2]]),
+    ("raiz(x)", ["Sqrt", "x"]),
+]
+for nombre, cuerpo in legitimas:
+    try:
+        _to_sympy(cuerpo)
+        check(True, f"sigue aceptando {nombre}")
+    except _MJE as e:
+        check(False, f"rechaza la respuesta legitima {nombre}: {e}")
+
+print("15. tope de pedidos")
+from game import limits as _lim  # noqa: E402
+
+_lim.olvidar_todo()
+codigos = [
+    client.post("/game/derivemos/next", headers=H).status_code for _ in range(130)
+]
+check(429 in codigos, "un bucle de pedidos termina cortado (429)")
+check(codigos[0] == 200, "pero los primeros pasan normal")
+check(
+    codigos.index(429) > 100,
+    f"y el corte llega recien despues de 100 (fue en el {codigos.index(429)})",
+)
+_lim.olvidar_todo()
+check(
+    client.post("/game/derivemos/next", headers=H).status_code == 200,
+    "pasada la ventana se puede seguir jugando",
+)
 
 print()
 if FAILURES:

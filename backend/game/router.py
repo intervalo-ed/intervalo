@@ -21,6 +21,7 @@ from models import GameAttempt, GameCtaEvent, GameExercise, GamePlayer
 from usernames import normalize_username, validate_username
 
 from . import boosts
+from . import limits
 from . import elo
 from . import events as game_events
 from . import keyboard as game_keyboard
@@ -163,7 +164,13 @@ def _persist_attribution(
         player.platform = platform
 
 
-@router.post("/player", response_model=GamePlayerCreateResponse)
+@router.post(
+    "/player",
+    response_model=GamePlayerCreateResponse,
+    # Por IP porque todavía no hay jugador. Sesenta por minuto deja pasar un
+    # aula entera detrás del mismo NAT y frena igual un bucle.
+    dependencies=[Depends(limits.por_ip(60))],
+)
 def create_player(
     body: GamePlayerCreateRequest,
     authorization: str = Header(None),
@@ -338,7 +345,11 @@ def _exercise_out(exercise: GameExercise, player: GamePlayer) -> GameExerciseOut
 _REINTENTO_NEXT_MINUTOS = 10
 
 
-@router.post("/next", response_model=GameExerciseOut)
+@router.post(
+    "/next",
+    response_model=GameExerciseOut,
+    dependencies=[Depends(limits.por_jugador(120))],
+)
 def next_exercise(
     player: GamePlayer = Depends(get_current_player),
     x_game_platform: str = Header(None),
@@ -401,7 +412,11 @@ def cafecito_intent(
     return Response(status_code=204)
 
 
-@router.post("/skip", response_model=GameExerciseOut)
+@router.post(
+    "/skip",
+    response_model=GameExerciseOut,
+    dependencies=[Depends(limits.por_jugador(120))],
+)
 def skip_exercise(
     body: GameSkipRequest,
     player: GamePlayer = Depends(get_current_player),
@@ -528,7 +543,13 @@ def _repetir_ultima_respuesta(
     )
 
 
-@router.post("/answer", response_model=GameAnswerResponse)
+@router.post(
+    "/answer",
+    response_model=GameAnswerResponse,
+    # Es el endpoint que hace trabajar a sympy. Nadie escribe ciento veinte
+    # derivadas por minuto a mano.
+    dependencies=[Depends(limits.por_jugador(120))],
+)
 def answer_exercise(
     body: GameAnswerRequest,
     player: GamePlayer = Depends(get_current_player),
@@ -1043,7 +1064,12 @@ _CTA_KINDS = ("cafecito", "share", "boost_offer", "register")
 _CTA_ACTIONS = ("impression", "click")
 
 
-@router.post("/cta", status_code=204)
+@router.post(
+    "/cta",
+    status_code=204,
+    # Telemetría: escribe una fila por llamada y no tiene deduplicación.
+    dependencies=[Depends(limits.por_jugador(120))],
+)
 def record_cta(
     body: GameCtaRequest,
     player: GamePlayer = Depends(get_current_player),

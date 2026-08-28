@@ -19,7 +19,7 @@ from __future__ import annotations
 import random
 from datetime import datetime, timedelta
 
-from sqlalchemy import and_ as sa_and, or_ as sa_or
+from sqlalchemy import and_ as sa_and, or_ as sa_or, text as sa_text
 from sqlalchemy.orm import Session
 
 from models import GamePlayer, GameSimState
@@ -52,9 +52,27 @@ def get_state(db: Session) -> GameSimState:
 
 
 def bump_version(db: Session) -> None:
-    """Marca que el ranking cambió, para que el cliente lo note en el pulso."""
-    state = get_state(db)
-    state.version = (state.version or 0) + 1
+    """Marca que el ranking cambió, para que el cliente lo note en el pulso.
+
+    El incremento va del lado de SQL y no leyendo-sumando-escribiendo en Python.
+    Con la forma vieja, dos respuestas correctas simultáneas leían la misma
+    versión y escribían la misma versión+1: se perdía un incremento. Para un
+    detector de cambios eso es tolerable, pero además obligaba a LEER la fila
+    —la única fila de esta tabla, por la que pasan todas las respuestas correctas
+    y todos los pulsos— y una lectura antes de una escritura sobre la misma fila
+    es exactamente cómo se arma una fila de espera.
+    """
+    cambiadas = (
+        db.query(GameSimState)
+        .filter(GameSimState.id == 1)
+        .update({"version": GameSimState.version + 1}, synchronize_session=False)
+    )
+    if not cambiadas:
+        # Todavía no existe (base recién creada): se crea y se reintenta.
+        get_state(db)
+        db.query(GameSimState).filter(GameSimState.id == 1).update(
+            {"version": GameSimState.version + 1}, synchronize_session=False
+        )
 
 
 def _claim_tick(db: Session, now: datetime) -> bool:
@@ -63,6 +81,14 @@ def _claim_tick(db: Session, now: datetime) -> bool:
     El UPDATE condicional es lo que hace que dos requests simultáneas no
     adelanten dos veces: la segunda no encuentra ninguna fila que cumpla la
     condición y se va con las manos vacías.
+
+    Y COMITEA en el acto, sin esperar al resto del avance. Esa fila es la única
+    de su tabla, así que su candado es global: mientras un pulso la tenga
+    tomada, cualquier otro pulso y cualquier respuesta correcta quedan haciendo
+    cola detrás. Sosteniéndolo hasta el final del tick —bots, fotos del ranking,
+    sincronización de universidades, poda— el juego entero se frenaba durante
+    todo ese trabajo, cada diez segundos. Reteniéndolo solo lo que dura el claim,
+    la exclusión sigue siendo la misma y la cola dura microsegundos.
     """
     get_state(db)
     cutoff = now - timedelta(seconds=TICK_SECONDS)
@@ -74,6 +100,7 @@ def _claim_tick(db: Session, now: datetime) -> bool:
         )
         .update({"last_tick_at": now}, synchronize_session=False)
     )
+    db.commit()
     return claimed > 0
 
 
@@ -113,10 +140,13 @@ def _refresh_snapshots(db: Session, now: datetime) -> None:
     siempre tiene entre media ventana y una ventana de antigüedad, y nunca hay
     un instante en que todas las flechas del ranking se apaguen juntas.
 
-    Se recorre el ranking una vez y se escribe el puesto de cada fila. Son unos
-    cientos de filas cada dos minutos y medio: sale más barato que mantener una
-    tabla de historial, y alcanza porque la flecha solo necesita un punto contra
-    el cual comparar.
+    Se escribe el puesto de cada fila en UNA sentencia, numerando con una función
+    de ventana. Antes era un UPDATE por jugador dentro de un bucle de Python,
+    apoyado en que fueran "unos cientos de filas cada dos minutos y medio" — que
+    es exactamente el supuesto que rompe una difusión que funcione. Con veinte
+    mil jugadores eso son veinte mil viajes a la base adentro de un solo pedido,
+    reteniendo mientras tanto el candado de la tabla de estado y el de cada fila
+    que va tocando: el juego entero se detenía cada dos minutos y medio.
     """
     state = get_state(db)
     if state.last_snapshot_at is not None:
@@ -124,22 +154,28 @@ def _refresh_snapshots(db: Session, now: datetime) -> None:
         if age < SNAPSHOT_REFRESH_SECONDS:
             return
 
-    rows = (
-        db.query(GamePlayer.id)
-        .filter(GamePlayer.xp > 0)
-        .order_by(GamePlayer.xp.desc(), GamePlayer.id.asc())
-        .all()
+    # `UPDATE ... FROM` con una subconsulta numerada. Postgres y SQLite escriben
+    # esta forma igual (SQLite la soporta desde la 3.33), así que no hace falta
+    # bifurcar por dialecto.
+    db.execute(
+        sa_text(
+            """
+            UPDATE game_players
+               SET rank_snapshot = game_players.rank_recent,
+                   rank_snapshot_at = game_players.rank_recent_at,
+                   rank_recent = puestos.puesto,
+                   rank_recent_at = :ahora
+              FROM (
+                    SELECT id,
+                           row_number() OVER (ORDER BY xp DESC, id ASC) AS puesto
+                      FROM game_players
+                     WHERE xp > 0
+                   ) AS puestos
+             WHERE game_players.id = puestos.id
+            """
+        ),
+        {"ahora": now},
     )
-    for index, (player_id,) in enumerate(rows):
-        db.query(GamePlayer).filter(GamePlayer.id == player_id).update(
-            {
-                "rank_snapshot": GamePlayer.rank_recent,
-                "rank_snapshot_at": GamePlayer.rank_recent_at,
-                "rank_recent": index + 1,
-                "rank_recent_at": now,
-            },
-            synchronize_session=False,
-        )
     state.last_snapshot_at = now
 
 

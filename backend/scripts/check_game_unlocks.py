@@ -59,6 +59,8 @@ db = database.SessionLocal()
 player_id = db.query(GamePlayer).filter(GamePlayer.guest_token == token).first().id
 db.close()
 
+from game.router import MAX_ATTEMPTS  # noqa: E402
+
 sizes: list[int] = []
 anunciadas: set[str] = set()
 print(f"     {'ejercicio':24} {'nuevas':12} inventario")
@@ -75,12 +77,16 @@ for _ in range(16):
     if anunciadas & set(ex["new_keys"]):
         FAILURES.append("una tecla se anunció como nueva dos veces")
     anunciadas |= set(ex["new_keys"])
-    # Se responde para que el Elo avance y vayan apareciendo tiers nuevos.
-    client.post(
-        "/game/derivemos/answer",
-        headers=H,
-        json={"exercise_id": ex["exercise_id"], "answer_latex": "x", "answer_mathjson": "x"},
-    )
+    # Se responde para que el Elo avance y vayan apareciendo tiers nuevos. Van
+    # los DOS intentos: "x" casi nunca es la derivada, y con uno solo el
+    # ejercicio queda abierto — y desde que /next devuelve el que ya estaba en
+    # vez de servir otro (era un salteo gratis), el recorrido no avanzaría.
+    for _ in range(MAX_ATTEMPTS):
+        client.post(
+            "/game/derivemos/answer",
+            headers=H,
+            json={"exercise_id": ex["exercise_id"], "answer_latex": "x", "answer_mathjson": "x"},
+        )
 
 check(all(b >= a for a, b in zip(sizes, sizes[1:])), "el inventario nunca encoge entre pedidos")
 columna = unlocked_column(player_id)
