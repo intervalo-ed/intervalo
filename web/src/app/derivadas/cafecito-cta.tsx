@@ -7,6 +7,7 @@
 import { useEffect } from "react"
 import { Coffee } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { KeyCap } from "./exercise-card"
 import { readUltimoPedidoAt, saveUltimoPedidoAt } from "./game-storage"
 import { useCta } from "./game-telemetry"
 
@@ -43,6 +44,33 @@ export const CAFECITO_COOLDOWN = EN_DESARROLLO ? 0 : 10
 // de la barra, y eso cambia dos cosas: no se la felicita por un hito que no
 // acaba de pasar, y al salir vuelve a SU ejercicio en vez de pedir uno nuevo.
 export type CafecitoTrigger = "record" | "big_climb" | "milestone" | "pedido"
+
+// Las teclas de los dos botones de la barra que sacan del ejercicio.
+//
+// Estas letras dejan de poder escribirse en la respuesta —el atajo se las queda
+// aunque el campo tenga el foco, que es como está casi todo el tiempo— así que
+// elegirlas es elegir qué se pierde:
+//
+//   · `w` de WhatsApp no le cuesta NADA a nadie. De las 260 abreviaturas de
+//     MathLive ninguna empieza con w, y en un juego donde la variable es siempre
+//     `x` una w suelta no significa nada.
+//   · `c` de cafecito era la primera opción y se descartó: `cos` empieza con c,
+//     así que el atajo le robaba la tecla a quien escribe "cos(x)" a mano, que
+//     en un juego de derivadas es media tabla.
+//
+// De ahí sale `i` de INVITAR, que es como se llama la acción en el producto
+// —"Invitar un cafecito" en el botón, "Invitar 5 cafecitos" en la diapo—. Las
+// otras candidatas eran `f` de café, descartada porque en un contexto de
+// derivadas alguien escribe `f(x)` por costumbre, y `k`, que no quiere decir
+// nada. Ninguna de las nueve abreviaturas que empiezan con i (`int`, `infty`,
+// `iota`…) es parte del vocabulario del juego (ver backend/game/keyboard.py:
+// sqrt, e, exp, ln, log, sen, cos, tg).
+//
+// No viven en `teclas.ts` como `enter` y `alt` porque ese archivo existe para
+// las teclas que se llaman DISTINTO según el teclado (una Mac imprime "option" y
+// "return"). Una letra se llama igual en todos lados.
+export const TECLA_CAFECITO = "i"
+export const TECLA_RECLUTAS = "w"
 
 export function shouldShowCafecito(
   solvedCount: number,
@@ -97,9 +125,14 @@ export function CafecitoButton({
   placement,
   onOpen,
   compact = false,
+  keyboard = false,
   className,
 }: {
   placement: string
+  // El chip de la tecla solo donde hay tecla, igual que el botón de la tabla: en
+  // el teléfono se toca, y una "c" impresa al lado sería prometer un atajo que
+  // no existe.
+  keyboard?: boolean
   // Solo el ícono. En escritorio la cabecera ya lleva el botón de la tabla con
   // su rótulo y su tecla, y tres botones con texto se pisaban entre sí.
   //
@@ -144,6 +177,7 @@ export function CafecitoButton({
     >
       <Coffee size={15} />
       {!compact && <span className="hidden sm:inline">cafecito</span>}
+      {keyboard && <KeyCap className="ml-0">{TECLA_CAFECITO}</KeyCap>}
     </button>
   )
 }
@@ -205,10 +239,12 @@ export function shareUrl(alias?: string | null) {
 export function ShareButton({
   placement,
   onOpen,
+  keyboard = false,
   className,
 }: {
   placement: string
   onOpen: () => void
+  keyboard?: boolean
   className?: string
 }) {
   const cta = useCta()
@@ -223,11 +259,12 @@ export function ShareButton({
       }}
       style={{ borderColor: `${VERDE_APAGADO}99`, color: VERDE_APAGADO }}
       className={cn(
-        "inline-flex items-center rounded-md border px-2.5 py-1.5 text-sm transition-colors hover:bg-accent",
+        "inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 text-sm transition-colors hover:bg-accent",
         className,
       )}
     >
       <WhatsappGlyph size={15} />
+      {keyboard && <KeyCap className="ml-0">{TECLA_RECLUTAS}</KeyCap>}
     </button>
   )
 }

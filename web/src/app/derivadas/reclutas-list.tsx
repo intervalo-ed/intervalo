@@ -12,6 +12,7 @@
 
 import { XpDots } from "@/components/xp-dots"
 import { UniTag } from "@/components/university-tag"
+import { badgeWithCrown, CAREER_EMOJI } from "@/lib/career-emoji"
 import { cn } from "@/lib/utils"
 import { VERDE } from "./cafecito-cta"
 import { levelColor } from "./game-colors"
@@ -52,32 +53,65 @@ const EJEMPLOS: GameRecruitEntry[] = [
 // Va por `style` y no por clase porque el color sale de una constante
 // interpolada, y Tailwind encuentra las clases leyendo el código como texto: una
 // armada con template no existe en el CSS final.
+// `outline` y no `border`, y eso importa para el tamaño. Una fila real se dibuja
+// con `ring`, que es una sombra y no ocupa lugar; con un `border` de 1px la fila
+// de ejemplo medía dos píxeles más de alto que la de al lado. El `outline` no
+// entra en la caja, así que las dos miden exactamente igual, y con offset
+// negativo se dibuja donde estaría el borde en vez de por fuera del redondeo.
 const CAJA_EJEMPLO: React.CSSProperties = {
-  borderColor: `color-mix(in oklab, ${VERDE} 75%, transparent)`,
+  outline: `1px dashed color-mix(in oklab, ${VERDE} 75%, transparent)`,
+  outlineOffset: "-1px",
   backgroundColor: `color-mix(in oklab, ${VERDE} 13%, transparent)`,
 }
 
 function Fila({ entry, ejemplo }: { entry: GameRecruitEntry; ejemplo?: boolean }) {
+  const emoji = badgeWithCrown({
+    username: entry.alias,
+    resolved: entry.career ? CAREER_EMOJI[entry.career] : undefined,
+    career: entry.career,
+  })
   return (
     <li
+      // Las MISMAS medidas que una fila del ranking (ver `Row` en
+      // game-ranking.tsx): mismo alto, mismo aire adentro, mismos huecos. Es la
+      // misma tabla vista de otra manera, y una fila más chica se lee como otro
+      // componente que se coló.
+      //
+      // El punteado de la fila de ejemplo va por `outline` y el de una real por
+      // `ring` — ninguno de los dos ocupa lugar en la caja, así que las dos miden
+      // exactamente igual (ver CAJA_EJEMPLO).
       className={cn(
-        "flex items-center gap-3 rounded-lg px-3 py-2.5",
-        ejemplo ? "border border-dashed" : "ring-1 ring-foreground/10",
+        "flex items-center gap-3 rounded-lg px-4 py-3",
+        !ejemplo && "ring-1 ring-foreground/10",
       )}
       style={ejemplo ? CAJA_EJEMPLO : undefined}
     >
       <span className="w-4 shrink-0 text-center text-sm font-semibold tabular-nums text-muted-foreground">
         {entry.rank}
       </span>
-      <span
-        className="min-w-0 flex-1 truncate text-left text-sm font-medium"
-        style={{ color: levelColor(entry.level) }}
-      >
-        {entry.alias}
+      <span className="flex min-w-0 flex-1 items-center gap-1.5">
+        <span
+          className="truncate text-sm font-medium"
+          style={{ color: levelColor(entry.level) }}
+        >
+          {entry.alias}
+        </span>
+        {/* El mismo emoji de carrera que en el ranking, con la misma corona para
+            quien la tiene: es la misma persona en las dos tablas y tiene que
+            verse igual en las dos. */}
+        {emoji && <span className="shrink-0 text-sm leading-none">{emoji}</span>}
       </span>
-      {entry.university && <UniTag university={entry.university} />}
+      {entry.university && (
+        <span className="inline-flex shrink-0 items-center gap-1">
+          <UniTag university={entry.university} />
+        </span>
+      )}
+      {/* Donde el ranking pone la XP del jugador, acá va lo que aportó. Mismo
+          lugar, mismo tamaño, mismo ícono — lo único distinto es el signo, el
+          verde, y que este número no abre el cartel que explica qué es la
+          experiencia, porque no es la experiencia de nadie sino un aporte. */}
       <span
-        className="inline-flex shrink-0 items-center gap-1 text-sm font-semibold tabular-nums"
+        className="inline-flex shrink-0 items-center gap-1 rounded text-sm font-semibold tabular-nums"
         style={{ color: VERDE }}
       >
         +{entry.xp_given}
@@ -109,7 +143,7 @@ export function ListaDeReclutas({
   // tiene. Con esas dos haciendo el trabajo, la opacidad puede quedarse en el
   // hilo que hace falta para que la caja no se lea como definitiva.
   return (
-    <ul className={cn("flex flex-col gap-1.5", vacia && "opacity-90", className)}>
+    <ul className={cn("flex flex-col gap-2 py-1", vacia && "opacity-90", className)}>
       {filas.map((entry) => (
         <Fila key={entry.player_id} entry={entry} ejemplo={vacia} />
       ))}

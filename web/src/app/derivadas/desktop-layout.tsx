@@ -25,6 +25,8 @@ import {
   markCafecitoShown,
   shouldShowCafecito,
   CAFECITO_EVERY,
+  TECLA_CAFECITO,
+  TECLA_RECLUTAS,
   type CafecitoTrigger,
 } from "./cafecito-cta"
 import { CafecitoPanel } from "./cafecito-panel"
@@ -52,7 +54,7 @@ import { useLocalVerdict } from "./UseLocalVerdict"
 import { ProfileSlides, RegisterSlide } from "./register-slides"
 import { EventFeed } from "./event-feed"
 import { outOfFocus } from "./out-of-focus"
-import { useGameIdentity } from "./game-telemetry"
+import { useCta, useGameIdentity } from "./game-telemetry"
 import { SettingsPanel } from "./settings-panel"
 import {
   useAnswerExercise,
@@ -82,6 +84,33 @@ const PANEL_MIN_H = "min-h-[calc(26rem_+_7rem_+_1.5rem_+_var(--cta-h))]"
 
 // Mientras se lee la intro, todo lo demás va fuera de foco (ver out-of-focus.ts).
 const enIntro = (panel: Panel) => panel === "intro"
+
+/** ¿El destino del teclazo es un campo de TEXTO LIBRE? Ahí una letra es una
+ *  letra y ningún atajo del juego puede pisarla.
+ *
+ *  Cubre los campos por su tag (el @ del registro, la universidad "otra") y los
+ *  desplegables por su rol: los filtros del ranking no son un `<select>` nativo
+ *  sino un `<button role="combobox">` con su lista aparte
+ *  (components/ui/select.tsx, sobre Base UI), así que el tag no alcanza. Sin esa
+ *  última parte, elegir una universidad con Enter caía en el handler del juego:
+ *  el filtro no se aplicaba y encima se mandaba la respuesta a medio escribir.
+ *
+ *  El campo de la RESPUESTA no está acá y es a propósito. Es un
+ *  `<math-field>` contenteditable, pero no es texto libre: lo que se escribe ahí
+ *  es matemática, y en este juego la variable es siempre `x`. Quien decide si un
+ *  atajo puede robarle una tecla es cada handler, mirando qué tecla es — ver el
+ *  listener de `w` y `c`. */
+function enCampoDeTexto(target: EventTarget | null): boolean {
+  const el = target as HTMLElement | null
+  const tag = el?.tagName
+  if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return true
+  // El destino de un keydown casi siempre es un elemento, pero no siempre: si el
+  // foco está en el `body` o el evento se despacha sobre el documento, `closest`
+  // no existe y llamarlo tira. Y una excepción acá no rompe una línea, rompe el
+  // atajo entero — el listener muere antes de decidir nada.
+  if (typeof el?.closest !== "function") return false
+  return !!el.closest('[role="combobox"], [role="listbox"], [role="option"]')
+}
 
 // Los dos umbrales de la consulta con Alt sostenido (ver el listener más abajo):
 // a los 100 ms se voltea la card, y recién a los 600 se cobra.
@@ -143,6 +172,9 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   const skipMutation = useSkipExercise()
   const sfx = useSfx()
   const teclas = useTeclas()
+  // Para los atajos `w` y `c`: los botones registran su propio click, y llegar
+  // por la tecla tiene que contar igual.
+  const cta = useCta()
 
   const [exercise, setExercise] = useState<GameExercise | null>(null)
   const [lastAnswer, setLastAnswer] = useState<GameAnswer | null>(null)
@@ -757,31 +789,75 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
       // descartaba —Alt+Enter era del navegador— y ahora es el atajo: en una
       // página, sin foco en la barra de direcciones, no pisa nada.
       if (e.key !== "Enter") return
-      // Los campos de texto (el @ del registro, los selectores) son dueños de
-      // su propio Enter.
+      // El campo de la respuesta también es dueño de su Enter, y ese sí lo
+      // maneja MathLive: acá se descarta por `isContentEditable`, que
+      // `enCampoDeTexto` a propósito no mira (ver su comentario).
       const el = e.target as HTMLElement | null
-      const tag = el?.tagName
-      if (
-        tag === "INPUT" ||
-        tag === "TEXTAREA" ||
-        tag === "SELECT" ||
-        el?.isContentEditable
-      )
-        return
-      // Y también los desplegables. La lista de arriba mira el TAG, y los
-      // filtros del ranking no son un `<select>` nativo sino un
-      // `<button role="combobox">` con su lista aparte (components/ui/select.tsx,
-      // sobre Base UI). Sin esta línea, elegir una universidad con Enter caía
-      // acá: el filtro no se aplicaba y encima se mandaba la respuesta del
-      // ejercicio que estaba a medio escribir.
-      if (el?.closest('[role="combobox"], [role="listbox"], [role="option"]'))
-        return
+      if (el?.isContentEditable || enCampoDeTexto(el)) return
       e.preventDefault()
       onEnterKey({ skip: e.altKey })
     }
     document.addEventListener("keydown", onKeyDown)
     return () => document.removeEventListener("keydown", onKeyDown)
   }, [enterFocused, onEnterKey])
+
+  // Las teclas de los dos botones que sacan del ejercicio: `w` abre la diapo de
+  // reclutar y `c` la del cafecito.
+  //
+  // Va en CAPTURA y le corta la propagación al evento. Es la diferencia entre
+  // que el atajo exista y que no: el campo de la respuesta tiene el foco casi
+  // todo el tiempo que se juega —vuelve solo después de cada respuesta— y
+  // MathLive escucha el keydown en el elemento, o sea antes que cualquier
+  // listener en `document` que escuche en burbuja. Sin capturar, la letra se
+  // escribía en la fórmula y el atajo no llegaba nunca.
+  //
+  // Eso obliga a ser cuidadoso, porque estas dos letras dejan de poder
+  // escribirse en la respuesta:
+  //
+  // Cuáles se eligieron y qué se perdió con cada una está en TECLA_RECLUTAS y
+  // TECLA_CAFECITO (cafecito-cta.tsx).
+  //
+  // Las otras tres guardas:
+  //
+  //   · Solo mientras se está JUGANDO (`gameFocused`). Con una diapo abierta, la
+  //     `w` que abriría la de reclutar estando ya en ella no significa nada, y
+  //     estando en la del café sería un salto lateral que nadie pidió.
+  //   · Nada con modificadores. Ctrl+W y ⌘W cierran la pestaña y no se tocan; y
+  //     con Alt sostenido está corriendo el gesto de la tabla, donde cualquier
+  //     otra tecla significa "cancelá".
+  //   · Nada en un campo de TEXTO de verdad. El @ del registro y la universidad
+  //     "otra" son texto libre, y ahí una w es una w.
+  useEffect(() => {
+    if (!gameFocused) return
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return
+      const tecla = e.key.toLowerCase()
+      if (tecla !== TECLA_RECLUTAS && tecla !== TECLA_CAFECITO) return
+      if (enCampoDeTexto(e.target)) return
+      e.preventDefault()
+      e.stopPropagation()
+      sfx.select()
+      // La misma telemetría que el click, con el atajo marcado: si el botón se
+      // usa poco pero la tecla mucho, eso es algo que hay que poder ver.
+      if (tecla === TECLA_RECLUTAS) {
+        cta("share", "click", {
+          placement: "header_desktop",
+          props: { shortcut: true },
+        })
+        setReclutas({ trigger: "pedido" })
+        setNavPanel("reclutas")
+        return
+      }
+      cta("cafecito", "click", {
+        placement: "header_desktop",
+        props: { shortcut: true },
+      })
+      setCafecito({ trigger: "pedido", correctToday: 0 })
+      setNavPanel("cafecito")
+    }
+    document.addEventListener("keydown", onKeyDown, true)
+    return () => document.removeEventListener("keydown", onKeyDown, true)
+  }, [gameFocused, setNavPanel, cta, sfx])
 
   // Todo menos el logo entra recién cuando la presentación lo devuelve a su
   // lugar; el fundido acompaña al del fondo (ver game-intro.tsx).
@@ -854,6 +930,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
             <div className="flex items-center gap-2" style={chromeStyle}>
               <TableButton open={tableOpen} onToggle={toggleTable} />
               <ShareButton
+                keyboard
                 placement="header_desktop"
                 // Igual que el del cafecito: voltea la card y muestra la diapo,
                 // en vez de mandar directo a WhatsApp. El ejercicio no se toca y
@@ -866,6 +943,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
               <CafecitoButton
                 placement="header_desktop"
                 compact
+                keyboard
                 // Voltea la card del ejercicio y muestra la diapo del cafecito,
                 // en vez de mandar directo a Cafecito. El ejercicio no se toca:
                 // sigue en el estado y vuelve entero al salir.
