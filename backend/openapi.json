@@ -929,6 +929,58 @@
         }
       }
     },
+    "/game/derivemos/leaderboard/recruits": {
+      "get": {
+        "tags": [
+          "game"
+        ],
+        "summary": "Game Recruits",
+        "description": "La vista \"Reclutas\" del ranking: qui\u00e9nes entraron por tu link y cu\u00e1nto te\ndieron.\n\nOrdenada por lo que APORTARON y no por su XP: es la tabla de quien reclut\u00f3.\nLos dos n\u00fameros casi siempre dan el mismo orden \u2014el aporte es un porcentaje\nfijo del XP\u2014 pero no siempre, porque alguien pudo haber llegado con XP\nanterior a haber sido reclutado... y sobre todo porque el criterio tiene que\nser el que la lista dice mostrar.\n\nSolo los que YA resolvieron algo. Un recluta que abri\u00f3 el link y no jug\u00f3 no\naport\u00f3 nada, y llenar la lista de renglones en cero convertir\u00eda el premio en\nuna lista de gente que no vino.",
+        "operationId": "game_recruits_game_derivemos_leaderboard_recruits_get",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          },
+          {
+            "name": "x-game-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "X-Game-Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameRecruitsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/game/derivemos/link": {
       "post": {
         "tags": [
@@ -4141,6 +4193,18 @@
               }
             ],
             "title": "Utm Source"
+          },
+          "referrer_alias": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 40
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Referrer Alias"
           }
         },
         "type": "object",
@@ -4334,6 +4398,83 @@
         ],
         "title": "GamePulse",
         "description": "Latido del ranking. El cliente lo consulta cada 10 s y solo refresca la\nlista si `version` cambi\u00f3 \u2014 y de paso ese mismo pedido es lo que hace\navanzar la actividad simulada (ver game/simulation.py).\n\nLos empujes vigentes viajan ac\u00e1 y no en un endpoint propio: este pedido ya\nlate cada 10 s desde los dos layouts, as\u00ed que el cartel se entera sin sumar\nni una request."
+      },
+      "GameRecruitEntry": {
+        "properties": {
+          "rank": {
+            "type": "integer",
+            "title": "Rank"
+          },
+          "player_id": {
+            "type": "integer",
+            "title": "Player Id"
+          },
+          "alias": {
+            "type": "string",
+            "title": "Alias"
+          },
+          "university": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "University"
+          },
+          "career": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Career"
+          },
+          "level": {
+            "type": "integer",
+            "title": "Level",
+            "default": 0
+          },
+          "xp_given": {
+            "type": "integer",
+            "title": "Xp Given"
+          }
+        },
+        "type": "object",
+        "required": [
+          "rank",
+          "player_id",
+          "alias",
+          "xp_given"
+        ],
+        "title": "GameRecruitEntry",
+        "description": "Un rengl\u00f3n de la vista \"Reclutas\" del ranking.\n\nNO lleva la XP propia del recluta, a prop\u00f3sito. La \u00fanica columna que importa\nac\u00e1 es `xp_given`: es la tabla de quien reclut\u00f3, no la del juego, y con los\ndos n\u00fameros al lado el ojo compara y el que importa pierde."
+      },
+      "GameRecruitsResponse": {
+        "properties": {
+          "entries": {
+            "items": {
+              "$ref": "#/components/schemas/GameRecruitEntry"
+            },
+            "type": "array",
+            "title": "Entries"
+          },
+          "share_percent": {
+            "type": "integer",
+            "title": "Share Percent"
+          }
+        },
+        "type": "object",
+        "required": [
+          "entries",
+          "share_percent"
+        ],
+        "title": "GameRecruitsResponse"
       },
       "GameSkipRequest": {
         "properties": {

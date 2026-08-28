@@ -5,10 +5,8 @@
 // cada tantas resueltas) con cooldown para no espantar.
 
 import { useEffect } from "react"
-import { Coffee, Share2 } from "lucide-react"
+import { Coffee } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { UNIVERSITY_TAG_BY_KEY } from "@/lib/university-tags"
-import { useCachedPlayer } from "./UseGamePlayer"
 import {
   readCafecitoLastShownAt,
   saveCafecitoLastShownAt,
@@ -145,18 +143,41 @@ export function CafecitoButton({
   )
 }
 
-// Compartir por WhatsApp: el canal por el que llega casi todo el mundo.
+// Reclutar por WhatsApp: el canal por el que llega casi todo el mundo.
 //
-// El mensaje es el LINK primero y la arenga después, en dos renglones:
+// Se manda SOLO EL LINK:
 //
 //     https://www.intervalo.xyz/derivadas?r=nvrancovich
-//     ¡Vengan a bancar a la UBA!
 //
-// El link va primero porque es lo que se toca. La vista previa la arma WhatsApp
-// pidiendo la URL tal cual, así que el `?r=` no la cambia —la ruta sigue siendo
-// /derivadas, con sus mismos tags Open Graph— y lo que se ve es la misma tarjeta
-// para todos.
+// Antes iba con una arenga a la universidad ("¡Vengan a bancar a la UBA!"), y el
+// problema no era cómo estaba escrita sino que se mandaba siempre: fue pensada
+// para un grupo de esa universidad y terminaba yendo también al amigo de otra
+// facultad, a quien le pide bancar a una que no es la suya.
+//
+// Y hay algo mejor que cualquier cosa que podamos prellenar: el link solo deja
+// el cursor en un chat vacío, así que quien comparte escribe su propia línea
+// antes de mandar. Eso convence más que una frase escrita por nosotros, y no hay
+// forma de que quede fuera de lugar.
+//
+// La vista previa la arma WhatsApp pidiendo la URL tal cual, así que el `?r=` no
+// la cambia —la ruta sigue siendo /derivadas, con sus mismos tags Open Graph— y
+// lo que se ve es la misma tarjeta para todos.
 const SHARE_BASE = "https://www.intervalo.xyz/derivadas"
+
+// El verde de WhatsApp, con el mismo tratamiento que el marrón del cafecito:
+// `VERDE` para el relleno del botón y `VERDE_TINTA` para lo que es tinta sobre el
+// fondo oscuro.
+//
+// El relleno lleva letra OSCURA y no blanca. #25D366 es un color claro: contra
+// blanco da 1,9:1 —ilegible— y contra este verde muy oscuro, 9,6:1. Es la misma
+// decisión que toma el botón del cafecito cuando el slider lo lleva al dorado.
+export const VERDE = "#25D366"
+export const VERDE_TINTA_OSCURA = "#07271A"
+// El de la barra de arriba va APAGADO, y no es un capricho: #25D366 sobre el
+// fondo del juego da 9,4:1 contra los 4,1:1 del marrón del cafecito, que está
+// pegado al lado. Con los dos al mismo tamaño, el verde se comía al otro. Este
+// da 5,4:1 — se ve verde de WhatsApp y no le grita al vecino.
+const VERDE_APAGADO = "#2E9E5B"
 
 /** El link con el @ de quien comparte, que es lo que después permite contar
  *  cuánta gente entró por cada persona (ver FIRST_REFERRER en
@@ -165,67 +186,68 @@ export function shareLink(alias?: string | null) {
   return alias ? `${SHARE_BASE}?r=${encodeURIComponent(alias)}` : SHARE_BASE
 }
 
-// "a la UBA" pero "al ITBA": la contracción sale de si el nombre completo
-// empieza con "Instituto", que es la misma regla que `article_for()` en el
-// backend (universities.py). Si la sigla no está en el catálogo del front —que
-// es más corto que el de noventa del backend— gana "la", que es el caso de
-// casi todas.
-function bancarA(university: string) {
-  const nombre = UNIVERSITY_TAG_BY_KEY[university]?.fullName
-  return nombre?.startsWith("Instituto") ? `al ${university}` : `a la ${university}`
+/** El link de WhatsApp, listo para abrir. Es lo único que se manda. */
+export function shareUrl(alias?: string | null) {
+  return `https://wa.me/?text=${encodeURIComponent(shareLink(alias))}`
 }
 
-/** El mensaje entero. Sin universidad elegida va SOLO el link: la arenga sin
- *  destinatario ("¡Vengan a bancar a la …!") no se puede escribir, y un pedido
- *  de bancar a nadie es peor que no pedir nada. */
-export function shareText({
-  alias,
-  university,
-}: {
-  alias?: string | null
-  university?: string | null
-}) {
-  const link = shareLink(alias)
-  return university ? `${link}
-¡Vengan a bancar ${bancarA(university)}!` : link
-}
-
-export function shareUrl(player: { alias?: string | null; university?: string | null }) {
-  return `https://wa.me/?text=${encodeURIComponent(shareText(player))}`
-}
-
+/** El botón de reclutar de la barra de arriba.
+ *
+ * Abre la diapo `¿Reclutas?`, no WhatsApp. Es la misma lección que dejó el
+ * cafecito: mientras hubo dos caminos al mismo lugar, el del botón se saltaba
+ * todo lo que la diapo sabe hacer —explicar qué se gana, mostrar los reclutas
+ * que ya llegaron— y encima nadie se enteraba de que había algo que ganar. */
 export function ShareButton({
   placement,
+  onOpen,
   className,
 }: {
   placement: string
+  onOpen: () => void
   className?: string
 }) {
   const cta = useCta()
-  // Del caché, sin pedir nada: el jugador ya lo trajo el bootstrap y este botón
-  // solo necesita mirarlo para saber a qué universidad arengar.
-  const player = useCachedPlayer()
   useImpresionPorPartida(cta, "share", placement)
   return (
-    <a
-      href={shareUrl({ alias: player?.alias, university: player?.university })}
-      target="_blank"
-      rel="noreferrer"
-      aria-label="Compartir por WhatsApp"
-      onClick={() =>
-        cta("share", "click", {
-          placement,
-          // Para poder separar el boca a boca con arenga del link pelado.
-          props: { university: player?.university ?? null },
-        })
-      }
+    <button
+      type="button"
+      aria-label="Reclutar por WhatsApp"
+      onClick={() => {
+        cta("share", "click", { placement })
+        onOpen()
+      }}
+      style={{ borderColor: `${VERDE_APAGADO}99`, color: VERDE_APAGADO }}
       className={cn(
-        "inline-flex items-center rounded-md border border-border px-2.5 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-accent",
+        "inline-flex items-center rounded-md border px-2.5 py-1.5 text-sm transition-colors hover:bg-accent",
         className,
       )}
     >
-      <Share2 size={15} />
-    </a>
+      <WhatsappGlyph size={15} />
+    </button>
+  )
+}
+
+/** El logo de WhatsApp.
+ *
+ * Dibujado y no de `lucide-react`: la biblioteca de íconos del proyecto es de
+ * trazo genérico y no trae marcas. Y acá la marca importa — el botón promete
+ * abrir WhatsApp y no un compartir cualquiera, que es justo lo que el ícono de
+ * flechitas anterior no decía.
+ *
+ * Relleno y no trazo, como lo dibuja WhatsApp: a 15px un contorno de teléfono
+ * adentro de un globo se convierte en una mancha. */
+export function WhatsappGlyph({ size = 16 }: { size?: number }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width={size}
+      height={size}
+      fill="currentColor"
+      aria-hidden
+      className="shrink-0"
+    >
+      <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm0 18.17h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.4c0-4.54 3.7-8.23 8.25-8.23a8.23 8.23 0 0 1 8.24 8.24c0 4.54-3.7 8.25-8.24 8.25Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.13-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.1-.5.11-.11.25-.29.37-.44.13-.15.17-.25.25-.41.08-.17.04-.31-.02-.44-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.16 0-.43.06-.65.31-.23.25-.86.84-.86 2.05s.88 2.38 1 2.54c.12.17 1.73 2.63 4.18 3.69.58.25 1.04.4 1.4.52.59.18 1.12.16 1.55.1.47-.07 1.46-.6 1.67-1.18.2-.58.2-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z" />
+    </svg>
   )
 }
 

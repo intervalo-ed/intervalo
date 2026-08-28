@@ -312,6 +312,37 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/game/derivemos/leaderboard/recruits": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Game Recruits
+         * @description La vista "Reclutas" del ranking: quiénes entraron por tu link y cuánto te
+         *     dieron.
+         *
+         *     Ordenada por lo que APORTARON y no por su XP: es la tabla de quien reclutó.
+         *     Los dos números casi siempre dan el mismo orden —el aporte es un porcentaje
+         *     fijo del XP— pero no siempre, porque alguien pudo haber llegado con XP
+         *     anterior a haber sido reclutado... y sobre todo porque el criterio tiene que
+         *     ser el que la lista dice mostrar.
+         *
+         *     Solo los que YA resolvieron algo. Un recluta que abrió el link y no jugó no
+         *     aportó nada, y llenar la lista de renglones en cero convertiría el premio en
+         *     una lista de gente que no vino.
+         */
+        get: operations["game_recruits_game_derivemos_leaderboard_recruits_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/game/derivemos/link": {
         parameters: {
             query?: never;
@@ -1617,6 +1648,8 @@ export interface components {
             group_id?: string | null;
             /** Utm Source */
             utm_source?: string | null;
+            /** Referrer Alias */
+            referrer_alias?: string | null;
         };
         /** GamePlayerCreateResponse */
         GamePlayerCreateResponse: {
@@ -1688,6 +1721,40 @@ export interface components {
              * @default []
              */
             boosts: components["schemas"]["GameBoostOut"][];
+        };
+        /**
+         * GameRecruitEntry
+         * @description Un renglón de la vista "Reclutas" del ranking.
+         *
+         *     NO lleva la XP propia del recluta, a propósito. La única columna que importa
+         *     acá es `xp_given`: es la tabla de quien reclutó, no la del juego, y con los
+         *     dos números al lado el ojo compara y el que importa pierde.
+         */
+        GameRecruitEntry: {
+            /** Rank */
+            rank: number;
+            /** Player Id */
+            player_id: number;
+            /** Alias */
+            alias: string;
+            /** University */
+            university?: string | null;
+            /** Career */
+            career?: string | null;
+            /**
+             * Level
+             * @default 0
+             */
+            level: number;
+            /** Xp Given */
+            xp_given: number;
+        };
+        /** GameRecruitsResponse */
+        GameRecruitsResponse: {
+            /** Entries */
+            entries: components["schemas"]["GameRecruitEntry"][];
+            /** Share Percent */
+            share_percent: number;
         };
         /** GameSkipRequest */
         GameSkipRequest: {
@@ -2761,6 +2828,38 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["GameLeaderboardResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    game_recruits_game_derivemos_leaderboard_recruits_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+                "x-game-token"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GameRecruitsResponse"];
                 };
             };
             /** @description Validation Error */

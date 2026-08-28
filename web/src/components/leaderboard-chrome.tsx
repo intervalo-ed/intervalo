@@ -13,6 +13,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { ChevronDownIcon } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 // Valor del filtro "sin acotar", compartido por los selectores.
 export const ALL_SCOPE = "all"
@@ -92,6 +93,19 @@ export function FilterBox({
   )
 }
 
+// Las vistas del ranking. "recruits" es solo del minijuego —Intervalo no tiene
+// reclutas— así que la opción aparece únicamente si quien monta esto la pide.
+export type RankingView = "individual" | "university" | "recruits"
+
+// "Reclutas" a secas y no "Mis reclutas": al lado de Individual y Universitario
+// el posesivo sobra, porque ya son tuyos por definición y ninguna de las otras
+// dos lo lleva.
+const VIEW_LABEL: Record<RankingView, string> = {
+  individual: "Individual",
+  university: "Universitario",
+  recruits: "Reclutas",
+}
+
 // Los tres selectores del ranking, con el mismo orden y las mismas etiquetas en
 // Intervalo y en el minijuego.
 export function ScopeFilters({
@@ -102,25 +116,34 @@ export function ScopeFilters({
   university,
   onUniversityChange,
   universities,
+  withRecruits = false,
+  // Carrera y universidad no significan nada sobre los reclutas propios: son
+  // tuyos, y filtrarlos por universidad es filtrar una lista de cinco personas.
+  // Se apagan en vez de desaparecer para que la fila no cambie de forma al
+  // cambiar de vista.
+  scopeDisabled = false,
 }: {
-  view: "individual" | "university"
-  onViewChange: (v: "individual" | "university") => void
+  view: RankingView
+  onViewChange: (v: RankingView) => void
   career: string
   onCareerChange: (v: string) => void
   university: string
   onUniversityChange: (v: string) => void
   universities: string[]
+  withRecruits?: boolean
+  scopeDisabled?: boolean
 }) {
   return (
-    <div className="grid grid-cols-3 gap-2">
+    <div className={cn("grid grid-cols-3 gap-2", scopeDisabled && "[&>*:not(:first-child)]:opacity-40")}>
       <FilterBox
         label="Ranking"
         value={view}
-        onChange={(v) => onViewChange(v as "individual" | "university")}
-        display={(v) => (v === "individual" ? "Individual" : "Universitario")}
+        onChange={(v) => onViewChange(v as RankingView)}
+        display={(v) => VIEW_LABEL[v as RankingView] ?? v}
       >
         <SelectItem value="individual">Individual</SelectItem>
         <SelectItem value="university">Universitario</SelectItem>
+        {withRecruits && <SelectItem value="recruits">Reclutas</SelectItem>}
       </FilterBox>
 
       <FilterBox

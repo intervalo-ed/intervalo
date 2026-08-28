@@ -24,6 +24,11 @@ class GamePlayerCreateRequest(BaseModel):
     # Atribución de primer contacto (?g=), mismas regex que /user/enroll.
     group_id: Optional[str] = Field(default=None, max_length=_MAX_ATRIBUCION)
     utm_source: Optional[str] = Field(default=None, max_length=_MAX_ATRIBUCION)
+    # El @ de quien compartió el link (?r=). A diferencia de los dos de arriba
+    # este no es solo analítica: deja al jugador anotado como recluta de ese @ y
+    # a partir de ahí una parte de su XP se le paga (ver game/referrals.py).
+    # Solo se mira al CREAR la fila; en un jugador que ya existe se ignora.
+    referrer_alias: Optional[str] = Field(default=None, max_length=_MAX_ALIAS)
 
 
 class GamePlayerOut(BaseModel):
@@ -147,6 +152,31 @@ class GameLeaderboardEntry(BaseModel):
     # Puestos ganados (+) o perdidos (−) en los últimos minutos. 0 = sin
     # movimiento reciente, y el front no dibuja flecha.
     rank_delta: int = 0
+
+
+class GameRecruitEntry(BaseModel):
+    """Un renglón de la vista "Reclutas" del ranking.
+
+    NO lleva la XP propia del recluta, a propósito. La única columna que importa
+    acá es `xp_given`: es la tabla de quien reclutó, no la del juego, y con los
+    dos números al lado el ojo compara y el que importa pierde.
+    """
+
+    rank: int
+    player_id: int
+    alias: str
+    university: Optional[str] = None
+    career: Optional[str] = None
+    level: int = 0
+    # Cuánta XP le dio este recluta a quien lo trajo, desde que llegó.
+    xp_given: int
+
+
+class GameRecruitsResponse(BaseModel):
+    entries: list[GameRecruitEntry]
+    # El porcentaje vigente, para que la diapo y la lista no lo tengan escrito a
+    # mano en el cliente: si algún día cambia, cambia en un solo lado.
+    share_percent: int
 
 
 class GameLeaderboardMe(BaseModel):

@@ -266,6 +266,24 @@ export function useGameLeaderboardSummary(scope: Scope, enabled: boolean) {
   })
 }
 
+export type GameRecruitEntry = components["schemas"]["GameRecruitEntry"]
+
+/** Los reclutas propios: quiénes entraron por el link y cuánto aportaron.
+ *
+ * Cuelga de la raíz del ranking a propósito: es una vista más del ranking, así
+ * que el latido —que invalida por prefijo— la refresca junto con las otras dos.
+ * Un recluta que resuelve una derivada mueve el ranking, y por lo tanto el
+ * pulso, así que el aporte se actualiza sin sondeo propio. */
+export function useGameRecruits(enabled: boolean) {
+  const api = useGameApi()
+  return useQuery({
+    queryKey: [...gameKeys.leaderboard, "recruits"],
+    queryFn: async () => unwrap(await api.GET("/game/derivemos/leaderboard/recruits")),
+    enabled,
+    staleTime: 30_000,
+  })
+}
+
 export function useGameUniversityLeaderboard(scope: Scope, enabled: boolean) {
   const api = useGameApi()
   return useQuery({

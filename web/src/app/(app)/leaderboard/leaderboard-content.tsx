@@ -71,7 +71,12 @@ export function LeaderboardContent() {
       {/* Fila 2: selector de ranking + filtros de carrera y universidad. */}
       <ScopeFilters
         view={view}
-        onViewChange={setView}
+        // El selector conoce una tercera vista ("Reclutas") que es del minijuego
+        // y acá no se ofrece: sin `withRecruits` la opción ni siquiera se
+        // dibuja, así que este descarte nunca ocurre en la práctica.
+        onViewChange={(v) => {
+          if (v !== "recruits") setView(v)
+        }}
         career={career}
         onCareerChange={setCareer}
         university={uni}

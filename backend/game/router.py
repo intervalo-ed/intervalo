@@ -26,6 +26,7 @@ from . import limits
 from . import elo
 from . import events as game_events
 from . import keyboard as game_keyboard
+from . import referrals
 from . import simulation
 from . import xp as game_xp
 from .aliases import alias_taken
@@ -59,6 +60,8 @@ from .schemas import (
     GamePlayerCreateResponse,
     GamePlayerOut,
     GameProfilePatchRequest,
+    GameRecruitEntry,
+    GameRecruitsResponse,
     GameSkipRequest,
     GameUniversityLeaderboardResponse,
     GameUniversityRow,
@@ -211,7 +214,12 @@ def _persist_attribution(
         player.platform = platform
 
 
-def _jugador_del_usuario(db: Session, user: User, x_game_token: str | None) -> GamePlayer:
+def _jugador_del_usuario(
+    db: Session,
+    user: User,
+    x_game_token: str | None,
+    referrer_alias: str | None = None,
+) -> GamePlayer:
     """El jugador de un usuario registrado, fusionando el invitado si hay uno.
 
     Esta resolución estaba escrita TRES veces —acá, en el alta y en el link
@@ -253,7 +261,7 @@ def create_player(
     el token/user, se devuelve ese."""
     user = _clerk_user(authorization, db)
     if user is not None:
-        player = _jugador_del_usuario(db, user, x_game_token)
+        player = _jugador_del_usuario(db, user, x_game_token, body.referrer_alias)
         # El feed anuncia el REGISTRO, no el alta de invitado: un invitado se
         # crea en cada primera visita y anunciarlos sería anunciar el tráfico.
         # `on_signup` deduplica por jugador, así que este camino —que se recorre
@@ -272,6 +280,8 @@ def create_player(
         )
 
     player = create_guest_player(db)
+    # Recién creado: es el momento —y el único— en que se mira el `?r=`.
+    referrals.anotar(db, player, body.referrer_alias)
     _persist_attribution(player, body.group_id, body.utm_source, _platform(x_game_platform))
     db.commit()
     return GamePlayerCreateResponse(player=_player_out(db, player), guest_token=player.guest_token)
@@ -782,6 +792,10 @@ def _otorgar_xp(
     if correct:
         player.xp += xp_awarded
         player.exercises_correct += 1
+        # Y su parte para quien lo trajo, si lo trajo alguien. Se ACUÑA: el
+        # número de arriba ya está cerrado y no se le descuenta nada — entrar
+        # por el link de alguien no puede costar XP (ver game/referrals.py).
+        referrals.acreditar(db, player, xp_awarded)
     return xp_awarded, combo_bonus, multiplier
 
 
@@ -1270,6 +1284,66 @@ def game_leaderboard(
         total_count=total_count,
         has_more=page_offset + len(page) < total_count,
         me=GameLeaderboardMe(rank=my_rank, xp=player.xp),
+    )
+
+
+# Cuántos reclutas trae la lista. No es paginada: es la tabla de una persona, no
+# la del juego, y con cincuenta reclutas la mecánica ya funcionó de sobra.
+_MAX_RECLUTAS = 50
+
+
+@router.get("/leaderboard/recruits", response_model=GameRecruitsResponse)
+def game_recruits(
+    player: GamePlayer = Depends(get_current_player),
+    db: Session = Depends(get_db),
+):
+    """La vista "Reclutas" del ranking: quiénes entraron por tu link y cuánto te
+    dieron.
+
+    Ordenada por lo que APORTARON y no por su XP: es la tabla de quien reclutó.
+    Los dos números casi siempre dan el mismo orden —el aporte es un porcentaje
+    fijo del XP— pero no siempre, porque alguien pudo haber llegado con XP
+    anterior a haber sido reclutado... y sobre todo porque el criterio tiene que
+    ser el que la lista dice mostrar.
+
+    Solo los que YA resolvieron algo. Un recluta que abrió el link y no jugó no
+    aportó nada, y llenar la lista de renglones en cero convertiría el premio en
+    una lista de gente que no vino.
+    """
+    filas = (
+        db.query(GamePlayer)
+        .options(
+            load_only(
+                GamePlayer.id,
+                GamePlayer.alias,
+                GamePlayer.university,
+                GamePlayer.career,
+                GamePlayer.theta,
+                GamePlayer.referral_xp_given,
+            )
+        )
+        .filter(
+            GamePlayer.referred_by == player.id,
+            GamePlayer.exercises_correct > 0,
+        )
+        .order_by(GamePlayer.referral_xp_given.desc(), GamePlayer.id.asc())
+        .limit(_MAX_RECLUTAS)
+        .all()
+    )
+    return GameRecruitsResponse(
+        entries=[
+            GameRecruitEntry(
+                rank=index + 1,
+                player_id=fila.id,
+                alias=fila.alias,
+                university=fila.university,
+                career=fila.career,
+                level=elo.level_of(fila.theta),
+                xp_given=fila.referral_xp_given,
+            )
+            for index, fila in enumerate(filas)
+        ],
+        share_percent=referrals.SHARE_PERCENT,
     )
 
 

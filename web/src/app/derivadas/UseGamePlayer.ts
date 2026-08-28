@@ -91,6 +91,10 @@ export function useGamePlayer() {
         body: {
           group_id: attribution.groupId ?? null,
           utm_source: attribution.utmSource ?? null,
+          // El @ de quien compartió el link. El server lo mira SOLO si esta
+          // llamada termina creando la fila: quien ya venía jugando no adopta
+          // reclutador por abrir un `?r=` (ver backend/game/referrals.py).
+          referrer_alias: attribution.referrer ?? null,
         },
       })
       return unwrap(result)

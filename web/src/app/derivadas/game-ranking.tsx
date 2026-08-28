@@ -18,18 +18,27 @@ import { memo, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useStat
 import { motion } from "motion/react"
 import { ArrowDown, ArrowUp, LayersIcon, UsersIcon } from "lucide-react"
 import { CountUp } from "@/components/count-up"
-import { ALL_SCOPE, Metric, ScopeFilters, fmtCount } from "@/components/leaderboard-chrome"
+import {
+  ALL_SCOPE,
+  Metric,
+  ScopeFilters,
+  fmtCount,
+  type RankingView,
+} from "@/components/leaderboard-chrome"
 import { Spinner } from "@/components/ui/spinner"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { UniTag } from "@/components/university-tag"
 import { XpDots } from "@/components/xp-dots"
 import { badgeWithCrown, CAREER_EMOJI } from "@/lib/career-emoji"
-import { BELT_HEX, BELT_ORDER, BELT_UNIT_TEXT_COLORS } from "@/lib/catalog"
+import { BELT_HEX } from "@/lib/catalog"
 import { cn } from "@/lib/utils"
+import { levelColor } from "./game-colors"
+import { ListaDeReclutas } from "./reclutas-list"
 import {
   useGameBoosts,
   useGameLeaderboard,
   useGameLeaderboardSummary,
+  useGameRecruits,
   useGameUniversityLeaderboard,
   type GameBoost,
   type GameLeaderboardEntry,
@@ -240,14 +249,6 @@ const LIST_TOP_PADDING = 4
 // mirar el ranking ajeno está bien, perderse en él no.
 const IDLE_RECENTER_MS = 10_000
 
-// El juego no tiene cinturones: el color del nombre lo da el nivel que el Elo le
-// reconoce al jugador (backend/game/elo.py :: level_of), o sea qué tan difícil
-// resuelve — no cuánta XP juntó, que ya está en el número de al lado.
-export function levelColor(level: number): string {
-  const belt = BELT_ORDER[Math.min(level, BELT_ORDER.length - 1)]
-  return BELT_UNIT_TEXT_COLORS[belt] ?? BELT_UNIT_TEXT_COLORS.white
-}
-
 // Dónde tiene que quedar el scroll para que la fila marcada como propia
 // descanse a ROWS_ABOVE del techo. Lo usan las dos vistas —la individual con la
 // fila del jugador, la universitaria con la de su universidad— así que la lista
@@ -283,6 +284,13 @@ export type GameRankingProps = {
   // Universidad del jugador: se resalta en la vista universitaria igual que su
   // fila en la individual.
   myUniversity?: string | null
+  // Vista impuesta desde afuera mientras dure algo. Hoy la usa una sola cosa: al
+  // abrirse la diapo `¿Reclutas?` el ranking se conmuta a la lista de reclutas,
+  // así que la promesa que la diapo escribe se ve al lado, en la tabla real, con
+  // los que ya llegaron. Al cerrarse vuelve a `null` y con eso vuelve lo que la
+  // persona estaba mirando: si conmutáramos con el setter normal, salir de la
+  // diapo la dejaría en una vista que no eligió.
+  viewOverride?: RankingView | null
   className?: string
 }
 
@@ -295,6 +303,7 @@ export function GameRanking({
   centerKey = 0,
   myUniversity = null,
   myCareer = null,
+  viewOverride = null,
   className,
 }: GameRankingProps) {
   // ── El ranking vuelve solo a donde el XP puede caer ────────────────────────
@@ -317,7 +326,7 @@ export function GameRanking({
   // React no permite— igual que el paso de la escalada.
   const [elegido, setElegido] = useState<{
     key: number
-    view: "individual" | "university"
+    view: RankingView
     career: string
     university: string
   }>({ key: centerKey, view: "individual", career: ALL_SCOPE, university: ALL_SCOPE })
@@ -326,7 +335,9 @@ export function GameRanking({
   const propio = (valor: string, mio: string | null) =>
     mio !== null && valor === mio ? valor : ALL_SCOPE
 
-  const view = acaboDeAcertar ? "individual" : elegido.view
+  // La vista impuesta gana sobre todo, incluido el reacomodo del acierto: si la
+  // diapo de reclutas está abierta, lo que hay que mirar es la lista de reclutas.
+  const view = viewOverride ?? (acaboDeAcertar ? "individual" : elegido.view)
   const career = acaboDeAcertar ? propio(elegido.career, myCareer) : elegido.career
   const university = acaboDeAcertar
     ? propio(elegido.university, myUniversity)
@@ -335,7 +346,7 @@ export function GameRanking({
 
   // Los setters guardan SIEMPRE la clave del momento: así lo que se elija después
   // de un acierto queda, en vez de volver a reiniciarse en el siguiente render.
-  const setView = (v: "individual" | "university") =>
+  const setView = (v: RankingView) =>
     setElegido({ key: centerKey, view: v, career, university })
   const setCareer = (v: string) =>
     setElegido({ key: centerKey, view, career: v, university })
@@ -378,11 +389,15 @@ export function GameRanking({
           university={university}
           onUniversityChange={setUniversity}
           universities={summary.data?.universities ?? []}
+          withRecruits
+          scopeDisabled={view === "recruits"}
         />
         <BoostBanner myUniversity={myUniversity} />
       </div>
 
-      {view === "individual" ? (
+      {view === "recruits" ? (
+        <RecruitsRanking enabled={enabled} />
+      ) : view === "individual" ? (
         <IndividualRanking
           scope={scope}
           enabled={enabled}
@@ -1124,6 +1139,24 @@ function EloDeUniversidad({ row }: { row: GameUniversityRow }) {
               )}
       </PopoverContent>
     </Popover>
+  )
+}
+
+/** La vista "Reclutas": quiénes entraron por tu link y cuánto te dieron.
+ *
+ * Sin cabecera con el total. El total es la suma de una columna que ya está a la
+ * vista, y puesto arriba se lleva el ojo antes que los renglones — que son lo
+ * que hace que la mecánica se entienda, porque cada uno es una persona.
+ *
+ * Sin scroll infinito ni paginado: son los reclutas de una persona, no el juego
+ * entero, y el endpoint corta en cincuenta. */
+function RecruitsRanking({ enabled }: { enabled: boolean }) {
+  const { data, isLoading } = useGameRecruits(enabled)
+  if (isLoading) return <ListSkeleton />
+  return (
+    <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain py-1">
+      <ListaDeReclutas entries={data?.entries ?? []} />
+    </div>
   )
 }
 

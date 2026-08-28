@@ -43,7 +43,8 @@ if (utmSource) {
 // de WhatsApp (derivadas/cafecito-cta.tsx). Mismo mecanismo que los otros dos, y
 // también "once": quien te trajo es quien te trajo la primera vez.
 const referrer = params.get("r")
-if (referrer && REFERRER_PATTERN.test(referrer)) {
+const referrerOk = !!referrer && REFERRER_PATTERN.test(referrer)
+if (referrerOk) {
   posthog.register_once({ [FIRST_REFERRER]: referrer })
 }
 
@@ -51,7 +52,11 @@ if (referrer && REFERRER_PATTERN.test(referrer)) {
 // backend y el origen queda como columna de `users`, que es lo que permite
 // cruzarlo con retención sin depender de un sistema que subcuenta por
 // bloqueadores (ver lib/analytics/attribution).
-rememberAttribution({ groupId: groupMatch ? groupId : null, utmSource })
+rememberAttribution({
+  groupId: groupMatch ? groupId : null,
+  utmSource,
+  referrer: referrerOk ? referrer : null,
+})
 
 // La instalación de la PWA es manual: el resumen de sesión muestra los pasos y
 // el usuario los hace en el menú del navegador (ver notify-hint-pane.tsx). No hay

@@ -28,6 +28,7 @@ import {
   type CafecitoTrigger,
 } from "./cafecito-cta"
 import { CafecitoPanel } from "./cafecito-panel"
+import { ReclutasPanel } from "./reclutas-panel"
 import {
   AnswerButton,
   AnswerField,
@@ -65,7 +66,7 @@ import { useXpBurst, XpOrbs } from "./xp-burst"
 
 // Las pantallas del panel izquierdo. Todas viven en la misma caja y se cambian
 // con el mismo volteo (slide-flip.tsx).
-type Panel = "intro" | "exercise" | "profile" | "register" | "cafecito"
+type Panel = "intro" | "exercise" | "profile" | "register" | "cafecito" | "reclutas"
 
 // Los hitos que interrumpen el ejercicio son un subconjunto: la intro no se
 // "agenda", ocurre antes de que haya juego.
@@ -166,6 +167,10 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
     // terminaba en el ejercicio y perdía lo que estaba haciendo ahí.
     volverA?: "settings"
   } | null>(null)
+  // Lo mismo para la diapo de reclutar, que también se abre desde los dos
+  // lados. No necesita nada más que el destino: no tiene disparador por hito ni
+  // número que mostrar.
+  const [reclutasVolverA, setReclutasVolverA] = useState<"settings" | null>(null)
   // La tabla está a la vista ahora mismo.
   const [tableOpen, setTableOpen] = useState(false)
   // Cuál de las dos caras traseras es la que se está mostrando. Se actualiza
@@ -699,10 +704,11 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
         startFromIntro()
         return
       }
-      // La diapo del café tiene su propio Enter —espera diez segundos, y con
-      // Shift invita— y lo maneja ella (cafecito-panel.tsx). Si además corriera
-      // este, el primer Enter saltearía la diapo entera.
-      if (panel === "cafecito") return
+      // Las dos diapos que piden algo tienen su propio Enter —esperan unos
+      // segundos, y con Shift hacen lo suyo— y lo manejan ellas
+      // (cafecito-panel.tsx, reclutas-panel.tsx). Si además corriera este, el
+      // primer Enter saltearía la diapo entera.
+      if (panel === "cafecito" || panel === "reclutas") return
       if (skip) {
         onSkip()
         return
@@ -825,7 +831,13 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
             <GameIntroLogo intro={intro} fontSize="1.0625rem" />
             <div className="flex items-center gap-2" style={chromeStyle}>
               <TableButton open={tableOpen} onToggle={toggleTable} />
-              <ShareButton placement="header_desktop" />
+              <ShareButton
+                placement="header_desktop"
+                // Igual que el del cafecito: voltea la card y muestra la diapo,
+                // en vez de mandar directo a WhatsApp. El ejercicio no se toca y
+                // vuelve entero al salir.
+                onOpen={() => setNavPanel("reclutas")}
+              />
               <CafecitoButton
                 placement="header_desktop"
                 compact
@@ -951,6 +963,20 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                         loadNext()
                         return
                       }
+                      setNavPanel("exercise")
+                      if (volverA === "settings") setSettingsOpen(true)
+                      else if (!exercise) loadNext()
+                    }}
+                  />
+                ) : panel === "reclutas" ? (
+                  <ReclutasPanel
+                    keyboard
+                    trigger="pedido"
+                    // Sin lista adentro: acá al lado el ranking ya se conmutó a
+                    // "Reclutas" y la muestra entera. Ver `viewOverride`.
+                    onContinue={() => {
+                      const volverA = reclutasVolverA
+                      setReclutasVolverA(null)
                       setNavPanel("exercise")
                       if (volverA === "settings") setSettingsOpen(true)
                       else if (!exercise) loadNext()
@@ -1150,6 +1176,11 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                       myUniversity={player?.university ?? null}
                       attachXpTarget={attachTarget}
                       centerKey={centerKey}
+                      // Con la diapo de reclutar abierta, el ranking de al lado
+                      // muestra los reclutas. Es la mitad que falta del pedido:
+                      // la diapo dice cuánto se gana y la tabla muestra con
+                      // quiénes, o —la primera vez— con quiénes se vería.
+                      viewOverride={panel === "reclutas" ? "recruits" : null}
                       className={`flex-1 ${outOfFocus(enIntro(panel))}`}
                     />
                   </div>
@@ -1198,6 +1229,12 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                             volverA: "settings",
                           })
                           setNavPanel("cafecito")
+                        }}
+                        onShare={() => {
+                          // Mismo volteo único que el cafecito de acá arriba.
+                          setSettingsOpen(false)
+                          setReclutasVolverA("settings")
+                          setNavPanel("reclutas")
                         }}
                         onNeedsRegister={() => {
                           setSettingsOpen(false)
