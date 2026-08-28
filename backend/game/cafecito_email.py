@@ -93,6 +93,13 @@ REF = boosts.FUENTE_MAIL
 _ETIQUETAS = re.compile(r"<[^>]+>")
 _ESPACIOS = re.compile(r"\s+")
 
+# El contenido de <style> y <script> NO es texto del mail, pero tampoco está
+# adentro de una etiqueta: sacar las etiquetas lo deja suelto en el medio del
+# cuerpo. En un mail maquetado eso son miles de caracteres de CSS llenos de
+# números, y un solo bloque de esos entre la etiqueta del total y el monto
+# alcanzaba para que la donación no se leyera.
+_BLOQUES_MUDOS = re.compile(r"<(style|script)\b.*?</\1>", re.IGNORECASE | re.DOTALL)
+
 # "N.° de operación: 176089085046".
 #
 # El mail trae el número dos veces: una con los dígitos separados por espacios
@@ -103,12 +110,19 @@ _OPERACION = re.compile(r"operaci[oó]n\s*:\s*(\d{6,})", re.IGNORECASE)
 
 # "Total de la operación … $ 500".
 #
-# Entre la etiqueta y el número hay maquetación, y la maquetación no tiene
-# dígitos: por eso `\D` alcanza para saltearla sin riesgo de agarrar otro monto.
-# Importa, porque los dos montos que siguen en el mail son los costos de Mercado
-# Pago y el neto a acreditar, y ninguno de los dos es lo que donaron.
+# El `?` es lo que importa: entre la etiqueta y el monto hay maquetación, y al
+# ser perezoso se queda con el PRIMER importe que aparece después del rótulo.
+# Importa porque el aviso trae tres montos —el total, los costos de Mercado Pago
+# y el neto a acreditar— y solo el primero es lo que donaron.
+#
+# Antes esto pedía que en el medio no hubiera dígitos, que es más estricto y
+# parecía más seguro. Era peor: cualquier número que se colara en la maquetación
+# hacía que la donación no se leyera, y una donación que no se lee es alguien que
+# pagó y no recibió nada. El riesgo que queda —un `$` perdido entre el rótulo y
+# el monto— no existe en ningún aviso que hayamos visto.
 _TOTAL = re.compile(
-    r"total de la operaci[oó]n\D{0,160}?\$\s*([\d.,]+)", re.IGNORECASE
+    r"total de la operaci[oó]n.{0,300}?\$\s*([\d.,]+)",
+    re.IGNORECASE | re.DOTALL,
 )
 
 
@@ -122,7 +136,8 @@ def _plano(email: dict) -> str:
     """
     crudo = email.get("text") or ""
     if not crudo.strip():
-        crudo = _ETIQUETAS.sub(" ", _html.unescape(email.get("html") or ""))
+        sin_mudos = _BLOQUES_MUDOS.sub(" ", email.get("html") or "")
+        crudo = _html.unescape(_ETIQUETAS.sub(" ", sin_mudos))
     return _ESPACIOS.sub(" ", crudo)
 
 

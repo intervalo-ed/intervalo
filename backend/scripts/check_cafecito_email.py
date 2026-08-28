@@ -212,6 +212,25 @@ destinos = ce.aplicar(aviso())
 check(destinos == ["TODOS"], f"le llega a todo el mundo ({destinos})")
 check(empujes()[0].university is None, "la fila queda sin universidad")
 
+print("13. un aviso maquetado de verdad, con CSS entre el rotulo y el monto")
+limpiar()
+maquetado = aviso()
+maquetado["text"] = ""
+maquetado["html"] = (
+    "<html><head><style type=3D'text/css'>"
+    ".col-600{width:600px;padding:0 24px 0 24px;font-size:14px;line-height:20px}"
+    "@media only screen and (max-width:640px){.col-600{width:320px}}"
+    "</style></head><body>"
+    "<p>N.&deg; de operaci&oacute;n: 176089085046</p>"
+    "<table><tr><td class=3D'col-600'>Total de la operaci&oacute;n</td></tr>"
+    "<style>.monto{font-size:28px;margin:0 0 8px 0}</style>"
+    "<tr><td class=3D'monto'>$&nbsp;200</td></tr>"
+    "<tr><td>Costos de Mercado Pago</td></tr><tr><td>- $ 8,60</td></tr></table>"
+    "</body></html>"
+)
+datos = ce.leer(maquetado)
+check(datos is not None and datos["cafecitos"] == 2, f"dos cafecitos, sin comerse el CSS ({datos})")
+
 print()
 if FAILURES:
     print(f"{len(FAILURES)} fallo(s):")
