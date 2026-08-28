@@ -11,7 +11,12 @@ import { getPlatform, isStandalone, type Platform } from "@/lib/platform/detect"
 
 // Rutas donde NO debe verse la smart bar (marketing queda fuera porque ahí el
 // usuario está deslogueado).
-const HIDDEN_PREFIXES = ["/onboarding", "/sign-in", "/sso-callback"]
+//
+// /derivemos queda fuera por lo mismo que el resumen de sesión: es una pantalla
+// completa, medida al dvh, que además se comparte por WhatsApp a gente que no
+// conoce Intervalo. Ofrecerle instalar la app a alguien que todavía no jugó una
+// derivada es pedirle el segundo paso antes del primero.
+const HIDDEN_PREFIXES = ["/onboarding", "/sign-in", "/sso-callback", "/derivadas"]
 
 // El resumen de sesión encadena animaciones (conteo de XP, de ejercicios
 // correctos, de días de racha) y termina en las slides de notificaciones e

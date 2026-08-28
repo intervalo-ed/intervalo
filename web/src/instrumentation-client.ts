@@ -2,8 +2,10 @@ import posthog from "posthog-js"
 import {
   FIRST_GROUP_ID,
   FIRST_PWA_USE_STORAGE_KEY,
+  FIRST_REFERRER,
   FIRST_UTM_SOURCE,
   GROUP_ID_PATTERN,
+  REFERRER_PATTERN,
   rememberAttribution,
 } from "@/lib/analytics/attribution"
 import { getPlatform, isStandalone } from "@/lib/platform/detect"
@@ -35,6 +37,14 @@ if (groupMatch) {
 }
 if (utmSource) {
   posthog.register_once({ [FIRST_UTM_SOURCE]: utmSource })
+}
+
+// `?r=<alias>` es el link que comparte un jugador del minijuego desde el botón
+// de WhatsApp (derivadas/cafecito-cta.tsx). Mismo mecanismo que los otros dos, y
+// también "once": quien te trajo es quien te trajo la primera vez.
+const referrer = params.get("r")
+if (referrer && REFERRER_PATTERN.test(referrer)) {
+  posthog.register_once({ [FIRST_REFERRER]: referrer })
 }
 
 // Además de PostHog, una copia propia en localStorage: el alta la manda al

@@ -167,6 +167,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Minijuego «derivemos»: bounded context completo en backend/game/ (primer
+# APIRouter del repo; el resto de main.py sigue con @app.* directo).
+from game.router import router as game_router  # noqa: E402
+
+app.include_router(game_router)
+
 
 # ── Dependency functions ──────────────────────────────────────────────────────
 
@@ -2032,6 +2038,72 @@ def panel_page(token: str, w: str | None = None, db: Session = Depends(get_db)):
         page(_panel_payload(week, db), token=token),
         headers=_PANEL_HEADERS,
     )
+
+
+# El panel del juego es una página aparte y no una sección más del de arriba:
+# comparte el token y las primitivas de gráfico, pero no el vocabulario (acá una
+# «sesión» se reconstruye por huecos y el P1 excluye los ejercicios mirados con
+# la tabla abierta). Mezclarlos haría que la misma palabra signifique dos cosas
+# en la misma pantalla, que es exactamente cómo se arruina un panel.
+_game_panel_cache: dict[str, tuple[float, dict]] = {}
+
+
+def _game_panel_payload(week, db: Session) -> dict:
+    from metrics import game_queries
+
+    key = week.isoformat()
+    hit = _game_panel_cache.get(key)
+    if hit and time.time() - hit[0] < _PANEL_TTL_SECONDS:
+        return hit[1]
+    payload = game_queries.build(db, week)
+    _game_panel_cache.clear()
+    _game_panel_cache[key] = (time.time(), payload)
+    return payload
+
+
+def _game_panel_week(w: str | None):
+    """Igual que `_panel_week` pero sin piso: el juego no tiene semanas previas
+    a la difusión que haya que esconder — nació difundido. Solo se acota por
+    arriba, porque una semana futura solo puede dar ceros y un cero se lee como
+    caída."""
+    from datetime import date as _date
+
+    from metrics.game_render import week_of_today
+    from metrics.queries import week_start
+
+    hoy = week_of_today()
+    if w:
+        try:
+            return min(week_start(_date.fromisoformat(w)), hoy)
+        except ValueError:
+            pass
+    return hoy
+
+
+@app.get("/panel/{token}/derivemos", response_class=HTMLResponse, include_in_schema=False)
+def game_panel_page(token: str, w: str | None = None, db: Session = Depends(get_db)):
+    from metrics.game_render import page as game_page
+
+    _require_panel_token(token)
+    week = _game_panel_week(w)
+    return HTMLResponse(
+        game_page(_game_panel_payload(week, db), token=token),
+        headers=_PANEL_HEADERS,
+    )
+
+
+@app.get("/panel/{token}/derivemos/data.json", include_in_schema=False)
+def game_panel_data(token: str, w: str | None = None, db: Session = Depends(get_db)):
+    from fastapi.responses import JSONResponse
+
+    _require_panel_token(token)
+    payload = _game_panel_payload(_game_panel_week(w), db)
+    # `default=str` porque varios bloques llevan `date`/`datetime` adentro (la
+    # semana de cada fila, el inicio de cada empuje). Serializarlos a ISO es más
+    # útil que aplanarlos en las consultas: el JSON existe para poder hacer
+    # cuentas afuera, y ahí una fecha en texto ISO se vuelve a parsear sola.
+    return JSONResponse(
+        json.loads(json.dumps(payload, default=str)), headers=_PANEL_HEADERS)
 
 
 @app.get("/panel/{token}/data.json", include_in_schema=False)

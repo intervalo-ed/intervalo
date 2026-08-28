@@ -1,0 +1,392 @@
+"""Empujes de XP por universidad, pagados con cafecitos.
+
+Quien invita un cafecito multiplica el XP de TODA su universidad durante media
+hora. El giro a la universidad —en vez de un multiplicador personal— es lo que
+evita que donar sea comprar puesto: si el empuje le toca a todos los de una
+universidad, adentro de esa universidad el orden no se mueve, y lo que queda es
+la pelea entre universidades.
+
+Reglas, todas acá:
+
+  - Cada donación INSERTA una fila y ninguna se muta nunca. El multiplicador
+    activo es una suma sobre las filas no vencidas, así que dos donaciones
+    simultáneas no pueden pisarse y no hay estado que se corrompa.
+  - Los cafecitos de la ventana SE SUMAN: diez personas con uno cada una llegan
+    al mismo techo que una con diez. Eso es lo que hace que el slider del CTA
+    sea un termómetro compartido ("faltan 3 para ×1,5") y no una compra
+    individual.
+  - El multiplicador se corta en MAX_MULTIPLIER. Sin tope, una sola persona con
+    ganas dejaría el juego en ×5 y el XP dejaría de significar nada.
+"""
+
+from __future__ import annotations
+
+import re
+from dataclasses import dataclass
+from datetime import datetime, timedelta
+
+from sqlalchemy import case, func
+from sqlalchemy.orm import Session
+
+from models import GameBoost, GameBoostIntent, GamePlayer
+from universities import UNIVERSITIES, canonical_university
+
+from . import events, simulation
+
+# Media hora: alcanza para que la persona que donó vea el efecto en su propia
+# sesión, y es corto como para que el cartel con la cuenta regresiva genere
+# urgencia en los demás ("quedan 12 minutos").
+BOOST_MINUTES = 30
+
+# La hora entera es SOLO para quien llega al tope del multiplicador. Es el único
+# escalón, y ese es el punto: una escala de minutos proporcional a los cafecitos
+# (15, 30, 45…) hace que cada paso del slider mueva dos números a la vez, y con
+# dos premios que crecen juntos ninguno de los dos se lee. Con un solo escalón,
+# el slider tiene un lugar al que llegar.
+BOOST_MINUTES_MAX = 60
+
+# Cada cafecito suma un décimo al multiplicador.
+CAFECITO_STEP = 0.1
+
+# El techo, que solo se alcanza ENTRE VARIOS.
+MAX_MULTIPLIER = 3.0
+
+# Lo que puede aportar UNA sola donación: +1,0, o sea que quien dona solo llega
+# a ×2 y ahí se le termina la cuerda por más cafecitos que ponga. El ×3 no se
+# compra, se junta — hacen falta al menos dos personas. Los cafecitos de más se
+# guardan igual (la donación fue real y el feed la cuenta entera), pero no
+# empujan el multiplicador.
+MAX_CAFECITOS_PER_DONATION = 10
+
+# Cuántos jugadores necesita una universidad para entrar al ranking per cápita.
+# Con menos, un solo jugador afortunado la manda al tope y el ranking pasa a
+# medir suerte en vez de universidades. Las que no llegan NO desaparecen: se
+# devuelven con ranked=False y la UI las muestra al pie (ver router).
+MIN_PLAYERS_RANKED = 10
+
+# Cuánto vale una "voy a donar" antes de vencerse. Holgado a propósito: entre que
+# alguien toca el botón, elige el monto en Cafecito y termina de pagar con Mercado
+# Pago pueden pasar varios minutos.
+INTENT_WINDOW_MINUTES = 30
+
+
+def minutes_for(cafecitos: int) -> int:
+    """Cuánto dura el empuje de UNA donación.
+
+    Media hora, salvo que la donación llegue al tope del multiplicador: ahí, y
+    solo ahí, una hora. El espejo en el front es `minutesFor` de
+    web/src/app/derivadas/cafecito-panel.tsx, que es lo que dibuja el slider.
+    """
+    return BOOST_MINUTES_MAX if cafecitos >= MAX_CAFECITOS_PER_DONATION else BOOST_MINUTES
+
+
+# Siglas del catálogo, para reconocerlas dentro del mensaje de una donación.
+_KNOWN_SIGLAS = {sigla for sigla, _ in UNIVERSITIES}
+
+
+@dataclass(frozen=True)
+class BoostView:
+    """Un empuje vigente, ya agregado por universidad. `university=None` = global."""
+
+    university: str | None
+    multiplier: float
+    cafecitos: int
+    donor_name: str | None
+    expires_in_seconds: int
+
+
+def multiplier_from_cafecitos(cafecitos: int) -> float:
+    if cafecitos <= 0:
+        return 1.0
+    return min(MAX_MULTIPLIER, 1.0 + cafecitos * CAFECITO_STEP)
+
+
+def _now() -> datetime:
+    # utcnow naive, igual que el resto del proyecto (models.py, simulation.py).
+    return datetime.utcnow()
+
+
+# El tope por donación se aplica FILA POR FILA y no sobre la suma: si se topeara
+# el total, dos personas de a 10 llegarían al mismo lugar que una sola de 20, y
+# la regla de "hay que colaborar" no existiría.
+#
+# Con `case` y no con la función `min`/`least` de la base: SQLite y Postgres las
+# escriben distinto y esto corre en las dos.
+_CAPPED = case(
+    (GameBoost.cafecitos > MAX_CAFECITOS_PER_DONATION, MAX_CAFECITOS_PER_DONATION),
+    else_=GameBoost.cafecitos,
+)
+
+
+def _cafecitos(db: Session, where, now: datetime) -> int:
+    return int(
+        db.query(func.coalesce(func.sum(_CAPPED), 0))
+        .filter(where, GameBoost.expires_at > now)
+        .scalar()
+        or 0
+    )
+
+
+def global_cafecitos(db: Session, now: datetime | None = None) -> int:
+    """Los del empuje global (university IS NULL), que le tocan a todo el mundo."""
+    return _cafecitos(db, GameBoost.university.is_(None), now or _now())
+
+
+def multiplier_for(db: Session, university: str | None, now: datetime | None = None) -> float:
+    """Multiplicador vigente de una universidad, con lo global ya sumado.
+
+    Lo global entra siempre, incluso para quien no cargó universidad: es un
+    regalo para todos, y dejar afuera justo al que todavía no eligió sería al
+    revés de lo que se busca.
+    """
+    now = now or _now()
+    total = global_cafecitos(db, now)
+    if university:
+        total += _cafecitos(db, GameBoost.university == university, now)
+    return multiplier_from_cafecitos(total)
+
+
+def applies_to(player: GamePlayer, db: Session, now: datetime | None = None) -> bool:
+    """¿Le corresponde a este jugador el empuje de su universidad?
+
+    No, si se cambió de universidad DESPUÉS de que arrancara el empuje más viejo
+    que sigue vigente. Sin este candado, cada empuje se llenaría de gente que se
+    muda por media hora a la universidad impulsada y la rivalidad entre universidades
+    —que es todo el punto— se muere en una tarde.
+
+    Cargar la universidad por primera vez no cuenta como mudarse: `university_set_at`
+    queda en NULL en ese caso (ver el PATCH de perfil en router.py), así que
+    quien recién se suma y elige su universidad cobra desde el primer momento.
+    """
+    if not player.university or player.university_set_at is None:
+        return True
+    now = now or _now()
+    # Solo los DIRIGIDOS a su universidad: un empuje global no tiene a dónde
+    # mudarse, así que el candado no le aplica.
+    first_started = (
+        db.query(func.min(GameBoost.created_at))
+        .filter(GameBoost.university == player.university, GameBoost.expires_at > now)
+        .scalar()
+    )
+    if first_started is None:
+        return True
+    return player.university_set_at < first_started
+
+
+def multiplier_for_player(
+    db: Session, player: GamePlayer, now: datetime | None = None
+) -> float:
+    now = now or _now()
+    total = global_cafecitos(db, now)
+    if player.university and applies_to(player, db, now=now):
+        total += _cafecitos(db, GameBoost.university == player.university, now)
+    return multiplier_from_cafecitos(total)
+
+
+def active_boosts(db: Session, now: datetime | None = None) -> list[BoostView]:
+    """Empujes vigentes agregados por universidad, del más fuerte al más flojo.
+
+    El nombre que se muestra es el de la donación MÁS RECIENTE de esa universidad:
+    con varias sumadas hay que elegir una, y la última es la que la persona
+    acaba de hacer — es la que espera ver en pantalla.
+    """
+    now = now or _now()
+    rows = (
+        db.query(GameBoost)
+        .filter(GameBoost.expires_at > now)
+        .order_by(GameBoost.created_at.asc())
+        .all()
+    )
+    by_uni: dict[str | None, dict] = {}
+    for row in rows:
+        agg = by_uni.setdefault(
+            row.university, {"cafecitos": 0, "donor_name": None, "expires_at": row.expires_at}
+        )
+        agg["cafecitos"] += row.cafecitos
+        if row.donor_name:
+            agg["donor_name"] = row.donor_name
+        # El cartel muestra un solo reloj por universidad: el del empuje que dura más.
+        agg["expires_at"] = max(agg["expires_at"], row.expires_at)
+
+    views = [
+        BoostView(
+            university=uni,
+            multiplier=multiplier_from_cafecitos(agg["cafecitos"]),
+            cafecitos=agg["cafecitos"],
+            donor_name=agg["donor_name"],
+            expires_in_seconds=max(0, int((agg["expires_at"] - now).total_seconds())),
+        )
+        for uni, agg in by_uni.items()
+    ]
+    # El global primero: le toca a todos, así que es la noticia más grande del
+    # cartel aunque su multiplicador sea más chico que el de alguna universidad.
+    views.sort(key=lambda v: (v.university is None, v.multiplier, v.expires_in_seconds),
+               reverse=True)
+    return views
+
+
+def grant(
+    db: Session,
+    university: str | None,
+    cafecitos: int,
+    donor_name: str | None = None,
+    source: str = "manual",
+    external_ref: str | None = None,
+    minutes: int | None = None,
+    now: datetime | None = None,
+) -> GameBoost | None:
+    """Registra un empuje. Devuelve None si `external_ref` ya se usó.
+
+    La sigla se canonicaliza acá y no en el que llama: el empuje tiene que
+    matchear `game_players.university` exactamente, y esa columna guarda lo que
+    devuelve `canonical_university`.
+    """
+    if cafecitos <= 0:
+        raise ValueError("cafecitos tiene que ser mayor que cero")
+    # None = empuje GLOBAL. Un string vacío, en cambio, es un error de quien
+    # llama: quiso decir una universidad y no le salió.
+    uni = None
+    if university is not None:
+        uni = (canonical_university(university) or "").strip() or None
+        if uni is None:
+            raise ValueError("universidad vacía")
+
+    if external_ref is not None:
+        already = (
+            db.query(GameBoost).filter(GameBoost.external_ref == external_ref).first()
+        )
+        if already is not None:
+            return None
+
+    now = now or _now()
+    if minutes is None:
+        minutes = minutes_for(cafecitos)
+    boost = GameBoost(
+        university=uni,
+        cafecitos=cafecitos,
+        donor_name=(donor_name or None),
+        source=source,
+        external_ref=external_ref,
+        created_at=now,
+        expires_at=now + timedelta(minutes=minutes),
+    )
+    db.add(boost)
+    # El evento sale con el multiplicador YA acumulado, no con el de esta
+    # donación sola: si hay otras vigentes, lo que la gente ve en el cartel es la
+    # suma, y el feed tiene que decir lo mismo.
+    db.flush()
+    events.on_boost(
+        db,
+        university=uni,
+        cafecitos=cafecitos,
+        multiplier=multiplier_for(db, uni, now=now),
+        donor_name=donor_name,
+    )
+    # El ranking va a moverse distinto a partir de ahora: que el pulso avise.
+    simulation.bump_version(db)
+    return boost
+
+
+# --- de la donación al empuje ----------------------------------------------
+
+def record_intent(db: Session, player: GamePlayer, now: datetime | None = None) -> GameBoostIntent:
+    """Anota que este jugador se va a Cafecito. Es la pata que no le pide nada al
+    donante: acá el juego todavía sabe quién es y de qué universidad."""
+    intent = GameBoostIntent(
+        player_id=player.id,
+        university=player.university,
+        created_at=now or _now(),
+    )
+    db.add(intent)
+    db.flush()
+    return intent
+
+
+def pending_intents(db: Session, now: datetime | None = None) -> list[GameBoostIntent]:
+    now = now or _now()
+    return (
+        db.query(GameBoostIntent)
+        .filter(
+            GameBoostIntent.consumed_at.is_(None),
+            GameBoostIntent.university.isnot(None),
+            GameBoostIntent.created_at > now - timedelta(minutes=INTENT_WINDOW_MINUTES),
+        )
+        .order_by(GameBoostIntent.created_at.desc())
+        .all()
+    )
+
+
+def universities_in_message(message: str | None) -> list[str]:
+    """Las siglas que alguien haya escrito en el mensaje de la donación.
+
+    Se parte en palabras y cada una se pasa por el catálogo, en vez de buscar
+    siglas con una regex: "UNT" también aparece adentro de otras palabras, y
+    `canonical_university` ya acepta mayúsculas, minúsculas y el nombre completo.
+    """
+    if not message:
+        return []
+    encontradas: list[str] = []
+    for palabra in re.findall(r"[0-9A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+", message):
+        uni = canonical_university(palabra)
+        # `canonical_university` devuelve el texto tal cual cuando no lo conoce,
+        # así que solo vale si lo que salió es una sigla DEL CATÁLOGO.
+        if uni and uni in _KNOWN_SIGLAS and uni not in encontradas:
+            encontradas.append(uni)
+    return encontradas
+
+
+def resolve_donation(
+    db: Session,
+    cafecitos: int,
+    donor_name: str | None = None,
+    message: str | None = None,
+    external_ref: str | None = None,
+    minutes: int | None = None,
+    now: datetime | None = None,
+) -> list[GameBoost]:
+    """Convierte una donación en uno o más empujes. Nunca devuelve lista vacía.
+
+    La escalera, de más a menos información:
+
+      1. Hay siglas en el mensaje  → esas universidades, más las intenciones
+         abiertas (si dos personas donaron a la vez, cobran las dos).
+      2. No hay siglas, pero sí intenciones → todas esas universidades.
+      3. No hay nada → empuje GLOBAL, para todo el mundo.
+
+    La regla que ordena todo esto es que una donación **nunca** puede terminar en
+    nada: quien pagó tiene que ver algo pasar. Ante la duda se reparte de más —en
+    el peor caso le regalamos el empuje a una universidad que no donó, que no le
+    hace mal a nadie— antes que arriesgarse a no darle nada a quien sí donó.
+    """
+    now = now or _now()
+    if external_ref is not None:
+        ya = db.query(GameBoost).filter(GameBoost.external_ref == external_ref).first()
+        if ya is not None:
+            return []
+
+    intents = pending_intents(db, now=now)
+    destinos: list[str] = list(universities_in_message(message))
+    for i in intents:
+        if i.university and i.university not in destinos:
+            destinos.append(i.university)
+    for i in intents:
+        i.consumed_at = now
+
+    # `external_ref` es UNIQUE, así que con varios destinos solo el primero puede
+    # llevarlo. Alcanza: es la fila que hace que un mail repetido no entre dos
+    # veces, y las demás se crean o no junto con ella en la misma transacción.
+    creados: list[GameBoost] = []
+    for n, destino in enumerate(destinos or [None]):
+        boost = grant(
+            db,
+            university=destino,
+            cafecitos=cafecitos,
+            donor_name=donor_name,
+            source="cafecito" if external_ref else "manual",
+            external_ref=external_ref if n == 0 else None,
+            minutes=minutes,
+            now=now,
+        )
+        if boost is not None:
+            creados.append(boost)
+    return creados

@@ -20,6 +20,12 @@ import { usePathname } from "next/navigation"
 // `children`, no AppChrome) — antes parpadeaba/desaparecía solo en "/".
 const TAB_ROUTES = new Set<string>(["/", "/practice", "/leaderboard", "/profile"])
 
+// El minijuego de derivadas tiene su propio splash ("derivadas", con el logo
+// que después vuela a su lugar) y lo muestra a todo el mundo, con sesión o sin
+// ella. El del shell solo lo ven los logueados, así que sin esta exclusión un
+// usuario de Intervalo vería dos splashes seguidos al abrir el juego.
+const GAME_ROUTE_PREFIX = "/derivadas"
+
 export default function AppChrome({
   children,
   splash,
@@ -30,6 +36,7 @@ export default function AppChrome({
   const pathname = usePathname()
   const leaving = useSessionTransitionLeaving()
   const onTabRoute = TAB_ROUTES.has(pathname)
+  const onGameRoute = pathname.startsWith(GAME_ROUTE_PREFIX)
   const pendingTab = usePendingTab()
 
   // Apaga la bandera de "yéndome a una sesión" apenas se aterriza de nuevo en
@@ -72,7 +79,7 @@ export default function AppChrome({
           )}
         />
       )}
-      {splash && <SplashGate />}
+      {splash && !onGameRoute && <SplashGate />}
     </div>
   )
 }

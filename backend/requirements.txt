@@ -11,3 +11,6 @@ resend
 # del sistema SIN los links de compatibilidad ("America/Buenos_Aires"), que es
 # justo lo que mandan los navegadores. Este paquete es el respaldo de zoneinfo.
 tzdata
+# Minijuego de derivadas (backend/game/): deriva con sympy.diff y valida por
+# equivalencia numérica con lambdify. Sin numpy ni antlr4 a propósito.
+sympy

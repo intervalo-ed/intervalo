@@ -3,6 +3,7 @@
 import { useSplash } from "@/app/splash-context"
 import { usePublicUniversityLeaderboard } from "@/app/UsePublicUniversityLeaderboard"
 import { CountUp } from "@/components/count-up"
+import { GRID_BG_STYLE } from "@/components/grid-bg"
 import { UniTag } from "@/components/university-tag"
 import { XpDots } from "@/components/xp-dots"
 import { SiteFooter } from "@/components/site-footer"
@@ -307,12 +308,6 @@ function tintGridColor(hex: string): string {
 // la unidad, atenuado) — una versión apenas más clara que el fondo, para que
 // se lean como parte de la misma grilla en vez de un hueco.
 const PROGRESS_GRID_INACTIVE_COLOR = mixWithBg("#FFFFFF", 0.12)
-
-const GRID_BG_STYLE = {
-  backgroundImage:
-    "linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)",
-  backgroundSize: "40px 40px",
-}
 
 function renderMath(expr: string) {
   return katex.renderToString(expr, { throwOnError: false, displayMode: true })

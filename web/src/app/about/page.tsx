@@ -1,3 +1,4 @@
+import { GRID_BG_STYLE } from "@/components/grid-bg"
 import { SiteFooter } from "@/components/site-footer"
 import { Wordmark } from "@/components/wordmark"
 import type { Metadata } from "next"
@@ -5,12 +6,6 @@ import Link from "next/link"
 
 export const metadata: Metadata = {
   title: "Acerca de Intervalo",
-}
-
-const GRID_BG_STYLE = {
-  backgroundImage:
-    "linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)",
-  backgroundSize: "40px 40px",
 }
 
 export default function AboutPage() {

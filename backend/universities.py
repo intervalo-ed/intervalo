@@ -126,12 +126,28 @@ def _norm(value: str) -> str:
     return "".join(c for c in decomposed if unicodedata.category(c) != "Mn").strip()
 
 
+_FULL_BY_SIGLA: dict[str, str] = {sigla: nombre for sigla, nombre in UNIVERSITIES}
+
 # normalizado -> sigla. La sigla se inserta antes que el nombre completo para
 # que gane si alguna vez colisionan.
 _BY_NORM: dict[str, str] = {}
 for _key, _full_name in UNIVERSITIES:
     _BY_NORM.setdefault(_norm(_key), _key)
     _BY_NORM.setdefault(_norm(_full_name), _key)
+
+
+def article_for(value: str | None) -> str:
+    """El artículo que le corresponde a una universidad: "la UBA", "el ITBA".
+
+    Se deduce del nombre completo, no de la sigla: casi todas son "Universidad"
+    (femenino) pero hay dos institutos —ITBA y Barceló— que piden "el". Deducirlo
+    en vez de mantener una lista aparte significa que agregar una casa de
+    estudios nueva no obliga a acordarse de nada.
+    """
+    if not value:
+        return "la"
+    nombre = _FULL_BY_SIGLA.get(value.strip())
+    return "el" if nombre and nombre.startswith("Instituto") else "la"
 
 
 def canonical_university(value: str | None) -> str | None:

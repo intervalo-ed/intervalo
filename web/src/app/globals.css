@@ -159,6 +159,18 @@
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading;
   }
+  /* El minijuego (app/derivadas) no usa la serif de los títulos de Intervalo:
+     ahí todo el texto es la sans, y un título en otra familia se lee como si
+     viniera de otra aplicación.
+
+     Va por atributo en la raíz de la ruta y no editando cada <h2> porque varios
+     de esos títulos viven en componentes COMPARTIDOS con el onboarding
+     (components/onboarding-fields.tsx :: CareerSelect, por ejemplo), donde la
+     serif sí corresponde. Y así los títulos que se agreguen al juego más
+     adelante ya nacen bien. */
+  [data-game] :is(h1, h2, h3, h4, h5, h6) {
+    @apply font-sans;
+  }
   * {
     scrollbar-width: thin;
     scrollbar-color: var(--border) transparent;

@@ -2,11 +2,14 @@
 
 import { useInfiniteQuery } from "@tanstack/react-query"
 import { useApi } from "@/lib/api/useApi"
+import { ALL_SCOPE } from "@/components/leaderboard-chrome"
 import { queryKeys } from "@/lib/query/keys"
 import { setLastKnownRank } from "@/lib/nav/ranking-rank"
 
-// Valor del filtro "sin universidad" y tamaño de cada página al scrollear.
-export const ALL = "all"
+// Valor del filtro "sin acotar" y tamaño de cada página al scrollear. El valor
+// lo define el selector compartido: si acá y allá difirieran, el filtro "Todas"
+// se mandaría al backend como si fuera una universidad.
+export const ALL = ALL_SCOPE
 export const PAGE_SIZE = 30
 
 // La primera página pide la ventana centrada en el usuario (`around_me`); las
