@@ -26,7 +26,7 @@ import time
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 
-from sqlalchemy import case, func
+from sqlalchemy import case, func, or_
 from sqlalchemy.orm import Session
 
 from models import GameBoost, GameBoostIntent, GamePlayer
@@ -69,6 +69,25 @@ MIN_PLAYERS_RANKED = 10
 # alguien toca el botón, elige el monto en Cafecito y termina de pagar con Mercado
 # Pago pueden pasar varios minutos.
 INTENT_WINDOW_MINUTES = 30
+
+# El prefijo de `external_ref` con el que firma cada canal de avisos: el socket
+# de alertas de Cafecito (game/cafecito_stream.py) y el mail de Mercado Pago
+# reenviado (game/cafecito_email.py).
+FUENTE_SOCKET = "cafecito:"
+FUENTE_MAIL = "mp:"
+
+# Cuánto puede pasar entre los dos avisos de una MISMA donación.
+#
+# Los dos llegan en segundos y no comparten ningún identificador: el socket trae
+# el nombre que la persona escribió en el formulario, el mail trae un número de
+# operación de Mercado Pago. Lo único que tienen en común es cuánto y cuándo, así
+# que eso es lo que se compara (ver `aviso_repetido`).
+#
+# Tres minutos es holgado para la diferencia entre los dos avisos y corto para lo
+# otro que puede pasar: que dos personas donen la misma cantidad casi juntas. Si
+# eso ocurre, la segunda no se aplica — y por eso el que descarta lo grita en el
+# log, que es lo que permite repararlo después con grant_game_boost.py.
+VENTANA_MISMO_PAGO_S = 180
 
 
 def minutes_for(cafecitos: int) -> int:
@@ -508,6 +527,41 @@ def universities_in_text(*textos: str | None) -> list[str]:
 def universities_in_message(message: str | None) -> list[str]:
     """Compatibilidad: solo el mensaje. Ver `universities_in_text`."""
     return universities_in_text(message)
+
+
+def aviso_repetido(
+    db: Session,
+    cafecitos: int,
+    fuente: str,
+    now: datetime | None = None,
+) -> bool:
+    """Esta misma donación, ¿ya entró por el OTRO canal?
+
+    Existe porque las dos vías son independientes a propósito —cada una tapa el
+    agujero de la otra— y por lo tanto la mayoría de las donaciones se anuncian
+    dos veces. Sin esto, cada cafecito valdría el doble de lo que promete el
+    slider, y el termómetro compartido del CTA («faltan 3 para ×1,5») dejaría de
+    querer decir algo.
+
+    Solo mira los avisos de las OTRAS fuentes, nunca los de la propia: dos
+    eventos del mismo canal ya los deduplica cada canal a su manera, y mezclarlo
+    haría que una donación legítima de la misma cantidad se pierda por venir
+    detrás de otra.
+    """
+    otras = [p for p in (FUENTE_SOCKET, FUENTE_MAIL) if p != fuente]
+    if not otras:
+        return False
+    desde = (now or _now()) - timedelta(seconds=VENTANA_MISMO_PAGO_S)
+    return (
+        db.query(GameBoost.id)
+        .filter(
+            GameBoost.cafecitos == cafecitos,
+            GameBoost.created_at > desde,
+            or_(*[GameBoost.external_ref.like(f"{p}%") for p in otras]),
+        )
+        .first()
+        is not None
+    )
 
 
 def resolve_donation(

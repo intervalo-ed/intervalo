@@ -153,7 +153,7 @@ def _referencia(huella: str, ahora: datetime) -> str:
     rechazaría para siempre una segunda donación idéntica de la misma persona,
     que es algo perfectamente normal.
     """
-    return f"cafecito:{huella}:{int(ahora.timestamp())}"
+    return f"{boosts.FUENTE_SOCKET}{huella}:{int(ahora.timestamp())}"
 
 
 def _ya_aplicado(db, huella: str, ahora: datetime) -> bool:
@@ -171,7 +171,7 @@ def _ya_aplicado(db, huella: str, ahora: datetime) -> bool:
     return (
         db.query(GameBoost.id)
         .filter(
-            GameBoost.external_ref.like(f"cafecito:{huella}:%"),
+            GameBoost.external_ref.like(f"{boosts.FUENTE_SOCKET}{huella}:%"),
             GameBoost.created_at > desde,
         )
         .first()
@@ -207,6 +207,14 @@ def aplicar(evento: dict, ahora: datetime | None = None) -> list[str]:
     try:
         if _ya_aplicado(db, huella, ahora):
             log(f"repetido ({huella}), ignorado")
+            return []
+        # La otra vía ya pudo haber cobrado esta misma donación: el aviso de
+        # Mercado Pago llega tan rápido como éste. Ver boosts.aviso_repetido.
+        if boosts.aviso_repetido(db, cafecitos, boosts.FUENTE_SOCKET, now=ahora):
+            log(
+                f"la donacion de {cafecitos} cafecito(s) ya habia entrado por el "
+                f"mail; no se duplica"
+            )
             return []
         creados = boosts.resolve_donation(
             db,
