@@ -123,13 +123,21 @@ function Fila({ entry, ejemplo }: { entry: GameRecruitEntry; ejemplo?: boolean }
 
 export function ListaDeReclutas({
   entries,
+  // Cuántos renglones de ejemplo mostrar mientras no hay reclutas.
+  //
+  // Cinco en el ranking, donde la lista ES el contenido y cinco llenan la caja.
+  // Tres en la diapo, donde la lista viene detrás del copy y del botón: ahí lo
+  // que tiene que hacer es mostrar la FORMA de lo que va a pasar, y para eso con
+  // tres alcanza. Con cinco empuja al botón fuera de la pantalla de un teléfono.
+  ejemplos = EJEMPLOS.length,
   className,
 }: {
   entries: GameRecruitEntry[]
+  ejemplos?: number
   className?: string
 }) {
   const vacia = entries.length === 0
-  const filas = vacia ? EJEMPLOS : entries
+  const filas = vacia ? EJEMPLOS.slice(0, ejemplos) : entries
   // Sin rótulo que explique que son ejemplos: el borde punteado y la opacidad ya
   // lo dicen, y escribirlo además obligaba a leer un renglón para enterarse de
   // algo que se ve.

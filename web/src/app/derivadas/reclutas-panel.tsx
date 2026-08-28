@@ -167,13 +167,16 @@ export function ReclutasPanel({
           <span className="font-semibold tabular-nums" style={{ color: VERDE }}>
             {porcentaje}%
           </span>{" "}
-          de todo el XP que sumen los que entren por tu link. Para siempre.
+          de todo el XP que generen quienes practiquen gracias a vos.
         </p>
 
         {conLista && (
           <ListaDeReclutas
             className="mt-5"
             entries={reclutas.data?.entries ?? []}
+            // Tres y no cinco: acá la lista viene detrás del copy y del botón, y
+            // cinco renglones empujaban el botón fuera de la pantalla.
+            ejemplos={3}
           />
         )}
 
