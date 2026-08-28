@@ -316,16 +316,25 @@ function useCooldown(segundos: number) {
  */
 function PanelDeVuelta({
   estado,
+  pedidos,
   keyboard,
   onContinue,
 }: {
   estado: GameCafecitoStatus
+  // Cuántos cafecitos dejó marcados la barra antes de irse. Es lo ÚNICO que se
+  // sabe de la donación mientras no está acreditada, y alcanza para no hablarle
+  // en singular a quien pidió cinco.
+  pedidos: number
   keyboard: boolean
   onContinue: () => void
 }) {
   const sfx = useSfx()
   const llego = estado.state === "credited"
-  const varios = estado.cafecitos > 1
+  // Si ya llegó manda el número REAL, que es el que se cobró. Si todavía no,
+  // manda la intención: la barra es una calculadora y quien marcó cinco puede
+  // terminar invitando uno, pero mientras no haya nada acreditado hablarle de
+  // "tu cafecito" a quien pidió cinco suena a que se perdieron cuatro.
+  const varios = llego ? estado.cafecitos > 1 : pedidos > 1
   const minutos = Math.max(1, Math.round(estado.expires_in_seconds / 60))
 
   // Sin cuenta regresiva para salir, al revés que la oferta. Ahí la espera
@@ -352,7 +361,9 @@ function PanelDeVuelta({
           ? varios
             ? "¡Llegaron tus cafecitos!"
             : "¡Llegó tu cafecito!"
-          : "Todavía no llegó tu cafecito"}
+          : varios
+            ? "Todavía no llegaron tus cafecitos"
+            : "Todavía no llegó tu cafecito"}
       </p>
 
       {llego ? (
@@ -571,7 +582,12 @@ export function CafecitoPanel({
       }}
     >
       {volvio && estado !== null && estado.state !== "none" ? (
-        <PanelDeVuelta estado={estado} keyboard={keyboard} onContinue={onContinue} />
+        <PanelDeVuelta
+          estado={estado}
+          pedidos={n}
+          keyboard={keyboard}
+          onContinue={onContinue}
+        />
       ) : (
       <div className="mx-auto w-full max-w-sm">
         {/* La taza y el título son UNA cosa —el encabezado— y la oración de

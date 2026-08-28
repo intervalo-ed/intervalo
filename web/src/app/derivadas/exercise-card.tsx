@@ -10,7 +10,7 @@
 // de las sesiones de Intervalo — el sacudón sale de las opciones del
 // session-runner y el latido de las tablas (components/exercise-table.tsx).
 
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react"
 import { motion, useReducedMotion } from "motion/react"
 import MathText from "@/components/math-text"
 import { Button } from "@/components/ui/button"
@@ -408,6 +408,106 @@ const PROMPT_BOX = cn(
 // —adentro tiene un bloque de KaTeX— así que cualquier ancho calculado a partir
 // del contenido da cero. Con el canal fijo eso deja de importar, y de paso la
 // caja se alinea con el campo y las teclas, que ya viven en el mismo ancho.
+// El cuerpo con el que se dibuja el enunciado si entra, y hasta dónde se lo deja
+// achicar si no.
+//
+// Los 20 px son el `text-[1.25rem]` de PROMPT_BOX, repetidos acá porque el
+// ajuste necesita el número y no la clase. Si alguna vez cambia uno hay que
+// cambiar el otro.
+//
+// El piso de 13 px es el punto en el que una fórmula con subíndices y exponentes
+// todavía se lee en un teléfono. Por debajo, achicar deja de ser un arreglo y
+// pasa a ser otro problema, así que ahí se abandona y vuelve a mandar el
+// `overflow-x-auto` que MathText trae de fábrica. En la práctica no se llega:
+// el enunciado más largo que sirve el juego entra bastante antes.
+const PROMPT_FONT_PX = 20
+const PROMPT_FONT_MIN_PX = 13
+
+/** Achica el enunciado hasta que entra, en vez de dejarlo scrollear.
+ *
+ * KaTeX en modo display no corta línea: una derivada larga se sale de la caja y
+ * MathText la deja scrollear en horizontal. En escritorio eso pasa
+ * desapercibido, pero en un teléfono el enunciado aparecía cortado con una barra
+ * de scroll debajo — y el enunciado es lo único que no se puede no leer.
+ *
+ * Se ajusta el TAMAÑO DE LETRA y no una escala con `transform`: escalar dibuja
+ * el mismo trazado estirado y los palitos de las fracciones quedan con otro
+ * grosor que el resto de la card. Con el cuerpo, KaTeX rearma la fórmula y cada
+ * trazo se dibuja nativo. Es la misma decisión que ya toma la presentación del
+ * logo (game-intro.tsx).
+ *
+ * El estilo se escribe directo en el nodo en vez de pasar por estado: es una
+ * medición, no información que el resto del render necesite, y un `setState` en
+ * un efecto de layout es justo lo que el lint del compilador rechaza. */
+function useAjusteDelEnunciado(
+  promptLatex: string,
+  boxRef?: (node: HTMLDivElement | null) => void,
+) {
+  const cajaRef = useRef<HTMLDivElement | null>(null)
+  const anchoRef = useRef(0)
+
+  const ajustar = useCallback(() => {
+    const caja = cajaRef.current
+    // El bloque de KaTeX: es el que desborda, y el que MathText deja scrollear.
+    const tira = caja?.querySelector<HTMLElement>(":scope > span > span")
+    if (!caja || !tira) return
+    // Siempre se mide desde el tamaño grande: si se midiera desde el tamaño ya
+    // achicado, cada ejercicio heredaría el ajuste del anterior y la fórmula se
+    // iría encogiendo sola.
+    caja.style.fontSize = `${PROMPT_FONT_PX}px`
+    const disponible = tira.clientWidth
+    const necesario = tira.scrollWidth
+    if (disponible === 0 || necesario <= disponible) return
+    caja.style.fontSize = `${Math.max(
+      PROMPT_FONT_MIN_PX,
+      Math.floor((PROMPT_FONT_PX * disponible) / necesario),
+    )}px`
+  }, [])
+
+  const attach = useCallback(
+    (node: HTMLDivElement | null) => {
+      cajaRef.current = node
+      boxRef?.(node)
+    },
+    [boxRef],
+  )
+
+  // Antes de pintar, así el enunciado nunca se ve un fotograma en grande.
+  useLayoutEffect(() => {
+    ajustar()
+  }, [promptLatex, ajustar])
+
+  useEffect(() => {
+    const caja = cajaRef.current
+    if (!caja) return
+    // Solo cuando cambia el ANCHO —girar el teléfono, abrir el teclado del
+    // sistema—. El guard no es decorativo: sin él, cambiar el cuerpo cambia el
+    // alto, el observador vuelve a disparar, se mide de nuevo desde 20 px y el
+    // ajuste entra en un ciclo infinito. El ancho, en cambio, lo fija el canal y
+    // no el contenido, así que achicar la letra no lo mueve.
+    const ro = new ResizeObserver((entries) => {
+      const ancho = entries[0]?.contentRect.width ?? 0
+      if (Math.abs(ancho - anchoRef.current) < 0.5) return
+      anchoRef.current = ancho
+      ajustar()
+    })
+    ro.observe(caja)
+
+    // Y otra vez cuando terminan de cargar las tipografías de KaTeX: hasta que
+    // llegan, la fórmula se mide con la fuente de reemplazo y da otro ancho.
+    let vivo = true
+    void document.fonts?.ready.then(() => {
+      if (vivo) ajustar()
+    })
+    return () => {
+      vivo = false
+      ro.disconnect()
+    }
+  }, [ajustar])
+
+  return attach
+}
+
 function PromptBox({
   promptLatex,
   gone,
@@ -417,6 +517,7 @@ function PromptBox({
   gone: boolean
   boxRef?: (node: HTMLDivElement | null) => void
 }) {
+  const attach = useAjusteDelEnunciado(promptLatex, boxRef)
   return (
     // Al acertar, la fórmula no se desvanece: se ROMPE. Las monedas nacen
     // repartidas a lo largo de esta misma fórmula y caen al fondo de esta misma
@@ -433,7 +534,7 @@ function PromptBox({
     // en el aire. Y sale rápido —100 ms— porque la explosión es el corte: más
     // lento se vería la fórmula conviviendo con sus propios pedazos.
     <div
-      ref={boxRef}
+      ref={attach}
       className={cn(
         PROMPT_BOX,
         PROMPT_H,
