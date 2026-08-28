@@ -9,18 +9,20 @@ la reporta el cliente.
 from __future__ import annotations
 
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
 from fastapi import APIRouter, Depends, Header, HTTPException, Query, Response
 from sqlalchemy import and_ as sa_and, case, func, or_ as sa_or
 from sqlalchemy.exc import IntegrityError
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, load_only
 
-from models import GameAttempt, GameCtaEvent, GameExercise, GamePlayer
+from models import GameAttempt, GameCtaEvent, GameExercise, GamePlayer, User
+from universities import UNIVERSITIES as _UNIVERSIDADES
 from usernames import normalize_username, validate_username
 
 from . import boosts
+from . import limits
 from . import elo
 from . import events as game_events
 from . import keyboard as game_keyboard
@@ -33,6 +35,7 @@ from .deps import (
     get_current_player,
     get_db,
     link_guest_to_user,
+    lock_player,
     player_for_guest_token,
     _clerk_user,
 )
@@ -79,6 +82,51 @@ _GROUP_ID_RE = re.compile(r"[a-z]{2,6}\d{1,5}")
 _UTM_RE = re.compile(r"[a-z]{2,20}")
 
 _KNOWN_CAREERS = ("E", "S", "T", "M")
+
+# Las noventa siglas del catálogo, para reconocer lo que ya está en la lista.
+_SIGLAS_CONOCIDAS = frozenset(sigla for sigla, _ in _UNIVERSIDADES)
+
+# Qué puede tener una universidad escrita a mano. El catálogo tiene noventa
+# siglas, pero el campo "Otra" existe a propósito: alguien de una universidad
+# chica tiene que poder anotarla, y cerrarlo al catálogo sería dejarlo afuera del
+# juego. Así que se acepta texto libre, pero SANEADO.
+#
+# Importa más de lo que parece porque este es el único lugar del juego donde algo
+# que escribe una persona se convierte en contenido compartido: la universidad
+# aparece en el desplegable de filtros de TODOS los jugadores
+# (/leaderboard/summary lo arma con un DISTINCT sobre esta columna), en las filas
+# del ranking, en el ranking de universidades y en el feed de novedades.
+#
+# Letras (con acentos y ñ), dígitos, espacios y los cuatro signos que aparecen en
+# nombres reales. Eso deja afuera enlaces, marcado, emojis y bloques de texto,
+# que es de lo que se trata. Cuarenta caracteres: la sigla más larga del catálogo
+# tiene ocho y el nombre más largo entra cómodo.
+_UNIVERSIDAD_RE = re.compile(r"^[0-9A-Za-zÁÉÍÓÚÜÑáéíóúüñ .&-]+$")
+_MAX_UNIVERSIDAD = 40
+
+# Hasta acá se guarda el LaTeX crudo de una respuesta. El esquema ya rechaza más
+# que esto en la puerta (schemas._MAX_LATEX); esto es el recorte de la columna.
+_MAX_LATEX_GUARDADO = 2000
+
+
+def _universidad_aceptable(texto: str | None) -> str | None:
+    """La universidad tal como se guarda, o None para vaciarla."""
+    if not texto:
+        return None
+    # Los espacios repetidos se colapsan: "UBA        " y "U  B  A" son formas de
+    # ocupar más lugar del que corresponde en una lista compartida.
+    limpio = " ".join(texto.split())
+    if limpio in _SIGLAS_CONOCIDAS:
+        return limpio
+    if len(limpio) > _MAX_UNIVERSIDAD or not _UNIVERSIDAD_RE.fullmatch(limpio):
+        raise HTTPException(
+            status_code=422,
+            detail="Escribí el nombre o la sigla de tu universidad, sin símbolos raros.",
+        )
+    # Tiene que decir algo, no ser solo signos y espacios.
+    if not any(c.isalpha() for c in limpio):
+        raise HTTPException(status_code=422, detail="Eso no parece una universidad.")
+    return limpio
 
 # Plataformas que el cliente puede declarar en X-Game-Platform, espejo del tipo
 # `Platform` de web/src/lib/platform/detect.ts. Cerrado a propósito: lo que no
@@ -162,7 +210,36 @@ def _persist_attribution(
         player.platform = platform
 
 
-@router.post("/player", response_model=GamePlayerCreateResponse)
+def _jugador_del_usuario(db: Session, user: User, x_game_token: str | None) -> GamePlayer:
+    """El jugador de un usuario registrado, fusionando el invitado si hay uno.
+
+    Esta resolución estaba escrita TRES veces —acá, en el alta y en el link
+    explícito— y las tres se comportaban distinto. La diferencia que importaba:
+    solo una llamaba a `on_signup`, así que registrarse por /link nunca anunciaba
+    el registro en el feed y registrarse por /player sí. Con una sola función el
+    resultado no depende de por qué puerta se entró.
+
+    El orden es el que es porque el invitado tiene el progreso: si ya existe un
+    jugador para este usuario se devuelve ese, y si no, se intenta rescatar lo que
+    la persona venía jugando sin cuenta antes de crear uno vacío.
+    """
+    player = db.query(GamePlayer).filter(GamePlayer.user_id == user.id).first()
+    if player is not None:
+        return player
+    guest = player_for_guest_token(db, x_game_token)
+    if guest is not None and guest.user_id is None:
+        return link_guest_to_user(db, guest, user)
+    # Token ausente o de otro usuario: jugador propio nuevo.
+    return create_player_for_user(db, user)
+
+
+@router.post(
+    "/player",
+    response_model=GamePlayerCreateResponse,
+    # Por IP porque todavía no hay jugador. Sesenta por minuto deja pasar un
+    # aula entera detrás del mismo NAT y frena igual un bucle.
+    dependencies=[Depends(limits.por_ip(60))],
+)
 def create_player(
     body: GamePlayerCreateRequest,
     authorization: str = Header(None),
@@ -175,13 +252,7 @@ def create_player(
     el token/user, se devuelve ese."""
     user = _clerk_user(authorization, db)
     if user is not None:
-        player = db.query(GamePlayer).filter(GamePlayer.user_id == user.id).first()
-        if player is None:
-            guest = player_for_guest_token(db, x_game_token)
-            if guest is not None and guest.user_id is None:
-                player = link_guest_to_user(db, guest, user)
-            else:
-                player = create_player_for_user(db, user)
+        player = _jugador_del_usuario(db, user, x_game_token)
         # El feed anuncia el REGISTRO, no el alta de invitado: un invitado se
         # crea en cada primera visita y anunciarlos sería anunciar el tráfico.
         # `on_signup` deduplica por jugador, así que este camino —que se recorre
@@ -217,12 +288,26 @@ def get_me(
 def patch_me(
     body: GameProfilePatchRequest,
     player: GamePlayer = Depends(get_current_player),
+    authorization: str = Header(None),
     db: Session = Depends(get_db),
 ):
     if body.alias is not None:
         if player.user_id is None:
             # Elegir el @ es el gancho del registro.
             raise HTTPException(status_code=403, detail="Registrate para elegir tu @.")
+        # El @ pide la sesión de Clerk, no alcanza el token de invitado.
+        #
+        # Ese token se conserva después de vincular la cuenta a propósito (ver
+        # models.GamePlayer), para que un cliente que todavía lo tenga guardado
+        # siga resolviendo al mismo jugador. El costo es que nunca vence y no se
+        # puede revocar: quien lo tenga sigue autenticando como esa persona para
+        # siempre. Para JUGAR eso es tolerable —el peor caso es que alguien te
+        # sume XP—, pero el @ es la identidad pública de la cuenta, y cambiarlo
+        # es lo único que no se puede deshacer desde el otro lado.
+        if not authorization:
+            raise HTTPException(
+                status_code=403, detail="Iniciá sesión de nuevo para cambiar tu @."
+            )
         alias = normalize_username(body.alias)
         ok, reason = validate_username(alias)
         if not ok:
@@ -235,7 +320,7 @@ def patch_me(
         from universities import canonical_university
 
         # canonical_university ya devuelve la sigla o el texto sin bordes.
-        nueva = (canonical_university(body.university) or "")[:120] or None
+        nueva = _universidad_aceptable(canonical_university(body.university))
         # Solo se marca la MUDANZA, no la primera carga: cargar la universidad por
         # primera vez no puede costarte el empuje que está corriendo, pero
         # mudarte a la universidad impulsada sí (ver boosts.applies_to).
@@ -331,12 +416,49 @@ def _exercise_out(exercise: GameExercise, player: GamePlayer) -> GameExerciseOut
     )
 
 
-@router.post("/next", response_model=GameExerciseOut)
+# Cuánto vale un ejercicio servido antes de que pedir otro sea empezar de nuevo
+# en vez de reintentar. Diez minutos: más que cualquier derivada de la tabla y
+# menos que volver al día siguiente.
+_REINTENTO_NEXT_MINUTOS = 10
+
+
+@router.post(
+    "/next",
+    response_model=GameExerciseOut,
+    dependencies=[Depends(limits.por_jugador(120))],
+)
 def next_exercise(
     player: GamePlayer = Depends(get_current_player),
     x_game_platform: str = Header(None),
     db: Session = Depends(get_db),
 ):
+    # Si ya hay uno abierto y recién servido, se devuelve ESE.
+    #
+    # Sin esto, /next era un salteo gratis: `serve_exercise` vence en bloque lo
+    # que siguiera abierto y sirve otro, sin nada del castigo de /skip —que baja
+    # el θ y corta la racha justamente para que saltear lo difícil no sea la
+    # forma óptima de sostener un combo—. Con la consola abierta se podía
+    # re-tirar hasta que saliera una de una estrella, conservando la racha e
+    # inflando resueltas, XP y puesto.
+    #
+    # De paso lo vuelve idempotente, que es lo que hace falta cuando la respuesta
+    # se pierde en el camino y el teléfono reintenta.
+    abierto = (
+        db.query(GameExercise)
+        .filter(
+            GameExercise.player_id == player.id,
+            GameExercise.status == "served",
+            GameExercise.created_at
+            >= datetime.utcnow() - timedelta(minutes=_REINTENTO_NEXT_MINUTOS),
+        )
+        .order_by(GameExercise.id.desc())
+        .first()
+    )
+    if abierto is not None:
+        out = _exercise_out(abierto, player)
+        db.commit()
+        return out
+
     exercise = serve_exercise(db, player)
     _stamp_platform(player, exercise, _platform(x_game_platform))
     # El armado va ANTES del commit: `_exercise_out` desbloquea teclas sobre el
@@ -367,7 +489,11 @@ def cafecito_intent(
     return Response(status_code=204)
 
 
-@router.post("/skip", response_model=GameExerciseOut)
+@router.post(
+    "/skip",
+    response_model=GameExerciseOut,
+    dependencies=[Depends(limits.por_jugador(120))],
+)
 def skip_exercise(
     body: GameSkipRequest,
     player: GamePlayer = Depends(get_current_player),
@@ -384,6 +510,9 @@ def skip_exercise(
     Tampoco da XP, y como la XP escala con la dificultad, encadenar salteos
     hasta el piso rinde cada vez menos: la mecánica se autolimita.
     """
+    # Ídem /answer: saltear baja el θ y corta la racha.
+    player = lock_player(db, player)
+
     exercise = (
         db.query(GameExercise)
         .filter(GameExercise.id == body.exercise_id, GameExercise.player_id == player.id)
@@ -426,7 +555,12 @@ def _inicio_del_dia() -> datetime:
 
     Los datetime de la base son naive UTC (datetime.utcnow), así que el corte
     hay que traerlo a esa misma escala antes de comparar; hacerlo al revés
-    —convertir cada fila— impediría usar el índice.
+    —convertir cada fila— impediría cualquier uso de índice.
+
+    Hoy la consulta se sostiene por `ix_game_attempts_player_id` y porque
+    MAX_ATTEMPTS deja pocas filas por jugador, no por un índice sobre la fecha:
+    ese no existe. Si algún día los intentos por jugador dejan de ser pocos, lo
+    que hace falta es un índice compuesto (player_id, created_at).
     """
     ahora = datetime.now(_TZ_JUEGO)
     medianoche = ahora.replace(hour=0, minute=0, second=0, microsecond=0)
@@ -446,12 +580,230 @@ def _correctas_de_hoy(db: Session, player_id: int) -> int:
     )
 
 
-@router.post("/answer", response_model=GameAnswerResponse)
+def _registrar_fallo_de_parseo(
+    db: Session,
+    exercise: GameExercise,
+    player: GamePlayer,
+    body: GameAnswerRequest,
+    prior_attempts: int,
+    exc: Exception,
+) -> GameAnswerResponse:
+    """Lo que escribió la persona y el parser no entendió. NO consume intento.
+
+    Se registra igual aunque no cuente. Es la única forma de medir la fricción
+    del input —lo que la gente quiso escribir y el motor no entendió— y esa
+    fricción se lee igual que un error de matemática desde afuera: la persona ve
+    «no pudimos evaluar tu respuesta» y se va. `attempt_number` queda en el valor
+    ANTERIOR (0 en la primera), que es lo que marca la fila como "no consumió
+    intento".
+    """
+    db.add(
+        GameAttempt(
+            exercise_id=exercise.id,
+            player_id=player.id,
+            attempt_number=prior_attempts,
+            answer_latex=(body.answer_latex or "")[:_MAX_LATEX_GUARDADO],
+            answer_parsed=None,
+            parse_ok=False,
+            is_correct=False,
+            response_ms=body.response_ms,
+            xp_awarded=0,
+            created_at=datetime.utcnow(),
+        )
+    )
+    player.last_seen_at = datetime.utcnow()
+    # Se arma ANTES del commit: después, SQLAlchemy expira los atributos del
+    # jugador y cada uno vuelve a la base a releer la fila que este mismo request
+    # acaba de escribir.
+    respuesta = GameAnswerResponse(
+        correct=False,
+        parse_ok=False,
+        parse_error=str(exc) or "no pudimos evaluar tu respuesta",
+        attempt_number=prior_attempts,
+        attempts_left=MAX_ATTEMPTS - prior_attempts,
+        xp_awarded=0,
+        xp_total=player.xp,
+        combo=player.current_combo,
+        combo_bonus=0,
+        exercises_correct=player.exercises_correct,
+        # Sin esto el campo salía en su default (0) y el contador de "ya llevás N
+        # resueltas hoy" se reseteaba a cero con cualquier respuesta que el parser
+        # no entendiera — justo el número que se movió al servidor para que NO se
+        # resetee. Es el tipo de olvido que habilita tener dos constructores de la
+        # respuesta a cien líneas de distancia, y por eso este es una función.
+        correct_today=_correctas_de_hoy(db, player.id),
+    )
+    db.commit()
+    return respuesta
+
+
+def _aplicar_elo(
+    db: Session,
+    exercise: GameExercise,
+    player: GamePlayer,
+    attempt_number: int,
+    correct: bool,
+    *,
+    peeked: bool,
+) -> tuple[int, float | None, float | None]:
+    """Mueve θ, β y la racha. Devuelve (nivel antes, θ antes, θ después).
+
+    Solo el primer intento, y solo si la tabla no estuvo abierta. Con la tabla a
+    la vista el resultado no dice nada sobre el jugador NI sobre la plantilla,
+    así que no mueve θ ni β: meterlo al Elo ensuciaría la calibración con
+    observaciones que no son de nadie. Tampoco cuenta para la rampa (n_updates),
+    por lo mismo.
+
+    El nivel de antes se lee con θ todavía sin tocar: es contra eso que el feed
+    decide si hubo un salto de dificultad (ver events.on_answer).
+    """
+    level_before = elo.level_of(player.theta)
+    # La consulta se persiste en el EJERCICIO y no en el intento: es una
+    # propiedad de la derivada servida (la tabla estuvo abierta mientras esta
+    # estaba en pantalla), no de cada tecleo. Se pega con OR para que un segundo
+    # intento sin mirar no borre que el primero sí miró.
+    if peeked and not exercise.peeked:
+        exercise.peeked = True
+
+    theta_before = theta_after = None
+    if attempt_number != 1:
+        return level_before, theta_before, theta_after
+
+    if not peeked:
+        stat = get_or_create_stat(db, template_for(exercise))
+        theta_before = player.theta
+        theta_after, beta_after = elo.update(
+            player.theta, player.n_updates, stat.beta, stat.n_observations, correct
+        )
+        player.theta = theta_after
+        player.n_updates += 1
+        stat.beta = beta_after
+        stat.n_observations += 1
+        if correct:
+            stat.n_correct += 1
+
+    player.exercises_attempted += 1
+    # La racha no distingue: mirar la tabla no la corta, errar sí.
+    player.current_combo = player.current_combo + 1 if correct else 0
+    player.best_combo = max(player.best_combo, player.current_combo)
+    return level_before, theta_before, theta_after
+
+
+def _otorgar_xp(
+    db: Session,
+    exercise: GameExercise,
+    player: GamePlayer,
+    attempt_number: int,
+    correct: bool,
+    *,
+    peeked: bool,
+) -> tuple[int, int, float]:
+    """Suma la XP de esta respuesta. Devuelve (XP, bonus de racha, multiplicador).
+
+    Se llama DESPUÉS de `_aplicar_elo` porque la XP escala con la racha, y la
+    racha la acaba de mover esa función.
+    """
+    if peeked:
+        xp_awarded, combo_bonus = game_xp.xp_for_peeked(correct)
+    else:
+        xp_awarded, combo_bonus = game_xp.xp_for_answer(
+            attempt_number, correct, exercise.p_hat, player.current_combo
+        )
+
+    # Empuje de la universidad. La regla es "multiplica lo que sea que haya pagado
+    # esta respuesta", sin excepciones: también el XP simbólico de haber mirado la
+    # tabla. Se escalan los DOS números —total y bonus— porque el bonus viaja
+    # aparte en la respuesta, y un "+15 de combo" adentro de un total multiplicado
+    # se lee como un error de cuentas.
+    multiplier = boosts.multiplier_for_player(db, player) if correct else 1.0
+    if multiplier > 1.0:
+        xp_awarded = round(xp_awarded * multiplier)
+        combo_bonus = round(combo_bonus * multiplier)
+
+    if correct:
+        player.xp += xp_awarded
+        player.exercises_correct += 1
+    return xp_awarded, combo_bonus, multiplier
+
+
+def _repetir_ultima_respuesta(
+    db: Session, exercise: GameExercise, player: GamePlayer
+) -> GameAnswerResponse | None:
+    """La respuesta que este ejercicio ya dio, para poder repetirla en un
+    reintento. None si nunca se respondió (ahí sí corresponde el 409).
+
+    Existe por la conexión del público objetivo. El teléfono manda la respuesta,
+    el servidor la procesa y la contesta, y la contestación se pierde en el
+    camino; el cliente reintenta. Con el ejercicio ya cerrado, el reintento se
+    llevaba un 409 pelado: sin XP, sin color, sin la derivada correcta — o sea,
+    la persona ve un error por una respuesta que estuvo bien y que ya le fue
+    contada.
+
+    No se repite todo: los puestos y el récord eran de aquel instante y no se
+    guardan por intento. Lo que se repite es lo que la persona necesita ver —si
+    estuvo bien, cuánta XP ganó y cuál era la respuesta—, sin el festejo de la
+    escalada, que ya ocurrió.
+    """
+    # Solo los RESPONDIDOS. Un ejercicio "expired" —el que vence un reinicio de
+    # progreso, o el que quedó abierto de una partida anterior— puede tener
+    # intentos viejos, y repetir aquella respuesta sería contarle a la persona
+    # algo de una partida que ya no existe. Ahí corresponde el 409, que el
+    # cliente convierte en "pedime otro" (ver el onError de las dos vistas).
+    if exercise.status != "answered":
+        return None
+    ultimo = (
+        db.query(GameAttempt)
+        .filter(GameAttempt.exercise_id == exercise.id, GameAttempt.parse_ok.is_(True))
+        .order_by(GameAttempt.attempt_number.desc(), GameAttempt.id.desc())
+        .first()
+    )
+    if ultimo is None:
+        return None
+    correcto = bool(ultimo.is_correct)
+    return GameAnswerResponse(
+        correct=correcto,
+        parse_ok=True,
+        attempt_number=ultimo.attempt_number,
+        attempts_left=0,
+        xp_awarded=ultimo.xp_awarded,
+        xp_total=player.xp,
+        combo=player.current_combo,
+        combo_bonus=0,
+        exercises_correct=player.exercises_correct,
+        correct_today=_correctas_de_hoy(db, player.id),
+        correct_answer_latex=(
+            latex_es(expr_from_stored(exercise.expected_derivative)) if not correcto else None
+        ),
+        best_rank=player.best_rank,
+    )
+
+
+@router.post(
+    "/answer",
+    response_model=GameAnswerResponse,
+    # Es el endpoint que hace trabajar a sympy. Nadie escribe ciento veinte
+    # derivadas por minuto a mano.
+    dependencies=[Depends(limits.por_jugador(120))],
+)
 def answer_exercise(
     body: GameAnswerRequest,
     player: GamePlayer = Depends(get_current_player),
     db: Session = Depends(get_db),
 ):
+    """Responder una derivada. El orden importa y es este:
+
+    autorizar → contar intentos → PARSEAR Y VALIDAR (acá se decide el veredicto,
+    y es lo único que el cliente necesita para pintar el color) → Elo → XP →
+    cerrar → registrar → puesto y novedades → responder.
+
+    Todo lo que va después de la validación es contabilidad: el cliente ya sabe
+    si acertó porque lo calculó él mismo con la misma regla (ver
+    web/src/app/derivadas/local-verdict.ts).
+    """
+    # Candado del jugador antes de leer nada suyo: esta respuesta va a sumarle XP,
+    # ejercicios y racha, y dos en vuelo se pisan (ver deps.lock_player).
+    player = lock_player(db, player)
+
     exercise = (
         db.query(GameExercise)
         .filter(GameExercise.id == body.exercise_id, GameExercise.player_id == player.id)
@@ -460,6 +812,11 @@ def answer_exercise(
     if exercise is None:
         raise HTTPException(status_code=404, detail="Ejercicio no encontrado")
     if exercise.status != "served":
+        # Reintento sobre algo ya cerrado: se repite el resultado en vez de tirar
+        # un error por una respuesta que quizás estuvo bien.
+        repetida = _repetir_ultima_respuesta(db, exercise, player)
+        if repetida is not None:
+            return repetida
         raise HTTPException(status_code=409, detail="Ese ejercicio ya se cerró")
 
     # Solo cuentan los intentos que PARSEARON: los que no se registran igual
@@ -478,7 +835,6 @@ def answer_exercise(
     expected = expr_from_stored(exercise.expected_derivative)
 
     # Parseo + guardas. Un fallo acá NO consume intento ni mueve el Elo.
-    parse_error: str | None = None
     candidate = None
     try:
         if body.answer_mathjson is None:
@@ -487,97 +843,16 @@ def answer_exercise(
         guard_candidate(candidate)
         correct = numerically_equivalent(expected, candidate)
     except (MathJsonError, AnswerRejected) as exc:
-        parse_error = str(exc) or "no pudimos evaluar tu respuesta"
-        # Se registra aunque no cuente. Es la única forma de medir la fricción
-        # del input —lo que la gente quiso escribir y el parser no entendió— y
-        # esa fricción se lee igual que un error de matemática desde afuera: la
-        # persona ve «no pudimos evaluar tu respuesta» y se va. `attempt_number`
-        # queda en el valor ANTERIOR (0 en la primera), que es lo que marca la
-        # fila como "no consumió intento".
-        db.add(
-            GameAttempt(
-                exercise_id=exercise.id,
-                player_id=player.id,
-                attempt_number=prior_attempts,
-                answer_latex=(body.answer_latex or "")[:2000],
-                answer_parsed=None,
-                parse_ok=False,
-                is_correct=False,
-                response_ms=body.response_ms,
-                xp_awarded=0,
-                created_at=datetime.utcnow(),
-            )
-        )
-        player.last_seen_at = datetime.utcnow()
-        db.commit()
-        return GameAnswerResponse(
-            correct=False,
-            parse_ok=False,
-            parse_error=parse_error,
-            attempt_number=prior_attempts,
-            attempts_left=MAX_ATTEMPTS - prior_attempts,
-            xp_awarded=0,
-            xp_total=player.xp,
-            combo=player.current_combo,
-            combo_bonus=0,
-            exercises_correct=player.exercises_correct,
-        )
+        return _registrar_fallo_de_parseo(db, exercise, player, body, prior_attempts, exc)
 
     rank_before = _rank_of(db, player)
 
-    # Elo: solo el primer intento, y solo si la tabla no estuvo abierta. Con la
-    # tabla a la vista el resultado no dice nada sobre el jugador NI sobre la
-    # plantilla, así que no mueve θ ni β: meterlo al Elo ensuciaría la
-    # calibración con observaciones que no son de nadie. Tampoco cuenta para la
-    # rampa (n_updates), por lo mismo.
-    # El nivel de antes se lee acá, con θ todavía sin tocar: es contra esto que
-    # el feed decide si hubo un salto de dificultad (ver events.on_answer).
-    level_before = elo.level_of(player.theta)
-    # La consulta se persiste en el ejercicio y no en el intento: es una
-    # propiedad de la derivada servida (la tabla estuvo abierta mientras esta
-    # estaba en pantalla), no de cada tecleo. Se pega con OR para que un segundo
-    # intento sin mirar no borre que el primero sí miró.
-    if body.peeked and not exercise.peeked:
-        exercise.peeked = True
-    theta_before = theta_after = None
-    if attempt_number == 1:
-        if not body.peeked:
-            stat = get_or_create_stat(db, template_for(exercise))
-            theta_before = player.theta
-            theta_after, beta_after = elo.update(
-                player.theta, player.n_updates, stat.beta, stat.n_observations, correct
-            )
-            player.theta = theta_after
-            player.n_updates += 1
-            stat.beta = beta_after
-            stat.n_observations += 1
-            if correct:
-                stat.n_correct += 1
-        player.exercises_attempted += 1
-        # La racha no distingue: mirar la tabla no la corta, errar sí.
-        player.current_combo = player.current_combo + 1 if correct else 0
-        player.best_combo = max(player.best_combo, player.current_combo)
-
-    if body.peeked:
-        xp_awarded, combo_bonus = game_xp.xp_for_peeked(correct)
-    else:
-        xp_awarded, combo_bonus = game_xp.xp_for_answer(
-            attempt_number, correct, exercise.p_hat, player.current_combo
-        )
-
-    # Empuje de la universidad. La regla es "multiplica lo que sea que haya pagado
-    # esta respuesta", sin excepciones: también el XP simbólico de haber mirado
-    # la tabla. Se escalan los DOS números —total y bonus— porque el bonus viaja
-    # aparte en la respuesta, y un "+15 de combo" adentro de un total
-    # multiplicado se lee como un error de cuentas.
-    multiplier = boosts.multiplier_for_player(db, player) if correct else 1.0
-    if multiplier > 1.0:
-        xp_awarded = round(xp_awarded * multiplier)
-        combo_bonus = round(combo_bonus * multiplier)
-
-    if correct:
-        player.xp += xp_awarded
-        player.exercises_correct += 1
+    level_before, theta_before, theta_after = _aplicar_elo(
+        db, exercise, player, attempt_number, correct, peeked=body.peeked
+    )
+    xp_awarded, combo_bonus, multiplier = _otorgar_xp(
+        db, exercise, player, attempt_number, correct, peeked=body.peeked
+    )
 
     closed = correct or attempt_number >= MAX_ATTEMPTS
     if closed:
@@ -591,12 +866,16 @@ def answer_exercise(
             template = template_for(exercise)
             feedback = template.generic_feedback if template else GENERIC_FEEDBACK
 
+    # Antes de sumar el intento de esta respuesta, así el conteo no depende de si
+    # la sesión hace autoflush o no; el intento propio se suma después a mano.
+    correctas_hoy_previas = _correctas_de_hoy(db, player.id)
+
     db.add(
         GameAttempt(
             exercise_id=exercise.id,
             player_id=player.id,
             attempt_number=attempt_number,
-            answer_latex=(body.answer_latex or "")[:2000],
+            answer_latex=(body.answer_latex or "")[:_MAX_LATEX_GUARDADO],
             answer_parsed=str(candidate),
             parse_ok=True,
             is_correct=correct,
@@ -609,7 +888,12 @@ def answer_exercise(
     )
     player.last_seen_at = datetime.utcnow()
 
-    rank_after = _rank_of(db, player)
+    # El puesto depende solo de (xp, id), y la XP se mueve únicamente al acertar:
+    # al errar, volver a contar la tabla entera devuelve por definición el mismo
+    # número que `rank_before`. Era el segundo COUNT completo de la respuesta, y
+    # caía justo en el camino más pesado —el de errar, que además paga la
+    # comparación contra los errores predecibles.
+    rank_after = _rank_of(db, player) if correct else rank_before
     if correct:
         # El ranking cambió: el pulso lo va a notar y los demás refrescan.
         simulation.bump_version(db)
@@ -628,9 +912,12 @@ def answer_exercise(
             level_after=elo.level_of(player.theta),
         )
 
-    db.commit()
-
-    return GameAnswerResponse(
+    # La respuesta se arma ENTERA antes del commit. Con `expire_on_commit` en su
+    # valor por defecto, después de comitear cada atributo del jugador que se lea
+    # acá abajo dispara un SELECT para releer la fila que este mismo request
+    # acaba de escribir — eran seis lecturas y una consulta extra a la base, con
+    # el cliente esperando el color.
+    respuesta = GameAnswerResponse(
         correct=correct,
         parse_ok=True,
         attempt_number=attempt_number,
@@ -642,13 +929,15 @@ def answer_exercise(
         combo_bonus=combo_bonus,
         xp_multiplier=multiplier,
         exercises_correct=player.exercises_correct,
-        correct_today=_correctas_de_hoy(db, player.id),
+        correct_today=correctas_hoy_previas + (1 if correct else 0),
         correct_answer_latex=latex_es(expected) if (closed and not correct) else None,
         rank_before=rank_before,
         rank_after=rank_after,
         best_rank=player.best_rank,
         is_record=is_record,
     )
+    db.commit()
+    return respuesta
 
 
 @router.get("/leaderboard/pulse", response_model=GamePulse)
@@ -834,7 +1123,10 @@ def game_leaderboard(
     university: str | None = Query(default=None),
     career: str | None = Query(default=None),
     limit: int = Query(default=50, ge=1, le=200),
-    offset: int = Query(default=0, ge=0),
+    # Con tope: sin él, un ?offset=50000000 es un recorrido de la tabla entera
+    # que cualquiera puede pedir escribiendo en la barra de direcciones. Cien mil
+    # filas es mucho más ranking del que nadie va a scrollear.
+    offset: int = Query(default=0, ge=0, le=100_000),
     around_me: bool = Query(default=False),
     player: GamePlayer = Depends(get_current_player),
     db: Session = Depends(get_db),
@@ -869,6 +1161,25 @@ def game_leaderboard(
 
     page = (
         db.query(GamePlayer)
+        # Solo las columnas que la fila del ranking necesita. Antes traía la
+        # fila ENTERA de hasta doscientos jugadores, incluido `guest_token` —la
+        # credencial de cada uno—, que nunca se serializa pero viajaba desde la
+        # base a la memoria del proceso en cada carga del ranking.
+        .options(
+            load_only(
+                GamePlayer.id,
+                GamePlayer.alias,
+                GamePlayer.xp,
+                GamePlayer.university,
+                GamePlayer.career,
+                GamePlayer.theta,
+                GamePlayer.user_id,
+                GamePlayer.rank_recent,
+                GamePlayer.rank_recent_at,
+                GamePlayer.rank_snapshot,
+                GamePlayer.rank_snapshot_at,
+            )
+        )
         .filter(*scope, visible)
         .order_by(GamePlayer.xp.desc(), GamePlayer.id.asc())
         .offset(page_offset)
@@ -913,13 +1224,11 @@ def link_player(
     user = _clerk_user(authorization, db)
     if user is None:
         raise HTTPException(status_code=401, detail="Authorization header missing")
-    guest = player_for_guest_token(db, x_game_token)
-    if guest is not None and guest.user_id in (None, user.id):
-        player = link_guest_to_user(db, guest, user) if guest.user_id is None else guest
-    else:
-        player = db.query(GamePlayer).filter(GamePlayer.user_id == user.id).first()
-        if player is None:
-            player = create_player_for_user(db, user)
+    player = _jugador_del_usuario(db, user, x_game_token)
+    # Igual que el alta: registrarse se anuncia en el feed, y no importa por cuál
+    # de las dos puertas se haya entrado. `on_signup` deduplica por jugador.
+    game_events.on_signup(db, player)
+    db.commit()
     return _player_out(db, player)
 
 
@@ -929,7 +1238,12 @@ _CTA_KINDS = ("cafecito", "share", "boost_offer", "register")
 _CTA_ACTIONS = ("impression", "click")
 
 
-@router.post("/cta", status_code=204)
+@router.post(
+    "/cta",
+    status_code=204,
+    # Telemetría: escribe una fila por llamada y no tiene deduplicación.
+    dependencies=[Depends(limits.por_jugador(120))],
+)
 def record_cta(
     body: GameCtaRequest,
     player: GamePlayer = Depends(get_current_player),

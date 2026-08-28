@@ -25,6 +25,7 @@ import { useQueryClient } from "@tanstack/react-query"
 import { Settings } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { ApiError } from "@/lib/api/client"
 import { useSfx } from "@/lib/audio/useSfx"
 import {
   CafecitoButton,
@@ -41,6 +42,7 @@ import {
   PANEL_CONTENT,
   SkipButton,
   answerTone,
+  type AnswerTone,
 } from "./exercise-card"
 import { CafecitoPanel } from "./cafecito-panel"
 import { GameIntroLogo, type GameIntro } from "./game-intro"
@@ -50,6 +52,7 @@ import { GameRanking } from "./game-ranking"
 import { HINT_MOBILE, MathInput, type MathInputHandle } from "./math-input"
 import { MathKeyboard } from "./math-keyboard"
 import { parseAnswerToMathJson, warmupComputeEngine } from "./parse-answer"
+import { useLocalVerdict } from "./UseLocalVerdict"
 import { ProfileSlides, RegisterSlide } from "./register-slides"
 import { SettingsPanel } from "./settings-panel"
 import {
@@ -132,6 +135,12 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
   const [slideSeq, setSlideSeq] = useState(0)
   const [exercise, setExercise] = useState<GameExercise | null>(null)
   const [lastAnswer, setLastAnswer] = useState<GameAnswer | null>(null)
+  // El color adelantado por el veredicto local, mientras la respuesta del
+  // servidor viaja. Se descarta apenas llega la de verdad (ver `tone`).
+  const [tonoLocal, setTonoLocal] = useState<AnswerTone>(null)
+  // Si el color y el sonido de ESTA respuesta ya salieron por el veredicto
+  // local, para que la llegada del servidor no los repita.
+  const anticipadoRef = useRef(false)
   // Contador de respuestas, no de aciertos: es lo que hace que el latido y el
   // sacudón vuelvan a correr cuando dos respuestas seguidas comparten tono.
   const [answerSeq, setAnswerSeq] = useState(0)
@@ -204,6 +213,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
       onSuccess: (data) => {
         setExercise(data)
         setLastAnswer(null)
+        setTonoLocal(null)
         setClimbFrom(null)
         servedAtRef.current = Date.now()
         inputRef.current?.clear()
@@ -333,11 +343,28 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
     [goTo, loadNext, solvedCount, player, releaseXp],
   )
 
+  // Deriva el enunciado en cuanto llega, mientras la persona lo lee: cuando
+  // responda, juzgar cuesta diez cuentas.
+  const evaluarLocal = useLocalVerdict(exercise?.prompt_latex ?? null)
+
   const onRevisar = useCallback(async () => {
     if (!exercise || answerMutation.isPending) return
     const latex = inputRef.current?.getLatex() ?? ""
     if (!latex.trim()) return
     const mathjson = await parseAnswerToMathJson(latex)
+
+    // El color y el sonido salen ACÁ si el veredicto local puede decidirlo, sin
+    // esperar el viaje al servidor. La XP, el Elo y el puesto siguen viniendo de
+    // `/answer`: esto solo adelanta lo que ya se sabe.
+    const local = evaluarLocal(mathjson)
+    anticipadoRef.current = local !== null
+    if (local !== null) {
+      setTonoLocal(local ? "correct" : "wrong")
+      setAnswerSeq((n) => n + 1)
+      if (local) sfx.correct()
+      else sfx.wrong()
+    }
+
     answerMutation.mutate(
       {
         exercise_id: exercise.exercise_id,
@@ -348,11 +375,19 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
       {
         onSuccess: (data) => {
           setLastAnswer(data)
-          setAnswerSeq((n) => n + 1)
+          // Manda el servidor: el color local ya cumplió su función.
+          setTonoLocal(null)
+          if (!anticipadoRef.current) setAnswerSeq((n) => n + 1)
           posthog.capture("game_answer", {
             correct: data.correct,
             parse_ok: data.parse_ok,
             attempt: data.attempt_number,
+            // Para poder unir este evento con la fila de game_attempts, que
+            // guarda el MISMO response_ms medido antes de salir a la red: la
+            // resta de los dos relojes es el tiempo de red más servidor.
+            exercise_id: exercise.exercise_id,
+            // Si el veredicto se pudo adelantar, esta respuesta no se esperó.
+            anticipated: anticipadoRef.current,
             tier: exercise.tier,
             stars: exercise.difficulty_stars,
             solved: solvedCount,
@@ -363,7 +398,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
           })
           if (!data.parse_ok) return
           if (data.correct) {
-            sfx.correct()
+            if (!anticipadoRef.current) sfx.correct()
             setSolvedCount((n) => n + 1)
             pendingRef.current = { answer: data }
             // El estallido ocurre ACÁ, en la pantalla donde se acertó y sobre el
@@ -374,16 +409,32 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
             fireXp(data, { hold: true })
             if (data.is_record) posthog.capture("game_record", { best_rank: data.best_rank })
           } else {
-            sfx.wrong()
+            if (!anticipadoRef.current) sfx.wrong()
             if (data.attempts_left === 0) pendingRef.current = { answer: data }
+          }
+        },
+        // Red de seguridad para cualquier desincronización con el server.
+        //
+        // Un 409 acá significa que este ejercicio ya no está servido: lo venció
+        // un reinicio de progreso, lo cerró otra pestaña, o la sesión quedó vieja.
+        // Sin esto el juego se traba —el botón responde y no pasa nada— y la
+        // única salida es recargar la página. Pidiendo otro, se destraba solo.
+        onError: (err) => {
+          if (err instanceof ApiError && err.status === 409) {
+            setExercise(null)
+            setLastAnswer(null)
+            setTonoLocal(null)
+            loadNext()
           }
         },
       },
     )
-  }, [exercise, answerMutation, sfx, solvedCount, fireXp])
+  }, [exercise, answerMutation, sfx, solvedCount, fireXp, evaluarLocal, loadNext])
 
   const closed = lastAnswer?.parse_ok === true && (lastAnswer.correct || lastAnswer.attempts_left === 0)
-  const tone = answerTone(lastAnswer)
+  // La respuesta del servidor manda; el tono local solo cubre el hueco entre el
+  // toque y su llegada.
+  const tone = answerTone(lastAnswer) ?? tonoLocal
 
   // Saltear también en el teléfono: no hay atajo de teclado, pero el botón sí está.
   const onSkip = useCallback(() => {
@@ -402,6 +453,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
           // /next detrás, el ejercicio nuevo entra en el mismo lugar.
           setExercise(data)
           setLastAnswer(null)
+          setTonoLocal(null)
           servedAtRef.current = Date.now()
           inputRef.current?.clear()
           posthog.capture("game_exercise_served", {
@@ -410,9 +462,20 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
             after_skip: true,
           })
         },
+        onError: (err) => {
+          // Ídem responder: si este ejercicio ya no está servido —lo venció un
+          // reinicio, lo cerró otra pestaña— saltear también devolvía 409 y
+          // dejaba el juego trabado. Se pide otro y sigue.
+          if (err instanceof ApiError && err.status === 409) {
+            setExercise(null)
+            setLastAnswer(null)
+            setTonoLocal(null)
+            loadNext()
+          }
+        },
       },
     )
-  }, [exercise, closed, skipMutation, answerMutation.isPending, solvedCount])
+  }, [exercise, closed, skipMutation, answerMutation.isPending, solvedCount, loadNext])
 
   // Todo menos el logo espera a que la presentación lo devuelva a su lugar.
   const chromeStyle: React.CSSProperties = {
@@ -542,6 +605,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                         }}
                         onChange={() => {
                           if (!closed && lastAnswer) setLastAnswer(null)
+                          if (!closed && tonoLocal) setTonoLocal(null)
                         }}
                       />
                     </AnswerField>
@@ -612,6 +676,19 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   if (back.kind !== "exercise") goTo(back)
                   else if (exercise) goTo(back)
                   else loadNext()
+                }}
+                onReset={() => {
+                  refetchPlayer()
+                  // Reiniciar VENCE el ejercicio servido del lado del server, así
+                  // que el que hay acá ya no existe para nadie: se suelta y se
+                  // pide otro. Sin esto quedaba en pantalla una derivada vencida
+                  // y tanto Revisar como Saltear respondían 409 para siempre.
+                  setExercise(null)
+                  setLastAnswer(null)
+                  setTonoLocal(null)
+                  setClimbFrom(null)
+                  pendingRef.current = null
+                  loadNext()
                 }}
                 onNeedsRegister={() => goTo({ kind: "register" })}
               />

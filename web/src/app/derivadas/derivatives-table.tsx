@@ -208,12 +208,23 @@ export function FlipCard({
     setMedias((n) => n + 1)
   }
 
+  // `willChange` solo mientras gira. `preserve-3d` no se puede sacar —es lo que
+  // hace que las dos caras existan en el espacio— pero pedir capa de compositor
+  // de forma permanente para una card que gira dos veces por partida es
+  // sostener memoria de video todo el tiempo a cambio de nada.
+  const [girando, setGirando] = useState(false)
+
   return (
     <div className={cn("relative", className)} style={{ perspective: 1600 }}>
       <motion.div
         className="relative h-full w-full"
-        style={{ transformStyle: "preserve-3d", willChange: "transform" }}
+        style={{
+          transformStyle: "preserve-3d",
+          willChange: girando ? "transform" : undefined,
+        }}
         animate={{ rotateY: medias * 180 }}
+        onAnimationStart={() => setGirando(true)}
+        onAnimationComplete={() => setGirando(false)}
         transition={{ duration: FLIP_S, ease: FLIP_EASE }}
       >
         {/* `inert` en la cara que no se ve: si no, se puede tabular hasta el

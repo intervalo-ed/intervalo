@@ -11,6 +11,7 @@ from sqlalchemy import (
     ForeignKey,
     UniqueConstraint,
     Index,
+    text,
 )
 from sqlalchemy.orm import relationship
 from database import Base
@@ -593,7 +594,9 @@ class GamePlayer(Base):
     # (usernames.validate_username). El guest recibe uno autogenerado y NO lo
     # edita: elegir el @ es el gancho del registro.
     alias = Column(String(30), unique=True, index=True, nullable=False)
-    university = Column(String(120), nullable=True)
+    # Indexada: se filtra, se agrupa y se ordena por acá en los tres endpoints de
+    # ranking, y en el GROUP BY del feed que corre en cada tick de simulación.
+    university = Column(String(120), nullable=True, index=True)
     # Cuándo se CAMBIÓ la universidad por última vez — NULL si nunca cambió
     # (incluido el caso normal: se cargó una vez y quedó). Es el candado de los
     # empujes por universidad: sin él, un empuje activo se llenaría de gente que se
@@ -762,6 +765,27 @@ class GameAttempt(Base):
     theta_after = Column(Float, nullable=True)
 
     created_at = Column(DateTime, default=datetime.utcnow)
+
+    __table_args__ = (
+        # Un solo intento por número y por ejercicio. El tope de intentos se
+        # chequea con un COUNT sin candado, o sea que solo es consultivo: dos
+        # respuestas en vuelo —un doble toque, o el reintento del teléfono
+        # cuando la primera tardó— podían pasar las dos. Esto lo cierra en la
+        # base, que es el único lugar donde se puede cerrar de verdad.
+        #
+        # PARCIAL, solo sobre lo que parseó: los intentos que el parser no
+        # entendió se guardan a propósito con el número ANTERIOR —no consumen
+        # intento, ver router.answer_exercise— así que se repiten de manera
+        # legítima y no pueden entrar en la restricción.
+        Index(
+            "uq_game_attempts_slot",
+            "exercise_id",
+            "attempt_number",
+            unique=True,
+            sqlite_where=text("parse_ok"),
+            postgresql_where=text("parse_ok"),
+        ),
+    )
 
 
 class GameBoost(Base):

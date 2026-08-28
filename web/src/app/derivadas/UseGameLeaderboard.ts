@@ -22,6 +22,20 @@ export const PAGE_SIZE = 30
 // tick de simulación del servidor (game/simulation.py :: TICK_SECONDS).
 const PULSE_INTERVAL_MS = 10_000
 
+// Qué hacen los dos sondeos cuando la red no contesta.
+//
+// Sin esto seguían saliendo al mismo ritmo para siempre: un teléfono en un
+// subte, un ascensor o un barrio sin señal mantenía dos pedidos cada nueve
+// segundos que no iban a llegar a ningún lado, gastando batería y datos. Con
+// espera creciente, una desconexión larga se calma sola y al volver la señal el
+// siguiente reintento la encuentra.
+//
+// El mismo criterio que UseEnrollMutation.ts, que ya lo tenía.
+const SIN_SEÑAL = {
+  retry: 3,
+  retryDelay: (intento: number) => Math.min(1000 * 2 ** intento, 30_000),
+} as const
+
 // "all" es el valor del selector, no un filtro: se omite del query string.
 function scopeQuery({ university, career }: Scope) {
   return {
@@ -114,6 +128,7 @@ export function useGamePulse({
     refetchIntervalInBackground: false,
     staleTime: 0,
     gcTime: 0,
+    ...SIN_SEÑAL,
   })
 
   const version = pulse.data?.version ?? null
@@ -198,6 +213,7 @@ export function useGameEvents(enabled: boolean) {
     refetchInterval: EVENTS_INTERVAL_MS,
     // Igual que el pulso: una pestaña olvidada no sondea.
     refetchIntervalInBackground: false,
+    ...SIN_SEÑAL,
   })
 }
 

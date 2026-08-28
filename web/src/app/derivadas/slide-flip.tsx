@@ -24,6 +24,7 @@
 // dos caras conviven, y lo que evita que se pisen es el retraso de la entrada —
 // cuando empieza, la anterior ya está de canto.
 
+import { useState } from "react"
 import { AnimatePresence, motion, useReducedMotion } from "motion/react"
 import { cn } from "@/lib/utils"
 
@@ -66,33 +67,62 @@ export function SlideFlip({
     // giro se ve plano (misma razón que en FlipCard).
     <div className={cn("relative", className)} style={{ perspective: 1600 }}>
       <AnimatePresence mode="sync" initial={false}>
-        <motion.div
-          key={slide}
-          // Absoluta para que las dos caras se superpongan durante el cruce en
-          // vez de empujarse. El contenedor es quien tiene que traer el tamaño.
-          className="absolute inset-0 flex min-h-0 flex-col"
-          // `willChange` para que el compositor le dé su capa a la cara ANTES de
-          // empezar a girar: sin esto el primer fotograma se va en promoverla, y
-          // se nota como un tirón al arrancar.
-          style={{ willChange: "transform" }}
-          initial={reduceMotion ? { opacity: 0 } : { rotateY: -90 }}
-          animate={
-            reduceMotion
-              ? { opacity: 1, transition: { duration: FADE_S } }
-              : {
-                  rotateY: 0,
-                  transition: { duration: HALF_S, delay: HALF_S, ease: EASE_ENTRADA },
-                }
-          }
-          exit={
-            reduceMotion
-              ? { opacity: 0, transition: { duration: FADE_S } }
-              : { rotateY: 90, transition: { duration: HALF_S, ease: EASE_SALIDA } }
-          }
-        >
+        <Cara key={slide} reduceMotion={reduceMotion}>
           {children}
-        </motion.div>
+        </Cara>
       </AnimatePresence>
     </div>
+  )
+}
+
+/** Una cara del giro. Va aparte solo para que cada una lleve su propio estado de
+ *  «me estoy animando», que es lo que decide si pide capa de compositor. */
+function Cara({
+  reduceMotion,
+  children,
+}: {
+  reduceMotion: boolean | null
+  children: React.ReactNode
+}) {
+  // Arranca en true porque la animación de entrada empieza en el mismo momento
+  // en que esto se monta.
+  const [girando, setGirando] = useState(true)
+  return (
+    <motion.div
+      // Absoluta para que las dos caras se superpongan durante el cruce en
+      // vez de empujarse. El contenedor es quien tiene que traer el tamaño.
+      className="absolute inset-0 flex min-h-0 flex-col"
+      // `willChange` para que el compositor le dé su capa a la cara ANTES de
+      // empezar a girar: sin esto el primer fotograma se va en promoverla, y
+      // se nota como un tirón al arrancar.
+      //
+      // Pero SOLO mientras gira. Antes quedaba puesto para siempre, y lo que hay
+      // adentro de estas caras no es poco: el campo de MathLive con su shadow DOM
+      // y los veintiocho botones del teclado, más el ranking cuando el giro es el
+      // del panel entero. En escritorio hay dos SlideFlip anidados, así que eran
+      // varias capas de pantalla completa sostenidas toda la sesión — en una GPU
+      // integrada con memoria compartida, que es la de la mayoría de los
+      // teléfonos y notebooks del público, eso es de donde salen las recargas de
+      // pestaña.
+      style={{ willChange: girando ? "transform" : undefined }}
+      onAnimationStart={() => setGirando(true)}
+      onAnimationComplete={() => setGirando(false)}
+      initial={reduceMotion ? { opacity: 0 } : { rotateY: -90 }}
+      animate={
+        reduceMotion
+          ? { opacity: 1, transition: { duration: FADE_S } }
+          : {
+              rotateY: 0,
+              transition: { duration: HALF_S, delay: HALF_S, ease: EASE_ENTRADA },
+            }
+      }
+      exit={
+        reduceMotion
+          ? { opacity: 0, transition: { duration: FADE_S } }
+          : { rotateY: 90, transition: { duration: HALF_S, ease: EASE_SALIDA } }
+      }
+    >
+      {children}
+    </motion.div>
   )
 }

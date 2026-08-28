@@ -1,12 +1,17 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useSyncExternalStore } from "react"
 import { useAuth } from "@clerk/nextjs"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { readAttribution } from "@/lib/analytics/attribution"
 import { unwrap } from "@/lib/api/client"
 import type { components } from "@/lib/api/schema"
-import { readGameToken, saveGameToken } from "./game-storage"
+import {
+  getGameTokenServerSnapshot,
+  getGameTokenSnapshot,
+  saveGameToken,
+  subscribeGameToken,
+} from "./game-storage"
 import { useGameApi } from "./UseGameApi"
 
 export type GamePlayer = components["schemas"]["GamePlayerOut"]
@@ -39,6 +44,33 @@ export function useCachedPlayer(): GamePlayer | null {
   return data ?? null
 }
 
+/** El token del invitado, como valor REACTIVO.
+ *
+ * Leerlo con `readGameToken()` directamente en el cuerpo de un componente no
+ * sirve: es una lectura no reactiva y el compilador la memoiza (ver el comentario
+ * largo en game-storage.ts). Acá el token entra por `useSyncExternalStore`, así
+ * que crear al invitado vuelve a renderizar a quien lo esté esperando. */
+export function useGameToken(): string | null {
+  return useSyncExternalStore(
+    subscribeGameToken,
+    getGameTokenSnapshot,
+    getGameTokenServerSnapshot,
+  )
+}
+
+// El alta corre UNA vez por carga de página, no una por componente montado.
+//
+// `useGamePlayer` se monta dos veces —GameRoot y, apenas `usePlatform` resuelve,
+// el layout que eligió— y con una guarda por instancia las dos disparaban el
+// POST. En una primera visita ninguna de las dos lleva token todavía, así que el
+// server creaba DOS invitados y uno quedaba huérfano (con su fila en el ranking).
+// En 3G, donde la primera respuesta no llega antes de que salga la segunda, era
+// el caso normal y no el raro.
+//
+// Se libera si el alta falla, para que un error de red no deje al juego sin
+// jugador para siempre.
+let bootstrapStarted = false
+
 // Alta/bootstrap del jugador. POST /player es idempotente: sin credenciales
 // crea un guest (y guardamos el token), con token devuelve el existente, y con
 // sesión de Clerk crea/devuelve el jugador del usuario — linkeando al guest si
@@ -47,7 +79,7 @@ export function useGamePlayer() {
   const api = useGameApi()
   const queryClient = useQueryClient()
   const { isSignedIn, isLoaded } = useAuth()
-  const bootstrapped = useRef(false)
+  const token = useGameToken()
 
   const ensure = useMutation({
     mutationFn: async () => {
@@ -64,28 +96,36 @@ export function useGamePlayer() {
       if (data.guest_token) saveGameToken(data.guest_token)
       queryClient.setQueryData(gameKeys.me, data.player)
     },
+    onError: () => {
+      bootstrapStarted = false
+    },
   })
 
   const me = useQuery({
     queryKey: gameKeys.me,
     queryFn: async () => unwrap(await api.GET("/game/derivemos/me")),
-    // Sin identidad no hay quien preguntar: el bootstrap la crea primero.
-    enabled: isLoaded && (isSignedIn || readGameToken() !== null),
+    // Sin identidad no hay quien preguntar: el bootstrap la crea primero. El
+    // token viene del store reactivo, así que en cuanto el alta lo guarda esta
+    // query se activa sola.
+    enabled: isLoaded && (isSignedIn || token !== null),
     staleTime: 30_000,
     retry: 1,
   })
 
   const ensureMutate = ensure.mutate
   useEffect(() => {
-    if (!isLoaded || bootstrapped.current) return
-    bootstrapped.current = true
+    if (!isLoaded || bootstrapStarted) return
+    bootstrapStarted = true
     ensureMutate()
   }, [isLoaded, ensureMutate])
 
   return {
     player: me.data ?? ensure.data?.player ?? null,
     isSignedIn: isSignedIn ?? false,
-    refetch: () => queryClient.invalidateQueries({ queryKey: gameKeys.me }),
+    // `refetchQueries` y no `invalidateQueries`: quien llama a esto acaba de
+    // cambiar el @ o la universidad y necesita el valor nuevo YA, no marcado
+    // como viejo para la próxima.
+    refetch: () => queryClient.refetchQueries({ queryKey: gameKeys.me }),
     ensurePlayer: ensureMutate,
     error: me.error ?? ensure.error ?? null,
   }

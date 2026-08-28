@@ -316,9 +316,18 @@ export function OrbScatter({
         if (medida) mesaOrigen = medida
       }
 
+      // Se lee acá arriba —y no más abajo, donde se usa— porque de esto depende
+      // si hace falta medir la mesa en este frame.
+      const cfg = collectRef.current
+
       // ── La mesa se corre con su slide ──────────────────────────────────────
+      // Solo mientras el imán está suelto. Medir la caja es un
+      // getBoundingClientRect, o sea obligar al navegador a recalcular el layout,
+      // y antes de que la persona toque Continuar la mesa no se está yendo a
+      // ningún lado: en el teléfono las bolas pueden quedarse ahí esperando
+      // varios minutos, y esto corría a 60 Hz todo ese tiempo.
       let mesaSeCorrio = false
-      if (mesaOrigen !== null && ts < seguirHasta) {
+      if (mesaOrigen !== null && cfg && ts < seguirHasta) {
         const ahora = areaRef.current?.()
         if (ahora) {
           const x = ahora.left - mesaOrigen.left
@@ -329,7 +338,6 @@ export function OrbScatter({
       }
 
       // ── Despacho hacia el imán ─────────────────────────────────────────────
-      const cfg = collectRef.current
       // El pase de slide arranca con el mismo toque que suelta el imán, así que
       // el rastreo de la mesa se abre acá y se cierra solo.
       if (cfg && seguirHasta === Infinity) seguirHasta = ts + FOLLOW_MS
@@ -371,6 +379,10 @@ export function OrbScatter({
       // están quietas sobre ella, pero en pantalla se corren igual.
       let moved = mesaSeCorrio
       let anyAlive = false
+      // ¿Hay alguna bola con velocidad en este frame? Es lo que decide si vale la
+      // pena resolver choques: con todas frenadas no hay nada que resolver, y el
+      // frame anterior —el último en el que algo se movió— ya las separó.
+      let enMovimiento = false
       const rodando: Orb[] = []
 
       for (const o of orbs) {
@@ -394,6 +406,7 @@ export function OrbScatter({
         const speed = Math.hypot(o.vx, o.vy)
         if (speed > 0) {
           moved = true
+          enMovimiento = true
           // Roce del paño: frena parejo, en la dirección en que va. El `min` es lo
           // que la deja PARADA en vez de hacerla retroceder cuando el frenado del
           // frame es más grande que lo que le queda de velocidad.
@@ -436,13 +449,19 @@ export function OrbScatter({
 
       // Choques entre bolas. Todos contra todos: son catorce como mucho, o sea 91
       // pares, y cualquier estructura para acelerarlo costaría más que la cuenta.
-      for (let i = 0; i < rodando.length; i++) {
-        for (let j = i + 1; j < rodando.length; j++) {
-          const a = rodando[i]
-          const b = rodando[j]
-          const before = a.vx + a.vy + b.vx + b.vy
-          collide(a, b)
-          if (a.vx + a.vy + b.vx + b.vy !== before) moved = true
+      //
+      // Con la mesa quieta se saltea entero. No cambia nada —dos bolas frenadas
+      // no se pueden chocar, y el último frame con movimiento ya las separó— y es
+      // lo que hace que esperar con las bolas en la mesa no cueste nada.
+      if (enMovimiento) {
+        for (let i = 0; i < rodando.length; i++) {
+          for (let j = i + 1; j < rodando.length; j++) {
+            const a = rodando[i]
+            const b = rodando[j]
+            const before = a.vx + a.vy + b.vx + b.vy
+            collide(a, b)
+            if (a.vx + a.vy + b.vx + b.vy !== before) moved = true
+          }
         }
       }
 

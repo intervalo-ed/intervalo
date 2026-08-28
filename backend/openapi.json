@@ -420,6 +420,7 @@
           "game"
         ],
         "summary": "Answer Exercise",
+        "description": "Responder una derivada. El orden importa y es este:\n\nautorizar \u2192 contar intentos \u2192 PARSEAR Y VALIDAR (ac\u00e1 se decide el veredicto,\ny es lo \u00fanico que el cliente necesita para pintar el color) \u2192 Elo \u2192 XP \u2192\ncerrar \u2192 registrar \u2192 puesto y novedades \u2192 responder.\n\nTodo lo que va despu\u00e9s de la validaci\u00f3n es contabilidad: el cliente ya sabe\nsi acert\u00f3 porque lo calcul\u00f3 \u00e9l mismo con la misma regla (ver\nweb/src/app/derivadas/local-verdict.ts).",
         "operationId": "answer_exercise_game_derivemos_answer_post",
         "parameters": [
           {
@@ -817,6 +818,7 @@
             "required": false,
             "schema": {
               "type": "integer",
+              "maximum": 100000,
               "minimum": 0,
               "default": 0,
               "title": "Offset"
@@ -3469,6 +3471,7 @@
           },
           "answer_latex": {
             "type": "string",
+            "maxLength": 2000,
             "title": "Answer Latex"
           },
           "answer_mathjson": {
@@ -3477,7 +3480,9 @@
           "response_ms": {
             "anyOf": [
               {
-                "type": "integer"
+                "type": "integer",
+                "maximum": 86400000.0,
+                "minimum": 0.0
               },
               {
                 "type": "null"
@@ -3682,10 +3687,12 @@
         "properties": {
           "cta": {
             "type": "string",
+            "maxLength": 32,
             "title": "Cta"
           },
           "action": {
             "type": "string",
+            "maxLength": 32,
             "title": "Action"
           },
           "placement": {
@@ -3703,7 +3710,9 @@
           "solved": {
             "anyOf": [
               {
-                "type": "integer"
+                "type": "integer",
+                "maximum": 1000000.0,
+                "minimum": 0.0
               },
               {
                 "type": "null"
@@ -4020,7 +4029,8 @@
           "group_id": {
             "anyOf": [
               {
-                "type": "string"
+                "type": "string",
+                "maxLength": 32
               },
               {
                 "type": "null"
@@ -4031,7 +4041,8 @@
           "utm_source": {
             "anyOf": [
               {
-                "type": "string"
+                "type": "string",
+                "maxLength": 32
               },
               {
                 "type": "null"
@@ -4173,7 +4184,8 @@
           "alias": {
             "anyOf": [
               {
-                "type": "string"
+                "type": "string",
+                "maxLength": 40
               },
               {
                 "type": "null"
@@ -4184,7 +4196,8 @@
           "university": {
             "anyOf": [
               {
-                "type": "string"
+                "type": "string",
+                "maxLength": 120
               },
               {
                 "type": "null"
@@ -4195,7 +4208,8 @@
           "career": {
             "anyOf": [
               {
-                "type": "string"
+                "type": "string",
+                "maxLength": 8
               },
               {
                 "type": "null"

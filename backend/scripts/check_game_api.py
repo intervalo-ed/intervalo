@@ -15,6 +15,7 @@ Sale con código 1 si algo falla.
 import json
 import os
 import sys
+import time
 import tempfile
 from pathlib import Path
 
@@ -141,12 +142,22 @@ check(
 )
 check(j["attempts_left"] == 0, "ejercicio cerrado")
 
+# Reintento sobre un ejercicio ya cerrado. Antes daba un 409 pelado; ahora repite
+# el resultado que ese ejercicio ya había dado. Es el caso de la conexión que se
+# corta después de que el server respondió: el cliente reintenta y no puede
+# llevarse un error por una respuesta que estuvo bien y que ya le fue contada.
+# Se manda una respuesta DISTINTA y equivocada a propósito: lo que vuelve tiene
+# que ser el resultado guardado, no una evaluación nueva.
 r = client.post(
     "/game/derivemos/answer",
     headers=H,
     json={"exercise_id": forced_id, "answer_latex": "x", "answer_mathjson": "x"},
 )
-check(r.status_code == 409, "responder un ejercicio cerrado -> 409")
+check(r.status_code == 200, f"reintentar un ejercicio cerrado responde 200 (dio {r.status_code})")
+j = r.json()
+check(j["correct"] is True, "y repite que estuvo bien, no re-evalua lo que se mando")
+check(j["xp_awarded"] == expected_second, f"con la XP que se habia ganado (dio {j['xp_awarded']})")
+check(j["attempts_left"] == 0, "y sigue cerrado")
 
 print("3. perfil")
 r = client.patch("/game/derivemos/me", headers=H, json={"alias": "pirata123"})
@@ -236,6 +247,22 @@ db.close()
 r = client.post("/game/derivemos/next", headers=H)
 check(r.json()["tier"] == 0, f"tras reiniciar vuelve a tier 0 (dio {r.json()['tier']})")
 
+def cerrar_abiertos(player_id: int) -> None:
+    """Cierra los ejercicios que hayan quedado servidos.
+
+    Hace falta desde que /next devuelve el ejercicio abierto en vez de servir uno
+    nuevo (era un salteo gratis, sin el castigo de /skip). El cliente real nunca
+    pide uno con otro abierto —responde o saltea primero— pero el armado de estos
+    chequeos sí lo hacia.
+    """
+    db = database.SessionLocal()
+    db.query(GameExercise).filter(
+        GameExercise.player_id == player_id, GameExercise.status == "served"
+    ).update({"status": "expired"}, synchronize_session=False)
+    db.commit()
+    db.close()
+
+
 print("6. saltear")
 # Se lo empuja fuera de la rampa y a un θ medio para que la servida no sea T0:
 # saltear desde el piso no tendría nada más fácil que ofrecer.
@@ -249,6 +276,7 @@ theta_before = p.theta
 attempted_before = p.exercises_attempted
 db.close()
 
+cerrar_abiertos(player_id)
 ex = client.post("/game/derivemos/next", headers=H).json()
 check(ex["tier"] > 0, f"el ejercicio a saltear no es del piso (tier {ex['tier']})")
 
@@ -688,6 +716,7 @@ from models import GameExercise as _GEx, GamePlayer as _GP  # noqa: E402
 
 HP = dict(H)
 HP["X-Game-Platform"] = "android"
+cerrar_abiertos(player_id)
 ex_id = client.post("/game/derivemos/next", headers=HP).json()["exercise_id"]
 db.expire_all()
 check(
@@ -697,6 +726,7 @@ check(
 
 HB = dict(H)
 HB["X-Game-Platform"] = "commodore64"
+cerrar_abiertos(player_id)
 ex_id = client.post("/game/derivemos/next", headers=HB).json()["exercise_id"]
 db.expire_all()
 check(
@@ -820,6 +850,199 @@ check(mins(b3) == game_boosts.BOOST_MINUTES,
 check(mins(b2) == game_boosts.BOOST_MINUTES_MAX,
       f"solo el tope llega a la hora ({mins(b2)} min)")
 db.close()
+
+print("12b. pedir otro con uno abierto no es un salteo gratis")
+# Antes /next vencia lo que hubiera abierto y servia otro SIN el castigo de
+# /skip, que baja el theta y corta la racha. Con la consola abierta eso permitia
+# re-tirar hasta que saliera una facil conservando la racha, inflando resueltas,
+# XP y puesto. Ahora devuelve el que ya estaba.
+cerrar_abiertos(player_id)
+db = database.SessionLocal()
+p = db.query(GamePlayer).filter(GamePlayer.id == player_id).first()
+p.current_combo = 7
+db.commit()
+db.close()
+
+primero = client.post("/game/derivemos/next", headers=H).json()
+segundo = client.post("/game/derivemos/next", headers=H).json()
+check(
+    segundo["exercise_id"] == primero["exercise_id"],
+    "pedir otro con uno abierto devuelve el MISMO, no uno nuevo",
+)
+
+db = database.SessionLocal()
+p = db.query(GamePlayer).filter(GamePlayer.id == player_id).first()
+check(p.current_combo == 7, f"y no toca la racha (dio {p.current_combo})")
+db.close()
+
+# Saltear sigue siendo el camino para cambiar de ejercicio, y ese sí cuesta.
+r = client.post(
+    "/game/derivemos/skip", headers=H, json={"exercise_id": primero["exercise_id"]}
+)
+check(r.status_code == 200, "saltear sigue dando uno nuevo")
+check(r.json()["exercise_id"] != primero["exercise_id"], "y es otro ejercicio")
+db = database.SessionLocal()
+p = db.query(GamePlayer).filter(GamePlayer.id == player_id).first()
+check(p.current_combo == 0, "y ese si corta la racha")
+db.close()
+
+print("12c. el teclado sobrevive al registro")
+# El merge invitado -> usuario reparentaba ejercicios e intentos pero se olvidaba
+# unlocked_keys, asi que registrarse borraba toda la progresion del teclado.
+from game import keyboard as _kb  # noqa: E402
+from game.deps import link_guest_to_user as _link  # noqa: E402
+
+db = database.SessionLocal()
+invitado = GamePlayer(guest_token="tok-teclado", alias="tecladito",
+                      unlocked_keys="sen,cos", created_at=datetime.utcnow(),
+                      last_seen_at=datetime.utcnow())
+db.add(invitado)
+db.flush()
+usuario = User(clerk_user_id="clerk-teclado", email="teclado@test.dev", name="Teclado")
+db.add(usuario)
+db.flush()
+ya_tenia = GamePlayer(user_id=usuario.id, alias="conCuenta", unlocked_keys="ln,pow",
+                      created_at=datetime.utcnow(), last_seen_at=datetime.utcnow())
+db.add(ya_tenia)
+db.commit()
+fusionado = _link(db, invitado, usuario)
+check(
+    _kb.parse_unlocked(fusionado.unlocked_keys) == {"sen", "cos", "ln", "pow"},
+    f"el teclado se une, no se pisa (dio {fusionado.unlocked_keys})",
+)
+db.close()
+
+print("14. el parser rebota las bombas antes de construirlas")
+# guard_candidate corre sobre la expresion YA construida, o sea tarde: sympy
+# evalua Integer ** Integer en el acto. Estas guardas van durante el recorrido.
+from game.mathjson import to_sympy as _to_sympy, MathJsonError as _MJE  # noqa: E402
+
+torre = ["Power", 10, 12]
+for _ in range(30):
+    torre = ["Square", torre]
+bombas = [
+    ("10^(10^10)", ["Power", 10, ["Power", 10, 10]]),
+    ("torre de 30 Square", torre),
+    ("Add con 200k hermanos", ["Add"] + [1] * 200_000),
+    ("entero gigante", 10**40),
+]
+for nombre, cuerpo in bombas:
+    t0 = time.perf_counter()
+    try:
+        _to_sympy(cuerpo)
+        check(False, f"{nombre} deberia rebotar y paso")
+    except _MJE:
+        ms = (time.perf_counter() - t0) * 1000
+        check(ms < 50, f"{nombre} rebota en {ms:.1f} ms")
+
+# Y lo que el teclado del juego SI puede escribir tiene que seguir pasando.
+legitimas = [
+    ("3x^2", ["Multiply", 3, ["Power", "x", 2]]),
+    ("x^12", ["Power", "x", 12]),
+    ("(x+1)^2", ["Square", ["Add", "x", 1]]),
+    ("e^(x^2)", ["Exp", ["Power", "x", 2]]),
+    ("1/x^2", ["Divide", 1, ["Power", "x", 2]]),
+    ("raiz(x)", ["Sqrt", "x"]),
+]
+for nombre, cuerpo in legitimas:
+    try:
+        _to_sympy(cuerpo)
+        check(True, f"sigue aceptando {nombre}")
+    except _MJE as e:
+        check(False, f"rechaza la respuesta legitima {nombre}: {e}")
+
+print("15. tope de pedidos")
+from game import limits as _lim  # noqa: E402
+
+_lim.olvidar_todo()
+codigos = [
+    client.post("/game/derivemos/next", headers=H).status_code for _ in range(130)
+]
+check(429 in codigos, "un bucle de pedidos termina cortado (429)")
+check(codigos[0] == 200, "pero los primeros pasan normal")
+check(
+    codigos.index(429) > 100,
+    f"y el corte llega recien despues de 100 (fue en el {codigos.index(429)})",
+)
+_lim.olvidar_todo()
+check(
+    client.post("/game/derivemos/next", headers=H).status_code == 200,
+    "pasada la ventana se puede seguir jugando",
+)
+
+print("16. lo que se escribe a mano no puede ensuciar la lista de todos")
+# La universidad es el unico lugar del juego donde texto de una persona se vuelve
+# contenido compartido: aparece en el desplegable de filtros de TODOS.
+_lim.olvidar_todo()
+def patch_uni(valor):
+    return client.patch("/game/derivemos/me", headers=H, json={"university": valor})
+
+for nombre, valor in [
+    ("una etiqueta", "<script>alert(1)</script>"),
+    ("un enlace", "https://spam.example.com/gana-plata"),
+    ("un bloque de texto", "U" * 200),
+    ("solo signos", "!!!!"),
+]:
+    check(patch_uni(valor).status_code == 422, f"rechaza {nombre}")
+
+for nombre, valor, esperado in [
+    ("la sigla", "uba", "UBA"),
+    ("el nombre completo", "Universidad Nacional de San Martin", "UNSAM"),
+    ("una universidad chica fuera del catalogo", "Instituto Tecnologico del Sur",
+     "Instituto Tecnologico del Sur"),
+]:
+    r = patch_uni(valor)
+    check(r.status_code == 200 and r.json()["university"] == esperado,
+          f"acepta {nombre} (dio {r.json().get('university')!r})")
+
+print("17. los enteros del cliente no pueden tirar un 500")
+# Son columnas Integer: un valor cualquiera rompia el insert DESPUES de haber
+# hecho todo el trabajo, y /cta esta documentado como "nunca falla por contenido".
+_lim.olvidar_todo()
+check(
+    client.post("/game/derivemos/cta", headers=H,
+                json={"cta": "cafecito", "action": "click", "solved": 2**40}).status_code == 422,
+    "un solved gigante se rechaza en la puerta, no revienta en el commit",
+)
+ex_id = client.post("/game/derivemos/next", headers=H).json()["exercise_id"]
+check(
+    client.post("/game/derivemos/answer", headers=H,
+                json={"exercise_id": ex_id, "answer_latex": "0", "answer_mathjson": 0,
+                      "response_ms": 2**40}).status_code == 422,
+    "y un response_ms gigante tambien",
+)
+check(
+    client.post("/game/derivemos/answer", headers=H,
+                json={"exercise_id": ex_id, "answer_latex": "x" * 5000,
+                      "answer_mathjson": "x"}).status_code == 422,
+    "y un latex de cinco mil caracteres no se procesa entero para despues recortarlo",
+)
+
+print("18. reiniciar el progreso no puede dejar el juego trabado")
+# Bug encontrado en produccion: al reiniciar, el server vence el ejercicio
+# servido, pero el cliente seguia mostrandolo. Revisar y Saltear respondian 409
+# para siempre y la unica salida era recargar la pagina.
+#
+# Del lado del server esto esta bien y tiene que seguir estandolo: el ejercicio
+# es de la partida anterior. Lo que se fija acá es el contrato del que depende el
+# arreglo del cliente — que las dos acciones fallen de forma RECONOCIBLE (409, no
+# un 500 ni un 200 mentiroso) y que pedir otro siempre funcione.
+_lim.olvidar_todo()
+ex_viejo = client.post("/game/derivemos/next", headers=H).json()["exercise_id"]
+check(client.post("/game/derivemos/reset", headers=H).status_code == 200, "el reset responde 200")
+
+r = client.post("/game/derivemos/answer", headers=H,
+                json={"exercise_id": ex_viejo, "answer_latex": "0", "answer_mathjson": 0})
+check(r.status_code == 409, f"responder el ejercicio vencido da 409 (dio {r.status_code})")
+r = client.post("/game/derivemos/skip", headers=H, json={"exercise_id": ex_viejo})
+check(r.status_code == 409, f"saltearlo tambien da 409 (dio {r.status_code})")
+
+# Y no repite una respuesta vieja: los intentos que quedaron son de la partida
+# anterior, y contarlos seria hablarle de un juego que ya no existe.
+r = client.post("/game/derivemos/next", headers=H)
+check(r.status_code == 200, "pedir otro siempre funciona: es la salida del cliente")
+check(r.json()["exercise_id"] != ex_viejo, "y es uno nuevo, no el vencido")
+check(r.json()["combo"] == 0, "que arranca con la racha en cero, como corresponde")
 
 print()
 if FAILURES:

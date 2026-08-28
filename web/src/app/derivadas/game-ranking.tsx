@@ -14,7 +14,7 @@
 //   · Muestra el XP en vuelo mientras el confeti se recolecta (`liveXp`), y
 //     recién cuando termina llega el orden nuevo y sube con un FLIP de motion.
 
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
+import { memo, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 import { motion } from "motion/react"
 import { ArrowDown, ArrowUp, LayersIcon, UsersIcon } from "lucide-react"
 import { CountUp } from "@/components/count-up"
@@ -399,36 +399,6 @@ export function GameRanking({
   )
 }
 
-function IndividualRanking({
-  scope,
-  enabled,
-  climbFrom,
-  liveXp,
-  counting,
-  attachXpTarget,
-  centerKey,
-}: {
-  scope: Scope
-  enabled: boolean
-  climbFrom: number | null
-  liveXp: number | null
-  counting: boolean
-  attachXpTarget?: (node: HTMLElement | null) => void
-  centerKey: number
-}) {
-  const boostByUni = useBoostMultipliers()
-  const {
-    data,
-    isLoading,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    fetchPreviousPage,
-    hasPreviousPage,
-    isFetchingPreviousPage,
-  } = useGameLeaderboard(scope, enabled)
-
-  // Al refrescar tras sumar XP, la ventana `around_me` se corre y puede repetir
 // Cada cuánto se aplica UN reordenamiento. El pulso trae los datos cada 10 s, así
 // que hay lugar de sobra para desarmar una tanda en varios pasos sin que se
 // solape con la siguiente.
@@ -438,6 +408,14 @@ const SWAP_MS = 420
 // cruces, se aplica de una. Verlos de a uno tardaría más que el próximo pulso y
 // además nadie sigue catorce movimientos seguidos.
 const MAX_SWAPS = 14
+
+/** ¿Las dos listas ya dicen lo mismo, en el mismo orden? Lineal, para poder
+ *  descartar el caso normal antes de gastar nada. */
+function mismoOrden(a: readonly number[], b: readonly number[]): boolean {
+  if (a.length !== b.length) return false
+  for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return false
+  return true
+}
 
 /** La secuencia de intercambios ENTRE VECINOS que lleva de un orden al otro.
  *
@@ -489,7 +467,14 @@ function useStagedOrder(entries: GameLeaderboardEntry[]): GameLeaderboardEntry[]
   // El orden efectivo: hasta que el intervalo lo llene, el que viene del
   // servidor. Derivado y no un setState en efecto —que el compilador rechaza— y
   // de paso evita que la lista parpadee vacía en el primer render.
-  const shownIds = orderIds.length > 0 ? orderIds : entries.map((e) => e.player_id)
+  //
+  // Memoizado para que su identidad sea estable: es la dependencia de la lista
+  // final, y sin esto había que compararlo armando un `join(",")` de todos los
+  // ids en cada render.
+  const shownIds = useMemo(
+    () => (orderIds.length > 0 ? orderIds : entries.map((e) => e.player_id)),
+    [orderIds, entries],
+  )
 
   useEffect(() => {
     targetRef.current = entries.map((e) => e.player_id)
@@ -498,9 +483,20 @@ function useStagedOrder(entries: GameLeaderboardEntry[]): GameLeaderboardEntry[]
 
   useEffect(() => {
     const id = setInterval(() => {
+      // Con la pestaña tapada no hay a quién contarle el sobrepaso, y este
+      // intervalo es de los pocos que corren toda la sesión: en escritorio el
+      // ranking queda montado de principio a fin.
+      if (typeof document !== "undefined" && document.hidden) return
+
       const target = targetRef.current
       const actual = orderRef.current
       if (target.length === 0) return
+
+      // La salida temprana: casi siempre el orden ya está donde tiene que estar
+      // y no hay nada que hacer. Sin esto, cada latido pagaba el `includes` de
+      // abajo —que es cuadrático— sobre las hasta noventa filas que puede tener
+      // una lista scrolleada, dos veces y media por segundo, para nada.
+      if (queueRef.current.length === 0 && mismoOrden(target, actual)) return
 
       // ¿Cambió el conjunto? Entonces no hay cruces: se aplica entero.
       const mismoConjunto =
@@ -538,11 +534,41 @@ function useStagedOrder(entries: GameLeaderboardEntry[]): GameLeaderboardEntry[]
   // Los datos son SIEMPRE los últimos; lo único escalonado es el orden.
   return useMemo(
     () => shownIds.map((id) => byId.get(id)).filter((e): e is GameLeaderboardEntry => !!e),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [shownIds.join(","), byId],
+    [shownIds, byId],
   )
 }
 
+
+function IndividualRanking({
+  scope,
+  enabled,
+  climbFrom,
+  liveXp,
+  counting,
+  attachXpTarget,
+  centerKey,
+}: {
+  scope: Scope
+  enabled: boolean
+  climbFrom: number | null
+  liveXp: number | null
+  counting: boolean
+  attachXpTarget?: (node: HTMLElement | null) => void
+  centerKey: number
+}) {
+  const boostByUni = useBoostMultipliers()
+  const {
+    data,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchPreviousPage,
+    hasPreviousPage,
+    isFetchingPreviousPage,
+  } = useGameLeaderboard(scope, enabled)
+
+  // Al refrescar tras sumar XP, la ventana `around_me` se corre y puede repetir
   // a alguien que otra página ya traía: sin deduplicar, React vería dos filas
   // con la misma key.
   const rawEntries = useMemo(() => {
@@ -644,7 +670,18 @@ function useStagedOrder(entries: GameLeaderboardEntry[]): GameLeaderboardEntry[]
     }
     prevTopRankRef.current = firstRank
     prevHeightRef.current = el.scrollHeight
-  })
+    // Con dependencias, no en cada render.
+    //
+    // Sin ellas esto corría después de CADA pintado, y lee `scrollHeight`, que
+    // obliga al navegador a recalcular el layout en el acto. Durante el festejo
+    // son catorce renders en menos de dos segundos, cada uno con su reflujo
+    // forzado intercalado entre las escrituras de motion — justo lo que hace que
+    // el momento de acertar se sienta trabado.
+    //
+    // Lo único que puede mover el alto de la lista o el puesto de la primera
+    // fila es que cambien las filas, así que `entries` es toda la dependencia
+    // que hace falta. La XP en vuelo no cambia ninguna de las dos cosas.
+  }, [entries, snapToMe])
 
   // El scroll acompaña la escalada, con retraso. Se acerca solo una fracción del
   // camino en cada paso, así se ve que la fila trepa por la pantalla en vez de
@@ -770,7 +807,7 @@ function useStagedOrder(entries: GameLeaderboardEntry[]): GameLeaderboardEntry[]
     // gente encima", que es cierto; un hueco al pie no dice nada.
     <div
       ref={scrollRef}
-      className="no-scrollbar relative -mx-1 min-h-0 flex-1 overflow-y-auto px-1"
+      className="no-scrollbar relative -mx-1 min-h-0 flex-1 overflow-y-auto overscroll-contain px-1"
     >
       {hasPreviousPage && <div ref={topSentinelRef} aria-hidden className="h-px" />}
       {isFetchingPreviousPage && (
@@ -850,7 +887,21 @@ function filaConEmpuje(multiplier: number): React.CSSProperties {
   } as React.CSSProperties
 }
 
-function Row({
+// `memo` a propósito, y es de las pocas veces que hace falta teniendo el
+// compilador de React activado.
+//
+// El festejo sube el contador una vez por bolita —hasta catorce en menos de dos
+// segundos— y cada una de esas subidas vuelve a correr el `.map()` de la lista.
+// Sin esto, cada tick rehacía las hasta noventa filas que puede tener un ranking
+// scrolleado, y como cada fila es un `motion.li layout`, eso significa noventa
+// mediciones de caja y noventa resortes por bolita. El momento de recompensa
+// —justo donde el juego tiene que verse bien— era el fotograma más caro de la
+// aplicación.
+//
+// Las props de las filas ajenas son todas primitivas más `entry`, que viene
+// estable del caché de la query: la comparación superficial de `memo` alcanza
+// para que solo se rehaga la fila propia, que es la única que cambia.
+const Row = memo(function Row({
   entry,
   shownRank,
   xp,
@@ -925,7 +976,7 @@ function Row({
       </span>
     </motion.li>
   )
-}
+})
 
 // Cuánto espera el cartel antes de cerrarse al salir con el mouse. El contenido
 // se dibuja en un PORTAL, o sea que no es hijo del disparador: sin esta demora,
@@ -1064,7 +1115,7 @@ function UniversityRanking({
   return (
     <div
       ref={scrollRef}
-      className="no-scrollbar relative -mx-1 min-h-0 flex-1 overflow-y-auto px-1"
+      className="no-scrollbar relative -mx-1 min-h-0 flex-1 overflow-y-auto overscroll-contain px-1"
     >
       <ol className="flex flex-col gap-2 py-1">
         {data.rows.map((row, index) => {

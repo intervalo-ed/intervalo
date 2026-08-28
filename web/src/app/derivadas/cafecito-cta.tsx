@@ -58,6 +58,35 @@ export function markCafecitoShown(solvedCount: number) {
   saveCafecitoLastShownAt(solvedCount)
 }
 
+// Lugares cuya impresión ya se registró en esta carga de página.
+//
+// Los dos botones de la barra anotan su impresión al montarse, y el comentario
+// de abajo dice —con razón— que eso tiene que ser una por partida. En escritorio
+// lo era, porque la barra vive fuera de los volteos. En el teléfono no: la barra
+// está adentro del contenedor con `key` que se remonta en cada cambio de slide,
+// así que responder → ranking → continuar → ejercicio anotaba CUATRO impresiones
+// y cuatro POST por ejercicio. Además de gastar datos de un plan medido, eso
+// inflaba por un orden de magnitud el denominador del embudo del cafecito, que
+// es con lo que se decide si el juego se sostiene.
+//
+// Módulo y no ref: la idea es "esta persona tuvo el cafecito adelante", que no
+// depende de cuántas veces React haya montado el botón.
+const impresionesAnotadas = new Set<string>()
+
+function useImpresionPorPartida(
+  cta: ReturnType<typeof useCta>,
+  tipo: "cafecito" | "share",
+  placement: string,
+) {
+  useEffect(() => {
+    const clave = `${tipo}:${placement}`
+    if (impresionesAnotadas.has(clave)) return
+    impresionesAnotadas.add(clave)
+    cta(tipo, "impression", { placement })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+}
+
 export function CafecitoButton({
   placement,
   compact = false,
@@ -79,10 +108,7 @@ export function CafecitoButton({
   // por render sino una por partida: «esta persona tuvo el cafecito adelante».
   // Ese es justo el denominador que hace falta para poder decir qué fracción de
   // los que jugaron llegó a tocarlo.
-  useEffect(() => {
-    cta("cafecito", "impression", { placement })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  useImpresionPorPartida(cta, "cafecito", placement)
   const intent = useCafecitoIntent()
   return (
     <a
@@ -167,10 +193,7 @@ export function ShareButton({
   // Del caché, sin pedir nada: el jugador ya lo trajo el bootstrap y este botón
   // solo necesita mirarlo para saber a qué universidad arengar.
   const player = useCachedPlayer()
-  useEffect(() => {
-    cta("share", "impression", { placement })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  useImpresionPorPartida(cta, "share", placement)
   return (
     <a
       href={shareUrl({ alias: player?.alias, university: player?.university })}

@@ -17,6 +17,7 @@ import posthog from "posthog-js"
 import { useQueryClient } from "@tanstack/react-query"
 import { Settings } from "lucide-react"
 import { GRID_BG_STYLE } from "@/components/grid-bg"
+import { ApiError } from "@/lib/api/client"
 import { useSfx } from "@/lib/audio/useSfx"
 import {
   CafecitoButton,
@@ -34,6 +35,7 @@ import {
   PANEL_CONTENT,
   SkipButton,
   answerTone,
+  type AnswerTone,
 } from "./exercise-card"
 import { DerivativesTable, FlipCard, TableButton } from "./derivatives-table"
 import { GameIntroLogo, type GameIntro } from "./game-intro"
@@ -43,6 +45,7 @@ import { SlideFlip } from "./slide-flip"
 import { MathInput, tipFor, type MathInputHandle } from "./math-input"
 import { MathKeyboard } from "./math-keyboard"
 import { parseAnswerToMathJson, warmupComputeEngine } from "./parse-answer"
+import { useLocalVerdict } from "./UseLocalVerdict"
 import { ProfileSlides, RegisterSlide } from "./register-slides"
 import { EventFeed } from "./event-feed"
 import { outOfFocus } from "./out-of-focus"
@@ -139,6 +142,12 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
 
   const [exercise, setExercise] = useState<GameExercise | null>(null)
   const [lastAnswer, setLastAnswer] = useState<GameAnswer | null>(null)
+  // El color adelantado por el veredicto local, mientras la respuesta del
+  // servidor viaja. Se descarta apenas llega la de verdad (ver `tone`).
+  const [tonoLocal, setTonoLocal] = useState<AnswerTone>(null)
+  // Si el color y el sonido de ESTA respuesta ya salieron por el veredicto
+  // local, para que la llegada del servidor no los repita.
+  const anticipadoRef = useRef(false)
   // Contador de respuestas, no de aciertos: es lo que hace que el latido y el
   // sacudón vuelvan a correr cuando dos respuestas seguidas comparten tono.
   const [answerSeq, setAnswerSeq] = useState(0)
@@ -258,6 +267,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
         // por eso nunca tuvo este problema.
         setNavPanel("exercise")
         setLastAnswer(null)
+        setTonoLocal(null)
         setClimbFrom(null)
         setCafecito(null)
         // Ejercicio nuevo, cuenta limpia: la consulta anterior no lo penaliza.
@@ -297,11 +307,28 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   // ningún camino en el que la partida arranque sola.
   const panel: Panel = navPanel ?? "intro"
 
+  // Deriva el enunciado en cuanto llega, mientras la persona lo lee: cuando
+  // responda, juzgar cuesta diez cuentas.
+  const evaluarLocal = useLocalVerdict(exercise?.prompt_latex ?? null)
+
   const onRevisar = useCallback(async () => {
     if (!exercise || answerMutation.isPending) return
     const latex = inputRef.current?.getLatex() ?? ""
     if (!latex.trim()) return
     const mathjson = await parseAnswerToMathJson(latex)
+
+    // El color y el sonido salen ACÁ si el veredicto local puede decidirlo, sin
+    // esperar el viaje al servidor. La XP, el Elo y el puesto siguen viniendo de
+    // `/answer`: esto solo adelanta lo que ya se sabe.
+    const local = evaluarLocal(mathjson)
+    anticipadoRef.current = local !== null
+    if (local !== null) {
+      setTonoLocal(local ? "correct" : "wrong")
+      setAnswerSeq((n) => n + 1)
+      if (local) sfx.correct()
+      else sfx.wrong()
+    }
+
     answerMutation.mutate(
       {
         exercise_id: exercise.exercise_id,
@@ -313,11 +340,19 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
       {
         onSuccess: (data) => {
           setLastAnswer(data)
-          setAnswerSeq((n) => n + 1)
+          // Manda el servidor: el color local ya cumplió su función.
+          setTonoLocal(null)
+          if (!anticipadoRef.current) setAnswerSeq((n) => n + 1)
           posthog.capture("game_answer", {
             correct: data.correct,
             parse_ok: data.parse_ok,
             attempt: data.attempt_number,
+            // Para poder unir este evento con la fila de game_attempts, que
+            // guarda el MISMO response_ms medido antes de salir a la red: la
+            // resta de los dos relojes es el tiempo de red más servidor.
+            exercise_id: exercise.exercise_id,
+            // Si el veredicto se pudo adelantar, esta respuesta no se esperó.
+            anticipated: anticipadoRef.current,
             tier: exercise.tier,
             stars: exercise.difficulty_stars,
             // Con la tabla abierta la derivada deja de ser una pregunta: sin
@@ -332,10 +367,10 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
           })
           if (!data.parse_ok) return
           if (!data.correct) {
-            sfx.wrong()
+            if (!anticipadoRef.current) sfx.wrong()
             return
           }
-          sfx.correct()
+          if (!anticipadoRef.current) sfx.correct()
           // El imán necesita ver su destino: primero el ranking devuelve la
           // fila propia al centro, y el confeti espera a que asiente.
           setCenterKey((n) => n + 1)
@@ -417,14 +452,30 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
             pendingMilestoneRef.current = "register"
           }
         },
+        // Red de seguridad para cualquier desincronización con el server.
+        //
+        // Un 409 acá significa que este ejercicio ya no está servido: lo venció
+        // un reinicio de progreso, lo cerró otra pestaña, o la sesión quedó vieja.
+        // Sin esto el juego se traba —el botón responde y no pasa nada— y la
+        // única salida es recargar la página. Pidiendo otro, se destraba solo.
+        onError: (err) => {
+          if (err instanceof ApiError && err.status === 409) {
+            setExercise(null)
+            setLastAnswer(null)
+            setTonoLocal(null)
+            loadNext()
+          }
+        },
       },
     )
-  }, [exercise, answerMutation, sfx, solvedCount, player, fireXp])
+  }, [exercise, answerMutation, sfx, solvedCount, player, fireXp, evaluarLocal, loadNext])
 
   const closed =
     lastAnswer?.parse_ok === true &&
     (lastAnswer.correct || lastAnswer.attempts_left === 0)
-  const tone = answerTone(lastAnswer)
+  // La respuesta del servidor manda; el tono local solo cubre el hueco entre el
+  // toque y su llegada.
+  const tone = answerTone(lastAnswer) ?? tonoLocal
 
   // Lo que hace el botón grande. Vive suelto porque lo comparten el click y el
   // Enter, y tienen que hacer exactamente lo mismo.
@@ -492,9 +543,20 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
             after_skip: true,
           })
         },
+        onError: (err) => {
+          // Ídem responder: si este ejercicio ya no está servido —lo venció un
+          // reinicio, lo cerró otra pestaña— saltear también devolvía 409 y
+          // dejaba el juego trabado. Se pide otro y sigue.
+          if (err instanceof ApiError && err.status === 409) {
+            setExercise(null)
+            setLastAnswer(null)
+            setTonoLocal(null)
+            loadNext()
+          }
+        },
       },
     )
-  }, [exercise, closed, skipMutation, answerMutation.isPending, solvedCount])
+  }, [exercise, closed, skipMutation, answerMutation.isPending, solvedCount, loadNext])
 
   // Abrir la tabla marca el ejercicio: la respuesta que venga después no mueve
   // el Elo y paga XP simbólica (el server lo aplica, ver game/router.py).
@@ -954,6 +1016,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                                 // que mandó, no sobre la que escribe.
                                 onChange={() => {
                                   if (!closed && lastAnswer) setLastAnswer(null)
+                                  if (!closed && tonoLocal) setTonoLocal(null)
                                 }}
                               />
                             </AnswerField>
@@ -1071,10 +1134,29 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                         onClose={() => {
                           setSettingsOpen(false)
                           refetchPlayer()
-                          // Reiniciar el progreso borra el ejercicio servido:
-                          // si no se pide otro, la card de la izquierda queda
-                          // en "Preparando…" para siempre.
+                          // Por si se cerró sin ejercicio servido.
                           if (!exercise) loadNext()
+                        }}
+                        onReset={() => {
+                          setSettingsOpen(false)
+                          refetchPlayer()
+                          // Reiniciar VENCE el ejercicio servido del lado del
+                          // server, así que el que hay acá ya no existe para
+                          // nadie: hay que soltarlo y pedir otro.
+                          //
+                          // Antes esto colgaba de `onClose` con un `if
+                          // (!exercise)`, y esa guarda no se cumplía nunca —
+                          // nadie limpiaba `exercise`—, así que después de
+                          // reiniciar quedaba en pantalla una derivada que el
+                          // server ya había vencido: Revisar y Saltear
+                          // respondían 409 y no había forma de salir salvo
+                          // recargando la página.
+                          setExercise(null)
+                          setLastAnswer(null)
+                          setTonoLocal(null)
+                          setClimbFrom(null)
+                          setCafecito(null)
+                          loadNext()
                         }}
                         onNeedsRegister={() => {
                           setSettingsOpen(false)

@@ -151,7 +151,18 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** Answer Exercise */
+        /**
+         * Answer Exercise
+         * @description Responder una derivada. El orden importa y es este:
+         *
+         *     autorizar → contar intentos → PARSEAR Y VALIDAR (acá se decide el veredicto,
+         *     y es lo único que el cliente necesita para pintar el color) → Elo → XP →
+         *     cerrar → registrar → puesto y novedades → responder.
+         *
+         *     Todo lo que va después de la validación es contabilidad: el cliente ya sabe
+         *     si acertó porque lo calculó él mismo con la misma regla (ver
+         *     web/src/app/derivadas/local-verdict.ts).
+         */
         post: operations["answer_exercise_game_derivemos_answer_post"];
         delete?: never;
         options?: never;
