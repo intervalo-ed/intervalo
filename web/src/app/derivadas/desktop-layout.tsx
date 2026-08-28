@@ -162,6 +162,9 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   const [cafecito, setCafecito] = useState<{
     trigger: CafecitoTrigger
     correctToday: number
+    // A dónde se vuelve al salir. Sin esto, quien entró por configuración
+    // terminaba en el ejercicio y perdía lo que estaba haciendo ahí.
+    volverA?: "settings"
   } | null>(null)
   // La tabla está a la vista ahora mismo.
   const [tableOpen, setTableOpen] = useState(false)
@@ -823,7 +826,17 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
             <div className="flex items-center gap-2" style={chromeStyle}>
               <TableButton open={tableOpen} onToggle={toggleTable} />
               <ShareButton placement="header_desktop" />
-              <CafecitoButton placement="header_desktop" compact />
+              <CafecitoButton
+                placement="header_desktop"
+                compact
+                // Voltea la card del ejercicio y muestra la diapo del cafecito,
+                // en vez de mandar directo a Cafecito. El ejercicio no se toca:
+                // sigue en el estado y vuelve entero al salir.
+                onOpen={() => {
+                  setCafecito({ trigger: "pedido", correctToday: 0 })
+                  setNavPanel("cafecito")
+                }}
+              />
             </div>
           </div>
           <div
@@ -928,7 +941,20 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                     university={player?.university ?? null}
                     solved={solvedCount}
                     onPickUniversity={() => setSettingsOpen(true)}
-                    onContinue={loadNext}
+                    onContinue={() => {
+                      const volverA = cafecito.volverA
+                      setCafecito(null)
+                      // La diapo que abrió la persona interrumpió algo que sigue
+                      // ahí y hay que devolvérselo; la que dispara un hito llega
+                      // DESPUÉS de responder, y ahí sí toca pedir el siguiente.
+                      if (cafecito.trigger !== "pedido") {
+                        loadNext()
+                        return
+                      }
+                      setNavPanel("exercise")
+                      if (volverA === "settings") setSettingsOpen(true)
+                      else if (!exercise) loadNext()
+                    }}
                   />
                 ) : panel === "register" && player ? (
                   <div className="flex min-h-0 flex-1 flex-col rounded-lg border border-border bg-card p-5">
@@ -1160,6 +1186,18 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                           setClimbFrom(null)
                           setCafecito(null)
                           loadNext()
+                        }}
+                        onCafecito={() => {
+                          // Cerrar la configuración y abrir la diapo es UN solo
+                          // volteo: la card vuelve a su cara de adelante y del
+                          // otro lado ya está el cafecito.
+                          setSettingsOpen(false)
+                          setCafecito({
+                            trigger: "pedido",
+                            correctToday: 0,
+                            volverA: "settings",
+                          })
+                          setNavPanel("cafecito")
                         }}
                         onNeedsRegister={() => {
                           setSettingsOpen(false)

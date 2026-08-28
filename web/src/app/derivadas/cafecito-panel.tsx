@@ -287,7 +287,19 @@ const TRIGGER_COPY: Record<CafecitoTrigger, { title: string; sub: string }> = {
     title: "¿Café?",
     sub: "Ya llevás un buen montón de derivadas.",
   },
+  // Lo abrió la persona, así que no hay hito que celebrar ni nada que
+  // justificar: vino sola. El subtítulo dice para qué sirve, que es lo único
+  // que agrega valor cuando nadie interrumpió a nadie.
+  pedido: {
+    title: "¿Café?",
+    sub: "Es lo que mantiene el juego en pie.",
+  },
 }
+
+// El único disparador que la persona elige. Cambia dos cosas: no hay cuenta
+// regresiva para salir —nadie la interrumpió, así que retenerla sería cobrarle
+// por haber venido— y al salir vuelve a su ejercicio en vez de pedir uno nuevo.
+const LO_PIDIO = (t: CafecitoTrigger) => t === "pedido"
 
 /** La cuenta regresiva del botón de seguir. Devuelve los segundos que faltan, y
  *  cero cuando ya se puede. El intervalo se limpia solo al desmontar: la diapo
@@ -455,7 +467,7 @@ export function CafecitoPanel({
     trigger === "milestone" && correctToday > 0
       ? `Ya llevás ${correctToday} ${correctToday === 1 ? "derivada resuelta" : "derivadas resueltas"} hoy.`
       : copy.sub
-  const restante = useCooldown(COOLDOWN_S)
+  const restante = useCooldown(LO_PIDIO(trigger) ? 0 : COOLDOWN_S)
   const listo = restante === 0
   const sfx = useSfx()
   const [n, setN] = useState(SLIDER_INICIAL)
@@ -725,7 +737,14 @@ export function CafecitoPanel({
           }}
           className="mt-3 flex w-full items-center justify-center rounded-md border border-border px-4 py-3 text-base text-muted-foreground transition-colors hover:bg-accent hover:text-foreground disabled:pointer-events-none disabled:opacity-45"
         >
-          {listo ? "Ahora no" : `Ahora no (${restante})`}
+          {/* «Ahora no» nombra la decisión de rechazar, y eso solo aplica cuando
+              el juego ofreció. Si la persona abrió la diapo ella misma no está
+              diciendo que no a nada: está volviendo. */}
+          {LO_PIDIO(trigger)
+            ? "Volver"
+            : listo
+              ? "Ahora no"
+              : `Ahora no (${restante})`}
           {keyboard && listo && <KeyCap>{teclas.enter}</KeyCap>}
         </button>
       </div>

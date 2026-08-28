@@ -30,7 +30,7 @@ import { setSoundMuted, useSoundMuted } from "@/lib/audio/sound-settings"
 import { useSfx } from "@/lib/audio/useSfx"
 import { canonicalUniversity } from "@/lib/university-tags"
 import { cn } from "@/lib/utils"
-import { CAFECITO_URL, shareUrl } from "./cafecito-cta"
+import { shareUrl } from "./cafecito-cta"
 import { SlideFlip } from "./slide-flip"
 import { useGameApi } from "./UseGameApi"
 import { useCta } from "./game-telemetry"
@@ -131,6 +131,7 @@ export function SettingsPanel({
   variant = "mobile",
   onClose,
   onReset,
+  onCafecito,
   onNeedsRegister,
 }: {
   player: GamePlayer | null
@@ -141,6 +142,9 @@ export function SettingsPanel({
   // otro. Sale por su propio callback en vez de por `onClose` porque quien lo
   // recibe necesita saber que pasó ESTO y no cualquier cierre.
   onReset: () => void
+  // Abre la diapo del cafecito. Quien monta esto decide a dónde se vuelve
+  // después, porque solo él sabe desde dónde se entró a configuración.
+  onCafecito: () => void
   // El guest no elige su @: ese es el gancho del registro.
   onNeedsRegister: () => void
 }) {
@@ -415,16 +419,29 @@ export function SettingsPanel({
           <Share2 size={16} />
         </a>
 
-        <a
-          href={CAFECITO_URL}
-          target="_blank"
-          rel="noreferrer"
-          onClick={() => cta("cafecito", "click", { placement: "settings" })}
+        {/* Abre la diapo del cafecito, no Cafecito.
+
+            Era un enlace directo, y de los tres caminos que había al mismo lugar
+            este era el peor: NO anotaba la intención. O sea que quien donaba
+            desde acá llegaba al servidor sin nada que lo identificara, y su
+            donación se la repartían las intenciones abiertas de otras personas o
+            terminaba siendo global. Es exactamente la forma en que se pierde una
+            atribución, y ya pasó con una donación real.
+
+            Ahora los tres botones del juego llevan a la misma diapo, que es la
+            única que sabe anotar la intención, mostrar el slider y contarle a la
+            persona qué pasó cuando vuelve. */}
+        <button
+          type="button"
+          onClick={() => {
+            cta("cafecito", "click", { placement: "settings" })
+            onCafecito()
+          }}
           className={cn(rowCls, "border-[#A8703C]/50 text-[#A8703C]")}
         >
           <span>Invitar un cafecito</span>
           <Coffee size={16} />
-        </a>
+        </button>
 
         {/* La salida de emergencia del cafecito que no llegó.
 

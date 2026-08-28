@@ -39,18 +39,33 @@
 //     con espesor adelante y no como algo que está fuera de foco.
 //   · La opacidad termina de fundirlo con el fondo.
 //
-// El estado apagado repite la MISMA lista de funciones con sus valores neutros en
-// vez de `filter: none`. Es lo que permite que la transición interpole: entre dos
-// listas iguales el navegador anima función por función, y contra `none` el
-// resultado depende del motor.
+// LO QUE SE ANIMA ES SOLO LA OPACIDAD. El filtro entra y sale de golpe.
+//
+// Antes se animaban los dos, y para eso el estado nítido repetía la misma lista
+// de funciones con valores neutros —el navegador interpola función por función
+// entre dos listas iguales, y contra `none` el resultado depende del motor—. Se
+// veía lindo y costaba caro: animar un filtro obliga a volver a rasterizar todo
+// el subárbol en CADA fotograma, y el subárbol acá es el ranking entero con sus
+// filas, el historial y la barra del @. Medio segundo de eso, justo en el
+// instante en que alguien toca «Empezar»: la primera impresión del juego era el
+// fotograma más caro de la pantalla.
+//
+// Sacando el filtro de la transición se gana dos veces. Durante el cambio no hay
+// re-rasterizado, y una vez adentro del juego —que es casi todo el tiempo— el
+// estado nítido ya no tiene filtro NINGUNO, así que tampoco queda un contexto de
+// filtrado colgado sobre esos tres subárboles.
+//
+// El costo es que el contenido se ve nítido de una en vez de aclararse de a poco.
+// La opacidad, que sí se anima, es lo que sostiene la sensación de que algo
+// despierta; el enfoque pasa a ser instantáneo.
+//
 // Las dos clases van ENTERAS y literales, sin armarlas por partes: Tailwind
 // encuentra las clases leyendo el código como texto, así que una construida con
 // template no existe en el CSS final. Es la misma razón por la que en este
 // proyecto los colores interpolados van por `style` y no por clase.
 const VIDRIO =
-  "pointer-events-none opacity-60 [filter:blur(3px)_saturate(0.45)_contrast(0.8)_brightness(1.15)] transition-[filter,opacity] duration-500"
-const NITIDO =
-  "opacity-100 [filter:blur(0px)_saturate(1)_contrast(1)_brightness(1)] transition-[filter,opacity] duration-500"
+  "pointer-events-none opacity-60 [filter:blur(3px)_saturate(0.45)_contrast(0.8)_brightness(1.15)] transition-opacity duration-500"
+const NITIDO = "opacity-100 transition-opacity duration-500"
 
 export function outOfFocus(on: boolean): string {
   return on ? VIDRIO : NITIDO
