@@ -217,6 +217,17 @@ def _pct_txt(v) -> str:
     return "—" if v is None else num(v, "%")
 
 
+def _origen_chip(source: str | None) -> str:
+    """Etiqueta de dónde salió un empuje.
+
+    El grant a mano se pinta apagado y no de color: la fila entera existe para
+    que se note que ese lift lo provocamos nosotros, y un chip vistoso lo haría
+    competir visualmente con una donación de verdad."""
+    if source == "cafecito":
+        return '<span class="tag" style="border-color:#5ee08a;color:#5ee08a">donado</span>'
+    return '<span class="tag tag-plain">a mano</span>'
+
+
 def week_of_today() -> date:
     from .queries import local_date, week_start
     return week_start(local_date(datetime.utcnow()))
@@ -471,13 +482,19 @@ def page(p: dict, *, token: str) -> str:
     ca = p["cafecito"]
     caf_rows = [[lab, num(r["impresiones"]), num(r["vieron"]), num(r["clicks"]),
                  _pct_txt(r["ctr"]), num(r["empujes"]), num(r["cafecitos"]),
-                 num(r["por_click"])]
+                 num(r["por_click"]),
+                 # Apagada: es contabilidad nuestra, no del producto. Está en la
+                 # tabla para que el cero de una semana sin pruebas se vea, no
+                 # para leerla al lado de los donados.
+                 f'<span class="dim">{num(r["manuales"])}</span>']
                 for lab, r in zip(labels, ca["filas"])]
     trig_rows = [[esc(TRIGGER_LABEL.get(t["trigger"], t["trigger"])), num(t["impresiones"]),
                   num(t["clicks"]), _pct_txt(t["ctr"]), num(t["solved_mediana"])]
                  for t in ca["por_trigger"]]
     ven_rows = [[_uni_chip(v["university"]),
                  (v["inicio"].strftime("%d/%m %H:%M") if v["inicio"] else "—"),
+                 _origen_chip(v["source"]),
+                 esc(v["donante"] or "—"),
                  num(v["cafecitos"]), num(v["estudiantes"]), num(v["respuestas"]),
                  num(v["ritmo"]), num(v["basal"]),
                  ("—" if v["lift"] is None else
@@ -488,13 +505,18 @@ def page(p: dict, *, token: str) -> str:
         6, "Cafecito",
         _box("El embudo, semana a semana",
              _table(["Semana", "Impresiones", "Lo vieron", "Clicks", "CTR", "Empujes",
-                     "Cafecitos", "Cafecitos/click"], caf_rows),
-             note="<b>El último escalón es manual</b>: Cafecito no tiene webhook ni API pública, "
-                  "así que el empuje lo inserta un script a mano "
-                  "(<code>scripts/grant_game_boost.py</code>). Mientras la carga sea manual, "
-                  "«cafecitos» es una <b>cota inferior</b> — si alguien dona y nadie corre el "
-                  "script, el cafecito existió y el panel no lo ve. Es lo primero a revisar "
-                  "cuando la conversión dé sospechosamente baja."
+                     "Cafecitos", "Cafecitos/click", "A mano"], caf_rows),
+             note="<b>«Cafecitos» son solo los donados de verdad</b> — los que entraron por el "
+                  "oyente del stream de Cafecito (<code>source = \"cafecito\"</code>). La última "
+                  "columna son los <b>grants que insertamos nosotros</b> con "
+                  "<code>scripts/grant_game_boost.py</code> para probar la mecánica, y no entran "
+                  "en ningún otro número de esta caja. En el primer día de producción eran 20 de "
+                  "35, y mezclados daban un «cafecitos por click» de 1,67 — más cafecitos que "
+                  "clicks, que no puede pasar."
+                  "<br><br><b>Lo que esto no puede separar:</b> la alerta de prueba de Cafecito "
+                  "llega por el mismo canal y con el mismo origen que una donación real. Se "
+                  "reconoce por el nombre —la plataforma la manda como «Juan Carlos»— y por eso "
+                  "el donante aparece en la tabla de empujes de más abajo."
                   "<br><br>El CTR se calcula sobre <b>personas</b> y no sobre impresiones: el "
                   "cartel se le muestra varias veces a la misma persona y contar impresiones "
                   "haría bajar el número por mostrarlo más, que es lo contrario de lo que se "
@@ -516,10 +538,15 @@ def page(p: dict, *, token: str) -> str:
                     "sube a costa del otro, se ve en estos dos números juntos.")
         + "</div>"
         + _box("¿Sirve el empuje?",
-               _table(["Universidad", "Arrancó", "Cafecitos", "Estudiantes", "Respuestas",
-                       "Ritmo", "Basal", "Diferencia"], ven_rows,
+               _table(["Universidad", "Arrancó", "Origen", "Donante", "Cafecitos", "Estudiantes",
+                       "Respuestas", "Ritmo", "Basal", "Diferencia"], ven_rows,
                       empty="todavía no hubo ningún empuje"),
-               note="<b>Ritmo</b> = respuestas por estudiante activo por hora durante la ventana de "
+               note="<b>Acá los grants a mano SÍ conviven con las donaciones</b>, y a propósito: "
+                    "la pregunta de esta tabla es si la universidad impulsada juega más, y para "
+                    "eso un grant a mano es un experimento perfectamente válido — de hecho es el "
+                    "único que podemos provocar cuando queremos. El origen va al lado para que "
+                    "nadie lea el lift de una prueba nuestra como si fuera el de una donación."
+                    "<br><br><b>Ritmo</b> = respuestas por estudiante activo por hora durante la ventana de "
                     "30 minutos. <b>Basal</b> = la mediana de ese mismo ritmo para la MISMA "
                     "universidad fuera de toda ventana. Se compara contra sí misma y no contra las "
                     "otras universidades porque los tamaños son muy distintos y la comparación "
@@ -529,8 +556,10 @@ def page(p: dict, *, token: str) -> str:
                     "donar, así que la diferencia mezcla el efecto con el momento. Para separarlo "
                     "hace falta programar empujes en horarios al azar, y eso recién vale la pena "
                     "con volumen."),
-        sub=f"{num(ca['total_cafecitos'])} cafecitos en {num(ca['empujes'])} empujes desde "
-            f"que existe la mecánica.",
+        sub=f"{num(ca['total_cafecitos'])} cafecitos donados en {num(ca['empujes'])} empujes desde "
+            f"que existe la mecánica"
+            + (f", más {num(ca['total_manuales'])} en {num(ca['empujes_manuales'])} grants a mano "
+               f"que no cuentan como ingreso." if ca["total_manuales"] else "."),
         anchor="cafecito"))
 
     # ── 7 · Rivalidad ────────────────────────────────────────────────────────
