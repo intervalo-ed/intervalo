@@ -156,6 +156,13 @@ def maybe_tick(db: Session) -> bool:
 
     moved = _advance_bots(db, now, random.Random())
     _refresh_snapshots(db, now)
+    # El ranking de universidades se mueve con cada avance, así que el sobrepaso se
+    # busca acá y no en un proceso aparte. El import es local para no armar un
+    # ciclo: events no sabe nada de la simulación, pero boosts sí la usa.
+    from . import boosts, events
+
+    events.sync_universities(db, boosts.MIN_PLAYERS_RANKED, now=now)
+    events.prune(db, now=now)
     if moved:
         bump_version(db)
     db.commit()

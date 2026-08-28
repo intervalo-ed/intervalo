@@ -7,6 +7,7 @@ import {
   FIRST_GROUP_ID,
   FIRST_PWA_USE_AT,
   FIRST_PWA_USE_STORAGE_KEY,
+  FIRST_REFERRER,
   FIRST_UTM_SOURCE,
 } from "@/lib/analytics/attribution"
 
@@ -27,6 +28,8 @@ export function PostHogUser() {
       // Mismo mecanismo, un nivel más fino: qué grupo de WhatsApp trajo a esta
       // persona, para saber cuáles convierten y cuáles no.
       const firstGroupId = posthog.get_property(FIRST_GROUP_ID)
+      // Y quién la compartió, si llegó por el link de otro jugador.
+      const firstReferrer = posthog.get_property(FIRST_REFERRER)
 
       // Mismo problema que la atribución, del otro lado: el evento pwa_install
       // sale una sola vez por dispositivo y si se pierde no hay reintento. Este
@@ -43,6 +46,7 @@ export function PostHogUser() {
       const setOnce: Record<string, string> = {}
       if (firstUtmSource) setOnce[FIRST_UTM_SOURCE] = String(firstUtmSource)
       if (firstGroupId) setOnce[FIRST_GROUP_ID] = String(firstGroupId)
+      if (firstReferrer) setOnce[FIRST_REFERRER] = String(firstReferrer)
       if (firstPwaUseAt) setOnce[FIRST_PWA_USE_AT] = firstPwaUseAt
 
       posthog.identify(

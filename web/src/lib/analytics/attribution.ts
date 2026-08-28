@@ -27,6 +27,27 @@ export const FIRST_GROUP_ID = "first_group_id"
 export const GROUP_ID_PATTERN = /^([a-z]{2,6})(\d{1,5})$/
 
 /**
+ * Quién compartió el link del minijuego.
+ *
+ * El botón de compartir arma `intervalo.xyz/derivadas?r=<alias>` con el @ de
+ * quien comparte, así se puede contar cuánta gente entró por cada persona — que
+ * es lo único que distingue el boca a boca del reparto por grupos.
+ *
+ * Es `r` y no un `utm_*` por lo mismo que `g`: el link se ve entero en el
+ * mensaje de WhatsApp y cada caracter de más se lee como spam. Y como PostHog
+ * no lo parsea solo, se registra a mano igual que los otros dos.
+ *
+ * No afecta la vista previa: WhatsApp la arma pidiendo la URL tal cual, y la
+ * ruta sigue siendo /derivadas con sus mismos tags Open Graph.
+ */
+export const FIRST_REFERRER = "first_referrer"
+
+/** Formato del alias: el mismo que acepta el campo del @ (a-z, 0-9, punto y
+ *  guión bajo). Se valida antes de registrarlo para que nadie meta cualquier
+ *  cosa en una propiedad de PostHog por query string. */
+export const REFERRER_PATTERN = /^[a-z0-9._]{1,20}$/
+
+/**
  * Copia de la atribución en localStorage, aparte de las super properties de
  * PostHog.
  *

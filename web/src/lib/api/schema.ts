@@ -4,7 +4,7 @@
  */
 
 export interface paths {
-    "/game/derivadas/player": {
+    "/game/derivemos/player": {
         parameters: {
             query?: never;
             header?: never;
@@ -19,14 +19,14 @@ export interface paths {
          *     crea/devuelve el jugador del usuario. Idempotente: si ya hay jugador para
          *     el token/user, se devuelve ese.
          */
-        post: operations["create_player_game_derivadas_player_post"];
+        post: operations["create_player_game_derivemos_player_post"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/game/derivadas/me": {
+    "/game/derivemos/me": {
         parameters: {
             query?: never;
             header?: never;
@@ -34,17 +34,17 @@ export interface paths {
             cookie?: never;
         };
         /** Get Me */
-        get: operations["get_me_game_derivadas_me_get"];
+        get: operations["get_me_game_derivemos_me_get"];
         put?: never;
         post?: never;
         delete?: never;
         options?: never;
         head?: never;
         /** Patch Me */
-        patch: operations["patch_me_game_derivadas_me_patch"];
+        patch: operations["patch_me_game_derivemos_me_patch"];
         trace?: never;
     };
-    "/game/derivadas/reset": {
+    "/game/derivemos/reset": {
         parameters: {
             query?: never;
             header?: never;
@@ -63,14 +63,14 @@ export interface paths {
          *     ya registrados: el historial sigue sirviendo para analítica y el Elo de las
          *     plantillas (game_template_stats) es global, no del jugador.
          */
-        post: operations["reset_player_game_derivadas_reset_post"];
+        post: operations["reset_player_game_derivemos_reset_post"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/game/derivadas/next": {
+    "/game/derivemos/next": {
         parameters: {
             query?: never;
             header?: never;
@@ -80,14 +80,41 @@ export interface paths {
         get?: never;
         put?: never;
         /** Next Exercise */
-        post: operations["next_exercise_game_derivadas_next_post"];
+        post: operations["next_exercise_game_derivemos_next_post"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/game/derivadas/skip": {
+    "/game/derivemos/cafecito-intent": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Cafecito Intent
+         * @description "Me voy a Cafecito": se anota quién y de qué universidad.
+         *
+         *     Es la única pata de la atribución que no le pide NADA a quien dona. Los tres
+         *     campos del formulario de Cafecito son opcionales y no se pueden marcar
+         *     obligatorios, así que exigir la sigla ahí sería poner fricción justo en el
+         *     peor lugar del embudo. Acá, en cambio, el juego ya sabe todo.
+         *
+         *     Devuelve 204: el cliente dispara esto y se va sin esperar nada.
+         */
+        post: operations["cafecito_intent_game_derivemos_cafecito_intent_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/game/derivemos/skip": {
         parameters: {
             query?: never;
             header?: never;
@@ -108,14 +135,14 @@ export interface paths {
          *     Tampoco da XP, y como la XP escala con la dificultad, encadenar salteos
          *     hasta el piso rinde cada vez menos: la mecánica se autolimita.
          */
-        post: operations["skip_exercise_game_derivadas_skip_post"];
+        post: operations["skip_exercise_game_derivemos_skip_post"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/game/derivadas/answer": {
+    "/game/derivemos/answer": {
         parameters: {
             query?: never;
             header?: never;
@@ -125,14 +152,14 @@ export interface paths {
         get?: never;
         put?: never;
         /** Answer Exercise */
-        post: operations["answer_exercise_game_derivadas_answer_post"];
+        post: operations["answer_exercise_game_derivemos_answer_post"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/game/derivadas/leaderboard/pulse": {
+    "/game/derivemos/leaderboard/pulse": {
         parameters: {
             query?: never;
             header?: never;
@@ -147,7 +174,7 @@ export interface paths {
          *     worker ni cron: el ranking se mueve mientras haya alguien mirándolo, que es
          *     justo cuando importa que se mueva.
          */
-        get: operations["game_pulse_game_derivadas_leaderboard_pulse_get"];
+        get: operations["game_pulse_game_derivemos_leaderboard_pulse_get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -156,7 +183,32 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/game/derivadas/leaderboard/summary": {
+    "/game/derivemos/events": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Game Events Feed
+         * @description Historial de lo que va pasando: cafecitos, registros, escaladas, rachas y
+         *     universidades que se pasan entre sí.
+         *
+         *     Es un feed SOLO del sistema —ninguna línea la escribe un usuario— así que no
+         *     hay nada que moderar. Con `after_id` devuelve únicamente lo nuevo, que es lo
+         *     que hace que sondearlo cada pocos segundos no cueste nada.
+         */
+        get: operations["game_events_feed_game_derivemos_events_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/game/derivemos/leaderboard/summary": {
         parameters: {
             query?: never;
             header?: never;
@@ -168,7 +220,7 @@ export interface paths {
          * @description Los dos números de la cabecera del ranking, más las universidades para
          *     poblar el filtro (esas van siempre sin scope).
          */
-        get: operations["game_leaderboard_summary_game_derivadas_leaderboard_summary_get"];
+        get: operations["game_leaderboard_summary_game_derivemos_leaderboard_summary_get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -177,7 +229,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/game/derivadas/leaderboard/universities": {
+    "/game/derivemos/leaderboard/universities": {
         parameters: {
             query?: never;
             header?: never;
@@ -186,10 +238,13 @@ export interface paths {
         };
         /**
          * Game University Leaderboard
-         * @description Ranking por universidad: agrega XP y jugadores. Espejo de
-         *     /leaderboard/universities, sobre game_players y con la agregación en la BD.
+         * @description Ranking por universidad: Elo promedio de sus jugadores.
+         *
+         *     Elo y no XP. La XP mide cuánto jugaste —así que premia al que le puso más
+         *     horas— y el Elo mide qué tan difícil resolvés. Entre universidades, la
+         *     pregunta interesante es cuál deriva mejor, no cuál tuvo más tiempo libre.
          */
-        get: operations["game_university_leaderboard_game_derivadas_leaderboard_universities_get"];
+        get: operations["game_university_leaderboard_game_derivemos_leaderboard_universities_get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -198,7 +253,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/game/derivadas/leaderboard": {
+    "/game/derivemos/leaderboard": {
         parameters: {
             query?: never;
             header?: never;
@@ -213,7 +268,7 @@ export interface paths {
          *     `university` y `career` acotan el scope igual que en el principal: el rank,
          *     los totales y la página se calculan todos dentro del scope elegido.
          */
-        get: operations["game_leaderboard_game_derivadas_leaderboard_get"];
+        get: operations["game_leaderboard_game_derivemos_leaderboard_get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -222,7 +277,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/game/derivadas/link": {
+    "/game/derivemos/link": {
         parameters: {
             query?: never;
             header?: never;
@@ -235,7 +290,37 @@ export interface paths {
          * Link Player
          * @description Merge explícito guest→user tras el registro. Idempotente.
          */
-        post: operations["link_player_game_derivadas_link_post"];
+        post: operations["link_player_game_derivemos_link_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/game/derivemos/cta": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Record Cta
+         * @description Registra que un llamado a la acción se VIO o se TOCÓ.
+         *
+         *     Los mismos hechos ya viajan a PostHog, que sabe cosas que acá no están
+         *     (sesión, dispositivo, referrer). Lo que PostHog no puede hacer es cerrar el
+         *     embudo: el último escalón del cafecito es una fila en `game_boosts`, y esa
+         *     tabla vive únicamente acá. Sin este endpoint el panel podría mostrar cuántos
+         *     cafecitos entraron pero no sobre cuántas impresiones, que es justo el número
+         *     que dice si el cartel funciona o si simplemente se muestra mucho.
+         *
+         *     Devuelve 204 y nunca falla por contenido: es telemetría, y una telemetría
+         *     que puede tirar un error en la mitad de una partida es peor que no tenerla.
+         */
+        post: operations["record_cta_game_derivemos_cta_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1269,6 +1354,21 @@ export interface components {
             combo: number;
             /** Combo Bonus */
             combo_bonus: number;
+            /**
+             * Xp Multiplier
+             * @default 1
+             */
+            xp_multiplier: number;
+            /**
+             * Exercises Correct
+             * @default 0
+             */
+            exercises_correct: number;
+            /**
+             * Correct Today
+             * @default 0
+             */
+            correct_today: number;
             /** Correct Answer Latex */
             correct_answer_latex?: string | null;
             /** Rank Before */
@@ -1282,6 +1382,78 @@ export interface components {
              * @default false
              */
             is_record: boolean;
+        };
+        /**
+         * GameBoostOut
+         * @description Un empuje de XP vigente, agregado por universidad (ver game/boosts.py).
+         */
+        GameBoostOut: {
+            /** University */
+            university?: string | null;
+            /** Multiplier */
+            multiplier: number;
+            /** Cafecitos */
+            cafecitos: number;
+            /** Donor Name */
+            donor_name?: string | null;
+            /** Expires In Seconds */
+            expires_in_seconds: number;
+        };
+        /**
+         * GameCtaRequest
+         * @description Telemetría de un llamado a la acción. Todo opcional salvo qué y qué pasó:
+         *     el cliente manda lo que sabe y el server no discute.
+         */
+        GameCtaRequest: {
+            /** Cta */
+            cta: string;
+            /** Action */
+            action: string;
+            /** Placement */
+            placement?: string | null;
+            /** Solved */
+            solved?: number | null;
+        };
+        /**
+         * GameEventOut
+         * @description Una línea del historial. El emoji viaja aparte del texto para que el
+         *     cliente lo pueda poner siempre al final, sin depender del copy.
+         */
+        GameEventOut: {
+            /** Id */
+            id: number;
+            /** Kind */
+            kind: string;
+            /** Text */
+            text: string;
+            /** Emoji */
+            emoji: string;
+            /** Actor Alias */
+            actor_alias?: string | null;
+            /** Actor Level */
+            actor_level?: number | null;
+            /**
+             * Universities
+             * @default []
+             */
+            universities: string[];
+            /**
+             * Is Mine
+             * @default false
+             */
+            is_mine: boolean;
+            /**
+             * Is My University
+             * @default false
+             */
+            is_my_university: boolean;
+            /** Seconds Ago */
+            seconds_ago: number;
+        };
+        /** GameEventsResponse */
+        GameEventsResponse: {
+            /** Events */
+            events: components["schemas"]["GameEventOut"][];
         };
         /** GameExerciseOut */
         GameExerciseOut: {
@@ -1300,6 +1472,11 @@ export interface components {
              * @default []
              */
             keys: string[];
+            /**
+             * New Keys
+             * @default []
+             */
+            new_keys: string[];
         };
         /** GameLeaderboardEntry */
         GameLeaderboardEntry: {
@@ -1408,6 +1585,11 @@ export interface components {
              * @default 0
              */
             level: number;
+            /**
+             * Elo
+             * @default 1000
+             */
+            elo: number;
         };
         /** GameProfilePatchRequest */
         GameProfilePatchRequest: {
@@ -1423,10 +1605,19 @@ export interface components {
          * @description Latido del ranking. El cliente lo consulta cada 10 s y solo refresca la
          *     lista si `version` cambió — y de paso ese mismo pedido es lo que hace
          *     avanzar la actividad simulada (ver game/simulation.py).
+         *
+         *     Los empujes vigentes viajan acá y no en un endpoint propio: este pedido ya
+         *     late cada 10 s desde los dos layouts, así que el cartel se entera sin sumar
+         *     ni una request.
          */
         GamePulse: {
             /** Version */
             version: number;
+            /**
+             * Boosts
+             * @default []
+             */
+            boosts: components["schemas"]["GameBoostOut"][];
         };
         /** GameSkipRequest */
         GameSkipRequest: {
@@ -1450,6 +1641,18 @@ export interface components {
             xp: number;
             /** Players */
             players: number;
+            /** Rating Avg */
+            rating_avg: number;
+            /**
+             * Rated Players
+             * @default 0
+             */
+            rated_players: number;
+            /**
+             * Ranked
+             * @default true
+             */
+            ranked: boolean;
             /** Careers */
             careers: {
                 [key: string]: number;
@@ -2022,12 +2225,13 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
-    create_player_game_derivadas_player_post: {
+    create_player_game_derivemos_player_post: {
         parameters: {
             query?: never;
             header?: {
                 authorization?: string;
                 "x-game-token"?: string;
+                "x-game-platform"?: string;
             };
             path?: never;
             cookie?: never;
@@ -2058,7 +2262,7 @@ export interface operations {
             };
         };
     };
-    get_me_game_derivadas_me_get: {
+    get_me_game_derivemos_me_get: {
         parameters: {
             query?: never;
             header?: {
@@ -2090,7 +2294,7 @@ export interface operations {
             };
         };
     };
-    patch_me_game_derivadas_me_patch: {
+    patch_me_game_derivemos_me_patch: {
         parameters: {
             query?: never;
             header?: {
@@ -2126,7 +2330,7 @@ export interface operations {
             };
         };
     };
-    reset_player_game_derivadas_reset_post: {
+    reset_player_game_derivemos_reset_post: {
         parameters: {
             query?: never;
             header?: {
@@ -2158,10 +2362,11 @@ export interface operations {
             };
         };
     };
-    next_exercise_game_derivadas_next_post: {
+    next_exercise_game_derivemos_next_post: {
         parameters: {
             query?: never;
             header?: {
+                "x-game-platform"?: string;
                 authorization?: string;
                 "x-game-token"?: string;
             };
@@ -2190,10 +2395,41 @@ export interface operations {
             };
         };
     };
-    skip_exercise_game_derivadas_skip_post: {
+    cafecito_intent_game_derivemos_cafecito_intent_post: {
         parameters: {
             query?: never;
             header?: {
+                authorization?: string;
+                "x-game-token"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    skip_exercise_game_derivemos_skip_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                "x-game-platform"?: string;
                 authorization?: string;
                 "x-game-token"?: string;
             };
@@ -2226,7 +2462,7 @@ export interface operations {
             };
         };
     };
-    answer_exercise_game_derivadas_answer_post: {
+    answer_exercise_game_derivemos_answer_post: {
         parameters: {
             query?: never;
             header?: {
@@ -2262,7 +2498,7 @@ export interface operations {
             };
         };
     };
-    game_pulse_game_derivadas_leaderboard_pulse_get: {
+    game_pulse_game_derivemos_leaderboard_pulse_get: {
         parameters: {
             query?: never;
             header?: {
@@ -2294,7 +2530,41 @@ export interface operations {
             };
         };
     };
-    game_leaderboard_summary_game_derivadas_leaderboard_summary_get: {
+    game_events_feed_game_derivemos_events_get: {
+        parameters: {
+            query?: {
+                after_id?: number;
+            };
+            header?: {
+                authorization?: string;
+                "x-game-token"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GameEventsResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    game_leaderboard_summary_game_derivemos_leaderboard_summary_get: {
         parameters: {
             query?: {
                 university?: string | null;
@@ -2329,7 +2599,7 @@ export interface operations {
             };
         };
     };
-    game_university_leaderboard_game_derivadas_leaderboard_universities_get: {
+    game_university_leaderboard_game_derivemos_leaderboard_universities_get: {
         parameters: {
             query?: {
                 university?: string | null;
@@ -2364,7 +2634,7 @@ export interface operations {
             };
         };
     };
-    game_leaderboard_game_derivadas_leaderboard_get: {
+    game_leaderboard_game_derivemos_leaderboard_get: {
         parameters: {
             query?: {
                 university?: string | null;
@@ -2402,7 +2672,7 @@ export interface operations {
             };
         };
     };
-    link_player_game_derivadas_link_post: {
+    link_player_game_derivemos_link_post: {
         parameters: {
             query?: never;
             header?: {
@@ -2422,6 +2692,40 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["GamePlayerOut"];
                 };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    record_cta_game_derivemos_cta_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+                "x-game-token"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["GameCtaRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
             /** @description Validation Error */
             422: {

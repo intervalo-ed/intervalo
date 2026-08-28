@@ -12,7 +12,7 @@ import { MobileFlow } from "./mobile-flow"
 import { useApplyDesiredAlias } from "./register-slides"
 import { useGamePlayer } from "./UseGamePlayer"
 
-export function DerivadasGame() {
+export function GameRoot() {
   const platform = usePlatform()
   const { player, refetch } = useGamePlayer()
   const applyDesiredAlias = useApplyDesiredAlias()

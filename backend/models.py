@@ -594,6 +594,12 @@ class GamePlayer(Base):
     # edita: elegir el @ es el gancho del registro.
     alias = Column(String(30), unique=True, index=True, nullable=False)
     university = Column(String(120), nullable=True)
+    # Cuándo se CAMBIÓ la universidad por última vez — NULL si nunca cambió
+    # (incluido el caso normal: se cargó una vez y quedó). Es el candado de los
+    # empujes por universidad: sin él, un empuje activo se llenaría de gente que se
+    # muda a la universidad impulsada por media hora y la rivalidad se muere. Ver
+    # game/boosts.py.
+    university_set_at = Column(DateTime, nullable=True)
     career = Column(String(1), nullable=True)
 
     # Elo del jugador (ver game/elo.py). n_updates = respuestas de primer
@@ -609,6 +615,23 @@ class GamePlayer(Base):
     best_rank = Column(Integer, nullable=True)
     exercises_correct = Column(Integer, nullable=False, default=0, server_default="0")
     exercises_attempted = Column(Integer, nullable=False, default=0, server_default="0")
+
+    # Teclas del teclado que este jugador ya desbloqueó, separadas por coma y en
+    # orden canónico (ver game/keyboard.py). Son acumulativas: una vez que una
+    # derivada las pidió, quedan para siempre. El teclado no es una pista del
+    # ejercicio de turno sino el inventario de lo que la persona ya sabe
+    # escribir, y verlo crecer es parte del juego.
+    unlocked_keys = Column(Text, nullable=False, default="", server_default="")
+
+    # Con qué dispositivo apareció por primera vez: "ios" | "android" |
+    # "desktop". Lo manda el cliente (X-Game-Platform) y NO se deduce del
+    # User-Agent, porque el layout lo elige `getPlatform()` mirando también
+    # maxTouchPoints — un iPad se reporta como Macintosh y juega el flujo de
+    # teléfono. Es de primer contacto y no se pisa: quien empieza en el celular
+    # y sigue en la compu vino del celular, y de dónde vino cada uno es lo que
+    # explica cómo se distribuye el link. Lo que hace después se lee en
+    # game_exercises.platform.
+    platform = Column(String(8), nullable=True, index=True)
 
     # Atribución de primer contacto, espejo de users.first_group_id (mismas
     # regex al persistir, solo si están en NULL).
@@ -655,6 +678,10 @@ class GameSimState(Base):
     last_tick_at = Column(DateTime, nullable=True)
     # Última vez que se refrescaron las fotos de puesto de todos los jugadores.
     last_snapshot_at = Column(DateTime, nullable=True)
+    # Último orden visto del ranking de universidades, como JSON de siglas. Es la
+    # referencia contra la que se detecta un sobrepaso: sin una foto anterior,
+    # "la UNT le pasó a la UNR" no se puede afirmar, solo el orden de ahora.
+    uni_order_json = Column(Text, nullable=True)
     version = Column(Integer, nullable=False, default=0, server_default="0")
 
 
@@ -695,6 +722,17 @@ class GameExercise(Base):
     p_hat = Column(Float, nullable=False)
 
     status = Column(String(10), nullable=False, default="served", server_default="served")
+    # La tabla de derivadas estuvo abierta durante ESTE ejercicio. Lo manda el
+    # cliente al responder y ya gobernaba la mecánica (sin Elo, XP simbólica);
+    # se persiste además porque sin la columna el panel no puede separar
+    # «resolvió» de «copió», y esas dos cosas mezcladas arruinan tanto la tasa
+    # de acierto como la lectura de qué plantillas cuestan de verdad.
+    peeked = Column(Boolean, nullable=False, default=False, server_default="false")
+    # Desde qué dispositivo se pidió ESTE ejercicio. Va por ejercicio y no solo
+    # en el jugador porque la pregunta que importa —¿se comportan distinto?—
+    # necesita poder atribuir cada respuesta al aparato en el que se dio, y
+    # porque quien arranca en el colectivo y sigue en la compu existe.
+    platform = Column(String(8), nullable=True, index=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     answered_at = Column(DateTime, nullable=True)
 
@@ -724,3 +762,136 @@ class GameAttempt(Base):
     theta_after = Column(Float, nullable=True)
 
     created_at = Column(DateTime, default=datetime.utcnow)
+
+
+class GameBoost(Base):
+    """Un empuje de XP para una universidad, pagado con cafecitos.
+
+    Cada donación inserta una fila y ninguna se muta nunca: el multiplicador
+    activo de una universidad es una SUMA sobre las filas no vencidas
+    (game/boosts.py). Resolver el solapamiento al leer y no al escribir es lo
+    que hace que dos donaciones simultáneas no puedan pisarse.
+    """
+
+    __tablename__ = "game_boosts"
+
+    id = Column(Integer, primary_key=True, index=True)
+    # Sigla canónica (canonical_university), la misma que game_players.university.
+    # NULL = empuje GLOBAL, para todo el mundo. Es a dónde va a parar la donación
+    # que no se puede atribuir a ninguna universidad: en vez de perderse —lo peor
+    # que puede pasar, porque la persona pagó y no vio nada— levanta el juego
+    # entero. Ser generoso sale más barato que acertar.
+    university = Column(String(120), nullable=True, index=True)
+    cafecitos = Column(Integer, nullable=False)
+    # Lo que escribió quien donó; se muestra en el cartel. Puede faltar.
+    donor_name = Column(String(80), nullable=True)
+    source = Column(String(20), nullable=False, default="manual", server_default="manual")
+    # Identificador de la donación en el origen. UNIQUE desde el día uno aunque
+    # hoy el disparo sea manual: es lo que va a impedir que un mail de Cafecito
+    # reenviado dos veces regale el empuje dos veces.
+    external_ref = Column(String(64), unique=True, nullable=True)
+
+    created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
+    expires_at = Column(DateTime, nullable=False, index=True)
+
+
+class GameEvent(Base):
+    """Una línea del historial del juego: lo que pasó y cuándo.
+
+    El feed es SOLO del sistema —no hay texto escrito por usuarios— así que no
+    hay nada que moderar. Cada fila trae la oración ya armada: el texto es parte
+    del evento, y guardarlo hecho significa que cambiar el copy mañana no
+    reescribe lo que la gente ya leyó ayer.
+
+    `dedupe_key` es lo que evita que el mismo hecho se cuente dos veces: el hito
+    de racha 25 de un jugador, su registro, o el aviso de que una universidad está
+    por pasar a otra. UNIQUE no sirve —algunos eventos se repiten pasada una
+    ventana de tiempo— así que la unicidad la decide `events.emit`.
+    """
+
+    __tablename__ = "game_events"
+
+    id = Column(Integer, primary_key=True, index=True)
+    kind = Column(String(16), nullable=False, index=True)
+    # La oración, sin el emoji: el emoji va aparte para que el cliente lo pueda
+    # poner siempre al final, por más que el texto cambie.
+    text = Column(Text, nullable=False)
+    emoji = Column(String(8), nullable=False)
+    # El texto viene con marcadores —{a} para el nombre, {u0}/{u1} para las
+    # siglas— y estas columnas traen con qué reemplazarlos. Guardar la oración
+    # con agujeros y no ya resuelta es lo que deja pintar el nombre con el color
+    # de su nivel y las siglas con la tag de cada universidad, en vez de escupir
+    # texto plano.
+    actor_alias = Column(String(30), nullable=True)
+    # Nivel del jugador al momento del evento (elo.level_of). Es lo que le da el
+    # color al nombre, igual que en el ranking. NULL cuando el nombre no es de un
+    # jugador — quien donó un cafecito escribió lo que quiso en Cafecito.
+    actor_level = Column(Integer, nullable=True)
+    # "Esto sos vos" / "esto es tu universidad": los dos resaltados del feed.
+    player_id = Column(Integer, ForeignKey("game_players.id"), nullable=True, index=True)
+    university = Column(String(120), nullable=True, index=True)
+    # La segunda universidad, cuando el evento es entre dos ("le pasó a", "está a
+    # nada de pasar a"). El resaltado de "esto es tu universidad" mira las dos.
+    university_b = Column(String(120), nullable=True)
+    dedupe_key = Column(String(80), nullable=True, index=True)
+
+    created_at = Column(DateTime, nullable=False, default=datetime.utcnow, index=True)
+
+
+class GameCtaEvent(Base):
+    """Una impresión o un click de un llamado a la acción del minijuego.
+
+    Existe porque el panel del juego tiene que poder contestar «¿cuántos de los
+    que VIERON el cartel de cafecito lo tocaron?» sin salir de esta base. Los
+    mismos hechos viajan a PostHog —y ahí se pueden cruzar con la sesión, el
+    dispositivo y el referrer, cosas que acá no están— pero PostHog no conoce
+    `game_boosts`, así que el último escalón del embudo (el cafecito que
+    efectivamente llegó) solo se puede cerrar del lado del server.
+
+    Es deliberadamente pobre: quién, qué, dónde y cuándo. Nada de payloads
+    libres — una tabla de eventos con un JSON adentro termina siendo un log que
+    nadie consulta.
+    """
+
+    __tablename__ = "game_cta_events"
+
+    id = Column(Integer, primary_key=True, index=True)
+    player_id = Column(Integer, ForeignKey("game_players.id"), nullable=True, index=True)
+    # "cafecito" | "share" | "boost_offer" | "register" — qué llamado es.
+    cta = Column(String(20), nullable=False, index=True)
+    # "impression" | "click".
+    action = Column(String(12), nullable=False, index=True)
+    # Dónde salió (header, card, settings…) o qué lo disparó (record,
+    # big_climb, milestone). Un solo campo: en la práctica cada CTA usa uno u
+    # otro, y dos columnas casi siempre nulas se leen peor que una.
+    placement = Column(String(24), nullable=True)
+    # Cuántas derivadas llevaba resueltas cuando pasó. Es la variable que
+    # decide si el cartel salió temprano o tarde, y sin ella el embudo no se
+    # puede cortar por momento de la partida.
+    solved = Column(Integer, nullable=True)
+    university = Column(String(120), nullable=True, index=True)
+
+    created_at = Column(DateTime, nullable=False, default=datetime.utcnow, index=True)
+
+
+class GameBoostIntent(Base):
+    """"Voy a donar": lo que el juego sabe justo antes de mandarte a Cafecito.
+
+    Es la pata principal para saber a qué universidad va un cafecito, y la única
+    que no le pide NADA al donante: cuando toca el botón, el juego ya sabe quién
+    es y de qué universidad. Cafecito no puede devolver ese dato —sus campos son
+    todos opcionales y no se pueden marcar obligatorios— así que la donación se
+    empareja después, por cercanía en el tiempo.
+
+    `consumed_at` evita que una intención vieja se coma todas las donaciones que
+    lleguen dentro de su ventana.
+    """
+
+    __tablename__ = "game_boost_intents"
+
+    id = Column(Integer, primary_key=True, index=True)
+    player_id = Column(Integer, ForeignKey("game_players.id"), nullable=False, index=True)
+    # La que tenía EN ESE MOMENTO: si después se cambia, la intención no cambia.
+    university = Column(String(120), nullable=True, index=True)
+    created_at = Column(DateTime, nullable=False, default=datetime.utcnow, index=True)
+    consumed_at = Column(DateTime, nullable=True)

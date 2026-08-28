@@ -201,9 +201,9 @@ SURVEY_EMOJI_A = dict(SURVEY_EMOJI, justo="👌")
 PUSH_COPY = {
     "practice": ("Recordatorio de repasar, sin gancho particular",
                  "¡Vení a repasar! Tus ejercicios te esperan 🦾", 15),
-    "university": ("Cuánto XP le aportó a su facultad",
+    "university": ("Cuánto XP le aportó a su universidad",
                    "Sumaste {xp} XP para la {uni} esta semana ¿Seguimos? 🎓", 20),
-    "social": ("Cuántos compañeros de su facultad ya repasaron hoy",
+    "social": ("Cuántos compañeros de su universidad ya repasaron hoy",
                "{n} compañeros de la {uni} ya repasaron hoy. ¿Vos? 🎓", 15),
     "ranking": ("Alguien lo pasó en el ranking",
                 "Alguien te pasó en el ranking. ¿Lo dejás así? 🤼", 15),
@@ -356,6 +356,10 @@ def page(p: dict, *, token: str) -> str:
         for a, t in [("embudo", "Embudo"), ("cohortes", "Cohortes"), ("producto", "Producto"),
                      ("encuestas", "Encuestas"), ("push", "Push"),
                      ("mails", "Mails")])
+    # El minijuego tiene su propio panel: mismo token, otro vocabulario. Se
+    # enlaza desde acá para que no haya que acordarse de la URL.
+    jump += (f'<a href="/panel/{esc(token)}/derivemos" '
+             f'style="color:var(--indigo-soft)">Derivemos ↗</a>')
 
     out = [
         "<header class='top'><div class='wrap'>",

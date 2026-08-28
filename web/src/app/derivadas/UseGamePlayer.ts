@@ -18,6 +18,25 @@ export const gameKeys = {
   // el pulso colgara de esa misma raíz se invalidaría a sí mismo en cada
   // refresco.
   pulse: ["game", "pulse"] as const,
+  // Ídem el pulso: raíz propia para que invalidar el ranking no lo arrastre.
+  events: ["game", "events"] as const,
+}
+
+/** El jugador que ya está en el caché, sin disparar ningún pedido.
+ *
+ * `enabled: false` es la clave: quien monte esto LEE lo que el bootstrap de
+ * `useGamePlayer` ya dejó, sin sumar una request ni —peor— arrancar un segundo
+ * alta. Es para los componentes que solo necesitan mirar el perfil, como el
+ * botón de compartir, que arma su link con el @ y la universidad.
+ */
+export function useCachedPlayer(): GamePlayer | null {
+  const api = useGameApi()
+  const { data } = useQuery({
+    queryKey: gameKeys.me,
+    queryFn: async () => unwrap(await api.GET("/game/derivemos/me")),
+    enabled: false,
+  })
+  return data ?? null
 }
 
 // Alta/bootstrap del jugador. POST /player es idempotente: sin credenciales
@@ -33,7 +52,7 @@ export function useGamePlayer() {
   const ensure = useMutation({
     mutationFn: async () => {
       const attribution = readAttribution()
-      const result = await api.POST("/game/derivadas/player", {
+      const result = await api.POST("/game/derivemos/player", {
         body: {
           group_id: attribution.groupId ?? null,
           utm_source: attribution.utmSource ?? null,
@@ -49,7 +68,7 @@ export function useGamePlayer() {
 
   const me = useQuery({
     queryKey: gameKeys.me,
-    queryFn: async () => unwrap(await api.GET("/game/derivadas/me")),
+    queryFn: async () => unwrap(await api.GET("/game/derivemos/me")),
     // Sin identidad no hay quien preguntar: el bootstrap la crea primero.
     enabled: isLoaded && (isSignedIn || readGameToken() !== null),
     staleTime: 30_000,

@@ -50,7 +50,7 @@ REAL_MODES = ("main", "practice")
 # render.py: acá solo importa qué claves existen.
 CAREER_LABEL = ("E", "S", "T", "M")
 
-# Prefijo del id de grupo de WhatsApp → facultad. El id es "uba042": prefijo de
+# Prefijo del id de grupo de WhatsApp → universidad. El id es "uba042": prefijo de
 # universidad + número (ver web/src/lib/analytics/attribution.ts).
 ORIGIN_LABEL = {"uba": "UBA", "utn": "UTN", "unc": "UNC", "unlp": "UNLP", "unsam": "UNSAM"}
 

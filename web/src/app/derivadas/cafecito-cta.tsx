@@ -4,23 +4,40 @@
 // visible + una card en hitos de dopamina (récord de puesto, subida grande,
 // cada tantas resueltas) con cooldown para no espantar.
 
-import posthog from "posthog-js"
+import { useEffect } from "react"
 import { Coffee, Share2 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { UNIVERSITY_TAG_BY_KEY } from "@/lib/university-tags"
+import { useCafecitoIntent } from "./UseGameLeaderboard"
+import { useCachedPlayer } from "./UseGamePlayer"
 import {
   readCafecitoLastShownAt,
   saveCafecitoLastShownAt,
 } from "./game-storage"
+import { useCta } from "./game-telemetry"
 
-// Perfil propio del juego, separado del de Intervalo. `/intervalo` no existe
-// más —devuelve "esta página no está disponible"—, así que mientras apuntó ahí
-// todo el que quiso donar cayó en un 404.
-export const CAFECITO_URL = "https://cafecito.app/derivadas"
+// Perfil propio del juego, separado del de Intervalo. Ojo con este valor: ya
+// una vez apuntó a `/intervalo`, que había dejado de existir, y durante todo ese
+// tiempo el que quería donar caía en un 404 sin que nadie se enterara.
+export const CAFECITO_URL = "https://cafecito.app/intervalo"
 
-// Hitos: cada cuántas resueltas se considera mostrar la card, y cuántas
-// resueltas tienen que pasar entre dos cards (cooldown).
-export const CAFECITO_EVERY = 25
-export const CAFECITO_COOLDOWN = 10
+// Hitos: cada cuántas resueltas se considera mostrar la diapo, y cuántas
+// resueltas tienen que pasar entre dos (cooldown).
+//
+// Veinte y no veinticinco: la diapo dejó de ser un cartel al costado y ahora
+// detiene el juego, así que el pedido tiene que llegar cuando la partida
+// todavía está viva. Veinte derivadas son unos pocos minutos de juego y ya
+// alcanzan para que se entienda de qué se trata.
+//
+// EN DESARROLLO sale en cada acierto. Con los valores de producción, trabajar en
+// esta diapo pide veinte derivadas bien resueltas para verla UNA vez, y otras
+// diez para volver a verla: cualquier ajuste de una línea cuesta varios minutos
+// de jugar en serio. Va atado a NODE_ENV —la misma guarda que usa el resto del
+// proyecto para lo que no puede llegar a producción— y no bajando los números a
+// mano, que es lo que después se commitea sin querer.
+const EN_DESARROLLO = process.env.NODE_ENV === "development"
+export const CAFECITO_EVERY = EN_DESARROLLO ? 1 : 20
+export const CAFECITO_COOLDOWN = EN_DESARROLLO ? 0 : 10
 
 export type CafecitoTrigger = "record" | "big_climb" | "milestone"
 
@@ -32,9 +49,13 @@ export function shouldShowCafecito(
   return solvedCount - readCafecitoLastShownAt() >= CAFECITO_COOLDOWN
 }
 
-export function markCafecitoShown(solvedCount: number, trigger: CafecitoTrigger) {
+/** Anota el cooldown. La impresión NO se registra acá: la registra la propia
+ *  card al montarse (ver `CafecitoCard`), que es cuando el cartel existe de
+ *  verdad y además sabe si tiene universidad y por lo tanto si hay un camino a
+ *  Cafecito o solo un pedido de datos. Registrarla en los dos lados contaría
+ *  dos veces la misma impresión. */
+export function markCafecitoShown(solvedCount: number) {
   saveCafecitoLastShownAt(solvedCount)
-  posthog.capture("game_cafecito_impression", { trigger })
 }
 
 export function CafecitoButton({
@@ -53,13 +74,28 @@ export function CafecitoButton({
   compact?: boolean
   className?: string
 }) {
+  const cta = useCta()
+  // El botón de la cabecera está SIEMPRE a la vista, así que su impresión no es
+  // por render sino una por partida: «esta persona tuvo el cafecito adelante».
+  // Ese es justo el denominador que hace falta para poder decir qué fracción de
+  // los que jugaron llegó a tocarlo.
+  useEffect(() => {
+    cta("cafecito", "impression", { placement })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  const intent = useCafecitoIntent()
   return (
     <a
       href={CAFECITO_URL}
       target="_blank"
       rel="noreferrer"
       aria-label="Invitar un cafecito"
-      onClick={() => posthog.capture("game_cafecito_click", { placement })}
+      onClick={() => {
+        cta("cafecito", "click", { placement })
+        // Antes de irse: es lo único que le dice al servidor de qué
+        // universidad viene el cafecito que quizás llegue en un rato.
+        intent.mutate()
+      }}
       className={cn(
         "inline-flex items-center gap-1.5 rounded-md border border-[#A8703C]/60 px-2.5 py-1.5 text-sm text-[#A8703C] transition-colors hover:bg-[#A8703C]/10",
         className,
@@ -72,8 +108,53 @@ export function CafecitoButton({
 }
 
 // Compartir por WhatsApp: el canal por el que llega casi todo el mundo.
-const SHARE_TEXT = "¿Cuántas derivadas aguantás? 🧠 https://www.intervalo.xyz/derivadas"
-export const SHARE_URL = `https://wa.me/?text=${encodeURIComponent(SHARE_TEXT)}`
+//
+// El mensaje es el LINK primero y la arenga después, en dos renglones:
+//
+//     https://www.intervalo.xyz/derivadas?r=nvrancovich
+//     ¡Vengan a bancar a la UBA!
+//
+// El link va primero porque es lo que se toca. La vista previa la arma WhatsApp
+// pidiendo la URL tal cual, así que el `?r=` no la cambia —la ruta sigue siendo
+// /derivadas, con sus mismos tags Open Graph— y lo que se ve es la misma tarjeta
+// para todos.
+const SHARE_BASE = "https://www.intervalo.xyz/derivadas"
+
+/** El link con el @ de quien comparte, que es lo que después permite contar
+ *  cuánta gente entró por cada persona (ver FIRST_REFERRER en
+ *  lib/analytics/attribution.ts). Sin alias, el link pelado. */
+export function shareLink(alias?: string | null) {
+  return alias ? `${SHARE_BASE}?r=${encodeURIComponent(alias)}` : SHARE_BASE
+}
+
+// "a la UBA" pero "al ITBA": la contracción sale de si el nombre completo
+// empieza con "Instituto", que es la misma regla que `article_for()` en el
+// backend (universities.py). Si la sigla no está en el catálogo del front —que
+// es más corto que el de noventa del backend— gana "la", que es el caso de
+// casi todas.
+function bancarA(university: string) {
+  const nombre = UNIVERSITY_TAG_BY_KEY[university]?.fullName
+  return nombre?.startsWith("Instituto") ? `al ${university}` : `a la ${university}`
+}
+
+/** El mensaje entero. Sin universidad elegida va SOLO el link: la arenga sin
+ *  destinatario ("¡Vengan a bancar a la …!") no se puede escribir, y un pedido
+ *  de bancar a nadie es peor que no pedir nada. */
+export function shareText({
+  alias,
+  university,
+}: {
+  alias?: string | null
+  university?: string | null
+}) {
+  const link = shareLink(alias)
+  return university ? `${link}
+¡Vengan a bancar ${bancarA(university)}!` : link
+}
+
+export function shareUrl(player: { alias?: string | null; university?: string | null }) {
+  return `https://wa.me/?text=${encodeURIComponent(shareText(player))}`
+}
 
 export function ShareButton({
   placement,
@@ -82,13 +163,27 @@ export function ShareButton({
   placement: string
   className?: string
 }) {
+  const cta = useCta()
+  // Del caché, sin pedir nada: el jugador ya lo trajo el bootstrap y este botón
+  // solo necesita mirarlo para saber a qué universidad arengar.
+  const player = useCachedPlayer()
+  useEffect(() => {
+    cta("share", "impression", { placement })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   return (
     <a
-      href={SHARE_URL}
+      href={shareUrl({ alias: player?.alias, university: player?.university })}
       target="_blank"
       rel="noreferrer"
       aria-label="Compartir por WhatsApp"
-      onClick={() => posthog.capture("game_share_click", { placement })}
+      onClick={() =>
+        cta("share", "click", {
+          placement,
+          // Para poder separar el boca a boca con arenga del link pelado.
+          props: { university: player?.university ?? null },
+        })
+      }
       className={cn(
         "inline-flex items-center rounded-md border border-border px-2.5 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-accent",
         className,
@@ -99,42 +194,7 @@ export function ShareButton({
   )
 }
 
-const TRIGGER_COPY: Record<CafecitoTrigger, { title: string; sub: string }> = {
-  record: {
-    title: "¡Récord personal!",
-    sub: "Nunca estuviste tan arriba en el ranking.",
-  },
-  big_climb: {
-    title: "¡Qué escalada!",
-    sub: "Subiste varios puestos de una sola derivada.",
-  },
-  milestone: {
-    title: "Seguís derivando",
-    sub: "Ya resolviste un buen montón.",
-  },
-}
-
-export function CafecitoCard({ trigger }: { trigger: CafecitoTrigger }) {
-  const copy = TRIGGER_COPY[trigger]
-  return (
-    <div className="rounded-lg border border-border bg-card p-4 text-center">
-      <Coffee size={26} className="mx-auto text-[#A8703C]" />
-      <p className="mt-2 font-medium">{copy.title}</p>
-      <p className="mt-0.5 text-sm text-muted-foreground">{copy.sub}</p>
-      <p className="mt-3 text-sm leading-relaxed text-foreground/90">
-        ¿Te está gustando? Este juego se banca a cafecito.
-      </p>
-      <a
-        href={CAFECITO_URL}
-        target="_blank"
-        rel="noreferrer"
-        onClick={() =>
-          posthog.capture("game_cafecito_click", { placement: `card_${trigger}` })
-        }
-        className="mt-3 block rounded-md bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground"
-      >
-        Invitar un cafecito
-      </a>
-    </div>
-  )
-}
+// El multiplicador siempre con la coma decimal de acá y una sola cifra: es el
+// mismo formato en el slider, en el cartel del ranking y en el marcador de la
+// card, así que vive en un solo lugar.
+export const fmtMultiplier = (m: number) => `×${m.toFixed(1).replace(".", ",")}`

@@ -121,7 +121,14 @@ def serve_exercise(
     exercise = GameExercise(
         player_id=player.id,
         template_key=template.key,
-        params_json=None,
+        # La instancia concreta, no los parámetros sueltos. `t1_pow` genera x² y
+        # x⁷ con la misma beta y no cuestan lo mismo; el día que la dificultad se
+        # abra por instancia (ver docs/reports/2026-08-27-elo-derivadas.md §4b)
+        # va a hacer falta saber cuál se sirvió, y ese dato no se puede
+        # reconstruir hacia atrás. Se guarda la expresión y no un dict de
+        # parámetros porque no cuesta tocar las 26 plantillas y es estrictamente
+        # más información: de la expresión salen los parámetros, al revés no.
+        params_json=json.dumps({"f": str(generated.f)}),
         prompt_latex=generated.prompt_latex or latex_es(generated.f),
         expected_derivative=str(derivative),
         common_errors_json=json.dumps(

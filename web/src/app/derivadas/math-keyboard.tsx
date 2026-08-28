@@ -28,6 +28,7 @@
 // El teclado físico sigue funcionando en paralelo (lo maneja MathLive).
 
 import { useMemo } from "react"
+import { motion, useReducedMotion } from "motion/react"
 import katex from "katex"
 // Lo importa también math-text.tsx, y el bundler lo deduplica; va acá igual
 // porque este módulo no debería depender de que otro haya cargado la hoja.
@@ -41,6 +42,12 @@ type Key = {
   // LaTeX del glifo, o un nodo suelto para las teclas que no son matemática
   // (las flechas de navegación y el retroceso, que son acciones del editor).
   tex?: string
+  // La versión larga, con el argumento a completar: `sen(□)` en vez de `sen`.
+  // Es la que dice de verdad qué hace la tecla —inserta la función Y su
+  // paréntesis con el hueco adentro— y es la que se usa en escritorio, donde hay
+  // ancho. En el teléfono la tecla es un botón para el pulgar y ahí no entra:
+  // queda la corta.
+  texWide?: string
   node?: React.ReactNode
   insert?: string
   cmd?: string
@@ -74,6 +81,12 @@ const TONES = {
 } as const
 
 const SIZES = {
+  // Las dinámicas de escritorio. Es el cuerpo que hace entrar al glifo MÁS ANCHO
+  // del vocabulario en una tecla de la grilla de diez: medido, `log_□` pedía
+  // 45.7 px sobre una tecla de 39.4 y se salía. A 0.95rem mide 34.7 y le sobran
+  // un par de píxeles de cada lado. Si algún día se suma una tecla más ancha que
+  // esa, hay que volver a medir acá.
+  dyn: "text-[0.95rem]",
   sm: "text-[1.05rem]",
   md: "text-[1.25rem]",
   lg: "text-[1.5rem]",
@@ -109,12 +122,33 @@ const LEFT: Key[] = [
 ]
 
 // Centro: la incógnita y las cuatro operaciones.
+//
+// Los tres operadores van en `\boldsymbol`: en la fuente matemática de KaTeX el
+// `+`, el `−` y sobre todo el `·` son trazos finos pensados para leerse DENTRO
+// de una fórmula, rodeados de letras. Solos en el centro de una tecla se veían
+// desvaídos al lado de la `x` y de los dígitos, y el punto directamente
+// desaparecía. La negrita es solo del glifo de la tecla: lo que insertan sigue
+// siendo el símbolo normal.
 const CENTER: Key[] = [
   { tex: "x", insert: "x", tone: "unknown", size: "lg" },
-  { tex: "+", insert: "+", tone: "add", size: "lg" },
-  { tex: "-", insert: "-", tone: "sub", size: "lg" },
-  { tex: "\\cdot", insert: "\\cdot", tone: "mul", size: "lg" },
+  { tex: "\\boldsymbol{+}", insert: "+", tone: "add", size: "lg" },
+  { tex: "\\boldsymbol{-}", insert: "-", tone: "sub", size: "lg" },
+  { tex: "\\boldsymbol{\\cdot}", insert: "\\cdot", tone: "mul", size: "lg" },
 ]
+
+// Las mismas ocho teclas fijas, ya intercaladas para el pad del teléfono: los
+// dos bloques de dos columnas se fundieron en una grilla de cuatro, y el orden
+// de lectura que había —( ) x + arriba, ← → − · abajo— se conserva alternando
+// las listas de a dos.
+//
+// Bajan a `md`: eran `lg` porque ocupaban el doble de alto que un dígito, y a
+// igual tamaño que el numérico ese cuerpo las hacía ver desproporcionadas.
+const PAD_FIXED: Key[] = [
+  ...LEFT.slice(0, 2),
+  ...CENTER.slice(0, 2),
+  ...LEFT.slice(2),
+  ...CENTER.slice(2),
+].map((key) => ({ ...key, size: "md" as const }))
 
 const NUM = (d: string): Key => ({ tex: d, insert: d, size: "num" })
 
@@ -139,11 +173,34 @@ const DYNAMIC: Record<string, Key> = {
   frac: { tex: `\\frac{${BOX}}{${BOX}}`, insert: "\\frac{#?}{#?}" },
   e: { tex: "e", insert: "e" },
   expx: { tex: `e^{${BOX}}`, insert: "e^{#?}" },
-  ln: { tex: "\\ln", insert: "\\ln\\left(#?\\right)" },
-  log: { tex: `\\log_{${BOX}}`, insert: "\\log_{#?}\\left(#?\\right)" },
-  sen: { tex: "\\operatorname{sen}", insert: "\\operatorname{sen}\\left(#?\\right)" },
-  cos: { tex: "\\cos", insert: "\\cos\\left(#?\\right)" },
-  tg: { tex: "\\operatorname{tg}", insert: "\\operatorname{tg}\\left(#?\\right)" },
+  ln: {
+    tex: "\\ln",
+    texWide: `\\ln\\left(${BOX}\\right)`,
+    insert: "\\ln\\left(#?\\right)",
+  },
+  log: {
+    tex: `\\log_{${BOX}}`,
+    texWide: `\\log_{${BOX}}\\left(${BOX}\\right)`,
+    insert: "\\log_{#?}\\left(#?\\right)",
+  },
+  sen: {
+    tex: "\\operatorname{sen}",
+    texWide: `\\operatorname{sen}\\left(${BOX}\\right)`,
+    insert: "\\operatorname{sen}\\left(#?\\right)",
+  },
+  cos: {
+    tex: "\\cos",
+    texWide: `\\cos\\left(${BOX}\\right)`,
+    insert: "\\cos\\left(#?\\right)",
+  },
+  // El id sigue siendo `tg` —viaja al backend y está guardado en
+  // `game_players.unlocked_keys`, así que renombrarlo dejaría a todo el mundo
+  // sin su tecla— pero lo que se ve y lo que inserta es `tan`.
+  tg: {
+    tex: "\\tan",
+    texWide: `\\tan\\left(${BOX}\\right)`,
+    insert: "\\tan\\left(#?\\right)",
+  },
 }
 
 // Alto de fila del bloque fijo, en una variable CSS porque cambia por tamaño de
@@ -154,29 +211,74 @@ const DYNAMIC: Record<string, Key> = {
 const ROW_MIN = "var(--kb-row)"
 const ROW_VARS = "[--kb-row:2.5rem] md:[--kb-row:2.05rem]"
 
-// En escritorio las tres filas comparten una grilla de ocho columnas: la
-// dinámica y las dos fijas caen en las mismas verticales, que es lo que hace
-// que se lean como un teclado y no como tres tiras sueltas. Ocho es lo que
-// entra en el canal de 28rem sin que la tecla se vuelva un botoncito.
-const GRID_COLS = 8
+// En escritorio todas las filas comparten una grilla de DIEZ columnas: caen en
+// las mismas verticales, que es lo que hace que se lean como un teclado y no
+// como tres tiras sueltas.
+//
+// Eran ocho, y con el inventario completo —once teclas— eso daba dos filas
+// dinámicas (6+5) más las dos fijas: cuatro filas, que ya no entran en la card y
+// se desbordaban sobre el botón. Con diez, las fijas se juntan en UNA sola y el
+// teclado vuelve a medir tres filas incluso con todo desbloqueado.
+const GRID_COLS = 10
 
-// Ancho de la fila dinámica en el teléfono, donde el canal es más angosto y la
-// tecla se toca con el pulgar. Tiene que aguantar MAX_KEYS de
-// backend/game/keyboard.py.
-const DYNAMIC_COLS_MOBILE = 7
+// El pad del teléfono: las cuatro columnas de la izquierda, al lado del
+// numérico. Antes eran dos bloques de dos columnas con las teclas a DOBLE alto
+// —ocho teclas ocupando las cuatro filas del numérico— y el inventario vivía
+// arriba, en filas propias. Con el vocabulario completo eso eran dos filas de
+// más y el teclado se comía media pantalla.
+//
+// Ahora las fijas miden lo mismo que un dígito y el pad tiene 4×4 = 16 lugares:
+// ocho para las fijas y OCHO para el inventario, que así no necesita filas
+// aparte. Solo las que no entran suben a la fila ancha de arriba.
+const PAD_COLS = 4
+// Cuatro filas, las mismas que el numérico: es lo que hace que los dos bloques
+// midan igual.
+const PAD_ROWS = 4
+const PAD_DYNAMIC_SLOTS = PAD_COLS * PAD_ROWS - 8
 
-// La dinámica es la fila alta: es la que cambia entre ejercicios, la que hay
-// que mirar, y la única con glifos compuestos (potencias, raíces, e^□) que
-// necesitan aire vertical. Las fijas son las de siempre y pueden ser más chicas.
+// En escritorio las tres filas miden lo MISMO: el teclado se lee como una
+// grilla pareja. La dinámica supo ser más alta —era la que cambiaba entre
+// ejercicios— pero ahora es un inventario que crece, y con una sola tecla
+// desbloqueada esa fila más alta se veía como un botón suelto de otro tamaño.
+// El alto alcanza para los glifos compuestos (√□, e^□ miden 30 px).
 const DYNAMIC_ROW = "2.75rem"
-const DYNAMIC_ROW_DESKTOP = "3.1rem"
-const STRIP_ROW = "2.3rem"
+const DYNAMIC_ROW_DESKTOP = "2.6rem"
+const STRIP_ROW = "2.6rem"
 
-// Las dos filas fijas de escritorio, agrupadas por lo que hacen: arriba lo que
-// se escribe, abajo lo que se mueve y se borra. La de arriba llena la fila; la
-// de abajo va centrada, como la dinámica.
-const STRIP_TOP: Key[] = [...CENTER, ...LEFT.slice(0, 2)]
-const STRIP_BOTTOM: Key[] = [...LEFT.slice(2), CLEAR_KEY, ERASE_KEY]
+// La fila fija de escritorio: primero lo que se escribe (incógnita, operaciones,
+// paréntesis) y después lo que se edita (mover el cursor, limpiar, borrar). Eran
+// dos filas y ahora es una sola — es el renglón que se recuperó para que el
+// teclado no pase de tres filas con el inventario completo. El orden conserva
+// los dos grupos, así que se sigue leyendo igual.
+const STRIP_WRITE: Key[] = [...CENTER, ...LEFT.slice(0, 2)]
+const STRIP_EDIT: Key[] = [...LEFT.slice(2), CLEAR_KEY, ERASE_KEY]
+const STRIP: Key[] = [...STRIP_WRITE, ...STRIP_EDIT]
+
+// El teclado de escritorio mide SIEMPRE tres filas, y lo que se acomoda para
+// lograrlo es el bloque fijo: con el inventario chico ocupa dos filas —lo que se
+// escribe arriba, lo que se edita abajo, que es su agrupación natural— y cuando
+// el inventario crece hasta pedir dos filas propias, las junta en una sola.
+//
+// El alto del teclado no cambia nunca, entonces, y lo que se ve crecer es el
+// inventario ocupando el lugar de lo fijo. Las teclas se reordenan en el camino
+// —de eso se trata: la posición final se alcanza con el vocabulario completo.
+//
+// Dónde se corta, con los anchos MEDIDOS de cada glifo y no a ojo. El canal es
+// el de la card menos su margen: 456,8 px.
+//
+//   compactas (□^□ □² √□ □/□ e e^□)   ~265
+//   + ln(□) 76                        ~347   ← el corte
+//   + log_□(□) 97                     ~450   (entra por 7 px: demasiado justo)
+//   + sen(□) 87                       ~543   ✗
+//
+// Y del otro lado, las cuatro que quedan —log, sen, cos, tan— suman ~375. Las
+// dos filas quedan casi iguales (377 y 375) sin que ninguna roce el borde.
+//
+// Se probó partir por la mitad (6 y 5): la segunda fila pedía 457 contra 456,8
+// y envolvía por dos décimas de píxel, o sea tres filas de inventario y cuatro
+// en total. El reparto por cantidad no sirve acá porque las teclas no miden lo
+// mismo: las compactas entran de a seis y las funciones de a cuatro.
+const DYN_ONE_ROW_MAX = 7
 
 // Ancho del contenido, tanto acá como en la card del ejercicio: las teclas y el
 // campo donde se escribe la respuesta comparten el mismo canal centrado, así el
@@ -195,12 +297,17 @@ const GLYPH_CLASS = "[&_.katex]:text-[1em] [&_.katex]:leading-none"
 export function MathKeyboard({
   input,
   keys = [],
+  newKeys = [],
   numpad = true,
   bare = false,
   className,
 }: {
   input: React.RefObject<MathInputHandle | null>
+  // Inventario completo del jugador, en orden canónico.
   keys?: string[]
+  // Las que se desbloquearon con ESTE ejercicio: son las únicas que nacen con
+  // animación.
+  newKeys?: string[]
   // Sin caja propia: en escritorio el teclado va dentro de la misma card que el
   // enunciado, separado apenas por una línea.
   bare?: boolean
@@ -212,6 +319,7 @@ export function MathKeyboard({
   className?: string
 }) {
   const sfx = useSfx()
+  const reduceMotion = useReducedMotion()
 
   const press = (key: Key) => {
     sfx.select()
@@ -227,9 +335,9 @@ export function MathKeyboard({
   const button = (
     key: Key,
     id: string,
-    opts?: { className?: string; style?: React.CSSProperties },
+    opts?: { className?: string; style?: React.CSSProperties; nueva?: boolean },
   ) => (
-    <button
+    <motion.button
       key={id}
       type="button"
       // El mousedown robaría el foco del mathfield y el insert iría a la nada:
@@ -237,6 +345,19 @@ export function MathKeyboard({
       onMouseDown={(e) => e.preventDefault()}
       onClick={() => press(key)}
       style={opts?.style}
+      // `layout` es lo que hace que las teclas que ya estaban se corran solas
+      // cuando entra una nueva, en vez de saltar a su lugar nuevo.
+      layout={!reduceMotion}
+      // Solo las recién desbloqueadas nacen: si todas animaran en cada
+      // ejercicio, el teclado parpadearía todo el tiempo y el desbloqueo
+      // dejaría de significar algo.
+      initial={opts?.nueva && !reduceMotion ? { scale: 0.4, opacity: 0 } : false}
+      animate={{ scale: 1, opacity: 1 }}
+      transition={
+        reduceMotion
+          ? { duration: 0 }
+          : { type: "spring", stiffness: 420, damping: 26 }
+      }
       className={cn(
         KEY_CLASS,
         SIZES[key.size ?? "md"],
@@ -252,13 +373,13 @@ export function MathKeyboard({
       ) : (
         key.node
       )}
-    </button>
+    </motion.button>
   )
 
-  // En escritorio la fila dinámica es la protagonista y va a cuerpo entero; en
-  // el teléfono la tecla es más angosta y los glifos compuestos (potencias,
-  // raíces, e^□) se pasan de alto si van al mismo cuerpo que un dígito.
-  const dynamicSize: Key["size"] = numpad ? "sm" : "md"
+  // El inventario desbloqueado, en orden canónico y con la tecla cruda: el
+  // glifo que se usa —corto o largo— lo elige cada destino, porque la misma
+  // tecla se dibuja distinto en el pad (donde la celda mide 39 px) que en la
+  // fila ancha (donde puede decir `sen(□)`).
   const dynamic = useMemo(
     () =>
       keys
@@ -267,95 +388,200 @@ export function MathKeyboard({
         // quedarían corridas a partir de ahí.
         .map((id) => ({ id, key: DYNAMIC[id] }))
         .filter((entry) => entry.key !== undefined)
-        .map((entry) => ({ id: entry.id, key: { ...entry.key, size: dynamicSize } })),
-    [keys, dynamicSize],
+        .map((entry) => ({
+          id: entry.id,
+          key: entry.key,
+          nueva: newKeys.includes(entry.id),
+        })),
+    [keys, newKeys],
   )
-  const cols = numpad ? DYNAMIC_COLS_MOBILE : GRID_COLS
-  // Centradas dentro de la fila: así el tamaño de tecla no depende de cuántas
-  // haya, que es lo que las haría cambiar de forma entre ejercicios.
-  const firstCol = Math.floor((cols - dynamic.length) / 2) + 1
+
+  // El reparto del teléfono. Las primeras entran al pad con el glifo corto; las
+  // que sobran suben a la fila ancha con el largo.
+  //
+  // Cae solo donde tiene que caer: el orden canónico arranca con las compactas
+  // (□^□, □², √□, □/□, e, e^□) y termina con las funciones, así que lo que queda
+  // arriba es justamente lo que gana con la forma extendida —`sen(□)` dice que
+  // inserta el paréntesis y el hueco; `sen` no dice nada— y lo que baja es lo
+  // que entra sin apretarse en una celda del pad.
+  const padDynamic = dynamic.slice(0, PAD_DYNAMIC_SLOTS)
+  const wideDynamic = dynamic.slice(PAD_DYNAMIC_SLOTS)
 
   // Las teclas fijas de escritorio bajan de cuerpo: contra una fila dinámica
-  // más alta, el `lg` de antes las hacía competir con lo que sí cambia. En el
-  // teléfono siguen a `lg`, donde la tecla es de doble alto y hay lugar.
+  // más alta, el `lg` de antes las hacía competir con lo que sí cambia.
   const strip = (key: Key): Key => ({ ...key, size: "md" })
   const stripGrid = {
     height: STRIP_ROW,
     gridTemplateColumns: `repeat(${GRID_COLS}, minmax(0, 1fr))`,
   }
 
+  // El alto del pad se reparte SIEMPRE en las mismas cuatro unidades que el
+  // numérico de al lado, y lo que cambia es cómo se dividen: las filas que pide
+  // el inventario valen una unidad cada una, y las dos fijas se reparten lo que
+  // sobra. De ahí sale toda la progresión sin ningún caso especial —
+  //
+  //   sin teclas   → 0 + 2 filas de 2 unidades  (las grandes de siempre)
+  //   hasta cuatro → 1 + 2 filas de 1,5
+  //   hasta ocho   → 2 + 2 filas de 1           (todas del alto de un dígito)
+  //
+  // — y el bloque nunca deja un hueco al lado del numérico ni crece de alto.
+  // Se probó dejar que `1fr` repartiera solo: medido, las filas se quedan en su
+  // mínimo y el sobrante queda al pie del bloque.
+  // Las filas del inventario en ESCRITORIO: una sola mientras entren, dos
+  // partidas por la mitad cuando no. Explícitas y no libradas al `flex-wrap`
+  // porque de su cantidad depende cómo se dibuja el bloque fijo de abajo, y eso
+  // hay que saberlo al renderizar, no después de medir.
+  const dynDesktopRows = useMemo(() => {
+    if (numpad || dynamic.length === 0) return []
+    if (dynamic.length <= DYN_ONE_ROW_MAX) return [dynamic]
+    return [dynamic.slice(0, DYN_ONE_ROW_MAX), dynamic.slice(DYN_ONE_ROW_MAX)]
+  }, [dynamic, numpad])
+
+  const padDinFilas = Math.ceil(padDynamic.length / PAD_COLS)
+  const padFijasAlto = (PAD_ROWS - padDinFilas) / 2
+  const padRows = {
+    gridTemplateRows: [
+      padDinFilas > 0 ? `repeat(${padDinFilas}, minmax(${ROW_MIN}, 1fr))` : "",
+      `repeat(2, minmax(calc(${ROW_MIN} * ${padFijasAlto}), 1fr))`,
+    ]
+      .filter(Boolean)
+      .join(" "),
+  }
+
   // `minmax(ROW_MIN, 1fr)` y no `1fr` pelado: en el teléfono el teclado va en
   // flujo natural (sin alto que repartir) y con 1fr las filas colapsarían a
   // cero; en escritorio hay alto de sobra y crecen.
-  const tallRows = { gridTemplateRows: `repeat(2, minmax(calc(${ROW_MIN} * 2), 1fr))` }
-  const numRows = { gridTemplateRows: `repeat(4, minmax(${ROW_MIN}, 1fr))` }
+  const numRows = { gridTemplateRows: `repeat(${PAD_ROWS}, minmax(${ROW_MIN}, 1fr))` }
 
   return (
     <div
       className={cn(
-        "flex flex-col gap-1.5 p-2",
-        bare ? "border-t border-border" : "rounded-lg border border-border bg-card",
+        "flex flex-col gap-1.5",
+        // Sin caja propia va pegado al campo, sin línea que lo separe: el
+        // teclado es con qué se escribe la respuesta, no una sección aparte.
+        //
+        // El teclado es dueño de sus DOS aires: el que lo separa del campo (la
+        // card de arriba no lleva padding abajo cuando es `bare`) y el que lo
+        // separa del fondo de la caja. El de abajo es más grande a propósito —
+        // como la caja tiene alto fijo y el teclado está apoyado contra el
+        // fondo, ese padding es lo único que lo levanta, y a él se le sube
+        // también el campo. Lo que cede es la caja de la fórmula, que es la que
+        // crece con lo que sobra.
+        // `px-4` y no `px-2`: es el mismo margen lateral que la card de arriba
+        // (exercise-card.tsx), así las teclas apoyan en la misma vertical que la
+        // pastilla del marcador y la caja de la fórmula. Con 8 px de diferencia,
+        // en el teléfono —donde el canal no llega al tope de 28rem y nada lo
+        // empareja— se veían tres verticales distintas bajando por la pantalla.
+        bare ? "px-4 pb-8 pt-4" : "rounded-lg border border-border bg-card p-2",
         ROW_VARS,
         className,
       )}
     >
-      {/* En escritorio el contenido va en un canal centrado y no de borde a
-          borde: alineado con el campo de la respuesta, el panel se lee como una
-          columna. En el teléfono no hay ancho que regalar y ocupa todo. */}
-      <div
-        className={cn(
-          "flex min-h-0 flex-1 flex-col gap-1.5",
-          !numpad && CONTENT_WIDTH,
-        )}
-      >
-      <div
-        className="grid shrink-0 gap-1.5"
-        style={{
-          height: numpad ? DYNAMIC_ROW : DYNAMIC_ROW_DESKTOP,
-          gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
-        }}
-      >
-        {dynamic.map((entry, i) =>
-          button(entry.key, `dyn-${entry.id}`, {
-            style: { gridColumnStart: firstCol + i },
-          }),
-        )}
-      </div>
-      {numpad ? (
-        <div className="flex min-h-0 flex-1 gap-1.5">
-          {/* Los bloques laterales van a doble alto contra las cuatro filas del
-              numérico: así los tres miden lo mismo y las teclas más usadas
-              tienen el blanco más grande. */}
-          <div className="grid flex-[2] grid-cols-2 gap-1.5" style={tallRows}>
-            {LEFT.map((key, i) => button(key, `left-${i}`))}
+      <div className="flex min-h-0 flex-1 flex-col gap-1.5">
+      {/* El inventario desbloqueado. Cada tecla entra con su propia animación y
+          `layout` mueve a las que ya estaban, así desbloquear una se ve como que
+          el teclado crece y no como que se redibuja de cero. Que se reacomoden
+          al entrar una nueva es parte del trato: el orden canónico se respeta,
+          pero la posición dentro de las filas se rearma hasta que el inventario
+          está completo.
+
+          Esta fila es la ÚNICA que se sale del canal de 28rem: crece a lo ancho
+          de la card. Es lo que mantiene el teclado en TRES filas —dos de
+          inventario y la tira fija— con las once teclas desbloqueadas. Con el
+          tope de 28rem, las formas largas pedían ~783 px y envolvían en tres
+          filas, que con la tira daban cuatro y desbordaban la card. Al crecer a
+          lo ancho no se pierde alineación: la fila está centrada, así que con
+          pocas teclas queda igual de angosta que el campo de arriba, y solo se
+          pasa de ese ancho cuando de verdad hace falta. */}
+      {(numpad ? (wideDynamic.length > 0 ? [wideDynamic] : []) : dynDesktopRows).map(
+        (fila, f) => (
+          <div
+            key={`din-${f}`}
+            className="flex shrink-0 flex-wrap justify-center gap-1.5"
+          >
+            {fila.map((entry) =>
+              button(
+                {
+                  ...entry.key,
+                  tex: entry.key.texWide ?? entry.key.tex,
+                  // Las que tienen forma larga —ln, log, sen, cos, tan— bajan de
+                  // cuerpo. Son las únicas cuyo glifo es una PALABRA más un
+                  // paréntesis con hueco adentro, así que al mismo tamaño que un
+                  // `e` suelto pesan el doble y la fila se ve despareja. Y de
+                  // paso miden ~10% menos, que es ancho que la fila agradece.
+                  size: entry.key.texWide ? "dyn" : "sm",
+                },
+                `dyn-${entry.id}`,
+                {
+                  className: "min-w-[2.6rem] px-3",
+                  style: { height: numpad ? DYNAMIC_ROW : DYNAMIC_ROW_DESKTOP },
+                  nueva: entry.nueva,
+                },
+              ),
+            )}
           </div>
-          <div className="grid flex-[2] grid-cols-2 gap-1.5" style={tallRows}>
-            {CENTER.map((key, i) => button(key, `center-${i}`))}
+        ),
+      )}
+      {numpad ? (
+        // El bloque de abajo SÍ va en el canal de 28rem, igual que el campo de
+        // la respuesta y la caja de la fórmula (exercise-card.tsx ::
+        // PANEL_CONTENT): es lo que hace que el panel se lea como una columna.
+        // En un teléfono el canal no llega al tope y ocupa todo el ancho igual.
+        <div className={cn("flex min-h-0 flex-1 gap-1.5", CONTENT_WIDTH)}>
+          {/* El pad: cuatro columnas con las fijas abajo y el inventario encima.
+
+              Las filas se ESTIRAN para llenar el alto del numérico, y de ahí
+              sale solo el comportamiento que se quiere: con el inventario vacío
+              son dos filas de doble alto —las teclas grandes de siempre— y a
+              medida que se desbloquean teclas las filas se reparten el mismo
+              alto y van bajando hasta emparejarse con los dígitos. Nunca queda
+              un hueco al lado del numérico, y el teclado no crece.
+
+              Las dinámicas van a `dyn` (0.95rem) y no a `sm`: la celda mide
+              39 px y `log_□` pedía 45.7 con el cuerpo grande. */}
+          <div className="grid flex-[4] grid-cols-4 gap-1.5" style={padRows}>
+            {padDynamic.map((entry) =>
+              button({ ...entry.key, size: "dyn" }, `dyn-${entry.id}`, {
+                nueva: entry.nueva,
+              }),
+            )}
+            {PAD_FIXED.map((key, i) =>
+              button(key, `pad-${i}`, {
+                // La primera fija abre fila propia: si las dinámicas dejaron una
+                // fila a medias, sin esto la siguiente tecla entraría en el
+                // hueco que quedó y el bloque fijo se correría de lugar.
+                style: i === 0 ? { gridColumn: 1 } : undefined,
+              }),
+            )}
           </div>
           <div className="grid flex-[3] grid-cols-3 gap-1.5" style={numRows}>
             {NUMPAD.map((key, i) => button(key, `num-${i}`))}
           </div>
         </div>
       ) : (
-        // Sin numérico quedan dos tiras, no un pad: arriba lo que se escribe
-        // (incógnita, operaciones, paréntesis) y abajo lo que se edita (mover el
-        // cursor, borrar). La de abajo va centrada dentro de las mismas seis
-        // columnas, igual que la dinámica.
-        <>
-          {[STRIP_TOP, STRIP_BOTTOM].map((fila, f) => (
-            <div key={f} className="grid shrink-0 gap-1.5" style={stripGrid}>
+        // Sin numérico no hay pad sino tiras, centradas dentro de las mismas
+        // diez columnas: una sola cuando el inventario ya ocupa dos filas, y
+        // partida en dos —lo que se escribe, lo que se edita— cuando ocupa una.
+        // Es lo que mantiene el teclado en tres filas siempre (ver
+        // DYN_ONE_ROW_MAX). Los dos repartos son pares y la grilla también, así
+        // que las dos quedan centradas exactas.
+        (dynDesktopRows.length > 1 ? [STRIP] : [STRIP_WRITE, STRIP_EDIT]).map(
+          (fila, f) => (
+            <div
+              key={`tira-${f}`}
+              className={cn("grid shrink-0 gap-1.5", CONTENT_WIDTH)}
+              style={stripGrid}
+            >
               {fila.map((key, i) =>
                 button(strip(key), `strip-${f}-${i}`, {
-                  // Centradas en las mismas ocho columnas que la dinámica: es lo
-                  // que alinea las tres filas entre sí.
                   style: {
                     gridColumnStart: Math.floor((GRID_COLS - fila.length) / 2) + 1 + i,
                   },
                 }),
               )}
             </div>
-          ))}
-        </>
+          ),
+        )
       )}
       </div>
     </div>

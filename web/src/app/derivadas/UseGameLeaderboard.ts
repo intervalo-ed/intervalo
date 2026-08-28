@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import { useInfiniteQuery, useQuery, useQueryClient } from "@tanstack/react-query"
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { unwrap } from "@/lib/api/client"
 import { ALL_SCOPE } from "@/components/leaderboard-chrome"
 import type { components } from "@/lib/api/schema"
@@ -11,6 +11,8 @@ import { useGameApi } from "./UseGameApi"
 export type GameLeaderboard = components["schemas"]["GameLeaderboardResponse"]
 export type GameLeaderboardEntry = components["schemas"]["GameLeaderboardEntry"]
 export type GameUniversityRow = components["schemas"]["GameUniversityRow"]
+export type GameBoost = components["schemas"]["GameBoostOut"]
+export type GameEvent = components["schemas"]["GameEventOut"]
 
 export type Scope = { university: string; career: string }
 
@@ -43,7 +45,7 @@ export function useGameLeaderboard(scope: Scope, enabled: boolean) {
     initialPageParam: { around: true } as PageParam,
     queryFn: async ({ pageParam }) =>
       unwrap(
-        await api.GET("/game/derivadas/leaderboard", {
+        await api.GET("/game/derivemos/leaderboard", {
           params: {
             query: {
               ...scopeQuery(scope),
@@ -103,7 +105,7 @@ export function useGamePulse({
 
   const pulse = useQuery({
     queryKey: gameKeys.pulse,
-    queryFn: async () => unwrap(await api.GET("/game/derivadas/leaderboard/pulse")),
+    queryFn: async () => unwrap(await api.GET("/game/derivemos/leaderboard/pulse")),
     enabled,
     refetchInterval: PULSE_INTERVAL_MS,
     // En segundo plano se detiene: este pedido es lo que hace avanzar la
@@ -135,13 +137,77 @@ export function useGamePulse({
   return pulse
 }
 
+// Los empujes de universidad viajan en el pulso, que ya late cada 10 s desde el
+// layout. Este hook LEE ese caché (`enabled: false` ⇒ nunca dispara un pedido
+// propio) en vez de plomear los datos por props: cualquier componente que
+// necesite saber qué universidades están impulsadas lo pregunta acá, sin sumar ni
+// una request ni un prop nuevo a la cadena.
+export function useGameBoosts(): GameBoost[] {
+  const api = useGameApi()
+  const { data } = useQuery({
+    queryKey: gameKeys.pulse,
+    queryFn: async () => unwrap(await api.GET("/game/derivemos/leaderboard/pulse")),
+    enabled: false,
+  })
+  return data?.boosts ?? []
+}
+
+// El empuje que le está tocando a ESTE jugador: el de su universidad, o el
+// global si no hay. El global vale aunque todavía no haya elegido universidad —
+// es un regalo para todos y dejar afuera justo al que no eligió sería al revés.
+// Si hay los dos, gana el dirigido: es el que su universidad se ganó.
+export function useMyBoost(university: string | null | undefined): GameBoost | null {
+  const boosts = useGameBoosts()
+  const propio = university
+    ? boosts.find((b) => b.university === university)
+    : undefined
+  return propio ?? boosts.find((b) => !b.university) ?? null
+}
+
+// "Me voy a Cafecito": se avisa al servidor ANTES de abrir el link, porque una
+// vez que la persona se fue, Cafecito no tiene cómo decirnos de qué universidad
+// era. Es la pata de la atribución que no le pide nada al donante.
+//
+// Sin `onError`: si falla, la donación igual cae en algún lado —la sigla del
+// mensaje, o el empuje global—. Avisar de un error acá sería ruido sobre algo
+// que el servidor ya resuelve solo.
+export function useCafecitoIntent() {
+  const api = useGameApi()
+  return useMutation({
+    mutationFn: async () => {
+      await api.POST("/game/derivemos/cafecito-intent")
+    },
+  })
+}
+
+// Cada cuánto se pide el historial. Más lento que el pulso: los eventos son
+// para leer, no para reaccionar, y a 8 s ya se siente vivo.
+const EVENTS_INTERVAL_MS = 8_000
+
+// Historial de eventos del juego. Se pide la lista COMPLETA (son 40 líneas
+// cortas) y se reemplaza, en vez de ir acumulando lo nuevo con `?after_id=`: el
+// endpoint soporta las dos cosas, pero acumular en el cliente trae mezcla,
+// huecos y orden a mano por unos pocos KB de ahorro. Lo nuevo lo detecta el
+// propio React por la `key` de cada fila.
+export function useGameEvents(enabled: boolean) {
+  const api = useGameApi()
+  return useQuery({
+    queryKey: gameKeys.events,
+    queryFn: async () => unwrap(await api.GET("/game/derivemos/events")),
+    enabled,
+    refetchInterval: EVENTS_INTERVAL_MS,
+    // Igual que el pulso: una pestaña olvidada no sondea.
+    refetchIntervalInBackground: false,
+  })
+}
+
 export function useGameLeaderboardSummary(scope: Scope, enabled: boolean) {
   const api = useGameApi()
   return useQuery({
     queryKey: [...gameKeys.leaderboard, "summary", ...scopeKey(scope)],
     queryFn: async () =>
       unwrap(
-        await api.GET("/game/derivadas/leaderboard/summary", {
+        await api.GET("/game/derivemos/leaderboard/summary", {
           params: { query: scopeQuery(scope) },
         }),
       ),
@@ -156,7 +222,7 @@ export function useGameUniversityLeaderboard(scope: Scope, enabled: boolean) {
     queryKey: [...gameKeys.leaderboard, "universities", ...scopeKey(scope)],
     queryFn: async () =>
       unwrap(
-        await api.GET("/game/derivadas/leaderboard/universities", {
+        await api.GET("/game/derivemos/leaderboard/universities", {
           params: { query: scopeQuery(scope) },
         }),
       ),

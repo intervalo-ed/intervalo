@@ -352,8 +352,12 @@ TEMPLATE_BY_KEY: dict[str, GameTemplate] = {t.key: t for t in TEMPLATES}
 
 
 def latex_es(expr: sympy.Expr) -> str:
-    """LaTeX de sympy en notación española (sen/tg, ln)."""
+    """LaTeX de sympy en notación española: `sen` y `ln`.
+
+    La tangente NO se traduce: queda en `\\tan`, que es como la escribe el
+    teclado del juego y como la lee MathLive sin ayuda. `tg` sigue aceptándose
+    de entrada —el normalizador del front lo convierte— pero ya no se muestra.
+    """
     out = sympy.latex(expr, ln_notation=True)
     out = out.replace(r"\sin", r"\operatorname{sen}")
-    out = out.replace(r"\tan", r"\operatorname{tg}")
     return out

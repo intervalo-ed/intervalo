@@ -1,20 +1,24 @@
-"""Teclas dinámicas del teclado, deducidas de la derivada esperada.
+"""Teclas del teclado, deducidas de la derivada esperada.
 
-El teclado del juego no es solo un input: es la heurística que orienta sobre qué
-hacer, así que mostrarlo entero (30 teclas) abruma en vez de ayudar. El bloque
-fijo (numpad, x, + − ·, paréntesis, flechas) alcanza para las derivadas simples;
-todo lo demás aparece SOLO cuando este ejercicio lo pide, más un par de
-distractores legítimos de la misma familia para que la fila no sea la respuesta
-servida.
+El teclado del juego no es solo un input: mostrarlo entero (30 teclas) abruma en
+vez de ayudar. El bloque fijo (numpad, x, + − ·, paréntesis, flechas) alcanza
+para las derivadas simples; todo lo demás se DESBLOQUEA: la primera vez que una
+derivada pide una tecla, esa tecla aparece y ya no se va (game_players.
+unlocked_keys).
 
-Funciones puras sobre el árbol de sympy. La derivada esperada ya está persistida
-en `game_exercises.expected_derivative`, así que esto se calcula al vuelo en
-/next: no hay columna ni migración.
+Antes esto se calculaba por ejercicio —lo que esa derivada pedía más un par de
+distractores, para que la fila no fuera la respuesta servida— y el teclado
+cambiaba de forma todo el tiempo. El inventario acumulativo cambia el trato: la
+fila sí delata algo del ejercicio la primera vez que aparece una tecla, pero a
+partir de ahí es solo el resumen de lo que la persona ya sabe escribir, y verlo
+crecer es parte del juego. Se cambió información oculta por progresión, a
+sabiendas.
+
+Funciones puras sobre el árbol de sympy: la derivada esperada ya está persistida
+en `game_exercises.expected_derivative`.
 """
 
 from __future__ import annotations
-
-import random
 
 import sympy
 from sympy import cos, exp, log, sin, tan
@@ -53,31 +57,9 @@ CANONICAL_ORDER: tuple[str, ...] = (
 )
 _ORDER_INDEX = {key: i for i, key in enumerate(CANONICAL_ORDER)}
 
-# Ancho de la fila. Con más de 7 la fila deja de leerse de un vistazo.
-MAX_KEYS = 7
-# Piso cuando el ejercicio pide al menos una tecla: sola en la fila, la tecla
-# necesaria sería literalmente la respuesta.
-MIN_KEYS = 4
-
-# Confusiones plausibles por familia: son las teclas que alguien podría elegir
-# mal, no relleno al azar (sen/cos se intercambian, ln/log se confunden, a^x se
-# escribe como e^x).
-_SIBLINGS: dict[str, tuple[str, ...]] = {
-    KEY_SEN: (KEY_COS, KEY_TG),
-    KEY_COS: (KEY_SEN, KEY_TG),
-    KEY_TG: (KEY_SEN, KEY_COS),
-    KEY_LN: (KEY_LOG,),
-    KEY_LOG: (KEY_LN,),
-    KEY_EXPX: (KEY_POW, KEY_E),
-    KEY_POW: (KEY_SQ, KEY_EXPX, KEY_SQRT),
-    KEY_SQ: (KEY_POW, KEY_SQRT),
-    KEY_FRAC: (KEY_SQ, KEY_POW),
-}
-
-# Último recurso para llegar al piso cuando la familia no da más hermanos.
-# Ordenado de más a menos plausible: un exponente o una fracción de más se
-# pueden creer, una raíz o un π en una derivada de esta tabla no.
-_FILLER: tuple[str, ...] = (KEY_POW, KEY_SQ, KEY_FRAC, KEY_E, KEY_SQRT)
+# Sin tope de teclas: el inventario crece hasta las once y el front las acomoda
+# en filas balanceadas (math-keyboard.tsx). Un tope acá sería esconderle a
+# alguien una tecla que ya se ganó.
 
 
 def _keys_for_power(base: sympy.Expr, expo: sympy.Expr) -> set[str]:
@@ -127,39 +109,33 @@ def required_keys(expr: sympy.Expr) -> set[str]:
     return out
 
 
-def keys_for(expr: sympy.Expr, seed: int) -> list[str]:
-    """Fila dinámica del teclado para esta derivada, en orden canónico.
+def parse_unlocked(raw: str | None) -> set[str]:
+    """Lee la columna, descartando ids que ya no existan en el vocabulario."""
+    if not raw:
+        return set()
+    return {k for k in raw.split(",") if k in _ORDER_INDEX}
 
-    Sin teclas necesarias devuelve la lista vacía: la fila queda en blanco y eso
-    ya dice algo ("acá no hace falta nada raro"). El alto de la fila lo reserva
-    el front, así que el teclado no cambia de tamaño.
+
+def serialize(keys: set[str]) -> str:
+    return ",".join(in_order(keys))
+
+
+def in_order(keys: set[str]) -> list[str]:
+    """Las teclas en CANONICAL_ORDER, que es el orden en que se dibujan."""
+    return sorted(keys, key=lambda k: _ORDER_INDEX[k])
+
+
+def parse_unlocked_ordered(raw: str | None) -> list[str]:
+    return in_order(parse_unlocked(raw))
+
+
+def unlock(raw: str | None, expr: sympy.Expr) -> tuple[str, list[str]]:
+    """Suma al inventario lo que esta derivada exige.
+
+    Devuelve (columna nueva, teclas recién desbloqueadas). Lo segundo es lo que
+    el front necesita para poder festejar solo lo nuevo en vez de animar la fila
+    entera en cada ejercicio.
     """
-    required = required_keys(expr)
-    if not required:
-        return []
-
-    target = min(MAX_KEYS, max(MIN_KEYS, len(required) + 2))
-    chosen = set(required)
-
-    # Los hermanos de las teclas necesarias van PRIMERO: son las confusiones de
-    # verdad. El relleno solo entra si la familia no da para llegar al piso —
-    # mezclarlos en una sola bolsa dejaba filas absurdas (√ y ÷ como
-    # distractores de sen x, con cos ausente).
-    siblings: list[str] = []
-    for key in sorted(required, key=lambda k: _ORDER_INDEX[k]):
-        for sibling in _SIBLINGS.get(key, ()):
-            if sibling not in chosen and sibling not in siblings:
-                siblings.append(sibling)
-    filler = [k for k in _FILLER if k not in chosen and k not in siblings]
-
-    # El sorteo decide cuáles entran cuando sobran candidatos, no en qué orden
-    # se dibujan (eso lo fija CANONICAL_ORDER).
-    rng = random.Random(seed)
-    rng.shuffle(siblings)
-    rng.shuffle(filler)
-    for key in (*siblings, *filler):
-        if len(chosen) >= target:
-            break
-        chosen.add(key)
-
-    return sorted(chosen, key=lambda k: _ORDER_INDEX[k])
+    have = parse_unlocked(raw)
+    fresh = required_keys(expr) - have
+    return serialize(have | fresh), in_order(fresh)

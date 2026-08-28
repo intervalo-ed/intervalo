@@ -1,9 +1,12 @@
 "use client"
 
-// Panel de configuración: entra desde la tuerca y se come toda la interfaz.
-// Es una sola columna angosta con secciones cortas — cambiar el @, la carrera y
-// la universidad, el sonido, compartir, invitar un cafecito y reiniciar el
-// progreso.
+// Panel de configuración: una sola columna angosta con secciones cortas —
+// cambiar el @, la carrera y la universidad, el sonido, compartir, invitar un
+// cafecito y reiniciar el progreso.
+//
+// En escritorio ya no se come la interfaz: la tuerca voltea la card del
+// ejercicio y esto aparece del otro lado, con el ranking siempre a la vista. En
+// el teléfono sigue siendo una slide propia, que ahí es lo mismo.
 //
 // Las slides de carrera y universidad son las MISMAS del onboarding
 // (components/onboarding-fields.tsx), igual que en los hitos del juego.
@@ -14,31 +17,105 @@ import { useQueryClient } from "@tanstack/react-query"
 import { ChevronLeft, Coffee, RotateCcw, Share2, Volume2, VolumeX } from "lucide-react"
 import { ApiError, unwrap } from "@/lib/api/client"
 import { Button } from "@/components/ui/button"
-import { CareerSelect, UniversityGrid } from "@/components/onboarding-fields"
+import { CAREERS, CareerSelect, UniversityGrid } from "@/components/onboarding-fields"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { UNIVERSITY_TAGS } from "@/lib/university-tags"
 import { setSoundMuted, useSoundMuted } from "@/lib/audio/sound-settings"
 import { useSfx } from "@/lib/audio/useSfx"
 import { canonicalUniversity } from "@/lib/university-tags"
 import { cn } from "@/lib/utils"
-import { CAFECITO_URL, SHARE_URL } from "./cafecito-cta"
+import { CAFECITO_URL, shareUrl } from "./cafecito-cta"
+import { SlideFlip } from "./slide-flip"
 import { useGameApi } from "./UseGameApi"
+import { useCta } from "./game-telemetry"
 import { gameKeys, type GamePlayer } from "./UseGamePlayer"
 
-type Section = "root" | "career" | "university"
+type Section = "root" | "alias" | "career" | "university"
+
+// Valor centinela del desplegable de universidad: no es una sigla, es "abrime
+// la pantalla del campo libre".
+const OTRA = "__otra__"
 
 const rowCls =
   "flex w-full items-center justify-between gap-3 rounded-lg border border-border bg-card px-4 py-3 text-left text-sm transition-colors hover:border-white/20"
 
+/** Una fila que despliega sus opciones en el lugar, con la pinta de las demás.
+ *
+ * Solo en escritorio: ahí hay lugar de sobra al costado y mandar a otra pantalla
+ * por elegir entre cuatro carreras es un viaje de ida y vuelta por nada. En el
+ * teléfono la lista no entra y se sigue yendo a una slide. */
+function RowSelect({
+  label,
+  value,
+  display,
+  onChange,
+  children,
+}: {
+  label: string
+  value: string
+  display: React.ReactNode
+  onChange: (v: string) => void
+  children: React.ReactNode
+}) {
+  return (
+    <Select value={value} onValueChange={(v) => v && onChange(v)}>
+      <SelectTrigger
+        aria-label={label}
+        className={cn(rowCls, "h-auto! shadow-none [&>svg]:size-4 [&>svg]:opacity-60")}
+      >
+        <span className="text-muted-foreground">{label}</span>
+        <SelectValue>{() => display}</SelectValue>
+      </SelectTrigger>
+      {/* Igual que el filtro del ranking: desplegable normal colgado del
+          disparador, con su propio scroll. El modo "select nativo" monta la
+          lista ENCIMA y con noventa universidades se va de pantalla.
+
+          El tope de alto es NUEVE opciones: 9 × 34,2 px, el paso entre items
+          medido (su `py-2` más la caja de línea del `text-sm`). Sin tope la
+          lista se estira hasta el borde de la ventana, y con noventa
+          universidades eso es un desplegable que tapa la pantalla entera y en el
+          que igual hay que scrollear. La barrita queda siempre a la vista
+          porque el contenido siempre la desborda, que es justo lo que avisa que
+          la lista sigue.
+
+          El número está medido, no derivado de un token: si cambia el cuerpo de
+          letra o el padding del item hay que volver a medirlo. El costo de que
+          se desfase es una fila cortada, no un layout roto.
+
+          El `min` con la altura disponible es para las ventanas bajas: ahí manda
+          la que sobra, que es lo que hacía el estilo original. */}
+      <SelectContent
+        alignItemWithTrigger={false}
+        className="max-h-[min(308px,var(--available-height))]"
+      >
+        {children}
+      </SelectContent>
+    </Select>
+  )
+}
+
 export function SettingsPanel({
   player,
+  // En escritorio carrera y universidad se despliegan en el lugar; en el
+  // teléfono se va a una slide y se vuelve.
+  variant = "mobile",
   onClose,
   onNeedsRegister,
 }: {
   player: GamePlayer | null
+  variant?: "desktop" | "mobile"
   onClose: () => void
   // El guest no elige su @: ese es el gancho del registro.
   onNeedsRegister: () => void
 }) {
   const api = useGameApi()
+  const cta = useCta()
   const queryClient = useQueryClient()
   const sfx = useSfx()
   const muted = useSoundMuted()
@@ -63,7 +140,7 @@ export function SettingsPanel({
     if (busy) return
     setBusy(true)
     try {
-      await api.PATCH("/game/derivadas/me", { body })
+      await api.PATCH("/game/derivemos/me", { body })
       refreshAll()
     } catch {
       // Sin drama: el juego sigue y la próxima vuelta lo reintenta.
@@ -78,7 +155,7 @@ export function SettingsPanel({
     setBusy(true)
     setAliasError(null)
     try {
-      unwrap(await api.PATCH("/game/derivadas/me", { body: { alias: value } }))
+      unwrap(await api.PATCH("/game/derivemos/me", { body: { alias: value } }))
       posthog.capture("game_alias_edited", { via: "settings" })
       setAliasSaved(true)
       refreshAll()
@@ -92,7 +169,7 @@ export function SettingsPanel({
     if (busy) return
     setBusy(true)
     try {
-      unwrap(await api.POST("/game/derivadas/reset"))
+      unwrap(await api.POST("/game/derivemos/reset"))
       posthog.capture("game_reset")
       refreshAll()
       onClose()
@@ -102,28 +179,62 @@ export function SettingsPanel({
     }
   }
 
-  if (section === "career") {
-    return (
-      <PanelShell title="Carrera" onBack={() => setSection("root")}>
-        <CareerSelect
-          value={player?.career ?? ""}
-          onSelect={(value) => {
-            sfx.select()
-            void saveProfile({ career: value })
-          }}
-        />
-      </PanelShell>
-    )
+  const confirmOther = () => {
+    const value = canonicalUniversity(otherUniversity)
+    if (!value) return
+    void saveProfile({ university: value })
   }
 
-  if (section === "university") {
-    const confirmOther = () => {
-      const value = canonicalUniversity(otherUniversity)
-      if (!value) return
-      void saveProfile({ university: value })
-    }
-    return (
-      <PanelShell title="Universidad" onBack={() => setSection("root")}>
+  // Las tres secciones son tres pantallas y se cambian con el mismo volteo que
+  // todo lo demás del juego (slide-flip.tsx).
+  return (
+    <SlideFlip slide={section} className="flex min-h-0 flex-1 flex-col">
+      {section === "career" ? (
+        <PanelShell title="Carrera" onBack={() => setSection("root")}>
+          <CareerSelect
+            value={player?.career ?? ""}
+            onSelect={(value) => {
+              sfx.select()
+              void saveProfile({ career: value })
+            }}
+          />
+        </PanelShell>
+      ) : section === "alias" ? (
+        <PanelShell title="Usuario" onBack={() => setSection("root")}>
+          <form
+            className="flex items-center gap-2 rounded-lg border border-border bg-card px-4 py-3"
+            onSubmit={(e) => {
+              e.preventDefault()
+              void saveAlias()
+            }}
+          >
+            <span className="text-muted-foreground">@</span>
+            <input
+              autoFocus
+              value={alias}
+              onChange={(e) => {
+                setAlias(e.target.value.toLowerCase().replace(/[^a-z0-9._]/g, ""))
+                setAliasSaved(false)
+                setAliasError(null)
+              }}
+              maxLength={15}
+              className="w-full bg-transparent text-sm outline-none"
+            />
+            <button
+              type="submit"
+              disabled={busy || alias === player?.alias}
+              className="shrink-0 text-xs text-ring disabled:text-muted-foreground"
+            >
+              {aliasSaved ? "Guardado" : "Guardar"}
+            </button>
+          </form>
+          {aliasError && <p className="mt-1 text-xs text-orange-300">{aliasError}</p>}
+        </PanelShell>
+      ) : section === "university" ? (
+        // Sin título: `UniversityGrid` ya entra con su propio "¿Dónde?", y dos
+        // encabezados seguidos diciendo lo mismo es uno de más. La flecha de
+        // volver no depende del título, así que sigue estando.
+        <PanelShell onBack={() => setSection("root")}>
         <UniversityGrid
           university={university}
           showOther={showOther}
@@ -155,67 +266,79 @@ export function SettingsPanel({
             disabled={!otherUniversity.trim() || busy}
             onClick={confirmOther}
           >
-            Continuar
+            Guardar
           </Button>
         )}
       </PanelShell>
-    )
-  }
-
-  return (
-    <PanelShell title="Configuración" onBack={onClose}>
+      ) : (
+    <PanelShell onBack={onClose}>
       <div className="flex flex-col gap-2">
-        <div className="rounded-lg border border-border bg-card px-4 py-3">
-          <p className="text-xs text-muted-foreground">Tu nombre en el ranking</p>
-          {player?.is_guest ? (
-            <button
-              type="button"
-              onClick={onNeedsRegister}
-              className="mt-1.5 flex w-full items-center justify-between text-left text-sm"
-            >
-              <span>{player.alias}</span>
-              <span className="text-xs text-ring">elegí tu @ →</span>
-            </button>
-          ) : (
-            <form
-              className="mt-1.5 flex items-center gap-2"
-              onSubmit={(e) => {
-                e.preventDefault()
-                void saveAlias()
-              }}
-            >
-              <span className="text-muted-foreground">@</span>
-              <input
-                value={alias}
-                onChange={(e) => {
-                  setAlias(e.target.value.toLowerCase().replace(/[^a-z0-9._]/g, ""))
-                  setAliasSaved(false)
-                  setAliasError(null)
-                }}
-                maxLength={15}
-                className="w-full bg-transparent text-sm outline-none"
-              />
-              <button
-                type="submit"
-                disabled={busy || alias === player?.alias}
-                className="shrink-0 text-xs text-ring disabled:text-muted-foreground"
-              >
-                {aliasSaved ? "Guardado" : "Guardar"}
-              </button>
-            </form>
-          )}
-          {aliasError && <p className="mt-1 text-xs text-orange-300">{aliasError}</p>}
-        </div>
-
-        <button type="button" className={rowCls} onClick={() => setSection("career")}>
-          <span className="text-muted-foreground">Carrera</span>
-          <span>{careerLabel(player?.career)}</span>
+        {/* El @ es una fila más, igual que carrera y universidad: se toca y se
+            cambia adentro. Antes era una caja aparte con su input y su botón de
+            guardar a la vista, y rompía la lectura de la lista — tres filas
+            iguales debajo de un formulario. El invitado no entra a editar: para
+            él tocar acá es el gancho de registro. */}
+        <button
+          type="button"
+          className={rowCls}
+          onClick={() => (player?.is_guest ? onNeedsRegister() : setSection("alias"))}
+        >
+          <span className="text-muted-foreground">Usuario</span>
+          <span className={player?.is_guest ? "text-ring" : undefined}>
+            @{player?.alias ?? ""}
+          </span>
         </button>
 
-        <button type="button" className={rowCls} onClick={() => setSection("university")}>
-          <span className="text-muted-foreground">Universidad</span>
-          <span>{player?.university ?? "Elegir"}</span>
-        </button>
+        {variant === "desktop" ? (
+          <RowSelect
+            label="Carrera"
+            value={player?.career ?? ""}
+            display={careerLabel(player?.career)}
+            onChange={(v) => {
+              sfx.select()
+              void saveProfile({ career: v })
+            }}
+          >
+            {CAREERS.map((c) => (
+              <SelectItem key={c.value} value={c.value}>
+                {c.emoji} {c.label}
+              </SelectItem>
+            ))}
+          </RowSelect>
+        ) : (
+          <button type="button" className={rowCls} onClick={() => setSection("career")}>
+            <span className="text-muted-foreground">Carrera</span>
+            <span>{careerLabel(player?.career)}</span>
+          </button>
+        )}
+
+        {variant === "desktop" ? (
+          <RowSelect
+            label="Universidad"
+            value={player?.university ?? ""}
+            display={player?.university ?? "Elegir"}
+            onChange={(v) => {
+              sfx.select()
+              // "Otra" no es una universidad: manda a la pantalla que sí tiene
+              // el campo libre. Meter un input adentro del desplegable habría
+              // sido pelear con el foco del componente para nada.
+              if (v === OTRA) setSection("university")
+              else void saveProfile({ university: v })
+            }}
+          >
+            {UNIVERSITY_TAGS.map((u) => (
+              <SelectItem key={u.key} value={u.key}>
+                {u.key}
+              </SelectItem>
+            ))}
+            <SelectItem value={OTRA}>Otra…</SelectItem>
+          </RowSelect>
+        ) : (
+          <button type="button" className={rowCls} onClick={() => setSection("university")}>
+            <span className="text-muted-foreground">Universidad</span>
+            <span>{player?.university ?? "Elegir"}</span>
+          </button>
+        )}
 
         <button
           type="button"
@@ -233,10 +356,10 @@ export function SettingsPanel({
         </button>
 
         <a
-          href={SHARE_URL}
+          href={shareUrl({ alias: player?.alias, university: player?.university })}
           target="_blank"
           rel="noreferrer"
-          onClick={() => posthog.capture("game_share_click", { placement: "settings" })}
+          onClick={() => cta("share", "click", { placement: "settings" })}
           className={rowCls}
         >
           <span className="text-muted-foreground">Compartir</span>
@@ -247,7 +370,7 @@ export function SettingsPanel({
           href={CAFECITO_URL}
           target="_blank"
           rel="noreferrer"
-          onClick={() => posthog.capture("game_cafecito_click", { placement: "settings" })}
+          onClick={() => cta("cafecito", "click", { placement: "settings" })}
           className={cn(rowCls, "border-[#A8703C]/50 text-[#A8703C]")}
         >
           <span>Invitar un cafecito</span>
@@ -293,6 +416,8 @@ export function SettingsPanel({
         )}
       </div>
     </PanelShell>
+      )}
+    </SlideFlip>
   )
 }
 
@@ -311,7 +436,10 @@ function PanelShell({
   onBack,
   children,
 }: {
-  title: string
+  // Opcional. No lo lleva la raíz —las filas ya dicen qué es cada cosa— ni la
+  // de universidad, que entra con su propio "¿Dónde?". Lo llevan las que no
+  // traen encabezado propio, porque ahí es lo único que dice qué se elige.
+  title?: string
   onBack: () => void
   children: React.ReactNode
 }) {
@@ -326,7 +454,7 @@ function PanelShell({
         >
           <ChevronLeft size={18} />
         </button>
-        <h2 className="text-lg font-semibold">{title}</h2>
+        {title && <h2 className="text-lg font-semibold">{title}</h2>}
       </div>
       <div className="no-scrollbar min-h-0 flex-1 overflow-y-auto">{children}</div>
     </div>

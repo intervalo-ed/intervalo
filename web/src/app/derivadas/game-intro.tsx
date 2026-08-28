@@ -1,6 +1,6 @@
 "use client"
 
-// Presentación del minijuego: la pantalla arranca en negro con "derivadas"
+// Presentación del minijuego: la pantalla arranca en negro con la palabra
 // escribiéndose en el centro y termina con esa misma palabra ya instalada en su
 // lugar — el header en escritorio, la portada en el teléfono.
 //
@@ -27,7 +27,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react"
 import { motion, useReducedMotion } from "motion/react"
-import { DERIVADAS_WORD, DerivadasLogo } from "./derivadas-logo"
+import { LOGO_WORD, GameLogo } from "./game-logo"
 
 // Tamaño del logo mientras se presenta, en px. Va atado a los tamaños de
 // llegada (1.0625rem en el header de escritorio, 1.9125rem en la portada del
@@ -43,6 +43,12 @@ const CHAR_MAX = 126
 const BAR_FIRST = 360
 const BAR_STEP = 160
 const TAIL_HOLD = 600
+// Cuánto tarda en entrar cada pieza del lockup después de que la palabra ya está
+// escrita: primero los corchetes, después el operador. Más lento que un tramo de
+// barra (160) porque son dos gestos y no ocho: si van rápido no se leen como una
+// secuencia, se leen como un parpadeo.
+const PART_STEP = 260
+const PART_TOTAL = 2
 
 const LANDING_S = 0.55
 const BACKDROP_FADE_S = 0.5
@@ -101,6 +107,9 @@ export function useGameIntro() {
   const [natural, setNatural] = useState<Natural | null>(null)
   const [typed, setTyped] = useState(0)
   const [bars, setBars] = useState(0)
+  // 0 = solo la palabra · 1 = con corchetes · 2 = con d/dx. El lockup se arma de
+  // adentro hacia afuera.
+  const [parts, setParts] = useState(0)
   const [started, setStarted] = useState(false)
   const landingRef = useRef(false)
 
@@ -170,7 +179,7 @@ export function useGameIntro() {
 
   useEffect(() => {
     if (!started || reduceMotion || phase !== "writing") return
-    if (typed < DERIVADAS_WORD.length) {
+    if (typed < LOGO_WORD.length) {
       const id = setTimeout(
         () => setTyped((n) => n + 1),
         randomDelay(CHAR_MIN, CHAR_MAX),
@@ -184,9 +193,13 @@ export function useGameIntro() {
       )
       return () => clearTimeout(id)
     }
+    if (parts < PART_TOTAL) {
+      const id = setTimeout(() => setParts((p) => p + 1), PART_STEP)
+      return () => clearTimeout(id)
+    }
     const id = setTimeout(startLanding, TAIL_HOLD)
     return () => clearTimeout(id)
-  }, [started, typed, bars, reduceMotion, phase, startLanding])
+  }, [started, typed, bars, parts, reduceMotion, phase, startLanding])
 
   useEffect(() => {
     if (phase === "done") return
@@ -196,6 +209,11 @@ export function useGameIntro() {
 
   // El logo viaja solo mientras se presenta; en "done" ya es parte del layout.
   const detached = phase === "writing" || phase === "landing"
+
+  // La presentación está por ocurrir o está ocurriendo. Incluye "measuring" a
+  // propósito: ese render es el que monta las piezas animadas, y de ahí depende
+  // que nazcan ocultas (ver el bloque de abajo).
+  const preparando = !reduceMotion && (phase === "measuring" || phase === "writing")
 
   // Dónde va el logo en cada momento, en coordenadas de pantalla. Se calcula
   // acá y no en el render porque necesita medidas de la ventana, que no existen
@@ -217,8 +235,26 @@ export function useGameIntro() {
     // El resto de la pantalla (y el fondo que lo tapa) espera a que el logo
     // esté puesto: primero llega, después aparece todo lo demás.
     chromeVisible: phase === "done",
+    // La palabra se mide: en "measuring" va COMPLETA, porque de su ancho salen
+    // el tamaño del hueco y el punto al que el logo tiene que volver. No se
+    // llega a ver: la fase cambia dentro del callback de la ref, o sea antes de
+    // que el navegador pinte.
     typedCount: reduceMotion || phase !== "writing" ? undefined : typed,
-    barCount: reduceMotion || phase !== "writing" ? undefined : bars,
+    // Las tres piezas que se ANIMAN, en cambio, tienen que nacer ocultas ya en
+    // "measuring". Son elementos de motion con `initial={false}`: se montan con
+    // el valor que reciben y a partir de ahí solo pueden ANIMAR hacia el
+    // siguiente. Naciendo visibles —que es lo que hacía `undefined`— el primer
+    // fotograma las pintaba en su lugar y la presentación arrancaba con un
+    // fundido de SALIDA: la notación aparecía, se iba, y volvía cuando le
+    // tocaba. Ocultas desde el montaje no hay nada que sacar de la pantalla.
+    //
+    // Que estén ocultas no mueve la medición: opacidad y escala no ocupan
+    // lugar, y las barras viven dentro de una caja de alto fijo.
+    barCount: preparando ? bars : undefined,
+    // `undefined` fuera de la presentación: el logo ya instalado se dibuja
+    // entero.
+    showBrackets: preparando ? parts >= 1 : undefined,
+    showOperator: preparando ? parts >= 2 : undefined,
     onLanded: finish,
     reduceMotion: !!reduceMotion,
   }
@@ -233,7 +269,10 @@ export function GameIntroLogo({
   intro: GameIntro
   fontSize: string
 }) {
-  const { natural, detached, target, typedCount, barCount, phase, onLanded, reduceMotion, attachSlot } = intro
+  const {
+    natural, detached, target, typedCount, barCount, showBrackets, showOperator,
+    phase, onLanded, reduceMotion, attachSlot,
+  } = intro
 
   const floating = detached && natural !== null && target !== null
 
@@ -262,10 +301,12 @@ export function GameIntroLogo({
           if (phase === "landing") onLanded()
         }}
       >
-        <DerivadasLogo
+        <GameLogo
           fontSize="1em"
           typedCount={typedCount}
           barCount={barCount}
+          showBrackets={showBrackets}
+          showOperator={showOperator}
           animateEntry={!reduceMotion && phase === "writing"}
         />
       </motion.div>

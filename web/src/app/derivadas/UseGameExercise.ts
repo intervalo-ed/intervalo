@@ -13,7 +13,7 @@ export function useNextExercise() {
   const api = useGameApi()
   return useMutation({
     mutationFn: async () =>
-      unwrap(await api.POST("/game/derivadas/next")),
+      unwrap(await api.POST("/game/derivemos/next")),
   })
 }
 
@@ -26,7 +26,7 @@ export function useSkipExercise() {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: async (body: { exercise_id: number }) =>
-      unwrap(await api.POST("/game/derivadas/skip", { body })),
+      unwrap(await api.POST("/game/derivemos/skip", { body })),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: gameKeys.me })
     },
@@ -45,13 +45,20 @@ export function useAnswerExercise() {
       peeked?: boolean
       // El schema lo pide siempre (tiene default en Pydantic, no en OpenAPI);
       // el teléfono no tiene tabla y nunca lo manda.
-    }) => unwrap(await api.POST("/game/derivadas/answer", { body: { peeked: false, ...body } })),
+    }) => unwrap(await api.POST("/game/derivemos/answer", { body: { peeked: false, ...body } })),
     onSuccess: (data) => {
       // Solo el jugador. El ranking lo invalida el layout cuando TERMINA de
       // caer el confeti (ver xp-burst.tsx): si se refrescara acá, la fila
       // propia estrenaría puesto y XP antes de que llegue la primera bolita y
       // el festejo se quedaría sin nada que contar.
-      if (data.correct) queryClient.invalidateQueries({ queryKey: gameKeys.me })
+      //
+      // Refresca con TODA respuesta que el parser entendió, no solo con las
+      // correctas. Los tres marcadores de la card se mueven igual al errar: en
+      // el primer intento el server suma `exercises_attempted`, manda la racha
+      // a cero y baja el θ, acierte o no (game/router.py). Mirando solo las
+      // correctas, los tres números quedaban viejos justo cuando más tenían
+      // para decir — errabas y la racha seguía marcando 7.
+      if (data.parse_ok) queryClient.invalidateQueries({ queryKey: gameKeys.me })
     },
   })
 }

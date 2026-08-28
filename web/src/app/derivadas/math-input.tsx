@@ -6,7 +6,14 @@
 // campo. MathLive se importa dinámicamente para que su bundle (~700KB) no
 // entre en ninguna otra ruta.
 
-import { useEffect, useImperativeHandle, useRef, useState, type Ref } from "react"
+import {
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+  type Ref,
+} from "react"
+import { KeyCap } from "./exercise-card"
 
 export type MathInputHandle = {
   insert: (latex: string) => void
@@ -64,20 +71,45 @@ type Mathfield = HTMLElement & {
 // —"escribí sqrt" sobre una fila con √ y ÷ dice que la raíz va— y eso tira abajo
 // la razón de ser de los distractores. Atado a lo visible, el tip nunca dice más
 // de lo que el teclado ya muestra: enseña a escribir una tecla que está ahí.
-type Tip = { text: string; needs?: readonly string[] }
+// `text` puede traer el marcador {k}, que el render reemplaza por la tecla
+// dibujada como tecla (el <KeyCap> del CTA). Mismo truco que las novedades del
+// historial: la oración viaja con un agujero en vez de resolverse acá, porque
+// una tecla es un componente y no un carácter.
+type Tip = { text: string; key?: string; needs?: readonly string[] }
+
+const TIP_SLOT = /(\{k\})/
 
 // Todas las teclas dinámicas cuyo LaTeX abre por lo menos un hueco `#?`, que es
 // lo que hace útil a Tab. `sq` no está: inserta □² sin dejar nada que completar.
-const CON_HUECOS = ["pow", "sqrt", "frac", "log", "expx", "ln", "sen", "cos", "tg"] as const
+const CON_HUECOS = [
+  "pow",
+  "sqrt",
+  "frac",
+  "log",
+  "expx",
+  "ln",
+  "sen",
+  "cos",
+  "tg",
+] as const
 
+// Todos cierran con punto ANTES del emoji: la frase termina y el emoji la
+// acompaña, igual que en las novedades del historial (backend/game/events.py).
 export const DESKTOP_TIPS: readonly Tip[] = [
-  { text: "Tip: Usá tu teclado, es mucho más rápido 🏃" },
-  { text: "Tip: Enter revisa, Shift+Enter saltea ↩️" },
-  { text: "Tip: Para el exponente, escribí x^2 ⬆️", needs: ["pow", "sq"] },
-  { text: "Tip: La barra / te arma la fracción ➗", needs: ["frac"] },
-  { text: "Tip: Escribí sqrt y brota la raíz 🌱", needs: ["sqrt"] },
-  { text: "Tip: sen, cos y tg se escriben tal cual 📐", needs: ["sen", "cos", "tg"] },
-  { text: "Tip: Tab te lleva al próximo hueco ⏭️", needs: CON_HUECOS },
+  { text: "Usá tu teclado, es mucho más rápido. 🏃" },
+  { text: "Enter revisa, Alt+Enter saltea. ↩️" },
+  { text: "Para el exponente, escribí x^2. ⬆️", needs: ["pow", "sq"] },
+  { text: "La barra / te arma la fracción. ➗", needs: ["frac"] },
+  { text: "Escribí sqrt y brota la raíz. 🌱", needs: ["sqrt"] },
+  {
+    text: "sen, cos y tan se escriben tal cual. 📐",
+    needs: ["sen", "cos", "tg"],
+  },
+  // El único tip que enseña algo que CUESTA: la consulta baja el XP de este
+  // ejercicio (ver `peeked` en desktop-layout.tsx). Se dice igual — esconder una
+  // ayuda que existe no la vuelve gratis, solo la vuelve secreta.
+  { text: "Mantené {k} para ver la tabla de derivadas. 👀", key: "alt" },
+  { text: "Tab te lleva al próximo hueco. ⏭️", needs: CON_HUECOS },
 ]
 
 // Cuántos ejercicios se sostiene el primer tip antes de empezar a rotar: el que
@@ -93,18 +125,39 @@ export function tipFor({
   seed: number
   attempted: number
   keys: readonly string[]
-}): string {
-  if (attempted < PRIMER_TIPS) return DESKTOP_TIPS[0].text
-  const elegibles = DESKTOP_TIPS.filter(
-    (t) => !t.needs || t.needs.some((k) => keys.includes(k)),
+}): React.ReactNode {
+  const elegido =
+    attempted < PRIMER_TIPS
+      ? DESKTOP_TIPS[0]
+      : (() => {
+          const elegibles = DESKTOP_TIPS.filter(
+            (t) => !t.needs || t.needs.some((k) => keys.includes(k)),
+          )
+          // Nunca queda vacío: los dos primeros no piden nada.
+          // El id del ejercicio como semilla: cambia en cada servida —también al
+          // saltear— y no hace falta llevar la cuenta en ningún lado.
+          return elegibles[Math.abs(seed) % elegibles.length]
+        })()
+
+  if (!elegido.key) return elegido.text
+  return elegido.text.split(TIP_SLOT).map((trozo, i) =>
+    trozo === "{k}" ? (
+      // `mx-1` y no el `ml-2` de fábrica: ese margen está pensado para cuando el
+      // chip CIERRA una frase, y acá va en el medio, así que necesita aire de los
+      // dos lados. Los espacios del texto solos no alcanzan — la tecla es una
+      // caja con borde y queda pegada a las palabras.
+      <KeyCap key={i} className="mx-1">
+        {elegido.key}
+      </KeyCap>
+    ) : (
+      trozo
+    ),
   )
-  // Nunca queda vacío: los dos primeros no piden nada.
-  // El id del ejercicio como semilla: cambia en cada servida —también al
-  // saltear— y no hace falta llevar la cuenta en ningún lado.
-  return elegibles[Math.abs(seed) % elegibles.length].text
 }
 
-export const HINT_MOBILE = "Tocá el teclado de abajo 👇"
+// "de abajo" sobra: la flecha ya dice dónde, y ahora el teclado está en la misma
+// card que este campo, justo debajo.
+export const HINT_MOBILE = "Usá el teclado 👇"
 
 // Borde del campo según el feedback. Los hex son los mismos que usa el resto
 // del juego (exercise-card.tsx) y que las opciones del session-runner.
@@ -129,25 +182,34 @@ export function MathInput({
   onEnter,
   tone = null,
   hint,
+  autoFocus = false,
 }: {
   handleRef?: Ref<MathInputHandle>
   onChange?: (latex: string) => void
-  // Qué decir cuando el campo está vacío (ver HINT_DESKTOP / HINT_MOBILE).
-  hint?: string
-  // `shift` distingue revisar de saltear: los dos atajos entran por la misma
+  // Qué decir cuando el campo está vacío (ver tipFor / HINT_MOBILE). Nodo y no
+  // string: los tips dibujan teclas de verdad.
+  hint?: React.ReactNode
+  // `skip` distingue revisar de saltear: los dos atajos entran por la misma
   // tecla y MathLive es dueño del keydown mientras el campo tiene el foco.
-  onEnter?: (opts: { shift: boolean }) => void
+  onEnter?: (opts: { skip: boolean }) => void
   tone?: "correct" | "wrong" | null
+  // Toma el foco apenas el campo existe. Hace falta desde que la card se vuelve
+  // a montar en cada ejercicio: el `focus()` que el layout dispara al recibir la
+  // derivada nueva corre ANTES de que este campo exista, así que iría al que se
+  // está yendo.
+  autoFocus?: boolean
 }) {
   const hostRef = useRef<HTMLDivElement | null>(null)
   const fieldRef = useRef<Mathfield | null>(null)
   const onChangeRef = useRef(onChange)
   const onEnterRef = useRef(onEnter)
   const toneRef = useRef(tone)
+  const autoFocusRef = useRef(autoFocus)
   useEffect(() => {
     onChangeRef.current = onChange
     onEnterRef.current = onEnter
     toneRef.current = tone
+    autoFocusRef.current = autoFocus
     applyTone(fieldRef.current, tone)
   })
 
@@ -155,8 +217,15 @@ export function MathInput({
   // después de cada comando imperativo: `deleteBackward` puede dejarlo vacío y
   // `clear()` asigna `.value` directo, que no siempre dispara `input`.
   const [empty, setEmpty] = useState(true)
-  const syncEmpty = () => setEmpty((fieldRef.current?.getValue("latex") ?? "").trim() === "")
 
+  const syncEmpty = () =>
+    setEmpty((fieldRef.current?.getValue("latex") ?? "").trim() === "")
+
+  // Se publica con `useImperativeHandle`, que al desmontar deja el ref en null.
+  // Eso importa desde que la card se voltea entre ejercicios y hay dos campos
+  // montados a la vez: quien recibe este ref tiene que IGNORAR el null, porque
+  // llega de la card que se va y borraría el campo que la nueva ya publicó (ver
+  // `attachInput` en desktop-layout.tsx).
   useImperativeHandle(handleRef, () => ({
     insert: (latex: string) => {
       fieldRef.current?.executeCommand(["insert", latex])
@@ -209,8 +278,14 @@ export function MathInput({
       // de ninguna paleta de acá.
       mf.style.setProperty("--placeholder-color", "var(--muted-foreground)")
       mf.style.setProperty("--placeholder-opacity", "0.75")
-      mf.style.setProperty("--selection-background-color", "color-mix(in oklab, var(--primary) 35%, transparent)")
-      mf.style.setProperty("--contains-highlight-background-color", "transparent")
+      mf.style.setProperty(
+        "--selection-background-color",
+        "color-mix(in oklab, var(--primary) 35%, transparent)",
+      )
+      mf.style.setProperty(
+        "--contains-highlight-background-color",
+        "transparent",
+      )
       // Los dos botones que MathLive dibuja adentro del campo (abrir su teclado
       // virtual y su menú) no van: el teclado es el nuestro y el menú no ofrece
       // nada útil acá. `menuItems = []` vacía el menú pero deja el botón, así
@@ -223,17 +298,32 @@ export function MathInput({
         setEmpty(latex.trim() === "")
         onChangeRef.current?.(latex)
       })
-      mf.addEventListener("keydown", (ev) => {
-        const e = ev as KeyboardEvent
-        if (e.key !== "Enter") return
-        // Sin preventDefault, MathLive mete un salto de línea en el campo.
-        // stopPropagation evita el doble disparo: el layout escucha el mismo
-        // atajo en `document` para que Enter funcione aunque el foco se haya
-        // ido del campo (después de responder, por ejemplo).
-        e.preventDefault()
-        e.stopPropagation()
-        onEnterRef.current?.({ shift: e.shiftKey })
-      })
+      // EN CAPTURA, y ese detalle es el arreglo de un bug: MathLive recibe las
+      // teclas en un editable que vive en su shadow DOM, o sea DEBAJO del host.
+      // Escuchando en burbujeo llegábamos después de él, y para cuando corría
+      // nuestro `preventDefault` el comando ya se había ejecutado: con Alt+Enter
+      // —que en MathLive inserta un renglón— el salto de línea quedaba escrito en
+      // el campo aunque el salteo funcionara bien. En captura pasamos antes, y el
+      // `stopPropagation` hace que la tecla no le llegue nunca.
+      mf.addEventListener(
+        "keydown",
+        (ev) => {
+          const e = ev as KeyboardEvent
+          if (e.key !== "Enter") return
+          // stopPropagation evita además el doble disparo: el layout escucha el
+          // mismo atajo en `document` para que Enter funcione aunque el foco se
+          // haya ido del campo (después de responder, por ejemplo).
+          e.preventDefault()
+          e.stopPropagation()
+          // Alt+Enter saltea. Es la misma tecla con la que se espía la tabla, y
+          // eso es a propósito: Alt es "lo que hago cuando esta derivada me está
+          // costando". Sin Ctrl ni ⌘, que en un campo de texto se los queda el
+          // navegador (⌘+Enter abre en pestaña nueva, Ctrl+Enter envía en varios
+          // clientes).
+          onEnterRef.current?.({ skip: e.altKey })
+        },
+        { capture: true },
+      )
 
       host.replaceChildren(mf)
       applyTone(mf, toneRef.current)
@@ -242,9 +332,14 @@ export function MathInput({
       mf.inlineShortcuts = {
         ...mf.inlineShortcuts,
         sen: "\\operatorname{sen}",
-        tg: "\\operatorname{tg}",
+        // "tan" es lo que ya entiende MathLive de fábrica; el atajo queda igual
+        // para que escribir "tg" siga funcionando, que es como lo escribe medio
+        // país aunque la tecla diga otra cosa.
+        tan: "\\tan",
+        tg: "\\tan",
       }
       fieldRef.current = mf
+      if (autoFocusRef.current) mf.focus()
     })
 
     return () => {
@@ -265,7 +360,11 @@ export function MathInput({
           `replaceChildren`, así que cualquier hijo que ponga React ahí lo
           borraría al montar. */}
       <div className="relative">
-        <div ref={hostRef} className="min-h-[3.4rem]" aria-label="Tu derivada" />
+        <div
+          ref={hostRef}
+          className="min-h-[3.4rem]"
+          aria-label="Tu derivada"
+        />
         {empty && hint && (
           <span
             aria-hidden

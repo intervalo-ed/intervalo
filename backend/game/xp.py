@@ -10,7 +10,7 @@ from __future__ import annotations
 
 # La XP por acierto también fija el largo del festejo: el front reparte este
 # número en un puñado de círculos que viajan al contador, uno por cada ~3 XP
-# (ver XP_PER_PARTICLE en web/src/app/derivadas/xp-burst.tsx). Con ~10 el
+# (ver XP_PER_PARTICLE en web/src/app/derivemos/xp-burst.tsx). Con ~10 el
 # festejo era un puñado triste; con ~25 se ve, y el conteo dura menos de dos
 # segundos.
 XP_BY_ATTEMPT = {1: 25, 2: 8}

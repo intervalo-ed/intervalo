@@ -89,13 +89,15 @@ for template in TEMPLATES:
             if sympy.simplify(wrong - derivative) == 0:
                 ok_errors = False
         prompt = generated.prompt_latex or latex_es(generated.f)
-        if not prompt or "\\sin" in prompt or "\\tan" in prompt:
+        # `\tan` ya no se traduce: es la notación que muestra el teclado y la
+        # tabla. El que sigue prohibido es `\sin`, que en el juego es `sen`.
+        if not prompt or "\\sin" in prompt:
             ok_latex = False
         if derivative.has(sympy.Derivative):
             ok_diff = False
     check(ok_diff, f"{template.key}: deriva sin residuos")
     check(ok_roundtrip, f"{template.key}: round-trip str->sympify")
-    check(ok_latex, f"{template.key}: latex en notación es (sen/tg)")
+    check(ok_latex, f"{template.key}: latex en notación es (sen)")
     check(ok_errors, f"{template.key}: ningún error predecible == derivada")
 
 # ── 2. Validador ─────────────────────────────────────────────────────────────
@@ -194,39 +196,68 @@ check(served.status == "expired", "servir de nuevo expira el anterior")
 check(served2.template_key != served.template_key, "anti-repetición inmediata")
 db.close()
 
-# ── 5. Teclado dinámico ──────────────────────────────────────────────────────
-# El riesgo real del teclado dinámico es dejar a alguien sin poder escribir la
-# respuesta: se verifica que TODA tecla que la derivada exige esté en la fila.
-print("5. teclado dinámico")
+# ── 5. Teclado acumulativo ───────────────────────────────────────────────────
+# El riesgo real es dejar a alguien sin poder escribir la respuesta: se verifica
+# que TODA tecla que la derivada exige esté desbloqueada después de servirla.
+print("5. teclado acumulativo")
 rng = random.Random(20260827)
 samples: dict[str, list[str]] = {}
 for template in TEMPLATES:
-    ok_covers = ok_width = ok_vocab = ok_hint = True
+    ok_covers = ok_vocab = True
     for i in range(20):
         generated = template.build(rng)
         derivative = sympy.diff(generated.f, x)
         required = game_keyboard.required_keys(derivative)
-        keys = game_keyboard.keys_for(derivative, seed=i)
+        col, fresh = game_keyboard.unlock("", derivative)
+        keys = game_keyboard.parse_unlocked_ordered(col)
         if not required.issubset(keys):
             ok_covers = False
-        if len(keys) > game_keyboard.MAX_KEYS:
-            ok_width = False
         if not set(keys).issubset(game_keyboard.CANONICAL_ORDER):
             ok_vocab = False
-        # Con teclas necesarias la fila nunca puede ser solo eso: sin
-        # distractores, la fila ES la respuesta.
-        if required and len(keys) < min(game_keyboard.MIN_KEYS, len(required) + 2):
-            ok_hint = False
-        if not required and keys:
-            ok_hint = False
+        # Desde cero, todo lo exigido es nuevo: no hay teclas de relleno.
+        if set(fresh) != required:
+            ok_covers = False
         samples.setdefault(template.key, keys)
-    check(ok_covers, f"{template.key}: la fila cubre todo lo necesario")
-    check(ok_width and ok_vocab, f"{template.key}: fila válida (≤7, vocabulario conocido)")
-    check(ok_hint, f"{template.key}: distractores presentes (no regala la respuesta)")
+    check(ok_covers, f"{template.key}: desbloquea exactamente lo necesario")
+    check(ok_vocab, f"{template.key}: vocabulario conocido")
 
-print("   muestras:")
+# Lo que define al inventario: nunca encoge, y recorrer todas las plantillas
+# termina desbloqueando el vocabulario entero.
+col = ""
+sizes: list[int] = []
+for template in TEMPLATES:
+    for _ in range(5):
+        derivative = sympy.diff(template.build(rng).f, x)
+        col, _fresh = game_keyboard.unlock(col, derivative)
+        sizes.append(len(game_keyboard.parse_unlocked(col)))
+check(all(b >= a for a, b in zip(sizes, sizes[1:])), "el inventario nunca encoge")
+
+# Alcanzable = lo que alguna plantilla llega a exigir. Se calcula de las
+# plantillas y no se hardcodea: si mañana entra una con raíces o tangente, este
+# chequeo se entera solo.
+alcanzable: set[str] = set()
+rng_cov = random.Random(20260828)
+for template in TEMPLATES:
+    for _ in range(60):
+        alcanzable |= game_keyboard.required_keys(sympy.diff(template.build(rng_cov).f, x))
+final = game_keyboard.parse_unlocked(col)
+check(final == alcanzable, f"se desbloquea todo lo alcanzable ({len(final)}/{len(alcanzable)})")
+
+# Las que ningún ejercicio puede pedir. NO es un fallo: es el dato de que esas
+# teclas del vocabulario están muertas mientras no exista una plantilla que las
+# necesite — antes se veían igual porque entraban como distractores, y con el
+# teclado acumulativo ya no aparecen nunca.
+inalcanzables = [k for k in game_keyboard.CANONICAL_ORDER if k not in alcanzable]
+print(f"   alcanzables: {' '.join(game_keyboard.in_order(alcanzable))}")
+print(f"   sin plantilla que las pida: {' '.join(inalcanzables) or '(ninguna)'}")
+# Volver a servir algo ya visto no vuelve a anunciarlo como nuevo.
+repetida = sympy.diff(TEMPLATES[0].build(rng).f, x)
+_col, fresh_otra_vez = game_keyboard.unlock(col, repetida)
+check(fresh_otra_vez == [], "una tecla ya desbloqueada no se reanuncia")
+
+print("   muestras (desde cero, una plantilla sola):")
 for key, keys in samples.items():
-    print(f"     {key:22s} {' '.join(keys) if keys else '(fila vacía)'}")
+    print(f"     {key:22s} {' '.join(keys) if keys else '(sin teclas nuevas)'}")
 
 print()
 if FAILURES:

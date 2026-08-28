@@ -1,5 +1,5 @@
-import { DerivadasGame } from "./derivadas-game"
+import { GameRoot } from "./game-root"
 
 export default function DerivadasPage() {
-  return <DerivadasGame />
+  return <GameRoot />
 }

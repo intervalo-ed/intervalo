@@ -79,7 +79,15 @@ export function FilterBox({
           <ChevronDownIcon className="size-3 shrink-0" />
         </span>
       </SelectTrigger>
-      <SelectContent>{children}</SelectContent>
+      {/* `alignItemWithTrigger={false}`: por defecto el componente usa el modo
+          "select nativo" de Base UI, que monta la lista ENCIMA del disparador
+          alineando la opción elegida con él. Eso, en un filtro con veinte
+          universidades y dentro de una pantalla de 667 px, tapa medio ranking y
+          se va por abajo del borde; y además ese modo trae reglas propias de
+          foco y puntero (el disparador se cierra solo si recibe el foco estando
+          abierto). Acá alcanza y sobra con un desplegable normal, colgado del
+          disparador y con su propio scroll. */}
+      <SelectContent alignItemWithTrigger={false}>{children}</SelectContent>
     </Select>
   )
 }

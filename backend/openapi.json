@@ -5,14 +5,14 @@
     "version": "0.1.0"
   },
   "paths": {
-    "/game/derivadas/player": {
+    "/game/derivemos/player": {
       "post": {
         "tags": [
           "game"
         ],
         "summary": "Create Player",
         "description": "Alta de jugador. Sin auth crea un guest (devuelve el token); con Clerk\ncrea/devuelve el jugador del usuario. Idempotente: si ya hay jugador para\nel token/user, se devuelve ese.",
-        "operationId": "create_player_game_derivadas_player_post",
+        "operationId": "create_player_game_derivemos_player_post",
         "parameters": [
           {
             "name": "authorization",
@@ -30,6 +30,15 @@
             "schema": {
               "type": "string",
               "title": "X-Game-Token"
+            }
+          },
+          {
+            "name": "x-game-platform",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "X-Game-Platform"
             }
           }
         ],
@@ -67,13 +76,13 @@
         }
       }
     },
-    "/game/derivadas/me": {
+    "/game/derivemos/me": {
       "get": {
         "tags": [
           "game"
         ],
         "summary": "Get Me",
-        "operationId": "get_me_game_derivadas_me_get",
+        "operationId": "get_me_game_derivemos_me_get",
         "parameters": [
           {
             "name": "authorization",
@@ -122,7 +131,7 @@
           "game"
         ],
         "summary": "Patch Me",
-        "operationId": "patch_me_game_derivadas_me_patch",
+        "operationId": "patch_me_game_derivemos_me_patch",
         "parameters": [
           {
             "name": "authorization",
@@ -177,14 +186,14 @@
         }
       }
     },
-    "/game/derivadas/reset": {
+    "/game/derivemos/reset": {
       "post": {
         "tags": [
           "game"
         ],
         "summary": "Reset Player",
         "description": "Reinicia el PROGRESO del jugador desde el panel de configuraci\u00f3n.\n\nVuelve a cero XP, racha, ejercicios y el Elo \u2014 as\u00ed que el juego arranca otra\nvez por la rampa inicial, con las derivadas m\u00e1s f\u00e1ciles. Conserva identidad\n(alias, carrera, universidad, cuenta) y atribuci\u00f3n, y no borra los intentos\nya registrados: el historial sigue sirviendo para anal\u00edtica y el Elo de las\nplantillas (game_template_stats) es global, no del jugador.",
-        "operationId": "reset_player_game_derivadas_reset_post",
+        "operationId": "reset_player_game_derivemos_reset_post",
         "parameters": [
           {
             "name": "authorization",
@@ -229,14 +238,23 @@
         }
       }
     },
-    "/game/derivadas/next": {
+    "/game/derivemos/next": {
       "post": {
         "tags": [
           "game"
         ],
         "summary": "Next Exercise",
-        "operationId": "next_exercise_game_derivadas_next_post",
+        "operationId": "next_exercise_game_derivemos_next_post",
         "parameters": [
+          {
+            "name": "x-game-platform",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "X-Game-Platform"
+            }
+          },
           {
             "name": "authorization",
             "in": "header",
@@ -280,15 +298,69 @@
         }
       }
     },
-    "/game/derivadas/skip": {
+    "/game/derivemos/cafecito-intent": {
+      "post": {
+        "tags": [
+          "game"
+        ],
+        "summary": "Cafecito Intent",
+        "description": "\"Me voy a Cafecito\": se anota qui\u00e9n y de qu\u00e9 universidad.\n\nEs la \u00fanica pata de la atribuci\u00f3n que no le pide NADA a quien dona. Los tres\ncampos del formulario de Cafecito son opcionales y no se pueden marcar\nobligatorios, as\u00ed que exigir la sigla ah\u00ed ser\u00eda poner fricci\u00f3n justo en el\npeor lugar del embudo. Ac\u00e1, en cambio, el juego ya sabe todo.\n\nDevuelve 204: el cliente dispara esto y se va sin esperar nada.",
+        "operationId": "cafecito_intent_game_derivemos_cafecito_intent_post",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          },
+          {
+            "name": "x-game-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "X-Game-Token"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/game/derivemos/skip": {
       "post": {
         "tags": [
           "game"
         ],
         "summary": "Skip Exercise",
         "description": "Saltear: cierra el ejercicio sin responderlo y sirve uno m\u00e1s f\u00e1cil.\n\nSaltear NO es responder, as\u00ed que no mueve la beta de la plantilla ni suma a\nlos ejercicios intentados: pedir algo m\u00e1s f\u00e1cil es informaci\u00f3n sobre el\njugador, no sobre la plantilla, y contarlo como intento inflar\u00eda el\ndenominador de la tasa de acierto. S\u00ed baja un poco el \u03b8 y corta la racha \u2014\nsi no, saltear todo lo dif\u00edcil ser\u00eda la forma \u00f3ptima de sostener un combo.\nTampoco da XP, y como la XP escala con la dificultad, encadenar salteos\nhasta el piso rinde cada vez menos: la mec\u00e1nica se autolimita.",
-        "operationId": "skip_exercise_game_derivadas_skip_post",
+        "operationId": "skip_exercise_game_derivemos_skip_post",
         "parameters": [
+          {
+            "name": "x-game-platform",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "X-Game-Platform"
+            }
+          },
           {
             "name": "authorization",
             "in": "header",
@@ -342,13 +414,13 @@
         }
       }
     },
-    "/game/derivadas/answer": {
+    "/game/derivemos/answer": {
       "post": {
         "tags": [
           "game"
         ],
         "summary": "Answer Exercise",
-        "operationId": "answer_exercise_game_derivadas_answer_post",
+        "operationId": "answer_exercise_game_derivemos_answer_post",
         "parameters": [
           {
             "name": "authorization",
@@ -403,14 +475,14 @@
         }
       }
     },
-    "/game/derivadas/leaderboard/pulse": {
+    "/game/derivemos/leaderboard/pulse": {
       "get": {
         "tags": [
           "game"
         ],
         "summary": "Game Pulse",
         "description": "Latido del ranking: un n\u00famero que cambia cuando cambia la tabla.\n\nEste pedido es adem\u00e1s lo que hace avanzar la actividad simulada. No hay\nworker ni cron: el ranking se mueve mientras haya alguien mir\u00e1ndolo, que es\njusto cuando importa que se mueva.",
-        "operationId": "game_pulse_game_derivadas_leaderboard_pulse_get",
+        "operationId": "game_pulse_game_derivemos_leaderboard_pulse_get",
         "parameters": [
           {
             "name": "authorization",
@@ -455,14 +527,77 @@
         }
       }
     },
-    "/game/derivadas/leaderboard/summary": {
+    "/game/derivemos/events": {
+      "get": {
+        "tags": [
+          "game"
+        ],
+        "summary": "Game Events Feed",
+        "description": "Historial de lo que va pasando: cafecitos, registros, escaladas, rachas y\nuniversidades que se pasan entre s\u00ed.\n\nEs un feed SOLO del sistema \u2014ninguna l\u00ednea la escribe un usuario\u2014 as\u00ed que no\nhay nada que moderar. Con `after_id` devuelve \u00fanicamente lo nuevo, que es lo\nque hace que sondearlo cada pocos segundos no cueste nada.",
+        "operationId": "game_events_feed_game_derivemos_events_get",
+        "parameters": [
+          {
+            "name": "after_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "After Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          },
+          {
+            "name": "x-game-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "X-Game-Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameEventsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/game/derivemos/leaderboard/summary": {
       "get": {
         "tags": [
           "game"
         ],
         "summary": "Game Leaderboard Summary",
         "description": "Los dos n\u00fameros de la cabecera del ranking, m\u00e1s las universidades para\npoblar el filtro (esas van siempre sin scope).",
-        "operationId": "game_leaderboard_summary_game_derivadas_leaderboard_summary_get",
+        "operationId": "game_leaderboard_summary_game_derivemos_leaderboard_summary_get",
         "parameters": [
           {
             "name": "university",
@@ -539,14 +674,14 @@
         }
       }
     },
-    "/game/derivadas/leaderboard/universities": {
+    "/game/derivemos/leaderboard/universities": {
       "get": {
         "tags": [
           "game"
         ],
         "summary": "Game University Leaderboard",
-        "description": "Ranking por universidad: agrega XP y jugadores. Espejo de\n/leaderboard/universities, sobre game_players y con la agregaci\u00f3n en la BD.",
-        "operationId": "game_university_leaderboard_game_derivadas_leaderboard_universities_get",
+        "description": "Ranking por universidad: Elo promedio de sus jugadores.\n\nElo y no XP. La XP mide cu\u00e1nto jugaste \u2014as\u00ed que premia al que le puso m\u00e1s\nhoras\u2014 y el Elo mide qu\u00e9 tan dif\u00edcil resolv\u00e9s. Entre universidades, la\npregunta interesante es cu\u00e1l deriva mejor, no cu\u00e1l tuvo m\u00e1s tiempo libre.",
+        "operationId": "game_university_leaderboard_game_derivemos_leaderboard_universities_get",
         "parameters": [
           {
             "name": "university",
@@ -623,14 +758,14 @@
         }
       }
     },
-    "/game/derivadas/leaderboard": {
+    "/game/derivemos/leaderboard": {
       "get": {
         "tags": [
           "game"
         ],
         "summary": "Game Leaderboard",
         "description": "Espejo del /leaderboard principal sobre game_players: orden can\u00f3nico\n(xp DESC, id ASC), solo jugadores con xp > 0 m\u00e1s el propio jugador.\n\n`university` y `career` acotan el scope igual que en el principal: el rank,\nlos totales y la p\u00e1gina se calculan todos dentro del scope elegido.",
-        "operationId": "game_leaderboard_game_derivadas_leaderboard_get",
+        "operationId": "game_leaderboard_game_derivemos_leaderboard_get",
         "parameters": [
           {
             "name": "university",
@@ -740,14 +875,14 @@
         }
       }
     },
-    "/game/derivadas/link": {
+    "/game/derivemos/link": {
       "post": {
         "tags": [
           "game"
         ],
         "summary": "Link Player",
         "description": "Merge expl\u00edcito guest\u2192user tras el registro. Idempotente.",
-        "operationId": "link_player_game_derivadas_link_post",
+        "operationId": "link_player_game_derivemos_link_post",
         "parameters": [
           {
             "name": "authorization",
@@ -778,6 +913,61 @@
                 }
               }
             }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/game/derivemos/cta": {
+      "post": {
+        "tags": [
+          "game"
+        ],
+        "summary": "Record Cta",
+        "description": "Registra que un llamado a la acci\u00f3n se VIO o se TOC\u00d3.\n\nLos mismos hechos ya viajan a PostHog, que sabe cosas que ac\u00e1 no est\u00e1n\n(sesi\u00f3n, dispositivo, referrer). Lo que PostHog no puede hacer es cerrar el\nembudo: el \u00faltimo escal\u00f3n del cafecito es una fila en `game_boosts`, y esa\ntabla vive \u00fanicamente ac\u00e1. Sin este endpoint el panel podr\u00eda mostrar cu\u00e1ntos\ncafecitos entraron pero no sobre cu\u00e1ntas impresiones, que es justo el n\u00famero\nque dice si el cartel funciona o si simplemente se muestra mucho.\n\nDevuelve 204 y nunca falla por contenido: es telemetr\u00eda, y una telemetr\u00eda\nque puede tirar un error en la mitad de una partida es peor que no tenerla.",
+        "operationId": "record_cta_game_derivemos_cta_post",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          },
+          {
+            "name": "x-game-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "X-Game-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GameCtaRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Successful Response"
           },
           "422": {
             "description": "Validation Error",
@@ -3364,6 +3554,21 @@
             "type": "integer",
             "title": "Combo Bonus"
           },
+          "xp_multiplier": {
+            "type": "number",
+            "title": "Xp Multiplier",
+            "default": 1.0
+          },
+          "exercises_correct": {
+            "type": "integer",
+            "title": "Exercises Correct",
+            "default": 0
+          },
+          "correct_today": {
+            "type": "integer",
+            "title": "Correct Today",
+            "default": 0
+          },
           "correct_answer_latex": {
             "anyOf": [
               {
@@ -3427,6 +3632,184 @@
         ],
         "title": "GameAnswerResponse"
       },
+      "GameBoostOut": {
+        "properties": {
+          "university": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "University"
+          },
+          "multiplier": {
+            "type": "number",
+            "title": "Multiplier"
+          },
+          "cafecitos": {
+            "type": "integer",
+            "title": "Cafecitos"
+          },
+          "donor_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Donor Name"
+          },
+          "expires_in_seconds": {
+            "type": "integer",
+            "title": "Expires In Seconds"
+          }
+        },
+        "type": "object",
+        "required": [
+          "multiplier",
+          "cafecitos",
+          "expires_in_seconds"
+        ],
+        "title": "GameBoostOut",
+        "description": "Un empuje de XP vigente, agregado por universidad (ver game/boosts.py)."
+      },
+      "GameCtaRequest": {
+        "properties": {
+          "cta": {
+            "type": "string",
+            "title": "Cta"
+          },
+          "action": {
+            "type": "string",
+            "title": "Action"
+          },
+          "placement": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 24
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Placement"
+          },
+          "solved": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Solved"
+          }
+        },
+        "type": "object",
+        "required": [
+          "cta",
+          "action"
+        ],
+        "title": "GameCtaRequest",
+        "description": "Telemetr\u00eda de un llamado a la acci\u00f3n. Todo opcional salvo qu\u00e9 y qu\u00e9 pas\u00f3:\nel cliente manda lo que sabe y el server no discute."
+      },
+      "GameEventOut": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "kind": {
+            "type": "string",
+            "title": "Kind"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "emoji": {
+            "type": "string",
+            "title": "Emoji"
+          },
+          "actor_alias": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Actor Alias"
+          },
+          "actor_level": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Actor Level"
+          },
+          "universities": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Universities",
+            "default": []
+          },
+          "is_mine": {
+            "type": "boolean",
+            "title": "Is Mine",
+            "default": false
+          },
+          "is_my_university": {
+            "type": "boolean",
+            "title": "Is My University",
+            "default": false
+          },
+          "seconds_ago": {
+            "type": "integer",
+            "title": "Seconds Ago"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "kind",
+          "text",
+          "emoji",
+          "seconds_ago"
+        ],
+        "title": "GameEventOut",
+        "description": "Una l\u00ednea del historial. El emoji viaja aparte del texto para que el\ncliente lo pueda poner siempre al final, sin depender del copy."
+      },
+      "GameEventsResponse": {
+        "properties": {
+          "events": {
+            "items": {
+              "$ref": "#/components/schemas/GameEventOut"
+            },
+            "type": "array",
+            "title": "Events"
+          }
+        },
+        "type": "object",
+        "required": [
+          "events"
+        ],
+        "title": "GameEventsResponse"
+      },
       "GameExerciseOut": {
         "properties": {
           "exercise_id": {
@@ -3455,6 +3838,14 @@
             },
             "type": "array",
             "title": "Keys",
+            "default": []
+          },
+          "new_keys": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "New Keys",
             "default": []
           }
         },
@@ -3757,6 +4148,11 @@
             "type": "integer",
             "title": "Level",
             "default": 0
+          },
+          "elo": {
+            "type": "integer",
+            "title": "Elo",
+            "default": 1000
           }
         },
         "type": "object",
@@ -3816,6 +4212,14 @@
           "version": {
             "type": "integer",
             "title": "Version"
+          },
+          "boosts": {
+            "items": {
+              "$ref": "#/components/schemas/GameBoostOut"
+            },
+            "type": "array",
+            "title": "Boosts",
+            "default": []
           }
         },
         "type": "object",
@@ -3823,7 +4227,7 @@
           "version"
         ],
         "title": "GamePulse",
-        "description": "Latido del ranking. El cliente lo consulta cada 10 s y solo refresca la\nlista si `version` cambi\u00f3 \u2014 y de paso ese mismo pedido es lo que hace\navanzar la actividad simulada (ver game/simulation.py)."
+        "description": "Latido del ranking. El cliente lo consulta cada 10 s y solo refresca la\nlista si `version` cambi\u00f3 \u2014 y de paso ese mismo pedido es lo que hace\navanzar la actividad simulada (ver game/simulation.py).\n\nLos empujes vigentes viajan ac\u00e1 y no en un endpoint propio: este pedido ya\nlate cada 10 s desde los dos layouts, as\u00ed que el cartel se entera sin sumar\nni una request."
       },
       "GameSkipRequest": {
         "properties": {
@@ -3878,6 +4282,20 @@
             "type": "integer",
             "title": "Players"
           },
+          "rating_avg": {
+            "type": "integer",
+            "title": "Rating Avg"
+          },
+          "rated_players": {
+            "type": "integer",
+            "title": "Rated Players",
+            "default": 0
+          },
+          "ranked": {
+            "type": "boolean",
+            "title": "Ranked",
+            "default": true
+          },
           "careers": {
             "additionalProperties": {
               "type": "integer"
@@ -3891,6 +4309,7 @@
           "university",
           "xp",
           "players",
+          "rating_avg",
           "careers"
         ],
         "title": "GameUniversityRow"

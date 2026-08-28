@@ -85,3 +85,23 @@ def level_of(theta: float) -> int:
         if theta < cut:
             return index
     return len(_LEVEL_CUTS)
+
+
+# El θ en la escala de ajedrez, para poder mostrarlo. Es un cambio de UNIDADES y
+# nada más: el orden entre jugadores y las distancias relativas son las mismas.
+# Se hace porque θ = 0.83 no le dice nada a nadie, y 1166 sí — todo el mundo sabe
+# leer que 1400 es mejor que 1200 aunque no sepa qué mide.
+#
+# 200 puntos por unidad de θ es lo que hace que el número se mueva de forma
+# legible: los tiers de BETA_SEED están separados ~0.6, así que subir un tier son
+# ~120 puntos, y un acierto del primer intento en la banda objetivo son ~40.
+RATING_BASE = 1000
+RATING_PER_THETA = 200
+# Piso, como el de la FIDE. θ puede caer bien abajo si alguien erra todo, y un
+# marcador que llega a cero (o a un negativo) se lee como un juego roto, no como
+# un mal día.
+RATING_FLOOR = 400
+
+
+def rating_of(theta: float) -> int:
+    return max(RATING_FLOOR, round(RATING_BASE + RATING_PER_THETA * theta))

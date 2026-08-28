@@ -14,6 +14,7 @@ import { readOnboarding, saveOnboarding } from "@/lib/onboarding/storage"
 import { canonicalUniversity } from "@/lib/university-tags"
 import { useSfx } from "@/lib/audio/useSfx"
 import { unwrap } from "@/lib/api/client"
+import { SlideFlip } from "./slide-flip"
 import { useGameApi } from "./UseGameApi"
 import type { GamePlayer } from "./UseGamePlayer"
 
@@ -68,7 +69,7 @@ export function ProfileSlides({
     setSaving(true)
     sfx.continue()
     try {
-      await api.PATCH("/game/derivadas/me", {
+      await api.PATCH("/game/derivemos/me", {
         body: { career, university: chosenUniversity },
       })
     } catch {
@@ -86,105 +87,109 @@ export function ProfileSlides({
     onDone({ career, university: chosenUniversity })
   }
 
-  if (phase === "career") {
-    return (
-      <div className={panelCls}>
-        <div className={bodyCls}>
-          <CareerSelect
-            value={career}
-            onSelect={(v) => {
-              sfx.select()
-              setCareer(v)
-            }}
-          />
-        </div>
-        <div className="flex flex-col gap-2">
-          <Button
-            size="lg"
-            className={ctaCls}
-            disabled={!career}
-            onClick={() => {
-              sfx.continue()
-              posthog.capture("game_register_slide_shown", { slide: "university" })
-              setPhase("university")
-            }}
-          >
-            Continuar
-          </Button>
-          <button
-            type="button"
-            onClick={onSkip}
-            className="py-2 text-sm text-muted-foreground"
-          >
-            Ahora no
-          </button>
-        </div>
-      </div>
-    )
-  }
-
   const confirmOther = () => {
     const value = canonicalUniversity(universityOther)
     if (!value) return
     void finish(value)
   }
 
+  // Las dos preguntas del perfil son dos pantallas, y cambiar de pantalla en
+  // este juego es siempre el mismo volteo (slide-flip.tsx). Antes la segunda
+  // reemplazaba a la primera sin más y parecía que la página se hubiera
+  // recargado sola.
   return (
-    <div className={panelCls}>
-      <div className={bodyCls}>
-        <UniversityGrid
-          university={university}
-          showOther={showOther}
-          otherValue={universityOther}
-          onOtherChange={setUniversityOther}
-          onPick={(u) => {
-            sfx.select()
-            setUniversity(u)
-            setShowOther(false)
-          }}
-          onSelectOther={() => {
-            sfx.select()
-            setUniversity("")
-            setShowOther(true)
-          }}
-          onConfirmOther={confirmOther}
-          onPickSuggestion={(key) => {
-            sfx.select()
-            setUniversityOther(key)
-            inputRef.current?.focus()
-          }}
-          inputRef={inputRef}
-        />
-      </div>
-      <div className="flex flex-col gap-2">
-        {showOther ? (
-          <Button
-            size="lg"
-            className={ctaCls}
-            disabled={!universityOther.trim() || saving}
-            onClick={confirmOther}
-          >
-            Continuar
-          </Button>
-        ) : (
-          <Button
-            size="lg"
-            className={ctaCls}
-            disabled={!university || saving}
-            onClick={() => void finish(university)}
-          >
-            Continuar
-          </Button>
-        )}
-        <button
-          type="button"
-          onClick={onSkip}
-          className="py-2 text-sm text-muted-foreground"
-        >
-          Ahora no
-        </button>
-      </div>
-    </div>
+    <SlideFlip slide={phase} className="flex min-h-0 flex-1 flex-col">
+      {phase === "career" ? (
+        <div className={panelCls}>
+          <div className={bodyCls}>
+            <CareerSelect
+              value={career}
+              onSelect={(v) => {
+                sfx.select()
+                setCareer(v)
+              }}
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Button
+              size="lg"
+              className={ctaCls}
+              disabled={!career}
+              onClick={() => {
+                sfx.continue()
+                posthog.capture("game_register_slide_shown", { slide: "university" })
+                setPhase("university")
+              }}
+            >
+              Continuar
+            </Button>
+            <button
+              type="button"
+              onClick={onSkip}
+              className="py-2 text-sm text-muted-foreground"
+            >
+              Ahora no
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div className={panelCls}>
+          <div className={bodyCls}>
+            <UniversityGrid
+              university={university}
+              showOther={showOther}
+              otherValue={universityOther}
+              onOtherChange={setUniversityOther}
+              onPick={(u) => {
+                sfx.select()
+                setUniversity(u)
+                setShowOther(false)
+              }}
+              onSelectOther={() => {
+                sfx.select()
+                setUniversity("")
+                setShowOther(true)
+              }}
+              onConfirmOther={confirmOther}
+              onPickSuggestion={(key) => {
+                sfx.select()
+                setUniversityOther(key)
+                inputRef.current?.focus()
+              }}
+              inputRef={inputRef}
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            {showOther ? (
+              <Button
+                size="lg"
+                className={ctaCls}
+                disabled={!universityOther.trim() || saving}
+                onClick={confirmOther}
+              >
+                Continuar
+              </Button>
+            ) : (
+              <Button
+                size="lg"
+                className={ctaCls}
+                disabled={!university || saving}
+                onClick={() => void finish(university)}
+              >
+                Continuar
+              </Button>
+            )}
+            <button
+              type="button"
+              onClick={onSkip}
+              className="py-2 text-sm text-muted-foreground"
+            >
+              Ahora no
+            </button>
+          </div>
+        </div>
+      )}
+    </SlideFlip>
   )
 }
 
@@ -325,7 +330,7 @@ export function useApplyDesiredAlias() {
     }
     try {
       const updated = unwrap(
-        await api.PATCH("/game/derivadas/me", { body: { alias: desired } }),
+        await api.PATCH("/game/derivemos/me", { body: { alias: desired } }),
       )
       clearDesiredAlias()
       posthog.capture("game_alias_edited", { via: "register" })

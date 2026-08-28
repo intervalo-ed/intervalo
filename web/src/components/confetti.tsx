@@ -77,7 +77,17 @@ type Particle = {
   // desde dónde salió, para interpolar sin depender del estado físico.
   seekAt: number | null
   seekFrom: { x: number; y: number } | null
+  // Frenada en seco: la partícula ya no tiene física, se queda clavada donde
+  // está (ver `hold` y SETTLE_MS).
+  settled: boolean
 }
+
+// Cuánto vuela la explosión antes de congelarse, cuando hay `hold`. Es el
+// tiempo que tarda en abrirse: pasado eso las partículas quedan pegadas a la
+// pantalla, quietas, hasta que el imán las venga a buscar. Sin esto seguían
+// planeando y cayendo, y lo que se quiere es lo contrario — orbes que saltan,
+// rebotan contra el vidrio y se quedan ahí.
+const SETTLE_MS = 380
 
 // Recolección: las partículas dejan de flotar y se van una por una hacia un
 // punto de la pantalla, como si fuera un imán. El ritmo es el del conteo de XP
@@ -93,18 +103,22 @@ export type Collect = {
   onArrive?: (index: number, progress: number) => void
 }
 
-const SEEK_MS = 420
+// Exportados para `OrbDrop` (components/orb-drop.tsx), que tiene otra física
+// pero el MISMO imán. No es reutilizar por reutilizar: esta rampa ES el ritmo
+// del conteo de XP —cada llegada es un tick— y si los dos festejos contaran a
+// velocidades distintas se oiría que son dos cosas distintas.
+export const SEEK_MS = 420
 const RAMP_FIRST_MS = 200
 const RAMP_DECAY = 0.82
 const RAMP_MIN_MS = 45
 const COLLECT_START_MS = 300
 
-function easeInOut(t: number) {
+export function easeInOut(t: number) {
   return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2
 }
 
 // Momento de partida de cada partícula, acumulando la rampa acelerada.
-function collectSchedule(count: number): number[] {
+export function collectSchedule(count: number): number[] {
   const out: number[] = []
   let delay = RAMP_FIRST_MS
   let acc = 0
@@ -142,6 +156,7 @@ export function Confetti({
   shape = "square",
   power = 1,
   collect,
+  hold = false,
 }: {
   count: number
   colors?: readonly string[]
@@ -155,6 +170,13 @@ export function Confetti({
   // otra cosa.
   power?: number
   collect?: Collect
+  // Retiene las partículas en pantalla aunque todavía no haya `collect`. Es
+  // para el festejo en dos tiempos: la explosión ocurre en un lado, se queda
+  // flotando ahí el tiempo que haga falta —lo que tarde la persona en seguir— y
+  // el imán llega DESPUÉS, cuando aparece el destino. Sin esto, la partícula
+  // que sale por abajo se da por perdida y para cuando el imán existe ya no
+  // queda nada que recolectar.
+  hold?: boolean
 }) {
   // `useState` perezoso y no `useRef(Array.from(...))`: el array se arma una
   // sola vez (con useRef se regeneraba entero en cada render para tirarlo) y,
@@ -198,6 +220,7 @@ export function Confetti({
         alive: true,
         seekAt: null,
         seekFrom: null,
+        settled: false,
       }
     }),
   )
@@ -219,8 +242,10 @@ export function Confetti({
   // En un ref para que un padre que re-renderiza (el contador de XP subiendo,
   // justamente) no reinicie la animación a mitad de recolección.
   const collectRef = useRef(collect)
+  const holdRef = useRef(hold)
   useEffect(() => {
     collectRef.current = collect
+    holdRef.current = hold
   })
 
   useEffect(() => {
@@ -243,7 +268,16 @@ export function Confetti({
     let order: number[] | null = null
     let dispatched = 0
     let startTs: number | null = null
-    const schedule = collectRef.current ? collectSchedule(particles.length) : []
+    // Desde cuándo se cuenta la espera del imán. NO es el nacimiento de la
+    // explosión: `collect` puede aparecer mucho después (festejo en dos tiempos,
+    // ver la prop `hold`), y en ese caso la espera corre desde que aparece. Con
+    // `collect` presente desde el montaje, este instante ES el primer frame y el
+    // comportamiento queda idéntico al de antes.
+    let collectSince: number | null = null
+    // Se arma cuando el imán existe de verdad, y no al montar: si se calculara
+    // acá con `collect` todavía ausente, quedaría vacío para siempre y el
+    // despacho no arrancaría nunca.
+    let schedule: number[] = []
 
     const paint = () => {
       for (const p of stateRef.current) {
@@ -256,7 +290,12 @@ export function Confetti({
         // El vaivén se suma acá y no al estado: así no acumula deriva y la
         // partícula planea en vez de irse de lado. Mientras viaja al imán se
         // apaga, si no la partícula no aterrizaría en el punto exacto.
-        const left = p.seekAt === null ? p.x + Math.sin(tRef.current + p.phase) * p.sway : p.x
+        // El vaivén se apaga en dos casos: mientras la partícula viaja al imán
+        // (si no, no aterrizaría en el punto exacto) y cuando quedó clavada.
+        const left =
+          p.seekAt === null && !p.settled
+            ? p.x + Math.sin(tRef.current + p.phase) * p.sway
+            : p.x
         const dx = ((left - bases[p.id].x) / 100) * width
         const dy = ((p.y - bases[p.id].y) / 100) * height
         el.style.transform = `translate(${dx}px, ${dy}px) rotate(${p.rot}deg)`
@@ -272,11 +311,13 @@ export function Confetti({
 
       // ── Despacho hacia el imán ─────────────────────────────────────────────
       const cfg = collectRef.current
-      const elapsed = ts - startTs
+      if (cfg && collectSince === null) collectSince = ts
+      const elapsed = collectSince === null ? 0 : ts - collectSince
       const collectFrom = cfg?.startDelayMs ?? COLLECT_START_MS
       if (cfg && elapsed >= collectFrom) {
         if (!goalTried) {
           goalTried = true
+          schedule = collectSchedule(particles.length)
           const px = cfg.target()
           // Sin destino medible no hay imán: las partículas siguen cayendo.
           goal = px ? { x: (px.x / width) * 100, y: (px.y / height) * 100 } : null
@@ -328,6 +369,14 @@ export function Confetti({
           }
         }
 
+        // Congelada: sin física y sin repintado que la mueva. Sigue "viva" —el
+        // RAF tiene que seguir corriendo para enterarse de cuándo aparece el
+        // imán— pero no se mueve un píxel hasta que le toque el turno.
+        if (holdRef.current && startTs !== null && ts - startTs >= SETTLE_MS) {
+          anyAlive = true
+          return p.settled ? p : { ...p, vx: 0, vy: 0, vrot: 0, settled: true }
+        }
+
         let nx = p.x + p.vx * dt
         let ny = p.y + p.vy * dt
         // Frenado del aire para que la explosión sea veloz al inicio y se
@@ -349,7 +398,7 @@ export function Confetti({
         // el borde hasta que le toque el turno. Sin imán —o si el destino no se
         // pudo medir— salir de pantalla es el final natural de la partícula.
         let alive = true
-        if (cfg && (goal !== null || !goalTried)) {
+        if (holdRef.current || (cfg && (goal !== null || !goalTried))) {
           ny = Math.min(ny, 112)
         } else {
           alive = ny < 120
