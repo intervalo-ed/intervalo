@@ -981,8 +981,11 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   // La diapo que abrió la persona interrumpió lo que estaba
                   // haciendo y hay que devolvérselo; la que dispara un hito
                   // llega DESPUÉS de responder, y ahí sí toca seguir.
+                  // Y va "atras", que es lo que hace que salir se vea como
+                  // salir: la diapo se corre para el otro lado y devuelve la
+                  // pantalla de donde vino, en vez de entrar como una nueva.
                   if (slide.trigger !== "pedido") advanceAfterAnswer("cafecito")
-                  else goTo(slide.back ?? { kind: "exercise" })
+                  else goTo(slide.back ?? { kind: "exercise" }, "atras")
                 }}
                 className="flex-none"
               />
