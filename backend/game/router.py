@@ -509,8 +509,10 @@ def answer_exercise(
             )
         )
         player.last_seen_at = datetime.utcnow()
-        db.commit()
-        return GameAnswerResponse(
+        # Se leen ANTES del commit: después, SQLAlchemy expira los atributos del
+        # jugador y cada uno vuelve a la base a releer la fila que este mismo
+        # request acaba de escribir.
+        respuesta = GameAnswerResponse(
             correct=False,
             parse_ok=False,
             parse_error=parse_error,
@@ -521,7 +523,14 @@ def answer_exercise(
             combo=player.current_combo,
             combo_bonus=0,
             exercises_correct=player.exercises_correct,
+            # Sin esto el campo salía en su default (0) y el contador de "ya
+            # llevás N resueltas hoy" se reseteaba a cero con cualquier respuesta
+            # que el parser no entendiera — justo el número que se movió al
+            # servidor para que NO se resetee.
+            correct_today=_correctas_de_hoy(db, player.id),
         )
+        db.commit()
+        return respuesta
 
     rank_before = _rank_of(db, player)
 
@@ -591,6 +600,10 @@ def answer_exercise(
             template = template_for(exercise)
             feedback = template.generic_feedback if template else GENERIC_FEEDBACK
 
+    # Antes de sumar el intento de esta respuesta, así el conteo no depende de si
+    # la sesión hace autoflush o no; el intento propio se suma después a mano.
+    correctas_hoy_previas = _correctas_de_hoy(db, player.id)
+
     db.add(
         GameAttempt(
             exercise_id=exercise.id,
@@ -609,7 +622,12 @@ def answer_exercise(
     )
     player.last_seen_at = datetime.utcnow()
 
-    rank_after = _rank_of(db, player)
+    # El puesto depende solo de (xp, id), y la XP se mueve únicamente al acertar:
+    # al errar, volver a contar la tabla entera devuelve por definición el mismo
+    # número que `rank_before`. Era el segundo COUNT completo de la respuesta, y
+    # caía justo en el camino más pesado —el de errar, que además paga la
+    # comparación contra los errores predecibles.
+    rank_after = _rank_of(db, player) if correct else rank_before
     if correct:
         # El ranking cambió: el pulso lo va a notar y los demás refrescan.
         simulation.bump_version(db)
@@ -628,9 +646,12 @@ def answer_exercise(
             level_after=elo.level_of(player.theta),
         )
 
-    db.commit()
-
-    return GameAnswerResponse(
+    # La respuesta se arma ENTERA antes del commit. Con `expire_on_commit` en su
+    # valor por defecto, después de comitear cada atributo del jugador que se lea
+    # acá abajo dispara un SELECT para releer la fila que este mismo request
+    # acaba de escribir — eran seis lecturas y una consulta extra a la base, con
+    # el cliente esperando el color.
+    respuesta = GameAnswerResponse(
         correct=correct,
         parse_ok=True,
         attempt_number=attempt_number,
@@ -642,13 +663,15 @@ def answer_exercise(
         combo_bonus=combo_bonus,
         xp_multiplier=multiplier,
         exercises_correct=player.exercises_correct,
-        correct_today=_correctas_de_hoy(db, player.id),
+        correct_today=correctas_hoy_previas + (1 if correct else 0),
         correct_answer_latex=latex_es(expected) if (closed and not correct) else None,
         rank_before=rank_before,
         rank_after=rank_after,
         best_rank=player.best_rank,
         is_record=is_record,
     )
+    db.commit()
+    return respuesta
 
 
 @router.get("/leaderboard/pulse", response_model=GamePulse)

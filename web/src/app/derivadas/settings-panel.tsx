@@ -130,6 +130,25 @@ export function SettingsPanel({
   const [showOther, setShowOther] = useState(false)
   const otherRef = useRef<HTMLInputElement>(null)
 
+  // Los dos campos arrancan con lo que el jugador ya tiene, pero `useState` solo
+  // mira su valor inicial: si el panel se abrió antes de que el jugador llegara
+  // —o si llega uno distinto, como al volver del registro— quedaban vacíos para
+  // siempre y guardar pisaba el perfil con "".
+  //
+  // Se ajusta durante el render y no en un efecto: es el patrón que React
+  // recomienda para sincronizar estado con props, no necesita un pintado
+  // intermedio con el valor viejo, y `react-hooks/set-state-in-effect` prohíbe
+  // la otra forma. Solo dispara cuando cambia el valor DEL SERVIDOR, así que no
+  // pisa lo que la persona está tecleando.
+  const [perfilSincronizado, setPerfilSincronizado] = useState(player)
+  if (player !== null && player !== perfilSincronizado) {
+    setPerfilSincronizado(player)
+    if (player.alias !== perfilSincronizado?.alias) setAlias(player.alias)
+    if (player.university !== perfilSincronizado?.university) {
+      setUniversity(player.university ?? "")
+    }
+  }
+
   // Todo cambio de perfil toca la fila propia del ranking (tag, badge, scope).
   const refreshAll = () => {
     queryClient.invalidateQueries({ queryKey: gameKeys.me })

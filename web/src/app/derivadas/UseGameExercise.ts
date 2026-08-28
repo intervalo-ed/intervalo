@@ -3,7 +3,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { unwrap } from "@/lib/api/client"
 import type { components } from "@/lib/api/schema"
-import { gameKeys } from "./UseGamePlayer"
+import { gameKeys, type GamePlayer } from "./UseGamePlayer"
 import { useGameApi } from "./UseGameApi"
 
 export type GameExercise = components["schemas"]["GameExerciseOut"]
@@ -58,7 +58,28 @@ export function useAnswerExercise() {
       // a cero y baja el θ, acierte o no (game/router.py). Mirando solo las
       // correctas, los tres números quedaban viejos justo cuando más tenían
       // para decir — errabas y la racha seguía marcando 7.
-      if (data.parse_ok) queryClient.invalidateQueries({ queryKey: gameKeys.me })
+      if (!data.parse_ok) return
+      // Primero lo que la respuesta YA trae, escrito directo en el caché: los
+      // marcadores se mueven en el mismo fotograma en que aparece el color, sin
+      // esperar un segundo viaje a la red. Y si ese viaje se pierde —el caso
+      // normal en un colectivo—, los números igual quedaron bien.
+      queryClient.setQueryData(gameKeys.me, (previo: GamePlayer | undefined) =>
+        previo === undefined
+          ? previo
+          : {
+              ...previo,
+              xp: data.xp_total,
+              combo: data.combo,
+              exercises_correct: data.exercises_correct,
+              // El intento lo suma el server acierte o no.
+              exercises_attempted: previo.exercises_attempted + 1,
+              ...(data.rank_after !== null && { rank: data.rank_after }),
+              ...(data.best_rank !== null && { best_rank: data.best_rank }),
+            },
+      )
+      // Y después el refresco, que es lo único que trae el elo nuevo: no viaja
+      // en la respuesta de /answer aunque el server lo haya movido.
+      queryClient.invalidateQueries({ queryKey: gameKeys.me })
     },
   })
 }

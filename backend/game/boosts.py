@@ -22,6 +22,7 @@ Reglas, todas acá:
 from __future__ import annotations
 
 import re
+import time
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 
@@ -106,6 +107,41 @@ def _now() -> datetime:
     return datetime.utcnow()
 
 
+# Casi todo el tiempo NO hay ningún empuje vigente, y averiguarlo cuesta caro en
+# los dos caminos más calientes del juego: tres consultas en cada respuesta
+# correcta (global + candado de mudanza + la de la universidad) y una más en cada
+# pulso, que cada pestaña abierta pide cada diez segundos.
+#
+# El atajo es memorizar el NO. Si no hay ni una fila vigente, no puede aparecer
+# ninguna sin que alguien llame a `grant`, así que se puede sostener esa
+# respuesta unos segundos sin volver a preguntar. `grant` limpia la memoria al
+# terminar, y por eso una donación se siente en el acto y no cuando vence el TTL.
+#
+# El SÍ no se memoriza: con un empuje vigente las consultas corren completas como
+# siempre. Es el caso raro y es el que tiene que estar bien.
+#
+# Es caché por proceso: con varios workers cada uno tiene el suyo, y lo peor que
+# pasa es que uno tarde unos segundos de más en enterarse de que ya no hay nada.
+_SIN_EMPUJES_TTL_SEGUNDOS = 5.0
+_sin_empujes_hasta = 0.0
+
+
+def olvidar_cache_de_empujes() -> None:
+    """Fuerza a la próxima consulta a volver a mirar la base."""
+    global _sin_empujes_hasta
+    _sin_empujes_hasta = 0.0
+
+
+def hay_empujes(db: Session, now: datetime) -> bool:
+    global _sin_empujes_hasta
+    if time.monotonic() < _sin_empujes_hasta:
+        return False
+    existe = db.query(GameBoost.id).filter(GameBoost.expires_at > now).first() is not None
+    if not existe:
+        _sin_empujes_hasta = time.monotonic() + _SIN_EMPUJES_TTL_SEGUNDOS
+    return existe
+
+
 # El tope por donación se aplica FILA POR FILA y no sobre la suma: si se topeara
 # el total, dos personas de a 10 llegarían al mismo lugar que una sola de 20, y
 # la regla de "hay que colaborar" no existiría.
@@ -140,6 +176,8 @@ def multiplier_for(db: Session, university: str | None, now: datetime | None = N
     revés de lo que se busca.
     """
     now = now or _now()
+    if not hay_empujes(db, now):
+        return 1.0
     total = global_cafecitos(db, now)
     if university:
         total += _cafecitos(db, GameBoost.university == university, now)
@@ -177,6 +215,8 @@ def multiplier_for_player(
     db: Session, player: GamePlayer, now: datetime | None = None
 ) -> float:
     now = now or _now()
+    if not hay_empujes(db, now):
+        return 1.0
     total = global_cafecitos(db, now)
     if player.university and applies_to(player, db, now=now):
         total += _cafecitos(db, GameBoost.university == player.university, now)
@@ -191,6 +231,8 @@ def active_boosts(db: Session, now: datetime | None = None) -> list[BoostView]:
     acaba de hacer — es la que espera ver en pantalla.
     """
     now = now or _now()
+    if not hay_empujes(db, now):
+        return []
     rows = (
         db.query(GameBoost)
         .filter(GameBoost.expires_at > now)
@@ -275,6 +317,10 @@ def grant(
     # donación sola: si hay otras vigentes, lo que la gente ve en el cartel es la
     # suma, y el feed tiene que decir lo mismo.
     db.flush()
+    # Antes de cualquier lectura: si venía memorizado que no había empujes, el
+    # multiplicador del evento de acá abajo saldría en ×1 y el cartel anunciaría
+    # una donación que no cambió nada.
+    olvidar_cache_de_empujes()
     events.on_boost(
         db,
         university=uni,

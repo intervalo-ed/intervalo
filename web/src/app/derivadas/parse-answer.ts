@@ -19,16 +19,32 @@ function engine(): Promise<ComputeEngineLike> {
 }
 
 // Precalentar el motor mientras la persona lee el primer enunciado.
+//
+// Con un parseo de mentira, no solo construyendo el motor: el diccionario de
+// LaTeX y la biblioteca estándar se arman perezosamente en el PRIMER parseo, así
+// que sin esto ese costo lo pagaba la primera respuesta de la partida, sincrónico
+// y con la persona esperando.
 export function warmupComputeEngine() {
-  void engine()
+  void engine().then((ce) => {
+    try {
+      ce.parse("x^2")
+    } catch {
+      // Precalentar es una mejora, no un requisito.
+    }
+  })
+}
+
+/** LaTeX crudo → MathJSON, sin normalizar. Para texto que ya viene del server. */
+export async function parseLatexToMathJson(latex: string): Promise<unknown> {
+  try {
+    const ce = await engine()
+    return ce.parse(latex).json
+  } catch {
+    return null
+  }
 }
 
 export async function parseAnswerToMathJson(latex: string): Promise<unknown> {
-  try {
-    const ce = await engine()
-    return ce.parse(normalizeAnswerLatex(latex)).json
-  } catch {
-    // El server responde parse_ok=false y no consume intento.
-    return null
-  }
+  // El server responde parse_ok=false y no consume intento.
+  return parseLatexToMathJson(normalizeAnswerLatex(latex))
 }

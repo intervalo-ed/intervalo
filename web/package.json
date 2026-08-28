@@ -7,6 +7,7 @@
     "build": "bun run sync:all && next build",
     "start": "next start",
     "lint": "eslint",
+    "check:verdict": "bun run scripts/check-local-verdict.ts",
     "sync:all": "bun run sync:catalog && bun run sync:emoji-tree && bun run types:api:file",
     "sync:catalog": "bun run scripts/sync-catalog.ts",
     "sync:emoji-tree": "bun run scripts/sync-emoji-tree.ts",
