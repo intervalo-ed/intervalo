@@ -967,13 +967,7 @@ const Row = memo(function Row({
           <UniTag university={entry.university} />
         </span>
       )}
-      <span
-        ref={attachXpTarget}
-        className="inline-flex shrink-0 items-center gap-1 text-sm font-semibold tabular-nums"
-      >
-        {fmtCount(xp)}
-        <XpDots className="size-[0.85em] text-white" />
-      </span>
+      <XpDeJugador xp={xp} attachXpTarget={attachXpTarget} />
     </motion.li>
   )
 })
@@ -993,7 +987,16 @@ const CIERRE_MS = 120
  *
  * Sigue siendo un Popover y no un tooltip por lo mismo de siempre: el tooltip
  * abre solo con hover. */
-function EloDeUniversidad({ row }: { row: GameUniversityRow }) {
+/** El gesto de los carteles del ranking: abre con el mouse encima Y con click.
+ *
+ * El click no se puede perder: en el teléfono —donde más se mira el ranking— no
+ * hay hover y era la única forma de leer esto. Pero pedir un click en escritorio
+ * para una aclaración de dos renglones es pedir de más.
+ *
+ * Devuelve lo que hay que repartir entre el disparador y el contenido: los dos
+ * necesitan `onMouseEnter`/`onMouseLeave`, porque el cartel se dibuja en un
+ * portal y no es hijo del disparador (ver CIERRE_MS). */
+function useCartel() {
   const [abierto, setAbierto] = useState(false)
   const cierreRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const abrir = () => {
@@ -1007,12 +1010,66 @@ function EloDeUniversidad({ row }: { row: GameUniversityRow }) {
   useEffect(() => () => {
     if (cierreRef.current) clearTimeout(cierreRef.current)
   }, [])
+  return {
+    abierto,
+    setAbierto,
+    gestos: { onMouseEnter: abrir, onMouseLeave: cerrar },
+  }
+}
+
+/** La experiencia de una fila, con la explicación de qué mide.
+ *
+ * Es el complemento exacto del cartel del Elo: uno dice que el Elo NO mide
+ * cuánto jugaste y que los cafecitos no lo mueven, y este dice que la
+ * experiencia sí mide eso y que los cafecitos sí la multiplican. Leídos juntos,
+ * los dos números del ranking dejan de ser dos números parecidos.
+ *
+ * `attachXpTarget` va sobre el DISPARADOR y no sobre un envoltorio: es el imán
+ * del confeti, y la caja del botón es exactamente la que ocupaba el número
+ * antes, así que las bolitas siguen aterrizando en el mismo píxel. */
+function XpDeJugador({
+  xp,
+  attachXpTarget,
+}: {
+  xp: number
+  attachXpTarget?: (node: HTMLElement | null) => void
+}) {
+  const { abierto, setAbierto, gestos } = useCartel()
+  return (
+    <Popover open={abierto} onOpenChange={setAbierto}>
+      <PopoverTrigger
+        {...gestos}
+        ref={attachXpTarget}
+        className="inline-flex shrink-0 items-center gap-1 rounded text-sm font-semibold tabular-nums outline-none transition-opacity hover:opacity-80"
+        aria-label="Qué es la experiencia"
+      >
+        {fmtCount(xp)}
+        <XpDots className="size-[0.85em] text-white" />
+      </PopoverTrigger>
+      <PopoverContent {...gestos} className="text-left text-xs leading-relaxed">
+        <p>
+          <span className="font-semibold text-foreground">
+            {fmtCount(xp)} de experiencia
+          </span>
+          . Cada derivada bien resuelta suma: un poco más si era difícil, y de
+          arranque más del triple si sale al primer intento.
+        </p>
+        <p className="mt-2 text-muted-foreground">
+          Mide cuánto jugaste, no qué tan bien — nunca baja, y los cafecitos la
+          multiplican. Qué tan difícil es lo que resolvés lo dice el Elo.
+        </p>
+      </PopoverContent>
+    </Popover>
+  )
+}
+
+function EloDeUniversidad({ row }: { row: GameUniversityRow }) {
+  const { abierto, setAbierto, gestos } = useCartel()
 
   return (
     <Popover open={abierto} onOpenChange={setAbierto}>
       <PopoverTrigger
-        onMouseEnter={abrir}
-        onMouseLeave={cerrar}
+        {...gestos}
         className="inline-flex shrink-0 items-baseline gap-1 rounded text-sm font-semibold tabular-nums outline-none transition-opacity hover:opacity-80"
         aria-label={`Qué mide el Elo de ${row.university}`}
       >
@@ -1027,11 +1084,7 @@ function EloDeUniversidad({ row }: { row: GameUniversityRow }) {
           ELO
         </span>
       </PopoverTrigger>
-      <PopoverContent
-        onMouseEnter={abrir}
-        onMouseLeave={cerrar}
-        className="text-left text-xs leading-relaxed"
-      >
+      <PopoverContent {...gestos} className="text-left text-xs leading-relaxed">
               {row.ranked ? (
                 <>
                   <p>
