@@ -335,6 +335,85 @@ def grant(
 
 # --- de la donación al empuje ----------------------------------------------
 
+# Desde cuándo una intención ya no es "acabo de volver de Cafecito" sino algo que
+# pasó en otra sesión. Más larga que INTENT_WINDOW_MINUTES a propósito: pasada la
+# ventana la donación ya no se puede emparejar, pero la persona sigue mereciendo
+# que le digamos que no llegó en vez de no decirle nada.
+MEMORIA_INTENCION_HORAS = 6
+
+
+@dataclass(frozen=True)
+class EstadoDonacion:
+    """Lo que hay para contarle a quien volvió de Cafecito."""
+
+    state: str  # "none" | "pending" | "credited"
+    university: str | None = None
+    cafecitos: int = 0
+    multiplier: float = 1.0
+    expires_in_seconds: int = 0
+
+
+def estado_de_donacion(
+    db: Session, player: GamePlayer, now: datetime | None = None
+) -> EstadoDonacion:
+    """¿Qué pasó con el cafecito de esta persona?
+
+    Se mira su última intención. `consumed_at` es la señal, y es exacta: la
+    donación que llega marca como cumplidas todas las intenciones abiertas, con
+    universidad o sin ella (ver `resolve_donation`).
+
+    El empuje que se reporta es el que se creó junto con esa marca. Se busca por
+    tiempo y no por una clave que los una porque una misma donación puede crear
+    VARIAS filas —si dos universidades donaron a la vez cobran las dos— y lo que
+    esta persona tiene que ver es la suya.
+    """
+    now = now or _now()
+    intent = (
+        db.query(GameBoostIntent)
+        .filter(
+            GameBoostIntent.player_id == player.id,
+            GameBoostIntent.created_at > now - timedelta(hours=MEMORIA_INTENCION_HORAS),
+        )
+        .order_by(GameBoostIntent.created_at.desc())
+        .first()
+    )
+    if intent is None:
+        return EstadoDonacion(state="none")
+    if intent.consumed_at is None:
+        return EstadoDonacion(state="pending")
+
+    # El empuje que nació con esa marca. `grant` y el consumo comparten el mismo
+    # instante, pero se busca con un margen por si alguna vez dejan de hacerlo.
+    margen = timedelta(seconds=5)
+    candidatos = (
+        db.query(GameBoost)
+        .filter(
+            GameBoost.created_at >= intent.consumed_at - margen,
+            GameBoost.created_at <= intent.consumed_at + margen,
+        )
+        .order_by(GameBoost.id)
+        .all()
+    )
+    # El de su universidad si está; si no, el global, que es donde cae la
+    # donación de quien todavía no eligió.
+    suyo = next((b for b in candidatos if b.university == intent.university), None)
+    if suyo is None:
+        suyo = next((b for b in candidatos if b.university is None), None)
+    if suyo is None:
+        # Se consumió pero no encontramos el empuje. No debería pasar; ante la
+        # duda se dice que llegó, que es lo cierto, sin los detalles.
+        return EstadoDonacion(state="credited", multiplier=multiplier_for_player(db, player, now))
+
+    restante = max(0, int((suyo.expires_at - now).total_seconds()))
+    return EstadoDonacion(
+        state="credited" if restante > 0 else "none",
+        university=suyo.university,
+        cafecitos=suyo.cafecitos,
+        multiplier=multiplier_for_player(db, player, now),
+        expires_in_seconds=restante,
+    )
+
+
 def record_intent(db: Session, player: GamePlayer, now: datetime | None = None) -> GameBoostIntent:
     """Anota que este jugador se va a Cafecito. Es la pata que no le pide nada al
     donante: acá el juego todavía sabe quién es y de qué universidad."""
@@ -348,18 +427,28 @@ def record_intent(db: Session, player: GamePlayer, now: datetime | None = None) 
     return intent
 
 
-def pending_intents(db: Session, now: datetime | None = None) -> list[GameBoostIntent]:
-    now = now or _now()
+def _intents_abiertas(db: Session, now: datetime) -> list[GameBoostIntent]:
+    """TODAS las intenciones vigentes, tengan universidad o no."""
     return (
         db.query(GameBoostIntent)
         .filter(
             GameBoostIntent.consumed_at.is_(None),
-            GameBoostIntent.university.isnot(None),
             GameBoostIntent.created_at > now - timedelta(minutes=INTENT_WINDOW_MINUTES),
         )
         .order_by(GameBoostIntent.created_at.desc())
         .all()
     )
+
+
+def pending_intents(db: Session, now: datetime | None = None) -> list[GameBoostIntent]:
+    """Las que sirven para elegir DESTINO: solo las que tienen universidad.
+
+    Una intención sin universidad no aporta a dónde mandar el empuje —de eso se
+    encarga el escalón global— pero sí se marca como cumplida cuando llega una
+    donación (ver `resolve_donation`), porque de eso depende poder decirle a la
+    persona que su cafecito llegó.
+    """
+    return [i for i in _intents_abiertas(db, now or _now()) if i.university]
 
 
 def universities_in_message(message: str | None) -> list[str]:
@@ -410,12 +499,20 @@ def resolve_donation(
         if ya is not None:
             return []
 
-    intents = pending_intents(db, now=now)
+    abiertas = _intents_abiertas(db, now)
     destinos: list[str] = list(universities_in_message(message))
-    for i in intents:
+    for i in abiertas:
         if i.university and i.university not in destinos:
             destinos.append(i.university)
-    for i in intents:
+    # Se marcan TODAS las abiertas, también las que no tienen universidad.
+    #
+    # Para elegir destino esas no aportan nada —su donación cae en el escalón
+    # global— pero `consumed_at` es además lo único con lo que el juego puede
+    # decirle a quien volvió de Cafecito «tu cafecito llegó». Dejándolas sin
+    # marcar, a quien donó sin haber elegido universidad se le quedaba mostrando
+    # «estamos esperando que se acredite» para siempre, que es exactamente lo que
+    # no puede pasarle a alguien que acaba de pagar.
+    for i in abiertas:
         i.consumed_at = now
 
     # `external_ref` es UNIQUE, así que con varios destinos solo el primero puede

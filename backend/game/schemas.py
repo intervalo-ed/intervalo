@@ -189,6 +189,34 @@ class GameBoostOut(BaseModel):
     expires_in_seconds: int
 
 
+class GameCafecitoStatus(BaseModel):
+    """Qué pasó con la donación de quien acaba de volver de Cafecito.
+
+    Existe por un agujero del embudo: la persona tocaba «invitar», se iba a
+    Cafecito en otra pestaña, pagaba, volvía — y encontraba la misma pantalla que
+    había dejado, como si no hubiera hecho nada. Es el peor momento posible para
+    no decir nada, porque acaba de pagar.
+
+    El estado sale de `game_boost_intents.consumed_at`, que es exacto y no una
+    adivinanza: la donación que llega marca como cumplidas las intenciones
+    abiertas (ver boosts.resolve_donation), así que si la de esta persona está
+    marcada, su cafecito llegó.
+    """
+
+    # "none"     — no tocó el botón (o fue hace mucho)
+    # "pending"  — lo tocó y todavía no llegó nada
+    # "credited" — llegó y ya está aplicado
+    state: str
+    # A dónde fue el empuje. None con state="credited" es el empuje GLOBAL, que
+    # es donde cae la donación de quien todavía no eligió universidad.
+    university: Optional[str] = None
+    cafecitos: int = 0
+    # El multiplicador que le toca a ESTA persona ahora mismo, con todo lo
+    # vigente ya sumado; es el número que la pantalla muestra grande.
+    multiplier: float = 1.0
+    expires_in_seconds: int = 0
+
+
 class GamePulse(BaseModel):
     """Latido del ranking. El cliente lo consulta cada 10 s y solo refresca la
     lista si `version` cambió — y de paso ese mismo pedido es lo que hace

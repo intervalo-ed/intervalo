@@ -343,6 +343,58 @@
         }
       }
     },
+    "/game/derivemos/cafecito-status": {
+      "get": {
+        "tags": [
+          "game"
+        ],
+        "summary": "Cafecito Status",
+        "description": "Qu\u00e9 pas\u00f3 con el cafecito de quien acaba de volver de Cafecito.\n\nLo consulta la diapo cuando la pesta\u00f1a vuelve a estar a la vista. Es de\nlectura y barato \u2014una intenci\u00f3n y, si est\u00e1 cumplida, los empujes de ese\ninstante\u2014 as\u00ed que no necesita nada especial.",
+        "operationId": "cafecito_status_game_derivemos_cafecito_status_get",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          },
+          {
+            "name": "x-game-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "X-Game-Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameCafecitoStatus"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/game/derivemos/skip": {
       "post": {
         "tags": [
@@ -3682,6 +3734,46 @@
         ],
         "title": "GameBoostOut",
         "description": "Un empuje de XP vigente, agregado por universidad (ver game/boosts.py)."
+      },
+      "GameCafecitoStatus": {
+        "properties": {
+          "state": {
+            "type": "string",
+            "title": "State"
+          },
+          "university": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "University"
+          },
+          "cafecitos": {
+            "type": "integer",
+            "title": "Cafecitos",
+            "default": 0
+          },
+          "multiplier": {
+            "type": "number",
+            "title": "Multiplier",
+            "default": 1.0
+          },
+          "expires_in_seconds": {
+            "type": "integer",
+            "title": "Expires In Seconds",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "state"
+        ],
+        "title": "GameCafecitoStatus",
+        "description": "Qu\u00e9 pas\u00f3 con la donaci\u00f3n de quien acaba de volver de Cafecito.\n\nExiste por un agujero del embudo: la persona tocaba \u00abinvitar\u00bb, se iba a\nCafecito en otra pesta\u00f1a, pagaba, volv\u00eda \u2014 y encontraba la misma pantalla que\nhab\u00eda dejado, como si no hubiera hecho nada. Es el peor momento posible para\nno decir nada, porque acaba de pagar.\n\nEl estado sale de `game_boost_intents.consumed_at`, que es exacto y no una\nadivinanza: la donaci\u00f3n que llega marca como cumplidas las intenciones\nabiertas (ver boosts.resolve_donation), as\u00ed que si la de esta persona est\u00e1\nmarcada, su cafecito lleg\u00f3."
       },
       "GameCtaRequest": {
         "properties": {

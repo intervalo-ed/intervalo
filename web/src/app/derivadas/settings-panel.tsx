@@ -42,6 +42,30 @@ type Section = "root" | "alias" | "career" | "university"
 // la pantalla del campo libre".
 const OTRA = "__otra__"
 
+// A dónde va el reclamo de un cafecito que no apareció. Provisorio: apunta a una
+// casilla personal y no a la de Intervalo, y por eso vive acá suelto en vez de
+// estar en la configuración del proyecto.
+const RECLAMO_MAIL = "nvrancovich@gmail.com"
+
+/** El mail de reclamo, ya escrito. */
+function mailtoCafecito(alias?: string | null): string {
+  const ahora = new Date()
+  const cuando = `${ahora.getDate()}/${ahora.getMonth() + 1} a las ${ahora
+    .getHours()
+    .toString()
+    .padStart(2, "0")}.${ahora.getMinutes().toString().padStart(2, "0")}`
+  const cuerpo = [
+    "Hola! Doné un cafecito y no lo vi en el juego.",
+    "",
+    `Mi @ es ${alias ?? "(no aparece)"} y lo doné el ${cuando}.`,
+    "",
+    "(No borres estas dos líneas, son las que nos dejan encontrarlo.)",
+  ].join("\n")
+  return `mailto:${RECLAMO_MAIL}?subject=${encodeURIComponent(
+    "Mi cafecito no apareció",
+  )}&body=${encodeURIComponent(cuerpo)}`
+}
+
 const rowCls =
   "flex w-full items-center justify-between gap-3 rounded-lg border border-border bg-card px-4 py-3 text-left text-sm transition-colors hover:border-white/20"
 
@@ -400,6 +424,26 @@ export function SettingsPanel({
         >
           <span>Invitar un cafecito</span>
           <Coffee size={16} />
+        </a>
+
+        {/* La salida de emergencia del cafecito que no llegó.
+
+            El canal de alertas de Cafecito no repite lo viejo al reconectarse, así
+            que una donación que entre con el backend caído se pierde y no se
+            recupera sola (ver backend/game/cafecito_stream.py). Esto es lo que
+            hace que esa persona no se quede sin nada: se aplica a mano con
+            grant_game_boost.py.
+
+            El mail va ESCRITO, con el @ y el momento adentro. Sin esos dos datos
+            un reclamo no se puede cruzar contra nada, y pedírselos a alguien que
+            ya pagó y encima no recibió lo suyo es pedir de más. */}
+        <a
+          href={mailtoCafecito(player?.alias)}
+          onClick={() => cta("cafecito", "click", { placement: "settings_reclamo" })}
+          className={cn(rowCls, "text-muted-foreground")}
+        >
+          <span>Mi cafecito no apareció</span>
+          <Coffee size={16} className="opacity-60" />
         </a>
 
         {confirmReset ? (

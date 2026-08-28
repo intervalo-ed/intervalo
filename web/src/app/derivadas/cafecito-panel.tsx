@@ -30,7 +30,11 @@ import { BELT_HEX } from "@/lib/catalog"
 import { cn } from "@/lib/utils"
 import { useSfx } from "@/lib/audio/useSfx"
 import { CAFECITO_URL, fmtMultiplier, type CafecitoTrigger } from "./cafecito-cta"
-import { useCafecitoIntent } from "./UseGameLeaderboard"
+import {
+  useCafecitoIntent,
+  useCafecitoStatus,
+  type GameCafecitoStatus,
+} from "./UseGameLeaderboard"
 import { KeyCap } from "./exercise-card"
 import { useCta } from "./game-telemetry"
 
@@ -298,6 +302,112 @@ function useCooldown(segundos: number) {
   return restante
 }
 
+/** Lo que ve quien VOLVIÓ de Cafecito.
+ *
+ * Tapa un agujero del embudo: la persona tocaba invitar, se iba a pagar en otra
+ * pestaña y volvía a encontrar la misma pantalla que había dejado, como si no
+ * hubiera hecho nada. Es el peor momento posible para no decir nada, porque
+ * acaba de pagar.
+ *
+ * Dos caras y no tres. Quien se arrepintió en Cafecito y volvió sin donar cae en
+ * la misma que quien está esperando la acreditación, y está bien: ya sabe que no
+ * va a llegar nada, así que el cartel no le dice nada falso — le dice que puede
+ * seguir, que es lo único que necesita.
+ */
+function PanelDeVuelta({
+  estado,
+  keyboard,
+  onContinue,
+}: {
+  estado: GameCafecitoStatus
+  keyboard: boolean
+  onContinue: () => void
+}) {
+  const sfx = useSfx()
+  const llego = estado.state === "credited"
+  const varios = estado.cafecitos > 1
+  const minutos = Math.max(1, Math.round(estado.expires_in_seconds / 60))
+
+  // Sin cuenta regresiva para salir, al revés que la oferta. Ahí la espera
+  // existe para que el pedido se lea; acá la persona ya decidió —y quizás ya
+  // pagó— y retenerla sería cobrarle dos veces.
+  useEffect(() => {
+    if (!keyboard) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Enter") return
+      e.preventDefault()
+      onContinue()
+    }
+    document.addEventListener("keydown", onKey)
+    return () => document.removeEventListener("keydown", onKey)
+  }, [keyboard, onContinue])
+
+  return (
+    <div className="mx-auto w-full max-w-sm">
+      <div className="mx-auto w-fit">
+        <Coffee size={34} style={{ color: CAFE_TINTA }} />
+      </div>
+      <p className="mt-2 text-2xl font-medium">
+        {llego
+          ? varios
+            ? "¡Llegaron tus cafecitos!"
+            : "¡Llegó tu cafecito!"
+          : "Todavía no llegó tu cafecito"}
+      </p>
+
+      {llego ? (
+        <>
+          {/* El multiplicador es el titular, no un detalle de la oración: es lo
+              que la plata compró, y tiene que verse antes de leer nada. */}
+          <p className="mt-4 text-3xl font-semibold tabular-nums" style={{ color: CAFE_TINTA }}>
+            {estado.university
+              ? `La ${estado.university} está en ${fmtMultiplier(estado.multiplier)}`
+              : `Todo el juego está en ${fmtMultiplier(estado.multiplier)}`}
+          </p>
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+            {estado.university ? (
+              <>
+                Durante los próximos {minutos} minutos, todos los de la{" "}
+                {estado.university} que estén jugando suman más XP. Ya se está
+                viendo en las novedades.
+              </>
+            ) : (
+              <>
+                Durante los próximos {minutos} minutos, cualquiera que esté
+                jugando suma más XP. Se lo regalaste a todos.
+              </>
+            )}
+          </p>
+        </>
+      ) : (
+        <>
+          <p className="mt-4 text-sm leading-relaxed text-foreground/90">
+            A veces el pago tarda un rato en confirmarse. No hace falta que
+            esperes acá, cuando llegue el multiplicador arranca solo y lo vas a
+            ver en las novedades.
+          </p>
+          <p className="mt-3 text-sm text-muted-foreground">
+            Si pasa un rato largo y no aparece, avisanos desde configuración.
+          </p>
+        </>
+      )}
+
+      <button
+        type="button"
+        onClick={() => {
+          sfx.select()
+          onContinue()
+        }}
+        className="mt-6 flex w-full items-center justify-center rounded-md px-4 py-3 text-base font-semibold text-white transition-opacity hover:opacity-90"
+        style={{ backgroundColor: CAFE }}
+      >
+        Continuar
+        {keyboard && <KeyCap>enter</KeyCap>}
+      </button>
+    </div>
+  )
+}
+
 export function CafecitoPanel({
   trigger,
   university = null,
@@ -368,6 +478,31 @@ export function CafecitoPanel({
   }, [])
 
   const intent = useCafecitoIntent()
+  // Se fue a Cafecito, y volvió al menos una vez desde entonces.
+  //
+  // Son dos banderas y no una: el estado se empieza a consultar apenas se va
+  // (`seFue`), pero el cartel de vuelta no se muestra hasta que efectivamente
+  // vuelve (`volvio`). Con una sola, a quien toca invitar se le cambiaría la
+  // pantalla a «todavía no llegó» sin haber salido todavía.
+  const [seFue, setSeFue] = useState(false)
+  const [volvio, setVolvio] = useState(false)
+  const estado = useCafecitoStatus(seFue)
+
+  useEffect(() => {
+    if (!seFue) return
+    const alVolver = () => {
+      if (document.visibilityState === "visible") setVolvio(true)
+    }
+    // Los dos, y no solo uno: cambiar de pestaña dispara `visibilitychange`,
+    // pero volver de otra VENTANA encima de esta dispara solo `focus`.
+    document.addEventListener("visibilitychange", alVolver)
+    window.addEventListener("focus", alVolver)
+    return () => {
+      document.removeEventListener("visibilitychange", alVolver)
+      window.removeEventListener("focus", alVolver)
+    }
+  }, [seFue])
+
   const invitar = () => {
     // Adentro de `invitar` y no en el onClick: al botón también se llega con
     // shift+enter, y el atajo tiene que sonar igual que tocarlo.
@@ -383,6 +518,7 @@ export function CafecitoPanel({
     // Idem el botón del header: la intención se anota ANTES de abrir
     // Cafecito, que es el último momento en que sabemos quién es.
     intent.mutate()
+    setSeFue(true)
     window.open(CAFECITO_URL, "_blank", "noopener,noreferrer")
   }
 
@@ -401,6 +537,11 @@ export function CafecitoPanel({
   const seguidoRef = useRef(false)
   useEffect(() => {
     if (!keyboard) return
+    // Con el cartel de vuelta en pantalla manda SU Enter, no este. Los efectos
+    // de la oferta siguen corriendo aunque su JSX ya no se dibuje —viven en el
+    // cuerpo del componente— así que sin esta guarda los dos escuchan la misma
+    // tecla y `onContinue` se dispara dos veces.
+    if (volvio) return
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== "Enter") return
       e.preventDefault()
@@ -414,7 +555,7 @@ export function CafecitoPanel({
     }
     document.addEventListener("keydown", onKey)
     return () => document.removeEventListener("keydown", onKey)
-  }, [keyboard, listo, onContinue, university])
+  }, [keyboard, listo, onContinue, university, volvio])
 
   return (
     <div
@@ -429,6 +570,9 @@ export function CafecitoPanel({
         borderColor: `color-mix(in oklab, ${CAFE_TINTA} 45%, transparent)`,
       }}
     >
+      {volvio && estado !== null && estado.state !== "none" ? (
+        <PanelDeVuelta estado={estado} keyboard={keyboard} onContinue={onContinue} />
+      ) : (
       <div className="mx-auto w-full max-w-sm">
         {/* La taza y el título son UNA cosa —el encabezado— y la oración de
             abajo es otra: la que explica. Con el mismo aire entre los tres, los
@@ -566,6 +710,7 @@ export function CafecitoPanel({
           {keyboard && listo && <KeyCap>enter</KeyCap>}
         </button>
       </div>
+      )}
     </div>
   )
 }

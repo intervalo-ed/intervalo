@@ -25,6 +25,9 @@ export const gameKeys = {
   pulse: ["game", "pulse"] as const,
   // Ídem el pulso: raíz propia para que invalidar el ranking no lo arrastre.
   events: ["game", "events"] as const,
+  // Raíz propia: se consulta solo al volver de Cafecito y no tiene nada que ver
+  // con el ranking, así que invalidar el ranking no debe arrastrarlo.
+  cafecitoStatus: ["game", "cafecito-status"] as const,
 }
 
 /** El jugador que ya está en el caché, sin disparar ningún pedido.

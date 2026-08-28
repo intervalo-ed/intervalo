@@ -22,6 +22,11 @@ export const PAGE_SIZE = 30
 // tick de simulación del servidor (game/simulation.py :: TICK_SECONDS).
 const PULSE_INTERVAL_MS = 10_000
 
+// Cada cuánto se vuelve a preguntar si el cafecito ya se acreditó, mientras la
+// persona mira el cartel de «todavía no llegó». Corto: es una espera con alguien
+// del otro lado mirando.
+const ESPERA_ACREDITACION_MS = 3_000
+
 // Qué hacen los dos sondeos cuando la red no contesta.
 //
 // Sin esto seguían saliendo al mismo ritmo para siempre: un teléfono en un
@@ -186,6 +191,35 @@ export function useMyBoost(university: string | null | undefined): GameBoost | n
 // Sin `onError`: si falla, la donación igual cae en algún lado —la sigla del
 // mensaje, o el empuje global—. Avisar de un error acá sería ruido sobre algo
 // que el servidor ya resuelve solo.
+export type GameCafecitoStatus = components["schemas"]["GameCafecitoStatus"]
+
+/** Qué pasó con el cafecito de quien volvió de Cafecito.
+ *
+ * Se enciende recién cuando la persona se fue a donar (`activo`), no antes: sin
+ * esa guarda, la diapo le anunciaría «todavía no llegó» a alguien que ni siquiera
+ * salió de la pantalla.
+ *
+ * Mientras está en `pending` se vuelve a preguntar cada pocos segundos. El pago
+ * puede confirmarse justo mientras la persona lee el cartel, y verlo cambiar solo
+ * de «estamos esperando» a «llegó» es mejor que cualquier cosa que podamos
+ * escribir. Cuando ya llegó, se deja de preguntar. */
+export function useCafecitoStatus(activo: boolean) {
+  const api = useGameApi()
+  const { data } = useQuery({
+    queryKey: gameKeys.cafecitoStatus,
+    queryFn: async () => unwrap(await api.GET("/game/derivemos/cafecito-status")),
+    enabled: activo,
+    // Este SÍ se refresca al volver a la pestaña, al revés que el resto del
+    // juego (ver providers.tsx): volver es justo el momento que hay que atender.
+    refetchOnWindowFocus: true,
+    refetchInterval: (q) =>
+      q.state.data?.state === "pending" ? ESPERA_ACREDITACION_MS : false,
+    staleTime: 0,
+    ...SIN_SEÑAL,
+  })
+  return data ?? null
+}
+
 export function useCafecitoIntent() {
   const api = useGameApi()
   return useMutation({
