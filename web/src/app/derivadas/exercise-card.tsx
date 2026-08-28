@@ -104,7 +104,20 @@ const DIGITS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 // El precio es que el rodillo deja de escalar solo con el tamaño de letra: si
 // alguna vez el marcador cambia de cuerpo, estos dos números hay que moverlos.
 // Vale la pena — un marcador con los dígitos torcidos se nota siempre.
-const LINE_PX = 20
+//
+// VEINTIDÓS y no veinte, y ese píxel de más es un arreglo, no un capricho: DM
+// Sans a 16 px pide una caja de línea de 21 (16 de ascenso + 5 de descenso,
+// medido con el canvas del navegador). Con la celda en 20, el medio interlineado
+// daba −0,5 y CADA dígito pintaba medio píxel afuera de su celda, arriba y
+// abajo. Como las celdas van apiladas al ras, ese medio píxel cae justo sobre la
+// línea donde el rodillo recorta, así que el glifo de al lado cruza el corte y
+// cada motor de dibujo decide por su cuenta qué hacer con esa franja: en
+// Chromium no se ve nada y en el WebKit de iOS aparecía una raya punteada
+// asomando por arriba del número.
+//
+// Con 22 el medio interlineado es +0,5 y ningún glifo sale de su celda, así que
+// no queda nada que el recorte pueda agarrar — en ningún navegador.
+const LINE_PX = 22
 // Un poco más que el dígito más ancho (medido: 11.047 el "0"), redondeado para
 // arriba. Es el mismo ancho para los diez porque la tira los apila en una sola
 // columna: sin ancho fijo, el número entero se movería al cambiar de cifra.
