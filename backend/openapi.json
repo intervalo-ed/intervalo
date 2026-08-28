@@ -817,6 +817,7 @@
             "required": false,
             "schema": {
               "type": "integer",
+              "maximum": 100000,
               "minimum": 0,
               "default": 0,
               "title": "Offset"
@@ -3469,6 +3470,7 @@
           },
           "answer_latex": {
             "type": "string",
+            "maxLength": 2000,
             "title": "Answer Latex"
           },
           "answer_mathjson": {
@@ -3477,7 +3479,9 @@
           "response_ms": {
             "anyOf": [
               {
-                "type": "integer"
+                "type": "integer",
+                "maximum": 86400000.0,
+                "minimum": 0.0
               },
               {
                 "type": "null"
@@ -3682,10 +3686,12 @@
         "properties": {
           "cta": {
             "type": "string",
+            "maxLength": 32,
             "title": "Cta"
           },
           "action": {
             "type": "string",
+            "maxLength": 32,
             "title": "Action"
           },
           "placement": {
@@ -3703,7 +3709,9 @@
           "solved": {
             "anyOf": [
               {
-                "type": "integer"
+                "type": "integer",
+                "maximum": 1000000.0,
+                "minimum": 0.0
               },
               {
                 "type": "null"
@@ -4020,7 +4028,8 @@
           "group_id": {
             "anyOf": [
               {
-                "type": "string"
+                "type": "string",
+                "maxLength": 32
               },
               {
                 "type": "null"
@@ -4031,7 +4040,8 @@
           "utm_source": {
             "anyOf": [
               {
-                "type": "string"
+                "type": "string",
+                "maxLength": 32
               },
               {
                 "type": "null"
@@ -4173,7 +4183,8 @@
           "alias": {
             "anyOf": [
               {
-                "type": "string"
+                "type": "string",
+                "maxLength": 40
               },
               {
                 "type": "null"
@@ -4184,7 +4195,8 @@
           "university": {
             "anyOf": [
               {
-                "type": "string"
+                "type": "string",
+                "maxLength": 120
               },
               {
                 "type": "null"
@@ -4195,7 +4207,8 @@
           "career": {
             "anyOf": [
               {
-                "type": "string"
+                "type": "string",
+                "maxLength": 8
               },
               {
                 "type": "null"

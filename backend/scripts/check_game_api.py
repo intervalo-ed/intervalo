@@ -970,6 +970,54 @@ check(
     "pasada la ventana se puede seguir jugando",
 )
 
+print("16. lo que se escribe a mano no puede ensuciar la lista de todos")
+# La universidad es el unico lugar del juego donde texto de una persona se vuelve
+# contenido compartido: aparece en el desplegable de filtros de TODOS.
+_lim.olvidar_todo()
+def patch_uni(valor):
+    return client.patch("/game/derivemos/me", headers=H, json={"university": valor})
+
+for nombre, valor in [
+    ("una etiqueta", "<script>alert(1)</script>"),
+    ("un enlace", "https://spam.example.com/gana-plata"),
+    ("un bloque de texto", "U" * 200),
+    ("solo signos", "!!!!"),
+]:
+    check(patch_uni(valor).status_code == 422, f"rechaza {nombre}")
+
+for nombre, valor, esperado in [
+    ("la sigla", "uba", "UBA"),
+    ("el nombre completo", "Universidad Nacional de San Martin", "UNSAM"),
+    ("una universidad chica fuera del catalogo", "Instituto Tecnologico del Sur",
+     "Instituto Tecnologico del Sur"),
+]:
+    r = patch_uni(valor)
+    check(r.status_code == 200 and r.json()["university"] == esperado,
+          f"acepta {nombre} (dio {r.json().get('university')!r})")
+
+print("17. los enteros del cliente no pueden tirar un 500")
+# Son columnas Integer: un valor cualquiera rompia el insert DESPUES de haber
+# hecho todo el trabajo, y /cta esta documentado como "nunca falla por contenido".
+_lim.olvidar_todo()
+check(
+    client.post("/game/derivemos/cta", headers=H,
+                json={"cta": "cafecito", "action": "click", "solved": 2**40}).status_code == 422,
+    "un solved gigante se rechaza en la puerta, no revienta en el commit",
+)
+ex_id = client.post("/game/derivemos/next", headers=H).json()["exercise_id"]
+check(
+    client.post("/game/derivemos/answer", headers=H,
+                json={"exercise_id": ex_id, "answer_latex": "0", "answer_mathjson": 0,
+                      "response_ms": 2**40}).status_code == 422,
+    "y un response_ms gigante tambien",
+)
+check(
+    client.post("/game/derivemos/answer", headers=H,
+                json={"exercise_id": ex_id, "answer_latex": "x" * 5000,
+                      "answer_mathjson": "x"}).status_code == 422,
+    "y un latex de cinco mil caracteres no se procesa entero para despues recortarlo",
+)
+
 print()
 if FAILURES:
     print(f"{len(FAILURES)} chequeos fallaron:")

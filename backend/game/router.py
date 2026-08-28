@@ -15,9 +15,10 @@ from zoneinfo import ZoneInfo
 from fastapi import APIRouter, Depends, Header, HTTPException, Query, Response
 from sqlalchemy import and_ as sa_and, case, func, or_ as sa_or
 from sqlalchemy.exc import IntegrityError
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, load_only
 
 from models import GameAttempt, GameCtaEvent, GameExercise, GamePlayer
+from universities import UNIVERSITIES as _UNIVERSIDADES
 from usernames import normalize_username, validate_username
 
 from . import boosts
@@ -81,6 +82,47 @@ _GROUP_ID_RE = re.compile(r"[a-z]{2,6}\d{1,5}")
 _UTM_RE = re.compile(r"[a-z]{2,20}")
 
 _KNOWN_CAREERS = ("E", "S", "T", "M")
+
+# Las noventa siglas del catálogo, para reconocer lo que ya está en la lista.
+_SIGLAS_CONOCIDAS = frozenset(sigla for sigla, _ in _UNIVERSIDADES)
+
+# Qué puede tener una universidad escrita a mano. El catálogo tiene noventa
+# siglas, pero el campo "Otra" existe a propósito: alguien de una universidad
+# chica tiene que poder anotarla, y cerrarlo al catálogo sería dejarlo afuera del
+# juego. Así que se acepta texto libre, pero SANEADO.
+#
+# Importa más de lo que parece porque este es el único lugar del juego donde algo
+# que escribe una persona se convierte en contenido compartido: la universidad
+# aparece en el desplegable de filtros de TODOS los jugadores
+# (/leaderboard/summary lo arma con un DISTINCT sobre esta columna), en las filas
+# del ranking, en el ranking de universidades y en el feed de novedades.
+#
+# Letras (con acentos y ñ), dígitos, espacios y los cuatro signos que aparecen en
+# nombres reales. Eso deja afuera enlaces, marcado, emojis y bloques de texto,
+# que es de lo que se trata. Cuarenta caracteres: la sigla más larga del catálogo
+# tiene ocho y el nombre más largo entra cómodo.
+_UNIVERSIDAD_RE = re.compile(r"^[0-9A-Za-zÁÉÍÓÚÜÑáéíóúüñ .&-]+$")
+_MAX_UNIVERSIDAD = 40
+
+
+def _universidad_aceptable(texto: str | None) -> str | None:
+    """La universidad tal como se guarda, o None para vaciarla."""
+    if not texto:
+        return None
+    # Los espacios repetidos se colapsan: "UBA        " y "U  B  A" son formas de
+    # ocupar más lugar del que corresponde en una lista compartida.
+    limpio = " ".join(texto.split())
+    if limpio in _SIGLAS_CONOCIDAS:
+        return limpio
+    if len(limpio) > _MAX_UNIVERSIDAD or not _UNIVERSIDAD_RE.fullmatch(limpio):
+        raise HTTPException(
+            status_code=422,
+            detail="Escribí el nombre o la sigla de tu universidad, sin símbolos raros.",
+        )
+    # Tiene que decir algo, no ser solo signos y espacios.
+    if not any(c.isalpha() for c in limpio):
+        raise HTTPException(status_code=422, detail="Eso no parece una universidad.")
+    return limpio
 
 # Plataformas que el cliente puede declarar en X-Game-Platform, espejo del tipo
 # `Platform` de web/src/lib/platform/detect.ts. Cerrado a propósito: lo que no
@@ -225,12 +267,26 @@ def get_me(
 def patch_me(
     body: GameProfilePatchRequest,
     player: GamePlayer = Depends(get_current_player),
+    authorization: str = Header(None),
     db: Session = Depends(get_db),
 ):
     if body.alias is not None:
         if player.user_id is None:
             # Elegir el @ es el gancho del registro.
             raise HTTPException(status_code=403, detail="Registrate para elegir tu @.")
+        # El @ pide la sesión de Clerk, no alcanza el token de invitado.
+        #
+        # Ese token se conserva después de vincular la cuenta a propósito (ver
+        # models.GamePlayer), para que un cliente que todavía lo tenga guardado
+        # siga resolviendo al mismo jugador. El costo es que nunca vence y no se
+        # puede revocar: quien lo tenga sigue autenticando como esa persona para
+        # siempre. Para JUGAR eso es tolerable —el peor caso es que alguien te
+        # sume XP—, pero el @ es la identidad pública de la cuenta, y cambiarlo
+        # es lo único que no se puede deshacer desde el otro lado.
+        if not authorization:
+            raise HTTPException(
+                status_code=403, detail="Iniciá sesión de nuevo para cambiar tu @."
+            )
         alias = normalize_username(body.alias)
         ok, reason = validate_username(alias)
         if not ok:
@@ -243,7 +299,7 @@ def patch_me(
         from universities import canonical_university
 
         # canonical_university ya devuelve la sigla o el texto sin bordes.
-        nueva = (canonical_university(body.university) or "")[:120] or None
+        nueva = _universidad_aceptable(canonical_university(body.university))
         # Solo se marca la MUDANZA, no la primera carga: cargar la universidad por
         # primera vez no puede costarte el empuje que está corriendo, pero
         # mudarte a la universidad impulsada sí (ver boosts.applies_to).
@@ -969,7 +1025,10 @@ def game_leaderboard(
     university: str | None = Query(default=None),
     career: str | None = Query(default=None),
     limit: int = Query(default=50, ge=1, le=200),
-    offset: int = Query(default=0, ge=0),
+    # Con tope: sin él, un ?offset=50000000 es un recorrido de la tabla entera
+    # que cualquiera puede pedir escribiendo en la barra de direcciones. Cien mil
+    # filas es mucho más ranking del que nadie va a scrollear.
+    offset: int = Query(default=0, ge=0, le=100_000),
     around_me: bool = Query(default=False),
     player: GamePlayer = Depends(get_current_player),
     db: Session = Depends(get_db),
@@ -1004,6 +1063,25 @@ def game_leaderboard(
 
     page = (
         db.query(GamePlayer)
+        # Solo las columnas que la fila del ranking necesita. Antes traía la
+        # fila ENTERA de hasta doscientos jugadores, incluido `guest_token` —la
+        # credencial de cada uno—, que nunca se serializa pero viajaba desde la
+        # base a la memoria del proceso en cada carga del ranking.
+        .options(
+            load_only(
+                GamePlayer.id,
+                GamePlayer.alias,
+                GamePlayer.xp,
+                GamePlayer.university,
+                GamePlayer.career,
+                GamePlayer.theta,
+                GamePlayer.user_id,
+                GamePlayer.rank_recent,
+                GamePlayer.rank_recent_at,
+                GamePlayer.rank_snapshot,
+                GamePlayer.rank_snapshot_at,
+            )
+        )
         .filter(*scope, visible)
         .order_by(GamePlayer.xp.desc(), GamePlayer.id.asc())
         .offset(page_offset)

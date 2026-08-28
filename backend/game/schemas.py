@@ -7,10 +7,23 @@ from typing import Any, Optional
 from pydantic import BaseModel, Field
 
 
+# Topes de tamaño de todo lo que entra por el cuerpo de un pedido.
+#
+# Hasta ahora varios campos no tenían ninguno y el recorte pasaba recién al
+# guardar, o sea después de haber recibido y parseado el cuerpo entero: un envío
+# de varios megabytes se procesaba completo para terminar guardando dos mil
+# caracteres. Declararlos acá los rechaza en la puerta, con un 422 que además
+# explica cuál campo se pasó.
+_MAX_LATEX = 2000
+_MAX_ALIAS = 40
+_MAX_UNIVERSIDAD = 120
+_MAX_ATRIBUCION = 32
+
+
 class GamePlayerCreateRequest(BaseModel):
     # Atribución de primer contacto (?g=), mismas regex que /user/enroll.
-    group_id: Optional[str] = None
-    utm_source: Optional[str] = None
+    group_id: Optional[str] = Field(default=None, max_length=_MAX_ATRIBUCION)
+    utm_source: Optional[str] = Field(default=None, max_length=_MAX_ATRIBUCION)
 
 
 class GamePlayerOut(BaseModel):
@@ -43,9 +56,9 @@ class GamePlayerCreateResponse(BaseModel):
 
 
 class GameProfilePatchRequest(BaseModel):
-    alias: Optional[str] = None
-    university: Optional[str] = None
-    career: Optional[str] = None
+    alias: Optional[str] = Field(default=None, max_length=_MAX_ALIAS)
+    university: Optional[str] = Field(default=None, max_length=_MAX_UNIVERSIDAD)
+    career: Optional[str] = Field(default=None, max_length=8)
 
 
 class GameExerciseOut(BaseModel):
@@ -69,10 +82,15 @@ class GameSkipRequest(BaseModel):
 
 class GameAnswerRequest(BaseModel):
     exercise_id: int
-    answer_latex: str
-    # Árbol MathJSON de @cortex-js/compute-engine (ce.parse(latex).json).
+    answer_latex: str = Field(max_length=_MAX_LATEX)
+    # Árbol MathJSON de @cortex-js/compute-engine (ce.parse(latex).json). El
+    # tamaño lo acota mathjson.to_sympy durante el recorrido: acá todavía es un
+    # objeto cualquiera y no hay forma de medirlo sin recorrerlo.
     answer_mathjson: Any = None
-    response_ms: Optional[int] = None
+    # Cuánto tardó la persona, medido por el cliente. Acotado a un día: la
+    # columna es un Integer de 32 bits y un valor cualquiera —que se puede
+    # mandar a mano— rompía el insert con un 500 en el momento de responder.
+    response_ms: Optional[int] = Field(default=None, ge=0, le=86_400_000)
     # La tabla de derivadas estuvo abierta en este ejercicio. Lo reporta el
     # cliente porque es el único que lo sabe; no hay nada que validar del lado
     # del server. Mentir acá solo sirve para PERDER (θ y XP), así que no hace
@@ -244,7 +262,10 @@ class GameCtaRequest(BaseModel):
     """Telemetría de un llamado a la acción. Todo opcional salvo qué y qué pasó:
     el cliente manda lo que sabe y el server no discute."""
 
-    cta: str
-    action: str
+    cta: str = Field(max_length=32)
+    action: str = Field(max_length=32)
     placement: Optional[str] = Field(default=None, max_length=24)
-    solved: Optional[int] = None
+    # Mismo caso que response_ms: es un Integer en la base, y este endpoint está
+    # documentado como "nunca falla por contenido". Sin el tope, un valor grande
+    # lo hacía fallar con un 500 en el commit.
+    solved: Optional[int] = Field(default=None, ge=0, le=1_000_000)
