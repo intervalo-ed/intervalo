@@ -19,7 +19,7 @@ from database import SessionLocal
 from models import GamePlayer, User
 
 from . import keyboard
-from .aliases import alias_for_user, generate_guest_alias
+from .aliases import alias_for_user, generate_guest_alias, retire_alias
 
 _CREATE_ATTEMPTS = 3
 
@@ -133,6 +133,7 @@ def link_guest_to_user(db: Session, guest: GamePlayer, user: User) -> GamePlayer
     # El user ya tenía jugador (jugó registrado en otro dispositivo): sobrevive
     # esa fila; se suman contadores y gana el Elo con más evidencia.
     from models import (  # import local, evita ciclo
+        GameAliasHistory,
         GameAttempt,
         GameBoostIntent,
         GameCtaEvent,
@@ -197,6 +198,14 @@ def link_guest_to_user(db: Session, guest: GamePlayer, user: User) -> GamePlayer
     db.query(GamePlayer).filter(GamePlayer.referred_by == guest.id).update(
         {"referred_by": existing.id}, synchronize_session=False
     )
+    # Y el @ del invitado, que en un segundo deja de existir, queda apuntando a
+    # la cuenta: los links que se mandaron con él siguen trayendo gente para la
+    # misma persona (ver models.GameAliasHistory). Junto con los @ que el
+    # invitado ya hubiera soltado antes.
+    db.query(GameAliasHistory).filter(GameAliasHistory.player_id == guest.id).update(
+        {"player_id": existing.id}, synchronize_session=False
+    )
+    retire_alias(db, guest.alias, existing.id)
     db.delete(guest)
     db.commit()
     db.refresh(existing)

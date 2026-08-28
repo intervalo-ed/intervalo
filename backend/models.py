@@ -686,6 +686,32 @@ class GamePlayer(Base):
     user = relationship("User")
 
 
+class GameAliasHistory(Base):
+    """Los @ que un jugador tuvo antes, y que siguen apuntando a él.
+
+    Existe por los reclutas. El link que reparte el botón de WhatsApp lleva el @
+    de quien comparte (`?r=cociente3196`) y el servidor lo resuelve mirando quién
+    se llama así. Cambiar de @ rompía eso, y no en un caso raro: el juego ofrece
+    reclutar a las diez resueltas y pide el registro a las doce, y registrarse es
+    exactamente el momento en que se elige el @ definitivo. O sea que el camino
+    normal era mandar un link y dejarlo muerto dos ejercicios después.
+
+    Y hay un segundo agujero, más silencioso: al soltar un @ este quedaba libre.
+    Quien lo tomara después heredaba todos los links viejos y cobraría por gente
+    que trajo otra persona. Con esta tabla el @ queda RESERVADO para siempre
+    —`alias_taken` la consulta— así que soltarlo no se lo regala a nadie.
+
+    La clave primaria es el alias: un @ apunta a una sola persona, y esa
+    unicidad es justamente lo que hay que garantizar.
+    """
+
+    __tablename__ = "game_alias_history"
+
+    alias = Column(String(30), primary_key=True)
+    player_id = Column(Integer, ForeignKey("game_players.id"), nullable=False, index=True)
+    released_at = Column(DateTime, default=datetime.utcnow)
+
+
 class GameSimState(Base):
     """Estado de la simulación de actividad del ranking — una sola fila.
 

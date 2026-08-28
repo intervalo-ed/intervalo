@@ -29,7 +29,7 @@ from . import keyboard as game_keyboard
 from . import referrals
 from . import simulation
 from . import xp as game_xp
-from .aliases import alias_taken
+from .aliases import alias_taken, retire_alias
 from .deps import (
     create_guest_player,
     create_player_for_user,
@@ -325,6 +325,11 @@ def patch_me(
             raise HTTPException(status_code=422, detail=reason)
         if alias != player.alias and alias_taken(db, alias):
             raise HTTPException(status_code=409, detail="Ese @ ya está tomado.")
+        if alias != player.alias:
+            # El @ que se deja sigue apuntando acá. Es lo que mantiene vivos los
+            # links de reclutamiento ya repartidos, que si no morirían justo en
+            # el momento de registrarse (ver models.GameAliasHistory).
+            retire_alias(db, player.alias, player.id)
         player.alias = alias
 
     if body.university is not None:

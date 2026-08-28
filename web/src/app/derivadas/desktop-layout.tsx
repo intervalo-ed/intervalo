@@ -28,7 +28,8 @@ import {
   type CafecitoTrigger,
 } from "./cafecito-cta"
 import { CafecitoPanel } from "./cafecito-panel"
-import { ReclutasPanel } from "./reclutas-panel"
+import { ReclutasPanel, type ReclutasTrigger } from "./reclutas-panel"
+import { marcarReclutasMostrado, tocaReclutar } from "./reclutas-trigger"
 import {
   AnswerButton,
   AnswerField,
@@ -167,10 +168,16 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
     // terminaba en el ejercicio y perdía lo que estaba haciendo ahí.
     volverA?: "settings"
   } | null>(null)
-  // Lo mismo para la diapo de reclutar, que también se abre desde los dos
-  // lados. No necesita nada más que el destino: no tiene disparador por hito ni
-  // número que mostrar.
-  const [reclutasVolverA, setReclutasVolverA] = useState<"settings" | null>(null)
+  // Lo mismo para la diapo de reclutar. No lleva número que mostrar: la lista de
+  // reclutas la muestra el ranking de al lado.
+  const [reclutas, setReclutas] = useState<{
+    trigger: ReclutasTrigger
+    volverA?: "settings"
+  } | null>(null)
+  // Se agenda al responder y se despacha en el Continuar, igual que el café: la
+  // diapo tiene que entrar con el mismo volteo con el que entraría la derivada
+  // siguiente, y no al costado mientras todavía se mira el resultado.
+  const reclutasPendienteRef = useRef(false)
   // La tabla está a la vista ahora mismo.
   const [tableOpen, setTableOpen] = useState(false)
   // Cuál de las dos caras traseras es la que se está mostrando. Se actualiza
@@ -448,6 +455,14 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
           if (tocaCafecito && !faltaPreguntarUniversidad) {
             markCafecitoShown(totalCorrectas)
             setCafecito({ trigger, correctToday: data.correct_today })
+          } else if (tocaReclutar(totalCorrectas)) {
+            // `else if` y no una condición aparte: las dos diapos ocupan el
+            // mismo turno —el que se abre al tocar Continuar— y agendar las dos
+            // haría que la segunda se pierda sin que nadie la vea. El cooldown
+            // que comparten hace que en la práctica nunca coincidan, pero el
+            // `else` es lo que lo vuelve imposible en vez de improbable.
+            marcarReclutasMostrado(totalCorrectas)
+            reclutasPendienteRef.current = true
           }
           if (faltaPreguntarUniversidad && (tocaCafecito || solved >= 5)) {
             askedProfileRef.current = true
@@ -514,6 +529,13 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
     // mientras todavía se está mirando el resultado.
     if (cafecito) {
       setNavPanel("cafecito")
+      return
+    }
+    // Reclutar entra por el mismo lugar y por el mismo motivo.
+    if (reclutasPendienteRef.current) {
+      reclutasPendienteRef.current = false
+      setReclutas({ trigger: "hito" })
+      setNavPanel("reclutas")
       return
     }
     loadNext()
@@ -836,7 +858,10 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                 // Igual que el del cafecito: voltea la card y muestra la diapo,
                 // en vez de mandar directo a WhatsApp. El ejercicio no se toca y
                 // vuelve entero al salir.
-                onOpen={() => setNavPanel("reclutas")}
+                onOpen={() => {
+                  setReclutas({ trigger: "pedido" })
+                  setNavPanel("reclutas")
+                }}
               />
               <CafecitoButton
                 placement="header_desktop"
@@ -968,15 +993,22 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                       else if (!exercise) loadNext()
                     }}
                   />
-                ) : panel === "reclutas" ? (
+                ) : panel === "reclutas" && reclutas ? (
                   <ReclutasPanel
                     keyboard
-                    trigger="pedido"
+                    trigger={reclutas.trigger}
                     // Sin lista adentro: acá al lado el ranking ya se conmutó a
                     // "Reclutas" y la muestra entera. Ver `viewOverride`.
                     onContinue={() => {
-                      const volverA = reclutasVolverA
-                      setReclutasVolverA(null)
+                      const { trigger, volverA } = reclutas
+                      setReclutas(null)
+                      // La que salió por hito llega después de responder, así
+                      // que lo que sigue es la derivada siguiente; la que abrió
+                      // la persona interrumpió algo que hay que devolverle.
+                      if (trigger !== "pedido") {
+                        loadNext()
+                        return
+                      }
                       setNavPanel("exercise")
                       if (volverA === "settings") setSettingsOpen(true)
                       else if (!exercise) loadNext()
@@ -1233,7 +1265,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                         onShare={() => {
                           // Mismo volteo único que el cafecito de acá arriba.
                           setSettingsOpen(false)
-                          setReclutasVolverA("settings")
+                          setReclutas({ trigger: "pedido", volverA: "settings" })
                           setNavPanel("reclutas")
                         }}
                         onNeedsRegister={() => {

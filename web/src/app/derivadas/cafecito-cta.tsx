@@ -7,10 +7,7 @@
 import { useEffect } from "react"
 import { Coffee } from "lucide-react"
 import { cn } from "@/lib/utils"
-import {
-  readCafecitoLastShownAt,
-  saveCafecitoLastShownAt,
-} from "./game-storage"
+import { readUltimoPedidoAt, saveUltimoPedidoAt } from "./game-storage"
 import { useCta } from "./game-telemetry"
 
 // Perfil propio del juego, separado del de Intervalo. Ojo con este valor: ya
@@ -26,14 +23,19 @@ export const CAFECITO_URL = "https://cafecito.app/intervalo"
 // todavía está viva. Veinte derivadas son unos pocos minutos de juego y ya
 // alcanzan para que se entienda de qué se trata.
 //
-// EN DESARROLLO sale en cada acierto. Con los valores de producción, trabajar en
-// esta diapo pide veinte derivadas bien resueltas para verla UNA vez, y otras
+// EN DESARROLLO sale cada dos aciertos. Con los valores de producción, trabajar
+// en esta diapo pide veinte derivadas bien resueltas para verla UNA vez, y otras
 // diez para volver a verla: cualquier ajuste de una línea cuesta varios minutos
 // de jugar en serio. Va atado a NODE_ENV —la misma guarda que usa el resto del
 // proyecto para lo que no puede llegar a producción— y no bajando los números a
 // mano, que es lo que después se commitea sin querer.
+//
+// Cada DOS y no cada uno: la de reclutar sale en los impares (ver
+// RECLUTAS_RESTO en reclutas-panel.tsx) y este ladder revisa el café primero,
+// así que con el café saliendo en cada acierto la otra no aparecía nunca y no
+// había forma de trabajarla sin comentar esta línea.
 const EN_DESARROLLO = process.env.NODE_ENV === "development"
-export const CAFECITO_EVERY = EN_DESARROLLO ? 1 : 20
+export const CAFECITO_EVERY = EN_DESARROLLO ? 2 : 20
 export const CAFECITO_COOLDOWN = EN_DESARROLLO ? 0 : 10
 
 // Por qué apareció la diapo. Los tres primeros los decide el juego después de
@@ -47,7 +49,10 @@ export function shouldShowCafecito(
   trigger: CafecitoTrigger | null,
 ): boolean {
   if (!trigger) return false
-  return solvedCount - readCafecitoLastShownAt() >= CAFECITO_COOLDOWN
+  // Contra el último pedido de CUALQUIER tipo, no solo contra el último café:
+  // el reclutamiento también interrumpe, y dos interrupciones seguidas no son
+  // dos pedidos sino un peaje (ver readUltimoPedidoAt).
+  return solvedCount - readUltimoPedidoAt() >= CAFECITO_COOLDOWN
 }
 
 /** Anota el cooldown. La impresión NO se registra acá: la registra la propia
@@ -56,7 +61,7 @@ export function shouldShowCafecito(
  *  Cafecito o solo un pedido de datos. Registrarla en los dos lados contaría
  *  dos veces la misma impresión. */
 export function markCafecitoShown(solvedCount: number) {
-  saveCafecitoLastShownAt(solvedCount)
+  saveUltimoPedidoAt(solvedCount)
 }
 
 // Lugares cuya impresión ya se registró en esta carga de página.

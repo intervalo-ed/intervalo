@@ -45,7 +45,8 @@ import {
   type AnswerTone,
 } from "./exercise-card"
 import { CafecitoPanel } from "./cafecito-panel"
-import { ReclutasPanel } from "./reclutas-panel"
+import { ReclutasPanel, type ReclutasTrigger } from "./reclutas-panel"
+import { marcarReclutasMostrado, tocaReclutar } from "./reclutas-trigger"
 import { GameIntroLogo, type GameIntro } from "./game-intro"
 import { INTRO_CLOSE, IntroParagraphs } from "./intro-panel"
 import { DerivativesTable, TableButton } from "./derivatives-table"
@@ -103,10 +104,11 @@ type Slide =
       correctToday: number
       back?: Slide
     }
-  // Reclutar por WhatsApp. Mismo trato que la del cafecito con el `back`: se
-  // llega a ella desde la barra y desde configuración, y las dos veces hay algo
-  // que devolver al salir.
-  | { kind: "reclutas"; back?: Slide }
+  // Reclutar por WhatsApp. Mismo trato que la del cafecito: `back` solo viaja
+  // cuando la abrió la persona, porque ahí interrumpió algo que hay que
+  // devolverle; cuando sale por hito llega después de responder y lo que sigue
+  // es la derivada siguiente.
+  | { kind: "reclutas"; trigger: ReclutasTrigger; back?: Slide }
 
 // Hitos del embudo: primero enganchar; carrera/universidad cuando ya está
 // metido; el registro (con el gancho del @ propio) al final.
@@ -337,7 +339,15 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
 
   // Después de resolver (o del ranking/hito/cafecito), decide la próxima slide.
   const advanceAfterAnswer = useCallback(
-    (consumed: "ranking" | "novedades" | "milestone" | "cafecito" | null) => {
+    (
+      consumed:
+        | "ranking"
+        | "novedades"
+        | "milestone"
+        | "cafecito"
+        | "reclutas"
+        | null,
+    ) => {
       const pending = pendingRef.current
       if (!pending) {
         loadNext()
@@ -450,6 +460,15 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
       if (trigger !== null && tocaCafecito && !faltaPreguntarUniversidad) {
         markCafecitoShown(totalCorrectas)
         goTo({ kind: "cafecito", trigger, correctToday: a.correct_today })
+        return
+      }
+      // Reclutar va DESPUÉS del café en el orden de este ladder, pero antes en el
+      // tiempo: el primero sale a las diez resueltas y el primer café a las
+      // veinte. Nunca compiten en la misma respuesta —el cooldown que comparten
+      // no lo permite— así que quién está escrito primero acá no cambia nada.
+      if (consumed !== "reclutas" && tocaReclutar(totalCorrectas)) {
+        marcarReclutasMostrado(totalCorrectas)
+        goTo({ kind: "reclutas", trigger: "hito" })
         return
       }
       pendingRef.current = null
@@ -695,7 +714,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                 }}
                 onReclutar={() => {
                   sfx.select()
-                  goTo({ kind: "reclutas" })
+                  goTo({ kind: "reclutas", trigger: "pedido" })
                 }}
               />
               {/* Cambiar de ejercicio SIN cambiar de pantalla —o sea, saltear—
@@ -796,7 +815,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
               }}
               onReclutar={() => {
                 sfx.select()
-                goTo({ kind: "reclutas", back: slide })
+                goTo({ kind: "reclutas", trigger: "pedido", back: slide })
               }}
               onSettings={() => {
                 sfx.select()
@@ -844,7 +863,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                     back: slide,
                   })
                 }
-                onShare={() => goTo({ kind: "reclutas", back: slide })}
+                onShare={() => goTo({ kind: "reclutas", trigger: "pedido", back: slide })}
                 onNeedsRegister={() => goTo({ kind: "register" })}
               />
             </div>
@@ -900,7 +919,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                 }}
                 onReclutar={() => {
                   sfx.select()
-                  goTo({ kind: "reclutas", back: slide })
+                  goTo({ kind: "reclutas", trigger: "pedido", back: slide })
                 }}
               />
               {/* El MISMO historial que en escritorio. Allá vive apretado abajo
@@ -983,9 +1002,15 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   ranking es otra diapo, así que si la lista no viajara con esta
                   el "10% de lo que sumen" sería una frase sin nada que mirar. */}
               <ReclutasPanel
-                trigger="pedido"
+                trigger={slide.trigger}
                 conLista
-                onContinue={() => goTo(slide.back ?? { kind: "exercise" }, "atras")}
+                onContinue={() => {
+                  // Igual que la del café: la que abrió la persona interrumpió
+                  // algo y hay que devolvérselo; la que salió por hito llega
+                  // después de responder, y ahí lo que toca es seguir.
+                  if (slide.trigger !== "pedido") advanceAfterAnswer("reclutas")
+                  else goTo(slide.back ?? { kind: "exercise" }, "atras")
+                }}
                 className="flex-none"
               />
             </div>

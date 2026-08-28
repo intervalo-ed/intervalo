@@ -42,7 +42,9 @@ const ESPERA_S = 8
 // parpadeo del valor viejo y no un número mentiroso permanente.
 const PORCENTAJE_POR_DEFECTO = 10
 
-export type ReclutasTrigger = "pedido" | "record"
+// `record` sigue reservado para el cafecito: la diapo de reclutar que sale sola
+// lo hace por conteo, y "hito" es lo que la distingue de la que abrió la persona.
+export type ReclutasTrigger = "pedido" | "hito"
 
 /** La abrió la persona con el botón de la barra. Cambia dos cosas: no hay cuenta
  *  regresiva para salir —nadie la interrumpió, así que retenerla sería cobrarle

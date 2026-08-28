@@ -29,6 +29,7 @@ from fastapi.testclient import TestClient  # noqa: E402
 
 import database  # noqa: E402
 from game import referrals  # noqa: E402
+from game.aliases import alias_taken, retire_alias  # noqa: E402
 from game.deps import link_guest_to_user  # noqa: E402
 from models import Base, GameExercise, GamePlayer, User  # noqa: E402
 
@@ -205,6 +206,55 @@ huerfanos = db.query(GamePlayer).filter(GamePlayer.referred_by == id_invitado).c
 check(reclutas == 2, f"los dos reclutas pasan a la cuenta (dio {reclutas})")
 check(huerfanos == 0, "y ninguno queda apuntando a la fila borrada")
 db.close()
+
+print("10. cambiar de @ no mata los links ya repartidos")
+# Es el camino NORMAL, no un caso raro: el juego ofrece reclutar a las diez
+# resueltas y pide el registro a las doce, y registrarse es cuando se elige el @.
+db = database.SessionLocal()
+compartidor = db.query(GamePlayer).filter(GamePlayer.id == id_cuenta).first()
+viejo_alias = compartidor.alias
+compartidor.alias = "eldefinitivo"
+retire_alias(db, viejo_alias, compartidor.id)
+db.commit()
+db.close()
+
+tok_f, jug_f = alta(referrer_alias=viejo_alias)
+check(
+    fila(jug_f["player_id"]).referred_by == id_cuenta,
+    "un link con el @ viejo sigue trayendo reclutas al mismo jugador",
+)
+tok_g, jug_g = alta(referrer_alias="eldefinitivo")
+check(
+    fila(jug_g["player_id"]).referred_by == id_cuenta,
+    "y el @ nuevo también",
+)
+
+print("11. un @ soltado no se lo puede quedar otro")
+db = database.SessionLocal()
+check(alias_taken(db, viejo_alias), "el @ viejo sigue contando como tomado")
+db.close()
+
+print("12. el @ de un invitado fusionado sigue resolviendo")
+# El invitado se borra al fusionarse; los links que mandó con SU @ tienen que
+# seguir trayendo gente para la cuenta que lo absorbió.
+db = database.SessionLocal()
+usuario2 = User(clerk_user_id="clerk-fusion", email="fusion@test.dev", name="Fusion")
+db.add(usuario2)
+db.commit()
+cuenta2 = GamePlayer(user_id=usuario2.id, alias="cuenta_que_absorbe")
+db.add(cuenta2)
+db.commit()
+id_cuenta2 = cuenta2.id
+invitado2 = db.query(GamePlayer).filter(GamePlayer.guest_token == tok_d).first()
+alias_invitado = invitado2.alias
+link_guest_to_user(db, invitado2, usuario2)
+db.close()
+
+tok_h, jug_h = alta(referrer_alias=alias_invitado)
+check(
+    fila(jug_h["player_id"]).referred_by == id_cuenta2,
+    "el @ del invitado borrado apunta a la cuenta que lo absorbió",
+)
 
 print()
 if FAILURES:

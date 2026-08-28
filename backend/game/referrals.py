@@ -32,7 +32,7 @@ from __future__ import annotations
 
 from sqlalchemy.orm import Session
 
-from models import GamePlayer
+from models import GameAliasHistory, GamePlayer
 
 # Qué porcentaje del XP de un recluta cobra quien lo trajo. Va en la diapo
 # `¿Reclutas?` escrito con todas las letras, así que cambiarlo acá es cambiar una
@@ -51,6 +51,11 @@ _CENTESIMAS = 100
 def resolver(db: Session, alias: str | None, *, salvo: int | None = None) -> int | None:
     """El id del jugador dueño de ese @, o None.
 
+    Mira también los @ VIEJOS (models.GameAliasHistory). Un link no se puede
+    morir porque quien lo mandó se registró: eso es exactamente lo que pasa por
+    el camino normal, porque el juego ofrece reclutar antes de pedir el registro
+    y registrarse es cuando se elige el @ definitivo.
+
     `salvo` es el jugador que está por ser reclutado: reclutarse a uno mismo no
     es un caso raro sino el primero que alguien prueba.
     """
@@ -61,7 +66,24 @@ def resolver(db: Session, alias: str | None, *, salvo: int | None = None) -> int
         .filter(GamePlayer.alias == alias, GamePlayer.is_bot.is_(False))
         .first()
     )
-    if fila is None or fila.id == salvo:
+    if fila is None:
+        viejo = (
+            db.query(GameAliasHistory.player_id)
+            .filter(GameAliasHistory.alias == alias)
+            .first()
+        )
+        if viejo is None:
+            return None
+        # La fila apuntada puede haberse borrado (una fusión encadenada), o ser
+        # un sembrado: en los dos casos no hay a quién acreditarle nada.
+        fila = (
+            db.query(GamePlayer.id)
+            .filter(GamePlayer.id == viejo.player_id, GamePlayer.is_bot.is_(False))
+            .first()
+        )
+        if fila is None:
+            return None
+    if fila.id == salvo:
         return None
     return fila.id
 
