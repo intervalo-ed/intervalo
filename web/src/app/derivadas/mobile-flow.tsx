@@ -48,6 +48,12 @@ import { CafecitoPanel } from "./cafecito-panel"
 import { GameIntroLogo, type GameIntro } from "./game-intro"
 import { INTRO_CLOSE, IntroParagraphs } from "./intro-panel"
 import { DerivativesTable, TableButton } from "./derivatives-table"
+import {
+  SLIDE_TRANSITION,
+  SlideHorizontal,
+  slideVariants,
+  type Direccion,
+} from "./slide-horizontal"
 import { EventFeed } from "./event-feed"
 import { GameRanking } from "./game-ranking"
 import { HINT_MOBILE, MathInput, type MathInputHandle } from "./math-input"
@@ -70,65 +76,6 @@ import { useXpBurst, XpOrbs } from "./xp-burst"
 
 const ctaCls =
   "h-[var(--cta-h)] w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
-
-// Para dónde se mueve la tira. Casi siempre "adelante": lo nuevo entra por la
-// derecha y lo viejo se va por la izquierda, como pasar de página.
-//
-// "atras" es el espejo, y existe porque volver tiene que VERSE como volver.
-// Cuando "Volver" mandaba la pantalla para el mismo lado que avanzar, el gesto
-// se leía como "seguí", no como "salí de acá" — y el ejercicio al que se
-// regresa entraba como si fuera uno nuevo.
-type Direccion = "adelante" | "atras"
-
-const slideVariants = {
-  enter: (d: Direccion) => ({ x: d === "atras" ? "-100%" : "100%", opacity: 1 }),
-  center: { x: "0%", opacity: 1 },
-  exit: (d: Direccion) => ({ x: d === "atras" ? "100%" : "-100%", opacity: 1 }),
-}
-const SLIDE_TRANSITION = { duration: 0.28, ease: "easeInOut" } as const
-
-/** Cambia una caja por otra deslizando, con el MISMO gesto que las slides.
- *
- * Existe para el salteo, que era lo último que en el teléfono giraba en 3D
- * (slide-flip.tsx, el volteo que sigue usando escritorio). Acá no va: todo lo
- * demás —configuración, carrera, universidad, el @, el ranking, el cafecito—
- * entra y sale corriéndose de costado, y una sola caja que gira sobre su eje en
- * medio de eso se lee como otro idioma. En el teléfono el juego es una tira que
- * avanza siempre para el mismo lado, y esto lo mantiene así.
- *
- * Reusa `slideVariants` a propósito: si algún día cambia el ritmo de las slides,
- * cambia también el del salteo y no quedan dos velocidades conviviendo. */
-function SwapHorizontal({
-  llave,
-  className,
-  children,
-}: {
-  llave: string
-  className?: string
-  children: React.ReactNode
-}) {
-  return (
-    // Grilla de una celda: las dos cajas se apilan en el mismo lugar mientras
-    // dura el cruce, sin sacarlas del flujo con `absolute` —que le haría perder
-    // el alto al contenedor justo cuando las dos conviven.
-    <div className={cn("relative grid overflow-hidden", className)}>
-      <AnimatePresence mode="sync" initial={false}>
-        <motion.div
-          key={llave}
-          variants={slideVariants}
-          initial="enter"
-          animate="center"
-          exit="exit"
-          transition={SLIDE_TRANSITION}
-          className="col-start-1 row-start-1 flex min-h-0 min-w-0 flex-col"
-        >
-          {children}
-        </motion.div>
-      </AnimatePresence>
-    </div>
-  )
-}
-
 
 type Slide =
   | { kind: "intro" }
@@ -750,7 +697,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   con el deslizamiento de la slide y esta caja se monta de cero
                   —y `AnimatePresence` con `initial={false}` no anima la primera
                   cara—. Dos transiciones encimadas se leerían como un tirón. */}
-              <SwapHorizontal
+              <SlideHorizontal
                 llave={String(exercise.exercise_id)}
                 className="min-h-0 flex-1"
               >
@@ -794,7 +741,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   className={closed ? "pointer-events-none opacity-45" : undefined}
                 />
               </div>
-              </SwapHorizontal>
+              </SlideHorizontal>
               {/* Los botones quedan FUERA del deslizamiento: no son parte del
                   ejercicio, y moverlos dejaría un instante sin dónde tocar. */}
               <div className="flex items-stretch gap-2">
@@ -916,13 +863,29 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
 
           {slide.kind === "novedades" && (
             <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col gap-3 px-4 pb-[var(--cta-pb)] pt-4">
-              <p className="shrink-0 text-center text-lg font-medium">
-                Mientras jugabas…
-              </p>
+              {/* La misma barra que en el ejercicio y en el ranking, en vez de
+                  un título. Un "Mientras jugabas…" ocupaba un renglón para decir
+                  algo que las novedades ya dicen solas, y de paso esta pantalla
+                  quedaba siendo la única sin salida hacia configuración, el
+                  cafecito o compartir. */}
+              <GameHeader
+                onSettings={() => {
+                  sfx.select()
+                  goTo({ kind: "settings", back: slide })
+                }}
+                onTable={() => {
+                  sfx.select()
+                  verTabla()
+                }}
+                onCafecito={() => {
+                  sfx.select()
+                  goTo({ kind: "cafecito", trigger: "pedido", correctToday: 0 })
+                }}
+              />
               {/* El MISMO historial que en escritorio. Allá vive apretado abajo
                   del botón; acá tiene la pantalla entera, que es lo que en el
                   teléfono le faltaba para poder leerse. */}
-              <EventFeed enabled className="min-h-0 flex-1" />
+              <EventFeed enabled paginado className="min-h-0 flex-1" />
               <Button
                 size="lg"
                 className={ctaCls}

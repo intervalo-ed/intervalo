@@ -11,7 +11,7 @@
 // necesita —quedarse pegado al fondo cuando entra algo, y NO robarle el scroll
 // a quien se fue a leer más arriba— y las dos viven en `EventFeed`.
 
-import { useLayoutEffect, useRef } from "react"
+import { useLayoutEffect, useRef, useState } from "react"
 import { outOfFocus } from "./out-of-focus"
 import { AnimatePresence, motion } from "motion/react"
 import { cn } from "@/lib/utils"
@@ -126,17 +126,31 @@ export function EventFeed({
   enabled,
   className,
   veiled = false,
+  paginado = false,
 }: {
   enabled: boolean
   className?: string
   /** Fuera de foco: durante la intro el historial ya está puesto pero todavía
    *  no es de nadie (ver out-of-focus.ts). */
   veiled?: boolean
+  /** Deja ver MÁS de las que entran en el primer pantallazo, de a tandas, al
+   *  scrollear hacia arriba.
+   *
+   *  Apagado en escritorio a propósito: allá el historial es una franja de 107 px
+   *  al pie de la columna, y ahí lo que corresponde es lo último y nada más. En
+   *  el teléfono, en cambio, ocupa la pantalla entera después del ranking y
+   *  cortarlo en doce era dejar la mitad del alto vacío. */
+  paginado?: boolean
 }) {
   const { data, isLoading } = useGameEvents(enabled)
+  // Cuántas se muestran. Crece de a tandas al llegar arriba, nunca al revés: lo
+  // que ya se desplegó no se vuelve a plegar solo mientras se está leyendo.
+  const [tope, setTope] = useState(SHOWN)
+  const todas = data?.events ?? []
   // El servidor manda del más nuevo al más viejo; se recorta a lo que entra y
   // recién ahí se da vuelta, para quedarse con los ÚLTIMOS y no con los primeros.
-  const events = (data?.events ?? []).slice(0, SHOWN).reverse()
+  const events = todas.slice(0, paginado ? tope : SHOWN).reverse()
+  const hayMas = paginado && todas.length > tope
 
   const scrollRef = useRef<HTMLDivElement | null>(null)
   // ¿La vista está pegada al fondo? Arranca en true para que el primer pintado
@@ -172,6 +186,10 @@ export function EventFeed({
           // nadie haya scrolleado.
           stuckRef.current =
             el.scrollHeight - el.scrollTop - el.clientHeight < STICK_SLACK_PX
+          // Cerca del techo hay más para leer: se suelta otra tanda. El ancla no
+          // hace falta —la lista crece HACIA ARRIBA y el navegador conserva el
+          // scrollTop, así que lo que se está mirando no se mueve.
+          if (hayMas && el.scrollTop < STICK_SLACK_PX) setTope((n) => n + SHOWN)
         }}
         className={cn(
           "no-scrollbar flex min-h-0 flex-1 flex-col overflow-y-auto px-1.5 py-1",
