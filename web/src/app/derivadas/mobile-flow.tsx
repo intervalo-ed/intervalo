@@ -71,10 +71,19 @@ import { useXpBurst, XpOrbs } from "./xp-burst"
 const ctaCls =
   "h-[var(--cta-h)] w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
 
+// Para dónde se mueve la tira. Casi siempre "adelante": lo nuevo entra por la
+// derecha y lo viejo se va por la izquierda, como pasar de página.
+//
+// "atras" es el espejo, y existe porque volver tiene que VERSE como volver.
+// Cuando "Volver" mandaba la pantalla para el mismo lado que avanzar, el gesto
+// se leía como "seguí", no como "salí de acá" — y el ejercicio al que se
+// regresa entraba como si fuera uno nuevo.
+type Direccion = "adelante" | "atras"
+
 const slideVariants = {
-  enter: { x: "100%", opacity: 1 },
+  enter: (d: Direccion) => ({ x: d === "atras" ? "-100%" : "100%", opacity: 1 }),
   center: { x: "0%", opacity: 1 },
-  exit: { x: "-100%", opacity: 1 },
+  exit: (d: Direccion) => ({ x: d === "atras" ? "100%" : "-100%", opacity: 1 }),
 }
 const SLIDE_TRANSITION = { duration: 0.28, ease: "easeInOut" } as const
 
@@ -168,12 +177,16 @@ type PendingAfter = { answer: GameAnswer } | null
 function GameHeader({
   onSettings,
   onTable,
+  onCafecito,
 }: {
   onSettings: () => void
   // La tabla va PRIMERA de las tres de la derecha: es la única que hace algo
   // adentro del juego, y las otras dos sacan de él. Puesta al final quedaba
   // agrupada con las que se van.
   onTable: () => void
+  // Abre la diapo del cafecito. Vive acá arriba y no adentro del botón porque
+  // hay que saber a qué pantalla volver, y eso solo lo sabe quien lo monta.
+  onCafecito: () => void
 }) {
   return (
     <div className="flex shrink-0 items-center justify-between">
@@ -188,7 +201,12 @@ function GameHeader({
       <span className="flex items-center gap-1.5">
         <TableButton open={false} onToggle={onTable} keyboard={false} />
         <ShareButton placement="header_mobile" />
-        <CafecitoButton placement="header_mobile" />
+        <CafecitoButton
+          placement="header_mobile"
+          // Manda a la diapo del cafecito en vez de a Cafecito directo. Se
+          // recuerda desde dónde se vino para volver ahí al salir.
+          onOpen={() => onCafecito()}
+        />
       </span>
     </div>
   )
@@ -274,7 +292,13 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const goTo = useCallback((s: Slide) => {
+  // La dirección del próximo pase. Vive en estado y no en el `Slide` porque no
+  // es una propiedad de la pantalla sino del MOVIMIENTO: la misma pantalla se
+  // puede alcanzar avanzando o volviendo.
+  const [direccion, setDireccion] = useState<Direccion>("adelante")
+
+  const goTo = useCallback((s: Slide, hacia: Direccion = "adelante") => {
+    setDireccion(hacia)
     setSlide(s)
     setSlideSeq((n) => n + 1)
   }, [])
@@ -629,9 +653,10 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
         onCleared={onOrbsCleared}
         holding={holding}
       />
-      <AnimatePresence mode="sync" initial={false}>
+      <AnimatePresence mode="sync" initial={false} custom={direccion}>
         <motion.div
           key={slideSeq}
+          custom={direccion}
           variants={slideVariants}
           initial="enter"
           animate="center"
@@ -700,6 +725,10 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                 onTable={() => {
                   sfx.select()
                   verTabla()
+                }}
+                onCafecito={() => {
+                  sfx.select()
+                  goTo({ kind: "cafecito", trigger: "pedido", correctToday: 0 })
                 }}
               />
               {/* Cambiar de ejercicio SIN cambiar de pantalla —o sea, saltear—
@@ -794,6 +823,10 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
               onRelease={releaseXp}
               onContinue={() => advanceAfterAnswer("ranking")}
               continueDisabled={next.isPending}
+              onCafecito={() => {
+                sfx.select()
+                goTo({ kind: "cafecito", trigger: "pedido", correctToday: 0 })
+              }}
               onSettings={() => {
                 sfx.select()
                 goTo({ kind: "settings", back: slide })
@@ -813,9 +846,10 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   refetchPlayer()
                   const back = slide.back
                   // Al ejercicio solo se puede volver si hay uno servido; desde
-                  // cualquier otra pantalla se vuelve a la misma.
-                  if (back.kind !== "exercise") goTo(back)
-                  else if (exercise) goTo(back)
+                  // cualquier otra pantalla se vuelve a la misma. Y se vuelve
+                  // HACIA ATRÁS, por lo mismo que la tabla: cerrar no es avanzar.
+                  if (back.kind !== "exercise") goTo(back, "atras")
+                  else if (exercise) goTo(back, "atras")
                   else loadNext()
                 }}
                 onReset={() => {
@@ -851,8 +885,11 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                 onClick={() => {
                   sfx.select()
                   const back = slide.back
-                  if (back.kind !== "exercise") goTo(back)
-                  else if (exercise) goTo(back)
+                  // "atras": esta pantalla no lleva a ninguna parte, se sale de
+                  // ella. Si volviera con el pase de siempre, el ejercicio al que
+                  // se regresa entraría como si fuera uno nuevo.
+                  if (back.kind !== "exercise") goTo(back, "atras")
+                  else if (exercise) goTo(back, "atras")
                   else loadNext()
                 }}
               >
@@ -924,7 +961,13 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                 university={player?.university ?? null}
                 solved={solvedCount}
                 onPickUniversity={() => goTo({ kind: "settings", back: slide })}
-                onContinue={() => advanceAfterAnswer("cafecito")}
+                onContinue={() => {
+                  // La diapo que abrió la persona interrumpió lo que estaba
+                  // haciendo y hay que devolvérselo; la que dispara un hito
+                  // llega DESPUÉS de responder, y ahí sí toca seguir.
+                  if (slide.trigger === "pedido") goTo({ kind: "exercise" })
+                  else advanceAfterAnswer("cafecito")
+                }}
                 className="flex-none"
               />
             </div>
@@ -951,6 +994,7 @@ function RankingSlide({
   continueDisabled,
   onSettings,
   onTable,
+  onCafecito,
 }: {
   answer: GameAnswer
   climbFrom: number | null
@@ -964,6 +1008,7 @@ function RankingSlide({
   continueDisabled: boolean
   onSettings: () => void
   onTable: () => void
+  onCafecito: () => void
 }) {
   // Red de seguridad, no el disparo: quien suelta el imán es el toque en
   // Continuar (ver advanceAfterAnswer), para que los orbes viajen durante el
@@ -982,7 +1027,7 @@ function RankingSlide({
       {/* La misma barra que en el ejercicio, y en el mismo lugar: entre las dos
           pantallas se rebota después de cada respuesta, y una barra que aparece
           y desaparece hace saltar todo lo de abajo en cada rebote. */}
-      <GameHeader onSettings={onSettings} onTable={onTable} />
+      <GameHeader onSettings={onSettings} onTable={onTable} onCafecito={onCafecito} />
       {/* Sin cartel de "+21 de experiencia" arriba: el XP ya se ve —y mejor—
           como bolitas cayendo sobre la fila propia y el número subiendo ahí
           mismo. Un renglón que dice lo que la animación está mostrando le saca
