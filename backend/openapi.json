@@ -420,6 +420,7 @@
           "game"
         ],
         "summary": "Answer Exercise",
+        "description": "Responder una derivada. El orden importa y es este:\n\nautorizar \u2192 contar intentos \u2192 PARSEAR Y VALIDAR (ac\u00e1 se decide el veredicto,\ny es lo \u00fanico que el cliente necesita para pintar el color) \u2192 Elo \u2192 XP \u2192\ncerrar \u2192 registrar \u2192 puesto y novedades \u2192 responder.\n\nTodo lo que va despu\u00e9s de la validaci\u00f3n es contabilidad: el cliente ya sabe\nsi acert\u00f3 porque lo calcul\u00f3 \u00e9l mismo con la misma regla (ver\nweb/src/app/derivadas/local-verdict.ts).",
         "operationId": "answer_exercise_game_derivemos_answer_post",
         "parameters": [
           {

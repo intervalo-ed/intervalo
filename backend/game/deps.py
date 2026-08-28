@@ -110,7 +110,13 @@ def create_player_for_user(db: Session, user: User) -> GamePlayer:
 
 
 def link_guest_to_user(db: Session, guest: GamePlayer, user: User) -> GamePlayer:
-    """Merge guest→user. Idempotente; commitea. Devuelve el jugador vigente."""
+    """Merge guest→user. Commitea. Devuelve el jugador vigente.
+
+    Idempotente solo en el caso fácil: si el invitado YA es de este usuario se
+    devuelve tal cual. Si hay que fusionar, no lo es —la fila del invitado se
+    borra— así que llamar dos veces con el mismo invitado da 401 la segunda,
+    porque el token ya no resuelve a nadie.
+    """
     if guest.user_id == user.id:
         return guest
     if guest.user_id is not None:
@@ -215,6 +221,11 @@ def get_current_player(
 ) -> GamePlayer:
     user = _clerk_user(authorization, db)
     if user is not None:
+        # Mismo criterio que `router._jugador_del_usuario`, repetido acá porque
+        # el router importa de este módulo y no al revés. Si cambia uno tiene que
+        # cambiar el otro: lo único que los diferencia a propósito es que el del
+        # router además anuncia el registro en el feed, y este no puede hacerlo
+        # porque corre en TODOS los endpoints, no solo al entrar.
         player = db.query(GamePlayer).filter(GamePlayer.user_id == user.id).first()
         if player is not None:
             return player
