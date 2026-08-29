@@ -3,9 +3,10 @@
 // La diapo del reclutamiento: el otro momento en que el juego pide algo.
 //
 // Gemela de la del cafecito (cafecito-panel.tsx) y a propósito: mismo lugar
-// —ocupa la tarjeta del ejercicio y entra con el mismo volteo—, misma anatomía
-// —ícono, título con signos de pregunta, una oración que explica, un botón que
-// hace algo y otro que sale— y las mismas dos decisiones que parecen fricción:
+// —ocupa la tarjeta del ejercicio y entra con el mismo volteo—, casi la misma
+// anatomía —ícono, título con signos de pregunta, texto que explica, un botón
+// que hace algo y otro que sale— y las mismas dos decisiones que parecen
+// fricción:
 //
 // · El botón de seguir tarda unos segundos en habilitarse cuando la diapo la
 //   sacó el juego. A esta altura la persona lleva varias derivadas despachadas a
@@ -13,6 +14,11 @@
 //   abrió ella misma no hay espera, porque nadie la interrumpió.
 // · Reclutar es `shift + enter`. Enter sigue significando lo de siempre, así que
 //   al único lugar al que se llega sin querer es al próximo ejercicio.
+//
+// La diferencia de anatomía es una sola: acá no hay subtítulo. El del café
+// justifica la interrupción («es lo que mantiene el juego en pie») y esta diapo
+// no necesita justificarse, así que ese renglón lo ocupa lo primero que hay que
+// decir.
 //
 // Lo que sí es distinto es lo que ofrece. El cafecito pide plata y devuelve un
 // multiplicador para toda una universidad; esto no pide nada más que un mensaje
@@ -164,9 +170,22 @@ export function ReclutasPanel({
           <WhatsappGlyph size={34} />
         </div>
         <p className="mt-2 text-2xl font-medium">¿Reclutas?</p>
-        <p className="mt-3 text-sm text-muted-foreground">Traé a otros a derivar.</p>
 
+        {/* Sin subtítulo, al revés que la diapo del café.
+            Decía «Traé a otros a derivar», que es la misma orden que da el
+            primero de estos dos párrafos, y apiladas con un renglón de aire en
+            el medio se leían como una repetición. El subtítulo estaba escrito
+            para ser lo único entre el título y la explicación; en cuanto la
+            explicación arranca hablando de lo mismo, sobra.
+
+            Y son DOS párrafos y no una oración larga porque dicen dos cosas
+            distintas: el primero es el motivo —lo que le pasa a algo más grande
+            que uno— y el segundo es lo que se cobra. Juntas en una sola oración,
+            el motivo quedaba de excusa del cobro. */}
         <p className="mt-4 text-sm leading-relaxed text-foreground/90">
+          Tu universidad crece con cada persona que traigas.
+        </p>
+        <p className="mt-3 text-sm leading-relaxed text-foreground/90">
           Te llevás el{" "}
           <span className="font-semibold tabular-nums" style={{ color: VERDE }}>
             {porcentaje}%
