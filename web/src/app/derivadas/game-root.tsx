@@ -21,7 +21,15 @@ export function GameRoot() {
   // Intervalo, que solo ven los logueados, queda excluido de esta ruta en
   // AppChrome). El logo que se escribe en el centro es el del propio layout:
   // ver game-intro.tsx.
-  const intro = useGameIntro()
+  //
+  // Y cuál logo es, lo decide la plataforma. En el teléfono va el lockup entero
+  // —`d/dx [ intervalo ]`— porque ahí se cae de un link de WhatsApp sin saber a
+  // qué se juega, y la notación lo dice sola. En escritorio se entra sabiendo,
+  // así que va el logo común de Intervalo: la palabra con su barra, la misma
+  // marca que el resto de la app. `platform` es null hasta montar, y en ese
+  // render todavía no hay layout ni hueco que medir, así que la presentación no
+  // arrancó: para cuando importa, el valor ya es el definitivo.
+  const intro = useGameIntro({ notation: platform !== "desktop" })
 
   // Retorno del OAuth: el bootstrap ya linkeó guest→user; acá se aplica el @
   // que la persona eligió antes de irse a Google, una sola vez.
