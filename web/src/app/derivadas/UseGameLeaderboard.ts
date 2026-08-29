@@ -27,6 +27,11 @@ const PULSE_INTERVAL_MS = 10_000
 // del otro lado mirando.
 const ESPERA_ACREDITACION_MS = 3_000
 
+// Cuánto se considera fresca la lista de reclutas. Largo comparado con el resto
+// del juego: lo que la mueve es que un recluta propio resuelva una derivada, que
+// pasa en la escala de los minutos, no de los segundos.
+const RECLUTAS_FRESCOS_MS = 60_000
+
 // Qué hacen los dos sondeos cuando la red no contesta.
 //
 // Sin esto seguían saliendo al mismo ritmo para siempre: un teléfono en un
@@ -263,6 +268,32 @@ export function useGameLeaderboardSummary(scope: Scope, enabled: boolean) {
       ),
     enabled,
     staleTime: 30_000,
+  })
+}
+
+export type GameRecruitEntry = components["schemas"]["GameRecruitEntry"]
+
+/** Los reclutas propios: quiénes entraron por el link y cuánto aportaron.
+ *
+ * Con raíz propia (`gameKeys.recruits`) y no colgado del ranking: el latido
+ * invalida el ranking cada vez que alguien —cualquiera— responde algo, y esta
+ * lista solo cambia cuando se mueve UN recluta propio. Estando abajo del
+ * ranking se volvía a pedir todo el tiempo para devolver casi siempre lo mismo.
+ *
+ * Se refresca al abrir la vista y cada tanto mientras se la mira; que el aporte
+ * de alguien aparezca un minuto más tarde no le cambia nada a nadie. */
+export function useGameRecruits(enabled: boolean) {
+  const api = useGameApi()
+  return useQuery({
+    queryKey: gameKeys.recruits,
+    queryFn: async () => unwrap(await api.GET("/game/derivemos/leaderboard/recruits")),
+    enabled,
+    staleTime: RECLUTAS_FRESCOS_MS,
+    // Un reintento y listo. La lista se dibuja con los renglones de ejemplo
+    // mientras esto viaja, así que un error acá no deja a nadie mirando una caja
+    // vacía: deja en pantalla exactamente lo que corresponde mostrarle a quien
+    // todavía no reclutó a nadie.
+    retry: 1,
   })
 }
 

@@ -14,8 +14,10 @@ import { readOnboarding, saveOnboarding } from "@/lib/onboarding/storage"
 import { canonicalUniversity } from "@/lib/university-tags"
 import { useSfx } from "@/lib/audio/useSfx"
 import { unwrap } from "@/lib/api/client"
+import { VERDE } from "./cafecito-cta"
 import { SlideFlip } from "./slide-flip"
 import { useGameApi } from "./UseGameApi"
+import { useGameRecruits } from "./UseGameLeaderboard"
 import type { GamePlayer } from "./UseGamePlayer"
 
 const ctaCls =
@@ -207,6 +209,12 @@ function GoogleIcon({ className }: { className?: string }) {
 // Hito 2: registro con Google. El gancho es el @ propio: el guest ve su alias
 // autogenerado y el input para elegir el definitivo; el alias deseado queda en
 // localStorage y se aplica al volver del OAuth (ver applyDesiredAlias).
+//
+// Y si además ya reclutó a alguien, el gancho cambia por uno mucho más fuerte:
+// la XP que sus reclutas le vienen dando. Es la diferencia entre pedir fe —
+// «registrate para elegir tu nombre»— y cobrar una deuda que ya existe y tiene
+// número. La diapo de reclutar sale a las diez resueltas y esta a las doce, así
+// que quien compartió y le funcionó llega acá con algo concreto que perder.
 export function RegisterSlide({
   player,
   onSkip,
@@ -218,6 +226,15 @@ export function RegisterSlide({
   const [desired, setDesired] = useState("")
   const [authPending, setAuthPending] = useState(false)
   const [authError, setAuthError] = useState<string | null>(null)
+
+  // Del mismo caché que usan la diapo de reclutar y el ranking: si ya se pidió
+  // en esta sesión, esto no suma ni un pedido.
+  const { data } = useGameRecruits(true)
+  const entries = data?.entries ?? []
+  const xp = entries.reduce((total, r) => total + r.xp_given, 0)
+  // Solo cuando hay algo que cobrar. Con reclutas que todavía no aportaron
+  // nada, «ya te dieron 0 XP» sería peor que no decir nada.
+  const reclutas = xp > 0 ? { xp, gente: entries.length } : null
 
   // Misma coreografía que el wizard (create + sso), con el retorno apuntando
   // al juego: /sso-callback?next=/derivadas y de ahí de vuelta acá.
@@ -270,16 +287,39 @@ export function RegisterSlide({
   return (
     <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col">
       <div className="flex min-h-0 flex-1 flex-col items-center justify-center gap-4 text-center">
-        <h2 className="text-2xl font-bold">Elegí tu @</h2>
-        <p className="text-sm leading-relaxed text-muted-foreground">
-          Sos <span className="text-foreground">{player.alias}</span>
-          {player.rank !== null && player.rank !== undefined && (
-            <> · puesto {player.rank}</>
-          )}{" "}
-          · {player.xp} xp
-          <br />
-          Registrate para ponerle tu nombre. El progreso se conserva.
-        </p>
+        {reclutas ? (
+          <>
+            {/* El número en el título y no en el cuerpo: es una deuda concreta
+                que ya existe, y es lo único de esta pantalla que la persona no
+                sabía. */}
+            <h2 className="text-2xl font-bold">
+              Ya te dieron{" "}
+              <span className="tabular-nums" style={{ color: VERDE }}>
+                {reclutas.xp} XP
+              </span>
+            </h2>
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              {reclutas.gente === 1
+                ? "Alguien entró por tu link y suma para vos."
+                : `${reclutas.gente} personas entraron por tu link y suman para vos.`}
+              <br />
+              Sin cuenta, todo eso vive solo en este navegador.
+            </p>
+          </>
+        ) : (
+          <>
+            <h2 className="text-2xl font-bold">Elegí tu @</h2>
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              Sos <span className="text-foreground">{player.alias}</span>
+              {player.rank !== null && player.rank !== undefined && (
+                <> · puesto {player.rank}</>
+              )}{" "}
+              · {player.xp} xp
+              <br />
+              Registrate para ponerle tu nombre. El progreso se conserva.
+            </p>
+          </>
+        )}
         <div className="flex w-full max-w-xs items-center gap-1 rounded-md border border-[#7e80f7] bg-white/5 px-3">
           <span className="text-lg text-muted-foreground">@</span>
           <input

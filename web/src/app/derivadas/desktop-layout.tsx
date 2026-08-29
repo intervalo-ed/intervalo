@@ -25,9 +25,13 @@ import {
   markCafecitoShown,
   shouldShowCafecito,
   CAFECITO_EVERY,
+  TECLA_CAFECITO,
+  TECLA_RECLUTAS,
   type CafecitoTrigger,
 } from "./cafecito-cta"
 import { CafecitoPanel } from "./cafecito-panel"
+import { ReclutasPanel, type ReclutasTrigger } from "./reclutas-panel"
+import { marcarReclutasMostrado, tocaReclutar } from "./reclutas-trigger"
 import {
   AnswerButton,
   AnswerField,
@@ -50,7 +54,7 @@ import { useLocalVerdict } from "./UseLocalVerdict"
 import { ProfileSlides, RegisterSlide } from "./register-slides"
 import { EventFeed } from "./event-feed"
 import { outOfFocus } from "./out-of-focus"
-import { useGameIdentity } from "./game-telemetry"
+import { useCta, useGameIdentity } from "./game-telemetry"
 import { SettingsPanel } from "./settings-panel"
 import {
   useAnswerExercise,
@@ -65,7 +69,7 @@ import { useXpBurst, XpOrbs } from "./xp-burst"
 
 // Las pantallas del panel izquierdo. Todas viven en la misma caja y se cambian
 // con el mismo volteo (slide-flip.tsx).
-type Panel = "intro" | "exercise" | "profile" | "register" | "cafecito"
+type Panel = "intro" | "exercise" | "profile" | "register" | "cafecito" | "reclutas"
 
 // Los hitos que interrumpen el ejercicio son un subconjunto: la intro no se
 // "agenda", ocurre antes de que haya juego.
@@ -80,6 +84,33 @@ const PANEL_MIN_H = "min-h-[calc(26rem_+_7rem_+_1.5rem_+_var(--cta-h))]"
 
 // Mientras se lee la intro, todo lo demás va fuera de foco (ver out-of-focus.ts).
 const enIntro = (panel: Panel) => panel === "intro"
+
+/** ¿El destino del teclazo es un campo de TEXTO LIBRE? Ahí una letra es una
+ *  letra y ningún atajo del juego puede pisarla.
+ *
+ *  Cubre los campos por su tag (el @ del registro, la universidad "otra") y los
+ *  desplegables por su rol: los filtros del ranking no son un `<select>` nativo
+ *  sino un `<button role="combobox">` con su lista aparte
+ *  (components/ui/select.tsx, sobre Base UI), así que el tag no alcanza. Sin esa
+ *  última parte, elegir una universidad con Enter caía en el handler del juego:
+ *  el filtro no se aplicaba y encima se mandaba la respuesta a medio escribir.
+ *
+ *  El campo de la RESPUESTA no está acá y es a propósito. Es un
+ *  `<math-field>` contenteditable, pero no es texto libre: lo que se escribe ahí
+ *  es matemática, y en este juego la variable es siempre `x`. Quien decide si un
+ *  atajo puede robarle una tecla es cada handler, mirando qué tecla es — ver el
+ *  listener de `w` y `c`. */
+function enCampoDeTexto(target: EventTarget | null): boolean {
+  const el = target as HTMLElement | null
+  const tag = el?.tagName
+  if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return true
+  // El destino de un keydown casi siempre es un elemento, pero no siempre: si el
+  // foco está en el `body` o el evento se despacha sobre el documento, `closest`
+  // no existe y llamarlo tira. Y una excepción acá no rompe una línea, rompe el
+  // atajo entero — el listener muere antes de decidir nada.
+  if (typeof el?.closest !== "function") return false
+  return !!el.closest('[role="combobox"], [role="listbox"], [role="option"]')
+}
 
 // Los dos umbrales de la consulta con Alt sostenido (ver el listener más abajo):
 // a los 100 ms se voltea la card, y recién a los 600 se cobra.
@@ -141,6 +172,9 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   const skipMutation = useSkipExercise()
   const sfx = useSfx()
   const teclas = useTeclas()
+  // Para los atajos `w` y `c`: los botones registran su propio click, y llegar
+  // por la tecla tiene que contar igual.
+  const cta = useCta()
 
   const [exercise, setExercise] = useState<GameExercise | null>(null)
   const [lastAnswer, setLastAnswer] = useState<GameAnswer | null>(null)
@@ -166,6 +200,16 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
     // terminaba en el ejercicio y perdía lo que estaba haciendo ahí.
     volverA?: "settings"
   } | null>(null)
+  // Lo mismo para la diapo de reclutar. No lleva número que mostrar: la lista de
+  // reclutas la muestra el ranking de al lado.
+  const [reclutas, setReclutas] = useState<{
+    trigger: ReclutasTrigger
+    volverA?: "settings"
+  } | null>(null)
+  // Se agenda al responder y se despacha en el Continuar, igual que el café: la
+  // diapo tiene que entrar con el mismo volteo con el que entraría la derivada
+  // siguiente, y no al costado mientras todavía se mira el resultado.
+  const reclutasPendienteRef = useRef(false)
   // La tabla está a la vista ahora mismo.
   const [tableOpen, setTableOpen] = useState(false)
   // Cuál de las dos caras traseras es la que se está mostrando. Se actualiza
@@ -443,6 +487,14 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
           if (tocaCafecito && !faltaPreguntarUniversidad) {
             markCafecitoShown(totalCorrectas)
             setCafecito({ trigger, correctToday: data.correct_today })
+          } else if (tocaReclutar(totalCorrectas)) {
+            // `else if` y no una condición aparte: las dos diapos ocupan el
+            // mismo turno —el que se abre al tocar Continuar— y agendar las dos
+            // haría que la segunda se pierda sin que nadie la vea. El cooldown
+            // que comparten hace que en la práctica nunca coincidan, pero el
+            // `else` es lo que lo vuelve imposible en vez de improbable.
+            marcarReclutasMostrado(totalCorrectas)
+            reclutasPendienteRef.current = true
           }
           if (faltaPreguntarUniversidad && (tocaCafecito || solved >= 5)) {
             askedProfileRef.current = true
@@ -509,6 +561,13 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
     // mientras todavía se está mirando el resultado.
     if (cafecito) {
       setNavPanel("cafecito")
+      return
+    }
+    // Reclutar entra por el mismo lugar y por el mismo motivo.
+    if (reclutasPendienteRef.current) {
+      reclutasPendienteRef.current = false
+      setReclutas({ trigger: "hito" })
+      setNavPanel("reclutas")
       return
     }
     loadNext()
@@ -699,10 +758,11 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
         startFromIntro()
         return
       }
-      // La diapo del café tiene su propio Enter —espera diez segundos, y con
-      // Shift invita— y lo maneja ella (cafecito-panel.tsx). Si además corriera
-      // este, el primer Enter saltearía la diapo entera.
-      if (panel === "cafecito") return
+      // Las dos diapos que piden algo tienen su propio Enter —esperan unos
+      // segundos, y con Shift hacen lo suyo— y lo manejan ellas
+      // (cafecito-panel.tsx, reclutas-panel.tsx). Si además corriera este, el
+      // primer Enter saltearía la diapo entera.
+      if (panel === "cafecito" || panel === "reclutas") return
       if (skip) {
         onSkip()
         return
@@ -729,31 +789,75 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
       // descartaba —Alt+Enter era del navegador— y ahora es el atajo: en una
       // página, sin foco en la barra de direcciones, no pisa nada.
       if (e.key !== "Enter") return
-      // Los campos de texto (el @ del registro, los selectores) son dueños de
-      // su propio Enter.
+      // El campo de la respuesta también es dueño de su Enter, y ese sí lo
+      // maneja MathLive: acá se descarta por `isContentEditable`, que
+      // `enCampoDeTexto` a propósito no mira (ver su comentario).
       const el = e.target as HTMLElement | null
-      const tag = el?.tagName
-      if (
-        tag === "INPUT" ||
-        tag === "TEXTAREA" ||
-        tag === "SELECT" ||
-        el?.isContentEditable
-      )
-        return
-      // Y también los desplegables. La lista de arriba mira el TAG, y los
-      // filtros del ranking no son un `<select>` nativo sino un
-      // `<button role="combobox">` con su lista aparte (components/ui/select.tsx,
-      // sobre Base UI). Sin esta línea, elegir una universidad con Enter caía
-      // acá: el filtro no se aplicaba y encima se mandaba la respuesta del
-      // ejercicio que estaba a medio escribir.
-      if (el?.closest('[role="combobox"], [role="listbox"], [role="option"]'))
-        return
+      if (el?.isContentEditable || enCampoDeTexto(el)) return
       e.preventDefault()
       onEnterKey({ skip: e.altKey })
     }
     document.addEventListener("keydown", onKeyDown)
     return () => document.removeEventListener("keydown", onKeyDown)
   }, [enterFocused, onEnterKey])
+
+  // Las teclas de los dos botones que sacan del ejercicio: `w` abre la diapo de
+  // reclutar y `c` la del cafecito.
+  //
+  // Va en CAPTURA y le corta la propagación al evento. Es la diferencia entre
+  // que el atajo exista y que no: el campo de la respuesta tiene el foco casi
+  // todo el tiempo que se juega —vuelve solo después de cada respuesta— y
+  // MathLive escucha el keydown en el elemento, o sea antes que cualquier
+  // listener en `document` que escuche en burbuja. Sin capturar, la letra se
+  // escribía en la fórmula y el atajo no llegaba nunca.
+  //
+  // Eso obliga a ser cuidadoso, porque estas dos letras dejan de poder
+  // escribirse en la respuesta:
+  //
+  // Cuáles se eligieron y qué se perdió con cada una está en TECLA_RECLUTAS y
+  // TECLA_CAFECITO (cafecito-cta.tsx).
+  //
+  // Las otras tres guardas:
+  //
+  //   · Solo mientras se está JUGANDO (`gameFocused`). Con una diapo abierta, la
+  //     `w` que abriría la de reclutar estando ya en ella no significa nada, y
+  //     estando en la del café sería un salto lateral que nadie pidió.
+  //   · Nada con modificadores. Ctrl+W y ⌘W cierran la pestaña y no se tocan; y
+  //     con Alt sostenido está corriendo el gesto de la tabla, donde cualquier
+  //     otra tecla significa "cancelá".
+  //   · Nada en un campo de TEXTO de verdad. El @ del registro y la universidad
+  //     "otra" son texto libre, y ahí una w es una w.
+  useEffect(() => {
+    if (!gameFocused) return
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return
+      const tecla = e.key.toLowerCase()
+      if (tecla !== TECLA_RECLUTAS && tecla !== TECLA_CAFECITO) return
+      if (enCampoDeTexto(e.target)) return
+      e.preventDefault()
+      e.stopPropagation()
+      sfx.select()
+      // La misma telemetría que el click, con el atajo marcado: si el botón se
+      // usa poco pero la tecla mucho, eso es algo que hay que poder ver.
+      if (tecla === TECLA_RECLUTAS) {
+        cta("share", "click", {
+          placement: "header_desktop",
+          props: { shortcut: true },
+        })
+        setReclutas({ trigger: "pedido" })
+        setNavPanel("reclutas")
+        return
+      }
+      cta("cafecito", "click", {
+        placement: "header_desktop",
+        props: { shortcut: true },
+      })
+      setCafecito({ trigger: "pedido", correctToday: 0 })
+      setNavPanel("cafecito")
+    }
+    document.addEventListener("keydown", onKeyDown, true)
+    return () => document.removeEventListener("keydown", onKeyDown, true)
+  }, [gameFocused, setNavPanel, cta, sfx])
 
   // Todo menos el logo entra recién cuando la presentación lo devuelve a su
   // lugar; el fundido acompaña al del fondo (ver game-intro.tsx).
@@ -775,10 +879,23 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   // veinte píxeles de más en el ranking solo estiran los nombres.
   const columns = "grid-cols-[minmax(0,1fr)_420px]"
 
-  // Las dos pantallas que llevan botón e historial abajo, fuera del volteo. Las
-  // de trámite —perfil, registro, cafecito— ocupan la columna entera y no llevan
-  // ninguno de los dos.
-  const pieDelPanel = panel === "intro" || panel === "exercise"
+  // Las pantallas que llevan pie —botón e historial— abajo, fuera del volteo.
+  //
+  // Las dos diapos de pedido están adentro, y ese es el cambio que hace que
+  // pedir algo se lea como una pausa y no como cambiar de pantalla: la caja del
+  // ejercicio se da vuelta y muestra el pedido, pero el botón de seguir no se
+  // movió de su lugar —ahí abajo, donde estaba Revisar— y el historial de al
+  // lado ni se entera, porque no se desmonta.
+  //
+  // Las de trámite (perfil, registro) sí se quedan con la columna entera: son
+  // formularios, no una pausa, y su botón es parte de lo que hay que completar.
+  const esDiapoDePedido = panel === "cafecito" || panel === "reclutas"
+  const pieDelPanel = panel === "intro" || panel === "exercise" || esDiapoDePedido
+
+  // El nodo del pie donde las diapos dibujan su botón de salir (ver
+  // slide-salida.tsx). Va en estado y no en un ref porque un ref no vuelve a
+  // renderizar, y la diapo tiene que enterarse de que el destino ya existe.
+  const [slotSalida, setSlotSalida] = useState<HTMLDivElement | null>(null)
 
   return (
     <div className="h-dvh overflow-hidden" style={GRID_BG_STYLE}>
@@ -825,10 +942,21 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
             <GameIntroLogo intro={intro} fontSize="1.0625rem" />
             <div className="flex items-center gap-2" style={chromeStyle}>
               <TableButton open={tableOpen} onToggle={toggleTable} />
-              <ShareButton placement="header_desktop" />
+              <ShareButton
+                keyboard
+                placement="header_desktop"
+                // Igual que el del cafecito: voltea la card y muestra la diapo,
+                // en vez de mandar directo a WhatsApp. El ejercicio no se toca y
+                // vuelve entero al salir.
+                onOpen={() => {
+                  setReclutas({ trigger: "pedido" })
+                  setNavPanel("reclutas")
+                }}
+              />
               <CafecitoButton
                 placement="header_desktop"
                 compact
+                keyboard
                 // Voltea la card del ejercicio y muestra la diapo del cafecito,
                 // en vez de mandar directo a Cafecito. El ejercicio no se toca:
                 // sigue en el estado y vuelve entero al salir.
@@ -941,6 +1069,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                     university={player?.university ?? null}
                     solved={solvedCount}
                     onPickUniversity={() => setSettingsOpen(true)}
+                    slotSalida={slotSalida}
                     onContinue={() => {
                       const volverA = cafecito.volverA
                       setCafecito(null)
@@ -948,6 +1077,28 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                       // ahí y hay que devolvérselo; la que dispara un hito llega
                       // DESPUÉS de responder, y ahí sí toca pedir el siguiente.
                       if (cafecito.trigger !== "pedido") {
+                        loadNext()
+                        return
+                      }
+                      setNavPanel("exercise")
+                      if (volverA === "settings") setSettingsOpen(true)
+                      else if (!exercise) loadNext()
+                    }}
+                  />
+                ) : panel === "reclutas" && reclutas ? (
+                  <ReclutasPanel
+                    keyboard
+                    trigger={reclutas.trigger}
+                    // Sin lista adentro: acá al lado el ranking ya se conmutó a
+                    // "Reclutas" y la muestra entera. Ver `viewOverride`.
+                    slotSalida={slotSalida}
+                    onContinue={() => {
+                      const { trigger, volverA } = reclutas
+                      setReclutas(null)
+                      // La que salió por hito llega después de responder, así
+                      // que lo que sigue es la derivada siguiente; la que abrió
+                      // la persona interrumpió algo que hay que devolverle.
+                      if (trigger !== "pedido") {
                         loadNext()
                         return
                       }
@@ -1085,6 +1236,15 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                         onStart={startFromIntro}
                         disabled={player === null || next.isPending}
                       />
+                    ) : esDiapoDePedido ? (
+                      // La caja vacía donde la diapo dibuja su botón. Se monta y
+                      // se desmonta con `panel`, y eso resuelve el único caso
+                      // molesto: durante los ~380 ms del volteo de salida la
+                      // diapo que se va sigue montada (ver slide-flip.tsx) e
+                      // intentaría dibujar su botón al lado del Revisar que ya
+                      // volvió. Como el destino desaparece en el mismo instante
+                      // en que cambia `panel`, no dibuja nada.
+                      <div ref={setSlotSalida} className="flex w-full" />
                     ) : exercise ? (
                       <>
                         <AnswerButton
@@ -1150,6 +1310,11 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                       myUniversity={player?.university ?? null}
                       attachXpTarget={attachTarget}
                       centerKey={centerKey}
+                      // Con la diapo de reclutar abierta, el ranking de al lado
+                      // muestra los reclutas. Es la mitad que falta del pedido:
+                      // la diapo dice cuánto se gana y la tabla muestra con
+                      // quiénes, o —la primera vez— con quiénes se vería.
+                      viewOverride={panel === "reclutas" ? "recruits" : null}
                       className={`flex-1 ${outOfFocus(enIntro(panel))}`}
                     />
                   </div>
@@ -1198,6 +1363,12 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                             volverA: "settings",
                           })
                           setNavPanel("cafecito")
+                        }}
+                        onShare={() => {
+                          // Mismo volteo único que el cafecito de acá arriba.
+                          setSettingsOpen(false)
+                          setReclutas({ trigger: "pedido", volverA: "settings" })
+                          setNavPanel("reclutas")
                         }}
                         onNeedsRegister={() => {
                           setSettingsOpen(false)

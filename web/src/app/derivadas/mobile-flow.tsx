@@ -45,6 +45,9 @@ import {
   type AnswerTone,
 } from "./exercise-card"
 import { CafecitoPanel } from "./cafecito-panel"
+import { ReclutasPanel, type ReclutasTrigger } from "./reclutas-panel"
+import { ConSalidaAbajo } from "./slide-salida"
+import { marcarReclutasMostrado, tocaReclutar } from "./reclutas-trigger"
 import { GameIntroLogo, type GameIntro } from "./game-intro"
 import { INTRO_CLOSE, IntroParagraphs } from "./intro-panel"
 import { DerivativesTable, TableButton } from "./derivatives-table"
@@ -102,6 +105,11 @@ type Slide =
       correctToday: number
       back?: Slide
     }
+  // Reclutar por WhatsApp. Mismo trato que la del cafecito: `back` solo viaja
+  // cuando la abrió la persona, porque ahí interrumpió algo que hay que
+  // devolverle; cuando sale por hito llega después de responder y lo que sigue
+  // es la derivada siguiente.
+  | { kind: "reclutas"; trigger: ReclutasTrigger; back?: Slide }
 
 // Hitos del embudo: primero enganchar; carrera/universidad cuando ya está
 // metido; el registro (con el gancho del @ propio) al final.
@@ -133,6 +141,7 @@ function GameHeader({
   onSettings,
   onTable,
   onCafecito,
+  onReclutar,
 }: {
   onSettings: () => void
   // La tabla va PRIMERA de las tres de la derecha: es la única que hace algo
@@ -142,6 +151,8 @@ function GameHeader({
   // Abre la diapo del cafecito. Vive acá arriba y no adentro del botón porque
   // hay que saber a qué pantalla volver, y eso solo lo sabe quien lo monta.
   onCafecito: () => void
+  // Ídem, para la diapo de reclutar.
+  onReclutar: () => void
 }) {
   return (
     <div className="flex shrink-0 items-center justify-between">
@@ -155,7 +166,7 @@ function GameHeader({
       </button>
       <span className="flex items-center gap-1.5">
         <TableButton open={false} onToggle={onTable} keyboard={false} />
-        <ShareButton placement="header_mobile" />
+        <ShareButton placement="header_mobile" onOpen={onReclutar} />
         <CafecitoButton
           placement="header_mobile"
           // Manda a la diapo del cafecito en vez de a Cafecito directo. Se
@@ -329,7 +340,15 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
 
   // Después de resolver (o del ranking/hito/cafecito), decide la próxima slide.
   const advanceAfterAnswer = useCallback(
-    (consumed: "ranking" | "novedades" | "milestone" | "cafecito" | null) => {
+    (
+      consumed:
+        | "ranking"
+        | "novedades"
+        | "milestone"
+        | "cafecito"
+        | "reclutas"
+        | null,
+    ) => {
       const pending = pendingRef.current
       if (!pending) {
         loadNext()
@@ -442,6 +461,15 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
       if (trigger !== null && tocaCafecito && !faltaPreguntarUniversidad) {
         markCafecitoShown(totalCorrectas)
         goTo({ kind: "cafecito", trigger, correctToday: a.correct_today })
+        return
+      }
+      // Reclutar va DESPUÉS del café en el orden de este ladder, pero antes en el
+      // tiempo: el primero sale a las diez resueltas y el primer café a las
+      // veinte. Nunca compiten en la misma respuesta —el cooldown que comparten
+      // no lo permite— así que quién está escrito primero acá no cambia nada.
+      if (consumed !== "reclutas" && tocaReclutar(totalCorrectas)) {
+        marcarReclutasMostrado(totalCorrectas)
+        goTo({ kind: "reclutas", trigger: "hito" })
         return
       }
       pendingRef.current = null
@@ -685,6 +713,10 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   sfx.select()
                   goTo({ kind: "cafecito", trigger: "pedido", correctToday: 0 })
                 }}
+                onReclutar={() => {
+                  sfx.select()
+                  goTo({ kind: "reclutas", trigger: "pedido" })
+                }}
               />
               {/* Cambiar de ejercicio SIN cambiar de pantalla —o sea, saltear—
                   desliza la card y entra la derivada nueva por la derecha, con
@@ -782,6 +814,10 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                 sfx.select()
                 goTo({ kind: "cafecito", trigger: "pedido", correctToday: 0 })
               }}
+              onReclutar={() => {
+                sfx.select()
+                goTo({ kind: "reclutas", trigger: "pedido", back: slide })
+              }}
               onSettings={() => {
                 sfx.select()
                 goTo({ kind: "settings", back: slide })
@@ -828,6 +864,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                     back: slide,
                   })
                 }
+                onShare={() => goTo({ kind: "reclutas", trigger: "pedido", back: slide })}
                 onNeedsRegister={() => goTo({ kind: "register" })}
               />
             </div>
@@ -881,6 +918,10 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   sfx.select()
                   goTo({ kind: "cafecito", trigger: "pedido", correctToday: 0 })
                 }}
+                onReclutar={() => {
+                  sfx.select()
+                  goTo({ kind: "reclutas", trigger: "pedido", back: slide })
+                }}
               />
               {/* El MISMO historial que en escritorio. Allá vive apretado abajo
                   del botón; acá tiene la pantalla entera, que es lo que en el
@@ -930,28 +971,65 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
           )}
 
           {slide.kind === "cafecito" && (
-            <div className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center px-5 pb-[var(--cta-pb)] pt-4">
+            <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col px-5 pb-[var(--cta-pb)] pt-4">
               {/* Sin `keyboard`: el botón de seguir igual espera sus diez
                   segundos —la espera es para leer, no para el teclado— pero acá
                   no hay tecla que mostrar ni atajo que ofrecer. */}
-              <CafecitoPanel
-                trigger={slide.trigger}
-                correctToday={slide.correctToday}
-                university={player?.university ?? null}
-                solved={solvedCount}
-                onPickUniversity={() => goTo({ kind: "settings", back: slide })}
-                onContinue={() => {
-                  // La diapo que abrió la persona interrumpió lo que estaba
-                  // haciendo y hay que devolvérselo; la que dispara un hito
-                  // llega DESPUÉS de responder, y ahí sí toca seguir.
-                  // Y va "atras", que es lo que hace que salir se vea como
-                  // salir: la diapo se corre para el otro lado y devuelve la
-                  // pantalla de donde vino, en vez de entrar como una nueva.
-                  if (slide.trigger !== "pedido") advanceAfterAnswer("cafecito")
-                  else goTo(slide.back ?? { kind: "exercise" }, "atras")
-                }}
-                className="flex-none"
-              />
+              <ConSalidaAbajo>
+                {({ salida, accion }) => (
+                  <CafecitoPanel
+                    trigger={slide.trigger}
+                    correctToday={slide.correctToday}
+                    university={player?.university ?? null}
+                    solved={solvedCount}
+                    slotSalida={salida}
+                    slotAccion={accion}
+                    onPickUniversity={() =>
+                      goTo({ kind: "settings", back: slide })
+                    }
+                    onContinue={() => {
+                      // La diapo que abrió la persona interrumpió lo que estaba
+                      // haciendo y hay que devolvérselo; la que dispara un hito
+                      // llega DESPUÉS de responder, y ahí sí toca seguir.
+                      // Y va "atras", que es lo que hace que salir se vea como
+                      // salir: la diapo se corre para el otro lado y devuelve la
+                      // pantalla de donde vino, en vez de entrar como una nueva.
+                      if (slide.trigger !== "pedido")
+                        advanceAfterAnswer("cafecito")
+                      else goTo(slide.back ?? { kind: "exercise" }, "atras")
+                    }}
+                    className="flex-none"
+                  />
+                )}
+              </ConSalidaAbajo>
+            </div>
+          )}
+
+          {slide.kind === "reclutas" && (
+            <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col px-5 pb-[var(--cta-pb)] pt-4">
+              {/* Con la lista adentro, al revés que en escritorio. Allá el
+                  ranking de al lado se conmuta a "Reclutas" y la muestra; acá el
+                  ranking es otra diapo, así que si la lista no viajara con esta
+                  el "10% de lo que sumen" sería una frase sin nada que mirar. */}
+              <ConSalidaAbajo>
+                {({ salida, accion }) => (
+                  <ReclutasPanel
+                    trigger={slide.trigger}
+                    conLista
+                    slotSalida={salida}
+                    slotAccion={accion}
+                    onContinue={() => {
+                      // Igual que la del café: la que abrió la persona
+                      // interrumpió algo y hay que devolvérselo; la que salió por
+                      // hito llega después de responder, y ahí toca seguir.
+                      if (slide.trigger !== "pedido")
+                        advanceAfterAnswer("reclutas")
+                      else goTo(slide.back ?? { kind: "exercise" }, "atras")
+                    }}
+                    className="flex-none"
+                  />
+                )}
+              </ConSalidaAbajo>
             </div>
           )}
         </motion.div>
@@ -977,6 +1055,7 @@ function RankingSlide({
   onSettings,
   onTable,
   onCafecito,
+  onReclutar,
 }: {
   answer: GameAnswer
   climbFrom: number | null
@@ -991,6 +1070,7 @@ function RankingSlide({
   onSettings: () => void
   onTable: () => void
   onCafecito: () => void
+  onReclutar: () => void
 }) {
   // Red de seguridad, no el disparo: quien suelta el imán es el toque en
   // Continuar (ver advanceAfterAnswer), para que los orbes viajen durante el
@@ -1009,7 +1089,12 @@ function RankingSlide({
       {/* La misma barra que en el ejercicio, y en el mismo lugar: entre las dos
           pantallas se rebota después de cada respuesta, y una barra que aparece
           y desaparece hace saltar todo lo de abajo en cada rebote. */}
-      <GameHeader onSettings={onSettings} onTable={onTable} onCafecito={onCafecito} />
+      <GameHeader
+        onSettings={onSettings}
+        onTable={onTable}
+        onCafecito={onCafecito}
+        onReclutar={onReclutar}
+      />
       {/* Sin cartel de "+21 de experiencia" arriba: el XP ya se ve —y mejor—
           como bolitas cayendo sobre la fila propia y el número subiendo ahí
           mismo. Un renglón que dice lo que la animación está mostrando le saca

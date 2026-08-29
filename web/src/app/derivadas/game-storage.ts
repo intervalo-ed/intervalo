@@ -65,9 +65,19 @@ export function saveGameToken(token: string) {
   if (changed) for (const listener of tokenListeners) listener()
 }
 
-// Cooldown del CTA de Cafecito: número de ejercicio resuelto en el que se
-// mostró la última card, para no mostrar más de una cada N ejercicios.
-export function readCafecitoLastShownAt(): number {
+// Cuándo se le pidió algo a esta persona por última vez: el número de derivada
+// resuelta en el que apareció la última diapo que interrumpe para pedir.
+//
+// Es UNO SOLO para las dos —el cafecito y el reclutamiento— y ahí está su
+// gracia. Con un cooldown por diapo, cada una respetaba su propio turno y las
+// dos podían caer seguidas: el café por un récord y el reclutamiento por llegar
+// a diez, con una sola derivada en el medio. Dos pedidos pegados no son dos
+// pedidos, son un peaje. Compartiendo el contador, la regla queda escrita una
+// vez y es la que se quiere: un pedido por vez, del tipo que sea.
+//
+// La clave de localStorage sigue diciendo "cafecito" a propósito: renombrarla
+// resetearía el cooldown de todo el mundo, y lo que guarda no cambió.
+export function readUltimoPedidoAt(): number {
   if (typeof window === "undefined") return -Infinity
   try {
     const raw = window.localStorage.getItem(CAFECITO_LAST_KEY)
@@ -77,7 +87,7 @@ export function readCafecitoLastShownAt(): number {
   }
 }
 
-export function saveCafecitoLastShownAt(solvedCount: number) {
+export function saveUltimoPedidoAt(solvedCount: number) {
   try {
     window.localStorage.setItem(CAFECITO_LAST_KEY, String(solvedCount))
   } catch {}

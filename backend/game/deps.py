@@ -19,7 +19,7 @@ from database import SessionLocal
 from models import GamePlayer, User
 
 from . import keyboard
-from .aliases import alias_for_user, generate_guest_alias
+from .aliases import alias_for_user, generate_guest_alias, retire_alias
 
 _CREATE_ATTEMPTS = 3
 
@@ -133,6 +133,7 @@ def link_guest_to_user(db: Session, guest: GamePlayer, user: User) -> GamePlayer
     # El user ya tenía jugador (jugó registrado en otro dispositivo): sobrevive
     # esa fila; se suman contadores y gana el Elo con más evidencia.
     from models import (  # import local, evita ciclo
+        GameAliasHistory,
         GameAttempt,
         GameBoostIntent,
         GameCtaEvent,
@@ -161,6 +162,14 @@ def link_guest_to_user(db: Session, guest: GamePlayer, user: User) -> GamePlayer
         existing.first_group_id = guest.first_group_id
     if existing.first_utm_source is None:
         existing.first_utm_source = guest.first_utm_source
+    # Quién trajo a cada uno, y lo que cada uno ya pagó. Si la cuenta todavía no
+    # tenía reclutador se queda con el del invitado —es el que efectivamente
+    # entró por el link de alguien— y lo aportado se suma, porque son dos tramos
+    # de la misma deuda con la misma persona.
+    if existing.referred_by is None and guest.referred_by != existing.id:
+        existing.referred_by = guest.referred_by
+        existing.referral_pending = guest.referral_pending
+    existing.referral_xp_given += guest.referral_xp_given
     # El teclado se UNE, no se elige uno de los dos. Es progresión ganada
     # resolviendo derivadas —cada tecla apareció porque una la exigía— y perderla
     # justo al registrarse castiga exactamente el paso que se quiere fomentar.
@@ -182,6 +191,21 @@ def link_guest_to_user(db: Session, guest: GamePlayer, user: User) -> GamePlayer
         db.query(tabla).filter(tabla.player_id == guest.id).update(
             {"player_id": existing.id}, synchronize_session=False
         )
+    # Los RECLUTAS del invitado pasan a ser los de la cuenta. Sin esto,
+    # registrarse borraría de un plumazo a toda la gente que trajiste —quedaban
+    # apuntando a una fila que se está por borrar— y con ella la única razón por
+    # la que alguien compartió el link.
+    db.query(GamePlayer).filter(GamePlayer.referred_by == guest.id).update(
+        {"referred_by": existing.id}, synchronize_session=False
+    )
+    # Y el @ del invitado, que en un segundo deja de existir, queda apuntando a
+    # la cuenta: los links que se mandaron con él siguen trayendo gente para la
+    # misma persona (ver models.GameAliasHistory). Junto con los @ que el
+    # invitado ya hubiera soltado antes.
+    db.query(GameAliasHistory).filter(GameAliasHistory.player_id == guest.id).update(
+        {"player_id": existing.id}, synchronize_session=False
+    )
+    retire_alias(db, guest.alias, existing.id)
     db.delete(guest)
     db.commit()
     db.refresh(existing)

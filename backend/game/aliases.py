@@ -8,10 +8,11 @@ game_players.alias, no contra users.username.
 from __future__ import annotations
 
 import random
+from datetime import datetime
 
 from sqlalchemy.orm import Session
 
-from models import GamePlayer
+from models import GameAliasHistory, GamePlayer
 
 _WORDS = (
     "derivador", "tangente", "pendiente", "limite", "integral", "funcion",
@@ -26,7 +27,37 @@ _ATTEMPTS = 40
 
 
 def alias_taken(db: Session, alias: str) -> bool:
-    return db.query(GamePlayer.id).filter(GamePlayer.alias == alias).first() is not None
+    """¿Este @ está en uso, o lo estuvo alguna vez?
+
+    Los soltados cuentan como tomados. Un @ viejo sigue resolviendo links de
+    reclutamiento (ver models.GameAliasHistory), así que dárselo a otra persona
+    sería darle también las visitas que trajo la primera.
+    """
+    if db.query(GamePlayer.id).filter(GamePlayer.alias == alias).first() is not None:
+        return True
+    return (
+        db.query(GameAliasHistory.alias).filter(GameAliasHistory.alias == alias).first()
+        is not None
+    )
+
+
+def retire_alias(db: Session, alias: str, player_id: int) -> None:
+    """Deja anotado que ese @ fue de este jugador. No commitea.
+
+    Se llama al cambiar de @ y al fusionar un invitado con una cuenta —los dos
+    momentos en que un @ deja de existir con alguien todavía compartiéndolo por
+    ahí.
+    """
+    if not alias:
+        return
+    ya = db.query(GameAliasHistory).filter(GameAliasHistory.alias == alias).first()
+    if ya is not None:
+        # El @ vuelve a soltarse (A→B→A→C): gana el dueño más reciente, que es
+        # a quien apuntan los links que se están repartiendo hoy.
+        ya.player_id = player_id
+        ya.released_at = datetime.utcnow()
+        return
+    db.add(GameAliasHistory(alias=alias, player_id=player_id, released_at=datetime.utcnow()))
 
 
 def generate_guest_alias(db: Session, rng: random.Random | None = None) -> str:

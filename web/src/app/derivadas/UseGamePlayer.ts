@@ -28,6 +28,14 @@ export const gameKeys = {
   // Raíz propia: se consulta solo al volver de Cafecito y no tiene nada que ver
   // con el ranking, así que invalidar el ranking no debe arrastrarlo.
   cafecitoStatus: ["game", "cafecito-status"] as const,
+  // Los reclutas también van aparte, aunque se dibujen adentro del ranking.
+  //
+  // Colgados de la raíz del ranking, el latido —que invalida por prefijo cada
+  // diez segundos, o sea cada vez que CUALQUIERA responde algo en el juego— los
+  // volvía a pedir todo el tiempo. Una lista que cambia cuando llega un recluta
+  // nuevo no tiene por qué recargarse al ritmo de la actividad de desconocidos,
+  // y con la lista de ejemplo en pantalla eso es puro parpadeo por nada.
+  recruits: ["game", "recruits"] as const,
 }
 
 /** El jugador que ya está en el caché, sin disparar ningún pedido.
@@ -91,6 +99,10 @@ export function useGamePlayer() {
         body: {
           group_id: attribution.groupId ?? null,
           utm_source: attribution.utmSource ?? null,
+          // El @ de quien compartió el link. El server lo mira SOLO si esta
+          // llamada termina creando la fila: quien ya venía jugando no adopta
+          // reclutador por abrir un `?r=` (ver backend/game/referrals.py).
+          referrer_alias: attribution.referrer ?? null,
         },
       })
       return unwrap(result)

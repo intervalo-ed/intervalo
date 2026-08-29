@@ -64,6 +64,16 @@ export const REFERRER_PATTERN = /^[a-z0-9._]{1,20}$/
 const ATTRIBUTION_KEYS = {
   group: "first-group-id",
   utm: "first-utm-source",
+  // El `?r=` también, y acá no es solo analítica: es lo que el alta del
+  // minijuego manda para dejar al jugador anotado como recluta de ese @, y a
+  // partir de ahí una parte de su XP se le paga (ver backend/game/referrals.py).
+  //
+  // Tiene que estar en localStorage y no solo en las super properties de
+  // PostHog por dos motivos. Uno: PostHog puede no cargar —bloqueadores— y el
+  // reclutamiento no puede depender de eso. Dos: entre aterrizar y darse de
+  // alta puede haber un OAuth de Google de por medio, que se lleva puesto el
+  // query param.
+  referrer: "first-referrer",
 } as const
 
 /**
@@ -74,9 +84,11 @@ const ATTRIBUTION_KEYS = {
 export function rememberAttribution({
   groupId,
   utmSource,
+  referrer,
 }: {
   groupId?: string | null
   utmSource?: string | null
+  referrer?: string | null
 }) {
   try {
     if (groupId && !localStorage.getItem(ATTRIBUTION_KEYS.group)) {
@@ -85,18 +97,26 @@ export function rememberAttribution({
     if (utmSource && !localStorage.getItem(ATTRIBUTION_KEYS.utm)) {
       localStorage.setItem(ATTRIBUTION_KEYS.utm, utmSource)
     }
+    if (referrer && !localStorage.getItem(ATTRIBUTION_KEYS.referrer)) {
+      localStorage.setItem(ATTRIBUTION_KEYS.referrer, referrer)
+    }
   } catch {
     // Safari en modo privado tira al escribir. La atribución es un extra: que
     // falle no puede romper el aterrizaje.
   }
 }
 
-export function readAttribution(): { groupId?: string; utmSource?: string } {
+export function readAttribution(): {
+  groupId?: string
+  utmSource?: string
+  referrer?: string
+} {
   if (typeof window === "undefined") return {}
   try {
     return {
       groupId: localStorage.getItem(ATTRIBUTION_KEYS.group) ?? undefined,
       utmSource: localStorage.getItem(ATTRIBUTION_KEYS.utm) ?? undefined,
+      referrer: localStorage.getItem(ATTRIBUTION_KEYS.referrer) ?? undefined,
     }
   } catch {
     return {}

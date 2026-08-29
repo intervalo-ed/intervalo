@@ -14,7 +14,7 @@
 import { useRef, useState } from "react"
 import posthog from "posthog-js"
 import { useQueryClient } from "@tanstack/react-query"
-import { ChevronLeft, Coffee, RotateCcw, Share2, Volume2, VolumeX } from "lucide-react"
+import { ChevronLeft, Coffee, RotateCcw, Volume2, VolumeX } from "lucide-react"
 import { ApiError, unwrap } from "@/lib/api/client"
 import { Button } from "@/components/ui/button"
 import { CAREERS, CareerSelect, UniversityGrid } from "@/components/onboarding-fields"
@@ -30,7 +30,7 @@ import { setSoundMuted, useSoundMuted } from "@/lib/audio/sound-settings"
 import { useSfx } from "@/lib/audio/useSfx"
 import { canonicalUniversity } from "@/lib/university-tags"
 import { cn } from "@/lib/utils"
-import { shareUrl } from "./cafecito-cta"
+import { WhatsappGlyph } from "./cafecito-cta"
 import { SlideFlip } from "./slide-flip"
 import { SlideHorizontal, type Direccion } from "./slide-horizontal"
 import { useGameApi } from "./UseGameApi"
@@ -152,6 +152,7 @@ export function SettingsPanel({
   onClose,
   onReset,
   onCafecito,
+  onShare,
   onNeedsRegister,
 }: {
   player: GamePlayer | null
@@ -165,6 +166,8 @@ export function SettingsPanel({
   // Abre la diapo del cafecito. Quien monta esto decide a dónde se vuelve
   // después, porque solo él sabe desde dónde se entró a configuración.
   onCafecito: () => void
+  // Ídem, para la diapo de reclutar.
+  onShare: () => void
   // El guest no elige su @: ese es el gancho del registro.
   onNeedsRegister: () => void
 }) {
@@ -454,16 +457,22 @@ export function SettingsPanel({
           </span>
         </button>
 
-        <a
-          href={shareUrl({ alias: player?.alias, university: player?.university })}
-          target="_blank"
-          rel="noreferrer"
-          onClick={() => cta("share", "click", { placement: "settings" })}
-          className={rowCls}
+        {/* Abre la diapo de reclutar, no WhatsApp. Mismo motivo que la fila del
+            cafecito de acá abajo: mandando directo al chat, quien comparte no se
+            entera de que el link le paga un porcentaje de lo que hagan los que
+            entren por ahí — o sea que se pierde justo lo que lo haría compartir
+            de nuevo. */}
+        <button
+          type="button"
+          onClick={() => {
+            cta("share", "click", { placement: "settings" })
+            onShare()
+          }}
+          className={cn(rowCls, "border-[#2E9E5B]/50 text-[#2E9E5B]")}
         >
-          <span className="text-muted-foreground">Compartir</span>
-          <Share2 size={16} />
-        </a>
+          <span>Reclutar</span>
+          <WhatsappGlyph size={16} />
+        </button>
 
         {/* Abre la diapo del cafecito, no Cafecito.
 
