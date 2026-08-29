@@ -1181,6 +1181,45 @@ def email_unsubscribe_confirm(token: str, db: Session = Depends(get_db)):
     return _unsub_page(_UNSUB_DONE)
 
 
+# ── Correo entrante ───────────────────────────────────────────────────────────
+
+@app.post("/webhooks/resend-inbound")
+async def resend_inbound_webhook(request: Request):
+    """Recibe el webhook email.received de Resend y reenvía el mail al buzón
+    real (ver inbound_forward.py).
+
+    Async y con el reenvío en threadpool: el SDK de Resend es bloqueante y una
+    llamada lenta colgaría el event loop para toda la app. Ante un fallo se
+    responde 500 a propósito — Resend reintenta con backoff y el mail nunca se
+    pierde (queda guardado en Resend igual).
+    """
+    import json
+
+    from inbound_forward import forward_received_email, verify_inbound_signature
+
+    payload = (await request.body()).decode("utf-8")
+    headers = {
+        "svix-id": request.headers.get("svix-id"),
+        "svix-timestamp": request.headers.get("svix-timestamp"),
+        "svix-signature": request.headers.get("svix-signature"),
+    }
+    if not verify_inbound_signature(payload, headers):
+        raise HTTPException(status_code=401, detail="Invalid webhook signature")
+
+    event = json.loads(payload)
+    # Cualquier otro evento suscripto por error se acusa como recibido y listo:
+    # devolver error haría que Resend lo reintente para siempre.
+    if event.get("type") != "email.received":
+        return {"ok": True}
+
+    email_id = (event.get("data") or {}).get("email_id")
+    if not email_id:
+        return {"ok": True}
+
+    await run_in_threadpool(forward_received_email, email_id)
+    return {"ok": True}
+
+
 # ── Leaderboard ───────────────────────────────────────────────────────────────
 
 # Filas a cada lado del usuario en la ventana centrada (`around_me`).
@@ -2083,22 +2122,26 @@ def _game_panel_payload(week, db: Session) -> dict:
 
 
 def _game_panel_week(w: str | None):
-    """Igual que `_panel_week` pero sin piso: el juego no tiene semanas previas
-    a la difusión que haya que esconder — nació difundido. Solo se acota por
-    arriba, porque una semana futura solo puede dar ceros y un cero se lee como
-    caída."""
+    """`?w=YYYY-MM-DD` → el lunes de esa semana. Sin parámetro, la semana en
+    curso. Una fecha inválida cae a la semana actual en vez de tirar 422: es un
+    panel, no una API.
+
+    Se acota con `clamp_week` por los dos lados. Por arriba porque una semana
+    futura solo puede dar ceros y un cero se lee como caída; por abajo porque
+    antes de la difusión el juego no tenía a nadie, y esas semanas vacías no son
+    una caída sino la ausencia de producto (ver game_queries.FIRST_WEEK)."""
     from datetime import date as _date
 
+    from metrics.game_queries import clamp_week
     from metrics.game_render import week_of_today
     from metrics.queries import week_start
 
-    hoy = week_of_today()
     if w:
         try:
-            return min(week_start(_date.fromisoformat(w)), hoy)
+            return clamp_week(week_start(_date.fromisoformat(w)))
         except ValueError:
             pass
-    return hoy
+    return clamp_week(week_of_today())
 
 
 @app.get("/panel/{token}/derivemos", response_class=HTMLResponse, include_in_schema=False)

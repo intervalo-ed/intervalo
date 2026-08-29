@@ -67,6 +67,12 @@ from metrics import game_render  # noqa: E402
 # de la hora local que se quiere representar: 15:00 UTC = 12:00 en Argentina.
 WEEK = datetime(2026, 8, 17).date()
 
+# El escenario vive en una semana anterior al piso real del panel
+# (game_queries.FIRST_WEEK = la semana de la difusión). Se baja el piso para
+# este check: lo que se prueba acá son las definiciones de las métricas, no
+# desde cuándo el panel decide mostrar semanas.
+q.FIRST_WEEK = WEEK - timedelta(weeks=8)
+
 
 def T(dia: int, hora: int = 15, minuto: int = 0) -> datetime:
     """Lunes de la semana + `dia`, a las `hora`:`minuto` UTC."""
@@ -376,20 +382,13 @@ check("la ventana del empuje mide su propia universidad", v["university"] == "UB
 check("y cuenta las respuestas de adentro", v["respuestas"] > 0, f'({v["respuestas"]})')
 check("con un ritmo basal de la misma universidad", v["basal"] is not None)
 
-# ── 9 · Rivalidad, difusión, puente, entrada ─────────────────────────────────
+# ── 9 · Rivalidad, difusión, entrada ─────────────────────────────────────────
 print("\n— resto —")
 ri = q.rivalidad(data, weeks)
 unis = {u["university"]: u for u in ri["universidades"]}
 check("dos universidades", set(unis) == {"UBA", "UTN"})
 check("el XP por estudiante es el que ordena", unis["UBA"]["estudiantes"] == 2)
 check("los eventos del feed se cuentan", sum(e["n"] for e in ri["eventos"]) == 2)
-
-pu = q.puente(data, weeks)
-check("con cuenta", pu["con_cuenta"] == 2)
-check("solo una cuenta la creó el juego", pu["cuentas_nuevas"] == 1,
-      f'({pu["cuentas_nuevas"]})')
-check("la sesión de onboarding no cuenta como estudio", pu["estudiaron"] == 1,
-      f'({pu["estudiaron"]})')
 
 en = q.entrada(data, weeks)
 check("un fallo de parseo sobre 25 envíos", en["fallos"] == 1 and en["intentos"] == 25,

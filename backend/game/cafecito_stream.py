@@ -153,7 +153,7 @@ def _referencia(huella: str, ahora: datetime) -> str:
     rechazaría para siempre una segunda donación idéntica de la misma persona,
     que es algo perfectamente normal.
     """
-    return f"cafecito:{huella}:{int(ahora.timestamp())}"
+    return f"{boosts.FUENTE_SOCKET}{huella}:{int(ahora.timestamp())}"
 
 
 def _ya_aplicado(db, huella: str, ahora: datetime) -> bool:
@@ -171,12 +171,33 @@ def _ya_aplicado(db, huella: str, ahora: datetime) -> bool:
     return (
         db.query(GameBoost.id)
         .filter(
-            GameBoost.external_ref.like(f"cafecito:{huella}:%"),
+            GameBoost.external_ref.like(f"{boosts.FUENTE_SOCKET}{huella}:%"),
             GameBoost.created_at > desde,
         )
         .first()
         is not None
     )
+
+
+# Nombre con el que Cafecito manda su alerta de prueba desde «Editar perfil →
+# Alerta para stream». No es configurable ni viene con una marca aparte.
+NOMBRE_DE_PRUEBA = "juan carlos"
+
+
+def _es_prueba(evento: dict) -> bool:
+    """¿Es la alerta de prueba de la plataforma y no una donación?
+
+    Se compara por prefijo del nombre normalizado porque llega de las dos formas
+    —«Juan Carlos» y «Juan Carlos Cafecito»— y sin acentos ni mayúsculas fijas.
+
+    Sí, alguien que se llame Juan Carlos y done de verdad cae en el falso
+    positivo. Es el precio de no tener otra señal, y el error barato es este: no
+    contar una donación real se ve enseguida (la persona reclama, y el empuje se
+    da a mano con grant_game_boost.py), mientras que contar pruebas como ingresos
+    no se ve nunca y corrompe todas las decisiones que se tomen mirando el panel.
+    """
+    nombre = (evento.get("name") or "").strip().lower()
+    return nombre.startswith(NOMBRE_DE_PRUEBA)
 
 
 def aplicar(evento: dict, ahora: datetime | None = None) -> list[str]:
@@ -187,6 +208,23 @@ def aplicar(evento: dict, ahora: datetime | None = None) -> list[str]:
     abrir ninguna conexión.
     """
     ahora = ahora or datetime.utcnow()
+
+    # La alerta de PRUEBA de la plataforma llega por este mismo socket, con la
+    # misma forma que una donación real y sin ninguna marca que la distinga —
+    # salvo el nombre. Cafecito la manda siempre como «Juan Carlos» (está en el
+    # protocolo documentado arriba), así que ese es el único asidero que hay.
+    #
+    # Importa más de lo que parece: el 28/08 dos alertas de prueba entraron como
+    # donaciones y el panel llegó a informar 28 cafecitos cuando Cafecito decía
+    # 19. Un panel de ingresos que cuenta pruebas propias como plata es peor que
+    # no tener panel.
+    #
+    # Se descarta y no se guarda con otro `source`: un empuje de prueba también
+    # le regala XP a media universidad, y eso ensucia el juego además de la
+    # contabilidad. Queda en el log, que es donde sirve.
+    if _es_prueba(evento):
+        log(f"alerta de PRUEBA de la plataforma, no cuenta como donacion: {evento!r}")
+        return []
 
     # Las suscripciones no son cafecitos: no traen `count`, así que no hay
     # cantidad que convertir en multiplicador.
@@ -207,6 +245,14 @@ def aplicar(evento: dict, ahora: datetime | None = None) -> list[str]:
     try:
         if _ya_aplicado(db, huella, ahora):
             log(f"repetido ({huella}), ignorado")
+            return []
+        # La otra vía ya pudo haber cobrado esta misma donación: el aviso de
+        # Mercado Pago llega tan rápido como éste. Ver boosts.aviso_repetido.
+        if boosts.aviso_repetido(db, cafecitos, boosts.FUENTE_SOCKET, now=ahora):
+            log(
+                f"la donacion de {cafecitos} cafecito(s) ya habia entrado por el "
+                f"mail; no se duplica"
+            )
             return []
         creados = boosts.resolve_donation(
             db,

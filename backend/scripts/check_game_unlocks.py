@@ -77,16 +77,32 @@ for _ in range(16):
     if anunciadas & set(ex["new_keys"]):
         FAILURES.append("una tecla se anunció como nueva dos veces")
     anunciadas |= set(ex["new_keys"])
-    # Se responde para que el Elo avance y vayan apareciendo tiers nuevos. Van
-    # los DOS intentos: "x" casi nunca es la derivada, y con uno solo el
-    # ejercicio queda abierto — y desde que /next devuelve el que ya estaba en
-    # vez de servir otro (era un salteo gratis), el recorrido no avanzaría.
+    # Se responde para cerrar el ejercicio y que el recorrido avance. Van los DOS
+    # intentos: "x" casi nunca es la derivada, y con uno solo el ejercicio queda
+    # abierto — y desde que /next devuelve el que ya estaba en vez de servir otro
+    # (era un salteo gratis), el recorrido no avanzaría.
     for _ in range(MAX_ATTEMPTS):
         client.post(
             "/game/derivemos/answer",
             headers=H,
             json={"exercise_id": ex["exercise_id"], "answer_latex": "x", "answer_mathjson": "x"},
         )
+    # Y se le sube el θ a mano, porque responder "x" es errar y quien erra todo
+    # NO tiene que ver tiers nuevos: desde que β está anclada a la semilla del
+    # tier (elo.effective_beta), la dificultad que recibe cada uno la manda su
+    # propio θ y no el ruido de una β que se movía sola. Antes este recorrido
+    # llegaba a T3 por ese ruido y desbloqueaba varias teclas; ahora se queda en
+    # T0/T1 y desbloquea una, que es el comportamiento correcto y volvía flaky
+    # al assert de más abajo.
+    #
+    # El inventario es lo que se está probando acá, no el generador: hace falta
+    # recorrer varios tiers para que haya más de una tecla que acumular, y esta
+    # es la forma más corta de garantizarlo sin tener que resolver la derivada.
+    db = database.SessionLocal()
+    fila = db.query(GamePlayer).filter(GamePlayer.id == player_id).first()
+    fila.theta = min(fila.theta + 0.45, 2.6)
+    db.commit()
+    db.close()
 
 check(all(b >= a for a, b in zip(sizes, sizes[1:])), "el inventario nunca encoge entre pedidos")
 columna = unlocked_column(player_id)
