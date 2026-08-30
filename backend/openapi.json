@@ -1175,7 +1175,7 @@
           "game"
         ],
         "summary": "Post Message",
-        "description": "Deja un mensaje en el chat.\n\nHasta tres mensajes por minuto por jugador, y ese tope es parte del dise\u00f1o\ny no una protecci\u00f3n: el pedido era \u00abdejar un mensaje cada cierto tiempo\u00bb,\nno ahogar una conversaci\u00f3n de ida y vuelta. Lo aplica\n`limits.por_jugador(3)`, que devuelve 429 con Retry-After. Qui\u00e9n puede\nescribir lo decide `_puede_escribir`, que corre antes (ver ah\u00ed por qu\u00e9).",
+        "description": "Deja un mensaje en el chat.\n\nHasta tres mensajes por minuto por jugador, y ese tope es parte del dise\u00f1o\ny no una protecci\u00f3n: el pedido era \u00abdejar un mensaje cada cierto tiempo\u00bb,\nno ahogar una conversaci\u00f3n de ida y vuelta. Lo aplica\n`limits.por_jugador(3, \"message\")`, que devuelve 429 con Retry-After. Qui\u00e9n puede\nescribir lo decide `_puede_escribir`, que corre antes (ver ah\u00ed por qu\u00e9).",
         "operationId": "post_message_game_derivemos_message_post",
         "parameters": [
           {
@@ -4923,9 +4923,9 @@
             "title": "Xp From Referrals",
             "default": 0
           },
-          "cafecitos_universidad": {
+          "xp_from_boosts": {
             "type": "integer",
-            "title": "Cafecitos Universidad",
+            "title": "Xp From Boosts",
             "default": 0
           }
         },

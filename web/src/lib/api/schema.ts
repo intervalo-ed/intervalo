@@ -452,7 +452,7 @@ export interface paths {
          *     Hasta tres mensajes por minuto por jugador, y ese tope es parte del diseño
          *     y no una protección: el pedido era «dejar un mensaje cada cierto tiempo»,
          *     no ahogar una conversación de ida y vuelta. Lo aplica
-         *     `limits.por_jugador(3)`, que devuelve 429 con Retry-After. Quién puede
+         *     `limits.por_jugador(3, "message")`, que devuelve 429 con Retry-After. Quién puede
          *     escribir lo decide `_puede_escribir`, que corre antes (ver ahí por qué).
          */
         post: operations["post_message_game_derivemos_message_post"];
@@ -1993,10 +1993,10 @@ export interface components {
              */
             xp_from_referrals: number;
             /**
-             * Cafecitos Universidad
+             * Xp From Boosts
              * @default 0
              */
-            cafecitos_universidad: number;
+            xp_from_boosts: number;
         };
         /**
          * GameStatsHistogramBucket
