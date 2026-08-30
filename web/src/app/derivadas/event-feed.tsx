@@ -37,13 +37,14 @@ export function fmtAgo(seconds: number): string {
   return `${Math.floor(h / 24)} d`
 }
 
-// Los marcadores que el servidor deja en el texto: el protagonista y hasta dos
-// siglas de universidad. Ver backend/game/events.py.
+// Los marcadores que el servidor deja en el texto: el protagonista, un segundo
+// protagonista ("{a} reclutó a {b}") y hasta dos siglas de universidad. Ver
+// backend/game/events.py.
 //
 // Se parte con `split` y grupo de captura —que devuelve los separadores mezclados
 // con el texto— en vez de iterar con `exec`: así no hay `lastIndex` que resetear,
 // que además el compilador de React no deja tocar por ser una constante de módulo.
-const SLOT = /(\{(?:a|u0|u1)\})/
+const SLOT = /(\{(?:a|b|u0|u1)\})/
 
 /** El texto del evento, con cada marcador reemplazado por su pieza.
  *
@@ -72,6 +73,16 @@ function EventText({ event }: { event: GameEvent }) {
               {event.actor_alias}
             </span>
           )
+        }
+        if (chunk === "{b}") {
+          // Sin color de nivel a propósito, como las siglas de universidad:
+          // acá el protagonista es {a} (quien reclutó), y a este segundo
+          // nombre le alcanza con destacarse, no con anunciar su rango.
+          return event.actor_b_alias ? (
+            <span key={i} className="font-semibold text-foreground/90">
+              {event.actor_b_alias}
+            </span>
+          ) : null
         }
         if (chunk === "{u0}" || chunk === "{u1}") {
           const uni = event.universities?.[chunk === "{u0}" ? 0 : 1]
@@ -111,7 +122,9 @@ function EventRow({ event }: { event: GameEvent }) {
         highlight
           ? event.kind === "boost"
             ? "bg-[#A8703C]/12 text-foreground/90"
-            : "bg-primary/10 text-foreground/90"
+            : event.kind === "referral"
+              ? "bg-[#25D366]/12 text-foreground/90"
+              : "bg-primary/10 text-foreground/90"
           : "text-muted-foreground",
       )}
     >
@@ -179,7 +192,7 @@ export function EventFeed({
    *  cortarlo en doce era dejar la mitad del alto vacío. */
   paginado?: boolean
 }) {
-  const { data, isLoading } = useGameEvents(enabled)
+  const { data, isPending } = useGameEvents(enabled)
   // Cuántas se muestran. Crece de a tandas al llegar arriba, nunca al revés: lo
   // que ya se desplegó no se vuelve a plegar solo mientras se está leyendo.
   const [tope, setTope] = useState(SHOWN)
@@ -233,7 +246,7 @@ export function EventFeed({
           outOfFocus(veiled),
         )}
       >
-        {events.length === 0 && isLoading ? (
+        {events.length === 0 && isPending ? (
           <FeedSkeleton />
         ) : events.length === 0 ? (
           <p className="px-2 py-3 text-xs text-muted-foreground">

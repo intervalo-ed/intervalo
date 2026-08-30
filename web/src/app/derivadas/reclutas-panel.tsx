@@ -93,6 +93,10 @@ export function ReclutasPanel({
   // En escritorio el juego se maneja con el teclado y la diapo lo respeta. En el
   // teléfono no hay tecla que mostrar.
   keyboard = false,
+  // Gemelo del de cafecito-panel.tsx: solo lo manda el teléfono, donde el
+  // tinte de fondo pasó a cubrir toda la pantalla (ver mobile-flow.tsx), así
+  // que acá se dibuja sin caja propia. En escritorio sigue siendo la card.
+  fullBleed = false,
   className,
 }: {
   trigger: ReclutasTrigger
@@ -101,12 +105,16 @@ export function ReclutasPanel({
   slotSalida?: HTMLElement | null
   slotAccion?: HTMLElement | null
   keyboard?: boolean
+  fullBleed?: boolean
   className?: string
 }) {
   const cta = useCta()
   const sfx = useSfx()
   const teclas = useTeclas()
   const player = useCachedPlayer()
+  // Con universidad, el copy la nombra: "tu universidad" en abstracto es más
+  // débil que la sigla concreta que esta persona ya eligió.
+  const university = player?.university ?? null
   // Solo donde la lista se va a dibujar: en escritorio la pide el ranking.
   const reclutas = useGameRecruits(conLista)
   const porcentaje = reclutas.data?.share_percent ?? PORCENTAJE_POR_DEFECTO
@@ -161,16 +169,21 @@ export function ReclutasPanel({
   return (
     <div
       className={cn(
-        "flex min-h-0 flex-1 flex-col justify-center rounded-lg border p-6 text-center",
+        "flex min-h-0 flex-1 flex-col justify-center p-6 text-center",
+        !fullBleed && "rounded-lg border",
         className,
       )}
-      style={{
-        // Verde muy diluido de fondo, igual que el marrón del cafecito: alcanza
-        // para que la diapo se lea como otra cosa que el resto del juego sin
-        // dejar de ser la misma tarjeta.
-        backgroundColor: `color-mix(in oklab, ${VERDE} 12%, var(--card))`,
-        borderColor: `color-mix(in oklab, ${VERDE} 45%, transparent)`,
-      }}
+      style={
+        fullBleed
+          ? undefined
+          : {
+              // Verde muy diluido de fondo, igual que el marrón del cafecito:
+              // alcanza para que la diapo se lea como otra cosa que el resto
+              // del juego sin dejar de ser la misma tarjeta.
+              backgroundColor: `color-mix(in oklab, ${VERDE} 12%, var(--card))`,
+              borderColor: `color-mix(in oklab, ${VERDE} 45%, transparent)`,
+            }
+      }
     >
       <div className="mx-auto w-full max-w-sm">
         <div className="mx-auto w-fit" style={{ color: VERDE }}>
@@ -189,21 +202,57 @@ export function ReclutasPanel({
             distintas: el primero es el motivo —lo que le pasa a algo más grande
             que uno— y el segundo es lo que se cobra. Juntas en una sola oración,
             el motivo quedaba de excusa del cobro. */}
-        <p className="mt-4 text-sm leading-relaxed text-foreground/90">
-          Tu universidad crece con cada persona que traigas.
-        </p>
-        <p className="mt-3 text-sm leading-relaxed text-foreground/90">
-          Te llevás el{" "}
-          <span className="font-semibold tabular-nums" style={{ color: VERDE }}>
-            {porcentaje}%
-          </span>{" "}
-          de todo el XP que generen quienes practiquen gracias a vos.
-        </p>
+        {/* Con universidad, el primer párrafo la nombra y el segundo hace
+            explícito el circuito completo (el 10% viaja a esta persona, y por
+            eso también a su universidad) en vez de solo su parte ("te llevás
+            el 10%"). Sin universidad no hay nada que nombrar, así que se queda
+            con la versión genérica de siempre. */}
+        {university ? (
+          <>
+            <p className="mt-4 text-sm leading-relaxed text-foreground/90">
+              La{" "}
+              <span className="font-semibold" style={{ color: VERDE }}>
+                {university}
+              </span>{" "}
+              crece y escala más rápido el ranking con cada compañero que
+              traigas.
+            </p>
+            <p className="mt-3 text-sm leading-relaxed text-foreground/90">
+              Quienes ingresen con tu link generan un{" "}
+              <span className="font-semibold tabular-nums" style={{ color: VERDE }}>
+                {porcentaje}%
+              </span>{" "}
+              más de XP, el cual va{" "}
+              <span className="font-semibold" style={{ color: VERDE }}>
+                para vos
+              </span>{" "}
+              y por lo tanto a la{" "}
+              <span className="font-semibold" style={{ color: VERDE }}>
+                {university}
+              </span>{" "}
+              también.
+            </p>
+          </>
+        ) : (
+          <>
+            <p className="mt-4 text-sm leading-relaxed text-foreground/90">
+              Tu universidad crece con cada persona que traigas.
+            </p>
+            <p className="mt-3 text-sm leading-relaxed text-foreground/90">
+              Te llevás el{" "}
+              <span className="font-semibold tabular-nums" style={{ color: VERDE }}>
+                {porcentaje}%
+              </span>{" "}
+              de todo el XP que generen quienes practiquen gracias a vos.
+            </p>
+          </>
+        )}
 
         {conLista && (
           <ListaDeReclutas
             className="mt-5"
             entries={reclutas.data?.entries ?? []}
+            university={university}
             // Tres y no cinco: acá la lista viene detrás del copy y del botón, y
             // cinco renglones empujaban el botón fuera de la pantalla.
             ejemplos={3}
@@ -238,7 +287,24 @@ export function ReclutasPanel({
               sfx.select()
               onContinue()
             }}
-            className={claseDeSalida(!!slotSalida)}
+            className={cn(
+              claseDeSalida(!!slotSalida),
+              // Gemelo del de cafecito-panel.tsx: solo en `fullBleed`, para
+              // que `disabled:opacity-45` no mezcle el color propio de este
+              // botón (ver `style`) con lo que haya detrás mientras corre la
+              // cuenta. Se apaga el texto en vez del botón entero.
+              fullBleed && "disabled:opacity-100 disabled:text-muted-foreground/50",
+            )}
+            style={
+              fullBleed
+                ? {
+                    // Gemelo del de cafecito-panel.tsx: ni el gris de siempre
+                    // ni el verde de la oferta, el 70% del 12% que tiñe toda
+                    // la pantalla (fondoDeSlide, mobile-flow.tsx).
+                    backgroundColor: `color-mix(in oklab, ${VERDE} 8.4%, var(--background))`,
+                  }
+                : undefined
+            }
           >
             {LO_PIDIO(trigger) ? "Volver" : listo ? "Ahora no" : `Ahora no (${restante})`}
             {keyboard && listo && <KeyCap>{teclas.enter}</KeyCap>}

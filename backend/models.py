@@ -930,6 +930,11 @@ class GameEvent(Base):
     # color al nombre, igual que en el ranking. NULL cuando el nombre no es de un
     # jugador — quien donó un cafecito escribió lo que quiso en Cafecito.
     actor_level = Column(Integer, nullable=True)
+    # El @ de un segundo protagonista ("{a} reclutó a {b}"). Sin nivel propio a
+    # propósito: se pinta semibold sin color, como las siglas de universidad
+    # ({u0}/{u1}) y no como {a} — acá lo que importa es decir quién es, no
+    # destacar su rango.
+    actor_b_alias = Column(String(30), nullable=True)
     # "Esto sos vos" / "esto es tu universidad": los dos resaltados del feed.
     player_id = Column(Integer, ForeignKey("game_players.id"), nullable=True, index=True)
     university = Column(String(120), nullable=True, index=True)

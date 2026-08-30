@@ -1251,6 +1251,7 @@ def game_events_feed(
                 emoji=e.emoji,
                 actor_alias=e.actor_alias,
                 actor_level=e.actor_level,
+                actor_b_alias=e.actor_b_alias,
                 universities=e.universities,
                 is_mine=e.player_id is not None and e.player_id == player.id,
                 # Las DOS universidades cuentan: en "la UNT le pasó a la UNR" te
@@ -1605,6 +1606,15 @@ def game_recruits(
         .limit(_MAX_RECLUTAS)
         .all()
     )
+    # Los indicadores de arriba cuentan TODOS los reclutas, jugaron o no —a
+    # diferencia de `filas`, que solo lista a los que ya aportaron algo (ver el
+    # docstring). Es la misma cuenta que stats.py :: _xp_de_los_reclutas, del
+    # lado del total.
+    total_recruits, total_xp_given = (
+        db.query(func.count(GamePlayer.id), func.sum(GamePlayer.referral_xp_given))
+        .filter(GamePlayer.referred_by == player.id)
+        .one()
+    )
     return GameRecruitsResponse(
         entries=[
             GameRecruitEntry(
@@ -1619,6 +1629,8 @@ def game_recruits(
             for index, fila in enumerate(filas)
         ],
         share_percent=referrals.SHARE_PERCENT,
+        total_recruits=total_recruits or 0,
+        total_xp_given=total_xp_given or 0,
     )
 
 

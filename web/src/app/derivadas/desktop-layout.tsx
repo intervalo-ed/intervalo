@@ -20,6 +20,7 @@ import { useQueryClient } from "@tanstack/react-query"
 import { ChevronLeft, Settings } from "lucide-react"
 import { GRID_BG_STYLE } from "@/components/grid-bg"
 import { PrivacidadContent } from "@/components/legal-content"
+import { Button } from "@/components/ui/button"
 import { XpDots } from "@/components/xp-dots"
 import { ApiError } from "@/lib/api/client"
 import { useSfx } from "@/lib/audio/useSfx"
@@ -43,6 +44,7 @@ import {
   CAMPO_H,
   CAMPO_MIN_H,
   ExerciseCard,
+  KeyCap,
   PANEL_CONTENT,
   SkipButton,
   answerTone,
@@ -62,7 +64,6 @@ import { GameIntroLogo, type GameIntro } from "./game-intro"
 import { GameRanking, type RankingSort } from "./game-ranking"
 import { IntroPanel, IntroStartButton } from "./intro-panel"
 import { SlideFlip } from "./slide-flip"
-import { claseDeSalida } from "./slide-salida"
 import { puedeVerEstadisticas } from "./stats-gate"
 import { enCampoDeTexto, useTeclas } from "./teclas"
 import { MathInput, tipFor, type MathInputHandle } from "./math-input"
@@ -256,6 +257,15 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   const [reclutas, setReclutas] = useState<{
     trigger: ReclutasTrigger
     volverA?: "settings"
+  } | null>(null)
+  // Lo que la diapo del café va anunciando mientras se mueve el slider —el
+  // multiplicador y el color de la barra en ese instante—, para que el ranking
+  // de al lado se filtre a la universidad propia y muestre lo mismo en cada
+  // fila. `CafecitoPanel` lo apaga solo (`null`) al cerrarse o al llegar al
+  // cartel de vuelta, así que acá no hace falta limpiarlo a mano.
+  const [cafecitoPreview, setCafecitoPreview] = useState<{
+    multiplier: number
+    color: string
   } | null>(null)
   // Se agenda al responder y se despacha en el Continuar, igual que el café: la
   // diapo tiene que entrar con el mismo volteo con el que entraría la derivada
@@ -1173,21 +1183,20 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
       // (cafecito-panel.tsx, reclutas-panel.tsx). Si además corriera este, el
       // primer Enter saltearía la diapo entera.
       //
-      // Las estadísticas se suman a la misma lista: con la card volteada al
-      // Elo, Enter no tiene que responder el ejercicio que quedó escondido
-      // atrás. No hace falta un Enter propio para cerrarlas —a diferencia de
-      // esas dos diapos, esto no tiene nada que "seguir"— así que alcanza con
-      // no dejarlo pasar; se cierra con `p` o con el botón de la cabecera.
-      // El ¿Por qué? no bloquea el Enter, lo GASTA en cerrarse. Es distinto de
-      // las estadísticas, que se abren queriendo y se cierran con la misma tecla
-      // con la que se abrieron: acá la persona vino a leer y lo que sigue
-      // después de leer es volver al ejercicio, que es lo que Enter significa en
-      // todas las demás pantallas. Responder con la card volteada —Revisar sobre
-      // un campo que no se ve— sí sería un accidente.
-      // El orden importa: las diapos primero. El ¿Por qué? solo puede
-      // reclamarse el Enter si es lo que se está viendo, y lo que se ve cuando
-      // hay una diapo abierta es la diapo.
-      if (panel === "cafecito" || panel === "reclutas" || statsOpen) return
+      // El ¿Por qué?, las estadísticas y el chat comparten la misma regla: no
+      // bloquean el Enter, lo GASTAN en cerrarse. Es lo que Enter significa en
+      // todas las demás pantallas —seguir, volver al ejercicio— y acá no hay
+      // nada más que responder con la card volteada; dejarlo pasar de largo
+      // sería un Revisar sobre un campo que no se ve.
+      // El orden importa: las diapos primero. Las tres caras de abajo solo
+      // pueden reclamarse el Enter si son lo que se está viendo, y lo que se
+      // ve cuando hay una diapo abierta es la diapo.
+      if (panel === "cafecito" || panel === "reclutas") return
+      if (statsOpen) {
+        sfx.select()
+        setStatsOpen(false)
+        return
+      }
       if (porqueOpen) {
         cerrarPorque()
         return
@@ -1208,7 +1217,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
       }
       onPrimary()
     },
-    [panel, startFromIntro, onSkip, onPrimary, statsOpen, porqueOpen, cerrarPorque, chatOpen, cerrarChat],
+    [panel, startFromIntro, onSkip, onPrimary, statsOpen, sfx, porqueOpen, cerrarPorque, chatOpen, cerrarChat],
   )
 
   // Dónde escucha el Enter global. Es más ancho que `gameFocused` (que gobierna
@@ -1824,6 +1833,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                     solved={solvedCount}
                     onPickUniversity={() => setSettingsOpen(true)}
                     slotSalida={slotSalida}
+                    onPreview={setCafecitoPreview}
                     onContinue={() => {
                       const volverA = cafecito.volverA
                       setCafecito(null)
@@ -2001,7 +2011,14 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                                       className={`${CAMPO_MIN_H} h-auto w-full rounded-lg`}
                                       onClick={porqueOpen ? cerrarPorque : abrirPorque}
                                       open={porqueOpen}
-                                      wrong={fallado}
+                                      // Acá siempre, y no solo si `fallado`: una
+                                      // vez resuelto, este botón dejó de avisar
+                                      // un error puntual —eso ya lo hizo el de
+                                      // abajo, mientras el ejercicio seguía
+                                      // abierto— y pasó a ser LA invitación a
+                                      // leer la explicación. Que se vea siempre
+                                      // igual es lo que la hace reconocible.
+                                      wrong
                                     />
                                   ) : undefined
                                 }
@@ -2115,33 +2132,39 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                       // `panel`, no dibuja nada.
                       <div ref={setSlotSalida} className="flex w-full" />
                     ) : statsOpen ? (
-                      // Mismo botón de salida que usan las diapos de reclutar
-                      // y de cafecito (claseDeSalida, slide-salida.tsx), pero
-                      // dibujado ACÁ derecho y no por portal: esas dos son
-                      // componentes aparte que necesitan proyectar su botón
-                      // adentro del layout, y acá `statsOpen` ya vive en este
-                      // mismo componente. Reemplaza a Revisar/Saltear/¿Por
-                      // qué? entero: con la card volteada al Elo no hay
-                      // ejercicio que responder ni saltear.
-                      <button
-                        type="button"
-                        className={claseDeSalida(true)}
+                      // Reemplaza a Revisar/Saltear/¿Por qué? entero: con la
+                      // card volteada al Elo no hay ejercicio que responder ni
+                      // saltear. Blanco y con el chip de Enter, como Continuar
+                      // y no como el Volver gris de las diapos (claseDeSalida)
+                      // — acá Enter YA cierra (ver `onEnterKey`), así que el
+                      // botón tiene que anunciarlo en vez de mentir un atajo
+                      // que no hace nada. Mismo `Button` que `IntroStartButton`
+                      // (intro-panel.tsx) y no un `<button>` a mano: con las
+                      // clases copiadas terminó un poco más alto y con la letra
+                      // un poco más grande que Continuar — se nota apenas se
+                      // los mira uno al lado del otro.
+                      <Button
+                        size="lg"
                         onClick={() => {
                           sfx.select()
                           setStatsOpen(false)
                         }}
+                        className="h-[var(--cta-h)] w-full shrink-0 rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
                       >
                         Volver
-                      </button>
+                        <KeyCap>{teclas.enter}</KeyCap>
+                      </Button>
                     ) : exercise ? (
                       <>
                         {/* Resuelto el ejercicio el pie es UNO solo, Continuar
                             de punta a punta: el ¿Por qué? se mudó adentro de la
                             caja de la pista, arriba, donde estaba el cursor
-                            (ver SolvedHint en exercise-card.tsx). Acá abajo
-                            quedaban dos botones para dos cosas de peso muy
-                            distinto, y el chico se llevaba la mitad del renglón
-                            del que cierra el ejercicio. */}
+                            (mismo mecanismo en las dos plataformas — ver el
+                            `hint` de AnswerField, más abajo, y su equivalente
+                            en mobile-flow.tsx). Acá abajo quedaban dos botones
+                            para dos cosas de peso muy distinto, y el chico se
+                            llevaba la mitad del renglón del que cierra el
+                            ejercicio. */}
                         <AnswerButton
                           className="flex-1"
                           tone={tone}
@@ -2237,6 +2260,19 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                       // la diapo dice cuánto se gana y la tabla muestra con
                       // quiénes, o —la primera vez— con quiénes se vería.
                       viewOverride={panel === "reclutas" ? "recruits" : null}
+                      // Con la diapo del café abierta y universidad propia, el
+                      // ranking se filtra solo a esa universidad y cada fila
+                      // muestra el multiplicador que se está por comprar en vez
+                      // de su XP: la misma idea que arriba, aplicada al café.
+                      boostPreview={
+                        panel === "cafecito" && cafecitoPreview && player?.university
+                          ? {
+                              university: player.university,
+                              multiplier: cafecitoPreview.multiplier,
+                              color: cafecitoPreview.color,
+                            }
+                          : null
+                      }
                       sort={rankingSort}
                       // `|| porqueOpen`: leyendo el «¿por qué?» tampoco hay
                       // motivo para que el ranking compita por atención.

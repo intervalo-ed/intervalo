@@ -225,6 +225,14 @@ class GameRecruitsResponse(BaseModel):
     # El porcentaje vigente, para que la diapo y la lista no lo tengan escrito a
     # mano en el cliente: si algún día cambia, cambia en un solo lado.
     share_percent: int
+    # Los indicadores de arriba cuando el ranking está en esta vista. TODOS los
+    # reclutas y su aporte total, sin el filtro de actividad que sí tiene
+    # `entries` (ver game/stats.py :: _xp_de_los_reclutas, es la misma cuenta):
+    # un recluta que abrió el link y no jugó no gana un renglón en la lista,
+    # pero sigue siendo alguien que trajiste, y el número de arriba no puede
+    # decir menos reclutas de los que en verdad hay.
+    total_recruits: int = 0
+    total_xp_given: int = 0
 
 
 class GameLeaderboardMe(BaseModel):
@@ -383,16 +391,20 @@ class GameEventOut(BaseModel):
 
     id: int
     kind: str
-    # Con marcadores: `{a}` es el protagonista y `{u0}`/`{u1}` las siglas. El
-    # cliente los reemplaza por la tag de cada universidad y por el nombre pintado
-    # con el color de su nivel. Las filas viejas no traen marcadores y salen tal
-    # cual, que es exactamente lo que corresponde.
+    # Con marcadores: `{a}` es el protagonista, `{b}` un segundo protagonista
+    # (si lo hay) y `{u0}`/`{u1}` las siglas. El cliente los reemplaza por la tag
+    # de cada universidad y por el nombre pintado con el color de su nivel. Las
+    # filas viejas no traen marcadores y salen tal cual, que es exactamente lo
+    # que corresponde.
     text: str
     emoji: str
     actor_alias: Optional[str] = None
     # Nivel del protagonista, para pintarlo igual que en el ranking. NULL cuando
     # el nombre no es de un jugador (quien invita un cafecito).
     actor_level: Optional[int] = None
+    # Sin nivel propio: se pinta semibold sin color, como las siglas de
+    # universidad. Ver GameEvent.actor_b_alias (models.py).
+    actor_b_alias: Optional[str] = None
     # En el mismo orden en que aparecen {u0} y {u1}.
     universities: list[str] = []
     # Los dos resaltados del feed: "esto sos vos" y "esto es tu universidad".

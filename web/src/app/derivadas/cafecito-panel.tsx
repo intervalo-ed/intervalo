@@ -25,14 +25,19 @@
 
 import { useEffect, useRef, useState } from "react"
 import { motion, useReducedMotion } from "motion/react"
-import { ArrowLeft, ArrowRight, Coffee } from "lucide-react"
+import { ArrowLeft, ArrowRight, Coffee, UsersIcon } from "lucide-react"
+import { ALL_SCOPE, fmtCount } from "@/components/leaderboard-chrome"
+import { UniTag } from "@/components/university-tag"
+import { XpDots } from "@/components/xp-dots"
 import { BELT_HEX } from "@/lib/catalog"
 import { cn } from "@/lib/utils"
 import { useSfx } from "@/lib/audio/useSfx"
 import { CAFECITO_URL, fmtMultiplier, type CafecitoTrigger } from "./cafecito-cta"
+import { filaConEmpuje } from "./game-colors"
 import {
   useCafecitoIntent,
   useCafecitoStatus,
+  useGameUniversityLeaderboard,
   type GameCafecitoStatus,
 } from "./UseGameLeaderboard"
 import { KeyCap } from "./exercise-card"
@@ -43,7 +48,12 @@ import { enCampoDeTexto, useTeclas } from "./teclas"
 // Marrón de marca. `solid` para el relleno del botón —es el que tiene contraste
 // suficiente con texto blanco encima— y `onDark` para todo lo que es tinta
 // sobre el fondo oscuro.
-const CAFE = BELT_HEX.brown.solid
+//
+// `CAFE` se exporta: en el teléfono el tinte de esta diapo ya no vive en su
+// propia caja, vive de pantalla completa detrás de la diapo (ver `fullBleed`
+// más abajo y `fondoDeSlide` en mobile-flow.tsx), y ese fondo necesita el mismo
+// marrón para no desentonar con el botón.
+export const CAFE = BELT_HEX.brown.solid
 const CAFE_TINTA = BELT_HEX.brown.onDark
 
 // Cuánto tarda en habilitarse el botón de seguir. En cero en desarrollo —
@@ -459,6 +469,132 @@ function PanelDeVuelta({
   )
 }
 
+// Tu universidad y sus dos vecinas en el ranking de universidades, solo en el
+// teléfono (ver `fullBleed` más abajo). En escritorio esta misma idea la
+// cuenta el ranking de al lado, filtrado a la universidad propia con cada
+// fila en el mismo formato (game-ranking.tsx :: boostPreview) — acá, sin
+// ranking en pantalla, son estas tres cajas.
+//
+// Una arriba (mejor puesto), la propia en el medio, una abajo (peor puesto):
+// es lo que convierte "invitá un cafecito" en "esto es lo que ya está en
+// juego", con la propia universidad ubicada donde compite de verdad, no
+// suelta. Las vecinas llevan ×1,0 —no compran nada, están para dar contexto—
+// y la propia lleva el multiplicador que se está por comprar, en el mismo
+// formato ámbar (`filaConEmpuje`, game-colors.ts) que ya usan las filas con un
+// empuje corriendo.
+//
+// Si el ranking no tiene vecina real de un lado —la universidad propia está
+// primera o última, o todavía no juntó XP— se inventa una plausible en vez de
+// dejar el hueco: son datos de relleno, nunca la propia.
+function CajaDeUniversidad({
+  university,
+  players,
+  multiplier,
+  color,
+  propia = false,
+}: {
+  university: string
+  players: number
+  multiplier: number
+  // La tinta del slider (tintaPara(t)) para la propia; un gris apagado para
+  // las vecinas, que no reciben nada de este cafecito.
+  color: string
+  // Sin fondo ni borde: la caja de contexto no es lo que este cafecito mueve.
+  // Solo la propia lleva `filaConEmpuje`, y solo ella cambia de brillo con el
+  // slider —las vecinas se quedan en ×1,0 fijo, así que nada tendrían que
+  // variar.
+  propia?: boolean
+}) {
+  return (
+    <div
+      className={cn(
+        "flex items-center justify-between gap-2 rounded-lg px-3 py-2",
+        propia && "ring-1 ring-foreground/10",
+      )}
+      style={propia ? filaConEmpuje(multiplier) : undefined}
+    >
+      <UniTag university={university} />
+      {/* Personas y XP pegados, igual que en el ranking (game-ranking.tsx):
+          número primero, ícono después, los dos grupos uno al lado del otro.
+          Acá los dos van del mismo color —el de la propia se pinta con el
+          slider igual que el multiplicador, no solo el número de XP. */}
+      <span
+        className="inline-flex shrink-0 items-center gap-2 text-sm font-semibold tabular-nums"
+        style={{ color }}
+      >
+        <span className="inline-flex items-center gap-1">
+          {fmtCount(players)}
+          <UsersIcon className="size-[0.85em]" />
+        </span>
+        <span className="inline-flex items-center gap-1">
+          {fmtMultiplier(multiplier)}
+          <XpDots className="size-[0.85em]" />
+        </span>
+      </span>
+    </div>
+  )
+}
+
+// El gris de las vecinas: ni el ámbar de la propia ni un color de marca, para
+// que quede claro de un vistazo cuál de las tres es la que este cafecito
+// mueve.
+const GRIS_VECINA = "var(--muted-foreground)"
+
+// Universidades de relleno, en el orden en que se prueban. Nunca es la propia
+// —se filtra antes de usarla— así que alcanza con una lista fija y corta.
+const UNIVERSIDADES_DE_RELLENO = ["UBA", "UTN", "UNC", "UNLP", "UCA", "UNSAM"] as const
+
+function universidadDeRelleno(
+  yaUsadas: readonly string[],
+  players: number,
+): { university: string; players: number } {
+  const nombre = UNIVERSIDADES_DE_RELLENO.find((u) => !yaUsadas.includes(u)) ?? "Otra"
+  return { university: nombre, players }
+}
+
+const SIN_FILTRO = { university: ALL_SCOPE, career: ALL_SCOPE }
+
+/** Las tres cajas, una debajo de la otra. */
+function UniversidadesCercanas({
+  university,
+  multiplier,
+  color,
+  enabled,
+}: {
+  university: string
+  multiplier: number
+  color: string
+  enabled: boolean
+}) {
+  const { data } = useGameUniversityLeaderboard(SIN_FILTRO, enabled)
+  const filas = data?.rows ?? []
+  const indice = filas.findIndex((f) => f.university === university)
+  const propia = indice >= 0 ? filas[indice] : { university, players: 1 }
+
+  const arriba =
+    indice > 0
+      ? filas[indice - 1]
+      : universidadDeRelleno([propia.university], propia.players + 15)
+  const abajo =
+    indice >= 0 && indice < filas.length - 1
+      ? filas[indice + 1]
+      : universidadDeRelleno([propia.university, arriba.university], Math.max(1, propia.players - 8))
+
+  return (
+    <div className="mt-4 flex flex-col gap-2">
+      <CajaDeUniversidad university={arriba.university} players={arriba.players} multiplier={1} color={GRIS_VECINA} />
+      <CajaDeUniversidad
+        university={propia.university}
+        players={propia.players}
+        multiplier={multiplier}
+        color={color}
+        propia
+      />
+      <CajaDeUniversidad university={abajo.university} players={abajo.players} multiplier={1} color={GRIS_VECINA} />
+    </div>
+  )
+}
+
 export function CafecitoPanel({
   trigger,
   university = null,
@@ -477,6 +613,18 @@ export function CafecitoPanel({
   // dos botones muestran su tecla y hay atajos de verdad detrás. En el teléfono
   // no hay tecla que mostrar.
   keyboard = false,
+  // Solo lo manda el teléfono. Ahí el tinte de fondo pasó a cubrir toda la
+  // pantalla (mobile-flow.tsx pinta el mismo `CAFE` de fondo, gradual con el
+  // pase de diapo), así que esta diapo se dibuja sin su propia caja —ni
+  // redondeo, ni borde, ni el color repetido adentro— para no pintarlo dos
+  // veces. En escritorio sigue siendo la card de siempre.
+  fullBleed = false,
+  // Solo lo manda escritorio: mientras la diapo ofrece el slider, el ranking de
+  // al lado se filtra a esta universidad y cambia lo que muestra cada fila por
+  // el multiplicador que se está por comprar (ver desktop-layout.tsx). `null`
+  // mientras no hay oferta que mostrar —el cartel de vuelta, por ejemplo, ya no
+  // tiene slider del que previsualizar nada.
+  onPreview,
   className,
 }: {
   trigger: CafecitoTrigger
@@ -491,6 +639,8 @@ export function CafecitoPanel({
   slotSalida?: HTMLElement | null
   slotAccion?: HTMLElement | null
   keyboard?: boolean
+  fullBleed?: boolean
+  onPreview?: (preview: { multiplier: number; color: string } | null) => void
   className?: string
 }) {
   const cta = useCta()
@@ -563,6 +713,17 @@ export function CafecitoPanel({
   // `volvio` solo dice que la persona volvió a la pestaña. Eso pasa mucho antes
   // —y muchas más veces— que tener algo que contarle.
   const cartelDeVuelta = volvio && estado !== null && estado.state !== "none"
+
+  // Avisa el multiplicador y el color de la barra en cada movimiento, para que
+  // el ranking de al lado los muestre en vivo. Se apaga solo (`null`) con el
+  // cartel de vuelta puesto —ahí ya no hay slider, así que no hay nada que
+  // previsualizar— y al desmontarse la diapo, para no dejar el ranking pegado a
+  // un número de una oferta que ya no está.
+  useEffect(() => {
+    if (!onPreview) return
+    onPreview(cartelDeVuelta ? null : { multiplier, color: tintaPara(t) })
+    return () => onPreview(null)
+  }, [onPreview, cartelDeVuelta, multiplier, t])
 
   useEffect(() => {
     if (!seFue) return
@@ -640,15 +801,21 @@ export function CafecitoPanel({
   return (
     <div
       className={cn(
-        "flex min-h-0 flex-1 flex-col justify-center rounded-lg border p-6 text-center",
+        "flex min-h-0 flex-1 flex-col justify-center p-6 text-center",
+        !fullBleed && "rounded-lg border",
         className,
       )}
-      style={{
-        // Marrón muy diluido de fondo: alcanza para que la diapo se lea como
-        // otra cosa que el resto del juego sin dejar de ser la misma card.
-        backgroundColor: `color-mix(in oklab, ${CAFE} 12%, var(--card))`,
-        borderColor: `color-mix(in oklab, ${CAFE_TINTA} 45%, transparent)`,
-      }}
+      style={
+        fullBleed
+          ? undefined
+          : {
+              // Marrón muy diluido de fondo: alcanza para que la diapo se lea
+              // como otra cosa que el resto del juego sin dejar de ser la
+              // misma card.
+              backgroundColor: `color-mix(in oklab, ${CAFE} 12%, var(--card))`,
+              borderColor: `color-mix(in oklab, ${CAFE_TINTA} 45%, transparent)`,
+            }
+      }
     >
       {cartelDeVuelta ? (
         <PanelDeVuelta
@@ -706,6 +873,19 @@ export function CafecitoPanel({
               </span>
               .
             </p>
+
+            {/* Solo en el teléfono: en escritorio esta misma idea la cuenta el
+                ranking de al lado, filtrado a la universidad propia (ver
+                game-ranking.tsx :: boostPreview) — repetirla acá sería
+                mostrar lo mismo dos veces en la misma pantalla. */}
+            {fullBleed && (
+              <UniversidadesCercanas
+                university={university}
+                multiplier={multiplier}
+                color={tintaPara(t)}
+                enabled={fullBleed}
+              />
+            )}
 
             <Slider
               ref={sliderRef}
@@ -803,7 +983,27 @@ export function CafecitoPanel({
               sfx.select()
               onContinue()
             }}
-            className={claseDeSalida(!!slotSalida)}
+            className={cn(
+              claseDeSalida(!!slotSalida),
+              // Solo en `fullBleed`: `disabled:opacity-45` baja la opacidad
+              // del botón ENTERO, y con un color de fondo propio (ver `style`)
+              // eso lo deja mezclarse con lo que sea que haya detrás mientras
+              // corre la cuenta. Se apaga el texto en vez del botón entero.
+              fullBleed && "disabled:opacity-100 disabled:text-muted-foreground/50",
+            )}
+            style={
+              fullBleed
+                ? {
+                    // Ni el gris de siempre ni el café de la oferta: el 70%
+                    // del 12% que tiñe toda la pantalla (fondoDeSlide,
+                    // mobile-flow.tsx). Es la puerta de salida, no la oferta,
+                    // así que no tiene por qué anunciarse igual de fuerte —
+                    // pero tampoco tiene por qué fingir que la pantalla de
+                    // atrás no cambió de color.
+                    backgroundColor: `color-mix(in oklab, ${CAFE} 8.4%, var(--background))`,
+                  }
+                : undefined
+            }
           >
             {/* «Ahora no» nombra la decisión de rechazar, y eso solo aplica
                 cuando el juego ofreció. Si la persona abrió la diapo ella misma

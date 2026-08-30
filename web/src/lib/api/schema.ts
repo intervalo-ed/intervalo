@@ -1658,6 +1658,8 @@ export interface components {
             actor_alias?: string | null;
             /** Actor Level */
             actor_level?: number | null;
+            /** Actor B Alias */
+            actor_b_alias?: string | null;
             /**
              * Universities
              * @default []
@@ -1965,6 +1967,16 @@ export interface components {
             entries: components["schemas"]["GameRecruitEntry"][];
             /** Share Percent */
             share_percent: number;
+            /**
+             * Total Recruits
+             * @default 0
+             */
+            total_recruits: number;
+            /**
+             * Total Xp Given
+             * @default 0
+             */
+            total_xp_given: number;
         };
         /** GameSkipRequest */
         GameSkipRequest: {

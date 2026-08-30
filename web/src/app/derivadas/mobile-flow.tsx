@@ -33,19 +33,20 @@ import {
   markCafecitoShown,
   shouldShowCafecito,
   CAFECITO_EVERY,
+  VERDE,
   type CafecitoTrigger,
 } from "./cafecito-cta"
 import {
   AnswerButton,
   AnswerField,
+  CAMPO_MIN_H,
   ExerciseCard,
   PANEL_CONTENT,
   SkipButton,
-  SolvedHint,
   answerTone,
   type AnswerTone,
 } from "./exercise-card"
-import { CafecitoPanel } from "./cafecito-panel"
+import { CafecitoPanel, CAFE } from "./cafecito-panel"
 import { ReclutasPanel, type ReclutasTrigger } from "./reclutas-panel"
 import { ConSalidaAbajo } from "./slide-salida"
 import { marcarReclutasMostrado, tocaReclutar } from "./reclutas-trigger"
@@ -129,6 +130,32 @@ type Slide =
   // devolverle; cuando sale por hito llega después de responder y lo que sigue
   // es la derivada siguiente.
   | { kind: "reclutas"; trigger: ReclutasTrigger; back?: Slide }
+
+// El tinte de fondo de café/reclutas, de pantalla completa (ver el `motion.div`
+// debajo de la grilla, más abajo). Antes vivía adentro de la caja de la propia
+// diapo (CafecitoPanel/ReclutasPanel con `fullBleed={false}`, que es como los
+// sigue dibujando escritorio); acá se pinta afuera, detrás de TODA la diapo, y
+// por eso sobrevive al cambio de `slideSeq` en vez de remontarse con él: así
+// motion lo desliza de un color al otro en vez de pegarlo de golpe.
+//
+// `color-mix(in oklab, ...)` —que es como se ve la misma mezcla en la card de
+// escritorio— no se puede animar: motion lo trata como texto y el color salta
+// en vez de correrse (mismo motivo por el que cafecito-panel.tsx mezcla a mano
+// en rgb para el aura del slider). Por eso acá la mezcla se escribe en rgba
+// crudo, con el mismo 12% que usaba la card.
+const TINTE_ALPHA = 0.12
+function hexToRgb(hex: string): readonly [number, number, number] {
+  const n = parseInt(hex.slice(1), 16)
+  return [(n >> 16) & 255, (n >> 8) & 255, n & 255]
+}
+const tintaDe = (hex: string) => `rgba(${hexToRgb(hex).join(", ")}, ${TINTE_ALPHA})`
+const SIN_TINTE = "rgba(0, 0, 0, 0)"
+
+function fondoDeSlide(kind: Slide["kind"]): string {
+  if (kind === "cafecito") return tintaDe(CAFE)
+  if (kind === "reclutas") return tintaDe(VERDE)
+  return SIN_TINTE
+}
 
 // Cuántas novedades sin ver hacen falta para frenar a alguien y mostrárselas.
 //
@@ -794,6 +821,30 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
 
   return (
     <div className="relative grid h-dvh overflow-hidden">
+      {/* El tinte de café/reclutas, de pantalla completa. Vive FUERA del
+          `AnimatePresence` de abajo —a propósito—: ese árbol remonta un
+          `motion.div` por cada diapo (por eso tiene `key={slideSeq}`), y
+          remontado el tinte pegaría un salto de color en vez de correrse. Este
+          en cambio es un solo elemento para toda la sesión de juego, así que
+          `animate` anima la MISMA instancia de un color al otro cada vez que
+          cambia `slide.kind`. Ver `fondoDeSlide`.
+
+          `col-start-1 row-start-1` y NO `absolute inset-0`: la grilla de acá
+          arriba tiene un solo lugar, y ese mismo truco es el que usa el
+          `motion.div` de la diapo para superponerse en ese lugar sin salirse
+          del flujo. Con `absolute` este tinte pasaba a ser un elemento
+          POSICIONADO, y el orden de pintado de CSS pinta TODO lo posicionado
+          por encima de todo lo que no lo es —pase lo que pase en el HTML—, así
+          que terminaba tapando la diapo entera (botones incluidos) en vez de
+          quedar detrás. Sin `absolute`, los dos son ítems de grilla comunes y
+          pintan en el orden en que aparecen acá: este primero, la diapo
+          después, encima. */}
+      <motion.div
+        aria-hidden
+        className="pointer-events-none col-start-1 row-start-1"
+        animate={{ backgroundColor: fondoDeSlide(slide.kind) }}
+        transition={SLIDE_TRANSITION}
+      />
       <AnimatePresence mode="sync" initial={false} custom={direccion}>
         <motion.div
           key={slideSeq}
@@ -920,7 +971,28 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                     <AnswerField
                       tone={tone}
                       seq={answerSeq}
-                      hint={solvedLatex !== null ? <SolvedHint /> : undefined}
+                      // Resuelto el ejercicio, el campo entero se convierte en
+                      // el botón del «¿Por qué?» — mismo mecanismo que en
+                      // escritorio (ver desktop-layout.tsx), ahora también acá:
+                      // ocupa el mismo lugar y mide lo mismo que el campo que
+                      // reemplaza, así que nada se mueve al aparecer y es
+                      // donde el pulgar ya estaba. `font-bold` porque, a
+                      // diferencia del ¿Por qué? del pie —secundario, al lado
+                      // de Saltear—, acá es la única acción posible y tiene
+                      // que pesar como el Continuar que reemplazó.
+                      hint={
+                        solvedLatex !== null ? (
+                          <PorQueButton
+                            onClick={abrirPorque}
+                            className={`${CAMPO_MIN_H} h-auto w-full rounded-lg font-bold`}
+                            // Siempre, y no solo si `fallado`: mismo criterio
+                            // que en escritorio (ver desktop-layout.tsx) — acá
+                            // ya no avisa un error puntual, es LA invitación a
+                            // leer la explicación.
+                            wrong
+                          />
+                        ) : undefined
+                      }
                     >
                       <MathInput
                         handleRef={attachInput}
@@ -952,10 +1024,14 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
               {/* Los botones quedan FUERA del deslizamiento: no son parte del
                   ejercicio, y moverlos dejaría un instante sin dónde tocar. */}
               <div className="flex items-stretch gap-2">
-                {/* Ver el comentario del mismo pie en desktop-layout.tsx: con el
-                    ejercicio resuelto el ¿Por qué? se apoya a la izquierda del
-                    Continuar, y con el ejercicio abierto va último. */}
-                {closed && hayPorque && <PorQueButton onClick={abrirPorque} />}
+                {/* Acertada, la pregunta ya se mudó adentro del campo (ver el
+                    `hint` de AnswerField, arriba) y el pie queda para el solo
+                    Continuar. Esto es para el otro cierre posible: se agotaron
+                    los intentos sin acertar, así que no hay campo-botón que la
+                    reemplace y el ¿Por qué? tiene que seguir apareciendo acá. */}
+                {closed && hayPorque && solvedLatex === null && (
+                  <PorQueButton onClick={abrirPorque} wrong />
+                )}
                 <AnswerButton
                   className="flex-1"
                   tone={tone}
@@ -974,7 +1050,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                     menos aire lateral: el que tiene que entrar entero sí o sí es
                     Revisar. */}
                 {!closed && hayPorque && (
-                  <PorQueButton onClick={abrirPorque} className="min-w-0 px-3" />
+                  <PorQueButton onClick={abrirPorque} className="min-w-0 px-3" wrong={fallado} />
                 )}
                 {!closed && (
                   <SkipButton
@@ -1279,6 +1355,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                         advanceAfterAnswer("cafecito")
                       else goTo(slide.back ?? { kind: "exercise" }, "atras")
                     }}
+                    fullBleed
                     className="flex-none"
                   />
                 )}
@@ -1307,6 +1384,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                         advanceAfterAnswer("reclutas")
                       else goTo(slide.back ?? { kind: "exercise" }, "atras")
                     }}
+                    fullBleed
                     className="flex-none"
                   />
                 )}

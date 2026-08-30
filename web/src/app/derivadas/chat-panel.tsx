@@ -176,7 +176,7 @@ function NovedadRow({ evento }: { evento: ConTiempo<GameEvent> }) {
         {/* Sin los marcadores resueltos: acá la línea es contexto, no el evento
             protagonista, y el texto plano alcanza. Resolverlos pide el mismo
             trabajo que hace EventText y no cambiaría lo que se entiende. */}
-        {textoPlano(evento.text, evento.actor_alias, evento.universities)}{" "}
+        {textoPlano(evento.text, evento.actor_alias, evento.actor_b_alias, evento.universities)}{" "}
         <span aria-hidden>{evento.emoji}</span>
       </span>
       <span className="shrink-0 tabular-nums text-[0.68rem] text-muted-foreground/60">
@@ -187,9 +187,15 @@ function NovedadRow({ evento }: { evento: ConTiempo<GameEvent> }) {
 }
 
 /** Los marcadores del feed, reemplazados a texto pelado. Ver events.py. */
-function textoPlano(text: string, alias: string | null | undefined, unis: string[]): string {
+function textoPlano(
+  text: string,
+  alias: string | null | undefined,
+  aliasB: string | null | undefined,
+  unis: string[],
+): string {
   return text
     .replace("{a}", alias ?? "alguien")
+    .replace("{b}", aliasB ?? "alguien")
     .replace("{u0}", unis[0] ?? "")
     .replace("{u1}", unis[1] ?? "")
 }

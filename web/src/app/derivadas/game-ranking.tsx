@@ -31,11 +31,11 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { UniTag } from "@/components/university-tag"
 import { XpDots } from "@/components/xp-dots"
 import { badgeWithCrown, CAREER_EMOJI } from "@/lib/career-emoji"
-import { BELT_HEX } from "@/lib/catalog"
 import { cn } from "@/lib/utils"
 import { Hueco } from "./skeleton-barra"
-import { levelColor } from "./game-colors"
-import { ListaDeReclutas } from "./reclutas-list"
+import { AMBAR, boostStrength, filaConEmpuje, levelColor } from "./game-colors"
+import { VERDE } from "./cafecito-cta"
+import { EJEMPLOS_COUNT, EJEMPLOS_XP_TOTAL, ListaDeReclutas } from "./reclutas-list"
 import {
   useGameBoosts,
   useGameLeaderboard,
@@ -44,6 +44,7 @@ import {
   useGameUniversityLeaderboard,
   type GameBoost,
   type GameLeaderboardEntry,
+  type GameRecruits,
   type GameUniversityRow,
   type Scope,
 } from "./UseGameLeaderboard"
@@ -63,9 +64,6 @@ const CLIMB_SCROLL_FOLLOW = 0.4
 // centro: se mira hacia arriba, a quién falta pasar, más que hacia abajo.
 const ROWS_ABOVE = 4
 
-// El ámbar del cafecito, el mismo que pinta las filas con empuje y la diapo de
-// la pausa: en el juego, marrón = cafecito, en todos lados.
-const AMBAR = BELT_HEX.brown.onDark
 // Para el chip propio, aclarado hasta que se lee como oro sobre el fondo.
 const ORO_CHIP = `color-mix(in oklab, ${AMBAR} 55%, #FFFFFF)`
 
@@ -84,20 +82,6 @@ const MIN_PLAYERS_RANKED = 10
 // usa para escribir cuántas respuestas le faltan a una persona; quién tiene el
 // Elo firme lo decide el server y viaja en `entry.elo_ranked`.
 const RAMP_UPDATES = 5
-
-// Espejo de backend/game/boosts.py. El empuje más flojo que existe es ×1,1 —un
-// solo cafecito— y el techo es ×3, al que solo se llega entre varios. Esos dos
-// números son los extremos de la escala de brillo del chip.
-const BOOST_MIN_MULTIPLIER = 1.1
-const BOOST_MAX_MULTIPLIER = 3.0
-
-/** 0 para el empuje más flojo, 1 para el techo. Es lo que hace que un ×3 se vea
- *  de lejos y un ×1,1 apenas se insinúe: la fuerza del café se lee sin leer el
- *  número. */
-function boostStrength(multiplier: number): number {
-  const t = (multiplier - BOOST_MIN_MULTIPLIER) / (BOOST_MAX_MULTIPLIER - BOOST_MIN_MULTIPLIER)
-  return Math.min(1, Math.max(0, t))
-}
 
 const fmtMultiplier = (m: number) => `×${m.toFixed(1).replace(".", ",")}`
 
@@ -302,6 +286,13 @@ export type GameRankingProps = {
   // persona estaba mirando: si conmutáramos con el setter normal, salir de la
   // diapo la dejaría en una vista que no eligió.
   viewOverride?: RankingView | null
+  // Gemelo de `viewOverride`, para la diapo del café: mientras el slider ofrece
+  // un multiplicador, el ranking se filtra a ESA universidad —individual, sin
+  // carrera— y cada fila muestra el multiplicador en vez de su XP (ver `Row`).
+  // Manda por encima de `viewOverride`: no pueden estar las dos diapos abiertas
+  // a la vez, pero si alguna vez lo estuvieran, el café es el que se está
+  // pagando ahora mismo.
+  boostPreview?: { university: string; multiplier: number; color: string } | null
   // Por qué ordena el ranking, y qué número muestra cada fila: la experiencia
   // o el Elo. Vale para las DOS vistas —la individual y la universitaria—, que
   // es lo único que hace que el selector diga la verdad: estaba al lado de la
@@ -333,6 +324,7 @@ export function GameRanking({
   myUniversity = null,
   myCareer = null,
   viewOverride = null,
+  boostPreview = null,
   sort = "experiencia",
   className,
 }: GameRankingProps) {
@@ -369,11 +361,19 @@ export function GameRanking({
 
   // La vista impuesta gana sobre todo, incluido el reacomodo del acierto: si la
   // diapo de reclutas está abierta, lo que hay que mirar es la lista de reclutas.
-  const view = viewOverride ?? (acaboDeAcertar ? "individual" : elegido.view)
-  const career = acaboDeAcertar ? propio(elegido.career, myCareer) : elegido.career
-  const university = acaboDeAcertar
-    ? propio(elegido.university, myUniversity)
-    : elegido.university
+  const view = boostPreview
+    ? "individual"
+    : (viewOverride ?? (acaboDeAcertar ? "individual" : elegido.view))
+  const career = boostPreview
+    ? ALL_SCOPE
+    : acaboDeAcertar
+      ? propio(elegido.career, myCareer)
+      : elegido.career
+  const university = boostPreview
+    ? boostPreview.university
+    : acaboDeAcertar
+      ? propio(elegido.university, myUniversity)
+      : elegido.university
   const scope: Scope = { university, career }
 
   // Los setters guardan SIEMPRE la clave del momento: así lo que se elija después
@@ -386,6 +386,21 @@ export function GameRanking({
     setElegido({ key: centerKey, view, career, university: v })
 
   const summary = useGameLeaderboardSummary(scope, enabled)
+  // Solo se pide con la vista abierta: son los reclutas de UNA persona, no el
+  // ranking entero, y antes de esto nadie más que `RecruitsRanking` la
+  // necesitaba (ver useGameRecruits). Ahora también alimenta los indicadores
+  // de arriba, así que sube hasta acá y baja como prop en vez de pedirse dos
+  // veces.
+  const recruits = useGameRecruits(enabled && view === "recruits")
+  // Mientras no hay reclutas propios —sea porque todavía no llegó la respuesta
+  // o porque en verdad no hay ninguno— la lista de abajo (ListaDeReclutas)
+  // muestra los CINCO renglones de ejemplo, sin esperar al servidor: son datos
+  // fijos del cliente. Los indicadores de arriba tienen que contar lo mismo
+  // que esos renglones y no cero, que al lado de cinco filas se leería como una
+  // contradicción y no como "todavía no tenés ninguno".
+  const reclutasVacio = (recruits.data?.entries.length ?? 0) === 0
+  const reclutasCount = reclutasVacio ? EJEMPLOS_COUNT : (recruits.data?.total_recruits ?? 0)
+  const reclutasXp = reclutasVacio ? EJEMPLOS_XP_TOTAL : (recruits.data?.total_xp_given ?? 0)
 
   // Sin alto propio: lo acota quien lo usa (una columna flex en escritorio, la
   // slide en el teléfono). Con `h-full` acá, una cadena de padres sin `min-h-0`
@@ -394,65 +409,135 @@ export function GameRanking({
     <div className={cn("flex min-h-0 flex-col gap-3", className)}>
       <div className="flex shrink-0 flex-col gap-2">
         <div className="grid grid-cols-2 gap-2">
-          {/* Mientras el resumen viaja va una barra y no el `?? 0`. El cero no
-              era un lugar vacío esperando el dato: decía que no hay nadie
-              jugando, que es una afirmación, y encima falsa. El ícono sí se
-              queda —no es dato, no hay nada suyo que esperar— y con él la caja
-              mide exactamente lo mismo antes y después. */}
-          <Metric
-            label="Estudiantes"
-            value={
-              <span className="inline-flex items-center gap-1.5">
-                {summary.isLoading ? (
-                  <Hueco alto="h-[1em]" className="w-10" barra="h-3.5 w-full" />
-                ) : (
-                  <CountUp value={summary.data?.players ?? 0} format={fmtCount} />
-                )}
-                <UsersIcon className="size-[0.85em] text-primary" />
-              </span>
-            }
-          />
-          {/* Elo promedio y no Derivadas cuando el selector de la cabecera
-              (al lado de la tuerca) está en "elo": es el mismo par que ya se
-              respeta fila por fila (mostrar un número distinto del que ordena
-              se lee como un bug), llevado al resumen de arriba.
-
-              La palabra "Elo" no va en el rótulo sino PEGADA al número, en la
-              misma versalita que la lleva en cada fila del ranking (ver
-              `EloDeJugador`). Así el tile se lee igual que las veinte filas de
-              abajo —número más ELO— en vez de ser el único lugar donde el Elo
-              se nombra en un rótulo, y el renglón de abajo queda para lo único
-              que este número tiene de distinto: que es un promedio. */}
-          <Metric
-            label={sort === "elo" ? "Promedio" : "Derivadas"}
-            value={
-              sort === "elo" ? (
-                <span className="inline-flex items-baseline gap-1">
-                  {summary.isLoading ? (
-                    <Hueco alto="h-[1em]" className="w-10" barra="h-3.5 w-full" />
-                  ) : summary.data?.elo_avg == null ? (
-                    // El guion es un dato, no una espera: significa que todavía
-                    // no hay suficientes partidas para promediar.
-                    <span className="text-muted-foreground">—</span>
-                  ) : (
-                    <CountUp value={summary.data.elo_avg} format={fmtCount} />
-                  )}
-                  <span className="text-[0.7em] font-normal tracking-wider text-muted-foreground">
-                    ELO
+          {view === "recruits" ? (
+            <>
+              {/* Los mismos dos huecos que "Estudiantes"/"Derivadas", pero
+                  hablando de LO TUYO: cuántos reclutas tenés y cuánto te
+                  aportaron, en el mismo verde que la columna de aporte de cada
+                  renglón (ver reclutas-list.tsx) — es el mismo dato, arriba y
+                  resumido. */}
+              <Metric
+                label="Reclutas"
+                value={
+                  <span className="inline-flex items-center gap-1.5" style={{ color: VERDE }}>
+                    <CountUp value={reclutasCount} format={fmtCount} />
+                    <UsersIcon className="size-[0.85em]" />
                   </span>
-                </span>
-              ) : (
-                <span className="inline-flex items-center gap-1.5">
-                  {summary.isLoading ? (
-                    <Hueco alto="h-[1em]" className="w-10" barra="h-3.5 w-full" />
+                }
+              />
+              <Metric
+                label="Te aportaron"
+                value={
+                  <span className="inline-flex items-center gap-1.5" style={{ color: VERDE }}>
+                    +
+                    <CountUp value={reclutasXp} format={fmtCount} />
+                    <XpDots className="size-[0.85em]" />
+                  </span>
+                }
+              />
+            </>
+          ) : boostPreview ? (
+            <>
+              {/* Gemelo del de reclutas: mientras la diapo del café ofrece un
+                  multiplicador, acá van cuántos estudiantes tiene esa
+                  universidad —`summary` ya viene filtrado por el `scope` de
+                  arriba, así que no hace falta recontar nada— y con QUÉ, en
+                  vez de con cuántas derivadas resolvió. Los dos íconos, en el
+                  mismo color que la barra: son la misma decisión, resumida. */}
+              <Metric
+                label="Estudiantes"
+                value={
+                  <span
+                    className="inline-flex items-center gap-1.5"
+                    style={{ color: boostPreview.color }}
+                  >
+                    {summary.isPending ? (
+                      <Hueco alto="h-[1em]" className="w-10" barra="h-3.5 w-full" />
+                    ) : (
+                      <CountUp value={summary.data?.players ?? 0} format={fmtCount} />
+                    )}
+                    <UsersIcon className="size-[0.85em]" />
+                  </span>
+                }
+              />
+              <Metric
+                label="Multiplicador"
+                value={
+                  <span
+                    className="inline-flex items-center gap-1.5"
+                    style={{ color: boostPreview.color }}
+                  >
+                    {fmtMultiplier(boostPreview.multiplier)}
+                    <XpDots className="size-[0.85em]" />
+                  </span>
+                }
+              />
+            </>
+          ) : (
+            <>
+              {/* Mientras el resumen viaja va una barra y no el `?? 0`. El cero
+                  no era un lugar vacío esperando el dato: decía que no hay
+                  nadie jugando, que es una afirmación, y encima falsa. El
+                  ícono sí se queda —no es dato, no hay nada suyo que
+                  esperar— y con él la caja mide exactamente lo mismo antes y
+                  después. */}
+              <Metric
+                label="Estudiantes"
+                value={
+                  <span className="inline-flex items-center gap-1.5">
+                    {summary.isPending ? (
+                      <Hueco alto="h-[1em]" className="w-10" barra="h-3.5 w-full" />
+                    ) : (
+                      <CountUp value={summary.data?.players ?? 0} format={fmtCount} />
+                    )}
+                    <UsersIcon className="size-[0.85em] text-primary" />
+                  </span>
+                }
+              />
+              {/* Elo promedio y no Derivadas cuando el selector de la cabecera
+                  (al lado de la tuerca) está en "elo": es el mismo par que ya
+                  se respeta fila por fila (mostrar un número distinto del que
+                  ordena se lee como un bug), llevado al resumen de arriba.
+
+                  La palabra "Elo" no va en el rótulo sino PEGADA al número, en
+                  la misma versalita que la lleva en cada fila del ranking (ver
+                  `EloDeJugador`). Así el tile se lee igual que las veinte
+                  filas de abajo —número más ELO— en vez de ser el único lugar
+                  donde el Elo se nombra en un rótulo, y el renglón de abajo
+                  queda para lo único que este número tiene de distinto: que es
+                  un promedio. */}
+              <Metric
+                label={sort === "elo" ? "Promedio" : "Derivadas"}
+                value={
+                  sort === "elo" ? (
+                    <span className="inline-flex items-baseline gap-1">
+                      {summary.isPending ? (
+                        <Hueco alto="h-[1em]" className="w-10" barra="h-3.5 w-full" />
+                      ) : summary.data?.elo_avg == null ? (
+                        // El guion es un dato, no una espera: significa que
+                        // todavía no hay suficientes partidas para promediar.
+                        <span className="text-muted-foreground">—</span>
+                      ) : (
+                        <CountUp value={summary.data.elo_avg} format={fmtCount} />
+                      )}
+                      <span className="text-[0.7em] font-normal tracking-wider text-muted-foreground">
+                        ELO
+                      </span>
+                    </span>
                   ) : (
-                    <CountUp value={summary.data?.exercises ?? 0} format={fmtCount} />
-                  )}
-                  <LayersIcon className="size-[0.85em] text-primary" />
-                </span>
-              )
-            }
-          />
+                    <span className="inline-flex items-center gap-1.5">
+                      {summary.isPending ? (
+                        <Hueco alto="h-[1em]" className="w-10" barra="h-3.5 w-full" />
+                      ) : (
+                        <CountUp value={summary.data?.exercises ?? 0} format={fmtCount} />
+                      )}
+                      <LayersIcon className="size-[0.85em] text-primary" />
+                    </span>
+                  )
+                }
+              />
+            </>
+          )}
         </div>
         <ScopeFilters
           view={view}
@@ -463,13 +548,13 @@ export function GameRanking({
           onUniversityChange={setUniversity}
           universities={summary.data?.universities ?? []}
           withRecruits
-          scopeDisabled={view === "recruits"}
+          scopeDisabled={view === "recruits" || !!boostPreview}
         />
         <BoostBanner myUniversity={myUniversity} />
       </div>
 
       {view === "recruits" ? (
-        <RecruitsRanking enabled={enabled} />
+        <RecruitsRanking data={recruits.data} myUniversity={myUniversity} />
       ) : view === "individual" ? (
         <IndividualRanking
           scope={scope}
@@ -487,6 +572,7 @@ export function GameRanking({
           xpColor={xpColor}
           attachXpTarget={sort === "elo" ? undefined : attachXpTarget}
           centerKey={centerKey}
+          boostPreview={boostPreview}
         />
       ) : (
         <UniversityRanking
@@ -650,6 +736,7 @@ function IndividualRanking({
   xpColor,
   attachXpTarget,
   centerKey,
+  boostPreview,
 }: {
   scope: Scope
   enabled: boolean
@@ -660,11 +747,12 @@ function IndividualRanking({
   xpColor: string | null
   attachXpTarget?: (node: HTMLElement | null) => void
   centerKey: number
+  boostPreview?: { university: string; multiplier: number; color: string } | null
 }) {
   const boostByUni = useBoostMultipliers()
   const {
     data,
-    isLoading,
+    isPending,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
@@ -885,7 +973,16 @@ function IndividualRanking({
     entries.length,
   ])
 
-  if (isLoading) return <ListSkeleton />
+  // `isPending` y no `isLoading`: son distintos justo en el caso que importa.
+  // `isLoading` es `isPending && isFetching`, así que da FALSO mientras la
+  // consulta está deshabilitada — y esta lo está hasta que existe el jugador
+  // (`enabled: player !== null`). Con `isLoading`, toda la ventana entre que
+  // abrís el juego y que vuelve el alta caía acá abajo y decía «todavía no hay
+  // ranking»: una afirmación sobre datos que nunca se pidieron. Con el back
+  // caído se quedaba ahí para siempre.
+  //
+  // El esqueleto dice lo único cierto en ese momento, que es «todavía no sé».
+  if (isPending) return <ListSkeleton />
   if (entries.length === 0) {
     return <p className="text-sm text-muted-foreground">Todavía no hay ranking.</p>
   }
@@ -952,6 +1049,15 @@ function IndividualRanking({
             }
             xpColor={entry.is_current_player ? xpColor : null}
             attachXpTarget={entry.is_current_player ? attachXpTarget : undefined}
+            // Todas las filas son de la misma universidad —la que filtró
+            // `boostPreview`— así que el multiplicador que se está por comprar
+            // es el mismo para todas: el empuje es parejo para toda la
+            // universidad, no por persona.
+            previewMultiplier={
+              boostPreview
+                ? { value: boostPreview.multiplier, color: boostPreview.color }
+                : null
+            }
           />
         ))}
       </ol>
@@ -963,38 +1069,6 @@ function IndividualRanking({
       {hasNextPage && <div ref={bottomSentinelRef} aria-hidden className="h-px" />}
     </div>
   )
-}
-
-// La fila de alguien cuya universidad tiene un empuje corriendo. Era un ☕ al
-// lado de la sigla —un ícono más en un renglón que ya tiene cinco cosas— y ahí
-// no lo miraba nadie. Ahora se pinta la fila ENTERA: un ámbar de café con luz
-// arriba, borde dorado y un resplandor tibio alrededor.
-//
-// El objetivo es la envidia, no la información. Un ícono dice "esta persona
-// tiene un empuje"; una fila que brilla entre diez apagadas dice "esta persona
-// está subiendo más rápido que vos", que es lo que hace que alguien mire cuánto
-// sale un cafecito. Por eso el color va en el fondo y no en el texto: se ve
-// desde el rabillo del ojo, sin leer.
-//
-// Todo en un solo `style` y no en clases porque los valores derivan del mismo
-// marrón de marca (BELT_HEX.brown), como el resto de lo que toca el cafecito en
-// el juego.
-
-/** La misma fila, con la intensidad atada a la fuerza del empuje de su
- *  universidad: la de alguien de una universidad en ×3 se ve más encendida que
- *  la de alguien en ×1,1.
- *
- *  El recorrido es CORTO a propósito: el relleno se mueve 5 puntos de punta a
- *  punta (7→12%) contra los 12 del chip. Son veinte filas a la vez y no cuatro
- *  chips, así que lo que allá es una escala legible acá sería una pared. Y los
- *  valores se mueven ALREDEDOR de los que ya estaban afinados a ojo —9% de
- *  relleno, 68% de borde—, no desde cero. */
-function filaConEmpuje(multiplier: number): React.CSSProperties {
-  const f = boostStrength(multiplier)
-  return {
-    backgroundColor: `color-mix(in oklab, ${AMBAR} ${7 + 5 * f}%, transparent)`,
-    "--tw-ring-color": `color-mix(in oklab, ${AMBAR} ${60 + 18 * f}%, transparent)`,
-  } as React.CSSProperties
 }
 
 // `memo` a propósito, y es de las pocas veces que hace falta teniendo el
@@ -1020,6 +1094,7 @@ const Row = memo(function Row({
   boostMultiplier,
   xpColor,
   attachXpTarget,
+  previewMultiplier = null,
 }: {
   entry: GameLeaderboardEntry
   shownRank: number
@@ -1039,6 +1114,11 @@ const Row = memo(function Row({
   // Solo la fila propia y solo mientras cuenta: el color del conteo, o null.
   xpColor?: string | null
   attachXpTarget?: (node: HTMLElement | null) => void
+  // La diapo del café tiene un slider abierto y esta fila es de la universidad
+  // que filtró: en vez de la experiencia (o el Elo) se muestra lo que ese
+  // multiplicador le daría, con el mismo color que la barra. Gana por encima de
+  // `sort`: previsualizar un empuje importa más que el orden del momento.
+  previewMultiplier?: { value: number; color: string } | null
 }) {
   const mine = entry.is_current_player
   const emoji = badgeWithCrown({
@@ -1055,7 +1135,13 @@ const Row = memo(function Row({
         "flex items-center gap-3 rounded-lg px-4 py-3 ring-1 ring-foreground/10",
         mine && MINE_ROW_CLASS,
       )}
-      style={boostMultiplier === null ? undefined : filaConEmpuje(boostMultiplier)}
+      style={
+        previewMultiplier
+          ? filaConEmpuje(previewMultiplier.value)
+          : boostMultiplier === null
+            ? undefined
+            : filaConEmpuje(boostMultiplier)
+      }
     >
       <span className="w-4 shrink-0 text-center text-sm font-semibold tabular-nums text-muted-foreground">
         {shownRank}
@@ -1086,7 +1172,19 @@ const Row = memo(function Row({
           <UniTag university={entry.university} />
         </span>
       )}
-      {sort === "elo" ? (
+      {previewMultiplier ? (
+        // Sin popover: acá no hay nada que explicar que la propia diapo del
+        // café no esté diciendo ya. El número es el mismo para las veinte
+        // filas —el empuje es parejo para toda la universidad— así que lo
+        // único que cambia entre una fila y otra es a quién pertenece.
+        <span
+          className="inline-flex shrink-0 items-center gap-1 text-sm font-semibold tabular-nums"
+          style={{ color: previewMultiplier.color }}
+        >
+          {fmtMultiplier(previewMultiplier.value)}
+          <XpDots className="size-[0.85em]" />
+        </span>
+      ) : sort === "elo" ? (
         <EloDeJugador elo={entry.elo} ranked={entry.elo_ranked} alias={entry.alias} />
       ) : (
         <XpDeJugador xp={xp} color={xpColor} attachXpTarget={attachXpTarget} />
@@ -1378,7 +1476,10 @@ function EloDeUniversidad({ row }: { row: GameUniversityRow }) {
  *
  * Sin scroll infinito ni paginado: son los reclutas de una persona, no el juego
  * entero, y el endpoint corta en cincuenta. */
-function RecruitsRanking({ enabled }: { enabled: boolean }) {
+function RecruitsRanking({
+  data,
+  myUniversity,
+}: {
   // Sin esqueleto de carga, a propósito. Los renglones de ejemplo son datos
   // FIJOS del cliente: esperar a que conteste el servidor para dibujarlos es
   // cobrarle un viaje de red a algo que ya está en el bundle, y lo único que se
@@ -1388,7 +1489,13 @@ function RecruitsRanking({ enabled }: { enabled: boolean }) {
   // de que lleguen los suyos, la primera vez de la sesión. Es un cambio de
   // relleno a contenido en la misma forma —se lee como que se completó, no como
   // que decía otra cosa— y de ahí en más el caché lo tiene resuelto.
-  const { data } = useGameRecruits(enabled)
+  //
+  // El pedido lo hace GameRanking y no acá: los mismos reclutas alimentan los
+  // indicadores de arriba (ver `recruits` ahí), así que se piden una sola vez y
+  // bajan como prop.
+  data: GameRecruits | undefined
+  myUniversity: string | null
+}) {
   return (
     // El MISMO contenedor que la vista individual, incluido el par `-mx-1 px-1`
     // que le da aire lateral al anillo de cada fila sin correr la lista.
@@ -1400,7 +1507,7 @@ function RecruitsRanking({ enabled }: { enabled: boolean }) {
     // que acá el número se elige mirando, no copiando: cinco píxeles, para que la
     // lista respire contra los filtros sin quedar despegada de ellos.
     <div className="no-scrollbar relative -mx-1 min-h-0 flex-1 overflow-y-auto overscroll-contain px-1 pt-[5px]">
-      <ListaDeReclutas entries={data?.entries ?? []} />
+      <ListaDeReclutas entries={data?.entries ?? []} university={myUniversity} />
     </div>
   )
 }
@@ -1416,7 +1523,7 @@ function UniversityRanking({
   myUniversity: string | null
   sort: RankingSort
 }) {
-  const { data, isLoading } = useGameUniversityLeaderboard(scope, enabled)
+  const { data, isPending } = useGameUniversityLeaderboard(scope, enabled)
   const boostByUni = useBoostMultipliers()
   const scrollRef = useRef<HTMLDivElement | null>(null)
   const placedRef = useRef(false)
@@ -1436,7 +1543,7 @@ function UniversityRanking({
     placedRef.current = true
   })
 
-  if (isLoading) return <ListSkeleton />
+  if (isPending) return <ListSkeleton />
   if (!data || data.rows.length === 0) {
     return (
       <p className="text-sm text-muted-foreground">

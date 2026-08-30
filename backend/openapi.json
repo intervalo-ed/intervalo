@@ -4134,6 +4134,17 @@
             ],
             "title": "Actor Level"
           },
+          "actor_b_alias": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Actor B Alias"
+          },
           "universities": {
             "items": {
               "type": "string"
@@ -4852,6 +4863,16 @@
           "share_percent": {
             "type": "integer",
             "title": "Share Percent"
+          },
+          "total_recruits": {
+            "type": "integer",
+            "title": "Total Recruits",
+            "default": 0
+          },
+          "total_xp_given": {
+            "type": "integer",
+            "title": "Total Xp Given",
+            "default": 0
           }
         },
         "type": "object",

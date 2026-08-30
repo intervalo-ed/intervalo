@@ -172,15 +172,31 @@ check(len(j["entries"]) == 1, f"un solo recluta con actividad (dio {len(j['entri
 check(j["entries"][0]["alias"] == jug_b["alias"], "y es el que jugó")
 check(j["entries"][0]["xp_given"] == recibido, "con lo que aportó")
 check("xp" not in j["entries"][0], "la XP propia del recluta no viaja")
+check(j["total_recruits"] == 1, f"el indicador de arriba cuenta a B (dio {j['total_recruits']})")
+check(j["total_xp_given"] == recibido, "y el total coincide con lo aportado")
 
-# Uno que entró por el link y nunca jugó no puede aparecer.
+# Uno que entró por el link y nunca jugó no puede aparecer en la lista, pero SÍ
+# tiene que sumar en el indicador de arriba: es un recluta igual, solo que uno
+# que todavía no aportó nada.
 tok_e, jug_e = alta(referrer_alias=jug_a["alias"])
 j = client.get(f"{API}/leaderboard/recruits", headers={"X-Game-Token": tok_a}).json()
 check(len(j["entries"]) == 1, "el que abrió el link y no jugó no ocupa un renglón")
+check(j["total_recruits"] == 2, f"pero sí cuenta en el total (dio {j['total_recruits']})")
+check(j["total_xp_given"] == recibido, "sin cambiar el total aportado: el suyo es cero")
 
 print("8. la lista de otro jugador no incluye reclutas ajenos")
 j = client.get(f"{API}/leaderboard/recruits", headers={"X-Game-Token": tok_c}).json()
 check(j["entries"] == [], "quien no reclutó a nadie ve la lista vacía")
+# jug_c no sirve para el CERO de verdad: en la sección 4 alguien se registró con
+# su @ como referrer_alias y quedó como su recluta (inactivo, nunca jugó) — así
+# que su total es 1, no 0. Para el cero de verdad hace falta alguien a quien
+# nadie haya reclutado nunca.
+check(j["total_recruits"] == 1, f"jug_c sí tiene UN recluta inactivo (dio {j['total_recruits']})")
+check(j["total_xp_given"] == 0, "que no aportó nada: nunca jugó")
+tok_nadie, jug_nadie = alta()
+j = client.get(f"{API}/leaderboard/recruits", headers={"X-Game-Token": tok_nadie}).json()
+check(j["total_recruits"] == 0, f"a quien nadie reclutó, el indicador da cero (dio {j['total_recruits']})")
+check(j["total_xp_given"] == 0, "los dos en cero, nada a medio calcular")
 
 print("9. registrarse no borra a los reclutas")
 db = database.SessionLocal()
