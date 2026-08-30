@@ -55,15 +55,27 @@ const GRIS_VOLVER = "#A1A1AA"
 // una f sin extremos en su ventana (una exponencial pura, por ejemplo) es
 // tan válida como cualquier otra— sino qué relación mirar en general.
 //
-// Partido en DOS párrafos (`\n\n`, que `MathText` respeta como salto —
-// `whitespace-pre-line`): el primero dice qué mirar, el segundo por qué. Uno
-// solo largo se leía como un bloque; separados, el segundo se lee como la
-// conclusión y no como una cláusula más de la misma oración.
-const GRAPH_CAPTION =
-  "En el siguiente gráfico están f y f' juntas. Seguilas con la mirada: " +
-  "donde f sube, f' aparece por encima del cero; donde f baja, cae por " +
-  "debajo; y donde f se aplana, f' pasa justo por el cero.\n\n" +
-  "Es la misma pendiente de f, dibujada aparte."
+// La entrada da vuelta la lectura de arriba —qué dice f' sobre f, no qué
+// mirar EN f— con la definición (la derivada como pendiente) primero, para
+// que los tres casos de GRAPH_POINTS ya sepan a qué se refieren. Van en
+// bullets y no seguidos en la misma oración: son tres casos PARALELOS —crece,
+// decrece, ni una cosa ni la otra— y una lista los deja leer de un vistazo,
+// en vez de contar tres cláusulas dentro de un mismo párrafo.
+//
+// $f(x)$/$f'(x)$ van en LaTeX y no como texto —es la misma notación que el
+// resto de la explicación, `MathText` los resuelve igual, línea por línea— y
+// lo que responde cada caso (el signo, o el cero) va en negrita: es el dato
+// nuevo de cada oración, el resto es la condición que ya se venía leyendo.
+const GRAPH_INTRO =
+  "En el siguiente gráfico están $f(x)$ y $f'(x)$ juntas. Como la derivada " +
+  "de una función representa la **pendiente**, observamos lo siguiente:"
+
+const GRAPH_POINTS = [
+  "Cuando $f(x)$ crece, $f'(x)$ es **positiva**.",
+  "Cuando $f(x)$ decrece, $f'(x)$ es **negativa**.",
+  "Cuando en $f(x)$ hay un máximo, un mínimo o una meseta, $f'(x)$ es " +
+    "igual a **0**.",
+]
 
 // Cuánto se desplaza por click o por tecla. Ni un scroll de a línea (se
 // sentiría lento contra un tier 5 largo) ni un salto de a pantalla completa
@@ -289,7 +301,11 @@ export function PorQuePanel({
               // toque más grande, que acá se lee un párrafo entero seguido y
               // no una fórmula corta.
               ? "px-3 text-[17px]"
-              : "rounded-md border border-white/10 p-4",
+              // Sin contorno: el teléfono no tiene otra caja alrededor —es su
+              // propia pantalla, no el dorso de nada— pero un borde ahí no
+              // enmarcaba nada, solo repetía el límite que ya pone la
+              // pantalla. Se queda el padding, que sigue haciendo falta.
+              : "p-4",
           )}
         >
           {isError ? (
@@ -314,17 +330,40 @@ export function PorQuePanel({
               // derivación de arriba— y el gap de siempre entre párrafos se
               // leía como una continuación más de la misma explicación.
               <div className="mt-2 flex flex-col gap-1.5">
-                {/* GRAPH_CAPTION va ACÁ, antes del gráfico: invita a mirarlo
-                    ("en el siguiente gráfico...") en vez de resumir algo que
-                    ya se vio. Mismo `MathText` (mismo tamaño, color e
-                    interlineado) que el resto de la explicación de arriba. */}
-                <MathText text={GRAPH_CAPTION} />
-                <MathGraph
-                  graphFn={graph.fn}
-                  graphFn2={graph.fn2}
-                  graphView={graph.view}
-                  graphFreeAspect
-                />
+                {/* GRAPH_INTRO + GRAPH_POINTS van ACÁ, antes del gráfico:
+                    invitan a mirarlo ("en el siguiente gráfico...") en vez
+                    de resumir algo que ya se vio. Mismo `MathText` (mismo
+                    tamaño, color e interlineado) que el resto de la
+                    explicación de arriba, uno por renglón de la lista.
+
+                    `gap-2`/`space-y-2` propios y no el `gap-1.5` del
+                    contenedor: son CUATRO afirmaciones distintas —la entrada
+                    y los tres casos— y con el gap chico de siempre se leían
+                    pegadas, como si fueran un solo bloque en vez de cuatro
+                    ideas separadas. */}
+                <div className="flex flex-col gap-2">
+                  <MathText text={GRAPH_INTRO} />
+                  <ul className="list-disc space-y-2 pl-5">
+                    {GRAPH_POINTS.map((punto) => (
+                      <li key={punto}>
+                        <MathText text={punto} />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                {/* `mt-4` propio: ninguno de los dos componentes toma
+                    className, así que el aire entre los bullets y el
+                    gráfico se agrega acá y no en el `gap-1.5` del
+                    contenedor —que también separa el gráfico de la
+                    leyenda de abajo, y esa distancia no había que tocarla. */}
+                <div className="mt-4">
+                  <MathGraph
+                    graphFn={graph.fn}
+                    graphFn2={graph.fn2}
+                    graphView={graph.view}
+                    graphFreeAspect
+                  />
+                </div>
                 {/* Leyenda de colores: sin ella, dos curvas nuevas en un
                     componente pensado para una sola no dicen cuál es cuál.
                     La fórmula real y no un genérico "f(x)"/"f'(x)": con dos
