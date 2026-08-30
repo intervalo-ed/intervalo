@@ -38,7 +38,7 @@ import {
 import { KeyCap } from "./exercise-card"
 import { CLASE_ACCION_EN_EL_PIE, claseDeSalida, Salida } from "./slide-salida"
 import { useCta } from "./game-telemetry"
-import { useTeclas } from "./teclas"
+import { enCampoDeTexto, useTeclas } from "./teclas"
 
 // Marrón de marca. `solid` para el relleno del botón —es el que tiene contraste
 // suficiente con texto blanco encima— y `onDark` para todo lo que es tinta
@@ -46,8 +46,12 @@ import { useTeclas } from "./teclas"
 const CAFE = BELT_HEX.brown.solid
 const CAFE_TINTA = BELT_HEX.brown.onDark
 
-// Cuánto tarda en habilitarse el botón de seguir.
-const COOLDOWN_S = 10
+// Cuánto tarda en habilitarse el botón de seguir. En cero en desarrollo —
+// misma guarda que CAFECITO_COOLDOWN (cafecito-cta.tsx)—: probar el resto del
+// juego con esta diapo en el medio no tiene por qué costar diez segundos cada
+// vez.
+const EN_DESARROLLO = process.env.NODE_ENV === "development"
+const COOLDOWN_S = EN_DESARROLLO ? 0 : 10
 
 // Espejo de backend/game/boosts.py. Se duplican para poder dibujar el slider sin
 // pedirle nada al servidor: el multiplicador de verdad lo calcula y lo aplica
@@ -71,12 +75,12 @@ const multiplierFor = (n: number) => Math.min(MAX_PER_DONATION, 1 + n * CAFECITO
 const minutesFor = (n: number) =>
   multiplierFor(n) >= MAX_PER_DONATION ? BOOST_MINUTES_MAX : BOOST_MINUTES
 
-// La barra arranca en el MEDIO y no en uno. Arrancando en el mínimo, el número
-// que se lee al llegar es el más chico que se puede invitar, y mover la barra
-// queda planteado como "poné más"; desde el medio, la barra ya está en una
-// oferta razonable y se puede ir para los dos lados. Es la misma razón por la
-// que las propinas sugeridas nunca empiezan en la más baja.
-const SLIDER_INICIAL = Math.round(SLIDER_MAX / 2)
+// La barra arranca LLENA y no en uno. Arrancando en el mínimo, el número que
+// se lee al llegar es el más chico que se puede invitar, y mover la barra
+// queda planteado como "poné más"; llena de entrada, lo que se ofrece de
+// arranque es lo más generoso que esta persona puede hacer sola (el tope de
+// MAX_PER_DONATION), y mover la barra pasa a ser "achicar" en vez de "agrandar".
+const SLIDER_INICIAL = SLIDER_MAX
 
 // El movimiento es un desplazamiento FUGAZ, no un resorte: 110 ms con salida
 // suave. El resorte de antes tenía rebote, y con una barra de diez pasos ese
@@ -332,7 +336,7 @@ function PanelDeVuelta({
   estado,
   pedidos,
   keyboard,
-  slotAccion,
+  slotSalida,
   onContinue,
 }: {
   estado: GameCafecitoStatus
@@ -341,7 +345,7 @@ function PanelDeVuelta({
   // en singular a quien pidió cinco.
   pedidos: number
   keyboard: boolean
-  slotAccion?: HTMLElement | null
+  slotSalida?: HTMLElement | null
   onContinue: () => void
 }) {
   const sfx = useSfx()
@@ -361,6 +365,10 @@ function PanelDeVuelta({
     if (!keyboard) return
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== "Enter") return
+      // Escribiendo en el chat, un Enter es un Enter. Este listener vive en
+      // `document` y la diapo puede estar abierta con el aside volteado al chat,
+      // así que sin esto un enter a mitad de una palabra saltaba de pantalla.
+      if (enCampoDeTexto(e.target)) return
       e.preventDefault()
       onContinue()
     }
@@ -421,26 +429,27 @@ function PanelDeVuelta({
       )}
 
       {/* Este botón sale de la caja de color: al pie de la columna en escritorio,
-          debajo de la diapo en el teléfono. En los dos casos queda gris.
+          debajo de la diapo en el teléfono. En los dos casos, blanco — el mismo
+          Continuar que el resto del juego, no el gris de "salir sin elegir nada"
+          (claseDeSalida): acá no hay una segunda opción compitiendo al lado, así
+          que no hace falta bajarle el volumen.
 
           Pierde el marrón de marca, y es una pérdida real: esta es la única
           pantalla del juego que llega después de que alguien pagó, y ahí el color
           hacía de festejo. Se paga a cambio de que el botón con el que se sigue
           esté SIEMPRE en el mismo lugar, que es lo que hace que la diapo se lea
           como una pausa adentro del juego y no como otra pantalla. */}
-      <Salida slot={slotAccion}>
+      <Salida slot={slotSalida}>
         <button
           type="button"
           onClick={() => {
             sfx.select()
             onContinue()
           }}
-          className={
-            slotAccion
-              ? claseDeSalida(true)
-              : "mt-6 flex w-full items-center justify-center rounded-md px-4 py-3 text-base font-semibold text-white transition-opacity hover:opacity-90"
-          }
-          style={slotAccion ? undefined : { backgroundColor: CAFE }}
+          className={cn(
+            "flex w-full items-center justify-center rounded-md bg-white text-base font-semibold text-black transition-colors hover:bg-white/90",
+            slotSalida ? "h-[var(--cta-h)]" : "mt-6 px-4 py-3",
+          )}
         >
           Continuar
           {keyboard && <KeyCap>{teclas.enter}</KeyCap>}
@@ -540,6 +549,21 @@ export function CafecitoPanel({
   const [volvio, setVolvio] = useState(false)
   const estado = useCafecitoStatus(seFue)
 
+  // ¿El cartel de vuelta está EN PANTALLA? Una sola definición, porque la usan
+  // dos lugares que TIENEN que coincidir: qué se dibuja y quién se queda con el
+  // Enter.
+  //
+  // Estuvieron desincronizados y el síntoma era feo: el render pedía las tres
+  // condiciones y la guarda del Enter miraba solo `volvio`, así que en cuanto
+  // alguien abría Cafecito y volvía —sin invitar, que es lo más común, o
+  // simplemente antes de que llegara el estado— la pantalla seguía mostrando la
+  // oferta de siempre y su Enter ya no existía. Las teclas quedaban muertas en
+  // esta diapo y en ninguna otra, hasta salir de ella.
+  //
+  // `volvio` solo dice que la persona volvió a la pestaña. Eso pasa mucho antes
+  // —y muchas más veces— que tener algo que contarle.
+  const cartelDeVuelta = volvio && estado !== null && estado.state !== "none"
+
   useEffect(() => {
     if (!seFue) return
     const alVolver = () => {
@@ -581,7 +605,7 @@ export function CafecitoPanel({
   useEffect(() => {
     invitarRef.current = invitar
   })
-  // El volteo dura unos 380 ms y durante ese rato la diapo que se va sigue
+  // El cambio de diapo dura unos 220 ms y durante ese rato la que se va sigue
   // montada junto a la que entra (así funciona AnimatePresence, ver
   // slide-flip.tsx). Si en ese instante llega un Enter, las dos lo escuchan y se
   // piden DOS derivadas: la segunda se sirve y se descarta sin que nadie la vea.
@@ -593,9 +617,13 @@ export function CafecitoPanel({
     // de la oferta siguen corriendo aunque su JSX ya no se dibuje —viven en el
     // cuerpo del componente— así que sin esta guarda los dos escuchan la misma
     // tecla y `onContinue` se dispara dos veces.
-    if (volvio) return
+    if (cartelDeVuelta) return
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== "Enter") return
+      // Escribiendo en el chat, un Enter es un Enter. Este listener vive en
+      // `document` y la diapo puede estar abierta con el aside volteado al chat,
+      // así que sin esto un enter a mitad de una palabra saltaba de pantalla.
+      if (enCampoDeTexto(e.target)) return
       e.preventDefault()
       if (e.shiftKey) {
         if (university !== null) invitarRef.current()
@@ -607,7 +635,7 @@ export function CafecitoPanel({
     }
     document.addEventListener("keydown", onKey)
     return () => document.removeEventListener("keydown", onKey)
-  }, [keyboard, listo, onContinue, university, volvio])
+  }, [keyboard, listo, onContinue, university, cartelDeVuelta])
 
   return (
     <div
@@ -622,12 +650,12 @@ export function CafecitoPanel({
         borderColor: `color-mix(in oklab, ${CAFE_TINTA} 45%, transparent)`,
       }}
     >
-      {volvio && estado !== null && estado.state !== "none" ? (
+      {cartelDeVuelta ? (
         <PanelDeVuelta
           estado={estado}
           pedidos={n}
           keyboard={keyboard}
-          slotAccion={slotAccion}
+          slotSalida={slotSalida}
           onContinue={onContinue}
         />
       ) : (

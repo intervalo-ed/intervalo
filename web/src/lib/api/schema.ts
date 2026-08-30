@@ -194,6 +194,34 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/game/derivemos/explain": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Explain Exercise
+         * @description El «¿Por qué?»: de dónde salía esta derivada.
+         *
+         *     La explicación termina con la derivada escrita, así que este endpoint
+         *     REGALA la respuesta. Por eso el candado del punto 2 no es una formalidad: la
+         *     interfaz tampoco ofrece el botón antes del primer intento, pero eso lo
+         *     decide el cliente y acá también manda el servidor.
+         *
+         *     Leerlo con el ejercicio abierto le baja la recompensa a XP_EXPLICADO. Leerlo
+         *     con el ejercicio ya acertado no cuesta nada — no queda nada que cobrar.
+         */
+        post: operations["explain_exercise_game_derivemos_explain_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/game/derivemos/leaderboard/pulse": {
         parameters: {
             query?: never;
@@ -227,12 +255,20 @@ export interface paths {
         };
         /**
          * Game Events Feed
-         * @description Historial de lo que va pasando: cafecitos, registros, escaladas, rachas y
-         *     universidades que se pasan entre sí.
+         * @description Historial de lo que va pasando, más los mensajes del chat.
          *
-         *     Es un feed SOLO del sistema —ninguna línea la escribe un usuario— así que no
-         *     hay nada que moderar. Con `after_id` devuelve únicamente lo nuevo, que es lo
-         *     que hace que sondearlo cada pocos segundos no cueste nada.
+         *     Los `events` son SOLO del sistema —ninguna línea la escribe un usuario— y por
+         *     eso no hay nada que moderar ahí. Los `messages` sí los escribe la gente y
+         *     viven en otra tabla, con su propio saneado (ver chat.py); van en la misma
+         *     respuesta porque el chat entero se apoya en eso: no hay un sondeo nuevo, hay
+         *     un campo nuevo en el que ya corría cada ocho segundos.
+         *
+         *     Dos cursores y dos ventanas, no una mezclada. Compartiendo las cuarenta filas,
+         *     una racha de chat empujaría fuera de pantalla el anuncio de que alguien invitó
+         *     cafecitos, que es el que mueve donaciones.
+         *
+         *     Con los dos cursores devuelve únicamente lo nuevo, que es lo que hace que
+         *     sondearlo cada pocos segundos no cueste nada.
          */
         get: operations["game_events_feed_game_derivemos_events_get"];
         put?: never;
@@ -256,6 +292,39 @@ export interface paths {
          *     poblar el filtro (esas van siempre sin scope).
          */
         get: operations["game_leaderboard_summary_game_derivemos_leaderboard_summary_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/game/derivemos/stats": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Game Stats Endpoint
+         * @description Estadísticas del jugador para el panel que abre la tecla `p` en
+         *     escritorio (ver web/src/app/derivadas/elo-stats-panel.tsx): dónde está el
+         *     Elo del jugador contra la masa de jugadores calificados, más la tabla de
+         *     derivadas con Elo de desbloqueo y accuracy personal (game/stats.py).
+         *
+         *     El servidor repite acá el gate de visibilidad —no confía en que el
+         *     cliente lo haya respetado— porque acá también manda el server, como en el
+         *     resto del juego.
+         *
+         *     Rate limit propio y no compartido con los demás GET del ranking: esto
+         *     agrega sobre TODOS los jugadores calificados (crece con la base entera,
+         *     sin techo) más el historial completo del jugador — más parecido en costo
+         *     a `/leaderboard/universities` que a `/me`, y lo dispara una tecla que
+         *     cualquiera puede mantener apretada.
+         */
+        get: operations["game_stats_endpoint_game_derivemos_stats_get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -297,11 +366,15 @@ export interface paths {
         };
         /**
          * Game Leaderboard
-         * @description Espejo del /leaderboard principal sobre game_players: orden canónico
-         *     (xp DESC, id ASC), solo jugadores con xp > 0 más el propio jugador.
+         * @description Espejo del /leaderboard principal sobre game_players: solo jugadores con
+         *     xp > 0 más el propio jugador, ordenados por XP (canónico) o por Elo.
          *
          *     `university` y `career` acotan el scope igual que en el principal: el rank,
          *     los totales y la página se calculan todos dentro del scope elegido.
+         *
+         *     El orden NO cambia quiénes entran, solo en qué orden salen: el total y la
+         *     visibilidad son los mismos en los dos, así que cambiar de orden mueve a la
+         *     gente de puesto pero no la saca de la tabla.
          */
         get: operations["game_leaderboard_game_derivemos_leaderboard_get"];
         put?: never;
@@ -357,6 +430,32 @@ export interface paths {
          * @description Merge explícito guest→user tras el registro. Idempotente.
          */
         post: operations["link_player_game_derivemos_link_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/game/derivemos/message": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Post Message
+         * @description Deja un mensaje en el chat.
+         *
+         *     Hasta tres mensajes por minuto por jugador, y ese tope es parte del diseño
+         *     y no una protección: el pedido era «dejar un mensaje cada cierto tiempo»,
+         *     no ahogar una conversación de ida y vuelta. Lo aplica
+         *     `limits.por_jugador(3)`, que devuelve 429 con Retry-After. Quién puede
+         *     escribir lo decide `_puede_escribir`, que corre antes (ver ahí por qué).
+         */
+        post: operations["post_message_game_derivemos_message_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -904,6 +1003,32 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/webhooks/resend-inbound": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Resend Inbound Webhook
+         * @description Recibe el webhook email.received de Resend y reenvía el mail al buzón
+         *     real (ver inbound_forward.py).
+         *
+         *     Async y con el reenvío en threadpool: el SDK de Resend es bloqueante y una
+         *     llamada lenta colgaría el event loop para toda la app. Ante un fallo se
+         *     responde 500 a propósito — Resend reintenta con backoff y el mail nunca se
+         *     pierde (queda guardado en Resend igual).
+         */
+        post: operations["resend_inbound_webhook_webhooks_resend_inbound_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/leaderboard": {
         parameters: {
             query?: never;
@@ -1409,7 +1534,7 @@ export interface components {
             /** Attempt Number */
             attempt_number: number;
             /** Attempts Left */
-            attempts_left: number;
+            attempts_left?: number | null;
             /** Feedback Incorrect */
             feedback_incorrect?: string | null;
             /** Xp Awarded */
@@ -1555,6 +1680,16 @@ export interface components {
         GameEventsResponse: {
             /** Events */
             events: components["schemas"]["GameEventOut"][];
+            /**
+             * Chat Enabled
+             * @default false
+             */
+            chat_enabled: boolean;
+            /**
+             * Messages
+             * @default []
+             */
+            messages: components["schemas"]["GameMessageOut"][];
         };
         /** GameExerciseOut */
         GameExerciseOut: {
@@ -1578,6 +1713,35 @@ export interface components {
              * @default []
              */
             new_keys: string[];
+        };
+        /**
+         * GameExplainOut
+         * @description La explicación del «¿Por qué?», en el mismo MathText que el banco de
+         *     Intervalo: prosa con `$…$` y bloques `$$…$$`.
+         */
+        GameExplainOut: {
+            /** Explanation */
+            explanation: string;
+            /**
+             * Costs Xp
+             * @default false
+             */
+            costs_xp: boolean;
+            /** Graph Fn */
+            graph_fn: string;
+            /** Graph Fn2 */
+            graph_fn2: string;
+            /** Graph Fn Latex */
+            graph_fn_latex: string;
+            /** Graph Fn2 Latex */
+            graph_fn2_latex: string;
+            /** Graph View */
+            graph_view: number[];
+        };
+        /** GameExplainRequest */
+        GameExplainRequest: {
+            /** Exercise Id */
+            exercise_id: number;
         };
         /** GameLeaderboardEntry */
         GameLeaderboardEntry: {
@@ -1604,6 +1768,16 @@ export interface components {
              * @default 0
              */
             level: number;
+            /**
+             * Elo
+             * @default 0
+             */
+            elo: number;
+            /**
+             * Elo Ranked
+             * @default false
+             */
+            elo_ranked: boolean;
             /**
              * Rank Delta
              * @default 0
@@ -1641,6 +1815,37 @@ export interface components {
             exercises: number;
             /** Universities */
             universities: string[];
+            /** Elo Avg */
+            elo_avg?: number | null;
+        };
+        /** GameMessageIn */
+        GameMessageIn: {
+            /** Text */
+            text: string;
+        };
+        /**
+         * GameMessageOut
+         * @description Un mensaje del chat. Trae el @ y la universidad DE CUANDO SE ESCRIBIÓ, no
+         *     los de hoy: ver el docstring de GameMessage en models.py.
+         */
+        GameMessageOut: {
+            /** Id */
+            id: number;
+            /** Alias */
+            alias: string;
+            /** Level */
+            level: number;
+            /** University */
+            university?: string | null;
+            /** Text */
+            text: string;
+            /**
+             * Is Mine
+             * @default false
+             */
+            is_mine: boolean;
+            /** Seconds Ago */
+            seconds_ago: number;
         };
         /** GamePlayerCreateRequest */
         GamePlayerCreateRequest: {
@@ -1683,6 +1888,11 @@ export interface components {
             career?: string | null;
             /** Is Guest */
             is_guest: boolean;
+            /**
+             * Alias Is Generated
+             * @default true
+             */
+            alias_is_generated: boolean;
             /**
              * Level
              * @default 0
@@ -1760,6 +1970,91 @@ export interface components {
         GameSkipRequest: {
             /** Exercise Id */
             exercise_id: number;
+        };
+        /** GameStatsGeneral */
+        GameStatsGeneral: {
+            /** Exercises Correct */
+            exercises_correct: number;
+            /** Exercises Attempted */
+            exercises_attempted: number;
+            /** Accuracy Overall */
+            accuracy_overall?: number | null;
+            /** Best Combo */
+            best_combo: number;
+            /** Best Rank */
+            best_rank?: number | null;
+            /** Days Playing */
+            days_playing: number;
+            /** Xp */
+            xp: number;
+            /**
+             * Xp From Referrals
+             * @default 0
+             */
+            xp_from_referrals: number;
+            /**
+             * Cafecitos Universidad
+             * @default 0
+             */
+            cafecitos_universidad: number;
+        };
+        /**
+         * GameStatsHistogramBucket
+         * @description Un escalón del histograma de Elo (ver game/stats.py :: _histograma).
+         */
+        GameStatsHistogramBucket: {
+            /** From Rating */
+            from_rating: number;
+            /** To Rating */
+            to_rating: number;
+            /** Count */
+            count: number;
+        };
+        /**
+         * GameStatsOut
+         * @description Payload de GET /stats: el Elo del jugador contra la masa de jugadores
+         *     calificados, más la tabla de derivadas enriquecida con Elo de desbloqueo
+         *     y accuracy personal (ver game/stats.py).
+         */
+        GameStatsOut: {
+            /** N Rated Players */
+            n_rated_players: number;
+            /** Enough For Histogram */
+            enough_for_histogram: boolean;
+            /**
+             * Histogram
+             * @default []
+             */
+            histogram: components["schemas"]["GameStatsHistogramBucket"][];
+            /** Player Rating */
+            player_rating: number;
+            /** Player Bucket Index */
+            player_bucket_index?: number | null;
+            /** Percentile */
+            percentile?: number | null;
+            general: components["schemas"]["GameStatsGeneral"];
+            /** Rows */
+            rows: components["schemas"]["GameStatsRow"][];
+        };
+        /**
+         * GameStatsRow
+         * @description Una fila de la tabla de derivadas, con las dos columnas que agrega el
+         *     panel de estadísticas (ver game/stats.py :: ROW_TEMPLATES).
+         */
+        GameStatsRow: {
+            /** Slug */
+            slug: string;
+            /** Unlock Elo */
+            unlock_elo?: number | null;
+            /** Accuracy */
+            accuracy?: number | null;
+            /**
+             * Sample
+             * @default 0
+             */
+            sample: number;
+            /** Avg Response Ms */
+            avg_response_ms?: number | null;
         };
         /** GameUniversityLeaderboardResponse */
         GameUniversityLeaderboardResponse: {
@@ -2667,6 +2962,42 @@ export interface operations {
             };
         };
     };
+    explain_exercise_game_derivemos_explain_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+                "x-game-token"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["GameExplainRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GameExplainOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     game_pulse_game_derivemos_leaderboard_pulse_get: {
         parameters: {
             query?: never;
@@ -2703,6 +3034,7 @@ export interface operations {
         parameters: {
             query?: {
                 after_id?: number;
+                after_msg_id?: number;
             };
             header?: {
                 authorization?: string;
@@ -2768,6 +3100,38 @@ export interface operations {
             };
         };
     };
+    game_stats_endpoint_game_derivemos_stats_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+                "x-game-token"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GameStatsOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     game_university_leaderboard_game_derivemos_leaderboard_universities_get: {
         parameters: {
             query?: {
@@ -2811,6 +3175,7 @@ export interface operations {
                 limit?: number;
                 offset?: number;
                 around_me?: boolean;
+                sort?: string;
             };
             header?: {
                 authorization?: string;
@@ -2892,6 +3257,42 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["GamePlayerOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    post_message_game_derivemos_message_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+                "x-game-token"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["GameMessageIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GameMessageOut"];
                 };
             };
             /** @description Validation Error */
@@ -3806,6 +4207,26 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    resend_inbound_webhook_webhooks_resend_inbound_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
                 };
             };
         };

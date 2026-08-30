@@ -9,11 +9,13 @@
 //
 // Es un `filter` sobre el contenido y no una capa con `backdrop-filter` encima,
 // que era lo primero que había. La capa andaba en el historial y en la barra del
-// @, pero en el ranking no dibujaba nada: vive adentro de la card que se voltea
-// (FlipCard, derivatives-table.tsx), y un ancestro con `transform-style:
-// preserve-3d` corta el fondo que `backdrop-filter` tiene para muestrear. Con el
-// filtro sobre el contenido el resultado es el mismo y no depende de qué
-// transformaciones tenga encima.
+// @, pero en el ranking no dibujaba nada: entonces esa card cambiaba de cara
+// girando en 3D, y un ancestro con `transform-style: preserve-3d` corta el fondo
+// que `backdrop-filter` tiene para muestrear. Ese impedimento ya no existe —el
+// cambio de cara es un fundido (derivatives-table.tsx :: FlipCard)— pero el
+// filtro sobre el contenido se queda igual: da el mismo resultado y no depende
+// de qué transformaciones tenga encima, que es una condición que no hay que
+// volver a tener que cumplir.
 //
 // Tres píxeles. Estuvo en uno y medio, elegido para que el historial —renglones
 // de 11px— siguiera siendo legible, y eso resultó ser el error: si se puede leer,

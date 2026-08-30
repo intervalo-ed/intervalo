@@ -86,9 +86,15 @@ function DataItem({ name, why }: { name: string; why: string }) {
 
 export function PrivacidadContent({
   compact = false,
+  condensedIntro = false,
   onCrossLink,
 }: {
   compact?: boolean
+  // Para paneles angostos que priorizan que el índice entre sin scroll (el
+  // dorso de privacidad del minijuego, en el aside de escritorio): omite el
+  // segundo párrafo de "Lo esencial" — la única referencia cruzada a los
+  // términos de esta sección.
+  condensedIntro?: boolean
   onCrossLink?: () => void
 }) {
   return (
@@ -105,15 +111,17 @@ export function PrivacidadContent({
           </span>{" "}
           Y podés pedirnos verlos, corregirlos o borrarlos cuando quieras.
         </p>
-        <p className={P_CLASS}>
-          El resto de esta página explica eso mismo con detalle, sin letra
-          chica: qué guardamos, para qué, y qué derechos tenés. Y las reglas
-          para usar Intervalo viven en los{" "}
-          <CrossLink href="/terminos" onCrossLink={onCrossLink}>
-            términos y condiciones
-          </CrossLink>
-          , de los que esta política es parte.
-        </p>
+        {!condensedIntro && (
+          <p className={P_CLASS}>
+            El resto de esta página explica eso mismo con detalle, sin letra
+            chica: qué guardamos, para qué, y qué derechos tenés. Y las reglas
+            para usar Intervalo viven en los{" "}
+            <CrossLink href="/terminos" onCrossLink={onCrossLink}>
+              términos y condiciones
+            </CrossLink>
+            , de los que esta política es parte.
+          </p>
+        )}
         <LegalIndex
           items={[
             { href: "#datos", label: "Qué datos guardamos" },
@@ -164,6 +172,22 @@ export function PrivacidadContent({
               why="El feedback y los reportes de ejercicios que mandás desde la app. Los leemos para arreglar lo que está mal."
             />
           </div>
+
+          <div className="flex flex-col gap-3.5">
+            <h3 className={H3_CLASS}>Si jugás /derivadas</h3>
+            <DataItem
+              name="Si jugás sin cuenta"
+              why="Te asignamos un @ al azar y lo guardamos en tu navegador para reconocerte la próxima vez. No hace falta ninguna cuenta para jugar."
+            />
+            <DataItem
+              name="Tu nivel y tus mensajes"
+              why="Tu nivel de dificultad (Elo) sube y baja con tus respuestas, y lo que escribís en el chat del juego queda guardado y es público para el resto de los jugadores."
+            />
+            <DataItem
+              name="Cafecitos y reclutas"
+              why="Si activás un cafecito, guardamos que lo activaste y cuánto dura el empuje a tu universidad — el pago lo procesa cafecito.app, no nosotros. Y si entraste por el link de otro jugador, o alguien entró por el tuyo, guardamos esa relación para pagar la XP compartida."
+            />
+          </div>
         </div>
       </Section>
 
@@ -207,7 +231,8 @@ export function PrivacidadContent({
           <p className={P_CLASS}>
             Tu nombre de usuario, tu universidad y tu experiencia aparecen en
             el ranking, visibles para otros usuarios: es la parte del juego de
-            bancar a tu universidad.{" "}
+            bancar a tu universidad — y, si jugás el minijuego, lo que
+            escribís en su chat.{" "}
             <span className={STRONG_CLASS}>
               Tu nombre real y tu email no se muestran nunca.
             </span>

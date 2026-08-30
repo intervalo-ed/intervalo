@@ -47,10 +47,10 @@ export function useAnswerExercise() {
       // el teléfono no tiene tabla y nunca lo manda.
     }) => unwrap(await api.POST("/game/derivemos/answer", { body: { peeked: false, ...body } })),
     onSuccess: (data) => {
-      // Solo el jugador. El ranking lo invalida el layout cuando TERMINA de
-      // caer el confeti (ver xp-burst.tsx): si se refrescara acá, la fila
-      // propia estrenaría puesto y XP antes de que llegue la primera bolita y
-      // el festejo se quedaría sin nada que contar.
+      // Solo el jugador. El ranking lo invalida el layout cuando TERMINA el
+      // conteo de XP (ver xp-conteo.ts): si se refrescara acá, la fila propia
+      // estrenaría puesto y XP antes del primer paso del conteo y el festejo se
+      // quedaría sin nada que contar.
       //
       // Refresca con TODA respuesta que el parser entendió, no solo con las
       // correctas. Los tres marcadores de la card se mueven igual al errar: en

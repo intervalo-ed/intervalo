@@ -80,3 +80,56 @@ const enElServidor = () => PC
 export function useTeclas(): Teclas {
   return useSyncExternalStore(SIN_SUSCRIPCION, enElCliente, enElServidor)
 }
+
+/** ¿El destino del teclazo es un campo de TEXTO LIBRE? Ahí una letra es una
+ *  letra y ningún atajo del juego puede pisarla.
+ *
+ *  Cubre los campos por su tag (el @ del registro, la universidad "otra") y los
+ *  desplegables por su rol: los filtros del ranking no son un `<select>` nativo
+ *  sino un `<button role="combobox">` con su lista aparte
+ *  (components/ui/select.tsx, sobre Base UI), así que el tag no alcanza. Sin esa
+ *  última parte, elegir una universidad con Enter caía en el handler del juego:
+ *  el filtro no se aplicaba y encima se mandaba la respuesta a medio escribir.
+ *
+ *  El campo de la RESPUESTA no está acá y es a propósito. Es un
+ *  `<math-field>` contenteditable, pero no es texto libre: lo que se escribe ahí
+ *  es matemática, y en este juego la variable es siempre `x`. Quien decide si un
+ *  atajo puede robarle una tecla es cada handler, mirando qué tecla es — ver el
+ *  listener de `w` y `c`. */
+// Tipos de `<input>` en los que NO se escribe: se arrastran, se tildan o se
+// tocan. La lista va por exclusión y no al revés —enumerar los que sí son texto—
+// porque un tipo que nadie previó tiene que caer del lado seguro, que es
+// «tratalo como texto y no le robes la tecla».
+//
+// Existe por un caso concreto y medido: la diapo del cafecito le da el foco a su
+// slider al abrirse (cafecito-panel.tsx), así que con el slider contando como
+// campo de texto TODA esa pantalla se quedaba sin Enter — y solo esa, porque es
+// la única con un control así. El síntoma era desconcertante: no andaba al
+// llegar, y andaba después de irse a otra ventana y volver, porque el clic de
+// vuelta desenfocaba el slider.
+const NO_SE_ESCRIBE = new Set([
+  "range",
+  "checkbox",
+  "radio",
+  "button",
+  "submit",
+  "reset",
+  "file",
+  "color",
+  "image",
+])
+
+export function enCampoDeTexto(target: EventTarget | null): boolean {
+  const el = target as HTMLElement | null
+  const tag = el?.tagName
+  if (tag === "INPUT") {
+    return !NO_SE_ESCRIBE.has((el as HTMLInputElement).type)
+  }
+  if (tag === "TEXTAREA" || tag === "SELECT") return true
+  // El destino de un keydown casi siempre es un elemento, pero no siempre: si el
+  // foco está en el `body` o el evento se despacha sobre el documento, `closest`
+  // no existe y llamarlo tira. Y una excepción acá no rompe una línea, rompe el
+  // atajo entero — el listener muere antes de decidir nada.
+  if (typeof el?.closest !== "function") return false
+  return !!el.closest('[role="combobox"], [role="listbox"], [role="option"]')
+}

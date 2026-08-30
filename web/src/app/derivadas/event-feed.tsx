@@ -25,7 +25,9 @@ const STICK_SLACK_PX = 24
 // recorta a lo que se puede leer sin que el panel se vuelva un pozo de scroll.
 const SHOWN = 12
 
-function fmtAgo(seconds: number): string {
+/** «recién» / «12 min» / «3 h» / «2 d». Lo usa también el chat, que muestra la
+ *  misma clase de renglón. */
+export function fmtAgo(seconds: number): string {
   if (seconds < 60) return "recién"
   const min = Math.floor(seconds / 60)
   if (min < 60) return `${min} min`

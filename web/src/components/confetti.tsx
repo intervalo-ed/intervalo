@@ -103,17 +103,18 @@ export type Collect = {
   onArrive?: (index: number, progress: number) => void
 }
 
-// Exportados para `OrbDrop` (components/orb-drop.tsx), que tiene otra física
-// pero el MISMO imán. No es reutilizar por reutilizar: esta rampa ES el ritmo
-// del conteo de XP —cada llegada es un tick— y si los dos festejos contaran a
-// velocidades distintas se oiría que son dos cosas distintas.
-export const SEEK_MS = 420
+// `collectSchedule` se exporta además para el festejo del minijuego de derivadas
+// (app/derivadas/xp-conteo.ts), que ya no tiene partículas pero cuenta la XP con
+// esta misma rampa. No es reutilizar por reutilizar: esta rampa ES el ritmo del
+// conteo —cada paso es un tick— y si los dos festejos contaran a velocidades
+// distintas se oiría que son dos cosas distintas.
+const SEEK_MS = 420
 const RAMP_FIRST_MS = 200
 const RAMP_DECAY = 0.82
 const RAMP_MIN_MS = 45
 const COLLECT_START_MS = 300
 
-export function easeInOut(t: number) {
+function easeInOut(t: number) {
   return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2
 }
 

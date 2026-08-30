@@ -92,3 +92,44 @@ export function saveUltimoPedidoAt(solvedCount: number) {
     window.localStorage.setItem(CAFECITO_LAST_KEY, String(solvedCount))
   } catch {}
 }
+
+// Cuándo se mandaron los últimos mensajes al chat, en milisegundos de época —
+// los que todavía cuentan para el tope de frecuencia. Guarda una LISTA y no un
+// solo instante porque el tope de verdad (limits.por_jugador en el backend,
+// hoy tres por minuto) es una ventana corrediza: alcanza con no haber mandado
+// tres en el último minuto, no con haber esperado un minuto entero desde el
+// anterior.
+//
+// Clave propia y no la de arriba: aquella cuenta DERIVADAS RESUELTAS y sirve
+// para espaciar interrupciones; esta cuenta tiempo de reloj y sirve para que el
+// botón sepa que el servidor va a rechazar el próximo mensaje. Son dos cosas
+// distintas que se miden en unidades distintas.
+//
+// Es una copia del tope que manda de verdad: si se pierde —otro navegador,
+// borrar datos— no pasa nada, el servidor contesta 429 igual. Lo único que se
+// pierde es poder avisarlo antes.
+const CHAT_SENDS_KEY = "intervalo:game:chat-sends"
+
+export function readEnviosRecientes(): number[] {
+  if (typeof window === "undefined") return []
+  try {
+    const raw = window.localStorage.getItem(CHAT_SENDS_KEY)
+    if (raw === null) return []
+    const parsed: unknown = JSON.parse(raw)
+    return Array.isArray(parsed)
+      ? parsed.filter((n): n is number => typeof n === "number")
+      : []
+  } catch {
+    return []
+  }
+}
+
+/** Registra un envío y de paso poda los que ya salieron de la ventana — así
+ *  la lista no crece para siempre en una sesión larga. */
+export function registrarEnvio(at: number, ventanaMs: number) {
+  try {
+    const vigentes = readEnviosRecientes().filter((t) => t > at - ventanaMs)
+    vigentes.push(at)
+    window.localStorage.setItem(CHAT_SENDS_KEY, JSON.stringify(vigentes))
+  } catch {}
+}

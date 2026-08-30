@@ -4,9 +4,18 @@
 // así que mostrar todo el vocabulario matemático de golpe abruma en vez de
 // ayudar. Son dos zonas:
 //
-//   · Un bloque FIJO que nunca cambia de forma — numérico a la derecha (con el
-//     borrar-todo a la izquierda del 0 y el retroceso a su derecha), las cuatro
-//     operaciones al centro, y paréntesis y flechas a la izquierda.
+//   · Un bloque FIJO que nunca cambia de forma — numérico a la IZQUIERDA (con
+//     el borrar-todo a la izquierda del 0 y el retroceso a su derecha), y a su
+//     derecha los paréntesis y las flechas, con las cuatro operaciones contra
+//     el borde.
+//
+//     Ese orden no es una preferencia de diseño: es el de la calculadora
+//     científica que todo el mundo tuvo en la mano antes de llegar acá (una
+//     Casio fx-991 o cualquiera de sus clones). Ahí los dígitos ocupan las tres
+//     columnas de la izquierda y `× ÷ + −` son las dos columnas del borde
+//     derecho, y esa es la única disposición de teclas matemáticas que un
+//     estudiante ya tiene aprendida en el dedo. Estaba espejada, y hacerle
+//     buscar el `+` es cobrarle un impuesto por algo que ya sabía.
 //   · Una fila DINÁMICA arriba con lo que ESTE ejercicio necesita más un par de
 //     distractores de la misma familia. La calcula el backend a partir de la
 //     derivada esperada (backend/game/keyboard.py) y viene en `keys`.
@@ -221,8 +230,8 @@ const ROW_VARS = "[--kb-row:2.5rem] md:[--kb-row:2.05rem]"
 // teclado vuelve a medir tres filas incluso con todo desbloqueado.
 const GRID_COLS = 10
 
-// El pad del teléfono: las cuatro columnas de la izquierda, al lado del
-// numérico. Antes eran dos bloques de dos columnas con las teclas a DOBLE alto
+// El pad del teléfono: las cuatro columnas de la DERECHA, al lado del numérico.
+// Antes eran dos bloques de dos columnas con las teclas a DOBLE alto
 // —ocho teclas ocupando las cuatro filas del numérico— y el inventario vivía
 // arriba, en filas propias. Con el vocabulario completo eso eran dos filas de
 // más y el teclado se comía media pantalla.
@@ -245,14 +254,18 @@ const DYNAMIC_ROW = "2.75rem"
 const DYNAMIC_ROW_DESKTOP = "2.6rem"
 const STRIP_ROW = "2.6rem"
 
-// La fila fija de escritorio: primero lo que se escribe (incógnita, operaciones,
-// paréntesis) y después lo que se edita (mover el cursor, limpiar, borrar). Eran
-// dos filas y ahora es una sola — es el renglón que se recuperó para que el
-// teclado no pase de tres filas con el inventario completo. El orden conserva
-// los dos grupos, así que se sigue leyendo igual.
-const STRIP_WRITE: Key[] = [...CENTER, ...LEFT.slice(0, 2)]
-const STRIP_EDIT: Key[] = [...LEFT.slice(2), CLEAR_KEY, ERASE_KEY]
-const STRIP: Key[] = [...STRIP_WRITE, ...STRIP_EDIT]
+// La fila fija de escritorio, espejada por el mismo motivo que el pad del
+// teléfono: en escritorio no hay numérico —los dígitos se tipean— pero sí están
+// las cuatro operaciones, y en la calculadora esas viven contra el borde
+// DERECHO. Acá abrían la fila, que es el lugar exactamente opuesto.
+//
+// Se espeja el orden de los GRUPOS, no el contenido de cada uno: `( )` no se
+// vuelve `) (` ni las flechas apuntan al revés. Lo que cambia es dónde cae cada
+// grupo, y el resultado es que la fila TERMINA en `+ − ·`, igual que la
+// columna de la derecha de la Casio.
+const STRIP_WRITE: Key[] = [...LEFT.slice(0, 2), ...CENTER]
+const STRIP_EDIT: Key[] = [CLEAR_KEY, ERASE_KEY, ...LEFT.slice(2)]
+const STRIP: Key[] = [...STRIP_EDIT, ...STRIP_WRITE]
 
 // El teclado de escritorio mide SIEMPRE tres filas, y lo que se acomoda para
 // lograrlo es el bloque fijo: con el inventario chico ocupa dos filas —lo que se
@@ -284,7 +297,7 @@ const DYN_ONE_ROW_MAX = 7
 // campo donde se escribe la respuesta comparten el mismo canal centrado, así el
 // panel entero se lee como una columna y no como tres cajas de anchos
 // distintos. Ver ExerciseCard :: PANEL_CONTENT.
-const CONTENT_WIDTH = "mx-auto w-full max-w-[28rem]"
+const CONTENT_WIDTH = "mx-auto w-full max-w-[32rem]"
 
 const KEY_CLASS =
   "flex select-none items-center justify-center rounded-md bg-background leading-none transition-colors active:bg-accent"
@@ -528,6 +541,14 @@ export function MathKeyboard({
         // PANEL_CONTENT): es lo que hace que el panel se lea como una columna.
         // En un teléfono el canal no llega al tope y ocupa todo el ancho igual.
         <div className={cn("flex min-h-0 flex-1 gap-1.5", CONTENT_WIDTH)}>
+          {/* El numérico va PRIMERO: es lo que lo pone a la izquierda, donde
+              lo tiene la calculadora. Es el único cambio que hizo falta para
+              espejar el teclado — el pad conserva sus columnas tal cual, y por
+              eso las operaciones terminan contra el borde derecho de la
+              pantalla en vez de contra el izquierdo. */}
+          <div className="grid flex-[3] grid-cols-3 gap-1.5" style={numRows}>
+            {NUMPAD.map((key, i) => button(key, `num-${i}`))}
+          </div>
           {/* El pad: cuatro columnas con las fijas abajo y el inventario encima.
 
               Las filas se ESTIRAN para llenar el alto del numérico, y de ahí
@@ -553,9 +574,6 @@ export function MathKeyboard({
                 style: i === 0 ? { gridColumn: 1 } : undefined,
               }),
             )}
-          </div>
-          <div className="grid flex-[3] grid-cols-3 gap-1.5" style={numRows}>
-            {NUMPAD.map((key, i) => button(key, `num-${i}`))}
           </div>
         </div>
       ) : (

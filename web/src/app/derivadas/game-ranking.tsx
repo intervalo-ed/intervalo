@@ -11,8 +11,9 @@
 //     posición al cargar hacia arriba para que la lista no pegue saltos.
 //   · Vuelve a acomodar la fila propia sola —a cuatro filas del techo, no en el
 //     centro— a los 10 s sin tocar la rueda, o cuando el layout lo pide.
-//   · Muestra el XP en vuelo mientras el confeti se recolecta (`liveXp`), y
-//     recién cuando termina llega el orden nuevo y sube con un FLIP de motion.
+//   · Muestra el XP mientras el conteo del festejo lo va llenando (`liveXp`),
+//     pintado del color de ese paso (`xpColor`), y recién cuando termina llega
+//     el orden nuevo y la fila sube con un FLIP de motion.
 
 import { memo, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 import { motion } from "motion/react"
@@ -77,6 +78,11 @@ const BOOSTS_SHOWN = 4
 // escribir cuántos jugadores le faltan a una universidad; quién entra al ranking lo
 // decide el server y viaja en `row.ranked`.
 const MIN_PLAYERS_RANKED = 10
+
+// Espejo de backend/game/elo.py :: RAMP_UPDATES. Igual que arriba: acá solo se
+// usa para escribir cuántas respuestas le faltan a una persona; quién tiene el
+// Elo firme lo decide el server y viaja en `entry.elo_ranked`.
+const RAMP_UPDATES = 5
 
 // Espejo de backend/game/boosts.py. El empuje más flojo que existe es ×1,1 —un
 // solo cafecito— y el techo es ×3, al que solo se llega entre varios. Esos dos
@@ -270,11 +276,15 @@ export type GameRankingProps = {
   // Puesto anterior: si viene y es peor que el actual, se anima la escalada.
   climbFrom?: number | null
   enabled?: boolean
-  // XP a mostrar en la fila propia mientras el confeti la va llenando.
+  // XP a mostrar en la fila propia mientras el conteo la va llenando.
   liveXp?: number | null
   // Mientras el conteo está en curso, `liveXp` manda sobre el dato del ranking.
   counting?: boolean
-  // Nodo destino del imán del confeti (el número de XP de la fila propia).
+  // El color del número mientras se llena: el azul-violeta de la XP, y null
+  // cuando el conteo terminó (ver xp-conteo.ts).
+  xpColor?: string | null
+  // El nodo del número de la fila propia: es adonde vuelan los orbes. Solo lo
+  // manda escritorio, que es donde los hay.
   attachXpTarget?: (node: HTMLElement | null) => void
   // Cambiar este número vuelve a centrar la fila propia con animación.
   centerKey?: number
@@ -291,19 +301,38 @@ export type GameRankingProps = {
   // persona estaba mirando: si conmutáramos con el setter normal, salir de la
   // diapo la dejaría en una vista que no eligió.
   viewOverride?: RankingView | null
+  // Por qué ordena el ranking, y qué número muestra cada fila: la experiencia
+  // o el Elo. Vale para las DOS vistas —la individual y la universitaria—, que
+  // es lo único que hace que el selector diga la verdad: estaba al lado de la
+  // tuerca prometiendo "ordenar el ranking" y solo tocaba la de universidades,
+  // así que pedir Elo dejaba la lista de personas ordenada por XP.
+  //
+  // Vive afuera —el selector que lo cambia está en la cabecera, no adentro del
+  // ranking— así que es una prop y no un estado propio.
+  sort?: RankingSort
   className?: string
 }
+
+/** Por qué ordena el ranking, en las dos vistas. Exportado para que el selector
+ *  de la cabecera (desktop-layout.tsx) hable el mismo tipo.
+ *
+ *  Se dice "experiencia" y no "xp" porque es la palabra que se lee en la
+ *  pantalla; el servidor usa la otra (UseGameLeaderboard.ts :: LeaderboardSort)
+ *  y la traducción se hace acá, en el único lugar donde los dos se tocan. */
+export type RankingSort = "experiencia" | "elo"
 
 export function GameRanking({
   climbFrom = null,
   enabled = true,
   liveXp = null,
   counting = false,
+  xpColor = null,
   attachXpTarget,
   centerKey = 0,
   myUniversity = null,
   myCareer = null,
   viewOverride = null,
+  sort = "experiencia",
   className,
 }: GameRankingProps) {
   // ── El ranking vuelve solo a donde el XP puede caer ────────────────────────
@@ -320,7 +349,9 @@ export function GameRanking({
   //
   // `centerKey` es la señal, y no una prop nueva: la bumpea el layout justo al
   // acertar, para que el ranking devuelva la fila propia a su lugar antes de que
-  // llegue el imán. Es exactamente el mismo momento.
+  // el conteo arranque. Los medio segundos que el conteo espera antes del primer
+  // paso son también los que la lista tiene para acomodarse (ver ESPERA_MS en
+  // xp-conteo.ts): cuando el número empieza a subir, ya está a la vista.
   //
   // Derivado de la clave en vez de un setState en un efecto —que el compilador de
   // React no permite— igual que el paso de la escalada.
@@ -371,13 +402,37 @@ export function GameRanking({
               </span>
             }
           />
+          {/* Elo promedio y no Derivadas cuando el selector de la cabecera
+              (al lado de la tuerca) está en "elo": es el mismo par que ya se
+              respeta fila por fila (mostrar un número distinto del que ordena
+              se lee como un bug), llevado al resumen de arriba.
+
+              La palabra "Elo" no va en el rótulo sino PEGADA al número, en la
+              misma versalita que la lleva en cada fila del ranking (ver
+              `EloDeJugador`). Así el tile se lee igual que las veinte filas de
+              abajo —número más ELO— en vez de ser el único lugar donde el Elo
+              se nombra en un rótulo, y el renglón de abajo queda para lo único
+              que este número tiene de distinto: que es un promedio. */}
           <Metric
-            label="Derivadas"
+            label={sort === "elo" ? "Promedio" : "Derivadas"}
             value={
-              <span className="inline-flex items-center gap-1.5">
-                <CountUp value={summary.data?.exercises ?? 0} format={fmtCount} />
-                <LayersIcon className="size-[0.85em] text-primary" />
-              </span>
+              sort === "elo" ? (
+                <span className="inline-flex items-baseline gap-1">
+                  {summary.data?.elo_avg == null ? (
+                    <span className="text-muted-foreground">—</span>
+                  ) : (
+                    <CountUp value={summary.data.elo_avg} format={fmtCount} />
+                  )}
+                  <span className="text-[0.7em] font-normal tracking-wider text-muted-foreground">
+                    ELO
+                  </span>
+                </span>
+              ) : (
+                <span className="inline-flex items-center gap-1.5">
+                  <CountUp value={summary.data?.exercises ?? 0} format={fmtCount} />
+                  <LayersIcon className="size-[0.85em] text-primary" />
+                </span>
+              )
             }
           />
         </div>
@@ -401,14 +456,27 @@ export function GameRanking({
         <IndividualRanking
           scope={scope}
           enabled={enabled}
-          climbFrom={climbFrom}
-          liveXp={liveXp}
+          sort={sort}
+          // Todo lo del festejo queda apagado en el orden por Elo, y no es una
+          // precaución: la escalada mueve la fila propia por los puestos que
+          // ganó DE XP, y los orbes vuelan al número de XP de esa fila, que en
+          // este orden no está dibujado. Al acertar el selector vuelve solo a
+          // experiencia (desktop-layout.tsx), así que esto es lo que pasa en el
+          // hueco entre el acierto y ese cambio, no el caso normal.
+          climbFrom={sort === "elo" ? null : climbFrom}
+          liveXp={sort === "elo" ? null : liveXp}
           counting={counting}
-          attachXpTarget={attachXpTarget}
+          xpColor={xpColor}
+          attachXpTarget={sort === "elo" ? undefined : attachXpTarget}
           centerKey={centerKey}
         />
       ) : (
-        <UniversityRanking scope={scope} enabled={enabled} myUniversity={myUniversity} />
+        <UniversityRanking
+          scope={scope}
+          enabled={enabled}
+          myUniversity={myUniversity}
+          sort={sort}
+        />
       )}
     </div>
   )
@@ -557,17 +625,21 @@ function useStagedOrder(entries: GameLeaderboardEntry[]): GameLeaderboardEntry[]
 function IndividualRanking({
   scope,
   enabled,
+  sort,
   climbFrom,
   liveXp,
   counting,
+  xpColor,
   attachXpTarget,
   centerKey,
 }: {
   scope: Scope
   enabled: boolean
+  sort: RankingSort
   climbFrom: number | null
   liveXp: number | null
   counting: boolean
+  xpColor: string | null
   attachXpTarget?: (node: HTMLElement | null) => void
   centerKey: number
 }) {
@@ -581,7 +653,7 @@ function IndividualRanking({
     fetchPreviousPage,
     hasPreviousPage,
     isFetchingPreviousPage,
-  } = useGameLeaderboard(scope, enabled)
+  } = useGameLeaderboard(scope, enabled, sort === "elo" ? "elo" : "xp")
 
   // Al refrescar tras sumar XP, la ventana `around_me` se corre y puede repetir
   // a alguien que otra página ya traía: sin deduplicar, React vería dos filas
@@ -660,12 +732,15 @@ function IndividualRanking({
     [restingScrollTop],
   )
 
-  // Cambiar de scope reinicia la query: hay que volver a acomodar la lista.
+  // Cambiar de scope —o de orden— reinicia la query: hay que volver a acomodar
+  // la lista. El orden no es un detalle acá: por Elo la fila propia cae en otro
+  // puesto, así que sin este reinicio la lista nueva se dibuja con el scroll
+  // apuntando a donde estaba la fila en la lista vieja.
   useEffect(() => {
     centeredRef.current = false
     prevTopRankRef.current = null
     prevHeightRef.current = 0
-  }, [scope.university, scope.career])
+  }, [scope.university, scope.career, sort])
 
   useLayoutEffect(() => {
     const el = scrollRef.current
@@ -840,9 +915,9 @@ function IndividualRanking({
             shownRank={
               entry.is_current_player ? entry.rank + remaining : entry.rank
             }
-            // Mientras cae el confeti manda el conteo (aunque la lista ya
-            // tenga el total); una vez que terminó, el mayor de los dos, para
-            // que el número no retroceda si el ranking viene atrasado.
+            // Mientras el conteo corre manda él (aunque la lista ya tenga el
+            // total); una vez que terminó, el mayor de los dos, para que el
+            // número no retroceda si el ranking viene atrasado.
             xp={
               entry.is_current_player && liveXp !== null
                 ? counting
@@ -853,9 +928,11 @@ function IndividualRanking({
             // También la fila propia: si mientras resolvías te pasaron, la
             // flecha tiene que bajar o darse vuelta como la de cualquiera.
             delta={entry.rank_delta}
+            sort={sort}
             boostMultiplier={
               entry.university ? boostByUni.get(entry.university) ?? null : null
             }
+            xpColor={entry.is_current_player ? xpColor : null}
             attachXpTarget={entry.is_current_player ? attachXpTarget : undefined}
           />
         ))}
@@ -905,13 +982,13 @@ function filaConEmpuje(multiplier: number): React.CSSProperties {
 // `memo` a propósito, y es de las pocas veces que hace falta teniendo el
 // compilador de React activado.
 //
-// El festejo sube el contador una vez por bolita —hasta catorce en menos de dos
-// segundos— y cada una de esas subidas vuelve a correr el `.map()` de la lista.
-// Sin esto, cada tick rehacía las hasta noventa filas que puede tener un ranking
-// scrolleado, y como cada fila es un `motion.li layout`, eso significa noventa
-// mediciones de caja y noventa resortes por bolita. El momento de recompensa
-// —justo donde el juego tiene que verse bien— era el fotograma más caro de la
-// aplicación.
+// El festejo sube el contador una vez por paso —hasta catorce en menos de dos
+// segundos, y ahora además le cambia el color a cada uno— y cada una de esas
+// subidas vuelve a correr el `.map()` de la lista. Sin esto, cada tick rehacía
+// las hasta noventa filas que puede tener un ranking scrolleado, y como cada fila
+// es un `motion.li layout`, eso significa noventa mediciones de caja y noventa
+// resortes por tick. El momento de recompensa —justo donde el juego tiene que
+// verse bien— era el fotograma más caro de la aplicación.
 //
 // Las props de las filas ajenas son todas primitivas más `entry`, que viene
 // estable del caché de la query: la comparación superficial de `memo` alcanza
@@ -921,7 +998,9 @@ const Row = memo(function Row({
   shownRank,
   xp,
   delta,
+  sort,
   boostMultiplier,
+  xpColor,
   attachXpTarget,
 }: {
   entry: GameLeaderboardEntry
@@ -929,11 +1008,18 @@ const Row = memo(function Row({
   xp: number
   // Puestos que ganó (+) o perdió (−) en los últimos minutos. 0 = sin flecha.
   delta: number
+  // Qué número cierra la fila: la experiencia o el Elo. Es el mismo que ordena
+  // la lista, siempre — mostrar uno y ordenar por el otro se lee como un bug,
+  // que es exactamente lo que pasaba antes de que el selector llegara hasta
+  // acá.
+  sort: RankingSort
   // Su universidad tiene un empuje de cafecitos corriendo. Se marca en la fila
   // para que quede claro por qué esta persona está sumando más rápido: el
   // multiplicador se ve, no se esconde.
   // Multiplicador de su universidad, o null si no tiene empuje corriendo.
   boostMultiplier: number | null
+  // Solo la fila propia y solo mientras cuenta: el color del conteo, o null.
+  xpColor?: string | null
   attachXpTarget?: (node: HTMLElement | null) => void
 }) {
   const mine = entry.is_current_player
@@ -982,7 +1068,11 @@ const Row = memo(function Row({
           <UniTag university={entry.university} />
         </span>
       )}
-      <XpDeJugador xp={xp} attachXpTarget={attachXpTarget} />
+      {sort === "elo" ? (
+        <EloDeJugador elo={entry.elo} ranked={entry.elo_ranked} alias={entry.alias} />
+      ) : (
+        <XpDeJugador xp={xp} color={xpColor} attachXpTarget={attachXpTarget} />
+      )}
     </motion.li>
   )
 })
@@ -1011,7 +1101,7 @@ const CIERRE_MS = 120
  * Devuelve lo que hay que repartir entre el disparador y el contenido: los dos
  * necesitan `onMouseEnter`/`onMouseLeave`, porque el cartel se dibuja en un
  * portal y no es hijo del disparador (ver CIERRE_MS). */
-function useCartel() {
+export function useCartel() {
   const [abierto, setAbierto] = useState(false)
   const cierreRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const abrir = () => {
@@ -1039,14 +1129,25 @@ function useCartel() {
  * experiencia sí mide eso y que los cafecitos sí la multiplican. Leídos juntos,
  * los dos números del ranking dejan de ser dos números parecidos.
  *
- * `attachXpTarget` va sobre el DISPARADOR y no sobre un envoltorio: es el imán
- * del confeti, y la caja del botón es exactamente la que ocupaba el número
- * antes, así que las bolitas siguen aterrizando en el mismo píxel. */
+ * `color` pinta el número Y su ícono mientras dura el festejo, y al terminar
+ * vuelve a null, que es el color heredado de la fila. Va SIN transición a
+ * propósito: se prende junto con el primer paso, y un degradé de medio segundo lo
+ * despegaría de eso.
+ *
+ * Se pinta el par entero y no solo el dígito porque el par entero ES la unidad
+ * que se lee —"tanta experiencia"—; con el número verde y el ícono blanco al
+ * lado, lo que se ve es un número que se destiñó, no una cosa que se prendió.
+ *
+ * `attachXpTarget` va sobre el DISPARADOR y no sobre un envoltorio ni sobre el
+ * span del número: es el destino de los orbes, y la caja del botón es la que
+ * ocupa el número junto con su ícono, o sea el blanco al que hay que apuntar. */
 function XpDeJugador({
   xp,
+  color = null,
   attachXpTarget,
 }: {
   xp: number
+  color?: string | null
   attachXpTarget?: (node: HTMLElement | null) => void
 }) {
   const { abierto, setAbierto, gestos } = useCartel()
@@ -1056,10 +1157,14 @@ function XpDeJugador({
         {...gestos}
         ref={attachXpTarget}
         className="inline-flex shrink-0 items-center gap-1 rounded text-sm font-semibold tabular-nums outline-none transition-opacity hover:opacity-80"
+        style={color === null ? undefined : { color }}
         aria-label="Qué es la experiencia"
       >
         {fmtCount(xp)}
-        <XpDots className="size-[0.85em] text-white" />
+        {/* Sin `text-white` mientras cuenta: el ícono se dibuja con
+            `currentColor`, así que soltándolo se prende del mismo verde que
+            hereda del botón. */}
+        <XpDots className={cn("size-[0.85em]", color === null && "text-white")} />
       </PopoverTrigger>
       <PopoverContent {...gestos} className="text-left text-xs leading-relaxed">
         <p>
@@ -1072,6 +1177,104 @@ function XpDeJugador({
         <p className="mt-2 text-muted-foreground">
           Mide cuánto jugaste, no qué tan bien — nunca baja, y los cafecitos la
           multiplican. Qué tan difícil es lo que resolvés lo dice el Elo.
+        </p>
+      </PopoverContent>
+    </Popover>
+  )
+}
+
+/** El Elo de una persona: el mismo lugar de la fila que ocupa `XpDeJugador`,
+ *  con el otro número. Cuál de los dos se dibuja lo decide el selector de la
+ *  cabecera, y es SIEMPRE el que ordena la lista.
+ *
+ *  Sin `attachXpTarget` ni color de conteo, a diferencia de su hermano: los
+ *  orbes son de experiencia y vuelan al número de experiencia. Por eso acertar
+ *  devuelve el selector a esa columna (desktop-layout.tsx) en vez de hacer que
+ *  este número los reciba — un orbe cayendo sobre el Elo estaría diciendo que
+ *  el acierto lo sube, y el Elo lo mueven los aciertos y los errores por igual.
+ *
+ *  Provisorio hasta las RAMP_UPDATES respuestas, igual que una universidad
+ *  antes de sus diez jugadores: hasta ahí muestra "—" y en el orden por Elo va
+ *  al fondo. */
+function EloDeJugador({
+  elo,
+  ranked,
+  alias,
+}: {
+  elo: number
+  ranked: boolean
+  alias: string
+}) {
+  const { abierto, setAbierto, gestos } = useCartel()
+  return (
+    <Popover open={abierto} onOpenChange={setAbierto}>
+      <PopoverTrigger
+        {...gestos}
+        className="inline-flex shrink-0 items-baseline gap-1 rounded text-sm font-semibold tabular-nums outline-none transition-opacity hover:opacity-80"
+        aria-label={`Qué mide el Elo de ${alias}`}
+      >
+        {ranked ? fmtCount(elo) : <span className="text-muted-foreground">—</span>}
+        {/* Misma versalita que la fila de una universidad: es el mismo número
+            y tiene que leerse igual en las dos tablas. */}
+        <span className="text-[0.7em] font-normal tracking-wider text-muted-foreground">
+          ELO
+        </span>
+      </PopoverTrigger>
+      <PopoverContent {...gestos} className="text-left text-xs leading-relaxed">
+        {ranked ? (
+          <p>
+            <span className="font-semibold text-foreground">{fmtCount(elo)} de Elo</span>.
+          </p>
+        ) : (
+          <p>
+            El Elo de {alias} todavía es provisorio: se firma a las{" "}
+            <span className="font-semibold text-foreground">
+              {RAMP_UPDATES} respuestas
+            </span>
+            , y hasta entonces va al final de esta tabla.
+          </p>
+        )}
+        {/* Mismo texto, palabra por palabra, que elo-stats-panel.tsx y que
+            EloDeUniversidad — un solo lugar dice qué es el Elo, y las copias
+            tienen que envejecer juntas. */}
+        <p className="mt-2 text-muted-foreground">
+          El Elo mide qué tan difíciles son las derivadas que resolvés. Se ajusta
+          con tus respuestas, sube con los aciertos y baja con los errores.
+        </p>
+      </PopoverContent>
+    </Popover>
+  )
+}
+
+/** El indicador de experiencia de una universidad, contraparte de
+ *  `XpDeJugador` pero para la SUMA de toda su gente, no la de una persona.
+ *  Vive en la pestaña "experiencia" del selector de la cabecera
+ *  (desktop-layout.tsx), al lado de `EloDeUniversidad`, que es la del "elo" —
+ *  ordenar por una y mostrar la otra se leería como un bug, mismo criterio
+ *  que ya vale para esa. */
+function XpDeUniversidad({ row }: { row: GameUniversityRow }) {
+  const { abierto, setAbierto, gestos } = useCartel()
+
+  return (
+    <Popover open={abierto} onOpenChange={setAbierto}>
+      <PopoverTrigger
+        {...gestos}
+        className="inline-flex shrink-0 items-center gap-1 rounded text-sm font-semibold tabular-nums outline-none transition-opacity hover:opacity-80"
+        aria-label={`Cuánta experiencia sumó ${row.university}`}
+      >
+        <CountUp value={row.xp} format={fmtCount} />
+        <XpDots className="size-[0.85em]" />
+      </PopoverTrigger>
+      <PopoverContent {...gestos} className="text-left text-xs leading-relaxed">
+        <p>
+          <span className="font-semibold text-foreground">
+            {fmtCount(row.xp)} de experiencia
+          </span>{" "}
+          es lo que sumaron entre todos los estudiantes de {row.university}.
+        </p>
+        <p className="mt-2 text-muted-foreground">
+          Mide cuánto jugaron, no qué tan bien — nunca baja, y los cafecitos la
+          multiplican. Qué tan difícil es lo que resuelven lo dice el Elo.
         </p>
       </PopoverContent>
     </Popover>
@@ -1094,7 +1297,10 @@ function EloDeUniversidad({ row }: { row: GameUniversityRow }) {
           <span className="text-muted-foreground">—</span>
         )}
         {/* Versalita con `tracking`: en mayúscula y a 0,7em las letras se
-            amontonan, y "ELO" pegado se lee como una sola mancha. */}
+            amontonan, y "ELO" pegado se lee como una sola mancha. El aviso de
+            que esto es un PROMEDIO va en el tile de arriba (ver
+            "ELO PROMEDIO" en el resumen), no acá: repetido en cada fila sería
+            ruido. */}
         <span className="text-[0.7em] font-normal tracking-wider text-muted-foreground">
           ELO
         </span>
@@ -1112,10 +1318,14 @@ function EloDeUniversidad({ row }: { row: GameUniversityRow }) {
                     </span>{" "}
                     de {row.university} que ya jugaron lo suficiente.
                   </p>
+                  {/* Mismo texto, palabra por palabra, que
+                      elo-stats-panel.tsx :: EloStatsPanel — un solo lugar
+                      dice qué es el Elo, y las dos copias tienen que
+                      envejecer juntas. */}
                   <p className="mt-2 text-muted-foreground">
                     El Elo mide qué tan difíciles son las derivadas que
-                    resolvés, no cuánto jugaste: se ajusta con tus respuestas,
-                    sube con los aciertos y baja con los errores.
+                    resolvés. Se ajusta con tus respuestas, sube con los
+                    aciertos y baja con los errores.
                   </p>
                 </>
               ) : (
@@ -1181,10 +1391,12 @@ function UniversityRanking({
   scope,
   enabled,
   myUniversity,
+  sort,
 }: {
   scope: Scope
   enabled: boolean
   myUniversity: string | null
+  sort: RankingSort
 }) {
   const { data, isLoading } = useGameUniversityLeaderboard(scope, enabled)
   const boostByUni = useBoostMultipliers()
@@ -1215,14 +1427,30 @@ function UniversityRanking({
     )
   }
 
+  // Por Elo el orden YA llega del servidor (mostrar un número distinto del
+  // que ordena se lee como un bug, ver GameUniversityRow). Por experiencia se
+  // reordena ACÁ: el dato ya viaja en cada fila, así que pedir un fetch nuevo
+  // solo para cambiar de pestaña sería más lento que lo que reemplaza.
+  //
+  // `[...]` y no un `.sort()` sobre `data.rows`: ese array es el mismo objeto
+  // que React Query cachea, y mutarlo in place correría el orden por debajo
+  // de cualquier otra vista que lo esté leyendo al mismo tiempo.
+  const rows = sort === "experiencia" ? [...data.rows].sort((a, b) => b.xp - a.xp) : data.rows
+
   return (
     <div
       ref={scrollRef}
       className="no-scrollbar relative -mx-1 min-h-0 flex-1 overflow-y-auto overscroll-contain px-1"
     >
       <ol className="flex flex-col gap-2 py-1">
-        {data.rows.map((row, index) => {
+        {rows.map((row, index) => {
           const mine = myUniversity !== null && row.university === myUniversity
+          // "No cuenta todavía" es un concepto del ELO (MIN_PLAYERS_RANKED):
+          // sin jugadores suficientes, un promedio es ruido. La experiencia es
+          // una SUMA sin ese piso de confianza —diez estudiantes que jugaron
+          // poco suman menos que uno que jugó mucho, y está bien que así
+          // sea—, así que en esa pestaña compiten todas las filas.
+          const entraEnEsteOrden = sort === "elo" ? row.ranked : true
           return (
           <li
             key={row.university}
@@ -1230,7 +1458,7 @@ function UniversityRanking({
             className={cn(
               "flex items-center gap-2 rounded-lg px-4 py-3 ring-1 ring-foreground/10",
               mine && MINE_ROW_CLASS,
-              !row.ranked && "opacity-55",
+              !entraEnEsteOrden && "opacity-55",
             )}
             // Misma pintura que en la vista individual: la universidad con
             // empuje se ve, no se marca con un ícono.
@@ -1241,7 +1469,7 @@ function UniversityRanking({
             }
           >
             <span className="w-4 shrink-0 text-center text-sm font-semibold tabular-nums text-muted-foreground">
-              {row.ranked ? index + 1 : "—"}
+              {entraEnEsteOrden ? index + 1 : "—"}
             </span>
             <span className="flex min-w-0 flex-1 items-center gap-1">
               <UniTag university={row.university} />
@@ -1251,11 +1479,14 @@ function UniversityRanking({
               <CountUp value={row.players} format={fmtCount} />
               <UsersIcon className="size-[0.9em] text-white" />
             </span>
-            {/* Elo promedio, que es por lo que ordena la tabla: mostrar un
-                número distinto del que ordena se lee como un bug. Va con el
-                rótulo "Elo" porque un 1240 pelado no dice qué mide, y sin los
-                puntitos de XP justamente para que no se confunda con ella. */}
-            <EloDeUniversidad row={row} />
+            {/* Lo que se muestra es por lo que se ordena, en las dos pestañas
+                del selector de la cabecera: mostrar un número distinto del
+                que ordena se lee como un bug. */}
+            {sort === "experiencia" ? (
+              <XpDeUniversidad row={row} />
+            ) : (
+              <EloDeUniversidad row={row} />
+            )}
           </li>
           )
         })}

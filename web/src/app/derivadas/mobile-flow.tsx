@@ -41,6 +41,7 @@ import {
   ExerciseCard,
   PANEL_CONTENT,
   SkipButton,
+  SolvedHint,
   answerTone,
   type AnswerTone,
 } from "./exercise-card"
@@ -51,19 +52,24 @@ import { marcarReclutasMostrado, tocaReclutar } from "./reclutas-trigger"
 import { GameIntroLogo, type GameIntro } from "./game-intro"
 import { INTRO_CLOSE, IntroParagraphs } from "./intro-panel"
 import { DerivativesTable, TableButton } from "./derivatives-table"
+import { PorQueButton, PorQuePanel, type PorQueGraph } from "./porque-panel"
+import { useExplainExercise } from "./UseGameExplain"
 import {
   SLIDE_TRANSITION,
   SlideHorizontal,
   slideVariants,
   type Direccion,
 } from "./slide-horizontal"
+import { ChatButton, ChatPanel } from "./chat-panel"
 import { EventFeed } from "./event-feed"
 import { GameRanking } from "./game-ranking"
 import { HINT_MOBILE, MathInput, type MathInputHandle } from "./math-input"
 import { MathKeyboard } from "./math-keyboard"
 import { parseAnswerToMathJson, warmupComputeEngine } from "./parse-answer"
 import { useLocalVerdict } from "./UseLocalVerdict"
+import { LegalSheet } from "@/app/onboarding/legal-sheet"
 import { ProfileSlides, RegisterSlide } from "./register-slides"
+import { UsernameSlide } from "./username-slide"
 import { SettingsPanel } from "./settings-panel"
 import {
   useAnswerExercise,
@@ -75,13 +81,17 @@ import {
 import { useGameIdentity } from "./game-telemetry"
 import { useGameEvents, useGamePulse, useMyBoost } from "./UseGameLeaderboard"
 import { gameKeys, useGamePlayer } from "./UseGamePlayer"
-import { useXpBurst, XpOrbs } from "./xp-burst"
+import { useXpConteo } from "./xp-conteo"
 
 const ctaCls =
   "h-[var(--cta-h)] w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
 
 type Slide =
   | { kind: "intro" }
+  // Primera vez en este dispositivo, sin invitado guardado: se muestra entre
+  // la intro y la primera derivada (ver startFromIntro). No lleva `back`
+  // porque solo se llega acá desde la intro, nunca desde otra pantalla.
+  | { kind: "username" }
   | { kind: "exercise" }
   | { kind: "ranking"; answer: GameAnswer }
   | { kind: "profile" }
@@ -93,9 +103,16 @@ type Slide =
   // La tabla de derivadas. Guarda a dónde volver por lo mismo que configuración:
   // se entra desde el ejercicio y desde el ranking.
   | { kind: "tabla"; back: Slide }
+  // El «¿Por qué?»: de dónde salía esta derivada. Mismo trato que la tabla
+  // —guarda a dónde volver— porque se entra desde dos situaciones distintas del
+  // mismo ejercicio: habiéndolo acertado, y estando trabado en él.
+  | { kind: "porque"; back: Slide }
   // Lo que pasó en el juego mientras jugabas. Va DESPUÉS del ranking: primero
   // el marcador propio, después el mundo.
   | { kind: "novedades" }
+  // El chat. Como configuración y la tabla, guarda de dónde se vino: se entra
+  // desde cualquier pantalla que tenga cabecera y se vuelve exactamente ahí.
+  | { kind: "chat"; back: Slide }
   // `back` solo viaja cuando la persona abrió la diapo ella misma: ahí interrumpió
   // algo y hay que devolvérselo. Cuando la dispara un hito no hay a dónde volver,
   // porque llega después de responder y lo que sigue es la derivada siguiente.
@@ -140,10 +157,15 @@ type PendingAfter = { answer: GameAnswer } | null
 function GameHeader({
   onSettings,
   onTable,
+  onChat,
+  sinLeerChat = 0,
   onCafecito,
   onReclutar,
 }: {
   onSettings: () => void
+  // Abre el chat. En el teléfono no hay tecla, así que este botón ES el acceso.
+  onChat: () => void
+  sinLeerChat?: number
   // La tabla va PRIMERA de las tres de la derecha: es la única que hace algo
   // adentro del juego, y las otras dos sacan de él. Puesta al final quedaba
   // agrupada con las que se van.
@@ -166,6 +188,7 @@ function GameHeader({
       </button>
       <span className="flex items-center gap-1.5">
         <TableButton open={false} onToggle={onTable} keyboard={false} />
+        <ChatButton open={false} onToggle={onChat} sinLeer={sinLeerChat} keyboard={false} />
         <ShareButton placement="header_mobile" onOpen={onReclutar} />
         <CafecitoButton
           placement="header_mobile"
@@ -179,7 +202,7 @@ function GameHeader({
 }
 
 export function MobileFlow({ intro }: { intro: GameIntro }) {
-  const { player, refetch: refetchPlayer } = useGamePlayer()
+  const { player, isFirstVisit, refetch: refetchPlayer } = useGamePlayer()
   const queryClient = useQueryClient()
   const next = useNextExercise()
   const answerMutation = useAnswerExercise()
@@ -188,8 +211,26 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
 
   const [slide, setSlide] = useState<Slide>({ kind: "intro" })
   const [slideSeq, setSlideSeq] = useState(0)
+  // La hoja de "¿Qué pasa con mis datos?" de la slide de registro. Afuera del
+  // stack de slides a propósito: se superpone a lo que sea que esté mostrando
+  // en ese momento, como en el onboarding principal (onboarding-wizard.tsx).
+  const [legalOpen, setLegalOpen] = useState(false)
   const [exercise, setExercise] = useState<GameExercise | null>(null)
   const [lastAnswer, setLastAnswer] = useState<GameAnswer | null>(null)
+  // La derivada que la persona escribió, cuando estuvo bien: la caja del
+  // enunciado pasa a mostrarla en vez de pedirla.
+  const [solvedLatex, setSolvedLatex] = useState<string | null>(null)
+  // Este ejercicio ya se erró alguna vez. No sale de `lastAnswer`: ese se borra
+  // apenas la persona toca una tecla, y el ¿Por qué? tiene que seguir puesto
+  // mientras corrige.
+  const [fallado, setFallado] = useState(false)
+  const explainMutation = useExplainExercise()
+  const [porqueTexto, setPorqueTexto] = useState<string | null>(null)
+  // El gráfico de cierre (f y f' juntas): solo lo pinta el teléfono, ver
+  // porque-panel.tsx :: PorQueGraph. Va aparte de `porqueTexto` y no adentro
+  // —son dos piezas de la misma respuesta, pero el texto ya tenía su propio
+  // ciclo de vida antes de que existiera el gráfico—.
+  const [porqueGraph, setPorqueGraph] = useState<PorQueGraph | null>(null)
   // El color adelantado por el veredicto local, mientras la respuesta del
   // servidor viaja. Se descarta apenas llega la de verdad (ver `tone`).
   const [tonoLocal, setTonoLocal] = useState<AnswerTone>(null)
@@ -218,7 +259,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
   const askedProfileRef = useRef(false)
   const askedRegisterRef = useRef(false)
 
-  // Cuando llega la última bolita: recién ahí el ranking estrena orden y sube.
+  // Cuando termina el conteo: recién ahí el ranking estrena orden y sube.
   const onBurstComplete = useCallback(() => {
     queryClient.invalidateQueries({ queryKey: gameKeys.leaderboard })
     setClimbFrom(pendingClimbRef.current)
@@ -228,20 +269,13 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
   const {
     liveXp,
     counting,
-    burst,
-    holding,
+    xpColor,
     release: releaseXp,
     fire: fireXp,
-    onArrive: onXpArrive,
-    onOrbsCleared,
-    orbArea,
-    attachPrompt,
-    attachTarget,
-    magnetTarget,
-  } = useXpBurst({ onComplete: onBurstComplete })
+  } = useXpConteo({ onComplete: onBurstComplete })
 
   // Late cada 10 s y refresca el ranking solo si alguien respondió algo. Se
-  // pausa mientras cae el confeti: ahí el orden viejo tiene que quedarse quieto.
+  // pausa mientras dura el conteo: ahí el orden viejo tiene que quedarse quieto.
   useGamePulse({ enabled: player !== null, paused: counting })
 
   // El empuje de la universidad sale del mismo pulso, sin pedido propio.
@@ -298,6 +332,17 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
   if (visto === null && ultimoId !== null) setVisto(ultimoId)
   const sinVer = visto === null ? 0 : novedades.filter((e) => e.id > visto).length
 
+  // Lo mismo para el chat, con su propio contador: las novedades y los mensajes
+  // se miran en pantallas distintas, así que haber leído unas no es haber leído
+  // los otros.
+  const [vistoChat, setVistoChat] = useState<number | null>(null)
+  const mensajes = eventos.data?.messages ?? []
+  const ultimoMensajeId =
+    mensajes.length > 0 ? Math.max(...mensajes.map((m) => m.id)) : null
+  if (vistoChat === null && ultimoMensajeId !== null) setVistoChat(ultimoMensajeId)
+  const sinVerChat =
+    vistoChat === null ? 0 : mensajes.filter((m) => m.id > vistoChat).length
+
   // Espejo para los handlers. `advanceAfterAnswer` está memoizada y este número
   // cambia con cada latido de las novedades: en sus dependencias la rehacía cada
   // ocho segundos, y con ella todo lo que cuelga. Es el mismo recurso que ya usa
@@ -324,6 +369,11 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
         setClimbFrom(null)
         // Ejercicio nuevo, cuenta limpia: la consulta anterior no lo penaliza.
         peekedRef.current = false
+        // El ¿Por qué? era de la derivada anterior.
+        setPorqueTexto(null)
+        setPorqueGraph(null)
+        setSolvedLatex(null)
+        setFallado(false)
         servedAtRef.current = Date.now()
         inputRef.current?.clear()
         posthog.capture("game_exercise_served", {
@@ -337,6 +387,17 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
       },
     })
   }, [next, goTo])
+
+  // Lo que hace el botón Continuar de la intro: a la primera derivada, salvo
+  // que este dispositivo esté entrando por primera vez y el jugador siga con
+  // el @ que le tocó al azar — ahí primero pasa por la slide de "elegí tu @".
+  const startFromIntro = useCallback(() => {
+    if (player?.is_guest && player.alias_is_generated && isFirstVisit) {
+      goTo({ kind: "username" })
+      return
+    }
+    loadNext()
+  }, [player, isFirstVisit, loadNext, goTo])
 
   // Después de resolver (o del ranking/hito/cafecito), decide la próxima slide.
   const advanceAfterAnswer = useCallback(
@@ -356,8 +417,8 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
       }
       const a = pending.answer
 
-      // Toda correcta pasa por el ranking: ahí está el marcador y ahí cae el
-      // confeti. Las erradas siguen de largo al próximo ejercicio.
+      // Toda correcta pasa por el ranking: ahí está el marcador y ahí sube el
+      // número. Las erradas siguen de largo al próximo ejercicio.
       if (consumed === null && a.correct) {
         const rankBefore = a.rank_before ?? null
         const rankAfter = a.rank_after ?? null
@@ -369,15 +430,12 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
             delta: rankBefore - rankAfter,
           })
         }
-        // El imán se suelta ACÁ, en el toque, y no cuando la slide del ranking
-        // termina de entrar: así los orbes ya están viajando mientras el pase
-        // ocurre, y para cuando la pantalla se asienta el conteo está en marcha.
-        // Esperar al final del pase dejaba medio segundo de nada entre el dedo y
-        // el festejo.
-        //
-        // Que el destino todavía no exista en este frame no importa: el imán lo
-        // reintenta hasta que aparece, y le descuenta el transform del pase para
-        // apuntarle a donde va a QUEDAR (ver centerOf en xp-burst.tsx).
+        // El conteo arranca ACÁ, en el toque, y no cuando la slide del ranking
+        // termina de entrar. Los dos pases corren juntos: la pantalla entra
+        // mientras el conteo agota su media espera, y para cuando el ranking se
+        // asienta el número empieza a subir. Esperar al final del pase para
+        // recién ahí empezar a esperar dejaba casi un segundo de nada entre el
+        // dedo y el festejo.
         releaseXp()
         goTo({ kind: "ranking", answer: a })
         return
@@ -535,20 +593,30 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
             response_ms: Date.now() - servedAtRef.current,
           })
           if (!data.parse_ok) return
+          // Sobrevive a que `lastAnswer` se borre al primer tecleo.
+          if (data.correct) setSolvedLatex(latex)
+          else setFallado(true)
           if (data.correct) {
             if (!anticipadoRef.current) sfx.correct()
             setSolvedCount((n) => n + 1)
             pendingRef.current = { answer: data }
-            // El estallido ocurre ACÁ, en la pantalla donde se acertó y sobre el
-            // botón que se acaba de tocar. `hold` deja las partículas flotando
-            // ahí: la XP ya existe pero todavía no está atribuida, y eso es lo
-            // que se ve. El imán llega en la slide del ranking, que es donde
-            // está el contador al que van a parar.
-            fireXp(data, { hold: true })
+            // Modo `espera` porque el número que tiene que subir está en la
+            // pantalla siguiente: la XP ya existe, pero contarla acá sería
+            // contarla donde no se ve. Queda guardada hasta el Continuar.
+            //
+            // Y por eso mismo acá no hay orbes, que es lo que sí hay en
+            // escritorio: no se puede mostrar algo volando hacia un contador que
+            // está en otra pantalla sin mentir sobre dónde estuvo la XP mientras
+            // tanto.
+            fireXp(data, { modo: "espera" })
             if (data.is_record) posthog.capture("game_record", { best_rank: data.best_rank })
           } else {
             if (!anticipadoRef.current) sfx.wrong()
-            if (data.attempts_left === 0) pendingRef.current = { answer: data }
+            // Acá había una rama para el ejercicio que se cerraba sin acertar
+            // —al quemar el segundo intento— que dejaba el pase al ranking
+            // preparado igual. Ese estado ya no existe: los intentos son
+            // ilimitados y solo acertar cierra un ejercicio. Salir sin
+            // resolverlo es saltear, que sigue su propio camino.
           }
         },
         // Red de seguridad para cualquier desincronización con el server.
@@ -574,6 +642,52 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
   // toque y su llegada.
   const tone = answerTone(lastAnswer) ?? tonoLocal
 
+  // El botón del ¿Por qué? existe cuando ya hay algo para explicar: se acertó, o
+  // se erró al menos una vez. Nunca antes del primer intento — ahí sería regalar
+  // la respuesta, y el servidor lo rechaza igual (409 en POST /explain).
+  const hayPorque = solvedLatex !== null || fallado
+
+  // Pedir el texto. Suelto de la navegación porque el botón de reintentar, que
+  // vive DENTRO de la pantalla del ¿Por qué?, tiene que volver a pedirlo sin
+  // navegar a ninguna parte.
+  const pedirPorque = useCallback(() => {
+    if (!exercise) return
+    // Una sola vez por ejercicio: el texto no cambia y volver a pedirlo sería
+    // otro viaje para recibir lo mismo.
+    if (porqueTexto !== null || explainMutation.isPending) return
+    explainMutation.mutate(
+      { exercise_id: exercise.exercise_id },
+      {
+        onSuccess: (data) => {
+          setPorqueTexto(data.explanation)
+          setPorqueGraph({
+            fn: data.graph_fn,
+            fn2: data.graph_fn2,
+            fnLatex: data.graph_fn_latex,
+            fn2Latex: data.graph_fn2_latex,
+            view: data.graph_view as PorQueGraph["view"],
+          })
+        },
+      },
+    )
+  }, [exercise, explainMutation, porqueTexto])
+
+  const abrirPorque = useCallback(() => {
+    if (!exercise) return
+    sfx.select()
+    posthog.capture("game_porque_open", {
+      exercise_id: exercise.exercise_id,
+      tier: exercise.tier,
+      stars: exercise.difficulty_stars,
+      // Lo que hay que poder contestar después: si lo abre quien ya resolvió
+      // —curiosidad— o quien está trabado —ayuda—, porque no son la misma
+      // persona ni la misma función del botón.
+      was_correct: solvedLatex !== null,
+    })
+    pedirPorque()
+    goTo({ kind: "porque", back: { kind: "exercise" } })
+  }, [exercise, goTo, pedirPorque, sfx, solvedLatex])
+
   // Saltear también en el teléfono: no hay atajo de teclado, pero el botón sí está.
   const onSkip = useCallback(() => {
     if (!exercise || closed || skipMutation.isPending || answerMutation.isPending) return
@@ -593,6 +707,10 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
           setLastAnswer(null)
           setTonoLocal(null)
           peekedRef.current = false
+          setPorqueTexto(null)
+          setPorqueGraph(null)
+          setSolvedLatex(null)
+          setFallado(false)
           servedAtRef.current = Date.now()
           inputRef.current?.clear()
           posthog.capture("game_exercise_served", {
@@ -626,16 +744,6 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
 
   return (
     <div className="relative grid h-dvh overflow-hidden">
-      {/* Fuera de las slides a propósito: son motion.div con transform, y un
-          transform ancestro recorta el `fixed inset-0` de las monedas. */}
-      <XpOrbs
-        burst={burst}
-        target={magnetTarget}
-        area={orbArea}
-        onArrive={onXpArrive}
-        onCleared={onOrbsCleared}
-        holding={holding}
-      />
       <AnimatePresence mode="sync" initial={false} custom={direccion}>
         <motion.div
           key={slideSeq}
@@ -690,11 +798,17 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   size="lg"
                   className={ctaCls}
                   disabled={startDisabled}
-                  onClick={loadNext}
+                  onClick={startFromIntro}
                 >
                   Continuar
                 </Button>
               </div>
+            </div>
+          )}
+
+          {slide.kind === "username" && player && (
+            <div className="mx-auto flex w-full max-w-md flex-1 flex-col px-5 pb-[var(--cta-pb)]">
+              <UsernameSlide player={player} onDone={loadNext} />
             </div>
           )}
 
@@ -709,6 +823,11 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   sfx.select()
                   verTabla()
                 }}
+                onChat={() => {
+                  sfx.select()
+                  goTo({ kind: "chat", back: { kind: "exercise" } })
+                }}
+                sinLeerChat={sinVerChat}
                 onCafecito={() => {
                   sfx.select()
                   goTo({ kind: "cafecito", trigger: "pedido", correctToday: 0 })
@@ -742,11 +861,17 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   elo={player?.elo ?? null}
                   multiplier={boost?.multiplier ?? 1}
                   promptLatex={exercise.prompt_latex}
-                  promptGone={tone === "correct"}
-                  promptRef={attachPrompt}
+                  // Sin explosión de por medio —los orbes son de escritorio,
+                  // acá el contador está en otra pantalla— el intercambio es
+                  // inmediato: donde se pedía la derivada, ahora está.
+                  solvedLatex={solvedLatex}
                 >
                   <div className={cn("flex flex-col gap-2", PANEL_CONTENT)}>
-                    <AnswerField tone={tone} seq={answerSeq}>
+                    <AnswerField
+                      tone={tone}
+                      seq={answerSeq}
+                      hint={solvedLatex !== null ? <SolvedHint /> : undefined}
+                    >
                       <MathInput
                         handleRef={attachInput}
                         tone={tone}
@@ -777,6 +902,10 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
               {/* Los botones quedan FUERA del deslizamiento: no son parte del
                   ejercicio, y moverlos dejaría un instante sin dónde tocar. */}
               <div className="flex items-stretch gap-2">
+                {/* Ver el comentario del mismo pie en desktop-layout.tsx: con el
+                    ejercicio resuelto el ¿Por qué? se apoya a la izquierda del
+                    Continuar, y con el ejercicio abierto va último. */}
+                {closed && hayPorque && <PorQueButton onClick={abrirPorque} />}
                 <AnswerButton
                   className="flex-1"
                   tone={tone}
@@ -788,13 +917,61 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                     else void onRevisar()
                   }}
                 />
+                {/* En el medio de los tres, igual que en escritorio (ver el
+                    comentario del mismo pie en desktop-layout.tsx). En una
+                    pantalla de 375 px los tres quedan al filo —medido: 327 px de
+                    tinta contra 343 disponibles— así que este va `min-w-0` y con
+                    menos aire lateral: el que tiene que entrar entero sí o sí es
+                    Revisar. */}
+                {!closed && hayPorque && (
+                  <PorQueButton onClick={abrirPorque} className="min-w-0 px-3" />
+                )}
                 {!closed && (
                   <SkipButton
                     disabled={skipMutation.isPending || answerMutation.isPending}
                     onClick={onSkip}
                   />
                 )}
+
               </div>
+            </div>
+          )}
+
+          {slide.kind === "porque" && (
+            <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col gap-3 px-4 pb-[var(--cta-pb)] pt-4">
+              <PorQuePanel
+                explanation={porqueTexto}
+                isPending={explainMutation.isPending}
+                isError={explainMutation.isError}
+                onRetry={pedirPorque}
+                graph={porqueGraph}
+              />
+              {/* Igual que la tabla: volver es un botón de ancho completo abajo
+                  de todo, donde está el pulgar. Lo que sigue después de leer NO
+                  es siempre lo mismo — si el ejercicio ya se acertó, sigue el
+                  ranking con el festejo esperando; si sigue abierto, sigue el
+                  ejercicio, con lo que se había escrito donde estaba. Por eso el
+                  rótulo cambia: prometer "Continuar" para volver al mismo
+                  problema sería mentir. */}
+              <Button
+                size="lg"
+                className={ctaCls}
+                onClick={() => {
+                  sfx.select()
+                  // Lo mismo que haría el Continuar del ejercicio: con una
+                  // correcta esperando, lo que sigue es el ranking y el festejo.
+                  if (pendingRef.current) {
+                    advanceAfterAnswer(null)
+                    return
+                  }
+                  goTo(slide.back, "atras")
+                }}
+              >
+                {/* `solvedLatex` y no `pendingRef`: dicen lo mismo —hay una
+                    correcta esperando el pase al ranking— pero un ref no se
+                    puede leer durante el render, y este rótulo es render. */}
+                {solvedLatex !== null ? "Continuar" : "Volver al ejercicio"}
+              </Button>
             </div>
           )}
 
@@ -804,10 +981,15 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
               climbFrom={climbFrom}
               liveXp={liveXp}
               counting={counting}
+              xpColor={xpColor}
               myUniversity={player?.university ?? null}
-              attachXpTarget={attachTarget}
               enabled={player !== null}
               onRelease={releaseXp}
+              onChat={() => {
+                sfx.select()
+                goTo({ kind: "chat", back: slide })
+              }}
+              sinLeerChat={sinVerChat}
               onContinue={() => advanceAfterAnswer("ranking")}
               continueDisabled={next.isPending}
               onCafecito={() => {
@@ -914,6 +1096,11 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   sfx.select()
                   verTabla()
                 }}
+                onChat={() => {
+                  sfx.select()
+                  goTo({ kind: "chat", back: slide })
+                }}
+                sinLeerChat={sinVerChat}
                 onCafecito={() => {
                   sfx.select()
                   goTo({ kind: "cafecito", trigger: "pedido", correctToday: 0 })
@@ -944,6 +1131,47 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
             </div>
           )}
 
+          {slide.kind === "chat" && (
+            <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col gap-3 px-4 pb-[var(--cta-pb)] pt-3">
+              {/* La misma cabecera que en todas las demás: desde el chat se
+                  puede ir a cualquier lado sin volver primero. */}
+              <GameHeader
+                onSettings={() => {
+                  sfx.select()
+                  goTo({ kind: "settings", back: slide })
+                }}
+                onTable={() => {
+                  sfx.select()
+                  verTabla()
+                }}
+                onChat={() => {}}
+                onCafecito={() => {
+                  sfx.select()
+                  goTo({ kind: "cafecito", trigger: "pedido", correctToday: 0 })
+                }}
+                onReclutar={() => {
+                  sfx.select()
+                  goTo({ kind: "reclutas", trigger: "pedido", back: slide })
+                }}
+              />
+              <ChatPanel enabled={player !== null} className="min-h-0 flex-1" />
+              <Button
+                size="lg"
+                className={ctaCls}
+                onClick={() => {
+                  sfx.select()
+                  // Leídos al SALIR y no al entrar, igual que las novedades: si
+                  // alguien cierra la pestaña con el chat abierto, lo que no
+                  // llegó a leer le sigue esperando.
+                  if (ultimoMensajeId !== null) setVistoChat(ultimoMensajeId)
+                  goTo(slide.back, "atras")
+                }}
+              >
+                Volver
+              </Button>
+            </div>
+          )}
+
           {slide.kind === "profile" && (
             <div className="mx-auto flex w-full max-w-md flex-1 flex-col px-4 pb-[var(--cta-pb)]">
               <ProfileSlides
@@ -966,6 +1194,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   else if (exercise) goTo({ kind: "exercise" })
                   else loadNext()
                 }}
+                onOpenPrivacy={() => setLegalOpen(true)}
               />
             </div>
           )}
@@ -1034,22 +1263,25 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
           )}
         </motion.div>
       </AnimatePresence>
+      <LegalSheet open={legalOpen} onOpenChange={setLegalOpen} />
     </div>
   )
 }
 
-// La slide del festejo. El estallido se dispara al montar y una sola vez: si se
-// disparara desde el handler de la respuesta, el confeti nacería en la slide
-// del ejercicio y la fila propia todavía no estaría en pantalla.
+// La slide del festejo: es la que TIENE el número que sube, así que también es
+// la que garantiza que el conteo empiece. Lo larga el toque en Continuar, y esta
+// slide lo vuelve a intentar al montarse por si se llegó por otro camino.
 function RankingSlide({
   answer,
   climbFrom,
   liveXp,
   counting,
+  xpColor,
   myUniversity,
-  attachXpTarget,
   enabled,
   onRelease,
+  onChat,
+  sinLeerChat,
   onContinue,
   continueDisabled,
   onSettings,
@@ -1061,10 +1293,12 @@ function RankingSlide({
   climbFrom: number | null
   liveXp: number | null
   counting: boolean
+  xpColor: string | null
   myUniversity: string | null
-  attachXpTarget: (node: HTMLElement | null) => void
   enabled: boolean
   onRelease: () => void
+  onChat: () => void
+  sinLeerChat: number
   onContinue: () => void
   continueDisabled: boolean
   onSettings: () => void
@@ -1072,10 +1306,10 @@ function RankingSlide({
   onCafecito: () => void
   onReclutar: () => void
 }) {
-  // Red de seguridad, no el disparo: quien suelta el imán es el toque en
-  // Continuar (ver advanceAfterAnswer), para que los orbes viajen durante el
-  // pase. Esto cubre cualquier camino que llegue al ranking sin pasar por ahí, y
-  // si ya se soltó no hace nada.
+  // Red de seguridad, no el disparo: quien larga el conteo es el toque en
+  // Continuar (ver advanceAfterAnswer), para que corra durante el pase. Esto
+  // cubre cualquier camino que llegue al ranking sin pasar por ahí, y si ya se
+  // largó no hace nada.
   const releaseRef = useRef(onRelease)
   useEffect(() => {
     releaseRef.current = onRelease
@@ -1092,20 +1326,22 @@ function RankingSlide({
       <GameHeader
         onSettings={onSettings}
         onTable={onTable}
+        onChat={onChat}
+        sinLeerChat={sinLeerChat}
         onCafecito={onCafecito}
         onReclutar={onReclutar}
       />
       {/* Sin cartel de "+21 de experiencia" arriba: el XP ya se ve —y mejor—
-          como bolitas cayendo sobre la fila propia y el número subiendo ahí
-          mismo. Un renglón que dice lo que la animación está mostrando le saca
-          alto al ranking, que es a lo que se vino. */}
+          como el número de la fila propia prendiéndose y subiendo. Un renglón
+          que dice lo que la animación está mostrando le saca alto al ranking,
+          que es a lo que se vino. */}
       <GameRanking
         climbFrom={climbFrom}
         enabled={enabled}
         liveXp={liveXp}
         counting={counting}
+        xpColor={xpColor}
         myUniversity={myUniversity}
-        attachXpTarget={attachXpTarget}
         className="min-h-0 flex-1"
       />
       {/* Sin historial de novedades debajo del Continuar: en el teléfono era una

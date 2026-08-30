@@ -171,7 +171,7 @@ export function CafecitoButton({
         onOpen()
       }}
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-md border border-[#A8703C]/60 px-2.5 py-1.5 text-sm text-[#A8703C] transition-colors hover:bg-[#A8703C]/10",
+        "inline-flex items-center gap-1.5 rounded-md border border-[#EABB74]/60 px-2.5 py-1.5 text-sm text-[#EABB74] transition-colors hover:bg-[#EABB74]/10",
         className,
       )}
     >
