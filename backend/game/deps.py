@@ -139,6 +139,7 @@ def link_guest_to_user(db: Session, guest: GamePlayer, user: User) -> GamePlayer
         GameCtaEvent,
         GameEvent,
         GameExercise,
+        GameMessage,
     )
 
     existing.xp += guest.xp
@@ -187,7 +188,18 @@ def link_guest_to_user(db: Session, guest: GamePlayer, user: User) -> GamePlayer
     # base armada con create_all, que es la que usan los scripts de chequeo, el
     # borrado levanta IntegrityError desde adentro de get_current_player, o sea
     # en CUALQUIER endpoint y en bucle.
-    for tabla in (GameExercise, GameAttempt, GameEvent, GameCtaEvent, GameBoostIntent):
+    # `GameMessage` va en la lista aunque hoy no pueda tener filas de un
+    # invitado —escribir pide cuenta— porque el día que esa regla se afloje, el
+    # síntoma de haberlo olvidado no es un chat roto: es IntegrityError adentro de
+    # get_current_player, o sea el juego entero caído.
+    for tabla in (
+        GameExercise,
+        GameAttempt,
+        GameEvent,
+        GameCtaEvent,
+        GameBoostIntent,
+        GameMessage,
+    ):
         db.query(tabla).filter(tabla.player_id == guest.id).update(
             {"player_id": existing.id}, synchronize_session=False
         )

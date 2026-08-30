@@ -89,7 +89,10 @@ r = client.post(
     json={"exercise_id": ex_id, "answer_latex": "z", "answer_mathjson": "z"},
 )
 check(r.status_code == 200 and not r.json()["parse_ok"], "mathjson inválido -> parse_ok=false")
-check(r.json()["attempts_left"] == 2, "parseo inválido no consume intento")
+# El intento se cuenta con `attempt_number` y no con `attempts_left`: desde que
+# los intentos son ilimitados ese campo viaja siempre en None (schemas.py).
+check(r.json()["attempt_number"] == 0, "parseo inválido no consume intento")
+check(r.json()["attempts_left"] is None, "y attempts_left ya no dice un número")
 
 # Ejercicio forzado con derivada conocida, para probar el circuito completo.
 forced = GameExercise(
@@ -120,7 +123,7 @@ r = client.post(
 j = r.json()
 check(not j["correct"] and j["parse_ok"], "respuesta errónea detectada")
 check("¿seguro?" in (j["feedback_incorrect"] or ""), "feedback específico del error predecible")
-check(j["attempt_number"] == 1 and j["attempts_left"] == 1, "consume el intento 1")
+check(j["attempt_number"] == 1, "consume el intento 1")
 check(j["xp_awarded"] == 0, "sin XP por fallo")
 
 r = client.post(
@@ -140,7 +143,7 @@ check(
     j["xp_awarded"] == expected_second,
     f"XP de 2º intento = {expected_second} (dio {j['xp_awarded']})",
 )
-check(j["attempts_left"] == 0, "ejercicio cerrado")
+check(j["correct"] is True, "ejercicio cerrado por haber acertado")
 
 # Reintento sobre un ejercicio ya cerrado. Antes daba un 409 pelado; ahora repite
 # el resultado que ese ejercicio ya había dado. Es el caso de la conexión que se
@@ -157,11 +160,18 @@ check(r.status_code == 200, f"reintentar un ejercicio cerrado responde 200 (dio 
 j = r.json()
 check(j["correct"] is True, "y repite que estuvo bien, no re-evalua lo que se mando")
 check(j["xp_awarded"] == expected_second, f"con la XP que se habia ganado (dio {j['xp_awarded']})")
-check(j["attempts_left"] == 0, "y sigue cerrado")
+check(j["correct"] is True, "y sigue cerrado")
 
 print("3. perfil")
+# El invitado estrena su @ UNA vez —la diapo de "elegí tu @" del arranque, ver
+# GamePlayer.alias_is_generated— y de ahí en más elegirlo vuelve a ser el gancho
+# del registro. La regla entera, con sus casos de borde, vive en
+# check_game_username.py; acá se comprueba que el camino feliz sea el que el
+# cliente espera.
 r = client.patch("/game/derivemos/me", headers=H, json={"alias": "pirata123"})
-check(r.status_code == 403, "guest no edita alias (403)")
+check(r.status_code == 200, f"el invitado estrena su @ una vez (dio {r.status_code})")
+r = client.patch("/game/derivemos/me", headers=H, json={"alias": "pirata456"})
+check(r.status_code == 403, "y el segundo cambio ya pide registro (403)")
 r = client.patch(
     "/game/derivemos/me", headers=H, json={"university": "uba", "career": "T"}
 )
@@ -672,7 +682,7 @@ r = client.post(
 )
 body = r.json()
 check(r.status_code == 200 and body["parse_ok"] is False, "un envío ilegible responde parse_ok=False")
-check(body["attempts_left"] == 2, f"y NO consume intento (quedan {body['attempts_left']})")
+check(body["attempt_number"] == 0, f"y NO consume intento (quedó en {body['attempt_number']})")
 db.expire_all()
 fallidos = db.query(_GA).filter(_GA.exercise_id == ex_id, _GA.parse_ok.is_(False)).all()
 check(len(fallidos) == 1, "pero sí queda registrado")

@@ -44,6 +44,9 @@ class GamePlayerOut(BaseModel):
     university: Optional[str] = None
     career: Optional[str] = None
     is_guest: bool
+    # Si sigue en True, este @ todavía no pasó por la edición gratis de la
+    # slide de "elegí tu @" (ver GamePlayer.alias_is_generated).
+    alias_is_generated: bool = True
     # Nivel 0-3 derivado del θ (elo.level_of): el front lo pinta con los colores
     # de cinturón, como el ranking de Intervalo pinta el cinturón máximo.
     level: int = 0
@@ -109,7 +112,11 @@ class GameAnswerResponse(BaseModel):
     # Mensaje cuando parse_ok=False ("no pudimos evaluar tu respuesta").
     parse_error: Optional[str] = None
     attempt_number: int
-    attempts_left: int
+    # None es «sin límite», que es lo que los intentos son: se responde hasta
+    # acertar o saltear. El campo sobrevive a la mecánica de dos intentos porque
+    # lo lee cualquier cliente viejo que todavía esté abierto en un teléfono; el
+    # nuevo decide si el ejercicio se cerró mirando `correct`.
+    attempts_left: Optional[int] = None
     feedback_incorrect: Optional[str] = None
     xp_awarded: int
     xp_total: int
@@ -130,12 +137,44 @@ class GameAnswerResponse(BaseModel):
     # histórico no sirve ahí, porque el mérito del que se está hablando es el de
     # esta sentada.
     correct_today: int = 0
-    # Solo cuando el ejercicio se cierra sin acierto.
+    # Siempre None desde que los intentos son ilimitados: ya no existe el
+    # ejercicio que se cierra sin acierto. La derivada correcta ahora llega por
+    # un solo camino, el «¿Por qué?» (POST /explain).
     correct_answer_latex: Optional[str] = None
     rank_before: Optional[int] = None
     rank_after: Optional[int] = None
     best_rank: Optional[int] = None
     is_record: bool = False
+
+
+class GameExplainRequest(BaseModel):
+    exercise_id: int
+
+
+class GameExplainOut(BaseModel):
+    """La explicación del «¿Por qué?», en el mismo MathText que el banco de
+    Intervalo: prosa con `$…$` y bloques `$$…$$`."""
+
+    explanation: str
+    # Este pedido dejó marcado el ejercicio, o sea que acertarlo va a pagar
+    # XP_EXPLICADO. False cuando ya estaba cerrado (se acertó y no queda nada
+    # que cobrar) o cuando ya se había abierto antes.
+    costs_xp: bool = False
+    # El gráfico de cierre: f y f' en los mismos ejes. Solo lo pinta el
+    # teléfono (web/src/app/derivadas/mobile-flow.tsx) — en escritorio la
+    # explicación ya compite por espacio con el dorso volteado de la card—,
+    # pero viaja siempre: a diferencia de `graph_fn` en el banco de
+    # Intervalo, acá NINGÚN ejercicio se queda sin curva que mostrar (ver
+    # game/explain.py :: Explanation). `graph_fn`/`graph_fn2` son fórmulas
+    # de mathjs, no LaTeX — mismo formato que usa el banco de Intervalo para
+    # sus propios `GRAF` (ver `web/components/math-graph.tsx`).
+    graph_fn: str
+    graph_fn2: str
+    # La MISMA f y f' de arriba, en LaTeX: solo para la leyenda del gráfico,
+    # que si no diría un genérico "f(x)"/"f'(x)" en vez de la fórmula real.
+    graph_fn_latex: str
+    graph_fn2_latex: str
+    graph_view: list[float]
 
 
 class GameLeaderboardEntry(BaseModel):
@@ -149,8 +188,18 @@ class GameLeaderboardEntry(BaseModel):
     university: Optional[str] = None
     career: Optional[str] = None
     level: int = 0
+    # El Elo de la persona (game/elo.py :: rating_of). Viaja siempre, ordene el
+    # ranking por XP o por Elo: es la otra columna que la fila puede mostrar, y
+    # el selector la cambia sin recargar nada.
+    elo: int = 0
+    # ¿Ya salió de la rampa? Con menos de elo.RAMP_UPDATES respuestas el Elo
+    # todavía es provisorio: la fila muestra "—" en vez de un número, y en el
+    # orden por Elo va detrás de todos los calificados. Mismo criterio que
+    # `GameUniversityRow.ranked`, una persona en vez de una universidad.
+    elo_ranked: bool = False
     # Puestos ganados (+) o perdidos (−) en los últimos minutos. 0 = sin
-    # movimiento reciente, y el front no dibuja flecha.
+    # movimiento reciente, y el front no dibuja flecha. Siempre 0 en el orden
+    # por Elo: las fotos contra las que se compara son del puesto por XP.
     rank_delta: int = 0
 
 
@@ -201,6 +250,74 @@ class GameLeaderboardSummary(BaseModel):
     players: int
     exercises: int
     universities: list[str]
+    # Elo promedio del mismo scope, mismo cálculo que GameUniversityRow.rating_avg
+    # (promedio en θ, solo jugadores ya salidos de la rampa) pero sin agrupar por
+    # universidad. None con menos de boosts.MIN_PLAYERS_RANKED calificados — un
+    # promedio de tres personas no es un promedio, es quiénes son esas tres.
+    elo_avg: Optional[int] = None
+
+
+class GameStatsHistogramBucket(BaseModel):
+    """Un escalón del histograma de Elo (ver game/stats.py :: _histograma)."""
+
+    from_rating: int
+    to_rating: int
+    count: int
+
+
+class GameStatsRow(BaseModel):
+    """Una fila de la tabla de derivadas, con las dos columnas que agrega el
+    panel de estadísticas (ver game/stats.py :: ROW_TEMPLATES)."""
+
+    slug: str
+    # None en dos casos DISTINTOS que el front tiene que poder diferenciar: la
+    # fila no tiene ninguna plantilla en el generador (inv_x/sqrt_x/tan_x —
+    # siempre None) o la tiene pero nadie la vio nunca (ahí cae en la semilla
+    # del tier vía elo.effective_beta y nunca da None).
+    unlock_elo: Optional[int] = None
+    # None si hay menos de stats.MIN_MUESTRA_FILA intentos limpios en la
+    # ventana de los últimos 10.
+    accuracy: Optional[int] = None
+    # Cuántos de los últimos 10 hay de verdad (0-10). El front lo usa para el
+    # tooltip del placeholder ("resolviste 2 de este tipo, todavía poco").
+    sample: int = 0
+    # Milisegundos, promedio de la MISMA ventana que `accuracy`. None con el
+    # mismo criterio que `accuracy` (menos de MIN_MUESTRA_FILA intentos con
+    # tiempo registrado) — sin comparación contra el resto de los jugadores,
+    # a propósito: es un dato personal, no un ranking de velocidad.
+    avg_response_ms: Optional[int] = None
+
+
+class GameStatsGeneral(BaseModel):
+    exercises_correct: int
+    exercises_attempted: int
+    accuracy_overall: Optional[int] = None
+    best_combo: int
+    best_rank: Optional[int] = None
+    days_playing: int
+    xp: int
+    xp_from_referrals: int = 0
+    # No es personal — ver game/stats.py :: _cafecitos_de_la_universidad. Es
+    # cuánto recibió tu universidad, de cualquier donante.
+    cafecitos_universidad: int = 0
+
+
+class GameStatsOut(BaseModel):
+    """Payload de GET /stats: el Elo del jugador contra la masa de jugadores
+    calificados, más la tabla de derivadas enriquecida con Elo de desbloqueo
+    y accuracy personal (ver game/stats.py)."""
+
+    n_rated_players: int
+    # Si es False, `histogram`/`player_bucket_index`/`percentile` vienen
+    # vacíos: con pocos jugadores calificados una campana no es un gráfico,
+    # es señalar quiénes son (ver stats.MIN_HISTOGRAM_PLAYERS).
+    enough_for_histogram: bool
+    histogram: list[GameStatsHistogramBucket] = []
+    player_rating: int
+    player_bucket_index: Optional[int] = None
+    percentile: Optional[int] = None
+    general: GameStatsGeneral
+    rows: list[GameStatsRow]
 
 
 class GameBoostOut(BaseModel):
@@ -285,8 +402,42 @@ class GameEventOut(BaseModel):
     seconds_ago: int
 
 
+class GameMessageOut(BaseModel):
+    """Un mensaje del chat. Trae el @ y la universidad DE CUANDO SE ESCRIBIÓ, no
+    los de hoy: ver el docstring de GameMessage en models.py."""
+
+    id: int
+    alias: str
+    # Para pintar el @ con el color de su nivel, igual que en el ranking.
+    level: int
+    university: Optional[str] = None
+    text: str
+    is_mine: bool = False
+    # Segundos, no un instante: mismo motivo que en GameEventOut.
+    seconds_ago: int
+
+
+class GameMessageIn(BaseModel):
+    # Tope laxo a propósito, como el de la universidad: el de verdad son los 140
+    # de chat.MAX_TEXTO. Este solo está para que un cuerpo absurdo muera en la
+    # puerta sin llegar al saneado.
+    text: str = Field(min_length=1, max_length=400)
+
+
 class GameEventsResponse(BaseModel):
     events: list[GameEventOut]
+    # Si el chat acepta mensajes ahora mismo (GAME_CHAT_ENABLED). Viaja con el
+    # feed y no en /me porque es una propiedad del SERVICIO y no de la persona:
+    # así el cliente puede apagar el campo con el motivo de verdad en vez de
+    # dejar escribir para después contestar 503. Un interruptor que solo conoce
+    # el servidor es medio interruptor.
+    chat_enabled: bool = False
+    # Los mensajes viajan en la MISMA respuesta que las novedades, y esa es toda
+    # la idea del chat: no hay un sondeo nuevo, hay un campo nuevo en el que ya
+    # existía. Dos listas y no una mezclada, porque cada una tiene su cursor y su
+    # ventana — si compartieran las cuarenta filas, una racha de chat taparía el
+    # anuncio de cafecitos.
+    messages: list[GameMessageOut] = []
 
 
 class GameUniversityRow(BaseModel):
