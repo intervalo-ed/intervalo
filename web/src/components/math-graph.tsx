@@ -19,7 +19,12 @@ type RealFn = (x: number) => number
 type BoolFn = (x: number) => boolean
 
 const DEFAULT_VIEW: [number, number, number, number] = [-4, 4, -4, 4]
-const LINE_COLOR = "#4453E6"
+export const LINE_COLOR = "#4453E6"
+// Segunda curva, opcional (hoy solo la usa el minijuego /derivadas, para
+// dibujar f y f' juntas en el «¿Por qué?»). Violeta y no rojo: el rojo ya
+// significa "parte negativa del área sombreada" en este mismo componente
+// (SHADE_NEGATIVE_COLOR) y reusarlo acá confundiría los dos sentidos.
+export const SECOND_LINE_COLOR = "#8d31b7"
 // Sombreado con signo (analisis/brown/integrals/definite, "lectura-area-con-
 // signos"): la parte de graph_shade que queda arriba del eje x usa LINE_COLOR,
 // la que queda abajo usa este segundo color, para que el signo del área se
@@ -404,12 +409,152 @@ function useSteppedRange(naturalStep: number, range: number, density: number): n
   return ref.current
 }
 
+// Split the visible x-range into continuous branches to avoid bridging across
+// discontinuities (asymptotes, domain gaps).
+//
+// A per-point visibility test alone isn't enough: near a vertical asymptote the
+// function can jump from a large positive value to a large negative one (or vice
+// versa) between two adjacent coarse samples, and both samples can individually
+// land inside [lo, hi] (e.g. +3.9 then -3.9 inside a [-4, 4] view). Treating those
+// as the same run draws a straight line bridging the pole. So a run is also cut
+// when the jump between consecutive samples is large relative to the visible
+// height, even if both points are individually "visible".
+//
+// Función pura y no un hook: la usan dos curvas (f y, en /derivadas, f'), cada
+// una con su propio `fn`/`boundaryXs` pero la MISMA vista — sacarla de
+// `GraphContent` evita duplicar las ~90 líneas de detección de asíntotas.
+function computeBranches(
+  fn: RealFn,
+  boundaryXs: number[],
+  xMin: number,
+  xMax: number,
+  lo: number,
+  hi: number,
+): [number, number][] {
+  const N = 300
+  const step = (xMax - xMin) / N
+  const heightRange = hi - lo
+  const xs: number[] = []
+  const ys: number[] = []
+  const visible: boolean[] = []
+  for (let i = 0; i <= N; i++) {
+    const x = xMin + i * step
+    const y = fn(x)
+    xs.push(x)
+    ys.push(y)
+    visible.push(Number.isFinite(y) && y >= lo && y <= hi)
+  }
+  // Afina el borde de una rama: entre la última muestra que se ve y la
+  // primera que no, busca por bisección el punto donde la curva sale de la
+  // vista. Es lo que reemplaza al paso atrás de una muestra entera que había
+  // antes: ese paso metía el dominio del OTRO lado de la asíntota (con
+  // 1/(x²-4) en x∈[-7,7] la rama del medio arrancaba en x=-2.0067, donde
+  // f=+37), y Mafs dibujaba la recta que la cruzaba de punta a punta.
+  const outside = (x: number) => {
+    const y = fn(x)
+    return !(Number.isFinite(y) && y >= lo && y <= hi)
+  }
+  const refineEdge = (xIn: number, xOut: number) => {
+    let b = xOut
+    // Cuando el corte vino por salto, la asíntota quedó ENTRE dos muestras
+    // que las dos se ven (con 1/(x²-4) las vecinas del polo dan +9.31 y
+    // -3.19, ambas dentro de la vista). Bisecar directo contra `xOut` puede
+    // cruzar el polo y devolver un borde del otro lado, o sea el puente de
+    // nuevo: primero hay que avanzar desde `xIn` hasta encontrar por dónde
+    // se va la curva, y recién ahí bisecar.
+    if (!outside(b)) {
+      let found = false
+      for (let k = 1; k < 16; k++) {
+        const m = xIn + ((xOut - xIn) * k) / 16
+        if (outside(m)) {
+          b = m
+          found = true
+          break
+        }
+      }
+      if (!found) return xIn
+    }
+    let a = xIn
+    for (let k = 0; k < 24; k++) {
+      const m = (a + b) / 2
+      if (outside(m)) b = m
+      else a = m
+    }
+    // `b` queda apenas fuera de la vista y del mismo lado que `a`: la rama
+    // llega justo al borde y Mafs la recorta ahí.
+    return b
+  }
+
+  const idxRuns: [number, number][] = []
+  let start = -1
+  for (let i = 0; i <= N; i++) {
+    const jumpFromPrev =
+      i > 0 && visible[i - 1] && visible[i] && Math.abs(ys[i] - ys[i - 1]) > heightRange * 0.5
+    if (visible[i] && !jumpFromPrev) {
+      if (start === -1) start = i
+    } else {
+      if (start !== -1) idxRuns.push([start, i - 1])
+      start = visible[i] ? i : -1
+    }
+  }
+  if (start !== -1) idxRuns.push([start, N])
+
+  const runs: [number, number][] = idxRuns.map(([a, b]) => [
+    a === 0 ? xs[0] : refineEdge(xs[a], xs[a - 1]),
+    b === N ? xs[N] : refineEdge(xs[b], xs[b + 1]),
+  ])
+
+  // Corte forzado en cada borde de pieza del piecewise, independiente del salto
+  // de altura: el heurístico de arriba es un fallback para asíntotas, no la vía
+  // principal para separar ramas de un Piecewise (ver math-graph.tsx AGENTS/plan).
+  const cutXs = boundaryXs.filter((x) => x > xMin && x < xMax)
+  if (cutXs.length === 0) return runs
+  const cutEps = (xMax - xMin) * 1e-5
+  return runs.flatMap(([s, e]) => {
+    let segs: [number, number][] = [[s, e]]
+    for (const cx of cutXs) {
+      segs = segs.flatMap(([a, b]) =>
+        cx > a && cx < b
+          ? ([[a, cx - cutEps], [cx + cutEps, b]] as [number, number][])
+          : ([[a, b]] as [number, number][]),
+      )
+    }
+    return segs
+  })
+}
+
+// Integer x where fn(x) is also an integer, marked as a dot in the line color
+// so the student can read exact points the curve passes through. Sacada de
+// `GraphContent` por la misma razón que `computeBranches`: la usan las dos
+// curvas (f y, en /derivadas, f'), cada una con su propio `fn` pero la MISMA
+// grilla entera.
+function computeLattice(
+  fn: RealFn,
+  xMin: number,
+  xMax: number,
+  yMin: number,
+  yMax: number,
+): [number, number][] {
+  const pts: [number, number][] = []
+  for (let x = Math.ceil(xMin); x <= Math.floor(xMax); x++) {
+    const y = fn(x)
+    if (!Number.isFinite(y)) continue
+    const yr = Math.round(y)
+    if (Math.abs(y - yr) < 1e-6 && yr >= yMin && yr <= yMax) {
+      pts.push([x, yr])
+    }
+  }
+  return pts
+}
+
 // Runs inside <Mafs> — has access to the live viewport via usePaneContext.
 // Grid, ticks, and the function plot all update dynamically as the user pans/zooms.
 function GraphContent({
   fn,
   boundaryXs,
   markers,
+  fn2,
+  boundaryXs2,
   widthPx,
   heightPx,
   piX,
@@ -419,6 +564,11 @@ function GraphContent({
   fn: RealFn
   boundaryXs: number[]
   markers: PieceMarker[]
+  // Segunda curva opcional (ver SECOND_LINE_COLOR más arriba). Sin marcadores
+  // ni puntos de retícula propios: el juego que la usa nunca sirve un
+  // Piecewise, así que esa maquinaria no aplicaría.
+  fn2?: RealFn | null
+  boundaryXs2?: number[]
   widthPx: number
   heightPx: number
   piX: boolean
@@ -473,129 +623,32 @@ function GraphContent({
   const lo = yMin - margin
   const hi = yMax + margin
 
-  // Split the visible x-range into continuous branches to avoid bridging across
-  // discontinuities (asymptotes, domain gaps). Recomputed on every viewport change.
-  //
-  // A per-point visibility test alone isn't enough: near a vertical asymptote the
-  // function can jump from a large positive value to a large negative one (or vice
-  // versa) between two adjacent coarse samples, and both samples can individually
-  // land inside [lo, hi] (e.g. +3.9 then -3.9 inside a [-4, 4] view). Treating those
-  // as the same run draws a straight line bridging the pole. So a run is also cut
-  // when the jump between consecutive samples is large relative to the visible
-  // height, even if both points are individually "visible".
-  const branches = useMemo<[number, number][]>(() => {
-    const N = 300
-    const step = (xMax - xMin) / N
-    const heightRange = hi - lo
-    const xs: number[] = []
-    const ys: number[] = []
-    const visible: boolean[] = []
-    for (let i = 0; i <= N; i++) {
-      const x = xMin + i * step
-      const y = fn(x)
-      xs.push(x)
-      ys.push(y)
-      visible.push(Number.isFinite(y) && y >= lo && y <= hi)
-    }
-    // Afina el borde de una rama: entre la última muestra que se ve y la
-    // primera que no, busca por bisección el punto donde la curva sale de la
-    // vista. Es lo que reemplaza al paso atrás de una muestra entera que había
-    // antes: ese paso metía el dominio del OTRO lado de la asíntota (con
-    // 1/(x²-4) en x∈[-7,7] la rama del medio arrancaba en x=-2.0067, donde
-    // f=+37), y Mafs dibujaba la recta que la cruzaba de punta a punta.
-    const outside = (x: number) => {
-      const y = fn(x)
-      return !(Number.isFinite(y) && y >= lo && y <= hi)
-    }
-    const refineEdge = (xIn: number, xOut: number) => {
-      let b = xOut
-      // Cuando el corte vino por salto, la asíntota quedó ENTRE dos muestras
-      // que las dos se ven (con 1/(x²-4) las vecinas del polo dan +9.31 y
-      // -3.19, ambas dentro de la vista). Bisecar directo contra `xOut` puede
-      // cruzar el polo y devolver un borde del otro lado, o sea el puente de
-      // nuevo: primero hay que avanzar desde `xIn` hasta encontrar por dónde
-      // se va la curva, y recién ahí bisecar.
-      if (!outside(b)) {
-        let found = false
-        for (let k = 1; k < 16; k++) {
-          const m = xIn + ((xOut - xIn) * k) / 16
-          if (outside(m)) {
-            b = m
-            found = true
-            break
-          }
-        }
-        if (!found) return xIn
-      }
-      let a = xIn
-      for (let k = 0; k < 24; k++) {
-        const m = (a + b) / 2
-        if (outside(m)) b = m
-        else a = m
-      }
-      // `b` queda apenas fuera de la vista y del mismo lado que `a`: la rama
-      // llega justo al borde y Mafs la recorta ahí.
-      return b
-    }
-
-    const idxRuns: [number, number][] = []
-    let start = -1
-    for (let i = 0; i <= N; i++) {
-      const jumpFromPrev =
-        i > 0 && visible[i - 1] && visible[i] && Math.abs(ys[i] - ys[i - 1]) > heightRange * 0.5
-      if (visible[i] && !jumpFromPrev) {
-        if (start === -1) start = i
-      } else {
-        if (start !== -1) idxRuns.push([start, i - 1])
-        start = visible[i] ? i : -1
-      }
-    }
-    if (start !== -1) idxRuns.push([start, N])
-
-    const runs: [number, number][] = idxRuns.map(([a, b]) => [
-      a === 0 ? xs[0] : refineEdge(xs[a], xs[a - 1]),
-      b === N ? xs[N] : refineEdge(xs[b], xs[b + 1]),
-    ])
-
-    // Corte forzado en cada borde de pieza del piecewise, independiente del salto
-    // de altura: el heurístico de arriba es un fallback para asíntotas, no la vía
-    // principal para separar ramas de un Piecewise (ver math-graph.tsx AGENTS/plan).
-    const cutXs = boundaryXs.filter((x) => x > xMin && x < xMax)
-    if (cutXs.length === 0) return runs
-    const cutEps = (xMax - xMin) * 1e-5
-    return runs.flatMap(([s, e]) => {
-      let segs: [number, number][] = [[s, e]]
-      for (const cx of cutXs) {
-        segs = segs.flatMap(([a, b]) =>
-          cx > a && cx < b
-            ? ([[a, cx - cutEps], [cx + cutEps, b]] as [number, number][])
-            : ([[a, b]] as [number, number][]),
-        )
-      }
-      return segs
-    })
-  }, [fn, xMin, xMax, lo, hi, boundaryXs])
+  // Ramas continuas de cada curva, recomputadas en cada cambio de viewport.
+  // Ver `computeBranches` arriba: es la misma cuenta para las dos curvas,
+  // sacada de acá para no duplicar la detección de asíntotas.
+  const branches = useMemo(
+    () => computeBranches(fn, boundaryXs, xMin, xMax, lo, hi),
+    [fn, xMin, xMax, lo, hi, boundaryXs],
+  )
+  const branches2 = useMemo(
+    () => (fn2 ? computeBranches(fn2, boundaryXs2 ?? [], xMin, xMax, lo, hi) : []),
+    [fn2, boundaryXs2, xMin, xMax, lo, hi],
+  )
 
   const xTicks = axisTicks(xMin, xMax, xStep)
   const yTicks = axisTicks(yMin, yMax, yStep)
 
-  // Lattice points: integer x where f(x) is also an integer, marked as a dot in
-  // the line color so the student can read exact points the line passes through.
-  // Only while the integer grid is the actual grid (step <= 1); zoomed out they'd
-  // crowd together and add no value.
-  const lattice = useMemo<[number, number][]>(() => {
-    if (piX || xStep > 1) return []
-    const pts: [number, number][] = []
-    for (let x = Math.ceil(xMin); x <= Math.floor(xMax); x++) {
-      const y = fn(x)
-      if (!Number.isFinite(y)) continue
-      const yr = Math.round(y)
-      if (Math.abs(y - yr) < 1e-6 && yr >= yMin && yr <= yMax) {
-        pts.push([x, yr])
-      }
-    }
-    return pts
-  }, [fn, xMin, xMax, yMin, yMax, piX, xStep])
+  // Lattice points de las dos curvas. Solo mientras la grilla entera sea la
+  // grilla real (step <= 1); alejado se amontonarían sin aportar nada.
+  const gridEsEntera = !piX && xStep <= 1
+  const lattice = useMemo<[number, number][]>(
+    () => (gridEsEntera ? computeLattice(fn, xMin, xMax, yMin, yMax) : []),
+    [fn, xMin, xMax, yMin, yMax, gridEsEntera],
+  )
+  const lattice2 = useMemo<[number, number][]>(
+    () => (fn2 && gridEsEntera ? computeLattice(fn2, xMin, xMax, yMin, yMax) : []),
+    [fn2, xMin, xMax, yMin, yMax, gridEsEntera],
+  )
 
   return (
     <>
@@ -675,8 +728,23 @@ function GraphContent({
           maxSamplingDepth={20}
         />
       ))}
+      {fn2 &&
+        branches2.map(([d0, d1], k) => (
+          <Plot.OfX
+            key={`2-${k}`}
+            y={fn2}
+            domain={[d0, d1]}
+            color={SECOND_LINE_COLOR}
+            weight={2}
+            minSamplingDepth={12}
+            maxSamplingDepth={20}
+          />
+        ))}
       {lattice.map(([x, y]) => (
         <Point key={`pt-${x}-${y}`} x={x} y={y} color={LINE_COLOR} svgCircleProps={{ r: 2 }} />
+      ))}
+      {lattice2.map(([x, y]) => (
+        <Point key={`pt2-${x}-${y}`} x={x} y={y} color={SECOND_LINE_COLOR} svgCircleProps={{ r: 2 }} />
       ))}
       {markers
         .filter((m) => m.x >= xMin && m.x <= xMax && m.y >= lo && m.y <= hi)
@@ -702,13 +770,19 @@ export default function MathGraph({
   graphView,
   graphShade,
   graphFreeAspect,
+  graphFn2,
 }: {
   graphFn: string
   graphView?: unknown[] | null
   graphShade?: unknown[] | null
   graphFreeAspect?: boolean | null
+  // Segunda curva opcional, en SECOND_LINE_COLOR. Ningún ejercicio del banco la
+  // usa hoy — la introduce el minijuego /derivadas para mostrar f y f' juntas
+  // en el «¿Por qué?» (ver web/src/app/derivadas/porque-panel.tsx).
+  graphFn2?: string | null
 }) {
   const build = useMemo(() => buildFn(graphFn), [graphFn])
+  const build2 = useMemo(() => (graphFn2 ? buildFn(graphFn2) : null), [graphFn2])
   const piX = useMemo(() => isAngleTrig(graphFn), [graphFn])
   const shade = useMemo(() => toShade(graphShade), [graphShade])
   const [resetKey, setResetKey] = useState(0)
@@ -785,6 +859,8 @@ export default function MathGraph({
           fn={build.fn}
           boundaryXs={build.boundaryXs}
           markers={build.markers}
+          fn2={build2?.fn}
+          boundaryXs2={build2?.boundaryXs}
           widthPx={width}
           heightPx={height}
           piX={piX}

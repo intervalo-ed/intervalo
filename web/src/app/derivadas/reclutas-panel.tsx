@@ -34,14 +34,17 @@ import { KeyCap } from "./exercise-card"
 import { useCta } from "./game-telemetry"
 import { ListaDeReclutas } from "./reclutas-list"
 import { CLASE_ACCION_EN_EL_PIE, claseDeSalida, Salida } from "./slide-salida"
-import { useTeclas } from "./teclas"
+import { enCampoDeTexto, useTeclas } from "./teclas"
 import { useCachedPlayer } from "./UseGamePlayer"
 import { useGameRecruits } from "./UseGameLeaderboard"
 
 // Cuánto tarda en habilitarse el botón de salir cuando la diapo la sacó el
 // juego. Dos segundos menos que la del cafecito: allá hay una barra que mover y
 // un número que mirar antes de decidir, acá hay tres renglones y un botón.
-const ESPERA_S = 8
+//
+// En cero en desarrollo — misma guarda que COOLDOWN_S en cafecito-panel.tsx.
+const EN_DESARROLLO = process.env.NODE_ENV === "development"
+const ESPERA_S = EN_DESARROLLO ? 0 : 8
 
 // El porcentaje que se muestra mientras el servidor no contestó todavía. Es el
 // mismo valor que `SHARE_PERCENT` en backend/game/referrals.py; la respuesta lo
@@ -138,6 +141,10 @@ export function ReclutasPanel({
     if (!keyboard) return
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== "Enter") return
+      // Escribiendo en el chat, un Enter es un Enter. Este listener vive en
+      // `document` y la diapo puede estar abierta con el aside volteado al chat,
+      // así que sin esto un shift+enter a mitad de una palabra abría WhatsApp.
+      if (enCampoDeTexto(e.target)) return
       e.preventDefault()
       if (e.shiftKey) {
         reclutarRef.current()

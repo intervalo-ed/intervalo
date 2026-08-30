@@ -13,7 +13,7 @@ import {
   useState,
   type Ref,
 } from "react"
-import { KeyCap } from "./exercise-card"
+import { CAMPO_MIN_H, KeyCap } from "./exercise-card"
 import type { Teclas } from "./teclas"
 
 export type MathInputHandle = {
@@ -76,7 +76,15 @@ type Mathfield = HTMLElement & {
 // dibujada como tecla (el <KeyCap> del CTA). Mismo truco que las novedades del
 // historial: la oración viaja con un agujero en vez de resolverse acá, porque
 // una tecla es un componente y no un carácter.
-type Tip = { text: string; key?: string; needs?: readonly string[] }
+//
+// `caps` es una LISTA y no una tecla sola: los agujeros se llenan en orden, así
+// que una frase puede nombrar dos atajos. Era una sola y por eso el tip de
+// «enter revisa, alt + enter saltea» escribía los nombres como texto pelado —
+// no por una decisión, sino porque no entraban dos.
+//
+// `needs` es otra cosa y no hay que confundirlas: son teclas del teclado en
+// pantalla que tienen que estar VISIBLES para que el tip venga al caso.
+type Tip = { text: string; caps?: readonly string[]; needs?: readonly string[] }
 
 const TIP_SLOT = /(\{k\})/
 
@@ -96,11 +104,19 @@ const CON_HUECOS = [
 
 // Todos cierran con punto ANTES del emoji: la frase termina y el emoji la
 // acompaña, igual que en las novedades del historial (backend/game/events.py).
+//
+// El de los dos atajos lleva un joystick y no la flecha del Enter: la flecha
+// DIBUJA una de las dos teclas que la frase ya nombra —y encima la nombra dos
+// veces, porque el chip está ahí al lado—, así que no agregaba nada. El joystick
+// no representa ninguna de las dos acciones: dice «esto es cómo se maneja el
+// juego», que es de lo que la frase habla. Es además el único del conjunto que
+// no compite con otro: 🏃 ⬆️ ➗ 🌱 📐 👀 ⏭️ son todos objetos de la matemática o
+// del movimiento.
 // Función y no constante: dos de los tips nombran teclas, y en una Mac esas
 // teclas se llaman distinto (teclas.ts).
 export const tipsDeEscritorio = (t: Teclas): readonly Tip[] => [
   { text: "Usá tu teclado, es mucho más rápido. 🏃" },
-  { text: `${t.enter} revisa, ${t.altEnter} saltea. ↩️` },
+  { text: "Tocá {k} para revisar y {k} para saltear. 🕹️", caps: [t.enter, t.altEnter] },
   { text: "Para el exponente, escribí x^2. ⬆️", needs: ["pow", "sq"] },
   { text: "La barra / te arma la fracción. ➗", needs: ["frac"] },
   { text: "Escribí sqrt y brota la raíz. 🌱", needs: ["sqrt"] },
@@ -111,7 +127,7 @@ export const tipsDeEscritorio = (t: Teclas): readonly Tip[] => [
   // El único tip que enseña algo que CUESTA: la consulta baja el XP de este
   // ejercicio (ver `peeked` en desktop-layout.tsx). Se dice igual — esconder una
   // ayuda que existe no la vuelve gratis, solo la vuelve secreta.
-  { text: "Mantené {k} para ver la tabla de derivadas. 👀", key: t.alt },
+  { text: "Mantené {k} para ver la tabla de derivadas. 👀", caps: [t.alt] },
   { text: "Tab te lleva al próximo hueco. ⏭️", needs: CON_HUECOS },
 ]
 
@@ -145,15 +161,22 @@ export function tipFor({
           return elegibles[Math.abs(seed) % elegibles.length]
         })()
 
-  if (!elegido.key) return elegido.text
-  return elegido.text.split(TIP_SLOT).map((trozo, i) =>
+  const caps = elegido.caps
+  if (!caps) return elegido.text
+  // `split` con grupo de captura alterna texto y separador, así que los
+  // agujeros son SIEMPRE los índices impares y el agujero número `i` es el
+  // `(i-1)/2` de la lista. Sale de la forma del array y no de llevar un contador
+  // mutando durante el render.
+  const trozos = elegido.text.split(TIP_SLOT)
+  return trozos.map((trozo, i) =>
     trozo === "{k}" ? (
       // `mx-1` y no el `ml-2` de fábrica: ese margen está pensado para cuando el
       // chip CIERRA una frase, y acá va en el medio, así que necesita aire de los
       // dos lados. Los espacios del texto solos no alcanzan — la tecla es una
       // caja con borde y queda pegada a las palabras.
+      //
       <KeyCap key={i} className="mx-1">
-        {elegido.key}
+        {caps[(i - 1) / 2]}
       </KeyCap>
     ) : (
       trozo
@@ -177,6 +200,22 @@ const TONE_BORDER = {
 // Se llama desde los dos lados —cuando cambia el tono y cuando el campo recién
 // se termina de crear— porque el import es asíncrono y cualquiera de los dos
 // puede llegar primero.
+// Piso del alto del CONTENIDO del campo, en em contra su propio tamaño de letra
+// (`::part(content)`, que MathLive expone y que es un flex centrado: lo que entra
+// abajo de este piso queda en el medio de la caja y no arriba).
+//
+// Existe porque la caja crecía sola: MathLive mide el alto de lo que hay escrito,
+// y una `(` o un exponente son un par de píxeles más altos que una `x`, así que
+// escribir movía la caja —y con ella el teclado de abajo— un poquito todo el
+// tiempo. Con un piso, todo lo que entra en UN RENGLÓN da exactamente el mismo
+// alto y la caja se queda quieta.
+//
+// El número está puesto entre los dos casos: una expresión de un renglón mide
+// ~1,4 em y llega a ~1,7 con paréntesis y exponentes; una fracción anda por 2,4.
+// A 1,9 em, lo de un renglón nunca la mueve y una fracción sí — que es
+// justamente cuando hace falta el lugar.
+const CONTENIDO_MIN_EM = 1.9
+
 function applyTone(mf: Mathfield | null, tone: "correct" | "wrong" | null) {
   if (!mf) return
   mf.style.borderColor = tone ? TONE_BORDER[tone] : "var(--ring)"
@@ -199,10 +238,10 @@ export function MathInput({
   // tecla y MathLive es dueño del keydown mientras el campo tiene el foco.
   onEnter?: (opts: { skip: boolean }) => void
   tone?: "correct" | "wrong" | null
-  // Toma el foco apenas el campo existe. Hace falta desde que la card se vuelve
-  // a montar en cada ejercicio: el `focus()` que el layout dispara al recibir la
-  // derivada nueva corre ANTES de que este campo exista, así que iría al que se
-  // está yendo.
+  // Toma el foco apenas el campo existe. Hace falta porque este campo se
+  // desmonta al acertar —su lugar lo ocupa el botón del «¿Por qué?»— y vuelve
+  // con la derivada siguiente: el `focus()` que el layout dispara al recibirla
+  // corre ANTES de que exista, así que iría al que se está yendo.
   autoFocus?: boolean
 }) {
   const hostRef = useRef<HTMLDivElement | null>(null)
@@ -228,9 +267,9 @@ export function MathInput({
     setEmpty((fieldRef.current?.getValue("latex") ?? "").trim() === "")
 
   // Se publica con `useImperativeHandle`, que al desmontar deja el ref en null.
-  // Eso importa desde que la card se voltea entre ejercicios y hay dos campos
-  // montados a la vez: quien recibe este ref tiene que IGNORAR el null, porque
-  // llega de la card que se va y borraría el campo que la nueva ya publicó (ver
+  // Eso importa cuando dos paneles conviven durante una transición y hay dos
+  // campos montados a la vez: quien recibe este ref tiene que IGNORAR el null,
+  // porque llega del que se va y borraría el que el otro ya publicó (ver
   // `attachInput` en desktop-layout.tsx).
   useImperativeHandle(handleRef, () => ({
     insert: (latex: string) => {
@@ -273,7 +312,10 @@ export function MathInput({
       mf.setAttribute("inputmode", "none")
       mf.style.width = "100%"
       mf.style.fontSize = "1.35rem"
-      mf.style.padding = "0.6rem 0.75rem"
+      // El aire de la caja. Sube con CAMPO_MIN_H (exercise-card.tsx): el
+      // mathfield es quien dibuja la caja, así que el alto de verdad sale de
+      // acá y de CONTENIDO_MIN_EM.
+      mf.style.padding = "0.8rem 0.75rem"
       mf.style.borderRadius = "0.5rem"
       mf.style.border = "1px solid var(--ring)"
       mf.style.background = "var(--background)"
@@ -361,6 +403,7 @@ export function MathInput({
       <style href="game-mathfield" precedence="default">{`
         .game-mathfield::part(virtual-keyboard-toggle),
         .game-mathfield::part(menu-toggle) { display: none; }
+        .game-mathfield::part(content) { min-height: ${CONTENIDO_MIN_EM}em; }
       `}</style>
       {/* El cartel va FUERA del div del campo: ese nodo lo maneja MathLive con
           `replaceChildren`, así que cualquier hijo que ponga React ahí lo
@@ -368,7 +411,7 @@ export function MathInput({
       <div className="relative">
         <div
           ref={hostRef}
-          className="min-h-[3.4rem]"
+          className={CAMPO_MIN_H}
           aria-label="Tu derivada"
         />
         {empty && hint && (

@@ -34,17 +34,26 @@ const LEIBNIZ = (latex: string) => `$$\\frac{d}{dx}\\left[\\,${latex}\\,\\right]
 // al mismo ancho, el panel se lee como una columna en vez de como tres cajas de
 // bordes distintos. La fórmula queda afuera a propósito — una derivada larga
 // necesita todo el ancho de la card antes de ponerse a scrollear.
-export const PANEL_CONTENT = "mx-auto w-full max-w-[28rem]"
+export const PANEL_CONTENT = "mx-auto w-full max-w-[32rem]"
 
 // Los mismos hex que usa el session-runner para las opciones: naranja al errar,
 // verde al acertar. Que el juego y las sesiones hablen distinto sería gratis y
 // no aportaría nada.
-const WRONG = "#E3690B"
-const RIGHT = "#22C55E"
+//
+// El verde se exporta porque no es solo el destello de la respuesta: es EL color
+// de haber acertado, y con él se prende también la XP mientras se llena (ver
+// xp-conteo.ts). Un solo verde para las dos mitades del mismo festejo.
+export const WRONG = "#E3690B"
+export const VERDE_ACIERTO = "#22C55E"
 
 const TONE_PULSE = {
   correct: "rgba(34, 197, 94, 0.26)",
   wrong: "rgba(227, 105, 11, 0.28)",
+  // El pulso con el que entra la pista del «¿Por qué?». Blanco con un poco de
+  // verde: el verde a secas ya lo dijo la respuesta al llegar, y repetirlo sería
+  // decir «acertaste» dos veces. Esto dice otra cosa —hay algo más para mirar—
+  // así que se parece al verde sin serlo.
+  hint: "rgba(214, 250, 228, 0.30)",
 } as const
 
 export type AnswerTone = "correct" | "wrong" | null
@@ -385,6 +394,32 @@ function Counters({
 // sobrante de la columna tiene que ir a parar.
 const PROMPT_H = "min-h-20 flex-1 md:min-h-24"
 
+// El alto del campo de respuesta. Lo comparten CUATRO cosas que ocupan
+// exactamente el mismo lugar y que se reemplazan entre sí sin que nada se mueva:
+// el campo (math-input.tsx), el botón del «¿Por qué?» que lo reemplaza al
+// acertar en escritorio (desktop-layout.tsx), la pista que lo reemplaza en el
+// teléfono (SolvedHint, acá abajo) y el esqueleto mientras carga la primera
+// derivada. Estaba escrito cuatro veces; ahora está una.
+//
+// Esta clase sostiene el HUECO, no dibuja la caja: la caja es el mathfield, y su
+// alto sale de su padding y de CONTENIDO_MIN_EM (los dos en math-input.tsx). Este
+// número los sigue: es el piso de los tres que ocupan el lugar del campo cuando
+// el campo no está, y si se queda atrás son ellos los que encogen y mueven todo
+// lo de abajo. Medido, el campo da 80,6 px y esto son 80: quedan a menos de un
+// píxel, que es lo más cerca que se puede sin atarlo a un número que MathLive
+// puede mover en cualquier versión.
+//
+// El alto sale de la caja de la fórmula, que es la vecina de arriba y la única
+// elástica de la card (`flex-1` en PROMPT_H): lo que gana el campo lo pierde
+// ella. Y el campo ya no crece al escribir: lo que entra en un renglón mide
+// siempre lo mismo (ver CONTENIDO_MIN_EM en math-input.tsx); solo una fracción
+// lo pasa.
+//
+// Van como clases ENTERAS y no armadas por partes: Tailwind las encuentra
+// leyendo el código como texto.
+export const CAMPO_MIN_H = "min-h-20"
+export const CAMPO_H = "h-20"
+
 const PROMPT_BOX = cn(
   "flex flex-col justify-center rounded-xl border border-border bg-background px-6 text-center text-[1.25rem]",
   // Tres ajustes que no son cosméticos, los tres medidos en pantalla:
@@ -509,21 +544,80 @@ function useAjusteDelEnunciado(
   return attach
 }
 
+// Cuánto tarda la derivada en ocupar el lugar del enunciado cuando el enunciado
+// se ROMPIÓ, o sea en escritorio. No es una animación —la derivada aparece de
+// golpe, sin transición—: es el tiempo que la explosión necesita para terminar
+// de ser una explosión. Puesta antes, la fórmula nueva se dibujaría encima de
+// sus propios pedazos todavía saliendo.
+//
+// En el teléfono no hay explosión y este número no se usa: ahí el intercambio es
+// inmediato.
+const RELEVO_MS = 220
+
 function PromptBox({
   promptLatex,
+  solvedLatex,
   gone,
   boxRef,
 }: {
   promptLatex: string
+  solvedLatex: string | null
   gone: boolean
   boxRef?: (node: HTMLDivElement | null) => void
 }) {
-  const attach = useAjusteDelEnunciado(promptLatex, boxRef)
+  // La derivada entra enseguida si no hubo explosión, y después de ella si la
+  // hubo. Un `useState` y no un cálculo: hay una espera de por medio.
+  const [relevado, setRelevado] = useState(false)
+  // Sin respuesta puesta no hay relevo ni pendiente ni cumplido: vuelve a cero.
+  // Esto lo hacía solo el remonte de la card en cada derivada; desde que la card
+  // se queda puesta y lo único que cambia es el enunciado (ver
+  // desktop-layout.tsx), hay que decirlo. Sin esto, de la SEGUNDA respuesta
+  // correcta en adelante el relevo llegaba ya cumplido y la derivada aparecía en
+  // la caja de una, encima de sus propios orbes todavía en el aire.
+  //
+  // El ajuste va DURANTE el render y no en un efecto: es el patrón que React
+  // documenta para acomodar estado cuando cambia una prop (el mismo de `medias`
+  // en derivatives-table.tsx :: FlipCard).
+  if (relevado && solvedLatex === null) setRelevado(false)
+  const esperando = solvedLatex !== null && gone && !relevado
+  useEffect(() => {
+    if (!esperando) return
+    const t = setTimeout(() => setRelevado(true), RELEVO_MS)
+    return () => clearTimeout(t)
+  }, [esperando])
+
+  const resuelto = solvedLatex !== null && (!gone || relevado)
+  // Lo que se está mostrando, para que el ajuste de tamaño vuelva a medir: la
+  // derivada casi nunca ocupa lo mismo que el enunciado.
+  const mostrado = resuelto ? (solvedLatex as string) : promptLatex
+  const attach = useAjusteDelEnunciado(mostrado, boxRef)
+
+  if (resuelto) {
+    return (
+      // La caja de pedir la derivada pasa a ser la caja donde está la derivada.
+      // No es un cartel nuevo: es el MISMO recuadro, con el problema cambiado
+      // por su resultado, y sin transición ninguna. Que sea el mismo lugar es lo
+      // que lo hace leerse como una respuesta y no como un aviso.
+      //
+      // Lo que se escribe es lo que la persona escribió, no la forma canónica
+      // del servidor: la card está diciendo «esto que pusiste estuvo bien», y
+      // reescribírselo ordenado sería contestarle otra cosa.
+      <div ref={attach} className={cn(PROMPT_BOX, PROMPT_H)}>
+        <MathText text={`$$f'(x) = ${solvedLatex}$$`} />
+      </div>
+    )
+  }
+
   return (
-    // Al acertar, la fórmula no se desvanece: se ROMPE. Las monedas nacen
-    // repartidas a lo largo de esta misma fórmula y caen al fondo de esta misma
-    // caja (ver xp-burst.tsx), así que lo que se ve es un objeto que se hace
-    // pedazos y no dos animaciones que coinciden.
+    // Al acertar, en escritorio, la fórmula no se desvanece: se ROMPE. Los orbes
+    // nacen repartidos a lo largo de esta misma fórmula y salen volando hacia el
+    // contador de XP (ver orb-flight.tsx), así que lo que se ve es un objeto que
+    // se hace pedazos y no dos animaciones que coinciden.
+    //
+    // En el teléfono `gone` no llega nunca y la fórmula se queda puesta: ahí no
+    // hay orbes —el contador está en otra pantalla— y esconderla sería un
+    // parpadeo sin causa. Se lee mejor entera: arriba la derivada que había que
+    // hacer, abajo en verde la respuesta que se escribió.
     //
     // La transición se le aplica al hijo con `[&>span]` en vez de envolverlo:
     // esta caja ya tiene dos reglas medidas apuntando a `>span` y a `>span>span`
@@ -531,9 +625,9 @@ function PromptBox({
     // enunciado el puntal de línea que esas reglas justamente sacan.
     //
     // Se va con `opacity` y no con `display`: la caja tiene que conservar su
-    // alto, si no el panel entero pega un salto justo cuando las monedas están
-    // en el aire. Y sale rápido —100 ms— porque la explosión es el corte: más
-    // lento se vería la fórmula conviviendo con sus propios pedazos.
+    // alto, si no el panel entero pega un salto justo cuando los orbes están en
+    // el aire. Y sale rápido —100 ms— porque la explosión es el corte: más lento
+    // se vería la fórmula conviviendo con sus propios pedazos.
     <div
       ref={attach}
       className={cn(
@@ -554,6 +648,7 @@ export function ExerciseCard({
   elo,
   multiplier,
   promptLatex,
+  solvedLatex = null,
   promptGone = false,
   promptRef,
   bare = false,
@@ -566,11 +661,13 @@ export function ExerciseCard({
   elo: number | null
   multiplier: number
   promptLatex: string
-  // El enunciado se rompió en monedas y ya no está. Queda así hasta el ejercicio
-  // siguiente: lo que se convirtió en puntos no vuelve.
+  // La derivada que la persona escribió, cuando estuvo bien. Con esto puesto la
+  // caja del enunciado deja de pedir la derivada y pasa a mostrarla.
+  solvedLatex?: string | null
+  // El enunciado se rompió en orbes y ya no está. Queda así hasta el ejercicio
+  // siguiente: lo que se convirtió en puntos no vuelve. Solo escritorio.
   promptGone?: boolean
-  // La caja del enunciado: de acá salen las monedas y acá adentro caen (ver
-  // xp-burst.tsx).
+  // La caja del enunciado: de acá salen los orbes (ver xp-conteo.ts).
   promptRef?: (node: HTMLDivElement | null) => void
   // Sin caja propia: en escritorio el enunciado y el teclado comparten UNA
   // sola card, así que el borde y el fondo los pone el contenedor de afuera.
@@ -611,7 +708,12 @@ export function ExerciseCard({
             sutil sobre el fondo es el mismo recurso separando las tres cosas que
             muestra la card —marcador, problema, respuesta— sin tener que dibujar
             líneas entre ellas. */}
-        <PromptBox promptLatex={promptLatex} gone={promptGone} boxRef={promptRef} />
+        <PromptBox
+          promptLatex={promptLatex}
+          solvedLatex={solvedLatex}
+          gone={promptGone}
+          boxRef={promptRef}
+        />
         {children}
       </div>
     </div>
@@ -624,22 +726,32 @@ export function ExerciseCard({
 // juego donde se acierta cada quince segundos ese cartel aparece y desaparece
 // todo el tiempo.
 //
-// Cuesta algo: al quemar los dos intentos ya no se ve la derivada correcta. Es
-// una decisión de producto, no un olvido.
+// Lo que eso costaba —errar y no llegar a ver nunca cuál era la derivada— dejó
+// de costarlo: los intentos son ilimitados y, en cuanto se erra una vez, al lado
+// de Revisar aparece el «¿Por qué?» (porque-panel.tsx), que la explica y la
+// escribe.
 
 // La caja de la respuesta: late al confirmar y se sacude si está mal. El pulso
 // va montado por `seq` y no por tono, así dos erradas seguidas laten dos veces.
 export function AnswerField({
   tone,
   seq,
+  hint,
   children,
 }: {
   tone: AnswerTone
   seq: number
+  // Cuando llega, ocupa el lugar del campo: la respuesta ya está dada y lo que
+  // se escribió pasó arriba, a la caja del enunciado. Ver `SolvedHint`.
+  hint?: React.ReactNode
   children?: React.ReactNode
 }) {
   const reduceMotion = useReducedMotion()
   const shaking = useMoment(tone === "wrong", seq, SHAKE_S * 1000 + 60) && !reduceMotion
+  // Con la pista puesta, el pulso es el suyo y no el del tono. Es un momento
+  // distinto —no «acertaste» sino «hay algo más para mirar»— y encimarle el
+  // verde de la respuesta lo convertiría en un solo destello confuso.
+  const pulso = hint ? "hint" : tone
 
   return (
     <motion.div
@@ -647,15 +759,18 @@ export function AnswerField({
       animate={shaking ? { x: SHAKE } : { x: 0 }}
       transition={shaking ? { duration: SHAKE_S, ease: "easeInOut" } : { duration: 0 }}
     >
-      {children}
-      {tone && !reduceMotion && (
+      {hint ?? children}
+      {pulso && !reduceMotion && (
         <motion.span
-          key={`pulse-${seq}`}
+          // La key incluye el pulso: al entrar la pista, el pulso verde de la
+          // respuesta y el suyo son dos animaciones distintas sobre el mismo
+          // `seq`, y sin esto la segunda no arrancaría nunca.
+          key={`pulse-${seq}-${pulso}`}
           aria-hidden
           className="pointer-events-none absolute inset-0 rounded-lg"
           initial={{ backgroundColor: "rgba(0,0,0,0)" }}
           animate={{
-            backgroundColor: ["rgba(0,0,0,0)", TONE_PULSE[tone], "rgba(0,0,0,0)"],
+            backgroundColor: ["rgba(0,0,0,0)", TONE_PULSE[pulso], "rgba(0,0,0,0)"],
           }}
           transition={{ duration: PULSE_S, times: [0, 0.22, 1], ease: "easeOut" }}
         />
@@ -664,11 +779,66 @@ export function AnswerField({
   )
 }
 
+// Lo que queda donde estaba el campo cuando la derivada ya salió bien.
+//
+// El campo se va porque lo que se escribió no desapareció: subió a la caja del
+// enunciado, que ahora muestra la derivada en vez de pedirla. Dejar las dos
+// cosas sería mostrar la misma respuesta dos veces, una arriba de la otra.
+//
+// En su lugar queda una sola línea que señala lo único que todavía se puede
+// hacer con este ejercicio. La caja imita al campo —mismo alto mínimo, mismo
+// redondeo— para que el reemplazo no mueva nada de lugar; el borde va verde
+// porque es el que tenía el campo al acertar.
+//
+// Es SOLO del teléfono. En escritorio este mismo hueco lo ocupa el botón del
+// «¿Por qué?» estirado a la caja entera (ver desktop-layout.tsx): ahí la pista y
+// la puerta son la misma cosa y no hace falta una línea que nombre un botón que
+// está al lado. En el teléfono el botón vive en el pie —el renglón de 375 px no
+// da para el texto y el botón juntos— así que acá sí hay que nombrarlo.
+export function SolvedHint() {
+  return (
+    <div
+      className={cn(
+        CAMPO_MIN_H,
+        "flex items-center rounded-lg border px-4 text-sm text-muted-foreground",
+      )}
+      style={{ borderColor: VERDE_ACIERTO }}
+    >
+      <span>
+        ¿De dónde sale? Mirá el <span className="text-foreground">¿Por qué?</span>
+      </span>
+    </div>
+  )
+}
+
 // Chip de tecla, con el aire y el redondeo de los que muestran los CLI. Solo en
 // escritorio: en el teléfono no hay tecla que mostrar.
 // Los colores salen de `currentColor`: el mismo chip va sobre el botón blanco
 // (texto negro), sobre el "saltear" apagado (texto claro) y sobre el de la
 // tabla en la cabecera.
+//
+// El relleno de arriba y el de abajo NO son iguales, y ese punto y medio de
+// diferencia es un arreglo medido, no un capricho.
+//
+// `leading-none` deja la caja de línea en 11,2 px (el cuerpo), pero la caja de
+// la fuente mide 15 (12 de ascenso + 3 de descenso). Como la línea es más corta
+// que la fuente, el medio interlineado sale NEGATIVO y la línea de base termina
+// en 10,1 px de una caja de contenido de 11,2 — o sea casi pegada al piso. Con
+// eso, todas las teclas se dibujan bajas: medido sobre Noto Sans Mono a 11,2 px,
+// el desvío del centro de la tinta contra el centro de la caja da +0,5 en "alt",
+// +1 en "enter", +1,5 en "w" y +2,5 en "p", que es la peor porque su descendente
+// se lleva la tinta todavía más abajo.
+//
+// La corrección no se calcula por letra sino por FUENTE, y el criterio es
+// centrar la banda de altura de x —el cuerpo de las minúsculas— dejando que
+// ascendentes y descendentes cuelguen, que es como el ojo lee una palabra. Con
+// la altura de x en 6 px, la base ideal cae en 5,6 + 3 = 8,6, o sea punto y
+// medio más arriba de donde está. Se paga moviendo el relleno de arriba a abajo,
+// sin tocar el alto total del chip (1,5 + 11,2 + 4,5 + 2 de borde = 19,2, los
+// mismos que con 3 y 3).
+//
+// Si alguna vez cambia la tipografía del chip o su cuerpo, este número hay que
+// volver a medirlo: sale de las métricas de la fuente, no de la letra.
 export function KeyCap({
   children,
   className,
@@ -681,7 +851,8 @@ export function KeyCap({
   return (
     <kbd
       className={cn(
-        "ml-2 inline-flex items-center gap-0.5 rounded border border-current/25 bg-current/10 px-1.5 py-[3px] font-mono text-[0.7rem] font-normal leading-none",
+        "ml-2 inline-flex items-center gap-0.5 rounded border border-current/25 bg-current/10",
+        "px-1.5 pb-[4.5px] pt-[1.5px] font-mono text-[0.7rem] font-normal leading-none",
         className,
       )}
     >
@@ -721,7 +892,7 @@ export function AnswerButton({
   const shaking = useMoment(tone === "wrong", seq, SHAKE_S * 1000 + 60) && !reduceMotion
   const flashing = useMoment(tone !== null, seq, FLASH_MS)
 
-  const bg = flashing && tone ? (tone === "correct" ? RIGHT : WRONG) : "#FFFFFF"
+  const bg = flashing && tone ? (tone === "correct" ? VERDE_ACIERTO : WRONG) : "#FFFFFF"
 
   return (
     <motion.div

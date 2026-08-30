@@ -8,15 +8,18 @@
 // pantallas muy altas no se estire sin sentido) y deja más aire abajo que
 // arriba. La lista del ranking scrollea adentro de su caja.
 //
-// El festejo de acertar termina en el ranking: el confeti se recolecta sobre la
-// XP de la fila propia y recién cuando llega la última bolita se refresca el
-// orden y la fila sube (ver xp-burst.tsx).
+// El festejo de acertar termina en el ranking: la fórmula se rompe en orbes que
+// salen volando hacia la XP de la fila propia, que se prende del azul-violeta de
+// la marca y sube con cada llegada. Recién cuando entra el último se refresca el
+// orden y la fila sube (ver xp-conteo.ts y components/orb-flight.tsx).
 
 import { useCallback, useEffect, useRef, useState } from "react"
 import posthog from "posthog-js"
 import { useQueryClient } from "@tanstack/react-query"
-import { Settings } from "lucide-react"
+import { ChevronLeft, Settings } from "lucide-react"
 import { GRID_BG_STYLE } from "@/components/grid-bg"
+import { PrivacidadContent } from "@/components/legal-content"
+import { XpDots } from "@/components/xp-dots"
 import { ApiError } from "@/lib/api/client"
 import { useSfx } from "@/lib/audio/useSfx"
 import {
@@ -35,23 +38,38 @@ import { marcarReclutasMostrado, tocaReclutar } from "./reclutas-trigger"
 import {
   AnswerButton,
   AnswerField,
+  CAMPO_H,
+  CAMPO_MIN_H,
   ExerciseCard,
   PANEL_CONTENT,
   SkipButton,
   answerTone,
   type AnswerTone,
 } from "./exercise-card"
-import { DerivativesTable, FlipCard, TableButton } from "./derivatives-table"
+import { PorQueButton, PorQuePanel, TECLA_PORQUE } from "./porque-panel"
+import { useExplainExercise } from "./UseGameExplain"
+import {
+  DerivativesStatsTable,
+  DerivativesTable,
+  FlipCard,
+  TableButton,
+} from "./derivatives-table"
+import { ChatButton, ChatPanel, TECLA_CHAT } from "./chat-panel"
+import { EloStatsPanel, StatsButton, TECLA_ESTADISTICAS } from "./elo-stats-panel"
 import { GameIntroLogo, type GameIntro } from "./game-intro"
-import { GameRanking } from "./game-ranking"
+import { GameRanking, type RankingSort } from "./game-ranking"
 import { IntroPanel, IntroStartButton } from "./intro-panel"
 import { SlideFlip } from "./slide-flip"
-import { useTeclas } from "./teclas"
+import { claseDeSalida } from "./slide-salida"
+import { puedeVerEstadisticas } from "./stats-gate"
+import { enCampoDeTexto, useTeclas } from "./teclas"
 import { MathInput, tipFor, type MathInputHandle } from "./math-input"
 import { MathKeyboard } from "./math-keyboard"
 import { parseAnswerToMathJson, warmupComputeEngine } from "./parse-answer"
 import { useLocalVerdict } from "./UseLocalVerdict"
+import { EditCareerPanel, EditUniversityPanel } from "./edit-profile-field"
 import { ProfileSlides, RegisterSlide } from "./register-slides"
+import { UsernameSlide } from "./username-slide"
 import { EventFeed } from "./event-feed"
 import { outOfFocus } from "./out-of-focus"
 import { useCta, useGameIdentity } from "./game-telemetry"
@@ -65,11 +83,23 @@ import {
 } from "./UseGameExercise"
 import { useGamePulse, useMyBoost } from "./UseGameLeaderboard"
 import { gameKeys, useGamePlayer } from "./UseGamePlayer"
-import { useXpBurst, XpOrbs } from "./xp-burst"
+import { useGameEvents } from "./UseGameLeaderboard"
+import { useGameStats } from "./UseGameStats"
+import { useXpConteo } from "./xp-conteo"
+import { OrbFlight } from "@/components/orb-flight"
 
 // Las pantallas del panel izquierdo. Todas viven en la misma caja y se cambian
 // con el mismo volteo (slide-flip.tsx).
-type Panel = "intro" | "exercise" | "profile" | "register" | "cafecito" | "reclutas"
+type Panel =
+  | "intro"
+  | "username"
+  | "exercise"
+  | "profile"
+  | "editCareer"
+  | "editUniversity"
+  | "register"
+  | "cafecito"
+  | "reclutas"
 
 // Los hitos que interrumpen el ejercicio son un subconjunto: la intro no se
 // "agenda", ocurre antes de que haya juego.
@@ -84,33 +114,6 @@ const PANEL_MIN_H = "min-h-[calc(26rem_+_7rem_+_1.5rem_+_var(--cta-h))]"
 
 // Mientras se lee la intro, todo lo demás va fuera de foco (ver out-of-focus.ts).
 const enIntro = (panel: Panel) => panel === "intro"
-
-/** ¿El destino del teclazo es un campo de TEXTO LIBRE? Ahí una letra es una
- *  letra y ningún atajo del juego puede pisarla.
- *
- *  Cubre los campos por su tag (el @ del registro, la universidad "otra") y los
- *  desplegables por su rol: los filtros del ranking no son un `<select>` nativo
- *  sino un `<button role="combobox">` con su lista aparte
- *  (components/ui/select.tsx, sobre Base UI), así que el tag no alcanza. Sin esa
- *  última parte, elegir una universidad con Enter caía en el handler del juego:
- *  el filtro no se aplicaba y encima se mandaba la respuesta a medio escribir.
- *
- *  El campo de la RESPUESTA no está acá y es a propósito. Es un
- *  `<math-field>` contenteditable, pero no es texto libre: lo que se escribe ahí
- *  es matemática, y en este juego la variable es siempre `x`. Quien decide si un
- *  atajo puede robarle una tecla es cada handler, mirando qué tecla es — ver el
- *  listener de `w` y `c`. */
-function enCampoDeTexto(target: EventTarget | null): boolean {
-  const el = target as HTMLElement | null
-  const tag = el?.tagName
-  if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return true
-  // El destino de un keydown casi siempre es un elemento, pero no siempre: si el
-  // foco está en el `body` o el evento se despacha sobre el documento, `closest`
-  // no existe y llamarlo tira. Y una excepción acá no rompe una línea, rompe el
-  // atajo entero — el listener muere antes de decidir nada.
-  if (typeof el?.closest !== "function") return false
-  return !!el.closest('[role="combobox"], [role="listbox"], [role="option"]')
-}
 
 // Los dos umbrales de la consulta con Alt sostenido (ver el listener más abajo):
 // a los 100 ms se voltea la card, y recién a los 600 se cobra.
@@ -153,7 +156,7 @@ function ExerciseSkeleton() {
         <div className="flex flex-1 items-center justify-center">
           <div className="h-9 w-48 rounded bg-foreground/10" />
         </div>
-        <div className="h-[3.4rem] shrink-0 rounded-lg bg-foreground/[0.07]" />
+        <div className={`${CAMPO_H} shrink-0 rounded-lg bg-foreground/[0.07]`} />
         <div className="mt-4 grid shrink-0 grid-cols-6 gap-2">
           {Array.from({ length: 18 }).map((_, i) => (
             <div key={i} className="h-9 rounded-md bg-foreground/[0.07]" />
@@ -165,7 +168,7 @@ function ExerciseSkeleton() {
 }
 
 export function DesktopLayout({ intro }: { intro: GameIntro }) {
-  const { player, refetch: refetchPlayer } = useGamePlayer()
+  const { player, isFirstVisit, refetch: refetchPlayer } = useGamePlayer()
   const queryClient = useQueryClient()
   const next = useNextExercise()
   const answerMutation = useAnswerExercise()
@@ -212,8 +215,38 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   const reclutasPendienteRef = useRef(false)
   // La tabla está a la vista ahora mismo.
   const [tableOpen, setTableOpen] = useState(false)
-  // Cuál de las dos caras traseras es la que se está mostrando. Se actualiza
-  // solo al ABRIR una, nunca al cerrar.
+  // Las estadísticas personales están a la vista (tecla `j`, ver el efecto de
+  // teclado más abajo). Un booleano más y no un tercer valor adentro de
+  // `tableOpen`: gobierna un FlipCard DISTINTO —el de la card del ejercicio,
+  // no el del aside— así que tiene que poder valer `true` con `tableOpen` en
+  // `false` y viceversa.
+  const [statsOpen, setStatsOpen] = useState(false)
+  // El «¿Por qué?» está a la vista: el OTRO dorso de la card del ejercicio, el
+  // que comparte con las estadísticas. Nunca los dos a la vez —abrir uno cierra
+  // el otro— pero cada uno tiene su booleano porque se abren por caminos
+  // distintos y ninguno es un modo del otro.
+  const [porqueOpen, setPorqueOpen] = useState(false)
+  // Cuál de los dos dorsos de la card del ejercicio se está mostrando. Mismo
+  // motivo que `backKind` en el aside: al cerrar uno, su booleano pasa a false
+  // en el mismo instante en que arranca el giro, y sin recordar cuál era, lo que
+  // se vería girar es la otra cara.
+  const [caraDelEjercicio, setCaraDelEjercicio] = useState<"stats" | "porque">("stats")
+  const dorsoEjercicio = porqueOpen ? "porque" : statsOpen ? "stats" : null
+  if (dorsoEjercicio !== null && dorsoEjercicio !== caraDelEjercicio) {
+    setCaraDelEjercicio(dorsoEjercicio)
+  }
+  // La derivada que la persona escribió, cuando estuvo bien. Se guarda al
+  // responder porque el campo se limpia enseguida y la caja del enunciado la
+  // necesita para mostrarla en lugar del problema.
+  const [solvedLatex, setSolvedLatex] = useState<string | null>(null)
+  // Este ejercicio ya se erró al menos una vez. No se puede leer de `lastAnswer`:
+  // ese se borra en cuanto la persona empieza a corregir (ver el `onChange` del
+  // campo), y el ¿Por qué? tiene que seguir estando mientras escribe.
+  const [fallado, setFallado] = useState(false)
+  const explainMutation = useExplainExercise()
+  const [porqueTexto, setPorqueTexto] = useState<string | null>(null)
+  // Cuál de las TRES caras traseras del aside es la que se está mostrando. Se
+  // actualiza solo al ABRIR una, nunca al cerrar.
   //
   // Antes salía de `settingsOpen ? configuración : tabla`, y ahí estaba el bug:
   // al cerrar la configuración, `settingsOpen` pasaba a false en el mismo
@@ -221,12 +254,59 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   // de derivadas ANTES de empezar a moverse y lo que se veía darse vuelta era
   // una tabla que nadie había pedido. Recordando la última abierta, el dorso se
   // queda quieto mientras la card gira y lo que se va es lo que estaba.
-  const [backKind, setBackKind] = useState<"settings" | "table">("table")
+  const [backKind, setBackKind] = useState<
+    "settings" | "chat" | "table" | "stats" | "privacy"
+  >("table")
   // La configuración está a la vista: es el dorso del RANKING, no del ejercicio,
   // así que no es una de las pantallas de `panel` — las dos columnas se voltean
   // por separado y pueden estar dadas vuelta a la vez.
   const [settingsOpen, setSettingsOpen] = useState(false)
-  const abierto = settingsOpen ? "settings" : tableOpen ? "table" : null
+  // Por qué ordena el ranking —y qué número muestra cada fila—: la experiencia
+  // o el Elo. Vale para las dos vistas, la individual y la universitaria. Vive
+  // acá y no adentro de GameRanking porque el selector que lo cambia está en
+  // esta cabecera, al lado de la tuerca — ver game-ranking.tsx :: RankingSort.
+  const [rankingSort, setRankingSort] = useState<RankingSort>("experiencia")
+  // El chat está a la vista: la cuarta cara trasera del aside, y la única que se
+  // abre y se cierra con la MISMA tecla (`m`). Las otras tres son o un gesto
+  // sostenido o un botón.
+  const [chatOpen, setChatOpen] = useState(false)
+  // El dorso de "¿Qué pasa con mis datos?", que se abre desde la slide de
+  // registro. Es el quinto y el más nuevo: el menos frecuente de los cinco.
+  const [privacyOpen, setPrivacyOpen] = useState(false)
+  // El punto del botón: cuántos mensajes entraron desde la última vez que se
+  // miró el chat.
+  //
+  // Se lee con el MISMO hook que el historial de novedades. No es un pedido más:
+  // react-query deduplica por clave, así que esto se cuelga de la consulta que la
+  // franja de al lado ya tiene abierta y no agrega ni un request — que es toda la
+  // idea del chat.
+  //
+  // El id visto se ajusta durante el render y no en un efecto, como el badge de
+  // novedades del teléfono: es estado derivado de otro estado, y hacerlo en un
+  // efecto significaría pintar un frame con el punto todavía puesto.
+  const historialChat = useGameEvents(player !== null)
+  const ultimoMensajeId = historialChat.data?.cursorMessages ?? 0
+  const [chatVisto, setChatVisto] = useState(0)
+  if (chatOpen && chatVisto !== ultimoMensajeId) setChatVisto(ultimoMensajeId)
+  const mensajesSinLeer = (historialChat.data?.messages ?? []).filter(
+    (m) => m.id > chatVisto,
+  ).length
+  // Prioridad settings > chat > table > stats > privacy: la misma que ya regía
+  // entre settings y table ("la configuración manda si las dos estuvieran
+  // abiertas"), extendida a los otros tres dorsos — privacy último, por ser el
+  // más nuevo y el menos frecuente. En la práctica los listeners se ocupan de
+  // que no haya dos en `true` a la vez.
+  const abierto = settingsOpen
+    ? "settings"
+    : chatOpen
+      ? "chat"
+      : tableOpen
+        ? "table"
+        : statsOpen
+          ? "stats"
+          : privacyOpen
+            ? "privacy"
+            : null
   if (abierto !== null && abierto !== backKind) setBackKind(abierto)
   // La tabla se consultó en ESTE ejercicio. Va en un ref y no en estado porque
   // solo se lee al responder: que cambie no tiene por qué redibujar nada.
@@ -244,21 +324,24 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   const askedProfileRef = useRef(false)
   const askedRegisterRef = useRef(false)
   const inputRef = useRef<MathInputHandle | null>(null)
-  // Ref de CALLBACK y no el objeto pelado: con el volteo entre ejercicios, la
-  // card vieja y la nueva conviven un rato, y la vieja publica `null` al
-  // desmontarse DESPUÉS de que la nueva ya publicó su campo. Ignorar el null es
-  // lo que evita que el juego se quede sin dónde escribir. El handle que queda
-  // colgado es inofensivo: sus métodos leen un campo que ya no existe y no
-  // hacen nada.
+  // Ref de CALLBACK y no el objeto pelado: durante un cambio de PANEL las dos
+  // caras conviven un rato (slide-flip.tsx), y la que se va publica `null` al
+  // desmontarse, lo que puede caer DESPUÉS de que la que llega ya publicó su
+  // campo. Ignorar el null es lo que evita que el juego se quede sin dónde
+  // escribir. El handle que queda colgado es inofensivo: sus métodos leen un
+  // campo que ya no existe y no hacen nada.
+  //
+  // Entre una derivada y la siguiente esto ya no pasa: la card se queda puesta y
+  // no hay dos campos montados a la vez.
   const attachInput = useCallback((handle: MathInputHandle | null) => {
     if (handle) inputRef.current = handle
   }, [])
   const servedAtRef = useRef<number>(0)
-  // Puesto anterior, guardado hasta que termina de caer el confeti.
+  // Puesto anterior, guardado hasta que termina el conteo de XP.
   const pendingClimbRef = useRef<number | null>(null)
 
-  // Cuando llega la última bolita: recién ahí el ranking estrena orden y la
-  // fila propia sube. Antes de eso sigue mostrando el puesto viejo.
+  // Cuando entra el último orbe: recién ahí el ranking estrena orden y la fila
+  // propia sube. Antes de eso sigue mostrando el puesto viejo.
   const onBurstComplete = useCallback(() => {
     queryClient.invalidateQueries({ queryKey: gameKeys.leaderboard })
     setClimbFrom(pendingClimbRef.current)
@@ -268,23 +351,28 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   const {
     liveXp,
     counting,
-    burst,
+    xpColor,
     fire: fireXp,
-    onArrive: onXpArrive,
-    onOrbsCleared,
-    breaking,
-    orbArea,
+    vuelo,
+    paso: onOrbeLlega,
     attachPrompt,
     attachTarget,
     magnetTarget,
-  } = useXpBurst({ onComplete: onBurstComplete })
+  } = useXpConteo({ onComplete: onBurstComplete })
 
   // Late cada 10 s y refresca el ranking solo si alguien respondió algo. Se
-  // pausa mientras cae el confeti: ahí el orden viejo tiene que quedarse quieto.
+  // pausa mientras vuelan los orbes: ahí el orden viejo tiene que quedarse
+  // quieto.
   useGamePulse({ enabled: player !== null, paused: counting })
 
   // El empuje de la universidad sale del mismo pulso, sin pedido propio.
   const boost = useMyBoost(player?.university)
+
+  // A partir de la derivada 10 (game/stats.py :: UMBRAL_ESTADISTICAS, mismo
+  // número que el server). El pedido en sí es perezoso —`enabled: statsOpen`—
+  // así que cruzar el umbral no dispara ningún pedido hasta que se toca `p`.
+  const estadisticasDisponibles = puedeVerEstadisticas(player)
+  const statsQuery = useGameStats(statsOpen)
 
   // La universidad, la carrera y si es invitado se cuelgan de TODOS los eventos del
   // juego como super propiedades: sin esto, cortar cualquier embudo por universidad
@@ -305,15 +393,13 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
       onSuccess: (data) => {
         setExercise(data)
         // El panel vuelve al ejercicio ACÁ y no en quien pidió el ejercicio, que
-        // es donde estaba. Cambiarlo antes producía DOS volteos por un solo
-        // gesto: el panel giraba enseguida y del otro lado aparecía la card con
+        // es donde estaba. Cambiarlo antes producía DOS transiciones por un solo
+        // gesto: el panel cambiaba enseguida y del otro lado aparecía la card con
         // el ejercicio VIEJO —que sigue en el estado hasta que llega el nuevo—, y
         // cuando la respuesta llegaba unos cientos de milisegundos después
-        // cambiaba la clave del volteo de adentro y la card giraba otra vez.
-        //
-        // Así el volteo es uno solo y del otro lado ya está todo listo. Es
-        // exactamente lo que hace el teléfono (mobile-flow.tsx :: loadNext), que
-        // por eso nunca tuvo este problema.
+        // cambiaba otra vez. Así es una sola, y del otro lado ya está todo listo.
+        // Es exactamente lo que hace el teléfono (mobile-flow.tsx :: loadNext),
+        // que por eso nunca tuvo este problema.
         setNavPanel("exercise")
         setLastAnswer(null)
         setTonoLocal(null)
@@ -322,6 +408,12 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
         // Ejercicio nuevo, cuenta limpia: la consulta anterior no lo penaliza.
         peekedRef.current = false
         setTableOpen(false)
+        setStatsOpen(false)
+        // El ¿Por qué? es de la derivada que se acaba de dejar atrás.
+        setPorqueOpen(false)
+        setPorqueTexto(null)
+        setSolvedLatex(null)
+        setFallado(false)
         servedAtRef.current = Date.now()
         inputRef.current?.clear()
         inputRef.current?.focus()
@@ -344,8 +436,12 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   const startFromIntro = useCallback(() => {
     posthog.capture("game_intro_done", { platform: "desktop" })
     sfx.continue()
+    if (player?.is_guest && player.alias_is_generated && isFirstVisit) {
+      setNavPanel("username")
+      return
+    }
     loadNext()
-  }, [loadNext, sfx])
+  }, [loadNext, sfx, player, isFirstVisit])
 
   // La pantalla efectiva: lo último que se eligió a mano y, si no se eligió
   // nada, la intro. Siempre la intro: ya no se recuerda en localStorage si se
@@ -355,6 +451,27 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   // Como consecuencia, la primera derivada la pide SIEMPRE el botón: no queda
   // ningún camino en el que la partida arranque sola.
   const panel: Panel = navPanel ?? "intro"
+
+  // Los dos dorsos de la card del ejercicio son DEL EJERCICIO: si la columna
+  // pasó a mostrar otra cosa —el cafecito, reclutar, el perfil, el registro—
+  // tienen que quedar cerrados.
+  //
+  // Sin esto quedaban abiertos por debajo de la diapo, y eso rompía el Enter en
+  // la diapo: el Enter global mira `porqueOpen` ANTES de mirar `panel`, así que
+  // el primero se gastaba cerrando algo que no estaba en pantalla en vez de
+  // llegar al "Ahora no". Con las estadísticas era peor —ahí el Enter no se
+  // gasta, se bloquea— y no se destrababa nunca.
+  //
+  // Y de paso arregla lo otro que el guard de teclado de `w`/`i` ya evitaba por
+  // el lado de la tecla pero no por el del botón: al volver de la diapo, la card
+  // reaparecía volteada a algo que nadie había vuelto a pedir.
+  //
+  // Ajuste DURANTE el render y no en un efecto, que es el patrón que este
+  // archivo ya usa para `backKind` y `caraDelEjercicio`.
+  if (panel !== "exercise") {
+    if (porqueOpen) setPorqueOpen(false)
+    if (statsOpen) setStatsOpen(false)
+  }
 
   // Deriva el enunciado en cuanto llega, mientras la persona lo lee: cuando
   // responda, juzgar cuesta diez cuentas.
@@ -392,6 +509,11 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
           // Manda el servidor: el color local ya cumplió su función.
           setTonoLocal(null)
           if (!anticipadoRef.current) setAnswerSeq((n) => n + 1)
+          // Lo que se escribió pasa a la caja del enunciado si estuvo bien, y
+          // marca al ejercicio como errado si no. Las dos cosas sobreviven a que
+          // `lastAnswer` se borre en cuanto la persona toque una tecla.
+          if (data.parse_ok && data.correct) setSolvedLatex(latex)
+          if (data.parse_ok && !data.correct) setFallado(true)
           posthog.capture("game_answer", {
             correct: data.correct,
             parse_ok: data.parse_ok,
@@ -420,16 +542,32 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
             return
           }
           if (!anticipadoRef.current) sfx.correct()
-          // El imán necesita ver su destino: primero el ranking devuelve la
-          // fila propia al centro, y el confeti espera a que asiente.
+          // Los orbes necesitan ver su destino, y el destino es el número de XP
+          // de la fila propia. Así que antes de tirarlos se arma la pantalla que
+          // los puede recibir: el ranking vuelve al individual y a la fila
+          // propia (`centerKey`), y el selector vuelve a experiencia.
+          //
+          // Lo segundo no es cosmética. En el orden por Elo la fila propia
+          // muestra su Elo y no su XP: los orbes no tendrían dónde caer, y el
+          // conteo subiría un número que este acierto no acaba de mover —el Elo
+          // baja con los errores, la XP no—, o sea que festejaría algo que no
+          // pasó. Volver acá también hace que el puesto que la escalada anima
+          // sea el mismo que la respuesta acaba de cambiar.
+          //
+          // Se cambia el ESTADO y no una vista derivada, así el botón de la
+          // cabecera se mueve con la lista: si el selector siguiera marcando
+          // ELO mientras la tabla muestra experiencia, el que estaría mintiendo
+          // sería él. Quien quiera volver al Elo lo toca de nuevo, y se queda
+          // hasta el próximo acierto.
           setCenterKey((n) => n + 1)
+          setRankingSort("experiencia")
           const rankBefore = data.rank_before ?? null
           const rankAfter = data.rank_after ?? null
           pendingClimbRef.current =
             rankBefore !== null && rankAfter !== null && rankAfter < rankBefore
               ? rankBefore
               : null
-          fireXp(data)
+          fireXp(data, { modo: "vuelo" })
 
           const solved = solvedCount + 1
           setSolvedCount(solved)
@@ -527,6 +665,39 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
     )
   }, [exercise, answerMutation, sfx, solvedCount, player, fireXp, evaluarLocal, loadNext])
 
+  // El botón existe cuando ya hay algo para explicar: se acertó, o se erró al
+  // menos una vez. Nunca antes del primer intento — ahí sería regalar la
+  // respuesta, y el servidor lo rechaza igual (409 en POST /explain).
+  const hayPorque = solvedLatex !== null || fallado
+
+  const abrirPorque = useCallback(() => {
+    if (!exercise) return
+    sfx.select()
+    setStatsOpen(false) // exclusión con el otro dorso de esta card
+    setPorqueOpen(true)
+    posthog.capture("game_porque_open", {
+      exercise_id: exercise.exercise_id,
+      tier: exercise.tier,
+      stars: exercise.difficulty_stars,
+      // Lo que hay que poder contestar después: si lo abre quien ya resolvió
+      // —curiosidad— o quien está trabado —ayuda—, porque no son la misma
+      // persona ni la misma función del botón.
+      was_correct: solvedLatex !== null,
+    })
+    // Una sola vez por ejercicio: el texto no cambia, y volver a pedirlo sería
+    // otro viaje para recibir lo mismo.
+    if (porqueTexto !== null || explainMutation.isPending) return
+    explainMutation.mutate(
+      { exercise_id: exercise.exercise_id },
+      { onSuccess: (data) => setPorqueTexto(data.explanation) },
+    )
+  }, [exercise, explainMutation, porqueTexto, sfx, solvedLatex])
+
+  const cerrarPorque = useCallback(() => {
+    sfx.select()
+    setPorqueOpen(false)
+  }, [sfx])
+
   const closed =
     lastAnswer?.parse_ok === true &&
     (lastAnswer.correct || lastAnswer.attempts_left === 0)
@@ -541,11 +712,13 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
       void onRevisar()
       return
     }
-    // Con la mesa todavía en juego no se sigue. El guardia va ACÁ y no solo en el
-    // `disabled` del botón porque este mismo callback es el que corre con Enter,
-    // y el juego se juega con Enter: un botón gris que igual responde a la tecla
-    // es peor que no bloquear nada.
-    if (breaking) return
+    // Acá había un guardia que no dejaba seguir mientras el festejo estuviera en
+    // curso. Hacía falta con la mesa de billar, donde las bolas se quedaban
+    // rodando ADENTRO de la card del ejercicio: cambiar de ejercicio con la mesa
+    // en juego se llevaba puesta la animación. Los orbes de ahora no viven en la
+    // card —salen de ella en el primer frame y cruzan por encima de todo, en una
+    // capa `fixed`— así que la derivada siguiente puede entrar debajo de ellos
+    // sin molestar a nadie. Enter no se bloquea nunca más.
     const milestone = pendingMilestoneRef.current
     if (milestone) {
       pendingMilestoneRef.current = null
@@ -571,7 +744,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
       return
     }
     loadNext()
-  }, [closed, onRevisar, loadNext, cafecito, breaking])
+  }, [closed, onRevisar, loadNext, cafecito])
 
   const onSkip = useCallback(() => {
     if (
@@ -598,6 +771,11 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
           setCafecito(null)
           peekedRef.current = false
           setTableOpen(false)
+          setStatsOpen(false)
+          setPorqueOpen(false)
+          setPorqueTexto(null)
+          setSolvedLatex(null)
+          setFallado(false)
           servedAtRef.current = Date.now()
           inputRef.current?.clear()
           inputRef.current?.focus()
@@ -642,16 +820,127 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   useEffect(() => {
     tableOpenRef.current = tableOpen
   })
+  // Mismo espejo, para las tres guardas de más abajo (Alt, `w`/`i`) que
+  // tienen que ignorar sus gestos mientras las estadísticas están a la vista
+  // — ver el comentario largo donde se usa.
+  const statsOpenRef = useRef(false)
+  useEffect(() => {
+    statsOpenRef.current = statsOpen
+  })
+  // Y lo mismo para el ¿Por qué?, que voltea la MISMA card y por lo tanto tiene
+  // que apagar los mismos gestos: con el ejercicio del otro lado, ni Alt ni
+  // `w`/`i` pueden hacer nada.
+  const porqueOpenRef = useRef(false)
+  useEffect(() => {
+    porqueOpenRef.current = porqueOpen
+  })
+  // Y el del chat, que apaga los mismos gestos por un motivo DISTINTO de los
+  // otros dos: no es que la card esté mostrando otra cosa, es que hay un campo
+  // de texto con el foco. `enCampoDeTexto` ya cubre las letras —el input es un
+  // `<input>` de verdad— pero el gesto de Alt no consulta a nadie y hace
+  // preventDefault sobre cualquier tecla mientras se sostiene.
+  const chatOpenRef = useRef(false)
+  useEffect(() => {
+    chatOpenRef.current = chatOpen
+  })
+  // La tecla que abrió el chat sigue apretada.
+  //
+  // Sin esto, MANTENER la tecla escribe una fila de letras en el chat, y no por
+  // un descuido sino por cómo encajan dos cosas que por separado están bien: la
+  // primera pulsación abre el panel y el panel le da el foco a su campo
+  // (chat-panel.tsx), así que las repeticiones automáticas que siguen ya llegan
+  // con ESE campo como destino — y el listener las deja pasar a propósito,
+  // porque adentro del chat esa letra es una letra.
+  //
+  // La distinción que falta no es "estoy en un campo de texto" sino "esto sigue
+  // siendo la misma pulsación que abrió esto". Eso es lo que guarda el ref, y se
+  // limpia al soltar.
+  const abriendoChatRef = useRef(false)
 
   const flipTable = useCallback(() => {
     if (!tableOpenRef.current) openTable()
     setTableOpen(!tableOpenRef.current)
   }, [openTable])
 
+  // Abrir el chat cierra los otros tres dorsos. No es exclusión defensiva: el
+  // aside tiene UNA cara trasera, así que dos abiertos a la vez significa que
+  // uno de los dos no se ve y su booleano queda mintiendo hasta que alguien lo
+  // apague.
+  const abrirChat = useCallback(() => {
+    sfx.select()
+    setSettingsOpen(false)
+    setTableOpen(false)
+    setStatsOpen(false)
+    setPrivacyOpen(false)
+    setChatOpen(true)
+  }, [sfx])
+
+  // Al cerrar, el foco vuelve a la fórmula.
+  //
+  // Es el único panel que lo necesita: los otros tres no se lo habían llevado
+  // —el campo conserva el foco mientras el aside gira, que es justamente por lo
+  // que los atajos tienen que ir en captura— pero este tiene un `<input>` que sí
+  // se lo pidió. Sin devolverlo, al cerrar el chat el teclado escribe en un campo
+  // que ya no está en pantalla y el juego parece trabado.
+  const cerrarChat = useCallback(() => {
+    sfx.select()
+    setChatOpen(false)
+    inputRef.current?.focus()
+  }, [sfx])
+
+  // El dorso de privacidad se abre desde un link de texto en la slide de
+  // registro, nunca por atajo de teclado — mismo molde que abrirChat/cerrarChat.
+  const abrirPrivacidad = useCallback(() => {
+    sfx.select()
+    setSettingsOpen(false)
+    setChatOpen(false)
+    setTableOpen(false)
+    setStatsOpen(false)
+    setPrivacyOpen(true)
+  }, [sfx])
+
+  const cerrarPrivacidad = useCallback(() => {
+    sfx.select()
+    setPrivacyOpen(false)
+  }, [sfx])
+
+  // De vuelta de editar carrera o universidad: la configuración nunca se
+  // cerró (sigue a la vista todo el rato, en el otro dorso), así que acá solo
+  // vuelve el panel principal al ejercicio — o pide uno, si por lo que sea no
+  // había ninguno servido.
+  const volverDeEditarPerfil = useCallback(() => {
+    sfx.select()
+    if (exercise) setNavPanel("exercise")
+    else loadNext()
+  }, [exercise, loadNext, sfx])
+
   const toggleTable = useCallback(() => {
     sfx.select()
     flipTable()
   }, [sfx, flipTable])
+
+  // Mismo molde que `flipTable`/`toggleTable`, para el botón de la cabecera Y
+  // para la tecla `j` (más abajo) — una sola definición de "qué significa
+  // abrir las estadísticas" en vez de dos copias que puedan desalinearse.
+  const flipStats = useCallback(() => {
+    if (!statsOpenRef.current) {
+      // La tabla enriquecida del aside muestra las mismas 14 fórmulas CON
+      // derivada que la tabla plana: ocultarle este hecho al backend rompería
+      // la regla del proyecto de que `peeked` separa resolvió de copió.
+      openTable()
+      posthog.capture("game_stats_open", {
+        exercises_correct: player?.exercises_correct ?? 0,
+      })
+    }
+    setTableOpen(false) // exclusión con el otro dorso del aside
+    setPorqueOpen(false) // exclusión con el otro dorso de la card del ejercicio
+    setStatsOpen(!statsOpenRef.current)
+  }, [openTable, player?.exercises_correct])
+
+  const toggleStats = useCallback(() => {
+    sfx.select()
+    flipStats()
+  }, [sfx, flipStats])
 
   // Alt SOSTENIDO (Option en Mac, donde la tecla lleva impreso "alt" también):
   // la tabla mientras está abajo, y al soltarla vuelve el ejercicio.
@@ -707,6 +996,11 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
       setTableOpen(false)
     }
     const down = (e: KeyboardEvent) => {
+      // Con las estadísticas a la vista, Alt no hace nada: la card del
+      // ejercicio ya está mostrando otra cosa (el Elo, no la tabla), y abrir
+      // encima la tabla plana del aside dejaría las dos columnas contando
+      // historias distintas. Cerrar las estadísticas es cosa de `p`.
+      if (statsOpenRef.current || porqueOpenRef.current || chatOpenRef.current) return
       if (e.key === "Alt" && !e.ctrlKey) {
         // Sin esto, soltar un Alt pelado le pasa el foco a la barra de menú del
         // navegador y el teclado deja de escribir en el campo.
@@ -762,14 +1056,43 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
       // segundos, y con Shift hacen lo suyo— y lo manejan ellas
       // (cafecito-panel.tsx, reclutas-panel.tsx). Si además corriera este, el
       // primer Enter saltearía la diapo entera.
-      if (panel === "cafecito" || panel === "reclutas") return
+      //
+      // Las estadísticas se suman a la misma lista: con la card volteada al
+      // Elo, Enter no tiene que responder el ejercicio que quedó escondido
+      // atrás. No hace falta un Enter propio para cerrarlas —a diferencia de
+      // esas dos diapos, esto no tiene nada que "seguir"— así que alcanza con
+      // no dejarlo pasar; se cierra con `p` o con el botón de la cabecera.
+      // El ¿Por qué? no bloquea el Enter, lo GASTA en cerrarse. Es distinto de
+      // las estadísticas, que se abren queriendo y se cierran con la misma tecla
+      // con la que se abrieron: acá la persona vino a leer y lo que sigue
+      // después de leer es volver al ejercicio, que es lo que Enter significa en
+      // todas las demás pantallas. Responder con la card volteada —Revisar sobre
+      // un campo que no se ve— sí sería un accidente.
+      // El orden importa: las diapos primero. El ¿Por qué? solo puede
+      // reclamarse el Enter si es lo que se está viendo, y lo que se ve cuando
+      // hay una diapo abierta es la diapo.
+      if (panel === "cafecito" || panel === "reclutas" || statsOpen) return
+      if (porqueOpen) {
+        cerrarPorque()
+        return
+      }
+      // El chat sigue la misma regla que el ¿Por qué?: no bloquea el Enter, lo
+      // GASTA en cerrarse. Este listener es el que escucha en `document`, así
+      // que solo lo alcanza un Enter que NO cayó en el campo de escribir —ese
+      // lo maneja el propio ChatPanel y corta la propagación—, o sea
+      // exactamente el momento en que el campo ya no está (falta el
+      // enfriamiento de después de mandar) y lo que queda es el botón Volver.
+      if (chatOpen) {
+        cerrarChat()
+        return
+      }
       if (skip) {
         onSkip()
         return
       }
       onPrimary()
     },
-    [panel, startFromIntro, onSkip, onPrimary],
+    [panel, startFromIntro, onSkip, onPrimary, statsOpen, porqueOpen, cerrarPorque, chatOpen, cerrarChat],
   )
 
   // Dónde escucha el Enter global. Es más ancho que `gameFocused` (que gobierna
@@ -830,6 +1153,11 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   useEffect(() => {
     if (!gameFocused) return
     const onKeyDown = (e: KeyboardEvent) => {
+      // Con las estadísticas abiertas, `w`/`i` no navegan a otra diapo: la
+      // card ya está volteada al Elo, y `panel` es una capa distinta de
+      // `statsOpen` — si se dejara pasar, al volver de cafecito/reclutas la
+      // card reaparecería mostrando un Elo que nadie volvió a pedir.
+      if (statsOpenRef.current || porqueOpenRef.current) return
       if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return
       const tecla = e.key.toLowerCase()
       if (tecla !== TECLA_RECLUTAS && tecla !== TECLA_CAFECITO) return
@@ -858,6 +1186,217 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
     document.addEventListener("keydown", onKeyDown, true)
     return () => document.removeEventListener("keydown", onKeyDown, true)
   }, [gameFocused, setNavPanel, cta, sfx])
+
+  // La tecla de las estadísticas personales (game/stats.py :: game_stats_endpoint
+  // / stats-gate.ts). Se usa de DOS formas, como el Alt de la tabla pero con
+  // una segunda salida que Alt no tiene:
+  //
+  //   · SOSTENIDA: a los PEEK_OPEN_MS se abre —un vistazo— y soltarla la
+  //     cierra sola, igual que Alt con la tabla.
+  //   · TOCADA (se suelta ANTES de llegar a los PEEK_OPEN_MS): se abre igual,
+  //     pero se QUEDA abierta — es la otra forma de pedirlas, un toque y
+  //     listo, como tocar el botón de la cabecera. Ahí aparece el botón
+  //     "Volver" en el pie para cerrarlas a mano (mismo lugar que usan las
+  //     diapos de reclutar y de cafecito para su salida), en vez de que la
+  //     única forma de cerrar sea sostener la tecla de nuevo.
+  //
+  // Con las estadísticas YA abiertas —por cualquiera de las dos vías— volver a
+  // apretar la tecla las cierra en el acto, sin esperar ningún timer.
+  //
+  // Captura + stopPropagation, mismo motivo que el listener de `w`/`i`: es
+  // una letra, y sin ganarle a MathLive se escribiría en la fórmula en vez de
+  // abrir el panel.
+  useEffect(() => {
+    if (!gameFocused) return
+    if (!estadisticasDisponibles) return
+    const timers: ReturnType<typeof setTimeout>[] = []
+    let sosteniendo = false
+    // Si llegó a abrirse de veras (a los PEEK_OPEN_MS) durante ESTA pulsada.
+    // Decide qué hace `soltar`: cerrar como Alt, o abrir-y-quedarse como un
+    // toque corto.
+    let abrioPorHold = false
+    const soltar = () => {
+      if (!sosteniendo) return
+      sosteniendo = false
+      while (timers.length) clearTimeout(timers.pop()!)
+      if (abrioPorHold) {
+        sfx.select()
+        setStatsOpen(false)
+        return
+      }
+      // Se soltó ANTES de que el timer la abriera sola: es un toque, y un
+      // toque abre y se queda. `flipStats` ya sabe cobrar el peek y excluir
+      // los otros dorsos — es la misma acción que dispara el botón de la
+      // cabecera.
+      sfx.select()
+      flipStats()
+    }
+    // Distinto de `soltar`: si la ventana pierde el foco a mitad de una
+    // sostenida que todavía no llegó a abrirse, no hay que interpretarlo como
+    // un toque y abrir igual — eso sería un efecto secundario de cambiar de
+    // pestaña, no un pedido. Solo cierra si ya se había abierto de veras.
+    const abortar = () => {
+      if (!sosteniendo) return
+      sosteniendo = false
+      while (timers.length) clearTimeout(timers.pop()!)
+      if (abrioPorHold) setStatsOpen(false)
+    }
+    const down = (e: KeyboardEvent) => {
+      if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return
+      if (e.key.toLowerCase() !== TECLA_ESTADISTICAS) return
+      if (enCampoDeTexto(e.target)) return
+      e.preventDefault()
+      e.stopPropagation()
+      if (statsOpenRef.current) {
+        // Ya estaban abiertas —de un toque anterior, o de una sostenida en
+        // curso— y esta pulsación las cierra. Sin `e.repeat` de por medio: si
+        // se las sostiene otra vez ya abiertas, alcanza con la primera.
+        if (e.repeat) return
+        sfx.select()
+        setStatsOpen(false)
+        return
+      }
+      if (e.repeat || sosteniendo) return
+      sosteniendo = true
+      abrioPorHold = false
+      timers.push(
+        setTimeout(() => {
+          abrioPorHold = true
+          sfx.select()
+          setTableOpen(false)
+          setPorqueOpen(false)
+          setStatsOpen(true)
+        }, PEEK_OPEN_MS),
+      )
+      timers.push(setTimeout(openTable, PEEK_CHARGE_MS))
+    }
+    const up = (e: KeyboardEvent) => {
+      if (e.key.toLowerCase() !== TECLA_ESTADISTICAS) return
+      e.preventDefault()
+      soltar()
+    }
+    document.addEventListener("keydown", down, true)
+    document.addEventListener("keyup", up, true)
+    window.addEventListener("blur", abortar)
+    return () => {
+      while (timers.length) clearTimeout(timers.pop()!)
+      document.removeEventListener("keydown", down, true)
+      document.removeEventListener("keyup", up, true)
+      window.removeEventListener("blur", abortar)
+    }
+  }, [gameFocused, estadisticasDisponibles, openTable, sfx, flipStats])
+
+  // La tecla del «¿Por qué?». Mismo molde que la de arriba —captura +
+  // stopPropagation, para ganarle a MathLive, que escucha en el elemento— y con
+  // la misma condición que el botón: solo existe cuando ya hay algo para
+  // explicar. Antes del primer intento no es que esté deshabilitada, es que no
+  // está, igual que el servidor la rechaza con un 409.
+  //
+  // Se pierde poder escribir la `p` en la respuesta, como ya pasa con `w` e `i`.
+  // No cuesta nada acá: ninguna derivada del juego la lleva.
+  useEffect(() => {
+    if (!gameFocused) return
+    if (!hayPorque) return
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return
+      if (e.key.toLowerCase() !== TECLA_PORQUE) return
+      if (enCampoDeTexto(e.target)) return
+      e.preventDefault()
+      e.stopPropagation()
+      // Mantener la tecla apretada manda un keydown por repetición (`e.repeat`)
+      // hasta que se suelta. Sin esto, cada uno alternaba abrir/cerrar: la
+      // explicación entraba y salía a los tumbos con el volteo de por medio, y
+      // según cuántas repeticiones llegaran antes de soltar, podía quedar
+      // trabada abierta o cerrada sin que la persona haya elegido nada.
+      if (e.repeat) return
+      if (porqueOpenRef.current) cerrarPorque()
+      else abrirPorque()
+    }
+    document.addEventListener("keydown", onKeyDown, true)
+    return () => document.removeEventListener("keydown", onKeyDown, true)
+  }, [gameFocused, hayPorque, abrirPorque, cerrarPorque])
+
+  // La tecla del chat. Mismo molde que las de arriba —captura +
+  // stopPropagation— más una salida que las otras no tienen: Escape.
+  //
+  // Escape se maneja acá y no adentro del panel porque tiene que funcionar
+  // ESTÉ DONDE ESTÉ EL FOCO: escribiendo en el campo del chat, mirando la lista,
+  // o con el foco todavía en la fórmula. Y no pasa por `enCampoDeTexto` a
+  // propósito — es la única tecla que en un campo de texto significa "salí de
+  // acá" y no un carácter.
+  //
+  // La `m` sí lo consulta: adentro del chat una eme es una eme.
+  useEffect(() => {
+    if (!gameFocused) return
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return
+      if (e.key === "Escape") {
+        if (!chatOpenRef.current) return
+        e.preventDefault()
+        e.stopPropagation()
+        cerrarChat()
+        return
+      }
+      if (e.key.toLowerCase() !== TECLA_CHAT) return
+      if (enCampoDeTexto(e.target)) {
+        // Adentro del chat la letra es una letra... salvo que sea la repetición
+        // de la misma pulsación que lo acaba de abrir (ver `abriendoChatRef`).
+        if (abriendoChatRef.current) {
+          e.preventDefault()
+          e.stopPropagation()
+        }
+        return
+      }
+      // Repetición con el foco todavía afuera del campo: pasa cuando el chat no
+      // se lo pudo llevar —un invitado, que tiene el campo apagado—. Tampoco
+      // tiene que hacer nada: la tecla ya abrió.
+      if (e.repeat) {
+        e.preventDefault()
+        e.stopPropagation()
+        return
+      }
+      e.preventDefault()
+      e.stopPropagation()
+      if (chatOpenRef.current) cerrarChat()
+      else {
+        abriendoChatRef.current = true
+        abrirChat()
+      }
+    }
+    const soltar = (e: KeyboardEvent) => {
+      if (e.key.toLowerCase() === TECLA_CHAT) abriendoChatRef.current = false
+    }
+    // Y si la ventana pierde el foco con la tecla apretada, el keyup no llega
+    // nunca: sin esto el ref queda en `true` y la próxima letra suelta se
+    // tragaría sin motivo. Mismo recaudo que el gesto de Alt.
+    const abandonar = () => {
+      abriendoChatRef.current = false
+    }
+    document.addEventListener("keydown", onKeyDown, true)
+    document.addEventListener("keyup", soltar, true)
+    window.addEventListener("blur", abandonar)
+    return () => {
+      document.removeEventListener("keydown", onKeyDown, true)
+      document.removeEventListener("keyup", soltar, true)
+      window.removeEventListener("blur", abandonar)
+    }
+  }, [gameFocused, abrirChat, cerrarChat])
+
+  // Escape para el dorso de privacidad, en un efecto APARTE del de arriba: ese
+  // solo corre con `gameFocused` (panel === "exercise"), pero a este panel se
+  // entra desde la slide de registro, con `panel === "register"` — si viviera
+  // adentro del otro efecto, nunca se engancharía.
+  useEffect(() => {
+    if (!privacyOpen) return
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return
+      e.preventDefault()
+      e.stopPropagation()
+      cerrarPrivacidad()
+    }
+    document.addEventListener("keydown", onKeyDown, true)
+    return () => document.removeEventListener("keydown", onKeyDown, true)
+  }, [privacyOpen, cerrarPrivacidad])
 
   // Todo menos el logo entra recién cuando la presentación lo devuelve a su
   // lugar; el fundido acompaña al del fondo (ver game-intro.tsx).
@@ -890,7 +1429,13 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   // Las de trámite (perfil, registro) sí se quedan con la columna entera: son
   // formularios, no una pausa, y su botón es parte de lo que hay que completar.
   const esDiapoDePedido = panel === "cafecito" || panel === "reclutas"
-  const pieDelPanel = panel === "intro" || panel === "exercise" || esDiapoDePedido
+  // Elegir carrera o universidad usa el MISMO pie que las diapos de pedido —
+  // el botón vive abajo, por portal— porque se abre desde la configuración,
+  // que sigue a la vista del otro lado: es una pausa adentro del ejercicio,
+  // no un formulario que se lleva la columna entera.
+  const esDiapoDeCampo = panel === "editCareer" || panel === "editUniversity"
+  const pieDelPanel =
+    panel === "intro" || panel === "exercise" || esDiapoDePedido || esDiapoDeCampo
 
   // El nodo del pie donde las diapos dibujan su botón de salir (ver
   // slide-salida.tsx). Va en estado y no en un ref porque un ref no vuelve a
@@ -906,10 +1451,20 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
           viewport y el tope no llegaba a aplicarse. El bloque se ancla arriba,
           así que todo lo que sobra se va al pie. */}
       {/* El ancho del bloque es lo que decide el de la columna izquierda: la
-          derecha está clavada en 400 px, así que todo lo que se saque de acá
-          sale del ejercicio. Bajó de 64.8rem para que esa columna deje de
-          ocupar más de lo que su contenido necesita — adentro el enunciado y
-          las teclas ya viven en un canal de 28rem. */}
+          derecha está clavada en 420 px, así que todo lo que se sume acá se lo
+          lleva entero el ejercicio.
+          Había bajado a 61.8rem con el argumento de que esa columna ocupaba más
+          de lo que su contenido necesitaba, porque adentro el enunciado y las
+          teclas viven en un canal fijo. Volvió a subir —a 68rem— porque ese
+          argumento dejó de ser cierto: el dorso de la card es ahora el «¿Por
+          qué?», que no es un canal sino prosa con fórmulas en display, y esas
+          fórmulas usan el ancho ENTERO de la card. Con 61.8rem la columna daba
+          508 px y la explicación de un cociente quedaba justo al filo.
+          Con 68rem son 608, y el canal de adentro subió de 28 a 32rem para que
+          el campo y las teclas no queden flotando en el medio de una card que
+          creció sin ellos: con el canal viejo quedaban 64 px de margen muerto a
+          cada lado, y con 32rem quedan 48, que es el mismo aire proporcional que
+          tenía antes. */}
       {/* Estirado de 90%/792px: la columna izquierda está clavada por la
           FlipCard (min-h-[26rem]) más el CTA, así que todo el alto que se sume
           acá se lo lleva entero el ranking, que es lo que se quería alargar.
@@ -924,24 +1479,42 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
           De la columna izquierda, ese aire se lo lleva entero la card del
           ejercicio: es la única pieza `flex-1` — el historial tiene alto fijo
           (97,5 px) y los botones también. */}
-      <div className="mx-auto flex h-full max-h-[calc(min(94%,880px)_+_10px)] w-full max-w-[61.8rem] flex-col gap-3 px-6 pb-12 pt-5">
-        <XpOrbs
-          burst={burst}
-          target={magnetTarget}
-          area={orbArea}
-          onArrive={onXpArrive}
-          onCleared={onOrbsCleared}
-        />
-
+      <div className="mx-auto flex h-full max-h-[calc(min(94%,880px)_+_10px)] w-full max-w-[68rem] flex-col gap-3 px-6 pb-12 pt-5">
+        {/* La `key` es lo que arranca una tanda nueva: la capa lee su caja de
+            origen y su cantidad una sola vez, al montarse. Sin ella, el segundo
+            acierto no despegaría. */}
+        {vuelo && (
+          <OrbFlight
+            key={vuelo.seq}
+            count={vuelo.count}
+            colors={vuelo.colores}
+            from={vuelo.from}
+            target={magnetTarget}
+            onArrive={onOrbeLlega}
+          />
+        )}
         <header className={`grid shrink-0 gap-3 ${columns}`}>
           <div className="flex items-center justify-between rounded-lg border border-border bg-card px-4 py-2.5">
             {/* El logo de la presentación es este mismo: se despega de acá, se
                 escribe en el centro y vuelve (ver game-intro.tsx). */}
+            {/* Acá es el logo común de Intervalo —la palabra con su barra, sin
+                el `d/dx [ ]`—, y por eso no se pide nada: quién lleva notación
+                lo decide la plataforma en game-root.tsx y viaja en `intro`. */}
             {/* 15% menos que antes (era 1.25rem); el tamaño de la presentación
                 bajó lo mismo, ver INTRO_FONT_PX en game-intro.tsx. */}
             <GameIntroLogo intro={intro} fontSize="1.0625rem" />
             <div className="flex items-center gap-2" style={chromeStyle}>
               <TableButton open={tableOpen} onToggle={toggleTable} />
+              <ChatButton
+                open={chatOpen}
+                sinLeer={mensajesSinLeer}
+                onToggle={chatOpen ? cerrarChat : abrirChat}
+              />
+              <StatsButton
+                open={statsOpen}
+                visible={estadisticasDisponibles}
+                onToggle={toggleStats}
+              />
               <ShareButton
                 keyboard
                 placement="header_desktop"
@@ -985,31 +1558,80 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                     : `@${player.alias}`
                   : "…"}
               </span>
-              {/* La tuerca no abre una pantalla nueva: voltea el panel del
-                ranking, que es la columna donde vive. Por eso es un interruptor
-                — tocarla de nuevo vuelve al ranking. */}
-              <button
-                type="button"
-                aria-label="Configuración"
-                aria-pressed={settingsOpen}
-                onClick={() => {
-                  sfx.select()
-                  if (settingsOpen) {
-                    setSettingsOpen(false)
-                    refetchPlayer()
-                    if (!exercise) loadNext()
-                    return
-                  }
-                  setSettingsOpen(true)
-                }}
-                className={`shrink-0 rounded-md p-1 transition-colors hover:bg-accent hover:text-foreground ${
-                  settingsOpen
-                    ? "bg-accent text-foreground"
-                    : "text-muted-foreground"
-                }`}
-              >
-                <Settings size={17} />
-              </button>
+              <div className="flex shrink-0 items-center gap-2">
+                {/* Por qué ordena el ranking — game-ranking.tsx ::
+                    RankingSort. Dos botones y no un menú desplegable: son solo
+                    dos opciones y las dos se quieren ver siempre, no ocultas
+                    atrás de un clic más. Cada uno lleva el MISMO glifo que ya
+                    usa el indicador que prende: el ícono de experiencia
+                    (XpDots) para uno, "ELO" en su misma tipografía versalita
+                    para el otro — así el selector no inventa un lenguaje
+                    visual nuevo, adelanta el que ya está puesto en cada fila.
+
+                    Vuelve solo a experiencia al acertar (ver `onSuccess` de la
+                    respuesta): los orbes son de XP y caen en el número de XP
+                    de la fila propia, así que el festejo necesita esa columna
+                    puesta. */}
+                <div className="flex items-center gap-0.5 rounded-md border border-border p-0.5">
+                  <button
+                    type="button"
+                    aria-label="Ordenar el ranking por experiencia"
+                    aria-pressed={rankingSort === "experiencia"}
+                    onClick={() => {
+                      sfx.select()
+                      setRankingSort("experiencia")
+                    }}
+                    className={`rounded p-1 transition-colors ${
+                      rankingSort === "experiencia"
+                        ? "bg-accent text-foreground"
+                        : "text-muted-foreground hover:bg-accent hover:text-foreground"
+                    }`}
+                  >
+                    <XpDots className="size-[15px]" />
+                  </button>
+                  <button
+                    type="button"
+                    aria-label="Ordenar el ranking por Elo"
+                    aria-pressed={rankingSort === "elo"}
+                    onClick={() => {
+                      sfx.select()
+                      setRankingSort("elo")
+                    }}
+                    className={`rounded px-1.5 py-1 text-[0.7em] font-normal tracking-wider transition-colors ${
+                      rankingSort === "elo"
+                        ? "bg-accent text-foreground"
+                        : "text-muted-foreground hover:bg-accent hover:text-foreground"
+                    }`}
+                  >
+                    ELO
+                  </button>
+                </div>
+                {/* La tuerca no abre una pantalla nueva: voltea el panel del
+                  ranking, que es la columna donde vive. Por eso es un interruptor
+                  — tocarla de nuevo vuelve al ranking. */}
+                <button
+                  type="button"
+                  aria-label="Configuración"
+                  aria-pressed={settingsOpen}
+                  onClick={() => {
+                    sfx.select()
+                    if (settingsOpen) {
+                      setSettingsOpen(false)
+                      refetchPlayer()
+                      if (!exercise) loadNext()
+                      return
+                    }
+                    setSettingsOpen(true)
+                  }}
+                  className={`shrink-0 rounded-md p-1 transition-colors hover:bg-accent hover:text-foreground ${
+                    settingsOpen
+                      ? "bg-accent text-foreground"
+                      : "text-muted-foreground"
+                  }`}
+                >
+                  <Settings size={17} />
+                </button>
+              </div>
             </div>
           </div>
         </header>
@@ -1061,6 +1683,22 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                       }}
                     />
                   </div>
+                ) : panel === "editCareer" && player ? (
+                  <div className="flex min-h-0 flex-1 flex-col rounded-lg border border-border bg-card p-5">
+                    <EditCareerPanel
+                      initialValue={player.career ?? ""}
+                      slotSalida={slotSalida}
+                      onDone={volverDeEditarPerfil}
+                    />
+                  </div>
+                ) : panel === "editUniversity" && player ? (
+                  <div className="flex min-h-0 flex-1 flex-col rounded-lg border border-border bg-card p-5">
+                    <EditUniversityPanel
+                      initialValue={player.university ?? ""}
+                      slotSalida={slotSalida}
+                      onDone={volverDeEditarPerfil}
+                    />
+                  </div>
                 ) : panel === "cafecito" && cafecito ? (
                   <CafecitoPanel
                     keyboard
@@ -1107,6 +1745,10 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                       else if (!exercise) loadNext()
                     }}
                   />
+                ) : panel === "username" && player ? (
+                  <div className="flex min-h-0 flex-1 flex-col rounded-lg border border-border bg-card p-5">
+                    <UsernameSlide player={player} onDone={loadNext} />
+                  </div>
                 ) : panel === "register" && player ? (
                   <div className="flex min-h-0 flex-1 flex-col rounded-lg border border-border bg-card p-5">
                     <RegisterSlide
@@ -1118,106 +1760,215 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                         if (exercise) setNavPanel("exercise")
                         else loadNext()
                       }}
+                      onOpenPrivacy={abrirPrivacidad}
                     />
                   </div>
                 ) : exercise ? (
                   <>
-                    {/* El volteo se lleva la card Y el teclado, no solo la
-                          card: la tabla tiene catorce renglones y en el alto de
-                          la card sola entraban siete. Con los dos, el dorso
-                          hereda card + teclado y entra completa. El botón de
-                          abajo queda afuera a propósito — es lo único que sigue
-                          sirviendo con la tabla a la vista. */}
-                    {/* Alto fijado por la TABLA, que es la cara más alta:
-                          medido, su contenido pide 473 px contra los 400 del
-                          ejercicio. Antes la caja se estiraba a lo que sobrara
-                          en la columna (546) y quedaban 147 px de nada abajo
-                          del teclado. `min-h` y no `h`: si algún día un
-                          enunciado largo pide más, crece. */}
-                    {/* El cambio de ejercicio también es un volteo: al tocar
-                          Continuar, la card entera —enunciado, campo y teclado—
-                          gira y del otro lado está la derivada siguiente. Va
-                          acá afuera y no adentro de la FlipCard porque son dos
-                          giros distintos que nunca corren juntos: este cambia de
-                          EJERCICIO y el de adentro cambia de CARA (la tabla).
-                          El botón de abajo y el historial quedan fuera del giro:
-                          no son parte del ejercicio. */}
-                    <SlideFlip
-                      slide={String(exercise.exercise_id)}
+                  {/* La card del ejercicio y su teclado, en una sola caja
+                      que se da vuelta.
+
+                      El giro se lleva la card Y el teclado, no solo la card: el
+                      dorso —las estadísticas (tecla `j`) o el «¿Por qué?»—
+                      hereda card + teclado y entra completo. El botón de abajo y
+                      el historial quedan afuera a propósito: no son parte del
+                      ejercicio y siguen sirviendo con el dorso a la vista.
+
+                      Alto fijado por la cara MÁS ALTA, que es el dorso: medido,
+                      su contenido pide 473 px contra los 400 del ejercicio.
+                      Antes la caja se estiraba a lo que sobrara en la columna
+                      (546) y quedaban 147 px de nada abajo del teclado. `min-h`
+                      y no `h`: si algún día un enunciado largo pide más, crece.
+
+                      ACÁ AFUERA HABÍA OTRO CAMBIO DE PANTALLA, uno por
+                      ejercicio: al tocar Continuar la card entera se iba y del
+                      otro lado estaba la derivada siguiente. Se sacó. Un
+                      ejercicio nuevo no es una pantalla nueva —es la misma card
+                      con otra derivada adentro—, y anunciarlo con el gesto de
+                      cambiar de pantalla decía que había pasado algo más grande
+                      de lo que pasó. Ahora cambia solo lo que cambia: el
+                      enunciado, el campo —que se limpia y se enfoca solo, ver
+                      `loadNext`— y el teclado, que se ACOMODA con las teclas
+                      nuevas en vez de volver a dibujarse entero (el `layout` de
+                      math-keyboard.tsx, que con el remonte no llegaba a correr
+                      nunca: sus teclas nacían de cero en cada derivada).
+
+                      Sacarlo se llevó también un remonte por ejercicio de todo
+                      lo que hay acá adentro, MathLive incluido —que entra por un
+                      import dinámico—. El precio es que nada de acá abajo puede
+                      guardar estado que dependa de nacer con cada derivada; lo
+                      único que lo hacía era el relevo de la caja del enunciado
+                      (ver `relevado` en exercise-card.tsx).
+
+                      Enunciado y teclado van en UNA card, separados por una
+                      línea: son un solo objeto —la derivada y con qué
+                      escribirla— y dos cajas con su propio borde los hacían leer
+                      como dos cosas que hay que mirar por separado.
+
+                      La card toma `flex-1` y no `shrink-0`: todo el alto que
+                      sobra en la caja se lo queda ella —y adentro se reparte
+                      alrededor de la fórmula, que es lo que hay que mirar—, así
+                      el teclado queda apoyado abajo con el mismo aire que lo
+                      separa del campo. */}
+                    {/* El FlipCard lo tuvo antes para la tabla de derivadas,
+                        hasta que esta se mudó al dorso del RANKING; ahora es de
+                        las estadísticas personales (tecla `j`) y del «¿Por
+                        qué?». Es el único cambio de cara que le queda a esta
+                        caja. */}
+                    <FlipCard
                       className="min-h-[26rem] flex-1"
-                    >
-                      {/* Sin FlipCard: la tabla de derivadas se mudó al dorso
-                          del RANKING, así que esta card ya no tiene dos caras.
-                          Lo único que la da vuelta ahora es el cambio de
-                          ejercicio, que es el SlideFlip de acá arriba.
+                      flipped={statsOpen || porqueOpen}
+                      front={
+                        <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-lg border border-border bg-card">
+                          {/* Con el chat abierto, el ejercicio se va de foco:
+                              el mismo vidrio con el que el ranking espera
+                              mientras se lee la intro (out-of-focus.ts). Ahí
+                              dice «esto todavía no está en juego» y acá dice
+                              «esto quedó esperando», que es la misma frase.
+                              Y de paso lo apaga al tacto —el vidrio trae
+                              `pointer-events-none`—, que es lo correcto: con
+                              el foco puesto en el campo del chat, tocar una
+                              tecla de la fórmula no escribiría donde se está
+                              mirando.
 
-                          Enunciado y teclado van en UNA card, separados por una
-                          línea: son un solo objeto —la derivada y con qué
-                          escribirla— y dos cajas con su propio borde los hacían
-                          leer como dos cosas que hay que mirar por separado.
-
-                          La card toma `flex-1` y no `shrink-0`: todo el alto que
-                          sobra en la caja se lo queda ella —y adentro se reparte
-                          alrededor de la fórmula, que es lo que hay que mirar—,
-                          así el teclado queda apoyado abajo con el mismo aire
-                          que lo separa del campo. */}
-                      <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-lg border border-border bg-card">
-                        <ExerciseCard
-                          bare
-                          className="flex-1"
-                          streak={player?.combo ?? 0}
-                          attempted={player?.exercises_attempted ?? 0}
-                          elo={player?.elo ?? null}
-                          multiplier={boost?.multiplier ?? 1}
-                          promptLatex={exercise.prompt_latex}
-                          promptGone={tone === "correct"}
-                          promptRef={attachPrompt}
-                        >
+                              Va sobre el CONTENIDO y no sobre este div: el
+                              marco desenfocado se lee como un error de dibujo
+                              (ver out-of-focus.ts). Antes había una segunda
+                              razón —un `filter` sobre un ancestro aplana el
+                              contexto 3D y se llevaba puesto el volteo de esta
+                              card—, y con el volteo se fue: hoy el cambio de
+                              cara es un fundido y no hay contexto 3D que
+                              aplanar. */}
                           <div
-                            className={`flex flex-col gap-2 ${PANEL_CONTENT}`}
+                            className={`flex min-h-0 flex-1 flex-col ${outOfFocus(chatOpen)}`}
                           >
-                            <AnswerField tone={tone} seq={answerSeq}>
-                              <MathInput
-                                handleRef={attachInput}
-                                // La card se remonta con cada ejercicio, y
-                                // el `focus()` del layout corre antes de que
-                                // este campo exista.
-                                autoFocus
+                          <ExerciseCard
+                            bare
+                            className="flex-1"
+                            streak={player?.combo ?? 0}
+                            attempted={player?.exercises_attempted ?? 0}
+                            elo={player?.elo ?? null}
+                            multiplier={boost?.multiplier ?? 1}
+                            promptLatex={exercise.prompt_latex}
+                            // La caja del enunciado pasa a mostrar la derivada
+                            // que se escribió. Entra después de la explosión,
+                            // no en vez de ella: los orbes salen de la fórmula
+                            // vieja y la nueva ocupa el lugar que dejaron.
+                            solvedLatex={solvedLatex}
+                            promptGone={tone === "correct"}
+                            promptRef={attachPrompt}
+                          >
+                            <div
+                              className={`flex flex-col gap-2 ${PANEL_CONTENT}`}
+                            >
+                              <AnswerField
                                 tone={tone}
-                                hint={tipFor({
-                                  teclas,
-                                  seed: exercise.exercise_id,
-                                  attempted: player?.exercises_attempted ?? 0,
-                                  keys: exercise.keys,
-                                })}
-                                onEnter={onEnterKey}
-                                // En cuanto empieza a corregir, el rebote
-                                // se va: el naranja es sobre la respuesta
-                                // que mandó, no sobre la que escribe.
-                                onChange={() => {
-                                  if (!closed && lastAnswer) setLastAnswer(null)
-                                  if (!closed && tonoLocal) setTonoLocal(null)
-                                }}
-                              />
-                            </AnswerField>
+                                seq={answerSeq}
+                                // Resuelto el ejercicio, el campo deja lugar a
+                                // la pista: lo que se escribió ya está arriba,
+                                // en la caja del enunciado.
+                                // Resuelto el ejercicio, el campo entero se
+                                // convierte en el botón del «¿Por qué?»: la
+                                // caja completa, no un botón adentro de una
+                                // caja. Ocupa el mismo lugar y mide lo mismo
+                                // que el campo que reemplaza —`CAMPO_MIN_H` y
+                                // el redondeo grande— así que nada se mueve
+                                // al aparecer, y es donde el cursor estaba
+                                // hace un segundo: no hay que ir a buscarlo.
+                                //
+                                // `h-auto` porque el botón trae el alto de un
+                                // CTA y acá manda el del campo.
+                                hint={
+                                  solvedLatex !== null ? (
+                                    <PorQueButton
+                                      showKeyHint
+                                      className={`${CAMPO_MIN_H} h-auto w-full rounded-lg`}
+                                      onClick={porqueOpen ? cerrarPorque : abrirPorque}
+                                      open={porqueOpen}
+                                      wrong={fallado}
+                                    />
+                                  ) : undefined
+                                }
+                              >
+                                <MathInput
+                                  handleRef={attachInput}
+                                  // Al acertar, el campo deja lugar al botón
+                                  // del «¿Por qué?» (ver `hint`), así que en la
+                                  // derivada siguiente vuelve a montarse — y el
+                                  // `focus()` que dispara `loadNext` corre antes
+                                  // de que exista. Saliendo por Saltear no se
+                                  // desmonta y lo enfoca aquel.
+                                  autoFocus
+                                  tone={tone}
+                                  hint={tipFor({
+                                    teclas,
+                                    seed: exercise.exercise_id,
+                                    attempted: player?.exercises_attempted ?? 0,
+                                    keys: exercise.keys,
+                                  })}
+                                  onEnter={onEnterKey}
+                                  // En cuanto empieza a corregir, el rebote
+                                  // se va: el naranja es sobre la respuesta
+                                  // que mandó, no sobre la que escribe.
+                                  onChange={() => {
+                                    if (!closed && lastAnswer) setLastAnswer(null)
+                                    if (!closed && tonoLocal) setTonoLocal(null)
+                                  }}
+                                />
+                              </AnswerField>
+                            </div>
+                          </ExerciseCard>
+                          {/* No se desmonta al cerrar el ejercicio: con la
+                                  página a alto fijo, sacarlo haría saltar todo. */}
+                          <MathKeyboard
+                            bare
+                            input={inputRef}
+                            keys={exercise.keys}
+                            newKeys={exercise.new_keys}
+                            numpad={false}
+                            className={
+                              closed
+                                ? "pointer-events-none opacity-45"
+                                : undefined
+                            }
+                          />
                           </div>
-                        </ExerciseCard>
-                        {/* No se desmonta al cerrar el ejercicio: con la
-                                página a alto fijo, sacarlo haría saltar todo. */}
-                        <MathKeyboard
-                          bare
-                          input={inputRef}
-                          keys={exercise.keys}
-                          newKeys={exercise.new_keys}
-                          numpad={false}
-                          className={
-                            closed
-                              ? "pointer-events-none opacity-45"
-                              : undefined
-                          }
-                        />
-                      </div>
-                    </SlideFlip>
+                        </div>
+                      }
+                      back={
+                        <div className="flex min-h-0 flex-1 flex-col rounded-lg border border-border bg-card p-5">
+                          {/* El dorso también: lo que la card esté mostrando
+                              —el ejercicio o su explicación— queda esperando
+                              igual mientras se escribe en el chat. */}
+                          <div
+                            className={`flex min-h-0 flex-1 flex-col ${outOfFocus(chatOpen)}`}
+                          >
+                          {caraDelEjercicio === "porque" ? (
+                            <PorQuePanel
+                              bare
+                              // Sin esto, `w`/`s` seguían atados a ESTA
+                              // instancia aunque `panel` ya no fuera
+                              // "exercise" —la card del ejercicio no se
+                              // desmonta al abrir Reclutas o Cafecito, solo
+                              // queda tapada— y se comían la tecla en
+                              // silencio en vez de dejarla pasar.
+                              scrollButtons={gameFocused}
+                              explanation={porqueTexto}
+                              isPending={explainMutation.isPending}
+                              isError={explainMutation.isError}
+                              onRetry={abrirPorque}
+                            />
+                          ) : (
+                            <EloStatsPanel
+                              player={player}
+                              stats={statsQuery.data}
+                              isLoading={statsQuery.isPending}
+                            />
+                          )}
+                          </div>
+                        </div>
+                      }
+                    />
                   </>
                 ) : (
                   <ExerciseSkeleton />
@@ -1230,23 +1981,50 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                   repartirla. */}
               {pieDelPanel && (
                 <>
-                  <div className="flex shrink-0 items-stretch gap-2">
+                  <div className={`flex shrink-0 items-stretch gap-2 ${outOfFocus(chatOpen)}`}>
                     {panel === "intro" ? (
                       <IntroStartButton
                         onStart={startFromIntro}
                         disabled={player === null || next.isPending}
                       />
-                    ) : esDiapoDePedido ? (
-                      // La caja vacía donde la diapo dibuja su botón. Se monta y
-                      // se desmonta con `panel`, y eso resuelve el único caso
-                      // molesto: durante los ~380 ms del volteo de salida la
-                      // diapo que se va sigue montada (ver slide-flip.tsx) e
-                      // intentaría dibujar su botón al lado del Revisar que ya
-                      // volvió. Como el destino desaparece en el mismo instante
-                      // en que cambia `panel`, no dibuja nada.
+                    ) : esDiapoDePedido || esDiapoDeCampo ? (
+                      // La caja vacía donde la diapo (o el campo) dibuja su
+                      // botón. Se monta y se desmonta con `panel`, y eso
+                      // resuelve el único caso molesto: durante los ~380 ms
+                      // del volteo de salida la pantalla que se va sigue
+                      // montada (ver slide-flip.tsx) e intentaría dibujar su
+                      // botón al lado del Revisar que ya volvió. Como el
+                      // destino desaparece en el mismo instante en que cambia
+                      // `panel`, no dibuja nada.
                       <div ref={setSlotSalida} className="flex w-full" />
+                    ) : statsOpen ? (
+                      // Mismo botón de salida que usan las diapos de reclutar
+                      // y de cafecito (claseDeSalida, slide-salida.tsx), pero
+                      // dibujado ACÁ derecho y no por portal: esas dos son
+                      // componentes aparte que necesitan proyectar su botón
+                      // adentro del layout, y acá `statsOpen` ya vive en este
+                      // mismo componente. Reemplaza a Revisar/Saltear/¿Por
+                      // qué? entero: con la card volteada al Elo no hay
+                      // ejercicio que responder ni saltear.
+                      <button
+                        type="button"
+                        className={claseDeSalida(true)}
+                        onClick={() => {
+                          sfx.select()
+                          setStatsOpen(false)
+                        }}
+                      >
+                        Volver
+                      </button>
                     ) : exercise ? (
                       <>
+                        {/* Resuelto el ejercicio el pie es UNO solo, Continuar
+                            de punta a punta: el ¿Por qué? se mudó adentro de la
+                            caja de la pista, arriba, donde estaba el cursor
+                            (ver SolvedHint en exercise-card.tsx). Acá abajo
+                            quedaban dos botones para dos cosas de peso muy
+                            distinto, y el chico se llevaba la mitad del renglón
+                            del que cierra el ejercicio. */}
                         <AnswerButton
                           className="flex-1"
                           tone={tone}
@@ -1254,11 +2032,25 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                           closed={closed}
                           showKeyHint
                           disabled={
-                            answerMutation.isPending ||
-                            (closed && (next.isPending || breaking))
+                            answerMutation.isPending || (closed && next.isPending)
                           }
                           onClick={onPrimary}
                         />
+                        {/* En el MEDIO de los tres, y no al final. Los de los
+                            extremos son las dos formas de terminar con esta
+                            derivada —resolverla o irse—, y el del medio es la
+                            única que no la termina: te deja acá y te explica.
+                            Puesto último quedaba leyéndose como una tercera
+                            salida, que es lo que no es. */}
+                        {!closed && hayPorque && (
+                          <PorQueButton
+                            showKeyHint
+                            onClick={porqueOpen ? cerrarPorque : abrirPorque}
+                            disabled={answerMutation.isPending}
+                            open={porqueOpen}
+                            wrong={fallado}
+                          />
+                        )}
                         {!closed && (
                           <SkipButton
                             showKeyHint
@@ -1268,6 +2060,14 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                             onClick={onSkip}
                           />
                         )}
+                        {/* Tercero en discordia cuando el ejercicio sigue
+                            abierto: Revisar se queda con el ancho que sobra y
+                            estos dos miden lo suyo. Cuando ya se acertó son solo
+                            dos —Continuar y esto—, que es el mismo pie que la
+                            rama `solved` del session-runner de Intervalo.
+                            Alterna: tocarlo con el panel abierto lo cierra, que
+                            es lo que espera quien terminó de leer. */}
+
                       </>
                     ) : (
                       // Mientras carga la primera derivada. El botón no puede
@@ -1288,18 +2088,19 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
             </div>
 
             <aside className="flex min-h-0 flex-col gap-3">
-              {/* Esta columna tiene DOS dorsos y una sola cara: la
-                      configuración y la tabla de derivadas. Los dos son cosas
-                      que se consultan sin dejar de jugar, y las dos dejan el
-                      ejercicio intacto del otro lado — que es exactamente por lo
-                      que la tabla se mudó acá desde la card del ejercicio.
-                      Nunca se piden a la vez (el gesto de Alt cierra la
-                      configuración y viceversa), así que alcanza con elegir cuál
-                      va atrás; la configuración manda si las dos estuvieran
-                      abiertas. */}
+              {/* Esta columna tiene TRES dorsos y una sola cara: la
+                      configuración, la tabla de derivadas y —desde que existe
+                      el panel de estadísticas (tecla `j`)— la misma tabla con
+                      dos columnas más. Los tres son cosas que se consultan sin
+                      dejar de jugar, y los tres dejan el ejercicio intacto del
+                      otro lado. Nunca se piden dos a la vez (el gesto de Alt y
+                      la tecla `j` se cierran uno a otro, y los dos cierran la
+                      configuración y viceversa), así que alcanza con elegir
+                      cuál va atrás; la configuración manda si más de uno
+                      estuviera abierto. */}
               <FlipCard
                 className="min-h-0 flex-1"
-                flipped={settingsOpen || tableOpen}
+                flipped={settingsOpen || chatOpen || tableOpen || statsOpen || privacyOpen}
                 front={
                   <div className="flex min-h-0 flex-1 flex-col justify-center overflow-hidden rounded-lg border border-border bg-card p-3">
                     <GameRanking
@@ -1307,14 +2108,16 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                       enabled={player !== null}
                       liveXp={liveXp}
                       counting={counting}
-                      myUniversity={player?.university ?? null}
+                      xpColor={xpColor}
                       attachXpTarget={attachTarget}
+                      myUniversity={player?.university ?? null}
                       centerKey={centerKey}
                       // Con la diapo de reclutar abierta, el ranking de al lado
                       // muestra los reclutas. Es la mitad que falta del pedido:
                       // la diapo dice cuánto se gana y la tabla muestra con
                       // quiénes, o —la primera vez— con quiénes se vería.
                       viewOverride={panel === "reclutas" ? "recruits" : null}
+                      sort={rankingSort}
                       className={`flex-1 ${outOfFocus(enIntro(panel))}`}
                     />
                   </div>
@@ -1328,8 +2131,17 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                         onClose={() => {
                           setSettingsOpen(false)
                           refetchPlayer()
-                          // Por si se cerró sin ejercicio servido.
-                          if (!exercise) loadNext()
+                          // Si se cerró en medio de elegir carrera o
+                          // universidad, ese panel no tiene a dónde volver
+                          // solo: sin esto quedaba huérfano, mostrando el
+                          // campo abandonado con la configuración ya cerrada.
+                          if (panel === "editCareer" || panel === "editUniversity") {
+                            if (exercise) setNavPanel("exercise")
+                            else loadNext()
+                          } else if (!exercise) {
+                            // Por si se cerró sin ejercicio servido.
+                            loadNext()
+                          }
                         }}
                         onReset={() => {
                           setSettingsOpen(false)
@@ -1374,11 +2186,49 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                           setSettingsOpen(false)
                           setNavPanel("register")
                         }}
+                        onEditCareer={() => {
+                          // A diferencia del cafecito/reclutas de acá arriba,
+                          // la configuración NO se cierra: sigue a la vista
+                          // del otro lado mientras se elige, que es lo que
+                          // tiene sentido cuando lo que se está cambiando es
+                          // justo lo que esa fila muestra.
+                          setNavPanel("editCareer")
+                        }}
+                        onEditUniversity={() => {
+                          setNavPanel("editUniversity")
+                        }}
                       />
                     </div>
-                  ) : (
+                  ) : backKind === "chat" ? (
+                    <div className="flex min-h-0 flex-1 flex-col rounded-lg border border-border bg-card p-3">
+                      <ChatPanel
+                        open={chatOpen}
+                        enabled={player !== null}
+                        onClose={cerrarChat}
+                        className="flex-1"
+                      />
+                    </div>
+                  ) : backKind === "table" ? (
                     <div className="flex min-h-0 flex-1 flex-col rounded-lg border border-border bg-card p-3">
                       <DerivativesTable />
+                    </div>
+                  ) : backKind === "stats" ? (
+                    <div className="flex min-h-0 flex-1 flex-col rounded-lg border border-border bg-card p-3">
+                      <DerivativesStatsTable rows={statsQuery.data?.rows ?? []} />
+                    </div>
+                  ) : (
+                    <div className="flex min-h-0 flex-1 flex-col gap-3 rounded-lg border border-border bg-card p-4">
+                      <button
+                        type="button"
+                        onClick={cerrarPrivacidad}
+                        aria-label="Volver"
+                        className="flex shrink-0 items-center gap-1 self-start rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-accent"
+                      >
+                        <ChevronLeft size={18} />
+                      </button>
+                      <div className="no-scrollbar min-h-0 flex-1 overflow-y-auto">
+                        <PrivacidadContent compact condensedIntro />
+                      </div>
                     </div>
                   )
                 }

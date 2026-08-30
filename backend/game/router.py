@@ -8,6 +8,7 @@ la reporta el cliente.
 
 from __future__ import annotations
 
+import os
 import re
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
@@ -22,12 +23,15 @@ from universities import UNIVERSITIES as _UNIVERSIDADES
 from usernames import normalize_username, validate_username
 
 from . import boosts
+from . import chat as game_chat
 from . import limits
 from . import elo
 from . import events as game_events
+from . import explain as game_explain
 from . import keyboard as game_keyboard
 from . import referrals
 from . import simulation
+from . import stats as game_stats
 from . import xp as game_xp
 from .aliases import alias_taken, retire_alias
 from .deps import (
@@ -51,10 +55,14 @@ from .schemas import (
     GameEventOut,
     GameEventsResponse,
     GameExerciseOut,
+    GameExplainOut,
+    GameExplainRequest,
     GameLeaderboardEntry,
     GameLeaderboardMe,
     GameLeaderboardResponse,
     GameLeaderboardSummary,
+    GameMessageIn,
+    GameMessageOut,
     GamePulse,
     GamePlayerCreateRequest,
     GamePlayerCreateResponse,
@@ -63,6 +71,7 @@ from .schemas import (
     GameRecruitEntry,
     GameRecruitsResponse,
     GameSkipRequest,
+    GameStatsOut,
     GameUniversityLeaderboardResponse,
     GameUniversityRow,
 )
@@ -77,7 +86,12 @@ from .validator import (
 
 router = APIRouter(prefix="/game/derivemos", tags=["game"])
 
-MAX_ATTEMPTS = 2
+# Los intentos son los que la persona quiera: se responde hasta acertar o
+# saltear. Este número NO es una regla de juego, es un tope de tabla — cada
+# intento escribe una fila en `game_attempts` y sin ningún techo un bucle la
+# llena. Nadie que esté jugando lo va a tocar: cincuenta intentos sobre la misma
+# derivada ya no son alguien insistiendo.
+TOPE_DE_INTENTOS = 50
 AROUND_WINDOW = 15
 
 # Mismas regex que /user/enroll (main.py): lo que no matchea se descarta para
@@ -89,6 +103,21 @@ _KNOWN_CAREERS = ("E", "S", "T", "M")
 
 # Las noventa siglas del catálogo, para reconocer lo que ya está en la lista.
 _SIGLAS_CONOCIDAS = frozenset(sigla for sigla, _ in _UNIVERSIDADES)
+
+def _chat_habilitado() -> bool:
+    """El interruptor del chat, apagado por defecto.
+
+    Opt-in y no opt-out, igual que los endpoints de desarrollo (main.py): esto
+    abre la única puerta del juego por la que entra texto de una persona a la
+    pantalla de todas las demás, y una feature así no puede quedar prendida
+    porque nadie se acordó de apagarla. Se prende poniendo GAME_CHAT_ENABLED=1
+    cuando haya alguien mirando.
+
+    Solo frena la ESCRITURA. Leer anda siempre: con el chat apagado no entran
+    mensajes nuevos, y los que ya estaban no dejan de existir por eso.
+    """
+    return os.getenv("GAME_CHAT_ENABLED", "").strip().lower() in {"1", "true", "yes"}
+
 
 # Qué puede tener una universidad escrita a mano. El catálogo tiene noventa
 # siglas, pero el campo "Otra" existe a propósito: alguien de una universidad
@@ -175,6 +204,58 @@ def _rank_of(db: Session, player: GamePlayer, scope: list | None = None) -> int:
     return ahead + 1
 
 
+# ── El ranking individual se puede ordenar por dos cosas ──────────────────────
+# La XP mide cuánto jugaste; el Elo, qué tan difícil resolvés. El selector de la
+# cabecera (desktop-layout.tsx) elegía entre las dos, pero hasta acá solo
+# cambiaba la vista Universitario: pedir "por Elo" dejaba la lista de PERSONAS
+# ordenada por XP, o sea que el control prometía una cosa y hacía otra.
+#
+# El orden por Elo pone primero a quien ya salió de la rampa (elo.RAMP_UPDATES)
+# y recién después a los provisorios. Es el mismo criterio que el ranking de
+# universidades, que ordena por `(ranked, rating_avg, rated_players)`, un nivel
+# más abajo: con tres respuestas el theta todavía es ruido, y sin este corte una
+# racha de suerte alcanza para encabezar la tabla del juego entero.
+_CALIFICADO = case((GamePlayer.n_updates >= elo.RAMP_UPDATES, 1), else_=0)
+
+# La clave del orden por Elo, como tupla para `order_by(*...)`. El desempate por
+# `id` es el mismo que el del orden por XP: sin él, dos thetas iguales pueden
+# salir en cualquier orden y la lista tiembla de una página a la otra.
+_ORDEN_ELO = (_CALIFICADO.desc(), GamePlayer.theta.desc(), GamePlayer.id.asc())
+_ORDEN_XP = (GamePlayer.xp.desc(), GamePlayer.id.asc())
+
+
+def _rank_of_elo(db: Session, player: GamePlayer, scope: list | None = None) -> int:
+    """Puesto 1-based en el orden por Elo.
+
+    Cuenta cuántos van DELANTE con exactamente la misma regla que `_ORDEN_ELO`,
+    no con una parecida: si las dos se separan, la ventana `around_me` se centra
+    en una fila que no es la propia.
+    """
+    mio = 1 if player.n_updates >= elo.RAMP_UPDATES else 0
+    ahead = (
+        db.query(GamePlayer.id)
+        .filter(
+            *(scope or []),
+            GamePlayer.xp > 0,
+            sa_or(
+                _CALIFICADO > mio,
+                sa_and(
+                    _CALIFICADO == mio,
+                    sa_or(
+                        GamePlayer.theta > player.theta,
+                        sa_and(
+                            GamePlayer.theta == player.theta,
+                            GamePlayer.id < player.id,
+                        ),
+                    ),
+                ),
+            ),
+        )
+        .count()
+    )
+    return ahead + 1
+
+
 def _player_out(db: Session, player: GamePlayer, with_rank: bool = True) -> GamePlayerOut:
     return GamePlayerOut(
         player_id=player.id,
@@ -189,6 +270,7 @@ def _player_out(db: Session, player: GamePlayer, with_rank: bool = True) -> Game
         university=player.university,
         career=player.career,
         is_guest=player.user_id is None,
+        alias_is_generated=player.alias_is_generated,
         level=elo.level_of(player.theta),
         elo=elo.rating_of(player.theta),
     )
@@ -303,8 +385,13 @@ def patch_me(
     db: Session = Depends(get_db),
 ):
     if body.alias is not None:
-        if player.user_id is None:
-            # Elegir el @ es el gancho del registro.
+        is_guest = player.user_id is None
+        # La ÚNICA edición gratis: un invitado que todavía no tocó su @
+        # generado puede cambiarlo una vez, sin pasar por Clerk (ver
+        # models.GamePlayer.alias_is_generated). De ahí en más, elegir el @ es
+        # el gancho del registro de siempre.
+        free_edit = is_guest and player.alias_is_generated
+        if is_guest and not free_edit:
             raise HTTPException(status_code=403, detail="Registrate para elegir tu @.")
         # El @ pide la sesión de Clerk, no alcanza el token de invitado.
         #
@@ -315,7 +402,7 @@ def patch_me(
         # siempre. Para JUGAR eso es tolerable —el peor caso es que alguien te
         # sume XP—, pero el @ es la identidad pública de la cuenta, y cambiarlo
         # es lo único que no se puede deshacer desde el otro lado.
-        if not authorization:
+        if not is_guest and not authorization:
             raise HTTPException(
                 status_code=403, detail="Iniciá sesión de nuevo para cambiar tu @."
             )
@@ -331,6 +418,8 @@ def patch_me(
             # el momento de registrarse (ver models.GameAliasHistory).
             retire_alias(db, player.alias, player.id)
         player.alias = alias
+        if free_edit:
+            player.alias_is_generated = False
 
     if body.university is not None:
         from universities import canonical_university
@@ -620,10 +709,13 @@ def _inicio_del_dia() -> datetime:
     hay que traerlo a esa misma escala antes de comparar; hacerlo al revés
     —convertir cada fila— impediría cualquier uso de índice.
 
-    Hoy la consulta se sostiene por `ix_game_attempts_player_id` y porque
-    MAX_ATTEMPTS deja pocas filas por jugador, no por un índice sobre la fecha:
-    ese no existe. Si algún día los intentos por jugador dejan de ser pocos, lo
-    que hace falta es un índice compuesto (player_id, created_at).
+    Hoy la consulta se sostiene por `ix_game_attempts_player_id` y porque en la
+    práctica hay pocas filas por jugador, no por un índice sobre la fecha: ese
+    no existe. Con los intentos ilimitados eso último es una apuesta y ya no una
+    garantía —antes lo aseguraba MAX_ATTEMPTS=2, ahora solo lo hace probable el
+    hecho de que nadie intenta la misma derivada diez veces—, así que si los
+    intentos por jugador dejan de ser pocos, lo que hace falta es un índice
+    compuesto (player_id, created_at).
     """
     ahora = datetime.now(_TZ_JUEGO)
     medianoche = ahora.replace(hour=0, minute=0, second=0, microsecond=0)
@@ -683,7 +775,9 @@ def _registrar_fallo_de_parseo(
         parse_ok=False,
         parse_error=str(exc) or "no pudimos evaluar tu respuesta",
         attempt_number=prior_attempts,
-        attempts_left=MAX_ATTEMPTS - prior_attempts,
+        # None es «sin límite», que es lo que los intentos son ahora. El campo
+        # queda porque el cliente viejo lo lee; el nuevo decide con `correct`.
+        attempts_left=None,
         xp_awarded=0,
         xp_total=player.xp,
         combo=player.current_combo,
@@ -776,13 +870,19 @@ def _otorgar_xp(
 
     Se llama DESPUÉS de `_aplicar_elo` porque la XP escala con la racha, y la
     racha la acaba de mover esa función.
+
+    `explained` sale del ejercicio y no del cuerpo del pedido: la explicación la
+    entrega el servidor, así que no hace falta que el cliente la confiese (ver
+    la columna en models.py).
     """
-    if peeked:
-        xp_awarded, combo_bonus = game_xp.xp_for_peeked(correct)
-    else:
-        xp_awarded, combo_bonus = game_xp.xp_for_answer(
-            attempt_number, correct, exercise.p_hat, player.current_combo
-        )
+    xp_awarded, combo_bonus = game_xp.xp_for_answer(
+        attempt_number,
+        correct,
+        exercise.p_hat,
+        player.current_combo,
+        peeked=peeked,
+        explained=bool(exercise.explained),
+    )
 
     # Empuje de la universidad. La regla es "multiplica lo que sea que haya pagado
     # esta respuesta", sin excepciones: también el XP simbólico de haber mirado la
@@ -842,7 +942,7 @@ def _repetir_ultima_respuesta(
         correct=correcto,
         parse_ok=True,
         attempt_number=ultimo.attempt_number,
-        attempts_left=0,
+        attempts_left=None,
         xp_awarded=ultimo.xp_awarded,
         xp_total=player.xp,
         combo=player.current_combo,
@@ -907,7 +1007,7 @@ def answer_exercise(
         .count()
     )
     attempt_number = prior_attempts + 1
-    if attempt_number > MAX_ATTEMPTS:
+    if attempt_number > TOPE_DE_INTENTOS:
         raise HTTPException(status_code=409, detail="Ese ejercicio ya se cerró")
 
     expected = expr_from_stored(exercise.expected_derivative)
@@ -932,7 +1032,9 @@ def answer_exercise(
         db, exercise, player, attempt_number, correct, peeked=body.peeked
     )
 
-    closed = correct or attempt_number >= MAX_ATTEMPTS
+    # Un ejercicio se cierra acertando, y nada más. Salir sin resolverlo es
+    # saltear, que es un gesto propio y tiene su propio endpoint.
+    closed = correct
     if closed:
         exercise.status = "answered"
         exercise.answered_at = datetime.utcnow()
@@ -999,7 +1101,7 @@ def answer_exercise(
         correct=correct,
         parse_ok=True,
         attempt_number=attempt_number,
-        attempts_left=0 if closed else MAX_ATTEMPTS - attempt_number,
+        attempts_left=None,
         feedback_incorrect=feedback,
         xp_awarded=xp_awarded,
         xp_total=player.xp,
@@ -1008,7 +1110,10 @@ def answer_exercise(
         xp_multiplier=multiplier,
         exercises_correct=player.exercises_correct,
         correct_today=correctas_hoy_previas + (1 if correct else 0),
-        correct_answer_latex=latex_es(expected) if (closed and not correct) else None,
+        # Ya no hay ejercicio que se cierre sin acertar, así que este campo sale
+        # siempre en None desde acá. La derivada correcta llega por un solo
+        # camino y es el «¿Por qué?».
+        correct_answer_latex=None,
         rank_before=rank_before,
         rank_after=rank_after,
         best_rank=player.best_rank,
@@ -1016,6 +1121,69 @@ def answer_exercise(
     )
     db.commit()
     return respuesta
+
+
+@router.post(
+    "/explain",
+    response_model=GameExplainOut,
+    # Hace correr sympy y lo dispara un botón que se puede tocar dos veces por
+    # nervios. Sesenta por minuto es holgadísimo para una persona y corta un
+    # bucle.
+    dependencies=[Depends(limits.por_jugador(60))],
+)
+def explain_exercise(
+    body: GameExplainRequest,
+    player: GamePlayer = Depends(get_current_player),
+    db: Session = Depends(get_db),
+):
+    """El «¿Por qué?»: de dónde salía esta derivada.
+
+    La explicación termina con la derivada escrita, así que este endpoint
+    REGALA la respuesta. Por eso el candado del punto 2 no es una formalidad: la
+    interfaz tampoco ofrece el botón antes del primer intento, pero eso lo
+    decide el cliente y acá también manda el servidor.
+
+    Leerlo con el ejercicio abierto le baja la recompensa a XP_EXPLICADO. Leerlo
+    con el ejercicio ya acertado no cuesta nada — no queda nada que cobrar.
+    """
+    exercise = (
+        db.query(GameExercise)
+        .filter(GameExercise.id == body.exercise_id, GameExercise.player_id == player.id)
+        .first()
+    )
+    if exercise is None:
+        raise HTTPException(status_code=404, detail="Ejercicio no encontrado")
+
+    # Sin un intento parseado, esto sería un endpoint que contesta ejercicios sin
+    # responder. Los intentos que el parser NO entendió no cuentan, por lo mismo
+    # que no consumen intento: escribir cualquier cosa no es haber intentado.
+    intentos = (
+        db.query(GameAttempt)
+        .filter(GameAttempt.exercise_id == exercise.id, GameAttempt.parse_ok.is_(True))
+        .count()
+    )
+    if intentos == 0:
+        raise HTTPException(
+            status_code=409, detail="Probá primero y después te cuento de dónde sale."
+        )
+
+    # Solo si sigue abierto, y solo la primera vez: volver a leer lo que ya se
+    # leyó no puede cobrar dos veces.
+    cobra = exercise.status == "served" and not exercise.explained
+    if cobra:
+        exercise.explained = True
+        db.commit()
+
+    explicacion = game_explain.build(exercise)
+    return GameExplainOut(
+        explanation=explicacion.text,
+        costs_xp=cobra,
+        graph_fn=explicacion.graph_fn,
+        graph_fn2=explicacion.graph_fn2,
+        graph_fn_latex=explicacion.graph_fn_latex,
+        graph_fn2_latex=explicacion.graph_fn2_latex,
+        graph_view=list(explicacion.graph_view),
+    )
 
 
 @router.get("/leaderboard/pulse", response_model=GamePulse)
@@ -1048,15 +1216,24 @@ def game_pulse(
 @router.get("/events", response_model=GameEventsResponse)
 def game_events_feed(
     after_id: int = Query(default=0, ge=0),
+    after_msg_id: int = Query(default=0, ge=0),
     player: GamePlayer = Depends(get_current_player),
     db: Session = Depends(get_db),
 ):
-    """Historial de lo que va pasando: cafecitos, registros, escaladas, rachas y
-    universidades que se pasan entre sí.
+    """Historial de lo que va pasando, más los mensajes del chat.
 
-    Es un feed SOLO del sistema —ninguna línea la escribe un usuario— así que no
-    hay nada que moderar. Con `after_id` devuelve únicamente lo nuevo, que es lo
-    que hace que sondearlo cada pocos segundos no cueste nada.
+    Los `events` son SOLO del sistema —ninguna línea la escribe un usuario— y por
+    eso no hay nada que moderar ahí. Los `messages` sí los escribe la gente y
+    viven en otra tabla, con su propio saneado (ver chat.py); van en la misma
+    respuesta porque el chat entero se apoya en eso: no hay un sondeo nuevo, hay
+    un campo nuevo en el que ya corría cada ocho segundos.
+
+    Dos cursores y dos ventanas, no una mezclada. Compartiendo las cuarenta filas,
+    una racha de chat empujaría fuera de pantalla el anuncio de que alguien invitó
+    cafecitos, que es el que mueve donaciones.
+
+    Con los dos cursores devuelve únicamente lo nuevo, que es lo que hace que
+    sondearlo cada pocos segundos no cueste nada.
     """
     return GameEventsResponse(
         events=[
@@ -1079,7 +1256,20 @@ def game_events_feed(
                 seconds_ago=e.seconds_ago,
             )
             for e in game_events.recent(db, after_id=after_id)
-        ]
+        ],
+        messages=[
+            GameMessageOut(
+                id=m.id,
+                alias=m.alias,
+                level=m.level,
+                university=m.university,
+                text=m.text,
+                is_mine=m.player_id == player.id,
+                seconds_ago=m.seconds_ago,
+            )
+            for m in game_chat.recent(db, after_id=after_msg_id)
+        ],
+        chat_enabled=_chat_habilitado(),
     )
 
 
@@ -1093,10 +1283,19 @@ def game_leaderboard_summary(
     """Los dos números de la cabecera del ranking, más las universidades para
     poblar el filtro (esas van siempre sin scope)."""
     scope = _scope_filters(university, career)
-    players, exercises = (
+    players, exercises, rated, theta_sum = (
         db.query(
             func.count(GamePlayer.id),
             func.coalesce(func.sum(GamePlayer.exercises_correct), 0),
+            # Mismo criterio que game_university_leaderboard: solo cuenta para
+            # el promedio quien ya salió de la rampa (elo.RAMP_UPDATES), o el
+            # promedio mide cuántos novatos hay y no qué tan bien deriva el
+            # scope.
+            func.count(case((GamePlayer.n_updates >= elo.RAMP_UPDATES, 1))),
+            func.coalesce(
+                func.sum(case((GamePlayer.n_updates >= elo.RAMP_UPDATES, GamePlayer.theta))),
+                0.0,
+            ),
         )
         .filter(*scope, GamePlayer.xp > 0)
         .one()
@@ -1109,9 +1308,47 @@ def game_leaderboard_summary(
         .order_by(GamePlayer.university.asc())
         .all()
     ]
-    return GameLeaderboardSummary(
-        players=int(players), exercises=int(exercises), universities=universities
+    elo_avg = (
+        elo.rating_of(float(theta_sum) / rated) if rated >= boosts.MIN_PLAYERS_RANKED else None
     )
+    return GameLeaderboardSummary(
+        players=int(players),
+        exercises=int(exercises),
+        universities=universities,
+        elo_avg=elo_avg,
+    )
+
+
+@router.get(
+    "/stats",
+    response_model=GameStatsOut,
+    dependencies=[Depends(limits.por_jugador(30))],
+)
+def game_stats_endpoint(
+    player: GamePlayer = Depends(get_current_player),
+    db: Session = Depends(get_db),
+):
+    """Estadísticas del jugador para el panel que abre la tecla `p` en
+    escritorio (ver web/src/app/derivadas/elo-stats-panel.tsx): dónde está el
+    Elo del jugador contra la masa de jugadores calificados, más la tabla de
+    derivadas con Elo de desbloqueo y accuracy personal (game/stats.py).
+
+    El servidor repite acá el gate de visibilidad —no confía en que el
+    cliente lo haya respetado— porque acá también manda el server, como en el
+    resto del juego.
+
+    Rate limit propio y no compartido con los demás GET del ranking: esto
+    agrega sobre TODOS los jugadores calificados (crece con la base entera,
+    sin techo) más el historial completo del jugador — más parecido en costo
+    a `/leaderboard/universities` que a `/me`, y lo dispara una tecla que
+    cualquiera puede mantener apretada.
+    """
+    if player.exercises_correct < game_stats.UMBRAL_ESTADISTICAS:
+        raise HTTPException(
+            status_code=403,
+            detail="Todavía te faltan derivadas para desbloquear las estadísticas.",
+        )
+    return game_stats.build(db, player)
 
 
 @router.get("/leaderboard/universities", response_model=GameUniversityLeaderboardResponse)
@@ -1206,15 +1443,24 @@ def game_leaderboard(
     # filas es mucho más ranking del que nadie va a scrollear.
     offset: int = Query(default=0, ge=0, le=100_000),
     around_me: bool = Query(default=False),
+    # Por qué se ordena. `xp` es el orden canónico de siempre; `elo` es el que
+    # pide el selector de la cabecera — ver `_ORDEN_ELO`. Va con `pattern` y no
+    # como texto libre: es una clave que entra derecho a un `order_by`.
+    sort: str = Query(default="xp", pattern="^(xp|elo)$"),
     player: GamePlayer = Depends(get_current_player),
     db: Session = Depends(get_db),
 ):
-    """Espejo del /leaderboard principal sobre game_players: orden canónico
-    (xp DESC, id ASC), solo jugadores con xp > 0 más el propio jugador.
+    """Espejo del /leaderboard principal sobre game_players: solo jugadores con
+    xp > 0 más el propio jugador, ordenados por XP (canónico) o por Elo.
 
     `university` y `career` acotan el scope igual que en el principal: el rank,
     los totales y la página se calculan todos dentro del scope elegido.
+
+    El orden NO cambia quiénes entran, solo en qué orden salen: el total y la
+    visibilidad son los mismos en los dos, así que cambiar de orden mueve a la
+    gente de puesto pero no la saca de la tabla.
     """
+    por_elo = sort == "elo"
     scope = _scope_filters(university, career)
     visible = sa_or(GamePlayer.xp > 0, GamePlayer.id == player.id)
 
@@ -1224,7 +1470,9 @@ def game_leaderboard(
     in_scope = (
         db.query(GamePlayer.id).filter(GamePlayer.id == player.id, *scope).first() is not None
     )
-    my_rank = _rank_of(db, player, scope) if in_scope else None
+    my_rank = (
+        (_rank_of_elo if por_elo else _rank_of)(db, player, scope) if in_scope else None
+    )
     my_index = (my_rank - 1) if my_rank is not None else None
 
     if around_me and my_index is not None:
@@ -1256,10 +1504,13 @@ def game_leaderboard(
                 GamePlayer.rank_recent_at,
                 GamePlayer.rank_snapshot,
                 GamePlayer.rank_snapshot_at,
+                # Cuántas respuestas ajustaron el Elo: es lo que decide si el
+                # theta ya vale (elo.RAMP_UPDATES) o sigue siendo provisorio.
+                GamePlayer.n_updates,
             )
         )
         .filter(*scope, visible)
-        .order_by(GamePlayer.xp.desc(), GamePlayer.id.asc())
+        .order_by(*(_ORDEN_ELO if por_elo else _ORDEN_XP))
         .offset(page_offset)
         .limit(page_size)
         .all()
@@ -1280,7 +1531,19 @@ def game_leaderboard(
             university=row.university,
             career=row.career,
             level=elo.level_of(row.theta),
-            rank_delta=simulation.rank_delta(row, page_offset + index + 1, now),
+            # El Elo viaja SIEMPRE, ordene la tabla por lo que ordene: es el
+            # número que la fila muestra cuando el selector está en "elo", y
+            # mandarlo solo en ese orden obligaría a recargar la lista entera
+            # para cambiar de columna.
+            elo=elo.rating_of(row.theta),
+            elo_ranked=row.n_updates >= elo.RAMP_UPDATES,
+            # Sin flecha en el orden por Elo. `rank_delta` se calcula contra
+            # `rank_snapshot` / `rank_recent`, que son fotos del puesto por XP
+            # (simulation.py): comparadas contra un puesto por Elo darían un
+            # número que no es el movimiento de nadie.
+            rank_delta=(
+                0 if por_elo else simulation.rank_delta(row, page_offset + index + 1, now)
+            ),
         )
         for index, row in enumerate(page)
     ]
@@ -1368,6 +1631,76 @@ def link_player(
     game_events.on_signup(db, player)
     db.commit()
     return _player_out(db, player)
+
+
+def _puede_escribir(
+    player: GamePlayer = Depends(get_current_player),
+    authorization: str = Header(None),
+) -> GamePlayer:
+    """Quién tiene derecho a escribir. Devuelve el jugador o corta con el motivo.
+
+    Es una dependencia y no un chequeo adentro del endpoint porque el ORDEN
+    importa. El tope de frecuencia también es una dependencia, y FastAPI las
+    resuelve en el orden en que aparecen en la firma: poniendo esta primero, un
+    invitado se lleva el 403 que le explica qué hacer, y además no gasta cupo del
+    limitador. Con el chequeo adentro del cuerpo pasaba lo contrario — el primer
+    intento daba 403 y el segundo un 429 que no dice nada, porque el intento
+    rechazado igual había consumido su turno.
+
+    Escribir pide cuenta, por dos motivos distintos que apuntan al mismo lado:
+
+    · Un invitado se crea con un POST sin credenciales de ningún tipo. Un mensaje
+      suyo no tiene a nadie detrás a quien pedirle cuentas, y el único freno para
+      fabricar invitados es un tope por IP — que a propósito es laxo, porque el
+      público entra desde el wifi de una universidad (ver limits.py).
+    · Es el mismo criterio con el que se elige el @: lo que muestra tu nombre a
+      todos los demás pide cuenta. Y de paso el chat empuja el registro, igual que
+      el @ y que los reclutas.
+
+    Y pide la sesión de Clerk viva, no alcanza el token de invitado guardado, por
+    exactamente la misma razón que el @: ese token no vence ni se puede revocar, y
+    publicar bajo el nombre de alguien no se puede deshacer desde el otro lado.
+    """
+    if not _chat_habilitado():
+        raise HTTPException(status_code=503, detail="El chat está apagado por ahora.")
+    if player.user_id is None:
+        raise HTTPException(status_code=403, detail="Registrate para escribir en el chat.")
+    if not authorization:
+        raise HTTPException(
+            status_code=403, detail="Iniciá sesión de nuevo para escribir."
+        )
+    return player
+
+
+@router.post("/message", response_model=GameMessageOut, status_code=201)
+def post_message(
+    body: GameMessageIn,
+    player: GamePlayer = Depends(_puede_escribir),
+    db: Session = Depends(get_db),
+    _tope: None = Depends(limits.por_jugador(3)),
+):
+    """Deja un mensaje en el chat.
+
+    Hasta tres mensajes por minuto por jugador, y ese tope es parte del diseño
+    y no una protección: el pedido era «dejar un mensaje cada cierto tiempo»,
+    no ahogar una conversación de ida y vuelta. Lo aplica
+    `limits.por_jugador(3)`, que devuelve 429 con Retry-After. Quién puede
+    escribir lo decide `_puede_escribir`, que corre antes (ver ahí por qué).
+    """
+    try:
+        fila = game_chat.publicar(db, player, body.text)
+    except game_chat.TextoRechazado as e:
+        raise HTTPException(status_code=422, detail=e.motivo)
+    db.commit()
+    return GameMessageOut(
+        id=fila.id,
+        alias=fila.alias,
+        level=fila.level,
+        university=fila.university,
+        text=fila.text,
+        is_mine=True,
+        seconds_ago=0,
+    )
 
 
 # Vocabulario cerrado a propósito: sin esto la tabla se llena de variantes con

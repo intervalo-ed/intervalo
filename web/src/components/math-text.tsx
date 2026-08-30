@@ -125,7 +125,15 @@ export default function MathText({ text }: { text: string }) {
               // aporta ancho intrínseco —los ancestros no se enteran de que el
               // contenido es más ancho— y min-width lo hace ocupar todo lo
               // disponible.
-              className="my-3 block w-0 min-w-full overflow-x-auto [&_.katex-display]:my-0"
+              //
+              // `overflow-y-hidden` EXPLÍCITO y no la ausencia de la propiedad:
+              // la spec de CSS computa el eje que se deja en `visible` como
+              // `auto` en cuanto el otro eje no lo es, así que un `overflow-x-auto`
+              // solo terminaba dándole a este bloque un scroll VERTICAL propio
+              // —con su flechita nativa arriba y abajo— apenas el renglón medía
+              // un pixel de más. El único scroll que tiene que existir acá es el
+              // del contenedor entero (ver porque-panel.tsx), no uno por fórmula.
+              className="my-3 block w-0 min-w-full overflow-x-auto overflow-y-hidden [&_.katex-display]:my-0"
               dangerouslySetInnerHTML={{
                 __html: render({ value: s.value, displayMode: true }),
               }}

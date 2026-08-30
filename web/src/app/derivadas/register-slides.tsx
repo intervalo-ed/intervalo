@@ -218,9 +218,11 @@ function GoogleIcon({ className }: { className?: string }) {
 export function RegisterSlide({
   player,
   onSkip,
+  onOpenPrivacy,
 }: {
   player: GamePlayer
   onSkip: () => void
+  onOpenPrivacy?: () => void
 }) {
   const { signIn } = useSignIn()
   const [desired, setDesired] = useState("")
@@ -352,6 +354,15 @@ export function RegisterSlide({
         >
           Ahora no
         </button>
+        {onOpenPrivacy && (
+          <button
+            type="button"
+            onClick={onOpenPrivacy}
+            className="text-center text-xs leading-relaxed text-foreground/45 underline underline-offset-2 transition-colors hover:text-foreground/70"
+          >
+            ¿Qué pasa con mis datos?
+          </button>
+        )}
       </div>
     </div>
   )

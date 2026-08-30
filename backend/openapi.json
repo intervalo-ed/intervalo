@@ -528,6 +528,68 @@
         }
       }
     },
+    "/game/derivemos/explain": {
+      "post": {
+        "tags": [
+          "game"
+        ],
+        "summary": "Explain Exercise",
+        "description": "El \u00ab\u00bfPor qu\u00e9?\u00bb: de d\u00f3nde sal\u00eda esta derivada.\n\nLa explicaci\u00f3n termina con la derivada escrita, as\u00ed que este endpoint\nREGALA la respuesta. Por eso el candado del punto 2 no es una formalidad: la\ninterfaz tampoco ofrece el bot\u00f3n antes del primer intento, pero eso lo\ndecide el cliente y ac\u00e1 tambi\u00e9n manda el servidor.\n\nLeerlo con el ejercicio abierto le baja la recompensa a XP_EXPLICADO. Leerlo\ncon el ejercicio ya acertado no cuesta nada \u2014 no queda nada que cobrar.",
+        "operationId": "explain_exercise_game_derivemos_explain_post",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          },
+          {
+            "name": "x-game-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "X-Game-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GameExplainRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameExplainOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/game/derivemos/leaderboard/pulse": {
       "get": {
         "tags": [
@@ -586,7 +648,7 @@
           "game"
         ],
         "summary": "Game Events Feed",
-        "description": "Historial de lo que va pasando: cafecitos, registros, escaladas, rachas y\nuniversidades que se pasan entre s\u00ed.\n\nEs un feed SOLO del sistema \u2014ninguna l\u00ednea la escribe un usuario\u2014 as\u00ed que no\nhay nada que moderar. Con `after_id` devuelve \u00fanicamente lo nuevo, que es lo\nque hace que sondearlo cada pocos segundos no cueste nada.",
+        "description": "Historial de lo que va pasando, m\u00e1s los mensajes del chat.\n\nLos `events` son SOLO del sistema \u2014ninguna l\u00ednea la escribe un usuario\u2014 y por\neso no hay nada que moderar ah\u00ed. Los `messages` s\u00ed los escribe la gente y\nviven en otra tabla, con su propio saneado (ver chat.py); van en la misma\nrespuesta porque el chat entero se apoya en eso: no hay un sondeo nuevo, hay\nun campo nuevo en el que ya corr\u00eda cada ocho segundos.\n\nDos cursores y dos ventanas, no una mezclada. Compartiendo las cuarenta filas,\nuna racha de chat empujar\u00eda fuera de pantalla el anuncio de que alguien invit\u00f3\ncafecitos, que es el que mueve donaciones.\n\nCon los dos cursores devuelve \u00fanicamente lo nuevo, que es lo que hace que\nsondearlo cada pocos segundos no cueste nada.",
         "operationId": "game_events_feed_game_derivemos_events_get",
         "parameters": [
           {
@@ -598,6 +660,17 @@
               "minimum": 0,
               "default": 0,
               "title": "After Id"
+            }
+          },
+          {
+            "name": "after_msg_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "After Msg Id"
             }
           },
           {
@@ -727,6 +800,58 @@
         }
       }
     },
+    "/game/derivemos/stats": {
+      "get": {
+        "tags": [
+          "game"
+        ],
+        "summary": "Game Stats Endpoint",
+        "description": "Estad\u00edsticas del jugador para el panel que abre la tecla `p` en\nescritorio (ver web/src/app/derivadas/elo-stats-panel.tsx): d\u00f3nde est\u00e1 el\nElo del jugador contra la masa de jugadores calificados, m\u00e1s la tabla de\nderivadas con Elo de desbloqueo y accuracy personal (game/stats.py).\n\nEl servidor repite ac\u00e1 el gate de visibilidad \u2014no conf\u00eda en que el\ncliente lo haya respetado\u2014 porque ac\u00e1 tambi\u00e9n manda el server, como en el\nresto del juego.\n\nRate limit propio y no compartido con los dem\u00e1s GET del ranking: esto\nagrega sobre TODOS los jugadores calificados (crece con la base entera,\nsin techo) m\u00e1s el historial completo del jugador \u2014 m\u00e1s parecido en costo\na `/leaderboard/universities` que a `/me`, y lo dispara una tecla que\ncualquiera puede mantener apretada.",
+        "operationId": "game_stats_endpoint_game_derivemos_stats_get",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          },
+          {
+            "name": "x-game-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "X-Game-Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameStatsOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/game/derivemos/leaderboard/universities": {
       "get": {
         "tags": [
@@ -817,7 +942,7 @@
           "game"
         ],
         "summary": "Game Leaderboard",
-        "description": "Espejo del /leaderboard principal sobre game_players: orden can\u00f3nico\n(xp DESC, id ASC), solo jugadores con xp > 0 m\u00e1s el propio jugador.\n\n`university` y `career` acotan el scope igual que en el principal: el rank,\nlos totales y la p\u00e1gina se calculan todos dentro del scope elegido.",
+        "description": "Espejo del /leaderboard principal sobre game_players: solo jugadores con\nxp > 0 m\u00e1s el propio jugador, ordenados por XP (can\u00f3nico) o por Elo.\n\n`university` y `career` acotan el scope igual que en el principal: el rank,\nlos totales y la p\u00e1gina se calculan todos dentro del scope elegido.\n\nEl orden NO cambia qui\u00e9nes entran, solo en qu\u00e9 orden salen: el total y la\nvisibilidad son los mismos en los dos, as\u00ed que cambiar de orden mueve a la\ngente de puesto pero no la saca de la tabla.",
         "operationId": "game_leaderboard_game_derivemos_leaderboard_get",
         "parameters": [
           {
@@ -884,6 +1009,17 @@
               "type": "boolean",
               "default": false,
               "title": "Around Me"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "pattern": "^(xp|elo)$",
+              "default": "xp",
+              "title": "Sort"
             }
           },
           {
@@ -1016,6 +1152,68 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/GamePlayerOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/game/derivemos/message": {
+      "post": {
+        "tags": [
+          "game"
+        ],
+        "summary": "Post Message",
+        "description": "Deja un mensaje en el chat.\n\nHasta tres mensajes por minuto por jugador, y ese tope es parte del dise\u00f1o\ny no una protecci\u00f3n: el pedido era \u00abdejar un mensaje cada cierto tiempo\u00bb,\nno ahogar una conversaci\u00f3n de ida y vuelta. Lo aplica\n`limits.por_jugador(3)`, que devuelve 429 con Retry-After. Qui\u00e9n puede\nescribir lo decide `_puede_escribir`, que corre antes (ver ah\u00ed por qu\u00e9).",
+        "operationId": "post_message_game_derivemos_message_post",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          },
+          {
+            "name": "x-game-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "X-Game-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GameMessageIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameMessageOut"
                 }
               }
             }
@@ -2432,6 +2630,23 @@
         }
       }
     },
+    "/webhooks/resend-inbound": {
+      "post": {
+        "summary": "Resend Inbound Webhook",
+        "description": "Recibe el webhook email.received de Resend y reenv\u00eda el mail al buz\u00f3n\nreal (ver inbound_forward.py).\n\nAsync y con el reenv\u00edo en threadpool: el SDK de Resend es bloqueante y una\nllamada lenta colgar\u00eda el event loop para toda la app. Ante un fallo se\nresponde 500 a prop\u00f3sito \u2014 Resend reintenta con backoff y el mail nunca se\npierde (queda guardado en Resend igual).",
+        "operationId": "resend_inbound_webhook_webhooks_resend_inbound_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
     "/leaderboard": {
       "get": {
         "summary": "Get Leaderboard",
@@ -3633,7 +3848,14 @@
             "title": "Attempt Number"
           },
           "attempts_left": {
-            "type": "integer",
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "Attempts Left"
           },
           "feedback_incorrect": {
@@ -3733,7 +3955,6 @@
           "correct",
           "parse_ok",
           "attempt_number",
-          "attempts_left",
           "xp_awarded",
           "xp_total",
           "combo",
@@ -3955,6 +4176,19 @@
             },
             "type": "array",
             "title": "Events"
+          },
+          "chat_enabled": {
+            "type": "boolean",
+            "title": "Chat Enabled",
+            "default": false
+          },
+          "messages": {
+            "items": {
+              "$ref": "#/components/schemas/GameMessageOut"
+            },
+            "type": "array",
+            "title": "Messages",
+            "default": []
           }
         },
         "type": "object",
@@ -4012,6 +4246,66 @@
         ],
         "title": "GameExerciseOut"
       },
+      "GameExplainOut": {
+        "properties": {
+          "explanation": {
+            "type": "string",
+            "title": "Explanation"
+          },
+          "costs_xp": {
+            "type": "boolean",
+            "title": "Costs Xp",
+            "default": false
+          },
+          "graph_fn": {
+            "type": "string",
+            "title": "Graph Fn"
+          },
+          "graph_fn2": {
+            "type": "string",
+            "title": "Graph Fn2"
+          },
+          "graph_fn_latex": {
+            "type": "string",
+            "title": "Graph Fn Latex"
+          },
+          "graph_fn2_latex": {
+            "type": "string",
+            "title": "Graph Fn2 Latex"
+          },
+          "graph_view": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Graph View"
+          }
+        },
+        "type": "object",
+        "required": [
+          "explanation",
+          "graph_fn",
+          "graph_fn2",
+          "graph_fn_latex",
+          "graph_fn2_latex",
+          "graph_view"
+        ],
+        "title": "GameExplainOut",
+        "description": "La explicaci\u00f3n del \u00ab\u00bfPor qu\u00e9?\u00bb, en el mismo MathText que el banco de\nIntervalo: prosa con `$\u2026$` y bloques `$$\u2026$$`."
+      },
+      "GameExplainRequest": {
+        "properties": {
+          "exercise_id": {
+            "type": "integer",
+            "title": "Exercise Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "exercise_id"
+        ],
+        "title": "GameExplainRequest"
+      },
       "GameLeaderboardEntry": {
         "properties": {
           "rank": {
@@ -4068,6 +4362,16 @@
             "type": "integer",
             "title": "Level",
             "default": 0
+          },
+          "elo": {
+            "type": "integer",
+            "title": "Elo",
+            "default": 0
+          },
+          "elo_ranked": {
+            "type": "boolean",
+            "title": "Elo Ranked",
+            "default": false
           },
           "rank_delta": {
             "type": "integer",
@@ -4157,6 +4461,17 @@
             },
             "type": "array",
             "title": "Universities"
+          },
+          "elo_avg": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Elo Avg"
           }
         },
         "type": "object",
@@ -4167,6 +4482,71 @@
         ],
         "title": "GameLeaderboardSummary",
         "description": "Los dos n\u00fameros de la cabecera + las universidades para poblar el filtro.\n\nCuenta la misma poblaci\u00f3n que muestra la lista de abajo (sembrados\nincluidos): un contador que dijera otra cosa contradir\u00eda al ranking."
+      },
+      "GameMessageIn": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 400,
+            "minLength": 1,
+            "title": "Text"
+          }
+        },
+        "type": "object",
+        "required": [
+          "text"
+        ],
+        "title": "GameMessageIn"
+      },
+      "GameMessageOut": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "alias": {
+            "type": "string",
+            "title": "Alias"
+          },
+          "level": {
+            "type": "integer",
+            "title": "Level"
+          },
+          "university": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "University"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "is_mine": {
+            "type": "boolean",
+            "title": "Is Mine",
+            "default": false
+          },
+          "seconds_ago": {
+            "type": "integer",
+            "title": "Seconds Ago"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "alias",
+          "level",
+          "text",
+          "seconds_ago"
+        ],
+        "title": "GameMessageOut",
+        "description": "Un mensaje del chat. Trae el @ y la universidad DE CUANDO SE ESCRIBI\u00d3, no\nlos de hoy: ver el docstring de GameMessage en models.py."
       },
       "GamePlayerCreateRequest": {
         "properties": {
@@ -4310,6 +4690,11 @@
           "is_guest": {
             "type": "boolean",
             "title": "Is Guest"
+          },
+          "alias_is_generated": {
+            "type": "boolean",
+            "title": "Alias Is Generated",
+            "default": true
           },
           "level": {
             "type": "integer",
@@ -4488,6 +4873,213 @@
           "exercise_id"
         ],
         "title": "GameSkipRequest"
+      },
+      "GameStatsGeneral": {
+        "properties": {
+          "exercises_correct": {
+            "type": "integer",
+            "title": "Exercises Correct"
+          },
+          "exercises_attempted": {
+            "type": "integer",
+            "title": "Exercises Attempted"
+          },
+          "accuracy_overall": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Accuracy Overall"
+          },
+          "best_combo": {
+            "type": "integer",
+            "title": "Best Combo"
+          },
+          "best_rank": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Best Rank"
+          },
+          "days_playing": {
+            "type": "integer",
+            "title": "Days Playing"
+          },
+          "xp": {
+            "type": "integer",
+            "title": "Xp"
+          },
+          "xp_from_referrals": {
+            "type": "integer",
+            "title": "Xp From Referrals",
+            "default": 0
+          },
+          "cafecitos_universidad": {
+            "type": "integer",
+            "title": "Cafecitos Universidad",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "exercises_correct",
+          "exercises_attempted",
+          "best_combo",
+          "days_playing",
+          "xp"
+        ],
+        "title": "GameStatsGeneral"
+      },
+      "GameStatsHistogramBucket": {
+        "properties": {
+          "from_rating": {
+            "type": "integer",
+            "title": "From Rating"
+          },
+          "to_rating": {
+            "type": "integer",
+            "title": "To Rating"
+          },
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          }
+        },
+        "type": "object",
+        "required": [
+          "from_rating",
+          "to_rating",
+          "count"
+        ],
+        "title": "GameStatsHistogramBucket",
+        "description": "Un escal\u00f3n del histograma de Elo (ver game/stats.py :: _histograma)."
+      },
+      "GameStatsOut": {
+        "properties": {
+          "n_rated_players": {
+            "type": "integer",
+            "title": "N Rated Players"
+          },
+          "enough_for_histogram": {
+            "type": "boolean",
+            "title": "Enough For Histogram"
+          },
+          "histogram": {
+            "items": {
+              "$ref": "#/components/schemas/GameStatsHistogramBucket"
+            },
+            "type": "array",
+            "title": "Histogram",
+            "default": []
+          },
+          "player_rating": {
+            "type": "integer",
+            "title": "Player Rating"
+          },
+          "player_bucket_index": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Player Bucket Index"
+          },
+          "percentile": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Percentile"
+          },
+          "general": {
+            "$ref": "#/components/schemas/GameStatsGeneral"
+          },
+          "rows": {
+            "items": {
+              "$ref": "#/components/schemas/GameStatsRow"
+            },
+            "type": "array",
+            "title": "Rows"
+          }
+        },
+        "type": "object",
+        "required": [
+          "n_rated_players",
+          "enough_for_histogram",
+          "player_rating",
+          "general",
+          "rows"
+        ],
+        "title": "GameStatsOut",
+        "description": "Payload de GET /stats: el Elo del jugador contra la masa de jugadores\ncalificados, m\u00e1s la tabla de derivadas enriquecida con Elo de desbloqueo\ny accuracy personal (ver game/stats.py)."
+      },
+      "GameStatsRow": {
+        "properties": {
+          "slug": {
+            "type": "string",
+            "title": "Slug"
+          },
+          "unlock_elo": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unlock Elo"
+          },
+          "accuracy": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Accuracy"
+          },
+          "sample": {
+            "type": "integer",
+            "title": "Sample",
+            "default": 0
+          },
+          "avg_response_ms": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Avg Response Ms"
+          }
+        },
+        "type": "object",
+        "required": [
+          "slug"
+        ],
+        "title": "GameStatsRow",
+        "description": "Una fila de la tabla de derivadas, con las dos columnas que agrega el\npanel de estad\u00edsticas (ver game/stats.py :: ROW_TEMPLATES)."
       },
       "GameUniversityLeaderboardResponse": {
         "properties": {

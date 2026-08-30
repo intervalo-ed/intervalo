@@ -11,21 +11,29 @@
 // renglones. Y de paso el ejercicio queda intacto mientras se consulta.
 //
 // Las filas son las funciones que el juego SIRVE, no una tabla genérica de
-// libro: cada plantilla de backend/game/templates.py tiene su renglón acá y
-// nada más. Las de la foto que el juego nunca pide —|x|, la raíz n-ésima— no
-// están: en una tabla que se mira contrarreloj, un renglón que no va a hacer
-// falta es una fila más para descartar con la vista.
+// libro — con dos salvedades, no una regla sin excepciones. 1/x, √x y tan x
+// (backend/game/stats.py :: ROW_TEMPLATES) NO tiene ninguna plantilla que las
+// genere: quedan por completitud de la tabla de bolsillo, y el panel de
+// estadísticas (tecla `j`, DerivativesStatsTable acá abajo) las marca con un
+// placeholder en vez de inventarles un número. Y al revés, media docena de
+// plantillas SÍ se sirven pero no tienen fila propia (la regla de la suma, la
+// constante multiplicativa k·u): son combinaciones de lo que ya está arriba,
+// y separarlas costaba una fila más para descartar con la vista.
 //
 // Las dos reglas del final no son decoración: los tiers 4 y 5 son productos y
 // cocientes, y sin ellas la tabla no sirve justo donde más se la necesita.
 
-import { useState } from "react"
 import { motion } from "motion/react"
 import { Table2 as TableIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import MathText from "@/components/math-text"
+import { accuracyColor } from "@/components/metric-card"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { KeyCap } from "./exercise-card"
+import { FUNDIDO } from "./slide-flip"
+import { useCartel } from "./game-ranking"
 import { useTeclas } from "./teclas"
+import type { GameStatsRow } from "./UseGameStats"
 
 // Todas las fórmulas se dibujan en `\displaystyle`, y no es cosmético: en
 // modo texto —el de `$...$`— KaTeX arma las fracciones con numerador y
@@ -39,7 +47,11 @@ import { useTeclas } from "./teclas"
 // pide lo que su fórmula necesita y el bloque se acomoda solo.
 const mate = (latex: string) => `$\\displaystyle ${latex}$`
 
-type Fila = { f: string; d: string }
+// `slug` identifica la fila para quien mire sus DATOS y no su fórmula: es la
+// misma clave que usa game/stats.py :: ROW_TEMPLATES, así que una fila de acá
+// y una del payload de /stats se encuentran por `slug`, nunca por posición
+// (un array reordenado del lado del server no tendría por qué romper esto).
+type Fila = { f: string; d: string; slug: string }
 
 // Una sola tabla de dos columnas. Las dos reglas —producto y cociente— entran
 // como dos filas más y no en una tabla aparte: son lo mismo que el resto
@@ -60,20 +72,20 @@ type Fila = { f: string; d: string }
 // precio aceptable en una tabla que se consulta contrarreloj y que ya se está
 // mirando con las dos columnas al lado.
 const FILAS: Fila[] = [
-  { f: "a", d: "0" },
-  { f: "x", d: "1" },
-  { f: "x^n", d: "n\\,x^{n-1}" },
-  { f: "1/x", d: "-1/x^{2}" },
-  { f: "\\sqrt{x}", d: "1/\\left(2\\sqrt{x}\\right)" },
-  { f: "e^{x}", d: "e^{x}" },
-  { f: "a^{x}", d: "a^{x}\\ln a" },
-  { f: "\\ln x", d: "1/x" },
-  { f: "\\log_a x", d: "1/\\left(x\\ln a\\right)" },
-  { f: "\\operatorname{sen} x", d: "\\cos x" },
-  { f: "\\cos x", d: "-\\operatorname{sen} x" },
-  { f: "\\tan x", d: "1/\\cos^{2} x" },
-  { f: "u \\cdot v", d: "u'v + uv'" },
-  { f: "u/v", d: "\\left(u'v - uv'\\right)/v^{2}" },
+  { slug: "a", f: "a", d: "0" },
+  { slug: "x", f: "x", d: "1" },
+  { slug: "x_n", f: "x^n", d: "n\\,x^{n-1}" },
+  { slug: "inv_x", f: "1/x", d: "-1/x^{2}" },
+  { slug: "sqrt_x", f: "\\sqrt{x}", d: "1/\\left(2\\sqrt{x}\\right)" },
+  { slug: "e_x", f: "e^{x}", d: "e^{x}" },
+  { slug: "a_x", f: "a^{x}", d: "a^{x}\\ln a" },
+  { slug: "ln_x", f: "\\ln x", d: "1/x" },
+  { slug: "log_a_x", f: "\\log_a x", d: "1/\\left(x\\ln a\\right)" },
+  { slug: "sin_x", f: "\\operatorname{sen} x", d: "\\cos x" },
+  { slug: "cos_x", f: "\\cos x", d: "-\\operatorname{sen} x" },
+  { slug: "tan_x", f: "\\tan x", d: "1/\\cos^{2} x" },
+  { slug: "prod", f: "u \\cdot v", d: "u'v + uv'" },
+  { slug: "quot", f: "u/v", d: "\\left(u'v - uv'\\right)/v^{2}" },
 ]
 
 // El renglón no tiene alto fijo: mide lo que mide su fórmula más un aire
@@ -134,7 +146,153 @@ export function DerivativesTable() {
           <div className="py-1">derivada</div>
         </div>
         {FILAS.map((fila) => (
-          <Renglon key={fila.f} fila={fila} />
+          <Renglon key={fila.slug} fila={fila} />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// El mismo marco y el mismo criterio de alto que DerivativesTable —crece sin
+// encoger, ver el comentario largo de `Renglon`—, pero con dos columnas más
+// y sin la de la derivada: acá no se viene a copiar la fórmula (para eso está
+// el Alt de siempre), se viene a ver cómo te va a VOS con cada una — la
+// velocidad y la efectividad de tus últimos 10 intentos limpios en esa
+// familia (backend/game/stats.py :: _personal_accuracy). Es el dorso del
+// ranking cuando las estadísticas están abiertas (tecla `j`, ver
+// desktop-layout.tsx).
+const CELDA_STATS = "flex items-center justify-center px-2 py-2 text-center text-[0.82rem] leading-none tabular-nums"
+
+// Segundos con un decimal, mismo criterio que el panel interno
+// (metrics/game_queries.py divide por 1000 antes de mostrar "seg").
+function fmtSegundos(ms: number): string {
+  return `${(ms / 1000).toFixed(1)}s`
+}
+
+// El "—" pelado: la explicación de POR QUÉ no hay dato ya no vive acá, vive
+// en el `Tip` que envuelve `CeldaConTip` — dos placeholders con el mismo
+// aspecto pueden decir cosas distintas (ver `motivoDeLaCelda`).
+function Placeholder() {
+  return <span className="text-muted-foreground/50">—</span>
+}
+
+// El mismo cartelito que ya explica los cuatro contadores de la card del
+// ejercicio (exercise-card.tsx :: Tip/Counter), no el `title` del navegador:
+// acá hay hasta 28 celdas con algo que explicar y el nativo tarda casi un
+// segundo en aparecer y no entra en una sola línea. `group relative` es lo
+// que activa el `group-hover` del `Tip` — mismo mecanismo, misma tinta.
+function CeldaConTip({
+  children,
+  title,
+  body,
+}: {
+  children: React.ReactNode
+  title: string
+  body: string
+}) {
+  // Popover y no el `Tip` de los cuatro contadores (exercise-card.tsx): ese es
+  // CSS puro posicionado `absolute` contra su propio padre, y acá el padre es
+  // el marco `overflow-hidden` que redondea las esquinas de la tabla entera
+  // (necesario para que las catorce filas no se salgan del borde) — un globo
+  // así lo recorta apenas la fila no está pegada arriba de todo. El Popover
+  // de Base UI se monta en un portal colgado del `body` (ver el comentario de
+  // components/ui/popover.tsx) y por eso no lo agarra ningún `overflow` de
+  // ningún ancestro, con o sin scroll. Mismo patrón que ya usa
+  // `EloDeUniversidad` (game-ranking.tsx) para el mismo problema.
+  const { abierto, setAbierto, gestos } = useCartel()
+  return (
+    <Popover open={abierto} onOpenChange={setAbierto}>
+      <PopoverTrigger
+        {...gestos}
+        className="inline-flex items-center justify-center outline-none"
+        aria-label={title}
+      >
+        {children}
+      </PopoverTrigger>
+      <PopoverContent {...gestos} className="text-left text-xs leading-relaxed">
+        <p className="font-semibold text-foreground">{title}</p>
+        <p className="mt-1 text-muted-foreground">{body}</p>
+      </PopoverContent>
+    </Popover>
+  )
+}
+
+/** El cuerpo del tooltip de una celda, con o sin dato — un solo lugar que
+ *  decide el texto, para que velocidad y efectividad no puedan desalinearse
+ *  entre sí (las dos salen de la MISMA ventana de intentos, ver
+ *  game/stats.py :: _personal_accuracy). */
+function motivoDeLaCelda(
+  noExiste: boolean,
+  sample: number,
+  hayDato: boolean,
+  quien: string,
+): string {
+  if (noExiste) return "El juego todavía no pide esta derivada."
+  if (!hayDato) {
+    return sample > 0
+      ? `Resolviste ${sample} de este tipo, todavía poco para calcular un dato.`
+      : "Todavía no la intentaste."
+  }
+  return `${quien} de tus últimos ${sample} intentos limpios de este tipo (como mucho, los últimos 10).`
+}
+
+function RenglonStats({ fila, datos }: { fila: Fila; datos?: GameStatsRow }) {
+  // Sin dato para esta fila —el payload todavía no llegó, o el server nunca
+  // manda un slug que el front no conoce— es el mismo placeholder que "no hay
+  // plantilla": no hay nada más honesto que decir. `unlock_elo` no se
+  // muestra en esta tabla, pero sigue siendo la señal de "esta fila tiene
+  // plantilla de verdad" — es null solo en las tres que el juego nunca pide.
+  const noExiste = datos === undefined || datos.unlock_elo === null
+  const hayVelocidad = !noExiste && datos!.avg_response_ms != null
+  const hayEfectividad = !noExiste && datos!.accuracy != null
+  return (
+    <div className="grid shrink-0 grow basis-auto grid-cols-3 border-t border-white/10">
+      <div className={cn(CELDA, "border-r border-white/10")}>
+        <MathText text={mate(fila.f)} />
+      </div>
+      <div className={cn(CELDA_STATS, "border-r border-white/10")}>
+        <CeldaConTip
+          title="Velocidad"
+          body={motivoDeLaCelda(noExiste, datos?.sample ?? 0, hayVelocidad, "Promedio de tiempo")}
+        >
+          {hayVelocidad ? (
+            // Sin heatmap a propósito: no hay "bien" o "mal" en cuánto
+            // tardás, y compararlo contra el resto es otra pregunta que esta
+            // columna no contesta — ver el pedido que la trajo.
+            fmtSegundos(datos!.avg_response_ms!)
+          ) : (
+            <Placeholder />
+          )}
+        </CeldaConTip>
+      </div>
+      <div className={CELDA_STATS}>
+        <CeldaConTip
+          title="Efectividad"
+          body={motivoDeLaCelda(noExiste, datos?.sample ?? 0, hayEfectividad, "Acierto")}
+        >
+          {hayEfectividad ? (
+            <span style={{ color: accuracyColor(datos!.accuracy!) }}>{datos!.accuracy}%</span>
+          ) : (
+            <Placeholder />
+          )}
+        </CeldaConTip>
+      </div>
+    </div>
+  )
+}
+
+export function DerivativesStatsTable({ rows }: { rows: GameStatsRow[] }) {
+  const porSlug = new Map(rows.map((fila) => [fila.slug, fila]))
+  return (
+    <div className="no-scrollbar flex min-h-0 flex-1 flex-col overflow-y-auto text-[0.95rem]">
+      <div className="flex min-h-full shrink-0 flex-col overflow-hidden rounded-md border border-white/10">
+        <div className="grid shrink-0 grid-cols-3 bg-white/[0.07] text-center text-[0.65rem] font-medium uppercase tracking-wide text-muted-foreground">
+          <div className="border-r border-white/10 py-1">función</div>
+          <div className="border-r border-white/10 py-1">velocidad</div>
+          <div className="py-1">efectividad</div>
+        </div>
+        {FILAS.map((fila) => (
+          <RenglonStats key={fila.slug} fila={fila} datos={porSlug.get(fila.slug)} />
         ))}
       </div>
     </div>
@@ -181,25 +339,22 @@ export function TableButton({
   )
 }
 
-// El volteo. Las dos caras viven superpuestas dentro de un contenedor que gira
-// en 3D: la de atrás nace ya girada 180°, así que al girar el contenedor queda
-// derecha y la de adelante se va.
+// El cambio de cara: la de adelante se apaga y la de atrás se enciende en el
+// mismo lugar. Es el mismo fundido con el que el juego cambia de pantalla —de
+// hecho son sus mismos números (FUNDIDO, slide-flip.tsx)—, y eso es a propósito:
+// dar vuelta una card y pasar a otra pantalla tienen que sentirse la misma
+// familia de gesto.
 //
-// `backfaceVisibility: hidden` en las dos es lo que evita ver la cara de atrás
-// espejada durante el giro. Y el `perspective` va en un contenedor APARTE del
-// que rota: si van juntos, el navegador aplica la perspectiva antes de la
-// rotación y el giro se ve plano.
-//
-// Se probó reemplazarlo por una persiana (translateY, sin 3D) y se volvió acá a
-// propósito: el volteo es el gesto que se quiere. Si alguna vez se ve plano o
-// espejado, la causa casi seguro es un ancestro nuevo con overflow, filter u
-// opacity —cualquiera de los tres aplana el contexto 3D—; el arreglo es sacar
-// esa propiedad del camino, no cambiar la animación.
-// Acá el giro es UNA sola animación de 180° sobre un mismo elemento, así que no
-// hay tranco que arreglar en el medio y alcanza con una ease-in-out. Baja de
-// 0.5 a 0.4 para ir al ritmo del volteo entre ejercicios (slide-flip.tsx).
-const FLIP_S = 0.4
-const FLIP_EASE = [0.65, 0, 0.35, 1] as const
+// Antes esto era un VOLTEO en 3D: las dos caras vivían superpuestas dentro de un
+// contenedor que giraba, la de atrás nacía ya rotada 180° y `backfaceVisibility`
+// evitaba verla espejada en el camino. Se fue junto con el volteo de las
+// pantallas, y con él se fueron sus dos condiciones frágiles: la `perspective`
+// tenía que ir en un contenedor APARTE del que rota, y cualquier ancestro con
+// overflow, filter u opacity aplanaba el contexto 3D y dejaba el giro plano.
+// También se había probado una PERSIANA (translateY, sin 3D) y se descartó:
+// mover la caja de lugar para cambiar lo que dice adentro era un gesto más
+// grande que el cambio que anunciaba. El fundido no mueve nada; solo enciende y
+// apaga.
 
 export function FlipCard({
   flipped,
@@ -212,59 +367,53 @@ export function FlipCard({
   back: React.ReactNode
   className?: string
 }) {
-  // Media vuelta MÁS en cada cambio, en vez de ir y volver entre 0 y 180. Yendo
-  // y viniendo, cerrar era la película de abrir pasada al revés: la card
-  // desandaba el camino y el gesto se leía como "deshacer" en lugar de como
-  // seguir. Sumando siempre, la card gira siempre para el mismo lado y cada cara
-  // entra por donde salió la anterior.
-  //
-  // El ajuste se hace DURANTE el render y no en un efecto: es el patrón que
-  // React documenta para acomodar estado cuando cambia una prop, no dispara un
-  // render de más —React lo resuelve antes de pintar— y el lint del compilador
-  // no acepta un setState sincrónico adentro de un efecto.
-  const [medias, setMedias] = useState(flipped ? 1 : 0)
-  const [visto, setVisto] = useState(flipped)
-  if (visto !== flipped) {
-    setVisto(flipped)
-    setMedias((n) => n + 1)
-  }
-
-  // `willChange` solo mientras gira. `preserve-3d` no se puede sacar —es lo que
-  // hace que las dos caras existan en el espacio— pero pedir capa de compositor
-  // de forma permanente para una card que gira dos veces por partida es
-  // sostener memoria de video todo el tiempo a cambio de nada.
-  const [girando, setGirando] = useState(false)
-
   return (
-    <div className={cn("relative", className)} style={{ perspective: 1600 }}>
-      <motion.div
-        className="relative h-full w-full"
-        style={{
-          transformStyle: "preserve-3d",
-          willChange: girando ? "transform" : undefined,
-        }}
-        animate={{ rotateY: medias * 180 }}
-        onAnimationStart={() => setGirando(true)}
-        onAnimationComplete={() => setGirando(false)}
-        transition={{ duration: FLIP_S, ease: FLIP_EASE }}
-      >
-        {/* `inert` en la cara que no se ve: si no, se puede tabular hasta el
-            campo de respuesta que está del otro lado de la card. */}
-        <div
-          className="flex h-full w-full flex-col"
-          style={{ backfaceVisibility: "hidden" }}
-          inert={flipped}
-        >
-          {front}
-        </div>
-        <div
-          className="absolute inset-0 flex flex-col"
-          style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
-          inert={!flipped}
-        >
-          {back}
-        </div>
-      </motion.div>
+    <div className={cn("relative", className)}>
+      <Cara visible={!flipped} className="flex h-full w-full flex-col">
+        {front}
+      </Cara>
+      <Cara visible={flipped} className="absolute inset-0 flex flex-col">
+        {back}
+      </Cara>
     </div>
+  )
+}
+
+/** Una cara de la card.
+ *
+ * La de adelante va en el flujo (`h-full w-full`) y la de atrás encima
+ * (`absolute inset-0`): es la de adelante la que le da alto a la caja.
+ *
+ * Cada una usa el tramo que le toca —`entrada` si se está encendiendo, `salida`
+ * si se está apagando—, que es exactamente lo que hacen las dos caras de
+ * slide-flip.tsx.
+ *
+ * `pointerEvents` no es un detalle de más. Con el volteo, la cara apagada no
+ * recibía clics porque el navegador directamente no dibuja las caras de atrás;
+ * con opacidad cero SÍ los recibiría, y el ranking quedaría clickeable a través
+ * del chat. El `inert` —que ya estaba, para que no se pueda tabular hasta el
+ * campo de respuesta que está del otro lado— cubre el teclado; el puntero hay
+ * que apagarlo aparte. */
+function Cara({
+  visible,
+  className,
+  children,
+}: {
+  visible: boolean
+  className: string
+  children: React.ReactNode
+}) {
+  const tramo = visible ? FUNDIDO.entrada : FUNDIDO.salida
+  return (
+    <motion.div
+      className={className}
+      initial={false}
+      animate={{ opacity: visible ? 1 : 0 }}
+      transition={{ duration: tramo.duracion, ease: tramo.ease }}
+      style={{ pointerEvents: visible ? undefined : "none" }}
+      inert={!visible}
+    >
+      {children}
+    </motion.div>
   )
 }

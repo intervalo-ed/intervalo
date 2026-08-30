@@ -28,7 +28,7 @@ sys.path.insert(0, str(BACKEND.parent))
 from fastapi.testclient import TestClient  # noqa: E402
 
 import database  # noqa: E402
-from models import Base, GamePlayer  # noqa: E402
+from models import Base, GameExercise, GamePlayer  # noqa: E402
 
 Base.metadata.create_all(bind=database.engine)
 
@@ -59,8 +59,6 @@ db = database.SessionLocal()
 player_id = db.query(GamePlayer).filter(GamePlayer.guest_token == token).first().id
 db.close()
 
-from game.router import MAX_ATTEMPTS  # noqa: E402
-
 sizes: list[int] = []
 anunciadas: set[str] = set()
 print(f"     {'ejercicio':24} {'nuevas':12} inventario")
@@ -77,17 +75,7 @@ for _ in range(16):
     if anunciadas & set(ex["new_keys"]):
         FAILURES.append("una tecla se anunció como nueva dos veces")
     anunciadas |= set(ex["new_keys"])
-    # Se responde para cerrar el ejercicio y que el recorrido avance. Van los DOS
-    # intentos: "x" casi nunca es la derivada, y con uno solo el ejercicio queda
-    # abierto — y desde que /next devuelve el que ya estaba en vez de servir otro
-    # (era un salteo gratis), el recorrido no avanzaría.
-    for _ in range(MAX_ATTEMPTS):
-        client.post(
-            "/game/derivemos/answer",
-            headers=H,
-            json={"exercise_id": ex["exercise_id"], "answer_latex": "x", "answer_mathjson": "x"},
-        )
-    # Y se le sube el θ a mano, porque responder "x" es errar y quien erra todo
+    # Se le sube el θ a mano, porque errar todo el tiempo
     # NO tiene que ver tiers nuevos: desde que β está anclada a la semilla del
     # tier (elo.effective_beta), la dificultad que recibe cada uno la manda su
     # propio θ y no el ruido de una β que se movía sola. Antes este recorrido
@@ -98,9 +86,32 @@ for _ in range(16):
     # El inventario es lo que se está probando acá, no el generador: hace falta
     # recorrer varios tiers para que haya más de una tecla que acumular, y esta
     # es la forma más corta de garantizarlo sin tener que resolver la derivada.
+    #
+    # Se responde UNA vez —mal, "x" casi nunca es la derivada— y después se
+    # cierra el ejercicio a mano. Las dos cosas hacen falta y por motivos
+    # distintos:
+    #
+    #   · la respuesta, porque es lo único que hace avanzar `n_updates`, y
+    #     mientras dura la rampa (elo.RAMP_UPDATES) el tier está limitado por
+    #     ahí y no por el θ. Sin responder, el recorrido entero se queda en T0 y
+    #     no desbloquea una sola tecla por más que se le suba el θ a mano;
+    #   · el cierre escrito en la base, porque errar YA NO cierra el ejercicio
+    #     (los intentos son ilimitados desde que existe el «¿Por qué?»), y
+    #     /next devuelve el que sigue abierto en vez de servir otro. Saltear
+    #     tampoco sirve: sirve el siguiente un tier MÁS ABAJO, así que dieciséis
+    #     salteos hunden el recorrido hasta T0, que es justo lo que hay que
+    #     evitar.
+    client.post(
+        "/game/derivemos/answer",
+        headers=H,
+        json={"exercise_id": ex["exercise_id"], "answer_latex": "x", "answer_mathjson": "x"},
+    )
     db = database.SessionLocal()
     fila = db.query(GamePlayer).filter(GamePlayer.id == player_id).first()
     fila.theta = min(fila.theta + 0.45, 2.6)
+    db.query(GameExercise).filter(GameExercise.id == ex["exercise_id"]).update(
+        {"status": "answered"}
+    )
     db.commit()
     db.close()
 

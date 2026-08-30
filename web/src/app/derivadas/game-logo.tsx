@@ -7,6 +7,15 @@
 // fusionar la marca: con el wordmark de Intervalo solo, el que cae de un link no
 // sabe a qué juega.
 //
+// Ese argumento vale donde se cae de un link, que es el teléfono: el juego se
+// comparte por WhatsApp. En escritorio se entra sabiendo, y ahí el lockup pasa a
+// ser una firma de más sobre una pantalla que ya tiene ejercicio, ranking y
+// novedades. Por eso `showNotation={false}` deja SOLO la palabra con su barra —
+// el logo común de Intervalo— y es lo que usa el escritorio, en el header y en
+// la presentación (game-intro.tsx). El dibujo sigue siendo el mismo archivo:
+// quitar la notación no cambia ni la letra ni el subrayado, así que las dos
+// versiones siguen siendo la misma marca.
+//
 // NO se usa el <Wordmark> de la app, aunque la palabra sea la misma. El logo del
 // splash VIAJA hasta su lugar definitivo escalándose (ver game-splash.tsx), y
 // para que al aterrizar no se note ningún cambio, el que vuela y el que queda
@@ -80,6 +89,7 @@ export function GameLogo({
   fontSize,
   typedCount,
   barCount,
+  showNotation = true,
   showBrackets = true,
   showOperator = true,
   animateEntry = false,
@@ -91,8 +101,15 @@ export function GameLogo({
   typedCount?: number
   // Tramos visibles del subrayado; sin valor, todos.
   barCount?: number
+  // ¿Hay notación alrededor de la palabra? En false no se dibujan ni los
+  // corchetes ni el operador —no se ocultan: no existen—, y lo que queda es el
+  // logo común de Intervalo. Tienen que salir del DOM y no apagarse con
+  // opacidad, porque los dos OCUPAN LUGAR: apagados dejarían la palabra corrida
+  // dentro de un hueco del tamaño del lockup entero.
+  showNotation?: boolean
   // El lockup se arma de adentro hacia afuera: primero la palabra con su barra,
-  // después los corchetes, y al final el operador. Sin valor, todo puesto.
+  // después los corchetes, y al final el operador. Sin valor, todo puesto. No
+  // se miran cuando `showNotation` es false: ahí no hay nada que armar.
   showBrackets?: boolean
   showOperator?: boolean
   // Entrada animada de cada letra (solo la usa el splash).
@@ -101,6 +118,73 @@ export function GameLogo({
   const shownChars = typedCount ?? LOGO_WORD.length
   const shownBars = barCount ?? BELT_COLORS.length
   const letters = LOGO_WORD.slice(0, shownChars)
+
+  // La palabra con su subrayado: el logo común de Intervalo. Es el contenido de
+  // los corchetes cuando hay notación, y el logo entero cuando no la hay.
+  const palabra = (
+    <span
+      // La presentación lo busca por acá para medir dónde cae la palabra dentro
+      // de la caja: con notación, centrar el logo no es centrar la palabra (ver
+      // game-intro.tsx :: readWord).
+      data-logo-word=""
+      className="inline-flex flex-col items-center"
+      style={{
+        gap: `${GAP_EM}em`,
+        // El aire de arriba y de abajo está para que los corchetes pasen por
+        // afuera de la palabra sin tocarla. Sin corchetes no rodea nada: solo
+        // dejaría el logo flotando en una caja más alta que él.
+        padding: showNotation ? `${BRACKET_PAD_EM}em 0` : undefined,
+      }}
+    >
+      <span className="font-heading font-semibold" style={{ lineHeight: 1 }}>
+        {/* El espacio duro sostiene la altura de la caja antes de la primera
+            letra: sin él el bloque salta cuando arranca el typewriter. */}
+        {letters.length === 0 ? " " : null}
+        {animateEntry
+          ? letters.split("").map((ch, i) => (
+              <motion.span
+                key={i}
+                className="inline-block"
+                initial={{ opacity: 0, y: "0.3em", scale: 0.8 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.16, ease: "easeOut" }}
+              >
+                {ch}
+              </motion.span>
+            ))
+          : letters}
+      </span>
+      <div
+        className="flex w-full overflow-hidden rounded-[2px]"
+        style={{ height: `${BAR_EM}em` }}
+      >
+        {BELT_COLORS.map((color, i) => (
+          <motion.span
+            key={i}
+            className="flex-1 origin-left"
+            style={{ background: color }}
+            initial={false}
+            animate={
+              i < shownBars ? { opacity: 1, scaleX: 1 } : { opacity: 0, scaleX: 0 }
+            }
+            transition={{ duration: animateEntry ? 0.22 : 0, ease: "easeOut" }}
+          />
+        ))}
+      </div>
+    </span>
+  )
+
+  // Sin notación el logo es la palabra sola, y no hay más nada que envolver.
+  if (!showNotation) {
+    return (
+      <div
+        className="inline-flex items-center text-[#F6F8FC]"
+        style={{ fontSize, lineHeight: 1 }}
+      >
+        {palabra}
+      </div>
+    )
+  }
 
   return (
     <div
@@ -129,48 +213,7 @@ export function GameLogo({
           exactamente el alto del bloque de adentro. */}
       <span className="inline-flex items-stretch" style={{ gap: `${BRACKET_PAD_EM}em` }}>
         <Bracket side="left" shown={showBrackets} />
-        <span
-          className="inline-flex flex-col items-center"
-          style={{ gap: `${GAP_EM}em`, padding: `${BRACKET_PAD_EM}em 0` }}
-        >
-          <span className="font-heading font-semibold" style={{ lineHeight: 1 }}>
-            {/* El espacio duro sostiene la altura de la caja antes de la primera
-                letra: sin él el bloque salta cuando arranca el typewriter. */}
-            {letters.length === 0 ? " " : null}
-            {animateEntry
-              ? letters.split("").map((ch, i) => (
-                  <motion.span
-                    key={i}
-                    className="inline-block"
-                    initial={{ opacity: 0, y: "0.3em", scale: 0.8 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    transition={{ duration: 0.16, ease: "easeOut" }}
-                  >
-                    {ch}
-                  </motion.span>
-                ))
-              : letters}
-          </span>
-          <div
-            className="flex w-full overflow-hidden rounded-[2px]"
-            style={{ height: `${BAR_EM}em` }}
-          >
-            {BELT_COLORS.map((color, i) => (
-              <motion.span
-                key={i}
-                className="flex-1 origin-left"
-                style={{ background: color }}
-                initial={false}
-                animate={
-                  i < shownBars
-                    ? { opacity: 1, scaleX: 1 }
-                    : { opacity: 0, scaleX: 0 }
-                }
-                transition={{ duration: animateEntry ? 0.22 : 0, ease: "easeOut" }}
-              />
-            ))}
-          </div>
-        </span>
+        {palabra}
         <Bracket side="right" shown={showBrackets} />
       </span>
     </div>

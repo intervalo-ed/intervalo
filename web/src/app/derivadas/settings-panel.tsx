@@ -17,15 +17,7 @@ import { useQueryClient } from "@tanstack/react-query"
 import { ChevronLeft, Coffee, RotateCcw, Volume2, VolumeX } from "lucide-react"
 import { ApiError, unwrap } from "@/lib/api/client"
 import { Button } from "@/components/ui/button"
-import { CAREERS, CareerSelect, UniversityGrid } from "@/components/onboarding-fields"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { UNIVERSITY_TAGS } from "@/lib/university-tags"
+import { CareerSelect, UniversityGrid } from "@/components/onboarding-fields"
 import { setSoundMuted, useSoundMuted } from "@/lib/audio/sound-settings"
 import { useSfx } from "@/lib/audio/useSfx"
 import { canonicalUniversity } from "@/lib/university-tags"
@@ -38,10 +30,6 @@ import { useCta } from "./game-telemetry"
 import { gameKeys, type GamePlayer } from "./UseGamePlayer"
 
 type Section = "root" | "alias" | "career" | "university"
-
-// Valor centinela del desplegable de universidad: no es una sigla, es "abrime
-// la pantalla del campo libre".
-const OTRA = "__otra__"
 
 // A dónde va el reclamo de un cafecito que no apareció. Provisorio: apunta a una
 // casilla personal y no a la de Intervalo, y por eso vive acá suelto en vez de
@@ -89,61 +77,6 @@ function Guardar({ disabled, onClick }: { disabled?: boolean; onClick: () => voi
 const rowCls =
   "flex w-full items-center justify-between gap-3 rounded-lg border border-border bg-card px-4 py-3 text-left text-sm transition-colors hover:border-white/20"
 
-/** Una fila que despliega sus opciones en el lugar, con la pinta de las demás.
- *
- * Solo en escritorio: ahí hay lugar de sobra al costado y mandar a otra pantalla
- * por elegir entre cuatro carreras es un viaje de ida y vuelta por nada. En el
- * teléfono la lista no entra y se sigue yendo a una slide. */
-function RowSelect({
-  label,
-  value,
-  display,
-  onChange,
-  children,
-}: {
-  label: string
-  value: string
-  display: React.ReactNode
-  onChange: (v: string) => void
-  children: React.ReactNode
-}) {
-  return (
-    <Select value={value} onValueChange={(v) => v && onChange(v)}>
-      <SelectTrigger
-        aria-label={label}
-        className={cn(rowCls, "h-auto! shadow-none [&>svg]:size-4 [&>svg]:opacity-60")}
-      >
-        <span className="text-muted-foreground">{label}</span>
-        <SelectValue>{() => display}</SelectValue>
-      </SelectTrigger>
-      {/* Igual que el filtro del ranking: desplegable normal colgado del
-          disparador, con su propio scroll. El modo "select nativo" monta la
-          lista ENCIMA y con noventa universidades se va de pantalla.
-
-          El tope de alto es NUEVE opciones: 9 × 34,2 px, el paso entre items
-          medido (su `py-2` más la caja de línea del `text-sm`). Sin tope la
-          lista se estira hasta el borde de la ventana, y con noventa
-          universidades eso es un desplegable que tapa la pantalla entera y en el
-          que igual hay que scrollear. La barrita queda siempre a la vista
-          porque el contenido siempre la desborda, que es justo lo que avisa que
-          la lista sigue.
-
-          El número está medido, no derivado de un token: si cambia el cuerpo de
-          letra o el padding del item hay que volver a medirlo. El costo de que
-          se desfase es una fila cortada, no un layout roto.
-
-          El `min` con la altura disponible es para las ventanas bajas: ahí manda
-          la que sobra, que es lo que hacía el estilo original. */}
-      <SelectContent
-        alignItemWithTrigger={false}
-        className="max-h-[min(308px,var(--available-height))]"
-      >
-        {children}
-      </SelectContent>
-    </Select>
-  )
-}
-
 export function SettingsPanel({
   player,
   // En escritorio carrera y universidad se despliegan en el lugar; en el
@@ -154,6 +87,8 @@ export function SettingsPanel({
   onCafecito,
   onShare,
   onNeedsRegister,
+  onEditCareer,
+  onEditUniversity,
 }: {
   player: GamePlayer | null
   variant?: "desktop" | "mobile"
@@ -170,6 +105,12 @@ export function SettingsPanel({
   onShare: () => void
   // El guest no elige su @: ese es el gancho del registro.
   onNeedsRegister: () => void
+  // Solo en escritorio: carrera y universidad se editan en el contenedor del
+  // ejercicio, no en un desplegable colgado de esta fila angosta. En el
+  // teléfono no llegan —ahí las filas siguen yendo a su propia sección
+  // adentro de este mismo panel (`irA`).
+  onEditCareer?: () => void
+  onEditUniversity?: () => void
 }) {
   const api = useGameApi()
   const cta = useCta()
@@ -237,7 +178,10 @@ export function SettingsPanel({
 
   const saveAlias = async () => {
     const value = alias.trim()
-    if (!value || busy) return
+    // Sin cambios no hay nada que guardar — la versión de escritorio guarda
+    // solo al perder el foco, así que esto es lo único que evita un PATCH en
+    // cada tab/click afuera del campo aunque no se haya tocado una letra.
+    if (!value || busy || value === player?.alias) return
     setBusy(true)
     setAliasError(null)
     try {
@@ -375,72 +319,75 @@ export function SettingsPanel({
       ) : (
     <PanelShell onBack={onClose}>
       <div className="flex flex-col gap-2">
-        {/* El @ es una fila más, igual que carrera y universidad: se toca y se
-            cambia adentro. Antes era una caja aparte con su input y su botón de
-            guardar a la vista, y rompía la lectura de la lista — tres filas
-            iguales debajo de un formulario. El invitado no entra a editar: para
-            él tocar acá es el gancho de registro. */}
+        {/* El @ es una fila más, igual que carrera y universidad. El invitado
+            no entra a editar: para él tocar acá es el gancho de registro.
+
+            En escritorio, para quien ya tiene cuenta, se edita ADENTRO de la
+            fila y se guarda solo al perder el foco — no hay pantalla aparte
+            ni botón de guardar a la vista. En el teléfono sigue yendo a su
+            propia sección (`section === "alias"`, más abajo): ahí no hay
+            lugar de sobra para un error que empuje el resto de la lista. */}
+        {variant === "desktop" && !player?.is_guest ? (
+          <div className={cn(rowCls, "flex-col items-stretch")}>
+            <div className="flex items-center justify-between gap-3">
+              <span className="text-muted-foreground">Usuario</span>
+              <span className="flex items-center gap-1">
+                <span className="text-muted-foreground">@</span>
+                <input
+                  value={alias}
+                  onChange={(e) => {
+                    setAlias(e.target.value.toLowerCase().replace(/[^a-z0-9._]/g, ""))
+                    setAliasError(null)
+                  }}
+                  onBlur={() => void saveAlias()}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") e.currentTarget.blur()
+                  }}
+                  maxLength={15}
+                  className="w-28 bg-transparent text-right outline-none"
+                />
+              </span>
+            </div>
+            {aliasError && <p className="mt-1 text-xs text-orange-300">{aliasError}</p>}
+          </div>
+        ) : (
+          <button
+            type="button"
+            className={rowCls}
+            onClick={() => (player?.is_guest ? onNeedsRegister() : irA("alias"))}
+          >
+            <span className="text-muted-foreground">Usuario</span>
+            <span className={player?.is_guest ? "text-ring" : undefined}>
+              @{player?.alias ?? ""}
+            </span>
+          </button>
+        )}
+
         <button
           type="button"
           className={rowCls}
-          onClick={() => (player?.is_guest ? onNeedsRegister() : irA("alias"))}
+          onClick={() => {
+            sfx.select()
+            if (variant === "desktop") onEditCareer?.()
+            else irA("career")
+          }}
         >
-          <span className="text-muted-foreground">Usuario</span>
-          <span className={player?.is_guest ? "text-ring" : undefined}>
-            @{player?.alias ?? ""}
-          </span>
+          <span className="text-muted-foreground">Carrera</span>
+          <span>{careerLabel(player?.career)}</span>
         </button>
 
-        {variant === "desktop" ? (
-          <RowSelect
-            label="Carrera"
-            value={player?.career ?? ""}
-            display={careerLabel(player?.career)}
-            onChange={(v) => {
-              sfx.select()
-              void saveProfile({ career: v })
-            }}
-          >
-            {CAREERS.map((c) => (
-              <SelectItem key={c.value} value={c.value}>
-                {c.emoji} {c.label}
-              </SelectItem>
-            ))}
-          </RowSelect>
-        ) : (
-          <button type="button" className={rowCls} onClick={() => irA("career")}>
-            <span className="text-muted-foreground">Carrera</span>
-            <span>{careerLabel(player?.career)}</span>
-          </button>
-        )}
-
-        {variant === "desktop" ? (
-          <RowSelect
-            label="Universidad"
-            value={player?.university ?? ""}
-            display={player?.university ?? "Elegir"}
-            onChange={(v) => {
-              sfx.select()
-              // "Otra" no es una universidad: manda a la pantalla que sí tiene
-              // el campo libre. Meter un input adentro del desplegable habría
-              // sido pelear con el foco del componente para nada.
-              if (v === OTRA) irA("university")
-              else void saveProfile({ university: v })
-            }}
-          >
-            {UNIVERSITY_TAGS.map((u) => (
-              <SelectItem key={u.key} value={u.key}>
-                {u.key}
-              </SelectItem>
-            ))}
-            <SelectItem value={OTRA}>Otra…</SelectItem>
-          </RowSelect>
-        ) : (
-          <button type="button" className={rowCls} onClick={() => irA("university")}>
-            <span className="text-muted-foreground">Universidad</span>
-            <span>{player?.university ?? "Elegir"}</span>
-          </button>
-        )}
+        <button
+          type="button"
+          className={rowCls}
+          onClick={() => {
+            sfx.select()
+            if (variant === "desktop") onEditUniversity?.()
+            else irA("university")
+          }}
+        >
+          <span className="text-muted-foreground">Universidad</span>
+          <span>{player?.university ?? "Elegir"}</span>
+        </button>
 
         <button
           type="button"
@@ -492,7 +439,7 @@ export function SettingsPanel({
             cta("cafecito", "click", { placement: "settings" })
             onCafecito()
           }}
-          className={cn(rowCls, "border-[#A8703C]/50 text-[#A8703C]")}
+          className={cn(rowCls, "border-[#EABB74]/50 text-[#EABB74]")}
         >
           <span>Invitar un cafecito</span>
           <Coffee size={16} />
@@ -512,15 +459,15 @@ export function SettingsPanel({
         <a
           href={mailtoCafecito(player?.alias)}
           onClick={() => cta("cafecito", "click", { placement: "settings_reclamo" })}
-          className={cn(rowCls, "text-muted-foreground")}
+          className={cn(rowCls, "border-[#E5484D]/50 text-[#E5484D]/80")}
         >
           <span>Mi cafecito no apareció</span>
-          <Coffee size={16} className="opacity-60" />
+          <Coffee size={16} />
         </a>
 
         {confirmReset ? (
-          <div className="rounded-lg border border-orange-500/50 bg-orange-500/10 px-4 py-3">
-            <p className="text-sm font-medium text-orange-300">
+          <div className="rounded-lg border border-[#E5484D]/50 bg-card px-4 py-3">
+            <p className="text-sm font-medium text-[#E5484D]">
               ¿Reiniciar el progreso?
             </p>
             <p className="mt-1 text-xs leading-relaxed text-foreground/85">
@@ -538,7 +485,7 @@ export function SettingsPanel({
               <button
                 type="button"
                 disabled={busy}
-                className="flex-1 rounded-md bg-orange-500/80 px-3 py-2 text-sm font-medium text-white"
+                className="flex-1 rounded-md border border-[#E5484D]/50 px-3 py-2 text-sm font-medium text-[#E5484D] disabled:opacity-45"
                 onClick={() => void reset()}
               >
                 Reiniciar
@@ -548,7 +495,7 @@ export function SettingsPanel({
         ) : (
           <button
             type="button"
-            className={cn(rowCls, "text-muted-foreground")}
+            className={cn(rowCls, "border-[#E5484D]/50 text-[#E5484D]/80")}
             onClick={() => setConfirmReset(true)}
           >
             <span>Reiniciar progreso</span>

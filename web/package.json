@@ -13,7 +13,8 @@
     "sync:emoji-tree": "bun run scripts/sync-emoji-tree.ts",
     "types:api": "openapi-typescript http://127.0.0.1:8000/openapi.json -o src/lib/api/schema.ts",
     "types:api:file": "openapi-typescript ../backend/openapi.json -o src/lib/api/schema.ts",
-    "check:reclutas": "bun run scripts/check-reclutas-trigger.ts"
+    "check:reclutas": "bun run scripts/check-reclutas-trigger.ts",
+    "check:xp": "bun run scripts/check-xp-pasos.ts"
   },
   "dependencies": {
     "@base-ui/react": "1.6.0",

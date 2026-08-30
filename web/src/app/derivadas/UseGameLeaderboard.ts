@@ -62,10 +62,25 @@ const scopeKey = (scope: Scope) => [scope.university, scope.career] as const
 // que el leaderboard de Intervalo (app/(app)/leaderboard/UseLeaderboard.ts).
 type PageParam = { around: true } | { around: false; offset: number; limit: number }
 
-export function useGameLeaderboard(scope: Scope, enabled: boolean) {
+// Por qué ordena el ranking individual, en el vocabulario del servidor
+// (game/router.py :: game_leaderboard). El de la interfaz es otro —
+// game-ranking.tsx :: RankingSort — porque ahí la palabra que se lee es
+// "experiencia", no "xp".
+export type LeaderboardSort = "xp" | "elo"
+
+export function useGameLeaderboard(
+  scope: Scope,
+  enabled: boolean,
+  sort: LeaderboardSort = "xp",
+) {
   const api = useGameApi()
   return useInfiniteQuery({
-    queryKey: [...gameKeys.leaderboard, ...scopeKey(scope)],
+    // El orden va en la CLAVE y no como un parámetro más: por Elo cambia el
+    // puesto de cada fila, así que las dos listas no son dos vistas de los
+    // mismos datos sino dos listas distintas. Con una sola clave, volver al
+    // orden anterior mostraría los puestos del otro hasta que llegara el
+    // refetch.
+    queryKey: [...gameKeys.leaderboard, ...scopeKey(scope), sort],
     initialPageParam: { around: true } as PageParam,
     queryFn: async ({ pageParam }) =>
       unwrap(
@@ -73,6 +88,7 @@ export function useGameLeaderboard(scope: Scope, enabled: boolean) {
           params: {
             query: {
               ...scopeQuery(scope),
+              sort,
               ...(pageParam.around
                 ? { around_me: true }
                 : { offset: pageParam.offset, limit: pageParam.limit }),
@@ -101,9 +117,9 @@ export function useGameLeaderboard(scope: Scope, enabled: boolean) {
     staleTime: 10_000,
     // Quien decide cuándo se actualiza el ranking es el festejo, no el montaje:
     // en el teléfono la lista aparece recién en la slide del ranking, y si se
-    // refrescara al montar la fila propia ya estrenaría puesto y XP antes de
-    // que caiga la primera bolita. Se refresca con la invalidación explícita de
-    // xp-burst (onComplete) y al cambiar de scope, que es otra queryKey.
+    // refrescara al montar la fila propia ya estrenaría puesto y XP antes del
+    // primer paso del conteo. Se refresca con la invalidación explícita de
+    // xp-conteo (onComplete) y al cambiar de scope, que es otra queryKey.
     refetchOnMount: false,
   })
 }
@@ -238,21 +254,148 @@ export function useCafecitoIntent() {
 // para leer, no para reaccionar, y a 8 s ya se siente vivo.
 const EVENTS_INTERVAL_MS = 8_000
 
-// Historial de eventos del juego. Se pide la lista COMPLETA (son 40 líneas
-// cortas) y se reemplaza, en vez de ir acumulando lo nuevo con `?after_id=`: el
-// endpoint soporta las dos cosas, pero acumular en el cliente trae mezcla,
-// huecos y orden a mano por unos pocos KB de ahorro. Lo nuevo lo detecta el
-// propio React por la `key` de cada fila.
+// Cuántas líneas se guardan de cada cosa. El servidor manda hasta 40 de cada una
+// y acá se conserva la misma cantidad: lo que se cae por abajo es historia que
+// ya nadie va a scrollear.
+const VENTANA = 40
+
+// Cada cuántos sondeos se vuelve a pedir todo desde cero.
+//
+// Con el cursor, un mensaje que se baja a mano (`hidden`) no desaparece de las
+// pantallas que ya lo tenían: el servidor deja de mandarlo, pero el cliente lo
+// acumuló. Eso convertiría a la única herramienta de moderación que hay en algo
+// que solo surte efecto al recargar. Resincronizando cada diez vueltas —unos 80
+// segundos— el mensaje bajado se cae solo, y se sigue ahorrando el 90% del
+// tráfico igual.
+const RESINCRONIZAR_CADA = 10
+
+export type GameMessage = components["schemas"]["GameMessageOut"]
+
+/** Cuándo pasó, en milisegundos de época.
+ *
+ * `seconds_ago` lo calcula el servidor al responder, así que en una lista que se
+ * ACUMULA envejece mal: lo que llegó hace tres sondeos sigue diciendo los
+ * segundos que tenía entonces. Para dibujarlo alcanza —el error es de segundos—
+ * pero para MEZCLAR las novedades con los mensajes no, porque son dos listas que
+ * se acumulan por separado y hay que intercalarlas por tiempo. Se sella al
+ * recibir y ya no se mueve. */
+export type ConTiempo<T> = T & { at: number }
+
+type Historial = {
+  events: ConTiempo<GameEvent>[]
+  messages: ConTiempo<GameMessage>[]
+  // Si el chat acepta mensajes. Siempre el del último pedido: es estado del
+  // servicio y no historia, así que no se acumula, se pisa.
+  chatEnabled: boolean
+  // El id más alto visto de cada lista. Son dos espacios de ids distintos
+  // (tablas distintas), así que son dos cursores.
+  cursorEvents: number
+  cursorMessages: number
+}
+
+/** Pega lo nuevo arriba de lo viejo y recorta.
+ *
+ * Las dos listas vienen del servidor de la más nueva a la más vieja, y así se
+ * guardan: el feed las da vuelta al dibujar. */
+function fundir(previo: Historial | undefined, nuevo: Historial): Historial {
+  const unir = <T extends { id: number }>(nuevos: T[], viejos: T[]) =>
+    nuevos.length === 0 ? viejos : [...nuevos, ...viejos].slice(0, VENTANA)
+  return {
+    events: unir(nuevo.events, previo?.events ?? []),
+    messages: unir(nuevo.messages, previo?.messages ?? []),
+    cursorEvents: Math.max(previo?.cursorEvents ?? 0, nuevo.cursorEvents),
+    cursorMessages: Math.max(previo?.cursorMessages ?? 0, nuevo.cursorMessages),
+    chatEnabled: nuevo.chatEnabled,
+  }
+}
+
+// Historial del juego: las novedades del sistema y los mensajes del chat, en el
+// MISMO pedido.
+//
+// Que viajen juntos es todo el diseño del chat: no hay un sondeo nuevo, hay un
+// campo nuevo en el que ya corría cada ocho segundos. Y son dos listas y no una
+// mezclada porque cada una tiene su ventana — compartiendo las cuarenta filas,
+// una racha de chat empujaría fuera de pantalla el anuncio de cafecitos.
+//
+// Se acumula con los dos cursores en vez de pedir todo cada vez. Antes se
+// reemplazaba la lista entera, y estaba bien mientras el feed era una franja de
+// doce líneas que nadie miraba: eran 4 KB cada 8 segundos POR PESTAÑA, o sea
+// 0,18 GB por hora con cien personas jugando. Con el chat esa cuenta pasa a
+// pagarse por algo que sí se mira, y ahorrarla es lo que hace que el chat no
+// cueste nada: en régimen la respuesta son 27 bytes.
 export function useGameEvents(enabled: boolean) {
   const api = useGameApi()
+  const client = useQueryClient()
+  const vueltas = useRef(0)
   return useQuery({
     queryKey: gameKeys.events,
-    queryFn: async () => unwrap(await api.GET("/game/derivemos/events")),
+    queryFn: async (): Promise<Historial> => {
+      const previo = client.getQueryData<Historial>(gameKeys.events)
+      const desdeCero = vueltas.current % RESINCRONIZAR_CADA === 0
+      vueltas.current += 1
+      const r = unwrap(
+        await api.GET("/game/derivemos/events", {
+          params: {
+            query: desdeCero
+              ? {}
+              : {
+                  after_id: previo?.cursorEvents ?? 0,
+                  after_msg_id: previo?.cursorMessages ?? 0,
+                },
+          },
+        }),
+      )
+      // Como vienen ordenadas de la más nueva a la más vieja, el cursor es el
+      // primer id de cada lista.
+      const ahora = Date.now()
+      const sellar = <T extends { seconds_ago: number }>(xs: T[]) =>
+        xs.map((x) => ({ ...x, at: ahora - x.seconds_ago * 1000 }))
+      const recibido: Historial = {
+        events: sellar(r.events),
+        messages: sellar(r.messages),
+        cursorEvents: r.events[0]?.id ?? 0,
+        cursorMessages: r.messages[0]?.id ?? 0,
+        chatEnabled: r.chat_enabled,
+      }
+      return desdeCero ? recibido : fundir(previo, recibido)
+    },
     enabled,
     refetchInterval: EVENTS_INTERVAL_MS,
     // Igual que el pulso: una pestaña olvidada no sondea.
     refetchIntervalInBackground: false,
     ...SIN_SEÑAL,
+  })
+}
+
+/** Manda un mensaje al chat.
+ *
+ * Al volver, el mensaje se mete a mano en el historial en vez de esperar al
+ * sondeo. No es una optimización: sin esto, entre que tocás Enter y que tu propio
+ * mensaje aparece pasan hasta ocho segundos, y en ese hueco lo único razonable
+ * que podés pensar es que no se mandó.
+ *
+ * Se adelanta también el cursor, para que el sondeo siguiente no lo traiga
+ * duplicado. */
+export function useSendMessage() {
+  const api = useGameApi()
+  const client = useQueryClient()
+  return useMutation({
+    mutationFn: async (text: string) =>
+      unwrap(await api.POST("/game/derivemos/message", { body: { text } })),
+    onSuccess: (mensaje) => {
+      client.setQueryData<Historial>(gameKeys.events, (previo) =>
+        previo === undefined
+          ? previo
+          : {
+              ...previo,
+              messages: [{ ...mensaje, at: Date.now() }, ...previo.messages].slice(
+                0,
+                VENTANA,
+              ),
+              cursorMessages: Math.max(previo.cursorMessages, mensaje.id),
+            },
+      )
+    },
   })
 }
 

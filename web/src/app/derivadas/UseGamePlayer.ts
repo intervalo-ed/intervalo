@@ -36,6 +36,11 @@ export const gameKeys = {
   // nuevo no tiene por qué recargarse al ritmo de la actividad de desconocidos,
   // y con la lista de ejemplo en pantalla eso es puro parpadeo por nada.
   recruits: ["game", "recruits"] as const,
+  // Raíz propia por el mismo motivo que pulse/events: el latido de cada 10 s
+  // invalida el ranking por prefijo, y las estadísticas no cambian a ese
+  // ritmo (solo con lo que este mismo jugador responde) — colgarlas de esa
+  // raíz sería refrescarlas por la actividad de cualquiera.
+  stats: ["game", "stats"] as const,
 }
 
 /** El jugador que ya está en el caché, sin disparar ningún pedido.
@@ -82,6 +87,16 @@ export function useGameToken(): string | null {
 // jugador para siempre.
 let bootstrapStarted = false
 
+// Si esta carga de página encontró el dispositivo sin token guardado y sin
+// sesión de Clerk — la señal de "primera vez acá" que usa la slide de "elegí
+// tu @". Se decide UNA vez, en el mismo instante en que se dispara el alta:
+// no se puede leer más tarde porque el store del token pasa a no-null apenas
+// esa misma alta resuelve. Variable de módulo y no un ref de componente por
+// la misma razón que `bootstrapStarted` —`useGamePlayer` se monta dos veces
+// por carga (GameRoot y, cuando resuelve, el layout elegido) y solo la
+// primera instancia corre este efecto.
+let firstVisitAtBootstrap: boolean | null = null
+
 // Alta/bootstrap del jugador. POST /player es idempotente: sin credenciales
 // crea un guest (y guardamos el token), con token devuelve el existente, y con
 // sesión de Clerk crea/devuelve el jugador del usuario — linkeando al guest si
@@ -113,6 +128,7 @@ export function useGamePlayer() {
     },
     onError: () => {
       bootstrapStarted = false
+      firstVisitAtBootstrap = null
     },
   })
 
@@ -131,12 +147,17 @@ export function useGamePlayer() {
   useEffect(() => {
     if (!isLoaded || bootstrapStarted) return
     bootstrapStarted = true
+    firstVisitAtBootstrap = token === null && !isSignedIn
     ensureMutate()
-  }, [isLoaded, ensureMutate])
+  }, [isLoaded, ensureMutate, token, isSignedIn])
 
   return {
     player: me.data ?? ensure.data?.player ?? null,
     isSignedIn: isSignedIn ?? false,
+    // Primera vez en este dispositivo: sin token guardado y sin sesión, en el
+    // momento en que arrancó el alta. La consume la slide de "elegí tu @" para
+    // decidir si corresponde mostrarse.
+    isFirstVisit: firstVisitAtBootstrap ?? false,
     // `refetchQueries` y no `invalidateQueries`: quien llama a esto acaba de
     // cambiar el @ o la universidad y necesita el valor nuevo YA, no marcado
     // como viejo para la próxima.

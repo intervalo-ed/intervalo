@@ -594,6 +594,12 @@ class GamePlayer(Base):
     # (usernames.validate_username). El guest recibe uno autogenerado y NO lo
     # edita: elegir el @ es el gancho del registro.
     alias = Column(String(30), unique=True, index=True, nullable=False)
+    # Si sigue en True, este @ es el que le tocó al azar y todavía no lo tocó:
+    # habilita la ÚNICA edición gratis de la slide de "elegí tu @" (ver
+    # patch_me en game/router.py). Se apaga apenas se usa una vez —con
+    # éxito—; de ahí en más, cambiar el @ vuelve a ser el gancho de registro
+    # de siempre.
+    alias_is_generated = Column(Boolean, nullable=False, default=True, server_default="true")
     # Indexada: se filtra, se agrupa y se ordena por acá en los tres endpoints de
     # ranking, y en el GROUP BY del feed que corre en cada tick de simulación.
     university = Column(String(120), nullable=True, index=True)
@@ -783,6 +789,13 @@ class GameExercise(Base):
     # «resolvió» de «copió», y esas dos cosas mezcladas arruinan tanto la tasa
     # de acierto como la lectura de qué plantillas cuestan de verdad.
     peeked = Column(Boolean, nullable=False, default=False, server_default="false")
+    # El «¿Por qué?» se abrió mientras ESTE ejercicio estaba abierto, o sea que
+    # la persona leyó de dónde salía la derivada antes de acertarla. Gobierna la
+    # recompensa (game/xp.py :: XP_EXPLICADO) igual que `peeked`, pero con una
+    # diferencia que importa: `peeked` depende de que el cliente confiese que
+    # tenía la tabla abierta, y esto no. La explicación solo existe si el
+    # servidor la entregó, así que la marca la pone el propio endpoint.
+    explained = Column(Boolean, nullable=False, default=False, server_default="false")
     # Desde qué dispositivo se pidió ESTE ejercicio. Va por ejercicio y no solo
     # en el jugador porque la pregunta que importa —¿se comportan distinto?—
     # necesita poder atribuir cada respuesta al aparato en el que se dio, y
@@ -971,3 +984,45 @@ class GameBoostIntent(Base):
     university = Column(String(120), nullable=True, index=True)
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow, index=True)
     consumed_at = Column(DateTime, nullable=True)
+
+
+class GameMessage(Base):
+    """Un mensaje que alguien escribió en el chat del minijuego.
+
+    Vive aparte de `game_events` y no como un `kind` más, por dos razones que no
+    son de estilo:
+
+    · La ventana del feed son cuarenta filas. Compartiendo tabla, una racha de
+      chat empuja fuera de esa ventana el anuncio de que alguien invitó
+      cafecitos, que es justamente el que mueve donaciones.
+    · El feed del sistema no tiene nada que moderar porque no hay texto de
+      usuarios, y esa propiedad está escrita en cuatro lugares como el motivo por
+      el que no hay filtros. Mezclando acá el texto de la gente, esa frase pasa a
+      ser mentira en los cuatro. Con tabla propia sigue siendo cierta, y todo lo
+      que hay que mirar con lupa queda de este lado.
+
+    `alias`, `university` y `level` van DESNORMALIZADOS a propósito, igual que en
+    `game_events`: el chat tiene que poder mostrar quién habló aunque esa persona
+    después se cambie de universidad, suba de nivel o borre su cuenta. Un mensaje
+    es lo que se dijo en un momento, no una vista de quien lo dijo hoy.
+    """
+
+    __tablename__ = "game_messages"
+
+    id = Column(Integer, primary_key=True, index=True)
+    # Quién escribió. NOT NULL porque escribir pide cuenta: los invitados leen.
+    player_id = Column(Integer, ForeignKey("game_players.id"), nullable=False, index=True)
+    # Su @ y su universidad al momento de escribir (ver arriba).
+    alias = Column(String(30), nullable=False)
+    university = Column(String(120), nullable=True)
+    # Nivel del jugador entonces (elo.level_of). Es lo que le da color al @, igual
+    # que en el ranking y en el feed.
+    level = Column(Integer, nullable=False, default=0, server_default="0")
+    # Ya saneado: lo que entra pasó por chat.limpiar (allowlist, tope de largo,
+    # espacios colapsados). Lo que se guarda es lo que se muestra.
+    text = Column(Text, nullable=False)
+    # Bajar un mensaje sin perder la fila. No hay interfaz para esto y es a
+    # propósito: se hace con un UPDATE a mano el día que haga falta, y mientras
+    # tanto queda el rastro de qué se bajó y cuándo se había escrito.
+    hidden = Column(Boolean, nullable=False, default=False, server_default="false")
+    created_at = Column(DateTime, nullable=False, default=datetime.utcnow, index=True)
