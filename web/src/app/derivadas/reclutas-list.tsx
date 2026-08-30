@@ -35,13 +35,30 @@ import type { GameRecruitEntry } from "./UseGameLeaderboard"
 // Lo que impide que se lean como datos son el borde punteado y la opacidad —el
 // aporte además baja fuerte hacia abajo, así que la columna verde tampoco se
 // lee como un ranking real en marcha.
-const EJEMPLOS: GameRecruitEntry[] = [
+//
+// Las universidades de acá son el FALLBACK, para cuando todavía no se sabe la
+// de quien mira (ver `ejemplosPara`). Con universidad, las cinco se pintan con
+// la SUYA: la promesa es "así se va a ver tu universidad ganando", y una fila
+// de la UCA al lado de la propia no la cuenta tan bien como cinco de la propia.
+const EJEMPLOS_FALLBACK: readonly GameRecruitEntry[] = [
   { rank: 1, player_id: -1, alias: "cociente3196", university: "UCA", level: 1, xp_given: 142 },
   { rank: 2, player_id: -2, alias: "tangente4626", university: "UTN", level: 2, xp_given: 98 },
   { rank: 3, player_id: -3, alias: "escalar5925", university: "UBA", level: 0, xp_given: 60 },
   { rank: 4, player_id: -4, alias: "pendiente8515", university: "UNSAM", level: 1, xp_given: 34 },
   { rank: 5, player_id: -5, alias: "integral8801", university: "UTDT", level: 0, xp_given: 12 },
 ]
+
+function ejemplosPara(university: string | null): readonly GameRecruitEntry[] {
+  if (!university) return EJEMPLOS_FALLBACK
+  return EJEMPLOS_FALLBACK.map((e) => ({ ...e, university }))
+}
+
+// Para los indicadores de arriba del ranking (game-ranking.tsx): mientras se
+// muestran estos renglones de ejemplo, los números de "reclutas" y "aportado"
+// tienen que contar lo mismo que se ve acá abajo, no cero — cero al lado de
+// cinco filas sería contradecirse.
+export const EJEMPLOS_COUNT = EJEMPLOS_FALLBACK.length
+export const EJEMPLOS_XP_TOTAL = EJEMPLOS_FALLBACK.reduce((sum, e) => sum + e.xp_given, 0)
 
 // El recuadro punteado de un renglón de ejemplo.
 //
@@ -123,21 +140,25 @@ function Fila({ entry, ejemplo }: { entry: GameRecruitEntry; ejemplo?: boolean }
 
 export function ListaDeReclutas({
   entries,
+  // La universidad de quien mira, para pintar los ejemplos con la SUYA en vez
+  // de la mezcla de siempre (ver `ejemplosPara`). `null` mientras no la eligió.
+  university = null,
   // Cuántos renglones de ejemplo mostrar mientras no hay reclutas.
   //
   // Cinco en el ranking, donde la lista ES el contenido y cinco llenan la caja.
   // Tres en la diapo, donde la lista viene detrás del copy y del botón: ahí lo
   // que tiene que hacer es mostrar la FORMA de lo que va a pasar, y para eso con
   // tres alcanza. Con cinco empuja al botón fuera de la pantalla de un teléfono.
-  ejemplos = EJEMPLOS.length,
+  ejemplos = EJEMPLOS_COUNT,
   className,
 }: {
   entries: GameRecruitEntry[]
+  university?: string | null
   ejemplos?: number
   className?: string
 }) {
   const vacia = entries.length === 0
-  const filas = vacia ? EJEMPLOS.slice(0, ejemplos) : entries
+  const filas = vacia ? ejemplosPara(university).slice(0, ejemplos) : entries
   // Sin rótulo que explique que son ejemplos: el borde punteado y la opacidad ya
   // lo dicen, y escribirlo además obligaba a leer un renglón para enterarse de
   // algo que se ve.

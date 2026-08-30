@@ -23,14 +23,13 @@
 // Las dos reglas del final no son decoración: los tiers 4 y 5 son productos y
 // cocientes, y sin ellas la tabla no sirve justo donde más se la necesita.
 
-import { motion } from "motion/react"
 import { Table2 as TableIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import MathText from "@/components/math-text"
 import { accuracyColor } from "@/components/metric-card"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { KeyCap } from "./exercise-card"
-import { FUNDIDO } from "./slide-flip"
+import { Cara } from "./flip-face"
 import { useCartel } from "./game-ranking"
 import { useTeclas } from "./teclas"
 import type { GameStatsRow } from "./UseGameStats"
@@ -379,41 +378,7 @@ export function FlipCard({
   )
 }
 
-/** Una cara de la card.
- *
- * La de adelante va en el flujo (`h-full w-full`) y la de atrás encima
- * (`absolute inset-0`): es la de adelante la que le da alto a la caja.
- *
- * Cada una usa el tramo que le toca —`entrada` si se está encendiendo, `salida`
- * si se está apagando—, que es exactamente lo que hacen las dos caras de
- * slide-flip.tsx.
- *
- * `pointerEvents` no es un detalle de más. Con el volteo, la cara apagada no
- * recibía clics porque el navegador directamente no dibuja las caras de atrás;
- * con opacidad cero SÍ los recibiría, y el ranking quedaría clickeable a través
- * del chat. El `inert` —que ya estaba, para que no se pueda tabular hasta el
- * campo de respuesta que está del otro lado— cubre el teclado; el puntero hay
- * que apagarlo aparte. */
-function Cara({
-  visible,
-  className,
-  children,
-}: {
-  visible: boolean
-  className: string
-  children: React.ReactNode
-}) {
-  const tramo = visible ? FUNDIDO.entrada : FUNDIDO.salida
-  return (
-    <motion.div
-      className={className}
-      initial={false}
-      animate={{ opacity: visible ? 1 : 0 }}
-      transition={{ duration: tramo.duracion, ease: tramo.ease }}
-      style={{ pointerEvents: visible ? undefined : "none" }}
-      inert={!visible}
-    >
-      {children}
-    </motion.div>
-  )
-}
+// `Cara` se mudó a flip-face.tsx: la usa también exercise-card.tsx ::
+// AnswerField, para el campo que se convierte en el botón del «¿Por qué?», y
+// puesta acá esa importación hubiera cerrado un círculo (este archivo ya
+// importa `KeyCap` de exercise-card.tsx).

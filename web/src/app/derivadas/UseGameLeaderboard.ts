@@ -415,6 +415,7 @@ export function useGameLeaderboardSummary(scope: Scope, enabled: boolean) {
 }
 
 export type GameRecruitEntry = components["schemas"]["GameRecruitEntry"]
+export type GameRecruits = components["schemas"]["GameRecruitsResponse"]
 
 /** Los reclutas propios: quiénes entraron por el link y cuánto aportaron.
  *

@@ -176,7 +176,7 @@ function NovedadRow({ evento }: { evento: ConTiempo<GameEvent> }) {
         {/* Sin los marcadores resueltos: acá la línea es contexto, no el evento
             protagonista, y el texto plano alcanza. Resolverlos pide el mismo
             trabajo que hace EventText y no cambiaría lo que se entiende. */}
-        {textoPlano(evento.text, evento.actor_alias, evento.universities)}{" "}
+        {textoPlano(evento.text, evento.actor_alias, evento.actor_b_alias, evento.universities)}{" "}
         <span aria-hidden>{evento.emoji}</span>
       </span>
       <span className="shrink-0 tabular-nums text-[0.68rem] text-muted-foreground/60">
@@ -187,9 +187,15 @@ function NovedadRow({ evento }: { evento: ConTiempo<GameEvent> }) {
 }
 
 /** Los marcadores del feed, reemplazados a texto pelado. Ver events.py. */
-function textoPlano(text: string, alias: string | null | undefined, unis: string[]): string {
+function textoPlano(
+  text: string,
+  alias: string | null | undefined,
+  aliasB: string | null | undefined,
+  unis: string[],
+): string {
   return text
     .replace("{a}", alias ?? "alguien")
+    .replace("{b}", aliasB ?? "alguien")
     .replace("{u0}", unis[0] ?? "")
     .replace("{u1}", unis[1] ?? "")
 }
@@ -424,67 +430,88 @@ export function ChatPanel({
           <KeyCap>enter</KeyCap>
         </button>
       ) : (
-        <div className="flex shrink-0 items-end gap-2">
-          {/* `textarea` y no `input`: uno de una sola línea le corta el salto
-              de línea a lo que se tipea Y a lo que se pega, así que un dibujo
-              ASCII de varios renglones (game/chat.py :: MAX_LINEAS) no tenía
-              forma de entrar por acá aunque el servidor ya lo aceptara.
-              `rows` sigue el número de renglones escritos —arranca en 1 y se
-              ve exactamente como el input de siempre— así que crece solo con
-              quien realmente está armando un dibujo. */}
-          <textarea
-            ref={inputRef}
-            value={texto}
-            rows={Math.min(MAX_LINEAS, Math.max(1, texto.split("\n").length))}
-            onChange={(e) => {
-              setTexto(e.target.value)
-              if (error) setError(null)
-            }}
-            onKeyDown={(e) => {
-              if (e.key !== "Enter") return
-              if (e.shiftKey) {
-                // Shift+Enter mete el renglón nuevo (el textarea ya lo hace
-                // solo); lo único que hace falta es que no llegue al listener
-                // global de Enter, o escribir un dibujo de varios renglones
-                // cerraría el chat a mitad de camino.
+        <div className="flex flex-col gap-2">
+          <div className="flex shrink-0 items-end gap-2">
+            {/* `textarea` y no `input`: uno de una sola línea le corta el salto
+                de línea a lo que se tipea Y a lo que se pega, así que un dibujo
+                ASCII de varios renglones (game/chat.py :: MAX_LINEAS) no tenía
+                forma de entrar por acá aunque el servidor ya lo aceptara.
+                `rows` sigue el número de renglones escritos —arranca en 1 y se
+                ve exactamente como el input de siempre— así que crece solo con
+                quien realmente está armando un dibujo. */}
+            <textarea
+              ref={inputRef}
+              value={texto}
+              rows={Math.min(MAX_LINEAS, Math.max(1, texto.split("\n").length))}
+              onChange={(e) => {
+                setTexto(e.target.value)
+                if (error) setError(null)
+              }}
+              onKeyDown={(e) => {
+                if (e.key !== "Enter") return
+                if (e.shiftKey) {
+                  // Shift+Enter mete el renglón nuevo (el textarea ya lo hace
+                  // solo); lo único que hace falta es que no llegue al listener
+                  // global de Enter, o escribir un dibujo de varios renglones
+                  // cerraría el chat a mitad de camino.
+                  e.stopPropagation()
+                  return
+                }
+                // Enter pelado manda. Se para acá y no llega al documento: el
+                // juego entero se maneja con Enter, y sin esto mandar un
+                // mensaje pediría además la derivada siguiente.
+                e.preventDefault()
                 e.stopPropagation()
-                return
+                mandar()
+              }}
+              maxLength={MAX_TEXTO}
+              disabled={!puedeEscribir}
+              placeholder={
+                apagado
+                  ? "El chat está apagado por ahora"
+                  : esInvitado
+                    ? "Registrate para escribir"
+                    : "Escribí algo…"
               }
-              // Enter pelado manda. Se para acá y no llega al documento: el
-              // juego entero se maneja con Enter, y sin esto mandar un
-              // mensaje pediría además la derivada siguiente.
-              e.preventDefault()
-              e.stopPropagation()
-              mandar()
-            }}
-            maxLength={MAX_TEXTO}
-            disabled={!puedeEscribir}
-            placeholder={
-              apagado
-                ? "El chat está apagado por ahora"
-                : esInvitado
-                  ? "Registrate para escribir"
-                  : "Escribí algo…"
-            }
-            className={cn(
-              "min-w-0 flex-1 resize-none rounded-md border border-border bg-background px-3 py-2 text-sm outline-none",
-              "placeholder:text-muted-foreground/70 focus:border-primary/60",
-              "disabled:cursor-not-allowed disabled:opacity-60",
-            )}
-          />
-          <button
-            type="button"
-            onClick={mandar}
-            disabled={!puedeMandar}
-            aria-label="Mandar"
-            className={cn(
-              "flex size-9 shrink-0 items-center justify-center rounded-md transition-opacity",
-              "bg-primary text-primary-foreground hover:opacity-90",
-              "disabled:pointer-events-none disabled:opacity-40",
-            )}
-          >
-            <SendHorizontal size={16} />
-          </button>
+              className={cn(
+                "min-w-0 flex-1 resize-none rounded-md border border-border bg-background px-3 py-2 text-sm outline-none",
+                "placeholder:text-muted-foreground/70 focus:border-primary/60",
+                "disabled:cursor-not-allowed disabled:opacity-60",
+              )}
+            />
+            <button
+              type="button"
+              onClick={mandar}
+              disabled={!puedeMandar}
+              aria-label="Mandar"
+              className={cn(
+                "flex size-9 shrink-0 items-center justify-center rounded-md transition-opacity",
+                "bg-primary text-primary-foreground hover:opacity-90",
+                "disabled:pointer-events-none disabled:opacity-40",
+              )}
+            >
+              <SendHorizontal size={16} />
+            </button>
+          </div>
+          {/* Salir del chat sin tocar la fórmula ni buscar el botón de la
+              cabecera: Escape ya cierra el chat desde cualquier lado (ver
+              desktop-layout.tsx), esto es solo hacerlo visible. Gated por
+              `onClose` y no por una prop de plataforma propia: en el teléfono
+              no llega —ahí el chat es una pantalla con su propia salida— así
+              que ya sale solo en escritorio. */}
+          {onClose && (
+            <button
+              type="button"
+              onClick={onClose}
+              // Blanco como el Continuar del ejercicio (exercise-card.tsx ::
+              // AnswerButton) y no el contorno gris de `claseDeSalida`: acá no
+              // es "la salida discreta", es la acción que sigue.
+              className="flex w-full items-center justify-center gap-2 rounded-md bg-white px-4 py-3 text-base font-semibold text-black transition-opacity hover:opacity-90"
+            >
+              Volver
+              <KeyCap>esc</KeyCap>
+            </button>
+          )}
         </div>
       )}
     </div>

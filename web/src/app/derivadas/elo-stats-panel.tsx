@@ -13,7 +13,6 @@
 // padding.
 
 import { BarChart3 as StatsIcon } from "lucide-react"
-import { motion } from "motion/react"
 import { cn } from "@/lib/utils"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { fmtCount } from "@/components/leaderboard-chrome"
@@ -34,16 +33,6 @@ import type { GameStats } from "./UseGameStats"
 // para esta tile.
 const CAFE_CLARO = `rgb(${[0xea, 0xbb, 0x74].join(", ")})`
 
-// El aura del cafecito respira más o menos fuerte según dónde está la barra
-// del slider; acá no hay barra. Amplitud chica y no el pico de esa diapo: ahí
-// el brillo se GANA subiendo el slider y el techo se justifica, acá está
-// prendido todo el tiempo y el mismo número se sentía excesivo en una tile
-// que solo se mira de reojo.
-const auraA = (a: number) => `rgba(234, 187, 116, ${a.toFixed(3)})`
-const AURA_PICO = 1.2
-const auraBox = (k: number) => `0 0 ${(10 * k).toFixed(1)}px ${auraA(0.14 * k)}`
-const AURA_TRANSICION = { duration: 5.2, repeat: Infinity, ease: "easeInOut" } as const
-
 // La letra del atajo. Vive acá y no en cafecito-cta.tsx (donde están
 // TECLA_CAFECITO/TECLA_RECLUTAS) porque ese archivo es de las diapos de
 // pedido y este es harina de otro costal; el criterio de "un solo lugar por
@@ -57,7 +46,7 @@ export const TECLA_ESTADISTICAS = "j"
 // Alto del área de barras. Fijo y no `flex-1`: un histograma que se estira
 // con lo que sobre de la columna se ve distinto según cuántos jugadores haya
 // en la base, y la forma de la campana no tiene por qué depender de eso.
-const HIST_ALTO = 88
+const HIST_ALTO = 116
 
 /** El botón de la cabecera, mismo molde que `TableButton`
  * (derivatives-table.tsx): ícono + `<KeyCap>`, sin rótulo. Ausente y no
@@ -105,7 +94,7 @@ export function StatsButton({
 // llevaba el primer golpe de vista de un panel donde lo que importa es DÓNDE
 // está uno, no el número suelto. Ahora el número viaja adentro de la frase de
 // abajo, que es la que lo pone en contexto.
-const TITULO = "text-[0.68rem] font-medium uppercase tracking-wider text-muted-foreground"
+const TITULO = "text-[0.78rem] font-medium uppercase tracking-wider text-muted-foreground"
 
 function EloHistogram({
   stats,
@@ -123,7 +112,7 @@ function EloHistogram({
   // layout cuando el pedido resuelve.
   if (isLoading) {
     return (
-      <div className="flex flex-col gap-1.5">
+      <div className="flex flex-col gap-2">
         <span className={TITULO}>Elo</span>
         <div
           className="flex shrink-0 animate-pulse items-end gap-1 pb-2 pt-2"
@@ -144,7 +133,7 @@ function EloHistogram({
   // propio rating igual — es lo único que hay para mostrar todavía.
   if (!stats || !stats.enough_for_histogram) {
     return (
-      <div className="flex flex-col gap-1.5">
+      <div className="flex flex-col gap-2">
         <span className={TITULO}>Elo</span>
         {/* Sin marco propio: la caja de afuera ya lo pone, y dos bordes
             encajados se leen como un error de dibujo. */}
@@ -168,7 +157,7 @@ function EloHistogram({
   const pasoEtiqueta = Math.max(1, Math.ceil(stats.histogram.length / 9))
 
   return (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-2">
       <span className={TITULO}>Elo</span>
       <div
         className="flex shrink-0 items-end gap-1 pt-2"
@@ -223,7 +212,7 @@ function EloHistogram({
           juego usa en todos lados para decir a qué altura está uno.
           Sin percentil no hay con qué comparar, y entonces la frase es solo el
           número: pasa cuando el propio bucket no se pudo ubicar. */}
-      <p className="text-center text-xs text-muted-foreground">
+      <p className="text-center text-sm text-muted-foreground">
         {stats.percentile !== null ? (
           <>
             Con{" "}
@@ -254,7 +243,7 @@ function EloHistogram({
 // no tiene nada que explicar en esas tiles.
 const TILE = "flex flex-col justify-center gap-1 rounded-md border px-3 py-[14px] text-left outline-none transition-opacity hover:opacity-80"
 const TILE_VALOR = "text-lg font-semibold leading-none tabular-nums"
-const TILE_ROTULO = "whitespace-nowrap text-[0.7rem] leading-tight text-foreground/60"
+const TILE_ROTULO = "whitespace-nowrap text-[0.8rem] leading-tight text-foreground/60"
 const CARTEL = "text-left text-xs leading-relaxed text-muted-foreground"
 
 /** El cartel de una tile: el mismo gesto que los del ranking (game-ranking.tsx ::
@@ -290,50 +279,38 @@ function Tile({
   )
 }
 
-/** Las dos tiles de abajo, con color propio en vez del `bg-white/5` neutro de las
- *  otras cuatro — cada una habla del mismo canal que ya tiñe el resto del juego
- *  (reclutas = verde de WhatsApp, cafecito = el dorado del slider al tope), y no
- *  de un color inventado para la ocasión. El ícono es el rayo de XP —las dos
- *  cuentan XP, así que llevan el mismo glifo— y no un emoji por tile, que hacía
- *  pensar que cada una medía una cosa distinta. `glow` es opcional: sin él es un
- *  fondo de color quieto, con él respira en el pico (ver `auraBox`).
- *
- *  El disparador va por `render` y no como hijo: Base UI compone así, y hace
- *  falta porque el aura es una animación de motion y el botón tiene que ser un
- *  `motion.button`. */
+/** Las dos tiles de abajo, con el mismo `bg-white/5` neutro que las otras
+ *  cuatro pero con borde y valor de color propio — cada una habla del mismo
+ *  canal que ya tiñe el resto del juego (reclutas = verde de WhatsApp,
+ *  cafecito = el dorado del slider al tope), y no de un color inventado para
+ *  la ocasión. Llevaron fondo teñido, pero competía de más con el borde y el
+ *  valor —las tres cosas gritando el mismo color— así que el fondo volvió al
+ *  neutro y el color quedó solo en lo que hace falta señalar. El de cafecito
+ *  además tenía un brillo que respiraba solo (`glow`, con su propia animación
+ *  de `boxShadow`): se sacó por la misma razón, competía de más.
+ *  El ícono es el rayo de XP —las dos cuentan XP, así que llevan el mismo
+ *  glifo— y no un emoji por tile, que hacía pensar que cada una medía una
+ *  cosa distinta. */
 function TileDestacada({
   label,
   value,
   explicacion,
-  fondo,
   borde,
   tinta,
-  glow,
 }: {
   label: string
   value: React.ReactNode
   explicacion: React.ReactNode
-  fondo: string
   borde: string
   tinta: string
-  glow?: boolean
 }) {
   const { abierto, setAbierto, gestos } = useCartel()
   return (
     <Popover open={abierto} onOpenChange={setAbierto}>
       <PopoverTrigger
         {...gestos}
-        className={TILE}
-        style={{ backgroundColor: fondo, borderColor: borde }}
-        render={
-          <motion.button
-            type="button"
-            animate={
-              glow ? { boxShadow: [auraBox(1), auraBox(AURA_PICO), auraBox(1)] } : undefined
-            }
-            transition={glow ? AURA_TRANSICION : undefined}
-          />
-        }
+        className={cn(TILE, "bg-white/5")}
+        style={{ borderColor: borde }}
       >
         <span className={cn(TILE_VALOR, "flex items-center gap-1")} style={{ color: tinta }}>
           {value}
@@ -391,7 +368,6 @@ function GeneralTiles({ general }: { general: GameStats["general"] }) {
         label="XP generado por reclutas"
         value={fmtCount(general.xp_from_referrals)}
         explicacion="Cada persona que entra por tu link de reclutar te suma el 10% de la experiencia que gana, sin que a ella le reste nada. Es para siempre: sigue sumando cada vez que juega."
-        fondo={`color-mix(in oklab, ${VERDE} 14%, transparent)`}
         borde={`color-mix(in oklab, ${VERDE} 35%, transparent)`}
         tinta={VERDE}
       />
@@ -399,10 +375,8 @@ function GeneralTiles({ general }: { general: GameStats["general"] }) {
         label="XP extra por cafecitos"
         value={fmtCount(general.xp_from_boosts)}
         explicacion="Cada cafecito que le invitan a tu universidad multiplica media hora la experiencia de todos los que estudian ahí, también la tuya. Esto es cuánta te tocó de más por eso — lo que ganaste antes de que empezáramos a llevar la cuenta no está."
-        fondo={`color-mix(in oklab, ${CAFE_CLARO} 22%, transparent)`}
         borde={`color-mix(in oklab, ${CAFE_CLARO} 50%, transparent)`}
         tinta={CAFE_CLARO}
-        glow
       />
     </div>
   )
@@ -461,7 +435,7 @@ export function EloStatsPanel({
           se anula solo apenas el contenido no entra: ahí vuelve a quedar
           pegado arriba y el `overflow-y-auto` del padre scrollea desde el
           principio, como corresponde. */}
-      <div className="my-auto flex shrink-0 flex-col gap-4">
+      <div className="my-auto flex shrink-0 flex-col gap-2">
         {/* Primero los números propios y después el Elo, y no al revés. Lo que
             se viene a mirar cuando se abre este dorso son las derivadas
             resueltas, la efectividad y la racha: son de uno y se entienden
@@ -475,13 +449,15 @@ export function EloStatsPanel({
 
         {/* Todo lo del Elo en UNA caja: el rótulo, la campana, dónde cae uno y
             qué mide. Es el mismo recuadro de las tiles de arriba (`Metric`,
-            leaderboard-chrome.tsx) menos el fondo — solo el borde, porque acá
-            adentro hay un gráfico y un `bg-white/5` debajo de las barras les
-            baja el contraste justo donde hay que leer una forma.
+            leaderboard-chrome.tsx), con un fondo apenas insinuado: un
+            `bg-white/5` entero le bajaba el contraste a las barras, así que
+            se probó dejarla solo con borde — pero pedía un piso propio contra
+            el fondo de la card, y a 3% ya no compite con la lectura del
+            gráfico.
             El padding es el que alinea todo: adentro nadie lleva el suyo, así
             que el rótulo, la primera barra y el `400` del eje arrancan los tres
             en la misma línea. */}
-        <div className="flex flex-col gap-3 rounded-md border border-white/10 px-3 py-[14px]">
+        <div className="flex flex-col gap-4 rounded-md border border-white/10 bg-white/[0.03] px-3 py-[14px]">
           <EloHistogram
             stats={stats}
             isLoading={isLoading}
@@ -499,7 +475,7 @@ export function EloStatsPanel({
               Mismo texto, palabra por palabra, que game-ranking.tsx ::
               EloDeUniversidad — un solo lugar dice qué es el Elo, y las dos
               copias tienen que envejecer juntas. */}
-          <p className="text-xs leading-relaxed text-muted-foreground">
+          <p className="text-sm leading-relaxed text-muted-foreground">
             El Elo mide qué tan difíciles son las derivadas que resolvés. Se
             ajusta con tus respuestas, sube con los aciertos y baja con los
             errores.

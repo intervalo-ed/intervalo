@@ -233,6 +233,61 @@ borrados = events.prune(db)
 db.commit()
 check(borrados == 1, f"se barre lo de más de {events.PRUNE_DAYS} días (borró {borrados})")
 
+print("10. reclutamiento: el registro por link da crédito a quien trajo")
+amigador = fresh_player(db, "amigador", university="UBA")
+recluta = fresh_player(db, "reclutado")
+recluta.referred_by = amigador.id
+db.commit()
+events.on_signup(db, recluta)
+db.commit()
+referral = db.query(GameEvent).filter(GameEvent.kind == "referral").first()
+check(
+    referral is not None and referral.text == "{a} reclutó a {b}.",
+    f"el texto trae los dos marcadores: {referral.text if referral else '—'}",
+)
+check(
+    referral is not None and referral.actor_alias == "@amigador",
+    "el protagonista es quien trajo, con arroba",
+)
+check(
+    referral is not None and referral.actor_b_alias == "@reclutado",
+    "y el segundo marcador es quien llegó, también con arroba",
+)
+check(referral is not None and referral.actor_level is not None, "el reclutador se pinta con SU nivel")
+check(
+    referral is not None and referral.player_id == amigador.id,
+    "el resaltado 'esto sos vos' es para el reclutador, no para el recluta",
+)
+check(
+    referral is not None and referral.university == "UBA",
+    "y queda atado a SU universidad, no a la del recluta (que no tiene)",
+)
+check(
+    db.query(GameEvent)
+    .filter(GameEvent.kind == "signup", GameEvent.actor_alias == "@reclutado")
+    .count()
+    == 0,
+    "no se duplica con el signup genérico: el de reclutamiento lo reemplaza",
+)
+events.on_signup(db, recluta)
+db.commit()
+check(
+    db.query(GameEvent).filter(GameEvent.kind == "referral").count() == 1,
+    "y no se repite si on_signup se vuelve a llamar (idempotente)",
+)
+
+print("11. sin reclutador, sigue siendo el signup de siempre")
+solito = fresh_player(db, "solito")
+events.on_signup(db, solito)
+db.commit()
+check(
+    db.query(GameEvent)
+    .filter(GameEvent.kind == "signup", GameEvent.actor_alias == "@solito")
+    .count()
+    == 1,
+    "sin referred_by, el anuncio es el genérico",
+)
+
 db.close()
 print()
 if FAILURES:

@@ -56,6 +56,7 @@ PRUNE_DAYS = 7
 EMOJI = {
     "boost": "☕",
     "signup": "🎓",
+    "referral": "🪖",
     "climb": "🚀",
     "streak": "🔥",
     "lead": "👑",
@@ -73,6 +74,7 @@ class EventView:
     emoji: str
     actor_alias: str | None
     actor_level: int | None
+    actor_b_alias: str | None
     universities: list[str]
     university: str | None
     university_b: str | None
@@ -90,6 +92,7 @@ def emit(
     text: str,
     actor_alias: str | None = None,
     actor_level: int | None = None,
+    actor_b_alias: str | None = None,
     player_id: int | None = None,
     university: str | None = None,
     university_b: str | None = None,
@@ -100,10 +103,10 @@ def emit(
     """Registra un evento. Devuelve None si la clave de deduplicación ya se usó.
 
     `text` viene con marcadores en vez de con los nombres puestos: `{a}` para el
-    protagonista, `{u0}` y `{u1}` para las siglas. El cliente los reemplaza por
-    la tag de la universidad y por el nombre pintado con el color de su nivel — con
-    la oración ya resuelta eso no se puede hacer sin adivinar dónde empieza cada
-    cosa.
+    protagonista, `{b}` para un segundo protagonista (si lo hay) y `{u0}`/`{u1}`
+    para las siglas. El cliente los reemplaza por la tag de la universidad y por
+    el nombre pintado con el color de su nivel — con la oración ya resuelta eso
+    no se puede hacer sin adivinar dónde empieza cada cosa.
 
     `dedupe_minutes=None` significa "una sola vez para siempre" (un registro, un
     hito de racha). Con un número, la clave se puede volver a usar pasada esa
@@ -123,6 +126,7 @@ def emit(
         emoji=EMOJI.get(kind, "•"),
         actor_alias=actor_alias,
         actor_level=actor_level,
+        actor_b_alias=actor_b_alias,
         player_id=player_id,
         university=university,
         university_b=university_b,
@@ -162,6 +166,7 @@ def recent(db: Session, after_id: int = 0, limit: int = FEED_LIMIT) -> list[Even
             emoji=r.emoji,
             actor_alias=r.actor_alias,
             actor_level=r.actor_level,
+            actor_b_alias=r.actor_b_alias,
             # En el mismo orden en que aparecen {u0} y {u1} en el texto.
             universities=[u for u in (r.university, r.university_b) if u],
             university=r.university,
@@ -184,9 +189,34 @@ def _real(player: GamePlayer) -> bool:
 
 
 def on_signup(db: Session, player: GamePlayer) -> None:
-    """Alguien dejó de ser invitado y se registró."""
+    """Alguien dejó de ser invitado y se registró.
+
+    Si entró por el link de alguien (`referred_by`, ver game/referrals.py), el
+    anuncio es del RECLUTADOR y no del genérico: "{a} reclutó a {b}" cuenta más
+    que "{b} se sumó al juego" —nombra el mérito de traerlo, no solo el hecho de
+    haber llegado— así que reemplaza al signup de siempre en vez de sumarse a él.
+    Sin reclutador, sigue siendo el anuncio genérico.
+    """
     if not _real(player):
         return
+    if player.referred_by is not None:
+        referente = db.query(GamePlayer).filter(GamePlayer.id == player.referred_by).first()
+        if referente is not None:
+            emit(
+                db,
+                "referral",
+                "{a} reclutó a {b}.",
+                actor_alias=f"@{referente.alias}",
+                actor_level=elo.level_of(referente.theta),
+                actor_b_alias=f"@{player.alias}",
+                # El protagonista del festejo es quien trajo, no quien llegó.
+                player_id=referente.id,
+                university=referente.university,
+                # Una sola vez por RECLUTA, para siempre: el link guest→user es
+                # idempotente y se puede volver a llamar.
+                dedupe_key=f"signup:{player.id}",
+            )
+            return
     emit(
         db,
         "signup",

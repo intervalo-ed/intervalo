@@ -15,7 +15,7 @@
 // adentro de su caja en vez de empujar a lo que lo contiene — en escritorio la
 // columna tiene alto fijo, y una explicación de un tier 5 lo pasa cómoda.
 
-import { useCallback, useEffect, useRef } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { ChevronDown, ChevronUp } from "lucide-react"
 import dynamic from "next/dynamic"
 import { LINE_COLOR, SECOND_LINE_COLOR } from "@/components/math-graph-colors"
@@ -46,18 +46,36 @@ const MathGraph = dynamic(() => import("@/components/math-graph"), {
 // primer acierto en el otro— y acá hace falta el MISMO gris en los dos.
 const GRIS_VOLVER = "#A1A1AA"
 
-// El parrafito que cierra el gráfico. Fijo y sin parámetros a propósito —
+// El parrafito que ABRE el gráfico (va antes, no después: invita a mirarlo,
+// no lo resume una vez que ya se vio). Fijo y sin parámetros a propósito —
 // mismo criterio que las imágenes de REGLAS en explain.py: la relación entre
 // f y f' (dónde una sube, qué signo tiene la otra) es la misma para
 // cualquier función que el juego sirva, así que decirla una vez alcanza. No
 // afirma que ESTE gráfico puntual muestre un máximo o un cruce por cero —
 // una f sin extremos en su ventana (una exponencial pura, por ejemplo) es
 // tan válida como cualquier otra— sino qué relación mirar en general.
-const GRAPH_CAPTION =
-  "Mirá cómo se acompañan: donde f sube, f' es positiva; donde f baja, f' " +
-  "es negativa; y en los tramos donde f se aplana, f' pasa por cero. No son " +
-  "dos funciones sueltas — f' es literalmente la pendiente de f, dibujada " +
-  "aparte."
+//
+// La entrada da vuelta la lectura de arriba —qué dice f' sobre f, no qué
+// mirar EN f— con la definición (la derivada como pendiente) primero, para
+// que los tres casos de GRAPH_POINTS ya sepan a qué se refieren. Van en
+// bullets y no seguidos en la misma oración: son tres casos PARALELOS —crece,
+// decrece, ni una cosa ni la otra— y una lista los deja leer de un vistazo,
+// en vez de contar tres cláusulas dentro de un mismo párrafo.
+//
+// $f(x)$/$f'(x)$ van en LaTeX y no como texto —es la misma notación que el
+// resto de la explicación, `MathText` los resuelve igual, línea por línea— y
+// lo que responde cada caso (el signo, o el cero) va en negrita: es el dato
+// nuevo de cada oración, el resto es la condición que ya se venía leyendo.
+const GRAPH_INTRO =
+  "En el siguiente gráfico están $f(x)$ y $f'(x)$ juntas. Como la derivada " +
+  "de una función representa la **pendiente**, observamos lo siguiente:"
+
+const GRAPH_POINTS = [
+  "Cuando $f(x)$ crece, $f'(x)$ es **positiva**.",
+  "Cuando $f(x)$ decrece, $f'(x)$ es **negativa**.",
+  "Cuando en $f(x)$ hay un máximo, un mínimo o una meseta, $f'(x)$ es " +
+    "igual a **0**.",
+]
 
 // Cuánto se desplaza por click o por tecla. Ni un scroll de a línea (se
 // sentiría lento contra un tier 5 largo) ni un salto de a pantalla completa
@@ -75,6 +93,36 @@ const SCROLL_DURATION_MS = 550
 // transición CSS.
 function easeOutCubic(t: number): number {
   return 1 - Math.pow(1 - t, 3)
+}
+
+// Cuánto tardan en esconderse solas las flechas después del último uso: son
+// un recordatorio de que `w`/`s` existen, no un control fijo que tenga que
+// quedarse tapando la esquina del gráfico todo el tiempo.
+const OCULTAR_BOTONES_MS = 900
+
+// El pulso blanco que marca cuál flecha (o tecla) acaba de actuar. Golpe
+// rápido y salida lenta — mismo criterio que el destello de Revisar en
+// exercise-card.tsx (`FLASH_IN`/`FLASH_OUT`): así se lee como un pulso y no
+// como un cambio de estado que se queda.
+const PULSO_MS = 120
+const PULSO_IN = "40ms"
+const PULSO_OUT = "260ms"
+
+// Misma mecánica que `useMoment` en exercise-card.tsx: activo mientras el
+// último pulso no se haya "asentado". Al no depender de un booleano externo
+// que cambie, alcanza con que `seq` no sea el inicial (0 = todavía ningún
+// pulso) y no coincida con el último asentado — así una segunda pulsada de
+// la MISMA flecha reinicia la animación en vez de quedarse sin disparar,
+// que es lo que pasaría si el estado "activo" no cambiara de valor.
+function usePulsoActivo(seq: number, ms: number): boolean {
+  const [asentado, setAsentado] = useState(0)
+  const activo = seq !== 0 && asentado !== seq
+  useEffect(() => {
+    if (!activo) return
+    const t = setTimeout(() => setAsentado(seq), ms)
+    return () => clearTimeout(t)
+  }, [activo, seq, ms])
+  return activo
 }
 
 // El gráfico de cierre: f y f' en los mismos ejes. Lo manda siempre el
@@ -145,6 +193,29 @@ export function PorQuePanel({
   // termine —sostener la flecha del teclado dispara un `scroll()` por cada
   // repetición— y arrancar el próximo desde donde quedó, no desde cero.
   const scrollAnimRef = useRef<number | null>(null)
+  // Las flechas están a la vista o recién se escondieron. Arrancan visibles
+  // —es como se descubre que existen— y cada uso las vuelve a mostrar.
+  const [botonesVisibles, setBotonesVisibles] = useState(true)
+  const ocultarTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const marcarUso = useCallback(() => {
+    setBotonesVisibles(true)
+    if (ocultarTimerRef.current !== null) clearTimeout(ocultarTimerRef.current)
+    ocultarTimerRef.current = setTimeout(() => setBotonesVisibles(false), OCULTAR_BOTONES_MS)
+  }, [])
+  // Qué flecha pulsa —o "ambas", el pulso de bienvenida—. `seq` y no un
+  // booleano: dos usos seguidos de la MISMA flecha tienen que reiniciar el
+  // pulso, y un booleano que ya vale `true` no dispara una transición al
+  // volver a ponerlo en `true` (ver `usePulsoActivo`).
+  //
+  // Arranca en `seq: 1` (no 0) A PROPÓSITO: es el estado inicial y no el
+  // resultado de un efecto, así que las dos laten solas apenas el panel
+  // aparece —sin esperar ningún scroll— y sin que un `useEffect` tenga que
+  // llamar `setState` en su cuerpo para lograrlo.
+  const [pulso, setPulso] = useState<{ dir: "up" | "down" | "ambas"; seq: number }>({
+    dir: "ambas",
+    seq: 1,
+  })
+  const pulsando = usePulsoActivo(pulso.seq, PULSO_MS)
   const scroll = useCallback((delta: number) => {
     const el = scrollRef.current
     if (!el) return
@@ -157,13 +228,27 @@ export function PorQuePanel({
       scrollAnimRef.current = t < 1 ? requestAnimationFrame(tick) : null
     }
     scrollAnimRef.current = requestAnimationFrame(tick)
-  }, [])
+    setPulso((p) => ({ dir: delta < 0 ? "up" : "down", seq: p.seq + 1 }))
+    marcarUso()
+  }, [marcarUso])
 
   useEffect(() => {
     return () => {
       if (scrollAnimRef.current !== null) cancelAnimationFrame(scrollAnimRef.current)
+      if (ocultarTimerRef.current !== null) clearTimeout(ocultarTimerRef.current)
     }
   }, [])
+
+  // Arrancan visibles —el `useState(true)` de arriba ya las deja así, sin
+  // necesidad de tocar el estado acá— y se esconden solas si nadie las usa:
+  // el mismo timer que dispara `marcarUso`, para que la primera aparición se
+  // comporte igual que cualquier otro uso.
+  useEffect(() => {
+    if (!scrollButtons) return
+    const t = setTimeout(() => setBotonesVisibles(false), OCULTAR_BOTONES_MS)
+    ocultarTimerRef.current = t
+    return () => clearTimeout(t)
+  }, [scrollButtons])
 
   useEffect(() => {
     if (!scrollButtons) return
@@ -187,8 +272,8 @@ export function PorQuePanel({
   }, [scrollButtons, scroll])
 
   return (
-    // `relative` para anclar el par de flechas al pie del contenedor, sin que
-    // se vayan con el scroll del contenido.
+    // `relative` para anclar el par de flechas arriba a la derecha del
+    // contenedor, sin que se vayan con el scroll del contenido.
     <div className={cn("relative flex min-h-0 flex-1 flex-col", className)}>
       {/* `no-scrollbar` y no una barra visible: es el mismo criterio que la tabla
           de derivadas, que vive en el otro dorso y se lee igual.
@@ -209,10 +294,18 @@ export function PorQuePanel({
         <div
           className={cn(
             "m-auto flex w-full shrink-0 flex-col gap-3 leading-relaxed",
-            !bare && "rounded-md border border-white/10 p-4",
-            // Lugar para que las flechas floten en la esquina sin taparle la
-            // última línea al texto que pasa por detrás mientras se scrollea.
-            scrollButtons && "pr-8",
+            bare
+              // En escritorio esto flota suelto dentro del dorso de la card
+              // (que ya trae su propio `p-5`): un poco más de aire a los
+              // costados —encima del que ya pone el dorso— y la fuente un
+              // toque más grande, que acá se lee un párrafo entero seguido y
+              // no una fórmula corta.
+              ? "px-3 text-[17px]"
+              // Sin contorno: el teléfono no tiene otra caja alrededor —es su
+              // propia pantalla, no el dorso de nada— pero un borde ahí no
+              // enmarcaba nada, solo repetía el límite que ya pone la
+              // pantalla. Se queda el padding, que sigue haciendo falta.
+              : "p-4",
           )}
         >
           {isError ? (
@@ -232,13 +325,45 @@ export function PorQuePanel({
                 scrollear por su cuenta. */}
             <MathText text={explanation} />
             {graph && (
-              <div className="flex flex-col gap-1.5">
-                <MathGraph
-                  graphFn={graph.fn}
-                  graphFn2={graph.fn2}
-                  graphView={graph.view}
-                  graphFreeAspect
-                />
+              // `mt-2` de más, encima del `gap-3` que ya pone el contenedor:
+              // el parrafito del gráfico abre una idea nueva —ya no es la
+              // derivación de arriba— y el gap de siempre entre párrafos se
+              // leía como una continuación más de la misma explicación.
+              <div className="mt-2 flex flex-col gap-1.5">
+                {/* GRAPH_INTRO + GRAPH_POINTS van ACÁ, antes del gráfico:
+                    invitan a mirarlo ("en el siguiente gráfico...") en vez
+                    de resumir algo que ya se vio. Mismo `MathText` (mismo
+                    tamaño, color e interlineado) que el resto de la
+                    explicación de arriba, uno por renglón de la lista.
+
+                    `gap-2`/`space-y-2` propios y no el `gap-1.5` del
+                    contenedor: son CUATRO afirmaciones distintas —la entrada
+                    y los tres casos— y con el gap chico de siempre se leían
+                    pegadas, como si fueran un solo bloque en vez de cuatro
+                    ideas separadas. */}
+                <div className="flex flex-col gap-2">
+                  <MathText text={GRAPH_INTRO} />
+                  <ul className="list-disc space-y-2 pl-5">
+                    {GRAPH_POINTS.map((punto) => (
+                      <li key={punto}>
+                        <MathText text={punto} />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                {/* `mt-4` propio: ninguno de los dos componentes toma
+                    className, así que el aire entre los bullets y el
+                    gráfico se agrega acá y no en el `gap-1.5` del
+                    contenedor —que también separa el gráfico de la
+                    leyenda de abajo, y esa distancia no había que tocarla. */}
+                <div className="mt-4">
+                  <MathGraph
+                    graphFn={graph.fn}
+                    graphFn2={graph.fn2}
+                    graphView={graph.view}
+                    graphFreeAspect
+                  />
+                </div>
                 {/* Leyenda de colores: sin ella, dos curvas nuevas en un
                     componente pensado para una sola no dicen cuál es cuál.
                     La fórmula real y no un genérico "f(x)"/"f'(x)": con dos
@@ -262,11 +387,6 @@ export function PorQuePanel({
                     <MathText text={`$${graph.fn2Latex}$`} />
                   </span>
                 </div>
-                {/* El parrafito de arriba (GRAPH_CAPTION): la leyenda dice cuál
-                    curva es cuál, esto dice qué relación mirar entre las dos. */}
-                <p className="text-center text-xs italic leading-relaxed text-muted-foreground">
-                  {GRAPH_CAPTION}
-                </p>
               </div>
             )}
           </>
@@ -274,24 +394,54 @@ export function PorQuePanel({
         </div>
       </div>
       {scrollButtons && (
-        <div className="absolute bottom-2 right-2 flex flex-col gap-1">
+        <div
+          className={cn(
+            "absolute right-2 top-2 flex flex-col gap-1 transition-opacity duration-300",
+            botonesVisibles ? "opacity-100" : "pointer-events-none opacity-0",
+          )}
+        >
           <button
             type="button"
             onClick={() => scroll(-SCROLL_STEP_PX)}
             aria-label="Subir"
-            className="flex items-center rounded border border-white/10 bg-background/80 p-1 text-muted-foreground transition-colors hover:text-foreground"
+            className="relative flex items-center overflow-hidden rounded border border-white/10 bg-background/80 p-1.5 text-muted-foreground transition-colors hover:text-foreground"
           >
-            <ChevronUp size={14} />
-            <KeyCap className="ml-1">w</KeyCap>
+            {/* El pulso blanco: mismo mecanismo que `flashing` en
+                exercise-card.tsx, con `z-10` en el ícono y la tecla para que
+                el pulso quede DETRÁS de lo que hay que seguir leyendo.
+                "ambas" es el pulso de bienvenida: las dos flechas laten
+                juntas apenas aparece la explicación. */}
+            <span
+              aria-hidden
+              className="absolute inset-0 bg-white"
+              style={{
+                opacity: pulsando && (pulso.dir === "up" || pulso.dir === "ambas") ? 0.7 : 0,
+                transitionProperty: "opacity",
+                transitionDuration:
+                  pulsando && (pulso.dir === "up" || pulso.dir === "ambas") ? PULSO_IN : PULSO_OUT,
+              }}
+            />
+            <ChevronUp size={18} className="relative z-10" />
+            <KeyCap className="relative z-10 ml-1">w</KeyCap>
           </button>
           <button
             type="button"
             onClick={() => scroll(SCROLL_STEP_PX)}
             aria-label="Bajar"
-            className="flex items-center rounded border border-white/10 bg-background/80 p-1 text-muted-foreground transition-colors hover:text-foreground"
+            className="relative flex items-center overflow-hidden rounded border border-white/10 bg-background/80 p-1.5 text-muted-foreground transition-colors hover:text-foreground"
           >
-            <ChevronDown size={14} />
-            <KeyCap className="ml-1">s</KeyCap>
+            <span
+              aria-hidden
+              className="absolute inset-0 bg-white"
+              style={{
+                opacity: pulsando && (pulso.dir === "down" || pulso.dir === "ambas") ? 0.7 : 0,
+                transitionProperty: "opacity",
+                transitionDuration:
+                  pulsando && (pulso.dir === "down" || pulso.dir === "ambas") ? PULSO_IN : PULSO_OUT,
+              }}
+            />
+            <ChevronDown size={18} className="relative z-10" />
+            <KeyCap className="relative z-10 ml-1">s</KeyCap>
           </button>
         </div>
       )}
@@ -314,11 +464,18 @@ export function PorQueButton({
   // "Volver" y el relleno pasa de la mezcla translúcida a un color sólido,
   // para que quede claro que tocarlo de nuevo saca de ahí y no abre otra cosa.
   open = false,
-  // Ya se equivocó una vez: el "Volver" se pinta del mismo naranja que marca
-  // una respuesta incorrecta en el resto del juego (`WRONG`, exercise-card.tsx),
-  // así que el botón que lleva a la explicación queda visualmente atado al
-  // error que la motivó.
+  // Ya se equivocó una vez: el botón se pinta del mismo lima amarillento que
+  // marca una respuesta incorrecta en el resto del juego (`WRONG`,
+  // exercise-card.tsx) — diga "¿Por qué?" o "Volver", abierto o cerrado—, así
+  // que la explicación queda visualmente atada al error que la motivó desde
+  // que aparece, no recién al abrirla.
   wrong = false,
+  // Solo lo pide AnswerField (exercise-card.tsx), para el botón que
+  // reemplaza al campo entero al acertar: ahí es blanco con letra negra,
+  // igual que Continuar —sin veredicto en el color, a propósito: es el lugar
+  // que ocupaba el campo, con su propio borde de color, y ya alcanza—, no el
+  // relleno sólido de gris/lima que usa este botón en el pie.
+  blanco = false,
   className,
 }: {
   onClick: () => void
@@ -328,6 +485,7 @@ export function PorQueButton({
   showKeyHint?: boolean
   open?: boolean
   wrong?: boolean
+  blanco?: boolean
   className?: string
 }) {
   return (
@@ -336,7 +494,19 @@ export function PorQueButton({
       variant="outline"
       disabled={disabled}
       onClick={onClick}
-      style={open ? { backgroundColor: wrong ? WRONG : GRIS_VOLVER, color: "#000" } : undefined}
+      style={
+        blanco
+          ? { backgroundColor: "#fff", color: "#000" }
+          : // `wrong` manda sobre `open`: el lima marca el error, no el estado
+            // del panel. El texto pasa a NEGRO con el lima —más claro que el
+            // violeta que tenía antes, blanco encima ya no se leía bien—; el
+            // gris sólido de "Volver" ya se quedaba con negro por lo mismo.
+            wrong
+            ? { backgroundColor: WRONG, color: "#000" }
+            : open
+              ? { backgroundColor: GRIS_VOLVER, color: "#000" }
+              : undefined
+      }
       className={cn(
         // Gris, pero gris LLENO, que es distinto de gris apagado.
         //
@@ -349,12 +519,19 @@ export function PorQueButton({
         //
         // La salida es cambiar de FAMILIA en vez de bajar el volumen: Revisar es
         // blanco lleno, Saltear es contorno sobre el fondo, y este es un relleno
-        // gris. Tres formas distintas, tres pesos distintos, y el del medio se
-        // ve sin competirle al blanco.
-        "h-[var(--cta-h)] shrink-0 rounded-md border-transparent font-normal transition-colors",
-        !open &&
+        // gris (o lima, si hay un error). Tres formas distintas, tres pesos
+        // distintos, y el del medio se ve sin competirle al blanco.
+        //
+        // `font-bold` y no el `font-normal` de antes: la misma negrita que ya
+        // tiene Revisar/Continuar (`AnswerButton`, que hereda `font-bold` del
+        // variant `default` del Button base). Los dos botones que pueden
+        // quedar pintados de un color de veredicto tienen el mismo peso.
+        "h-[var(--cta-h)] shrink-0 rounded-md border-transparent font-bold transition-colors",
+        !wrong &&
+          !open &&
+          !blanco &&
           "bg-foreground/[0.14] px-5 text-foreground hover:bg-foreground/25 dark:bg-foreground/[0.14] dark:hover:bg-foreground/25",
-        open && "px-5 hover:opacity-90",
+        (wrong || open || blanco) && "px-5 hover:opacity-90",
         className,
       )}
     >
