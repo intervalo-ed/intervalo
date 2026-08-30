@@ -22,8 +22,9 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import { AnimatePresence, motion } from "motion/react"
 import posthog from "posthog-js"
 import { useQueryClient } from "@tanstack/react-query"
-import { Settings } from "lucide-react"
+import { Settings, Table2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { XpDots } from "@/components/xp-dots"
 import { cn } from "@/lib/utils"
 import { ApiError } from "@/lib/api/client"
 import { useSfx } from "@/lib/audio/useSfx"
@@ -43,6 +44,8 @@ import {
   ExerciseCard,
   PANEL_CONTENT,
   SkipButton,
+  VERDE_ACIERTO,
+  WRONG,
   answerTone,
   type AnswerTone,
 } from "./exercise-card"
@@ -716,6 +719,35 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
   // toque y su llegada.
   const tone = answerTone(lastAnswer) ?? tonoLocal
 
+  // El banner ¿Seguro? se retira solo: a los 5 s, o con el primer toque en
+  // cualquier lugar de la pantalla —no solo tecleando de nuevo en el campo,
+  // que ya lo borraba antes (ver el `onChange` de `MathInput`, más abajo)—.
+  // Quedarse ahí molestando mientras la persona ya siguió mirando el teclado
+  // o el enunciado no suma nada.
+  //
+  // `!closed` es el mismo guardia que ya usaba el `onChange`: con el
+  // ejercicio cerrado, "wrong" significa que se acabaron los intentos, y ESE
+  // cartel se queda hasta que la persona toque Continuar — no es el mismo
+  // momento que este efecto tiene que cortar solo.
+  useEffect(() => {
+    if (closed || tone !== "wrong") return
+    const limpiar = () => {
+      setLastAnswer(null)
+      setTonoLocal(null)
+    }
+    const t = setTimeout(limpiar, 5000)
+    // EN CAPTURA: si no, cualquier otro click de la pantalla que llegue a
+    // pararse antes de burbujear hasta acá —un popover cerrándose, una fila
+    // del teclado con su propio manejo— se comía el toque y el banner se
+    // quedaba pegado. En captura este listener corre PRIMERO, antes que
+    // cualquiera de esos.
+    document.addEventListener("click", limpiar, true)
+    return () => {
+      clearTimeout(t)
+      document.removeEventListener("click", limpiar, true)
+    }
+  }, [closed, tone])
+
   // El botón del ¿Por qué? existe cuando ya hay algo para explicar: se acertó, o
   // se erró al menos una vez. Nunca antes del primer intento — ahí sería regalar
   // la respuesta, y el servidor lo rechaza igual (409 en POST /explain).
@@ -971,6 +1003,9 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                     <AnswerField
                       tone={tone}
                       seq={answerSeq}
+                      // Solo acá: en escritorio esta transición se dejó sin
+                      // anillo (ver exercise-card.tsx :: AnswerField).
+                      pulsoAnillo
                       // Resuelto el ejercicio, el campo entero se convierte en
                       // el botón del «¿Por qué?» — mismo mecanismo que en
                       // escritorio (ver desktop-layout.tsx), ahora también acá:
@@ -985,11 +1020,10 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                           <PorQueButton
                             onClick={abrirPorque}
                             className={`${CAMPO_MIN_H} h-auto w-full rounded-lg font-bold`}
-                            // Siempre, y no solo si `fallado`: mismo criterio
-                            // que en escritorio (ver desktop-layout.tsx) — acá
-                            // ya no avisa un error puntual, es LA invitación a
-                            // leer la explicación.
-                            wrong
+                            // Blanco con letra negra, igual que Continuar —es
+                            // el campo, no el pie— (ver `blanco` en
+                            // porque-panel.tsx).
+                            blanco
                           />
                         ) : undefined
                       }
@@ -1021,16 +1055,105 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                 />
               </div>
               </SlideHorizontal>
+              {/* El banner que asoma detrás de los botones: mismo mecanismo
+                  que ¡Correcto!/¿Seguro? de las sesiones (session-runner.tsx)
+                  —fijo a todo el viewport, entra deslizándose desde abajo,
+                  `pointer-events-none` para no robarle el toque a los botones
+                  de encima—, con los colores del juego: verde de acertar
+                  (VERDE_ACIERTO, el mismo que ya usa session-runner) y el
+                  lima amarillento de errar (WRONG) en vez del naranja de las
+                  sesiones —acá el naranja ya se le cedió al ¿Por qué? de
+                  escritorio, y errar en el juego es este lima en todos lados
+                  menos acá sería la excepción—. Solo en el teléfono: en
+                  escritorio esta transición se queda con Cara + el anillo,
+                  sin banner. */}
+              <AnimatePresence mode="sync" initial={false}>
+                {tone === "correct" && (
+                  <motion.div
+                    key="banner-correcto"
+                    initial={{ y: "100%" }}
+                    animate={{ y: 0 }}
+                    exit={{ y: "100%" }}
+                    transition={{ duration: 0.25, ease: "easeOut" }}
+                    className="pointer-events-none fixed inset-x-0 bottom-0 z-0"
+                  >
+                    <div
+                      className="border-t border-green-500/50 px-5 pt-6 pb-[calc(var(--cta-pt)_+_var(--cta-h)_+_var(--cta-pb))]"
+                      // Sólido y no traslúcido: un verde/lima lleno sobre el
+                      // fondo del juego se veía como un cartel pegado encima;
+                      // mezclado con el propio fondo (`--background`) en vez
+                      // de con transparencia, es una variante MÁS OSCURA del
+                      // mismo color, y se lee como parte de la pantalla y no
+                      // como una capa flotando arriba. El segundo `color-mix`
+                      // (88% de este color, 12% transparente) es apenas un
+                      // dejo de traslúcido encima de eso — no vuelve a la
+                      // versión de antes.
+                      style={{
+                        backgroundColor: `color-mix(in srgb, color-mix(in oklab, var(--background) 85%, ${VERDE_ACIERTO} 15%) 88%, transparent)`,
+                      }}
+                    >
+                      <div className="mx-auto w-full max-w-md text-[15px]">
+                        <span className="font-semibold text-green-400">¡Correcto!</span>
+                        {/* Mismo formato que session-runner.tsx: pegado al
+                            "¡Correcto!" y no al final del cartel, porque es
+                            la misma frase completándose ("acertaste, y esto
+                            ganaste"), no un dato aparte. Sin `lastAnswer`
+                            todavía —el tono puede venir del veredicto local,
+                            antes de que conteste el servidor— no se muestra
+                            nada en vez de un número inventado. */}
+                        {lastAnswer?.xp_awarded ? (
+                          <span className="ml-1.5 inline-flex items-center gap-0.5 font-semibold text-green-400">
+                            +{lastAnswer.xp_awarded}
+                            <XpDots className="-ml-px size-[0.95em]" />
+                          </span>
+                        ) : null}
+                        <div className="mt-3 text-foreground/85">
+                          Podés continuar o revisar la explicación con el botón de «¿Por qué?».
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+                {tone === "wrong" && (
+                  <motion.div
+                    key="banner-seguro"
+                    initial={{ y: "100%" }}
+                    animate={{ y: 0 }}
+                    exit={{ y: "100%" }}
+                    transition={{ duration: 0.25, ease: "easeOut" }}
+                    className="pointer-events-none fixed inset-x-0 bottom-0 z-0"
+                  >
+                    <div
+                      className="border-t px-5 pt-6 pb-[calc(var(--cta-pt)_+_var(--cta-h)_+_var(--cta-pb))]"
+                      style={{
+                        borderColor: `${WRONG}80`,
+                        backgroundColor: `color-mix(in srgb, color-mix(in oklab, var(--background) 75%, ${WRONG} 25%) 88%, transparent)`,
+                      }}
+                    >
+                      <div className="mx-auto w-full max-w-md text-[15px]">
+                        <span className="font-semibold text-white">¿Seguro?</span>
+                        <div className="mt-3 text-foreground/85">
+                          Podés ayudarte con la tabla{" "}
+                          <Table2 className="-mt-0.5 inline-block size-[0.9em]" /> o revisar la
+                          explicación con el botón de «¿Por qué?».
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
               {/* Los botones quedan FUERA del deslizamiento: no son parte del
-                  ejercicio, y moverlos dejaría un instante sin dónde tocar. */}
-              <div className="flex items-stretch gap-2">
+                  ejercicio, y moverlos dejaría un instante sin dónde tocar.
+                  `relative z-10` para quedar ARRIBA del banner de acá encima,
+                  que es fijo a toda la pantalla y si no los taparía. */}
+              <div className="relative z-10 flex items-stretch gap-2">
                 {/* Acertada, la pregunta ya se mudó adentro del campo (ver el
                     `hint` de AnswerField, arriba) y el pie queda para el solo
                     Continuar. Esto es para el otro cierre posible: se agotaron
                     los intentos sin acertar, así que no hay campo-botón que la
                     reemplace y el ¿Por qué? tiene que seguir apareciendo acá. */}
                 {closed && hayPorque && solvedLatex === null && (
-                  <PorQueButton onClick={abrirPorque} wrong />
+                  <PorQueButton onClick={abrirPorque} blanco />
                 )}
                 <AnswerButton
                   className="flex-1"
@@ -1050,7 +1173,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                     menos aire lateral: el que tiene que entrar entero sí o sí es
                     Revisar. */}
                 {!closed && hayPorque && (
-                  <PorQueButton onClick={abrirPorque} className="min-w-0 px-3" wrong={fallado} />
+                  <PorQueButton onClick={abrirPorque} className="min-w-0 px-3" blanco />
                 )}
                 {!closed && (
                   <SkipButton
@@ -1096,7 +1219,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                 {/* `solvedLatex` y no `pendingRef`: dicen lo mismo —hay una
                     correcta esperando el pase al ranking— pero un ref no se
                     puede leer durante el render, y este rótulo es render. */}
-                {solvedLatex !== null ? "Continuar" : "Volver al ejercicio"}
+                {solvedLatex !== null ? "Continuar" : "Volver"}
               </Button>
             </div>
           )}

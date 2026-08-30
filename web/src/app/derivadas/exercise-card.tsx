@@ -16,6 +16,8 @@ import MathText from "@/components/math-text"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { fmtMultiplier } from "./cafecito-cta"
+import { Cara } from "./flip-face"
+import { FUNDIDO } from "./slide-flip"
 import { useTeclas } from "./teclas"
 import type { GameAnswer } from "./UseGameExercise"
 
@@ -36,24 +38,28 @@ const LEIBNIZ = (latex: string) => `$$\\frac{d}{dx}\\left[\\,${latex}\\,\\right]
 // necesita todo el ancho de la card antes de ponerse a scrollear.
 export const PANEL_CONTENT = "mx-auto w-full max-w-[32rem]"
 
-// Los mismos hex que usa el session-runner para las opciones: naranja al errar,
-// verde al acertar. Que el juego y las sesiones hablen distinto sería gratis y
-// no aportaría nada.
+// El verde sigue siendo el mismo hex que usa el session-runner para acertar:
+// que el juego y las sesiones festejen distinto sería gratis y no aportaría
+// nada. El naranja de errar, en cambio, es a propósito SOLO de acá adentro
+// —un lima amarillento y no el naranja de siempre—, elegido entre variantes
+// que se probaron una al lado de la otra (antes fue violeta; se cambió por
+// esto). Las sesiones, el onboarding y la tabla del banco (`session-runner.tsx`,
+// `onboarding-wizard.tsx`, `exercise-table.tsx`) se quedaron con el naranja
+// original; no es un descuido, es que el juego pidió separarse.
 //
 // El verde se exporta porque no es solo el destello de la respuesta: es EL color
 // de haber acertado, y con él se prende también la XP mientras se llena (ver
 // xp-conteo.ts). Un solo verde para las dos mitades del mismo festejo.
-export const WRONG = "#E3690B"
+export const WRONG = "#65A30D"
 export const VERDE_ACIERTO = "#22C55E"
 
+// El pulso del ¿Por qué? no vive acá: es blanco y arranca lleno en vez de
+// crecer desde cero (ver el `pulso === "hint"` de AnswerField), porque hace
+// otro trabajo — tapar el instante del cambio, no avisar "hay algo más para
+// mirar" con un color.
 const TONE_PULSE = {
   correct: "rgba(34, 197, 94, 0.26)",
-  wrong: "rgba(227, 105, 11, 0.28)",
-  // El pulso con el que entra la pista del «¿Por qué?». Blanco con un poco de
-  // verde: el verde a secas ya lo dijo la respuesta al llegar, y repetirlo sería
-  // decir «acertaste» dos veces. Esto dice otra cosa —hay algo más para mirar—
-  // así que se parece al verde sin serlo.
-  hint: "rgba(214, 250, 228, 0.30)",
+  wrong: "rgba(101, 163, 13, 0.28)",
 } as const
 
 export type AnswerTone = "correct" | "wrong" | null
@@ -71,11 +77,13 @@ const SHAKE_S = 0.4
 const PULSE_S = 0.45
 
 // Cuánto dura el destello del botón, y con qué velocidad entra y sale el color.
-// La ida es un golpe y la vuelta es lenta: eso es lo que lo hace leer como un
-// pulso y no como un cambio de estado.
+// La ida sigue siendo un golpe y la vuelta sigue siendo más lenta que la ida
+// —eso es lo que lo hace leer como un pulso y no como un cambio de estado—,
+// pero las dos se estiraron (90→150 la entrada, 420→600 la salida) para que el
+// color no aparezca de un salto: mismo festejo, con menos filo.
 const FLASH_MS = 480
-const FLASH_IN = "90ms"
-const FLASH_OUT = "420ms"
+const FLASH_IN = "150ms"
+const FLASH_OUT = "600ms"
 
 // Un momento que dura `ms` y que tiene que volver a correr en cada respuesta,
 // incluso si la anterior fue del mismo tipo: si el valor animado se quedara
@@ -394,12 +402,12 @@ function Counters({
 // sobrante de la columna tiene que ir a parar.
 const PROMPT_H = "min-h-20 flex-1 md:min-h-24"
 
-// El alto del campo de respuesta. Lo comparten CUATRO cosas que ocupan
+// El alto del campo de respuesta. Lo comparten TRES cosas que ocupan
 // exactamente el mismo lugar y que se reemplazan entre sí sin que nada se mueva:
 // el campo (math-input.tsx), el botón del «¿Por qué?» que lo reemplaza al
-// acertar en escritorio (desktop-layout.tsx), la pista que lo reemplaza en el
-// teléfono (SolvedHint, acá abajo) y el esqueleto mientras carga la primera
-// derivada. Estaba escrito cuatro veces; ahora está una.
+// acertar —en las dos plataformas, mobile-flow.tsx y desktop-layout.tsx— y el
+// esqueleto mientras carga la primera derivada. Estaba escrito cuatro veces;
+// ahora está una.
 //
 // Esta clase sostiene el HUECO, no dibuja la caja: la caja es el mathfield, y su
 // alto sale de su padding y de CONTENIDO_MIN_EM (los dos en math-input.tsx). Este
@@ -591,20 +599,29 @@ function PromptBox({
   // derivada casi nunca ocupa lo mismo que el enunciado.
   const mostrado = resuelto ? (solvedLatex as string) : promptLatex
   const attach = useAjusteDelEnunciado(mostrado, boxRef)
+  const reduceMotion = useReducedMotion()
 
   if (resuelto) {
+    const contenido = <MathText text={`$$f'(x) = ${solvedLatex}$$`} />
+    if (gone || reduceMotion) {
+      return (
+        <div ref={attach} className={cn(PROMPT_BOX, PROMPT_H)}>
+          {contenido}
+        </div>
+      )
+    }
     return (
-      // La caja de pedir la derivada pasa a ser la caja donde está la derivada.
-      // No es un cartel nuevo: es el MISMO recuadro, con el problema cambiado
-      // por su resultado, y sin transición ninguna. Que sea el mismo lugar es lo
-      // que lo hace leerse como una respuesta y no como un aviso.
-      //
-      // Lo que se escribe es lo que la persona escribió, no la forma canónica
-      // del servidor: la card está diciendo «esto que pusiste estuvo bien», y
-      // reescribírselo ordenado sería contestarle otra cosa.
-      <div ref={attach} className={cn(PROMPT_BOX, PROMPT_H)}>
-        <MathText text={`$$f'(x) = ${solvedLatex}$$`} />
-      </div>
+      <motion.div
+        ref={attach}
+        className={cn(PROMPT_BOX, PROMPT_H)}
+        initial={{ opacity: 0 }}
+        animate={{
+          opacity: 1,
+          transition: { duration: FUNDIDO.entrada.duracion, ease: FUNDIDO.entrada.ease },
+        }}
+      >
+        {contenido}
+      </motion.div>
     )
   }
 
@@ -737,13 +754,20 @@ export function AnswerField({
   tone,
   seq,
   hint,
+  // Solo lo pide mobile-flow.tsx: un anillo que crece y se apaga una vez
+  // alrededor del botón del «¿Por qué?» recién aparecido. Se suma al
+  // fundido + escala de Cara, no lo reemplaza — y queda opt-in porque en
+  // escritorio esta transición no se tocó.
+  pulsoAnillo = false,
   children,
 }: {
   tone: AnswerTone
   seq: number
   // Cuando llega, ocupa el lugar del campo: la respuesta ya está dada y lo que
-  // se escribió pasó arriba, a la caja del enunciado. Ver `SolvedHint`.
+  // se escribió pasó arriba, a la caja del enunciado. Quien lo arma es el
+  // botón del «¿Por qué?», en mobile-flow.tsx y desktop-layout.tsx.
   hint?: React.ReactNode
+  pulsoAnillo?: boolean
   children?: React.ReactNode
 }) {
   const reduceMotion = useReducedMotion()
@@ -753,14 +777,71 @@ export function AnswerField({
   // verde de la respuesta lo convertiría en un solo destello confuso.
   const pulso = hint ? "hint" : tone
 
+  // El botón del ¿Por qué? no existe hasta que se acierta — antes de eso no
+  // hay nada que ponerle a la cara de atrás. Una vez que llega se lo sigue
+  // recordando aunque `hint` vuelva a `undefined` en la derivada siguiente: es
+  // lo que le permite a esta caja usar el mismo mecanismo que FlipCard
+  // (derivatives-table.tsx, con Cara en flip-face.tsx) — la cara de adelante
+  // (el campo) sigue existiendo siempre y es la que le da el alto a la caja;
+  // la de atrás (este botón) se le superpone sin moverla. Con un cruce de
+  // `AnimatePresence` que monta y desmonta, en cambio, la caja saltaba: las
+  // dos cosas no miden EXACTO lo mismo, y animar esa diferencia se nota.
+  const [ultimoHint, setUltimoHint] = useState<React.ReactNode>(null)
+  if (hint && hint !== ultimoHint) setUltimoHint(hint)
+
   return (
     <motion.div
       className="relative"
       animate={shaking ? { x: SHAKE } : { x: 0 }}
       transition={shaking ? { duration: SHAKE_S, ease: "easeInOut" } : { duration: 0 }}
     >
-      {hint ?? children}
-      {pulso && !reduceMotion && (
+      <Cara visible={!hint} scale className="flex w-full flex-col">
+        {children}
+      </Cara>
+      {/* SIEMPRE montada, nunca `{ultimoHint !== null && <Cara .../>}`: ver el
+          comentario de `initial={false}` en Cara (flip-face.tsx). Montarla
+          recién cuando ya hay algo para mostrar hace que React 18 la trate
+          como si siempre hubiera estado así, y no anima nunca —en el teléfono
+          eso era SIEMPRE, porque ahí cada derivada remonta el ejercicio
+          entero—. Acá arranca con `ultimoHint` en `null` (no se ve nada
+          igual, porque además `visible` es `false`) y cuando llega el primer
+          botón, lo que cambia es una prop de una cara que ya estaba, que sí
+          anima. */}
+      <Cara visible={!!hint} scale className="absolute inset-0 flex flex-col">
+        {ultimoHint}
+      </Cara>
+      {/* El anillo del ¿Por qué?, solo si lo pidieron (mobile). Independiente
+          del fundido + escala de Cara: uno hace que el botón aparezca, este
+          le agrega un aro que crece y se apaga UNA vez alrededor, ya
+          aparecido. La key lleva `seq` para que sea justo una vez por
+          respuesta y no se reinicie en cada re-render mientras el botón
+          sigue en pantalla. */}
+      {/* SIEMPRE montado si `pulsoAnillo` está pedido —nunca condicionado a
+          `pulso === "hint"`— por la misma razón que las dos Cara de arriba:
+          agregarlo al árbol justo cuando ya debería pulsar hace que React lo
+          trate como si siempre hubiera estado así, y no anima nunca (ver el
+          comentario de `initial={false}` en Cara, flip-face.tsx). Acá lo que
+          dispara el pulso es que `animate` reciba un ARRAY nuevo —`[1, 0]` en
+          vez de `0`— cuando `pulso` pasa a "hint": eso SÍ es una animación
+          disparada por cambio de prop en una instancia que ya existía, no un
+          montaje, así que anima bien. */}
+      {pulsoAnillo && !reduceMotion && (
+        <motion.span
+          aria-hidden
+          className="pointer-events-none absolute inset-0 rounded-lg border-2 border-white"
+          initial={false}
+          animate={
+            pulso === "hint" ? { opacity: [1, 0], scale: [1, 1.08] } : { opacity: 0, scale: 1 }
+          }
+          transition={{ duration: 0.55, ease: "easeOut" }}
+        />
+      )}
+      {/* El pulso de acertar/errar. `pulso` cae a "hint" en vez de al tono
+          —y no a `null`— mientras el botón está puesto, para evitar que ACÁ
+          ABAJO se dispare el verde de acertar a la vez que el anillo de
+          arriba: los dos juntos, justo cuando aparece el botón, se leían
+          como un destello confuso. */}
+      {pulso && pulso !== "hint" && !reduceMotion && (
         <motion.span
           // La key incluye el pulso: al entrar la pista, el pulso verde de la
           // respuesta y el suyo son dos animaciones distintas sobre el mismo
@@ -776,38 +857,6 @@ export function AnswerField({
         />
       )}
     </motion.div>
-  )
-}
-
-// Lo que queda donde estaba el campo cuando la derivada ya salió bien.
-//
-// El campo se va porque lo que se escribió no desapareció: subió a la caja del
-// enunciado, que ahora muestra la derivada en vez de pedirla. Dejar las dos
-// cosas sería mostrar la misma respuesta dos veces, una arriba de la otra.
-//
-// En su lugar queda una sola línea que señala lo único que todavía se puede
-// hacer con este ejercicio. La caja imita al campo —mismo alto mínimo, mismo
-// redondeo— para que el reemplazo no mueva nada de lugar; el borde va verde
-// porque es el que tenía el campo al acertar.
-//
-// Es SOLO del teléfono. En escritorio este mismo hueco lo ocupa el botón del
-// «¿Por qué?» estirado a la caja entera (ver desktop-layout.tsx): ahí la pista y
-// la puerta son la misma cosa y no hace falta una línea que nombre un botón que
-// está al lado. En el teléfono el botón vive en el pie —el renglón de 375 px no
-// da para el texto y el botón juntos— así que acá sí hay que nombrarlo.
-export function SolvedHint() {
-  return (
-    <div
-      className={cn(
-        CAMPO_MIN_H,
-        "flex items-center rounded-lg border px-4 text-sm text-muted-foreground",
-      )}
-      style={{ borderColor: VERDE_ACIERTO }}
-    >
-      <span>
-        ¿De dónde sale? Mirá el <span className="text-foreground">¿Por qué?</span>
-      </span>
-    </div>
   )
 }
 
@@ -892,7 +941,11 @@ export function AnswerButton({
   const shaking = useMoment(tone === "wrong", seq, SHAKE_S * 1000 + 60) && !reduceMotion
   const flashing = useMoment(tone !== null, seq, FLASH_MS)
 
-  const bg = flashing && tone ? (tone === "correct" ? VERDE_ACIERTO : WRONG) : "#FFFFFF"
+  // Solo el verde destella acá. El lima de errar (WRONG) quedó exclusivo del
+  // botón del «¿Por qué?» (porque-panel.tsx) — con los dos marcando el mismo
+  // error a la vez quedaba redundante, y Revisar ya tiene su propio aviso de
+  // "mal" con la sacudida (`shaking`) más abajo.
+  const bg = flashing && tone === "correct" ? VERDE_ACIERTO : "#FFFFFF"
 
   return (
     <motion.div

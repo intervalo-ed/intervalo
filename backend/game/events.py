@@ -56,7 +56,7 @@ PRUNE_DAYS = 7
 EMOJI = {
     "boost": "☕",
     "signup": "🎓",
-    "referral": "🤝",
+    "referral": "🪖",
     "climb": "🚀",
     "streak": "🔥",
     "lead": "👑",

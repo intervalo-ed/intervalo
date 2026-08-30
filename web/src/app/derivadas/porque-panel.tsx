@@ -464,12 +464,18 @@ export function PorQueButton({
   // "Volver" y el relleno pasa de la mezcla translúcida a un color sólido,
   // para que quede claro que tocarlo de nuevo saca de ahí y no abre otra cosa.
   open = false,
-  // Ya se equivocó una vez: el botón se pinta del mismo violeta que marca una
-  // respuesta incorrecta en el resto del juego (`WRONG`, exercise-card.tsx) —
-  // diga "¿Por qué?" o "Volver", abierto o cerrado—, así que la explicación
-  // queda visualmente atada al error que la motivó desde que aparece, no
-  // recién al abrirla.
+  // Ya se equivocó una vez: el botón se pinta del mismo lima amarillento que
+  // marca una respuesta incorrecta en el resto del juego (`WRONG`,
+  // exercise-card.tsx) — diga "¿Por qué?" o "Volver", abierto o cerrado—, así
+  // que la explicación queda visualmente atada al error que la motivó desde
+  // que aparece, no recién al abrirla.
   wrong = false,
+  // Solo lo pide AnswerField (exercise-card.tsx), para el botón que
+  // reemplaza al campo entero al acertar: ahí es blanco con letra negra,
+  // igual que Continuar —sin veredicto en el color, a propósito: es el lugar
+  // que ocupaba el campo, con su propio borde de color, y ya alcanza—, no el
+  // relleno sólido de gris/lima que usa este botón en el pie.
+  blanco = false,
   className,
 }: {
   onClick: () => void
@@ -479,6 +485,7 @@ export function PorQueButton({
   showKeyHint?: boolean
   open?: boolean
   wrong?: boolean
+  blanco?: boolean
   className?: string
 }) {
   return (
@@ -488,15 +495,17 @@ export function PorQueButton({
       disabled={disabled}
       onClick={onClick}
       style={
-        // `wrong` manda sobre `open`: el violeta marca el error, no el estado
-        // del panel. El texto pasa a blanco CON el violeta —el `WRONG` de
-        // exercise-card.tsx es oscuro, y negro encima costaba leerlo—; el gris
-        // sólido de "Volver" no tuvo esa queja y se queda con negro.
-        wrong
-          ? { backgroundColor: WRONG, color: "#fff" }
-          : open
-            ? { backgroundColor: GRIS_VOLVER, color: "#000" }
-            : undefined
+        blanco
+          ? { backgroundColor: "#fff", color: "#000" }
+          : // `wrong` manda sobre `open`: el lima marca el error, no el estado
+            // del panel. El texto pasa a NEGRO con el lima —más claro que el
+            // violeta que tenía antes, blanco encima ya no se leía bien—; el
+            // gris sólido de "Volver" ya se quedaba con negro por lo mismo.
+            wrong
+            ? { backgroundColor: WRONG, color: "#000" }
+            : open
+              ? { backgroundColor: GRIS_VOLVER, color: "#000" }
+              : undefined
       }
       className={cn(
         // Gris, pero gris LLENO, que es distinto de gris apagado.
@@ -510,7 +519,7 @@ export function PorQueButton({
         //
         // La salida es cambiar de FAMILIA en vez de bajar el volumen: Revisar es
         // blanco lleno, Saltear es contorno sobre el fondo, y este es un relleno
-        // gris (o violeta, si hay un error). Tres formas distintas, tres pesos
+        // gris (o lima, si hay un error). Tres formas distintas, tres pesos
         // distintos, y el del medio se ve sin competirle al blanco.
         //
         // `font-bold` y no el `font-normal` de antes: la misma negrita que ya
@@ -520,8 +529,9 @@ export function PorQueButton({
         "h-[var(--cta-h)] shrink-0 rounded-md border-transparent font-bold transition-colors",
         !wrong &&
           !open &&
+          !blanco &&
           "bg-foreground/[0.14] px-5 text-foreground hover:bg-foreground/25 dark:bg-foreground/[0.14] dark:hover:bg-foreground/25",
-        (wrong || open) && "px-5 hover:opacity-90",
+        (wrong || open || blanco) && "px-5 hover:opacity-90",
         className,
       )}
     >

@@ -2011,14 +2011,10 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                                       className={`${CAMPO_MIN_H} h-auto w-full rounded-lg`}
                                       onClick={porqueOpen ? cerrarPorque : abrirPorque}
                                       open={porqueOpen}
-                                      // Acá siempre, y no solo si `fallado`: una
-                                      // vez resuelto, este botón dejó de avisar
-                                      // un error puntual —eso ya lo hizo el de
-                                      // abajo, mientras el ejercicio seguía
-                                      // abierto— y pasó a ser LA invitación a
-                                      // leer la explicación. Que se vea siempre
-                                      // igual es lo que la hace reconocible.
-                                      wrong
+                                      // Blanco con letra negra, igual que
+                                      // Continuar —es el campo, no el pie—
+                                      // (ver `blanco` en porque-panel.tsx).
+                                      blanco
                                     />
                                   ) : undefined
                                 }
@@ -2188,7 +2184,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                             onClick={porqueOpen ? cerrarPorque : abrirPorque}
                             disabled={answerMutation.isPending}
                             open={porqueOpen}
-                            wrong={fallado}
+                            blanco
                           />
                         )}
                         {!closed && (
