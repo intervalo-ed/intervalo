@@ -52,7 +52,22 @@ books/
 backend/.test-feedback/
 
 # Documentos internos de producto y reportes de difusión: quedan locales.
-# Los PDF además son artefactos regenerables (ver docs/reports/gen_report.py),
-# así que lo único que se versiona de esa carpeta es el formato y el generador.
+#
+# De docs/reports/ se versiona lo que sirve para la PRÓXIMA corrida —el formato,
+# el generador base, los prompts— y no lo que salió de una: el PDF, el documento
+# que lo acompaña, el generador con fecha que lo armó y el layout y los datos que
+# usó. Todo eso se rehace con la base delante; guardarlo solo deja copias que
+# envejecen.
+#
+# Los CSV no entran NUNCA. Los de cohorte llevan nombre y mail de cada
+# estudiante y este repo es público, así que la regla está acá para que un
+# `git add docs/reports` distraído no pueda publicarlos.
+#
+# Un reporte que sí se quiera versionar entra a mano con `git add -f` (así entró
+# docs/reports/2026-08-27-elo-derivadas.md).
 docs/mvp.md
 docs/reports/*.pdf
+docs/reports/*.csv
+docs/reports/????-??-??-*.md
+docs/reports/gen_report_*.py
+docs/reports/layout.py
