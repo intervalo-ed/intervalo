@@ -666,6 +666,20 @@ class GamePlayer(Base):
     # parte de lo prometido evaporada en el redondeo. Guardando el resto, lo que
     # sobra de una respuesta se cobra en la siguiente y la cuenta cierra exacta.
     referral_pending = Column(Integer, nullable=False, default=0, server_default="0")
+    # La XP EXTRA que le ganó a esta persona el empuje de su universidad: la
+    # diferencia entre lo que pagó cada respuesta con el multiplicador puesto y
+    # lo que habría pagado sin él.
+    #
+    # Se acumula al otorgar (game/router.py :: _otorgar_xp) y no se calcula al
+    # leer porque no hay de dónde reconstruirla: ni la XP de cada respuesta ni
+    # el multiplicador que corría en ese momento quedan guardados en ninguna
+    # fila. Lo único que sobrevive es el total de `xp`, y ahí las dos cosas ya
+    # están sumadas.
+    #
+    # Arranca en cero para todo el mundo, también para quien venía jugando con
+    # empujes puestos: lo de antes no se puede recuperar, y un número inventado
+    # sería peor que un cero honesto.
+    xp_from_boosts = Column(Integer, nullable=False, default=0, server_default="0")
 
     # Jugador sembrado (ver scripts/seed_game_bots.py): puebla el ranking para
     # que el primero en llegar tenga a quién escalar. No lo controla nadie —

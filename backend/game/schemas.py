@@ -296,10 +296,11 @@ class GameStatsGeneral(BaseModel):
     best_rank: Optional[int] = None
     days_playing: int
     xp: int
+    # Los dos son de ESTA persona y de los dos lados que le dan XP sin
+    # resolver una derivada más: lo que le generaron sus reclutas, y lo que le
+    # agregó el empuje de su universidad.
     xp_from_referrals: int = 0
-    # No es personal — ver game/stats.py :: _cafecitos_de_la_universidad. Es
-    # cuánto recibió tu universidad, de cualquier donante.
-    cafecitos_universidad: int = 0
+    xp_from_boosts: int = 0
 
 
 class GameStatsOut(BaseModel):

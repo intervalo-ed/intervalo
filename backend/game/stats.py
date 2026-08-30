@@ -19,7 +19,7 @@ from datetime import datetime
 from sqlalchemy import func
 from sqlalchemy.orm import Session as DBSession
 
-from models import GameAttempt, GameBoost, GameExercise, GamePlayer, GameTemplateStat
+from models import GameAttempt, GameExercise, GamePlayer, GameTemplateStat
 
 from . import elo
 from .templates import TEMPLATE_BY_KEY
@@ -198,26 +198,23 @@ def _personal_accuracy(db: DBSession, player_id: int) -> dict[str, _AccRow]:
     return out
 
 
-def _cafecitos_de_la_universidad(db: DBSession, university: str | None) -> int:
-    """Cafecitos DONADOS de verdad (no grants a mano — mismo filtro que
-    metrics/game_queries.py :: DONADO) que recibió esta universidad, de
-    cualquier donante.
+def _xp_de_los_reclutas(db: DBSession, player_id: int) -> int:
+    """Cuánta XP le generaron a esta persona los que entraron por su link.
 
-    NO es "cuántos donaste vos": el aviso de una donación llega por un canal
-    externo (cafecito_stream.py / cafecito_email.py) sin login de Intervalo, y
-    lo único que se guarda de quien paga es un `donor_name` de texto libre que
-    a veces ni se completa — no hay forma de atarlo a un GamePlayer. Es un
-    número de tu UNIVERSIDAD, no tuyo.
+    Es la suma de `referral_xp_given` de sus RECLUTAS y no su propia columna.
+    Esa columna guarda lo que ella le dio a quien la trajo —el otro lado de la
+    relación— y durante un tiempo fue lo que mostraba el panel: quien reclutaba
+    a diez personas veía un cero, y quien había entrado por el link de alguien
+    veía lo que le venía pagando, rotulado como si fuera lo que había ganado.
 
-    Los empujes GLOBALES (`university IS NULL`, la donación que no se pudo
-    atribuir a ninguna universidad) no entran: son de todo el juego, no de
-    esta.
+    Es la misma cuenta que arma /leaderboard/recruits (router.py), del lado del
+    total en vez de renglón por renglón. Sin filtrar por `exercises_correct`
+    como allá: un recluta que no jugó tiene la columna en cero y no cambia la
+    suma, y acá no hay ninguna lista que se llene de renglones vacíos.
     """
-    if not university:
-        return 0
     total = (
-        db.query(func.sum(GameBoost.cafecitos))
-        .filter(GameBoost.university == university, GameBoost.source == "cafecito")
+        db.query(func.sum(GamePlayer.referral_xp_given))
+        .filter(GamePlayer.referred_by == player_id)
         .scalar()
     )
     return total or 0
@@ -315,8 +312,11 @@ def build(db: DBSession, player: GamePlayer) -> dict:
             # Cuánta XP le diste a tus reclutas por el link de WhatsApp — la
             # misma columna que ordena /leaderboard/recruits (router.py), acá
             # del lado de la propia persona.
-            "xp_from_referrals": player.referral_xp_given,
-            "cafecitos_universidad": _cafecitos_de_la_universidad(db, player.university),
+            "xp_from_referrals": _xp_de_los_reclutas(db, player.id),
+            # La XP extra que puso el empuje, acumulada al otorgar
+            # (router.py :: _otorgar_xp). No se puede calcular acá: el
+            # multiplicador de cada respuesta no queda guardado en ningún lado.
+            "xp_from_boosts": player.xp_from_boosts,
         },
         "rows": rows,
     }

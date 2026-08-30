@@ -891,8 +891,15 @@ def _otorgar_xp(
     # se lee como un error de cuentas.
     multiplier = boosts.multiplier_for_player(db, player) if correct else 1.0
     if multiplier > 1.0:
+        sin_empuje = xp_awarded
         xp_awarded = round(xp_awarded * multiplier)
         combo_bonus = round(combo_bonus * multiplier)
+        # Lo que el empuje agregó, anotado acá porque después no hay de dónde
+        # sacarlo: lo único que queda guardado es el total de `xp`, y ahí lo
+        # base y lo extra ya están sumados. Es lo que muestra el panel de
+        # estadísticas. `multiplier > 1.0` implica `correct`, así que no hace
+        # falta preguntarlo de nuevo.
+        player.xp_from_boosts += xp_awarded - sin_empuje
 
     if correct:
         player.xp += xp_awarded

@@ -353,6 +353,13 @@ function TileDestacada({
 // `exercises_attempted` sube al RESPONDER y no al saltear, la racha la corta
 // errar y saltear —pero no consultar la tabla ni este panel—, y el mejor puesto
 // solo se actualiza cuando se acierta (backend/game/router.py, game/stats.py).
+//
+// Las dos de abajo estuvieron mostrando otra cosa que la que decían, y las dos
+// maneras de equivocarse eran invisibles mientras dieran cero: la de reclutas
+// leía el lado contrario de la relación —lo que vos le pagás a quien te trajo—
+// y la de cafecitos mostraba CUÁNTOS cafecitos había recibido tu universidad,
+// que ni es XP ni es tuyo. Las dos tienen su chequeo en
+// backend/scripts/check_game_stats.py, sección 6.
 function GeneralTiles({ general }: { general: GameStats["general"] }) {
   return (
     <div className="grid grid-cols-2 gap-2">
@@ -383,15 +390,15 @@ function GeneralTiles({ general }: { general: GameStats["general"] }) {
       <TileDestacada
         label="XP generado por reclutas"
         value={fmtCount(general.xp_from_referrals)}
-        explicacion="Cada persona que entra por tu link de reclutar te suma el 10% de la experiencia que gana, sin que a ella le reste nada. Es para siempre: sigue pagando cada vez que juega."
+        explicacion="Cada persona que entra por tu link de reclutar te suma el 10% de la experiencia que gana, sin que a ella le reste nada. Es para siempre: sigue sumando cada vez que juega."
         fondo={`color-mix(in oklab, ${VERDE} 14%, transparent)`}
         borde={`color-mix(in oklab, ${VERDE} 35%, transparent)`}
         tinta={VERDE}
       />
       <TileDestacada
-        label="XP generado por cafecitos"
-        value={fmtCount(general.cafecitos_universidad)}
-        explicacion="Los cafecitos que le invitaron a tu universidad multiplican la experiencia de todos los que estudian ahí, también la tuya. Son de la universidad y no tuyos: el pago va por fuera del juego y no se puede saber quién lo hizo."
+        label="XP extra por cafecitos"
+        value={fmtCount(general.xp_from_boosts)}
+        explicacion="Cada cafecito que le invitan a tu universidad multiplica media hora la experiencia de todos los que estudian ahí, también la tuya. Esto es cuánta te tocó de más por eso — lo que ganaste antes de que empezáramos a llevar la cuenta no está."
         fondo={`color-mix(in oklab, ${CAFE_CLARO} 22%, transparent)`}
         borde={`color-mix(in oklab, ${CAFE_CLARO} 50%, transparent)`}
         tinta={CAFE_CLARO}

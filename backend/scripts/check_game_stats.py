@@ -39,13 +39,14 @@ sys.path.insert(0, str(BACKEND.parent))
 
 import database  # noqa: E402
 from models import (  # noqa: E402
-    Base, GameAttempt, GameExercise, GamePlayer, GameTemplateStat,
+    Base, GameAttempt, GameBoost, GameExercise, GamePlayer, GameTemplateStat,
 )
 
 Base.metadata.create_all(bind=database.engine)
 
 from fastapi.testclient import TestClient  # noqa: E402
 from game import elo  # noqa: E402
+from game import boosts as game_boosts  # noqa: E402
 from game import stats as game_stats  # noqa: E402
 import main  # noqa: E402
 
@@ -246,6 +247,104 @@ check(fila_e_x["accuracy"] == 50, f"la fila e_x del endpoint también da 50% (di
 check(
     fila_e_x["avg_response_ms"] == esperado_ms,
     f"y el mismo avg_response_ms ({esperado_ms}), dio {fila_e_x['avg_response_ms']}",
+)
+
+print("6. las dos tiles de XP muestran lo que su rótulo dice")
+# Las dos estuvieron mostrando otra cosa, y las dos maneras de equivocarse eran
+# invisibles mientras los números dieran cero.
+#
+# `xp_from_referrals` leía la columna del PROPIO jugador, que guarda lo que él
+# le dio a quien lo trajo: quien reclutaba a diez personas veía un cero, y quien
+# había entrado por el link de alguien veía lo que le venía pagando.
+#
+# `xp_from_boosts` no existía: la tile mostraba la CANTIDAD de cafecitos de la
+# universidad, que ni es XP ni es de la persona.
+API = "/game/derivemos"
+
+
+def alta_api(**body):
+    j = client.post(f"{API}/player", json=body).json()
+    return j["guest_token"], j["player"]
+
+
+def acertar_api(token: str, player_id: int) -> dict:
+    """Una derivada resuelta bien, por la puerta de siempre."""
+    ses = database.SessionLocal()
+    ex = GameExercise(
+        player_id=player_id, template_key="t1_kpow", prompt_latex="3x^{2} + 2x",
+        expected_derivative="6*x + 2", theta_at_serve=0.0, beta_at_serve=-1.6,
+        p_hat=0.78, status="served",
+    )
+    ses.add(ex); ses.commit(); ex_id = ex.id; ses.close()
+    return client.post(
+        f"{API}/answer", headers={"X-Game-Token": token},
+        json={"exercise_id": ex_id, "answer_latex": "6x+2",
+              "answer_mathjson": ["Add", ["Multiply", 6, "x"], 2]},
+    ).json()
+
+
+def columna(pid: int, nombre: str):
+    ses = database.SessionLocal()
+    try:
+        return getattr(ses.query(GamePlayer).filter(GamePlayer.id == pid).first(), nombre)
+    finally:
+        ses.close()
+
+
+tok_a, jug_a = alta_api()
+tok_b, jug_b = alta_api(referrer_alias=jug_a["alias"])
+id_a, id_b = jug_a["player_id"], jug_b["player_id"]
+# Los dos tienen que pasar el umbral para que /stats les conteste.
+for _ in range(game_stats.UMBRAL_ESTADISTICAS + 2):
+    acertar_api(tok_a, id_a)
+    acertar_api(tok_b, id_b)
+
+gen_a = client.get(f"{API}/stats", headers={"X-Game-Token": tok_a}).json()["general"]
+gen_b = client.get(f"{API}/stats", headers={"X-Game-Token": tok_b}).json()["general"]
+reclutas = client.get(f"{API}/leaderboard/recruits", headers={"X-Game-Token": tok_a}).json()
+suma_real = sum(e["xp_given"] for e in reclutas["entries"])
+
+check(suma_real > 0, f"B le generó XP a A, que es lo que hay que mostrar (dio {suma_real})")
+check(
+    gen_a["xp_from_referrals"] == suma_real,
+    f"A ve lo que le generaron SUS reclutas (dio {gen_a['xp_from_referrals']}, esperaba {suma_real})",
+)
+check(
+    gen_b["xp_from_referrals"] == 0,
+    f"B, que no reclutó a nadie, ve cero y no lo que él pagó (dio {gen_b['xp_from_referrals']})",
+)
+check(
+    columna(id_b, "referral_xp_given") == suma_real,
+    "y la columna del recluta sigue guardando el otro lado, intacta",
+)
+
+# El empuje: la universidad de A recibe cafecitos y su próxima derivada paga más.
+ses = database.SessionLocal()
+ses.query(GamePlayer).filter(GamePlayer.id == id_a).first().university = "UBA"
+ses.add(GameBoost(
+    university="UBA", cafecitos=5, source="cafecito",
+    created_at=datetime.utcnow(), expires_at=datetime.utcnow() + timedelta(hours=1),
+))
+ses.commit(); ses.close()
+# `hay_empujes` cachea el "no hay ninguno" cinco segundos para no consultar la
+# base en cada respuesta, y las doce de recién dejaron esa marca puesta.
+game_boosts.olvidar_cache_de_empujes()
+
+antes = columna(id_a, "xp_from_boosts")
+check(antes == 0, f"sin empuje no se anotó nada (dio {antes})")
+j = acertar_api(tok_a, id_a)
+extra = columna(id_a, "xp_from_boosts") - antes
+check(j["xp_multiplier"] > 1.0, f"el empuje está vigente (×{j['xp_multiplier']})")
+check(extra > 0, f"con empuje sí se anota la XP extra (dio {extra})")
+check(
+    j["xp_awarded"] == round((j["xp_awarded"] - extra) * j["xp_multiplier"]),
+    f"y es exactamente lo que el multiplicador agregó "
+    f"({j['xp_awarded']} = round({j['xp_awarded'] - extra} × {j['xp_multiplier']}))",
+)
+gen_a2 = client.get(f"{API}/stats", headers={"X-Game-Token": tok_a}).json()["general"]
+check(
+    gen_a2["xp_from_boosts"] == antes + extra,
+    f"y el panel lo muestra (dio {gen_a2['xp_from_boosts']})",
 )
 
 print()
