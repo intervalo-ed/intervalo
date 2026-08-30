@@ -85,21 +85,36 @@ def _rechazar():
     )
 
 
-def por_ip(por_minuto: int):
+def por_ip(por_minuto: int, bucket: str):
     """Tope por IP, para lo que todavía no tiene jugador."""
 
     def dependencia(request: Request) -> None:
-        if not _permitir(f"ip:{_ip(request)}", por_minuto, time.monotonic()):
+        if not _permitir(f"ip:{_ip(request)}:{bucket}", por_minuto, time.monotonic()):
             _rechazar()
 
     return dependencia
 
 
-def por_jugador(por_minuto: int):
-    """Tope por jugador, para lo que ya tiene identidad."""
+def por_jugador(por_minuto: int, bucket: str):
+    """Tope por jugador, para lo que ya tiene identidad.
+
+    `bucket` es obligatorio y separa los contadores. Sin él, TODOS los topes por
+    jugador compartían una sola cola, y entonces el tope efectivo de cada puerta
+    pasaba a ser el más chico de todos contra los pedidos de todas: con el chat
+    en tres por minuto, a cualquiera que estuviera jugando —responder, pedir
+    otra derivada y la telemetría de los carteles, todo cae en la misma cola— la
+    cola le llegaba llena, y el PRIMER mensaje se llevaba un 429. El chat no
+    estaba limitado: estaba cerrado, y el cartel decía "esperá unos segundos"
+    para una espera que no terminaba nunca.
+
+    Se nombra a mano y no se deriva de `por_minuto` porque dos puertas distintas
+    con el mismo número igual son dos cosas distintas, y compartir cola entre
+    ellas es el mismo error de nuevo, más chico.
+    """
 
     def dependencia(player: GamePlayer = Depends(get_current_player)) -> None:
-        if not _permitir(f"jugador:{player.id}", por_minuto, time.monotonic()):
+        clave = f"jugador:{player.id}:{bucket}"
+        if not _permitir(clave, por_minuto, time.monotonic()):
             _rechazar()
 
     return dependencia
