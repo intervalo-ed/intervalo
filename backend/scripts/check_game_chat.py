@@ -215,6 +215,22 @@ check(
 r4 = client.post("/game/derivemos/message", json={"text": "cuarto"}, headers=CUENTA_CLERK)
 check(r4.status_code == 429, f"el cuarto espera (dio {r4.status_code})")
 check(r4.headers.get("Retry-After") == "30", "con Retry-After, para que el cliente sepa volver")
+# El tope del chat es SUYO y no se llena con lo que la persona hace jugando.
+# Este chequeo es el que faltaba: el de arriba arranca con el contador en cero y
+# solo manda mensajes, así que pasaba con el bug puesto. En producción nadie
+# llega al chat recién levantado — llega de responder derivadas, de pedir otra y
+# de que se le muestren carteles, y todo eso caía en la MISMA cola que los tres
+# mensajes por minuto. Resultado: el primer mensaje se llevaba un 429 y el chat
+# estaba cerrado sin que ningún chequeo lo dijera.
+_lim.olvidar_todo()
+for _ in range(5):
+    client.get("/game/derivemos/stats", headers=CUENTA_CLERK)
+r = client.post("/game/derivemos/message", json={"text": "recien llegado"}, headers=CUENTA_CLERK)
+check(
+    r.status_code == 201,
+    f"cinco pedidos a otra puerta no gastan el cupo del chat (dio {r.status_code})",
+)
+
 # El invitado tiene que llevarse el 403 y no el 429: el orden de las dependencias
 # es lo que hace que el mensaje sea el útil.
 _lim.olvidar_todo()

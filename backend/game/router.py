@@ -329,7 +329,7 @@ def _jugador_del_usuario(
     response_model=GamePlayerCreateResponse,
     # Por IP porque todavía no hay jugador. Sesenta por minuto deja pasar un
     # aula entera detrás del mismo NAT y frena igual un bucle.
-    dependencies=[Depends(limits.por_ip(60))],
+    dependencies=[Depends(limits.por_ip(60, "player"))],
 )
 def create_player(
     body: GamePlayerCreateRequest,
@@ -556,7 +556,7 @@ _REINTENTO_NEXT_MINUTOS = 10
 @router.post(
     "/next",
     response_model=GameExerciseOut,
-    dependencies=[Depends(limits.por_jugador(120))],
+    dependencies=[Depends(limits.por_jugador(120, "next"))],
 )
 def next_exercise(
     player: GamePlayer = Depends(get_current_player),
@@ -644,7 +644,7 @@ def cafecito_status(
 @router.post(
     "/skip",
     response_model=GameExerciseOut,
-    dependencies=[Depends(limits.por_jugador(120))],
+    dependencies=[Depends(limits.por_jugador(120, "skip"))],
 )
 def skip_exercise(
     body: GameSkipRequest,
@@ -961,7 +961,7 @@ def _repetir_ultima_respuesta(
     response_model=GameAnswerResponse,
     # Es el endpoint que hace trabajar a sympy. Nadie escribe ciento veinte
     # derivadas por minuto a mano.
-    dependencies=[Depends(limits.por_jugador(120))],
+    dependencies=[Depends(limits.por_jugador(120, "answer"))],
 )
 def answer_exercise(
     body: GameAnswerRequest,
@@ -1129,7 +1129,7 @@ def answer_exercise(
     # Hace correr sympy y lo dispara un botón que se puede tocar dos veces por
     # nervios. Sesenta por minuto es holgadísimo para una persona y corta un
     # bucle.
-    dependencies=[Depends(limits.por_jugador(60))],
+    dependencies=[Depends(limits.por_jugador(60, "explain"))],
 )
 def explain_exercise(
     body: GameExplainRequest,
@@ -1322,7 +1322,7 @@ def game_leaderboard_summary(
 @router.get(
     "/stats",
     response_model=GameStatsOut,
-    dependencies=[Depends(limits.por_jugador(30))],
+    dependencies=[Depends(limits.por_jugador(30, "stats"))],
 )
 def game_stats_endpoint(
     player: GamePlayer = Depends(get_current_player),
@@ -1677,14 +1677,14 @@ def post_message(
     body: GameMessageIn,
     player: GamePlayer = Depends(_puede_escribir),
     db: Session = Depends(get_db),
-    _tope: None = Depends(limits.por_jugador(3)),
+    _tope: None = Depends(limits.por_jugador(3, "message")),
 ):
     """Deja un mensaje en el chat.
 
     Hasta tres mensajes por minuto por jugador, y ese tope es parte del diseño
     y no una protección: el pedido era «dejar un mensaje cada cierto tiempo»,
     no ahogar una conversación de ida y vuelta. Lo aplica
-    `limits.por_jugador(3)`, que devuelve 429 con Retry-After. Quién puede
+    `limits.por_jugador(3, "message")`, que devuelve 429 con Retry-After. Quién puede
     escribir lo decide `_puede_escribir`, que corre antes (ver ahí por qué).
     """
     try:
@@ -1713,7 +1713,7 @@ _CTA_ACTIONS = ("impression", "click")
     "/cta",
     status_code=204,
     # Telemetría: escribe una fila por llamada y no tiene deduplicación.
-    dependencies=[Depends(limits.por_jugador(120))],
+    dependencies=[Depends(limits.por_jugador(120, "cta"))],
 )
 def record_cta(
     body: GameCtaRequest,
