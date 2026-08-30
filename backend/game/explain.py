@@ -52,7 +52,8 @@ from .validator import expr_from_stored
 @dataclass(frozen=True)
 class Explanation:
     """Lo que devuelve `build`: el texto y los datos del gráfico de cierre
-    (solo lo pinta el teléfono, ver web/src/app/derivadas/mobile-flow.tsx).
+    (lo pintan las dos vistas, ver web/src/app/derivadas/mobile-flow.tsx y
+    desktop-layout.tsx).
 
     El gráfico no es opcional ni depende de la plantilla: acá TODO ejercicio
     es literalmente "derivá esta f(x)", así que f y f' siempre tienen algo

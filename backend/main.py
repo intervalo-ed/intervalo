@@ -22,7 +22,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 # Referencia para medir cuánto tarda el proceso en estar listo (ver _seed_blocking).
 _PROCESS_START = time.perf_counter()
 
-from fastapi import FastAPI, HTTPException, Depends, Header, Query, Request
+from fastapi import FastAPI, HTTPException, Depends, Header, Query, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from starlette.concurrency import run_in_threadpool
@@ -391,6 +391,43 @@ class SessionFeedbackResponse(BaseModel):
 @app.get("/health", response_model=HealthResponse)
 def health_check():
     return {"status": "ok"}
+
+
+# ── Raíz y favicon ────────────────────────────────────────────────────────────
+#
+# Ninguna de las dos es parte de la API: están para que el log deje de mentir.
+# Todo chequeo de vida por defecto —Railway, un uptime robot, alguien que pega
+# la URL en el navegador— pega en `/`, y el navegador además pide `/favicon.ico`
+# sin que nadie se lo mande. Las dos contestaban 404, así que el arranque
+# mostraba errores que no eran errores; y un log con ruido de fondo es un log en
+# el que los errores de verdad no se ven.
+
+@app.api_route("/", methods=["GET", "HEAD"], include_in_schema=False)
+def root():
+    """Qué es esto y dónde está lo demás.
+
+    Devuelve el mismo `status` que `/health` en vez de redirigir ahí: un chequeo
+    de vida que sigue un 3xx no prueba nada sobre el proceso que contesta al
+    final del salto.
+
+    HEAD va declarado a mano y no sale gratis: el `Route` de Starlette agrega
+    HEAD solo cuando registra un GET, pero el `APIRoute` de FastAPI no, así que
+    un `@app.get` suelto contesta 405 al HEAD —es lo que sigue haciendo
+    `/health`—. Y HEAD es justo lo que usan varios chequeos de vida, este
+    incluido: el arranque de esta sesión pegó un `HEAD /` antes que cualquier
+    GET.
+    """
+    return {"status": "ok", "service": "intervalo-backend", "docs": "/docs"}
+
+
+@app.get("/favicon.ico", include_in_schema=False)
+def favicon():
+    """204, no un ícono.
+
+    La API no tiene nada de marca para mostrar. Con 404 el navegador lo vuelve a
+    pedir en cada visita; con 204 se da por contestado y deja de insistir.
+    """
+    return Response(status_code=204)
 
 
 # ── Authentication ────────────────────────────────────────────────────────────

@@ -49,6 +49,7 @@ import { CafecitoPanel } from "./cafecito-panel"
 import { ReclutasPanel, type ReclutasTrigger } from "./reclutas-panel"
 import { ConSalidaAbajo } from "./slide-salida"
 import { marcarReclutasMostrado, tocaReclutar } from "./reclutas-trigger"
+import { HITO_PERFIL, HITO_REGISTRO } from "./hitos-del-juego"
 import { GameIntroLogo, type GameIntro } from "./game-intro"
 import { INTRO_CLOSE, IntroParagraphs } from "./intro-panel"
 import { DerivativesTable, TableButton } from "./derivatives-table"
@@ -75,6 +76,7 @@ import {
   useAnswerExercise,
   useNextExercise,
   useSkipExercise,
+  useEjercicioAdelantado,
   type GameAnswer,
   type GameExercise,
 } from "./UseGameExercise"
@@ -127,11 +129,6 @@ type Slide =
   // devolverle; cuando sale por hito llega después de responder y lo que sigue
   // es la derivada siguiente.
   | { kind: "reclutas"; trigger: ReclutasTrigger; back?: Slide }
-
-// Hitos del embudo: primero enganchar; carrera/universidad cuando ya está
-// metido; el registro (con el gancho del @ propio) al final.
-const PROFILE_MILESTONE = 5
-const REGISTER_MILESTONE = 12
 
 // Cuántas novedades sin ver hacen falta para frenar a alguien y mostrárselas.
 //
@@ -207,6 +204,13 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
   const next = useNextExercise()
   const answerMutation = useAnswerExercise()
   const skipMutation = useSkipExercise()
+  const {
+    adelantar,
+    consumir: consumirAdelanto,
+    servido: adelantoServido,
+    descartar: descartarAdelanto,
+    esperando: esperandoAdelanto,
+  } = useEjercicioAdelantado()
   const sfx = useSfx()
 
   const [slide, setSlide] = useState<Slide>({ kind: "intro" })
@@ -360,33 +364,62 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
     goTo({ kind: "tabla", back: slide })
   }
 
-  const loadNext = useCallback(() => {
-    next.mutate(undefined, {
-      onSuccess: (data) => {
-        setExercise(data)
-        setLastAnswer(null)
-        setTonoLocal(null)
-        setClimbFrom(null)
-        // Ejercicio nuevo, cuenta limpia: la consulta anterior no lo penaliza.
-        peekedRef.current = false
-        // El ¿Por qué? era de la derivada anterior.
-        setPorqueTexto(null)
-        setPorqueGraph(null)
-        setSolvedLatex(null)
-        setFallado(false)
-        servedAtRef.current = Date.now()
-        inputRef.current?.clear()
-        posthog.capture("game_exercise_served", {
-          tier: data.tier,
-          exercise_id: data.exercise_id,
-          stars: data.difficulty_stars,
-          keys: data.keys.length,
-          new_keys: data.new_keys.length,
+  // Poner en pantalla un ejercicio que ya llegó. Se separó de `loadNext` porque
+  // ahora hay dos formas de conseguirlo —el pedido de siempre y el adelantado—
+  // y las dos tienen que dejar la pantalla exactamente igual.
+  //
+  // El reloj y la telemetría de "servido" viven ACÁ y no en el adelanto: si se
+  // sellaran al pedirlo, el `response_ms` de cada respuesta se comería los
+  // segundos del festejo y dejaría de ser comparable con game_attempts.
+  const servir = useCallback(
+    (data: GameExercise, { adelantado }: { adelantado: boolean }) => {
+      setExercise(data)
+      setLastAnswer(null)
+      setTonoLocal(null)
+      setClimbFrom(null)
+      // Ejercicio nuevo, cuenta limpia: la consulta anterior no lo penaliza.
+      peekedRef.current = false
+      // El ¿Por qué? era de la derivada anterior.
+      setPorqueTexto(null)
+      setPorqueGraph(null)
+      setSolvedLatex(null)
+      setFallado(false)
+      servedAtRef.current = Date.now()
+      inputRef.current?.clear()
+      posthog.capture("game_exercise_served", {
+        tier: data.tier,
+        exercise_id: data.exercise_id,
+        stars: data.difficulty_stars,
+        keys: data.keys.length,
+        new_keys: data.new_keys.length,
+        // Sin esto no hay forma de saber en PostHog si el adelanto sirvió, ni
+        // de probar que no infló el `response_ms`.
+        adelantado,
+      })
+      goTo({ kind: "exercise" })
+      adelantoServido()
+    },
+    [goTo, adelantoServido],
+  )
+
+  // `fresco` fuerza el pedido normal y saltea lo adelantado. Lo usan los caminos
+  // en los que el servidor movió el piso —un 409, un reinicio— donde lo que haya
+  // en la caja ya no vale.
+  const loadNext = useCallback(
+    ({ fresco = false }: { fresco?: boolean } = {}) => {
+      const adelantado = fresco ? null : consumirAdelanto()
+      if (adelantado === null) {
+        next.mutate(undefined, { onSuccess: (data) => servir(data, { adelantado: false }) })
+        return
+      }
+      void adelantado
+        .then((data) => servir(data, { adelantado: true }))
+        .catch(() => {
+          next.mutate(undefined, { onSuccess: (data) => servir(data, { adelantado: false }) })
         })
-        goTo({ kind: "exercise" })
-      },
-    })
-  }, [next, goTo])
+    },
+    [next, consumirAdelanto, servir],
+  )
 
   // Lo que hace el botón Continuar de la intro: a la primera derivada, salvo
   // que este dispositivo esté entrando por primera vez y el jugador siga con
@@ -494,7 +527,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
         // cafecito quiere salir antes, se adelanta y ocupa su turno.
         if (
           faltaPreguntarUniversidad &&
-          (tocaCafecito || solvedCount >= PROFILE_MILESTONE)
+          (tocaCafecito || solvedCount >= HITO_PERFIL)
         ) {
           askedProfileRef.current = true
           posthog.capture("game_register_slide_shown", { slide: "career" })
@@ -502,7 +535,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
           return
         }
         if (
-          solvedCount >= REGISTER_MILESTONE &&
+          solvedCount >= HITO_REGISTRO &&
           player !== null &&
           player.is_guest &&
           !askedRegisterRef.current
@@ -586,6 +619,12 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
             anticipated: anticipadoRef.current,
             tier: exercise.tier,
             stars: exercise.difficulty_stars,
+            // Con la tabla abierta la derivada deja de ser una pregunta: sin
+            // esta propiedad, PostHog mezcla «resolvió» con «copió» en la misma
+            // tasa de acierto. Viajaba en el cuerpo del pedido pero no en el
+            // evento, así que el corte existía en escritorio y no acá — justo
+            // en la plataforma donde la tabla se abre con un botón.
+            peeked: peekedRef.current,
             solved: solvedCount,
             combo: data.combo,
             xp: data.xp_awarded,
@@ -598,6 +637,11 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
           else setFallado(true)
           if (data.correct) {
             if (!anticipadoRef.current) sfx.correct()
+            // Acá y en ningún otro lado: acertar es lo único que cierra un
+            // ejercicio, así que este es el primer instante en que pedir el
+            // siguiente devuelve uno nuevo. Alcanza y sobra con lo que tarda la
+            // slide del ranking.
+            adelantar()
             setSolvedCount((n) => n + 1)
             pendingRef.current = { answer: data }
             // Modo `espera` porque el número que tiene que subir está en la
@@ -630,12 +674,15 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
             setExercise(null)
             setLastAnswer(null)
             setTonoLocal(null)
-            loadNext()
+            // El 409 dice que el servidor venció lo que teníamos servido, así
+            // que un ejercicio adelantado contra ese estado ya no vale.
+            descartarAdelanto()
+            loadNext({ fresco: true })
           }
         },
       },
     )
-  }, [exercise, answerMutation, sfx, solvedCount, fireXp, evaluarLocal, loadNext])
+  }, [exercise, answerMutation, sfx, solvedCount, fireXp, evaluarLocal, loadNext, adelantar, descartarAdelanto])
 
   const closed = lastAnswer?.parse_ok === true && (lastAnswer.correct || lastAnswer.attempts_left === 0)
   // La respuesta del servidor manda; el tono local solo cubre el hueco entre el
@@ -727,12 +774,15 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
             setExercise(null)
             setLastAnswer(null)
             setTonoLocal(null)
-            loadNext()
+            // El 409 dice que el servidor venció lo que teníamos servido, así
+            // que un ejercicio adelantado contra ese estado ya no vale.
+            descartarAdelanto()
+            loadNext({ fresco: true })
           }
         },
       },
     )
-  }, [exercise, closed, skipMutation, answerMutation.isPending, solvedCount, loadNext])
+  }, [exercise, closed, skipMutation, answerMutation.isPending, solvedCount, loadNext, descartarAdelanto])
 
   // Todo menos el logo espera a que la presentación lo devuelva a su lugar.
   const chromeStyle: React.CSSProperties = {
@@ -911,7 +961,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   tone={tone}
                   seq={answerSeq}
                   closed={closed}
-                  disabled={answerMutation.isPending || (closed && next.isPending)}
+                  disabled={answerMutation.isPending || (closed && (next.isPending || esperandoAdelanto))}
                   onClick={() => {
                     if (closed) advanceAfterAnswer(null)
                     else void onRevisar()
@@ -991,7 +1041,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
               }}
               sinLeerChat={sinVerChat}
               onContinue={() => advanceAfterAnswer("ranking")}
-              continueDisabled={next.isPending}
+              continueDisabled={next.isPending || esperandoAdelanto}
               onCafecito={() => {
                 sfx.select()
                 goTo({ kind: "cafecito", trigger: "pedido", correctToday: 0 })
@@ -1036,7 +1086,9 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   setTonoLocal(null)
                   setClimbFrom(null)
                   pendingRef.current = null
-                  loadNext()
+                  // Reiniciar vence TODO lo servido, también lo adelantado.
+                  descartarAdelanto()
+                  loadNext({ fresco: true })
                 }}
                 onCafecito={() =>
                   goTo({

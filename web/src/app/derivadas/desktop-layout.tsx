@@ -13,7 +13,7 @@
 // la marca y sube con cada llegada. Recién cuando entra el último se refresca el
 // orden y la fila sube (ver xp-conteo.ts y components/orb-flight.tsx).
 
-import { useCallback, useEffect, useRef, useState } from "react"
+import { Fragment, useCallback, useEffect, useRef, useState } from "react"
 import posthog from "posthog-js"
 import { useQueryClient } from "@tanstack/react-query"
 import { ChevronLeft, Settings } from "lucide-react"
@@ -35,6 +35,7 @@ import {
 import { CafecitoPanel } from "./cafecito-panel"
 import { ReclutasPanel, type ReclutasTrigger } from "./reclutas-panel"
 import { marcarReclutasMostrado, tocaReclutar } from "./reclutas-trigger"
+import { HITO_PERFIL, HITO_REGISTRO } from "./hitos-del-juego"
 import {
   AnswerButton,
   AnswerField,
@@ -46,7 +47,7 @@ import {
   answerTone,
   type AnswerTone,
 } from "./exercise-card"
-import { PorQueButton, PorQuePanel, TECLA_PORQUE } from "./porque-panel"
+import { PorQueButton, PorQuePanel, type PorQueGraph, TECLA_PORQUE } from "./porque-panel"
 import { useExplainExercise } from "./UseGameExplain"
 import {
   DerivativesStatsTable,
@@ -64,7 +65,15 @@ import { claseDeSalida } from "./slide-salida"
 import { puedeVerEstadisticas } from "./stats-gate"
 import { enCampoDeTexto, useTeclas } from "./teclas"
 import { MathInput, tipFor, type MathInputHandle } from "./math-input"
-import { MathKeyboard } from "./math-keyboard"
+import {
+  CONTENT_WIDTH,
+  GRID_COLS,
+  LARGOS_DE_TIRA,
+  MathKeyboard,
+  STRIP_ROW,
+  columnaDeTira,
+} from "./math-keyboard"
+import { Barra, Hueco } from "./skeleton-barra"
 import { parseAnswerToMathJson, warmupComputeEngine } from "./parse-answer"
 import { useLocalVerdict } from "./UseLocalVerdict"
 import { EditCareerPanel, EditUniversityPanel } from "./edit-profile-field"
@@ -78,6 +87,7 @@ import {
   useAnswerExercise,
   useNextExercise,
   useSkipExercise,
+  useEjercicioAdelantado,
   type GameAnswer,
   type GameExercise,
 } from "./UseGameExercise"
@@ -139,29 +149,59 @@ const PEEK_CHARGE_MS = 600
  * texto centrado, en cambio, obliga a redibujar la pantalla entera y se siente
  * más lento aunque tarde lo mismo.
  *
- * Las medidas son las de las piezas reales (la card de PANEL_MIN_H, el CTA de
- * --cta-h, el historial de 107,5 px), para que el relleno sea exacto.
+ * Las medidas no se eligen mirando: son las clases de las piezas reales, caja
+ * por caja. La de afuera es la del `front` del FlipCard; adentro van las dos que
+ * de verdad hay —`ExerciseCard bare` (`gap-3 px-4 pt-4`) y `MathKeyboard bare`
+ * (`gap-1.5 px-4 pb-8 pt-4`)— y no un `p-5` que promediaba las dos.
+ *
+ * El teclado se dibujaba como una grilla de seis columnas con dieciocho teclas,
+ * que no es lo que hay en escritorio: ahí `numpad` va en false y lo que se pinta
+ * son DOS tiras centradas en diez columnas. El largo de cada tira y su centrado
+ * salen de math-keyboard.tsx (`LARGOS_DE_TIRA`, `columnaDeTira`) para que no
+ * puedan separarse del teclado de verdad.
  */
 function ExerciseSkeleton() {
   return (
-    <div className="flex flex-1 animate-pulse flex-col gap-3" aria-hidden>
-      <div className="flex min-h-[26rem] flex-1 flex-col rounded-lg border border-border bg-card p-5">
-        <div className="flex items-center justify-between">
-          <div className="h-4 w-56 rounded bg-foreground/10" />
-          <div className="flex gap-3">
-            <div className="h-4 w-10 rounded bg-foreground/10" />
-            <div className="h-4 w-10 rounded bg-foreground/10" />
-          </div>
-        </div>
-        <div className="flex flex-1 items-center justify-center">
-          <div className="h-9 w-48 rounded bg-foreground/10" />
-        </div>
-        <div className={`${CAMPO_H} shrink-0 rounded-lg bg-foreground/[0.07]`} />
-        <div className="mt-4 grid shrink-0 grid-cols-6 gap-2">
-          {Array.from({ length: 18 }).map((_, i) => (
-            <div key={i} className="h-9 rounded-md bg-foreground/[0.07]" />
+    <div
+      className="flex min-h-[26rem] flex-1 animate-pulse flex-col overflow-hidden rounded-lg border border-border bg-card"
+      aria-hidden
+    >
+      <div className="flex min-h-0 flex-1 flex-col gap-3 px-4 pt-4">
+        {/* La pastilla del marcador: centrada y `w-fit`, como `Counters`. Los
+            cuatro huecos van separados por la misma línea de 1 px. */}
+        <span className="mx-auto flex w-fit shrink-0 items-center gap-2 rounded-full border border-border bg-background px-3 py-1.5 md:gap-3.5 md:px-4">
+          {[0, 1, 2, 3].map((i) => (
+            <Fragment key={i}>
+              {i > 0 && <span className="h-3.5 w-px shrink-0 bg-border" />}
+              <Hueco alto="h-5" className="w-9" barra="h-3.5 w-full" />
+            </Fragment>
           ))}
+        </span>
+        {/* La caja de la fórmula es la que crece con lo que sobra. */}
+        <div className="flex min-h-0 flex-1 items-center justify-center">
+          <Barra className="h-9 w-48" />
         </div>
+        <div className={cn(CAMPO_H, PANEL_CONTENT, "shrink-0 rounded-lg bg-foreground/[0.07]")} />
+      </div>
+      <div className="flex shrink-0 flex-col gap-1.5 px-4 pb-8 pt-4">
+        {LARGOS_DE_TIRA.map((largo, f) => (
+          <div
+            key={f}
+            className={cn("grid shrink-0 gap-1.5", CONTENT_WIDTH)}
+            style={{
+              height: STRIP_ROW,
+              gridTemplateColumns: `repeat(${GRID_COLS}, minmax(0, 1fr))`,
+            }}
+          >
+            {Array.from({ length: largo }).map((_, i) => (
+              <Barra
+                key={i}
+                className="h-full rounded-md bg-foreground/[0.07]"
+                style={{ gridColumnStart: columnaDeTira({ total: largo, indice: i }) }}
+              />
+            ))}
+          </div>
+        ))}
       </div>
     </div>
   )
@@ -173,6 +213,13 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   const next = useNextExercise()
   const answerMutation = useAnswerExercise()
   const skipMutation = useSkipExercise()
+  const {
+    adelantar,
+    consumir: consumirAdelanto,
+    servido: adelantoServido,
+    descartar: descartarAdelanto,
+    esperando: esperandoAdelanto,
+  } = useEjercicioAdelantado()
   const sfx = useSfx()
   const teclas = useTeclas()
   // Para los atajos `w` y `c`: los botones registran su propio click, y llegar
@@ -245,6 +292,11 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   const [fallado, setFallado] = useState(false)
   const explainMutation = useExplainExercise()
   const [porqueTexto, setPorqueTexto] = useState<string | null>(null)
+  // El gráfico de cierre (f y f' juntas): antes solo lo guardaba el
+  // teléfono (mobile-flow.tsx :: porqueGraph). Va aparte de `porqueTexto`
+  // por el mismo motivo que allá: son dos piezas de la misma respuesta con
+  // ciclos de vida propios.
+  const [porqueGraph, setPorqueGraph] = useState<PorQueGraph | null>(null)
   // Cuál de las TRES caras traseras del aside es la que se está mostrando. Se
   // actualiza solo al ABRIR una, nunca al cerrar.
   //
@@ -388,48 +440,82 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const loadNext = useCallback(() => {
-    next.mutate(undefined, {
-      onSuccess: (data) => {
-        setExercise(data)
-        // El panel vuelve al ejercicio ACÁ y no en quien pidió el ejercicio, que
-        // es donde estaba. Cambiarlo antes producía DOS transiciones por un solo
-        // gesto: el panel cambiaba enseguida y del otro lado aparecía la card con
-        // el ejercicio VIEJO —que sigue en el estado hasta que llega el nuevo—, y
-        // cuando la respuesta llegaba unos cientos de milisegundos después
-        // cambiaba otra vez. Así es una sola, y del otro lado ya está todo listo.
-        // Es exactamente lo que hace el teléfono (mobile-flow.tsx :: loadNext),
-        // que por eso nunca tuvo este problema.
-        setNavPanel("exercise")
-        setLastAnswer(null)
-        setTonoLocal(null)
-        setClimbFrom(null)
-        setCafecito(null)
-        // Ejercicio nuevo, cuenta limpia: la consulta anterior no lo penaliza.
-        peekedRef.current = false
-        setTableOpen(false)
-        setStatsOpen(false)
-        // El ¿Por qué? es de la derivada que se acaba de dejar atrás.
-        setPorqueOpen(false)
-        setPorqueTexto(null)
-        setSolvedLatex(null)
-        setFallado(false)
-        servedAtRef.current = Date.now()
-        inputRef.current?.clear()
-        inputRef.current?.focus()
-        posthog.capture("game_exercise_served", {
-          tier: data.tier,
-          exercise_id: data.exercise_id,
-          // Las estrellas son p̂ redondeado (elo.difficulty_stars): es lo más
-          // cerca de la dificultad servida que el cliente puede ver, y sin
-          // ellas ningún embudo de PostHog se puede cortar por dificultad.
-          stars: data.difficulty_stars,
-          keys: data.keys.length,
-          new_keys: data.new_keys.length,
+  // Poner en pantalla un ejercicio que ya llegó. Se separó de `loadNext` porque
+  // ahora hay dos formas de conseguirlo —el pedido de siempre y el adelantado—
+  // y las dos tienen que dejar la pantalla exactamente igual.
+  //
+  // El reloj y la telemetría de "servido" viven ACÁ y no en el adelanto: si se
+  // sellaran al pedirlo, el `response_ms` de cada respuesta se comería los
+  // segundos del festejo y dejaría de ser comparable con game_attempts, que mide
+  // lo mismo del otro lado.
+  const servir = useCallback(
+    (data: GameExercise, { adelantado }: { adelantado: boolean }) => {
+      setExercise(data)
+      // El panel vuelve al ejercicio ACÁ y no en quien pidió el ejercicio, que
+      // es donde estaba. Cambiarlo antes producía DOS transiciones por un solo
+      // gesto: el panel cambiaba enseguida y del otro lado aparecía la card con
+      // el ejercicio VIEJO —que sigue en el estado hasta que llega el nuevo—, y
+      // cuando la respuesta llegaba unos cientos de milisegundos después
+      // cambiaba otra vez. Así es una sola, y del otro lado ya está todo listo.
+      // Es exactamente lo que hace el teléfono (mobile-flow.tsx :: loadNext),
+      // que por eso nunca tuvo este problema.
+      setNavPanel("exercise")
+      setLastAnswer(null)
+      setTonoLocal(null)
+      setClimbFrom(null)
+      setCafecito(null)
+      // Ejercicio nuevo, cuenta limpia: la consulta anterior no lo penaliza.
+      peekedRef.current = false
+      setTableOpen(false)
+      setStatsOpen(false)
+      // El ¿Por qué? es de la derivada que se acaba de dejar atrás.
+      setPorqueOpen(false)
+      setPorqueTexto(null)
+      setPorqueGraph(null)
+      setSolvedLatex(null)
+      setFallado(false)
+      servedAtRef.current = Date.now()
+      inputRef.current?.clear()
+      inputRef.current?.focus()
+      posthog.capture("game_exercise_served", {
+        tier: data.tier,
+        exercise_id: data.exercise_id,
+        // Las estrellas son p̂ redondeado (elo.difficulty_stars): es lo más
+        // cerca de la dificultad servida que el cliente puede ver, y sin
+        // ellas ningún embudo de PostHog se puede cortar por dificultad.
+        stars: data.difficulty_stars,
+        keys: data.keys.length,
+        new_keys: data.new_keys.length,
+        // Sin esto no hay forma de saber en PostHog si el adelanto sirvió, ni
+        // de probar que no infló el `response_ms`: son dos distribuciones que
+        // se comparan cortando por acá.
+        adelantado,
+      })
+      adelantoServido()
+    },
+    [adelantoServido],
+  )
+
+  // `fresco` fuerza el pedido normal y saltea lo adelantado. Lo usan los caminos
+  // en los que el servidor movió el piso —un 409, un reinicio— donde lo que haya
+  // en la caja ya no vale.
+  const loadNext = useCallback(
+    ({ fresco = false }: { fresco?: boolean } = {}) => {
+      const adelantado = fresco ? null : consumirAdelanto()
+      if (adelantado === null) {
+        next.mutate(undefined, { onSuccess: (data) => servir(data, { adelantado: false }) })
+        return
+      }
+      void adelantado
+        .then((data) => servir(data, { adelantado: true }))
+        // El adelanto falló después de haberlo tomado: se pide de nuevo, que es
+        // lo que habría pasado sin todo esto.
+        .catch(() => {
+          next.mutate(undefined, { onSuccess: (data) => servir(data, { adelantado: false }) })
         })
-      },
-    })
-  }, [next])
+    },
+    [next, consumirAdelanto, servir],
+  )
 
   // Empezar de verdad: entra la primera derivada. Es lo que hace el botón y
   // también el Enter.
@@ -542,6 +628,10 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
             return
           }
           if (!anticipadoRef.current) sfx.correct()
+          // Acá y en ningún otro lado: acertar es lo único que cierra un
+          // ejercicio, así que este es el primer instante en que pedir el
+          // siguiente devuelve uno nuevo. Mientras corre el festejo, va y vuelve.
+          adelantar()
           // Los orbes necesitan ver su destino, y el destino es el número de XP
           // de la fila propia. Así que antes de tirarlos se arma la pantalla que
           // los puede recibir: el ranking vuelve al individual y a la fila
@@ -634,11 +724,11 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
             marcarReclutasMostrado(totalCorrectas)
             reclutasPendienteRef.current = true
           }
-          if (faltaPreguntarUniversidad && (tocaCafecito || solved >= 5)) {
+          if (faltaPreguntarUniversidad && (tocaCafecito || solved >= HITO_PERFIL)) {
             askedProfileRef.current = true
             pendingMilestoneRef.current = "profile"
           } else if (
-            solved >= 12 &&
+            solved >= HITO_REGISTRO &&
             player !== null &&
             player.is_guest &&
             !askedRegisterRef.current
@@ -658,12 +748,15 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
             setExercise(null)
             setLastAnswer(null)
             setTonoLocal(null)
-            loadNext()
+            // El 409 dice que el servidor venció lo que teníamos servido, así
+            // que un ejercicio adelantado contra ese estado ya no vale.
+            descartarAdelanto()
+            loadNext({ fresco: true })
           }
         },
       },
     )
-  }, [exercise, answerMutation, sfx, solvedCount, player, fireXp, evaluarLocal, loadNext])
+  }, [exercise, answerMutation, sfx, solvedCount, player, fireXp, evaluarLocal, loadNext, adelantar, descartarAdelanto])
 
   // El botón existe cuando ya hay algo para explicar: se acertó, o se erró al
   // menos una vez. Nunca antes del primer intento — ahí sería regalar la
@@ -689,7 +782,18 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
     if (porqueTexto !== null || explainMutation.isPending) return
     explainMutation.mutate(
       { exercise_id: exercise.exercise_id },
-      { onSuccess: (data) => setPorqueTexto(data.explanation) },
+      {
+        onSuccess: (data) => {
+          setPorqueTexto(data.explanation)
+          setPorqueGraph({
+            fn: data.graph_fn,
+            fn2: data.graph_fn2,
+            fnLatex: data.graph_fn_latex,
+            fn2Latex: data.graph_fn2_latex,
+            view: data.graph_view as PorQueGraph["view"],
+          })
+        },
+      },
     )
   }, [exercise, explainMutation, porqueTexto, sfx, solvedLatex])
 
@@ -768,12 +872,20 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
           // el ejercicio nuevo entra en el mismo viaje.
           setExercise(data)
           setLastAnswer(null)
+          // También el tono local, no solo el del servidor. Si `/answer` falló
+          // con algo que no fuera un 409 —una caída de red, un 500—, su
+          // `onSuccess` nunca corrió y `tonoLocal` quedó con el color del
+          // intento anterior; como `tone` es `answerTone(lastAnswer) ?? tonoLocal`,
+          // ese color sobrevivía al salteo y teñía la derivada nueva. El teléfono
+          // ya lo limpiaba (mobile-flow.tsx :: onSkip).
+          setTonoLocal(null)
           setCafecito(null)
           peekedRef.current = false
           setTableOpen(false)
           setStatsOpen(false)
           setPorqueOpen(false)
           setPorqueTexto(null)
+          setPorqueGraph(null)
           setSolvedLatex(null)
           setFallado(false)
           servedAtRef.current = Date.now()
@@ -793,12 +905,15 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
             setExercise(null)
             setLastAnswer(null)
             setTonoLocal(null)
-            loadNext()
+            // El 409 dice que el servidor venció lo que teníamos servido, así
+            // que un ejercicio adelantado contra ese estado ya no vale.
+            descartarAdelanto()
+            loadNext({ fresco: true })
           }
         },
       },
     )
-  }, [exercise, closed, skipMutation, answerMutation.isPending, solvedCount, loadNext])
+  }, [exercise, closed, skipMutation, answerMutation.isPending, solvedCount, loadNext, descartarAdelanto])
 
   // Abrir la tabla marca el ejercicio: la respuesta que venga después no mueve
   // el Elo y paga XP simbólica (el server lo aplica, ver game/router.py).
@@ -1957,6 +2072,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                               isPending={explainMutation.isPending}
                               isError={explainMutation.isError}
                               onRetry={abrirPorque}
+                              graph={porqueGraph}
                             />
                           ) : (
                             <EloStatsPanel
@@ -2032,7 +2148,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                           closed={closed}
                           showKeyHint
                           disabled={
-                            answerMutation.isPending || (closed && next.isPending)
+                            answerMutation.isPending || (closed && (next.isPending || esperandoAdelanto))
                           }
                           onClick={onPrimary}
                         />
@@ -2078,10 +2194,13 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                       />
                     )}
                   </div>
+                  {/* `|| porqueOpen`: leyendo el «¿por qué?» tampoco importa
+                      qué pasó en el juego mientras tanto — mismo criterio que
+                      la intro (ver out-of-focus.ts). */}
                   <EventFeed
                     enabled={player !== null}
                     className="h-[107.5px] shrink-0 py-1"
-                    veiled={panel === "intro"}
+                    veiled={panel === "intro" || porqueOpen}
                   />
                 </>
               )}
@@ -2118,7 +2237,9 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                       // quiénes, o —la primera vez— con quiénes se vería.
                       viewOverride={panel === "reclutas" ? "recruits" : null}
                       sort={rankingSort}
-                      className={`flex-1 ${outOfFocus(enIntro(panel))}`}
+                      // `|| porqueOpen`: leyendo el «¿por qué?» tampoco hay
+                      // motivo para que el ranking compita por atención.
+                      className={`flex-1 ${outOfFocus(enIntro(panel) || porqueOpen)}`}
                     />
                   </div>
                 }
@@ -2162,7 +2283,10 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                           setTonoLocal(null)
                           setClimbFrom(null)
                           setCafecito(null)
-                          loadNext()
+                          // Reiniciar vence TODO lo servido, también lo que
+                          // hubiéramos adelantado.
+                          descartarAdelanto()
+                          loadNext({ fresco: true })
                         }}
                         onCafecito={() => {
                           // Cerrar la configuración y abrir la diapo es UN solo

@@ -15,16 +15,13 @@ import {
 } from "@/components/ui/dialog"
 import { markGraphInfoSeen, useGraphInfoUnseen } from "@/lib/nav/graph-info-seen"
 
+import { LINE_COLOR, SECOND_LINE_COLOR } from "./math-graph-colors"
+
 type RealFn = (x: number) => number
 type BoolFn = (x: number) => boolean
 
 const DEFAULT_VIEW: [number, number, number, number] = [-4, 4, -4, 4]
-export const LINE_COLOR = "#4453E6"
-// Segunda curva, opcional (hoy solo la usa el minijuego /derivadas, para
-// dibujar f y f' juntas en el «¿Por qué?»). Violeta y no rojo: el rojo ya
-// significa "parte negativa del área sombreada" en este mismo componente
-// (SHADE_NEGATIVE_COLOR) y reusarlo acá confundiría los dos sentidos.
-export const SECOND_LINE_COLOR = "#8d31b7"
+export { LINE_COLOR, SECOND_LINE_COLOR } from "./math-graph-colors"
 // Sombreado con signo (analisis/brown/integrals/definite, "lectura-area-con-
 // signos"): la parte de graph_shade que queda arriba del eje x usa LINE_COLOR,
 // la que queda abajo usa este segundo color, para que el signo del área se

@@ -1,5 +1,6 @@
 "use client"
 
+import { useCallback, useRef, useState } from "react"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { unwrap } from "@/lib/api/client"
 import type { components } from "@/lib/api/schema"
@@ -82,4 +83,73 @@ export function useAnswerExercise() {
       queryClient.invalidateQueries({ queryKey: gameKeys.me })
     },
   })
+}
+
+// El ejercicio de después, pedido antes de que lo pidan.
+//
+// POR QUÉ. El color de la respuesta ya es instantáneo (local-verdict.ts), pero
+// Continuar seguía costando un viaje entero: se tocaba el botón y recién ahí
+// salía el `/next`. Con el festejo de la XP de por medio hay dos segundos largos
+// de tiempo muerto en los que ese pedido puede ir y volver sin que nadie espere.
+//
+// CUÁNDO SE PUEDE. Solo después de ACERTAR, y no es un detalle de implementación:
+// `/next` devuelve el ejercicio abierto si hay uno (game/router.py, la guarda de
+// los diez minutos que cierra el volver a tirar hasta que salga una fácil). Un
+// ejercicio se cierra únicamente acertando —`closed = correct`—, así que este es
+// el único instante del juego en el que pedir otro devuelve otro. Errar no
+// alcanza: el ejercicio sigue abierto y el pedido volvería con el mismo.
+//
+// LO QUE NO SE ROMPE. La misma idempotencia garantiza que el ejercicio
+// adelantado es EXACTAMENTE el que se va a consumir, así que esto no reabre el
+// agujero que esa guarda cierra. Y el θ ya está actualizado cuando `/answer`
+// contesta, así que la plantilla se elige con el Elo nuevo, no con el viejo.
+//
+// SI SE ABANDONA. Cerrar la pestaña entre el acierto y el Continuar deja un
+// ejercicio servido que nadie respondió. No se pierde: al volver, `/next` lo
+// devuelve por la misma guarda. El único costo visible es que las teclas que esa
+// derivada desbloquea ya quedaron desbloqueadas, así que su destello de tecla
+// nueva no vuelve a correr.
+export function useEjercicioAdelantado() {
+  const api = useGameApi()
+  // Se guarda la PROMESA y no el resultado: así "ya llegó", "sigue en vuelo" y
+  // "falló" se consumen por el mismo camino, sin que quien llama tenga que
+  // preguntar en cuál de los tres está.
+  const caja = useRef<Promise<GameExercise> | null>(null)
+  // Solo para el botón: mientras se espera un adelanto que todavía no llegó,
+  // Continuar tiene que seguir deshabilitándose como se deshabilitaba antes.
+  const [esperando, setEsperando] = useState(false)
+
+  // Pedido propio y no la mutación del layout: `next.isPending` es lo que apaga
+  // el botón de Continuar, y compartir la instancia lo habría apagado durante el
+  // adelanto —o sea justo mientras la persona mira el acierto y va a tocarlo.
+  const adelantar = useCallback(() => {
+    if (caja.current !== null) return
+    const promesa = (async () =>
+      unwrap(await api.POST("/game/derivemos/next")))()
+    caja.current = promesa
+    // Adelantarse es una mejora, no un requisito: si falla se descarta y el
+    // camino de siempre hace el pedido cuando toque.
+    promesa.catch(() => {
+      if (caja.current === promesa) caja.current = null
+    })
+  }, [api])
+
+  /** El adelantado, vaciando la caja: dos llamadas seguidas, la segunda es null. */
+  const consumir = useCallback(() => {
+    const promesa = caja.current
+    caja.current = null
+    if (promesa !== null) setEsperando(true)
+    return promesa
+  }, [])
+
+  const servido = useCallback(() => setEsperando(false), [])
+
+  /** Para cuando el servidor movió el piso: un 409 o un reinicio de progreso
+   *  vencen lo servido, así que lo adelantado ya no vale. */
+  const descartar = useCallback(() => {
+    caja.current = null
+    setEsperando(false)
+  }, [])
+
+  return { adelantar, consumir, servido, descartar, esperando }
 }

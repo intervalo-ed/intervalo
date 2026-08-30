@@ -17,18 +17,47 @@
 
 import { useCallback, useEffect, useRef } from "react"
 import { ChevronDown, ChevronUp } from "lucide-react"
-import MathGraph, { LINE_COLOR, SECOND_LINE_COLOR } from "@/components/math-graph"
+import dynamic from "next/dynamic"
+import { LINE_COLOR, SECOND_LINE_COLOR } from "@/components/math-graph-colors"
 import MathText from "@/components/math-text"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { KeyCap, WRONG } from "./exercise-card"
 import { enCampoDeTexto } from "./teclas"
 
+// El gráfico se baja recién cuando hay uno que dibujar.
+//
+// `mafs` + `mathjs` pesan ~975 KB y entraban en el bundle INICIAL de /derivadas
+// por esta sola importación: todo el mundo pagaba casi un mega antes de ver la
+// intro, para una pantalla que solo existe en el teléfono, solo adentro del
+// «¿Por qué?» y solo después de haber errado una derivada.
+//
+// `ssr: false` porque Mafs mide el DOM al montarse; no hay nada que prerenderizar.
+const MathGraph = dynamic(() => import("@/components/math-graph"), {
+  ssr: false,
+  // Del alto del gráfico se encarga el propio contenedor, así que un hueco vacío
+  // alcanza: sin él, la explicación daría un salto cuando el chunk aterriza.
+  loading: () => <div className="h-48 w-full rounded-md border bg-white/5" />,
+})
+
 // El gris del botón abierto ("Volver"). Sólido y no una mezcla de opacidad
 // como el estado cerrado (`bg-foreground/[0.14]`): ese cambia de tono según
 // lo que tenga detrás —la card oscura en un lado, el hint blanco-y-verde del
 // primer acierto en el otro— y acá hace falta el MISMO gris en los dos.
 const GRIS_VOLVER = "#A1A1AA"
+
+// El parrafito que cierra el gráfico. Fijo y sin parámetros a propósito —
+// mismo criterio que las imágenes de REGLAS en explain.py: la relación entre
+// f y f' (dónde una sube, qué signo tiene la otra) es la misma para
+// cualquier función que el juego sirva, así que decirla una vez alcanza. No
+// afirma que ESTE gráfico puntual muestre un máximo o un cruce por cero —
+// una f sin extremos en su ventana (una exponencial pura, por ejemplo) es
+// tan válida como cualquier otra— sino qué relación mirar en general.
+const GRAPH_CAPTION =
+  "Mirá cómo se acompañan: donde f sube, f' es positiva; donde f baja, f' " +
+  "es negativa; y en los tramos donde f se aplana, f' pasa por cero. No son " +
+  "dos funciones sueltas — f' es literalmente la pendiente de f, dibujada " +
+  "aparte."
 
 // Cuánto se desplaza por click o por tecla. Ni un scroll de a línea (se
 // sentiría lento contra un tier 5 largo) ni un salto de a pantalla completa
@@ -49,9 +78,10 @@ function easeOutCubic(t: number): number {
 }
 
 // El gráfico de cierre: f y f' en los mismos ejes. Lo manda siempre el
-// servidor (game/explain.py :: Explanation) pero solo lo pinta el teléfono
-// —quien pase este prop—: en escritorio la explicación ya compite por
-// espacio con el dorso volteado de la card, y ahí no entra otra cosa más.
+// servidor (game/explain.py :: Explanation); las dos vistas lo pintan, cada
+// una pasando este prop desde su propio estado (mobile-flow.tsx y
+// desktop-layout.tsx guardan el mismo objeto por separado, porque cada una
+// tiene su propio ciclo de vida de "qué ejercicio es este").
 export type PorQueGraph = {
   fn: string
   fn2: string
@@ -95,7 +125,7 @@ export function PorQuePanel({
   isPending: boolean
   isError: boolean
   onRetry: () => void
-  // Ver `PorQueGraph` arriba. `null`/ausente en escritorio a propósito.
+  // Ver `PorQueGraph` arriba.
   graph?: PorQueGraph | null
   // Sin marco ni relleno propios: en escritorio esto es el DORSO de la card del
   // ejercicio, que ya trae su borde y su padding, y dibujar otro recuadro
@@ -232,6 +262,11 @@ export function PorQuePanel({
                     <MathText text={`$${graph.fn2Latex}$`} />
                   </span>
                 </div>
+                {/* El parrafito de arriba (GRAPH_CAPTION): la leyenda dice cuál
+                    curva es cuál, esto dice qué relación mirar entre las dos. */}
+                <p className="text-center text-xs italic leading-relaxed text-muted-foreground">
+                  {GRAPH_CAPTION}
+                </p>
               </div>
             )}
           </>
