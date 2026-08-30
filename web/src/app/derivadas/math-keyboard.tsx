@@ -228,7 +228,7 @@ const ROW_VARS = "[--kb-row:2.5rem] md:[--kb-row:2.05rem]"
 // dinámicas (6+5) más las dos fijas: cuatro filas, que ya no entran en la card y
 // se desbordaban sobre el botón. Con diez, las fijas se juntan en UNA sola y el
 // teclado vuelve a medir tres filas incluso con todo desbloqueado.
-const GRID_COLS = 10
+export const GRID_COLS = 10
 
 // El pad del teléfono: las cuatro columnas de la DERECHA, al lado del numérico.
 // Antes eran dos bloques de dos columnas con las teclas a DOBLE alto
@@ -252,7 +252,7 @@ const PAD_DYNAMIC_SLOTS = PAD_COLS * PAD_ROWS - 8
 // El alto alcanza para los glifos compuestos (√□, e^□ miden 30 px).
 const DYNAMIC_ROW = "2.75rem"
 const DYNAMIC_ROW_DESKTOP = "2.6rem"
-const STRIP_ROW = "2.6rem"
+export const STRIP_ROW = "2.6rem"
 
 // La fila fija de escritorio, espejada por el mismo motivo que el pad del
 // teléfono: en escritorio no hay numérico —los dígitos se tipean— pero sí están
@@ -265,6 +265,20 @@ const STRIP_ROW = "2.6rem"
 // columna de la derecha de la Casio.
 const STRIP_WRITE: Key[] = [...LEFT.slice(0, 2), ...CENTER]
 const STRIP_EDIT: Key[] = [CLEAR_KEY, ERASE_KEY, ...LEFT.slice(2)]
+
+/** Cuántas teclas tiene cada tira de escritorio. Derivado y no escrito a mano:
+ *  lo lee el esqueleto de carga (desktop-layout.tsx :: ExerciseSkeleton) para
+ *  dibujar las mismas celdas, y con un literal ahí las dos cosas se separaban en
+ *  cuanto alguien sumara una tecla. */
+export const LARGOS_DE_TIRA = [STRIP_WRITE.length, STRIP_EDIT.length]
+
+/** En qué columna arranca la tecla `indice` de una tira de `total`, para que la
+ *  tira quede centrada en las diez columnas. La usan el teclado y su esqueleto:
+ *  si el centrado se calculara dos veces, alcanzaría con tocar una para que las
+ *  teclas del esqueleto dejaran de caer donde caen las de verdad. */
+export function columnaDeTira({ total, indice }: { total: number; indice: number }) {
+  return Math.floor((GRID_COLS - total) / 2) + 1 + indice
+}
 const STRIP: Key[] = [...STRIP_EDIT, ...STRIP_WRITE]
 
 // El teclado de escritorio mide SIEMPRE tres filas, y lo que se acomoda para
@@ -297,7 +311,7 @@ const DYN_ONE_ROW_MAX = 7
 // campo donde se escribe la respuesta comparten el mismo canal centrado, así el
 // panel entero se lee como una columna y no como tres cajas de anchos
 // distintos. Ver ExerciseCard :: PANEL_CONTENT.
-const CONTENT_WIDTH = "mx-auto w-full max-w-[32rem]"
+export const CONTENT_WIDTH = "mx-auto w-full max-w-[32rem]"
 
 const KEY_CLASS =
   "flex select-none items-center justify-center rounded-md bg-background leading-none transition-colors active:bg-accent"
@@ -593,7 +607,7 @@ export function MathKeyboard({
               {fila.map((key, i) =>
                 button(strip(key), `strip-${f}-${i}`, {
                   style: {
-                    gridColumnStart: Math.floor((GRID_COLS - fila.length) / 2) + 1 + i,
+                    gridColumnStart: columnaDeTira({ total: fila.length, indice: i }),
                   },
                 }),
               )}

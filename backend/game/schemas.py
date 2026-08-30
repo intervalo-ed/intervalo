@@ -160,14 +160,13 @@ class GameExplainOut(BaseModel):
     # XP_EXPLICADO. False cuando ya estaba cerrado (se acertó y no queda nada
     # que cobrar) o cuando ya se había abierto antes.
     costs_xp: bool = False
-    # El gráfico de cierre: f y f' en los mismos ejes. Solo lo pinta el
-    # teléfono (web/src/app/derivadas/mobile-flow.tsx) — en escritorio la
-    # explicación ya compite por espacio con el dorso volteado de la card—,
-    # pero viaja siempre: a diferencia de `graph_fn` en el banco de
-    # Intervalo, acá NINGÚN ejercicio se queda sin curva que mostrar (ver
-    # game/explain.py :: Explanation). `graph_fn`/`graph_fn2` son fórmulas
-    # de mathjs, no LaTeX — mismo formato que usa el banco de Intervalo para
-    # sus propios `GRAF` (ver `web/components/math-graph.tsx`).
+    # El gráfico de cierre: f y f' en los mismos ejes. Lo pintan las dos
+    # vistas (web/src/app/derivadas/mobile-flow.tsx y desktop-layout.tsx), y
+    # viaja siempre: a diferencia de `graph_fn` en el banco de Intervalo, acá
+    # NINGÚN ejercicio se queda sin curva que mostrar (ver game/explain.py ::
+    # Explanation). `graph_fn`/`graph_fn2` son fórmulas de mathjs, no LaTeX —
+    # mismo formato que usa el banco de Intervalo para sus propios `GRAF`
+    # (ver `web/components/math-graph.tsx`).
     graph_fn: str
     graph_fn2: str
     # La MISMA f y f' de arriba, en LaTeX: solo para la leyenda del gráfico,

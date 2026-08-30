@@ -5,12 +5,46 @@
 // null hasta montar (SSR), así que hasta ahí se muestra el fondo pelado.
 
 import { useEffect, useRef } from "react"
-import { usePlatform } from "@/lib/platform/detect"
-import { DesktopLayout } from "./desktop-layout"
+import dynamic from "next/dynamic"
+import { getPlatform, usePlatform } from "@/lib/platform/detect"
 import { GameIntroBackdrop, useGameIntro } from "./game-intro"
-import { MobileFlow } from "./mobile-flow"
 import { useApplyDesiredAlias } from "./register-slides"
 import { useGamePlayer } from "./UseGamePlayer"
+
+// Cada plataforma se baja SOLO su layout.
+//
+// Los dos son grandes —escritorio arrastra además las estadísticas de Elo, el
+// texto legal y los orbes— y hasta ahora todo el mundo se bajaba los dos, para
+// ejecutar uno. En un teléfono con datos eso es peso puro.
+//
+// `ssr: false` porque el layout no se puede elegir en el servidor: `getPlatform`
+// mira `maxTouchPoints` además del user agent, justamente porque un iPad se
+// reporta como Macintosh, y adivinarlo desde el server daría "escritorio" para
+// alguien que está jugando el flujo del teléfono.
+const DesktopLayout = dynamic(
+  () => import("./desktop-layout").then((m) => m.DesktopLayout),
+  { ssr: false },
+)
+const MobileFlow = dynamic(
+  () => import("./mobile-flow").then((m) => m.MobileFlow),
+  { ssr: false },
+)
+
+// El pedido del chunk arranca acá, al evaluarse el módulo, y no cuando
+// `usePlatform` contesta.
+//
+// Sin esto el partido saldría CARO en vez de barato: `usePlatform` devuelve null
+// hasta el efecto de montaje, así que el chunk recién se pediría después de
+// hidratar y quedaría en serie detrás de todo lo demás — se ahorrarían bytes y
+// se perdería tiempo. Disparado desde el cuerpo del módulo, en cambio, baja en
+// paralelo con la hidratación, que es lo que hacía cuando venía adentro del
+// bundle. `getPlatform` es sincrónica y no toca el DOM, y el guard de `window`
+// la deja afuera del render del servidor.
+if (typeof window !== "undefined") {
+  void (getPlatform() === "desktop"
+    ? import("./desktop-layout")
+    : import("./mobile-flow"))
+}
 
 export function GameRoot() {
   const platform = usePlatform()

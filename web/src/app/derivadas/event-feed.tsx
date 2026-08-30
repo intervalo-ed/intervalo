@@ -15,6 +15,7 @@ import { useLayoutEffect, useRef, useState } from "react"
 import { outOfFocus } from "./out-of-focus"
 import { AnimatePresence, motion } from "motion/react"
 import { cn } from "@/lib/utils"
+import { Hueco } from "./skeleton-barra"
 import { levelColor } from "./game-colors"
 import { useGameEvents, type GameEvent } from "./UseGameLeaderboard"
 
@@ -124,6 +125,40 @@ function EventRow({ event }: { event: GameEvent }) {
   )
 }
 
+// El esqueleto del feed: calca a `EventRow` y a su lista, con las mismas clases.
+// Antes acá había un "Cargando…" suelto, que además de no parecerse a nada movía
+// el panel dos veces —una al aparecer el texto y otra al reemplazarlo la lista.
+//
+// `h-[1.375em]` sobre un `text-xs` es la caja de línea de `leading-snug`
+// (0,75rem × 1,375 = 16,5 px), que es lo que le da alto a la línea real. No hay
+// forma de escribirlo con una clase de la escala: el número existe porque el
+// renglón de verdad mide eso.
+//
+// Cuatro líneas y no doce: el feed de escritorio mide poco más de cien píxeles y
+// el `my-auto` —el mismo de la lista real— las deja centradas en el hueco que
+// haya, sin apoyarse en el techo ni en el piso.
+function FeedSkeleton() {
+  const anchos = ["w-40", "w-52", "w-44", "w-36"]
+  return (
+    <ul className="my-auto flex animate-pulse flex-col gap-0.5" aria-hidden>
+      {anchos.map((ancho, i) => (
+        <li
+          key={i}
+          className="flex items-baseline gap-2 rounded-md px-2 py-1.5 text-xs leading-snug"
+        >
+          <Hueco alto="h-[1.375em]" className="min-w-0 flex-1" barra={cn("h-2.5", ancho)} />
+          {/* El "hace 3 min" del final, que va en un cuerpo más chico. */}
+          <Hueco
+            alto="h-[1.375em]"
+            className="w-8 shrink-0 text-[0.68rem]"
+            barra="h-2.5 w-full"
+          />
+        </li>
+      ))}
+    </ul>
+  )
+}
+
 export function EventFeed({
   enabled,
   className,
@@ -198,9 +233,11 @@ export function EventFeed({
           outOfFocus(veiled),
         )}
       >
-        {events.length === 0 ? (
+        {events.length === 0 && isLoading ? (
+          <FeedSkeleton />
+        ) : events.length === 0 ? (
           <p className="px-2 py-3 text-xs text-muted-foreground">
-            {isLoading ? "Cargando…" : "Todavía no pasó nada. Resolvé una y arrancá vos."}
+            Todavía no pasó nada. Resolvé una y arrancá vos.
           </p>
         ) : (
           <ul className="my-auto flex flex-col gap-0.5">

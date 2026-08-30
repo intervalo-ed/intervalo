@@ -33,6 +33,7 @@ import { XpDots } from "@/components/xp-dots"
 import { badgeWithCrown, CAREER_EMOJI } from "@/lib/career-emoji"
 import { BELT_HEX } from "@/lib/catalog"
 import { cn } from "@/lib/utils"
+import { Hueco } from "./skeleton-barra"
 import { levelColor } from "./game-colors"
 import { ListaDeReclutas } from "./reclutas-list"
 import {
@@ -393,11 +394,20 @@ export function GameRanking({
     <div className={cn("flex min-h-0 flex-col gap-3", className)}>
       <div className="flex shrink-0 flex-col gap-2">
         <div className="grid grid-cols-2 gap-2">
+          {/* Mientras el resumen viaja va una barra y no el `?? 0`. El cero no
+              era un lugar vacío esperando el dato: decía que no hay nadie
+              jugando, que es una afirmación, y encima falsa. El ícono sí se
+              queda —no es dato, no hay nada suyo que esperar— y con él la caja
+              mide exactamente lo mismo antes y después. */}
           <Metric
             label="Estudiantes"
             value={
               <span className="inline-flex items-center gap-1.5">
-                <CountUp value={summary.data?.players ?? 0} format={fmtCount} />
+                {summary.isLoading ? (
+                  <Hueco alto="h-[1em]" className="w-10" barra="h-3.5 w-full" />
+                ) : (
+                  <CountUp value={summary.data?.players ?? 0} format={fmtCount} />
+                )}
                 <UsersIcon className="size-[0.85em] text-primary" />
               </span>
             }
@@ -418,7 +428,11 @@ export function GameRanking({
             value={
               sort === "elo" ? (
                 <span className="inline-flex items-baseline gap-1">
-                  {summary.data?.elo_avg == null ? (
+                  {summary.isLoading ? (
+                    <Hueco alto="h-[1em]" className="w-10" barra="h-3.5 w-full" />
+                  ) : summary.data?.elo_avg == null ? (
+                    // El guion es un dato, no una espera: significa que todavía
+                    // no hay suficientes partidas para promediar.
                     <span className="text-muted-foreground">—</span>
                   ) : (
                     <CountUp value={summary.data.elo_avg} format={fmtCount} />
@@ -429,7 +443,11 @@ export function GameRanking({
                 </span>
               ) : (
                 <span className="inline-flex items-center gap-1.5">
-                  <CountUp value={summary.data?.exercises ?? 0} format={fmtCount} />
+                  {summary.isLoading ? (
+                    <Hueco alto="h-[1em]" className="w-10" barra="h-3.5 w-full" />
+                  ) : (
+                    <CountUp value={summary.data?.exercises ?? 0} format={fmtCount} />
+                  )}
                   <LayersIcon className="size-[0.85em] text-primary" />
                 </span>
               )
@@ -1495,19 +1513,37 @@ function UniversityRanking({
   )
 }
 
+// El esqueleto de la lista: calca a `Row` y a su scroller, contenedor por
+// contenedor. Las clases de las tres cajas —el scroller, la lista y la fila— son
+// LAS MISMAS de arriba a propósito; si alguna se toca allá, hay que tocarla acá.
+//
+// Los `h-5` de las hojas son el alto de la caja de línea de `text-sm`, que es lo
+// que le da altura a la fila de verdad (12 px de `py-3` por lado + 20 px de
+// línea = 44 px). Con las barras sueltas, cada fila quedaba en 38 px y la lista
+// entera pegaba un salto de 36 px justo cuando entraban los datos.
+//
+// Los anchos del alias sí son inventados y varían por fila: son texto, y un
+// bloque de seis barras del mismo largo se lee como una tabla vacía, no como
+// nombres que todavía no llegaron.
 function ListSkeleton() {
-  const widths = ["w-24", "w-32", "w-28", "w-36", "w-24", "w-32"]
+  const anchos = ["w-24", "w-32", "w-28", "w-36", "w-24", "w-32"]
   return (
-    <div className="no-scrollbar min-h-0 flex-1 overflow-hidden">
-      <div className="flex animate-pulse flex-col gap-2 py-1">
+    <div className="no-scrollbar relative -mx-1 min-h-0 flex-1 overflow-hidden px-1">
+      <div className="flex animate-pulse flex-col gap-2 py-1" aria-hidden>
         {Array.from({ length: 6 }).map((_, i) => (
           <div
             key={i}
             className="flex items-center gap-3 rounded-lg px-4 py-3 ring-1 ring-foreground/10"
           >
-            <span className="inline-block h-3.5 w-3 shrink-0 rounded bg-white/10" />
-            <span className={cn("inline-block h-3.5 flex-1 rounded bg-white/10", widths[i % widths.length])} />
-            <span className="inline-block h-3.5 w-10 shrink-0 rounded bg-white/10" />
+            {/* El puesto: `w-4`, el mismo ancho fijo que reserva la fila. */}
+            <Hueco alto="h-5" className="w-4 shrink-0" barra="h-3.5 w-full" />
+            <Hueco
+              alto="h-5"
+              className="min-w-0 flex-1"
+              barra={cn("h-3.5", anchos[i % anchos.length])}
+            />
+            {/* El número del final: cifras más el ícono de XP, con su `gap-1`. */}
+            <Hueco alto="h-5" className="w-12 shrink-0" barra="h-3.5 w-full" />
           </div>
         ))}
       </div>
