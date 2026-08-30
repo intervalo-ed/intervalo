@@ -14,6 +14,7 @@
 // orden y la fila sube (ver xp-conteo.ts y components/orb-flight.tsx).
 
 import { Fragment, useCallback, useEffect, useRef, useState } from "react"
+import { cn } from "@/lib/utils"
 import posthog from "posthog-js"
 import { useQueryClient } from "@tanstack/react-query"
 import { ChevronLeft, Settings } from "lucide-react"
