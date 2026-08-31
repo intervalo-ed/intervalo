@@ -4,10 +4,11 @@ Contexto: D se suma a A (dificultad) y B (explicación) compartiendo el mismo
 cupo anti-fatiga. Lo que hace falta comprobar no es que D "aparezca", sino dos
 cosas que son fáciles de romper sin darse cuenta:
 
-  1. Las tres reglas anti-fatiga cuentan a D como a cualquier otro canal
-     (alternancia entre sesiones, kill-switch de skips, y nunca el mismo ítem
-     al mismo usuario). Si alguna se olvidara de D, la regla se vaciaría justo
-     para el canal que se lleva la mayoría del tráfico.
+  1. Las reglas anti-fatiga cuentan a D como a cualquier otro canal
+     (kill-switch de skips, y nunca el mismo ítem al mismo usuario). La
+     alternancia entre sesiones se sacó el 2026-08-31 (descartaba 574 de 1.040
+     sesiones sin evidencia de fatiga — ver 2026-08-26-motor-de-sesiones.md
+     §7/§9): una sesión anterior con encuesta YA NO bloquea la siguiente.
   2. El targeting, en cambio, cuenta por canal. Un ítem con varios votos de
      dificultad NO está "cubierto" para interés: son preguntas distintas. Si
      ese contador volviera a ser global, el dataset del canal norte quedaría
@@ -164,8 +165,8 @@ db, uid, cid = fresh_db()
 prev = add_session(db, uid, cid, datetime.utcnow() - timedelta(hours=2))
 add_feedback(db, user_id=uid, session_id=prev, course_id=cid, item="item_1", qtype="D")
 check(
-    "alternancia: una sesión anterior con D bloquea la siguiente",
-    fs.assign_survey(uid, cid, slots(), db) is None,
+    "sin alternancia: una sesión anterior con D YA NO bloquea la siguiente",
+    fs.assign_survey(uid, cid, slots(), db) is not None,
 )
 
 db, uid, cid = fresh_db()
@@ -235,6 +236,18 @@ check(
     f"sorteados: {sorted(picked)}",
 )
 check("con menos de 3 ejercicios no hay encuesta", fs.assign_survey(uid, cid, slots(2), db) is None)
+del os.environ["SURVEY_FORCE_CHANNEL"]
+
+db, uid, cid = fresh_db()
+os.environ["SURVEY_FORCE_CHANNEL"] = "D"
+# Sesión de tamaño 3 (rampa adaptativa, arranca ahí): "nunca el último" con la
+# regla vieja de exercises[1:-1] solo dejaba ex_001 como candidato.
+picked = {fs.assign_survey(uid, cid, slots(3), db)["exercise_id"] for _ in range(300)}
+check(
+    "con sesión de 3, el último ejercicio también es candidato",
+    picked == {"ex_001", "ex_002"},
+    f"sorteados: {sorted(picked)}",
+)
 del os.environ["SURVEY_FORCE_CHANNEL"]
 
 # ── 5. Whitelist del chip de razón ───────────────────────────────────────────

@@ -12,9 +12,7 @@ sin muestreo ni límite.
 
 Reglas anti-fatiga (server-side):
   - Máx 1 encuesta por sesión.
-  - Nunca en el primer ni el último ejercicio.
-  - Alternancia: si la sesión anterior del usuario en el curso ya mostró una
-    encuesta (impression logueada), esta sesión no lleva ninguna.
+  - Nunca en el primer ejercicio (ni en el último, en sesiones de 5+).
   - Si las últimas 3 encuestas mostradas al usuario fueron ignoradas (skip) y
     la más reciente es de los últimos 14 días, se pausa (kill-switch).
   - Nunca se le pregunta al mismo usuario por el mismo ítem dos veces, sin
@@ -49,7 +47,7 @@ from datetime import datetime, timedelta
 from sqlalchemy import func
 from sqlalchemy.orm import Session as DBSession
 
-from models import Exercise, ExerciseFeedback, Session as SessionModel
+from models import Exercise, ExerciseFeedback
 
 SKIP_STREAK_LEN = 3
 SKIP_PAUSE_DAYS = 14
@@ -58,11 +56,13 @@ SKIP_PAUSE_DAYS = 14
 # se desincronizaba; que sea una constante es lo que evita que vuelva a pasar.
 SURVEY_TYPES = ("A", "B", "D")
 
-# Reparto entre canales. D se lleva la mayoría por ser el canal norte; A queda
-# como muestra de calibración (ya tiene 183 votos y su banda 55-77% establecida)
-# y B es el más chico. Revertible en un deploy: bajar D a 0.0 apaga el canal sin
-# tocar nada más.
-SURVEY_WEIGHTS = {"D": 0.60, "A": 0.25, "B": 0.15}
+# Reparto entre canales. D se lleva la mayoría por ser el canal norte y el que
+# alimenta el modelo de dificultad (solo 57 votos contra 239 de A); A baja
+# porque ya tiene su banda de calibración 55-77% establecida, y B sigue siendo
+# el más chico y el más condicionado (solo dispara si el usuario abrió "¿Por
+# qué?"). Subido de 0.60 a 0.75 el 2026-08-31 (2026-08-26-motor-de-sesiones.md
+# §9/§11). Revertible en un deploy: bajar D a 0.0 apaga el canal sin tocar nada más.
+SURVEY_WEIGHTS = {"D": 0.75, "A": 0.15, "B": 0.10}
 
 # Chips de razón del canal D, por polo. Lista cerrada: el endpoint valida
 # contra esto antes de persistir. Espejada en web/.../survey-pane.tsx — si
@@ -84,26 +84,6 @@ def validate_reason(question_type: str, value: str | None, reason: str | None) -
     if question_type != "D":
         return None
     return reason if reason in D_REASONS.get(value or "", ()) else None
-
-
-def _previous_session_had_survey(user_id: int, course_id: int, db: DBSession) -> bool:
-    prev = (
-        db.query(SessionModel)
-        .filter(SessionModel.user_id == user_id, SessionModel.course_id == course_id)
-        .order_by(SessionModel.started_at.desc())
-        .first()
-    )
-    if prev is None:
-        return False
-    exists = (
-        db.query(ExerciseFeedback.id)
-        .filter(
-            ExerciseFeedback.session_id == prev.id,
-            ExerciseFeedback.question_type.in_(SURVEY_TYPES),
-        )
-        .first()
-    )
-    return exists is not None
 
 
 def _in_skip_pause(user_id: int, db: DBSession) -> bool:
@@ -162,16 +142,18 @@ def assign_survey(user_id: int, course_id: int, exercises: list, db: DBSession) 
     `.exercise_id` = slot y `.external_id` = clave real). Devuelve
     {"exercise_id": ..., "type": "A"|"B"|"D"} o None."""
     if len(exercises) < 3:
-        return None  # nunca 1er/último ejercicio: sin candidatos si hay <3
+        return None  # nunca el 1er ejercicio: sin candidatos si hay <3
 
-    if _previous_session_had_survey(user_id, course_id, db):
-        return None
     if _in_skip_pause(user_id, db):
         return None
 
+    # Con sesiones cortas (tamaño adaptativo, arranca en 3) "nunca el último"
+    # dejaba 0-1 candidatos. De `exercises[1:]` en vez de `[1:-1]` a partir de
+    # 5 ejercicios el límite superior deja de importar (2026-08-26-motor-de-sesiones.md §9).
+    candidatos_pool = exercises[1:] if len(exercises) < 5 else exercises[1:-1]
     asked = _already_asked_items(user_id, db)
     candidates = [
-        ex for ex in exercises[1:-1]
+        ex for ex in candidatos_pool
         if getattr(ex, "external_id", "") and ex.external_id not in asked
     ]
     if not candidates:

@@ -1,4 +1,5 @@
 from .config import SM2Config
+from .elo import predict as elo_predict, sigmoid as elo_sigmoid, update as elo_update
 from .domain import (
     Belt,
     BeltCatalog,
@@ -60,6 +61,9 @@ __all__ = [
     "XP_STREAK_INTERVAL",
     "build_session",
     "difficulty_multiplier",
+    "elo_predict",
+    "elo_sigmoid",
+    "elo_update",
     "is_topic_mastered",
     "load_belt_catalogs",
     "load_course_structure",

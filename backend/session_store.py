@@ -8,6 +8,7 @@ exercise_types has graduated into the reviewing phase.
 
 from __future__ import annotations
 
+import json
 import random
 import sys
 from contextlib import contextmanager
@@ -26,6 +27,7 @@ from algorithm import (
     DIFFICULTY_MIN_SAMPLES,
     DIFFICULTY_WINDOW,
     STREAK_RESET_AFTER_DAYS,
+    elo_update,
     XP_STREAK_BONUS,
     XP_STREAK_INTERVAL,
     difficulty_multiplier,
@@ -41,6 +43,7 @@ from algorithm import (
     update_unit_state,
 )
 from exercise_bank import (
+    _row_to_dict,
     course_exercise_types,
     get_exercise_db,
     list_exercises_db,
@@ -53,6 +56,8 @@ from models import (
     Answer,
     Course,
     CourseProgress,
+    Exercise,
+    ItemDifficulty,
     ItemExerciseCycle,
     Session as SessionModel,
     UnitState,
@@ -697,6 +702,41 @@ def _build_exercise(
     )
 
 
+def _build_exercise_from_external_id(
+    idx: int, external_id: str, course_id: int, db: DBSession,
+) -> ExerciseInSession | None:
+    """Reconstruye un slot de sesión a partir del external_id ya servido
+    (`sessions.served_external_ids`), en vez de volver a sortear con
+    `get_exercise_db`. El orden de las opciones no necesita coincidir con el
+    original: la identidad autoritativa del ejercicio siempre fue el
+    external_id (ver comentario en record_answer_db), nunca el orden mostrado."""
+    row = db.query(Exercise).filter(
+        Exercise.course_id == course_id, Exercise.external_id == external_id,
+    ).first()
+    if row is None:
+        return None
+    ex = _row_to_dict(row)
+    unit_key = UnitKey(belt=Belt(row.belt), topic=row.topic, exercise_type=row.exercise_type)
+    shuffled, new_correct_index, shuffled_feedback, shuffled_table = _shuffle_options(ex)
+    return ExerciseInSession(
+        exercise_id=f"ex_{idx:03d}",
+        unit_key=unit_key,
+        question=ex["question"],
+        options=shuffled,
+        correct_index=new_correct_index,
+        feedback_correct=ex["feedback_correct"],
+        feedback_incorrect=shuffled_feedback,
+        has_math=ex.get("has_math", False),
+        graph_fn=ex.get("graph_fn", ""),
+        graph_view=ex.get("graph_view"),
+        graph_shade=ex.get("graph_shade"),
+        graph_free_aspect=bool(ex.get("graph_free_aspect", False)),
+        table=shuffled_table,
+        explanation=ex.get("explanation"),
+        external_id=ex.get("external_id", ""),
+    )
+
+
 def _rows_to_unit_states(
     rows: list[UnitState],
     today: date,
@@ -716,6 +756,7 @@ def _rows_to_unit_states(
             interval=row.interval_days,
             repetitions=row.repetitions,
             next_review=row.next_due or today,
+            recent_results=row.recent_results or "",
         )
         attempted[uk] = row.attempted
     return states, attempted
@@ -777,7 +818,43 @@ ACTIVE_CAP_DEFAULT_FALLBACK = 18
 # Límites del "máximo de ejercicios por sesión" configurable.
 SESSION_SIZE_MIN = 1
 SESSION_SIZE_MAX = 30
-SESSION_SIZE_DEFAULT = 5
+SESSION_SIZE_DEFAULT = 3
+SESSION_SIZE_RAMP_CEILING = 8
+
+
+def _adaptive_session_size(user_id: int, course_id: int, db: DBSession) -> int:
+    """Rampa de tamaño de sesión: arranca chico (donde la finalización real es
+    más alta) y sube con la racha de sesiones terminadas. Ver
+    2026-08-26-motor-de-sesiones.md §4 (AUC 0,694 solo con tamaño) y §8."""
+    previas = (
+        db.query(SessionModel.finished_at, SessionModel.abandoned)
+        .filter(
+            SessionModel.user_id == user_id,
+            SessionModel.course_id == course_id,
+            SessionModel.mode == "main",
+        )
+        .order_by(SessionModel.started_at.asc())
+        .all()
+    )
+    n = len(previas)
+    if n == 0:
+        return 3
+    if n <= 2:
+        return 4
+
+    ultima = previas[-1]
+    if ultima.abandoned or ultima.finished_at is None:
+        return 3  # tras una sesión abandonada, volver a arrancar de a poco
+
+    racha = 0
+    for s in reversed(previas):
+        if s.finished_at is not None and not s.abandoned:
+            racha += 1
+        else:
+            break
+    # Las primeras 3 terminadas seguidas son las que habilitan la base (5);
+    # de ahí en más, +1 cada 3 adicionales.
+    return min(5 + max(0, racha - 3) // 3, SESSION_SIZE_RAMP_CEILING)
 
 
 def _lookup_course_progress(
@@ -1013,6 +1090,8 @@ def create_session_db(user_id: int, course_id: int, db: DBSession) -> dict:
     # está activo/vencido, sin introducir temas extra. El tope de ejercicios por
     # sesión es configurable por usuario+curso (session_size).
     course_progress = _get_course_progress(user_id, course_id, db)
+    if course_progress.session_size_auto:
+        course_progress.session_size = _adaptive_session_size(user_id, course_id, db)
     session_units = build_session(
         unit_states,
         unit_attempted=unit_attempted,
@@ -1041,6 +1120,11 @@ def create_session_db(user_id: int, course_id: int, db: DBSession) -> dict:
         exercises_total=len(exercises),
         mode="main",
         iteration=course_progress.iteration,
+        # Identidad de lo servido, en orden, desde el arranque: sin esto una
+        # sesión abandonada sin ninguna respuesta no deja rastro de qué vio el
+        # usuario, y una caché fría re-sortea en vez de reconstruir (ver
+        # _reconstruct_session_state). 2026-08-26-motor-de-sesiones.md §4-bis.
+        served_external_ids=json.dumps([ex.external_id for ex in exercises]),
     )
     db.add(db_session)
     db.flush()
@@ -1246,12 +1330,32 @@ def _reconstruct_session_state(
     ).all()
     unit_states, unit_attempted = _rows_to_unit_states(rows, user_today(db, user_id))
 
-    session_units = build_session(unit_states, unit_attempted=unit_attempted)
-    exclude_by_unit: dict[UnitKey, set[str]] = {}
-    exercises = [
-        _build_exercise(idx, su.key, course_id, db, user_id, exclude_by_unit)
-        for idx, su in enumerate(session_units)
-    ]
+    # Si la sesión guardó qué se sirvió (served_external_ids, desde este
+    # cambio), reconstruir leyendo eso en vez de volver a sortear con
+    # build_session — que podía darle a la persona OTRA sesión, con otros
+    # ítems y otros ejercicios, tras un reinicio del proceso. Sesiones viejas
+    # (sin la columna poblada) caen al comportamiento anterior.
+    db_session = db.query(SessionModel).filter(SessionModel.id == session_id_db).first()
+    served_ids = []
+    if db_session and db_session.served_external_ids:
+        try:
+            served_ids = json.loads(db_session.served_external_ids)
+        except (TypeError, ValueError):
+            served_ids = []
+
+    if served_ids:
+        exercises = []
+        for idx, external_id in enumerate(served_ids):
+            rebuilt = _build_exercise_from_external_id(idx, external_id, course_id, db)
+            if rebuilt is not None:
+                exercises.append(rebuilt)
+    else:
+        session_units = build_session(unit_states, unit_attempted=unit_attempted)
+        exclude_by_unit: dict[UnitKey, set[str]] = {}
+        exercises = [
+            _build_exercise(idx, su.key, course_id, db, user_id, exclude_by_unit)
+            for idx, su in enumerate(session_units)
+        ]
 
     streak = 0
     recent = (
@@ -1406,6 +1510,46 @@ def record_answer_db(
     state.unit_states[unit_key] = new_state
 
     user = db.query(User).filter(User.id == user_id).first()
+
+    # Elo jerárquico: habilidad del usuario y dificultad del ejercicio/ítem,
+    # con el mismo criterio P1 de todo el informe (quality_score == 5, no
+    # is_correct). Solo en repaso real: práctica no tiene target de dificultad
+    # propio y test es QA — mezclarlos ensucia la señal (ver
+    # 2026-08-26-motor-de-sesiones.md §0/§5/§9). Misma transacción que ya
+    # escribe la respuesta: sin job, sin reentrenamiento.
+    if user and resolved_external_id and db_session.mode not in ("practice", "test"):
+        ex_row = db.query(Exercise).filter(
+            Exercise.course_id == course_id,
+            Exercise.external_id == resolved_external_id,
+        ).first()
+        if ex_row is not None:
+            item_row = db.query(ItemDifficulty).filter(
+                ItemDifficulty.course_id == course_id,
+                ItemDifficulty.belt == unit_key.belt.value,
+                ItemDifficulty.topic == unit_key.topic,
+                ItemDifficulty.exercise_type == unit_key.exercise_type,
+            ).first()
+            if item_row is None:
+                item_row = ItemDifficulty(
+                    course_id=course_id,
+                    belt=unit_key.belt.value,
+                    topic=unit_key.topic,
+                    exercise_type=unit_key.exercise_type,
+                )
+                db.add(item_row)
+                db.flush()
+            new_theta, new_beta_x, new_beta_i = elo_update(
+                user.ability, ex_row.difficulty, item_row.difficulty,
+                user.ability_n, ex_row.difficulty_n, item_row.difficulty_n,
+                1 if first_try else 0,
+            )
+            user.ability = new_theta
+            user.ability_n += 1
+            ex_row.difficulty = new_beta_x
+            ex_row.difficulty_n += 1
+            item_row.difficulty = new_beta_i
+            item_row.difficulty_n += 1
+
     streak_mult = streak_multiplier(user.streak_days if user else 0)
 
     # Práctica paga plano y sin ajuste de dificultad (volumen ilimitado a
@@ -1454,6 +1598,7 @@ def record_answer_db(
         db_us.interval_days = new_state.interval
         db_us.repetitions = new_state.repetitions
         db_us.next_due = new_state.next_review
+        db_us.recent_results = new_state.recent_results
         db_us.attempted = True
         db_us.updated_at = datetime.utcnow()
         db_us.last_reviewed_at = datetime.utcnow()
@@ -1893,10 +2038,13 @@ def set_active_cap(user_id: int, course_id: int, value: int, db: DBSession) -> i
 
 
 def set_session_size(user_id: int, course_id: int, value: int, db: DBSession) -> int:
-    """Fija el máximo de ejercicios por sesión (clamp SESSION_SIZE_MIN..MAX)."""
+    """Fija el máximo de ejercicios por sesión (clamp SESSION_SIZE_MIN..MAX).
+    Apaga la rampa automática: a partir de acá manda el valor manual hasta que
+    se reinicie el curso (ver course_progress.session_size_auto)."""
     value = max(SESSION_SIZE_MIN, min(int(value), SESSION_SIZE_MAX))
     cp = _get_course_progress(user_id, course_id, db)
     cp.session_size = value
+    cp.session_size_auto = False
     db.commit()
     return value
 
@@ -1970,10 +2118,12 @@ def reset_course(user_id: int, course_id: int, db: DBSession) -> int:
     cp.iteration += 1
     slug = _get_course_slug(course_id, db)
     cp.active_cap = ACTIVE_CAP_DEFAULTS.get(slug, ACTIVE_CAP_DEFAULT_FALLBACK)
-    # El máximo de ejercicios por sesión también vuelve al default: si el
-    # usuario lo había subido para acelerar y ahora reinicia el curso, arranca
-    # de nuevo con el ritmo pensado para alguien que empieza.
+    # El máximo de ejercicios por sesión también vuelve al default y a la
+    # rampa automática: si el usuario lo había subido a mano para acelerar y
+    # ahora reinicia el curso, arranca de nuevo con el ritmo pensado para
+    # alguien que empieza.
     cp.session_size = SESSION_SIZE_DEFAULT
+    cp.session_size_auto = True
     db.commit()
     return cp.iteration
 

@@ -14,6 +14,10 @@ class SM2UnitState:
     interval: int = 0
     repetitions: int = 0
     next_review: date = field(default_factory=date.today)
+    # Últimos `learning_window` resultados en fase de aprendizaje ("1"/"0" por
+    # intento, más reciente al final). Vacío en fase de retención — el portón
+    # de ventana solo aplica en aprendizaje. Ver _update_learning.
+    recent_results: str = ""
 
 
 def update_unit_state(
@@ -40,41 +44,42 @@ def _update_learning(
 ) -> SM2UnitState:
     steps = config.learning_steps
 
-    # En aprendizaje solo se avanza con acierto al primer intento (quality 5);
-    # cualquier otra cosa (quality < pase) reinicia la racha al paso 1.
-    if quality >= config.quality_threshold_pass:
-        next_step = state.step_index + 1
-        if next_step >= len(steps):
-            # Mastered: enters reviewing phase
-            return SM2UnitState(
-                phase="review",
-                step_index=0,
-                ease_factor=config.ef_initial,
-                interval=config.review_initial_interval,
-                repetitions=0,
-                next_review=today + timedelta(days=config.review_initial_interval),
-            )
-        interval = steps[next_step]
+    # Portón de ventana: gradúa con `learning_need` aciertos de los últimos
+    # `learning_window` intentos, no necesariamente seguidos. Un fallo aislado
+    # ya no reinicia todo el progreso a cero — antes, con una racha estricta,
+    # el ítem podía agotar el pool entero de ejercicios sin graduar nunca
+    # (ver 2026-08-26-motor-de-sesiones.md §3-ter, caso u193).
+    passed = quality >= config.quality_threshold_pass
+    recent = (state.recent_results + ("1" if passed else "0"))[-config.learning_window:]
+    aciertos = recent.count("1")
+
+    if aciertos >= config.learning_need:
+        # Mastered: enters reviewing phase
         return SM2UnitState(
-            phase="learning",
-            step_index=next_step,
-            ease_factor=state.ease_factor,
-            interval=interval,
-            repetitions=state.repetitions,
-            next_review=today + timedelta(days=interval),
-        )
-    else:
-        # Fallo: reinicia al paso 1 (mismo día) — hay que volver a encadenar
-        # los 3 aciertos limpios seguidos.
-        interval = steps[0]
-        return SM2UnitState(
-            phase="learning",
+            phase="review",
             step_index=0,
-            ease_factor=state.ease_factor,
-            interval=interval,
+            ease_factor=config.ef_initial,
+            interval=config.review_initial_interval,
             repetitions=0,
-            next_review=today + timedelta(days=interval),
+            next_review=today + timedelta(days=config.review_initial_interval),
+            recent_results="",
         )
+
+    # No gradúa todavía: la posición en `learning_steps` (y por lo tanto cuán
+    # lejos se programa la próxima revisión) sigue la cantidad de aciertos
+    # acumulados en la ventana, no un contador de racha que un solo fallo
+    # borra entero.
+    step = min(aciertos, len(steps) - 1)
+    interval = steps[step]
+    return SM2UnitState(
+        phase="learning",
+        step_index=step,
+        ease_factor=state.ease_factor,
+        interval=interval,
+        repetitions=state.repetitions,
+        next_review=today + timedelta(days=interval),
+        recent_results=recent,
+    )
 
 
 def _update_review(
