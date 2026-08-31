@@ -11,7 +11,7 @@ import json
 import random
 
 from sqlalchemy.orm import Session as DBSession
-from models import Exercise, ItemExerciseCycle
+from models import Exercise, ItemDifficulty, ItemExerciseCycle, User
 
 
 def _normalize_graph_view(gv):
@@ -163,15 +163,26 @@ def get_exercise_db(
         extra_exclude = set()
 
     cycle = _get_or_create_cycle(user_id, course_id, belt, topic, exercise_type, db)
-    served = set(json.loads(cycle.served_external_ids or "[]"))
+    # served_list preserva el orden real de servido (append-only, ver
+    # mark_exercise_served) — lo necesitamos para saber cuál fue el último y
+    # no repetirlo apenas se resetea el ciclo (ver más abajo).
+    served_list = json.loads(cycle.served_external_ids or "[]")
+    served = set(served_list)
     excluded = served | extra_exclude
 
     available = [r for r in pool if r.external_id not in excluded]
     if not available:
         # Ciclo agotado: se sirvieron todos los del pool (salvo quizás los
-        # excluidos por extra_exclude). Arranca un ciclo nuevo.
+        # excluidos por extra_exclude). Arranca un ciclo nuevo, pero sin
+        # repetir el último servido: un sorteo uniforme sobre el pool completo
+        # lo dejaba volver a salir de inmediato (hasta 8,3% de las veces con
+        # pool 12). Ver 2026-08-26-motor-de-sesiones.md §9.
+        ultimo = served_list[-1] if served_list else None
         cycle.served_external_ids = "[]"
-        available = [r for r in pool if r.external_id not in extra_exclude]
+        available = [
+            r for r in pool
+            if r.external_id not in extra_exclude and r.external_id != ultimo
+        ]
     if not available:
         # La sesión que se está armando ya pidió el pool entero de esta unidad
         # (p. ej. una práctica de 50 sobre un ítem de 15 ejercicios, o un ítem
@@ -191,8 +202,70 @@ def get_exercise_db(
         pesos = [table_boost if r.table_data else 1.0 for r in available]
         return _row_to_dict(random.choices(available, weights=pesos, k=1)[0])
 
-    row = random.choice(available)
+    row = _pick_ranked(
+        available, len(pool), len(served), user_id, course_id, belt, topic, exercise_type, db
+    )
     return _row_to_dict(row)
+
+
+# ── Política de orden dentro del pool elegible (Elo + rampa + exploración) ──
+# Ver 2026-08-26-motor-de-sesiones.md §8. Sobre un ciclo completo el usuario ve
+# exactamente los mismos ejercicios que con sorteo uniforme: esto cambia el
+# ORDEN, no la composición.
+EXPLORATION_EPS = 0.15
+TARGET_BAND_CENTER = 0.75
+
+
+def _pick_ranked(
+    available: list[Exercise],
+    pool_size: int,
+    served_count: int,
+    user_id: int,
+    course_id: int,
+    belt: str,
+    topic: str,
+    exercise_type: str,
+    db: DBSession,
+) -> Exercise:
+    if len(available) == 1:
+        return available[0]
+
+    if random.random() < EXPLORATION_EPS:
+        # Exploración: el menos observado del pool elegible, desempate al azar.
+        min_n = min(r.difficulty_n or 0 for r in available)
+        candidatos = [r for r in available if (r.difficulty_n or 0) == min_n]
+        return random.choice(candidatos)
+
+    cycle_progress = served_count / pool_size if pool_size else 0.0
+    if cycle_progress < 1 / 3:
+        # Primer tercio del ciclo: el más fácil primero.
+        min_diff = min(r.difficulty or 0.0 for r in available)
+        candidatos = [r for r in available if (r.difficulty or 0.0) == min_diff]
+        return random.choice(candidatos)
+
+    # Resto del ciclo: el más cercano a la banda objetivo (p̂ ≈ 0,75).
+    from algorithm.elo import predict as elo_predict
+
+    user = db.query(User).filter(User.id == user_id).first()
+    theta_u = user.ability if user else 0.0
+    item_row = (
+        db.query(ItemDifficulty)
+        .filter(
+            ItemDifficulty.course_id == course_id,
+            ItemDifficulty.belt == belt,
+            ItemDifficulty.topic == topic,
+            ItemDifficulty.exercise_type == exercise_type,
+        )
+        .first()
+    )
+    item_diff = item_row.difficulty if item_row else 0.0
+
+    def distancia(r: Exercise) -> float:
+        n_x = r.difficulty_n or 0
+        p_hat = elo_predict(theta_u, r.difficulty or 0.0, item_diff, n_x)
+        return abs(p_hat - TARGET_BAND_CENTER)
+
+    return min(available, key=distancia)
 
 
 def mark_exercise_served(
@@ -210,10 +283,12 @@ def mark_exercise_served(
     if not external_id:
         return
     cycle = _get_or_create_cycle(user_id, course_id, belt, topic, exercise_type, db)
-    served = set(json.loads(cycle.served_external_ids or "[]"))
-    if external_id not in served:
-        served.add(external_id)
-        cycle.served_external_ids = json.dumps(sorted(served))
+    # Lista append-only en orden de servido (no set/sorted): get_exercise_db
+    # necesita saber cuál fue el ÚLTIMO para no repetirlo al resetear el ciclo.
+    served_list = json.loads(cycle.served_external_ids or "[]")
+    if external_id not in served_list:
+        served_list.append(external_id)
+        cycle.served_external_ids = json.dumps(served_list)
 
 
 def list_exercises_db(

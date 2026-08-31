@@ -110,6 +110,14 @@ class User(Base):
     first_group_id = Column(String(20), nullable=True, index=True)
     first_utm_source = Column(String(20), nullable=True)
 
+    # Habilidad estimada del modelo Elo jerárquico (theta). 0.0 = neutro
+    # (arranca ahí, sin cold start raro: la primera predicción es 0.5 y se
+    # ajusta solo). `ability_n` es el conteo de respuestas usadas para el
+    # learning rate decreciente. Ver algorithm/elo.py y
+    # 2026-08-26-motor-de-sesiones.md §5/§9.
+    ability = Column(Float, nullable=False, default=0.0, server_default="0.0")
+    ability_n = Column(Integer, nullable=False, default=0, server_default="0")
+
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
@@ -176,7 +184,13 @@ class CourseProgress(Base):
     iteration = Column(Integer, nullable=False, default=1, server_default="1")
     active_cap = Column(Integer, nullable=False, default=18, server_default="18")
     # Máximo de ejercicios por sesión de repaso (config del editor).
-    session_size = Column(Integer, nullable=False, default=5, server_default="5")
+    session_size = Column(Integer, nullable=False, default=3, server_default="3")
+    # True mientras nadie tocó el selector manual: create_session_db recalcula
+    # session_size antes de cada sesión (rampa 3→4→4→5.., ver
+    # session_store._adaptive_session_size). Se apaga solo la primera vez que
+    # el usuario fija un valor a mano (set_session_size) y se reactiva al
+    # reiniciar el curso. 2026-08-26-motor-de-sesiones.md §8/§9.
+    session_size_auto = Column(Boolean, nullable=False, default=True, server_default="true")
 
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
@@ -205,6 +219,11 @@ class UnitState(Base):
     repetitions = Column(Integer, default=0)
     next_due = Column(Date, nullable=True)
     attempted = Column(Boolean, default=False)
+    # Historial de resultados recientes en fase de aprendizaje ("1"/"0" por
+    # intento, más reciente al final, hasta learning_window caracteres). Portón
+    # de graduación "N de los últimos M" en vez de racha estricta — ver
+    # algorithm/sm2.py::_update_learning.
+    recent_results = Column(String(8), nullable=False, default="", server_default="")
     # Unit creada como "catch-up": un exercise_type/tema que quedó detrás del
     # frontier ya desbloqueado (p.ej. al agregar un ítem nuevo al catálogo). Se
     # excluye del cálculo de maestría/cinturón para no despromocionar un tema ya
@@ -318,6 +337,14 @@ class Session(Base):
     # new ones while pending (due) items remain — see create_session_db.
     mode = Column(String(16), nullable=False, default="main", server_default="main")
 
+    # Identidad y orden de los ejercicios servidos, escrita en el mismo commit
+    # que crea la fila (JSON list de external_id). Sin esto una sesión
+    # abandonada sin ninguna respuesta no dejaba rastro de qué vio el usuario,
+    # y una caché fría re-sorteaba en vez de reconstruir (ver
+    # session_store._reconstruct_session_state). "[]" en sesiones viejas.
+    # 2026-08-26-motor-de-sesiones.md §4-bis.
+    served_external_ids = Column(Text, nullable=False, default="[]", server_default="[]")
+
     created_at = Column(DateTime, default=datetime.utcnow)
 
     __table_args__ = (
@@ -424,6 +451,14 @@ class Exercise(Base):
     # seed_content.py). Usado por feedback_survey.py para priorizar ítems no
     # revisados a la hora de elegir qué ejercicio lleva la micro-encuesta.
     reviewed = Column(Boolean, nullable=True)
+
+    # Dificultad estimada del ejercicio individual (beta) por el Elo
+    # jerárquico. 0.0 = neutro; se mezcla con la dificultad del ítem
+    # (item_difficulty) con peso n/(n+4) hasta tener evidencia propia. Ver
+    # algorithm/elo.py y 2026-08-26-motor-de-sesiones.md §5/§6/§9.
+    difficulty = Column(Float, nullable=False, default=0.0, server_default="0.0")
+    difficulty_n = Column(Integer, nullable=False, default=0, server_default="0")
+
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
@@ -434,6 +469,31 @@ class Exercise(Base):
     )
 
     course = relationship("Course", back_populates="exercises")
+
+
+class ItemDifficulty(Base):
+    """Dificultad Elo del ítem (belt, topic, exercise_type) — el backoff del
+    Elo por ejercicio (`Exercise.difficulty`) cuando un ejercicio individual
+    todavía no acumuló evidencia propia. Chica a propósito: una fila por ítem
+    (209 en producción al 2026-08-26), no por ejercicio. Ver algorithm/elo.py
+    y 2026-08-26-motor-de-sesiones.md §5/§9."""
+    __tablename__ = "item_difficulty"
+
+    id = Column(Integer, primary_key=True, index=True)
+    course_id = Column(Integer, ForeignKey("courses.id"), nullable=False)
+    belt = Column(String(20), nullable=False)
+    topic = Column(String(50), nullable=False)
+    exercise_type = Column(String(20), nullable=False)
+    difficulty = Column(Float, nullable=False, default=0.0, server_default="0.0")
+    difficulty_n = Column(Integer, nullable=False, default=0, server_default="0")
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    __table_args__ = (
+        UniqueConstraint(
+            "course_id", "belt", "topic", "exercise_type",
+            name="uq_item_difficulty_unit",
+        ),
+    )
 
 
 class BeltInfo(Base):
