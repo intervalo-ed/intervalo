@@ -59,7 +59,7 @@ Completar con `array<string|null>` paralelo a `options`, `null` en el índice co
 
 ---
 
-## LEXI, 30 ejercicios
+## LEXI, 15 ejercicios
 
 ### Qué evalúa
 Afianzar la **notación**, la **anatomía** de la fórmula del límite y la diferenciación conceptual de **tasa de cambio instantánea** vs. promedio.
@@ -73,9 +73,9 @@ Afianzar la **notación**, la **anatomía** de la fórmula del límite y la dife
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Anatomía del límite | Diseccionar la fórmula $f'(a) = \lim_{h \to 0} \tfrac{f(a+h) - f(a)}{h}$: qué es $h$ (el incremento que tiende a $0$), qué son $a$ y $x$ (puntos fijos), por qué la sustitución directa produce $\tfrac{0}{0}$, qué representa el numerador y qué el denominador. | `anatomia-del-limite` | 12 |
-| B. Tasa instantánea vs. promedio | Contraste puro: sin el límite es una **tasa promedio** (equivalente a la pendiente de la secante); con el límite pasa a ser la **tasa instantánea** (equivalente a la pendiente de la tangente). Ninguna cuenta. | `tasa-instantanea-vs-promedio` | 9 |
-| C. Notación formal | Reconocer la **notación de Leibniz** $\tfrac{df}{dx}$, la **notación de Lagrange** $f'(x)$, la de Newton $\dot{f}$; distinguirlas de la variación finita $\tfrac{\Delta f}{\Delta x}$. | `notacion-formal-derivada` | 9 |
+| A. Anatomía del límite | Diseccionar la fórmula $f'(a) = \lim_{h \to 0} \tfrac{f(a+h) - f(a)}{h}$: qué es $h$ (el incremento que tiende a $0$), qué son $a$ y $x$ (puntos fijos), por qué la sustitución directa produce $\tfrac{0}{0}$, qué representa el numerador y qué el denominador. | `anatomia-del-limite` | 6 |
+| B. Tasa instantánea vs. promedio | Contraste puro: sin el límite es una **tasa promedio** (equivalente a la pendiente de la secante); con el límite pasa a ser la **tasa instantánea** (equivalente a la pendiente de la tangente). Ninguna cuenta. | `tasa-instantanea-vs-promedio` | 5 |
+| C. Notación formal | Reconocer la **notación de Leibniz** $\tfrac{df}{dx}$, la **notación de Lagrange** $f'(x)$, la de Newton $\dot{f}$; distinguirlas de la variación finita $\tfrac{\Delta f}{\Delta x}$. | `notacion-formal-derivada` | 4 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **$h$ confundido con $x$**: pensar que "lo que tiende a $0$" es $x$ o $a$. Recordar: $h$ es el **incremento**; $a$ es el punto donde se calcula la derivada y queda fijo.
@@ -91,7 +91,7 @@ Afianzar la **notación**, la **anatomía** de la fórmula del límite y la dife
 
 ---
 
-## GRAF, 30 ejercicios
+## GRAF, 15 ejercicios
 
 ### Qué evalúa
 **Diagnóstico visual** del comportamiento de la derivada leyendo la gráfica de $f$: signo, ceros, y pérdida de diferenciabilidad.
@@ -106,9 +106,9 @@ Afianzar la **notación**, la **anatomía** de la fórmula del límite y la dife
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Signo de la derivada | Dada la curva, determinar si $f'(a)$ es positiva (la curva sube), negativa (baja) o cero (recta horizontal instantánea, vértice, meseta). | `signo-de-la-derivada-visual` | 12 |
-| B. Identificación de ceros | Detectar visualmente **vértices**, **crestas** o **valles** como los puntos donde $f'$ se anula. Distractores: raíces de $f$ (donde $f = 0$, no donde $f' = 0$). | `identificacion-ceros-derivada` | 9 |
-| C. Diagnóstico de esquinas y saltos | Marcar en qué punto la función **pierde la diferenciabilidad**: quiebre abrupto (pico tipo $|x|$), salto (discontinuidad), tangente vertical. | `diagnostico-esquinas-y-saltos` | 9 |
+| A. Signo de la derivada | Dada la curva, determinar si $f'(a)$ es positiva (la curva sube), negativa (baja) o cero (recta horizontal instantánea, vértice, meseta). | `signo-de-la-derivada-visual` | 6 |
+| B. Identificación de ceros | Detectar visualmente **vértices**, **crestas** o **valles** como los puntos donde $f'$ se anula. Distractores: raíces de $f$ (donde $f = 0$, no donde $f' = 0$). | `identificacion-ceros-derivada` | 5 |
+| C. Diagnóstico de esquinas y saltos | Marcar en qué punto la función **pierde la diferenciabilidad**: quiebre abrupto (pico tipo $ | x | $), salto (discontinuidad), tangente vertical. | `diagnostico-esquinas-y-saltos` | 4 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Signo invertido**: leer $f'(a) < 0$ en un tramo donde la curva sube. Recordar: sube ⇒ derivada positiva; baja ⇒ derivada negativa.

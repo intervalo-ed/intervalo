@@ -1,0 +1,482 @@
+[
+  {
+    "id": "white_quadratic_LEXI_02",
+    "question": "La forma desarrollada de una cuadrática tiene tres coeficientes con nombre propio:\n$$f(x) = ax^2 + bx + c$$\n¿Cómo se llama el coeficiente $a$?",
+    "options": [
+      "Coeficiente principal",
+      "Término independiente",
+      "Ordenada al origen",
+      "Pendiente"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El coeficiente $a$, que acompaña a $x^2$, es el coeficiente principal.",
+    "feedback_incorrect": [
+      null,
+      "El término independiente es $c$, el que va solo sin acompañar a ninguna potencia de $x$.",
+      "La ordenada al origen es el valor $f(0)$, que coincide con $c$, no con el coeficiente de $x^2$.",
+      "La pendiente es un concepto propio de funciones lineales; las cuadráticas no tienen una pendiente constante."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En la forma estándar de una cuadrática, cada coeficiente cumple un rol distinto.\n\nEl coeficiente $a$ es el **coeficiente principal**, el que acompaña a la variable elevada al cuadrado y define la **concavidad** y la apertura de la curva.\n\nEl coeficiente $b$ es el coeficiente lineal, el que acompaña a la variable de primer grado.\n\nEl término independiente es $c$, el número que aparece solo, sin ninguna variable.\n\nEl coeficiente $a$ es indispensable para que la función sea cuadrática.\n\nSi $a = 0$, el término cuadrático desaparece y la función pasa a ser lineal.\n\nSin él, no hay **parábola**.",
+    "reviewed": false,
+    "tags": [
+      "coeficientes-nombre"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "'Como se llama el coeficiente a'. De los tres ejercicios que nombran coeficientes sobre la misma formula sobrevive el 14 (el b), que es el que se confunde con la ordenada al origen."
+    }
+  },
+  {
+    "id": "white_quadratic_LEXI_03",
+    "question": "En una cuadrática desarrollada, uno de los tres números no viene multiplicado por la variable:\n$$f(x) = ax^2 + bx + c$$\n¿Cómo se llama el número $c$?",
+    "options": [
+      "Término independiente",
+      "Coeficiente principal",
+      "Raíz",
+      "Vértice"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El número $c$ es el término independiente: es el valor de $f(0)$.",
+    "feedback_incorrect": [
+      null,
+      "El coeficiente principal es $a$, el que acompaña a $x^2$, no $c$.",
+      "$c$ es el valor de $f(0)$, no necesariamente un valor donde la función se anula.",
+      "El vértice es el punto extremo de la parábola, un concepto distinto del término independiente."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **término independiente** $c$ es el único término que no está multiplicado por la variable $x$.\n\nSu rasgo más útil es que coincide con la **ordenada al origen**, el valor de la función cuando $x = 0$.\n\nPor eso, mirando la fórmula ya sabés en qué altura la **parábola** corta el eje $Y$, sin hacer ninguna cuenta.",
+    "reviewed": false,
+    "tags": [
+      "coeficientes-nombre"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "FACIL",
+      "razon": "'Como se llama el numero c', P1 100%."
+    }
+  },
+  {
+    "id": "white_quadratic_LEXI_04",
+    "question": "Una cuadrática admite varias escrituras, y cada una tiene su nombre:\n$$f(x) = a(x - r_1)(x - r_2)$$\n¿Cómo se llama esta forma?",
+    "options": [
+      "Forma factorizada",
+      "Forma de vértice",
+      "Forma estándar",
+      "Forma exponencial"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$f(x) = a(x - r_1)(x - r_2)$ es la forma factorizada: $r_1$ y $r_2$ son las raíces.",
+    "feedback_incorrect": [
+      null,
+      "La forma de vértice es $a(x-h)^2+k$ y muestra el vértice, no las raíces directamente.",
+      "La forma estándar es $ax^2+bx+c$; para leer las raíces directamente hace falta la forma con los factores.",
+      "Las cuadráticas no tienen una forma exponencial; esa etiqueta corresponde a otra familia."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La forma factorizada de una función cuadrática es:\n$$f(x) = a(x - r_1)(x - r_2)$$\nSe llama así porque la **parábola** aparece partida en factores.\n\nSu ventaja es que las **raíces** se leen directo, la función vale cero cuando alguno de los factores se anula, en $x = r_1$ y en $x = r_2$.\n\nSi la cuadrática no tiene raíces reales, simplemente no se puede factorizar así con números reales.",
+    "reviewed": false,
+    "tags": [
+      "formas-de-la-funcion"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "FACIL",
+      "razon": "'Como se llama la forma a(x-r1)(x-r2)', P1 100%. Nombrar la forma es menos util que saber cuando conviene usarla, que es lo que pregunta el 22."
+    }
+  },
+  {
+    "id": "white_quadratic_LEXI_06",
+    "question": "Tomá la función cuadrática general:\n$$f(x) = ax^2 + bx + c$$\n¿Cuál es su **dominio**?",
+    "options": [
+      "$[0, +\\infty)$",
+      "Todos los reales $\\mathbb{R}$",
+      "Solo los $x$ positivos",
+      "Depende del signo de $a$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El dominio de toda cuadrática es $\\mathbb{R}$: se puede elevar al cuadrado cualquier número.",
+    "feedback_incorrect": [
+      "Ese conjunto describe la imagen de $f(x)=x^2$, no el dominio de una cuadrática general.",
+      null,
+      "Restringir a los $x$ positivos no tiene sentido para el dominio: cualquier real, positivo o negativo, se puede elevar al cuadrado.",
+      "El signo de $a$ afecta la concavidad y la imagen, pero no cambia qué valores de $x$ acepta la función."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **dominio** es el conjunto de entradas válidas.\n\nConsiderá la función:\n$$f(x) = ax^2 + bx + c$$\nPodés meter cualquier número real, elevar al cuadrado, multiplicar y sumar nunca se rompe.\n\nPor eso el dominio es siempre $\\mathbb{R}$.\n\nLo que sí queda acotado es la **imagen**, porque el **vértice** pone un techo o un piso.\n\nPero entrar, entran todos los reales.",
+    "reviewed": false,
+    "tags": [
+      "dominio-imagen"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "FACIL",
+      "razon": "Dominio de una cuadratica general = R, P1 100%."
+    }
+  },
+  {
+    "id": "white_quadratic_LEXI_08",
+    "question": "El punto extremo de una parábola no aparece en cualquier lado.\n\n¿Sobre qué recta se encuentra siempre el **vértice** de una **parábola**?",
+    "options": [
+      "Sobre el eje $Y$",
+      "Sobre el eje de simetría",
+      "Sobre una raíz",
+      "Sobre la ordenada al origen"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El vértice siempre está sobre el eje de simetría de la parábola.",
+    "feedback_incorrect": [
+      "El eje $Y$ solo coincide con el eje de simetría cuando el vértice está en $x=0$; en general son rectas distintas.",
+      null,
+      "Las raíces son puntos sobre el eje $X$ donde $f(x)=0$; el vértice no tiene por qué coincidir con ninguna de ellas.",
+      "La ordenada al origen es un punto fijo en $x=0$; el vértice puede estar en cualquier otra posición horizontal."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **eje de simetría** es la recta vertical que parte la **parábola** en dos mitades iguales, y el **vértice** es justo el punto por donde pasa.\n\nDicho de otro modo, el vértice es la bisagra de la simetría: todo lo que está a un lado se refleja del otro a la misma altura.\n\nPor eso, conocer la posición del vértice equivale a conocer el eje de simetría, y viceversa.\n\nVan siempre juntos, como uña y mugre.",
+    "reviewed": false,
+    "tags": [
+      "eje-simetria"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "'Sobre que recta esta siempre el vertice' es el eje de simetria enunciado al derecho; el 29 lo pide al reves (que cumplen dos puntos a la misma altura) y discrimina mucho mas (57% contra 89%)."
+    }
+  },
+  {
+    "id": "white_quadratic_LEXI_15",
+    "question": "Las familias de funciones se ordenan por el mayor exponente que aparece en su fórmula.\n\n¿Cuál es el grado de una función cuadrática?",
+    "options": [
+      "Grado 1",
+      "No tiene grado definido",
+      "Grado 3",
+      "Grado 2"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Una función cuadrática es un polinomio de grado 2.",
+    "feedback_incorrect": [
+      "Grado 1 corresponde a una función lineal, donde la variable no aparece al cuadrado.",
+      "El grado de una cuadrática está perfectamente definido: es 2, el exponente del término de mayor grado.",
+      "Grado 3 corresponde a una función cúbica; el término de mayor grado de una cuadrática es $x^2$, no $x^3$.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **grado** de un polinomio es el exponente más alto de la variable.\n\nEn una cuadrática, el término de mayor grado es $ax^2$, así que su grado es **2**.\n\nEse grado 2 explica buena parte de lo que caracteriza a la familia: tiene a lo sumo dos **raíces**, su gráfica es una **parábola** con un único **vértice**, y su pendiente cambia a ritmo constante.\n\nEl grado de la función determina de qué es capaz: cambiar ese exponente cambia por completo la familia a la que pertenece.",
+    "reviewed": false,
+    "tags": [
+      "identificacion-formula"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "FACIL",
+      "razon": "'Cual es el grado de una cuadratica', P1 100%."
+    }
+  },
+  {
+    "id": "white_quadratic_LEXI_16",
+    "question": "Una pelota se patea hacia arriba y su altura en el tiempo dibuja una curva que sube y luego baja.\n\n¿Qué nombre recibe esa curva?",
+    "options": [
+      "Recta",
+      "Parábola",
+      "Hipérbola",
+      "Exponencial"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La trayectoria de altura de un tiro es una parábola.",
+    "feedback_incorrect": [
+      "Una recta no puede subir y después bajar; su ritmo de cambio es constante en un solo sentido.",
+      null,
+      "La hipérbola es la gráfica típica de una función racional del tipo $1/x$, no de una trayectoria que sube y baja.",
+      "Una exponencial crece o decrece sin frenar ni cambiar de sentido, no dibuja un pico como el de la pelota."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando algo se lanza hacia arriba, su **altura en función del tiempo** sube, llega a un punto máximo y baja, dibujando una **parábola**.\n\nEsto pasa porque la gravedad frena y luego acelera el objeto a ritmo constante, y ese patrón es justo lo que produce una función cuadrática.\n\nEl punto más alto de la trayectoria es el **vértice**, y los momentos en que la pelota está a la altura del suelo son las **raíces**.\n\nHasta una pelota pateada habla en cuadráticas.",
+    "reviewed": false,
+    "tags": [
+      "nombre-parabola"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "FACIL",
+      "razon": "'Que nombre recibe esa curva' = parabola, P1 100% sobre n=9. Es el ejercicio mas regalado del archivo."
+    }
+  },
+  {
+    "id": "white_quadratic_LEXI_18",
+    "question": "Una pelota lanzada al aire empieza y termina su recorrido a la altura del suelo.\n\n¿Con qué elemento de la parábola coincide el momento en que vuelve a tocarlo?",
+    "options": [
+      "El vértice",
+      "Una raíz de la parábola",
+      "El coeficiente principal",
+      "El eje de simetría"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Cuando la pelota toca el suelo, la altura vale cero: es una raíz.",
+    "feedback_incorrect": [
+      "El vértice corresponde al punto más alto de la trayectoria, no al instante en que la altura vuelve a valer cero.",
+      null,
+      "El coeficiente principal solo define la concavidad de la trayectoria, no marca un instante concreto de tiempo.",
+      "El eje de simetría es una recta vertical que pasa por el vértice, no un instante en que la pelota toca el suelo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Tocar el suelo significa altura cero, y los valores donde la función vale cero son las **raíces** de la **parábola**.\n\nUn tiro que parte del piso tiene dos raíces: el instante de salida y el instante de aterrizaje.\n\nEntre ambas, la pelota estuvo en el aire; afuera, la fórmula daría alturas negativas que ya no tienen sentido físico.\n\nLa distancia entre las dos raíces es, ni más ni menos, el tiempo total de vuelo.",
+    "reviewed": false,
+    "tags": [
+      "raices-discriminante"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "'Con que elemento coincide el momento en que la pelota toca el suelo' = la raiz. El 09 y el 05 ya cubren raices, y este mide 100% con n=2."
+    }
+  },
+  {
+    "id": "white_quadratic_LEXI_21",
+    "question": "Una función monótona mantiene siempre el mismo sentido a lo largo de su dominio.\n\n¿Por qué una función cuadrática no es monótona en todo su **dominio**?",
+    "options": [
+      "Porque su gráfica es una recta",
+      "Porque crece y decrece por tramos",
+      "Porque no tiene dominio definido",
+      "Porque siempre es creciente"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La parábola cambia de comportamiento en el vértice, así que no crece ni decrece en todo $\\mathbb{R}$.",
+    "feedback_incorrect": [
+      "La gráfica de una cuadrática es una parábola, no una recta; las rectas sí son monótonas.",
+      null,
+      "El dominio de una cuadrática está perfectamente definido: es $\\mathbb{R}$.",
+      "Una cuadrática no es siempre creciente: decrece de un lado del vértice y crece del otro."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una función es **monótona** si crece siempre o decrece siempre.\n\nLa cuadrática no cumple eso: el **vértice** la parte en dos tramos opuestos.\n\nPor ejemplo, con $a > 0$ la **parábola** **decrece** a la izquierda del vértice y **crece** a la derecha.\n\nHay un cambio de sentido justo en el medio.\n\nPor eso, al hablar de crecimiento en una cuadrática, siempre hace falta aclarar *en qué intervalo*.\n\nEn contraste con una recta, no hay una única respuesta para todo el **dominio**.",
+    "reviewed": false,
+    "tags": [
+      "vertice-concepto"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "FACIL",
+      "razon": "'Por que una cuadratica no es monotona', P1 100%. Ademas su concepto (monotonia) no es el tag que declara (vertice-concepto), asi que su descarte no abre ningun hueco de cobertura."
+    }
+  },
+  {
+    "id": "white_quadratic_LEXI_23",
+    "question": "Encontrar rápido las **raíces** de una **parábola** depende de tener la fórmula en una forma particular.\n\n¿Qué forma conviene tener?",
+    "options": [
+      "Forma de vértice",
+      "Forma exponencial",
+      "Forma estándar",
+      "Forma factorizada"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "La forma factorizada $a(x-r_1)(x-r_2)$ muestra las raíces $r_1$ y $r_2$ directamente.",
+    "feedback_incorrect": [
+      "La forma de vértice muestra el vértice a simple vista, no las raíces.",
+      "Las cuadráticas no tienen una forma exponencial; esa etiqueta corresponde a otra familia.",
+      "Desde la forma estándar haría falta aplicar la fórmula resolvente para hallar las raíces, no se leen directo.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para leer las **raíces** sin esfuerzo, la mejor forma es la **factorizada**:\n\nUn producto vale cero cuando uno de sus factores vale cero, así que las raíces son $x = r_1$ y $x = r_2$, escritas a la vista.\n\nDesde la forma estándar harían falta la fórmula resolvente; desde la factorizada las raíces ya están servidas.\n\nCada forma es una herramienta para un trabajo distinto.",
+    "reviewed": false,
+    "tags": [
+      "formas-de-la-funcion"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Jaccard 0,67 contra el 22: la misma oracion cambiando 'vertice' por 'raices'. Sobrevive el 22, que mide 50% contra 83%."
+    }
+  },
+  {
+    "id": "white_quadratic_LEXI_24",
+    "question": "Una función cuadrática está dibujada en el gráfico.\n\n¿Hacia dónde abre la **parábola** del gráfico?",
+    "options": [
+      "Arriba",
+      "Abajo",
+      "Derecha",
+      "Izquierda"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La parábola abre hacia abajo: su coeficiente principal es negativo.",
+    "feedback_incorrect": [
+      "Ese comportamiento corresponde a un coeficiente principal positivo; en este gráfico la parábola tiene forma de U invertida.",
+      null,
+      "Las parábolas nunca abren hacia los costados, solo hacia arriba o hacia abajo.",
+      "Las parábolas nunca abren hacia los costados, solo hacia arriba o hacia abajo."
+    ],
+    "graph_fn": "-0.5*pow(x-5,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La **concavidad** se lee de un vistazo en el gráfico: esta **parábola** tiene forma de U invertida, así que **abre hacia abajo**.\n\nUna parábola que abre hacia abajo corresponde a un **coeficiente principal** $a < 0$, y su **vértice** es el punto más alto, un **máximo**.\n\nSi en cambio tuviera forma de U común, abriría hacia arriba con $a > 0$ y vértice mínimo.\n\nLas parábolas solo abren hacia arriba o hacia abajo: nunca de costado, eso sería otra cónica.",
+    "reviewed": false,
+    "tags": [
+      "nombre-parabola"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "FACIL",
+      "razon": "'Hacia donde abre la parabola del grafico', P1 100%. La concavidad queda cubierta por el 10, que la define en vez de leerla."
+    }
+  },
+  {
+    "id": "white_quadratic_LEXI_25",
+    "question": "Los cortes con el eje horizontal de una parábola son sus raíces, y pueden ser dos, una o ninguna.\n\n¿Cuántas veces corta al eje $X$ la **parábola** del gráfico?",
+    "options": [
+      "Dos veces",
+      "Una vez",
+      "Ninguna vez",
+      "Infinitas veces"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "La parábola flota por encima del eje $X$: no lo corta, no tiene raíces reales.",
+    "feedback_incorrect": [
+      "Cortar dos veces requiere que la parábola cruce el eje $X$ en dos puntos; en este gráfico no lo toca en ninguno.",
+      "Cortar una vez ocurre cuando la parábola es tangente al eje $X$; en este gráfico queda entera por encima, sin tocarlo.",
+      null,
+      "El grado 2 de la función pone un techo finito a la cantidad de cortes con el eje $X$; infinitas veces no es posible."
+    ],
+    "graph_fn": "0.5*pow(x-5,2)+2",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Las **raíces reales** son los cortes con el eje $X$.\n\nEn este gráfico la **parábola** se queda entera por encima del eje, sin tocarlo nunca, así que **no tiene raíces reales**.\n\nEsto pasa porque abre hacia arriba, con $a > 0$, y su **vértice** ya está por encima del eje, desde ahí solo sube.\n\nSu discriminante es negativo.\n\nPara tener raíces, la parábola tiene que cruzar o al menos rozar el eje $X$.\n\nSi flota, no hay ceros reales.",
+    "reviewed": false,
+    "tags": [
+      "raices-discriminante"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "FACIL",
+      "razon": "Contar cortes con el eje X en un grafico, P1 88%. El 09 pregunta lo mismo sin grafico y discrimina mejor."
+    }
+  },
+  {
+    "id": "white_quadratic_LEXI_26",
+    "question": "En el gráfico, la parábola baja hasta cierto punto y desde ahí vuelve a subir.\n\n¿Cómo se llama ese punto más bajo?",
+    "options": [
+      "Raíz",
+      "Asíntota",
+      "Ordenada al origen",
+      "Vértice"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "El punto más bajo de una parábola que abre hacia arriba es el vértice.",
+    "feedback_incorrect": [
+      "La raíz es el punto donde la parábola corta el eje $X$, no el punto más bajo de la curva.",
+      "Las asíntotas son rectas que la curva se acerca sin tocar, algo que no existe en las parábolas.",
+      "La ordenada al origen es el valor de la función en $x=0$, un punto fijo distinto del punto más bajo de la curva.",
+      null
+    ],
+    "graph_fn": "0.5*pow(x-5,2)+1",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Esta **parábola** abre hacia arriba, y su punto más bajo, donde la curva deja de bajar y empieza a subir, es el **vértice**.\n\nComo $a > 0$, ese vértice es un **mínimo**, ningún otro punto de la parábola está más abajo, y sobre él pasa el **eje de simetría**.\n\nNo hay que confundir el vértice con la **raíz**, que es el corte con el eje $X$, ni con la **ordenada al origen**, que es el corte con el eje $Y$.\n\nEl vértice es el extremo de la curva, esté donde esté.",
+    "reviewed": false,
+    "tags": [
+      "vertice-concepto"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "'Como se llama ese punto mas bajo' = vertice, leido del grafico. El 11 y el 17 ya cubren vertice-concepto."
+    }
+  },
+  {
+    "id": "white_quadratic_LEXI_27",
+    "question": "El área de un cuadrado depende de la longitud de su lado:\n$$A(L) = L^2$$\n¿A qué familia de funciones pertenece?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Exponencial",
+      "Logarítmica"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$A(L) = L^2$ tiene a la variable elevada al cuadrado: es cuadrática.",
+    "feedback_incorrect": [
+      "Una función lineal crece a ritmo constante; acá el área crece cada vez más rápido a medida que crece el lado.",
+      null,
+      "En una exponencial la variable está en el exponente; acá el lado está elevado al cuadrado, no al revés.",
+      "Una logarítmica desacelera su crecimiento; acá el área crece cada vez más rápido, no más lento."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El área de un cuadrado es el lado por sí mismo, $A(L) = L \\cdot L = L^2$.\n\nLa variable aparece elevada al cuadrado, así que la función es **cuadrática**.\n\nEsta es una de las razones por las que las cuadráticas son tan naturales: cada vez que una cantidad es el **producto de dos longitudes**, aparece un $x^2$.\n\nSi duplicás el lado, el área no se duplica: se cuadruplica.\n\nEse crecimiento acelerado es la marca registrada de lo cuadrático.",
+    "reviewed": false,
+    "tags": [
+      "identificacion-formula"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "FACIL",
+      "razon": "'A que familia pertenece A(L)=L^2', P1 100% con n=2."
+    }
+  },
+  {
+    "id": "white_quadratic_LEXI_28",
+    "question": "Cambiar el signo del coeficiente principal da vuelta la parábola entera.\n\n¿Ese cambio afecta al **dominio** de una función cuadrática?",
+    "options": [
+      "Sí, si $a < 0$ el dominio se achica",
+      "Solo si $a = 0$",
+      "Sí, depende también de $c$",
+      "No, el dominio es $\\mathbb{R}$ siempre"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "El dominio de una cuadrática es $\\mathbb{R}$ siempre; el signo de $a$ no lo afecta.",
+    "feedback_incorrect": [
+      "El signo de $a$ cambia la concavidad y la imagen, pero no achica el dominio: cualquier real se puede evaluar.",
+      "Si $a=0$ la función deja de ser cuadrática; en ningún caso el signo o el valor de $a$ restringe el dominio.",
+      "El valor de $c$ desplaza la curva verticalmente, pero no restringe qué valores de $x$ acepta la función.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El signo de $a$ decide la **concavidad**, hacia dónde abre, y con ella, si el **vértice** es máximo o mínimo.\n\nPero no toca el **dominio**.\n\nSea $a$ positivo o negativo, podés evaluar la función en cualquier real, elevar al cuadrado y multiplicar nunca falla.\n\nLo que sí cambia con el signo de $a$ es la **imagen**.\n\nSi $a > 0$, la imagen queda $[k, +\\infty)$.\n\nSi $a < 0$, en cambio, queda $(-\\infty, k]$.\n\nConviene no mezclar ambos conceptos, el dominio de una cuadrática nunca cambia, pero la imagen sí depende del signo de $a$ y de la posición del vértice.",
+    "reviewed": false,
+    "tags": [
+      "dominio-imagen"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "'El signo de a afecta al dominio' es dominio de una cuadratica otra vez, y el 01 trabaja mejor el par dominio-imagen preguntando por que la imagen excluye los negativos."
+    }
+  }
+]

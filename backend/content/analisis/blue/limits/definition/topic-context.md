@@ -54,7 +54,7 @@ Completar con `array<string|null>` paralelo a `options`, `null` en el índice co
 
 ---
 
-## LEXI, 30 ejercicios
+## LEXI, 15 ejercicios
 
 ### Qué evalúa
 Léxico, intuición y falsos paradigmas conceptuales alrededor de la idea de **límite**. Naturaleza de la aproximación, distinción entre $L$ y $f(a)$, diagnóstico de $\tfrac{0}{0}$ vs. tendencia infinita, condiciones para poder sustituir directo.
@@ -72,10 +72,10 @@ Léxico, intuición y falsos paradigmas conceptuales alrededor de la idea de **l
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Lectura de la notación, partes de la fórmula | Dado $\lim_{x\to a} f(x) = L$ (o una variante con números concretos), identificar qué representa cada símbolo por separado: la variable que se mueve ($x$), el punto de tendencia ($a$), la expresión evaluada en el entorno ($f(x)$), el resultado ($L$), y el sentido de la flecha (acercarse, nunca llegar). Incluye trampas de notación: confundir $a$ con $L$, escribir $x=a$ como si fuera el resultado, leer $f(a)$ donde corresponde $L$. | `lectura-notacion` | 12 |
-| B. Independencia entre $L$ y $f(a)$ | El límite no es el valor de la función. Casos con un hueco removible o un punto desplazado: la tendencia existe aunque $f(a)$ no exista o valga otra cosa. | `independencia-limite-valor` | 7 |
-| C. Diagnóstico de la indeterminación | $\tfrac{0}{0}$ es **indeterminación** (obliga a cambiar de técnica, no significa "no existe"). $\tfrac{k}{0}$ con $k \neq 0$ es tendencia a $\pm\infty$ (no es indeterminación). | `diagnostico-indeterminacion` | 6 |
-| D. Condiciones para sustituir directo | Cuándo es legal evaluar directo: continuidad en el punto, ausencia de división por cero, argumento dentro del dominio (log, raíz). | `condiciones-sustitucion-directa` | 5 |
+| A. Lectura de la notación, partes de la fórmula | Dado $\lim_{x\to a} f(x) = L$ (o una variante con números concretos), identificar qué representa cada símbolo por separado: la variable que se mueve ($x$), el punto de tendencia ($a$), la expresión evaluada en el entorno ($f(x)$), el resultado ($L$), y el sentido de la flecha (acercarse, nunca llegar). Incluye trampas de notación: confundir $a$ con $L$, escribir $x=a$ como si fuera el resultado, leer $f(a)$ donde corresponde $L$. | `lectura-notacion` | 4 |
+| B. Independencia entre $L$ y $f(a)$ | El límite no es el valor de la función. Casos con un hueco removible o un punto desplazado: la tendencia existe aunque $f(a)$ no exista o valga otra cosa. | `independencia-limite-valor` | 5 |
+| C. Diagnóstico de la indeterminación | $\tfrac{0}{0}$ es **indeterminación** (obliga a cambiar de técnica, no significa "no existe"). $\tfrac{k}{0}$ con $k \neq 0$ es tendencia a $\pm\infty$ (no es indeterminación). | `diagnostico-indeterminacion` | 3 |
+| D. Condiciones para sustituir directo | Cuándo es legal evaluar directo: continuidad en el punto, ausencia de división por cero, argumento dentro del dominio (log, raíz). | `condiciones-sustitucion-directa` | 3 |
 
 ### El "porqué", no solo el "qué" (regla crítica 25 de `authoring-context.md`)
 
@@ -101,7 +101,7 @@ Léxico, intuición y falsos paradigmas conceptuales alrededor de la idea de **l
 
 ---
 
-## RESL, 30 ejercicios
+## RESL, 15 ejercicios
 
 ### Qué evalúa
 Ejecutar el algoritmo de **evaluación por sustitución directa** cuando la función es continua en el punto: polinomios, constantes, racionales y radicales sin indeterminación.
@@ -119,8 +119,8 @@ Ejecutar el algoritmo de **evaluación por sustitución directa** cuando la func
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Sustitución en polinomios y constantes | Evaluación pura. Trampas con tendencias negativas ($x \to -2$) y potencias con signo. Límites de funciones constantes ($\lim_{x \to 5} 8 = 8$). | `sustitucion-polinomios-constantes` | 15 |
-| B. Racionales y radicales SIN indeterminación | Fracciones y raíces donde el denominador no se anula y el argumento de la raíz es válido. Filtro anti-autómatas: alumnos que intentan "factorizar todo lo que ven" pierden. | `racionales-radicales-sin-indeterminacion` | 15 |
+| A. Sustitución en polinomios y constantes | Evaluación pura. Trampas con tendencias negativas ($x \to -2$) y potencias con signo. Límites de funciones constantes ($\lim_{x \to 5} 8 = 8$). | `sustitucion-polinomios-constantes` | 8 |
+| B. Racionales y radicales SIN indeterminación | Fracciones y raíces donde el denominador no se anula y el argumento de la raíz es válido. Filtro anti-autómatas: alumnos que intentan "factorizar todo lo que ven" pierden. | `racionales-radicales-sin-indeterminacion` | 7 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Signo en potencias con base negativa**: en $\lim_{x \to -2} x^2 = 4$, elegir $-4$ (arrastrar el signo). Describir: "al elevar al cuadrado, el signo desaparece; el resultado es positivo".

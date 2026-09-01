@@ -53,7 +53,7 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 ---
 
-## GRAF, 30 ejercicios
+## GRAF, 15 ejercicios
 
 ### Qué evalúa
 **Interpretación visual** de la integral definida como **área neta**. Auditar si el alumno reconoce que áreas por debajo del eje $x$ computan negativas, y si maneja las **propiedades de los límites** al leerlas geométricamente.
@@ -67,8 +67,8 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Lectura de área con signos | Gráficos con figuras geométricas simples (formadas por funciones analíticas piecewise: rectas $f(x) = x$, $f(x) = 2 - x$; parábolas simples; semicírculo $\sqrt{r^2 - x^2}$) donde parte del área queda **arriba** del eje y parte **abajo**. Pedir la integral definida en todo el intervalo, esperando que el alumno **reste** las áreas negativas. Ejemplo: una función lineal a trozos que forma un triángulo arriba y otro abajo → $\int$ = área del de arriba menos área del de abajo. | `lectura-area-con-signos` | 15 |
-| B. Propiedades de los límites en el gráfico | Interpretar geométricamente las propiedades, **leyéndolas del gráfico y nunca de valores precargados en el enunciado** (ronda 4). Dos casos: la **aditividad** $\int_a^c f + \int_c^b f = \int_a^b f$, donde el alumno mide las áreas de los dos tramos contiguos sobre el gráfico y las suma con su signo; y los **límites iguales** $\int_a^a f(x)\,dx = 0$, que es conceptual y no necesita medir nada. **La inversión de límites quedó fuera del topic** (ver Hallazgos de auditoría, ronda 4). | `propiedades-limites-integracion` | 15 |
+| A. Lectura de área con signos | Gráficos con figuras geométricas simples (formadas por funciones analíticas piecewise: rectas $f(x) = x$, $f(x) = 2 - x$; parábolas simples; semicírculo $\sqrt{r^2 - x^2}$) donde parte del área queda **arriba** del eje y parte **abajo**. Pedir la integral definida en todo el intervalo, esperando que el alumno **reste** las áreas negativas. Ejemplo: una función lineal a trozos que forma un triángulo arriba y otro abajo → $\int$ = área del de arriba menos área del de abajo. | `lectura-area-con-signos` | 11 |
+| B. Propiedades de los límites en el gráfico | Interpretar geométricamente las propiedades, **leyéndolas del gráfico y nunca de valores precargados en el enunciado** (ronda 4). Dos casos: la **aditividad** $\int_a^c f + \int_c^b f = \int_a^b f$, donde el alumno mide las áreas de los dos tramos contiguos sobre el gráfico y las suma con su signo; y los **límites iguales** $\int_a^a f(x)\,dx = 0$, que es conceptual y no necesita medir nada. **La inversión de límites quedó fuera del topic** (ver Hallazgos de auditoría, ronda 4). | `propiedades-limites-integracion` | 4 |
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -91,7 +91,7 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 ---
 
-## RESL, 30 ejercicios
+## RESL, 15 ejercicios
 
 ### Qué evalúa
 **Cálculo numérico final** aplicando Barrow. Convergen todas las técnicas: reglas directas, sustitución, partes. El nuevo drill es **evaluar la primitiva** en los límites y **restar correctamente**, cuidando los detalles operativos que distinguen definidas de indefinidas.
@@ -113,8 +113,8 @@ Reglas de authoring que se aplican al escribir los 100 ejercicios:
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Barrow con reglas directas | Integrales definidas de polinomios, exponenciales y trigonométricas de tabla evaluadas en intervalos cortos. Ejemplos: $\int_0^2 (x^2 + 1) \, dx = \tfrac{8}{3} + 2 = \tfrac{14}{3}$; $\int_0^1 e^x \, dx = e - 1$; $\int_0^{\pi} \sin x \, dx = 2$. Foco: aplicar la tabla + Barrow correctamente, restar $F(a)$ aunque parezca cero (típico en exponenciales: $F(0) = 1$, no $0$). | `barrow-con-reglas-directas` | 15 |
-| B. Barrow con Sustitución y Partes | Ejercicios que requieren un método avanzado para hallar la primitiva y **después** aplicar Barrow. Ejemplos: $\int_0^1 x e^x \, dx$ (por partes) $= 1$; $\int_0^1 2x e^{x^2} \, dx$ (por sustitución con $u = x^2$, límites $u = 0$ a $u = 1$) $= e - 1$; $\int_0^{\pi/2} x \cos x \, dx$ (por partes) $= \tfrac{\pi}{2} - 1$. Foco: coordinar la técnica del cinturón con la evaluación en los límites, **sin que la evaluación final exija aritmética de números grandes** (ver Regla dura de carga mental abajo: el ejemplo previo de esta fila, $\int_0^2 x(x^2+1)^3\,dx=\tfrac{5^4-1^4}{8}=78$, violaba la propia restricción de "aritmética elemental" de la línea 130 al forzar $5^4=625$; queda descartado como ejemplo canónico y como ítem, ver nota de ronda 2). | `barrow-con-sustitucion-y-partes` | 15 |
+| A. Barrow con reglas directas | Integrales definidas de polinomios, exponenciales y trigonométricas de tabla evaluadas en intervalos cortos. Ejemplos: $\int_0^2 (x^2 + 1) \, dx = \tfrac{8}{3} + 2 = \tfrac{14}{3}$; $\int_0^1 e^x \, dx = e - 1$; $\int_0^{\pi} \sin x \, dx = 2$. Foco: aplicar la tabla + Barrow correctamente, restar $F(a)$ aunque parezca cero (típico en exponenciales: $F(0) = 1$, no $0$). | `barrow-con-reglas-directas` | 7 |
+| B. Barrow con Sustitución y Partes | Ejercicios que requieren un método avanzado para hallar la primitiva y **después** aplicar Barrow. Ejemplos: $\int_0^1 x e^x \, dx$ (por partes) $= 1$; $\int_0^1 2x e^{x^2} \, dx$ (por sustitución con $u = x^2$, límites $u = 0$ a $u = 1$) $= e - 1$; $\int_0^{\pi/2} x \cos x \, dx$ (por partes) $= \tfrac{\pi}{2} - 1$. Foco: coordinar la técnica del cinturón con la evaluación en los límites, **sin que la evaluación final exija aritmética de números grandes** (ver Regla dura de carga mental abajo: el ejemplo previo de esta fila, $\int_0^2 x(x^2+1)^3\,dx=\tfrac{5^4-1^4}{8}=78$, violaba la propia restricción de "aritmética elemental" de la línea 130 al forzar $5^4=625$; queda descartado como ejemplo canónico y como ítem, ver nota de ronda 2). | `barrow-con-sustitucion-y-partes` | 8 |
 
 ### `feedback_incorrect`, confusiones fuente
 

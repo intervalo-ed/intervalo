@@ -50,7 +50,7 @@ Reglas de authoring que se aplican al escribir los 90 ejercicios:
 
 ---
 
-## LEXI, 30 ejercicios
+## LEXI, 15 ejercicios
 
 ### Qué evalúa
 **Anatomía matemática y consolidación del Sistema 1** para el nuevo operador. Reconocimiento de qué pieza de la notación cumple qué rol y de la relación conceptual entre primitiva y derivada. Sin cálculo.
@@ -64,8 +64,8 @@ Reglas de authoring que se aplican al escribir los 90 ejercicios:
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Anatomía de la notación | Identificar el rol de cada pieza en $\int f(x) \, dx = F(x) + C$: el **integrando** $f(x)$, el **diferencial** $dx$ marcando la variable de integración, el símbolo $\int$ como operador, la **primitiva** $F(x)$ como resultado y la **constante de integración** $C$ como parte inseparable del resultado. | `anatomia-notacion-integral` | 15 |
-| B. Concepto de primitiva y traslación geométrica | Fijar la relación operativa con la derivada ($F' = f \Rightarrow F$ es primitiva de $f$) y su impacto visual: todas las primitivas de una misma función forman una **familia de curvas paralelas**, desplazadas verticalmente por el valor de $C$. | `concepto-primitiva-traslacion-geometrica` | 15 |
+| A. Anatomía de la notación | Identificar el rol de cada pieza en $\int f(x) \, dx = F(x) + C$: el **integrando** $f(x)$, el **diferencial** $dx$ marcando la variable de integración, el símbolo $\int$ como operador, la **primitiva** $F(x)$ como resultado y la **constante de integración** $C$ como parte inseparable del resultado. | `anatomia-notacion-integral` | 8 |
+| B. Concepto de primitiva y traslación geométrica | Fijar la relación operativa con la derivada ($F' = f \Rightarrow F$ es primitiva de $f$) y su impacto visual: todas las primitivas de una misma función forman una **familia de curvas paralelas**, desplazadas verticalmente por el valor de $C$. | `concepto-primitiva-traslacion-geometrica` | 7 |
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -85,7 +85,7 @@ Reglas de authoring que se aplican al escribir los 90 ejercicios:
 
 ---
 
-## FORM, 30 ejercicios
+## FORM, 15 ejercicios
 
 ### Qué evalúa
 **Comprensión teórica de la linealidad** del operador integral. Desarmar un integrando en integrales elementales sin ejecutar el cálculo. Distinguir propiedades válidas (linealidad) de propiedades falsas (integral de un producto ≠ producto de integrales; integral de un cociente ≠ cociente de integrales).
@@ -99,8 +99,8 @@ Reglas de authoring que se aplican al escribir los 90 ejercicios:
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Extracción y separación de términos | Desarmar un integrando complejo aplicando la **linealidad** completa. Ejemplo: dada $\int (4x^2 - 3\sin x) \, dx$, elegir la forma armada $4\int x^2 \, dx - 3\int \sin x \, dx$. Extraer constantes multiplicativas fuera de la integral y separar sumas/restas en integrales independientes. | `extraccion-separacion-terminos` | 15 |
-| B. Límites de la linealidad y falsas propiedades | Diferenciar propiedades válidas de inventos algebraicos. Ejemplo: $\int (x \cdot \cos x) \, dx$ **no** se puede partir como $\int x \, dx \cdot \int \cos x \, dx$. Igual con cocientes: $\int \tfrac{f(x)}{g(x)} \, dx \neq \tfrac{\int f(x) \, dx}{\int g(x) \, dx}$. Reconocer qué operaciones respeta la linealidad y cuáles no. | `limites-linealidad-falsas-propiedades` | 15 |
+| A. Extracción y separación de términos | Desarmar un integrando complejo aplicando la **linealidad** completa. Ejemplo: dada $\int (4x^2 - 3\sin x) \, dx$, elegir la forma armada $4\int x^2 \, dx - 3\int \sin x \, dx$. Extraer constantes multiplicativas fuera de la integral y separar sumas/restas en integrales independientes. | `extraccion-separacion-terminos` | 8 |
+| B. Límites de la linealidad y falsas propiedades | Diferenciar propiedades válidas de inventos algebraicos. Ejemplo: $\int (x \cdot \cos x) \, dx$ **no** se puede partir como $\int x \, dx \cdot \int \cos x \, dx$. Igual con cocientes: $\int \tfrac{f(x)}{g(x)} \, dx \neq \tfrac{\int f(x) \, dx}{\int g(x) \, dx}$. Reconocer qué operaciones respeta la linealidad y cuáles no. | `limites-linealidad-falsas-propiedades` | 7 |
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -119,7 +119,7 @@ Reglas de authoring que se aplican al escribir los 90 ejercicios:
 
 ---
 
-## ESTR, 30 ejercicios
+## ESTR, 15 ejercicios
 
 ### Qué evalúa
 **Decisiones de acondicionamiento algebraico** previas al armado. Bloquear vicios operativos que arruinarían el cálculo posterior. Preparar el terreno para el tópico `reglas` reconociendo qué expresiones **necesitan reescritura** antes de aplicar cualquier fórmula de integración.
@@ -133,8 +133,8 @@ Reglas de authoring que se aplican al escribir los 90 ejercicios:
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Expansión y distribución obligatoria | Detectar cuándo el paso previo eficiente es álgebra básica antes de integrar. Ejemplos: frente a $(x + 2)^2$ desarrollar el trinomio a $x^2 + 4x + 4$; frente a $\tfrac{x^3 + 5x}{x}$ repartir el denominador y quedar con $x^2 + 5$; frente a $x(x^2 - 1)$ distribuir a $x^3 - x$. | `expansion-distribucion-obligatoria` | 15 |
-| B. Reescritura de potencias y raíces | Auditar la conversión a formato de potencia como paso previo. Ejemplos: $\tfrac{1}{x^3} \to x^{-3}$; $\sqrt{x} \to x^{1/2}$; $\sqrt[3]{x^2} \to x^{2/3}$; $\tfrac{1}{\sqrt{x}} \to x^{-1/2}$. | `reescritura-potencias-y-raices` | 15 |
+| A. Expansión y distribución obligatoria | Detectar cuándo el paso previo eficiente es álgebra básica antes de integrar. Ejemplos: frente a $(x + 2)^2$ desarrollar el trinomio a $x^2 + 4x + 4$; frente a $\tfrac{x^3 + 5x}{x}$ repartir el denominador y quedar con $x^2 + 5$; frente a $x(x^2 - 1)$ distribuir a $x^3 - x$. | `expansion-distribucion-obligatoria` | 8 |
+| B. Reescritura de potencias y raíces | Auditar la conversión a formato de potencia como paso previo. Ejemplos: $\tfrac{1}{x^3} \to x^{-3}$; $\sqrt{x} \to x^{1/2}$; $\sqrt[3]{x^2} \to x^{2/3}$; $\tfrac{1}{\sqrt{x}} \to x^{-1/2}$. | `reescritura-potencias-y-raices` | 7 |
 
 ### `feedback_incorrect`, confusiones fuente
 

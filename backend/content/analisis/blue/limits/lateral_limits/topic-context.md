@@ -53,7 +53,7 @@ Completar con `array<string|null>` paralelo a `options`, `null` en el índice co
 
 ---
 
-## LEXI, 30 ejercicios
+## LEXI, 15 ejercicios
 
 ### Qué evalúa
 Decodificar la notación de laterales, destruir falsos paradigmas sobre el signo del superíndice, y afianzar el **teorema de existencia** del bilateral.
@@ -69,10 +69,10 @@ Decodificar la notación de laterales, destruir falsos paradigmas sobre el signo
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Notación y dirección | Diferenciar el superíndice de dirección del signo del número. Ejemplo: $x \to 2^-$ son valores como $1{,}99$, no el número $-2$. Notación correcta y errores tipográficos frecuentes. | `notacion-y-direccion-lateral` | 9 |
-| B. Teorema de existencia | Consolidar la regla $\lim^- = \lim^+ \iff \lim$ bilateral existe. Desvincular esto del valor $f(a)$. | `teorema-existencia-bilateral` | 9 |
-| C. Discontinuidad por salto | Asociar analíticamente $\lim^- \neq \lim^+$ con una fractura visible en la gráfica. | `discontinuidad-por-salto` | 6 |
-| D. Operación con sentido: tamaño del salto | **Reenfocada en la ronda 1** (ver hallazgos): en vez de sumar los laterales sin motivo, la operación con lectura real es la **resta**, que da el tamaño del salto ($\lim^+ - \lim^-$, cuánto sube o baja la curva al cruzar el punto). Sumar/comparar laterales solo aparece cuando el enunciado da una razón concreta para hacerlo, no como ejercicio aislado de "esto se puede sumar porque son números". **La `explanation` de estos ejercicios agrega 1-2 párrafos de intuición** (ver `course-context.md` §Refuerzo de intuición en `blue`): por qué la resta $\lim^+ - \lim^-$ representa la distancia entre las dos alturas a las que "apunta" cada rama, antes de aplicarlo al caso puntual. | `tamano-del-salto` | 6 |
+| A. Notación y dirección | Diferenciar el superíndice de dirección del signo del número. Ejemplo: $x \to 2^-$ son valores como $1{,}99$, no el número $-2$. Notación correcta y errores tipográficos frecuentes. | `notacion-y-direccion-lateral` | 4 |
+| B. Teorema de existencia | Consolidar la regla $\lim^- = \lim^+ \iff \lim$ bilateral existe. Desvincular esto del valor $f(a)$. | `teorema-existencia-bilateral` | 6 |
+| C. Discontinuidad por salto | Asociar analíticamente $\lim^- \neq \lim^+$ con una fractura visible en la gráfica. | `discontinuidad-por-salto` | 3 |
+| D. Operación con sentido: tamaño del salto | **Reenfocada en la ronda 1** (ver hallazgos): en vez de sumar los laterales sin motivo, la operación con lectura real es la **resta**, que da el tamaño del salto ($\lim^+ - \lim^-$, cuánto sube o baja la curva al cruzar el punto). Sumar/comparar laterales solo aparece cuando el enunciado da una razón concreta para hacerlo, no como ejercicio aislado de "esto se puede sumar porque son números". **La `explanation` de estos ejercicios agrega 1-2 párrafos de intuición** (ver `course-context.md` §Refuerzo de intuición en `blue`): por qué la resta $\lim^+ - \lim^-$ representa la distancia entre las dos alturas a las que "apunta" cada rama, antes de aplicarlo al caso puntual. | `tamano-del-salto` | 2 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Superíndice leído como signo del número**: interpretar $x \to 2^-$ como $x \to -2$. Describir: "el signo menos indica la dirección desde la que te acercás a $2$ (por valores menores), no un número negativo".
@@ -89,7 +89,7 @@ Decodificar la notación de laterales, destruir falsos paradigmas sobre el signo
 
 ---
 
-## GRAF, 30 ejercicios
+## GRAF, 15 ejercicios
 
 ### Qué evalúa
 Interpretar el comportamiento direccional de una función a partir de un estímulo visual: leer un lateral, diagnosticar la existencia del bilateral, u operar dos laterales leídos del gráfico.
@@ -106,9 +106,9 @@ Interpretar el comportamiento direccional de una función a partir de un estímu
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Lectura lateral pura | Gráficos con saltos evidentes: se pide $\lim^-$ o $\lim^+$ en el punto de quiebre. Distractores clásicos: el valor del lado contrario, o el valor puntual cerrado (con círculo lleno). | `lectura-lateral-pura` | 12 |
-| B. Diagnóstico bilateral | "¿Existe $\lim_{x \to a} f(x)$?" en puntos con salto, puntos continuos y puntos con hueco. | `diagnostico-bilateral-visual` | 9 |
-| C. El límite frente al valor de la función | **Reemplazó a "Tamaño del salto (visual)" en la ronda 9** (testeo 467: pedir la resta de dos límites resultó confuso de leer, ver hallazgos). Sobre un gráfico con un punto cerrado separado de la rama, distinguir qué se lee siguiendo la curva (el **límite**) de qué se lee en el punto marcado (el **valor** $f(a)$). Incluye el caso en que coinciden, para que la sub-familia no enseñe que siempre difieren. **La `explanation` cierra conectando con la continuidad**, que es exactamente esa coincidencia. | `limite-vs-valor-visual` | 9 |
+| A. Lectura lateral pura | Gráficos con saltos evidentes: se pide $\lim^-$ o $\lim^+$ en el punto de quiebre. Distractores clásicos: el valor del lado contrario, o el valor puntual cerrado (con círculo lleno). | `lectura-lateral-pura` | 6 |
+| B. Diagnóstico bilateral | "¿Existe $\lim_{x \to a} f(x)$?" en puntos con salto, puntos continuos y puntos con hueco. | `diagnostico-bilateral-visual` | 5 |
+| C. El límite frente al valor de la función | **Reemplazó a "Tamaño del salto (visual)" en la ronda 9** (testeo 467: pedir la resta de dos límites resultó confuso de leer, ver hallazgos). Sobre un gráfico con un punto cerrado separado de la rama, distinguir qué se lee siguiendo la curva (el **límite**) de qué se lee en el punto marcado (el **valor** $f(a)$). Incluye el caso en que coinciden, para que la sub-familia no enseñe que siempre difieren. **La `explanation` cierra conectando con la continuidad**, que es exactamente esa coincidencia. | `limite-vs-valor-visual` | 4 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Lado contrario**: al pedir $\lim^-$, leer el valor del lado derecho del salto. Describir qué mirar: "estás leyendo hacia dónde sube la rama derecha; el lateral por izquierda es hacia dónde llega la rama izquierda".
@@ -125,7 +125,7 @@ Interpretar el comportamiento direccional de una función a partir de un estímu
 
 ---
 
-## RESL, 30 ejercicios
+## RESL, 15 ejercicios
 
 ### Qué evalúa
 Ejecutar el álgebra direccional eligiendo la **rama correcta** de una función a trozos o de una expresión con valor absoluto. Sin indeterminaciones $\tfrac{0}{0}$.
@@ -141,9 +141,9 @@ Ejecutar el álgebra direccional eligiendo la **rama correcta** de una función 
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Funciones a trozos: un lateral | Se da $f(x)$ partida en $x = a$ y se pide $\lim_{x \to a^-}$ o $\lim_{x \to a^+}$. Desafío: leer la inecuación de cada rama y elegir la que corresponde a la dirección de aproximación. | `trozos-un-lateral` | 12 |
-| B. Funciones a trozos: bilateral | Se pide $\lim_{x \to a} f(x)$ en el punto de quiebre. Hay que evaluar ambas ramas: si coinciden, la respuesta es el valor; si difieren, la respuesta es **"No existe"**. | `trozos-bilateral` | 12 |
-| C. Valor absoluto | Expresiones del tipo $\dfrac{\|x - c\|}{x - c}$ o $\dfrac{\|x\|}{x}$ donde se piden los laterales. Definir el valor absoluto por ramas para elegir la correcta. | `laterales-valor-absoluto` | 6 |
+| A. Funciones a trozos: un lateral | Se da $f(x)$ partida en $x = a$ y se pide $\lim_{x \to a^-}$ o $\lim_{x \to a^+}$. Desafío: leer la inecuación de cada rama y elegir la que corresponde a la dirección de aproximación. | `trozos-un-lateral` | 6 |
+| B. Funciones a trozos: bilateral | Se pide $\lim_{x \to a} f(x)$ en el punto de quiebre. Hay que evaluar ambas ramas: si coinciden, la respuesta es el valor; si difieren, la respuesta es **"No existe"**. | `trozos-bilateral` | 6 |
+| C. Valor absoluto | Expresiones del tipo $\dfrac{\ | x - c\ | }{x - c}$ o $\dfrac{\ | x\ | }{x}$ donde se piden los laterales. Definir el valor absoluto por ramas para elegir la correcta. | `laterales-valor-absoluto` | 3 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Rama invertida**: elegir la rama de $x > a$ cuando se pide $\lim^-$. Describir: "$\lim^-$ mira valores menores que $a$, así que corresponde a la rama definida para $x < a$".

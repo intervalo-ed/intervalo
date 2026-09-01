@@ -26,7 +26,7 @@ Revisión manual ejercicio por ejercicio vía `/test`. Los siguientes son ejempl
 
 ---
 
-## LEXI, 30 ejercicios
+## LEXI, 15 ejercicios
 
 ### Distribución objetivo
 
@@ -34,12 +34,12 @@ Revisión manual ejercicio por ejercicio vía `/test`. Los siguientes son ejempl
 
 | Concepto | Sub-tipo | Slug | Cantidad exacta |
 |----------|----------|------|----------------:|
-| Dominio | conjunto explícito o natural | `dominio` | 7 |
-| Variable independiente / dependiente |, | `variable-indep-dep` | 6 |
-| Imagen | como conjunto (¿cuál es el conjunto imagen?) | `imagen-conjunto` | 5 |
-| Imagen | puntual (respecto de $x$, ¿qué es $f(x)$?) | `imagen-puntual` | 2 |
-| Codominio |, | `codominio` | 6 |
-| Preimagen | como cálculo (¿qué entradas dan $y$?) | `preimagen-calculo` | 3 |
+| Dominio | conjunto explícito o natural | `dominio` | 3 |
+| Variable independiente / dependiente | , | `variable-indep-dep` | 3 |
+| Imagen | como conjunto (¿cuál es el conjunto imagen?) | `imagen-conjunto` | 3 |
+| Imagen | puntual (respecto de $x$, ¿qué es $f(x)$?) | `imagen-puntual` | 1 |
+| Codominio | , | `codominio` | 3 |
+| Preimagen | como cálculo (¿qué entradas dan $y$?) | `preimagen-calculo` | 1 |
 | Preimagen | puntual (respecto de $f(x)=y$, ¿qué rol cumple $x$?) | `preimagen-puntual` | 1 |
 | **Total** | | | **30** |
 
@@ -125,11 +125,11 @@ El **humor es excepcional** (una minoría de los 30 ejercicios) y solo como **an
 
 | Categoría | Slug | Cantidad |
 |-----------|------|----------|
-| **Dominio**: identificar el conjunto de entradas en un caso concreto | `dominio-identificacion` | 4 |
-| **Dominio natural**: restricción algebraica (división, raíz, combinadas) | `dominio-natural` | 6 |
-| **Imagen / conjunto imagen**: salidas alcanzadas vs. codominio | `imagen-identificacion` | 5 |
-| **Codominio**: distinguir del conjunto imagen | `codominio-identificacion` | 2 |
-| **Preimagen**: calcular preimágenes / distinguir de la imagen | `preimagen-identificacion` | 4 |
+| **Dominio**: identificar el conjunto de entradas en un caso concreto | `dominio-identificacion` | 3 |
+| **Dominio natural**: restricción algebraica (división, raíz, combinadas) | `dominio-natural` | 4 |
+| **Imagen / conjunto imagen**: salidas alcanzadas vs. codominio | `imagen-identificacion` | 4 |
+| **Codominio**: distinguir del conjunto imagen | `codominio-identificacion` | 1 |
+| **Preimagen**: calcular preimágenes / distinguir de la imagen | `preimagen-identificacion` | 3 |
 | **Total** | | **21** |
 
 **No duplicar LEXI.** El límite: **LEXI define/reconoce el término** ("¿qué es el dominio?", "¿qué representa este conjunto?"), en general 2-3 opciones y registro definicional. **CLSF identifica o calcula el conjunto concreto** ("¿cuál es el dominio de esta $f$?", "¿cuáles son las preimágenes del 0?"), computacional. Si un ejercicio se resuelve solo sabiendo la definición sin mirar el caso, es LEXI, no CLSF.
@@ -233,3 +233,25 @@ todavía, quedan para una ronda 2:
   puede resolver con la misma regla ya escrita arriba cuando llegue la ronda 2.
 - `#24`, `#26`, `#27`, `#28`: bajo banda (38%, 20%, 50%, 50%) con n=5-8, sin
   diagnóstico propio todavía.
+
+**Ronda 2 (sep-2026), y el diagnóstico que faltaba.** Con más exposición acumulada quedó
+claro por qué el ítem seguía en 50 % de P1, debajo del piso de 55: **seis de sus quince
+ejercicios probaban la misma confusión —imagen contra codominio— y los seis medían entre
+25 % y 40 %**. No era que estuvieran mal escritos; era que el ítem cargaba seis veces la
+parte más difícil del topic y ninguna vez su parte tratable.
+
+La corrección fue de balance, no de redacción:
+
+- Se archivó `#21` ("¿la imagen es igual al codominio?" en versión sí/no, 25 %): el `#24`
+  y el `#26` trabajan la misma distinción pidiendo el conjunto concreto, que es la forma
+  útil y la que se reusa después.
+- Se archivó `#11` (vendedores, 38 %), tercera repetición del patrón "cuál es el dominio
+  de $S : \{1..n\} \to \{...\}$" junto al `#10` y el `#13`.
+- Se sumó un ejercicio de **lectura de la notación con flecha**, que es el prerrequisito
+  que el `#10` y el `#13` daban por sabido sin haberlo enseñado nunca en el ítem.
+- Se sumó uno de **imagen con una salida repetida**, donde lo que se evalúa es que un
+  conjunto no repite elementos, y no otra vez imagen contra codominio.
+
+Regla que queda para las rondas siguientes: **ninguna confusión puede ocupar más de un
+tercio del ítem.** Cuando la parte difícil del topic se lleva la mitad de los ejercicios,
+el ítem se va abajo de la banda aunque cada ejercicio esté bien construido.

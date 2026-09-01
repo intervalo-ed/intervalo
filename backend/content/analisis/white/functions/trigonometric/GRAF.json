@@ -1,36 +1,5 @@
 [
   {
-    "id": "white_trigonometric_GRAF_01",
-    "question": "Contar máximos en un gráfico es contar cuántas veces la curva llega a su punto más alto.\n\n¿Cuántos máximos tiene $f(x) = \\operatorname{sen}(x)$ en el intervalo $[0,\\, 2\\pi]$?",
-    "options": [
-      "1",
-      "2",
-      "0",
-      "3"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "El seno tiene un único máximo en $x = \\pi/2$, dentro de cada período $[0, 2\\pi]$.",
-    "feedback_incorrect": [
-      null,
-      "Estás contando un pico de más, revisá si ese segundo pico realmente cae dentro de $[0,2\\pi]$ o pertenece a otro período.",
-      "Repasá la curva completa entre $0$ y $2\\pi$, sí hay un tramo donde llega arriba antes de bajar.",
-      "Ese conteo corresponde a más de un período, revisá que estés mirando solo el tramo $[0,2\\pi]$."
-    ],
-    "graph_fn": "sin(x)",
-    "graph_view": [
-      -7,
-      7,
-      -2,
-      2
-    ],
-    "explanation": "Dentro de cada período $[0,2\\pi]$, el seno **sube** una vez hasta su máximo y **baja** una vez hasta su mínimo.\n\nEl máximo ocurre en $x=\\pi/2$, donde $\\operatorname{sen}(\\pi/2)=1$.\n\nEl mínimo ocurre en $x=3\\pi/2$, donde $\\operatorname{sen}(3\\pi/2)=-1$.\n\nPor eso hay exactamente un máximo local en el tramo $[0,2\\pi]$; para encontrar un segundo máximo hace falta extender el intervalo hasta $[0,4\\pi]$.\n\nEn la gráfica, ese único pico se identifica como el único punto donde la curva toca el techo de la onda antes de $2\\pi$.",
-    "reviewed": false,
-    "tags": [
-      "conteo-maximos"
-    ]
-  },
-  {
     "id": "white_trigonometric_GRAF_02",
     "question": "El período se lee en el gráfico como la distancia entre dos puntos equivalentes de la onda.\n\n¿Cuál es el período de esta función trigonométrica según la gráfica?",
     "options": [
@@ -93,130 +62,6 @@
     ]
   },
   {
-    "id": "white_trigonometric_GRAF_04",
-    "question": "Los ceros de una función son los puntos donde su gráfico toca el eje horizontal.\n\n¿Cuántos ceros tiene $f(x) = \\cos(x)$ en el intervalo $[0,\\, 2\\pi]$?",
-    "options": [
-      "2",
-      "3",
-      "1",
-      "0"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "$\\cos(\\pi/2) = \\cos(3\\pi/2) = 0$: hay 2 ceros del coseno en $[0, 2\\pi]$.",
-    "feedback_incorrect": [
-      null,
-      "Contá de nuevo los cruces con el eje, estás sumando uno que no aparece en este tramo.",
-      "Repasá la curva completa entre $0$ y $2\\pi$, hay más de un cruce con el eje horizontal.",
-      "El coseno sí toca el eje horizontal en ese intervalo, fijate entre el máximo inicial y el mínimo."
-    ],
-    "graph_fn": "cos(x)",
-    "graph_view": [
-      -7,
-      7,
-      -2,
-      2
-    ],
-    "explanation": "Los **ceros** de una función son los valores de $x$ donde la curva cruza el eje horizontal.\n\nEl coseno se anula en $x=\\pi/2+k\\pi$, con $k$ entero.\n\nEn el intervalo $[0,2\\pi]$ esa fórmula da dos soluciones.\n\nSon $x=\\pi/2$ y $x=3\\pi/2$, los dos únicos cruces visibles en la gráfica.\n\nA diferencia del seno, que tiene tres ceros en ese mismo intervalo por arrancar en $0$, el coseno arranca en su máximo y solo cruza el eje dos veces antes de completar el ciclo.",
-    "reviewed": false,
-    "tags": [
-      "conteo-ceros"
-    ]
-  },
-  {
-    "id": "white_trigonometric_GRAF_05",
-    "question": "Un período completo es el tramo mínimo tras el cual la onda se repite igual.\n\n¿Cuántos períodos completos tiene $f(x) = \\operatorname{sen}(x)$ en el intervalo $[0,\\, 4\\pi]$?",
-    "options": [
-      "2",
-      "1",
-      "4",
-      "3"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "El período es $2\\pi$: en $[0, 4\\pi]$ caben exactamente 2 períodos completos.",
-    "feedback_incorrect": [
-      null,
-      "Fijate cuántas veces se repite el ciclo completo dentro de todo el intervalo $[0,4\\pi]$, no solo en la primera mitad.",
-      "Estás contando algo distinto a ciclos completos, repasá cuántas veces sube y baja la curva entera.",
-      "Revisá de nuevo cuántas veces entra un ciclo completo en $[0,4\\pi]$, te sobra uno en el conteo."
-    ],
-    "graph_fn": "sin(x)",
-    "graph_view": [
-      -7,
-      7,
-      -2,
-      2
-    ],
-    "explanation": "El **período** del seno es $T=2\\pi$: ese es el tramo que la curva tarda en repetir su forma completa.\n\nPara saber cuántos períodos caben en un intervalo más largo, se divide su longitud por el período:\n$$\\frac{4\\pi}{2\\pi}=2$$\nPor eso en $[0,4\\pi]$ entran exactamente $2$ ciclos completos.\n\nCada uno sube hasta $1$ y baja hasta $-1$.\n\nSi el intervalo fuera $[0,6\\pi]$, el mismo cálculo daría $3$ períodos completos.",
-    "reviewed": false,
-    "tags": [
-      "conteo-periodos-completos"
-    ]
-  },
-  {
-    "id": "white_trigonometric_GRAF_06",
-    "question": "En el gráfico, un tramo creciente se ve como una subida ininterrumpida de izquierda a derecha.\n\n¿En cuál de estos intervalos la función $f(x) = \\operatorname{sen}(x)$ es creciente?",
-    "options": [
-      "$[-\\pi,\\ 0]$",
-      "$[-\\pi/2,\\ \\pi/2]$",
-      "$[\\pi/2,\\ 3\\pi/2]$",
-      "$[\\pi,\\ 2\\pi]$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "En la gráfica se ve que la curva sube desde $-\\pi/2$ hasta $\\pi/2$, llegando hasta el máximo $\\operatorname{sen}(\\pi/2)=1$.",
-    "feedback_incorrect": [
-      "Ese tramo mezcla una bajada y una subida, no es monótono, fijate que la curva primero baja y después sube ahí.",
-      null,
-      "Repasá ese tramo con cuidado, la curva baja de principio a fin en ese intervalo.",
-      "Ese intervalo tampoco es monótono, la curva baja y después sube dentro de él."
-    ],
-    "graph_fn": "sin(x)",
-    "graph_view": [
-      -6.5,
-      6.5,
-      -2,
-      2
-    ],
-    "explanation": "Un tramo **creciente** de una función es aquel donde la curva sube de izquierda a derecha a medida que $x$ aumenta.\n\nEl seno crece en los intervalos $[-\\pi/2+2k\\pi,\\ \\pi/2+2k\\pi]$, para cualquier entero $k$.\n\nEntre las opciones, el intervalo $[-\\pi/2,\\pi/2]$ es el único genuinamente creciente.\n\nAhí la curva sube desde $-1$ hasta $1$, pasando por el cero en el medio.\n\nEn $[-\\pi,0]$ la curva primero baja y luego sube, por lo que no es monótona en todo el tramo.\n\nEn $[\\pi/2,3\\pi/2]$ es decreciente de punta a punta, y en $[\\pi,2\\pi]$ vuelve a bajar y subir: ninguno de los tres queda creciente en todo su recorrido.\n\nPara identificar un tramo creciente de un vistazo conviene ubicar un mínimo y seguir la curva hasta el próximo máximo, ese recorrido siempre crece.",
-    "reviewed": false,
-    "tags": [
-      "monotonia-intervalo-graf-trig"
-    ]
-  },
-  {
-    "id": "white_trigonometric_GRAF_07",
-    "question": "La gráfica muestra $f(x) = 2\\,\\operatorname{sen}(x)$.\n\n¿Cuál es el valor máximo de $f$?",
-    "options": [
-      "$1$",
-      "$4$",
-      "$3$",
-      "$2$"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "Correcto. La amplitud es $2$; el máximo es $2$.",
-    "feedback_incorrect": [
-      "Ese sería el techo del seno sin el factor que multiplica, fijate cuánto más alto llega esta curva en particular.",
-      "Ese valor duplicaría lo que realmente muestra el gráfico, mirá con cuidado hasta dónde llega el pico.",
-      "Estás sumando de más, fijate en qué altura exacta del eje vertical toca el punto más alto de la curva.",
-      null
-    ],
-    "graph_fn": "2*sin(x)",
-    "graph_view": [
-      -7,
-      7,
-      -3,
-      3
-    ],
-    "explanation": "La **amplitud** de $f(x)=A\\,\\operatorname{sen}(x)$ es $|A|$, y determina tanto el valor máximo como el mínimo de la función.\n\nCon $A=2$, la curva alcanza su techo en $y=2$.\n\nSu piso, en cambio, llega hasta $y=-2$.\n\nEn la gráfica esto se lee directamente: el pico de la onda está exactamente en $y=2$.\n\nLa opción $1$ sería el máximo del seno sin amplificar, y la opción $4$ correspondería a duplicar otra vez el coeficiente.\n\nEl coeficiente que multiplica al seno estira la altura de la onda sin cambiar cuántas veces oscila.",
-    "reviewed": false,
-    "tags": [
-      "valor-max-min-grafico"
-    ]
-  },
-  {
     "id": "white_trigonometric_GRAF_08",
     "question": "La gráfica muestra $f(x) = \\operatorname{sen}(x) + 1$.\n\n¿Cuál es la imagen de $f$?",
     "options": [
@@ -245,37 +90,6 @@
     "reviewed": false,
     "tags": [
       "imagen-desde-grafico-trig"
-    ]
-  },
-  {
-    "id": "white_trigonometric_GRAF_09",
-    "question": "La gráfica muestra una onda con amplitud $3$.\n\nEn $x=0$ alcanza su valor máximo, y no tiene desplazamiento vertical.\n\n¿Cuál es su fórmula?",
-    "options": [
-      "$3\\,\\operatorname{sen}(x)$",
-      "$\\cos(x)+3$",
-      "$3\\cos(x)$",
-      "$\\cos(3x)$"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "Correcto. Amplitud $3$ y arranque en el máximo: $3\\cos(x)$.",
-    "feedback_incorrect": [
-      "Esa función arranca en $0$ cuando $x=0$, no en el máximo, aunque tenga la amplitud correcta.",
-      "Esa fórmula desplaza el eje de oscilación en vez de multiplicar la amplitud, el máximo quedaría en $4$, no en $3$.",
-      null,
-      "Esa fórmula cambia el período en vez de la amplitud, el máximo seguiría siendo $1$."
-    ],
-    "graph_fn": "3*cos(x)",
-    "graph_view": [
-      -7,
-      7,
-      -4,
-      4
-    ],
-    "explanation": "Para reconstruir la **fórmula** de una onda a partir del gráfico hay que leer tres datos: la amplitud, dónde arranca la curva en $x=0$, y si está desplazada verticalmente.\n\nAcá la amplitud es $3$ y la curva parte de su valor máximo en $x=0$, sin ningún corrimiento hacia arriba o abajo.\n\nEl seno arranca siempre en $0$ cuando $x=0$.\n\nEso descarta cualquier fórmula basada en $\\operatorname{sen}$.\n\nSolo el coseno arranca en su máximo.\n\nMultiplicarlo por $3$ estira ese máximo hasta $3$, sin mover el eje de oscilación.\n\nReconocer dónde arranca la curva en el eje vertical es la forma más rápida de distinguir seno de coseno antes de mirar cualquier otro dato.",
-    "reviewed": false,
-    "tags": [
-      "formula-desde-grafico-trig"
     ]
   },
   {
@@ -434,68 +248,6 @@
     ]
   },
   {
-    "id": "white_trigonometric_GRAF_15",
-    "question": "La gráfica muestra $f(x) = 3\\,\\operatorname{sen}(x)$.\n\n¿Cuál es la imagen de $f$?",
-    "options": [
-      "$[-1, 1]$",
-      "$[-3, 3]$",
-      "$[0, 3]$",
-      "$[-3, 0]$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "Correcto. Amplitud $3$: imagen $[-3, 3]$.",
-    "feedback_incorrect": [
-      "Ese es el recorrido del seno sin escalar, fijate cuánto más alto y más bajo llega esta curva en particular.",
-      null,
-      "Esa mitad del recorrido deja afuera todo lo que la curva baja por debajo del eje, revisá el punto más bajo.",
-      "Esa mitad del recorrido deja afuera todo lo que la curva sube por encima del eje, revisá el punto más alto."
-    ],
-    "graph_fn": "3*sin(x)",
-    "graph_view": [
-      -7,
-      7,
-      -4,
-      4
-    ],
-    "explanation": "La **imagen** de $f(x)=3\\,\\operatorname{sen}(x)$ es el conjunto de todos los valores que puede tomar la función.\n\nEl seno básico toma valores entre $-1$ y $1$.\n\nMultiplicar por $3$ estira ese rango al mismo factor.\n\nEn la gráfica la curva toca $y=3$ en su punto más alto y $y=-3$ en el más bajo, sin superar esos valores en ningún tramo.\n\nLa opción $[-1,1]$ es la imagen sin amplificar, y la opción $[0,3]$ solo cubriría la mitad positiva del recorrido, ignorando que el seno también baja del eje.",
-    "reviewed": false,
-    "tags": [
-      "imagen-desde-grafico-trig"
-    ]
-  },
-  {
-    "id": "white_trigonometric_GRAF_16",
-    "question": "Un modelo climático estima la temperatura a lo largo del día según la función:\n$$T(h) = 10\\,\\operatorname{sen}\\!\\left(\\dfrac{\\pi}{12}(h - 6)\\right) + 20$$\nEl resultado se expresa en grados centígrados, con $h$ la hora del día.\n\n¿Cuál es la temperatura que indica el modelo a las $6$ de la mañana?",
-    "options": [
-      "$30\\,°C$",
-      "$10\\,°C$",
-      "$25\\,°C$",
-      "$20\\,°C$"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "Correcto. $T(6) = 10\\,\\operatorname{sen}(0) + 20 = 20\\,°C$.",
-    "feedback_incorrect": [
-      "Ese valor es el máximo del modelo, que ocurre en otra hora del día, no a las $6$ a.m.",
-      "Ese valor sería la amplitud del modelo, no la temperatura en un instante puntual, releé qué representa cada parámetro.",
-      "Ese valor está a mitad de camino entre el eje de oscilación y el máximo, revisá en qué parte del ciclo cae esa hora.",
-      null
-    ],
-    "graph_fn": "10*sin(pi/12*(x-6))+20",
-    "graph_view": [
-      -2,
-      26,
-      5,
-      35
-    ],
-    "explanation": "En un modelo de la forma:\n$$T(h)=A\\,\\operatorname{sen}(B(h-h_0))+D$$\nEvaluar en $h=h_0$ siempre anula el argumento del seno, porque $B(h_0-h_0)=0$.\n\nAcá $h_0=6$, así que en $h=6$ el argumento se anula:\n$$T(6) = 10\\,\\operatorname{sen}(0)+20$$\n$$T(6) = 10\\cdot 0 + 20 = 20\\,°C$$\nComo $\\operatorname{sen}(0)=0$, la temperatura queda exactamente en el eje de oscilación del modelo, que es $D=20\\,°C$.\n\nEse valor no es ni el máximo ni el mínimo del día, es el punto medio del ciclo, la referencia alrededor de la cual sube y baja la temperatura.",
-    "reviewed": false,
-    "tags": [
-      "contexto-cotidiano-graf-trig"
-    ]
-  },
-  {
     "id": "white_trigonometric_GRAF_17",
     "question": "La gráfica muestra $f(x) = \\operatorname{sen}(x)$.\n\n¿La función tiene máximos locales? ¿En qué valores de $x$?",
     "options": [
@@ -524,37 +276,6 @@
     "reviewed": false,
     "tags": [
       "ubicacion-maximos-locales"
-    ]
-  },
-  {
-    "id": "white_trigonometric_GRAF_18",
-    "question": "La gráfica muestra una onda que completa exactamente un ciclo en el intervalo $[0, 4\\pi]$.\n\n¿Cuál es la fórmula más probable?",
-    "options": [
-      "$f(x) = \\operatorname{sen}(2x)$",
-      "$f(x) = 2\\,\\operatorname{sen}(x)$",
-      "$f(x) = \\operatorname{sen}\\!\\left(\\dfrac{x}{2}\\right)$",
-      "$f(x) = \\cos(2x)$"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "Correcto. Período $4\\pi \\Rightarrow B = 1/2$: $\\operatorname{sen}(x/2)$.",
-    "feedback_incorrect": [
-      "Esa fórmula comprime el ciclo mucho más de lo que describe el enunciado, revisá cuántos ciclos entrarían con ese ancho.",
-      "Esa fórmula cambia la altura del pico, no el ancho del ciclo, releé qué parámetro describe el enunciado.",
-      null,
-      "Esa fórmula también arranca en el techo y con un ciclo mucho más corto del que describe el enunciado."
-    ],
-    "graph_fn": "sin(x/2)",
-    "graph_view": [
-      -10,
-      10,
-      -2,
-      2
-    ],
-    "explanation": "Una onda que completa exactamente **un ciclo** en $[0,4\\pi]$ tiene período $T=4\\pi$.\n\nComo el período se calcula con $T=2\\pi/B$, despejar el coeficiente da:\n$$B=\\frac{2\\pi}{4\\pi}=\\frac{1}{2}$$\nCon ese coeficiente, la función es $\\operatorname{sen}(x/2)$.\n\nLa opción $\\operatorname{sen}(2x)$ tendría período $\\pi$: cuatro ciclos completos en el intervalo dado.\n\nLa opción $2\\,\\operatorname{sen}(x)$, con período $2\\pi$, completaría dos ciclos en ese mismo tramo.\n\nSolo $\\operatorname{sen}(x/2)$ estira el ciclo lo suficiente como para completar uno solo en todo el intervalo dado.",
-    "reviewed": false,
-    "tags": [
-      "formula-desde-grafico-trig"
     ]
   },
   {
@@ -620,68 +341,6 @@
     ]
   },
   {
-    "id": "white_trigonometric_GRAF_21",
-    "question": "La gráfica muestra una onda con máximo $2$ y período $\\pi$.\n\n¿Cuál es su fórmula?",
-    "options": [
-      "$f(x) = 2\\,\\operatorname{sen}(x)$",
-      "$f(x) = 2\\cos(x)$",
-      "$f(x) = \\operatorname{sen}(2x)$",
-      "$f(x) = 2\\,\\operatorname{sen}(2x)$"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "Correcto. Amplitud $2$ + período $\\pi$: $2\\,\\operatorname{sen}(2x)$.",
-    "feedback_incorrect": [
-      "Esa fórmula tiene un ciclo mucho más largo que el que describe el enunciado, revisá el período.",
-      "Esa fórmula arranca en el techo, no en el eje, y además tiene un ciclo más largo del que describe el enunciado.",
-      "Esa fórmula tiene una amplitud menor a la que describe el enunciado, revisá la altura del pico.",
-      null
-    ],
-    "graph_fn": "2*sin(2*x)",
-    "graph_view": [
-      -5,
-      5,
-      -3,
-      3
-    ],
-    "explanation": "La onda descripta tiene máximo $2$ y mínimo $-2$.\n\nSu período es $\\pi$, la mitad del ciclo del seno básico.\n\nCon esos datos se calculan los coeficientes:\n$$A = \\frac{2-(-2)}{2} = 2$$\n$$B = \\frac{2\\pi}{\\pi} = 2$$\nComo la curva arranca en $0$ en $x=0$, corresponde a un seno y no a un coseno.\n\nCon ambos coeficientes iguales a $2$, la fórmula es $2\\,\\operatorname{sen}(2x)$.\n\nLa opción $2\\cos(x)$ tiene un período de $2\\pi$, el doble del que muestra el gráfico.\n\nLa opción $\\operatorname{sen}(2x)$ tiene amplitud $1$, la mitad de la necesaria: ninguna de las dos reproduce ambos datos a la vez.",
-    "reviewed": false,
-    "tags": [
-      "formula-desde-grafico-trig"
-    ]
-  },
-  {
-    "id": "white_trigonometric_GRAF_22",
-    "question": "La gráfica muestra $f(x) = \\cos(x)$.\n\n¿En qué valores de $x$ el coseno alcanza su mínimo $-1$?",
-    "options": [
-      "$x = k\\pi$",
-      "$x = 2k\\pi$",
-      "$x = \\dfrac{\\pi}{2} + k\\pi$",
-      "$x = \\pi + 2k\\pi$"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "$\\cos(\\pi) = -1$: $x = \\pi + 2k\\pi$.",
-    "feedback_incorrect": [
-      "Esos valores incluyen también los puntos donde la curva toca el techo, no solo el piso.",
-      "Esos valores marcan los picos hacia arriba, no los mínimos, fijate bien en el gráfico.",
-      "Esos valores marcan los cruces con el eje horizontal, no los puntos más bajos de la curva.",
-      null
-    ],
-    "graph_fn": "cos(x)",
-    "graph_view": [
-      -7,
-      7,
-      -2,
-      2
-    ],
-    "explanation": "El **mínimo** de $f(x)=\\cos(x)$ es el valor $-1$.\n\nOcurre cuando el ángulo llega al punto $(-1,0)$ del círculo unitario, es decir en $x=\\pi$.\n\nEse mismo mínimo se repite cada $2\\pi$.\n\nLa solución general es $x=\\pi+2k\\pi$, con $k$ entero.\n\nLa opción $x=k\\pi$ incluiría también los máximos, no solo los mínimos.\n\nLa opción $x=2k\\pi$ da exactamente los máximos, el extremo equivocado.\n\nLa opción $x=\\pi/2+k\\pi$ corresponde a los ceros del coseno, no a sus extremos.\n\nEl coseno toca su punto más bajo una sola vez por cada vuelta completa del círculo unitario, siempre en el extremo opuesto a donde toca el máximo.",
-    "reviewed": false,
-    "tags": [
-      "ubicacion-minimo"
-    ]
-  },
-  {
     "id": "white_trigonometric_GRAF_23",
     "question": "La gráfica muestra una función trigonométrica que en $x=0$ alcanza su valor máximo.\n\n¿Cuál de las siguientes funciones es?",
     "options": [
@@ -713,37 +372,6 @@
     ]
   },
   {
-    "id": "white_trigonometric_GRAF_24",
-    "question": "En una bahía de mareas muy pronunciadas, el nivel del agua sube y baja de forma periódica a lo largo del día.\n\nLa gráfica muestra ese nivel, en metros, según la hora $x$.\n\n¿Cuántas horas separan dos mareas altas consecutivas?",
-    "options": [
-      "$6$",
-      "$12$",
-      "$24$",
-      "$3$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "Correcto. El período del modelo es $12$ horas: ese es el tiempo entre dos mareas altas seguidas.",
-    "feedback_incorrect": [
-      "Esa cantidad de horas separa una marea alta de la marea baja siguiente, no de la próxima marea alta.",
-      null,
-      "Ese valor cuenta un día entero, pero el ciclo se repite dos veces por día, no una sola vez.",
-      "Esa cantidad de horas es apenas un cuarto del ciclo completo, revisá cuánto tarda la curva en volver a subir hasta el mismo pico."
-    ],
-    "graph_fn": "14*sin(pi/6*(x-3))+15",
-    "graph_view": [
-      -2,
-      26,
-      -2,
-      30
-    ],
-    "explanation": "El **período** de una función aplicada es el tiempo que tarda en repetir un ciclo completo, y en la gráfica se lee midiendo la distancia entre dos picos consecutivos.\n\nAcá la curva sube hasta su máximo, baja hasta el mínimo y vuelve a subir hasta el próximo pico en un tramo de $12$ horas.\n\nPor eso el tiempo entre dos mareas altas seguidas es de $12$ horas, aunque a mitad de camino, a las $6$ horas, ya haya pasado una marea baja.\n\nEn un día completo de $24$ horas entran exactamente dos ciclos de marea, uno alto y uno bajo cada uno.\n\nAl leer un gráfico aplicado, la marea baja intermedia puede tentarte a cerrar el ciclo antes de tiempo: el período recién se completa cuando la curva vuelve a alcanzar el mismo pico.",
-    "reviewed": false,
-    "tags": [
-      "contexto-cotidiano-graf-trig"
-    ]
-  },
-  {
     "id": "white_trigonometric_GRAF_25",
     "question": "Dividir la variable por 2 dentro del seno estira la onda en horizontal:\n$$f(x) = \\operatorname{sen}\\!\\left(\\dfrac{x}{2}\\right)$$\n¿Cuánto vale $f(\\pi)$?",
     "options": [
@@ -772,68 +400,6 @@
     "reviewed": false,
     "tags": [
       "evaluacion-puntual-grafico"
-    ]
-  },
-  {
-    "id": "white_trigonometric_GRAF_26",
-    "question": "La gráfica muestra $f(x) = -\\cos(x)$.\n\n¿Cuál es la primera raíz positiva de $f$?",
-    "options": [
-      "$\\pi$",
-      "$\\pi/4$",
-      "$\\pi/2$",
-      "$3\\pi/2$"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "Correcto. $-\\cos(\\pi/2)=0$, y no hay ninguna raíz positiva menor: $\\pi/2$ es la primera.",
-    "feedback_incorrect": [
-      "Ese valor sí es una raíz, pero no la primera, hay una raíz positiva más chica antes de llegar ahí.",
-      "Ese valor no anula la función, revisá en qué ángulo el coseno vale exactamente $0$.",
-      null,
-      "Esa raíz existe, pero es la segunda, no la primera, hay una raíz positiva menor."
-    ],
-    "graph_fn": "-cos(x)",
-    "graph_view": [
-      -7,
-      7,
-      -2,
-      2
-    ],
-    "explanation": "La **primera raíz positiva** de una función es el menor valor de $x>0$ donde la curva cruza el eje horizontal.\n\nPara $f(x)=-\\cos(x)$, la función se anula cuando $\\cos(x)=0$.\n\nEso ocurre en $x=\\pi/2+k\\pi$, con $k$ entero.\n\nLos valores positivos de esa fórmula son $\\pi/2$, $3\\pi/2$ y así sucesivamente.\n\nEl menor de todos, y por lo tanto la primera raíz positiva, es $x=\\pi/2$.\n\nEn la gráfica esto se ve como el primer cruce con el eje horizontal después de $x=0$, contando de izquierda a derecha.",
-    "reviewed": false,
-    "tags": [
-      "primera-raiz-positiva"
-    ]
-  },
-  {
-    "id": "white_trigonometric_GRAF_27",
-    "question": "La gráfica muestra una onda con máximo $0$ y mínimo $-2$.\n\nSu período es $2\\pi$.\n\n¿Cuál es su fórmula?",
-    "options": [
-      "$f(x) = \\operatorname{sen}(x) + 1$",
-      "$f(x) = \\operatorname{sen}(x)$",
-      "$f(x) = -\\operatorname{sen}(x) - 1$",
-      "$f(x) = \\operatorname{sen}(x) - 1$"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "Correcto. Imagen $[-2, 0]$ = seno $[-1,1]$ desplazado $-1$.",
-    "feedback_incorrect": [
-      "Esa fórmula tendría un piso más alto del que describe el enunciado, revisá el mínimo.",
-      "Esa fórmula no está desplazada hacia abajo, revisá el máximo y el mínimo que describe el enunciado.",
-      "Esa fórmula arranca en el piso en $x=0$ en vez de en el eje, revisá con qué valor arranca la curva descripta.",
-      null
-    ],
-    "graph_fn": "sin(x)-1",
-    "graph_view": [
-      -7,
-      7,
-      -3,
-      1
-    ],
-    "explanation": "Con máximo $0$ y mínimo $-2$, el desplazamiento vertical es el promedio de ambos y la amplitud es la mitad de su diferencia:\n$$D = \\frac{0+(-2)}{2} = -1$$\n$$A = \\frac{0-(-2)}{2} = 1$$\nComo el período es $2\\pi$, el coeficiente que multiplica a la variable es $1$.\n\nLa fórmula queda $\\operatorname{sen}(x)-1$.\n\nSe verifica evaluando: el máximo es $1-1=0$ y el mínimo es $-1-1=-2$, ambos coinciden con los datos.\n\nLa opción $-\\operatorname{sen}(x)-1$ tiene el mismo rango, pero la curva queda invertida, partiría del mínimo en $x=0$ en vez de partir del eje central.",
-    "reviewed": false,
-    "tags": [
-      "formula-desde-grafico-trig"
     ]
   },
   {
@@ -896,37 +462,6 @@
     "reviewed": false,
     "tags": [
       "formula-desde-grafico-trig"
-    ]
-  },
-  {
-    "id": "white_trigonometric_GRAF_30",
-    "question": "La gráfica muestra $f(x) = 2\\cos(x)$.\n\n¿Cuál es el dominio de $f$?",
-    "options": [
-      "$[-2, 2]$",
-      "$\\mathbb{R}$",
-      "$[0, 2\\pi]$",
-      "$\\mathbb{R} \\setminus \\{0\\}$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "Correcto. El coseno está definido para cualquier número real, y multiplicarlo por $2$ no cambia eso.",
-    "feedback_incorrect": [
-      "Ese es el recorrido vertical de la función, la imagen, no el conjunto de valores de $x$ donde está definida.",
-      null,
-      "Ese es solo el tramo que se ve en la ventana del gráfico, la curva sigue definida mucho más allá de ese intervalo.",
-      "El coseno no tiene ningún valor excluido, está definido en todos los números reales, incluido el $0$."
-    ],
-    "graph_fn": "2*cos(x)",
-    "graph_view": [
-      -7,
-      7,
-      -3,
-      3
-    ],
-    "explanation": "El **dominio** de una función es el conjunto de valores de $x$ para los que está definida.\n\nEl coseno se puede evaluar en cualquier número real sin restricción, porque no involucra ninguna división ni raíz que limite su entrada.\n\nMultiplicar por $2$ afecta la altura de la curva, no los valores donde se la puede calcular.\n\nEl dominio de $2\\cos(x)$ sigue siendo $\\mathbb{R}$.\n\nLa ventana del gráfico solo muestra un tramo acotado por razones de visualización, pero la curva se extiende de la misma forma hacia la izquierda y hacia la derecha indefinidamente.\n\nAl leer un gráfico recortado, los bordes de la ventana marcan hasta dónde se dibujó la curva, no hasta dónde existe la función.",
-    "reviewed": false,
-    "tags": [
-      "dominio-desde-grafico-trig"
     ]
   }
 ]

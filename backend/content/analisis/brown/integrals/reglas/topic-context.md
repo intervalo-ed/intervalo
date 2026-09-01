@@ -60,7 +60,7 @@ Reglas de authoring que se aplican al escribir los 90 ejercicios:
 
 ---
 
-## FORM, 30 ejercicios
+## FORM, 15 ejercicios
 
 ### Qué evalúa
 **Consolidación de la memoria de la tabla de integrales inmediatas**, auditando el **reconocimiento inverso** (Sistema 1: reconocer de una la primitiva sin cálculo intermedio) y el **pensamiento inverso** (dada una función, decir qué se derivó para llegar a ella).
@@ -74,8 +74,8 @@ Reglas de authoring que se aplican al escribir los 90 ejercicios:
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Reconocimiento directo de antiderivadas | Preguntar directamente por la primitiva de una función elemental de la tabla. Ejemplos: $\int \cos x \, dx = \sin x + C$; $\int e^x \, dx = e^x + C$; $\int \sec^2 x \, dx = \tan x + C$; $\int \sin x \, dx = -\cos x + C$; $\int \tfrac{1}{x} \, dx = \ln|x| + C$. Set cubierto: $x^n$, $\tfrac{1}{x}$, $e^x$, $a^x$, $\sin x$, $\cos x$, $\sec^2 x$, **constante**. | `reconocimiento-directo-antiderivadas` | 15 |
-| B. Identificación inversa de la derivada | Forzar el pensamiento inverso: "¿Qué función al derivarse da $\tfrac{1}{x}$?" (respuesta: $\ln|x| + C$). "¿Qué función al derivarse da $e^x$?" (respuesta: $e^x + C$). Refuerza que la integración es la **operación inversa** de la derivación. | `identificacion-inversa-derivada` | 15 |
+| A. Reconocimiento directo de antiderivadas | Preguntar directamente por la primitiva de una función elemental de la tabla. Ejemplos: $\int \cos x \, dx = \sin x + C$; $\int e^x \, dx = e^x + C$; $\int \sec^2 x \, dx = \tan x + C$; $\int \sin x \, dx = -\cos x + C$; $\int \tfrac{1}{x} \, dx = \ln | x | + C$. Set cubierto: $x^n$, $\tfrac{1}{x}$, $e^x$, $a^x$, $\sin x$, $\cos x$, $\sec^2 x$, **constante**. | `reconocimiento-directo-antiderivadas` | 8 |
+| B. Identificación inversa de la derivada | Forzar el pensamiento inverso: "¿Qué función al derivarse da $\tfrac{1}{x}$?" (respuesta: $\ln | x | + C$). "¿Qué función al derivarse da $e^x$?" (respuesta: $e^x + C$). Refuerza que la integración es la **operación inversa** de la derivación. | `identificacion-inversa-derivada` | 7 |
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -97,7 +97,7 @@ Reglas de authoring que se aplican al escribir los 90 ejercicios:
 
 ---
 
-## ESTR, 30 ejercicios
+## ESTR, 15 ejercicios
 
 ### Qué evalúa
 **Detección de trampas visuales, constantes disfrazadas y discriminación de familias** antes de aplicar la fórmula. Bloquea el impulso automático de "integrar todo lo que parece $x$" o de "confundir potencia con exponencial por el símbolo $e$". Sin cálculo numérico final.
@@ -111,8 +111,8 @@ Reglas de authoring que se aplican al escribir los 90 ejercicios:
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Constantes engañosas | Diferenciar **números fijos** de **variables**. Bloquear el impulso de aplicar reglas de funciones a constantes numéricas. Ejemplos: $\int \pi \, dx = \pi x + C$; $\int e^2 \, dx = e^2 x + C$; $\int \ln 5 \, dx = (\ln 5) x + C$. Todas se resuelven con la regla de la constante ($\int k \, dx = kx + C$), no con la regla exponencial ni con la de la potencia. | `constantes-enganosas` | 15 |
-| B. Discriminación de familias | Auditar la diferencia entre estructuras algebraicas visualmente parecidas que requieren reglas distintas. Casos: $x^e$ vs $e^x$ (potencia vs exponencial); $x^n$ vs $n^x$ para $n$ numérico ($x^2$ es potencia, $2^x$ es exponencial base $a$); $\tfrac{1}{x}$ vs $\tfrac{1}{x^2}$ (logaritmo vs regla de la potencia con $n = -2$); $\sin x$ vs $\cos x$ (signo opuesto en sus primitivas). | `discriminacion-de-familias` | 15 |
+| A. Constantes engañosas | Diferenciar **números fijos** de **variables**. Bloquear el impulso de aplicar reglas de funciones a constantes numéricas. Ejemplos: $\int \pi \, dx = \pi x + C$; $\int e^2 \, dx = e^2 x + C$; $\int \ln 5 \, dx = (\ln 5) x + C$. Todas se resuelven con la regla de la constante ($\int k \, dx = kx + C$), no con la regla exponencial ni con la de la potencia. | `constantes-enganosas` | 8 |
+| B. Discriminación de familias | Auditar la diferencia entre estructuras algebraicas visualmente parecidas que requieren reglas distintas. Casos: $x^e$ vs $e^x$ (potencia vs exponencial); $x^n$ vs $n^x$ para $n$ numérico ($x^2$ es potencia, $2^x$ es exponencial base $a$); $\tfrac{1}{x}$ vs $\tfrac{1}{x^2}$ (logaritmo vs regla de la potencia con $n = -2$); $\sin x$ vs $\cos x$ (signo opuesto en sus primitivas). | `discriminacion-de-familias` | 7 |
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -133,7 +133,7 @@ Reglas de authoring que se aplican al escribir los 90 ejercicios:
 
 ---
 
-## RESL, 30 ejercicios
+## RESL, 15 ejercicios
 
 ### Qué evalúa
 **Ejecución técnica del cálculo integral**: aplicar la **linealidad** aprendida en `definition` combinada con las **fórmulas de tabla** aprendidas en FORM, en integrales que combinan varios términos. Sistema 2 completo: identificar cada término, aplicar la regla que corresponde, sumar/restar con signos correctos, incluir $+C$.
@@ -153,8 +153,8 @@ Reglas de authoring que se aplican al escribir los 90 ejercicios:
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Suma y resta de términos elementales | Integrales que combinan **dos o tres términos** distintos de la tabla, con coeficientes escalares. Ejemplo: $\int (4x^3 - 2\sin x) \, dx = x^4 + 2\cos x + C$. Foco: linealidad + signos + arrastre de coeficientes. Familias mezcladas: polinómicas + trigonométricas + exponencial + constante. | `suma-resta-terminos-elementales` | 15 |
-| B. Polinomios y fracciones simples combinadas | Integrales donde interactúa la **regla de la potencia** con el caso especial del **logaritmo** ($\tfrac{1}{x}$). Ejemplo: $\int (x^2 + \tfrac{5}{x}) \, dx = \tfrac{x^3}{3} + 5\ln\|x\| + C$. Foco: reconocer cuándo aplicar la excepción $n = -1$ y cuándo la regla de la potencia normal. También incluye reescritura algebraica previa (heredada de `definition`, aplicada en simultáneo con la integración). | `polinomios-fracciones-simples-combinadas` | 15 |
+| A. Suma y resta de términos elementales | Integrales que combinan **dos o tres términos** distintos de la tabla, con coeficientes escalares. Ejemplo: $\int (4x^3 - 2\sin x) \, dx = x^4 + 2\cos x + C$. Foco: linealidad + signos + arrastre de coeficientes. Familias mezcladas: polinómicas + trigonométricas + exponencial + constante. | `suma-resta-terminos-elementales` | 8 |
+| B. Polinomios y fracciones simples combinadas | Integrales donde interactúa la **regla de la potencia** con el caso especial del **logaritmo** ($\tfrac{1}{x}$). Ejemplo: $\int (x^2 + \tfrac{5}{x}) \, dx = \tfrac{x^3}{3} + 5\ln\ | x\ | + C$. Foco: reconocer cuándo aplicar la excepción $n = -1$ y cuándo la regla de la potencia normal. También incluye reescritura algebraica previa (heredada de `definition`, aplicada en simultáneo con la integración). | `polinomios-fracciones-simples-combinadas` | 7 |
 
 ### `feedback_incorrect`, confusiones fuente
 

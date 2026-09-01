@@ -422,5 +422,253 @@
         ]
       ]
     }
+  },
+  {
+    "id": "white_definition_CLSF_12",
+    "question": "Una encuesta corta tiene sus 3 preguntas numeradas del 1 al 3, y cada respuesta se registra como sí o no.$$E : \\{1, 2, 3\\} \\to \\{S, N\\}$$¿Cuál es el **dominio** de $E$?",
+    "options": [
+      "Las respuestas $S$ y $N$",
+      "Las 3 preguntas de la encuesta",
+      "Las respuestas del encuestado",
+      "La cantidad de preguntas, 3"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Las preguntas son las entradas que la función procesa, es decir el dominio.",
+    "feedback_incorrect": [
+      "Esas son las salidas posibles, el codominio; el dominio agrupa las entradas.",
+      null,
+      "Las respuestas concretas forman la imagen; el dominio son las entradas, no los resultados.",
+      "El dominio es un conjunto, no una cantidad; contar las preguntas no lo nombra."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **dominio** es el conjunto de entradas sobre las que opera la función.\n\nAcá las entradas son las tres preguntas, $\\{1, 2, 3\\}$.\n\nLas respuestas $S$ y $N$ son las salidas posibles, el **codominio**.\n\nLas respuestas concretas del encuestado forman la **imagen**.\n\nEl dominio no sale de contar las preguntas: es el conjunto de preguntas en sí, no su cantidad.",
+    "reviewed": false,
+    "tags": [
+      "dominio-identificacion"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "SOSPECHOSO",
+      "razon": "17% de P1 sobre n=12 DESPUES del arreglo del 24/08, que le agrego 'sus 3 preguntas numeradas del 1 al 3' para nombrar la correspondencia indice-entidad. El arreglo no movio el numero. La distractora 'La cantidad de preguntas, 3' y la correcta 'Las 3 preguntas de la encuesta' se leen casi igual, y el 10, el 11 y el 13 cubren el mismo patron de 'dominio de S:{1..n} a {...}'."
+    }
+  },
+  {
+    "id": "white_definition_CLSF_14",
+    "question": "Una función transforma $x$ según:$$h(x) = \\sqrt[3]{x - 3}$$ ¿Cuál es el **dominio natural**?",
+    "options": [
+      "$x \\geq 3$",
+      "$\\mathbb{R}$",
+      "$x \\neq 3$",
+      "$x > 3$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La raíz cúbica está definida para cualquier real, incluidos los negativos, así que no hay restricción.",
+    "feedback_incorrect": [
+      "Esa restricción vale para raíces de índice par, no para la cúbica: el radicando puede ser negativo.",
+      null,
+      "Esa restricción es de denominador, y acá no hay ninguno.",
+      "Esa restricción vale para raíces pares, y además excluye un punto que acá no hace falta excluir."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El dominio natural depende del tipo de raíz que la fórmula use.\n\nLa raíz cuadrada, de índice par, sí exige un radicando no negativo, pero la raíz cúbica, de índice impar, está definida para cualquier número real, positivo, negativo o cero.\n\nComo $\\sqrt[3]{x-3}$ es de índice impar, no hay ninguna restricción: el dominio natural es $\\mathbb{R}$.\n\nAplicar la regla de la raíz par a cualquier raíz, sin fijarse en el índice, es lo que lleva a elegir mal acá.",
+    "reviewed": false,
+    "tags": [
+      "dominio-natural"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Jaccard 0,88 contra el 17. Ademas mide 20% de P1 despues de haber sido reescrito el 24/08 para pasar de 1/raiz(x) a raiz cubica de (x-3): la reescritura no lo saco del piso."
+    }
+  },
+  {
+    "id": "white_definition_CLSF_18",
+    "question": "Una función transforma $x$ según:$$f(x) = \\frac{x + 1}{x - 5}$$ ¿Qué valor no está en el **dominio natural**?",
+    "options": [
+      "$x = 1$",
+      "$x = -1$",
+      "$x = 5$",
+      "$x = 0$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El denominador $x - 5$ se anula en $x = 5$, así que ese valor queda excluido.",
+    "feedback_incorrect": [
+      "En $x = 1$ el denominador vale $-4$, la regla está definida.",
+      "El $-1$ anula el numerador, no el denominador; ahí la regla vale $0$, existe.",
+      null,
+      "En $x = 0$ el denominador vale $-5$, la regla está definida."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **dominio natural** excluye los valores donde la función no está definida.\n\nEl denominador no puede ser cero.\n\nPor eso $x = 5$ no pertenece al dominio natural.\n\nEl numerador no impone restricciones: aunque se anule, la función sigue definida; solo el denominador cero rompe la división.\n\nConfundir numerador y denominador invierte la restricción: acá el problema está siempre en lo que divide, no en lo que se divide.",
+    "reviewed": false,
+    "tags": [
+      "dominio-natural"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "FACIL",
+      "razon": "'Que valor no esta en el dominio de (x+1)/(x-5)', P1 100% sobre n=12. La restriccion del denominador queda cubierta por el 15."
+    }
+  },
+  {
+    "id": "white_definition_CLSF_22",
+    "question": "Una función asigna el valor 7 a todos los números del 1 al 20. $$f(x) = 7, \\qquad x \\in \\{1, \\dots, 20\\}$$ ¿Cuál es el conjunto **imagen** de $f$?",
+    "options": [
+      "$\\{1,\\dots,20\\}$",
+      "$\\varnothing$",
+      "$\\{6\\}$",
+      "$\\{7\\}$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "La regla siempre produce 7, así que la imagen tiene un único elemento.",
+    "feedback_incorrect": [
+      "Ese es el dominio, las entradas del 1 al 20; la salida es siempre la misma.",
+      "La imagen no está vacía: la función sí produce un valor, el 7, en cada entrada.",
+      "La regla da 7, no 6; revisá el valor que aparece en la fórmula.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El conjunto **imagen** reúne las salidas que la función realmente alcanza.\n\nAcá la función produce siempre el mismo valor.\n\nPor eso la imagen es $\\{7\\}$, con un solo elemento.\n\nConfundirla con el **dominio** es fácil acá: la imagen mira lo que sale, y sale siempre 7 aunque entren veinte números distintos.",
+    "reviewed": false,
+    "tags": [
+      "imagen-identificacion"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Imagen de una funcion constante. Tenia el reporte 'conjunto unitario?? no tiene sentido' del 18/08, ya atendido el 24/08 cambiando la opcion a la notacion explicita. Se descarta por n=3 sin evidencia y porque el 20 y el 24 ya trabajan imagen como subconjunto propio."
+    }
+  },
+  {
+    "id": "white_definition_CLSF_25",
+    "question": "Un semáforo asigna a cada una de sus 3 posiciones un color. $$S : \\{1, 2, 3\\} \\to \\{r, a, v\\}$$ Los colores posibles son rojo, amarillo y verde.\n\n¿Qué representa ese conjunto de colores?",
+    "options": [
+      "El dominio de la función",
+      "El color más frecuente",
+      "Todos los colores posibles",
+      "La imagen garantizada"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El codominio es el conjunto de colores donde pueden caer las salidas.",
+    "feedback_incorrect": [
+      "El dominio son las posiciones del semáforo, las entradas; esos son los colores de salida.",
+      "Un color puntual no describe el conjunto de llegada.",
+      null,
+      "La imagen son los colores que efectivamente aparecen; el conjunto de posibles es el codominio."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **codominio** es el conjunto de salidas posibles declaradas por el modelo.\n\nAcá los colores posibles, rojo, amarillo y verde, son el conjunto de llegada.\n\nLas posiciones del semáforo son el **dominio**.\n\nLos colores que efectivamente aparecen forman la **imagen**.\n\nTomar el conjunto de llegada directamente como la imagen solo funciona si los tres colores llegan a usarse; en general son conjuntos distintos.",
+    "reviewed": false,
+    "tags": [
+      "codominio-identificacion"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "VETO",
+      "razon": "AMBIGUO. Un semaforo con 3 posiciones y exactamente 3 colores disponibles: el conjunto {r,a,v} es a la vez el codominio y (plausiblemente) la imagen, asi que la correcta 'Todos los colores posibles' y la distractora 'La imagen garantizada' son las dos defendibles. Mide 0% de P1 sobre n=5, o sea que no acerto nadie. El 26 hace el mismo trabajo bien construido: ahi solo aparecen B y C sobre un codominio {A,B,C,D}, con lo cual imagen y codominio no pueden confundirse."
+    }
+  },
+  {
+    "id": "white_definition_CLSF_29",
+    "question": "La función $f(x) = x^2$ da los siguientes resultados: $$\\begin{aligned} f(4) &= 16 \\\\ f(-4) &= 16 \\end{aligned}$$ ¿Cuántas **preimágenes** tiene el 16 bajo esta función?",
+    "options": [
+      "Una sola, el $4$",
+      "Cuatro",
+      "Ninguna, el $16$ es imagen",
+      "Dos, el $4$ y el $-4$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Tanto el 4 como el $-4$ dan 16, así que el 16 tiene dos preimágenes.",
+    "feedback_incorrect": [
+      "Hay más de una: también $(-4)^2 = 16$.",
+      "Solo hay dos soluciones de $x^2 = 16$, no cuatro.",
+      "Que 16 sea una imagen no impide que tenga preimágenes; de hecho tiene dos.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Las **preimágenes** de un valor $y$ son todas las entradas que se transforman en $y$.\n\nAcá hay que resolver $x^2 = 16$, cuyas soluciones son $x = \\pm 4$.\n\nPor eso el 16 tiene exactamente dos preimágenes.\n\nPensar que ser **imagen** impide tener preimágenes invierte la relación: que 16 sea una salida es justamente lo que hace que existan entradas, acá dos, que caen en él.",
+    "reviewed": false,
+    "tags": [
+      "preimagen-identificacion"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "FACIL",
+      "razon": "'Cuantas preimagenes tiene el 16 bajo x^2', P1 83%. El 28 trabaja mejor la preimagen preguntando por un valor que NO la tiene."
+    }
+  },
+  {
+    "id": "white_definition_CLSF_11",
+    "question": "Una empresa registra cuántas unidades vendió cada uno de sus 12 vendedores. Las ventas posibles van de 0 a 500 unidades. $$V : \\{1, \\dots, 12\\} \\to \\{0, \\dots, 500\\}$$ ¿Cuál de estos conjuntos es el **dominio**?",
+    "options": [
+      "$\\{0, \\dots, 500\\}$",
+      "$\\{1, \\dots, 500\\}$",
+      "$\\{1, \\dots, 12\\}$",
+      "El número $12$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El dominio son las entradas, los doce vendedores.",
+    "feedback_incorrect": [
+      "Ese es el conjunto de unidades posibles, las salidas, no las entradas.",
+      "Mezcla el rótulo de los vendedores con el rango de unidades; el dominio son solo los vendedores.",
+      null,
+      "El 12 cuenta cuántos vendedores hay, pero el dominio es el conjunto, no su tamaño."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **dominio** es el conjunto de entradas que la función transforma.\n\nAcá las entradas son los vendedores, numerados del 1 al 12.\n\nLas unidades posibles forman el **codominio** y las efectivamente vendidas, la **imagen**.\n\nContar cuántas entradas hay no alcanza para nombrar el dominio: el dominio es el conjunto, no su cantidad.",
+    "reviewed": false,
+    "tags": [
+      "dominio-identificacion"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "'Cuál es el dominio de V: {1..12} -> {0..500}', tercera vez el mismo patrón junto al 10 y al 13, y el más flojo de los tres (38 % de P1)."
+    }
+  },
+  {
+    "id": "white_definition_CLSF_21",
+    "question": "Una función tiene **dominio** $\\{1,2,3,4,5\\}$ y **codominio** $\\{1,\\dots,10\\}$, y transforma cada número en su doble:$$g(x) = 2x$$¿El conjunto **imagen** de la función es igual al codominio?",
+    "options": [
+      "No, solo los números pares del 1 al 10",
+      "Sí, todos los números del 1 al 10 se alcanzan",
+      "No, la imagen está vacía",
+      "Sí, pero solo los impares"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Los cinco valores del dominio dan 2, 4, 6, 8 y 10: solo los pares. Los impares del codominio nunca se alcanzan.",
+    "feedback_incorrect": [
+      null,
+      "$g(1)=2$, no $1$; ningún número impar del codominio se alcanza.",
+      "La imagen tiene cinco valores: $2,4,6,8,10$; no está vacía.",
+      "También $2,4,6,8,10$ son pares, no impares; la imagen son los pares, no los impares."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **imagen** son los valores que la función realmente produce; el **codominio** es el conjunto declarado de llegada, que puede ser más grande.\n\nEvaluando los cinco elementos del dominio:\n$$\\begin{aligned} g(1) &= 2 \\\\ g(2) &= 4 \\\\ g(3) &= 6 \\\\ g(4) &= 8 \\\\ g(5) &= 10 \\end{aligned}$$\nLa imagen es $\\{2,4,6,8,10\\}$, un subconjunto del codominio $\\{1,\\dots,10\\}$: los cinco números impares nunca aparecen.\n\nQue el codominio declare hasta $10$ no garantiza que todos esos valores se alcancen; eso depende de la regla de la función.",
+    "reviewed": false,
+    "tags": [
+      "imagen-identificacion"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "'¿La imagen es igual al codominio?' en versión sí/no. El 24 y el 26 trabajan la misma distinción pidiendo el conjunto concreto, que es la forma útil; este mide 25 % y es la más floja de las tres."
+    }
   }
 ]

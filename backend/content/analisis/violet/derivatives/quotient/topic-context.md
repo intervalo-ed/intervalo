@@ -48,7 +48,7 @@ Reglas de authoring que se aplican al escribir los 60 ejercicios:
 
 ---
 
-## ESTR, 30 ejercicios
+## ESTR, 15 ejercicios
 
 ### Qué evalúa
 **Auditoría de la toma de decisiones previa al cálculo** y **comprensión anatómica de la fórmula**. No se ejecuta la derivación completa: se decide **qué regla aplicar**, **cómo desglosar la expresión** y **qué orden respetar en la resta del numerador**. Sin cálculo numérico final.
@@ -62,8 +62,8 @@ Reglas de authoring que se aplican al escribir los 60 ejercicios:
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Falsos positivos y alternativas algebraicas | Detectar cuándo la regla del cociente es válida pero **estratégicamente ineficiente**. Constante en el numerador ($f(x) = \tfrac{5}{x^3}$ conviene como $5x^{-3}$), constante en el denominador ($f(x) = \tfrac{x^2 + 1}{4}$ es $\tfrac{1}{4}(x^2 + 1)$), o polinomios simplificables antes de derivar ($f(x) = \tfrac{x^2 - 1}{x - 1} = x + 1$ para $x \neq 1$). | `falsos-positivos-alternativas-cociente` | 15 |
-| B. Anatomía, signos y dominio | Auditar el **orden estricto** del numerador (la resta no es conmutativa), el **rol del cuadrado** del denominador y la **identificación** de $u$ y $v$. Reconocer que el signo de la derivada lo dicta el numerador ($v^2 > 0$ siempre que $v \neq 0$). | `anatomia-signos-y-dominio-cociente` | 15 |
+| A. Falsos positivos y alternativas algebraicas | Detectar cuándo la regla del cociente es válida pero **estratégicamente ineficiente**. Constante en el numerador ($f(x) = \tfrac{5}{x^3}$ conviene como $5x^{-3}$), constante en el denominador ($f(x) = \tfrac{x^2 + 1}{4}$ es $\tfrac{1}{4}(x^2 + 1)$), o polinomios simplificables antes de derivar ($f(x) = \tfrac{x^2 - 1}{x - 1} = x + 1$ para $x \neq 1$). | `falsos-positivos-alternativas-cociente` | 8 |
+| B. Anatomía, signos y dominio | Auditar el **orden estricto** del numerador (la resta no es conmutativa), el **rol del cuadrado** del denominador y la **identificación** de $u$ y $v$. Reconocer que el signo de la derivada lo dicta el numerador ($v^2 > 0$ siempre que $v \neq 0$). | `anatomia-signos-y-dominio-cociente` | 7 |
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -85,7 +85,7 @@ Reglas de authoring que se aplican al escribir los 60 ejercicios:
 
 ---
 
-## RESL, 30 ejercicios
+## RESL, 15 ejercicios
 
 ### Qué evalúa
 **Ejecución técnica** de la regla del cociente: identificar $u$ y $v$, calcular $u'$ y $v'$, armar $\tfrac{u'v - uv'}{v^2}$ y **evaluar en un punto** $x = a$ donde al menos un término de la resta se anula (con $v(a) \neq 0$ garantizado).
@@ -104,10 +104,10 @@ Reglas de authoring que se aplican al escribir los 60 ejercicios:
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Anulación por raíz en el numerador | El punto $x = a$ anula $u$ ($u(a) = 0$), haciendo desaparecer el término $u(a) v'(a)$. Queda $\tfrac{u'(a) v(a)}{v(a)^2} = \tfrac{u'(a)}{v(a)}$. Ejemplo: $f(x) = \tfrac{x^2 - 4}{e^x}$ evaluada en $x = 2$. | `anulacion-raiz-numerador-cociente` | 9 |
-| B. Anulación por extremo local (derivada nula) | El punto $x = a$ anula $u'$ o $v'$. Ejemplo: $f(x) = \tfrac{\sin x}{x}$ evaluada en $x = \tfrac{\pi}{2}$ (acá $\cos(\pi/2) = 0$, anula $u'(a) v(a) = 0$, queda $-\tfrac{u(a) v'(a)}{v(a)^2} = -\tfrac{1 \cdot 1}{(\pi/2)^2} = -\tfrac{4}{\pi^2}$). | `anulacion-derivada-nula-cociente` | 9 |
-| C. Tangentes horizontales (numerador completo nulo) | En vez de evaluar en un $a$ dado, se pide encontrar el $x$ donde $f'(x) = 0$. El alumno deriva, descarta $v^2$ (una fracción es cero cuando el numerador es cero) y resuelve la ecuación $u'v - uv' = 0$. Los ejercicios se eligen para que la ecuación resultante se factorice a mano en una o dos raíces enteras. | `tangentes-horizontales-cociente` | 6 |
-| D. Evaluación con datos abstractos | Se brindan valores puntuales de $f(a), f'(a), g(a), g'(a)$, uno o más iguales a $0$ explícitamente. Ejemplo: "Si $f(2) = 0$, $f'(2) = 3$, $g(2) = 4$, $g'(2) = -1$, calculá $\left(\tfrac{f}{g}\right)'(2)$". Respuesta: $\tfrac{3 \cdot 4 - 0 \cdot (-1)}{4^2} = \tfrac{12}{16} = \tfrac{3}{4}$. Fuerza la estructura abstracta pura respetando el **orden de la resta**. | `evaluacion-datos-abstractos-cociente` | 6 |
+| A. Anulación por raíz en el numerador | El punto $x = a$ anula $u$ ($u(a) = 0$), haciendo desaparecer el término $u(a) v'(a)$. Queda $\tfrac{u'(a) v(a)}{v(a)^2} = \tfrac{u'(a)}{v(a)}$. Ejemplo: $f(x) = \tfrac{x^2 - 4}{e^x}$ evaluada en $x = 2$. | `anulacion-raiz-numerador-cociente` | 5 |
+| B. Anulación por extremo local (derivada nula) | El punto $x = a$ anula $u'$ o $v'$. Ejemplo: $f(x) = \tfrac{\sin x}{x}$ evaluada en $x = \tfrac{\pi}{2}$ (acá $\cos(\pi/2) = 0$, anula $u'(a) v(a) = 0$, queda $-\tfrac{u(a) v'(a)}{v(a)^2} = -\tfrac{1 \cdot 1}{(\pi/2)^2} = -\tfrac{4}{\pi^2}$). | `anulacion-derivada-nula-cociente` | 4 |
+| C. Tangentes horizontales (numerador completo nulo) | En vez de evaluar en un $a$ dado, se pide encontrar el $x$ donde $f'(x) = 0$. El alumno deriva, descarta $v^2$ (una fracción es cero cuando el numerador es cero) y resuelve la ecuación $u'v - uv' = 0$. Los ejercicios se eligen para que la ecuación resultante se factorice a mano en una o dos raíces enteras. | `tangentes-horizontales-cociente` | 3 |
+| D. Evaluación con datos abstractos | Se brindan valores puntuales de $f(a), f'(a), g(a), g'(a)$, uno o más iguales a $0$ explícitamente. Ejemplo: "Si $f(2) = 0$, $f'(2) = 3$, $g(2) = 4$, $g'(2) = -1$, calculá $\left(\tfrac{f}{g}\right)'(2)$". Respuesta: $\tfrac{3 \cdot 4 - 0 \cdot (-1)}{4^2} = \tfrac{12}{16} = \tfrac{3}{4}$. Fuerza la estructura abstracta pura respetando el **orden de la resta**. | `evaluacion-datos-abstractos-cociente` | 3 |
 
 ### `feedback_incorrect`, confusiones fuente
 

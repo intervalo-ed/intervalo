@@ -1,0 +1,870 @@
+[
+  {
+    "id": "white_linear_FORM_01",
+    "question": "En una función lineal, uno de los dos números fija la inclinación y el otro el punto de arranque:\n$$f(x) = -3x + 8$$\n¿Cuál es la pendiente?",
+    "options": [
+      "$8$",
+      "$-3$",
+      "$-3x$",
+      "$3$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La pendiente es el coeficiente de $x$: $m = -3$.",
+    "feedback_incorrect": [
+      "$8$ es la ordenada al origen, el término sin $x$.",
+      null,
+      "$-3x$ es el término completo con la variable; la pendiente es solo el coeficiente.",
+      "El signo forma parte de la pendiente: el coeficiente de $x$ es $-3$, no $3$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La forma canónica de una función lineal es:\n$$f(x) = mx + b$$\nAhí la pendiente es el número que multiplica a $x$, con su signo incluido.\n\nPara $f(x) = -3x + 8$, el coeficiente es $-3$, y la recta baja 3 unidades por cada unidad de avance.\n\nEl $8$ es la ordenada al origen, el otro parámetro.\n\nAl leer los parámetros, arrastrá siempre el signo junto al coeficiente: tomar $3$ en lugar de $-3$ invierte la dirección de la recta.",
+    "reviewed": false,
+    "tags": [
+      "pendiente-calculo"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Leer la pendiente de f(x)=-3x+8. El 03 pide lo mismo pero con los terminos invertidos (6-2x), que es donde esta la confusion de signo real."
+    }
+  },
+  {
+    "id": "white_linear_FORM_04",
+    "question": "Una recta queda determinada por dos números, su pendiente y su ordenada al origen:\n$$m = 3, \\quad b = -2$$\n¿Cuál es la ecuación de esa recta?",
+    "options": [
+      "$f(x) = -2x + 3$",
+      "$f(x) = 3x + 2$",
+      "$f(x) = -2 - 3x$",
+      "$f(x) = 3x - 2$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$f(x) = 3x - 2$.",
+    "feedback_incorrect": [
+      "Los parámetros están intercambiados: el $3$ es la pendiente y debe multiplicar a $x$.",
+      "El signo de la ordenada al origen no corresponde: $b = -2$.",
+      "La pendiente pedida es positiva; acá el $-3$ multiplica a $x$ y el $-2$ quedó suelto.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Construir la ecuación desde los parámetros es sustituir en el molde $f(x) = mx + b$.\n\nLa pendiente $3$ va pegada a la variable, y la ordenada al origen $-2$ queda suelta como término independiente.\n\nCada dato tiene su lugar fijo: $m$ siempre pegado a la variable, $b$ siempre suelto. Así queda:\n$$f(x) = 3x - 2$$\nAntes de elegir, verificá evaluando en $x = 0$:\n$$f(0) = -2$$\nLos distractores clásicos intercambian los roles de $m$ y $b$.\n\nOtros pierden el signo del $-2$.",
+    "reviewed": false,
+    "tags": [
+      "armar-formula-mb"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Armar la recta con m y b dados literalmente. El 05 hace lo mismo exigiendo ademas reconocer que (0,5) es la ordenada al origen."
+    }
+  },
+  {
+    "id": "white_linear_FORM_06",
+    "question": "La raíz de una función es el valor de $x$ donde su gráfico cruza el eje horizontal:\n$$f(x) = -x + 5$$\n¿Cuál es la raíz de esta recta?",
+    "options": [
+      "$x = -5$",
+      "$x = 1$",
+      "$x = 0$",
+      "$x = 5$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "La raíz es $x = 5$.",
+    "feedback_incorrect": [
+      "El doble negativo se resuelve positivo: $-x = -5$ da $x = 5$.",
+      "$1$ no anula la función: $f(1) = 4$.",
+      "$x = 0$ da $f(0) = 5$, que es la ordenada al origen, no la raíz.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Resolviendo $f(x) = 0$ se despeja la raíz de una función lineal:\n$$-x + 5 = 0$$\n$$x = 5$$\nEl paso delicado es el último: dividir o multiplicar por $-1$ ambos lados, donde los dos signos negativos se cancelan y el resultado queda positivo.\n\nPara comprobarlo, $f(5) = -5 + 5 = 0$.\n\nNo confundas la raíz con la ordenada al origen: la raíz es donde la función vale cero, mientras que en $x = 0$ la función vale $5$.",
+    "reviewed": false,
+    "tags": [
+      "raiz-calculo"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Misma raiz que el 24, P1 100% con n=3."
+    }
+  },
+  {
+    "id": "white_linear_FORM_08",
+    "question": "El gráfico muestra una recta, y su inclinación se lee contando cuánto cambia $y$ al avanzar una unidad en $x$.\n\n¿Cuál es su ecuación?",
+    "options": [
+      "$y = 2x + 3$",
+      "$y = -2x + 3$",
+      "$y = 3x - 2$",
+      "$y = -2x - 3$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La recta pasa por $(0, 3)$ y baja 2 unidades por cada unidad en $x$: $y = -2x + 3$.",
+    "feedback_incorrect": [
+      "La recta baja hacia la derecha: la pendiente es negativa.",
+      null,
+      "Los números están cruzados: el corte con el eje vertical es 3 y la caída es 2 por unidad.",
+      "El corte con el eje vertical está en $+3$: mirá dónde la recta cruza el eje $Y$."
+    ],
+    "graph_fn": "-2*x + 3",
+    "graph_view": [
+      -2,
+      6,
+      -3,
+      5
+    ],
+    "explanation": "El corte con el eje vertical está en $(0, 3)$: la ordenada al origen es $b = 3$.\n\nLa recta baja 2 unidades por cada unidad que avanza $x$, así que la pendiente es $m = -2$. Con los dos parámetros leídos del dibujo, la ecuación queda:\n$$y = -2x + 3$$\nLa dirección de la recta te da el signo antes de medir nada: si baja hacia la derecha, la pendiente es negativa; verificalo antes de comparar opciones.",
+    "reviewed": false,
+    "tags": [
+      "grafico-a-formula"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Tercera lectura de grafico a formula con pendiente positiva; el 09 cubre el caso con el signo dado vuelta, que es el que discrimina."
+    }
+  },
+  {
+    "id": "white_linear_FORM_10",
+    "question": "Una recta pasa por el origen y sube 3 unidades por cada unidad que avanza $x$.\n\n¿Cuál es su ecuación?",
+    "options": [
+      "$y = 3x$",
+      "$y = 3x + 1$",
+      "$y = x + 3$",
+      "$y = 3$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La recta pasa por $(0, 0)$ y sube 3 unidades por cada unidad en $x$: $y = 3x$.",
+    "feedback_incorrect": [
+      null,
+      "Pasar por el origen significa $b = 0$: el $+1$ agrega un corte que la recta no tiene.",
+      "Los números quedaron cruzados: el 3 es el ritmo de subida, no el corte con el eje.",
+      "$y = 3$ es una recta horizontal que no sube."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Pasar por el origen significa que la recta corta el eje vertical en $(0, 0)$: la ordenada al origen es $b = 0$.\n\nSubir 3 unidades por cada unidad de avance es la pendiente $m = 3$. Sustituyendo ambos parámetros en el molde $f(x) = mx + b$, la ecuación es:\n$$y = 3x$$\nUna relación de proporcionalidad directa.\n\nCuando el valor inicial es cero, el término independiente desaparece de la fórmula: no lo reemplaces por otro número ni muevas la pendiente a ese lugar.",
+    "reviewed": false,
+    "tags": [
+      "armar-formula-puntos"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "'Pasa por el origen y sube 3 por unidad' es armar-formula-mb con b=0, no el caso de dos puntos que el tag promete."
+    }
+  },
+  {
+    "id": "white_linear_FORM_13",
+    "question": "Un empleado cobra un monto fijo por mes más un extra por cada pieza que produce.\n\nLa tabla registra lo que cobró en distintos meses.\n\n¿Cuánto cobra un mes en que produce $p$ piezas?",
+    "options": [
+      "$S(p) = 1500 + 100p$",
+      "$S(p) = 100 + 1500p$",
+      "$S(p) = 1600p$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El fijo es $1500$ y cada pieza suma $100$: $S(p) = 1500 + 100p$.",
+    "feedback_incorrect": [
+      null,
+      "Con $100$ de sueldo fijo, dos piezas ya darían mucho más que lo que muestra la tabla.",
+      "Sin sueldo fijo, producir el doble de piezas duplicaría el cobro, y la tabla sube mucho menos."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El sueldo con parte fija y parte por producción es una función lineal: el fijo es la **ordenada al origen** y el pago por pieza es la **pendiente**.\n\nLa diferencia entre filas consecutivas da el pago por pieza:\n$$1700 - 1600 = 100$$\nRestando ese valor al primer dato aparece el fijo:\n$$1600 - 100 = 1500$$\nQue las tres opciones den lo mismo con una sola pieza es lo que obliga a mirar la segunda fila antes de decidir.",
+    "reviewed": false,
+    "tags": [
+      "armar-formula-cotidiano"
+    ],
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "Piezas"
+        },
+        {
+          "icon": "🔧",
+          "label": "Cobró"
+        }
+      ],
+      "rows": [
+        [
+          "$1$",
+          "$1600$"
+        ],
+        [
+          "$2$",
+          "$1700$"
+        ],
+        [
+          "$3$",
+          "$1800$"
+        ],
+        [
+          "$p$",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "column",
+        "col": 1,
+        "by_option": [
+          {
+            "header": "$S(p) = 1500 + 100p$",
+            "cells": [
+              "$1600$",
+              "$1700$",
+              "$1800$",
+              "$S(p) = 1500 + 100p$"
+            ]
+          },
+          {
+            "header": "$S(p) = 100 + 1500p$",
+            "cells": [
+              "$1600$",
+              "$3100$",
+              "$4600$",
+              "$S(p) = 100 + 1500p$"
+            ]
+          },
+          {
+            "header": "$S(p) = 1600p$",
+            "cells": [
+              "$1600$",
+              "$3200$",
+              "$4800$",
+              "$S(p) = 1600p$"
+            ]
+          }
+        ]
+      }
+    },
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Tabla de cargo fijo mas variable, la misma plantilla que el 12, el 20 y el 21."
+    }
+  },
+  {
+    "id": "white_linear_FORM_14",
+    "question": "La factura de luz tiene un cargo fijo más un costo por cada kWh consumido.\n\nLa tabla registra el total de distintas facturas.\n\n¿Cuánto paga alguien que consume $k$ kWh?",
+    "options": [
+      "$F(k) = 400 + 12k$",
+      "$F(k) = 12 + 400k$",
+      "$F(k) = 412k$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El cargo fijo es $400$ y cada kWh suma $12$: $F(k) = 400 + 12k$.",
+    "feedback_incorrect": [
+      null,
+      "Con $12$ de cargo fijo, el segundo kWh llevaría la factura mucho más arriba de lo que muestra la tabla.",
+      "Sin cargo fijo, duplicar el consumo duplicaría la factura, y los valores de la tabla casi no se mueven."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En una factura con cargo fijo, el total nunca arranca en cero: hay un valor de base que se paga con consumo nulo.\n\nLa diferencia entre filas consecutivas aísla el costo por kWh:\n$$424 - 412 = 12$$\nY el cargo fijo sale de restarlo al primer total:\n$$412 - 12 = 400$$\nUna tasa chica al lado de un fijo grande hace que la columna suba despacio, y esa forma de crecer es la que descarta las opciones sin término fijo.",
+    "reviewed": false,
+    "tags": [
+      "armar-formula-cotidiano"
+    ],
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "kWh"
+        },
+        {
+          "icon": "💡",
+          "label": "Factura"
+        }
+      ],
+      "rows": [
+        [
+          "$1$",
+          "$412$"
+        ],
+        [
+          "$2$",
+          "$424$"
+        ],
+        [
+          "$3$",
+          "$436$"
+        ],
+        [
+          "$k$",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "column",
+        "col": 1,
+        "by_option": [
+          {
+            "header": "$F(k) = 400 + 12k$",
+            "cells": [
+              "$412$",
+              "$424$",
+              "$436$",
+              "$F(k) = 400 + 12k$"
+            ]
+          },
+          {
+            "header": "$F(k) = 12 + 400k$",
+            "cells": [
+              "$412$",
+              "$812$",
+              "$1212$",
+              "$F(k) = 12 + 400k$"
+            ]
+          },
+          {
+            "header": "$F(k) = 412k$",
+            "cells": [
+              "$412$",
+              "$824$",
+              "$1236$",
+              "$F(k) = 412k$"
+            ]
+          }
+        ]
+      }
+    },
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Idem 13, con factura de luz. P1 100%."
+    }
+  },
+  {
+    "id": "white_linear_FORM_15",
+    "question": "Una bicicletería cobra un monto fijo por el alquiler y suma un extra por cada hora de uso.\n\nLa tabla registra lo que pagó cada cliente.\n\n¿Cuánto paga un cliente que la usa $h$ horas?",
+    "options": [
+      "$C(h) = 300 + 150h$",
+      "$C(h) = 150 + 300h$",
+      "$C(h) = 450h$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El fijo es $300$ y cada hora suma $150$: $C(h) = 300 + 150h$.",
+    "feedback_incorrect": [
+      null,
+      "Los dos números están al revés: si cada hora costara $300$, dos horas darían un total distinto al de la tabla.",
+      "Sin monto fijo, dos horas costarían exactamente el doble que una, y la tabla no crece así."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En una función lineal aplicada a un cobro, el término **fijo** es lo que se paga aunque la variable valga cero, y la **pendiente** es lo que suma cada unidad.\n\nLa diferencia entre filas consecutivas da la pendiente:\n$$600 - 450 = 150$$\nY el fijo sale de descontar esa pendiente al primer valor:\n$$450 - 150 = 300$$\nLos tres candidatos coinciden en la primera fila, así que mirar solo esa no alcanza para decidir: hay que comprobar contra una segunda.",
+    "reviewed": false,
+    "tags": [
+      "armar-formula-cotidiano"
+    ],
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "Horas"
+        },
+        {
+          "icon": "🚲",
+          "label": "Pagó"
+        }
+      ],
+      "rows": [
+        [
+          "$1$",
+          "$450$"
+        ],
+        [
+          "$2$",
+          "$600$"
+        ],
+        [
+          "$3$",
+          "$750$"
+        ],
+        [
+          "$h$",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "column",
+        "col": 1,
+        "by_option": [
+          {
+            "header": "$C(h) = 300 + 150h$",
+            "cells": [
+              "$450$",
+              "$600$",
+              "$750$",
+              "$C(h) = 300 + 150h$"
+            ]
+          },
+          {
+            "header": "$C(h) = 150 + 300h$",
+            "cells": [
+              "$450$",
+              "$750$",
+              "$1050$",
+              "$C(h) = 150 + 300h$"
+            ]
+          },
+          {
+            "header": "$C(h) = 450h$",
+            "cells": [
+              "$450$",
+              "$900$",
+              "$1350$",
+              "$C(h) = 450h$"
+            ]
+          }
+        ]
+      }
+    },
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Idem 13, con bicicleteria."
+    }
+  },
+  {
+    "id": "white_linear_FORM_16",
+    "question": "La temperatura al inicio de la noche es 22°C y baja 3°C por hora.\n\n¿Cuál es la ecuación de la temperatura $T$ según las horas $h$ transcurridas?",
+    "options": [
+      "$T(h) = 22 + 3h$",
+      "$T(h) = 3h - 22$",
+      "$T(h) = 22 - 3h$",
+      "$T(h) = 3 - 22h$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Temperatura inicial 22°C que baja 3°C por hora: $T(h) = 22 - 3h$.",
+    "feedback_incorrect": [
+      "El signo de la tasa está al revés: la temperatura baja, el término con $h$ resta.",
+      "El orden de la resta importa: así la noche arranca en $-22$°C y sube.",
+      null,
+      "Los parámetros están cruzados: 22 es la temperatura inicial y 3 lo que baja por hora."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La temperatura parte de 22°C y baja 3°C por hora, así que la tasa es negativa: $b = 22$ es la temperatura al inicio de la noche y $m = -3$ es el descenso horario.\n\nPara comprobarlo, $T(0) = 22$ y $T(1) = 19$: bajó 3 grados en la primera hora.\n\nCuando la magnitud desciende, el término con la variable resta; escribirlo sumando invierte el fenómeno completo.",
+    "reviewed": false,
+    "tags": [
+      "armar-formula-cotidiano"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Armar la ecuacion de un decrecimiento en prosa, lo mismo que el 17 y el 21, y con P1 mas alto (86% contra 67%)."
+    }
+  },
+  {
+    "id": "white_linear_FORM_18",
+    "question": "Un abono de internet tiene un costo fijo mensual más un cargo por cada GB adicional consumido.\n\nLa tabla registra lo que pagaron distintos clientes.\n\n¿Cuánto paga un cliente que consume $g$ GB adicionales?",
+    "options": [
+      "$P(g) = 1200 + 80g$",
+      "$P(g) = 80 + 1200g$",
+      "$P(g) = 1280g$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El abono fijo es $1200$ y cada GB suma $80$: $P(g) = 1200 + 80g$.",
+    "feedback_incorrect": [
+      null,
+      "Con $80$ de abono fijo, el segundo GB dispararía la factura muy por encima de lo que muestra la tabla.",
+      "Sin abono fijo, consumir el doble de GB costaría el doble, y los valores de la tabla suben mucho más despacio."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El abono fijo y el cargo por consumo cumplen roles distintos: uno es constante y el otro escala con la variable.\n\nLa diferencia entre filas consecutivas aísla el cargo por GB:\n$$1280 - 1200 = 80$$\nEse $80$ es lo que suma cada GB, y el resto del primer valor es el abono.\n\nCuando el fijo es mucho mayor que la tasa, confundir cuál es cuál cambia el total de forma brutal apenas la variable crece.",
+    "reviewed": false,
+    "tags": [
+      "armar-formula-cotidiano"
+    ],
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "GB adicionales"
+        },
+        {
+          "icon": "📶",
+          "label": "Pagó"
+        }
+      ],
+      "rows": [
+        [
+          "$1$",
+          "$1280$"
+        ],
+        [
+          "$2$",
+          "$1360$"
+        ],
+        [
+          "$3$",
+          "$1440$"
+        ],
+        [
+          "$g$",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "column",
+        "col": 1,
+        "by_option": [
+          {
+            "header": "$P(g) = 1200 + 80g$",
+            "cells": [
+              "$1280$",
+              "$1360$",
+              "$1440$",
+              "$P(g) = 1200 + 80g$"
+            ]
+          },
+          {
+            "header": "$P(g) = 80 + 1200g$",
+            "cells": [
+              "$1280$",
+              "$2480$",
+              "$3680$",
+              "$P(g) = 80 + 1200g$"
+            ]
+          },
+          {
+            "header": "$P(g) = 1280g$",
+            "cells": [
+              "$1280$",
+              "$2560$",
+              "$3840$",
+              "$P(g) = 1280g$"
+            ]
+          }
+        ]
+      }
+    },
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Idem 13, con abono de internet."
+    }
+  },
+  {
+    "id": "white_linear_FORM_19",
+    "question": "Una persona sale desde un punto a 3 km del origen y camina hacia adelante a 5 km por hora.\n\n¿Cuál es la ecuación de la distancia al origen $d$ según las horas $h$?",
+    "options": [
+      "$d(h) = 5 + 3h$",
+      "$d(h) = 5h - 3$",
+      "$d(h) = 3 + 5h$",
+      "$d(h) = 5h$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Parte a 3 km del origen y avanza 5 km/h: $d(h) = 3 + 5h$.",
+    "feedback_incorrect": [
+      "Los datos están cruzados: parte a 3 km del origen y avanza a 5 km/h, no al revés.",
+      "El punto de partida no se resta: a las cero horas la distancia es 3 km, no $-3$.",
+      null,
+      "A esa fórmula le falta la distancia inicial: la persona no parte del origen."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La distancia al origen parte de 3 km y crece 5 km por cada hora de caminata: $b = 3$ es la posición inicial y $m = 5$ es la velocidad.\n\nPara comprobarlo, $d(0) = 3$ y $d(1) = 8$: avanzó 5 km en la primera hora.\n\nEn cinemática lineal los roles son estables, la posición inicial es la ordenada al origen y la velocidad es la pendiente; cruzarlos duplica o achica el recorrido calculado.",
+    "reviewed": false,
+    "tags": [
+      "armar-formula-cotidiano"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Armar la ecuacion de un crecimiento en prosa, cubierto por el 20."
+    }
+  },
+  {
+    "id": "white_linear_FORM_22",
+    "question": "Un producto cuesta \\$3000, pero la tienda ofrece un descuento de \\$200 por cada unidad adicional que comprés.\n\n¿Cuál es la ecuación del precio por unidad $P$ según las unidades $u$ compradas?",
+    "options": [
+      "$P(u) = 3000 + 200u$",
+      "$P(u) = 200 - 3000u$",
+      "$P(u) = 3000 - 200u$",
+      "$P(u) = 200u$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El precio empieza en \\$3000 y baja \\$200 por unidad adicional: $P(u) = 3000 - 200u$.",
+    "feedback_incorrect": [
+      "El signo está al revés: un descuento hace bajar el precio, el término con $u$ resta.",
+      "Los parámetros están cruzados: el precio base es \\$3000 y el descuento \\$200 por unidad.",
+      null,
+      "A esa fórmula le falta el precio base: solo cuenta el descuento acumulado."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El precio por unidad parte de \\$3000, y baja \\$200 por cada unidad adicional.\n\nEn la fórmula, $b = 3000$ es el precio base y $m = -200$ es el descuento por unidad, restando.\n\nPara comprobarlo, $P(0) = 3000$ y $P(1) = 2800$: un descuento aplicado.\n\nLa palabra descuento define el signo antes de escribir nada: si el precio baja con cada unidad, el término variable tiene que restar.",
+    "reviewed": false,
+    "tags": [
+      "armar-formula-cotidiano"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "El descuento por unidad es el mismo armado en prosa; se prioriza el 17, que mide 67% y esta en banda."
+    }
+  },
+  {
+    "id": "white_linear_FORM_25",
+    "question": "La función es $f(x) = 5 - x$.\n\n¿Cuánto vale $f(3)$?",
+    "options": [
+      "$8$",
+      "$-3$",
+      "$2$",
+      "$15$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$f(3) = 5 - 3 = 2$.",
+    "feedback_incorrect": [
+      "$8$ sale de sumar $5 + 3$: el signo menos delante de la $x$ pide restar.",
+      "$-3$ pierde el 5 inicial de la fórmula.",
+      null,
+      "$15$ multiplica los números en lugar de aplicar la fórmula."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Evaluar una función es reemplazar la variable por el valor dado y hacer la cuenta.\n\nPara $f(x) = 5 - x$ en $x = 3$:\n$$f(3) = 5 - 3 = 2$$\nEl signo menos delante de la $x$ es parte de la fórmula: indica que a 5 se le resta la entrada.\n\nLeer la fórmula apurado, como si fuera $5$ más $x$, es el desliz típico: fijate siempre qué operación conecta el término independiente con la variable antes de sustituir.",
+    "reviewed": false,
+    "tags": [
+      "evaluar-f"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "FACIL",
+      "razon": "Evaluar f(3) en 5-x, P1 100% y Jaccard 1,0 contra el 27."
+    }
+  },
+  {
+    "id": "white_linear_FORM_27",
+    "question": "La función es $f(x) = -4x + 12$.\n\n¿Cuánto vale $f(-1)$?",
+    "options": [
+      "$8$",
+      "$16$",
+      "$-16$",
+      "$-8$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f(-1) = 16$.",
+    "feedback_incorrect": [
+      "$8$ aparece si $-4 \\cdot (-1)$ se calcula como $-4$: dos negativos multiplicados dan positivo.",
+      null,
+      "El signo final no corresponde: ambos términos de la cuenta quedan positivos.",
+      "$-8$ arrastra dos errores de signo en la misma cuenta."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Evaluar en $x = -1$ exige cuidado con los signos.\n\nEl producto de dos negativos es positivo:\n$$-4 \\cdot (-1) = 4$$\n$$f(-1) = 4 + 12 = 16$$\nLa regla de los signos es donde se pierde este ítem: cada vez que sustituyas un valor negativo, escribilo entre paréntesis y resolvé el producto antes de sumar nada.\n\nSaltearse el paréntesis en la sustitución es lo que arrastra el error de signo hasta el resultado final.",
+    "reviewed": false,
+    "tags": [
+      "evaluar-f"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "COBERTURA",
+      "razon": "Se sacrifica el tag evaluar-f entero. Sus dos ejercicios miden P1 100%, evaluar una lineal en un punto ya lo hacen GRAF (lectura-y-dado-x) y LEXI, y con 12 tags para 15 lugares es el unico que no paga su asiento."
+    }
+  },
+  {
+    "id": "white_linear_FORM_30",
+    "question": "Un tanque de riego arranca con cierto volumen y pierde agua a un ritmo constante por hora.\n\nLa tabla registra cuánta agua quedaba.\n\n¿Cuánta agua queda a las $h$ horas?",
+    "options": [
+      "$V(h) = 100 - 5h$",
+      "$V(h) = -5 + 100h$",
+      "$V(h) = 95h$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Arranca en $100$ y baja $5$ por hora: $V(h) = 100 - 5h$.",
+    "feedback_incorrect": [
+      null,
+      "Esa expresión crece en vez de bajar: a más horas daría más agua, y el tanque pierde.",
+      "Esa expresión también crece con las horas, cuando el volumen de la tabla va bajando."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Cuando una cantidad **disminuye** a ritmo constante, la pendiente de la función lineal es negativa y el término fijo es el valor de partida.\n\nLa diferencia entre filas consecutivas da la pérdida por hora:\n$$90 - 95 = -5$$\nY el valor inicial sale de sumar esa pérdida al primer dato:\n$$95 + 5 = 100$$\nEl signo de la pendiente se lee antes que cualquier número: si la columna baja, ninguna expresión que crezca puede ser la correcta.",
+    "reviewed": false,
+    "tags": [
+      "armar-formula-cotidiano"
+    ],
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "Horas"
+        },
+        {
+          "icon": "💧",
+          "label": "Litros"
+        }
+      ],
+      "rows": [
+        [
+          "$1$",
+          "$95$"
+        ],
+        [
+          "$2$",
+          "$90$"
+        ],
+        [
+          "$3$",
+          "$85$"
+        ],
+        [
+          "$h$",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "column",
+        "col": 1,
+        "by_option": [
+          {
+            "header": "$V(h) = 100 - 5h$",
+            "cells": [
+              "$95$",
+              "$90$",
+              "$85$",
+              "$V(h) = 100 - 5h$"
+            ]
+          },
+          {
+            "header": "$V(h) = -5 + 100h$",
+            "cells": [
+              "$95$",
+              "$195$",
+              "$295$",
+              "$V(h) = -5 + 100h$"
+            ]
+          },
+          {
+            "header": "$V(h) = 95h$",
+            "cells": [
+              "$95$",
+              "$190$",
+              "$285$",
+              "$V(h) = 95h$"
+            ]
+          }
+        ]
+      }
+    },
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Idem 13, con tanque de riego. P1 100%."
+    }
+  },
+  {
+    "id": "white_linear_FORM_05",
+    "question": "Una recta pasa por $(0, 5)$ con pendiente $2$.\n\n¿Cuál es su ecuación?",
+    "options": [
+      "$f(x) = 5x + 2$",
+      "$f(x) = 2x + 5$",
+      "$f(x) = 2x - 5$",
+      "$f(x) = 5 - 2x$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f(x) = 2x + 5$.",
+    "feedback_incorrect": [
+      "Los roles están cruzados: el 5 es el valor de la función en $x = 0$, no la pendiente.",
+      null,
+      "El punto $(0, 5)$ dice que la función vale $+5$ en cero, no $-5$.",
+      "El signo de la pendiente cambió: la recta pedida sube con $m = 2$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un punto de la forma $(0, b)$ entrega directamente la ordenada al origen. Si la recta pasa por:\n$$(0, 5)$$\nEntonces $b = 5$.\n\nCon la pendiente dada $m = 2$, la ecuación queda directamente, sin necesidad de ningún despeje:\n$$f(x) = 2x + 5$$\nEl punto sobre el eje $Y$ es el dato más cómodo para armar la ecuación, y el cuidado está en no cruzarlo con la pendiente, que es el otro número del enunciado.",
+    "reviewed": false,
+    "tags": [
+      "armar-formula-mb"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "'Pasa por (0,5) con pendiente 2': el punto está sobre el eje vertical, así que la ordenada al origen viene servida y no hay nada que despejar. El ejercicio nuevo de armar-formula-mb pide el mismo armado con el punto fuera del eje."
+    }
+  },
+  {
+    "id": "white_linear_FORM_26",
+    "question": "Cuatro rectas distintas pueden compartir forma y diferenciarse solo en hacia dónde apuntan.\n\n¿Cuál de estas funciones lineales es decreciente?",
+    "options": [
+      "$f(x) = 3x + 1$",
+      "$f(x) = x - 5$",
+      "$f(x) = 0{,}5x + 2$",
+      "$f(x) = -2x + 7$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$f(x) = -2x + 7$ tiene pendiente $-2 < 0$: es la única decreciente.",
+    "feedback_incorrect": [
+      "Su pendiente es $3 > 0$: la recta sube.",
+      "Su pendiente es $1 > 0$: sube, aunque el $-5$ despiste.",
+      "Una pendiente chica sigue siendo positiva: $0{,}5 > 0$, la función crece.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una función lineal es decreciente exactamente cuando su pendiente es negativa.\n\nRevisando el coeficiente de $x$ en cada opción, tres de los cuatro valores son positivos, así que esas funciones crecen. La única con pendiente negativa es:\n$$f(x) = -2x + 7$$\nPor eso es la única decreciente.\n\nEl término independiente no participa en la decisión: un $-5$ suelto no hace decrecer a nadie. Mirá solo el signo del número que multiplica a la $x$.",
+    "reviewed": false,
+    "tags": [
+      "propiedades-generales"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "FACIL",
+      "razon": "'Cuál de estas funciones lineales es decreciente', P1 100 %. Identificar monotonía desde la fórmula es contenido de LEXI, que ya tiene su propia sub-familia para eso."
+    }
+  },
+  {
+    "id": "white_linear_FORM_28",
+    "question": "Una función lineal pasa por los puntos $(0, 4)$ y $(3, 10)$.\n\n¿Cuál es su ecuación?",
+    "options": [
+      "$f(x) = 4x + 2$",
+      "$f(x) = 2x - 4$",
+      "$f(x) = 2x + 4$",
+      "$f(x) = 4x - 2$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$f(x) = 2x + 4$.",
+    "feedback_incorrect": [
+      "Los parámetros están intercambiados: la pendiente sale del cociente $(10-4)/(3-0) = 2$.",
+      "El signo de la ordenada no corresponde: el punto $(0, 4)$ da $b = +4$.",
+      null,
+      "Acá los parámetros se cruzaron y un signo cambió: $m = 2$ y $b = 4$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La pendiente entre dos puntos se calcula como el cociente de las diferencias de sus coordenadas:\n$$m = \\frac{y_2 - y_1}{x_2 - x_1}$$\nEsa razón mide cuánto sube o baja la recta por cada unidad que avanza en $x$.\n\nCon los puntos $(0, 4)$ y $(3, 10)$:\n$$m = \\frac{10 - 4}{3 - 0} = \\frac{6}{3}$$\n$$m = 2$$\nComo el punto $(0, 4)$ ya está sobre el eje vertical, la ordenada al origen se lee directo: $b = 4$. La ecuación queda:\n$$f(x) = 2x + 4$$\nAntes de responder, conviene verificar con el segundo punto:\n$$f(3) = 2 \\cdot 3 + 4$$\n$$f(3) = 10$$\nSi la opción elegida no reproduce ambos puntos, los parámetros están cruzados.",
+    "reviewed": false,
+    "tags": [
+      "armar-formula-puntos"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "FACIL",
+      "razon": "'Pasa por (0,4) y (3,10)', P1 100 %. Uno de los dos puntos está sobre el eje vertical y regala la ordenada al origen; el ejercicio nuevo usa dos puntos que no la regalan."
+    }
+  }
+]

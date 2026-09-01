@@ -22,7 +22,7 @@
     "explanation": "En la notación $\\log_a(x)$, la letra que aparece como subíndice es la **base** del logaritmo, un número que siempre es positivo y distinto de $1$.\n\nAcá la base es $5$, y evaluar la función significa hallar el exponente que hay que darle a ese número para obtener el argumento:\n$$\\log_5(x) = y \\iff 5^y = x$$\nEl argumento $x$ va dentro del paréntesis y es la variable que cambia, mientras que la base queda fija en toda la función.\n\nLeer el subíndice como si fuera la variable que cambia es un desliz frecuente: el número fijo que define la función va debajo, nunca dentro del paréntesis.",
     "reviewed": false,
     "tags": [
-      "evaluar-f"
+      "leer-base-logaritmo"
     ]
   },
   {
@@ -48,33 +48,7 @@
     "explanation": "La **asíntota vertical** de una función logarítmica aparece donde su argumento se anula, porque ahí el logaritmo deja de estar definido.\n\nPara $f(x) = \\log_3(x - 2)$ el argumento es $(x-2)$, así que hay que resolver:\n$$x - 2 = 0$$\nEso da $x = 2$, que es la asíntota vertical, con dominio $x > 2$.\n\nConfundir la base del logaritmo con la posición de la asíntota es un desliz común: la base no mueve la recta vertical, solo el argumento decide dónde se anula.",
     "reviewed": false,
     "tags": [
-      "evaluar-f"
-    ]
-  },
-  {
-    "id": "white_logarithmic_FORM_03",
-    "question": "Un logaritmo puede venir acompañado de un número que lo escala:\n$$f(x) = 2 \\cdot \\log(x)$$\n¿Cuál es el factor multiplicativo?",
-    "options": [
-      "$x$",
-      "$10$",
-      "$1$",
-      "$2$"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "El 2 que multiplica al logaritmo es el factor de escala vertical.",
-    "feedback_incorrect": [
-      "$x$ es la variable del argumento, no el factor que multiplica al logaritmo. El factor es el número que va delante de $\\log(x)$.",
-      "$10$ es la base del logaritmo decimal, no el factor multiplicativo. El factor es lo que multiplica a toda la expresión $\\log(x)$.",
-      "$1$ ignora el coeficiente que aparece explícitamente delante del logaritmo en $2 \\cdot \\log(x)$.",
-      null
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "En una función logarítmica, un número que multiplica por fuera al logaritmo es el **factor de escala vertical**: estira o comprime la gráfica sin tocar el argumento.\n\nAcá el factor es $2$, así que cada valor de $\\log(x)$ queda duplicado, sin que cambie el argumento.\n\nPor la propiedad de la potencia, ese mismo factor puede pasar adentro del logaritmo:\n$$2 \\cdot \\log(x) = \\log(x^2)$$\nConfundir este factor externo con la base $10$ del logaritmo decimal ignora que son dos números con roles distintos en la expresión.",
-    "reviewed": false,
-    "tags": [
-      "evaluar-f"
+      "asintota-vertical-desde-formula"
     ]
   },
   {
@@ -104,84 +78,6 @@
     ]
   },
   {
-    "id": "white_logarithmic_FORM_05",
-    "question": "Preguntarse cuánto vale un logaritmo es preguntarse a qué exponente hay que elevar la base:\n$$f(x) = \\log_5(x)$$\n¿Cuánto vale $f(1)$?",
-    "options": [
-      "$1$",
-      "$0$",
-      "$5$",
-      "$-1$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "$\\log_5(1) = 0$ porque $5^0 = 1$. El logaritmo de 1 siempre es 0.",
-    "feedback_incorrect": [
-      "$1$ es el propio argumento del logaritmo, no el resultado. $\\log_5(1)$ pregunta a qué exponente hay que elevar el $5$.",
-      null,
-      "$5$ es la base del logaritmo, no el resultado de evaluarlo en $1$.",
-      "$-1$ saldría de invertir el signo del exponente correcto; revisá a qué exponente hay que elevar $5$ para obtener exactamente $1$."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "El logaritmo de 1 siempre es 0, sin importar la base, porque toda base elevada a la potencia 0 da exactamente 1.\n\nPara $f(x) = \\log_5(x)$, evaluar en $x=1$ pregunta qué exponente recibe la base para dar 1:\n$$5^0 = 1 \\implies \\log_5(1) = 0$$\nPor eso $f(1) = 0$, resultado que no depende de la base elegida.\n\nEste punto fijo, $(1, 0)$, es compartido por todas las funciones logarítmicas básicas: conviene recordarlo como referencia rápida al leer cualquier gráfico.",
-    "reviewed": false,
-    "tags": [
-      "evaluar-f"
-    ]
-  },
-  {
-    "id": "white_logarithmic_FORM_06",
-    "question": "Un logaritmo lleva adentro una expresión que cambia de signo:\n$$f(x) = \\log_2(2x - 6)$$\n¿Cuál es su dominio?",
-    "options": [
-      "$(-3, +\\infty)$",
-      "$(6, +\\infty)$",
-      "$(3, +\\infty)$",
-      "$[3, +\\infty)$"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "Se necesita $2x - 6 > 0$, o sea $x > 3$. El dominio es $(3, +\\infty)$.",
-    "feedback_incorrect": [
-      "Ese intervalo tendría el signo del límite invertido; revisá el signo al despejar $2x-6>0$.",
-      "$6$ es el término independiente antes de dividir por el coeficiente $2$; falta completar el despeje.",
-      null,
-      "El corchete indica que $x=3$ pertenecería al dominio, pero ahí el argumento vale $0$ y el logaritmo no está definido; el intervalo debe ser abierto."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Cuando el argumento de un logaritmo es una expresión con $x$, el **dominio** sale de exigir que esa expresión sea estrictamente mayor que cero y despejar la desigualdad como cualquier otra.\n\nPara $f(x) = \\log_2(2x - 6)$ el argumento es $(2x-6)$, así que se plantea:\n$$2x - 6 > 0$$\nDespejando queda $x > 3$: el dominio es $(3, +\\infty)$.\n\nEste mismo procedimiento, plantear la condición y despejar, funciona para cualquier argumento lineal, sin importar el coeficiente que acompañe a $x$.\n\nOlvidar dividir por el coeficiente $2$ después de despejar deja el intervalo a mitad de camino, con un límite que todavía no es el definitivo.",
-    "reviewed": false,
-    "tags": [
-      "evaluar-f"
-    ]
-  },
-  {
-    "id": "white_logarithmic_FORM_07",
-    "question": "La asíntota vertical de un logaritmo aparece justo donde su interior se anula:\n$$f(x) = \\log_3(x - 4)$$\n¿Cuál es esa asíntota?",
-    "options": [
-      "$x = 3$",
-      "$x = 0$",
-      "$x = -4$",
-      "$x = 4$"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "El argumento $x - 4$ se anula en $x = 4$: la asíntota vertical es $x = 4$.",
-    "feedback_incorrect": [
-      "$3$ es la base del logaritmo, no la asíntota. La asíntota depende de dónde se anula el argumento, no de la base.",
-      "$x=0$ sería la asíntota si no hubiera desplazamiento horizontal, pero acá el argumento es $(x-4)$, no $x$.",
-      "Ese valor tiene el signo invertido; el argumento es $(x-4)$, con signo menos, así que se anula en un valor positivo.",
-      null
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "La **asíntota vertical** de una función logarítmica aparece siempre donde su argumento se anula, porque ahí la función deja de estar definida y los valores caen sin cota.\n\nPara $f(x) = \\log_3(x - 4)$ el argumento es $(x-4)$, así que se resuelve:\n$$x - 4 = 0$$\nEso da $x = 4$: ahí está la asíntota vertical, y el dominio es $(4, +\\infty)$.\n\nInvertir el signo al despejar es el desliz más común acá: el $-4$ dentro del paréntesis obliga a sumar $4$ de ambos lados, no a restarlo.",
-    "reviewed": false,
-    "tags": [
-      "evaluar-f"
-    ]
-  },
-  {
     "id": "white_logarithmic_FORM_08",
     "question": "Un logaritmo trae un coeficiente multiplicando a $x$ en su interior:\n$$f(x) = \\log_2(3x - 6)$$\n¿Cuál es su dominio?",
     "options": [
@@ -204,7 +100,7 @@
     "explanation": "El **dominio** de un logaritmo con argumento lineal sale de exigir que ese argumento sea mayor que cero, igual que con cualquier otra desigualdad.\n\nPara $f(x) = \\log_2(3x - 6)$ el argumento es $(3x-6)$, así que se plantea:\n$$3x - 6 > 0$$\nDespejando queda $x > 2$: el dominio es $(2, +\\infty)$.\n\nLa asíntota vertical queda en el mismo punto, $x = 2$, porque ahí el argumento se anula.\n\nDetenerse en un paso intermedio del despeje, como quedarse con $x>0$ o $x>6$ sin dividir por el coeficiente 3, deja una cota que todavía no es la definitiva.",
     "reviewed": false,
     "tags": [
-      "evaluar-f"
+      "dominio-desde-formula"
     ]
   },
   {
@@ -257,63 +153,6 @@
     "reviewed": false,
     "tags": [
       "evaluar-f"
-    ]
-  },
-  {
-    "id": "white_logarithmic_FORM_11",
-    "question": "Sumar dentro del logaritmo desplaza toda la curva en horizontal:\n$$f(x) = \\ln(x + 4)$$\n¿Cuál es la asíntota vertical?",
-    "options": [
-      "$x = 0$",
-      "$x = 4$",
-      "$x = -4$",
-      "$y = 4$"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "El argumento $x + 4$ se anula en $x = -4$: la asíntota vertical es $x = -4$.",
-    "feedback_incorrect": [
-      "$x=0$ sería la asíntota si no hubiera desplazamiento horizontal, pero el argumento acá es $(x+4)$, no $x$.",
-      "Ese valor tiene el signo invertido: el argumento es $(x+4)$, con signo más, así que se anula en un valor negativo.",
-      null,
-      "$y=4$ confunde un valor del eje vertical con la asíntota vertical, que siempre es una recta del tipo $x=c$."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "La **asíntota vertical** de una función logarítmica aparece donde su argumento se anula, porque ahí la función deja de estar definida.\n\nPara $f(x) = \\ln(x + 4)$ el argumento es $(x+4)$, así que se resuelve:\n$$x + 4 = 0$$\nEso da $x = -4$: ahí está la asíntota vertical, y el dominio es $(-4, +\\infty)$.\n\nEl intercepto con el eje $X$ ocurre en un punto distinto: el argumento vale $1$, no cero:\n$$x + 4 = 1 \\implies x = -3$$\nNo invertir el signo al despejar es la clave: el $+4$ dentro del paréntesis obliga a restar $4$ de ambos lados, no a sumarlo.",
-    "reviewed": false,
-    "tags": [
-      "evaluar-f"
-    ]
-  },
-  {
-    "id": "white_logarithmic_FORM_12",
-    "question": "La curva del gráfico se despega del eje vertical y crece cada vez más despacio.\n\n¿Qué expresión le corresponde?",
-    "options": [
-      "$f(x) = \\log_2(x) + 1$",
-      "$f(x) = \\log_2(x)$",
-      "$f(x) = -\\log_2(x)$",
-      "$f(x) = 2^x$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "La curva pasa por $(1, 0)$ y tiene asíntota en $x = 0$: $f(x) = \\log_2(x)$.",
-    "feedback_incorrect": [
-      "Este desplazamiento vertical movería la curva hacia arriba, pero la del gráfico pasa exactamente por $(1,0)$ sin desplazamiento.",
-      null,
-      "El signo negativo invertiría la curva, haciéndola decreciente, pero la curva del gráfico crece a medida que $x$ aumenta.",
-      "Esta es la función exponencial, inversa de la logarítmica: crece mucho más rápido y no tiene asíntota vertical en $x=0$."
-    ],
-    "graph_fn": "log2(x)",
-    "graph_view": [
-      -0.5,
-      8.5,
-      -3,
-      5
-    ],
-    "explanation": "Para reconocer una función logarítmica desde su gráfico conviene revisar la posición de la asíntota vertical, si hay desplazamiento respecto de la forma básica, y qué base marca el crecimiento.\n\nEn este gráfico la asíntota está en $x=0$, así que no hay desplazamiento horizontal, y la curva pasa exactamente por $(1, 0)$, sin desplazamiento vertical.\n\nAdemás la curva crece y pasa por $(2, 1)$, lo que confirma que la base es $2$:\n$$f(x) = \\log_2(x)$$\nConfundir la curva básica con una versión desplazada o reflejada es fácil si no se revisan estos puntos de referencia antes de decidir.",
-    "reviewed": false,
-    "tags": [
-      "grafico-a-formula"
     ]
   },
   {
@@ -379,32 +218,6 @@
     ]
   },
   {
-    "id": "white_logarithmic_FORM_15",
-    "question": "Trabajar con logaritmos suele empezar por descomponer lo que tienen adentro:\n$$\\log_2(4x)$$\n¿A qué expresión equivale?",
-    "options": [
-      "$4 \\cdot \\log_2(x)$",
-      "$2 + \\log_2(x)$",
-      "$4 + \\log_2(x)$",
-      "$\\log_2(4) \\cdot \\log_2(x)$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "$\\log_2(4x) = \\log_2(4) + \\log_2(x) = 2 + \\log_2(x)$.",
-    "feedback_incorrect": [
-      "Esa expresión trata al logaritmo como si fuera lineal, multiplicando el argumento entero. La propiedad del producto transforma la multiplicación interna en una suma de logaritmos.",
-      null,
-      "Ese resultado usa el valor $4$ sin calcular $\\log_2(4)$ primero. Hay que evaluar $\\log_2(4)=2$ antes de sumarlo.",
-      "Esa expresión multiplica dos logaritmos entre sí, pero la propiedad del producto convierte un logaritmo de un producto en una suma, no en un producto de logaritmos."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "La **propiedad del producto** de los logaritmos dice que el logaritmo de una multiplicación se descompone en una suma:\n$$\\log_b(a \\cdot c) = \\log_b(a) + \\log_b(c)$$\nAplicándola, $\\log_2(4x)$ se separa en $\\log_2(4) + \\log_2(x)$.\n\nComo $2^2 = 4$, se sabe que $\\log_2(4) = 2$.\n\nEl resultado final es $2 + \\log_2(x)$.\n\nTratar el número que multiplica al argumento como si multiplicara directamente al logaritmo entero, en vez de separarlo antes como una suma, es el desliz más repetido con esta propiedad.",
-    "reviewed": false,
-    "tags": [
-      "evaluar-f"
-    ]
-  },
-  {
     "id": "white_logarithmic_FORM_16",
     "question": "Adentro de este logaritmo natural hay una potencia de $e$:\n$$\\ln(e^{2x})$$\n¿A qué expresión es equivalente?",
     "options": [
@@ -453,7 +266,7 @@
     "explanation": "La **función inversa** deshace lo que hace la función original, intercambiando los roles de entrada y salida.\n\nPara hallarla, se despeja $x$ a partir de $y = \\log_2(x)$:\n$$x = \\log_2(y) \\implies y = 2^x$$\nAsí, $f^{-1}(x) = 2^x$.\n\nVerificar que ambas composiciones devuelven la identidad, $\\log_2(2^x) = x$ y $2^{\\log_2(x)} = x$, confirma que logaritmo y exponencial son funciones inversas entre sí.",
     "reviewed": false,
     "tags": [
-      "evaluar-f"
+      "funcion-inversa-logaritmo"
     ]
   },
   {
@@ -479,33 +292,7 @@
     "explanation": "El **intercepto con el eje $X$** de cualquier función ocurre donde $f(x) = 0$.\n\nPara un logaritmo eso pasa cuando el argumento vale exactamente $1$, porque $\\log_b(1) = 0$ sin importar la base.\n\nAcá el argumento es $x+1$, así que se resuelve:\n$$x + 1 = 1$$\nEso da $x = 0$: la curva pasa por el origen.\n\nConfundir este cruce con la asíntota vertical es fácil: la asíntota aparece donde el argumento se anula, y el cruce por el eje $X$ aparece donde el argumento vale $1$.",
     "reviewed": false,
     "tags": [
-      "grafico-a-formula"
-    ]
-  },
-  {
-    "id": "white_logarithmic_FORM_19",
-    "question": "Esta función suma dos logaritmos, y cada uno impone su propia condición:\n$$f(x) = \\log(x - 2) + \\log(x + 2)$$\n¿Cuál es su dominio?",
-    "options": [
-      "$x > 2$",
-      "$x > -2$",
-      "$x > 0$",
-      "$x > 4$"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "Ambos argumentos deben ser positivos: $x - 2 > 0$ y $x + 2 > 0$, lo que da $x > 2$.",
-    "feedback_incorrect": [
-      null,
-      "Esa condición alcanza para el segundo logaritmo, $\\log(x+2)$, pero el primero, $\\log(x-2)$, exige una cota más estricta.",
-      "Esa cota no corresponde a ninguno de los dos argumentos por separado; hay que exigir que ambos, $x-2$ y $x+2$, sean positivos.",
-      "Ese valor es más restrictivo de lo necesario. Alcanza con superar la cota más exigente entre las dos condiciones, sin sumarlas."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Cuando una expresión suma dos logaritmos, el **dominio** exige que el argumento de cada uno sea positivo por separado, y después se toma la condición más restrictiva entre todas.\n\nPara esta función, el primer término exige:\n$$x - 2 > 0$$\nY el segundo exige:\n$$x + 2 > 0$$\nEso da $x > 2$ y $x > -2$ respectivamente.\n\nComo $x > 2$ ya garantiza la otra condición, la condición más exigente es esa, y el dominio final es $(2, +\\infty)$.\n\nQuedarse con la condición menos restrictiva en vez de la más exigente incluye por error números entre $-2$ y $2$, donde uno de los dos logaritmos no está definido.",
-    "reviewed": false,
-    "tags": [
-      "evaluar-f"
+      "raiz-cruce-x"
     ]
   },
   {
@@ -535,110 +322,6 @@
     ]
   },
   {
-    "id": "white_logarithmic_FORM_21",
-    "question": "El valor que entra al logaritmo no es $7$ sino lo que queda después de sumar:\n$$f(x) = \\log_2(x + 1)$$\n¿Cuánto vale $f(7)$?",
-    "options": [
-      "$4$",
-      "$3$",
-      "$7$",
-      "$2$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "$f(7) = 3$ porque $2^3 = 8$.",
-    "feedback_incorrect": [
-      "$4$ vendría de $2^4=16$, que no coincide con el argumento $8$ obtenido al sumar $7+1$.",
-      null,
-      "$7$ es el valor de $x$ antes de sumarle $1$, no el resultado del logaritmo.",
-      "$2$ vendría de $2^2=4$, que no coincide con $8$. Revisá primero el valor del argumento $7+1$."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Para evaluar una función logarítmica en un punto, primero se simplifica el argumento y recién después se calcula el logaritmo.\n\nPara $f(7) = \\log_2(7 + 1)$, el argumento es $7+1=8$:\n$$\\log_2(8) = 3$$\nPor lo tanto $f(7) = 3$.\n\nAplicar la base directamente sobre el $7$ sin sumar antes el $1$ del desplazamiento horizontal da un resultado que no corresponde a esta función.",
-    "reviewed": false,
-    "tags": [
-      "evaluar-f"
-    ]
-  },
-  {
-    "id": "white_logarithmic_FORM_22",
-    "question": "En esta función la variable aparece restándose dentro del logaritmo:\n$$f(x) = \\ln(4 - x)$$\n¿Cuál es su dominio?",
-    "options": [
-      "$x > 4$",
-      "$x < 4$",
-      "$x > -4$",
-      "$x < -4$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "Se necesita $4 - x > 0 \\implies -x > -4 \\implies x < 4$. Dominio: $(-\\infty, 4)$.",
-    "feedback_incorrect": [
-      "Ese sentido de la desigualdad quedaría si el argumento fuera $(x-4)$, pero acá el argumento es $(4-x)$, que exige el signo opuesto.",
-      null,
-      "Esa cota tiene el signo del límite invertido: el límite correcto es $4$, no $-4$, aunque la desigualdad esté en el sentido correcto.",
-      "Esa cota combina un límite incorrecto con el sentido incorrecto de la desigualdad."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "El argumento debe ser positivo:\n\nDominio: $(-\\infty, 4)$.\n\nAsíntota vertical: $x = 4$.\n\nEsta función es la imagen especular de $\\ln(x - 4)$: la curva se refleja horizontalmente y queda en el semiplano $x < 4$.\n\nAl multiplicar o dividir por $-1$ para despejar $x$, la desigualdad cambia de sentido, un paso que suele olvidarse.",
-    "reviewed": false,
-    "tags": [
-      "evaluar-f"
-    ]
-  },
-  {
-    "id": "white_logarithmic_FORM_23",
-    "question": "En esta función el número aparece por fuera del logaritmo, no adentro:\n$$f(x) = \\log_2(x) - 3$$\n¿Cuál es la asíntota vertical?",
-    "options": [
-      "$x = 3$",
-      "$x = -3$",
-      "$y = -3$",
-      "$x = 0$"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "Restar $3$ es un desplazamiento vertical: la asíntota vertical sigue en $x = 0$.",
-    "feedback_incorrect": [
-      "Ese valor sale de igualar el desplazamiento vertical $-3$ a una posición en $x$, pero el $-3$ no afecta al argumento del logaritmo.",
-      "Ese valor tiene además el signo invertido del desplazamiento vertical, que tampoco determina la asíntota vertical.",
-      "$y=-3$ confunde un valor del eje vertical con la asíntota vertical, que es una recta del tipo $x=c$, no $y=c$.",
-      null
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "La **asíntota vertical** depende únicamente de dónde se anula el argumento del logaritmo, nunca de las constantes que se suman o restan por fuera de él.\n\nPara $f(x) = \\log_2(x) - 3$ el argumento es simplemente $x$, así que se anula en:\n$$x = 0$$\nEl $-3$ que resta al final es un desplazamiento vertical: baja toda la curva sin mover la asíntota.\n\nConfundir un desplazamiento vertical, fuera del logaritmo, con uno horizontal, dentro del argumento, es el desliz más frecuente: solo el segundo mueve la asíntota.",
-    "reviewed": false,
-    "tags": [
-      "evaluar-f"
-    ]
-  },
-  {
-    "id": "white_logarithmic_FORM_24",
-    "question": "Un logaritmo lleva adentro un cociente con una potencia de $e$ abajo:\n$$\\ln\\!\\left(\\dfrac{x}{e^2}\\right)$$\n¿A qué expresión equivale?",
-    "options": [
-      "$\\ln(x) + 2$",
-      "$\\ln(x) - 2$",
-      "$\\dfrac{\\ln(x)}{2}$",
-      "$\\ln(x) \\cdot e^{-2}$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "$\\ln(x/e^2) = \\ln(x) - \\ln(e^2) = \\ln(x) - 2$.",
-    "feedback_incorrect": [
-      "Ese signo está invertido: la propiedad del cociente resta el logaritmo del denominador, no lo suma.",
-      null,
-      "Esa expresión trata la potencia $e^2$ del denominador como si dividiera al resultado, en vez de restarlo tras aplicar el logaritmo.",
-      "Esa expresión deja el denominador como una exponencial multiplicando, en vez de aplicarle el logaritmo y restarlo."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "La **propiedad del cociente** convierte el logaritmo de una división en una resta de logaritmos:\n$$\\ln\\left(\\frac{a}{b}\\right) = \\ln(a) - \\ln(b)$$\nAplicándola a $\\ln(x/e^2)$, queda $\\ln(x) - \\ln(e^2)$.\n\nComo $\\ln(e) = 1$, la propiedad de la potencia da $\\ln(e^2) = 2$.\n\nEl resultado final es $\\ln(x) - 2$.\n\nRestar solo el exponente sin aplicar antes la propiedad del cociente, o dejar $\\ln(e^2)$ sin simplificar a $2$, deja la expresión a mitad de camino.",
-    "reviewed": false,
-    "tags": [
-      "evaluar-f"
-    ]
-  },
-  {
     "id": "white_logarithmic_FORM_25",
     "question": "Un cuadrado adentro del logaritmo cambia el análisis del dominio respecto del caso lineal:\n$$f(x) = \\log_2(x^2)$$\n¿Cuál es su dominio?",
     "options": [
@@ -661,90 +344,7 @@
     "explanation": "El **dominio** de un logaritmo exige que su argumento sea estrictamente positivo.\n\nAcá el argumento es $x^2$, que es positivo para cualquier $x$ distinto de cero, ya que elevar al cuadrado nunca da un resultado negativo.\n\nSolo se anula cuando $x=0$, así que el dominio excluye ese único punto:\n$$\\mathbb{R} \\setminus \\{0\\}$$\nEsto confirma la propiedad $\\log_2(x^2) = 2\\log_2|x|$, válida tanto para $x$ positivo como negativo.\n\nRestringir el dominio solo a los positivos, como si el argumento fuera $x$ en vez de $x^2$, deja afuera valores negativos que en realidad sí son válidos.",
     "reviewed": false,
     "tags": [
-      "evaluar-f"
-    ]
-  },
-  {
-    "id": "white_logarithmic_FORM_26",
-    "question": "Una función multiplica un logaritmo por un factor:\n$$f(x) = 2 \\cdot \\log_2(x)$$\n¿Cuánto vale $f(4)$?",
-    "options": [
-      "$8$",
-      "$4$",
-      "$3$",
-      "$2$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "$f(4) = 4$.",
-    "feedback_incorrect": [
-      "Ese valor duplica el resultado correcto, como si se hubiera multiplicado por $2$ dos veces en vez de una.",
-      null,
-      "Ese valor sale de calcular solo $\\log_2(4)=2$ y sumarle $1$ en vez de multiplicarlo por $2$.",
-      "Ese valor es el propio $\\log_2(4)$ sin aplicar todavía el factor $2$ que multiplica a toda la expresión."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Cuando un logaritmo está multiplicado por un factor, primero se calcula el logaritmo y recién después se multiplica por ese número.\n\nPara $f(4) = 2 \\cdot \\log_2(x)$ evaluado en $x=4$, primero se calcula el logaritmo solo.\n\nComo $\\log_2(4) = 2$, ese resultado se multiplica por el factor:\n$$2 \\cdot 2 = 4$$\nPor lo tanto $f(4) = 4$.\n\nAplicar el factor multiplicativo dentro del logaritmo es un desliz común, como si $2 \\cdot \\log_2(x)$ fuera lo mismo que $\\log_2(2x)$.\n\nEn realidad $2\\log_2(x) = \\log_2(x^2)$, una expresión distinta.",
-    "reviewed": false,
-    "tags": [
-      "evaluar-f"
-    ]
-  },
-  {
-    "id": "white_logarithmic_FORM_27",
-    "question": "Dos logaritmos de bases distintas comparten asíntota y cruce con el eje horizontal, pero no el ritmo.\n\n¿Qué expresión corresponde a la curva del gráfico?",
-    "options": [
-      "$f(x) = \\log_2(x)$",
-      "$f(x) = \\log_3(x) + 1$",
-      "$f(x) = 3^x$",
-      "$f(x) = \\log_3(x)$"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "La curva pasa por $(3, 1)$ con asíntota en $x = 0$: $f(x) = \\log_3(x)$.",
-    "feedback_incorrect": [
-      "Esa base no coincide con el punto $(3,1)$ que se ve en el gráfico; con base $2$, ese punto estaría en $(2,1)$, no en $(3,1)$.",
-      "Ese desplazamiento vertical movería la curva hacia arriba, pero la del gráfico pasa exactamente por $(1,0)$ sin desplazamiento.",
-      "Esta es la función exponencial, inversa de la logarítmica: crece mucho más rápido y no tiene asíntota vertical en $x=0$.",
-      null
-    ],
-    "graph_fn": "log(x)/log(3)",
-    "graph_view": [
-      -0.5,
-      8.5,
-      -3,
-      5
-    ],
-    "explanation": "Identificar la base de una curva logarítmica desde su gráfico se apoya en dos puntos fijos: siempre pasa por $(1,0)$, y el punto $(b,1)$ revela la base.\n\nEn este gráfico la asíntota vertical está en $x=0$, así que no hay desplazamiento horizontal, y la curva pasa por $(1,0)$, así que tampoco hay desplazamiento vertical.\n\nAdemás la curva pasa por $(3,1)$, lo que confirma la base:\n$$f(x) = \\log_3(x)$$\nLeer el punto $(b,1)$ como si fuera $(1,b)$ invierte las coordenadas y confunde la base con el argumento.",
-    "reviewed": false,
-    "tags": [
-      "grafico-a-formula"
-    ]
-  },
-  {
-    "id": "white_logarithmic_FORM_28",
-    "question": "Restar una constante a un logaritmo mueve el punto donde la curva corta el eje horizontal:\n$$f(x) = \\log_2(x) - 1$$\n¿En qué valor de $x$ cruza el eje $X$?",
-    "options": [
-      "$x = 1$",
-      "$x = 2$",
-      "$x = 3$",
-      "$x = 4$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "$\\log_2(x) - 1 = 2$.",
-    "feedback_incorrect": [
-      "Ese valor haría que el argumento fuera $1$, pero ahí el logaritmo daría $0$, y restando $1$ el resultado sería $-1$, no $0$.",
-      null,
-      "Ese valor da $\\log_2(3)-1 \\approx 0{,}58$, que no es cero; falta resolver la ecuación completa, no solo probar valores.",
-      "Ese valor da $\\log_2(4)-1=1$, que tampoco es cero. El argumento que hace que la función se anule es más chico."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "El **intercepto con el eje $X$** ocurre donde $f(x) = 0$, así que conviene despejar primero el logaritmo y recién después pasar a la forma exponencial.\n\nPara $f(x) = \\log_2(x) - 1$ se plantea:\n$$\\log_2(x) - 1 = 0 \\implies \\log_2(x) = 1$$\nEso da $x = 2$, así que la curva pasa por el punto $(2, 0)$.\n\nUn desplazamiento vertical como este mueve el cruce por el eje $X$ respecto de la forma básica.\n\nResolver la ecuación completa en cada caso evita asumir que el cruce se mantiene en $x=1$, el valor de la función sin desplazar.",
-    "reviewed": false,
-    "tags": [
-      "grafico-a-formula"
+      "dominio-desde-formula"
     ]
   },
   {
@@ -770,7 +370,7 @@
     "explanation": "La **asíntota vertical** de una función logarítmica está siempre donde su argumento se anula, porque ahí la función deja de estar definida.\n\nPara $f(x) = \\log_2(2x + 6)$ el argumento es $(2x+6)$, así que se resuelve:\n$$2x + 6 = 0$$\nDespejando queda $x = -3$: ahí está la asíntota vertical, y el dominio es $(-3, +\\infty)$.\n\nOlvidar dividir por el coeficiente 2 después de restar 6, o invertir el signo al despejar, son los dos deslices más comunes en este tipo de ecuación.",
     "reviewed": false,
     "tags": [
-      "evaluar-f"
+      "asintota-vertical-desde-formula"
     ]
   },
   {
@@ -796,7 +396,7 @@
     "explanation": "La **propiedad del cociente**, leída de derecha a izquierda, permite combinar una resta de logaritmos de la misma base en un único logaritmo de una división.\n\nTambién puede resolverse evaluando cada término por separado:\n$$\\begin{aligned} \\log_2(8) &= 3 \\\\ \\log_2(4) &= 2 \\end{aligned}$$\nRestando, $3 - 2 = 1$.\n\nRestar directamente los argumentos, $8-4=4$, en vez de aplicar la propiedad del cociente sobre los logaritmos, da un resultado parecido por casualidad, pero no es el correcto.",
     "reviewed": false,
     "tags": [
-      "evaluar-f"
+      "propiedades-algebraicas-log"
     ]
   }
 ]

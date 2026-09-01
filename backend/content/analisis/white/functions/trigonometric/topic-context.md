@@ -123,97 +123,77 @@ El tema más limpio de la unidad en formato: verificado programáticamente, prá
 
 Primera auditoría de este topic (no tenía tabla de sub-familias todavía). Diseñada leyendo los 200 ejercicios reales.
 
-**LEXI** (30 ejercicios, recortado proporcionalmente desde 50 en ago-2026 — ver nota abajo):
+**LEXI** (15 ejercicios, recortado proporcionalmente desde 50 en ago-2026 — ver nota abajo):
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Valores notables (sen/cos en ángulos especiales) | 4 | `valores-notables` |
-| Amplitud/parámetros, descripción abstracta (ver nota) | 2 | `descripcion-abstracta-otra-familia` |
-| Paridad de la función (par/impar) | 2 | `paridad-funcion` |
-| Período básico (concepto, sen/cos sin coeficiente) | 2 | `periodo-basico` |
-| Transformaciones (desplazamiento, reflexión) | 2 | `transformaciones-trig` |
-| Período con coeficiente $B$ | 3 | `periodo-con-b` |
-| Reconocimiento de función trigonométrica (qué es/no es) | 1 | `reconocimiento-trigonometrica` |
+| Valores notables (sen/cos en ángulos especiales) | 1 | `valores-notables` |
+| Amplitud/parámetros, descripción abstracta (ver nota) | 1 | `descripcion-abstracta-otra-familia` |
+| Paridad de la función (par/impar) | 1 | `paridad-funcion` |
+| Período básico (concepto, sen/cos sin coeficiente) | 1 | `periodo-basico` |
+| Transformaciones (desplazamiento, reflexión) | 1 | `transformaciones-trig` |
+| Período con coeficiente $B$ | 1 | `periodo-con-b` |
 | Conteo de extremos en un intervalo | 1 | `conteo-extremos-intervalo` |
-| Definición de periodicidad | 1 | `definicion-periodicidad` |
 | Identificar función desde comportamiento | 1 | `identificar-funcion-comportamiento` |
-| Imagen/rango básica | 1 | `imagen-basica` |
 | Dominio | 1 | `dominio-trig` |
-| Monotonía en un intervalo | 2 | `monotonia-intervalo-lexi` |
+| Monotonía en un intervalo | 1 | `monotonia-intervalo-lexi` |
 | Identidad pitagórica | 1 | `identidad-pitagorica` |
 | Definición de tangente | 1 | `tangente-definicion` |
-| Ceros de la función | 1 | `ceros-funcion` |
-| Contexto cotidiano, reconocimiento | 1 | `contexto-cotidiano-reconocimiento` |
 | Imagen/rango con transformación | 1 | `imagen-transformada` |
 | Comparación seno/coseno (propiedades) | 1 | `comparacion-sen-cos` |
 | Extremos (máx/mín) con transformación | 1 | `extremos-con-transformacion` |
-| **Total** | **30** | |
+| **Total** | **15** | |
 
 > Nota: al recortar (ago-2026) se detectó que el `tags` real en el JSON de LEXI ya no coincidía con esta tabla desde antes del recorte — 5 ejercicios (ahora 3 tras recortar) llevan el slug `descripcion-abstracta-otra-familia` (nombre de subfamilia de CLSF, no de LEXI) en vez de `amplitud`, que no aparece en ningún ejercicio real de LEXI. Es una etiqueta heredada de una ronda anterior, no corregida en esta pasada (fuera de alcance: solo se tocaron cantidades). La tabla de arriba refleja los `tags` reales post-recorte, no la semántica original de la fila.
 
-**CLSF** (50 ejercicios):
+**CLSF** (15 ejercicios):
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Es trigonométrica, dada una fórmula | 18 | `es-trigonometrica-desde-formula` |
-| NO es trigonométrica (distinguir de otra familia) | 2 | `no-es-trigonometrica` |
-| Elegir cuál de 4 opciones ES trigonométrica | 2 | `es-trigonometrica-eleccion` |
-| Reconocimiento desde gráfico (rasgos descriptos en prosa) | 11 | `reconocimiento-desde-grafico-clsf` |
-| Descripción abstracta → trigonométrica | 3 | `descripcion-abstracta-trigonometrica` |
-| Descripción abstracta → otra familia (distractor) | 3 | `descripcion-abstracta-otra-familia` |
-| Contexto cotidiano, reconocimiento | 7 | `contexto-cotidiano-clsf` |
-| Monotonía en un intervalo | 2 | `monotonia-intervalo-clsf` |
-| Conteo de cambios de monotonía | 1 | `conteo-cambios-monotonia` |
-| Dominio/restricción de la tangente | 1 | `dominio-tangente` |
-| **Total** | **50** | |
+| **Total** | **15** | |
 
-**FORM** (30 ejercicios, recortado proporcionalmente desde 50 en ago-2026 — ver nota abajo):
+**FORM** (15 ejercicios, recortado proporcionalmente desde 50 en ago-2026 — ver nota abajo):
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Evaluación puntual $f(a)$ | 6 | `evaluacion-puntual-form` |
-| Lectura directa del gráfico (valor/amplitud/D) | 4 | `lectura-grafico-directa-trig` |
-| Imagen/rango | 3 | `imagen-rango-form-trig` |
-| Período, cálculo | 6 | `periodo-calculo-form` |
-| Amplitud, cálculo | 3 | `amplitud-calculo-form` |
+| Evaluación puntual $f(a)$ | 2 | `evaluacion-puntual-form` |
+| Lectura directa del gráfico (valor/amplitud/D) | 1 | `lectura-grafico-directa-trig` |
+| Imagen/rango | 1 | `imagen-rango-form-trig` |
+| Período, cálculo | 3 | `periodo-calculo-form` |
+| Amplitud, cálculo | 1 | `amplitud-calculo-form` |
 | Dominio | 1 | `dominio-form-trig` |
-| Extremos (máx/mín) desde fórmula | 2 | `extremos-desde-formula` |
+| Extremos (máx/mín) desde fórmula | 1 | `extremos-desde-formula` |
 | Existencia de asíntotas | 1 | `asintotas-existencia-trig` |
 | Fórmula desde gráfico | 1 | `formula-desde-grafico-form-trig` |
 | Primer extremo con desfase | 1 | `primer-extremo-desfase` |
 | Cruce con el eje $X$ | 1 | `cruce-eje-x` |
 | Contexto cotidiano aplicado | 1 | `contexto-cotidiano-aplicado-form` |
-| **Total** | **30** | |
+| **Total** | **15** | |
 
 > Nota: al recortar (ago-2026) se detectó que el `tags` real en el JSON de FORM ya no coincidía con esta tabla desde antes del recorte (drift acumulado de rondas previas): `evaluacion-puntual-form` tenía 18 ejercicios reales (no 8), `imagen-rango-form-trig` 8 (no 6), `lectura-grafico-directa-trig` 7 (no 6), `periodo-calculo-form` 6 (no 7), `amplitud-calculo-form` 2 (no 5), `formula-desde-grafico-form-trig` 2 (no 3); las filas `hallar-parametro-b`, `significado-parametro-b` y `formula-desde-propiedades-trig` no tenían ningún ejercicio real. El recorte proporcional se calculó sobre los `tags` reales, no sobre los números viejos de la tabla, y la tabla de arriba ya refleja esa realidad post-recorte (filas sin ejercicios reales se eliminaron).
 
-**GRAF** (30 ejercicios, recortado proporcionalmente desde 50 en ago-2026 — ver nota abajo):
+**GRAF** (15 ejercicios, recortado proporcionalmente desde 50 en ago-2026 — ver nota abajo):
 
 *Tipo A — leer propiedad directamente del gráfico (21 ejercicios):*
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Conteo de máximos | 2 | `conteo-maximos` |
-| Conteo de períodos completos | 2 | `conteo-periodos-completos` |
-| Monotonía en un intervalo | 2 | `monotonia-intervalo-graf-trig` |
-| Imagen desde el gráfico | 2 | `imagen-desde-grafico-trig` |
-| Conteo de ceros | 1 | `conteo-ceros` |
+| Conteo de máximos | 1 | `conteo-maximos` |
+| Conteo de períodos completos | 1 | `conteo-periodos-completos` |
+| Monotonía en un intervalo | 1 | `monotonia-intervalo-graf-trig` |
+| Imagen desde el gráfico | 1 | `imagen-desde-grafico-trig` |
 | Período desde el gráfico | 1 | `periodo-desde-grafico` |
 | Paridad/simetría desde el gráfico | 1 | `paridad-desde-grafico` |
 | Amplitud desde el gráfico | 1 | `amplitud-desde-grafico` |
 | Diferencia visual seno/coseno | 1 | `diferencia-visual-sen-cos` |
-| Valor máximo/mínimo desde el gráfico | 1 | `valor-max-min-grafico` |
-| Dominio desde el gráfico | 1 | `dominio-desde-grafico-trig` |
 | Ceros en valores específicos | 1 | `ceros-valores-especificos` |
 | Evaluación puntual desde el gráfico | 1 | `evaluacion-puntual-grafico` |
-| Primera raíz positiva | 1 | `primera-raiz-positiva` |
 | Ubicación de máximos locales | 1 | `ubicacion-maximos-locales` |
 | Eje de oscilación ($D$) | 1 | `eje-oscilacion` |
-| Ubicación del mínimo | 1 | `ubicacion-minimo` |
 
-*Tipo B — identificar fórmula desde el gráfico (6 ejercicios):* slug único `formula-desde-grafico-trig`.
+*Tipo B — identificar fórmula desde el gráfico (2 ejercicios):* slug único `formula-desde-grafico-trig`.
 
-*Tipo C — contexto cotidiano con gráfico real (3 ejercicios):* slug único `contexto-cotidiano-graf-trig`.
+*Tipo C — contexto cotidiano con gráfico real (1 ejercicios):* slug único `contexto-cotidiano-graf-trig`.
 
 > Nota: al recortar (ago-2026) se detectó drift menor entre esta tabla y los `tags` reales previos al recorte: `dominio-desde-grafico-trig` tenía 2 ejercicios reales (no 1) y `contexto-cotidiano-graf-trig` tenía 5 (no 6); el resto de las filas coincidía. El recorte proporcional se calculó sobre los `tags` reales, no sobre los números viejos de la tabla.
 

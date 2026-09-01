@@ -47,7 +47,7 @@ Reglas de authoring que se aplican al escribir los 60 ejercicios:
 
 ---
 
-## ESTR, 30 ejercicios
+## ESTR, 15 ejercicios
 
 ### Qué evalúa
 **Auditoría de la lectura anatómica** de la función compuesta antes de derivar. No se ejecuta la cadena completa: se identifica la jerarquía "exterior / interior" o se decide **qué regla aplicar** (cadena vs producto vs cociente) para estructuras visualmente similares. Sin cálculo numérico final.
@@ -61,8 +61,8 @@ Reglas de authoring que se aplican al escribir los 60 ejercicios:
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Identificación de capas y jerarquía | Desglosar la función compuesta para identificar quién es la **exterior** ($g$) y quién la **interior** ($h$). Casos jerarquía confusa: $f(x) = \sin^2(x)$ (exterior = potencia cuadrática, interior = $\sin x$) frente a $f(x) = \sin(x^2)$ (exterior = $\sin$, interior = $x^2$). También $e^{\ln x}$ y variantes. | `identificacion-capas-jerarquia` | 15 |
-| B. Falsos positivos: Producto vs Composición | Detectar cuándo aplica cadena y cuándo corresponde producto o cociente. Contrastar estructuras similares como $f(x) = e^{3x}$ (cadena) vs $f(x) = 3x \cdot e^x$ (producto), $f(x) = \ln(x^2)$ vs $f(x) = (\ln x)^2$ (ambas cadena pero con jerarquías distintas), o $f(x) = \tfrac{\sin x}{x}$ (cociente, no cadena). | `falsos-positivos-producto-composicion` | 15 |
+| A. Identificación de capas y jerarquía | Desglosar la función compuesta para identificar quién es la **exterior** ($g$) y quién la **interior** ($h$). Casos jerarquía confusa: $f(x) = \sin^2(x)$ (exterior = potencia cuadrática, interior = $\sin x$) frente a $f(x) = \sin(x^2)$ (exterior = $\sin$, interior = $x^2$). También $e^{\ln x}$ y variantes. | `identificacion-capas-jerarquia` | 8 |
+| B. Falsos positivos: Producto vs Composición | Detectar cuándo aplica cadena y cuándo corresponde producto o cociente. Contrastar estructuras similares como $f(x) = e^{3x}$ (cadena) vs $f(x) = 3x \cdot e^x$ (producto), $f(x) = \ln(x^2)$ vs $f(x) = (\ln x)^2$ (ambas cadena pero con jerarquías distintas), o $f(x) = \tfrac{\sin x}{x}$ (cociente, no cadena). | `falsos-positivos-producto-composicion` | 7 |
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -84,7 +84,7 @@ Reglas de authoring que se aplican al escribir los 60 ejercicios:
 
 ---
 
-## RESL, 30 ejercicios
+## RESL, 15 ejercicios
 
 ### Qué evalúa
 **Ejecución técnica** de la regla de la cadena: identificar $g$ y $h$, calcular $g'$ y $h'$, armar $g'(h(a)) \cdot h'(a)$ y **evaluar en un punto** $x = a$ donde el producto colapse o al menos un factor sea trivial ($0$ o $1$).
@@ -103,9 +103,9 @@ Reglas de authoring que se aplican al escribir los 60 ejercicios:
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Anulación por derivada interna nula | El punto $x = a$ anula $h'(a) = 0$. Independientemente de la exterior, el producto colapsa a $0$. Ejemplo: $f(x) = \cos(x^2)$ en $x = 0$: $h'(x) = 2x$, $h'(0) = 0$, entonces $f'(0) = 0$. La respuesta correcta es $0$; los distractores son valores plausibles si el alumno evalúa mal. | `anulacion-derivada-interna-nula` | 12 |
-| B. Evaluación en ancla trivial | El punto $x = a$ hace que $h(a)$ devuelva un valor exacto que simplifica $g'(h(a))$ (típicamente $0$, $1$, $\pi$, o un múltiplo simple). Ejemplo: $f(x) = e^{\sin x}$ en $x = \pi$: $\sin \pi = 0$, $g'(0) = e^0 = 1$, $h'(\pi) = \cos \pi = -1$; resultado $= 1 \cdot (-1) = -1$. | `evaluacion-ancla-trivial` | 12 |
-| C. Evaluación con datos abstractos | Se brindan valores puntuales de $g(a), g'(a), h(a), h'(a)$, forzando a construir $g'(h(a)) \cdot h'(a)$. Ejemplo: "Si $h(2) = 3$, $h'(2) = 4$ y $g'(3) = 5$, calculá $(g \circ h)'(2)$". El alumno debe buscar $g'$ evaluada en $h(2) = 3$, no en $2$. Distractores: evaluar $g'(2) \cdot h'(2)$ o sumar en lugar de multiplicar. | `evaluacion-datos-abstractos-cadena` | 6 |
+| A. Anulación por derivada interna nula | El punto $x = a$ anula $h'(a) = 0$. Independientemente de la exterior, el producto colapsa a $0$. Ejemplo: $f(x) = \cos(x^2)$ en $x = 0$: $h'(x) = 2x$, $h'(0) = 0$, entonces $f'(0) = 0$. La respuesta correcta es $0$; los distractores son valores plausibles si el alumno evalúa mal. | `anulacion-derivada-interna-nula` | 5 |
+| B. Evaluación en ancla trivial | El punto $x = a$ hace que $h(a)$ devuelva un valor exacto que simplifica $g'(h(a))$ (típicamente $0$, $1$, $\pi$, o un múltiplo simple). Ejemplo: $f(x) = e^{\sin x}$ en $x = \pi$: $\sin \pi = 0$, $g'(0) = e^0 = 1$, $h'(\pi) = \cos \pi = -1$; resultado $= 1 \cdot (-1) = -1$. | `evaluacion-ancla-trivial` | 6 |
+| C. Evaluación con datos abstractos | Se brindan valores puntuales de $g(a), g'(a), h(a), h'(a)$, forzando a construir $g'(h(a)) \cdot h'(a)$. Ejemplo: "Si $h(2) = 3$, $h'(2) = 4$ y $g'(3) = 5$, calculá $(g \circ h)'(2)$". El alumno debe buscar $g'$ evaluada en $h(2) = 3$, no en $2$. Distractores: evaluar $g'(2) \cdot h'(2)$ o sumar en lugar de multiplicar. | `evaluacion-datos-abstractos-cadena` | 4 |
 
 **Nota**: La sub-familia "Aplicación iterada (Tres capas)" del prompt original se descarta por la restricción de máximo 2 capas. Sus 10 ejercicios (del batch original de 50) se redistribuyeron: 5 a sub-A (más drill de anulación) y 5 a sub-B (más drill de ancla trivial), dejando RESL en 20/20/10 sobre 50. Al podar el target de 50 a 30, esas cantidades escalan proporcionalmente (×0,6) a 12/12/6.
 

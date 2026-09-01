@@ -75,7 +75,7 @@ Completar con `array<string|null>` paralelo a `options`, `null` en el índice co
 
 ---
 
-## CLSF, 30 ejercicios
+## CLSF, 15 ejercicios
 
 ### Qué evalúa
 Diagnosticar analíticamente el estado de continuidad y clasificar el tipo de discontinuidad **sin estímulo visual**. Es el skill que reemplaza el rol conceptual que en otros tópicos cumple `LEXI`.
@@ -93,9 +93,9 @@ Diagnosticar analíticamente el estado de continuidad y clasificar el tipo de di
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Las 3 condiciones formales | Dado un set de datos o una descripción teórica, identificar cuál de las 3 condiciones falla. Ejemplo: "si $\lim f(x) = 4$ pero $f(a)$ no está definida, ¿qué condición se rompe y qué tipo de discontinuidad genera?". | `condiciones-formales-continuidad` | 15 |
-| B. Clasificación analítica | Se dan valores puntuales de $\lim_{x\to a^-} f(x)$, $\lim_{x\to a^+} f(x)$ y $f(a)$. El alumno clasifica: continua / removible / de salto / esencial. Ejemplo: $\lim_{x\to a^-} f(x) = 3$, $\lim_{x\to a^+} f(x) = 5$ → salto. | `clasificacion-analitica-discontinuidad` | 12 |
-| C. Continuidad por familias | Conocimiento teórico: polinómicas, exponenciales, seno y coseno son continuas en todo $\mathbb{R}$. Las racionales son continuas en su dominio (excluidas las raíces del denominador). Logaritmo continuo en $x > 0$. Raíz par continua en su dominio. | `continuidad-por-familias` | 3 |
+| A. Las 3 condiciones formales | Dado un set de datos o una descripción teórica, identificar cuál de las 3 condiciones falla. Ejemplo: "si $\lim f(x) = 4$ pero $f(a)$ no está definida, ¿qué condición se rompe y qué tipo de discontinuidad genera?". | `condiciones-formales-continuidad` | 5 |
+| B. Clasificación analítica | Se dan valores puntuales de $\lim_{x\to a^-} f(x)$, $\lim_{x\to a^+} f(x)$ y $f(a)$. El alumno clasifica: continua / removible / de salto / esencial. Ejemplo: $\lim_{x\to a^-} f(x) = 3$, $\lim_{x\to a^+} f(x) = 5$ → salto. | `clasificacion-analitica-discontinuidad` | 6 |
+| C. Continuidad por familias | Conocimiento teórico: polinómicas, exponenciales, seno y coseno son continuas en todo $\mathbb{R}$. Las racionales son continuas en su dominio (excluidas las raíces del denominador). Logaritmo continuo en $x > 0$. Raíz par continua en su dominio. | `continuidad-por-familias` | 4 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Confundir removible con salto**: cuando $\lim_{x \to a^-} f(x) = \lim_{x \to a^+} f(x) = L$ pero $f(a) \neq L$ (o no existe), elegir "de salto". Recordar: si el bilateral existe y es finito, la discontinuidad es **removible**.
@@ -112,7 +112,7 @@ Diagnosticar analíticamente el estado de continuidad y clasificar el tipo de di
 
 ---
 
-## GRAF, 30 ejercicios
+## GRAF, 15 ejercicios
 
 ### Qué evalúa
 Leer e identificar **fracturas geométricas** y su tipo directamente del gráfico. Diagnóstico visual del punto de discontinuidad y clasificación del tipo.
@@ -131,8 +131,8 @@ Leer e identificar **fracturas geométricas** y su tipo directamente del gráfic
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Diagnóstico visual de la falla | Dada una gráfica con una ruptura, identificar en qué valor de $x$ la función NO es continua. **Distractores**: puntos cercanos, intersecciones con ejes, vértices suaves (que no son discontinuidades). | `diagnostico-visual-falla` | 6 |
-| B. Clasificación visual | Señalar un punto $x = a$ específico en una gráfica y pedir el tipo de discontinuidad: **removible** (hueco), **de salto** (dos ramas a distinta altura) o **esencial** (asíntota vertical). | `clasificacion-visual-discontinuidad` | 24 |
+| A. Diagnóstico visual de la falla | Dada una gráfica con una ruptura, identificar en qué valor de $x$ la función NO es continua. **Distractores**: puntos cercanos, intersecciones con ejes, vértices suaves (que no son discontinuidades). | `diagnostico-visual-falla` | 8 |
+| B. Clasificación visual | Señalar un punto $x = a$ específico en una gráfica y pedir el tipo de discontinuidad: **removible** (hueco), **de salto** (dos ramas a distinta altura) o **esencial** (asíntota vertical). | `clasificacion-visual-discontinuidad` | 7 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Vértice suave confundido con discontinuidad**: elegir el $x$ donde hay un pico (tipo $|x|$ en $0$) como punto discontinuo. Un pico es continuo; el problema sería de derivabilidad, que no se estudia acá.
@@ -151,7 +151,7 @@ Leer e identificar **fracturas geométricas** y su tipo directamente del gráfic
 
 ---
 
-## RESL, 30 ejercicios
+## RESL, 15 ejercicios
 
 ### Qué evalúa
 Ejecutar la **verificación algebraica** de las 3 condiciones y **forzar la continuidad** despejando parámetros en funciones a trozos.
@@ -167,9 +167,9 @@ Ejecutar la **verificación algebraica** de las 3 condiciones y **forzar la cont
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Verificación en punto crítico | Dada una función a trozos sin parámetros, verificar si es continua o no en el punto de quiebre calculando $\lim_{x\to a^-} f(x)$, $\lim_{x\to a^+} f(x)$ y $f(a)$. La respuesta es un diagnóstico (continua / removible / de salto). | `verificacion-punto-critico` | 9 |
-| B. Despeje de un parámetro | Funciones a trozos con una constante $k$ (o $c$). Ejemplo: $f(x) = kx + 1$ para $x < 2$, $f(x) = x^2 - 3$ para $x \geq 2$. Calcular el valor de $k$ que hace continua a $f$ en $x = 2$. | `despeje-parametro-continuidad` | 15 |
-| C. Dominio de racionales y raíces | Encontrar el valor de $x$ donde una función estándar presenta discontinuidad resolviendo el dominio. Ejemplo: raíces del denominador en una racional; argumento negativo en una raíz par; argumento $\leq 0$ en un logaritmo. | `dominio-racionales-raices` | 6 |
+| A. Verificación en punto crítico | Dada una función a trozos sin parámetros, verificar si es continua o no en el punto de quiebre calculando $\lim_{x\to a^-} f(x)$, $\lim_{x\to a^+} f(x)$ y $f(a)$. La respuesta es un diagnóstico (continua / removible / de salto). | `verificacion-punto-critico` | 4 |
+| B. Despeje de un parámetro | Funciones a trozos con una constante $k$ (o $c$). Ejemplo: $f(x) = kx + 1$ para $x < 2$, $f(x) = x^2 - 3$ para $x \geq 2$. Calcular el valor de $k$ que hace continua a $f$ en $x = 2$. | `despeje-parametro-continuidad` | 8 |
+| C. Dominio de racionales y raíces | Encontrar el valor de $x$ donde una función estándar presenta discontinuidad resolviendo el dominio. Ejemplo: raíces del denominador en una racional; argumento negativo en una raíz par; argumento $\leq 0$ en un logaritmo. | `dominio-racionales-raices` | 3 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **$k$ resuelto por una sola rama**: en el despeje, igualar solo $\lim_{x\to a^-} f(x)$ a un número y dar ese $k$ sin verificar el bilateral con $\lim_{x\to a^+} f(x)$. La ecuación para continuidad es $\lim_{x\to a^-} f(x) = \lim_{x\to a^+} f(x) = f(a)$.

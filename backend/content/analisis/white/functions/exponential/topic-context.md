@@ -116,28 +116,21 @@ Taxonomía diseñada leyendo los 200 ejercicios reales (jul-2026). Reducida prop
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Monotonía según la base ($b>1$ vs. $0<b<1$) | 3 | `monotonia-segun-base` |
+| Monotonía según la base ($b>1$ vs. $0<b<1$) | 1 | `monotonia-segun-base` |
 | Propiedades algebraicas de potencias | 2 | `propiedades-algebraicas-potencias` |
-| Identificar si una expresión es/no es exponencial | 2 | `identificar-exponencial` |
-| Asíntota horizontal (nombre, ecuación, desplazamiento) | 2 | `asintota-horizontal` |
-| Comportamiento en infinito ($x \to \pm\infty$) | 2 | `comportamiento-infinito` |
-| Parámetro base/tasa de crecimiento en contexto | 2 | `parametro-base-crecimiento` |
-| Dominio e imagen (básico) | 2 | `dominio-imagen-basica` |
-| Comparación de bases | 2 | `comparacion-bases` |
+| Identificar si una expresión es/no es exponencial | 1 | `identificar-exponencial` |
+| Asíntota horizontal (nombre, ecuación, desplazamiento) | 1 | `asintota-horizontal` |
+| Comportamiento en infinito ($x \to \pm\infty$) | 1 | `comportamiento-infinito` |
+| Parámetro base/tasa de crecimiento en contexto | 1 | `parametro-base-crecimiento` |
 | Sin raíces reales | 1 | `sin-raices-reales` |
-| Valor inicial $f(0)$ | 1 | `valor-inicial-f0` |
 | Período de duplicación / vida media | 1 | `periodo-duplicacion-vida-media` |
-| Número $e$, concepto | 1 | `numero-e-concepto` |
 | Imagen con desplazamiento vertical | 1 | `imagen-desplazamiento-vertical` |
 | Resolver ecuación exponencial simple | 1 | `resolver-ecuacion-exponencial-simple` |
 | Exclusión de $b=1$ o base negativa | 1 | `exclusion-base-1-o-negativa` |
-| Ubicación de la variable en el exponente | 1 | `ubicacion-variable-exponente` |
-| Transformación horizontal | 1 | `transformacion-horizontal` |
-| Inyectividad de la exponencial | 1 | `inyectividad-exponencial` |
-| Ausencia de extremos locales | 1 | `extremos-locales-inexistentes` |
 | Comparación crecimiento lineal vs. exponencial | 1 | `crecimiento-lineal-vs-exponencial` |
 | Función inversa (logaritmo) | 1 | `funcion-inversa-logaritmo` |
-| **Total** | **30** | |
+| Dominio basico | 1 | `dominio-basico` |
+| **Total** | **15** | |
 
 > Sub-familias podadas por completo en ago-2026 (cupo pasó a 0, quedaban sub-representadas y con más findings del validador): `punto-corte-eje-y` (redundante con `valor-inicial-f0`, mismo concepto de $f(0)$), `dominio-razonamiento`, `afirmacion-falsa-identificar`, `inecuacion-exponencial`.
 
@@ -164,23 +157,23 @@ Taxonomía diseñada leyendo los 200 ejercicios reales (jul-2026). Reducida prop
 | Distinción exponencial vs. logarítmica | 1 | `distincion-exponencial-logaritmica` |
 | Dominio (básico) | 1 | `dominio-basico` |
 | Distinción exponencial vs. lineal (comparar dos modelos) | 1 | `distincion-exponencial-lineal-comparacion` |
-| **Total** | **50** | |
+| **Total** | **15** | |
 
 **FORM (30):**
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Evaluar $f(\text{valor})$ | 8 | `evaluar-f` |
-| Propiedades algebraicas de potencias | 6 | `propiedades-algebraicas-potencias` |
-| Evaluar en contexto cotidiano (bacterias, inversión, etc.) | 5 | `evaluar-contexto` |
-| Armar fórmula desde un contexto cotidiano | 3 | `armar-formula-contexto` |
+| Evaluar $f(\text{valor})$ | 2 | `evaluar-f` |
+| Propiedades algebraicas de potencias | 3 | `propiedades-algebraicas-potencias` |
+| Evaluar en contexto cotidiano (bacterias, inversión, etc.) | 1 | `evaluar-contexto` |
+| Armar fórmula desde un contexto cotidiano | 2 | `armar-formula-contexto` |
 | Identificar fórmula desde gráfico | 2 | `grafico-a-formula` |
-| Leer base o coeficiente $a$ desde la fórmula | 2 | `leer-base-coeficiente` |
+| Leer base o coeficiente $a$ desde la fórmula | 1 | `leer-base-coeficiente` |
 | Dominio (básico) | 1 | `dominio-basico` |
-| Tasa de crecimiento expresada como porcentaje | 1 | `tasa-crecimiento-porcentaje` |
 | Determinar $a$ y $b$ desde dos puntos | 1 | `determinar-a-b-desde-dos-puntos` |
-| Comparar dos modelos (cuál vale más en un punto) | 1 | `comparar-dos-modelos` |
-| **Total** | **30** | |
+| Asintota horizontal | 1 | `asintota-horizontal` |
+| Imagen desplazamiento vertical | 1 | `imagen-desplazamiento-vertical` |
+| **Total** | **15** | |
 
 > Sub-familia podada por completo en ago-2026: `asintota-horizontal-desplazada` (cupo pasó a 0; el único ejercicio de la fila era el de peor puntaje del validador en FORM). El desplazamiento de asíntota sigue cubierto en LEXI (`asintota-horizontal`) y GRAF.
 
@@ -191,27 +184,21 @@ Taxonomía diseñada leyendo los 200 ejercicios reales (jul-2026). Reducida prop
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
 | Leer un valor puntual ($f(1)$, $f(-2)$, etc.) | 2 | `lectura-valor-puntual` |
-| Ordenada al origen, $f(0)$ | 2 | `lectura-ordenada-origen` |
-| Monotonía (creciente/decreciente, en qué intervalo) | 2 | `lectura-monotonia` |
+| Monotonía (creciente/decreciente, en qué intervalo) | 1 | `lectura-monotonia` |
 | Comportamiento en infinito | 2 | `lectura-comportamiento-infinito` |
-| Raíces (tiene o no tiene cero) | 2 | `lectura-raices` |
-| Asíntota horizontal | 1 | `lectura-asintota` |
-| Imagen | 1 | `lectura-imagen` |
+| Raíces (tiene o no tiene cero) | 1 | `lectura-raices` |
+| Asíntota horizontal | 2 | `lectura-asintota` |
 | Extremos locales (ausencia) | 1 | `lectura-extremos-locales` |
-| Dominio | 1 | `lectura-dominio` |
-| Comparar bases desde el gráfico (cuál es más empinada) | 1 | `comparar-bases-grafico` |
 | **Subtotal Tipo A** | **15** | |
 
-*Tipo B — identificar fórmula dado el gráfico (9):* todos bajo `grafico-a-formula` (misma habilidad que en FORM).
+*Tipo B — identificar fórmula dado el gráfico (3):* todos bajo `grafico-a-formula` (misma habilidad que en FORM).
 
 *Tipo C — contexto cotidiano + gráfico (6):*
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Evaluar en contexto (bacterias, inversión, moto, usuarios, etc.) | 4 | `evaluar-contexto` |
-| Comportamiento en infinito en contexto | 1 | `comportamiento-infinito-contexto` |
-| Asíntota en contexto (temperatura de equilibrio) | 1 | `asintota-contexto` |
-| **Subtotal Tipo C** | **6** | |
+| Evaluar en contexto (bacterias, inversión, moto, usuarios, etc.) | 3 | `evaluar-contexto` |
+| **Subtotal Tipo C** | **15** | |
 
 > Sub-familia podada por completo en ago-2026: `lectura-ordenada-origen-contexto` (cupo pasó a 0; el único ejercicio de la fila fue el peor puntuado del validador en GRAF). La ordenada al origen en contexto sigue cubierta por Tipo A (`lectura-ordenada-origen`) y por `evaluar-contexto`.
 

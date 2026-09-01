@@ -57,7 +57,7 @@ Completar con `array<string|null>` paralelo a `options`, `null` en el índice co
 
 ---
 
-## FORM, 30 ejercicios
+## FORM, 15 ejercicios
 
 ### Qué evalúa
 **Reconocimiento** de las fórmulas de derivación para funciones elementales y de la **notación**. No hay cálculo compuesto: se identifica la fórmula que corresponde.
@@ -72,8 +72,8 @@ Completar con `array<string|null>` paralelo a `options`, `null` en el índice co
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Derivadas elementales | Reconocer las derivadas directas: $(x^n)' = n x^{n-1}$; $(c)' = 0$; $(k f)' = k f'$; $(e^x)' = e^x$; $(a^x)' = a^x \ln a$; $(\ln x)' = 1/x$; $(\sin x)' = \cos x$; $(\cos x)' = -\sin x$; $(\tan x)' = \sec^2 x$. | `derivadas-elementales` | 21 |
-| B. Notación y operadores | Familiaridad con $f'(x)$, $y'$, $\tfrac{dy}{dx}$, $\tfrac{d}{dx}[\cdot]$, operador $D[f]$. Equivalencias y lecturas. | `notacion-y-operadores` | 9 |
+| A. Derivadas elementales | Reconocer las derivadas directas: $(x^n)' = n x^{n-1}$; $(c)' = 0$; $(k f)' = k f'$; $(e^x)' = e^x$; $(a^x)' = a^x \ln a$; $(\ln x)' = 1/x$; $(\sin x)' = \cos x$; $(\cos x)' = -\sin x$; $(\tan x)' = \sec^2 x$. | `derivadas-elementales` | 11 |
+| B. Notación y operadores | Familiaridad con $f'(x)$, $y'$, $\tfrac{dy}{dx}$, $\tfrac{d}{dx}[\cdot]$, operador $D[f]$. Equivalencias y lecturas. | `notacion-y-operadores` | 4 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Signo de $(\cos x)'$**: dar $\sin x$ en vez de $-\sin x$. La derivada del coseno es **negativa** del seno.
@@ -91,7 +91,7 @@ Completar con `array<string|null>` paralelo a `options`, `null` en el índice co
 
 ---
 
-## ESTR, 30 ejercicios
+## ESTR, 15 ejercicios
 
 ### Qué evalúa
 **Elección del método**, planificación del orden de aplicación de reglas y **descomposición** de expresiones antes de derivar.
@@ -105,8 +105,8 @@ Completar con `array<string|null>` paralelo a `options`, `null` en el índice co
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Jerarquía de reglas | Decidir el **orden** de aplicación: identificar primero la suma/resta (linealidad) antes de aplicar la potencia o la trigonométrica a cada término. Cuándo reescribir una expresión ($\sqrt{x} \to x^{1/2}$, $\tfrac{1}{x^n} \to x^{-n}$) antes de derivar. | `jerarquia-de-reglas` | 15 |
-| B. Descomposición de funciones | Dada $f(x) = 3x^2 + \sin x - \ln x$, identificar cada término y qué regla corresponde a cada uno **antes** de derivar. | `descomposicion-de-funciones` | 15 |
+| A. Jerarquía de reglas | Decidir el **orden** de aplicación: identificar primero la suma/resta (linealidad) antes de aplicar la potencia o la trigonométrica a cada término. Cuándo reescribir una expresión ($\sqrt{x} \to x^{1/2}$, $\tfrac{1}{x^n} \to x^{-n}$) antes de derivar. | `jerarquia-de-reglas` | 5 |
+| B. Descomposición de funciones | Dada $f(x) = 3x^2 + \sin x - \ln x$, identificar cada término y qué regla corresponde a cada uno **antes** de derivar. | `descomposicion-de-funciones` | 10 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Aplicar la potencia sin reescribir**: intentar derivar $\sqrt{x}$ o $\tfrac{1}{x^3}$ sin llevarlos primero a $x^{1/2}$ o $x^{-3}$.
@@ -122,7 +122,7 @@ Completar con `array<string|null>` paralelo a `options`, `null` en el índice co
 
 ---
 
-## RESL, 30 ejercicios
+## RESL, 15 ejercicios
 
 ### Qué evalúa
 **Ejecución técnica** del cálculo de la derivada aplicando fórmulas y linealidad, más las **aplicaciones directas** (tangentes rápidas, razones de cambio) que antes vivían en APLI.
@@ -136,10 +136,10 @@ Completar con `array<string|null>` paralelo a `options`, `null` en el índice co
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Derivadas elementales | Aplicación directa: potencia, constante, exponenciales, logaritmos y trigonométricas simples. Un solo término. | `derivadas-elementales-aplicacion` | 9 |
-| B. Combinaciones lineales | Sumas, restas y múltiplos escalares que combinan varias funciones elementales. Ejemplo: $f(x) = 4x^3 - 2\sin x + \ln x$. | `combinaciones-lineales` | 12 |
-| C. Tangentes rápidas | Hallar $f'(a)$ para valores puntuales, o armar la ecuación de la recta tangente $y = f'(a)(x - a) + f(a)$, usando las reglas del tópico. | `tangentes-rapidas` | 6 |
-| D. Razones de cambio | Aplicación breve: si $s(t)$ es posición, hallar $v(t) = s'(t)$ o $v(t_0)$. Pendientes paralelas ($f'(x) = m$ para $m$ dado). Sin problemas verbales elaborados. | `razones-de-cambio` | 3 |
+| A. Derivadas elementales | Aplicación directa: potencia, constante, exponenciales, logaritmos y trigonométricas simples. Un solo término. | `derivadas-elementales-aplicacion` | 5 |
+| B. Combinaciones lineales | Sumas, restas y múltiplos escalares que combinan varias funciones elementales. Ejemplo: $f(x) = 4x^3 - 2\sin x + \ln x$. | `combinaciones-lineales` | 5 |
+| C. Tangentes rápidas | Hallar $f'(a)$ para valores puntuales, o armar la ecuación de la recta tangente $y = f'(a)(x - a) + f(a)$, usando las reglas del tópico. | `tangentes-rapidas` | 3 |
+| D. Razones de cambio | Aplicación breve: si $s(t)$ es posición, hallar $v(t) = s'(t)$ o $v(t_0)$. Pendientes paralelas ($f'(x) = m$ para $m$ dado). Sin problemas verbales elaborados. | `razones-de-cambio` | 2 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Coeficiente olvidado en la potencia**: dar $(3x^4)' = 3 x^3$ (olvidar el $4$). Es $3 \cdot 4 x^3 = 12 x^3$.

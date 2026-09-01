@@ -51,7 +51,7 @@ Reglas de authoring que se aplican al escribir los 90 ejercicios:
 
 ---
 
-## ESTR, 30 ejercicios
+## ESTR, 15 ejercicios
 
 ### Qué evalúa
 **Visión anatómica** del integrando antes de aplicar el método. Desglosar mentalmente la expresión para encontrar el **cambio de variable óptimo** y **ajustar el diferencial** cuando la derivada del interior aparece salvo un factor constante. Sin cálculo integral final.
@@ -65,8 +65,8 @@ Reglas de authoring que se aplican al escribir los 90 ejercicios:
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Identificación anatómica de $u$ | Determinar qué parte del integrando debe reemplazarse para que su derivada cancele el resto. Casos: logaritmos ($\int \tfrac{\ln x}{x} \, dx$ con $u = \ln x$), trigonométricas con argumento polinómico ($\int x \cos(x^2) \, dx$ con $u = x^2$), exponenciales compuestas ($\int e^{3x + 1} \, dx$ con $u = 3x + 1$), cocientes con derivada del denominador en el numerador ($\int \tfrac{2x}{x^2 + 5} \, dx$ con $u = x^2 + 5$). | `identificacion-anatomica-de-u` | 15 |
-| B. Ajuste del diferencial | Evaluar el manejo algebraico de la constante que aparece al derivar $u$. Dada una sustitución como $u = 5x - 2$, identificar cómo queda $dx = \tfrac{1}{5} \, du$. Casos con coeficientes enteros ($u = 3x + 1 \Rightarrow dx = \tfrac{1}{3} du$), fraccionarios ($u = \tfrac{x}{2} \Rightarrow dx = 2 \, du$), y con signos ($u = -2x \Rightarrow dx = -\tfrac{1}{2} du$). **Cada ítem muestra primero la integral concreta de la que sale ese cambio** (ronda 4, regla 58 de `authoring-context.md`): el enunciado lleva la integral centrada, después el cambio elegido también centrado, y recién ahí la pregunta por el diferencial. La integral no interviene en la respuesta, pero sin ella el ítem arranca en el aire. | `ajuste-del-diferencial` | 15 |
+| A. Identificación anatómica de $u$ | Determinar qué parte del integrando debe reemplazarse para que su derivada cancele el resto. Casos: logaritmos ($\int \tfrac{\ln x}{x} \, dx$ con $u = \ln x$), trigonométricas con argumento polinómico ($\int x \cos(x^2) \, dx$ con $u = x^2$), exponenciales compuestas ($\int e^{3x + 1} \, dx$ con $u = 3x + 1$), cocientes con derivada del denominador en el numerador ($\int \tfrac{2x}{x^2 + 5} \, dx$ con $u = x^2 + 5$). | `identificacion-anatomica-de-u` | 8 |
+| B. Ajuste del diferencial | Evaluar el manejo algebraico de la constante que aparece al derivar $u$. Dada una sustitución como $u = 5x - 2$, identificar cómo queda $dx = \tfrac{1}{5} \, du$. Casos con coeficientes enteros ($u = 3x + 1 \Rightarrow dx = \tfrac{1}{3} du$), fraccionarios ($u = \tfrac{x}{2} \Rightarrow dx = 2 \, du$), y con signos ($u = -2x \Rightarrow dx = -\tfrac{1}{2} du$). **Cada ítem muestra primero la integral concreta de la que sale ese cambio** (ronda 4, regla 58 de `authoring-context.md`): el enunciado lleva la integral centrada, después el cambio elegido también centrado, y recién ahí la pregunta por el diferencial. La integral no interviene en la respuesta, pero sin ella el ítem arranca en el aire. | `ajuste-del-diferencial` | 7 |
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -88,7 +88,7 @@ Reglas de authoring que se aplican al escribir los 90 ejercicios:
 
 ---
 
-## RESL, 30 ejercicios
+## RESL, 15 ejercicios
 
 ### Qué evalúa
 **Ejecución técnica del método, repartida en decisiones sueltas**: elegir $u$, calcular $du$, reescribir la integral, aplicar la fórmula de tabla, volver a $x$, compensar constantes, agregar $+C$. El estudiante recorre todo el procedimiento a lo largo de la sesión, pero **ningún ítem le pide ejecutarlo entero**. Sin contextos cotidianos.
@@ -124,8 +124,8 @@ Los errores inyectados en "detectar el paso mal" salen siempre de la lista de co
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Sustitución lineal inmediata | Integrales donde el argumento de la función es un polinomio de **grado 1** ($u = ax + b$). Ejemplos: $\int e^{4x + 1} \, dx = \tfrac{1}{4} e^{4x + 1} + C$; $\int \cos(3x) \, dx = \tfrac{1}{3} \sin(3x) + C$; $\int (2x - 1)^5 \, dx = \tfrac{(2x - 1)^6}{12} + C$. Foco: compensación de constante por el coeficiente lineal. | `sustitucion-lineal-inmediata` | 15 |
-| B. Sustitución de grado superior y trascendentes | Integrales donde $u$ es un polinomio de **grado 2** o una función trascendente simple. Casos: $\int x \cos(x^2) \, dx$ con $u = x^2 \Rightarrow \tfrac{1}{2} \sin(x^2) + C$; $\int \tfrac{2x}{x^2 + 5} \, dx$ con $u = x^2 + 5 \Rightarrow \ln|x^2 + 5| + C$; $\int \tfrac{\ln x}{x} \, dx$ con $u = \ln x \Rightarrow \tfrac{(\ln x)^2}{2} + C$; $\int \sin^n x \cos x \, dx$ con $u = \sin x \Rightarrow \tfrac{\sin^{n+1} x}{n + 1} + C$. Foco: reconocer la anatomía "función compuesta multiplicada por derivada del interior". | `sustitucion-grado-superior-trascendentes` | 15 |
+| A. Sustitución lineal inmediata | Integrales donde el argumento de la función es un polinomio de **grado 1** ($u = ax + b$). Ejemplos: $\int e^{4x + 1} \, dx = \tfrac{1}{4} e^{4x + 1} + C$; $\int \cos(3x) \, dx = \tfrac{1}{3} \sin(3x) + C$; $\int (2x - 1)^5 \, dx = \tfrac{(2x - 1)^6}{12} + C$. Foco: compensación de constante por el coeficiente lineal. | `sustitucion-lineal-inmediata` | 8 |
+| B. Sustitución de grado superior y trascendentes | Integrales donde $u$ es un polinomio de **grado 2** o una función trascendente simple. Casos: $\int x \cos(x^2) \, dx$ con $u = x^2 \Rightarrow \tfrac{1}{2} \sin(x^2) + C$; $\int \tfrac{2x}{x^2 + 5} \, dx$ con $u = x^2 + 5 \Rightarrow \ln | x^2 + 5 | + C$; $\int \tfrac{\ln x}{x} \, dx$ con $u = \ln x \Rightarrow \tfrac{(\ln x)^2}{2} + C$; $\int \sin^n x \cos x \, dx$ con $u = \sin x \Rightarrow \tfrac{\sin^{n+1} x}{n + 1} + C$. Foco: reconocer la anatomía "función compuesta multiplicada por derivada del interior". | `sustitucion-grado-superior-trascendentes` | 7 |
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -148,7 +148,7 @@ Los errores inyectados en "detectar el paso mal" salen siempre de la lista de co
 
 ---
 
-## CLSF, 30 ejercicios
+## CLSF, 15 ejercicios
 
 Agregada en ronda 2 (ago-2026). Ver Hallazgos de auditoría.
 
@@ -164,8 +164,8 @@ Agregada en ronda 2 (ago-2026). Ver Hallazgos de auditoría.
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Tabla directa vs. sustitución | El integrando es o bien una entrada elemental de tabla (sin ninguna composición), o bien una función compuesta con un factor que es, salvo constante, la derivada del interior. Ejemplos: $\int \cos x\,dx$ (tabla) vs. $\int x\cos(x^2)\,dx$ (sustitución); $\int e^{5x}\,dx$ (sustitución, no tabla: el exponente no es $x$ solo); $\int \tfrac1x\,dx$ (tabla, caso especial del logaritmo). Foco: distinguir cuándo el argumento es "$x$ solo" de cuándo es una composición con su derivada acompañando. | `tabla-directa-vs-sustitucion` | 15 |
-| B. Acondicionamiento vs. sustitución genuina | Contraste entre integrandos que se resuelven con **álgebra pura** (repartir un cociente, reescribir una raíz o potencia) sin ninguna estructura de composición, y los que sí tienen esa estructura y piden sustitución genuina. Ejemplos: $\int \tfrac{x^3+5x}{x}\,dx$ (acondicionamiento: se reparte el denominador, no hay ninguna función compuesta) vs. $\int 2xe^{x^2}\,dx$ (sustitución genuina: el factor $2x$ es exactamente la derivada de $x^2$). Foco: reconocer que una fracción o una raíz no siempre implica sustitución; a veces es puro acomodo algebraico. | `acondicionamiento-vs-sustitucion-genuina` | 15 |
+| A. Tabla directa vs. sustitución | El integrando es o bien una entrada elemental de tabla (sin ninguna composición), o bien una función compuesta con un factor que es, salvo constante, la derivada del interior. Ejemplos: $\int \cos x\,dx$ (tabla) vs. $\int x\cos(x^2)\,dx$ (sustitución); $\int e^{5x}\,dx$ (sustitución, no tabla: el exponente no es $x$ solo); $\int \tfrac1x\,dx$ (tabla, caso especial del logaritmo). Foco: distinguir cuándo el argumento es "$x$ solo" de cuándo es una composición con su derivada acompañando. | `tabla-directa-vs-sustitucion` | 8 |
+| B. Acondicionamiento vs. sustitución genuina | Contraste entre integrandos que se resuelven con **álgebra pura** (repartir un cociente, reescribir una raíz o potencia) sin ninguna estructura de composición, y los que sí tienen esa estructura y piden sustitución genuina. Ejemplos: $\int \tfrac{x^3+5x}{x}\,dx$ (acondicionamiento: se reparte el denominador, no hay ninguna función compuesta) vs. $\int 2xe^{x^2}\,dx$ (sustitución genuina: el factor $2x$ es exactamente la derivada de $x^2$). Foco: reconocer que una fracción o una raíz no siempre implica sustitución; a veces es puro acomodo algebraico. | `acondicionamiento-vs-sustitucion-genuina` | 7 |
 
 ### `feedback_incorrect`, confusiones fuente
 

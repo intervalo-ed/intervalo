@@ -52,7 +52,7 @@ Reglas de authoring que se aplican al escribir los 90 ejercicios:
 
 ---
 
-## ESTR, 30 ejercicios
+## ESTR, 15 ejercicios
 
 ### Qué evalúa
 **Toma de decisiones previa al cálculo**. El alumno demuestra que sabe **armar el problema** aplicando ILATE (sub-A), y que puede **distinguir partes de sustitución** sobre integrandos casi idénticos a primera vista sin resolver ninguno (sub-B, rediseñada en ronda 2: ver Hallazgos de auditoría). Sin ejecutar la integral final en ningún caso.
@@ -66,8 +66,8 @@ Reglas de authoring que se aplican al escribir los 90 ejercicios:
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Elección de variables y regla ILATE | Identificar qué función asume el rol de $u$ y cuál el de $dv$ para que la integral resultante sea más simple. Combinaciones clásicas: polinómica con logaritmo ($\int x^2 \ln x \, dx$: $u = \ln x$, $dv = x^2 \, dx$), polinómica con exponencial ($\int x e^x \, dx$: $u = x$, $dv = e^x \, dx$), polinómica con trigonométrica ($\int x \sin x \, dx$: $u = x$, $dv = \sin x \, dx$). ILATE prioriza I → L → A → T → E para elegir $u$. | `eleccion-variables-regla-liate` | 15 |
-| B. Selección de método: partes vs. sustitución | El enunciado no anuncia la técnica (ver regla 54 de `authoring-context.md`; esta es la única sub-familia del topic donde el enunciado no puede nombrar el método, para no regalar la decisión). Pares de integrandos que se parecen a primera vista pero piden métodos distintos: $\int x\sin x\,dx$ (partes: producto de polinómica y trigonométrica, ninguna es la derivada de la otra) vs. $\int x\sin(x^2)\,dx$ (sustitución: $x$ es, salvo constante, la derivada de $x^2$); $\int \ln x\,dx$ (partes, factor oculto $dv=1\,dx$) vs. $\int \tfrac{\ln x}{x}\,dx$ (sustitución, $u=\ln x$); $\int xe^{2x}\,dx$ (partes) vs. $\int xe^{x^2}\,dx$ (sustitución). El criterio que discrimina: ¿alguna parte del integrando es (salvo constante) la derivada de otra parte? Si sí, sustitución; si no, partes. | `seleccion-partes-vs-sustitucion` | 15 |
+| A. Elección de variables y regla ILATE | Identificar qué función asume el rol de $u$ y cuál el de $dv$ para que la integral resultante sea más simple. Combinaciones clásicas: polinómica con logaritmo ($\int x^2 \ln x \, dx$: $u = \ln x$, $dv = x^2 \, dx$), polinómica con exponencial ($\int x e^x \, dx$: $u = x$, $dv = e^x \, dx$), polinómica con trigonométrica ($\int x \sin x \, dx$: $u = x$, $dv = \sin x \, dx$). ILATE prioriza I → L → A → T → E para elegir $u$. | `eleccion-variables-regla-liate` | 8 |
+| B. Selección de método: partes vs. sustitución | El enunciado no anuncia la técnica (ver regla 54 de `authoring-context.md`; esta es la única sub-familia del topic donde el enunciado no puede nombrar el método, para no regalar la decisión). Pares de integrandos que se parecen a primera vista pero piden métodos distintos: $\int x\sin x\,dx$ (partes: producto de polinómica y trigonométrica, ninguna es la derivada de la otra) vs. $\int x\sin(x^2)\,dx$ (sustitución: $x$ es, salvo constante, la derivada de $x^2$); $\int \ln x\,dx$ (partes, factor oculto $dv=1\,dx$) vs. $\int \tfrac{\ln x}{x}\,dx$ (sustitución, $u=\ln x$); $\int xe^{2x}\,dx$ (partes) vs. $\int xe^{x^2}\,dx$ (sustitución). El criterio que discrimina: ¿alguna parte del integrando es (salvo constante) la derivada de otra parte? Si sí, sustitución; si no, partes. | `seleccion-partes-vs-sustitucion` | 7 |
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -88,7 +88,7 @@ Reglas de authoring que se aplican al escribir los 90 ejercicios:
 
 ---
 
-## RESL, 30 ejercicios
+## RESL, 15 ejercicios
 
 ### Qué evalúa
 **Cálculo estructurado en una única iteración, repartido en decisiones sueltas**: aplicar la fórmula $\int u \, dv = uv - \int v \, du$ con signo correcto, resolver la integral remanente, agregar $+C$. El estudiante recorre todo el procedimiento a lo largo de la sesión, pero **ningún ítem le pide ejecutarlo entero**. Sin contextos cotidianos.
@@ -130,8 +130,8 @@ Los errores inyectados en "detectar el paso mal" salen de la lista de confusione
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Aplicación directa de una iteración | Integrales que cierran aplicando partes **una única vez**. Polinómica de **grado 1** ($x$) combinada con trigonométrica o exponencial. Ejemplos: $\int x \sin x \, dx = -x \cos x + \sin x + C$; $\int x e^{2x} \, dx = \tfrac{x e^{2x}}{2} - \tfrac{e^{2x}}{4} + C$; $\int x \cos x \, dx = x \sin x + \cos x + C$. Foco: signo negativo de la fórmula, arrastre correcto de $u$, $v$, $du$, $dv$ y de la constante compensatoria si $dv = e^{ax} \, dx$ o $\sin(ax) \, dx$. | `aplicacion-directa-una-iteracion` | 15 |
-| B. El factor oculto y reducciones cortas | Casos donde $dv = 1 \, dx$ (**factor oculto**: cuando el integrando es una única función que "no parece" un producto). Ejemplo: $\int \ln x \, dx = x \ln x - x + C$ (con $u = \ln x$, $dv = 1 \, dx$; la integral remanente $\int x \cdot \tfrac{1}{x} \, dx = \int 1 \, dx = x$). También casos donde el paso final requiere una **fracción** que sale directa de tabla, sin factorizar: $\int x \ln x \, dx = \tfrac{x^2 \ln x}{2} - \tfrac{x^2}{4} + C$; $\int x^2 \ln x \, dx = \tfrac{x^3 \ln x}{3} - \tfrac{x^3}{9} + C$. **Techo: no pasar de $\int x^2 \ln x\,dx$** (denominador 9); $\int x^3\ln x\,dx$ ya da denominador 16 y excede el techo de carga mental incluso sin factorizar (ver Hallazgos de auditoría ronda 2). | `factor-oculto-reducciones-cortas` | 15 |
+| A. Aplicación directa de una iteración | Integrales que cierran aplicando partes **una única vez**. Polinómica de **grado 1** ($x$) combinada con trigonométrica o exponencial. Ejemplos: $\int x \sin x \, dx = -x \cos x + \sin x + C$; $\int x e^{2x} \, dx = \tfrac{x e^{2x}}{2} - \tfrac{e^{2x}}{4} + C$; $\int x \cos x \, dx = x \sin x + \cos x + C$. Foco: signo negativo de la fórmula, arrastre correcto de $u$, $v$, $du$, $dv$ y de la constante compensatoria si $dv = e^{ax} \, dx$ o $\sin(ax) \, dx$. | `aplicacion-directa-una-iteracion` | 8 |
+| B. El factor oculto y reducciones cortas | Casos donde $dv = 1 \, dx$ (**factor oculto**: cuando el integrando es una única función que "no parece" un producto). Ejemplo: $\int \ln x \, dx = x \ln x - x + C$ (con $u = \ln x$, $dv = 1 \, dx$; la integral remanente $\int x \cdot \tfrac{1}{x} \, dx = \int 1 \, dx = x$). También casos donde el paso final requiere una **fracción** que sale directa de tabla, sin factorizar: $\int x \ln x \, dx = \tfrac{x^2 \ln x}{2} - \tfrac{x^2}{4} + C$; $\int x^2 \ln x \, dx = \tfrac{x^3 \ln x}{3} - \tfrac{x^3}{9} + C$. **Techo: no pasar de $\int x^2 \ln x\,dx$** (denominador 9); $\int x^3\ln x\,dx$ ya da denominador 16 y excede el techo de carga mental incluso sin factorizar (ver Hallazgos de auditoría ronda 2). | `factor-oculto-reducciones-cortas` | 7 |
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -155,7 +155,7 @@ Los errores inyectados en "detectar el paso mal" salen de la lista de confusione
 
 ---
 
-## CLSF, 30 ejercicios
+## CLSF, 15 ejercicios
 
 Agregada en ronda 2 (ago-2026). Ver Hallazgos de auditoría.
 
@@ -171,8 +171,8 @@ Agregada en ronda 2 (ago-2026). Ver Hallazgos de auditoría.
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Reconocimiento amplio: tabla, sustitución y partes | Casos limpios de cada una de las tres técnicas, sin ambigüedad. Ejemplos: $\int e^x\,dx$ (tabla); $\int \cos(3x-2)\,dx$ (sustitución, argumento lineal); $\int x\sin x\,dx$ (partes, ninguna es la derivada de la otra); $\int x^2\ln x\,dx$ (partes, ILATE); $\int \ln x\,dx$ (partes, factor oculto). Foco: reconocer de un vistazo la estructura que cada técnica exige, con opciones `"Tabla directa"`/`"Sustitución"`/`"Por partes"`. | `reconocimiento-amplio-tabla-sustitucion-partes` | 15 |
-| B. Reescribir antes o método avanzado | Contraste entre integrandos que se resuelven con **álgebra pura** (repartir un cociente, reescribir una raíz) sin ningún método avanzado, y los que sí necesitan sustitución o partes genuinas. Ejemplos: $\int \tfrac{x^4+3x^2}{x^2}\,dx$ (reescribir antes: se reparte, no hay composición ni producto) vs. $\int xe^{x^2}\,dx$ (sustitución genuina) vs. $\int x\ln x\,dx$ (partes genuina, producto sin relación de derivada). El par más fino: $\int x\ln x\,dx$ (partes) vs. $\int \tfrac{\ln x}{x}\,dx$ (sustitución), mismo logaritmo, distinta posición. Foco: no toda fracción o composición aparente implica un método avanzado. | `algebra-previa-o-metodo-avanzado` | 15 |
+| A. Reconocimiento amplio: tabla, sustitución y partes | Casos limpios de cada una de las tres técnicas, sin ambigüedad. Ejemplos: $\int e^x\,dx$ (tabla); $\int \cos(3x-2)\,dx$ (sustitución, argumento lineal); $\int x\sin x\,dx$ (partes, ninguna es la derivada de la otra); $\int x^2\ln x\,dx$ (partes, ILATE); $\int \ln x\,dx$ (partes, factor oculto). Foco: reconocer de un vistazo la estructura que cada técnica exige, con opciones `"Tabla directa"`/`"Sustitución"`/`"Por partes"`. | `reconocimiento-amplio-tabla-sustitucion-partes` | 8 |
+| B. Reescribir antes o método avanzado | Contraste entre integrandos que se resuelven con **álgebra pura** (repartir un cociente, reescribir una raíz) sin ningún método avanzado, y los que sí necesitan sustitución o partes genuinas. Ejemplos: $\int \tfrac{x^4+3x^2}{x^2}\,dx$ (reescribir antes: se reparte, no hay composición ni producto) vs. $\int xe^{x^2}\,dx$ (sustitución genuina) vs. $\int x\ln x\,dx$ (partes genuina, producto sin relación de derivada). El par más fino: $\int x\ln x\,dx$ (partes) vs. $\int \tfrac{\ln x}{x}\,dx$ (sustitución), mismo logaritmo, distinta posición. Foco: no toda fracción o composición aparente implica un método avanzado. | `algebra-previa-o-metodo-avanzado` | 7 |
 
 ### `feedback_incorrect`, confusiones fuente
 

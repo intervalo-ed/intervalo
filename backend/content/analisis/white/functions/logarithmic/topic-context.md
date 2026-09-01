@@ -126,61 +126,53 @@ Taxonomía diseñada leyendo los 200 ejercicios reales (jul-2026); las tablas de
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Propiedades algebraicas del logaritmo (producto, cociente, potencia) | 10 | `propiedades-algebraicas-log` |
-| Evaluar un logaritmo directamente (potencias exactas conocidas) | 8 | `evaluar-log-directo` |
-| Nombre/concepto de asíntota vertical | 5 | `asintota-vertical-nombre-concepto` |
-| Asíntota vertical con desplazamiento horizontal | 2 | `asintota-vertical-desplazada` |
+| Propiedades algebraicas del logaritmo (producto, cociente, potencia) | 2 | `propiedades-algebraicas-log` |
+| Evaluar un logaritmo directamente (potencias exactas conocidas) | 3 | `evaluar-log-directo` |
+| Nombre/concepto de asíntota vertical | 1 | `asintota-vertical-nombre-concepto` |
 | Razonamiento de por qué el dominio excluye $x \leq 0$ | 1 | `dominio-razonamiento` |
-| Dominio (básico, sin desplazamiento) | 1 | `dominio-basico` |
 | Inyectividad del logaritmo (si $\log_b a=\log_b c$ entonces $a=c$) | 1 | `propiedad-inyectividad-log` |
 | Identificar si una expresión es/no es logarítmica | 1 | `identificar-logaritmica` |
 | Función inversa (log ↔ exponencial) | 1 | `funcion-inversa-logaritmo` |
-| **Total** | **30** | |
+| Comparar bases log | 1 | `comparar-bases-log` |
+| Comportamiento en el borde | 1 | `comportamiento-en-el-borde` |
+| Imagen logaritmo | 1 | `imagen-logaritmo` |
+| Monotonia segun base | 1 | `monotonia-segun-base` |
+| Resolver ecuacion log | 1 | `resolver-ecuacion-log` |
+| **Total** | **15** | |
 
 **CLSF (50):**
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Clasificar familia desde fórmula explícita | 12 | `clasificacion-desde-formula` |
-| Clasificar familia desde gráfico (`graph_fn` o descripción) | 10 | `clasificacion-desde-grafico` |
-| Clasificar familia desde un modelo cotidiano en prosa | 6 | `clasificacion-desde-contexto` |
-| Dominio (básico) | 4 | `dominio-basico` |
-| Distinción exponencial vs. logarítmica (conceptual) | 3 | `distincion-exponencial-logaritmica` |
-| Identificar si una expresión es/no es logarítmica | 2 | `identificar-logaritmica` |
-| Monotonía según la base | 2 | `monotonia-segun-base` |
-| Identificar cuál de dos fórmulas dadas es logarítmica | 2 | `identificar-logaritmica-entre-dos-formulas` |
-| Imagen (básica) | 2 | `imagen-basica` |
-| Monotonía global (creciente en todo el dominio) | 1 | `monotonia-global` |
-| Identificar la función decreciente entre opciones | 1 | `identificar-decreciente-entre-opciones` |
-| Distractor: la función mostrada es lineal, no logarítmica | 1 | `distractor-lineal` |
-| Ausencia de extremos locales | 1 | `extremos-locales-inexistentes` |
-| Inyectividad de la logarítmica | 1 | `inyectividad-logaritmica` |
-| Distractor: la función mostrada es exponencial, no logarítmica | 1 | `distractor-exponencial` |
-| Ausencia de extremo global (sin máximo) | 1 | `extremo-global-inexistente` |
-| **Total** | **50** | |
+| **Total** | **15** | |
 
 **FORM (30):**
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Evaluar $f(\text{valor})$ | 21 | `evaluar-f` |
-| Identificar fórmula desde gráfico | 6 | `grafico-a-formula` |
-| Dominio desde la fórmula (con desplazamiento/escala) | 1 | `dominio-desde-formula` |
-| Propiedades algebraicas del logaritmo | 1 | `propiedades-algebraicas-log` |
-| Asíntota vertical desde la fórmula | 1 | `asintota-vertical-desde-formula` |
-| **Total** | **30** | |
+| Evaluar $f(\text{valor})$ | 2 | `evaluar-f` |
+| Identificar fórmula desde gráfico | 2 | `grafico-a-formula` |
+| Dominio desde la fórmula (con desplazamiento/escala) | 3 | `dominio-desde-formula` |
+| Propiedades algebraicas del logaritmo | 2 | `propiedades-algebraicas-log` |
+| Asíntota vertical desde la fórmula | 3 | `asintota-vertical-desde-formula` |
+| Funcion inversa logaritmo | 1 | `funcion-inversa-logaritmo` |
+| Leer base logaritmo | 1 | `leer-base-logaritmo` |
+| Raiz cruce x | 1 | `raiz-cruce-x` |
+| **Total** | **15** | |
 
 **GRAF (30):** la poda ago-2026 dejó solo ejercicios de Tipo A (leer propiedades) y Tipo B (identificar fórmula); no había ningún ejercicio real de Tipo C (contexto cotidiano + gráfico) en el archivo, así que esa categoría desaparece de la tabla (ver nota de poda arriba).
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Leer un valor puntual ($f(4)$, $f(e)$, etc.) | 14 | `lectura-valor-puntual` |
-| Asíntota vertical | 8 | `lectura-asintota` |
-| Monotonía (creciente/decreciente) | 4 | `lectura-monotonia` |
-| Identificar fórmula dado el gráfico (Tipo B, misma habilidad que en FORM) | 2 | `grafico-a-formula` |
+| Leer un valor puntual ($f(4)$, $f(e)$, etc.) | 4 | `lectura-valor-puntual` |
+| Asíntota vertical | 2 | `lectura-asintota` |
+| Monotonía (creciente/decreciente) | 2 | `lectura-monotonia` |
+| Identificar fórmula dado el gráfico (Tipo B, misma habilidad que en FORM) | 3 | `grafico-a-formula` |
 | Imagen | 1 | `lectura-imagen` |
 | Raíz / cruce con el eje $X$ | 1 | `lectura-raiz-cruce-x` |
-| **Total** | **30** | |
+| Lectura dominio | 1 | `lectura-dominio` |
+| Lectura extremos locales | 1 | `lectura-extremos-locales` |
+| **Total** | **15** | |
 
 ### Checklist del topic, verificar antes de dar por cerrado cada skill
 

@@ -108,6 +108,41 @@ def indent_inside(text: str, brace: int) -> str:
     return rest[:len(rest) - len(rest.lstrip(" "))] or "    "
 
 
+def sufijo_maximo_archivado(path: Path) -> int:
+    """Mayor sufijo usado por los ejercicios archivados de este mismo ítem.
+
+    Un id nunca se reusa, ni siquiera cuando el ejercicio se archiva (regla 78):
+    las respuestas viejas siguen apuntando a él y reasignarlo haría que
+    describieran otro contenido. Como el archivo vive fuera del árbol del curso,
+    hay que ir a buscarlo a mano.
+
+    Sin esto, un ítem que archivó sus ejercicios más altos le da al siguiente
+    ejercicio nuevo un id que ya está quemado. Pasó de verdad: tras bajar
+    `analisis` a 15 ejercicios por ítem, dos de los tres ítems que recibieron
+    contenido nuevo habrían reusado un id (`linear/FORM` el 30 y
+    `quadratic/GRAF` el 29).
+    """
+    partes = path.parts
+    if "content" not in partes:
+        return 0
+    i = len(partes) - 1 - partes[::-1].index("content")
+    espejo = Path(*partes[:i + 1], "archive", *partes[i + 1:])
+    if not espejo.exists():
+        return 0
+    try:
+        archivados = json.loads(read_text(espejo))
+    except (OSError, ValueError):
+        return 0
+    mayor = 0
+    for entry in archivados if isinstance(archivados, list) else []:
+        existing = entry.get("id") if isinstance(entry, dict) else None
+        if isinstance(existing, str):
+            match = SUFFIX_RE.search(existing)
+            if match:
+                mayor = max(mayor, int(match.group(1)))
+    return mayor
+
+
 def stamp_file(path: Path, belt: str, topic: str, skill: str) -> tuple[str, list, int]:
     """Devuelve (texto nuevo, ids finales en orden, cuántos se estamparon)."""
     text = read_text(path)
@@ -123,7 +158,7 @@ def stamp_file(path: Path, belt: str, topic: str, skill: str) -> tuple[str, list
         )
 
     prefix = f"{belt}_{topic}_{skill}"
-    highest = 0
+    highest = sufijo_maximo_archivado(path)
     for entry in entries:
         existing = entry.get("id")
         if isinstance(existing, str):

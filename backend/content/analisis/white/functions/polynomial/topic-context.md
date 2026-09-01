@@ -59,22 +59,21 @@ Taxonomía diseñada leyendo los 200 ejercicios reales (jul-2026, mismo proceso 
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Identidades notables (BCP, dif. cuadrados, cubo binomio, suma/dif. cubos) | 4 | `identidades-notables` |
-| Multiplicidad de raíz (simple/doble/triple, toca vs. cruza) | 4 | `multiplicidad-raiz` |
-| Comportamiento en extremos según grado/signo | 2 | `comportamiento-extremos-infinito` |
+| Identidades notables (BCP, dif. cuadrados, cubo binomio, suma/dif. cubos) | 1 | `identidades-notables` |
+| Multiplicidad de raíz (simple/doble/triple, toca vs. cruza) | 1 | `multiplicidad-raiz` |
+| Comportamiento en extremos según grado/signo | 1 | `comportamiento-extremos-infinito` |
 | Identificar si una expresión es/no es polinomio (o monomio) | 1 | `identificar-polinomio` |
-| Grado de un polinomio dado (incl. caso grado 0) | 3 | `grado-identificacion` |
+| Grado de un polinomio dado (incl. caso grado 0) | 1 | `grado-identificacion` |
 | Nombre/lectura de coeficiente principal y término independiente | 1 | `coeficiente-termino-nombre` |
-| Cantidad máxima de raíces reales | 2 | `raices-cantidad-maxima` |
+| Cantidad máxima de raíces reales | 1 | `raices-cantidad-maxima` |
 | Cantidad máxima de extremos locales | 1 | `extremos-locales-maximo` |
-| Imagen según grado/paridad | 3 | `imagen-polinomio` |
-| Forma estándar vs. factorizada (para qué sirve, cómo se llama) | 2 | `forma-estandar-factorizada` |
+| Imagen según grado/paridad | 2 | `imagen-polinomio` |
+| Forma estándar vs. factorizada (para qué sirve, cómo se llama) | 1 | `forma-estandar-factorizada` |
 | Paridad de la función (par/impar, no confundir con paridad del grado) | 1 | `paridad-funcion` |
-| Grado de un producto/suma de polinomios | 2 | `grado-operaciones` |
-| Raíces complejas conjugadas | 1 | `raices-complejas-conjugadas` |
+| Grado de un producto/suma de polinomios | 1 | `grado-operaciones` |
 | Concepto de extremo global (mínimo/máximo global) | 1 | `extremo-global-concepto` |
-| Concepto de extremo local (qué significa un máx/mín local) | 2 | `extremo-local-concepto` |
-| **Total** | **30** | |
+| Concepto de extremo local (qué significa un máx/mín local) | 1 | `extremo-local-concepto` |
+| **Total** | **15** | |
 
 Nota: `contar-terminos` (cupo 1 → 0.6 redondeado por resto) quedó sin ejercicios tras el recorte; no generar más bajo ese slug salvo que se decida revertir el recorte.
 
@@ -82,44 +81,27 @@ Nota: `contar-terminos` (cupo 1 → 0.6 redondeado por resto) quedó sin ejercic
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Clasificar familia desde fórmula explícita | 8 | `clasificacion-desde-formula` |
-| Identificar si una expresión es/no es polinomio | 6 | `identificar-polinomio` |
-| Clasificar familia/grado desde un modelo cotidiano en prosa (montaña rusa, temperatura, caudal, ruta) | 7 | `clasificacion-desde-contexto` |
-| Imagen según grado/paridad/coeficiente | 5 | `imagen-polinomio` |
-| Clasificar familia desde gráfico (`graph_fn` o descripción de forma) | 4 | `clasificacion-desde-grafico` |
-| Leer raíces/coeficiente/extremos desde un `graph_fn` (sin clasificar familia) | 3 | `propiedades-desde-grafico` |
-| Grado y signo del coeficiente principal desde gráfico descrito | 3 | `grado-signo-desde-grafico` |
-| Monotonía global (creciente/decreciente en todo ℝ) | 3 | `monotonia-global` |
-| Monotonía por intervalo (dado extremos locales) | 2 | `monotonia-intervalo` |
-| Comportamiento en extremos según grado/signo (abstracto, sin contexto) | 2 | `comportamiento-extremos-infinito` |
-| Dominio de un polinomio | 1 | `dominio-polinomio` |
-| Cantidad máxima de raíces reales | 1 | `raices-cantidad-maxima` |
-| Cantidad máxima de extremos locales | 1 | `extremos-locales-maximo` |
-| Distinguir racional de polinómica (conceptual) | 1 | `distincion-racional-polinomica` |
-| Paridad de la función | 1 | `paridad-funcion` |
-| Raíces y grado desde forma factorizada explícita | 1 | `raices-grado-desde-formula` |
-| Multiplicidad de raíz | 1 | `multiplicidad-raiz` |
-| **Total** | **50** | |
+| **Total** | **15** | |
 
 **FORM (30):**
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Evaluar $p(\text{valor})$ | 5 | `evaluar-f` |
-| Identificar fórmula desde gráfico (`graph_fn`) | 3 | `grafico-a-formula` |
-| Expandir cubo de binomio $(a\pm b)^3$ | 3 | `expandir-cubo-binomio` |
-| Leer coeficientes desde forma estándar o factorizada | 3 | `leer-coeficientes` |
-| Expandir binomio cuadrado perfecto $(a\pm b)^2$ | 2 | `expandir-bcp` |
-| Factorizar suma/diferencia de cubos | 3 | `factorizar-suma-diferencia-cubos` |
-| Grado de un polinomio dado | 2 | `grado-desde-formula` |
-| Raíces desde forma factorizada (incl. multiplicidad) | 2 | `raices-desde-formula` |
-| Grado de un producto/suma de polinomios | 2 | `grado-operaciones` |
+| Evaluar $p(\text{valor})$ | 1 | `evaluar-f` |
+| Identificar fórmula desde gráfico (`graph_fn`) | 2 | `grafico-a-formula` |
+| Expandir cubo de binomio $(a\pm b)^3$ | 1 | `expandir-cubo-binomio` |
+| Leer coeficientes desde forma estándar o factorizada | 1 | `leer-coeficientes` |
+| Expandir binomio cuadrado perfecto $(a\pm b)^2$ | 1 | `expandir-bcp` |
+| Factorizar suma/diferencia de cubos | 1 | `factorizar-suma-diferencia-cubos` |
+| Grado de un polinomio dado | 1 | `grado-desde-formula` |
+| Raíces desde forma factorizada (incl. multiplicidad) | 1 | `raices-desde-formula` |
+| Grado de un producto/suma de polinomios | 1 | `grado-operaciones` |
 | Armar forma factorizada dadas las raíces | 1 | `armar-forma-factorizada` |
 | Factorizar diferencia de cuadrados | 1 | `factorizar-diferencia-cuadrados` |
 | Factorizar trinomio a binomio cuadrado perfecto | 1 | `factorizar-bcp` |
 | Contar términos de un polinomio dado | 1 | `contar-terminos` |
 | Expandir producto de tres factores (binomio al cuadrado por lineal) | 1 | `expandir-producto-tres-factores` |
-| **Total** | **30** | |
+| **Total** | **15** | |
 
 **GRAF (30):** conserva los tipos A/B/C ya documentados arriba, con slug por sub-familia dentro de cada tipo.
 
@@ -127,30 +109,30 @@ Nota: `contar-terminos` (cupo 1 → 0.6 redondeado por resto) quedó sin ejercic
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Extremos locales (cantidad) | 3 | `lectura-extremos-locales` |
-| Raíces (cantidad) | 2 | `lectura-raices` |
-| Grado (par/impar, mínimo posible) | 2 | `lectura-grado` |
-| Comportamiento en extremos ($x \to \pm\infty$) | 2 | `lectura-comportamiento-extremos` |
+| Extremos locales (cantidad) | 2 | `lectura-extremos-locales` |
+| Raíces (cantidad) | 1 | `lectura-raices` |
+| Grado (par/impar, mínimo posible) | 1 | `lectura-grado` |
+| Comportamiento en extremos ($x \to \pm\infty$) | 1 | `lectura-comportamiento-extremos` |
 | Ordenada al origen, $f(0)$ | 1 | `lectura-ordenada-origen` |
 | Multiplicidad de raíz (toca vs. cruza) | 1 | `lectura-multiplicidad-raiz` |
-| Imagen (acotada o ℝ) | 2 | `lectura-imagen` |
-| Extremo global (mínimo/máximo global) | 1 | `lectura-extremo-global` |
-| Signo del coeficiente principal | 1 | `lectura-signo-coeficiente` |
+| Dominio (es ℝ o está restringido) | 1 | `lectura-dominio` |
 | **Subtotal Tipo A** | **15** | |
 
-Nota: `lectura-dominio` (cupo 1 → 0.6 redondeado por resto) quedó sin ejercicios tras el recorte.
+Nota (sep-2026): `lectura-dominio` figuraba sin ejercicios, pero el ejercicio que le
+correspondía existía mal etiquetado: `white_polynomial_GRAF_14` pregunta por el dominio
+y llevaba el slug `lectura-imagen`. Se corrigió el tag y la tabla vuelve a cerrar.
 
-*Tipo B — identificar fórmula dado el gráfico (9):* todos bajo `grafico-a-formula` (mismo slug que en FORM, es la misma habilidad aplicada en GRAF).
+*Tipo B — identificar fórmula dado el gráfico (3):* todos bajo `grafico-a-formula` (mismo slug que en FORM, es la misma habilidad aplicada en GRAF).
 
 *Tipo C — contexto cotidiano + gráfico (6):*
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Extremos locales del modelo (picos/valles) | 2 | `contexto-extremos` |
-| Raíces del modelo (veces que vuelve a cero) | 2 | `contexto-raices` |
+| Extremos locales del modelo (picos/valles) | 1 | `contexto-extremos` |
+| Raíces del modelo (veces que vuelve a cero) | 1 | `contexto-raices` |
 | Signo del coeficiente principal en contexto | 1 | `contexto-signo-coeficiente` |
 | Extremo global en contexto | 1 | `contexto-extremo-global` |
-| **Subtotal Tipo C** | **6** | |
+| **Subtotal Tipo C** | **15** | |
 
 Nota: `contexto-comportamiento-extremos` (cupo 1 → 0.6 redondeado por resto) quedó sin ejercicios tras el recorte.
 

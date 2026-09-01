@@ -1,0 +1,461 @@
+[
+  {
+    "id": "white_linear_LEXI_01",
+    "question": "Distintas familias de funciones se reconocen por cómo aparece la variable en la fórmula.\n\n¿Cuál de estas expresiones representa una función lineal?",
+    "options": [
+      "$f(x) = x^2$",
+      "$f(x) = 3^x$",
+      "$f(x) = 5x - 2$",
+      "$f(x) = \\log(x)$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Una función lineal tiene la forma $f(x) = mx + b$, donde $m$ y $b$ son constantes.",
+    "feedback_incorrect": [
+      "El exponente 2 curva la gráfica en forma de parábola; en una lineal la $x$ aparece con exponente 1.",
+      "Acá la $x$ está en el exponente, y eso es el sello de la familia exponencial, no de una recta.",
+      null,
+      "Cuando la $x$ vive adentro de un logaritmo la función crece frenándose; una lineal cambia siempre al mismo ritmo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una función lineal es la que puede escribirse en la forma canónica:\n$$f(x) = mx + b$$\nAcá $m$ es la **pendiente**, que mide la inclinación de la recta, y $b$ es la **ordenada al origen**, el valor de la función cuando la entrada es cero.\n\nEste ejercicio presenta la función:\n$$f(x) = 5x - 2$$\nLa variable aparece con exponente 1, multiplicada por una constante y sumada a un término independiente: exactamente el molde $mx + b$, así que su gráfica es una línea recta.\n\nSi la $x$ aparece elevada al cuadrado, en un exponente o dentro de un logaritmo, la función pertenece a otra familia: lo que importa es dónde aparece la variable, no su aspecto general.",
+    "reviewed": false,
+    "tags": [
+      "identificacion-formula"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "FACIL",
+      "razon": "'Cual de estas expresiones es lineal', P1 100%. La familia identificacion-formula tenia 6 ejercicios y cinco de ellos miden 100%."
+    }
+  },
+  {
+    "id": "white_linear_LEXI_02",
+    "question": "Tres de estas cuatro expresiones comparten familia y una se escapa.\n\n¿Cuál de estas **no** es una función lineal?",
+    "options": [
+      "$f(x) = 3x + 4$",
+      "$f(x) = x^2 + 1$",
+      "$f(x) = -x + 7$",
+      "$f(x) = 5$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f(x) = x^2 + 1$ tiene un término cuadrático, por eso NO es lineal.",
+    "feedback_incorrect": [
+      "$3x + 4$ tiene la $x$ con exponente 1 y responde al molde $mx + b$, así que es lineal.",
+      null,
+      "$-x + 7$ es $mx + b$ con $m = -1$: el signo negativo no la saca de la familia lineal.",
+      "$f(x) = 5$ es una lineal con pendiente cero: se escribe $0 \\cdot x + 5$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una función lineal tiene la forma $f(x) = mx + b$, con la variable $x$ apareciendo solo con exponente 1.\n\nUna constante como $f(x) = 5$ también entra en el molde, con **pendiente** $m = 0$.\n\nEn.\n$$f(x) = x^2 + 1$$\nEl término $x^2$ tiene exponente 2: la gráfica deja de ser una recta y pasa a ser una parábola.\n\nEs una función cuadrática.\n\nSi no evitás mezclar los conceptos, sucede que las constantes son lineales de pendiente cero; la que queda afuera es la que eleva la variable.",
+    "reviewed": false,
+    "tags": [
+      "identificacion-formula"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "FACIL",
+      "razon": "Idem 01 en negativo ('cual NO es lineal'), P1 100% con n=1."
+    }
+  },
+  {
+    "id": "white_linear_LEXI_04",
+    "question": "Una función tiene que ubicarse dentro de su familia:\n$$f(x) = 4 - x$$\n¿A qué familia pertenece?",
+    "options": [
+      "Cuadrática",
+      "Exponencial",
+      "Logarítmica",
+      "Función lineal"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$4 - x$ puede escribirse como $-x + 4$, que es la forma $mx + b$: lineal.",
+    "feedback_incorrect": [
+      "Para ser cuadrática necesitaría un término con $x^2$, y acá la $x$ aparece con exponente 1.",
+      "Sería exponencial si la $x$ estuviera en el exponente, como en $3^x$.",
+      "Sería logarítmica si la $x$ apareciera dentro de un logaritmo.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "A veces una función lineal no viene escrita en la forma canónica:\n$$f(x) = mx + b$$\nReordenando los términos:\n$$f(x) = 4 - x = -x + 4$$\nSe lee $m = -1$ y $b = 4$.\n\nEs una función lineal con **pendiente** negativa y **ordenada al origen** $4$: la familia depende de que $x$ tenga exponente 1, no del orden de los términos ni de la presencia de paréntesis.\n\nCuando el enunciado venga desordenado, conviene reescribirlo primero en la forma $mx + b$: leer los parámetros sin reordenar antes es la fuente más común de errores de signo.",
+    "reviewed": false,
+    "tags": [
+      "identificacion-formula"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "FACIL",
+      "razon": "'A que familia pertenece f(x)=4-x', P1 100%. Tenia un reporte de contenido del 12/08 ('mal redactadas las opciones') que ya fue atendido el 24/08; el descarte es por facil, no por roto."
+    }
+  },
+  {
+    "id": "white_linear_LEXI_06",
+    "question": "Cada familia de funciones deja una marca reconocible en su gráfico.\n\n¿Cuál es la característica visual distintiva de una función lineal?",
+    "options": [
+      "Es periódica",
+      "Su gráfica es una parábola",
+      "Tiene asíntotas horizontales",
+      "Su gráfica es una línea recta"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "La gráfica de toda función lineal $f(x) = mx + b$ es siempre una línea recta.",
+    "feedback_incorrect": [
+      "Periódica es una función que repite un patrón, como el seno; una recta nunca vuelve a repetirse.",
+      "La parábola es la marca de las cuadráticas: aparece cuando hay un término $x^2$.",
+      "Las asíntotas horizontales aparecen en exponenciales o racionales; una recta con pendiente no nula sube o baja sin frenarse.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La gráfica de toda función lineal:\n$$f(x) = mx + b$$\nEs siempre una línea recta. La razón es que la **pendiente** es constante: por cada unidad que avanza la entrada, la salida cambia exactamente lo mismo.\n\nPor eso la gráfica no se curva, no oscila y no tiene extremos: según el signo de $m$, es ascendente si es positiva, descendente si es negativa, u horizontal si vale cero.\n\nSi una gráfica se dobla aunque sea apenas un poco, la tasa de cambio deja de ser constante y la función no puede ser lineal.",
+    "reviewed": false,
+    "tags": [
+      "propiedades-generales"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "FACIL",
+      "razon": "'Caracteristica visual distintiva de una lineal', P1 100%."
+    }
+  },
+  {
+    "id": "white_linear_LEXI_10",
+    "question": "El dominio natural es el conjunto de entradas para las que la fórmula tiene sentido:\n$$f(x) = ax + b$$\n¿Cuál es el **dominio natural** de una función lineal?",
+    "options": [
+      "$(0, +\\infty)$",
+      "$[a, +\\infty)$",
+      "$\\mathbb{R}$",
+      "$\\mathbb{R} \\setminus \\{0\\}$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Las funciones lineales están definidas para todo $x \\in \\mathbb{R}$, ya que solo involucran suma y multiplicación.",
+    "feedback_incorrect": [
+      "Ese conjunto excluye a los negativos y al cero, pero nada impide evaluar una recta ahí.",
+      "El parámetro $a$ es la pendiente y no restringe qué entradas se pueden usar.",
+      null,
+      "Excluir el cero haría falta si hubiera una división por $x$, y acá no la hay."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **dominio** natural de una función es el conjunto más grande de números reales donde la fórmula está definida.\n\nEn la función:\n$$f(x) = ax + b$$\nLas únicas operaciones son multiplicar por $a$ y sumar $b$, y ambas dan resultado para cualquier real: no hay divisiones que se anulen, raíces de negativos ni logaritmos involucrados.\n\nPor eso el dominio de toda función lineal es $\\mathbb{R}$.\n\nLas restricciones de dominio aparecen cuando la variable queda en un denominador, dentro de una raíz de índice par o de un logaritmo; si ves alguna de esas, la función ya no es lineal.",
+    "reviewed": false,
+    "tags": [
+      "dominio-imagen"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "FACIL",
+      "razon": "'Dominio natural de una lineal' = R, P1 100%. No hay nada que decidir."
+    }
+  },
+  {
+    "id": "white_linear_LEXI_12",
+    "question": "La **pendiente** se puede describir con palabras, sin escribir ninguna fórmula.\n\n¿Qué significado tiene en términos de variación?",
+    "options": [
+      "Es el valor de $f(0)$",
+      "Es la raíz de la función",
+      "Es la tasa de cambio"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "La pendiente mide cuánto varía $f(x)$ por cada unidad que aumenta $x$.",
+    "feedback_incorrect": [
+      "$f(0)$ es la ordenada al origen, el otro parámetro de la recta.",
+      "La raíz es el valor de $x$ que anula la función; no mide variación.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **pendiente** $m$ es la tasa de cambio de la función, es decir, cuánto varía la salida por cada unidad que cambia la entrada.\n\nEn una función lineal esta tasa es constante: con pendiente $m = 3$, cada vez que la entrada sube una unidad, la salida sube exactamente $3$, en cualquier tramo de la recta.\n\nEs el dato clave para interpretar contextos cotidianos: tarifas por kilómetro, ritmos de llenado o velocidades son siempre pendientes, nunca valores iniciales.",
+    "reviewed": false,
+    "tags": [
+      "nombre-parametros"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "'Que significa la pendiente en terminos de variacion', P1 100%, y el 03 ya nombra el parametro con mas discriminacion (67%)."
+    }
+  },
+  {
+    "id": "white_linear_LEXI_13",
+    "question": "Una función lineal deja su coeficiente sin escribir:\n$$f(x) = -x$$\n¿Cuál es la **pendiente**?",
+    "options": [
+      "$0$",
+      "$-1$",
+      "$1$",
+      "$x$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La pendiente es $m = -1$.",
+    "feedback_incorrect": [
+      "Pendiente 0 sería una constante horizontal, y esta recta baja.",
+      null,
+      "El signo cuenta: $-x$ es $(-1) \\cdot x$, no $(+1) \\cdot x$.",
+      "$x$ es la variable, no el coeficiente que la multiplica."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La función.\n$$f(x) = -x$$\nPuede escribirse en forma canónica:Con **pendiente** $m = -1$ y **ordenada al origen** $b = 0$.\n\nLa recta pasa por el origen $(0, 0)$ y baja una unidad por cada unidad que avanza $x$: es decreciente.\n\nCuando la variable aparece sola con un signo menos, el coeficiente es $-1$ aunque no esté escrito; leer pendiente $1$ sin el signo es el error clásico.",
+    "reviewed": false,
+    "tags": [
+      "pendiente-calculo"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "FACIL",
+      "razon": "P1 100%. El coeficiente implicito de f(x)=-x parecia una trampa y los datos dicen que nadie cae; el 09 cubre pendiente-calculo midiendo 62%."
+    }
+  },
+  {
+    "id": "white_linear_LEXI_16",
+    "question": "Una función lineal trae un coeficiente con signo propio:\n$$f(x) = -2x + 5$$\n¿En qué intervalo decrece?",
+    "options": [
+      "$(0, +\\infty)$",
+      "Todos los reales",
+      "$(-\\infty, 5/2)$",
+      "$(5/2, +\\infty)$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Como $m = -2 < 0$, la función es decreciente en todo $\\mathbb{R}$.",
+    "feedback_incorrect": [
+      "La recta también baja en los negativos; el 0 no marca ningún cambio.",
+      null,
+      "Ese intervalo termina en la raíz $x = 5/2$, pero ahí la función solo cruza el eje, no cambia de dirección.",
+      "A la derecha de la raíz la función sigue bajando igual que antes: no hay cambio de monotonía."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para la función:\n$$f(x) = -2x + 5$$\nLa **pendiente** es $m = -2 < 0$: la función es decreciente en todo $\\mathbb{R}$.\n\nLa monotonía de una recta es global: por cada unidad que avanza $x$, la salida baja 2 unidades, tanto a la izquierda como a la derecha de cualquier punto.\n\nEl valor $x = 5/2$, donde $f(x) = 0$, es la raíz: ahí la función cambia de signo, pero no de monotonía. No confundas cambio de signo con cambio de dirección.",
+    "reviewed": false,
+    "tags": [
+      "monotonia-signo-pendiente"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "DOMINADO",
+      "razon": "Votado aburrido con razon 'ya lo sabia'. La monotonia queda cubierta por el 15, que ademas discrimina mejor (56% contra 67%)."
+    }
+  },
+  {
+    "id": "white_linear_LEXI_17",
+    "question": "La raíz de una función es el valor de entrada que la anula:\n$$f(x) = 3x - 9$$\n¿Cuál es la raíz de esta recta?",
+    "options": [
+      "$x = 3$",
+      "$x = -3$",
+      "$x = 9$",
+      "$x = 0$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La raíz es $x = 3$.",
+    "feedback_incorrect": [
+      null,
+      "El signo queda al revés en el despeje: de $3x = 9$ sale $x = 3$, positivo.",
+      "$9$ es el término independiente sin dividir por el coeficiente 3.",
+      "$x = 0$ da $f(0) = -9$, que es la ordenada al origen, no la raíz."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La raíz de una función es el valor de $x$ donde $f(x) = 0$.\n\nPara $f(x) = 3x - 9$, la verificación da:\n$$f(3) = 3 \\cdot 3 - 9 = 0$$\nLa fórmula general para una lineal es $x = -b/m$; acá $x = -(-9)/3 = 3$.\n\nAl despejar conviene cambiar de signo el término independiente antes de dividir por el coeficiente de $x$: mezclar ese paso es la fuente más común de error de signo.",
+    "reviewed": false,
+    "tags": [
+      "raiz-calculo"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Misma raiz que el 18 con otros numeros, P1 100% y n=3 contra n=9."
+    }
+  },
+  {
+    "id": "white_linear_LEXI_19",
+    "question": "Un abono de celular es $P(g) = 1200 + 80g$ pesos, donde $g$ son los GB extra contratados.\n\n¿Cuál es la tarifa por GB?",
+    "options": [
+      "$1200$",
+      "$1200 + 80$",
+      "$80$",
+      "$g$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "La tarifa por GB es el coeficiente de $g$: $m = 80$ pesos/GB.",
+    "feedback_incorrect": [
+      "$1200$ es el abono fijo del mes, lo que se paga sin consumir GB extra.",
+      "Esa suma es lo que costaría el mes con un GB extra, $P(1)$, no la tarifa unitaria.",
+      null,
+      "$g$ es la variable que representa los GB consumidos, no un precio."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En esta fórmula, la tarifa por GB es el coeficiente que multiplica a $g$: la **pendiente** $m = 80$.\n\nEl abono fijo mensual es la **ordenada al origen** $b = 1200$, que se paga aunque no haya consumo extra. Cada GB adicional suma 80 pesos a la factura: eso es lo que significa la pendiente acá.\n\nResponder el número más grande por parecer más importante confunde tamaño con rol: la posición en la fórmula decide si un valor es la pendiente o la ordenada al origen, no su magnitud.",
+    "reviewed": false,
+    "tags": [
+      "parametros-contexto"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "'Tarifa por GB' es el mismo leer-parametro-en-contexto que el 20, que ademas fue reparado tras un reporte y tiene voto de interes positivo."
+    }
+  },
+  {
+    "id": "white_linear_LEXI_21",
+    "question": "Un sueldo es $S(v) = 3000 + 50v$ pesos, donde $v$ es la cantidad de ventas.\n\n¿Cuál es el sueldo base cuando no hay ninguna venta?",
+    "options": [
+      "$3000$",
+      "$50$",
+      "$50v$",
+      "$3050$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El sueldo base es la ordenada al origen: $b = 3000$ pesos.",
+    "feedback_incorrect": [
+      null,
+      "$50$ es la comisión por venta, el coeficiente de $v$: la pendiente.",
+      "$50v$ es el término variable completo, que vale 0 cuando no hay ventas.",
+      "$3050$ es el sueldo con una venta, $S(1)$, no el básico."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El sueldo sigue la forma canónica de una función lineal, con **pendiente** $m = 50$, la comisión por venta, y **ordenada al origen** $b = 3000$, el sueldo base.\n\nEl sueldo base es lo que se cobra sin vender nada:\n$$S(0) = 3000$$\nEs el término que no depende de la variable $v$.\n\nPara verificar cualquier lectura de parámetros en un contexto, evaluá la función en cero: lo que queda siempre es la parte fija, nunca la que depende de la variable.",
+    "reviewed": false,
+    "tags": [
+      "parametros-contexto"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "DOMINADO",
+      "razon": "Votado aburrido con razon 'ya lo sabia'; y el sueldo base con v=0 es leer b, que el 08 ya hace."
+    }
+  },
+  {
+    "id": "white_linear_LEXI_22",
+    "question": "Reconocer la familia de una función es el primer paso antes de usar cualquier propiedad:\n$$f(x) = \\log(x)$$\n¿A qué familia pertenece?",
+    "options": [
+      "Lineal",
+      "Cuadrática",
+      "Logarítmica",
+      "Exponencial"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$\\log(x)$ no es lineal porque $x$ está dentro de un logaritmo, no como $mx + b$.",
+    "feedback_incorrect": [
+      "En una lineal la $x$ aparece multiplicada por una constante, nunca dentro de un logaritmo.",
+      "La cuadrática requiere un término $x^2$, y acá no lo hay.",
+      null,
+      "La exponencial pone la $x$ en el exponente; el logaritmo es su función inversa."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En la función:\n$$f(x) = \\log(x)$$\nLa variable está dentro de un logaritmo, así que la función es logarítmica, no lineal.\n\nSus rasgos la separan de una recta: su **dominio** es solo $(0, +\\infty)$ y crece cada vez más despacio, mientras que una lineal está definida en todo $\\mathbb{R}$ y avanza siempre al mismo ritmo.\n\nRegla rápida según dónde aparece la variable: multiplicada por una constante es lineal, al cuadrado es cuadrática, en el exponente es exponencial, y dentro de un logaritmo es logarítmica.",
+    "reviewed": false,
+    "tags": [
+      "identificacion-formula"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "FACIL",
+      "razon": "'A que familia pertenece log(x)', P1 100%. Cuarta variante de identificacion-formula."
+    }
+  },
+  {
+    "id": "white_linear_LEXI_27",
+    "question": "Comparar dos rectas escritas una al lado de la otra es la forma más rápida de ver qué las separa:\n$$y = 2x, \\quad y = 2x + 3$$\n¿Qué diferencia hay entre ellas?",
+    "options": [
+      "La primera no es una función lineal",
+      "La segunda tiene mayor inclinación",
+      "Misma pendiente, distinta altura"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Las dos tienen pendiente $2$; lo único que cambia es la ordenada al origen.",
+    "feedback_incorrect": [
+      "$y = 2x$ es perfectamente lineal: es el caso con ordenada al origen cero.",
+      "La inclinación la fija la pendiente, que es 2 en ambas; el $+3$ no empina, desplaza.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Ambas rectas comparten la **pendiente** $m = 2$: tienen exactamente la misma inclinación.\n\nLo que cambia es la **ordenada al origen**. La recta $y = 2x$ pasa por $(0, 0)$, mientras que:\n$$y = 2x + 3$$\nPasa por $(0, 3)$. Geométricamente, la segunda es la primera desplazada 3 unidades hacia arriba.\n\nAl tener igual pendiente, ambas rectas son paralelas y nunca se cruzan: sumar una constante solo traslada la recta, sin cambiar su inclinación. Empinarla exige tocar el coeficiente de $x$.",
+    "reviewed": false,
+    "tags": [
+      "nombre-parametros"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Comparar y=2x contra y=2x+3 es leer la ordenada al origen, que es exactamente lo que hace el 08."
+    }
+  },
+  {
+    "id": "white_linear_LEXI_28",
+    "question": "La cantidad de rectas que cumplen una condición dada depende de cuántos datos se fijen de antemano.\n\n¿Cuántas rectas pasan por dos puntos distintos dados?",
+    "options": [
+      "Una en el contexto",
+      "Infinitas",
+      "Depende de los puntos"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Por dos puntos distintos pasa exactamente una recta lineal.",
+    "feedback_incorrect": [
+      null,
+      "Infinitas pasan por un solo punto; el segundo punto fija la pendiente y elimina esa libertad.",
+      "Para dos puntos con distinta abscisa la respuesta es siempre la misma: exactamente una."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Dados dos puntos distintos del plano, con abscisas diferentes, existe una única función lineal que pasa por ambos.\n\nLa **pendiente** queda forzada por el cociente entre las diferencias de los puntos:\n$$m = \\frac{y_2 - y_1}{x_2 - x_1}$$\nY la **ordenada al origen** se despeja sustituyendo cualquiera de los dos puntos en $f(x) = mx + b$.\n\nDos condiciones para dos parámetros: el sistema queda cerrado y la solución es única.\n\nEs el principio de que dos puntos determinan una recta: con un solo punto el problema queda abierto, y un tercer punto cualquiera puede volverlo imposible.",
+    "reviewed": false,
+    "tags": [
+      "propiedades-generales"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "COBERTURA",
+      "razon": "'Cuantas rectas pasan por dos puntos distintos' es trivia de geometria, no una propiedad de la funcion lineal, y su concepto no se reusa en limites ni en derivadas. Es el unico descarte del item que saca contenido en vez de repeticion."
+    }
+  },
+  {
+    "id": "white_linear_LEXI_29",
+    "question": "Restringir el **dominio** de una función también recorta el conjunto de valores que devuelve:\n$$f(x) = 3x + 2$$\n¿Cuál es su **imagen** si el dominio se limita a $[0, 5]$?",
+    "options": [
+      "$[0, 5]$",
+      "$[2, 17]$",
+      "$[3, 15]$",
+      "$(0, 5)$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f(0) = 2$ y $f(5) = 17$. Como es creciente, la imagen es $[2, 17]$.",
+    "feedback_incorrect": [
+      "Ese es el dominio de entrada, no lo que devuelve la función.",
+      null,
+      "Esos valores salen de multiplicar los extremos por 3 sin sumarles el 2 de la fórmula.",
+      "Ese intervalo repite el dominio y además excluye los extremos, que sí se alcanzan."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Para hallar la **imagen** sobre un **dominio** restringido, evaluá la función en los extremos del intervalo.\n\nComo $f$ es creciente, con $m = 3 > 0$, evaluando la función en los extremos:\n$$\\begin{aligned} f(0) &= 2 \\\\ f(5) &= 17 \\end{aligned}$$\nLa imagen del intervalo $[0, 5]$ es $[2, 17]$.\n\nEl intervalo de salida hereda los corchetes: si el dominio incluye sus extremos, la imagen también.\n\nEl tropiezo habitual es aplicar solo el coeficiente a cada extremo y dejar el término independiente afuera, o directamente devolver el propio dominio como si fuera la imagen.",
+    "reviewed": false,
+    "tags": [
+      "dominio-imagen"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Imagen de 3x+2 restringida a [0,5]. El 30 pide lo mismo con pendiente NEGATIVA, donde el orden de los extremos se da vuelta, que es la unica parte no mecanica del calculo."
+    }
+  }
+]

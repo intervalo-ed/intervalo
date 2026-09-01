@@ -59,7 +59,7 @@ Completar con `array<string|null>` paralelo a `options`, `null` en el índice co
 
 ---
 
-## LEXI, 30 ejercicios
+## LEXI, 15 ejercicios
 
 ### Qué evalúa
 Reconocimiento visual del **conjugado**, afianzamiento de la **identidad de diferencia de cuadrados** aplicada a raíces, y justificación algebraica de la técnica (por qué "arriba y abajo", cuándo aplicarla).
@@ -75,10 +75,10 @@ Reconocimiento visual del **conjugado**, afianzamiento de la **identidad de dife
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Identificación del conjugado | Dada una expresión con raíz (ej. $\sqrt{x + 4} - 2$), elegir su conjugado exacto. **Cuidar**: el signo interno de la raíz no se altera, solo se invierte el signo entre los dos términos externos. | `identificacion-del-conjugado` | 9 |
-| B. Identidad fundamental | Evaluar el resultado abstracto de multiplicar una raíz por su conjugado. Confirmar que $(\sqrt{u} - c)(\sqrt{u} + c) = u - c^2$; identificar el resultado en casos concretos. | `identidad-fundamental-conjugado` | 9 |
-| C. Diagnóstico de técnica | Distinguir cuándo corresponde **racionalizar** (hay raíz cuadrada + $\tfrac{0}{0}$) y cuándo **factorizar** (no hay raíz, solo polinomios). Un caso híbrido también puede requerir ambas. | `diagnostico-racionalizar-vs-factorizar` | 6 |
-| D. Propósito lógico | Preguntas teóricas: por qué se multiplica arriba **y** abajo (para multiplicar por $1$, no alterar la función), cuál es el objetivo de quebrar la raíz (exponer el factor $(x - a)$ para cancelar), qué pasa si multiplico solo el numerador. | `proposito-logico-conjugado` | 6 |
+| A. Identificación del conjugado | Dada una expresión con raíz (ej. $\sqrt{x + 4} - 2$), elegir su conjugado exacto. **Cuidar**: el signo interno de la raíz no se altera, solo se invierte el signo entre los dos términos externos. | `identificacion-del-conjugado` | 5 |
+| B. Identidad fundamental | Evaluar el resultado abstracto de multiplicar una raíz por su conjugado. Confirmar que $(\sqrt{u} - c)(\sqrt{u} + c) = u - c^2$; identificar el resultado en casos concretos. | `identidad-fundamental-conjugado` | 4 |
+| C. Diagnóstico de técnica | Distinguir cuándo corresponde **racionalizar** (hay raíz cuadrada + $\tfrac{0}{0}$) y cuándo **factorizar** (no hay raíz, solo polinomios). Un caso híbrido también puede requerir ambas. | `diagnostico-racionalizar-vs-factorizar` | 3 |
+| D. Propósito lógico | Preguntas teóricas: por qué se multiplica arriba **y** abajo (para multiplicar por $1$, no alterar la función), cuál es el objetivo de quebrar la raíz (exponer el factor $(x - a)$ para cancelar), qué pasa si multiplico solo el numerador. | `proposito-logico-conjugado` | 3 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Conjugado con signo interno alterado**: para $\sqrt{x + 4} - 2$ dar $\sqrt{x - 4} + 2$ (invertir el signo dentro de la raíz). Recordar: el conjugado invierte solo el signo entre los dos términos externos, no dentro del radicando.
@@ -96,7 +96,7 @@ Reconocimiento visual del **conjugado**, afianzamiento de la **identidad de dife
 
 ---
 
-## RESL, 30 ejercicios
+## RESL, 15 ejercicios
 
 ### Qué evalúa
 Ejecutar la **multiplicación por el conjugado**, simplificar la **diferencia de cuadrados**, cancelar el factor común $(x - a)$ y evaluar el límite por sustitución directa.
@@ -112,9 +112,9 @@ Ejecutar la **multiplicación por el conjugado**, simplificar la **diferencia de
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Raíz en el numerador | Límites donde la indeterminación viene de una raíz en la parte superior. Ejemplo: $\lim_{x \to 0} \tfrac{\sqrt{x + 9} - 3}{x}$. Multiplicar por conjugado del numerador. | `raiz-en-el-numerador` | 12 |
-| B. Raíz en el denominador | Límites donde el conjugado se aplica para limpiar la parte inferior. Ejemplo: $\lim_{x \to 4} \tfrac{x - 4}{\sqrt{x} - 2}$. Multiplicar por conjugado del denominador. | `raiz-en-el-denominador` | 12 |
-| C. Cancelación con signos ocultos | Límites donde, tras racionalizar, el factor resultante tiene signos invertidos y hay que extraer un $-1$ para poder cancelar. Ejemplo: $\lim_{x \to 4} \tfrac{4 - x}{\sqrt{x} - 2}$: $4 - x = -(x - 4)$. | `cancelacion-signos-ocultos` | 6 |
+| A. Raíz en el numerador | Límites donde la indeterminación viene de una raíz en la parte superior. Ejemplo: $\lim_{x \to 0} \tfrac{\sqrt{x + 9} - 3}{x}$. Multiplicar por conjugado del numerador. | `raiz-en-el-numerador` | 6 |
+| B. Raíz en el denominador | Límites donde el conjugado se aplica para limpiar la parte inferior. Ejemplo: $\lim_{x \to 4} \tfrac{x - 4}{\sqrt{x} - 2}$. Multiplicar por conjugado del denominador. | `raiz-en-el-denominador` | 6 |
+| C. Cancelación con signos ocultos | Límites donde, tras racionalizar, el factor resultante tiene signos invertidos y hay que extraer un $-1$ para poder cancelar. Ejemplo: $\lim_{x \to 4} \tfrac{4 - x}{\sqrt{x} - 2}$: $4 - x = -(x - 4)$. | `cancelacion-signos-ocultos` | 3 |
 
 ### Mezcla obligatoria: mitad valor final, mitad paso troceado
 
