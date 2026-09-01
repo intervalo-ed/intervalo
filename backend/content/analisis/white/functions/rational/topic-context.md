@@ -196,11 +196,10 @@ Diseñada originalmente leyendo los 200 ejercicios reales (dump de `question`+op
 | Evaluación en un agujero (no está definida) | 1 | `evaluacion-en-agujero` |
 | Evaluación aproximada leída del gráfico | 1 | `evaluacion-desde-grafico` |
 | Lectura directa del gráfico (AV/AH/valor, "observá la gráfica") | 2 | `lectura-grafico-directa` |
-| Interceptos con los ejes | 4 | `interceptos-ejes-form` |
+| Interceptos con los ejes | 5 | `interceptos-ejes-form` |
 | Fórmula desde propiedades (AV+AH+punto dados) | 1 | `formula-desde-propiedades` |
 | Transformaciones (desplazamiento) | 1 | `transformaciones-form` |
 | Combinado AV+AH+valor puntual en un mismo ejercicio | 3 | `combinado-av-ah-valor` |
-| Comportamiento en el infinito | 1 | `comportamiento-infinito-form` |
 | Hallar un parámetro $k$ dado un punto de paso | 1 | `hallar-parametro-k` |
 | **Total** | **30** | |
 
@@ -260,6 +259,10 @@ Los bancos de este topic están completos (30 por skill) y sus `tags` están bie
 - **FORM** `asintota-vertical-calculo`: la tabla decía 2, el banco tiene 3
 - **FORM** `formula-desde-grafico-form`: la tabla decía 2, el banco tiene 1
 - **FORM** `interceptos-ejes-form`: la tabla decía 3, el banco tiene 4
+- **FORM** (sep-2026) `comportamiento-infinito-form` se retira: su único ejercicio,
+  `white_rational_FORM_16`, pregunta por el intercepto con el eje X y no por el
+  comportamiento lejos del origen. Pasó a `interceptos-ejes-form`, que queda en 5.
+  El comportamiento en el infinito lo cubre `asintota-horizontal-calculo`.
 
 Filas borradas (sub-familias sin ningún ejercicio en el banco):
 

@@ -133,12 +133,15 @@ Nota: `contar-terminos` (cupo 1 → 0.6 redondeado por resto) quedó sin ejercic
 | Comportamiento en extremos ($x \to \pm\infty$) | 2 | `lectura-comportamiento-extremos` |
 | Ordenada al origen, $f(0)$ | 1 | `lectura-ordenada-origen` |
 | Multiplicidad de raíz (toca vs. cruza) | 1 | `lectura-multiplicidad-raiz` |
-| Imagen (acotada o ℝ) | 2 | `lectura-imagen` |
+| Imagen (acotada o ℝ) | 1 | `lectura-imagen` |
+| Dominio (es ℝ o está restringido) | 1 | `lectura-dominio` |
 | Extremo global (mínimo/máximo global) | 1 | `lectura-extremo-global` |
 | Signo del coeficiente principal | 1 | `lectura-signo-coeficiente` |
 | **Subtotal Tipo A** | **15** | |
 
-Nota: `lectura-dominio` (cupo 1 → 0.6 redondeado por resto) quedó sin ejercicios tras el recorte.
+Nota (sep-2026): `lectura-dominio` figuraba sin ejercicios, pero el ejercicio que le
+correspondía existía mal etiquetado: `white_polynomial_GRAF_14` pregunta por el dominio
+y llevaba el slug `lectura-imagen`. Se corrigió el tag y la tabla vuelve a cerrar.
 
 *Tipo B — identificar fórmula dado el gráfico (9):* todos bajo `grafico-a-formula` (mismo slug que en FORM, es la misma habilidad aplicada en GRAF).
 

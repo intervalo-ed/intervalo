@@ -84,7 +84,7 @@
   },
   {
     "id": "white_rational_FORM_04",
-    "question": "Para la función:\n$$f(x) = \\dfrac{3x + 1}{x - 2}$$\nCuando $x \\to \\infty$?",
+    "question": "Para la función:\n$$f(x) = \\dfrac{3x + 1}{x - 2}$$\n¿Cuál es su **asíntota horizontal**?",
     "options": [
       "$y = 1$",
       "$y = 3$",
@@ -188,7 +188,7 @@
   },
   {
     "id": "white_rational_FORM_08",
-    "question": "Dada la función:\n$$g(x) = \\dfrac{x^2 + 1}{x + 3}$$\n¿Cuánto vale $g(-2)$ si?",
+    "question": "Dada la función:\n$$g(x) = \\dfrac{x^2 + 1}{x + 3}$$\n¿Cuánto vale $g(-2)$?",
     "options": [
       "$\\dfrac{5}{2}$",
       "$5$",
@@ -214,7 +214,7 @@
   },
   {
     "id": "white_rational_FORM_09",
-    "question": "Sea la función:\n$$f(x) = \\dfrac{3x + 6}{x - 4}$$\n¿Cuánto vale $f(0)$ si?",
+    "question": "Sea la función:\n$$f(x) = \\dfrac{3x + 6}{x - 4}$$\n¿Cuánto vale $f(0)$?",
     "options": [
       "$\\dfrac{3}{2}$",
       "$6$",
@@ -399,7 +399,7 @@
     "question": "Sea la función:\n$$f(x) = \\dfrac{5}{x - 2}$$\n¿Tiene intercepto con el eje $X$ la función?",
     "options": [
       "Sí, en $x = 5$",
-      "No, no siempre",
+      "No, no tiene",
       "Sí, en $x = 2$",
       "Sí, en $x = 0$"
     ],
@@ -417,7 +417,7 @@
     "explanation": "Una función vale cero únicamente donde su numerador se anula.\n\nAcá el numerador es la constante $5$, que nunca vale cero sin importar $x$.\n\nPor lo tanto, la función **no tiene intercepto con el eje $X$**: nunca toca el eje horizontal, solo se acerca a él.\n\nEsta pregunta no es la misma que hallar la asíntota vertical, que sí existe en $x=2$ pero corresponde a otro concepto.",
     "reviewed": false,
     "tags": [
-      "comportamiento-infinito-form"
+      "interceptos-ejes-form"
     ]
   },
   {
@@ -567,7 +567,7 @@
   },
   {
     "id": "white_rational_FORM_22",
-    "question": "Tomá en cuenta la función:\n$$f(x) = \\dfrac{1}{x + 5} - 2$$\n¿Cuál es la AV?",
+    "question": "Tomá en cuenta la función:\n$$f(x) = \\dfrac{1}{x + 5} - 2$$\n¿Cuál es su **asíntota vertical**?",
     "options": [
       "$x = 5$",
       "$x = -2$",

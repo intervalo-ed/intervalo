@@ -347,7 +347,7 @@
     "question": "Igualar a cero una parábola escrita así lleva a despejar un cuadrado:\n$$f(x) = -(x - 2)^2 + 16$$\n¿Cuáles son las raíces?",
     "options": [
       "$x = 2$ y $x = 16$",
-      "$x = -2$ y $x = 6$",
+      "$x = -6$ y $x = 2$",
       "$x = 4$ y $x = -4$",
       "$x = 6$ y $x = -2$"
     ],
