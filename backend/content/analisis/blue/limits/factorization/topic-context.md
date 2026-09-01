@@ -58,7 +58,7 @@ Completar con `array<string|null>` paralelo a `options`, `null` en el índice co
 
 ---
 
-## LEXI, 30 ejercicios
+## LEXI, 15 ejercicios
 
 ### Qué evalúa
 Reconocimiento visual de **estructuras polinómicas** (formas típicas de factoreo) y afianzamiento de la **lógica de cancelación** detrás del método. Este skill no calcula límites completos: se enfoca en la identificación del caso y en la teoría del teorema del factor.
@@ -74,10 +74,10 @@ Reconocimiento visual de **estructuras polinómicas** (formas típicas de factor
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Identificación de casos de factoreo | Dada una expresión como $x^2 - 16$ o $x^2 + 6x + 9$, clasificarla (diferencia de cuadrados, trinomio cuadrado perfecto, factor común, trinomio general) o elegir su forma factorizada correcta. | `identificacion-casos-factoreo` | 9 |
-| B. Teorema del factor | Asociar $\tfrac{0}{0}$ en $x = a$ con la existencia obligatoria del factor $(x - a)$ tanto en el numerador como en el denominador. La cancelación de ese factor es lo que salva la indeterminación. | `teorema-del-factor` | 9 |
-| C. Naturaleza de la indeterminación | Consolidar que $\tfrac{0}{0}$ no es un valor ($\neq 1$, $\neq 0$, $\neq \infty$), sino un **indicador** de que existe un factor común cancelable. | `naturaleza-indeterminacion` | 6 |
-| D. Racionalización vs factorización | Distinguir cuándo corresponde factorizar y cuándo racionalizar. Regla operativa: **si aparece una raíz cuadrada**, la técnica correcta es racionalización, no factorización (el tópico siguiente). | `racionalizacion-vs-factorizacion` | 6 |
+| A. Identificación de casos de factoreo | Dada una expresión como $x^2 - 16$ o $x^2 + 6x + 9$, clasificarla (diferencia de cuadrados, trinomio cuadrado perfecto, factor común, trinomio general) o elegir su forma factorizada correcta. | `identificacion-casos-factoreo` | 5 |
+| B. Teorema del factor | Asociar $\tfrac{0}{0}$ en $x = a$ con la existencia obligatoria del factor $(x - a)$ tanto en el numerador como en el denominador. La cancelación de ese factor es lo que salva la indeterminación. | `teorema-del-factor` | 4 |
+| C. Naturaleza de la indeterminación | Consolidar que $\tfrac{0}{0}$ no es un valor ($\neq 1$, $\neq 0$, $\neq \infty$), sino un **indicador** de que existe un factor común cancelable. | `naturaleza-indeterminacion` | 3 |
+| D. Racionalización vs factorización | Distinguir cuándo corresponde factorizar y cuándo racionalizar. Regla operativa: **si aparece una raíz cuadrada**, la técnica correcta es racionalización, no factorización (el tópico siguiente). | `racionalizacion-vs-factorizacion` | 3 |
 
 ### `feedback_incorrect`, confusiones fuente
 - **Diferencia de cuadrados con signo suma**: elegir $(x - 4)(x + 4)$ para $x^2 + 16$. Recordar: la diferencia de cuadrados requiere signo menos entre los dos cuadrados; $x^2 + 16$ no factoriza en $\mathbb{R}$.
@@ -94,7 +94,7 @@ Reconocimiento visual de **estructuras polinómicas** (formas típicas de factor
 
 ---
 
-## RESL, 30 ejercicios
+## RESL, 15 ejercicios
 
 ### Qué evalúa
 Ejecutar la **factorización**, **cancelar** el factor problemático $(x - a)$ y **evaluar** el límite resultante por sustitución directa.
@@ -110,9 +110,9 @@ Ejecutar la **factorización**, **cancelar** el factor problemático $(x - a)$ y
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Diferencia de cuadrados y factor común | Límites que requieren una **sola transformación** básica. Ejemplos: $\lim_{x \to 2} \tfrac{x^2 - 4}{x - 2}$; $\lim_{x \to 0} \tfrac{x^2 + 3x}{x}$. | `diferencia-cuadrados-factor-comun` | 12 |
-| B. Factorización de trinomios | Límites donde numerador o denominador es un trinomio $x^2 + bx + c$. Requiere encontrar los dos números que sumados dan $b$ y multiplicados dan $c$. | `factorizacion-trinomios` | 12 |
-| C. Cancelación múltiple | Límites que exigen factorizar **tanto** el numerador **como** el denominador para hallar y cancelar el factor común. Ejemplo: $\lim_{x \to 3} \tfrac{x^2 - 9}{x^2 - 5x + 6}$. | `cancelacion-multiple` | 6 |
+| A. Diferencia de cuadrados y factor común | Límites que requieren una **sola transformación** básica. Ejemplos: $\lim_{x \to 2} \tfrac{x^2 - 4}{x - 2}$; $\lim_{x \to 0} \tfrac{x^2 + 3x}{x}$. | `diferencia-cuadrados-factor-comun` | 6 |
+| B. Factorización de trinomios | Límites donde numerador o denominador es un trinomio $x^2 + bx + c$. Requiere encontrar los dos números que sumados dan $b$ y multiplicados dan $c$. | `factorizacion-trinomios` | 6 |
+| C. Cancelación múltiple | Límites que exigen factorizar **tanto** el numerador **como** el denominador para hallar y cancelar el factor común. Ejemplo: $\lim_{x \to 3} \tfrac{x^2 - 9}{x^2 - 5x + 6}$. | `cancelacion-multiple` | 3 |
 
 ### Mezcla obligatoria: mitad valor final, mitad paso troceado
 

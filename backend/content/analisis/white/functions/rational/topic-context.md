@@ -147,20 +147,19 @@ Diseñada originalmente leyendo los 200 ejercicios reales (dump de `question`+op
 
 **Nota LEXI (recorte ago-2026):** al comparar esta tabla contra los `tags` reales del JSON se encontró que la fila "Transformaciones" (slug `transformaciones`) no tiene ningún ejercicio real con ese slug; los 4 ejercicios de esa sub-familia están tageados `cuadrantes-ramas` (slug que en el resto del topic pertenece a GRAF). Se tomaron los tags reales como base de la proporción y la tabla de abajo ya refleja `cuadrantes-ramas` en vez de `transformaciones`. Es un mistag preexistente, no corregido en esta ronda (fuera de alcance: solo se tocaron cantidades).
 
-**LEXI** (30 ejercicios):
+**LEXI** (15 ejercicios):
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Reconocimiento de función racional (qué es/no es) | 2 | `reconocimiento-funcion-racional` |
-| Dominio y restricciones (denominador = 0) | 4 | `dominio-restriccion` |
-| Asíntota vertical (cantidad, existencia, concepto) | 4 | `asintota-vertical` |
-| Asíntota horizontal (comparación de grados) | 4 | `asintota-horizontal` |
+| Reconocimiento de función racional (qué es/no es) | 1 | `reconocimiento-funcion-racional` |
+| Dominio y restricciones (denominador = 0) | 2 | `dominio-restriccion` |
+| Asíntota vertical (cantidad, existencia, concepto) | 2 | `asintota-vertical` |
+| Asíntota horizontal (comparación de grados) | 2 | `asintota-horizontal` |
 | Asíntota oblicua | 1 | `asintota-oblicua` |
-| Agujero vs. asíntota vertical | 2 | `agujero-vs-asintota` |
-| Interceptos con los ejes | 3 | `interceptos-ejes` |
+| Agujero vs. asíntota vertical | 1 | `agujero-vs-asintota` |
+| Interceptos con los ejes | 1 | `interceptos-ejes` |
 | Paridad de la función (par/impar) | 1 | `paridad-funcion` |
-| Comportamiento en el infinito / límites laterales | 3 | `comportamiento-en-infinito` |
-| Transformaciones (desplazamiento, reflexión, escala) — ver nota arriba, tag real `cuadrantes-ramas` | 3 | `cuadrantes-ramas` |
+| Comportamiento en el infinito / límites laterales | 1 | `comportamiento-en-infinito` |
 | Continuidad en el dominio | 1 | `continuidad-en-dominio` |
 | Extremos y monotonía | 1 | `extremos-monotonia` |
 | Conteo de ramas | 1 | `conteo-ramas` |
@@ -183,42 +182,38 @@ Diseñada originalmente leyendo los 200 ejercicios reales (dump de `question`+op
 | Afirmaciones generales verdadero/falso sobre racionales | 2 | `afirmaciones-generales-vf` |
 | **Total** | **50** | |
 
-**FORM** (30 ejercicios):
+**FORM** (15 ejercicios):
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Dominio (valores excluidos / notación de intervalos) | 6 | `dominio-form` |
-| Asíntota horizontal, cálculo desde fórmula | 2 | `asintota-horizontal-calculo` |
-| Asíntota vertical, cálculo desde fórmula | 3 | `asintota-vertical-calculo` |
+| Dominio (valores excluidos / notación de intervalos) | 1 | `dominio-form` |
+| Asíntota horizontal, cálculo desde fórmula | 1 | `asintota-horizontal-calculo` |
+| Asíntota vertical, cálculo desde fórmula | 1 | `asintota-vertical-calculo` |
 | Cantidad de asíntotas verticales | 1 | `cantidad-asintotas-verticales-form` |
 | Fórmula desde gráfico (elegir entre 4 opciones) | 1 | `formula-desde-grafico-form` |
-| Evaluación puntual $f(a)$ | 2 | `evaluacion-puntual` |
+| Evaluación puntual $f(a)$ | 1 | `evaluacion-puntual` |
 | Evaluación en un agujero (no está definida) | 1 | `evaluacion-en-agujero` |
 | Evaluación aproximada leída del gráfico | 1 | `evaluacion-desde-grafico` |
-| Lectura directa del gráfico (AV/AH/valor, "observá la gráfica") | 2 | `lectura-grafico-directa` |
-| Interceptos con los ejes | 5 | `interceptos-ejes-form` |
+| Lectura directa del gráfico (AV/AH/valor, "observá la gráfica") | 1 | `lectura-grafico-directa` |
+| Interceptos con los ejes | 2 | `interceptos-ejes-form` |
 | Fórmula desde propiedades (AV+AH+punto dados) | 1 | `formula-desde-propiedades` |
 | Transformaciones (desplazamiento) | 1 | `transformaciones-form` |
-| Combinado AV+AH+valor puntual en un mismo ejercicio | 3 | `combinado-av-ah-valor` |
+| Combinado AV+AH+valor puntual en un mismo ejercicio | 1 | `combinado-av-ah-valor` |
 | Hallar un parámetro $k$ dado un punto de paso | 1 | `hallar-parametro-k` |
 | **Total** | **30** | |
 
-**GRAF** (30 ejercicios, reagrupa los tipos A/B/C ya documentados arriba):
+**GRAF** (15 ejercicios, reagrupa los tipos A/B/C ya documentados arriba):
 
 *Tipo A — leer propiedad directamente del gráfico (19 ejercicios):*
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| Cantidad de asíntotas totales | 1 | `cantidad-asintotas-totales` |
-| Cantidad de asíntotas verticales | 2 | `cantidad-asintotas-verticales-graf` |
-| Ubicación de la asíntota vertical | 2 | `ubicacion-asintota-vertical` |
-| Valor de la asíntota horizontal | 2 | `valor-asintota-horizontal` |
-| Cuadrantes de las ramas | 1 | `cuadrantes-ramas` |
-| Dirección de las ramas hacia la asíntota | 1 | `direccion-ramas` |
+| Cantidad de asíntotas verticales | 1 | `cantidad-asintotas-verticales-graf` |
+| Ubicación de la asíntota vertical | 1 | `ubicacion-asintota-vertical` |
+| Valor de la asíntota horizontal | 1 | `valor-asintota-horizontal` |
 | Monotonía en un intervalo | 1 | `monotonia-intervalo-graf` |
 | Interceptos con el eje $X$ | 1 | `interceptos-x-graf` |
 | Interceptos con el eje $Y$ | 1 | `interceptos-y-graf` |
-| Valor aproximado en un punto | 1 | `valor-aproximado` |
 | Dominio desde el gráfico | 1 | `dominio-desde-grafico` |
 | Existencia de extremos | 1 | `existencia-extremos` |
 | Imagen desde el gráfico | 1 | `imagen-desde-grafico` |
@@ -226,9 +221,9 @@ Diseñada originalmente leyendo los 200 ejercicios reales (dump de `question`+op
 | Límites laterales en la AV | 1 | `limites-laterales-av` |
 | Cantidad de ramas | 1 | `cantidad-ramas` |
 
-*Tipo B — identificar fórmula desde el gráfico (9 ejercicios):* slug único `formula-desde-grafico` (igual que en la ronda anterior, no se sub-divide).
+*Tipo B — identificar fórmula desde el gráfico (2 ejercicios):* slug único `formula-desde-grafico` (igual que en la ronda anterior, no se sub-divide).
 
-*Tipo C — contexto cotidiano con $k/x$ (2 ejercicios):* slug único `contexto-cotidiano-racional`.
+*Tipo C — contexto cotidiano con $k/x$ (1 ejercicios):* slug único `contexto-cotidiano-racional`.
 
 ## Hallazgos de auditoría (ronda 6, ago-2026)
 

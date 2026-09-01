@@ -1,0 +1,147 @@
+[
+  {
+    "id": "brown_interpretacion_ESTR_04",
+    "question": "Una aplicación descarga datos a una velocidad que varía segundo a segundo.\n\nLlamamos $r(t)$ a esa velocidad, en megabytes por segundo, con $t$ en segundos.\n\n¿Qué expresión da los megabytes bajados durante el primer minuto?",
+    "options": [
+      "$\\int_0^{60} r(t)\\,dt$",
+      "$\\int_0^1 r(t)\\,dt$",
+      "$60\\,r(60)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, la variable está en segundos, así que un minuto se escribe como $60$ en los límites.",
+    "feedback_incorrect": [
+      null,
+      "Ese planteo cubre un solo segundo, porque los límites se escriben en la unidad de la variable.",
+      "Esa cuenta supone velocidad constante e igual a la del último segundo, y acá varía todo el tiempo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Los límites de integración no se escriben en la unidad de la pregunta sino en la de la variable. Acá la variable corre en segundos, así que el primer minuto llega hasta $60$.\n\nEs un desajuste fácil de pasar por alto, porque la consigna habla en minutos y la función está definida en segundos.\n\nEl control rápido es mirar las unidades del resultado: megabytes por segundo multiplicado por segundos deja megabytes, que es lo que se pregunta.\n\nLa tercera opción sería válida solo con velocidad constante. Al variar, una multiplicación sola no alcanza y hace falta acumular.",
+    "reviewed": false,
+    "tags": [
+      "de-la-situacion-a-la-integral"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "'Una app descarga datos a velocidad variable, llamamos r(t) a esa velocidad'. Misma consigna que el 01 (auto), el 02 (tanque) y el 05, cambiando el sujeto."
+    }
+  },
+  {
+    "id": "brown_interpretacion_ESTR_05",
+    "question": "Una población crece a un ritmo que cambia año a año.\n\nLlamamos $p(t)$ a ese ritmo, en personas por año, con $t$ en años desde hoy.\n\n¿Qué expresión da las personas que se suman en los próximos $5$ años?",
+    "options": [
+      "$p(5)-p(0)$",
+      "$\\int_0^5 p(t)\\,dt$",
+      "$\\int_0^5 p'(t)\\,dt$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, el ritmo está en personas por año, y acumularlo durante $5$ años da personas.",
+    "feedback_incorrect": [
+      "Esa resta compara el ritmo de crecimiento en dos momentos, no la gente que se sumó.",
+      null,
+      "Esa derivada mide si el crecimiento se acelera o se frena, que es otra pregunta."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La función dada ya es un ritmo, y se nota en su unidad: personas por año. Toda cantidad expresada como algo por unidad de otra cosa es candidata a integrarse.\n\nAcumular ese ritmo durante cinco años da las personas que se agregaron en ese lapso.\n\nEl resultado no dice cuánta gente hay al final, porque no incluye a la que ya estaba. Da el aumento, no el total.\n\nDerivar el ritmo llevaría un escalón más arriba, a la aceleración del crecimiento, y esa función se mide en personas por año al cuadrado.",
+    "reviewed": false,
+    "tags": [
+      "de-la-situacion-a-la-integral"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Idem 04 con una poblacion."
+    }
+  },
+  {
+    "id": "brown_interpretacion_ESTR_08",
+    "question": "Un cohete despega y su altura cambia durante los primeros $10$ segundos.\n\nLlamamos $h(t)$ a esa altura, en metros, con $t$ en segundos.\n\n¿Qué expresión da los metros que subió en ese lapso?",
+    "options": [
+      "$\\int_0^{10} h(t)\\,dt$",
+      "$\\int_0^{10} h'(t)\\,dt$",
+      "$\\int_0^{10} h(t)\\,dh$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, lo que se acumula es el ritmo, y el ritmo de la altura es su derivada.",
+    "feedback_incorrect": [
+      "Acumular la altura daría metros por segundo, una cantidad que no responde a ninguna pregunta de acá.",
+      null,
+      "El diferencial marca la variable que recorre el intervalo, y acá ese recorrido es en el tiempo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Este caso está dado al revés que los anteriores. La función no es un ritmo sino la cantidad misma, así que integrarla tal cual no responde nada.\n\nLo que se acumula siempre es el ritmo. Como acá la cantidad es la altura, su ritmo es la derivada, que se mide en metros por segundo.\n\nMirar las unidades desarma la confusión enseguida: acumular metros a lo largo de segundos daría metros por segundo, que no es una distancia.\n\nY el diferencial no es decorativo. Marca cuál es la variable que recorre el intervalo, que acá es el tiempo.",
+    "reviewed": false,
+    "tags": [
+      "de-la-situacion-a-la-integral"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Idem 04 con un cohete. De los ocho de la familia sobreviven cinco, elegidos por cubrir cinco pares de unidades distintos y, en el caso del 06, por ser el unico con valor inicial (o sea con constante de integracion)."
+    }
+  },
+  {
+    "id": "brown_interpretacion_ESTR_12",
+    "question": "Una descarga se mide en megabytes por segundo y el tiempo en segundos.\n\nSe acumula esa velocidad a lo largo de $10$ segundos.\n\n¿En qué unidad queda el resultado?",
+    "options": [
+      "En segundos, que es lo que dura el tramo",
+      "En megabytes por segundo, igual que el ritmo",
+      "En megabytes, sin ninguna división"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, los segundos del ritmo se cancelan contra los del intervalo.",
+    "feedback_incorrect": [
+      "Los segundos son el ancho del intervalo, uno solo de los dos factores que se multiplican.",
+      "Esa es la unidad de lo que se acumula, y el resultado combina ese ritmo con el tiempo.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Acumular multiplica el ritmo por la variable que recorre el intervalo, así que la unidad del resultado es el producto de las dos.\n\nMegabytes por segundo multiplicado por segundos deja megabytes: los segundos del denominador se cancelan contra los del ancho.\n\nEsa cancelación es la firma de toda acumulación, y funciona igual cuando la variable no es el tiempo.\n\nSirve como control barato de cualquier planteo: si la unidad que sale no responde la pregunta, hay algo mal antes de hacer una sola cuenta.",
+    "reviewed": false,
+    "tags": [
+      "del-numero-a-su-significado"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "'Megabytes por segundo acumulado sobre segundos da megabytes'. Es el mismo analisis dimensional que el 09 (km/h por horas) y el 14 (mg/h por horas)."
+    }
+  },
+  {
+    "id": "brown_interpretacion_ESTR_15",
+    "question": "Una planta crece a un ritmo que se mide en centímetros por día.\n\nSe acumula ese ritmo entre el día $10$ y el día $20$.\n\n¿Qué representa el número que resulta?",
+    "options": [
+      "La altura que la planta tiene el día $20$",
+      "El ritmo al que crecía la planta el día $20$",
+      "Lo que la planta creció entre esos dos días"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, el resultado mide el crecimiento del tramo, no la altura alcanzada.",
+    "feedback_incorrect": [
+      "Para la altura de ese día haría falta saber cuánto medía la planta el día $10$.",
+      "Ese ritmo se lee evaluando la función en ese día, sin acumular nada.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Los límites recortan un tramo que no arranca en el origen, y eso hace más visible qué mide el resultado: lo que pasó entre esos dos días, nada de lo anterior.\n\nEl número queda en centímetros, porque centímetros por día multiplicado por días cancela los días.\n\nPara conocer la altura del día veinte haría falta sumarle a ese crecimiento la altura que la planta ya tenía el día diez.\n\nY el ritmo de un día puntual se lee evaluando la función, que es la operación inversa de acumular.",
+    "reviewed": false,
+    "tags": [
+      "del-numero-a-su-significado"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Idem 12 con centimetros por dia."
+    }
+  }
+]

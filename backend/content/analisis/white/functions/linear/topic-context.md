@@ -45,7 +45,7 @@ En LEXI y FORM todos son `""` todavía. Completar con un `array<string|null>` pa
 
 ---
 
-## LEXI, 30 ejercicios
+## LEXI, 15 ejercicios
 
 ### Qué evalúa
 Vocabulario y parámetros de la recta: forma canónica $f(x) = mx + b$, identificar **pendiente** $m$ y **ordenada al origen** $b$ desde la fórmula, signo de $m$ y monotonía, raíz, dominio e imagen, casos especiales ($m = 0$ constante). Mezcla de ejercicios de identificación numérica (leer $m$ o $b$) y conceptuales (nombrar el parámetro, describir monotonía).
@@ -56,14 +56,14 @@ Vocabulario y parámetros de la recta: forma canónica $f(x) = mx + b$, identifi
 
 | Concepto | Slug | Cantidad actual |
 |----------|------|-----------------:|
-| Identificación de fórmula (es/no es lineal, otras familias) | `identificacion-formula` | 6 |
-| Dominio e imagen (natural o restringido) | `dominio-imagen` | 5 |
-| Propiedades generales (visual, existencia de raíz, tasa de cambio, sin extremos, rectas por puntos) | `propiedades-generales` | 5 |
-| Nombrar parámetros/vocabulario (pendiente, ordenada, constante, raíz) | `nombre-parametros` | 4 |
-| Monotonía y signo de la pendiente | `monotonia-signo-pendiente` | 2 |
-| Parámetros $m$/$b$ leídos en contexto cotidiano | `parametros-contexto` | 3 |
-| Pendiente, cálculo directo | `pendiente-calculo` | 2 |
-| Raíz, cálculo directo | `raiz-calculo` | 2 |
+| Identificación de fórmula (es/no es lineal, otras familias) | `identificacion-formula` | 2 |
+| Dominio e imagen (natural o restringido) | `dominio-imagen` | 3 |
+| Propiedades generales (visual, existencia de raíz, tasa de cambio, sin extremos, rectas por puntos) | `propiedades-generales` | 3 |
+| Nombrar parámetros/vocabulario (pendiente, ordenada, constante, raíz) | `nombre-parametros` | 2 |
+| Monotonía y signo de la pendiente | `monotonia-signo-pendiente` | 1 |
+| Parámetros $m$/$b$ leídos en contexto cotidiano | `parametros-contexto` | 1 |
+| Pendiente, cálculo directo | `pendiente-calculo` | 1 |
+| Raíz, cálculo directo | `raiz-calculo` | 1 |
 | Ordenada al origen, cálculo directo | `ordenada-calculo` | 1 |
 | **Total** | | **30** |
 
@@ -84,7 +84,7 @@ Vocabulario y parámetros de la recta: forma canónica $f(x) = mx + b$, identifi
 
 ---
 
-## FORM, 30 ejercicios
+## FORM, 15 ejercicios
 
 ### Qué evalúa
 Construir o leer la fórmula $f(x) = mx + b$ desde una situación: extraer la **pendiente** $m$ (tarifa por unidad, ritmo) y la **ordenada al origen** $b$ (costo fijo, valor inicial), armar la ecuación. Incluye raíz (resolver $f(x) = 0$), imagen sobre dominio restringido $[a, b]$, y 4 ejercicios que leen la ecuación desde un gráfico.
@@ -95,13 +95,12 @@ Construir o leer la fórmula $f(x) = mx + b$ desde una situación: extraer la **
 
 | Concepto | Slug | Cantidad actual |
 |----------|------|-----------------:|
-| Armar fórmula desde situación cotidiana (costo, tanque, deuda, etc.) | `armar-formula-cotidiano` | 12 |
-| Gráfico → fórmula | `grafico-a-formula` | 3 |
-| Pendiente, cálculo directo | `pendiente-calculo` | 2 |
-| Raíz, cálculo directo | `raiz-calculo` | 2 |
-| Armar fórmula dados $m$ y $b$ | `armar-formula-mb` | 2 |
-| Armar fórmula dados uno o dos puntos | `armar-formula-puntos` | 2 |
-| Evaluar $f(\text{valor})$, abstracto o en contexto | `evaluar-f` | 2 |
+| Armar fórmula desde situación cotidiana (costo, tanque, deuda, etc.) | `armar-formula-cotidiano` | 4 |
+| Gráfico → fórmula | `grafico-a-formula` | 2 |
+| Pendiente, cálculo directo | `pendiente-calculo` | 1 |
+| Raíz, cálculo directo | `raiz-calculo` | 1 |
+| Armar fórmula dados $m$ y $b$ | `armar-formula-mb` | 1 |
+| Armar fórmula dados uno o dos puntos | `armar-formula-puntos` | 1 |
 | Leer un parámetro ($m$ o $b$) ya en contexto | `leer-parametro-contexto` | 1 |
 | Ordenada al origen, cálculo directo | `ordenada-calculo` | 1 |
 | Pendiente interpretada como tasa descrita en palabras | `pendiente-concepto-tasa` | 1 |
@@ -125,7 +124,7 @@ Construir o leer la fórmula $f(x) = mx + b$ desde una situación: extraer la **
 
 ---
 
-## GRAF, 30 ejercicios
+## GRAF, 15 ejercicios
 
 > **Bug de contenido resuelto (ago-2026):** `GRAF.json` era una copia casi idéntica de `LEXI.json` (mismas preguntas, mismos `tags` de LEXI, sin `graph_fn`/`graph_view`), generada por error en el commit `a84de25f` ("regenerar white/functions/linear"). Se descartaron esos 30 ejercicios y se regeneraron 10 ejercicios genuinos de lectura de gráfico desde cero, con `graph_fn` real, usando como taxonomía los slugs de gráfico que ya estaban documentados acá como diseño pendiente. La cantidad bajó de 30 a 10 (en vez de podar 50→30 como el resto de la unidad) porque no había contenido real previo del que recortar proporcionalmente. **Completado a 30 (ago-2026, ronda 2):** se sumaron 20 ejercicios más siguiendo la misma taxonomía y el mismo estilo de prosa, alcanzando la paridad de cantidad con LEXI y FORM.
 
@@ -138,12 +137,12 @@ Leer una recta desde su gráfico: valor puntual $f(a)$ dado $a$ (y a la inversa,
 
 | Concepto | Slug | Cantidad |
 |----------|------|---------:|
-| Lectura puntual: dado $x$, leer $f(x)$ en el gráfico | `lectura-y-dado-x` | 6 |
-| Pendiente como tasa (abstracta o en contexto cotidiano) | `pendiente-tasa` | 6 |
-| Ordenada al origen / valor inicial en contexto | `ordenada-origen-concepto` | 5 |
-| Lectura inversa: dado $f(x)$, leer el $x$ correspondiente | `lectura-x-dado-y` | 5 |
-| Raíz en contexto de agotamiento/vaciado | `raiz-agotamiento` | 4 |
-| Pendiente calculada entre dos puntos marcados del gráfico | `pendiente-diferencia` | 4 |
+| Lectura puntual: dado $x$, leer $f(x)$ en el gráfico | `lectura-y-dado-x` | 3 |
+| Pendiente como tasa (abstracta o en contexto cotidiano) | `pendiente-tasa` | 3 |
+| Ordenada al origen / valor inicial en contexto | `ordenada-origen-concepto` | 2 |
+| Lectura inversa: dado $f(x)$, leer el $x$ correspondiente | `lectura-x-dado-y` | 3 |
+| Raíz en contexto de agotamiento/vaciado | `raiz-agotamiento` | 1 |
+| Pendiente calculada entre dos puntos marcados del gráfico | `pendiente-diferencia` | 3 |
 | **Total** | | **30** |
 
 ### Cardinalidad

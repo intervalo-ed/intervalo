@@ -1,0 +1,467 @@
+[
+  {
+    "id": "white_logarithmic_LEXI_01",
+    "question": "Una exponencial y un logaritmo de la misma base guardan una relación bien definida:\n$$f(x) = 2^x, \\quad g(x) = \\log_2(x)$$\n¿Cuál es esa relación?",
+    "options": [
+      "Una es el cuadrado de la otra",
+      "Son funciones iguales",
+      "Son simétricas respecto al eje $Y$",
+      "Son funciones inversas"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "El logaritmo y la exponencial en la misma base son funciones inversas: $\\log_2(2^x) = x$.",
+    "feedback_incorrect": [
+      "Elevar al cuadrado no relaciona estas dos funciones: $2^x$ crece exponencialmente y $\\log_2(x)$ crece muchísimo más lento, no son potencias una de la otra.",
+      "Son funciones distintas: $2^x$ da valores que crecen sin cota positiva, mientras que $\\log_2(x)$ da cualquier real, incluso negativo.",
+      "La simetría respecto al eje $Y$ describe a las funciones pares, pero acá la simetría real es respecto a la recta $y=x$, propia de funciones inversas.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Dos funciones son **inversas** cuando, aplicadas una tras la otra, devuelven siempre el valor de partida, sin importar el orden en que se combinen.\n\nPara $f(x) = 2^x$ y $g(x) = \\log_2(x)$, cada una deshace lo que hace la otra:\n$$\\log_2(2^x) = x$$\n$$2^{\\log_2(x)} = x$$\nGeométricamente, sus gráficas resultan simétricas respecto a la recta $y = x$.\n\nRevisar la cancelación en una sola dirección, sin confirmar que también vale a la inversa, deja la relación de inversas comprobada solo a medias.",
+    "reviewed": false,
+    "tags": [
+      "relacion-con-exponencial"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "La relacion entre 2^x y log_2(x); el 12 pide construir la inversa de 3^x, que es la version activa del mismo contenido."
+    }
+  },
+  {
+    "id": "white_logarithmic_LEXI_02",
+    "question": "Tres de estas expresiones comparten familia y la cuarta pertenece a otra.\n\n¿Cuál de estas **no** es una **función logarítmica**?",
+    "options": [
+      "$f(x) = 2^x$",
+      "$f(x) = \\log_2(x)$",
+      "$f(x) = \\ln(x)$",
+      "$f(x) = \\log(x+1)$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$f(x) = 2^x$ es exponencial, la inversa del logaritmo, no logarítmica.",
+    "feedback_incorrect": [
+      null,
+      "$\\log_2(x)$ sí es logarítmica: tiene la variable dentro del logaritmo en base $2$.",
+      "$\\ln(x)$ también es logarítmica: es el logaritmo natural, de base $e$.",
+      "$\\log(x+1)$ sigue siendo logarítmica, solo que con el argumento desplazado en $1$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una función **exponencial** tiene la variable en el exponente, como $f(x) = a^x$, mientras que una función **logarítmica** la tiene dentro del logaritmo, como $f(x) = \\log_a(x)$.\n\nEntre las opciones, $f(x) = 2^x$ es la única exponencial, con la variable ubicada como exponente. Las otras tres son logarítmicas, con la variable siempre dentro del logaritmo.\n\nFijarse solo en si aparece la palabra logaritmo, sin mirar dónde está ubicada la $x$, confunde estas dos familias aunque compartan la misma base.",
+    "reviewed": false,
+    "tags": [
+      "identificar-familia"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "'Cual de estas NO es logaritmica'; el 29 identifica la familia por su restriccion de entradas, que es lo que la define."
+    }
+  },
+  {
+    "id": "white_logarithmic_LEXI_05",
+    "question": "El logaritmo natural devuelve el exponente al que hay que elevar $e$ para obtener el número de adentro.\n\n¿Por qué $\\ln(x)$ no está definido para $x \\leq 0$?",
+    "options": [
+      "Porque la función logarítmica siempre toma valores negativos",
+      "Porque no existe ningún número real $t$ tal que $e^t = x$ cuando $x \\leq 0$",
+      "Porque $e$ es mayor que $1$ y no puede producir valores no positivos como potencia",
+      "Porque el logaritmo solo acepta enteros positivos como argumento"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Por definición, $\\ln(x) = t$ significa $e^t = x$. Como $e^t > 0$ siempre, no puede igualarse a un número $\\leq 0$.",
+    "feedback_incorrect": [
+      "El logaritmo puede tomar valores negativos sin problema, de hecho su imagen es todo $\\mathbb{R}$: el problema no está en el signo del resultado sino en el signo del argumento.",
+      null,
+      "Que $e$ sea mayor que $1$ no es la razón: la clave es que $e^t$ nunca puede dar un resultado negativo ni cero, sin importar si la base fuera mayor o menor que $1$.",
+      "El logaritmo acepta cualquier real positivo como argumento, no solo enteros: la restricción es sobre el signo, no sobre el tipo de número."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **logaritmo natural** $\\ln(x)$ se define como la función inversa de $e^x$:\n$$\\ln(x) = t \\iff e^t = x$$\nEsa igualdad es la que determina para qué valores de $x$ el logaritmo tiene sentido.\n\nComo una potencia de $e$ nunca da un resultado negativo ni cero, ningún exponente resuelve la ecuación cuando el argumento no es positivo, y el logaritmo queda sin definir ahí.\n\nEsta misma razón vale para cualquier base: un logaritmo nunca acepta un argumento negativo o nulo, porque ninguna base positiva elevada a algún exponente cruza el cero.",
+    "reviewed": false,
+    "tags": [
+      "concepto-de-ln"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Que devuelve el logaritmo natural. Es la definicion, y el 18 y el 24 la aplican."
+    }
+  },
+  {
+    "id": "white_logarithmic_LEXI_07",
+    "question": "Los logaritmos también aceptan argumentos entre 0 y 1:\n$$\\log_2\\!\\left(\\dfrac{1}{2}\\right)$$\n¿Cuánto vale esta expresión?",
+    "options": [
+      "$2$",
+      "$1$",
+      "$0$",
+      "$-1$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$\\log_2\\!\\left(\\frac{1}{2}\\right) = -1$ porque $2^{-1} = \\frac{1}{2}$.",
+    "feedback_incorrect": [
+      "Ese valor correspondería a $\\log_2(4)$, no al logaritmo de una fracción menor que $1$.",
+      "Ese sería $\\log_2(2)$: acá el argumento es $\\frac{1}{2}$, la mitad, no el doble de la base.",
+      "El logaritmo de $1$ es $0$, pero el argumento acá es $\\frac{1}{2}$, no $1$.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Calcular un logaritmo es buscar el exponente al que hay que elevar la **base** para obtener el argumento dado.\n\nPara $\\log_2\\!\\left(1/2\\right)$ se busca el exponente $y$ que cumple:\n$$2^y = 1/2$$\nComo $2^{-1} = 1/2$, el resultado es $y = -1$.\n\nCon base mayor que $1$, un argumento menor que $1$ siempre produce un logaritmo negativo: hace falta un exponente negativo para achicar la base hasta una fracción.",
+    "reviewed": false,
+    "tags": [
+      "evaluar-logaritmo-directo"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "log_2(1/2). El 24 hace el mismo caso de argumento fraccionario y el 10 el de base menor que 1."
+    }
+  },
+  {
+    "id": "white_logarithmic_LEXI_09",
+    "question": "Los logaritmos con valores redondos se responden sin hacer ninguna cuenta escrita:\n$$\\log_3(3)$$\n¿Cuánto vale esta expresión?",
+    "options": [
+      "$1$",
+      "$3$",
+      "$0$",
+      "$\\frac{1}{3}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$\\log_3(3) = 1$ porque $3^1 = 3$. El logaritmo de la base siempre vale $1$.",
+    "feedback_incorrect": [
+      null,
+      "Ese es el valor de la base, el argumento del logaritmo, no el resultado de la operación.",
+      "Ese sería el resultado de $\\log_3(1)$, no de $\\log_3(3)$: el logaritmo de la base siempre da $1$, el de $1$ siempre da $0$.",
+      "Esa fracción no corresponde a ningún exponente natural de $3$ que dé $3$ como resultado: la respuesta es un entero simple."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Toda función logarítmica cumple una **propiedad** universal: el logaritmo de la propia base siempre vale uno, porque elevar la base a la potencia uno devuelve la base misma.\n\nAplicado a $\\log_3(3)$, se busca el exponente que resuelve:\n$$3^y = 3$$\nComo $3^1 = 3$, el resultado es $y = 1$.\n\nConfundir el logaritmo de la base con el logaritmo de uno invierte el resultado obtenido, porque dan valores opuestos: uno y cero, nunca al revés.",
+    "reviewed": false,
+    "tags": [
+      "evaluar-logaritmo-directo"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "log_3(3) = 1. Caso trivial; sobreviven el 18 (log_3(27)) y el 24."
+    }
+  },
+  {
+    "id": "white_logarithmic_LEXI_13",
+    "question": "Una función logarítmica suma un número por fuera del logaritmo:\n$$f(x) = \\log_2(x) + 5$$\n¿Dónde está la **asíntota vertical**?",
+    "options": [
+      "$x = 5$",
+      "$x = 0$",
+      "$y = 5$",
+      "$x = -5$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Sumar $5$ desplaza la curva hacia arriba, pero la asíntota vertical sigue en $x = 0$.",
+    "feedback_incorrect": [
+      "Ese sería el resultado si el $+5$ desplazara horizontalmente el argumento, pero acá suma directamente al resultado, no dentro del logaritmo.",
+      null,
+      "Esa es la altura a la que se desplaza la curva verticalmente, no una asíntota: las funciones logarítmicas no tienen asíntota horizontal.",
+      "Ese valor tendría sentido si el $5$ estuviera restando dentro del argumento, pero acá el desplazamiento es vertical, fuera del logaritmo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un desplazamiento que se suma o resta fuera del logaritmo mueve la curva verticalmente, pero no cambia dónde el argumento se anula.\n\nPara $f(x) = \\log_2(x) + 5$, el argumento sigue siendo $x$, así que la asíntota vertical no se mueve:\n$$x = 0$$\nEl término $+5$ solo sube toda la curva esa cantidad, sin tocar el dominio.\n\nUn desplazamiento dentro del argumento sí mueve la asíntota: $\\log_2(x - 5)$ tiene su asíntota en $x = 5$, no en el origen.",
+    "reviewed": false,
+    "tags": [
+      "asintota-y-dominio"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Asintota de log_2(x)+5: sumar por fuera no la mueve. El 21 trabaja el desplazamiento que SI la mueve."
+    }
+  },
+  {
+    "id": "white_logarithmic_LEXI_14",
+    "question": "Anteponer un signo menos a un logaritmo cambia algo de su comportamiento y deja el resto igual:\n$$f(x) = -\\log_2(x), \\quad g(x) = \\log_2(x)$$\n¿En qué se diferencian?",
+    "options": [
+      "Es la misma función",
+      "Es decreciente.",
+      "Tiene dominio $x < 0$",
+      "Tiene asíntota vertical en $y = 0$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f(x) = -\\log_2(x)$ refleja $g$ sobre el eje $X$: es decreciente.",
+    "feedback_incorrect": [
+      "Multiplicar por $-1$ sí cambia la función: los valores de salida se invierten en signo, aunque comparten dominio, imagen y asíntota con $g$.",
+      null,
+      "El dominio no cambia al multiplicar por $-1$ afuera del logaritmo: sigue siendo $x > 0$, igual que en $g$.",
+      "La asíntota de una logarítmica siempre es vertical, nunca horizontal: reflejar sobre el eje $X$ no la convierte en una recta $y=$ constante."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Multiplicar una función por $-1$ produce una reflexión respecto al eje $X$: cada valor de salida cambia de signo, sin mover el dominio ni la posición de la curva sobre ese eje.\n\nLa primera función es creciente, mientras que su reflejo resulta decreciente. Ambas comparten el mismo dominio, la misma imagen y la misma asíntota vertical en $x = 0$.\n\nSuponer que reflejar la curva también cambia su dominio o su asíntota mezcla dos efectos distintos: el signo del resultado y la posición del dominio son independientes.",
+    "reviewed": false,
+    "tags": [
+      "monotonia-segun-base"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Que cambia al anteponer un signo menos; el 03 cubre monotonia segun la base."
+    }
+  },
+  {
+    "id": "white_logarithmic_LEXI_16",
+    "question": "Un logaritmo crece cada vez más despacio, y eso hace dudar de si llega a estabilizarse.\n\n¿Tiene $f(x) = \\ln(x)$ una **asíntota horizontal** cuando $x \\to +\\infty$?",
+    "options": [
+      "Sí, en $y = 1$",
+      "Sí, en $y = e$",
+      "Sí, en $y = 0$",
+      "No, no siempre"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$\\ln(x) \\to +\\infty$ cuando $x \\to +\\infty$: no hay asíntota horizontal.",
+    "feedback_incorrect": [
+      "El logaritmo no se estabiliza en ninguna altura fija: sigue creciendo, aunque cada vez más lento, sin acercarse a $y=1$.",
+      "$e$ es la base del logaritmo natural, pero no representa ningún límite de altura de la curva cuando $x$ crece.",
+      "Esa asíntota horizontal en $y=0$ es propia de la exponencial cuando $x \\to -\\infty$, no de su inversa logarítmica cuando $x \\to +\\infty$.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una **asíntota horizontal** aparece cuando una función se estabiliza cerca de una altura fija a medida que $x$ crece o decrece sin cota.\n\nA medida que $x$ crece sin cota, $\\ln(x)$ también crece sin cota, aunque cada vez más lento: nunca se estabiliza en ninguna altura, así que no tiene asíntota horizontal.\n\nBuscar una asíntota horizontal acá confunde el comportamiento del logaritmo con el de la exponencial $e^x$, que sí se aplana cerca de $y = 0$ en la otra dirección.",
+    "reviewed": false,
+    "tags": [
+      "comportamiento-en-el-borde"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Si log_2(x) tiene asintota horizontal. El 15 pregunta que pasa cerca del borde del dominio, que es la pregunta util."
+    }
+  },
+  {
+    "id": "white_logarithmic_LEXI_17",
+    "question": "Algunas magnitudes se miden mejor por su orden de crecimiento que por su valor directo.\n\n¿En qué situación cotidiana aparece de forma natural una función logarítmica?",
+    "options": [
+      "Calcular la distancia recorrida a velocidad constante",
+      "Calcular el área de un rectángulo",
+      "Calcular el monto de una inversión después de $t$ años",
+      "Calcular cuántos años tardará una inversión en duplicarse"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Despejar el tiempo en una ecuación exponencial da una función logarítmica.",
+    "feedback_incorrect": [
+      "Esa es una función lineal, con velocidad constante: no hay ningún logaritmo involucrado en un movimiento uniforme.",
+      "Calcular un área es multiplicar dos longitudes, una operación puramente algebraica sin logaritmos de por medio.",
+      "Calcular el monto después de $t$ años es la función exponencial en sí, la que se está invirtiendo: acá el tiempo es el dato, no la incógnita.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El logaritmo aparece de forma natural como la **inversa de la exponencial**, en cualquier situación donde el tiempo transcurrido queda despejado de una ecuación de crecimiento.\n\nUna inversión que crece según:\n$$M(t) = M_0 \\cdot (1{,}1)^t$$\nTiene el monto como función exponencial del tiempo. Preguntar cuántos años hacen falta para llegar a un monto dado invierte esa relación, y ahí aparece el logaritmo.\n\nCalcular el monto después de $t$ años es una operación exponencial; despejar cuántos años hacen falta para llegar a un monto es la operación logarítmica inversa.",
+    "reviewed": false,
+    "tags": [
+      "aplicacion-orden-de-magnitud"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "COBERTURA",
+      "razon": "'En que situacion conviene medir por orden de crecimiento'. Es aplicacion cualitativa sin cuenta ni concepto propio; unico de su tipo y el que menos paga su lugar."
+    }
+  },
+  {
+    "id": "white_logarithmic_LEXI_19",
+    "question": "Hay un valor de entrada que da el mismo resultado en todos los logaritmos, sin importar la base:\n$$\\ln(1)$$\n¿Cuánto vale esta expresión?",
+    "options": [
+      "$1$",
+      "$e$",
+      "$0$",
+      "No está definido"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$\\ln(1) = 0$ porque $e^0 = 1$. El logaritmo de $1$ vale $0$ en cualquier base.",
+    "feedback_incorrect": [
+      "Ese sería el resultado de $\\ln(e)$, no de $\\ln(1)$: el logaritmo de la base da $1$, el de $1$ da $0$.",
+      "Ese es el valor de la base del logaritmo natural, no el resultado de evaluar $\\ln$ en $1$.",
+      null,
+      "El logaritmo de $1$ sí está definido y vale $0$ en cualquier base: lo que no existe es $\\ln(0)$, el logaritmo de cero."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Toda función logarítmica cumple otra **propiedad** universal: el logaritmo de $1$ siempre vale cero, sin importar la base.\n\nComo cualquier base elevada a la potencia $0$ da $1$, se cumple:\n$$\\log_b(1) = 0$$\nAplicado al logaritmo natural, $\\ln(1) = 0$ porque $e^0 = 1$.\n\nNo confundir el logaritmo de $1$, que vale cero, con el logaritmo de cero, que directamente no existe porque el dominio exige argumentos positivos.",
+    "reviewed": false,
+    "tags": [
+      "evaluar-logaritmo-directo"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "ln(1) = 0. Es el mismo caso que el 23 (log_5(1)), y ninguno de los dos sobrevive: el valor del logaritmo en 1 se deduce del 18."
+    }
+  },
+  {
+    "id": "white_logarithmic_LEXI_20",
+    "question": "Un logaritmo de base 2 pregunta cuántas veces hay que duplicar para llegar al número de adentro:\n$$\\log_2(8)$$\n¿Cuánto vale esta expresión?",
+    "options": [
+      "$4$",
+      "$3$",
+      "$2$",
+      "$6$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$\\log_2(8) = 3$ porque $2^3 = 8$.",
+    "feedback_incorrect": [
+      "Ese exponente daría $2^4 = 16$, un paso más allá de $8$: revisá cuántas veces hay que multiplicar por $2$ para llegar exactamente a $8$.",
+      null,
+      "Ese exponente da $2^2 = 4$, todavía no alcanza $8$: falta multiplicar una vez más por $2$.",
+      "Ese valor no corresponde a ninguna potencia entera de $2$ que dé $8$: la respuesta correcta es un número más chico."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Evaluar un logaritmo pregunta a qué exponente hay que elevar la base para obtener el argumento dado.\n\nPara resolver esto, se busca $y$ tal que:\n$$2^y = 8$$\nComo $8 = 2^3$, el resultado es $y = 3$.\n\nLa serie de potencias de $2$ lo confirma:\n$$\\begin{aligned} \\log_2(2) &= 1 \\\\ \\log_2(4) &= 2 \\\\ \\log_2(8) &= 3 \\\\ \\log_2(16) &= 4 \\end{aligned}$$\nCada duplicación del argumento suma exactamente una unidad al resultado, una consecuencia directa de que la base es $2$.",
+    "reviewed": false,
+    "tags": [
+      "evaluar-logaritmo-directo"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "log_2 como 'cuantas veces duplicar'. Es la lectura conceptual del 18."
+    }
+  },
+  {
+    "id": "white_logarithmic_LEXI_23",
+    "question": "Este logaritmo tiene como argumento el neutro de la multiplicación:\n$$\\log_5(1)$$\n¿Cuánto vale esta expresión?",
+    "options": [
+      "$5$",
+      "$1$",
+      "$-1$",
+      "$0$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$\\log_5(1) = 0$ porque $5^0 = 1$. El logaritmo de $1$ siempre es $0$.",
+    "feedback_incorrect": [
+      "Ese es el valor de la base, el argumento del logaritmo de la base, no el resultado de $\\log_5(1)$.",
+      "Ese sería el resultado de $\\log_5(5)$, el logaritmo de la base, no el logaritmo de $1$.",
+      "Ese valor correspondería a $\\log_5(0{,}2)$, no a $\\log_5(1)$: el logaritmo de $1$ siempre da $0$, nunca negativo.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Toda función logarítmica cumple que el logaritmo de $1$ vale siempre cero, sin importar la base, porque cualquier número elevado a la potencia cero da $1$.\n\nAplicado a $\\log_5(1)$, se busca el exponente que resuelve:\n$$5^y = 1$$\nComo $5^0 = 1$, el resultado es $y = 0$.\n\nTodas las funciones logarítmicas básicas pasan por el mismo punto de altura cero cuando el argumento vale $1$, sin importar cuál sea la base.",
+    "reviewed": false,
+    "tags": [
+      "evaluar-logaritmo-directo"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "log_5(1), gemelo del 19."
+    }
+  },
+  {
+    "id": "white_logarithmic_LEXI_25",
+    "question": "Un mismo valor se puede escribir con el número por fuera o reacomodado adentro del logaritmo:\n$$2 \\cdot \\log_2(x)$$\n¿A qué expresión es equivalente?",
+    "options": [
+      "$\\log_2(2x)$",
+      "$\\log_2(x + 2)$",
+      "$\\log_2(x^2)$",
+      "$\\log_4(x)$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Por la propiedad de la potencia: $2 \\cdot \\log_2(x) = \\log_2(x^2)$.",
+    "feedback_incorrect": [
+      "Multiplicar el argumento por $2$ dentro del logaritmo no es lo mismo que multiplicar el logaritmo entero por $2$ desde afuera.",
+      "Sumar $2$ al argumento tampoco equivale a multiplicar el logaritmo completo por $2$: esa suma cambiaría el resultado de otra manera.",
+      null,
+      "Cambiar la base a $4$ no reproduce el mismo resultado que multiplicar por $2$ el logaritmo en base $2$: son operaciones distintas."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **propiedad de la potencia** dice que un factor multiplicativo delante del logaritmo puede subir como exponente del argumento, y viceversa.\n\nCon un factor $2$ multiplicando por fuera, la propiedad se aplica así:\n$$2 \\cdot \\log_2(x) = \\log_2(x^2)$$\nUna verificación con $x = 4$ confirma la igualdad: ambos lados dan el mismo resultado.\n\nConfundir esta regla con la propiedad del producto, que suma dos logaritmos distintos en vez de multiplicar uno solo por un factor, invierte la operación que corresponde aplicar.",
+    "reviewed": false,
+    "tags": [
+      "propiedades-algebraicas"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "2.log(x) contra log(x^2): es la misma propiedad de la potencia que el 08."
+    }
+  },
+  {
+    "id": "white_logarithmic_LEXI_26",
+    "question": "Preguntar dónde un logaritmo alcanza cierta altura es leerlo en sentido inverso:\n$$f(x) = \\ln(x)$$\n¿En qué punto pasa su gráfico a altura $y = 1$?",
+    "options": [
+      "$(1,\\, 1)$",
+      "$(2,\\, 1)$",
+      "$(e,\\, 1)$",
+      "$(10,\\, 1)$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$\\ln(e) = 1$, entonces la curva pasa por $(e,\\, 1)$ donde $e \\approx 2{,}718$.",
+    "feedback_incorrect": [
+      "Ese es el punto donde $\\ln(x)$ vale $0$, no $1$: el logaritmo de la base es el que da $1$, no el logaritmo de $1$.",
+      "Ese punto correspondería a $\\log_2(x)$, no al logaritmo natural: la base de $\\ln$ es $e$, no $2$.",
+      null,
+      "Ese punto correspondería a $\\log_{10}(x)$, no al logaritmo natural: la base de $\\ln$ es $e \\approx 2{,}718$, no $10$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La igualdad $\\ln(x) = 1$ se cumple cuando $x = e$, la base del logaritmo natural: el logaritmo de la propia base siempre vale uno.\n\nPara $\\ln(x)$ hay dos puntos clave en su gráfica:\n$$(1,\\, 0)$$\n$$(e,\\, 1)$$\nEl primero es donde la curva cruza el eje $X$, y el segundo es donde alcanza la altura $1$.\n\nConfundir estos dos puntos invierte las alturas: el cruce con el eje $X$ está a altura cero, no a la altura uno que corresponde al punto donde el argumento iguala a la base.",
+    "reviewed": false,
+    "tags": [
+      "resolver-ecuacion"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "'En que x vale ln(x) cierta altura'; el 27 plantea la ecuacion directamente (log_2(x)=3)."
+    }
+  },
+  {
+    "id": "white_logarithmic_LEXI_28",
+    "question": "El argumento de este logaritmo es una potencia de su propia base:\n$$\\log_6(6^5)$$\n¿Cuánto vale esta expresión?",
+    "options": [
+      "$6^5$",
+      "$30$",
+      "$5$",
+      "$\\frac{5}{6}$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Por la propiedad de la potencia: $\\log_6(6^5) = 5$.",
+    "feedback_incorrect": [
+      "Eso deja el resultado sin simplificar: la propiedad de la potencia permite bajar el exponente y cancelarlo con el logaritmo de la base.",
+      "Ese valor sale de multiplicar $6 \\times 5$, una operación que no tiene relación con la propiedad del logaritmo aplicada acá.",
+      null,
+      "Esa fracción invierte la relación entre exponente y base: la propiedad dice que el resultado es directamente el exponente $5$, no un cociente."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Por la **propiedad de la potencia**, el exponente dentro del logaritmo baja y pasa a multiplicar por fuera.\n\nCon exponente $5$ dentro del logaritmo, la propiedad se aplica así:\n$$\\log_6(6^5) = 5 \\cdot \\log_6(6)$$\nComo $\\log_6(6) = 1$ por ser el logaritmo de la propia base, el resultado final es $5$.\n\nEste es un caso particular de $\\log_b(b^n) = n$: el logaritmo y la exponencial en la misma base se cancelan por ser funciones inversas, sin importar el valor del exponente.",
+    "reviewed": false,
+    "tags": [
+      "evaluar-logaritmo-directo"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "log_6(6^5). Novena evaluacion directa del archivo."
+    }
+  }
+]

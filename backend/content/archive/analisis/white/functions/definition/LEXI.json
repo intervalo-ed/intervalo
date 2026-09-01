@@ -1,0 +1,451 @@
+[
+  {
+    "id": "white_definition_LEXI_04",
+    "question": "Un municipio asigna un número de expediente a cada uno de sus 40000 vecinos, numerados del 1 al 40000. $$E : \\{1,\\dots,40000\\} \\to \\mathbb{N}$$ ¿Cuál es el **dominio**?",
+    "options": [
+      "Los números de expediente asignados a cada vecino",
+      "Todos los números naturales",
+      "El conjunto $\\{1,\\dots,40000\\}$ de vecinos"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Los vecinos actúan como las entradas de la función, conformando el dominio.",
+    "feedback_incorrect": [
+      "Esos son los valores de salida, es decir la imagen; el dominio refiere a los elementos que ingresan a la función.",
+      "El conjunto de partida está acotado por la cantidad real de vecinos, no incluye los naturales infinitos.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **dominio** es el conjunto inicial, las entradas a las que se les va a aplicar la función.\n\nAcá las entradas son los ciudadanos, numerados del 1 al 40000: ese es el conjunto $\\{1,\\dots,40000\\}$.\n\nLos expedientes generados pertenecen al **codominio**.\n\nNo mezcles el dominio con el codominio: los ciudadanos son las entradas; los expedientes que se generan viven en el conjunto de llegada.",
+    "reviewed": false,
+    "tags": [
+      "dominio"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Dominio dado en la notacion de flecha, {1..40000}. El 03 hace lo mismo con el dominio declarado dentro de la formula y discrimina mucho mas (17% contra 67%)."
+    }
+  },
+  {
+    "id": "white_definition_LEXI_05",
+    "question": "La velocidad promedio de un viaje de 120 km que dura $t$ horas es:$$v(t) = \\frac{120}{t}$$ ¿Cuál es el **dominio** natural de esta función?",
+    "options": [
+      "$t \\geq 120$",
+      "$\\mathbb{R}$",
+      "$t > 0$",
+      "$t \\geq 1$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El tiempo debe ser mayor a cero para que la división sea posible y tenga sentido físico.",
+    "feedback_incorrect": [
+      "El divisor no necesita superar a 120, solo tiene que evitar ser cero y tener sentido físico.",
+      "Esa opción ignora que no se puede dividir por 0 y que el tiempo negativo no aplica.",
+      null,
+      "Un viaje puede durar menos de 1 hora perfectamente; no hay razón para exigir ese mínimo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **dominio** natural descarta los valores que rompen el cálculo o que carecen de sentido para el problema.\n\nDividir entre 0 no está definido, y un viaje no puede durar un tiempo negativo, así que el tiempo debe ser estrictamente mayor a cero.\n\nEse es el conjunto válido para evaluar la función.\n\nPara el dominio natural combiná las dos restricciones: la matemática, que prohíbe dividir por cero, y la del problema, que descarta un tiempo negativo.",
+    "reviewed": false,
+    "tags": [
+      "dominio"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "FACIL",
+      "razon": "Dominio natural de 120/t, P1 100%. El 06 plantea la misma division pero con un denominador que cuenta personas, o sea que ademas exige la restriccion a enteros positivos."
+    }
+  },
+  {
+    "id": "white_definition_LEXI_08",
+    "question": "Una función transforma cada valor según:\n$$r(x) = \\frac{1}{x - 3}$$\n¿Cuál es el **dominio** natural de esta función?",
+    "options": [
+      "$x > 3$",
+      "$\\mathbb{R}$",
+      "$x \\neq 3$",
+      "$x \\neq 0$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El único número prohibido es el 3, ya que convierte el divisor en cero.",
+    "feedback_incorrect": [
+      "Los números menores a 3, incluido el 0, dan un resultado negativo pero totalmente válido: no hace falta excluirlos.",
+      "Recordá que si ingresa el 3, el divisor se hace cero, lo que no está definido.",
+      null,
+      "El 0 no rompe la cuenta; $1/(0-3)$ da $-1/3$, un valor perfectamente definido."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **dominio** natural incluye absolutamente todos los valores que no rompen la cuenta.\n\nLa **única** prohibición en una fracción es que el denominador valga cero.\n\nPara el resto de la recta numérica, la función trabaja de maravilla.\n\nEn una fracción la única restricción del dominio es que el denominador no se anule; el resto de la recta es válido.",
+    "reviewed": false,
+    "tags": [
+      "dominio"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "FACIL",
+      "razon": "Dominio natural de 1/(x-3), P1 100% con n=1."
+    }
+  },
+  {
+    "id": "white_definition_LEXI_09",
+    "question": "El radio de una circunferencia en función de su área $A$ es:$$r(A) = \\sqrt{\\frac{A}{\\pi}}$$ ¿Cuál es el **dominio** natural?",
+    "options": [
+      "$A \\geq 0$",
+      "$A > \\pi$",
+      "$A > 0$",
+      "$\\mathbb{R}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Un área geométrica no puede ser negativa, y eso coincide con la restricción de la raíz.",
+    "feedback_incorrect": [
+      null,
+      "No hay problema en tener un área pequeña menor a $\\pi$, la raíz de un número entre 0 y 1 sigue existiendo.",
+      "El caso $A = 0$ también vale: da un círculo de radio cero, geométricamente admisible.",
+      "Un área negativa no existe en el mundo físico y rompe la raíz matemática."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **dominio** natural junta las entradas que superan las barreras matemáticas y lógicas del problema.\n\nLa raíz cuadrada exige un radicando no negativo.\n\nAdemás, un área negativa no existe geométricamente.\n\nAcá el dominio combina dos condiciones que apuntan a la misma conclusión: el radicando no negativo y que el área tenga sentido geométrico, es decir $A \\geq 0$.",
+    "reviewed": false,
+    "tags": [
+      "dominio"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Raiz de A/pi: misma restriccion radical que el 07, con el mismo P1."
+    }
+  },
+  {
+    "id": "white_definition_LEXI_12",
+    "question": "El total a pagar por $v$ litros de nafta a \\$700 el litro se calcula con:$$P(v) = 700v$$ ¿Qué sería el total $P$ en este caso?",
+    "options": [
+      "Es un parámetro constante",
+      "Es la variable dependiente",
+      "Es la variable independiente"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El precio final responde a la cantidad de litros ingresados, ocupando el lugar de la salida.",
+    "feedback_incorrect": [
+      "El valor a pagar cambia según la cantidad de litros que cargues.",
+      null,
+      "El total a pagar no se decide en el surtidor: sale de multiplicar los litros por el precio, por lo tanto es la salida, no la entrada."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La variable **dependiente** es el valor final que entrega la función, subordinado a la entrada.\n\nAcá elegís qué volumen $v$ vas a cargar.\n\nEl monto final sale de multiplicar los litros cargados por el precio de cada uno.\n\nComo $P$ necesita del dato $v$ para existir, es dependiente.\n\nLa dependiente es siempre la que necesita del otro dato para existir: sin $v$ no hay $P$.",
+    "reviewed": false,
+    "tags": [
+      "variable-indep-dep"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "'Que seria el total P' es la misma pregunta que el 10 sobre otro contexto, y el 10 tiene mas exposicion."
+    }
+  },
+  {
+    "id": "white_definition_LEXI_13",
+    "question": "Una caja de madera pesa 2 kg. Cada bloque que se guarda adentro pesa 0,3 kg. El peso total con $m$ bloques es:$$W(m) = 2 + 0{,}3m$$ ¿Cuál es la variable **dependiente**?",
+    "options": [
+      "La cantidad de bloques $m$",
+      "Los 2 kg originales de la caja",
+      "El peso total $W$ siempre"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El peso definitivo es la salida que arroja el modelo, por lo que es dependiente.",
+    "feedback_incorrect": [
+      "La cantidad de bloques es lo que vos decidís ingresar; es la variable libre o independiente.",
+      "Esa es la constante inicial, no varía con la cantidad de bloques agregados.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La variable **dependiente** es la salida que arroja el modelo luego de realizar los cálculos.\n\nAcá elegís cuántos objetos $m$ cargar, y el peso definitivo se obtiene sumando el peso de la caja vacía al de los bloques agregados.\n\nComo $W$ responde directamente a esa cantidad, ocupa el rol dependiente.\n\nEl peso $W$ es la dependiente porque queda fijado por la cantidad $m$ que elegís, no al revés.",
+    "reviewed": false,
+    "tags": [
+      "variable-indep-dep"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Variable dependiente, cubierto por el 15. n=1."
+    }
+  },
+  {
+    "id": "white_definition_LEXI_14",
+    "question": "La temperatura en grados Fahrenheit a partir de los Celsius $c$ es:$$F(c) = \\frac{9}{5}c + 32$$ ¿Cuál es la variable **independiente**?",
+    "options": [
+      "Los grados Fahrenheit $F$",
+      "Los grados Celsius $c$",
+      "La constante 32"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Ingresás el valor en Celsius, funcionando así como la variable independiente de entrada.",
+    "feedback_incorrect": [
+      "El valor en Fahrenheit es la salida de la fórmula; invierte la relación entre las magnitudes.",
+      null,
+      "Ese sumando es un número fijo de conversión, es una constante y no una variable."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La variable **independiente** es la entrada, el dato que ingresás para que la cuenta empiece.\n\nEn esta estructura, introducís el valor en Celsius $c$, y la función lo transforma.\n\nEl resultado $F$ obedece a esa elección y es la variable **dependiente**.\n\nIdentificás la dependiente por el sentido de la flecha: ingresás $c$ y obtenés $F$, nunca al revés.",
+    "reviewed": false,
+    "tags": [
+      "variable-indep-dep"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Variable independiente, cubierto por el 11."
+    }
+  },
+  {
+    "id": "white_definition_LEXI_16",
+    "question": "Un cine tiene 8 salas. La función asigna a cada sala su capacidad en butacas. $$C : \\{1,\\dots,8\\} \\to \\{1,\\dots,500\\}$$ ¿Qué conjunto cumple el rol del **codominio**?",
+    "options": [
+      "Las capacidades que realmente poseen las 8 salas",
+      "El universo de tamaños posibles $\\{1,\\dots,500\\}$",
+      "El total de butacas ocupadas en una función"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El rango total de butacas permitidas funciona como el codominio de la asignación.",
+    "feedback_incorrect": [
+      "Esas 8 capacidades reales forman la imagen, no el codominio. El codominio es el abanico teórico de tamaños permitidos por el modelo.",
+      null,
+      "Eso es un dato de uso, no forma parte del rango teórico declarado por el modelo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **codominio** es el conjunto completo que contiene a los resultados potenciales de la función.\n\nLas salidas son las cantidades de asientos, que por diseño del sistema quedan declaradas dentro de $\\{1,\\dots,500\\}$.\n\nLos tamaños que existen en la realidad forman el conjunto **imagen**.\n\nEl codominio es el conjunto de llegada declarado; la imagen es el subconjunto que efectivamente se usa.",
+    "reviewed": false,
+    "tags": [
+      "codominio"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Codominio en notacion de flecha; misma plantilla que el 17, el 18 y el 19. n=1."
+    }
+  },
+  {
+    "id": "white_definition_LEXI_17",
+    "question": "Un taller cobra un servicio fijo según el modelo de auto, variando entre \\$5000 y \\$50000. $$S : \\{\\text{modelos}\\} \\to \\{5000,\\dots,50000\\}$$ ¿Cuál es el **codominio** de la asignación?",
+    "options": [
+      "El intervalo $\\{5000, \\dots, 50000\\}$",
+      "Las tarifas que se cobraron en el mes",
+      "El total facturado durante el mes"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La franja de precios tarifados corresponde al codominio oficial.",
+    "feedback_incorrect": [
+      null,
+      "Esas tarifas cobradas forman la imagen, no el codominio. La imagen agrupa los valores realmente alcanzados; el codominio, todos los factibles.",
+      "Ese es el resultado de acumular varias operaciones, no el rango teórico donde caen las salidas."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **codominio** oficia de contenedor oficial para todos los valores de salida permitidos.\n\nAcá las tarifas del negocio quedan definidas dentro del intervalo $\\{5000,\\dots,50000\\}$.\n\nLos montos cobrados en la práctica conforman el conjunto **imagen**.\n\nEl codominio fija el rango teórico de precios; lo que realmente se cobra forma la imagen, que puede ser más chica.",
+    "reviewed": false,
+    "tags": [
+      "codominio"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Idem 16, P1 100% con n=2."
+    }
+  },
+  {
+    "id": "white_definition_LEXI_18",
+    "question": "Un profesor carga en el sistema si un alumno aprobó con un 1 o desaprobó con un 0.\n$$A : \\{\\text{alumnos}\\} \\to \\{0, 1\\}$$\n¿Qué conjunto representa al **codominio** de la función?",
+    "options": [
+      "El grupo de notas obtenidas al final",
+      "$\\{\\text{alumnos}\\}$",
+      "El par de salidas permitidas $\\{0, 1\\}$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Los valores declarados de salida forman el codominio de la aplicación.",
+    "feedback_incorrect": [
+      "Esas son las notas ya obtenidas, es decir la imagen. El codominio es el conjunto teórico de llegada, no el registro final.",
+      "Los alumnos conforman el dominio o conjunto de partida.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **codominio** es el conjunto donde se distribuyen las salidas de una función.\n\nAcá las únicas etiquetas que el sistema admite ingresar son $\\{0, 1\\}$.\n\nLos alumnos rinden y toman el lugar del **dominio**.\n\nUn formulario que solo admite 0 o 1 no acepta un \"tal vez\": ese valor no pertenece al codominio.\n\nNo confundas el codominio con las notas realmente cargadas: aunque todos los alumnos aprueben, el codominio sigue siendo $\\{0, 1\\}$, no se reduce a $\\{1\\}$.",
+    "reviewed": false,
+    "tags": [
+      "codominio"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Idem 16, P1 100% con n=2."
+    }
+  },
+  {
+    "id": "white_definition_LEXI_22",
+    "question": "Un kiosco vende 5 productos numerados del 1 al 5. La función $P$ asigna a cada producto su precio en pesos. $$\\begin{aligned} P(1) &= 100 \\\\ P(2) &= 150 \\\\ P(3) &= 100 \\\\ P(4) &= 200 \\\\ P(5) &= 150 \\end{aligned}$$ ¿Cuál es el conjunto **imagen** de $P$?",
+    "options": [
+      "$\\{100, 150, 100, 200, 150\\}$",
+      "$\\{150\\}$",
+      "$\\{100, 200\\}$",
+      "$\\{100, 150, 200\\}$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "La imagen agrupa los precios distintos que efectivamente aparecen, sin repetir.",
+    "feedback_incorrect": [
+      "En un conjunto los elementos repetidos cuentan una sola vez. La imagen agrupa solo los valores distintos que la función alcanza.",
+      "El 150 no es el único valor que aparece; los productos 1 y 3 devuelven otro precio distinto.",
+      "Te olvidaste del 150: es el precio de los productos 2 y 5, y pertenece a la imagen.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El conjunto **imagen** reúne los valores distintos que la función efectivamente produce, sin importar cuántas veces se repita cada uno.\n\nAl aplicar la función a los cinco productos, aparecen los precios 100, 150, 100, 200 y 150.\n\nEliminando los repetidos quedan $\\{100, 150, 200\\}$.\n\nUn kiosco puede tener 500 productos y solo tres precios distintos, y la imagen tampoco crecería por eso.",
+    "reviewed": false,
+    "tags": [
+      "imagen-conjunto"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Imagen de un kiosco con precios repetidos: es el mismo colapso de imagen que el 20 (x^2 sobre un conjunto simetrico), que ademas tiene el triple de exposicion."
+    }
+  },
+  {
+    "id": "white_definition_LEXI_23",
+    "question": "Una función constante asocia el número 5 a cualquier entrada del **dominio**. $$f(x) = 5, \\qquad x \\in \\mathbb{R}$$ ¿Cuál es el conjunto **imagen** de esta función?",
+    "options": [
+      "$\\{5\\}$",
+      "$\\mathbb{R}$",
+      "El número $x$",
+      "$\\{0\\}$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Como la regla da siempre 5, la imagen es ese único elemento.",
+    "feedback_incorrect": [
+      null,
+      "La función está definida para todos los reales, pero eso es el dominio, no la imagen. Como devuelve siempre el mismo valor, la imagen tiene un solo elemento.",
+      "La variable de entrada no representa a los valores de salida.",
+      "La regla nunca devuelve el 0: siempre entrega 5, sea cual sea la entrada."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **imagen** recopila las salidas concretas de la operación, sin importar su variedad.\n\nComo la función aplasta cualquier valor que ingresa devolviendo siempre el 5.\n\nEl conjunto imagen consta de un **único** elemento, el $\\{5\\}$.\n\nEn una función constante la imagen tiene un solo elemento, sin importar cuántas entradas haya.",
+    "reviewed": false,
+    "tags": [
+      "imagen-conjunto"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "FACIL",
+      "razon": "Imagen de una funcion constante, P1 100% con n=1."
+    }
+  },
+  {
+    "id": "white_definition_LEXI_25",
+    "question": "Una función transforma cada número en su cubo. Al evaluar el 3 se obtiene 27. $$f(3) = 27$$ ¿Qué sería el 27 respecto del 3 en este caso?",
+    "options": [
+      "El dominio puntual",
+      "Imagen de la función",
+      "La preimagen"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El 27 es el resultado de procesar el número 3, tomando el rol de imagen puntual.",
+    "feedback_incorrect": [
+      "El dominio es el conjunto completo de entradas, no el resultado de una evaluación puntual.",
+      null,
+      "La preimagen es lo que entra para obtener una salida, no el resultado de evaluar."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Si una función convierte una entrada en un resultado, llamamos **imagen** de esa entrada al resultado obtenido.\n\nAcá el modelo recibe un 3 y lo eleva al cubo:\n$$3^3 = 27$$\nPor eso afirmamos que el 27 es la imagen puntual del 3.\n\nLa imagen de un punto es el resultado de evaluar la función en ese punto: $f(3) = 27$.",
+    "reviewed": false,
+    "tags": [
+      "imagen-puntual"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "FACIL",
+      "razon": "'Que seria el 27 respecto del 3', P1 100%. El 26 pregunta lo mismo entrando por un negativo, que es donde aparece la duda."
+    }
+  },
+  {
+    "id": "white_definition_LEXI_27",
+    "question": "Se usa una regla del valor absoluto para procesar datos numéricos. $$f(x) = |x|$$ ¿Cuántas **preimágenes** tiene el 1 bajo esta función?",
+    "options": [
+      "Solo el $1$",
+      "El $1$ y el $-1$",
+      "Ninguna",
+      "Solo el $-1$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Tanto el 1 como el -1 logran que el módulo devuelva 1 como salida.",
+    "feedback_incorrect": [
+      "Recordá que el módulo elimina el signo negativo, haciendo que el $-1$ también califique como preimagen.",
+      null,
+      "Sí hay preimágenes: el $1$ y el $-1$ dan ambos $|x| = 1$.",
+      "El $1$ también sirve: $|1| = 1$, así que también es preimagen."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Las **preimágenes** reúnen todas las raíces que apuntan hacia una misma salida en la función.\n\nPara hallar las raíces del 1 en esta función, planteás la igualdad $|x| = 1$, que tiene dos soluciones: 1 y -1.\n\nUna salida puede tener varias preimágenes sin que la función deje de ser válida.\n\nNo confundas la cantidad de preimágenes con el valor de la imagen: acá el 1 tiene dos preimágenes, $1$ y $-1$, pero la imagen de cada una sigue siendo ese mismo 1.",
+    "reviewed": false,
+    "tags": [
+      "preimagen-calculo"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "FACIL",
+      "razon": "Cuantas preimagenes tiene el 1 bajo |x|, P1 100%."
+    }
+  },
+  {
+    "id": "white_definition_LEXI_29",
+    "question": "Una función lineal modela el costo total en función de los artículos comprados. $$C(a) = 5a + 10$$ ¿Cuál es la **preimagen** del costo 35?",
+    "options": [
+      "$a = 4$",
+      "$a = 7$",
+      "$a = 6$",
+      "$a = 5$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Despejando el modelo, el 5 es la única cantidad que resulta en 35 pesos.",
+    "feedback_incorrect": [
+      "Restaste $15$ en vez de $10$ en el despeje: $35 - 15 = 20$ y $20/5 = 4$, pero el término independiente es $10$.",
+      "Te olvidaste del $+10$ al despejar: $35/5 = 7$, pero antes hay que restar la constante.",
+      "Restaste el coeficiente 5 en vez de la constante 10. Al despejar bien: $35 - 10 = 25$, y $25 / 5 = 5$.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **preimagen** invierte el interrogante: te dan el resultado y te exigen averiguar la entrada.\n\nPara rastrear la fuente del costo 35, igualás el modelo.\n\nLa preimagen pedida es el 5.\n\nUn registro que anota el costo 35 sin poder decir de qué compra vino tendría un problema de trazabilidad: acá, despejando, la preimagen es sin ambigüedad el 5.",
+    "reviewed": false,
+    "tags": [
+      "preimagen-calculo"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "FACIL",
+      "razon": "Preimagen del costo 35 en 5a+10, P1 100%. Es despejar una lineal, no razonar sobre preimagenes."
+    }
+  }
+]

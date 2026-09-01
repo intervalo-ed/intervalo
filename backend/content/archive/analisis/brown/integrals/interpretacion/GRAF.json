@@ -1,0 +1,382 @@
+[
+  {
+    "id": "brown_interpretacion_GRAF_02",
+    "question": "A un tanque vacío le entra agua, cada vez más despacio.\n\nLa recta muestra el caudal de entrada en litros por minuto, y el eje horizontal marca el tiempo en minutos.\n\n¿Qué cantidad representa el área sombreada?",
+    "options": [
+      "El caudal promedio de esos $4$ minutos",
+      "Los litros que entraron en esos $4$ minutos",
+      "Los minutos que tardó el caudal en apagarse"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, el alto está en litros por minuto y el ancho en minutos, así que el área queda en litros.",
+    "feedback_incorrect": [
+      "El promedio sería esa área repartida a lo largo del tramo, no el área en sí.",
+      null,
+      "Ese momento se lee sobre el eje horizontal, justo donde la recta lo toca."
+    ],
+    "graph_fn": "4-x",
+    "graph_view": [
+      -1,
+      5,
+      -1,
+      5
+    ],
+    "graph_shade": [
+      0,
+      4
+    ],
+    "explanation": "El caudal dice cuánta agua entra por cada minuto que pasa, y va bajando: al principio entra mucho y al final casi nada.\n\nPara saber cuánta agua entró en total no alcanza con mirar el caudal en un instante, porque cambia minuto a minuto.\n\nEl área hace esa cuenta, multiplicando el caudal por el tiempo durante el cual ese caudal estuvo vigente.\n\nQue el caudal termine en cero no significa que el tanque esté vacío. Significa que dejó de entrar agua, y toda la anterior sigue contada en el área.",
+    "reviewed": false,
+    "tags": [
+      "que-mide-el-area-sombreada"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Tanque que se llena cada vez mas despacio; misma area bajo una recta que el 01 y el 04."
+    }
+  },
+  {
+    "id": "brown_interpretacion_GRAF_03",
+    "question": "La recta muestra la velocidad de un ascensor en metros por segundo, con el tiempo en segundos.\n\nLos valores positivos son subida y los negativos, bajada. Las dos partes sombreadas tienen el mismo tamaño.\n\n¿Qué se puede afirmar del recorrido completo?",
+    "options": [
+      "El ascensor no se movió en ningún momento",
+      "El ascensor subió el doble de lo que bajó",
+      "El ascensor terminó a la altura de partida"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, lo que bajó y lo que subió se compensan, y el cambio total de altura es cero.",
+    "feedback_incorrect": [
+      "El ascensor se movió casi todo el tiempo, y eso se ve en que la recta casi nunca vale cero.",
+      "Las dos partes sombreadas son iguales, así que ninguna de las dos supera a la otra.",
+      null
+    ],
+    "graph_fn": "x-2",
+    "graph_view": [
+      -1,
+      5,
+      -3,
+      3
+    ],
+    "graph_shade": [
+      0,
+      4
+    ],
+    "explanation": "El área que queda por debajo del eje se cuenta con signo negativo, y por eso el gráfico la pinta de otro color: representa una bajada.\n\nCuando las dos partes tienen el mismo tamaño se cancelan entre sí y el total da cero.\n\nEse cero habla del cambio de altura entre el principio y el final, no de lo que pasó en el medio. De hecho el ascensor recorrió bastante.\n\nBajó primero y subió después. Un total de cero informa que las dos mitades del viaje se compensaron, no que haya estado quieto.",
+    "reviewed": false,
+    "tags": [
+      "que-mide-el-area-sombreada"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Velocidad de un ascensor; idem 02."
+    }
+  },
+  {
+    "id": "brown_interpretacion_GRAF_05",
+    "question": "Una aplicación descarga un archivo a velocidad constante.\n\nLa recta muestra esa velocidad en megabytes por segundo, con el tiempo en segundos.\n\n¿Qué representa el área sombreada?",
+    "options": [
+      "La velocidad de descarga promedio",
+      "Los megabytes bajados en esos $3$ segundos",
+      "El tamaño total del archivo completo"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, megabytes por segundo multiplicado por segundos deja megabytes.",
+    "feedback_incorrect": [
+      "La velocidad promedio se lee en el alto de la recta, que acá se mantiene constante.",
+      null,
+      "El área cuenta lo bajado en el tramo sombreado, y la descarga puede seguir después."
+    ],
+    "graph_fn": "2",
+    "graph_view": [
+      -1,
+      5,
+      -1,
+      5
+    ],
+    "graph_shade": [
+      0,
+      3
+    ],
+    "explanation": "Con velocidad constante la región sombreada es un rectángulo, y ahí se ve de dónde sale la cuenta: el alto es la velocidad y el ancho es el tiempo.\n\nEse producto entre alto y ancho es lo que la integral generaliza. Cuando la velocidad cambia la figura deja de ser un rectángulo, pero el área sigue midiendo lo mismo.\n\nQue el área mida lo descargado en el tramo no dice nada sobre el archivo completo.\n\nPara saber eso habría que sombrear hasta el momento en que la descarga termina, que puede caer bastante más adelante.",
+    "reviewed": false,
+    "tags": [
+      "que-mide-el-area-sombreada"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Descarga a velocidad constante; el area de un rectangulo, cubierta por el 18."
+    }
+  },
+  {
+    "id": "brown_interpretacion_GRAF_06",
+    "question": "La recta muestra el caudal de una canilla en litros por segundo.\n\nEl eje horizontal marca el tiempo en segundos.\n\n¿En qué unidad queda el número que mide el área sombreada?",
+    "options": [
+      "En segundos, que es lo que dura",
+      "En litros por segundo, igual que el alto",
+      "En litros, que es lo que se acumula"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, la unidad del área sale de multiplicar la del alto por la del ancho.",
+    "feedback_incorrect": [
+      "Los segundos miden el ancho del tramo, que es uno solo de los dos factores del área.",
+      "Esa es la unidad del alto de la recta, y el área combina ese alto con el tiempo.",
+      null
+    ],
+    "graph_fn": "3-x",
+    "graph_view": [
+      -1,
+      5,
+      -1,
+      5
+    ],
+    "graph_shade": [
+      0,
+      3
+    ],
+    "explanation": "La unidad del resultado no se copia de ninguno de los dos ejes: sale de multiplicarlos. Acá el alto está en litros por segundo y el ancho en segundos.\n\nAl multiplicar, los segundos del denominador se cancelan contra los del ancho y queda una cantidad en litros.\n\nEsa cancelación es la mejor pista para saber qué mide una integral cuando la situación no lo aclara sola.\n\nSirve también como control: si la unidad que sale no responde la pregunta que se hizo, el planteo tiene algo mal, sin revisar ninguna cuenta.",
+    "reviewed": false,
+    "tags": [
+      "que-mide-el-area-sombreada"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Caudal de una canilla; idem 02."
+    }
+  },
+  {
+    "id": "brown_interpretacion_GRAF_09",
+    "question": "La recta muestra el caudal de entrada a una pileta en litros por minuto, con el tiempo en minutos.\n\nEl sombreado marca los últimos dos minutos del tramo.\n\n¿Cómo es esa área comparada con la de los dos primeros minutos?",
+    "options": [
+      "Menor, porque el tramo dura lo mismo",
+      "Igual, porque los dos duran dos minutos",
+      "Mayor, porque ahí el caudal es más alto"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto, los dos tramos duran lo mismo pero el caudal del segundo es más alto.",
+    "feedback_incorrect": [
+      "Durar lo mismo no alcanza para acumular lo mismo, porque el caudal también entra en la cuenta.",
+      "El ancho de los dos tramos coincide, pero el alto de la recta es distinto en cada uno.",
+      null
+    ],
+    "graph_fn": "x",
+    "graph_view": [
+      -1,
+      5,
+      -1,
+      5
+    ],
+    "graph_shade": [
+      2,
+      4
+    ],
+    "explanation": "Los dos tramos tienen el mismo ancho, así que la comparación depende enteramente del alto de la recta sobre cada uno.\n\nComo el caudal viene creciendo, sobre el segundo tramo la recta está más alta en todos sus puntos.\n\nCon el mismo ancho y más altura, el área acumulada es mayor sin necesidad de medir nada.\n\nLa lectura se generaliza: dos tramos de igual duración acumulan distinto cuando el ritmo cambia, y ahí está la diferencia con una multiplicación simple.",
+    "reviewed": false,
+    "tags": [
+      "acumulacion-y-comparacion"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Caudal de entrada a una pileta, todo positivo; el 10, el 12 y el 13 cubren el caso con signo, que es el que ensena."
+    }
+  },
+  {
+    "id": "brown_interpretacion_GRAF_11",
+    "question": "La recta muestra el caudal de una canilla en litros por minuto, con el tiempo en minutos, y va bajando.\n\nEl sombreado marca el primer minuto.\n\n¿Cómo es el agua acumulada ahí comparada con la del último minuto?",
+    "options": [
+      "Igual, porque los dos duran un minuto",
+      "Mayor, porque el caudal es más alto ahí",
+      "Menor, porque recién se abría la canilla"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, con el mismo ancho de tramo gana el que tiene la recta más alta.",
+    "feedback_incorrect": [
+      "La duración es la misma, pero el caudal cambia mucho entre un extremo y el otro.",
+      null,
+      "La canilla arranca en su caudal más alto, y es hacia el final cuando entra menos por minuto."
+    ],
+    "graph_fn": "4-x",
+    "graph_view": [
+      -1,
+      5,
+      -1,
+      5
+    ],
+    "graph_shade": [
+      0,
+      1
+    ],
+    "explanation": "El caudal arranca alto y baja de forma pareja hasta apagarse. Sobre el primer minuto la recta está en su parte más alta de todo el gráfico.\n\nLos dos tramos que se comparan duran lo mismo, así que el ancho no los distingue.\n\nLo que decide es el alto, y ahí la diferencia es grande: el primer minuto acumula bastante más que el último.\n\nEsta lectura sirve para estimar sin calcular. Con el ritmo bajando, cada tramo aporta menos que el anterior aunque todos duren igual.",
+    "reviewed": false,
+    "tags": [
+      "acumulacion-y-comparacion"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Canilla que varia; idem 09."
+    }
+  },
+  {
+    "id": "brown_interpretacion_GRAF_14",
+    "question": "La recta muestra la velocidad de un ascensor en metros por segundo, y los valores negativos son bajada.\n\nEl sombreado marca el primer tramo del recorrido.\n\n¿Cómo entra ese tramo en el cambio total de altura?",
+    "options": [
+      "Sin efecto, porque el ascensor pasa rápido",
+      "Restando, porque queda por debajo del eje",
+      "Sumando, porque todo tramo recorrido cuenta"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, un tramo por debajo del eje es una bajada, y en el total entra con signo negativo.",
+    "feedback_incorrect": [
+      "El tramo dura dos segundos completos y su área es grande, así que sí afecta al total.",
+      null,
+      "Se acumula, pero con el signo que le corresponde, y acá ese signo es negativo."
+    ],
+    "graph_fn": "x-2",
+    "graph_view": [
+      -1,
+      5,
+      -3,
+      3
+    ],
+    "graph_shade": [
+      0,
+      2
+    ],
+    "explanation": "El gráfico pinta de distinto color lo que queda arriba y lo que queda abajo del eje, justamente porque no entran igual en la cuenta.\n\nEl tramo sombreado es una bajada: durante esos segundos la velocidad es negativa y el ascensor pierde altura.\n\nEn el total, esa altura perdida se resta de la que gane después.\n\nSi al terminar el recorrido las dos partes resultaran iguales, el total daría cero, y eso significaría que el ascensor volvió a la altura de partida.",
+    "reviewed": false,
+    "tags": [
+      "acumulacion-y-comparacion"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Ascensor con valores negativos; el 12 (carrito) hace el mismo caso con signo."
+    }
+  },
+  {
+    "id": "brown_interpretacion_GRAF_16",
+    "question": "Una manguera riega cada vez con menos presión.\n\nLa recta muestra su caudal en litros por minuto, con el tiempo en minutos.\n\nPara estimar el agua total, alguien congela el caudal en su valor inicial.\n\n¿Cómo queda esa estimación?",
+    "options": [
+      "Queda por encima de lo real",
+      "Queda por debajo de lo real",
+      "Coincide con lo real"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto, el caudal real baja enseguida, así que al rectángulo imaginado le sobra área.",
+    "feedback_incorrect": [
+      null,
+      "Para quedar corta el caudal tendría que crecer, y acá arranca en su punto más alto.",
+      "Coincidiría solo si el caudal fuera constante de verdad, y acá baja durante todo el tramo."
+    ],
+    "graph_fn": "4-x",
+    "graph_view": [
+      -1,
+      5,
+      -1,
+      5
+    ],
+    "graph_shade": [
+      0,
+      4
+    ],
+    "explanation": "Congelar el ritmo convierte la región en un rectángulo imaginario: el alto inicial sostenido durante todo el tramo.\n\nComo el caudal real baja desde el primer minuto, la recta queda siempre por debajo de ese techo, y la región sombreada es más chica que el rectángulo.\n\nLa estimación sobra justo donde el caudal ya no es el del arranque. Esa diferencia es la mentira de congelar.\n\nAlto por ancho solo es exacto cuando el ritmo no cambia. Todo lo demás de la integral existe para arreglar esa mentira.",
+    "reviewed": false,
+    "tags": [
+      "congelar-el-ritmo"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Manguera con presion decreciente; el 19 (estufa que se apaga) es el mismo ritmo decreciente y llega hasta cero."
+    }
+  },
+  {
+    "id": "brown_interpretacion_GRAF_20",
+    "question": "Un surtidor carga nafta cada vez más lento hacia el final.\n\nLa recta muestra el caudal en litros por minuto, con el tiempo en minutos.\n\nPara estimar los litros, alguien congela el caudal en su valor final.\n\n¿Cómo queda esa estimación?",
+    "options": [
+      "Queda por encima de lo real",
+      "Queda por debajo de lo real",
+      "Coincide con lo real"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, el valor final es el más bajo del tramo, y sostenerlo hacia atrás deja litros afuera.",
+    "feedback_incorrect": [
+      "Para que sobre área habría que congelar en un valor alto, y el final es el punto más bajo del tramo.",
+      null,
+      "Coincidiría solo con caudal constante, y acá baja durante toda la carga."
+    ],
+    "graph_fn": "4-x",
+    "graph_view": [
+      -1,
+      5,
+      -1,
+      5
+    ],
+    "graph_shade": [
+      0,
+      3
+    ],
+    "explanation": "Congelar en el valor final arma un rectángulo con el alto más chico de todo el tramo.\n\nLa recta real queda por encima de ese piso en todo el recorrido, así que la región sombreada guarda litros que el rectángulo no cuenta.\n\nCon el mismo gráfico, congelar al principio habría sobrado y congelar al final queda corto. La respuesta verdadera vive entre esas dos estimaciones.\n\nEncerrar el valor real entre una estimación que sobra y una que falta es una idea vieja y poderosa: afinando los tramos, las dos se aprietan contra la respuesta.",
+    "reviewed": false,
+    "tags": [
+      "congelar-el-ritmo"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Surtidor que carga cada vez mas lento; idem 16."
+    }
+  },
+  {
+    "id": "brown_interpretacion_GRAF_23",
+    "question": "Una descarga arranca a toda velocidad y se va frenando.\n\nLa recta muestra esa velocidad en megabytes por segundo, con el tiempo en segundos.\n\n¿En qué parte del tramo se suman más megabytes?",
+    "options": [
+      "Hacia el final, cuando ya se estabiliza",
+      "Al principio, con la recta más alta",
+      "Parejo a lo largo de todo el tramo"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto, los megabytes entran al ritmo que marca la recta, y la recta arranca en su punto más alto.",
+    "feedback_incorrect": [
+      "Hacia el final la recta está en su punto más bajo, así que ahí entran menos megabytes por segundo.",
+      null,
+      "Sería parejo solo con velocidad constante, y acá la recta baja durante todo el tramo."
+    ],
+    "graph_fn": "4-x",
+    "graph_view": [
+      -1,
+      5,
+      -1,
+      5
+    ],
+    "graph_shade": [
+      0,
+      4
+    ],
+    "explanation": "El total descargado es el área, pero la pregunta apunta a otra cosa: dónde crece más rápido ese total.\n\nLa respuesta está en el alto de la recta. Al principio la franja de cada segundo es alta y aporta mucho; hacia el final, cada segundo aporta poco.\n\nPor eso el mismo intervalo de tiempo no siempre vale lo mismo: el primer segundo de esta descarga rinde más que el último.\n\nEl alto de la recta funciona como el velocímetro del área: no dice cuánto hay, dice a qué ritmo está entrando.",
+    "reviewed": false,
+    "tags": [
+      "la-velocidad-del-area"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Descarga que se va frenando; el 21 (panaderia) ya cubre el ritmo decreciente sin frenar."
+    }
+  }
+]

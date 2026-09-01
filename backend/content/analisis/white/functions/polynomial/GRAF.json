@@ -1,67 +1,5 @@
 [
   {
-    "id": "white_polynomial_GRAF_01",
-    "question": "La gráfica muestra una función polinómica.\n\n¿Cuántas raíces reales tiene?",
-    "options": [
-      "$1$",
-      "$3$",
-      "$2$",
-      "$4$"
-    ],
-    "correct_index": 1,
-    "feedback_correct": "La curva cruza el eje $x$ exactamente en $3$ puntos.",
-    "feedback_incorrect": [
-      "Recorré todo el eje $x$ de izquierda a derecha, hay más de un punto donde la curva lo cruza.",
-      null,
-      "Fijate si la curva vuelve a cruzar el eje cerca del centro del gráfico, además de los cruces que ya viste.",
-      "Contá solo los puntos donde la curva atraviesa el eje, no donde se acerca sin tocarlo."
-    ],
-    "explanation": "Una **raíz** de un polinomio es un valor de $x$ donde la curva cruza o toca el eje horizontal, y un polinomio de grado $n$ tiene como máximo esa misma cantidad de raíces reales.\n\nEn este gráfico la curva corta el eje en los puntos $x \\in \\{-2, 0, 2\\}$, así que tiene **3 raíces reales**, todas simples porque la curva atraviesa el eje sin rebotar en ninguna.\n\nEl número de raíces reales nunca supera el grado del polinomio, así que conviene recorrer el gráfico de punta a punta antes de dar el conteo final, sin perder los cruces cercanos a los bordes.",
-    "has_math": true,
-    "graph_fn": "x*(x-2)*(x+2)/4",
-    "graph_view": [
-      -3,
-      3,
-      -3,
-      3
-    ],
-    "reviewed": false,
-    "tags": [
-      "lectura-raices"
-    ]
-  },
-  {
-    "id": "white_polynomial_GRAF_02",
-    "question": "La gráfica muestra una función polinómica de grado 3.\n\n¿El coeficiente principal es positivo o negativo?",
-    "options": [
-      "Positivo",
-      "No se puede determinar",
-      "Es cero",
-      "Negativo"
-    ],
-    "correct_index": 3,
-    "feedback_correct": "La curva baja a la derecha cuando $x \\to +\\infty$, así que el coeficiente principal es negativo.",
-    "feedback_incorrect": [
-      "Mirá qué pasa con la curva del lado derecho del gráfico cuando $x$ crece mucho, no del lado izquierdo.",
-      "El comportamiento en los extremos del gráfico ya alcanza para definir el signo, no hace falta la fórmula completa.",
-      "Si el coeficiente principal fuera cero, el polinomio bajaría de grado y la curva no tendría esta forma con extremos tan marcados.",
-      null
-    ],
-    "explanation": "En un polinomio de **grado impar**, el signo del coeficiente principal se lee de la dirección de los dos extremos de la curva, que siempre apuntan en sentidos opuestos.\n\nEn este gráfico la curva baja a la derecha y sube a la izquierda, una combinación que solo aparece cuando el coeficiente principal es negativo.\n\nConviene revisar siempre los dos extremos antes de decidir el signo, porque el criterio depende de la combinación de ambos lados, no de uno solo.",
-    "has_math": true,
-    "graph_fn": "-x*(x-2)*(x+2)/4",
-    "graph_view": [
-      -3,
-      3,
-      -3,
-      3
-    ],
-    "reviewed": false,
-    "tags": [
-      "lectura-signo-coeficiente"
-    ]
-  },
-  {
     "id": "white_polynomial_GRAF_03",
     "question": "La gráfica muestra una función polinómica de grado 4.\n\n¿Hacia dónde tienden los extremos de la curva cuando $x \\to \\pm\\infty$?",
     "options": [
@@ -93,37 +31,6 @@
     ]
   },
   {
-    "id": "white_polynomial_GRAF_04",
-    "question": "Los extremos locales se ven en el gráfico como los puntos donde la curva cambia de dirección:\n$$f(x) = \\dfrac{x(x-2)(x+2)}{4}$$\n¿Cuántos extremos locales tiene?",
-    "options": [
-      "$2$",
-      "$0$",
-      "$1$",
-      "$3$"
-    ],
-    "correct_index": 0,
-    "feedback_correct": "La cúbica tiene exactamente $2$ extremos locales: un máximo y un mínimo.",
-    "feedback_incorrect": [
-      null,
-      "Fijate si la curva sube y baja en algún tramo antes de retomar su tendencia general.",
-      "Revisá el lado izquierdo y el derecho del gráfico por separado, hay un cambio de tendencia en cada uno.",
-      "No cuentes las raíces, que son los cruces con el eje, como si fueran picos o valles."
-    ],
-    "explanation": "Un polinomio de grado $n$ tiene **como máximo $n - 1$ extremos locales**.\n\nPara grado $3$, ese máximo es $2$ extremos locales. En este gráfico se ven claramente un máximo local a la izquierda y un mínimo local a la derecha, sumando los **2 extremos** esperados.\n\nNo hay que confundir estos extremos con las raíces: la curva cruza el eje $x$ en 3 puntos distintos, pero los extremos son los picos y valles de la curva, no los cruces con el eje horizontal.",
-    "has_math": true,
-    "graph_fn": "x*(x-2)*(x+2)/4",
-    "graph_view": [
-      -3,
-      3,
-      -3,
-      3
-    ],
-    "reviewed": false,
-    "tags": [
-      "lectura-extremos-locales"
-    ]
-  },
-  {
     "id": "white_polynomial_GRAF_05",
     "question": "La gráfica muestra una función polinómica de grado 4.\n\n¿Cuántos extremos locales tiene?",
     "options": [
@@ -152,68 +59,6 @@
     "reviewed": false,
     "tags": [
       "lectura-extremos-locales"
-    ]
-  },
-  {
-    "id": "white_polynomial_GRAF_06",
-    "question": "La gráfica muestra un polinomio de grado 3 con coeficiente principal positivo.\n\n¿La imagen de $f$, el conjunto de valores que la función alcanza, es $\\mathbb{R}$ completo?",
-    "options": [
-      "No, está acotada por abajo",
-      "No, está acotada por arriba",
-      "No, hay valores que no alcanza",
-      "Sí siempre, en cada parabola"
-    ],
-    "correct_index": 3,
-    "feedback_correct": "Todo polinomio de grado impar tiene imagen $\\mathbb{R}$.",
-    "feedback_incorrect": [
-      "Esa limitación aparece en polinomios de grado par, fijate hacia dónde va la curva en el extremo izquierdo del gráfico.",
-      "Revisá qué pasa con la curva cuando $x$ crece mucho hacia la derecha, no se detiene en ningún techo.",
-      "Seguí la curva hacia ambos extremos del gráfico para ver si cubre absolutamente todas las alturas posibles.",
-      null
-    ],
-    "explanation": "La **imagen** de un polinomio depende de la paridad de su grado: si es impar, la curva sube sin cota de un lado y baja sin cota del otro, así que cubre todo $\\mathbb{R}$.\n\nEste gráfico corresponde a un polinomio de grado $3$ con coeficiente positivo: sube indefinidamente a la derecha y baja indefinidamente a la izquierda, cubriendo todas las alturas posibles.\n\nAplicar el razonamiento de un grado par, con imagen acotada, a este caso de grado impar deja afuera valores que la función sí alcanza sin problema.",
-    "has_math": true,
-    "graph_fn": "x*(x-2)*(x+2)/4",
-    "graph_view": [
-      -3,
-      3,
-      -3,
-      3
-    ],
-    "reviewed": false,
-    "tags": [
-      "lectura-imagen"
-    ]
-  },
-  {
-    "id": "white_polynomial_GRAF_07",
-    "question": "Sea la función:\n$$f(x) = \\dfrac{-x(x-2)(x+2)}{4}$$\n¿Qué ocurre con $f(x)$ cuando $x \\to -\\infty$?",
-    "options": [
-      "$f(x) \\to -\\infty$",
-      "$f(x) \\to 0$",
-      "$f(x) \\to +\\infty$",
-      "$f(x)$ oscila"
-    ],
-    "correct_index": 2,
-    "feedback_correct": "Coef. negativo + grado impar → extremos opuestos. Cuando x→-∞, la curva sube: $f \\to +\\infty$.",
-    "feedback_incorrect": [
-      "Fijate en el lado izquierdo del gráfico, la curva sube en vez de bajar cuando $x$ se hace muy negativo.",
-      "Los polinomios de grado impar no se estabilizan en ningún valor en los extremos, seguí la curva hasta el borde del gráfico.",
-      null,
-      "En los extremos del gráfico la curva mantiene una tendencia única, sin subir y bajar repetidamente."
-    ],
-    "explanation": "El comportamiento de un polinomio cuando $x \\to -\\infty$ queda determinado por su término dominante, el de mayor exponente, junto con su signo.\n\nEl término dominante de este polinomio es $-x^3/4$, de grado impar y coeficiente negativo, así que al acercarse al extremo izquierdo del gráfico la curva sube sin cota en vez de bajar.\n\nEn los polinomios de grado impar, los dos extremos siempre van en direcciones opuestas: aplicar la dirección del extremo derecho también al izquierdo confunde ambos lados de la curva.",
-    "has_math": true,
-    "graph_fn": "-x*(x-2)*(x+2)/4",
-    "graph_view": [
-      -3,
-      3,
-      -3,
-      3
-    ],
-    "reviewed": false,
-    "tags": [
-      "lectura-comportamiento-extremos"
     ]
   },
   {
@@ -310,68 +155,6 @@
     ]
   },
   {
-    "id": "white_polynomial_GRAF_11",
-    "question": "La gráfica muestra un polinomio de grado 4 con coeficiente principal negativo.\n\n¿La función tiene mínimo global?",
-    "options": [
-      "No",
-      "Sí",
-      "Solo en el intervalo $[-2, 2]$",
-      "Depende de los valores de las raíces"
-    ],
-    "correct_index": 0,
-    "feedback_correct": "Grado par con coef. negativo → ambos extremos $\\to -\\infty$ → no hay mínimo global.",
-    "feedback_incorrect": [
-      null,
-      "Fijate hacia dónde van los dos extremos de la curva, ambos bajan sin límite.",
-      "El mínimo global se define en todo el dominio, no solo en la parte visible del gráfico.",
-      "La existencia de mínimo global depende del signo del coeficiente principal y la paridad del grado, no de dónde estén las raíces."
-    ],
-    "explanation": "El **mínimo global** es el valor más bajo que alcanza la función en todo $\\mathbb{R}$, no solo en la parte visible del gráfico.\n\nEste polinomio tiene grado $4$ y coeficiente principal negativo, así que sus dos extremos bajan hacia $-\\infty$ sin tocar nunca un piso, y por eso no existe un mínimo global.\n\nSí existe un máximo global, en el pico central de esta curva con forma de M. Un grado 4 con coeficiente positivo se comporta al revés, con forma de W, que sí tiene mínimo global pero no máximo global.",
-    "has_math": true,
-    "graph_fn": "-(pow(x,2)-1)*(pow(x,2)-4)/4",
-    "graph_view": [
-      -3,
-      3,
-      -3,
-      1
-    ],
-    "reviewed": false,
-    "tags": [
-      "lectura-extremo-global"
-    ]
-  },
-  {
-    "id": "white_polynomial_GRAF_12",
-    "question": "Un polinomio deja una huella de su grado en la forma del gráfico:\n$$f(x) = \\dfrac{x^3}{8}$$\n¿El grado del polinomio es par o impar?",
-    "options": [
-      "Par",
-      "Impar",
-      "No se puede determinar desde el gráfico",
-      "Es cero"
-    ],
-    "correct_index": 1,
-    "feedback_correct": "El grado es 3: impar. Los extremos en $\\pm\\infty$ van en **direcciones opuestas**.",
-    "feedback_incorrect": [
-      "Fijate si los dos extremos de la curva van en la misma dirección o en direcciones opuestas.",
-      null,
-      "El comportamiento en los extremos del gráfico ya alcanza para definir la paridad del grado.",
-      "Un grado cero daría una función constante, sin la forma creciente que se ve acá."
-    ],
-    "explanation": "La paridad del grado de un polinomio se lee del comportamiento de la curva en sus dos extremos: si van en la misma dirección el grado es par, y si van en direcciones opuestas es impar.\n\nEn este gráfico la curva sube claramente hacia la derecha y baja hacia la izquierda, una combinación de direcciones opuestas que corresponde a un grado impar, en este caso grado $3$.\n\nFijarse solo en uno de los extremos y suponer la paridad sin comparar ambos lados deja afuera la mitad de la información necesaria para decidir.",
-    "has_math": true,
-    "graph_fn": "pow(x,3)/8",
-    "graph_view": [
-      -3,
-      3,
-      -4,
-      4
-    ],
-    "reviewed": false,
-    "tags": [
-      "lectura-grado"
-    ]
-  },
-  {
     "id": "white_polynomial_GRAF_13",
     "question": "La gráfica muestra un polinomio.\n\n¿El grado es par o impar?",
     "options": [
@@ -465,68 +248,6 @@
     ]
   },
   {
-    "id": "white_polynomial_GRAF_16",
-    "question": "La gráfica muestra una curva polinómica de grado 3 con raíces en $x \\in \\{-2, 0, 2\\}$ y coeficiente principal positivo.\n\n¿Cuál de estas expresiones corresponde a la curva?",
-    "options": [
-      "$\\dfrac{-x(x-2)(x+2)}{4}$",
-      "$\\dfrac{(x-2)(x+2)}{4}$",
-      "$x(x-2)(x+2)$",
-      "$\\dfrac{x(x-2)(x+2)}{4}$"
-    ],
-    "correct_index": 3,
-    "feedback_correct": "Raíces $-2$, $0$, $2$ y coef. positivo: $f(x) = x(x-2)(x+2)/4$.",
-    "feedback_incorrect": [
-      "Fijate hacia dónde va la curva a la derecha del gráfico, sube en vez de bajar.",
-      "Contá cuántas raíces distintas muestra el gráfico, a esta expresión le falta una de ellas.",
-      "Revisá qué tan lejos del eje $x$ llegan los picos y valles de la curva dibujada, la escala importa.",
-      null
-    ],
-    "explanation": "Para armar la fórmula de un polinomio a partir de su gráfico, cada raíz $r$ aporta un factor $(x-r)$, y el signo del coeficiente que multiplica el producto se lee de la dirección de los extremos.\n\nLas raíces de esta curva están en $x \\in \\{-2, 0, 2\\}$, lo que da los factores $(x+2) \\cdot x \\cdot (x-2)$, y como la curva sube a la derecha, el coeficiente principal es positivo.\n\nContar mal alguna raíz o invertir el signo de algún factor son las dos formas más comunes de errar esta reconstrucción, así que conviene verificar cada raíz por separado antes de multiplicar.",
-    "has_math": true,
-    "graph_fn": "x*(x-2)*(x+2)/4",
-    "graph_view": [
-      -3,
-      3,
-      -3,
-      3
-    ],
-    "reviewed": false,
-    "tags": [
-      "grafico-a-formula"
-    ]
-  },
-  {
-    "id": "white_polynomial_GRAF_17",
-    "question": "La gráfica muestra una curva de grado 3 con raíces en $x \\in \\{-1, 0, 3\\}$, y coeficiente principal positivo.\n\n¿Cuál expresión corresponde a la curva?",
-    "options": [
-      "$\\dfrac{(x+1) \\cdot x \\cdot (x-3)}{5}$",
-      "$\\dfrac{(x-1) \\cdot x \\cdot (x+3)}{5}$",
-      "$\\dfrac{-(x+1) \\cdot x \\cdot (x-3)}{5}$",
-      "$\\dfrac{x(x-3)}{5}$"
-    ],
-    "correct_index": 0,
-    "feedback_correct": "Raíces $-1$, $0$, $3$ y coef. positivo: $(x+1) \\cdot x \\cdot (x-3)/5$.",
-    "feedback_incorrect": [
-      null,
-      "Fijate en qué valores exactos del eje $x$ la curva toca cero, los signos de esos puntos importan.",
-      "Mirá hacia dónde apunta la curva en el extremo derecho del gráfico, sube, no baja.",
-      "Contá todos los puntos donde la curva cruza el eje, a esta expresión le falta una raíz."
-    ],
-    "explanation": "Cada raíz $r$ de un polinomio aporta un factor $(x-r)$ a su forma factorizada, y el coeficiente que multiplica el producto ajusta la escala vertical y, si es negativo, el signo de la curva.\n\nCon raíces en $x \\in \\{-1, 0, 3\\}$ los factores son $(x+1) \\cdot x \\cdot (x-3)$, y la curva sube a la derecha, lo que confirma un coeficiente principal positivo.\n\nInvertir el signo dentro de un factor para una raíz negativa cambia por completo dónde corta la curva al eje, así que conviene revisar cada signo antes de multiplicar los factores.",
-    "has_math": true,
-    "graph_fn": "(x+1)*x*(x-3)/5",
-    "graph_view": [
-      -2,
-      4,
-      -2,
-      2
-    ],
-    "reviewed": false,
-    "tags": [
-      "grafico-a-formula"
-    ]
-  },
-  {
     "id": "white_polynomial_GRAF_18",
     "question": "La gráfica muestra una curva de grado 4 con raíces en $x \\in \\{-2, -1, 1, 2\\}$, y coeficiente principal positivo.\n\n¿Cuál expresión corresponde a la curva?",
     "options": [
@@ -550,37 +271,6 @@
       -3,
       3,
       -1,
-      3
-    ],
-    "reviewed": false,
-    "tags": [
-      "grafico-a-formula"
-    ]
-  },
-  {
-    "id": "white_polynomial_GRAF_19",
-    "question": "La gráfica muestra una curva de grado 3 con raíces en $x \\in \\{-2, 0, 2\\}$, y coeficiente principal **negativo**.\n\n¿Cuál expresión corresponde a la curva?",
-    "options": [
-      "$\\dfrac{x(x-2)(x+2)}{4}$",
-      "$\\dfrac{-x(x-2)(x+2)}{4}$",
-      "$\\dfrac{(x-2)(x+2)}{4}$",
-      "$\\dfrac{-x(x+2)^2}{4}$"
-    ],
-    "correct_index": 1,
-    "feedback_correct": "Mismas raíces pero coef. negativo: $-x(x-2)(x+2)/4$.",
-    "feedback_incorrect": [
-      "Mirá hacia dónde va la curva a la derecha del gráfico, baja en vez de subir.",
-      null,
-      "Contá las raíces visibles en el gráfico, a esta expresión le falta una.",
-      "Fijate si la curva cruza o toca cada una de las raíces marcadas en el gráfico."
-    ],
-    "explanation": "Un polinomio de grado impar con raíces reales distintas forma una curva en **S**: sube, baja y vuelve a subir, o el patrón inverso si el coeficiente principal es negativo.\n\nCon raíces en $x \\in \\{-2,0,2\\}$, los factores son $(x+2) \\cdot x \\cdot (x-2)$, y como la curva baja a la derecha, el coeficiente principal es negativo.\n\nFijarse solo en las raíces y olvidar revisar hacia dónde va la curva en los extremos deja pasar el signo del coeficiente, que es la mitad de la información que pide este tipo de ejercicio.",
-    "has_math": true,
-    "graph_fn": "-x*(x-2)*(x+2)/4",
-    "graph_view": [
-      -3,
-      3,
-      -3,
       3
     ],
     "reviewed": false,
@@ -648,130 +338,6 @@
     "reviewed": false,
     "tags": [
       "grafico-a-formula"
-    ]
-  },
-  {
-    "id": "white_polynomial_GRAF_22",
-    "question": "La gráfica muestra una curva de grado 3 con raíces en $x \\in \\{-1, 0, 2\\}$, y coeficiente principal **negativo**.\n\n¿Cuál expresión corresponde?",
-    "options": [
-      "$\\dfrac{-(x+1) \\cdot x \\cdot (x-2)}{4}$",
-      "$\\dfrac{(x+1) \\cdot x \\cdot (x-2)}{4}$",
-      "$\\dfrac{(x-1) \\cdot x \\cdot (x+2)}{4}$",
-      "$\\dfrac{-(x-1) \\cdot x \\cdot (x-2)}{4}$"
-    ],
-    "correct_index": 0,
-    "feedback_correct": "Raíces $-1$, $0$, $2$ y coef. negativo: $-(x+1) \\cdot x \\cdot (x-2)/4$.",
-    "feedback_incorrect": [
-      null,
-      "Mirá hacia dónde va la curva a la derecha del gráfico, baja en vez de subir.",
-      "Fijate en qué valores exactos del eje la curva toca cero.",
-      "Revisá con cuidado los signos de los puntos donde la curva cruza el eje."
-    ],
-    "explanation": "En la forma factorizada de un polinomio, cada raíz $r$ da un factor $(x-r)$, y el signo que multiplica todo el producto determina si la curva sube o baja en cada extremo.\n\nCon raíces en $x \\in \\{-1,0,2\\}$ los factores son $(x+1) \\cdot x \\cdot (x-2)$, y como la curva baja a la derecha, el coeficiente que multiplica el producto es negativo.\n\nInvertir el signo dentro de alguno de los factores, por ejemplo escribir $(x-1)$ en vez de $(x+1)$, es un desliz común que conviene chequear evaluando la fórmula en cada raíz.",
-    "has_math": true,
-    "graph_fn": "-(x+1)*x*(x-2)/4",
-    "graph_view": [
-      -2,
-      3,
-      -2,
-      2
-    ],
-    "reviewed": false,
-    "tags": [
-      "grafico-a-formula"
-    ]
-  },
-  {
-    "id": "white_polynomial_GRAF_23",
-    "question": "La gráfica muestra una curva de grado 4 con raíces en $x \\in \\{-3, -1, 1, 3\\}$, con coeficiente principal positivo.\n\n¿Cuál expresión corresponde?",
-    "options": [
-      "$\\dfrac{(x^2-1)(x^2-9)}{4}$",
-      "$\\dfrac{-(x^2-1)(x^2-9)}{8}$",
-      "$\\dfrac{(x^2+1)(x^2-9)}{8}$",
-      "$\\dfrac{(x^2-1)(x^2-9)}{8}$"
-    ],
-    "correct_index": 3,
-    "feedback_correct": "Raíces $\\pm 1$ y $\\pm 3$: $(x^2-1)(x^2-9)/8$.",
-    "feedback_incorrect": [
-      "Compará la altura de los picos de la curva dibujada con la que da esta expresión.",
-      "Fijate si los extremos de la curva suben o bajan en el gráfico.",
-      "Contá cuántos puntos distintos toca la curva sobre el eje $x$.",
-      null
-    ],
-    "explanation": "Cuando dos raíces son opuestas entre sí, su producto de factores se simplifica a una diferencia de cuadrados, lo que agrupa cuatro raíces en solo dos factores cuadráticos.\n\nLas raíces $x \\in \\{-3,-1,1,3\\}$ se agrupan en los factores $(x^2-1)(x^2-9)$, y la escala en el denominador ajusta la altura de los picos dentro de la ventana mostrada.\n\nPara confirmar la fórmula conviene evaluar en $x=0$:\n$$f(0) = \\frac{(-1)(-9)}{8} = \\frac{9}{8}$$\nUn valor apenas superior a $1$, que coincide con la altura donde la curva corta el eje vertical en el gráfico.",
-    "has_math": true,
-    "graph_fn": "(pow(x,2)-1)*(pow(x,2)-9)/8",
-    "graph_view": [
-      -4,
-      4,
-      -3,
-      3
-    ],
-    "reviewed": false,
-    "tags": [
-      "grafico-a-formula"
-    ]
-  },
-  {
-    "id": "white_polynomial_GRAF_24",
-    "question": "La gráfica muestra una curva de grado 4 con raíces en $x \\in \\{-1, 0, 1, 2\\}$, con coeficiente principal positivo.\n\n¿Cuál expresión corresponde?",
-    "options": [
-      "$\\dfrac{x(x-1)(x+1)(x-2)}{6}$",
-      "$\\dfrac{x(x+1)(x+1)(x+2)}{6}$",
-      "$\\dfrac{-x(x-1)(x+1)(x-2)}{6}$",
-      "$\\dfrac{x(x-1)(x-2)}{6}$"
-    ],
-    "correct_index": 0,
-    "feedback_correct": "Raíces $-1$, $0$, $1$, $2$: $x(x-1)(x+1)(x-2)/6$.",
-    "feedback_incorrect": [
-      null,
-      "Fijate en los cuatro valores exactos donde la curva cruza el eje, sin repetir ninguno.",
-      "Mirá hacia dónde van los extremos de la curva, ambos suben en este gráfico.",
-      "Contá cuántas raíces distintas se ven en el gráfico, a esta expresión le falta una."
-    ],
-    "explanation": "Un polinomio de grado $4$ con cuatro raíces reales distintas se escribe como el producto de sus cuatro factores lineales, multiplicado por el coeficiente principal que ajusta la escala y el signo.\n\nCon raíces en $x \\in \\{-1,0,1,2\\}$, los factores son $(x+1) \\cdot x \\cdot (x-1) \\cdot (x-2)$, y el coeficiente principal es positivo porque los dos extremos de la curva suben.\n\nRepetir por accidente una de las raíces al armar los factores deja la fórmula con menos cruces de los que muestra el gráfico: conviene contar las cuatro raíces antes de escribir la expresión.",
-    "has_math": true,
-    "graph_fn": "x*(x-1)*(x+1)*(x-2)/6",
-    "graph_view": [
-      -2,
-      3,
-      -1,
-      2
-    ],
-    "reviewed": false,
-    "tags": [
-      "grafico-a-formula"
-    ]
-  },
-  {
-    "id": "white_polynomial_GRAF_25",
-    "question": "La gráfica muestra el perfil de altura $h(x)$ de una montaña rusa, medida en metros, según la posición horizontal $x$.\n\nLa altura cero representa el nivel del suelo.\n\n¿Cuántas veces vuelve la vía al nivel $h = 0$?",
-    "options": [
-      "$1$",
-      "$3$",
-      "$2$",
-      "$4$"
-    ],
-    "correct_index": 1,
-    "feedback_correct": "Cruza en tres puntos: $-2, 0, 2$.",
-    "feedback_incorrect": [
-      "Recorré todo el trayecto de la vía, vuelve al nivel del suelo más de una vez.",
-      null,
-      "Fijate si te falta un cruce con el nivel del suelo cerca del centro del recorrido.",
-      "Contá solo los puntos donde la vía realmente cruza el nivel del suelo, no donde se acerca sin tocarlo."
-    ],
-    "explanation": "En un contexto con múltiples fases, como el perfil de una montaña rusa, los puntos donde la función vale cero representan los momentos en que la vía vuelve al nivel de referencia.\n\nEn este gráfico la curva corta el nivel $h=0$ en tres puntos distintos, así que la vía vuelve al nivel del suelo **3 veces** a lo largo del recorrido mostrado.\n\nContar solo el primer cruce y no recorrer todo el trayecto hasta el final deja pasar los otros regresos al nivel del suelo, sobre todo el que aparece cerca del centro del recorrido.",
-    "has_math": true,
-    "graph_fn": "x*(x-2)*(x+2)/4",
-    "graph_view": [
-      -3,
-      3,
-      -3,
-      3
-    ],
-    "reviewed": false,
-    "tags": [
-      "contexto-raices"
     ]
   },
   {
@@ -865,37 +431,6 @@
     "reviewed": false,
     "tags": [
       "contexto-raices"
-    ]
-  },
-  {
-    "id": "white_polynomial_GRAF_29",
-    "question": "La gráfica muestra las ventas semanales $V(t)$ de un negocio estacional.\n\nEl modelo es un polinomio cúbico con coeficiente principal negativo.\n\n¿Cuántos picos, esos máximos locales de la curva, tiene el modelo en el período mostrado?",
-    "options": [
-      "$0$",
-      "$2$",
-      "$1$",
-      "$3$"
-    ],
-    "correct_index": 2,
-    "feedback_correct": "Una cúbica tiene como máximo $2$ extremos locales; con coef. negativo, el primero es un **máximo**.",
-    "feedback_incorrect": [
-      "Buscá algún pico en la curva, un tramo donde las ventas suben y después empiezan a bajar.",
-      "Fijate cuáles de los extremos de la curva son picos y cuáles son valles, no todos cuentan como pico.",
-      null,
-      "Ese número supera el máximo de extremos locales posibles para este tipo de modelo."
-    ],
-    "explanation": "Una función cúbica tiene como máximo **2 extremos locales**, que pueden ser un máximo seguido de un mínimo o al revés, según el signo del coeficiente principal.\n\nCon coeficiente negativo, el primer extremo de izquierda a derecha es un máximo local y el segundo un mínimo local: un pico de mayor venta seguido de un valle de menor venta.\n\nContando solo los picos, el modelo tiene exactamente **1 máximo local** en el período mostrado, así que sumar el valle junto con el pico sobrecuenta los extremos de un tipo distinto.",
-    "has_math": true,
-    "graph_fn": "-x*(x-2)*(x+2)/4",
-    "graph_view": [
-      -3,
-      3,
-      -3,
-      3
-    ],
-    "reviewed": false,
-    "tags": [
-      "contexto-extremos"
     ]
   },
   {

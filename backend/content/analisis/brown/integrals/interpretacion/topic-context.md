@@ -68,7 +68,7 @@ Repertorio, con tope de repetición del 30% por skill: velocidad y distancia rec
 
 ---
 
-## GRAF, 30 ejercicios
+## GRAF, 15 ejercicios
 
 ### Qué evalúa
 
@@ -84,10 +84,10 @@ Repertorio, con tope de repetición del 30% por skill: velocidad y distancia rec
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. Qué mide el área sombreada | El gráfico muestra un ritmo y el sombreado marca un tramo. Qué cantidad representa esa área, en qué unidad queda, y qué dice el signo cuando la recta pasa por debajo del eje. Incluye la distinción entre lo acumulado y el valor final, que solo coinciden si el punto de partida es cero. | `que-mide-el-area-sombreada` | 10 |
-| B. Acumulación y comparación | Lecturas relativas sobre el mismo gráfico: en qué tramo se acumuló más, en qué momento lo acumulado toca su valor más bajo, si un tramo entra sumando o restando al total, y la confusión entre que el ritmo suba y que la cantidad suba. | `acumulacion-y-comparacion` | 10 |
-| C. Congelar el ritmo | Por qué alto por ancho funciona cuando el ritmo cambia (ronda 5, ver Ampliación). Se imagina el ritmo congelado en un valor, y se compara ese rectángulo contra la región real: con ritmo que baja, congelar al arranque sobra y congelar al final falta; con ritmo constante, coincide exacto; con tramos más cortos, la mentira de cada tramo se achica. Nunca se dibujan los rectángulos, se comparan mentalmente contra la región sombreada, y jamás aparece la notación de sumatoria. | `congelar-el-ritmo` | 5 |
-| D. La velocidad del área | El alto de la recta es la velocidad a la que crece lo acumulado (ronda 5, ver Ampliación). Dónde crece más rápido el total, qué le pasa al acumulado cuando el ritmo baja pero sigue positivo, cuándo el acumulado toca su máximo (el cruce por cero bajando), y el caso constante donde el acumulado crece parejo. Es la semilla del TFC contada sin nombrarlo, sin primitivas y sin Barrow. | `la-velocidad-del-area` | 5 |
+| A. Qué mide el área sombreada | El gráfico muestra un ritmo y el sombreado marca un tramo. Qué cantidad representa esa área, en qué unidad queda, y qué dice el signo cuando la recta pasa por debajo del eje. Incluye la distinción entre lo acumulado y el valor final, que solo coinciden si el punto de partida es cero. | `que-mide-el-area-sombreada` | 4 |
+| B. Acumulación y comparación | Lecturas relativas sobre el mismo gráfico: en qué tramo se acumuló más, en qué momento lo acumulado toca su valor más bajo, si un tramo entra sumando o restando al total, y la confusión entre que el ritmo suba y que la cantidad suba. | `acumulacion-y-comparacion` | 4 |
+| C. Congelar el ritmo | Por qué alto por ancho funciona cuando el ritmo cambia (ronda 5, ver Ampliación). Se imagina el ritmo congelado en un valor, y se compara ese rectángulo contra la región real: con ritmo que baja, congelar al arranque sobra y congelar al final falta; con ritmo constante, coincide exacto; con tramos más cortos, la mentira de cada tramo se achica. Nunca se dibujan los rectángulos, se comparan mentalmente contra la región sombreada, y jamás aparece la notación de sumatoria. | `congelar-el-ritmo` | 3 |
+| D. La velocidad del área | El alto de la recta es la velocidad a la que crece lo acumulado (ronda 5, ver Ampliación). Dónde crece más rápido el total, qué le pasa al acumulado cuando el ritmo baja pero sigue positivo, cuándo el acumulado toca su máximo (el cruce por cero bajando), y el caso constante donde el acumulado crece parejo. Es la semilla del TFC contada sin nombrarlo, sin primitivas y sin Barrow. | `la-velocidad-del-area` | 4 |
 
 ### `feedback_incorrect`, confusiones fuente
 
@@ -111,7 +111,7 @@ Repertorio, con tope de repetición del 30% por skill: velocidad y distancia rec
 
 ---
 
-## ESTR, 30 ejercicios
+## ESTR, 15 ejercicios
 
 Se muestra en la app como **Planteo**.
 
@@ -129,9 +129,9 @@ Se muestra en la app como **Planteo**.
 
 | Sub-familia | Foco | Slug | Cant. |
 |-------------|------|------|:-----:|
-| A. De la situación a la integral | Elegir la integral que modela la situación descripta. Los tres ejes de decisión: **qué se integra** (el ritmo, no la cantidad, y nunca su derivada), **entre qué límites** (con las unidades del enunciado, que a veces no son las del intervalo dado), y **si hace falta sumar el valor inicial** para responder lo que se pregunta. | `de-la-situacion-a-la-integral` | 10 |
-| B. Del número a su significado | Dada una integral en contexto y su valor, decidir qué afirma ese número. Distinguir lo acumulado del valor final, del promedio y del valor instantáneo al cierre del intervalo. Incluye el caso del resultado negativo y el del resultado cero. | `del-numero-a-su-significado` | 10 |
-| C. Leer la notación | La escritura $\int_a^b f(t)\,dt$ leída como una oración (ronda 5, ver Ampliación): el bloque $f(t)\,dt$ es un producto con unidades, el aporte de un ratito; los límites son la ventana de la acumulación, en la unidad de la variable; el símbolo es una S estirada que viene de suma; y la variable interna se consume al sumar, así que el resultado es un número y no una función. Siempre en contexto, con la función nombrada por letra y unidad. | `leer-la-notacion` | 10 |
+| A. De la situación a la integral | Elegir la integral que modela la situación descripta. Los tres ejes de decisión: **qué se integra** (el ritmo, no la cantidad, y nunca su derivada), **entre qué límites** (con las unidades del enunciado, que a veces no son las del intervalo dado), y **si hace falta sumar el valor inicial** para responder lo que se pregunta. | `de-la-situacion-a-la-integral` | 5 |
+| B. Del número a su significado | Dada una integral en contexto y su valor, decidir qué afirma ese número. Distinguir lo acumulado del valor final, del promedio y del valor instantáneo al cierre del intervalo. Incluye el caso del resultado negativo y el del resultado cero. | `del-numero-a-su-significado` | 5 |
+| C. Leer la notación | La escritura $\int_a^b f(t)\,dt$ leída como una oración (ronda 5, ver Ampliación): el bloque $f(t)\,dt$ es un producto con unidades, el aporte de un ratito; los límites son la ventana de la acumulación, en la unidad de la variable; el símbolo es una S estirada que viene de suma; y la variable interna se consume al sumar, así que el resultado es un número y no una función. Siempre en contexto, con la función nombrada por letra y unidad. | `leer-la-notacion` | 5 |
 
 ### `feedback_incorrect`, confusiones fuente
 

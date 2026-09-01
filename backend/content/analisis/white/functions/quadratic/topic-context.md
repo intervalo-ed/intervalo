@@ -73,7 +73,7 @@ Hoy 175/200 son `""` (string vacío, legacy). Los 25 restantes (CLSF 14, FORM 11
 
 ---
 
-## LEXI, 30 ejercicios
+## LEXI, 15 ejercicios
 
 ### Qué evalúa
 Vocabulario y parámetros de la parábola: forma canónica $f(x) = ax^2 + bx + c$, formas **vértice** $a(x-h)^2 + k$ y **factorizada** $a(x-r_1)(x-r_2)$, identificar **vértice**, **eje de simetría**, **raíces** (ceros), **ordenada al origen** $c$, **concavidad** (signo de $a$), **coeficiente principal**, dominio e imagen, máximo vs mínimo, raíz simple vs doble, discriminante.
@@ -84,15 +84,15 @@ Vocabulario y parámetros de la parábola: forma canónica $f(x) = ax^2 + bx + c
 
 | Concepto | Slug | Cantidad actual |
 |----------|------|-----------------:|
-| Raíces y discriminante (número, ceros, simple/doble) | `raices-discriminante` | 5 |
-| Nombre de la parábola (curva, ramas) | `nombre-parabola` | 4 |
-| Dominio e imagen | `dominio-imagen` | 3 |
-| Vértice, concepto (nombre, óptimo, en contexto) | `vertice-concepto` | 4 |
-| Identificación de fórmula (es/no es cuadrática, grado 2) | `identificacion-formula` | 3 |
-| Formas de la función (estándar, vértice, factorizada) | `formas-de-la-funcion` | 3 |
-| Nombrar coeficientes/términos ($a$, $b$, $c$) | `coeficientes-nombre` | 4 |
-| Eje de simetría | `eje-simetria` | 2 |
-| Efecto de $\|a\|$ en la apertura | `coeficiente-a-forma` | 1 |
+| Raíces y discriminante (número, ceros, simple/doble) | `raices-discriminante` | 3 |
+| Nombre de la parábola (curva, ramas) | `nombre-parabola` | 2 |
+| Dominio e imagen | `dominio-imagen` | 1 |
+| Vértice, concepto (nombre, óptimo, en contexto) | `vertice-concepto` | 2 |
+| Identificación de fórmula (es/no es cuadrática, grado 2) | `identificacion-formula` | 1 |
+| Formas de la función (estándar, vértice, factorizada) | `formas-de-la-funcion` | 1 |
+| Nombrar coeficientes/términos ($a$, $b$, $c$) | `coeficientes-nombre` | 2 |
+| Eje de simetría | `eje-simetria` | 1 |
+| Efecto de $\ | a\ | $ en la apertura | `coeficiente-a-forma` | 1 |
 | Vértice, parámetros $h$ y $k$ en la forma vértice | `vertice-parametros` | 1 |
 | **Total** | | **30** |
 
@@ -114,7 +114,7 @@ Vocabulario y parámetros de la parábola: forma canónica $f(x) = ax^2 + bx + c
 
 ---
 
-## FORM, 30 ejercicios
+## FORM, 15 ejercicios
 
 ### Qué evalúa
 Construir o leer la fórmula $f(x) = ax^2 + bx + c$ y sus formas vértice / factorizada desde una situación:
@@ -131,15 +131,15 @@ Construir o leer la fórmula $f(x) = ax^2 + bx + c$ y sus formas vértice / fact
 
 | Concepto | Slug | Cantidad actual |
 |----------|------|-----------------:|
-| Raíces desde la fórmula (leer, calcular, suma) | `raices-desde-formula` | 7 |
-| Leer coeficientes $a$, $b$, $c$ desde forma estándar | `leer-coeficientes` | 2 |
+| Raíces desde la fórmula (leer, calcular, suma) | `raices-desde-formula` | 3 |
+| Leer coeficientes $a$, $b$, $c$ desde forma estándar | `leer-coeficientes` | 1 |
 | Gráfico → fórmula | `grafico-a-formula` | 1 |
-| Evaluar $f(\text{valor})$ | `evaluar-f` | 3 |
-| Armar fórmula desde cotidiano (área, corral, recaudación) | `armar-formula-cotidiano` | 3 |
-| Vértice, leerlo desde la forma vértice ya dada | `vertice-desde-forma` | 3 |
-| Forma vértice, armarla dado vértice y $a$ | `forma-vertice-armar` | 3 |
-| Resolver en contexto (cuándo toca el suelo, para qué $x$) | `resolver-contexto` | 4 |
-| Armar fórmula desde tiro/caída ($h_0 + v_0 t - \tfrac12 g t^2$) | `armar-formula-tiro` | 3 |
+| Evaluar $f(\text{valor})$ | `evaluar-f` | 1 |
+| Armar fórmula desde cotidiano (área, corral, recaudación) | `armar-formula-cotidiano` | 2 |
+| Vértice, leerlo desde la forma vértice ya dada | `vertice-desde-forma` | 2 |
+| Forma vértice, armarla dado vértice y $a$ | `forma-vertice-armar` | 1 |
+| Resolver en contexto (cuándo toca el suelo, para qué $x$) | `resolver-contexto` | 2 |
+| Armar fórmula desde tiro/caída ($h_0 + v_0 t - \tfrac12 g t^2$) | `armar-formula-tiro` | 1 |
 | Eje de simetría, cálculo | `eje-simetria-calculo` | 1 |
 | **Total** | | **30** |
 
@@ -161,7 +161,7 @@ Construir o leer la fórmula $f(x) = ax^2 + bx + c$ y sus formas vértice / fact
 
 ---
 
-## GRAF, 30 ejercicios
+## GRAF, 15 ejercicios
 
 ### Qué evalúa
 Leer una parábola desde su gráfico: **vértice** (valor y coordenada del óptimo), **concavidad** (signo de $a$), **raíces** (dónde toca el eje, solo si abre hacia abajo con el valle debajo del cero), **eje de simetría** (misma altura dos veces), **ordenada al origen** $c$ (valor de partida $f(0)$), lectura $f(v)$, y comparación crece-vs-decrece antes/después del vértice. Los 30 tienen `graph_fn`.
@@ -191,10 +191,10 @@ Variar números, no repetir personajes. Montos con `\\$` en JSON. Sin nombres pr
 
 | Arquetipo | Slug | Cantidad actual |
 |-----------|------|-----------------:|
-| Vértice-x (cuándo/dónde ocurre el óptimo) | `vertice-x` | 8 |
-| Vértice-y (valor máx/mín) | `vertice-y` | 6 |
-| Residual (agrupa raíz/concavidad/duración, ver nota arriba) | `nombre-parabola` | 9 |
-| Lectura puntual $f(v)$ | `lectura-fv` | 4 |
+| Vértice-x (cuándo/dónde ocurre el óptimo) | `vertice-x` | 4 |
+| Vértice-y (valor máx/mín) | `vertice-y` | 3 |
+| Residual (agrupa raíz/concavidad/duración, ver nota arriba) | `nombre-parabola` | 3 |
+| Lectura puntual $f(v)$ | `lectura-fv` | 2 |
 | Sube vs baja (crece antes del vértice, decrece después) | `sube-baja` | 1 |
 | Ordenada al origen $c$ (valor de partida, $f(0)$) | `ordenada-origen` | 2 |
 | **Total** | | **30** |

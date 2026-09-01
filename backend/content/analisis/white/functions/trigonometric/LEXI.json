@@ -1,57 +1,5 @@
 [
   {
-    "id": "white_trigonometric_LEXI_01",
-    "question": "Una función coseno viene multiplicada por un factor:\n$$f(x) = 4 \\cdot \\cos(x)$$\n¿Cuál es su **amplitud**?",
-    "options": [
-      "$1$",
-      "$\\pi$",
-      "$2\\pi$",
-      "$4$"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "En $A \\cdot \\cos(x)$, la amplitud es $|A| = 4$.",
-    "feedback_incorrect": [
-      "Esa sería la amplitud si el coeficiente fuera $1$, sin escalar.",
-      "Ese es un valor de período, no de amplitud.",
-      "Ese también es un valor de período, no de amplitud.",
-      null
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "En una función de la forma $A\\cdot\\cos(x)$, la **amplitud** es el valor absoluto del coeficiente: $|A|$.\n\nAquí $A=4$, así que la función oscila en el intervalo:\n$$[-4,\\,4]$$\nLa amplitud es $4$.\n\nEl coeficiente multiplicativo estira o comprime la onda **verticalmente**, sin afectar al **período**.\n\nPor eso $\\pi$ y $2\\pi$ son valores de período, no de amplitud.\n\nEl valor $1$, por su parte, sería la amplitud del coseno sin escalar.",
-    "reviewed": false,
-    "tags": [
-      "descripcion-abstracta-otra-familia"
-    ]
-  },
-  {
-    "id": "white_trigonometric_LEXI_02",
-    "question": "Tres de estas funciones repiten sus valores cada cierta vuelta y una no.\n\n¿Cuál de estas **no** es una función trigonométrica?",
-    "options": [
-      "$f(x) = e^x$",
-      "$f(x) = \\operatorname{sen}(x)$",
-      "$f(x) = \\cos(x)$",
-      "$f(x) = \\tan(x)$"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "$f(x) = e^x$ es una función exponencial, no trigonométrica.",
-    "feedback_incorrect": [
-      null,
-      "El seno sí pertenece a la familia trigonométrica.",
-      "El coseno también es una función trigonométrica.",
-      "La tangente, cociente de seno y coseno, también es trigonométrica."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "La función $f(x) = e^x$ es una función **exponencial**: la variable está en el exponente de una base constante.\n\nLas funciones trigonométricas usan seno, coseno o tangente, no potencias de $e$.\n\nUna diferencia visual clara es esta:\n$$e^x$$\nEsta expresión crece sin límite y nunca oscila, mientras que el seno, el coseno y la tangente son **periódicas**.\n\nSeno, coseno y tangente pertenecen a la familia trigonométrica por definición.",
-    "reviewed": false,
-    "tags": [
-      "reconocimiento-trigonometrica"
-    ]
-  },
-  {
     "id": "white_trigonometric_LEXI_03",
     "question": "Un máximo local es un punto donde la curva deja de subir y empieza a bajar.\n\n¿Cuántos máximos locales tiene esta función en el intervalo $[0,\\, 2\\pi]$?",
     "options": [
@@ -83,32 +31,6 @@
     ]
   },
   {
-    "id": "white_trigonometric_LEXI_04",
-    "question": "Las funciones trigonométricas repiten su forma cada cierto tramo, y ese tramo tiene nombre.\n\n¿Cómo se llama la longitud de un ciclo completo?",
-    "options": [
-      "Período",
-      "Frecuencia",
-      "Amplitud",
-      "Fase"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "El período es la longitud de un ciclo completo de la función.",
-    "feedback_incorrect": [
-      null,
-      "La frecuencia es el recíproco de esa longitud, no la longitud misma.",
-      "La amplitud mide el tamaño vertical de la onda, no su longitud horizontal.",
-      "La fase desplaza la onda, pero no describe la longitud de un ciclo."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "El **período** es la longitud del intervalo más corto en que la función completa un ciclo y vuelve a repetirse.\n\nA mayor período, la onda se estira horizontalmente; a menor período, se comprime.\n\nLa **amplitud** mide el tamaño vertical, no horizontal, y la **frecuencia** es el recíproco del período, $f=1/T$.\n\nLa **fase** desplaza la onda horizontalmente, pero no cambia su longitud.",
-    "reviewed": false,
-    "tags": [
-      "definicion-periodicidad"
-    ]
-  },
-  {
     "id": "white_trigonometric_LEXI_05",
     "question": "Cada función trigonométrica arranca la vuelta en un punto distinto.\n\n¿Cuál de ellas vale cero en el origen y llega a su máximo en $x = \\pi/2$?",
     "options": [
@@ -135,89 +57,6 @@
     ]
   },
   {
-    "id": "white_trigonometric_LEXI_06",
-    "question": "Una función par y una impar se distinguen por el tipo de simetría de su gráfico.\n\n¿La función $\\cos(x)$ es par o impar?",
-    "options": [
-      "Ni par ni impar",
-      "Impar (simétrica respecto al origen)",
-      "Par (simétrica respecto al eje $Y$)",
-      "Periódica pero no par"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "$\\cos(-x) = \\cos(x)$: la gráfica es simétrica respecto al eje $Y$. Es par.",
-    "feedback_incorrect": [
-      "El coseno sí cumple una de las dos condiciones de simetría, no es ninguna de las dos cosas.",
-      "Esa simetría respecto al origen es la que corresponde al seno, no al coseno.",
-      null,
-      "El coseno es periódico, pero además sí cumple la condición de paridad."
-    ],
-    "graph_fn": "cos(x)",
-    "graph_view": [
-      -7,
-      7,
-      -2,
-      2
-    ],
-    "explanation": "El coseno satisface $\\cos(-x)=\\cos(x)$: es una función **par**.\n\nSu gráfica es simétrica respecto al eje $Y$, la mitad izquierda es el espejo de la derecha.\n\nEl seno, en cambio, es **impar**, con simetría respecto al origen:\n$$\\operatorname{sen}(-x)=-\\operatorname{sen}(x)$$\nEn el gráfico se puede verificar que los valores en $x<0$ replican, con signo opuesto, los de $x>0$.",
-    "reviewed": false,
-    "tags": [
-      "paridad-funcion"
-    ]
-  },
-  {
-    "id": "white_trigonometric_LEXI_07",
-    "question": "Las funciones seno y coseno no se escapan a valores arbitrariamente grandes.\n\n¿Cuál es el valor máximo de $f(x) = \\operatorname{sen}(x)$?",
-    "options": [
-      "$1$",
-      "$2\\pi$",
-      "$\\pi$",
-      "$\\infty$"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "El seno oscila entre $-1$ y $1$: su valor máximo es $1$.",
-    "feedback_incorrect": [
-      null,
-      "Ese es un valor del período, no un valor que tome la función.",
-      "Ese también es un valor de período, no de la función.",
-      "El seno está acotado entre $-1$ y $1$, nunca crece sin límite como otras familias."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "El seno oscila siempre entre $-1$ y $1$: su **imagen** es el intervalo:\n$$[-1,1]$$\nEl valor máximo es $1$, alcanzado en $x=\\pi/2$ y en cada vuelta completa a partir de ahí.\n\nA diferencia de $e^x$ o $x^2$, que crecen sin límite, el seno nunca supera ese máximo: está acotado.\n\n$2\\pi$ y $\\pi$ son valores del **período**, no valores que tome la función.",
-    "reviewed": false,
-    "tags": [
-      "valores-notables"
-    ]
-  },
-  {
-    "id": "white_trigonometric_LEXI_08",
-    "question": "El seno recorre siempre el mismo conjunto de valores, sin importar cuánto avance $x$.\n\n¿Cuál es la **imagen** de $f(x) = \\operatorname{sen}(x)$?",
-    "options": [
-      "$\\mathbb{R}$",
-      "$[0, 1]$",
-      "$[-1, 1]$",
-      "$(0, 2\\pi)$"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "El seno oscila entre $-1$ y $1$ inclusive. La imagen de $\\operatorname{sen}(x)$ es $[-1, 1]$.",
-    "feedback_incorrect": [
-      "Ese sería el dominio, no la imagen: el seno acepta cualquier ángulo real como entrada.",
-      "Esa franja cubre solo la mitad superior de los valores que toma el seno, olvida los negativos.",
-      null,
-      "Ese rango se parece al de $x$ en radianes de un ciclo, pero no son los valores que toma la función."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "La función seno es **periódica** y oscila continuamente entre dos valores extremos: el máximo $\\operatorname{sen}(\\pi/2) = 1$ y el mínimo $\\operatorname{sen}(3\\pi/2) = -1$.\n\nComo el seno es continuo, toma todos los valores intermedios entre esos extremos, así que la **imagen** es el intervalo cerrado $[-1, 1]$.\n\nLo mismo aplica al coseno:\n$$\\text{Im}(\\cos) = [-1, 1]$$\nEsto contrasta con la tangente, cuya imagen es $\\mathbb{R}$, sin ninguna acotación.",
-    "reviewed": false,
-    "tags": [
-      "imagen-basica"
-    ]
-  },
-  {
     "id": "white_trigonometric_LEXI_09",
     "question": "Cada función periódica tiene un tramo mínimo tras el cual todo se repite.\n\n¿Cuál es el **período** de $f(x) = \\operatorname{sen}(x)$?",
     "options": [
@@ -241,32 +80,6 @@
     "reviewed": false,
     "tags": [
       "periodo-basico"
-    ]
-  },
-  {
-    "id": "white_trigonometric_LEXI_10",
-    "question": "Sea la función:\n$$f(x) = \\cos(x)$$\n¿Cuánto vale $f(\\pi/2)$?",
-    "options": [
-      "$1$",
-      "$0$",
-      "$-1$",
-      "$\\dfrac{\\sqrt{2}}{2}$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "Correcto. $\\cos(\\pi/2) = 0$.",
-    "feedback_incorrect": [
-      "Ese es el valor del seno en $\\pi/2$, no del coseno.",
-      null,
-      "Ese es el valor mínimo del coseno, alcanzado en $\\pi$, no en $\\pi/2$.",
-      "Ese valor corresponde a $\\pi/4$, no a $\\pi/2$."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "En el círculo unitario, $\\theta=\\pi/2$ corresponde al punto $P=(0,1)$, el punto más alto de la circunferencia.\n\nEl coseno es la coordenada $x$ de ese punto.\n\nAhí $x=0$, así que $\\cos(\\pi/2)=0$.\n\nEste resultado puede sorprender: cuando el seno alcanza su máximo, que vale $1$, el coseno vale $0$.\n\nEs la esencia de la **identidad pitagórica**:\n$$\\operatorname{sen}^2(\\pi/2)+\\cos^2(\\pi/2)=1$$\nSi uno de los dos términos vale $1$, el otro tiene que valer $0$.\n\nAsí la suma se mantiene siempre en $1$.",
-    "reviewed": false,
-    "tags": [
-      "valores-notables"
     ]
   },
   {
@@ -322,58 +135,6 @@
     ]
   },
   {
-    "id": "white_trigonometric_LEXI_13",
-    "question": "Una onda trae un número acompañando a la variable:\n$$f(x) = \\operatorname{sen}(2x)$$\n¿Cuántos ciclos completos ocurren en el intervalo $[0, 2\\pi]$?",
-    "options": [
-      "$1$",
-      "$4$",
-      "$3$",
-      "$2$"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "Correcto. El período es $\\pi$, así que en $[0, 2\\pi]$ caben $2$ ciclos.",
-    "feedback_incorrect": [
-      "Ese sería el número de ciclos si el argumento no estuviera comprimido, como en $\\operatorname{sen}(x)$.",
-      "Ese número duplica el resultado correcto, como si el período fuera la mitad del real.",
-      "Ese conteo no corresponde a dividir $2\\pi$ por el período real $\\pi$.",
-      null
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "En $f(x)=\\operatorname{sen}(2x)$, el parámetro $B=2$ duplica la frecuencia.\n\nEl **período** es $T=2\\pi/2=\\pi$.\n\nEn el intervalo $[0,2\\pi]$ caben exactamente $2\\pi/\\pi=2$ períodos completos.\n\nLa función completa dos oscilaciones donde $\\operatorname{sen}(x)$, con $B=1$, solo completa una.\n\nDuplicar $B$ duplica la cantidad de ciclos en el mismo intervalo.",
-    "reviewed": false,
-    "tags": [
-      "periodo-con-b"
-    ]
-  },
-  {
-    "id": "white_trigonometric_LEXI_14",
-    "question": "En esta forma general, la constante se suma después de calcular el seno:\n$$f(x) = \\operatorname{sen}(x) + D$$\n¿Qué efecto produce el parámetro $D$?",
-    "options": [
-      "Cambia la amplitud",
-      "Comprime el período",
-      "Desplaza verticalmente",
-      "Refleja la curva"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "Correcto. $D$ traslada la gráfica hacia arriba o abajo.",
-    "feedback_incorrect": [
-      "La amplitud depende del coeficiente que multiplica al seno, no de la constante sumada afuera.",
-      "El período depende del coeficiente que multiplica a $x$ dentro del seno, $D$ no toca el argumento.",
-      null,
-      "Una reflexión requiere un signo negativo multiplicando la función, $D$ solo la traslada."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "En $f(x)=\\operatorname{sen}(x)+D$, el parámetro $D$ es el **desplazamiento vertical**.\n\nTraslada todo el gráfico hacia arriba si $D>0$, o hacia abajo si $D<0$.\n\nEl eje de oscilación pasa a ser la recta $y=D$.\n\nLa **amplitud** sigue siendo $1$, el **período** sigue siendo $2\\pi$, y la forma de la onda no cambia.\n\nSolo cambia la posición vertical: el máximo pasa a ser $1+D$ y el mínimo $-1+D$.\n\nConviene no confundir $D$ con $A$: el desplazamiento vertical mueve el eje de oscilación de la onda, mientras que la amplitud define qué tan grande es esa oscilación alrededor del eje.",
-    "reviewed": false,
-    "tags": [
-      "transformaciones-trig"
-    ]
-  },
-  {
     "id": "white_trigonometric_LEXI_15",
     "question": "El mínimo de una onda desplazada no coincide con el de la onda original:\n$$g(x) = 2\\cos(x) - 1$$\n¿Cuál es su valor mínimo?",
     "options": [
@@ -426,32 +187,6 @@
     ]
   },
   {
-    "id": "white_trigonometric_LEXI_17",
-    "question": "En el primer cuarto de vuelta, el seno recorre un tramo bien definido:\n$$\\left[0, \\dfrac{\\pi}{2}\\right]$$\n¿Cómo se comporta $\\operatorname{sen}(x)$ en ese intervalo?",
-    "options": [
-      "Decreciente de $1$ a $0$",
-      "Constante en $0$",
-      "Creciente de $0$ a $1$",
-      "Creciente de $-1$ a $0$"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "Correcto. En ese cuadrante el seno crece de $0$ a $1$.",
-    "feedback_incorrect": [
-      "Esa dirección y esos valores corresponden a un tramo distinto del seno, no a $[0,\\pi/2]$.",
-      "El seno no permanece fijo en ese intervalo, cambia continuamente de valor.",
-      null,
-      "Esos valores incluyen negativos, pero en $[0,\\pi/2]$ el seno solo toma valores entre $0$ y $1$."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "En el intervalo $[0,\\pi/2]$, el ángulo avanza por el círculo unitario.\n\nVa desde el eje positivo $x$ hasta el eje positivo $y$.\n\nLa coordenada $y$ es el seno.\n\nSube de $0$ a $1$ sin interrupciones, así que la función es **creciente** en todo el intervalo.\n\nLos valores confirman esta subida:\n$$\\begin{aligned}\n\\operatorname{sen}(0) &= 0\\\\\n\\operatorname{sen}(\\pi/6) &= 1/2\\\\\n\\operatorname{sen}(\\pi/4) &= \\sqrt{2}/2\\\\\n\\operatorname{sen}(\\pi/2) &= 1\n\\end{aligned}$$\nCada valor es mayor que el anterior, lo que confirma un crecimiento estricto en todo el intervalo.",
-    "reviewed": false,
-    "tags": [
-      "monotonia-intervalo-lexi"
-    ]
-  },
-  {
     "id": "white_trigonometric_LEXI_18",
     "question": "Dos funciones trigonométricas pueden verse casi iguales y diferir en un solo detalle:\n$$f(x) = \\operatorname{sen}(x), \\quad g(x) = -\\operatorname{sen}(x)$$\n¿Qué diferencia hay entre ellas?",
     "options": [
@@ -498,32 +233,6 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El ángulo $\\pi/6$ equivale a $30°$.\n\nPertenece al triángulo rectángulo estándar de ángulos $30°\\text{-}60°\\text{-}90°$, cuyos lados guardan la proporción $1:\\sqrt{3}:2$.\n\nEl seno es cateto opuesto sobre hipotenusa: $\\operatorname{sen}(30°)=1/2$.\n\nLos tres valores clásicos para memorizar son:\n$$\\begin{aligned}\n\\operatorname{sen}(\\pi/6) &= 1/2\\\\\n\\operatorname{sen}(\\pi/4) &= \\sqrt{2}/2\\\\\n\\operatorname{sen}(\\pi/3) &= \\sqrt{3}/2\n\\end{aligned}$$\nDe los tres, $30°$ es el ángulo más chico, y su seno, $1/2$, es el más simple de los tres valores.",
-    "reviewed": false,
-    "tags": [
-      "valores-notables"
-    ]
-  },
-  {
-    "id": "white_trigonometric_LEXI_20",
-    "question": "Para la función:\n$$f(x) = \\cos(x)$$\n¿Cuánto vale $f(\\pi/3)$?",
-    "options": [
-      "$\\dfrac{\\sqrt{3}}{2}$",
-      "$1$",
-      "$\\dfrac{1}{2}$",
-      "$\\dfrac{\\sqrt{2}}{2}$"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "Correcto. $\\cos(\\pi/3) = \\dfrac{1}{2}$.",
-    "feedback_incorrect": [
-      "Ese valor corresponde a $\\cos(\\pi/6)$, un ángulo distinto de $\\pi/3$.",
-      "Ese es el valor máximo del coseno, alcanzado en $0$, no en $\\pi/3$.",
-      null,
-      "Ese valor corresponde a $\\cos(\\pi/4)$, no a $\\pi/3$."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "El ángulo $\\pi/3$ equivale a $60°$.\n\nPertenece al mismo triángulo rectángulo estándar de ángulos $30°\\text{-}60°\\text{-}90°$, con proporción $1:\\sqrt{3}:2$.\n\nEl coseno es cateto adyacente sobre hipotenusa: $\\cos(60°)=1/2$.\n\nLa simetría es clara: $\\cos(\\pi/3)=\\operatorname{sen}(\\pi/6)$.\n\nAmbos valen $1/2$.\n\nEso ocurre porque $60°$ y $30°$ son ángulos complementarios, y se cumple:\n$$\\cos(\\theta)=\\operatorname{sen}(\\pi/2-\\theta)$$\nPor eso el coseno de $60°$ y el seno de $30°$ coinciden.\n\nAmbos valen lo mismo: $1/2$.",
     "reviewed": false,
     "tags": [
       "valores-notables"
@@ -582,84 +291,6 @@
     ]
   },
   {
-    "id": "white_trigonometric_LEXI_23",
-    "question": "Coseno y seno recorren su ciclo al mismo ritmo, aunque arranquen distinto.\n\n¿Cuál es el **período** de $f(x) = \\cos(x)$?",
-    "options": [
-      "$\\pi$",
-      "$2\\pi$",
-      "$4\\pi$",
-      "$\\dfrac{\\pi}{2}$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "Correcto. El período del coseno es $2\\pi$, igual que el seno.",
-    "feedback_incorrect": [
-      "Ese sería el período si el argumento estuviera comprimido al doble, como en $\\cos(2x)$.",
-      null,
-      "Ese sería el período si el argumento estuviera estirado al doble, como en $\\cos(x/2)$.",
-      "Ese valor correspondería a un argumento comprimido cuatro veces."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "El **período** de $f(x)=\\cos(x)$ es $2\\pi$, igual que el del seno.\n\nAmbas funciones completan un ciclo exacto cada $2\\pi$ radianes.\n\nEl coseno y el seno comparten período porque son la misma onda desplazada:\n$$\\cos(x)=\\operatorname{sen}(x+\\pi/2)$$\nPor eso sus propiedades globales, período, **amplitud** e **imagen**, son idénticas entre sí; solo difieren en la fase con la que arrancan.",
-    "reviewed": false,
-    "tags": [
-      "periodo-basico"
-    ]
-  },
-  {
-    "id": "white_trigonometric_LEXI_24",
-    "question": "El coseno llega a su valor más alto en puntos que se repiten vuelta a vuelta.\n\n¿En qué valores de $x$ alcanza su máximo $1$?",
-    "options": [
-      "$x = \\dfrac{\\pi}{2} + 2k\\pi$, $k \\in \\mathbb{Z}$",
-      "$x = 2k\\pi$, $k \\in \\mathbb{Z}$",
-      "$x = k\\pi$, $k \\in \\mathbb{Z}$",
-      "$x = \\dfrac{\\pi}{4} + 2k\\pi$, $k \\in \\mathbb{Z}$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "Correcto. El coseno vale $1$ en $x = 0, \\pm 2\\pi, \\pm 4\\pi, \\ldots$",
-    "feedback_incorrect": [
-      "En esos valores el coseno vale $0$, no $1$: son los ceros del coseno.",
-      null,
-      "Ese conjunto incluye también los mínimos del coseno, donde vale $-1$.",
-      "En esos valores el coseno no alcanza su máximo, toma un valor intermedio."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "$\\cos(x)=1$ cuando el punto en el círculo unitario es $(1,0)$.\n\nEso ocurre en $\\theta=0$, repitiéndose cada $2\\pi$.\n\nLa solución general es $x=2k\\pi$ con $k\\in\\mathbb{Z}$.\n\nLa opción $x=\\pi/2+2k\\pi$ da los ceros del coseno, que además son los máximos del seno.\n\nLa opción $x=k\\pi$ mezcla los máximos, en $x=2k\\pi$, con los mínimos.\n\nEstos ocurren en $x=(2k+1)\\pi$, así que es un conjunto demasiado amplio.\n\nSolo $x=2k\\pi$ garantiza $\\cos(x)=1$ en cada vuelta completa al punto de partida del círculo unitario.",
-    "reviewed": false,
-    "tags": [
-      "ceros-funcion"
-    ]
-  },
-  {
-    "id": "white_trigonometric_LEXI_25",
-    "question": "Multiplicar la variable por 2 dentro del seno acelera el ciclo:\n$$f(x) = \\operatorname{sen}(2x)$$\n¿Cuál es su **período**?",
-    "options": [
-      "$4\\pi$",
-      "$\\pi$",
-      "$2\\pi$",
-      "$\\dfrac{\\pi}{2}$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "Correcto. Período $= 2\\pi / 2 = \\pi$.",
-    "feedback_incorrect": [
-      "Ese valor correspondería a un argumento estirado a la mitad, como en $\\operatorname{sen}(x/2)$.",
-      null,
-      "Ese es el período del seno sin comprimir, sin tener en cuenta el coeficiente $2$.",
-      "Ese valor correspondería a un coeficiente $B=4$, no a $B=2$."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "En $f(x)=\\operatorname{sen}(2x)$, el coeficiente $B=2$ **comprime** el **período** a la mitad:\n$$\\begin{aligned}\nT &= \\dfrac{2\\pi}{B}\\\\\n&= \\dfrac{2\\pi}{2}\\\\\n&= \\pi\n\\end{aligned}$$\nLos distractores $2\\pi$ y $4\\pi$ son errores frecuentes.\n\nEl primero no modifica $B$, y el segundo equivale a $B=1/2$.\n\nEl valor $\\pi/2$, por su parte, correspondería a $B=4$.\n\nCon $B=2$, la respuesta correcta es $\\pi$.",
-    "reviewed": false,
-    "tags": [
-      "periodo-con-b"
-    ]
-  },
-  {
     "id": "white_trigonometric_LEXI_26",
     "question": "Tomá en cuenta la función:\n$$g(x) = \\operatorname{sen}\\!\\left(\\dfrac{x}{2}\\right)$$\n¿Cuál es el **período**?",
     "options": [
@@ -683,32 +314,6 @@
     "reviewed": false,
     "tags": [
       "periodo-con-b"
-    ]
-  },
-  {
-    "id": "white_trigonometric_LEXI_27",
-    "question": "El nivel del mar sube y baja con las mareas cada $\\approx 12$ horas.\n\n¿Qué función modela mejor el nivel $h(t)$?",
-    "options": [
-      "$h(t) = 12t + k$",
-      "$h = A\\,\\operatorname{sen} + D$",
-      "$h(t) = e^{kt}$",
-      "$h(t) = \\log(t)$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "Correcto. Las mareas son periódicas con período $\\approx 12\\,\\text{h}$.",
-    "feedback_incorrect": [
-      "Una función lineal crece indefinidamente, no repite un ciclo cada 12 horas.",
-      null,
-      "Una exponencial solo crece o decae, no oscila entre subida y bajada.",
-      "Una logarítmica crece de forma sostenida y no está definida para $t\\leq0$, no modela un ciclo."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Las **mareas** siguen un ciclo de subida y bajada aproximadamente cada $12{,}4$ horas. Ese comportamiento oscilatorio periódico es exactamente lo que captura la función:\n$$h(t)=A\\,\\operatorname{sen}(Bt+C)+D$$\nEl parámetro $B$ fija el **período**, y $A$ es la **amplitud** de la marea.\n\nEl parámetro $D$ marca el nivel medio, y $C$ ajusta la fase inicial.\n\nLas funciones $e^{kt}$ solo crecen o decaen, $\\log(t)$ solo crece, y una función lineal no oscila: ninguna repite un patrón cada cierto intervalo fijo, a diferencia del seno.",
-    "reviewed": false,
-    "tags": [
-      "contexto-cotidiano-reconocimiento"
     ]
   },
   {

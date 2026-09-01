@@ -26,7 +26,7 @@ Revisión manual ejercicio por ejercicio vía `/test`. Los siguientes son ejempl
 
 ---
 
-## LEXI, 30 ejercicios
+## LEXI, 15 ejercicios
 
 ### Distribución objetivo
 
@@ -34,12 +34,12 @@ Revisión manual ejercicio por ejercicio vía `/test`. Los siguientes son ejempl
 
 | Concepto | Sub-tipo | Slug | Cantidad exacta |
 |----------|----------|------|----------------:|
-| Dominio | conjunto explícito o natural | `dominio` | 7 |
-| Variable independiente / dependiente |, | `variable-indep-dep` | 6 |
-| Imagen | como conjunto (¿cuál es el conjunto imagen?) | `imagen-conjunto` | 5 |
-| Imagen | puntual (respecto de $x$, ¿qué es $f(x)$?) | `imagen-puntual` | 2 |
-| Codominio |, | `codominio` | 6 |
-| Preimagen | como cálculo (¿qué entradas dan $y$?) | `preimagen-calculo` | 3 |
+| Dominio | conjunto explícito o natural | `dominio` | 3 |
+| Variable independiente / dependiente | , | `variable-indep-dep` | 3 |
+| Imagen | como conjunto (¿cuál es el conjunto imagen?) | `imagen-conjunto` | 3 |
+| Imagen | puntual (respecto de $x$, ¿qué es $f(x)$?) | `imagen-puntual` | 1 |
+| Codominio | , | `codominio` | 3 |
+| Preimagen | como cálculo (¿qué entradas dan $y$?) | `preimagen-calculo` | 1 |
 | Preimagen | puntual (respecto de $f(x)=y$, ¿qué rol cumple $x$?) | `preimagen-puntual` | 1 |
 | **Total** | | | **30** |
 
@@ -125,11 +125,11 @@ El **humor es excepcional** (una minoría de los 30 ejercicios) y solo como **an
 
 | Categoría | Slug | Cantidad |
 |-----------|------|----------|
-| **Dominio**: identificar el conjunto de entradas en un caso concreto | `dominio-identificacion` | 4 |
-| **Dominio natural**: restricción algebraica (división, raíz, combinadas) | `dominio-natural` | 6 |
-| **Imagen / conjunto imagen**: salidas alcanzadas vs. codominio | `imagen-identificacion` | 5 |
-| **Codominio**: distinguir del conjunto imagen | `codominio-identificacion` | 2 |
-| **Preimagen**: calcular preimágenes / distinguir de la imagen | `preimagen-identificacion` | 4 |
+| **Dominio**: identificar el conjunto de entradas en un caso concreto | `dominio-identificacion` | 3 |
+| **Dominio natural**: restricción algebraica (división, raíz, combinadas) | `dominio-natural` | 4 |
+| **Imagen / conjunto imagen**: salidas alcanzadas vs. codominio | `imagen-identificacion` | 4 |
+| **Codominio**: distinguir del conjunto imagen | `codominio-identificacion` | 1 |
+| **Preimagen**: calcular preimágenes / distinguir de la imagen | `preimagen-identificacion` | 3 |
 | **Total** | | **21** |
 
 **No duplicar LEXI.** El límite: **LEXI define/reconoce el término** ("¿qué es el dominio?", "¿qué representa este conjunto?"), en general 2-3 opciones y registro definicional. **CLSF identifica o calcula el conjunto concreto** ("¿cuál es el dominio de esta $f$?", "¿cuáles son las preimágenes del 0?"), computacional. Si un ejercicio se resuelve solo sabiendo la definición sin mirar el caso, es LEXI, no CLSF.

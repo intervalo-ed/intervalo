@@ -1,0 +1,482 @@
+[
+  {
+    "id": "white_trigonometric_FORM_01",
+    "question": "Esta función combina tres números ubicados en distintos lugares de la fórmula:\n$$f(x) = 3\\operatorname{sen}(2x + \\pi/4)$$\n¿Cuál es la amplitud?",
+    "options": [
+      "$3$",
+      "$2$",
+      "$\\pi/4$",
+      "$1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "En $A\\operatorname{sen}(Bx+C)$, la amplitud es $A=3$.",
+    "feedback_incorrect": [
+      null,
+      "Ese es el coeficiente $B$, que determina el período, no la amplitud.",
+      "Ese es el término de fase $C$, que desplaza la curva horizontalmente, no la amplitud.",
+      "$1$ sería la amplitud si no hubiera coeficiente delante del seno, pero acá $A=3$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La forma general de una sinusoide es:\n$$f(x)=A\\cdot\\operatorname{sen}(Bx+C)$$\nEl coeficiente $A$ es la **amplitud**, la distancia entre el eje central y el máximo o el mínimo de la onda.\n\nAquí el coeficiente vale:\n$$A = 3$$\nLa onda oscila entre $-3$ y $3$.\n\nEl resto de los coeficientes cambia otras propiedades, como el período o el desplazamiento horizontal, pero nunca la amplitud.",
+    "reviewed": false,
+    "tags": [
+      "amplitud-calculo-form"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Amplitud de una funcion con tres numeros en juego; el 10 pide la amplitud con factor NEGATIVO, que es donde aparece el valor absoluto."
+    }
+  },
+  {
+    "id": "white_trigonometric_FORM_02",
+    "question": "Una función seno trae un número multiplicando a la variable:\n$$f(x) = 2 \\cdot \\operatorname{sen}(3x)$$\n¿Cuál es el período?",
+    "options": [
+      "$3\\pi$",
+      "$2\\pi$",
+      "$\\dfrac{2\\pi}{3}$",
+      "$\\dfrac{\\pi}{3}$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El período de $\\operatorname{sen}(Bx)$ es $2\\pi/B$. Con $B=3$, el período es $2\\pi/3$.",
+    "feedback_incorrect": [
+      "Ese valor multiplica $\\pi$ por $B$ en vez de dividir: el período es $2\\pi/B$, no $B\\pi$.",
+      "Ese es el período del seno sin modificar, pero acá $B=3$ sí lo achica.",
+      null,
+      "Ese resultado sale de usar $B=6$ en vez de $B=3$ en el cociente $2\\pi/B$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **período** de una función seno con un coeficiente en el argumento se calcula como $T=2\\pi/B$.\n\nValores más grandes de ese coeficiente achican el período, porque la onda completa más ciclos en el mismo tramo.\n\nCon $B=3$:\n$$T = \\frac{2\\pi}{3}$$\nEl distractor $3\\pi$ multiplica en vez de dividir por el coeficiente, y el otro distractor grande comete un error de operación parecido.",
+    "reviewed": false,
+    "tags": [
+      "periodo-calculo-form"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Periodo de 2.sen(Bx); el 06 es el mismo caso canonico y el 22 el que trae pi."
+    }
+  },
+  {
+    "id": "white_trigonometric_FORM_03",
+    "question": "Los valores del seno en los ángulos más usados conviene tenerlos a mano:\n$$f(x) = \\operatorname{sen}(x)$$\n¿Cuánto vale $f(\\pi/2)$?",
+    "options": [
+      "$1$",
+      "$0$",
+      "$-1$",
+      "$\\pi/2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "$\\operatorname{sen}(\\pi/2) = 1$: es el valor máximo del seno.",
+    "feedback_incorrect": [
+      null,
+      "Ese es el valor del seno en $x=0$ o $x=\\pi$, no en $\\pi/2$.",
+      "Ese es el valor mínimo del seno, alcanzado en $3\\pi/2$, no en $\\pi/2$.",
+      "Ese es el ángulo mismo, no el valor que toma la función en ese ángulo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **valor máximo** del seno es $1$, y se alcanza en $x=\\pi/2$:\n$$\\operatorname{sen}(\\pi/2)=1$$\nConviene memorizar este valor junto con $\\operatorname{sen}(0)=\\operatorname{sen}(\\pi)=0$, los otros dos puntos de referencia rápida en el círculo trigonométrico.\n\nEl coseno arranca en su máximo cuando el seno arranca en cero: $\\cos(0)=1$, la diferencia más útil para distinguir ambas curvas al evaluarlas de memoria.",
+    "reviewed": false,
+    "tags": [
+      "evaluacion-puntual-form"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Valor del seno en un angulo notable; el 08 cubre la primera vuelta y el 23 el caso que la pasa."
+    }
+  },
+  {
+    "id": "white_trigonometric_FORM_05",
+    "question": "La amplitud mide cuánto se aleja la curva de su valor central:\n$$f(x) = 3\\,\\operatorname{sen}(x)$$\n¿Cuál es la amplitud?",
+    "options": [
+      "$1$",
+      "$3$",
+      "$6$",
+      "$\\pi$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto. La amplitud es $|A| = 3$.",
+    "feedback_incorrect": [
+      "Esa es la amplitud del seno sin escalar, olvidando el coeficiente $3$ que lo multiplica.",
+      null,
+      "Ese valor duplica la amplitud real: el coeficiente ya es directamente la amplitud, no hay que multiplicarlo por $2$.",
+      "$\\pi$ describe el período de referencia, no la amplitud."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **amplitud** de una función de la forma $f(x)=A\\operatorname{sen}(x)$ es siempre $|A|$, la distancia entre el eje central y el pico de la onda.\n\nEn esta función el coeficiente que multiplica al seno es:\n$$A = 3$$\nLa onda oscila entonces entre $-3$ y $3$.\n\nEl valor $6$ corresponde al rango total entre el máximo y el mínimo: medir la distancia entre los dos extremos en vez de entre el eje y uno solo da el doble de la amplitud real.",
+    "reviewed": false,
+    "tags": [
+      "amplitud-calculo-form"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Amplitud de 3sen(x), caso directo."
+    }
+  },
+  {
+    "id": "white_trigonometric_FORM_07",
+    "question": "El coseno oscila entre dos valores fijos, y restarle un número mueve toda la onda:\n$$h(x) = \\cos(x) - 2$$\n¿Cuál es su valor mínimo?",
+    "options": [
+      "$-3$",
+      "$-1$",
+      "$-2$",
+      "$1$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto. El mínimo es $-3$.",
+    "feedback_incorrect": [
+      null,
+      "Ese es el mínimo del coseno sin el desplazamiento vertical, falta restar $2$.",
+      "Ese es solo el desplazamiento vertical $D$, falta restar la amplitud del coseno.",
+      "Ese valor sale de sumar en vez de restar el desplazamiento al mínimo del coseno."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "En una función de la forma $h(x)=\\cos(x)+D$, el **mínimo** ocurre en el punto más bajo del coseno y vale $-1+D$.\n\nCon $D=-2$:\n$$\\begin{aligned}\nh_{\\min} &= -1 + (-2) \\\\\n&= -3\n\\end{aligned}$$\nLa opción $-1$ es el mínimo del coseno sin el desplazamiento.\n\nLa opción $-2$ es solo el desplazamiento, sin sumar el mínimo del coseno: el resultado real combina ambos valores.",
+    "reviewed": false,
+    "tags": [
+      "extremos-desde-formula"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Coseno desplazado hacia abajo; el 14 combina estiramiento y desplazamiento, que es el caso completo."
+    }
+  },
+  {
+    "id": "white_trigonometric_FORM_09",
+    "question": "El coseno y el seno intercambian valores entre ángulos complementarios:\n$$g(x) = \\cos(x)$$\n¿Cuánto vale $g(\\pi/3)$?",
+    "options": [
+      "$\\dfrac{\\sqrt{3}}{2}$",
+      "$\\dfrac{1}{2}$",
+      "$1$",
+      "$0$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto. $\\cos(\\pi/3) = 1/2$.",
+    "feedback_incorrect": [
+      "Ese valor corresponde a $\\cos(\\pi/6)$, el ángulo complementario, no $\\pi/3$.",
+      null,
+      "Ese es el máximo del coseno, alcanzado en $x=0$, no en $\\pi/3$.",
+      "Ese es el valor del coseno en $\\pi/2$, no en $\\pi/3$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El ángulo $\\pi/3$ equivale a 60°, el complementario de 30° dentro del mismo triángulo notable.\n\nEn ese triángulo, el cateto adyacente al ángulo de 60° mide la mitad de la hipotenusa, y el coseno es ese cociente entre cateto adyacente e hipotenusa:\n$$\\cos(\\pi/3) = \\frac{1}{2}$$\nPor la relación entre ángulos complementarios, este valor coincide con $\\operatorname{sen}(\\pi/6)$: intercambiar seno y coseno entre dos ángulos que suman 90° siempre da el mismo resultado.",
+    "reviewed": false,
+    "tags": [
+      "evaluacion-puntual-form"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Coseno y seno en angulos complementarios; sigue siendo evaluar un notable."
+    }
+  },
+  {
+    "id": "white_trigonometric_FORM_11",
+    "question": "Restar una constante a un seno baja la onda entera sin cambiar su altura:\n$$f(x) = \\operatorname{sen}(x) - 1$$\n¿Cuál es su imagen?",
+    "options": [
+      "$[-2, 1]$",
+      "$[-1, 1]$",
+      "$[-2, 0]$",
+      "$[0, 2]$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto. $[-1 - 1,\\, 1 - 1] = [-2, 0]$.",
+    "feedback_incorrect": [
+      "Ese intervalo mezcla mal los extremos, no respeta el ancho de $2$ unidades de la imagen del seno.",
+      "Ese es el rango del seno sin desplazamiento, falta correr todo $1$ unidad hacia abajo.",
+      null,
+      "Ese intervalo sale de sumar $1$ en vez de restarlo."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **imagen** del seno es $[-1,1]$, y un desplazamiento vertical mueve todo ese intervalo la misma cantidad, sin cambiar su ancho.\n\nPara $f(x)=\\operatorname{sen}(x)-1$, ese intervalo se desplaza restando $1$ a ambos extremos:\n$$[-1-1,\\ 1-1] = [-2,\\ 0]$$\nLa opción $[-1,1]$ olvida aplicar el desplazamiento, y la opción $[0,2]$ sale de sumar en vez de restar: el signo decide hacia qué lado se mueve el intervalo completo.",
+    "reviewed": false,
+    "tags": [
+      "imagen-rango-form-trig"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Imagen de un seno bajado por una constante; el 24 combina factor y constante."
+    }
+  },
+  {
+    "id": "white_trigonometric_FORM_12",
+    "question": "La gráfica muestra:\n$$f(x) = 2\\,\\operatorname{sen}(x)$$\n¿Cuánto vale $f(\\pi/2)$?",
+    "options": [
+      "$2$",
+      "$1$",
+      "$0$",
+      "$-2$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Correcto. $f(\\pi/2) = 2$.",
+    "feedback_incorrect": [
+      null,
+      "Ese es el máximo del seno sin escalar, olvidando el coeficiente $2$ que lo multiplica.",
+      "Ese sería el valor en $x=0$ o $x=\\pi$, no en $\\pi/2$.",
+      "Ese es el mínimo de la función, alcanzado cuando el seno vale $-1$, no en $\\pi/2$."
+    ],
+    "graph_fn": "2*sin(x)",
+    "graph_view": [
+      -7,
+      7,
+      -3,
+      3
+    ],
+    "explanation": "En la gráfica, la función alcanza su punto más alto en $x=\\pi/2$, donde el seno vale su máximo.\n\nEl coeficiente que multiplica al seno es $2$, y se aplica directo sobre ese máximo:\n$$f(\\pi/2) = 2\\cdot 1 = 2$$\nEste es el valor que se ve en el pico de la curva.\n\nLa opción $0$ corresponde a los cruces de la curva por el eje, y la opción $1$ es el máximo del seno antes de escalarlo por el coeficiente que lo multiplica.",
+    "reviewed": false,
+    "tags": [
+      "lectura-grafico-directa-trig"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Leer f(pi/2) en el grafico de 2sen(x); el 25 pide el maximo de una onda desplazada, que exige leer dos cosas."
+    }
+  },
+  {
+    "id": "white_trigonometric_FORM_15",
+    "question": "La imagen de una onda queda determinada por su centro y por cuánto sube y baja:\n$$g(x) = 2\\cos(x) + 1$$\n¿Cuál es su imagen?",
+    "options": [
+      "$[0, 4]$",
+      "$[1, 3]$",
+      "$[-2, 2]$",
+      "$[-1, 3]$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Correcto. $[1 - 2,\\, 1 + 2] = [-1, 3]$.",
+    "feedback_incorrect": [
+      "Ese intervalo sale de sumar $2$ en vez de $1$ al rango escalado.",
+      "Ese intervalo toma $[0,2]+1$ en vez de partir del rango correcto $[-2,2]$.",
+      "Ese es el rango tras escalar por $2$, pero olvida sumar el desplazamiento vertical $+1$.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **imagen** del coseno es $[-1,1]$; escalarlo y desplazarlo transforma ese intervalo entero de la misma forma.\n\nMultiplicar por $2$ estira el intervalo a $[-2,2]$, y sumar el desplazamiento lo corre una unidad hacia arriba:\n$$[-2+1,\\ 2+1] = [-1,\\ 3]$$\nLa opción $[-2,2]$ olvida el desplazamiento vertical, y la opción $[1,3]$ parte de un rango escalado incorrecto: siempre conviene escalar primero y desplazar después.",
+    "reviewed": false,
+    "tags": [
+      "imagen-rango-form-trig"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Imagen de 2cos con centro desplazado; idem 11."
+    }
+  },
+  {
+    "id": "white_trigonometric_FORM_16",
+    "question": "La gráfica muestra $f(x) = \\cos(x)$.\n\n¿Cuánto vale $f(0)$?",
+    "options": [
+      "$0$",
+      "$-1$",
+      "$\\dfrac{1}{2}$",
+      "$1$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Correcto. El coseno en $x = 0$ vale $1$, su máximo.",
+    "feedback_incorrect": [
+      "Ese es el valor del seno en $x=0$, no del coseno.",
+      "Ese es el mínimo del coseno, alcanzado en $x=\\pi$, no en $x=0$.",
+      "Ese valor corresponde a otro ángulo de la tabla trigonométrica, no a $\\cos(0)$.",
+      null
+    ],
+    "graph_fn": "cos(x)",
+    "graph_view": [
+      -7,
+      7,
+      -2,
+      2
+    ],
+    "explanation": "En la gráfica, la curva del coseno arranca en su punto más alto cuando $x=0$.\n\nEvaluando:\n$$f(0) = \\cos(0) = 1$$\nEsta es la diferencia visual clave frente al seno, que en cambio arranca en $0$ y recién sube hasta su pico un cuarto de vuelta después.\n\nLa opción $0$ es el valor del seno en ese mismo punto, no del coseno.",
+    "reviewed": false,
+    "tags": [
+      "lectura-grafico-directa-trig"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "f(0) del coseno leido del grafico."
+    }
+  },
+  {
+    "id": "white_trigonometric_FORM_17",
+    "question": "Esta función seno repite su onda cada cierto intervalo de $x$, y esa distancia es su **período**.\n$$f(x) = 2\\,\\operatorname{sen}(3x)$$\n¿Cuál es ese período?",
+    "options": [
+      "$\\dfrac{2\\pi}{3}$",
+      "$6\\pi$",
+      "$2\\pi$",
+      "$3\\pi$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Período $T = 2\\pi/3$.",
+    "feedback_incorrect": [
+      null,
+      "Ese resultado invierte el cociente $2\\pi/B$.",
+      "Ese es el período sin modificar, ignorando que $B=3$ lo achica.",
+      "Ese resultado sale de usar $B=2/3$ en vez de $B=3$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **período** de una función seno depende solo del coeficiente que multiplica a $x$ dentro del argumento, nunca del coeficiente que multiplica a toda la función.\n\nCon $B=3$:\n$$T = \\frac{2\\pi}{3}$$\nEl coeficiente $2$ que precede al seno es la amplitud, y no interviene en absoluto en este cálculo: agranda o achica la onda verticalmente, pero no cambia cuánto tarda en repetirse.",
+    "reviewed": false,
+    "tags": [
+      "periodo-calculo-form"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Periodo enunciado como 'cada cierto intervalo'; tercera vuelta al mismo calculo."
+    }
+  },
+  {
+    "id": "white_trigonometric_FORM_19",
+    "question": "La gráfica muestra una onda con máximo $3$ y mínimo $-3$.\n\n¿Cuál es la amplitud de la función?",
+    "options": [
+      "$6$",
+      "$1$",
+      "$3$",
+      "$\\dfrac{3}{2}$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto. Amplitud $ = 3$.",
+    "feedback_incorrect": [
+      "Ese es el rango total entre máximo y mínimo, falta dividirlo a la mitad para obtener la amplitud.",
+      "Ese valor ignora la distancia real entre el eje central y el pico.",
+      null,
+      "Ese valor sale de dividir el rango total por $4$ en vez de por $2$."
+    ],
+    "graph_fn": "3*sin(x)",
+    "graph_view": [
+      -7,
+      7,
+      -4,
+      4
+    ],
+    "explanation": "La **amplitud** de una onda es la distancia entre el eje central y uno de sus extremos, es decir la mitad de la diferencia entre el máximo y el mínimo.\n\nCon máximo $3$ y mínimo $-3$:\n$$A = \\frac{3-(-3)}{2} = 3$$\nLa opción $6$ es el rango total, la distancia entre el máximo y el mínimo sin dividir a la mitad.\n\nLas dos medidas describen \"cuánto se mueve\" la curva, pero una parte desde el eje central y la otra va de punta a punta.",
+    "reviewed": false,
+    "tags": [
+      "lectura-grafico-directa-trig"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Amplitud desde maximo y minimo del grafico; cubierto por el 10 y el 25."
+    }
+  },
+  {
+    "id": "white_trigonometric_FORM_21",
+    "question": "El coseno de los ángulos notables aparece seguido en los ejercicios:\n$$f(x) = \\cos(x)$$\n¿Cuánto vale $f(\\pi/4)$?",
+    "options": [
+      "$\\dfrac{1}{2}$",
+      "$\\dfrac{\\sqrt{3}}{2}$",
+      "$1$",
+      "$\\dfrac{\\sqrt{2}}{2}$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "Correcto. $\\cos(\\pi/4) = \\sqrt{2}/2 \\approx 0{,}707$.",
+    "feedback_incorrect": [
+      "Ese valor corresponde a $\\cos(\\pi/3)$, no a $\\pi/4$.",
+      "Ese valor corresponde a $\\cos(\\pi/6)$, no a $\\pi/4$.",
+      "Ese es el máximo del coseno, alcanzado en $x=0$, no en $\\pi/4$.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El ángulo $\\pi/4$ equivale a 45° y corresponde al triángulo rectángulo isósceles, donde los dos catetos miden lo mismo.\n\nPor esa simetría, el coseno de 45° es igual al seno de 45°:\n$$\\cos(\\pi/4) = \\frac{\\sqrt{2}}{2}$$\nLa opción $1/2$ corresponde a $\\cos(\\pi/3)$, el ángulo de 60°.\n\nLa opción $\\sqrt{3}/2$ corresponde a $\\cos(\\pi/6)$, el ángulo de 30°: ambas son valores de otros ángulos notables, no del ángulo pedido.",
+    "reviewed": false,
+    "tags": [
+      "evaluacion-puntual-form"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Coseno de un notable, cuarta evaluacion."
+    }
+  },
+  {
+    "id": "white_trigonometric_FORM_26",
+    "question": "Sobre la diagonal del primer cuadrante, seno y coseno valen lo mismo:\n$$f(x) = \\operatorname{sen}(x)$$\n¿Cuánto vale $f(\\pi/4)$?",
+    "options": [
+      "$\\dfrac{1}{2}$",
+      "$\\dfrac{\\sqrt{3}}{2}$",
+      "$\\dfrac{\\sqrt{2}}{2}$",
+      "$1$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Correcto. $\\operatorname{sen}(\\pi/4) = \\sqrt{2}/2 \\approx 0{,}707$.",
+    "feedback_incorrect": [
+      "Ese valor corresponde a $\\operatorname{sen}(\\pi/6)$, no a $\\pi/4$.",
+      "Ese valor corresponde a $\\operatorname{sen}(\\pi/3)$, no a $\\pi/4$.",
+      null,
+      "Ese es el máximo del seno, alcanzado en $\\pi/2$, no en $\\pi/4$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El ángulo $\\pi/4$ equivale a 45° y corresponde al triángulo rectángulo isósceles, con dos catetos iguales.\n\nEn ese triángulo el seno es igual al coseno:\n$$\\operatorname{sen}(\\pi/4) = \\frac{\\sqrt{2}}{2}$$\nLa opción $1/2$ corresponde al seno de 30°, y la opción $\\sqrt{3}/2$ corresponde al seno de 60°: ambos son ángulos distintos de 45°.",
+    "reviewed": false,
+    "tags": [
+      "evaluacion-puntual-form"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Seno y coseno iguales sobre la diagonal; quinta evaluacion."
+    }
+  },
+  {
+    "id": "white_trigonometric_FORM_27",
+    "question": "Una función trae una fracción menor que 1 multiplicando a la variable:\n$$f(x) = \\cos\\!\\left(\\dfrac{2x}{3}\\right)$$\n¿Cuál es el período?",
+    "options": [
+      "$\\dfrac{4\\pi}{3}$",
+      "$3\\pi$",
+      "$\\dfrac{2\\pi}{3}$",
+      "$6\\pi$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Correcto. $B = 2/3$, período $ = 3\\pi$.",
+    "feedback_incorrect": [
+      "Ese resultado invierte el cociente $2\\pi/B$.",
+      null,
+      "Ese valor confunde $B=2/3$ con su recíproco $3/2$.",
+      "Ese resultado sale de usar $B=1/3$ en vez de $B=2/3$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **período** de una función coseno es $T=2\\pi/B$, y la fórmula funciona igual cuando el coeficiente es una fracción.\n\nCon $B=2/3$:\n$$\\begin{aligned}\nT &= \\frac{2\\pi}{2/3} \\\\\n&= 2\\pi\\cdot\\frac{3}{2} \\\\\n&= 3\\pi\n\\end{aligned}$$\nDividir por una fracción menor a $1$ agranda el resultado, por eso un coeficiente chico produce un período más largo que $2\\pi$.\n\nLa opción $2\\pi/3$ confunde $B=2/3$ con su recíproco.",
+    "reviewed": false,
+    "tags": [
+      "periodo-calculo-form"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Periodo con fraccion menor que 1 multiplicando; cubierto por el 22 y el 06."
+    }
+  }
+]

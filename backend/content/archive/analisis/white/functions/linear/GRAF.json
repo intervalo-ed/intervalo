@@ -1,0 +1,542 @@
+[
+  {
+    "id": "white_linear_GRAF_03",
+    "question": "Para leer la inclinación de una recta alcanza con ver cuánto baja o sube al avanzar una unidad.\n\n¿Cuál es la **pendiente** de la recta graficada?",
+    "options": [
+      "1",
+      "-1",
+      "4",
+      "-4"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Por cada unidad que avanza $x$, la recta baja 1 unidad: la pendiente es $-1$.",
+    "feedback_incorrect": [
+      "El signo importa: la recta baja de izquierda a derecha, así que la pendiente es negativa.",
+      null,
+      "Ese es el valor donde la recta corta el eje vertical, la ordenada al origen, no la pendiente.",
+      "Ese número no aparece al medir el cambio entre dos puntos consecutivos de la recta."
+    ],
+    "graph_fn": "-x+4",
+    "graph_view": [
+      -2,
+      6,
+      -2,
+      6
+    ],
+    "explanation": "La **pendiente** se lee en el gráfico midiendo cuánto sube o baja la recta al avanzar una unidad en $x$.\n\nAcá, la recta baja una unidad por cada unidad que avanza $x$: la pendiente es $-1$.\n\nUna recta que baja de izquierda a derecha siempre tiene pendiente negativa, sin importar cuán suave sea la bajada.",
+    "reviewed": false,
+    "tags": [
+      "pendiente-tasa"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Mismo enunciado abstracto de pendiente que el 15, y con n=1 no aporta evidencia. Sobrevive el 15, que ademas mide 60%, dentro de banda."
+    }
+  },
+  {
+    "id": "white_linear_GRAF_05",
+    "question": "La ordenada al origen se lee directo en el gráfico, sin necesidad de conocer la fórmula.\n\n¿Cuál es la **ordenada al origen** de la recta graficada?",
+    "options": [
+      "3",
+      "1.5",
+      "-2",
+      "0"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La recta corta el eje vertical en $y=3$: la ordenada al origen es $3$.",
+    "feedback_incorrect": [
+      null,
+      "Ese es el valor donde la recta corta el eje horizontal, la raíz, no el eje vertical.",
+      "Ese número es la pendiente de la recta, no el punto donde corta el eje vertical.",
+      "La recta no pasa por el origen: corta el eje vertical por encima de él."
+    ],
+    "graph_fn": "-2*x+3",
+    "graph_view": [
+      -2,
+      4,
+      -2,
+      5
+    ],
+    "explanation": "La **ordenada al origen** es el valor de la recta en $x=0$: el punto donde cruza el eje vertical.\n\nEn este gráfico, la recta corta el eje vertical en $y=3$, así que la ordenada al origen es $3$.\n\nNo hay que confundirla con la raíz: la ordenada al origen se lee en el eje vertical, la raíz en el eje horizontal.",
+    "reviewed": false,
+    "tags": [
+      "ordenada-origen-concepto"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Lectura abstracta de la ordenada al origen, estrictamente peor que el 19: el 19 hace lo mismo pero con la recta cruzando los dos ejes, o sea con un distractor real (la raiz)."
+    }
+  },
+  {
+    "id": "white_linear_GRAF_06",
+    "question": "Un tanque se llena a **ritmo constante**. El gráfico muestra los litros según los minutos.\n\n¿Cuántos litros tenía al empezar, en el minuto 0?",
+    "options": [
+      "1 litro",
+      "15 litros",
+      "5 litros",
+      "0 litros"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "En el minuto 0 la curva arranca en 5 litros: ese es el volumen inicial.",
+    "feedback_incorrect": [
+      "Ese número es el ritmo de llenado por minuto, no el volumen con el que arrancó el tanque.",
+      "Ese es el volumen en un minuto más avanzado, no el del minuto 0.",
+      null,
+      "El tanque no arrancó vacío: la curva empieza por encima del eje horizontal."
+    ],
+    "graph_fn": "x+5",
+    "graph_view": [
+      -1,
+      10,
+      -1,
+      16
+    ],
+    "explanation": "El volumen inicial de un proceso se lee en el gráfico en el instante $t=0$, donde la curva corta el eje vertical.\n\nAcá, en el minuto 0 la curva está en 5 litros: ese es el volumen con el que arrancó el tanque, antes de que empezara a llenarse.\n\nConviene no confundir el volumen inicial con el ritmo de llenado: uno es un punto de partida, el otro es cuánto cambia por minuto.",
+    "reviewed": false,
+    "tags": [
+      "ordenada-origen-concepto"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Cuarta aparicion de la plantilla del tanque a ritmo constante, que ya sostienen el 02 y el 08. P1 100%."
+    }
+  },
+  {
+    "id": "white_linear_GRAF_09",
+    "question": "Un tanque se vacía a **ritmo constante**, sin volver a llenarse. El gráfico muestra los litros según las horas.\n\n¿A las cuántas horas se vacía completamente?",
+    "options": [
+      "6 horas",
+      "12 horas",
+      "-6 horas",
+      "24 horas"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La curva corta el eje horizontal en la hora 6: ahí el tanque llega a 0 litros.",
+    "feedback_incorrect": [
+      null,
+      "Ese es el volumen inicial en litros, no el instante en que se vacía.",
+      "Un instante negativo no tiene sentido acá: el tanque se vacía después de empezar a observarlo, no antes.",
+      "Ese valor no corresponde a este ritmo de vaciado; revisá la lectura del gráfico."
+    ],
+    "graph_fn": "-2*x+12",
+    "graph_view": [
+      -3,
+      13,
+      -2,
+      14
+    ],
+    "explanation": "El tanque se vacía por completo en el instante donde la curva corta el eje horizontal: ahí el volumen llega a cero.\n\nEn este gráfico, la curva cruza el eje horizontal en la hora 6: arrancó con 12 litros y perdió 2 por hora, así que se vacía a las 6 horas.\n\nEse punto de corte es la raíz del gráfico: marca el momento exacto en que el proceso se agota, no antes ni después.",
+    "reviewed": false,
+    "tags": [
+      "raiz-agotamiento"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Cuarta variante de 'algo se agota a ritmo constante' (tanque, nafta, vela, bateria), las cuatro con P1 100%. Sobrevive solo el 27, que es el unico con voto positivo de interes."
+    }
+  },
+  {
+    "id": "white_linear_GRAF_11",
+    "question": "La recta del gráfico también está definida a la izquierda del eje vertical.\n\n¿Cuál es el valor de $f(-1)$?",
+    "options": [
+      "1",
+      "3",
+      "-1",
+      "5"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "En $x=-1$ la recta pasa por $y=3$, que es el valor de $f(-1)$.",
+    "feedback_incorrect": [
+      "Ese es el valor donde la recta corta el eje vertical, $f(0)$, no $f(-1)$.",
+      null,
+      "Ese es el valor de $x$ que se pidió, no la altura de la recta en ese punto.",
+      "Ese es el valor de la recta en otra columna, más a la izquierda de $x=-1$."
+    ],
+    "graph_fn": "-2*x+1",
+    "graph_view": [
+      -2,
+      3,
+      -4,
+      5
+    ],
+    "explanation": "Para leer $f(a)$ en un gráfico se busca la columna $x=a$ y se mira a qué altura llega la recta ahí: esa altura es el valor de la función en ese punto.\n\nEn este gráfico, la recta pasa por $(-1, 3)$, así que $f(-1)=3$.\n\nConviene ubicar primero la columna pedida en el eje horizontal antes de mirar la altura, para no leer por error la de una columna vecina.",
+    "reviewed": false,
+    "tags": [
+      "lectura-y-dado-x"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "FACIL",
+      "razon": "P1 100%. Lectura abstracta que el 01 ya cubre; su unico aporte era el tramo negativo, que el 30 conserva con los puntos (-3,-2) y (0,1)."
+    }
+  },
+  {
+    "id": "white_linear_GRAF_13",
+    "question": "El gráfico muestra la tinta que queda en un cartucho de impresora según los días de uso.\n\n¿Cuánta tinta queda a los 6 días?",
+    "options": [
+      "9 mL",
+      "15 mL",
+      "6 mL",
+      "3 mL"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "A los 6 días la curva está en 9 mL: el cartucho perdió 6 de los 15 mL iniciales.",
+    "feedback_incorrect": [
+      null,
+      "Ese es el valor inicial, en el día 0, no el del día 6.",
+      "Ese es lo que se consumió hasta el día 6, no lo que queda en el cartucho.",
+      "Ese valor corresponde a un día más avanzado, no al día 6."
+    ],
+    "graph_fn": "-x+15",
+    "graph_view": [
+      -1,
+      10,
+      -1,
+      16
+    ],
+    "explanation": "Para leer un valor puntual en un gráfico de consumo, se busca el momento pedido en el eje horizontal y se mira la altura de la curva ahí.\n\nEn este gráfico, a los 6 días la curva pasa por 9 mL: el cartucho arrancó con 15 mL y perdió 1 mL por día durante 6 días.\n\nConviene distinguir la tinta que queda, la altura de la curva en ese día, de la tinta ya consumida hasta ese momento.",
+    "reviewed": false,
+    "tags": [
+      "lectura-y-dado-x"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Misma lectura directa en contexto que el 02, con P1 100%."
+    }
+  },
+  {
+    "id": "white_linear_GRAF_14",
+    "question": "El gráfico muestra los kilómetros recorridos por un tren a **velocidad constante**, según los minutos de viaje.\n\n¿Cuántos kilómetros recorrió a los 8 minutos?",
+    "options": [
+      "8 km",
+      "2 km",
+      "12 km",
+      "10 km"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "A los 8 minutos el tren recorrió 10 km: 2 km que ya llevaba más 1 km por minuto durante 8 minutos.",
+    "feedback_incorrect": [
+      "Ese valor sale de multiplicar solo la velocidad por el tiempo, sin sumar los km que el tren ya llevaba recorridos.",
+      "Ese es el valor inicial, en el minuto 0, no el de los 8 minutos.",
+      "Revisá la lectura: a los 8 minutos el tren todavía no llegó tan lejos.",
+      null
+    ],
+    "graph_fn": "x+2",
+    "graph_view": [
+      -1,
+      10,
+      -1,
+      12
+    ],
+    "explanation": "Para leer un valor puntual en un gráfico de distancia según tiempo, se busca el instante pedido en el eje horizontal y se mira la altura de la recta ahí.\n\nEn este gráfico, a los 8 minutos la recta pasa por 10 km: el tren ya llevaba 2 km recorridos y avanzó 1 km por minuto durante los 8 minutos siguientes.\n\nEl valor inicial, el punto de partida en el minuto 0, no debe confundirse con la distancia recorrida durante el intervalo que pregunta el enunciado.",
+    "reviewed": false,
+    "tags": [
+      "lectura-y-dado-x"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Idem 13: otro contexto, la misma pregunta, P1 100%."
+    }
+  },
+  {
+    "id": "white_linear_GRAF_16",
+    "question": "El gráfico muestra la temperatura de una olla de agua puesta a calentar, según los minutos.\n\n¿A qué ritmo sube la temperatura, en grados por minuto?",
+    "options": [
+      "2 grados por minuto",
+      "20 grados por minuto",
+      "-2 grados por minuto",
+      "4 grados por minuto"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La temperatura sube 2 grados por cada minuto: ese es el ritmo de calentamiento.",
+    "feedback_incorrect": [
+      null,
+      "Ese es el valor inicial de la temperatura, no cuánto sube por minuto.",
+      "La temperatura sube con los minutos, así que el ritmo es positivo, no negativo.",
+      "Ese número sale de no dividir el cambio de temperatura por los minutos transcurridos."
+    ],
+    "graph_fn": "2*x+20",
+    "graph_view": [
+      -1,
+      6,
+      15,
+      32
+    ],
+    "explanation": "En un gráfico de temperatura según tiempo, la **pendiente** es el ritmo de cambio: cuánto sube o baja la temperatura por cada minuto.\n\nAcá, entre los minutos 0 y 1 la temperatura pasa de 20 a 22 grados: sube 2 por minuto, así que el ritmo de calentamiento es 2 grados por minuto.\n\nPara hallar el ritmo conviene mirar el cambio entre dos minutos consecutivos, nunca solo la diferencia total sin dividirla por el tiempo transcurrido.",
+    "reviewed": false,
+    "tags": [
+      "pendiente-tasa"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "SOSPECHOSO",
+      "razon": "P1 20% con 20% de intentos agotados y, al mismo tiempo, un voto de 'muy facil'. Esa contradiccion es la firma de un enunciado cuya respuesta esperada no es la que el grafico sugiere, no la de un ejercicio dificil. Se descarta en vez de arrastrarlo."
+    }
+  },
+  {
+    "id": "white_linear_GRAF_18",
+    "question": "El gráfico muestra el costo de sacar fotocopias en un local según la cantidad de copias.\n\n¿Cuál es el costo por copia que indica la pendiente?",
+    "options": [
+      "3 pesos por copia",
+      "4 pesos por copia",
+      "1 peso por copia",
+      "-1 peso por copia"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El costo sube 1 peso por cada copia adicional: ese es el costo por copia.",
+    "feedback_incorrect": [
+      "Ese es el costo fijo del local, no lo que se suma por cada copia.",
+      "Ese es el costo total de la primera copia, no lo que aumenta por cada copia adicional.",
+      null,
+      "El costo sube con la cantidad de copias, así que la pendiente es positiva, no negativa."
+    ],
+    "graph_fn": "x+3",
+    "graph_view": [
+      -1,
+      6,
+      -1,
+      8
+    ],
+    "explanation": "En un gráfico de costo según cantidad, la **pendiente** es el costo por unidad: cuánto sube el costo por cada copia adicional.\n\nAcá, entre 0 y 1 copia el costo pasa de 3 a 4 pesos: sube 1 por copia, así que el costo por copia es 1 peso.\n\nEl costo fijo del local, el punto de partida en cero copias, no forma parte del costo por copia: son dos datos distintos del mismo gráfico.",
+    "reviewed": false,
+    "tags": [
+      "pendiente-tasa"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "'Costo por unidad leido en la pendiente', la misma pregunta que el 17, que tiene mas exposicion (n=9 contra 6)."
+    }
+  },
+  {
+    "id": "white_linear_GRAF_21",
+    "question": "El gráfico muestra la altura de una planta, en centímetros, creciendo a **ritmo constante** según las semanas.\n\n¿Cuál era la altura de la planta en la semana 0, recién plantada?",
+    "options": [
+      "4 cm",
+      "1 cm",
+      "5 cm",
+      "0 cm"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "En la semana 0 la altura es 4 cm: esa es la altura inicial de la planta.",
+    "feedback_incorrect": [
+      null,
+      "Ese número es cuánto crece la planta por semana, no su altura inicial.",
+      "Ese es el valor en una semana más avanzada, no en la semana 0.",
+      "La planta no arrancó desde el suelo: la curva empieza por encima del eje horizontal."
+    ],
+    "graph_fn": "x+4",
+    "graph_view": [
+      -1,
+      6,
+      -1,
+      10
+    ],
+    "explanation": "La altura inicial de un proceso se lee en el gráfico en el instante donde la curva corta el eje vertical, en $x=0$.\n\nAcá, en la semana 0 la altura es 4 cm: ese fue el tamaño de la planta al momento de plantarla, antes de que empezara a crecer.\n\nNo conviene confundir la altura inicial con el ritmo de crecimiento semanal: uno es un punto de partida, el otro es cuánto cambia por semana.",
+    "reviewed": false,
+    "tags": [
+      "ordenada-origen-concepto"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "DOMINADO",
+      "razon": "P1 100% y ademas votado aburrido con la razon 'ya lo sabia'. Es el caso exacto de la seccion 20 del informe: no ensena nada y encima molesta."
+    }
+  },
+  {
+    "id": "white_linear_GRAF_22",
+    "question": "En el gráfico, subir hasta una altura fija y de ahí bajar al eje horizontal responde la pregunta inversa.\n\n¿Para qué valor de $x$ se cumple $f(x)=1$?",
+    "options": [
+      "1",
+      "5",
+      "4",
+      "-4"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "La recta pasa por $y=1$ en la columna $x=4$: ese es el valor que se busca.",
+    "feedback_incorrect": [
+      "Ese es el valor de $f(x)$ que se dio como dato, no el de $x$ que se busca.",
+      "Ese es el valor donde la recta corta el eje vertical, no la columna donde $f(x)=1$.",
+      null,
+      "Ese valor sale de un error de signo al despejar; conviene verificar reemplazando en la fórmula."
+    ],
+    "graph_fn": "-x+5",
+    "graph_view": [
+      -2,
+      6,
+      -2,
+      6
+    ],
+    "explanation": "Para leer a qué $x$ corresponde un valor dado de $f(x)$, se busca esa altura en el eje vertical y se mira en qué columna la recta pasa por ahí.\n\nEn este gráfico, la recta llega a $y=1$ en la columna $x=4$, así que ese es el valor buscado.\n\nConviene verificar el resultado reemplazándolo en la fórmula de la recta, para confirmar que da la altura pedida.",
+    "reviewed": false,
+    "tags": [
+      "lectura-x-dado-y"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Lectura inversa abstracta, la misma que el 07."
+    }
+  },
+  {
+    "id": "white_linear_GRAF_24",
+    "question": "El gráfico muestra el ahorro acumulado de una persona, en pesos, ahorrando siempre el mismo monto según las semanas.\n\n¿A las cuántas semanas el ahorro llega a 50 pesos?",
+    "options": [
+      "25 semanas",
+      "10 semanas",
+      "20 semanas",
+      "50 semanas"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El ahorro llega a 50 pesos en la semana 20: ese es el instante que se busca.",
+    "feedback_incorrect": [
+      "Ese valor sale de dividir 50 por el ahorro semanal sin restar antes los 10 pesos iniciales.",
+      "Ese es el ahorro inicial en pesos, no la cantidad de semanas.",
+      null,
+      "Ese es el monto de ahorro que se preguntó, no la cantidad de semanas que tarda en alcanzarlo."
+    ],
+    "graph_fn": "2*x+10",
+    "graph_view": [
+      -1,
+      22,
+      -1,
+      52
+    ],
+    "explanation": "Para encontrar en qué momento se alcanza un monto dado, se busca esa altura en el eje vertical y se ve en qué columna la recta pasa por ahí.\n\nEn este gráfico, el ahorro llega a 50 pesos en la semana 20: arrancó con 10 pesos y sumó 2 pesos por semana.\n\nConviene despejar la semana a partir de la ecuación de la recta y después confirmar el resultado mirando esa columna en el gráfico.",
+    "reviewed": false,
+    "tags": [
+      "lectura-x-dado-y"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "FACIL",
+      "razon": "P1 100% con n=3. La lectura inversa en contexto queda cubierta por el 08 y el 23."
+    }
+  },
+  {
+    "id": "white_linear_GRAF_25",
+    "question": "Un auto consume combustible a **ritmo constante**, sin volver a cargar. El gráfico muestra los litros según los kilómetros.\n\n¿A los cuántos kilómetros se queda sin combustible?",
+    "options": [
+      "20 km",
+      "40 km",
+      "80 km",
+      "-40 km"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La curva corta el eje horizontal en los 40 km: ahí el auto se queda sin combustible.",
+    "feedback_incorrect": [
+      "A esa distancia todavía queda combustible en el tanque; revisá dónde la curva llega a 0.",
+      null,
+      "Ese valor no corresponde a este ritmo de consumo; revisá la lectura del gráfico.",
+      "Una distancia negativa no tiene sentido acá: el auto se queda sin combustible después de arrancar el viaje, no antes."
+    ],
+    "graph_fn": "-x+40",
+    "graph_view": [
+      -3,
+      42,
+      -3,
+      42
+    ],
+    "explanation": "Un proceso que se agota llega a cero en el instante donde la curva corta el eje horizontal: ese punto es la raíz del gráfico.\n\nEn este gráfico, la curva cruza el eje horizontal a los 40 km: el auto salió con 40 litros y consumió 1 litro por cada km recorrido.\n\nEse punto de corte marca el momento exacto en que el combustible se agota, no antes ni después.",
+    "reviewed": false,
+    "tags": [
+      "raiz-agotamiento"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Tercera variante de 'algo se agota a ritmo constante'. Las cuatro miden P1 100%."
+    }
+  },
+  {
+    "id": "white_linear_GRAF_26",
+    "question": "Una vela se enciende y se quema a **ritmo constante**, sin volver a crecer. El gráfico muestra su altura según los minutos.\n\n¿A los cuántos minutos se termina de consumir la vela?",
+    "options": [
+      "10 minutos",
+      "20 minutos",
+      "5 minutos",
+      "-10 minutos"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La curva corta el eje horizontal en el minuto 10: ahí la vela se termina de consumir.",
+    "feedback_incorrect": [
+      null,
+      "Esa es la altura inicial de la vela en centímetros, no el instante en que se consume del todo.",
+      "A ese minuto todavía queda vela encendida; revisá dónde la curva llega a 0.",
+      "Un instante negativo no tiene sentido acá: la vela se consume después de encenderse, no antes."
+    ],
+    "graph_fn": "-2*x+20",
+    "graph_view": [
+      -2,
+      12,
+      -2,
+      22
+    ],
+    "explanation": "Un proceso que se agota llega a cero en el instante donde la curva corta el eje horizontal: ese punto es la raíz del gráfico.\n\nEn este gráfico, la curva cruza el eje horizontal en el minuto 10: la vela arrancó con 20 cm de altura y se consumió 2 cm por minuto.\n\nConviene ubicar primero dónde la curva toca el eje horizontal, en vez de leer cualquier otro punto marcado del gráfico.",
+    "reviewed": false,
+    "tags": [
+      "raiz-agotamiento"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Idem 25."
+    }
+  },
+  {
+    "id": "white_linear_GRAF_29",
+    "question": "El gráfico marca dos puntos de la recta: $(0, 4)$ y $(3, 1)$.\n\n¿Cuál es la **pendiente** que se calcula entre esos dos puntos?",
+    "options": [
+      "-3",
+      "1",
+      "3",
+      "-1"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "El cambio vertical es -3 y el horizontal es 3: $-3/3=-1$.",
+    "feedback_incorrect": [
+      "Ese es solo el cambio vertical entre los dos puntos; falta dividirlo por el cambio horizontal.",
+      "El signo importa: la recta baja de izquierda a derecha entre esos puntos, así que la pendiente es negativa.",
+      "Ese es el cambio horizontal entre los dos puntos, no la pendiente.",
+      null
+    ],
+    "graph_fn": "-x+4",
+    "graph_view": [
+      -1,
+      6,
+      -1,
+      6
+    ],
+    "explanation": "La **pendiente** entre dos puntos de una recta se calcula dividiendo el cambio vertical por el cambio horizontal entre ellos.\n\nEntre los dos puntos marcados, el cambio vertical es -3 y el horizontal es 3, así que la pendiente es $-3/3=-1$.\n\nConviene restar siempre en el mismo orden en ambos puntos: invertir el orden en uno de los dos cambia el signo del resultado.",
+    "reviewed": false,
+    "tags": [
+      "pendiente-diferencia"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "Jaccard 1,0 contra el 10 y el 28: es literalmente la misma oracion con otros numeros, y con n=3."
+    }
+  }
+]
