@@ -309,6 +309,35 @@ def _valor_fraccion(opt: str) -> Fraction | None:
     return Fraction(int(num), int(den))
 
 
+_ASIGNACION_RE = re.compile(r"([A-Za-z](?:_\{?[0-9]+\}?)?)\s*=\s*(-?[0-9]+(?:[.,][0-9]+)?)")
+
+
+def _conjunto_misma_variable(opt: str):
+    """Firma de una opción que enumera soluciones de una sola variable.
+
+    Devuelve `(variable, valores ordenados, texto restante)` cuando la opción
+    tiene dos o más asignaciones y todas son de la misma variable; None en
+    cualquier otro caso. El texto restante se conserva casi entero a propósito
+    (solo se le sacan los delimitadores de LaTeX y los espacios) para que una
+    anotación que distinga las dos opciones —una multiplicidad, un conector
+    "y"/"o"— impida el match.
+    """
+    # El corpus escribe los decimales como `0{,}5`, con la coma entre llaves para
+    # que KaTeX no le meta espacio. Sin normalizar eso, la llave corta el número
+    # al medio y la opción parece no tener asignaciones.
+    opt = opt.replace("{,}", ",").replace("{.}", ".")
+    pares = _ASIGNACION_RE.findall(opt)
+    if len(pares) < 2:
+        return None
+    variables = {v for v, _ in pares}
+    if len(variables) != 1:
+        return None
+    resto = _ASIGNACION_RE.sub("", opt)
+    resto = re.sub(r"[$\\{}\s,]+", "", resto)
+    valores = tuple(sorted(Fraction(n.replace(",", ".")) for _, n in pares))
+    return (variables.pop(), valores, resto)
+
+
 def check_options(items, file, F: Findings) -> None:
     for idx, it in enumerate(items):
         opts = it.get("options") or []
@@ -319,7 +348,7 @@ def check_options(items, file, F: Findings) -> None:
         if len(opts) < 2:
             continue
 
-        # Regla 77: dos opciones que valen lo mismo son dos respuestas correctas.
+        # Regla 79: dos opciones que valen lo mismo son dos respuestas correctas.
         # Pasa cuando una es la versión simplificada de la otra ($1/6$ conviviendo
         # con $6/36$), que es fácil de escribir sin darse cuenta. Caso real:
         # blue/laplace/RESL, donde además la correcta alternaba entre las dos
@@ -340,6 +369,39 @@ def check_options(items, file, F: Findings) -> None:
                           f"{opts[i]!r} valen lo mismo")
                 else:
                     por_valor[v] = i
+
+        # Regla 79, segunda forma: una opción que enumera varias soluciones de la
+        # MISMA variable denota un conjunto, y en un conjunto el orden no
+        # significa nada. "$x = 6$ y $x = -2$" y "$x = -2$ y $x = 6$" son la
+        # misma respuesta escrita distinto. Caso real: white_quadratic_FORM_14,
+        # que medía 12 % de acierto con 37 % de intentos agotados porque la mitad
+        # de la gente elegía la versión marcada como error.
+        #
+        # El chequeo de fracciones de arriba no lo agarra: estas opciones no son
+        # fracciones sueltas. Y hay que ser estricto para no marcar distractores
+        # legítimos, que son la mayoría de los casos parecidos en el banco:
+        #
+        #   - Si las asignaciones son de variables DISTINTAS, la posición sí
+        #     significa: "$n=25$, $p=0{,}04$" contra "$n=0{,}04$, $p=25$" es
+        #     exactamente la confusión que el ítem quiere provocar.
+        #   - Si queda texto que las distinga, tampoco son iguales: "$x = 2$
+        #     (doble) y $x = -1$ (simple)" contra la misma pareja con las
+        #     multiplicidades cambiadas son dos respuestas distintas, y
+        #     "$2x+1=9$ **o** ..." contra "$2x+1=9$ **y** ..." difieren en el
+        #     conector, que es justo lo que se evalúa.
+        conjuntos = [_conjunto_misma_variable(o) for o in opts]
+        vistos: dict[tuple, int] = {}
+        for i, c in enumerate(conjuntos):
+            if c is None:
+                continue
+            if c in vistos:
+                F.add("ERROR", "options", "79", file, label,
+                      f"opciones equivalentes: {opts[vistos[c]]!r} y {opts[i]!r} "
+                      f"enumeran las mismas soluciones de la misma variable, y "
+                      f"el orden en un conjunto no significa nada")
+            else:
+                vistos[c] = i
+
         raws = [len(o) for o in opts]
         rends = [render_len(o) for o in opts]
         d_raw = [v for i, v in enumerate(raws) if i != ci]
