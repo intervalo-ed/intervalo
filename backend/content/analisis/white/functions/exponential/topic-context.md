@@ -130,7 +130,7 @@ Taxonomía diseñada leyendo los 200 ejercicios reales (jul-2026). Reducida prop
 | Comparación crecimiento lineal vs. exponencial | 1 | `crecimiento-lineal-vs-exponencial` |
 | Función inversa (logaritmo) | 1 | `funcion-inversa-logaritmo` |
 | Dominio basico | 1 | `dominio-basico` |
-| **Total** | **30** | |
+| **Total** | **15** | |
 
 > Sub-familias podadas por completo en ago-2026 (cupo pasó a 0, quedaban sub-representadas y con más findings del validador): `punto-corte-eje-y` (redundante con `valor-inicial-f0`, mismo concepto de $f(0)$), `dominio-razonamiento`, `afirmacion-falsa-identificar`, `inecuacion-exponencial`.
 
@@ -157,7 +157,7 @@ Taxonomía diseñada leyendo los 200 ejercicios reales (jul-2026). Reducida prop
 | Distinción exponencial vs. logarítmica | 1 | `distincion-exponencial-logaritmica` |
 | Dominio (básico) | 1 | `dominio-basico` |
 | Distinción exponencial vs. lineal (comparar dos modelos) | 1 | `distincion-exponencial-lineal-comparacion` |
-| **Total** | **50** | |
+| **Total** | **15** | |
 
 **FORM (30):**
 
@@ -173,7 +173,7 @@ Taxonomía diseñada leyendo los 200 ejercicios reales (jul-2026). Reducida prop
 | Determinar $a$ y $b$ desde dos puntos | 1 | `determinar-a-b-desde-dos-puntos` |
 | Asintota horizontal | 1 | `asintota-horizontal` |
 | Imagen desplazamiento vertical | 1 | `imagen-desplazamiento-vertical` |
-| **Total** | **30** | |
+| **Total** | **15** | |
 
 > Sub-familia podada por completo en ago-2026: `asintota-horizontal-desplazada` (cupo pasó a 0; el único ejercicio de la fila era el de peor puntaje del validador en FORM). El desplazamiento de asíntota sigue cubierto en LEXI (`asintota-horizontal`) y GRAF.
 

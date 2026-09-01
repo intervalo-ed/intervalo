@@ -773,5 +773,98 @@
       "motivo": "REDUN",
       "razon": "Idem 13, con tanque de riego. P1 100%."
     }
+  },
+  {
+    "id": "white_linear_FORM_05",
+    "question": "Una recta pasa por $(0, 5)$ con pendiente $2$.\n\n¿Cuál es su ecuación?",
+    "options": [
+      "$f(x) = 5x + 2$",
+      "$f(x) = 2x + 5$",
+      "$f(x) = 2x - 5$",
+      "$f(x) = 5 - 2x$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "$f(x) = 2x + 5$.",
+    "feedback_incorrect": [
+      "Los roles están cruzados: el 5 es el valor de la función en $x = 0$, no la pendiente.",
+      null,
+      "El punto $(0, 5)$ dice que la función vale $+5$ en cero, no $-5$.",
+      "El signo de la pendiente cambió: la recta pedida sube con $m = 2$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Un punto de la forma $(0, b)$ entrega directamente la ordenada al origen. Si la recta pasa por:\n$$(0, 5)$$\nEntonces $b = 5$.\n\nCon la pendiente dada $m = 2$, la ecuación queda directamente, sin necesidad de ningún despeje:\n$$f(x) = 2x + 5$$\nEl punto sobre el eje $Y$ es el dato más cómodo para armar la ecuación, y el cuidado está en no cruzarlo con la pendiente, que es el otro número del enunciado.",
+    "reviewed": false,
+    "tags": [
+      "armar-formula-mb"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "'Pasa por (0,5) con pendiente 2': el punto está sobre el eje vertical, así que la ordenada al origen viene servida y no hay nada que despejar. El ejercicio nuevo de armar-formula-mb pide el mismo armado con el punto fuera del eje."
+    }
+  },
+  {
+    "id": "white_linear_FORM_26",
+    "question": "Cuatro rectas distintas pueden compartir forma y diferenciarse solo en hacia dónde apuntan.\n\n¿Cuál de estas funciones lineales es decreciente?",
+    "options": [
+      "$f(x) = 3x + 1$",
+      "$f(x) = x - 5$",
+      "$f(x) = 0{,}5x + 2$",
+      "$f(x) = -2x + 7$"
+    ],
+    "correct_index": 3,
+    "has_math": true,
+    "feedback_correct": "$f(x) = -2x + 7$ tiene pendiente $-2 < 0$: es la única decreciente.",
+    "feedback_incorrect": [
+      "Su pendiente es $3 > 0$: la recta sube.",
+      "Su pendiente es $1 > 0$: sube, aunque el $-5$ despiste.",
+      "Una pendiente chica sigue siendo positiva: $0{,}5 > 0$, la función crece.",
+      null
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "Una función lineal es decreciente exactamente cuando su pendiente es negativa.\n\nRevisando el coeficiente de $x$ en cada opción, tres de los cuatro valores son positivos, así que esas funciones crecen. La única con pendiente negativa es:\n$$f(x) = -2x + 7$$\nPor eso es la única decreciente.\n\nEl término independiente no participa en la decisión: un $-5$ suelto no hace decrecer a nadie. Mirá solo el signo del número que multiplica a la $x$.",
+    "reviewed": false,
+    "tags": [
+      "propiedades-generales"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "FACIL",
+      "razon": "'Cuál de estas funciones lineales es decreciente', P1 100 %. Identificar monotonía desde la fórmula es contenido de LEXI, que ya tiene su propia sub-familia para eso."
+    }
+  },
+  {
+    "id": "white_linear_FORM_28",
+    "question": "Una función lineal pasa por los puntos $(0, 4)$ y $(3, 10)$.\n\n¿Cuál es su ecuación?",
+    "options": [
+      "$f(x) = 4x + 2$",
+      "$f(x) = 2x - 4$",
+      "$f(x) = 2x + 4$",
+      "$f(x) = 4x - 2$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "$f(x) = 2x + 4$.",
+    "feedback_incorrect": [
+      "Los parámetros están intercambiados: la pendiente sale del cociente $(10-4)/(3-0) = 2$.",
+      "El signo de la ordenada no corresponde: el punto $(0, 4)$ da $b = +4$.",
+      null,
+      "Acá los parámetros se cruzaron y un signo cambió: $m = 2$ y $b = 4$."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La pendiente entre dos puntos se calcula como el cociente de las diferencias de sus coordenadas:\n$$m = \\frac{y_2 - y_1}{x_2 - x_1}$$\nEsa razón mide cuánto sube o baja la recta por cada unidad que avanza en $x$.\n\nCon los puntos $(0, 4)$ y $(3, 10)$:\n$$m = \\frac{10 - 4}{3 - 0} = \\frac{6}{3}$$\n$$m = 2$$\nComo el punto $(0, 4)$ ya está sobre el eje vertical, la ordenada al origen se lee directo: $b = 4$. La ecuación queda:\n$$f(x) = 2x + 4$$\nAntes de responder, conviene verificar con el segundo punto:\n$$f(3) = 2 \\cdot 3 + 4$$\n$$f(3) = 10$$\nSi la opción elegida no reproduce ambos puntos, los parámetros están cruzados.",
+    "reviewed": false,
+    "tags": [
+      "armar-formula-puntos"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "FACIL",
+      "razon": "'Pasa por (0,4) y (3,10)', P1 100 %. Uno de los dos puntos está sobre el eje vertical y regala la ordenada al origen; el ejercicio nuevo usa dos puntos que no la regalan."
+    }
   }
 ]

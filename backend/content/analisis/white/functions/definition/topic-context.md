@@ -233,3 +233,25 @@ todavía, quedan para una ronda 2:
   puede resolver con la misma regla ya escrita arriba cuando llegue la ronda 2.
 - `#24`, `#26`, `#27`, `#28`: bajo banda (38%, 20%, 50%, 50%) con n=5-8, sin
   diagnóstico propio todavía.
+
+**Ronda 2 (sep-2026), y el diagnóstico que faltaba.** Con más exposición acumulada quedó
+claro por qué el ítem seguía en 50 % de P1, debajo del piso de 55: **seis de sus quince
+ejercicios probaban la misma confusión —imagen contra codominio— y los seis medían entre
+25 % y 40 %**. No era que estuvieran mal escritos; era que el ítem cargaba seis veces la
+parte más difícil del topic y ninguna vez su parte tratable.
+
+La corrección fue de balance, no de redacción:
+
+- Se archivó `#21` ("¿la imagen es igual al codominio?" en versión sí/no, 25 %): el `#24`
+  y el `#26` trabajan la misma distinción pidiendo el conjunto concreto, que es la forma
+  útil y la que se reusa después.
+- Se archivó `#11` (vendedores, 38 %), tercera repetición del patrón "cuál es el dominio
+  de $S : \{1..n\} \to \{...\}$" junto al `#10` y el `#13`.
+- Se sumó un ejercicio de **lectura de la notación con flecha**, que es el prerrequisito
+  que el `#10` y el `#13` daban por sabido sin haberlo enseñado nunca en el ítem.
+- Se sumó uno de **imagen con una salida repetida**, donde lo que se evalúa es que un
+  conjunto no repite elementos, y no otra vez imagen contra codominio.
+
+Regla que queda para las rondas siguientes: **ninguna confusión puede ocupar más de un
+tercio del ítem.** Cuando la parte difícil del topic se lleva la mitad de los ejercicios,
+el ítem se va abajo de la banda aunque cada ejercicio esté bien construido.

@@ -94,7 +94,32 @@ Vocabulario y parámetros de la parábola: forma canónica $f(x) = ax^2 + bx + c
 | Eje de simetría | `eje-simetria` | 1 |
 | Efecto de $\ | a\ | $ en la apertura | `coeficiente-a-forma` | 1 |
 | Vértice, parámetros $h$ y $k$ en la forma vértice | `vertice-parametros` | 1 |
-| **Total** | | **30** |
+| **Total** | | **15** |
+
+**Ronda de dificultad (sep-2026), GRAF.** El ítem medía 90,8 % de acierto al primer
+intento, muy por encima de la banda 55-77 de la regla 80, y el recorte a 15 no lo movía:
+veintiuno de sus treinta ejercicios medían 100 %. La causa era de repertorio, no de
+redacción. Los seis arquetipos que tenía —duración del vuelo, altura máxima, cuándo
+ocurre el óptimo, lectura puntual, ordenada al origen, sube/baja— se responden todos
+leyendo **un solo dato** del dibujo, así que ninguno puede ser difícil por más contexto
+que se le ponga.
+
+Se archivaron los cinco que medían 100 % y se sumaron cinco arquetipos que exigen
+**combinar dos lecturas o razonar sobre la simetría**, y que además son currículum de
+cátedra que el ítem no tocaba:
+
+- **conjunto de positividad**: hay que leer las dos raíces y además decidir de qué lado
+  del eje queda la curva. El extremo abierto contra cerrado es una confusión real.
+- **cuántas soluciones tiene $f(x) = k$**: obliga a pensar la intersección con una recta
+  horizontal, y el caso de la altura del vértice es el que separa dos de ninguna.
+- **eje de simetría desde dos puntos de igual altura**: sirve cuando el vértice cae entre
+  dos marcas y no se puede leer de un vistazo.
+- **comparar dos valores por simetría**: se responde midiendo distancias al eje, sin
+  evaluar.
+- **intervalo de crecimiento o decrecimiento**: pide describir un tramo, no un punto.
+
+No volver a llenar este ítem con variantes de "cuánto tiempo estuvo en el aire" cambiando
+el animal: esa familia ya está saturada y es la que lo tenía en 90 %.
 
 ### Cardinalidad
 - **Identificación numérica** (leer $a$, $b$, $c$, vértice, raíz, $f(0)$): **4 opciones**, valores cortos, disparan la grilla 2×2.
@@ -141,7 +166,7 @@ Construir o leer la fórmula $f(x) = ax^2 + bx + c$ y sus formas vértice / fact
 | Resolver en contexto (cuándo toca el suelo, para qué $x$) | `resolver-contexto` | 2 |
 | Armar fórmula desde tiro/caída ($h_0 + v_0 t - \tfrac12 g t^2$) | `armar-formula-tiro` | 1 |
 | Eje de simetría, cálculo | `eje-simetria-calculo` | 1 |
-| **Total** | | **30** |
+| **Total** | | **15** |
 
 ### Cardinalidad
 - **Armar/leer la fórmula, coeficientes, vértice, raíces**: **4 opciones**, expresiones cortas, grilla 2×2.
@@ -192,12 +217,17 @@ Variar números, no repetir personajes. Montos con `\\$` en JSON. Sin nombres pr
 | Arquetipo | Slug | Cantidad actual |
 |-----------|------|-----------------:|
 | Vértice-x (cuándo/dónde ocurre el óptimo) | `vertice-x` | 4 |
-| Vértice-y (valor máx/mín) | `vertice-y` | 3 |
-| Residual (agrupa raíz/concavidad/duración, ver nota arriba) | `nombre-parabola` | 3 |
+| Vértice-y (valor máx/mín) | `vertice-y` | 1 |
+| Residual (agrupa raíz/concavidad/duración, ver nota arriba) | `nombre-parabola` | 1 |
 | Lectura puntual $f(v)$ | `lectura-fv` | 2 |
 | Sube vs baja (crece antes del vértice, decrece después) | `sube-baja` | 1 |
-| Ordenada al origen $c$ (valor de partida, $f(0)$) | `ordenada-origen` | 2 |
-| **Total** | | **30** |
+| Ordenada al origen $c$ (valor de partida, $f(0)$) | `ordenada-origen` | 1 |
+| Comparar dos valores usando la simetría | `comparacion-por-simetria` | 1 |
+| Conjunto de positividad (dónde la curva va por encima del eje) | `conjunto-positividad` | 1 |
+| Eje de simetría a partir de dos puntos de igual altura | `eje-simetria-desde-grafico` | 1 |
+| Cuántas soluciones tiene $f(x) = k$ | `interseccion-recta-horizontal` | 1 |
+| Intervalo de crecimiento o decrecimiento | `intervalo-monotonia` | 1 |
+| **Total** | | **15** |
 
 **Los mínimos (cóncava arriba) NO usan raíces ni duración**: el valle queda por encima del eje → la parábola nunca toca el cero. Los arquetipos válidos para arriba son: vértice-y, vértice-x, concavidad, lectura $f(v)$, eje de simetría, sube vs baja.
 

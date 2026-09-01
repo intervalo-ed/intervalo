@@ -26,32 +26,6 @@
     ]
   },
   {
-    "id": "white_definition_CLSF_11",
-    "question": "Una empresa registra cuántas unidades vendió cada uno de sus 12 vendedores. Las ventas posibles van de 0 a 500 unidades. $$V : \\{1, \\dots, 12\\} \\to \\{0, \\dots, 500\\}$$ ¿Cuál de estos conjuntos es el **dominio**?",
-    "options": [
-      "$\\{0, \\dots, 500\\}$",
-      "$\\{1, \\dots, 500\\}$",
-      "$\\{1, \\dots, 12\\}$",
-      "El número $12$"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "El dominio son las entradas, los doce vendedores.",
-    "feedback_incorrect": [
-      "Ese es el conjunto de unidades posibles, las salidas, no las entradas.",
-      "Mezcla el rótulo de los vendedores con el rango de unidades; el dominio son solo los vendedores.",
-      null,
-      "El 12 cuenta cuántos vendedores hay, pero el dominio es el conjunto, no su tamaño."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "El **dominio** es el conjunto de entradas que la función transforma.\n\nAcá las entradas son los vendedores, numerados del 1 al 12.\n\nLas unidades posibles forman el **codominio** y las efectivamente vendidas, la **imagen**.\n\nContar cuántas entradas hay no alcanza para nombrar el dominio: el dominio es el conjunto, no su cantidad.",
-    "reviewed": false,
-    "tags": [
-      "dominio-identificacion"
-    ]
-  },
-  {
     "id": "white_definition_CLSF_13",
     "question": "Un cine numera sus 6 salas y a cada una le asigna la película que proyecta. $$S : \\{1, \\dots, 6\\} \\to \\{\\text{películas}\\}$$ ¿Cuál es el **dominio** de $S$?",
     "options": [
@@ -202,32 +176,6 @@
     "graph_fn": null,
     "graph_view": null,
     "explanation": "El conjunto **imagen** son las salidas que la función realmente alcanza, no todas las posibles.\n\nAcá el **codominio** es $\\{0, \\dots, 100\\}$, pero las notas que efectivamente salieron fueron $\\{60, 75, 90\\}$.\n\nEse conjunto de tres valores es la imagen, no el codominio entero.\n\nDar el conjunto de llegada completo en lugar de la imagen invierte el foco: la imagen se queda solo con lo que efectivamente sale.",
-    "reviewed": false,
-    "tags": [
-      "imagen-identificacion"
-    ]
-  },
-  {
-    "id": "white_definition_CLSF_21",
-    "question": "Una función tiene **dominio** $\\{1,2,3,4,5\\}$ y **codominio** $\\{1,\\dots,10\\}$, y transforma cada número en su doble:$$g(x) = 2x$$¿El conjunto **imagen** de la función es igual al codominio?",
-    "options": [
-      "No, solo los números pares del 1 al 10",
-      "Sí, todos los números del 1 al 10 se alcanzan",
-      "No, la imagen está vacía",
-      "Sí, pero solo los impares"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "Los cinco valores del dominio dan 2, 4, 6, 8 y 10: solo los pares. Los impares del codominio nunca se alcanzan.",
-    "feedback_incorrect": [
-      null,
-      "$g(1)=2$, no $1$; ningún número impar del codominio se alcanza.",
-      "La imagen tiene cinco valores: $2,4,6,8,10$; no está vacía.",
-      "También $2,4,6,8,10$ son pares, no impares; la imagen son los pares, no los impares."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "La **imagen** son los valores que la función realmente produce; el **codominio** es el conjunto declarado de llegada, que puede ser más grande.\n\nEvaluando los cinco elementos del dominio:\n$$\\begin{aligned} g(1) &= 2 \\\\ g(2) &= 4 \\\\ g(3) &= 6 \\\\ g(4) &= 8 \\\\ g(5) &= 10 \\end{aligned}$$\nLa imagen es $\\{2,4,6,8,10\\}$, un subconjunto del codominio $\\{1,\\dots,10\\}$: los cinco números impares nunca aparecen.\n\nQue el codominio declare hasta $10$ no garantiza que todos esos valores se alcancen; eso depende de la regla de la función.",
     "reviewed": false,
     "tags": [
       "imagen-identificacion"
@@ -385,6 +333,54 @@
     "reviewed": false,
     "tags": [
       "preimagen-identificacion"
+    ]
+  },
+  {
+    "id": "white_definition_CLSF_31",
+    "question": "Una función se anota nombrando primero el conjunto de entrada y después el de salida:\n$$h : \\{a, b, c\\} \\to \\{1, 2, 3, 4\\}$$\n¿Cuál de estas afirmaciones describe bien esa notación?",
+    "options": [
+      "El conjunto de la izquierda es el dominio",
+      "El conjunto de la izquierda es el codominio",
+      "El conjunto de la derecha es el dominio",
+      "Los dos conjuntos forman el dominio"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "El conjunto de partida, el que va antes de la flecha, es el dominio.",
+    "feedback_incorrect": [
+      null,
+      "El codominio es el conjunto de llegada, el que va después de la flecha.",
+      "El conjunto de la derecha es el de llegada, y ese es el codominio.",
+      "Son dos conjuntos con papeles distintos: uno aporta las entradas y el otro las salidas posibles."
+    ],
+    "explanation": "La notación con flecha guarda dos conjuntos en un renglón, y el orden es el que dice cuál es cuál: primero el de partida, después el de llegada.\n\nEl de partida es el **dominio**, el conjunto de valores que la función acepta como entrada. El de llegada es el **codominio**, donde viven todas las salidas posibles.\n\nCon esa lectura fijada, una función escrita así se puede desarmar sin mirar la fórmula. Eso es lo que permite responder sobre dominio y codominio cuando la regla ni siquiera está dada.",
+    "reviewed": false,
+    "tags": [
+      "dominio-identificacion"
+    ]
+  },
+  {
+    "id": "white_definition_CLSF_32",
+    "question": "Una escuela le asigna un aula a cada uno de sus 4 cursos:\n$$\\begin{aligned} A(1) &= 12 \\\\ A(2) &= 15 \\\\ A(3) &= 12 \\\\ A(4) &= 20 \\end{aligned}$$\n¿Cuál es el conjunto **imagen** de $A$?",
+    "options": [
+      "$\\{12, 15, 12, 20\\}$",
+      "$\\{1, 2, 3, 4\\}$",
+      "$\\{12, 15, 20\\}$",
+      "$\\{12, 20\\}$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Las aulas que se usan son la 12, la 15 y la 20; el 12 aparece una sola vez aunque lo usen dos cursos.",
+    "feedback_incorrect": [
+      "Un conjunto no repite elementos: aunque dos cursos vayan al aula 12, el 12 se escribe una sola vez.",
+      "Ese es el conjunto de cursos, que son las entradas de la función y forman el dominio.",
+      null,
+      "El aula 15 también le toca a uno de los cursos, así que forma parte de la imagen."
+    ],
+    "explanation": "La **imagen** es el conjunto de valores que la función efectivamente devuelve, juntando las salidas de todas las entradas del dominio.\n\nAcá las salidas son las aulas 12, 15, 12 y 20. Como la imagen es un conjunto y en un conjunto cada elemento figura una sola vez, el aula repetida no agrega un elemento nuevo.\n\nPor eso la imagen puede tener menos elementos que el dominio: dos entradas distintas pueden compartir salida sin que eso sume nada al conjunto.",
+    "reviewed": false,
+    "tags": [
+      "imagen-identificacion"
     ]
   }
 ]

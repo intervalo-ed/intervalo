@@ -1,36 +1,5 @@
 [
   {
-    "id": "white_quadratic_GRAF_04",
-    "question": "Un clavadista salta desde un trampolín, sube un poco y cae al agua. La gráfica muestra su altura, en metros, según los segundos.\n\n¿Desde qué altura saltó?",
-    "options": [
-      "6 metros",
-      "4 metros",
-      "2 metros",
-      "0 metros"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "La altura de partida es $f(0)$, donde la parábola corta el eje vertical. Acá vale 4 metros.",
-    "feedback_incorrect": [
-      "Esa es la altura máxima que alcanza durante el salto, en el vértice, no la altura del trampolín donde empezó.",
-      null,
-      "Ese 2 es el instante en el que se alcanza el punto más alto, no una altura.",
-      "La curva no arranca en cero; fijate en qué altura corta el eje vertical al inicio, antes de que empiece a subir."
-    ],
-    "graph_fn": "-0.5*pow(x-2,2)+6",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "La **ordenada al origen** de una función es su valor cuando la variable independiente vale cero, el punto donde la curva corta el eje vertical.\n\nEn un contexto de altura contra tiempo, ese valor representa la altura de partida, antes de que empiece a transcurrir el tiempo del movimiento.\n\nAcá corresponde evaluar la parábola en el instante inicial:\n\nAsí que el clavadista saltó desde 4 metros de altura.\n\nConviene no confundir este valor con la coordenada del vértice: el trampolín marca el punto de partida, mientras que el vértice marca la altura máxima que alcanza después, en el aire, antes de caer.",
-    "reviewed": false,
-    "tags": [
-      "ordenada-origen"
-    ]
-  },
-  {
     "id": "white_quadratic_GRAF_05",
     "question": "Una pelota de tenis sale hacia arriba y la gráfica muestra su altura, en metros, según los segundos.\n\n¿En qué tramo la pelota está subiendo?",
     "options": [
@@ -186,68 +155,6 @@
     ]
   },
   {
-    "id": "white_quadratic_GRAF_18",
-    "question": "Una moto despega de una rampa y la gráfica muestra su altura, en metros, según la distancia horizontal, también en metros.\n\n¿A qué distancia de la rampa vuelve a tocar el piso?",
-    "options": [
-      "8 metros",
-      "10 metros",
-      "12 metros",
-      "14 metros"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "Toca el piso donde la altura es cero, donde la parábola corta el eje horizontal, a los 12 metros.",
-    "feedback_incorrect": [
-      "A los 8 metros la moto todavía está en el aire, no tocó el piso todavía.",
-      "A los 10 metros la moto sigue en el aire, aunque ya cerca del final del salto.",
-      null,
-      "Después de los 12 metros la altura ya sería negativa, algo imposible para el salto; la moto aterriza antes."
-    ],
-    "graph_fn": "-0.25*pow(x-6,2)+9",
-    "graph_view": [
-      -1,
-      13,
-      -1,
-      13
-    ],
-    "explanation": "Una moto que despega de una rampa describe una parábola en el aire, y el punto en el que vuelve a tocar el piso es aquel en el que su altura vale cero, donde la curva cruza el eje horizontal.\n\nEse punto se llama **raíz** de la función.\n\nAcá la parábola corta el eje en:\n\nAsí que la moto toca el piso a los 12 metros de distancia de la rampa.\n\nEsta raíz marca el final del salto, un punto distinto del vértice, que marca la altura máxima alcanzada en el aire; conviene no leer uno por el otro.",
-    "reviewed": false,
-    "tags": [
-      "nombre-parabola"
-    ]
-  },
-  {
-    "id": "white_quadratic_GRAF_19",
-    "question": "Un bombero apunta la manguera y el agua dibuja un arco.\n\nLa gráfica muestra la altura del chorro, en metros, según la distancia horizontal.\n\n¿Cuál es la altura máxima que alcanza el chorro?",
-    "options": [
-      "6 metros",
-      "7 metros",
-      "8 metros",
-      "9 metros"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "El punto más alto del arco es el vértice, en $(5, 8)$. La altura máxima es 8 metros.",
-    "feedback_incorrect": [
-      "El chorro sí pasa por los 6 metros de altura en algún punto del arco, pero no es el punto más alto.",
-      "Ese valor no corresponde a la altura máxima; fijate la coordenada vertical exacta del vértice.",
-      null,
-      "9 metros queda por encima de lo que el chorro llega a subir; la parábola no supera la altura de su vértice."
-    ],
-    "graph_fn": "-0.5*pow(x-5,2)+8",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "El chorro de una manguera apuntada hacia arriba dibuja una parábola en el aire, y su punto más alto es el **vértice** de esa curva.\n\nLa coordenada vertical del vértice es, exactamente, la altura máxima que llega a alcanzar el agua.\n\nAcá el vértice está en:\n\nAsí que la altura máxima del chorro es 8 metros.\n\nCualquier otro punto del arco, antes o después de esa distancia, corresponde a una altura menor, porque el vértice concentra el techo de toda la curva.",
-    "reviewed": false,
-    "tags": [
-      "vertice-y"
-    ]
-  },
-  {
     "id": "white_quadratic_GRAF_21",
     "question": "El agua de una manguera de jardín forma un arco.\n\nLa gráfica muestra la altura del chorro según la distancia horizontal, ambas en metros.\n\n¿A qué distancia de la manguera el chorro está más alto?",
     "options": [
@@ -279,37 +186,6 @@
     ]
   },
   {
-    "id": "white_quadratic_GRAF_23",
-    "question": "Un teatro prueba distintos precios de entrada para una función.\n\nLa gráfica muestra la recaudación de la noche, en miles de pesos, según el precio, en cientos de pesos.\n\n¿Cuál es la recaudación máxima posible?",
-    "options": [
-      "8 mil",
-      "6 mil",
-      "10 mil",
-      "12 mil"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "La recaudación máxima es la coordenada vertical del vértice, en $(5, 8)$.",
-    "feedback_incorrect": [
-      null,
-      "La recaudación sí llega a 6 mil en algún precio del recorrido, pero no es el punto más alto.",
-      "10 mil queda por encima de lo que la recaudación llega a alcanzar; el vértice marca el techo exacto.",
-      "12 mil está todavía más lejos de lo que la parábola alcanza, muy por encima de la recaudación máxima."
-    ],
-    "graph_fn": "-0.5*pow(x-5,2)+8",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "Cuando una magnitud depende de un precio y tiene un punto óptimo, como pasa con la recaudación de una función de teatro, esa relación dibuja una parábola que abre hacia abajo, con un **máximo**.\n\nAcá el tope de recaudación es la coordenada vertical del vértice,:\n\nOcho mil pesos, con la entrada al precio marcado por la coordenada horizontal.\n\nTanto bajar el precio de más como subirlo de más aleja la recaudación de ese punto óptimo, siempre hacia abajo, nunca hacia arriba.",
-    "reviewed": false,
-    "tags": [
-      "vertice-y"
-    ]
-  },
-  {
     "id": "white_quadratic_GRAF_24",
     "question": "Un bar quiere saber cuántas mesas conviene poner. Con pocas desaprovecha el espacio, y con demasiadas espanta a los clientes.\n\nLa gráfica muestra la ganancia de la noche, en miles de pesos, según la cantidad de mesas.\n\n¿Cuántas mesas dan la mayor ganancia?",
     "options": [
@@ -338,37 +214,6 @@
     "reviewed": false,
     "tags": [
       "vertice-x"
-    ]
-  },
-  {
-    "id": "white_quadratic_GRAF_25",
-    "question": "Un recital prueba distintos precios de entrada. La gráfica muestra la ganancia, en millones de pesos, según el precio.\n\n¿La ganancia tiene un punto más alto o un punto más bajo?",
-    "options": [
-      "Un punto más alto, porque la parábola abre hacia abajo",
-      "Un punto más bajo, porque la parábola abre hacia abajo",
-      "Un punto más alto, porque la parábola abre hacia arriba",
-      "No tiene ni máximo ni mínimo"
-    ],
-    "correct_index": 0,
-    "has_math": true,
-    "feedback_correct": "La parábola abre hacia abajo, así que su vértice es el punto más alto, la ganancia máxima.",
-    "feedback_incorrect": [
-      null,
-      "Cuando la parábola abre hacia abajo el vértice queda arriba de todo el resto de la curva, así que es un punto más alto, no más bajo.",
-      "Esta parábola abre hacia abajo, no hacia arriba; fijate la forma general de la curva antes de decidir el sentido de la concavidad.",
-      "Toda parábola tiene vértice, así que siempre hay un punto extremo, sea máximo o mínimo, nunca ninguno de los dos."
-    ],
-    "graph_fn": "-0.5*pow(x-5,2)+8",
-    "graph_view": [
-      -1,
-      11,
-      -1,
-      11
-    ],
-    "explanation": "La **concavidad** de una parábola determina para qué lado abre la curva, y de ahí se desprende si el vértice funciona como techo o como piso de todo el gráfico.\n\nCuando abre hacia abajo el vértice queda por encima del resto de la curva y es un máximo. En este gráfico la parábola abre hacia abajo, así que el vértice marca la mayor ganancia posible del recital.\n\nEl sentido de apertura y el tipo de extremo siempre van juntos, una parábola que abre hacia abajo nunca tiene un mínimo, y una que abre hacia arriba nunca tiene un máximo.",
-    "reviewed": false,
-    "tags": [
-      "nombre-parabola"
     ]
   },
   {
@@ -462,6 +307,161 @@
     "reviewed": false,
     "tags": [
       "vertice-y"
+    ]
+  },
+  {
+    "id": "white_quadratic_GRAF_31",
+    "question": "La parábola del gráfico corta el eje horizontal en $x = 1$ y en $x = 7$.\n\n¿Para qué valores de $x$ la curva queda **por encima** del eje horizontal?",
+    "options": [
+      "$x < 1$ o $x > 7$",
+      "$1 < x < 7$",
+      "$1 \\leq x \\leq 7$",
+      "$x > 7$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Entre las dos raíces la curva va por arriba del eje, así que ahí $f(x)$ es positiva.",
+    "feedback_incorrect": [
+      "Ese es el tramo de afuera de las raíces, donde la parábola queda por debajo del eje.",
+      null,
+      "En $x = 1$ y en $x = 7$ la curva toca el eje, así que ahí vale cero y no queda por encima.",
+      "A la derecha de $7$ la curva ya cruzó el eje y sigue bajando."
+    ],
+    "graph_fn": "-0.5*(x-1)*(x-7)",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Las raíces son los dos puntos donde la parábola cruza el eje horizontal, y son las que parten la recta real en tramos donde el signo de la función no cambia.\n\nComo esta parábola abre hacia abajo, queda por encima del eje justo en el tramo de adentro, entre las dos raíces, y por debajo en los dos tramos de afuera.\n\nLos extremos quedan fuera del intervalo porque en una raíz la función vale exactamente cero, y cero no es mayor que cero.",
+    "reviewed": false,
+    "tags": [
+      "conjunto-positividad"
+    ]
+  },
+  {
+    "id": "white_quadratic_GRAF_32",
+    "question": "El punto más bajo de esta parábola está a la altura $y = -4$.\n\n¿Cuántos valores de $x$ cumplen $f(x) = -4$?",
+    "options": [
+      "Uno solo",
+      "Dos",
+      "Ninguno",
+      "Infinitos"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La altura $-4$ se alcanza únicamente en el vértice, así que hay un solo valor de $x$.",
+    "feedback_incorrect": [
+      null,
+      "Dos valores aparecen para cualquier altura por encima del vértice, pero no para la altura del vértice mismo.",
+      "La curva sí llega a esa altura: es exactamente la del punto más bajo.",
+      "Una parábola alcanza cada altura a lo sumo dos veces, nunca infinitas."
+    ],
+    "graph_fn": "pow(x-3,2)-4",
+    "graph_view": [
+      -2,
+      9,
+      -6,
+      6
+    ],
+    "explanation": "Preguntar en cuántos puntos la función alcanza cierta altura es preguntar en cuántos puntos la curva se cruza con la recta horizontal de esa altura.\n\nPor encima del punto más bajo, esa recta corta a la parábola dos veces, una de cada lado del eje de simetría. Por debajo no la corta nunca.\n\nLa altura del vértice es el único caso intermedio: ahí la recta toca la curva en un solo punto, y eso es lo que separa el caso de dos soluciones del de ninguna.",
+    "reviewed": false,
+    "tags": [
+      "interseccion-recta-horizontal"
+    ]
+  },
+  {
+    "id": "white_quadratic_GRAF_33",
+    "question": "En el gráfico, la curva pasa por $(2, 5)$ y también por $(8, 5)$, dos puntos a la misma altura.\n\n¿Cuál es la ecuación del **eje de simetría**?",
+    "options": [
+      "$x = 3$",
+      "$y = 5$",
+      "$x = 5$",
+      "$x = 6$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El eje pasa por el punto medio entre $2$ y $8$, que es $5$.",
+    "feedback_incorrect": [
+      "Ese valor sale de restar las dos coordenadas horizontales en vez de promediarlas.",
+      "El eje de simetría de una parábola es una recta vertical, y las verticales se escriben con $x$.",
+      null,
+      "Ese valor no queda a la misma distancia de $2$ y de $8$: está a $4$ de uno y a $2$ del otro."
+    ],
+    "graph_fn": "0.3*pow(x-5,2)+2.3",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Dos puntos de una parábola que están a la misma altura son simétricos entre sí, así que el eje de simetría pasa justo por el medio de los dos.\n\nEl punto medio entre 2 y 8 se calcula promediando, y da 5: el eje es la recta vertical $x = 5$.\n\nEste camino sirve incluso cuando el vértice cae entre dos marcas del gráfico y no se puede leer de un vistazo, porque solo hace falta encontrar dos alturas iguales.",
+    "reviewed": false,
+    "tags": [
+      "eje-simetria-desde-grafico"
+    ]
+  },
+  {
+    "id": "white_quadratic_GRAF_34",
+    "question": "Esta parábola tiene su punto más bajo en $x = 4$.\n\n¿Cómo se comparan $f(2)$ y $f(6)$?",
+    "options": [
+      "$f(2)$ es mayor",
+      "Son iguales",
+      "$f(6)$ es mayor",
+      "Hace falta la fórmula para saberlo"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "El $2$ y el $6$ están los dos a distancia $2$ del eje de simetría, así que la curva les da la misma altura.",
+    "feedback_incorrect": [
+      "A la izquierda del vértice la curva baja, pero eso no la deja más alta que un punto simétrico del otro lado.",
+      null,
+      "A la derecha del vértice la curva sube, y aun así el $6$ queda a la misma altura que el $2$.",
+      "La simetría alcanza para responder: dos entradas a la misma distancia del eje dan la misma salida."
+    ],
+    "graph_fn": "0.4*pow(x-4,2)+1",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Toda parábola es simétrica respecto de la recta vertical que pasa por su vértice, y esa simetría se traduce en una igualdad entre alturas.\n\nAcá el eje está en $x = 4$. El 2 queda dos unidades a la izquierda y el 6 dos unidades a la derecha, así que son la imagen especular uno del otro y la función les asigna el mismo valor.\n\nComparar así evita hacer las dos cuentas: alcanza con medir a qué distancia del eje cae cada entrada.",
+    "reviewed": false,
+    "tags": [
+      "comparacion-por-simetria"
+    ]
+  },
+  {
+    "id": "white_quadratic_GRAF_35",
+    "question": "La curva del gráfico baja hasta cierto punto y desde ahí vuelve a subir.\n\n¿En qué intervalo la función es **decreciente**?",
+    "options": [
+      "$x > 3$",
+      "$x < 3$",
+      "Decrece en todo su dominio",
+      "$y < 1$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "A la izquierda del vértice la curva viene bajando, y el vértice está en $x = 3$.",
+    "feedback_incorrect": [
+      "Ese es el tramo que arranca en el vértice, donde la curva ya empezó a subir.",
+      null,
+      "Una parábola cambia de sentido en el vértice, así que nunca decrece en todo su dominio.",
+      "La monotonía se describe sobre los valores de entrada, en el eje horizontal, no sobre las alturas."
+    ],
+    "graph_fn": "0.5*pow(x-3,2)+1",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "El vértice de una parábola es el punto donde deja de bajar y empieza a subir, así que parte el dominio en dos tramos con comportamiento opuesto.\n\nEn una parábola que abre hacia arriba, el tramo de la izquierda del vértice es el decreciente y el de la derecha el creciente. Acá el vértice está en $x = 3$.\n\nEl intervalo se escribe sobre el eje horizontal porque la monotonía habla de qué pasa con la salida a medida que la entrada avanza.",
+    "reviewed": false,
+    "tags": [
+      "intervalo-monotonia"
     ]
   }
 ]

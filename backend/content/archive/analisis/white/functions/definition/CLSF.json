@@ -608,5 +608,67 @@
       "motivo": "FACIL",
       "razon": "'Cuantas preimagenes tiene el 16 bajo x^2', P1 83%. El 28 trabaja mejor la preimagen preguntando por un valor que NO la tiene."
     }
+  },
+  {
+    "id": "white_definition_CLSF_11",
+    "question": "Una empresa registra cuántas unidades vendió cada uno de sus 12 vendedores. Las ventas posibles van de 0 a 500 unidades. $$V : \\{1, \\dots, 12\\} \\to \\{0, \\dots, 500\\}$$ ¿Cuál de estos conjuntos es el **dominio**?",
+    "options": [
+      "$\\{0, \\dots, 500\\}$",
+      "$\\{1, \\dots, 500\\}$",
+      "$\\{1, \\dots, 12\\}$",
+      "El número $12$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El dominio son las entradas, los doce vendedores.",
+    "feedback_incorrect": [
+      "Ese es el conjunto de unidades posibles, las salidas, no las entradas.",
+      "Mezcla el rótulo de los vendedores con el rango de unidades; el dominio son solo los vendedores.",
+      null,
+      "El 12 cuenta cuántos vendedores hay, pero el dominio es el conjunto, no su tamaño."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "El **dominio** es el conjunto de entradas que la función transforma.\n\nAcá las entradas son los vendedores, numerados del 1 al 12.\n\nLas unidades posibles forman el **codominio** y las efectivamente vendidas, la **imagen**.\n\nContar cuántas entradas hay no alcanza para nombrar el dominio: el dominio es el conjunto, no su cantidad.",
+    "reviewed": false,
+    "tags": [
+      "dominio-identificacion"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "'Cuál es el dominio de V: {1..12} -> {0..500}', tercera vez el mismo patrón junto al 10 y al 13, y el más flojo de los tres (38 % de P1)."
+    }
+  },
+  {
+    "id": "white_definition_CLSF_21",
+    "question": "Una función tiene **dominio** $\\{1,2,3,4,5\\}$ y **codominio** $\\{1,\\dots,10\\}$, y transforma cada número en su doble:$$g(x) = 2x$$¿El conjunto **imagen** de la función es igual al codominio?",
+    "options": [
+      "No, solo los números pares del 1 al 10",
+      "Sí, todos los números del 1 al 10 se alcanzan",
+      "No, la imagen está vacía",
+      "Sí, pero solo los impares"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "Los cinco valores del dominio dan 2, 4, 6, 8 y 10: solo los pares. Los impares del codominio nunca se alcanzan.",
+    "feedback_incorrect": [
+      null,
+      "$g(1)=2$, no $1$; ningún número impar del codominio se alcanza.",
+      "La imagen tiene cinco valores: $2,4,6,8,10$; no está vacía.",
+      "También $2,4,6,8,10$ son pares, no impares; la imagen son los pares, no los impares."
+    ],
+    "graph_fn": null,
+    "graph_view": null,
+    "explanation": "La **imagen** son los valores que la función realmente produce; el **codominio** es el conjunto declarado de llegada, que puede ser más grande.\n\nEvaluando los cinco elementos del dominio:\n$$\\begin{aligned} g(1) &= 2 \\\\ g(2) &= 4 \\\\ g(3) &= 6 \\\\ g(4) &= 8 \\\\ g(5) &= 10 \\end{aligned}$$\nLa imagen es $\\{2,4,6,8,10\\}$, un subconjunto del codominio $\\{1,\\dots,10\\}$: los cinco números impares nunca aparecen.\n\nQue el codominio declare hasta $10$ no garantiza que todos esos valores se alcancen; eso depende de la regla de la función.",
+    "reviewed": false,
+    "tags": [
+      "imagen-identificacion"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "REDUN",
+      "razon": "'¿La imagen es igual al codominio?' en versión sí/no. El 24 y el 26 trabajan la misma distinción pidiendo el conjunto concreto, que es la forma útil; este mide 25 % y es la más floja de las tres."
+    }
   }
 ]

@@ -163,7 +163,7 @@ Diseñada originalmente leyendo los 200 ejercicios reales (dump de `question`+op
 | Continuidad en el dominio | 1 | `continuidad-en-dominio` |
 | Extremos y monotonía | 1 | `extremos-monotonia` |
 | Conteo de ramas | 1 | `conteo-ramas` |
-| **Total** | **30** | |
+| **Total** | **15** | |
 
 **CLSF** (archivado, no se recorta — ver nota al inicio del documento):
 
@@ -180,7 +180,7 @@ Diseñada originalmente leyendo los 200 ejercicios reales (dump de `question`+op
 | Cantidad de asíntotas verticales, elegir cuál cumple | 1 | `cantidad-asintotas-verticales` |
 | AV sin AH (o viceversa), elegir cuál cumple | 1 | `av-sin-ah` |
 | Afirmaciones generales verdadero/falso sobre racionales | 2 | `afirmaciones-generales-vf` |
-| **Total** | **50** | |
+| **Total** | **15** | |
 
 **FORM** (15 ejercicios):
 
@@ -200,7 +200,7 @@ Diseñada originalmente leyendo los 200 ejercicios reales (dump de `question`+op
 | Transformaciones (desplazamiento) | 1 | `transformaciones-form` |
 | Combinado AV+AH+valor puntual en un mismo ejercicio | 1 | `combinado-av-ah-valor` |
 | Hallar un parámetro $k$ dado un punto de paso | 1 | `hallar-parametro-k` |
-| **Total** | **30** | |
+| **Total** | **15** | |
 
 **GRAF** (15 ejercicios, reagrupa los tipos A/B/C ya documentados arriba):
 

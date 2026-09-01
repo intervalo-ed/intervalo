@@ -142,7 +142,7 @@ Primera auditoría de este topic (no tenía tabla de sub-familias todavía). Dis
 | Imagen/rango con transformación | 1 | `imagen-transformada` |
 | Comparación seno/coseno (propiedades) | 1 | `comparacion-sen-cos` |
 | Extremos (máx/mín) con transformación | 1 | `extremos-con-transformacion` |
-| **Total** | **30** | |
+| **Total** | **15** | |
 
 > Nota: al recortar (ago-2026) se detectó que el `tags` real en el JSON de LEXI ya no coincidía con esta tabla desde antes del recorte — 5 ejercicios (ahora 3 tras recortar) llevan el slug `descripcion-abstracta-otra-familia` (nombre de subfamilia de CLSF, no de LEXI) en vez de `amplitud`, que no aparece en ningún ejercicio real de LEXI. Es una etiqueta heredada de una ronda anterior, no corregida en esta pasada (fuera de alcance: solo se tocaron cantidades). La tabla de arriba refleja los `tags` reales post-recorte, no la semántica original de la fila.
 
@@ -150,7 +150,7 @@ Primera auditoría de este topic (no tenía tabla de sub-familias todavía). Dis
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| **Total** | **50** | |
+| **Total** | **15** | |
 
 **FORM** (15 ejercicios, recortado proporcionalmente desde 50 en ago-2026 — ver nota abajo):
 
@@ -168,7 +168,7 @@ Primera auditoría de este topic (no tenía tabla de sub-familias todavía). Dis
 | Primer extremo con desfase | 1 | `primer-extremo-desfase` |
 | Cruce con el eje $X$ | 1 | `cruce-eje-x` |
 | Contexto cotidiano aplicado | 1 | `contexto-cotidiano-aplicado-form` |
-| **Total** | **30** | |
+| **Total** | **15** | |
 
 > Nota: al recortar (ago-2026) se detectó que el `tags` real en el JSON de FORM ya no coincidía con esta tabla desde antes del recorte (drift acumulado de rondas previas): `evaluacion-puntual-form` tenía 18 ejercicios reales (no 8), `imagen-rango-form-trig` 8 (no 6), `lectura-grafico-directa-trig` 7 (no 6), `periodo-calculo-form` 6 (no 7), `amplitud-calculo-form` 2 (no 5), `formula-desde-grafico-form-trig` 2 (no 3); las filas `hallar-parametro-b`, `significado-parametro-b` y `formula-desde-propiedades-trig` no tenían ningún ejercicio real. El recorte proporcional se calculó sobre los `tags` reales, no sobre los números viejos de la tabla, y la tabla de arriba ya refleja esa realidad post-recorte (filas sin ejercicios reales se eliminaron).
 

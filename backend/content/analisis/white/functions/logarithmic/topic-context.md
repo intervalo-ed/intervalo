@@ -138,13 +138,13 @@ Taxonomía diseñada leyendo los 200 ejercicios reales (jul-2026); las tablas de
 | Imagen logaritmo | 1 | `imagen-logaritmo` |
 | Monotonia segun base | 1 | `monotonia-segun-base` |
 | Resolver ecuacion log | 1 | `resolver-ecuacion-log` |
-| **Total** | **30** | |
+| **Total** | **15** | |
 
 **CLSF (50):**
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| **Total** | **50** | |
+| **Total** | **15** | |
 
 **FORM (30):**
 
@@ -158,7 +158,7 @@ Taxonomía diseñada leyendo los 200 ejercicios reales (jul-2026); las tablas de
 | Funcion inversa logaritmo | 1 | `funcion-inversa-logaritmo` |
 | Leer base logaritmo | 1 | `leer-base-logaritmo` |
 | Raiz cruce x | 1 | `raiz-cruce-x` |
-| **Total** | **30** | |
+| **Total** | **15** | |
 
 **GRAF (30):** la poda ago-2026 dejó solo ejercicios de Tipo A (leer propiedades) y Tipo B (identificar fórmula); no había ningún ejercicio real de Tipo C (contexto cotidiano + gráfico) en el archivo, así que esa categoría desaparece de la tabla (ver nota de poda arriba).
 
@@ -172,7 +172,7 @@ Taxonomía diseñada leyendo los 200 ejercicios reales (jul-2026); las tablas de
 | Raíz / cruce con el eje $X$ | 1 | `lectura-raiz-cruce-x` |
 | Lectura dominio | 1 | `lectura-dominio` |
 | Lectura extremos locales | 1 | `lectura-extremos-locales` |
-| **Total** | **30** | |
+| **Total** | **15** | |
 
 ### Checklist del topic, verificar antes de dar por cerrado cada skill
 

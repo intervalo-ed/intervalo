@@ -73,7 +73,7 @@ Taxonomía diseñada leyendo los 200 ejercicios reales (jul-2026, mismo proceso 
 | Grado de un producto/suma de polinomios | 1 | `grado-operaciones` |
 | Concepto de extremo global (mínimo/máximo global) | 1 | `extremo-global-concepto` |
 | Concepto de extremo local (qué significa un máx/mín local) | 1 | `extremo-local-concepto` |
-| **Total** | **30** | |
+| **Total** | **15** | |
 
 Nota: `contar-terminos` (cupo 1 → 0.6 redondeado por resto) quedó sin ejercicios tras el recorte; no generar más bajo ese slug salvo que se decida revertir el recorte.
 
@@ -81,7 +81,7 @@ Nota: `contar-terminos` (cupo 1 → 0.6 redondeado por resto) quedó sin ejercic
 
 | Sub-familia | Cantidad | Slug |
 |---|---:|---|
-| **Total** | **50** | |
+| **Total** | **15** | |
 
 **FORM (30):**
 
@@ -101,7 +101,7 @@ Nota: `contar-terminos` (cupo 1 → 0.6 redondeado por resto) quedó sin ejercic
 | Factorizar trinomio a binomio cuadrado perfecto | 1 | `factorizar-bcp` |
 | Contar términos de un polinomio dado | 1 | `contar-terminos` |
 | Expandir producto de tres factores (binomio al cuadrado por lineal) | 1 | `expandir-producto-tres-factores` |
-| **Total** | **30** | |
+| **Total** | **15** | |
 
 **GRAF (30):** conserva los tipos A/B/C ya documentados arriba, con slug por sub-familia dentro de cada tipo.
 

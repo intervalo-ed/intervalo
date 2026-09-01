@@ -538,5 +538,185 @@
       "motivo": "REDUN",
       "razon": "Idem 29 con el saldo de una cuenta. P1 100%."
     }
+  },
+  {
+    "id": "white_quadratic_GRAF_04",
+    "question": "Un clavadista salta desde un trampolín, sube un poco y cae al agua. La gráfica muestra su altura, en metros, según los segundos.\n\n¿Desde qué altura saltó?",
+    "options": [
+      "6 metros",
+      "4 metros",
+      "2 metros",
+      "0 metros"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "La altura de partida es $f(0)$, donde la parábola corta el eje vertical. Acá vale 4 metros.",
+    "feedback_incorrect": [
+      "Esa es la altura máxima que alcanza durante el salto, en el vértice, no la altura del trampolín donde empezó.",
+      null,
+      "Ese 2 es el instante en el que se alcanza el punto más alto, no una altura.",
+      "La curva no arranca en cero; fijate en qué altura corta el eje vertical al inicio, antes de que empiece a subir."
+    ],
+    "graph_fn": "-0.5*pow(x-2,2)+6",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La **ordenada al origen** de una función es su valor cuando la variable independiente vale cero, el punto donde la curva corta el eje vertical.\n\nEn un contexto de altura contra tiempo, ese valor representa la altura de partida, antes de que empiece a transcurrir el tiempo del movimiento.\n\nAcá corresponde evaluar la parábola en el instante inicial:\n\nAsí que el clavadista saltó desde 4 metros de altura.\n\nConviene no confundir este valor con la coordenada del vértice: el trampolín marca el punto de partida, mientras que el vértice marca la altura máxima que alcanza después, en el aire, antes de caer.",
+    "reviewed": false,
+    "tags": [
+      "ordenada-origen"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "FACIL",
+      "razon": "'Desde qué altura saltó el clavadista', P1 80 %. La ordenada al origen queda cubierta por el 14, que pide lo mismo y mide 40 %."
+    }
+  },
+  {
+    "id": "white_quadratic_GRAF_18",
+    "question": "Una moto despega de una rampa y la gráfica muestra su altura, en metros, según la distancia horizontal, también en metros.\n\n¿A qué distancia de la rampa vuelve a tocar el piso?",
+    "options": [
+      "8 metros",
+      "10 metros",
+      "12 metros",
+      "14 metros"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "Toca el piso donde la altura es cero, donde la parábola corta el eje horizontal, a los 12 metros.",
+    "feedback_incorrect": [
+      "A los 8 metros la moto todavía está en el aire, no tocó el piso todavía.",
+      "A los 10 metros la moto sigue en el aire, aunque ya cerca del final del salto.",
+      null,
+      "Después de los 12 metros la altura ya sería negativa, algo imposible para el salto; la moto aterriza antes."
+    ],
+    "graph_fn": "-0.25*pow(x-6,2)+9",
+    "graph_view": [
+      -1,
+      13,
+      -1,
+      13
+    ],
+    "explanation": "Una moto que despega de una rampa describe una parábola en el aire, y el punto en el que vuelve a tocar el piso es aquel en el que su altura vale cero, donde la curva cruza el eje horizontal.\n\nEse punto se llama **raíz** de la función.\n\nAcá la parábola corta el eje en:\n\nAsí que la moto toca el piso a los 12 metros de distancia de la rampa.\n\nEsta raíz marca el final del salto, un punto distinto del vértice, que marca la altura máxima alcanzada en el aire; conviene no leer uno por el otro.",
+    "reviewed": false,
+    "tags": [
+      "nombre-parabola"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "FACIL",
+      "razon": "'A qué distancia vuelve a tocar el piso la moto', P1 100 % sobre n=9. El 16 cubre la lectura de las raíces en contexto midiendo 80 %."
+    }
+  },
+  {
+    "id": "white_quadratic_GRAF_19",
+    "question": "Un bombero apunta la manguera y el agua dibuja un arco.\n\nLa gráfica muestra la altura del chorro, en metros, según la distancia horizontal.\n\n¿Cuál es la altura máxima que alcanza el chorro?",
+    "options": [
+      "6 metros",
+      "7 metros",
+      "8 metros",
+      "9 metros"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "El punto más alto del arco es el vértice, en $(5, 8)$. La altura máxima es 8 metros.",
+    "feedback_incorrect": [
+      "El chorro sí pasa por los 6 metros de altura en algún punto del arco, pero no es el punto más alto.",
+      "Ese valor no corresponde a la altura máxima; fijate la coordenada vertical exacta del vértice.",
+      null,
+      "9 metros queda por encima de lo que el chorro llega a subir; la parábola no supera la altura de su vértice."
+    ],
+    "graph_fn": "-0.5*pow(x-5,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "El chorro de una manguera apuntada hacia arriba dibuja una parábola en el aire, y su punto más alto es el **vértice** de esa curva.\n\nLa coordenada vertical del vértice es, exactamente, la altura máxima que llega a alcanzar el agua.\n\nAcá el vértice está en:\n\nAsí que la altura máxima del chorro es 8 metros.\n\nCualquier otro punto del arco, antes o después de esa distancia, corresponde a una altura menor, porque el vértice concentra el techo de toda la curva.",
+    "reviewed": false,
+    "tags": [
+      "vertice-y"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "FACIL",
+      "razon": "'Cuál es la altura máxima del chorro', P1 100 %. El 28 cubre la lectura del vértice en la coordenada vertical, y encima en el caso del mínimo."
+    }
+  },
+  {
+    "id": "white_quadratic_GRAF_23",
+    "question": "Un teatro prueba distintos precios de entrada para una función.\n\nLa gráfica muestra la recaudación de la noche, en miles de pesos, según el precio, en cientos de pesos.\n\n¿Cuál es la recaudación máxima posible?",
+    "options": [
+      "8 mil",
+      "6 mil",
+      "10 mil",
+      "12 mil"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La recaudación máxima es la coordenada vertical del vértice, en $(5, 8)$.",
+    "feedback_incorrect": [
+      null,
+      "La recaudación sí llega a 6 mil en algún precio del recorrido, pero no es el punto más alto.",
+      "10 mil queda por encima de lo que la recaudación llega a alcanzar; el vértice marca el techo exacto.",
+      "12 mil está todavía más lejos de lo que la parábola alcanza, muy por encima de la recaudación máxima."
+    ],
+    "graph_fn": "-0.5*pow(x-5,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "Cuando una magnitud depende de un precio y tiene un punto óptimo, como pasa con la recaudación de una función de teatro, esa relación dibuja una parábola que abre hacia abajo, con un **máximo**.\n\nAcá el tope de recaudación es la coordenada vertical del vértice,:\n\nOcho mil pesos, con la entrada al precio marcado por la coordenada horizontal.\n\nTanto bajar el precio de más como subirlo de más aleja la recaudación de ese punto óptimo, siempre hacia abajo, nunca hacia arriba.",
+    "reviewed": false,
+    "tags": [
+      "vertice-y"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "FACIL",
+      "razon": "'Cuál es la recaudación máxima', P1 100 % sobre n=7."
+    }
+  },
+  {
+    "id": "white_quadratic_GRAF_25",
+    "question": "Un recital prueba distintos precios de entrada. La gráfica muestra la ganancia, en millones de pesos, según el precio.\n\n¿La ganancia tiene un punto más alto o un punto más bajo?",
+    "options": [
+      "Un punto más alto, porque la parábola abre hacia abajo",
+      "Un punto más bajo, porque la parábola abre hacia abajo",
+      "Un punto más alto, porque la parábola abre hacia arriba",
+      "No tiene ni máximo ni mínimo"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La parábola abre hacia abajo, así que su vértice es el punto más alto, la ganancia máxima.",
+    "feedback_incorrect": [
+      null,
+      "Cuando la parábola abre hacia abajo el vértice queda arriba de todo el resto de la curva, así que es un punto más alto, no más bajo.",
+      "Esta parábola abre hacia abajo, no hacia arriba; fijate la forma general de la curva antes de decidir el sentido de la concavidad.",
+      "Toda parábola tiene vértice, así que siempre hay un punto extremo, sea máximo o mínimo, nunca ninguno de los dos."
+    ],
+    "graph_fn": "-0.5*pow(x-5,2)+8",
+    "graph_view": [
+      -1,
+      11,
+      -1,
+      11
+    ],
+    "explanation": "La **concavidad** de una parábola determina para qué lado abre la curva, y de ahí se desprende si el vértice funciona como techo o como piso de todo el gráfico.\n\nCuando abre hacia abajo el vértice queda por encima del resto de la curva y es un máximo. En este gráfico la parábola abre hacia abajo, así que el vértice marca la mayor ganancia posible del recital.\n\nEl sentido de apertura y el tipo de extremo siempre van juntos, una parábola que abre hacia abajo nunca tiene un mínimo, y una que abre hacia arriba nunca tiene un máximo.",
+    "reviewed": false,
+    "tags": [
+      "nombre-parabola"
+    ],
+    "archivado": {
+      "fecha": "2026-09-01",
+      "motivo": "FACIL",
+      "razon": "'La ganancia tiene un punto más alto o más bajo', P1 100 % sobre n=9. Es elegir entre dos, y el dibujo lo contesta solo."
+    }
   }
 ]

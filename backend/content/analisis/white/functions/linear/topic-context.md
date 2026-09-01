@@ -65,7 +65,7 @@ Vocabulario y parámetros de la recta: forma canónica $f(x) = mx + b$, identifi
 | Pendiente, cálculo directo | `pendiente-calculo` | 1 |
 | Raíz, cálculo directo | `raiz-calculo` | 1 |
 | Ordenada al origen, cálculo directo | `ordenada-calculo` | 1 |
-| **Total** | | **30** |
+| **Total** | | **15** |
 
 ### Cardinalidad
 - **Identificación numérica** (leer $m$, $b$, raíz, imagen): **4 opciones**, valores cortos, disparan la grilla 2×2.
@@ -86,6 +86,17 @@ Vocabulario y parámetros de la recta: forma canónica $f(x) = mx + b$, identifi
 
 ## FORM, 15 ejercicios
 
+**Ronda de dificultad (sep-2026).** El ítem medía 81,8 % de acierto al primer intento.
+Se archivaron los tres que lo sostenían ahí y los tres tenían el mismo defecto de diseño:
+**daban la ordenada al origen servida**. El `#05` la daba en el punto $(0,5)$, el `#28` en
+el punto $(0,4)$, y el `#26` ni siquiera pedía armar una fórmula. Los tres reemplazos
+piden el mismo armado con el punto **fuera** del eje vertical, así que hay que despejar.
+
+El ejercicio con tabla nuevo estrena la rotación que pide la regla 77: la fila trampa,
+donde las tres opciones coinciden, está en el **segundo** renglón y no en el primero. En
+los otros tres del ítem está en el primero, así que mirar la fila de arriba alcanzaba para
+descartar. Las entradas siguen siendo consecutivas $1, 2, 3$, como fija la regla 72.
+
 ### Qué evalúa
 Construir o leer la fórmula $f(x) = mx + b$ desde una situación: extraer la **pendiente** $m$ (tarifa por unidad, ritmo) y la **ordenada al origen** $b$ (costo fijo, valor inicial), armar la ecuación. Incluye raíz (resolver $f(x) = 0$), imagen sobre dominio restringido $[a, b]$, y 4 ejercicios que leen la ecuación desde un gráfico.
 
@@ -95,7 +106,7 @@ Construir o leer la fórmula $f(x) = mx + b$ desde una situación: extraer la **
 
 | Concepto | Slug | Cantidad actual |
 |----------|------|-----------------:|
-| Armar fórmula desde situación cotidiana (costo, tanque, deuda, etc.) | `armar-formula-cotidiano` | 4 |
+| Armar fórmula desde situación cotidiana (costo, tanque, deuda, etc.) | `armar-formula-cotidiano` | 5 |
 | Gráfico → fórmula | `grafico-a-formula` | 2 |
 | Pendiente, cálculo directo | `pendiente-calculo` | 1 |
 | Raíz, cálculo directo | `raiz-calculo` | 1 |
@@ -105,8 +116,7 @@ Construir o leer la fórmula $f(x) = mx + b$ desde una situación: extraer la **
 | Ordenada al origen, cálculo directo | `ordenada-calculo` | 1 |
 | Pendiente interpretada como tasa descrita en palabras | `pendiente-concepto-tasa` | 1 |
 | Resolver la ecuación ($f(x) = k$) | `resolver-ecuacion` | 1 |
-| Propiedades generales (identificar la decreciente) | `propiedades-generales` | 1 |
-| **Total** | | **30** |
+| **Total** | | **15** |
 
 ### Cardinalidad
 - **Armar/leer la fórmula, pendiente, raíz**: **4 opciones**, expresiones cortas ($C(k) = 500 + 200k$ y variantes), grilla 2×2.
@@ -143,7 +153,7 @@ Leer una recta desde su gráfico: valor puntual $f(a)$ dado $a$ (y a la inversa,
 | Lectura inversa: dado $f(x)$, leer el $x$ correspondiente | `lectura-x-dado-y` | 3 |
 | Raíz en contexto de agotamiento/vaciado | `raiz-agotamiento` | 1 |
 | Pendiente calculada entre dos puntos marcados del gráfico | `pendiente-diferencia` | 3 |
-| **Total** | | **30** |
+| **Total** | | **15** |
 
 ### Cardinalidad
 - **4 opciones**, mezcla de descripciones cortas de contexto y valores numéricos leídos del gráfico.

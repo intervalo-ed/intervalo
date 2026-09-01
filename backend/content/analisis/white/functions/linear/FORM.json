@@ -52,32 +52,6 @@
     ]
   },
   {
-    "id": "white_linear_FORM_05",
-    "question": "Una recta pasa por $(0, 5)$ con pendiente $2$.\n\n¿Cuál es su ecuación?",
-    "options": [
-      "$f(x) = 5x + 2$",
-      "$f(x) = 2x + 5$",
-      "$f(x) = 2x - 5$",
-      "$f(x) = 5 - 2x$"
-    ],
-    "correct_index": 1,
-    "has_math": true,
-    "feedback_correct": "$f(x) = 2x + 5$.",
-    "feedback_incorrect": [
-      "Los roles están cruzados: el 5 es el valor de la función en $x = 0$, no la pendiente.",
-      null,
-      "El punto $(0, 5)$ dice que la función vale $+5$ en cero, no $-5$.",
-      "El signo de la pendiente cambió: la recta pedida sube con $m = 2$."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Un punto de la forma $(0, b)$ entrega directamente la ordenada al origen. Si la recta pasa por:\n$$(0, 5)$$\nEntonces $b = 5$.\n\nCon la pendiente dada $m = 2$, la ecuación queda directamente, sin necesidad de ningún despeje:\n$$f(x) = 2x + 5$$\nEl punto sobre el eje $Y$ es el dato más cómodo para armar la ecuación, y el cuidado está en no cruzarlo con la pendiente, que es el otro número del enunciado.",
-    "reviewed": false,
-    "tags": [
-      "armar-formula-mb"
-    ]
-  },
-  {
     "id": "white_linear_FORM_07",
     "question": "Dos datos alcanzan para escribir la ecuación de una recta, dónde cruza el eje vertical y cuánto sube por cada paso.\n\n¿Cuál es la ecuación de la recta del gráfico?",
     "options": [
@@ -505,58 +479,6 @@
     ]
   },
   {
-    "id": "white_linear_FORM_26",
-    "question": "Cuatro rectas distintas pueden compartir forma y diferenciarse solo en hacia dónde apuntan.\n\n¿Cuál de estas funciones lineales es decreciente?",
-    "options": [
-      "$f(x) = 3x + 1$",
-      "$f(x) = x - 5$",
-      "$f(x) = 0{,}5x + 2$",
-      "$f(x) = -2x + 7$"
-    ],
-    "correct_index": 3,
-    "has_math": true,
-    "feedback_correct": "$f(x) = -2x + 7$ tiene pendiente $-2 < 0$: es la única decreciente.",
-    "feedback_incorrect": [
-      "Su pendiente es $3 > 0$: la recta sube.",
-      "Su pendiente es $1 > 0$: sube, aunque el $-5$ despiste.",
-      "Una pendiente chica sigue siendo positiva: $0{,}5 > 0$, la función crece.",
-      null
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "Una función lineal es decreciente exactamente cuando su pendiente es negativa.\n\nRevisando el coeficiente de $x$ en cada opción, tres de los cuatro valores son positivos, así que esas funciones crecen. La única con pendiente negativa es:\n$$f(x) = -2x + 7$$\nPor eso es la única decreciente.\n\nEl término independiente no participa en la decisión: un $-5$ suelto no hace decrecer a nadie. Mirá solo el signo del número que multiplica a la $x$.",
-    "reviewed": false,
-    "tags": [
-      "propiedades-generales"
-    ]
-  },
-  {
-    "id": "white_linear_FORM_28",
-    "question": "Una función lineal pasa por los puntos $(0, 4)$ y $(3, 10)$.\n\n¿Cuál es su ecuación?",
-    "options": [
-      "$f(x) = 4x + 2$",
-      "$f(x) = 2x - 4$",
-      "$f(x) = 2x + 4$",
-      "$f(x) = 4x - 2$"
-    ],
-    "correct_index": 2,
-    "has_math": true,
-    "feedback_correct": "$f(x) = 2x + 4$.",
-    "feedback_incorrect": [
-      "Los parámetros están intercambiados: la pendiente sale del cociente $(10-4)/(3-0) = 2$.",
-      "El signo de la ordenada no corresponde: el punto $(0, 4)$ da $b = +4$.",
-      null,
-      "Acá los parámetros se cruzaron y un signo cambió: $m = 2$ y $b = 4$."
-    ],
-    "graph_fn": null,
-    "graph_view": null,
-    "explanation": "La pendiente entre dos puntos se calcula como el cociente de las diferencias de sus coordenadas:\n$$m = \\frac{y_2 - y_1}{x_2 - x_1}$$\nEsa razón mide cuánto sube o baja la recta por cada unidad que avanza en $x$.\n\nCon los puntos $(0, 4)$ y $(3, 10)$:\n$$m = \\frac{10 - 4}{3 - 0} = \\frac{6}{3}$$\n$$m = 2$$\nComo el punto $(0, 4)$ ya está sobre el eje vertical, la ordenada al origen se lee directo: $b = 4$. La ecuación queda:\n$$f(x) = 2x + 4$$\nAntes de responder, conviene verificar con el segundo punto:\n$$f(3) = 2 \\cdot 3 + 4$$\n$$f(3) = 10$$\nSi la opción elegida no reproduce ambos puntos, los parámetros están cruzados.",
-    "reviewed": false,
-    "tags": [
-      "armar-formula-puntos"
-    ]
-  },
-  {
     "id": "white_linear_FORM_29",
     "question": "La función es $f(x) = 3x - 6$.\n\n¿Para qué valor de $x$ se cumple que $f(x) = 9$?",
     "options": [
@@ -580,6 +502,139 @@
     "reviewed": false,
     "tags": [
       "resolver-ecuacion"
+    ]
+  },
+  {
+    "id": "white_linear_FORM_31",
+    "question": "Una recta tiene pendiente $3$ y pasa por el punto $(2, 11)$.\n\n¿Cuál es su ecuación?",
+    "options": [
+      "$f(x) = 3x + 11$",
+      "$f(x) = 3x + 5$",
+      "$f(x) = 3x + 2$",
+      "$f(x) = 2x + 11$"
+    ],
+    "correct_index": 1,
+    "has_math": true,
+    "feedback_correct": "Con $m = 3$ y el punto $(2, 11)$, la ordenada al origen sale de $11 = 3 \\cdot 2 + b$.",
+    "feedback_incorrect": [
+      "Ese $11$ es la altura en $x = 2$, no en $x = 0$: la ordenada al origen se despeja, no se copia del punto.",
+      null,
+      "Ese $2$ es la coordenada horizontal del punto dado, no la altura donde la recta cruza el eje vertical.",
+      "El $2$ ocupa el lugar de la pendiente, pero la pendiente que da el enunciado es $3$."
+    ],
+    "explanation": "Una recta queda determinada por su pendiente y su ordenada al origen, así que teniendo la pendiente alcanza con un punto para encontrar lo que falta.\n\nSe reemplaza el punto en la forma general:\n$$11 = 3 \\cdot 2 + b$$\nDe ahí sale que la ordenada al origen vale $5$.\n\nEse valor se lee directo del punto solamente cuando el punto está sobre el eje vertical, es decir cuando su coordenada horizontal es cero.",
+    "reviewed": false,
+    "tags": [
+      "armar-formula-mb"
+    ]
+  },
+  {
+    "id": "white_linear_FORM_32",
+    "question": "Una función lineal pasa por los puntos $(1, 7)$ y $(4, 16)$.\n\n¿Cuál es su ecuación?",
+    "options": [
+      "$f(x) = 3x + 7$",
+      "$f(x) = 9x + 7$",
+      "$f(x) = 3x + 4$",
+      "$f(x) = 3x - 4$"
+    ],
+    "correct_index": 2,
+    "has_math": true,
+    "feedback_correct": "La pendiente es $9/3 = 3$, y con ella el punto $(1, 7)$ da $b = 4$.",
+    "feedback_incorrect": [
+      "Ese $7$ es la altura en $x = 1$, no en $x = 0$; falta despejar la ordenada al origen.",
+      "Ese $9$ es cuánto sube la recta entre los dos puntos, pero todavía falta dividirlo por las $3$ unidades que avanza.",
+      null,
+      "El signo quedó cambiado: reemplazando $x = 1$ en $3x - 4$ se obtiene $-1$, no $7$."
+    ],
+    "explanation": "Con dos puntos, la pendiente es cuánto sube la recta dividido cuánto avanza, y recién después se busca la ordenada al origen.\n\nAcá sube 9 mientras avanza 3, así que la pendiente vale 3. Reemplazando cualquiera de los dos puntos queda esta ecuación:\n$$7 = 3 \\cdot 1 + b$$\nLa ordenada al origen resulta 4.\n\nCuando ninguno de los dos puntos está sobre el eje vertical, la ordenada al origen no aparece escrita en ningún lado y hay que despejarla.",
+    "reviewed": false,
+    "tags": [
+      "armar-formula-puntos"
+    ]
+  },
+  {
+    "id": "white_linear_FORM_33",
+    "question": "Un gimnasio cobra una matrícula al inscribirse y una cuota por cada mes.\n\nLa tabla registra lo que pagó cada socio.\n\n¿Cuánto paga un socio que se queda $m$ meses?",
+    "options": [
+      "$C(m) = 400 + 300m$",
+      "$C(m) = 100 + 450m$",
+      "$C(m) = 500m$"
+    ],
+    "correct_index": 0,
+    "has_math": true,
+    "feedback_correct": "La matrícula son $400$ y cada mes suma $300$, que es lo que crece la tabla de fila en fila.",
+    "feedback_incorrect": [
+      null,
+      "Con esa fórmula el primer mes daría $550$, y la tabla marca $700$.",
+      "Sin matrícula el primer mes daría $500$; la tabla arranca en $700$, así que hay un monto fijo además de la cuota."
+    ],
+    "table": {
+      "columns": [
+        {
+          "icon": null,
+          "label": "Meses"
+        },
+        {
+          "icon": "🏋️",
+          "label": "Pagó"
+        }
+      ],
+      "rows": [
+        [
+          "$1$",
+          "$700$"
+        ],
+        [
+          "$2$",
+          "$1000$"
+        ],
+        [
+          "$3$",
+          "$1300$"
+        ],
+        [
+          "$m$",
+          null
+        ]
+      ],
+      "reveal": {
+        "mode": "column",
+        "col": 1,
+        "by_option": [
+          {
+            "header": "$C(m) = 400 + 300m$",
+            "cells": [
+              "$700$",
+              "$1000$",
+              "$1300$",
+              "$C(m) = 400 + 300m$"
+            ]
+          },
+          {
+            "header": "$C(m) = 100 + 450m$",
+            "cells": [
+              "$550$",
+              "$1000$",
+              "$1450$",
+              "$C(m) = 100 + 450m$"
+            ]
+          },
+          {
+            "header": "$C(m) = 500m$",
+            "cells": [
+              "$500$",
+              "$1000$",
+              "$1500$",
+              "$C(m) = 500m$"
+            ]
+          }
+        ]
+      }
+    },
+    "explanation": "Cuando el cobro tiene una parte fija y otra que se repite por unidad, la fórmula es una lineal: la parte fija es la ordenada al origen y la que se repite es la pendiente.\n\nLa tabla sube 300 de una fila a la siguiente, así que la cuota mensual es 300. Como en el primer mes ya se pagaron 700, los 400 restantes son la matrícula, que se cobra una sola vez.\n\nLa fila del segundo mes no sirve para decidir, porque las tres fórmulas dan lo mismo ahí. Es la primera fila la que las separa, y por eso conviene mirar más de un renglón antes de elegir.",
+    "reviewed": false,
+    "tags": [
+      "armar-formula-cotidiano"
     ]
   }
 ]
