@@ -1099,6 +1099,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/leaderboard/recruits": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Recruits */
+        get: operations["get_recruits_leaderboard_recruits_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/leaderboard/summary": {
         parameters: {
             query?: never;
@@ -2301,6 +2318,36 @@ export interface components {
         PushUnsubscribeRequest: {
             /** Endpoint */
             endpoint: string;
+        };
+        /**
+         * RecruitEntry
+         * @description Una persona que entró por tu link. Deliberadamente NO lleva su XP total:
+         *     lo que se muestra es cuánto te aportó, no cuánto estudia.
+         */
+        RecruitEntry: {
+            /** Rank */
+            rank: number;
+            /** Username */
+            username?: string | null;
+            /** University */
+            university?: string | null;
+            /** Career */
+            career?: string | null;
+            /** Xp Given */
+            xp_given: number;
+        };
+        /** RecruitsResponse */
+        RecruitsResponse: {
+            /** Entries */
+            entries: components["schemas"]["RecruitEntry"][];
+            /** Total Recruits */
+            total_recruits: number;
+            /** Total Xp Given */
+            total_xp_given: number;
+            /** Share Percent */
+            share_percent: number;
+            /** Handle */
+            handle?: string | null;
         };
         /** SessionExercise */
         SessionExercise: {
@@ -4343,6 +4390,37 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["UniversityLeaderboardResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_recruits_leaderboard_recruits_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RecruitsResponse"];
                 };
             };
             /** @description Validation Error */

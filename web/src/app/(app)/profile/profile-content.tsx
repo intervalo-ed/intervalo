@@ -14,13 +14,23 @@ import { useNotificationSettingsQuery } from "./UseNotificationSettings"
 import { SignOutButton } from "@clerk/nextjs"
 import Link from "next/link"
 import {
+  CoffeeIcon,
   LogOutIcon,
   MessageSquareIcon,
+  UsersIcon,
   Volume2Icon,
   VolumeXIcon,
 } from "lucide-react"
+// La URL de donación sale del minijuego: es la misma página para los dos lados.
+import { CAFECITO_URL } from "@/app/derivadas/cafecito-cta"
 
 const btnCls = "h-12 w-full justify-start rounded-md"
+// Los mismos dos colores que usa el panel del minijuego para estas dos
+// acciones: verde WhatsApp para reclutar, ámbar café para el cafecito.
+const reclutarCls =
+  "h-12 w-full justify-start rounded-md border-[#2E9E5B]/50 text-[#2E9E5B] hover:bg-[#2E9E5B]/10 hover:text-[#2E9E5B]"
+const cafecitoCls =
+  "h-12 w-full justify-start rounded-md border-[#EABB74]/50 text-[#EABB74] hover:bg-[#EABB74]/10 hover:text-[#EABB74]"
 const signOutCls =
   "h-12 w-full justify-start rounded-md border-red-500/30 text-red-400 hover:bg-red-500/10 hover:text-red-400"
 
@@ -44,6 +54,42 @@ export function ProfileContent() {
       />
 
       <NotificationSettings />
+
+      {/* Las dos puertas de crecimiento, con el mismo par de colores que en el
+          minijuego: verde para reclutar, ámbar para el cafecito. Son la misma
+          mecánica de los dos lados, así que tienen que verse igual.
+
+          Reclutar va a la vista del ranking y no directo a WhatsApp: mandando al
+          chat, quien comparte no se entera de que el link le paga un porcentaje
+          de lo que hagan los que entren — o sea que se pierde justo lo que lo
+          haría compartir de nuevo. Mismo motivo que la fila del juego. */}
+      <Button
+        variant="outline"
+        size="lg"
+        className={reclutarCls}
+        nativeButton={false}
+        render={<Link href="/leaderboard" />}
+      >
+        <UsersIcon className="size-5" />
+        Reclutar
+      </Button>
+
+      {/* Cafecito SÍ va derecho afuera, y con un anchor de verdad: cafecito.app
+          es otro origen y el pago tiene que abrirse en el navegador. Adentro de
+          una webview standalone, Mercado Pago pierde las tarjetas guardadas y
+          los redirects de 3DS. */}
+      <Button
+        variant="outline"
+        size="lg"
+        className={cafecitoCls}
+        nativeButton={false}
+        render={
+          <a href={CAFECITO_URL} target="_blank" rel="noopener noreferrer" />
+        }
+      >
+        <CoffeeIcon className="size-5" />
+        Invitar un cafecito
+      </Button>
 
       <Button
         variant="outline"
