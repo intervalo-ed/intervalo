@@ -12,6 +12,7 @@ from datetime import datetime
 
 from sqlalchemy.orm import Session
 
+import handles
 from models import GameAliasHistory, GamePlayer
 
 _WORDS = (
@@ -29,16 +30,13 @@ _ATTEMPTS = 40
 def alias_taken(db: Session, alias: str) -> bool:
     """¿Este @ está en uso, o lo estuvo alguna vez?
 
-    Los soltados cuentan como tomados. Un @ viejo sigue resolviendo links de
-    reclutamiento (ver models.GameAliasHistory), así que dárselo a otra persona
-    sería darle también las visitas que trajo la primera.
+    Delega en el registro (backend/handles.py), que es la única autoridad. Los
+    soltados siguen contando como tomados —un @ viejo sigue resolviendo links de
+    reclutamiento, así que dárselo a otra persona sería darle también la gente
+    que trajo la primera— y ahora además cuentan los `users.username`, que este
+    módulo no miraba y por eso podía entregar un nombre que ya era de alguien.
     """
-    if db.query(GamePlayer.id).filter(GamePlayer.alias == alias).first() is not None:
-        return True
-    return (
-        db.query(GameAliasHistory.alias).filter(GameAliasHistory.alias == alias).first()
-        is not None
-    )
+    return handles.tomado(db, alias)
 
 
 def retire_alias(db: Session, alias: str, player_id: int) -> None:
@@ -50,6 +48,16 @@ def retire_alias(db: Session, alias: str, player_id: int) -> None:
     """
     if not alias:
         return
+    # `handles.reclamar` ya retira el @ anterior del mismo dueño, así que este
+    # camino queda solo para el resto del código que todavía llama a
+    # `retire_alias` explícitamente. Se mantiene `game_alias_history` en sincronía
+    # un release más como red de contención: si hay que volver atrás, lo que se
+    # muere si no son los links `?r=` repartidos.
+    fila = handles.duenio(db, alias)
+    if fila is not None and fila.status == "active":
+        fila.status = "retired"
+        fila.released_at = datetime.utcnow()
+        fila.player_id = player_id
     ya = db.query(GameAliasHistory).filter(GameAliasHistory.alias == alias).first()
     if ya is not None:
         # El @ vuelve a soltarse (A→B→A→C): gana el dueño más reciente, que es
