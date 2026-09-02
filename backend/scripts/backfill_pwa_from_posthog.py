@@ -57,11 +57,18 @@ from models import User  # noqa: E402
 # Un email por fila (no por persona): un puñado de usuarios quedan duplicados
 # en PostHog por un re-identify sin merge, y el MIN se queda con la
 # instalación más vieja conocida de cada uno.
+#
+# El LIMIT es obligatorio y no cosmético: la API de queries de PostHog aplica
+# un tope de 100 filas por default cuando la query no trae uno explícito, y
+# sin este LIMIT el backfill se corta a mitad de la lista sin avisar (medido:
+# 100 de 148 personas reales). 5000 es generoso a propósito, para no volver a
+# pisar el mismo techo cuando la base de instalados crezca.
 _QUERY = """
 SELECT properties.email AS email, min(properties.first_pwa_use_at) AS pwa_at
 FROM persons
 WHERE properties.first_pwa_use_at IS NOT NULL
 GROUP BY email
+LIMIT 5000
 """
 
 
