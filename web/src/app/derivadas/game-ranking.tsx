@@ -85,14 +85,22 @@ const RAMP_UPDATES = 5
 
 const fmtMultiplier = (m: number) => `×${m.toFixed(1).replace(".", ",")}`
 
-// Minutos Y segundos, con el segundero siempre a la vista: "18:24".
+// Dos regímenes, porque los empujes pasaron a durar un día (boosts.BOOST_HOURS).
 //
-// Antes decía "18 min" a secas, y un cartel que dice lo mismo durante sesenta
-// segundos no parece un reloj sino una etiqueta. Con los segundos corriendo se
-// lee lo que es —algo que se está por terminar— que es justo lo que hace mirar
-// cuánto sale sumarle tiempo.
+// Bajo la hora: minutos Y segundos, con el segundero a la vista ("18:24"). Antes
+// decía "18 min" a secas, y un cartel que dice lo mismo durante sesenta segundos
+// no parece un reloj sino una etiqueta. Con los segundos corriendo se lee lo que
+// es —algo que se está por terminar— que es justo lo que hace mirar cuánto sale
+// sumarle tiempo.
+//
+// Sobre la hora: horas y minutos ("23h 40m"). El mismo formato mm:ss daría
+// "1439:59", que no se lee como nada, y un segundero que corre cuando faltan
+// veinte horas promete una urgencia que no existe.
 function fmtRemaining(seconds: number): string {
   const s = Math.max(0, seconds)
+  if (s >= 3600) {
+    return `${Math.floor(s / 3600)}h ${String(Math.floor((s % 3600) / 60)).padStart(2, "0")}m`
+  }
   return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`
 }
 
@@ -110,7 +118,15 @@ function useCountdown(initialSeconds: number): number {
   const [left, setLeft] = useState(initialSeconds)
   useEffect(() => {
     if (initialSeconds <= 0) return
-    const id = setInterval(() => setLeft((s) => (s <= 1 ? 0 : s - 1)), 1000)
+    // El paso sigue al formato: con más de una hora por delante `fmtRemaining`
+    // solo muestra minutos, así que descontar de a un segundo serían ~86.400
+    // renders por día para cambiar el cartel una vez por minuto. Bajo la hora
+    // vuelve al segundero, que ahí sí se ve correr.
+    const paso = initialSeconds >= 3600 ? 30 : 1
+    const id = setInterval(
+      () => setLeft((s) => (s <= paso ? 0 : s - paso)),
+      paso * 1000,
+    )
     return () => clearInterval(id)
   }, [initialSeconds])
   return left

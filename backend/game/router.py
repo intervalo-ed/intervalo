@@ -429,7 +429,15 @@ def patch_me(
         # Solo se marca la MUDANZA, no la primera carga: cargar la universidad por
         # primera vez no puede costarte el empuje que está corriendo, pero
         # mudarte a la universidad impulsada sí (ver boosts.applies_to).
-        if player.university is not None and nueva != player.university:
+        #
+        # "Primera carga" es no tener universidad Y no haberla tenido nunca. La
+        # condición anterior miraba solo `player.university is not None`, y eso
+        # dejaba abierto el camino de vaciar y volver a cargar: dos PATCH
+        # (university="" y después la impulsada) devolvían el candado a NULL y
+        # con él el empuje entero. Con empujes de un día el premio por hacerlo
+        # pasó de media hora a 24 h.
+        primera_carga = player.university is None and player.university_set_at is None
+        if not primera_carga and nueva != player.university:
             player.university_set_at = datetime.utcnow()
         player.university = nueva
     if body.career is not None:

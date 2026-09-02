@@ -678,8 +678,8 @@ class GamePlayer(Base):
     # Cuándo se CAMBIÓ la universidad por última vez — NULL si nunca cambió
     # (incluido el caso normal: se cargó una vez y quedó). Es el candado de los
     # empujes por universidad: sin él, un empuje activo se llenaría de gente que se
-    # muda a la universidad impulsada por media hora y la rivalidad se muere. Ver
-    # game/boosts.py.
+    # muda a la universidad impulsada por un día y la rivalidad se muere. Ver
+    # game/boosts.py. El gemelo de clásico es `enrollments.university_set_at`.
     university_set_at = Column(DateTime, nullable=True)
     career = Column(String(1), nullable=True)
 

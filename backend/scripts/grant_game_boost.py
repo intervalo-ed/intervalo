@@ -8,8 +8,9 @@ secretos para algo que se dispara a mano un puñado de veces por día.
 Uso:
     python backend/scripts/grant_game_boost.py --university UBA --cafecitos 3
     python backend/scripts/grant_game_boost.py --university utn --cafecitos 1 --donor "Nico"
-    python backend/scripts/grant_game_boost.py --list        # empujes vigentes
-    python backend/scripts/grant_game_boost.py --expire UBA  # cortarlo ya
+    python backend/scripts/grant_game_boost.py --list          # empujes vigentes
+    python backend/scripts/grant_game_boost.py --expire UBA    # cortarlo ya
+    python backend/scripts/grant_game_boost.py --expire TODOS  # cortar el GLOBAL
 
 La sigla se canonicaliza sola, así que `uba`, `UBA` y "Universidad de Buenos
 Aires" son lo mismo.
@@ -45,6 +46,24 @@ from universities import canonical_university  # noqa: E402
 from game import boosts  # noqa: E402
 
 
+def restante(segundos: int) -> str:
+    """"2d 03h", "18h 20m" o "12m 05s", lo que corresponda.
+
+    Antes era siempre minutos y segundos, que con empujes de media hora se leía
+    bien y con empujes de un día daba "1439m59s". Se muestran siempre DOS
+    unidades: la de arriba sola miente por casi una unidad entera ("1d" para algo
+    que dura casi dos días).
+    """
+    d, resto = divmod(max(0, segundos), 86400)
+    h, resto = divmod(resto, 3600)
+    m, s = divmod(resto, 60)
+    if d:
+        return f"{d}d {h:02d}h"
+    if h:
+        return f"{h}h {m:02d}m"
+    return f"{m}m {s:02d}s"
+
+
 def mostrar(db) -> None:
     activos = boosts.active_boosts(db)
     if not activos:
@@ -53,11 +72,9 @@ def mostrar(db) -> None:
     print(f"{'universidad':<12} {'mult':>6} {'cafecitos':>10} {'quedan':>9}  donante")
     for b in activos:
         etiqueta = b.university or "TODOS"
-        mins = b.expires_in_seconds // 60
-        segs = b.expires_in_seconds % 60
         print(
             f"{etiqueta:<12} {b.multiplier:>5.2f}x {b.cafecitos:>10} "
-            f"{mins:>6}m{segs:02d}s  {b.donor_name or '—'}"
+            f"{restante(b.expires_in_seconds):>9}  {b.donor_name or '—'}"
         )
 
 
@@ -67,7 +84,8 @@ def main() -> int:
     ap.add_argument("--cafecitos", "-c", type=int, default=1)
     ap.add_argument("--donor", "-d", default=None, help="nombre para el cartel")
     ap.add_argument("--minutes", "-m", type=int, default=None,
-                    help="sin valor, sale de los cafecitos (15 min c/u, tope 60)")
+                    help="override en MINUTOS, para probar sin esperar un día; "
+                         "sin valor sale de los cafecitos (24 h, o 48 h al tope)")
     ap.add_argument("--ref", default=None, help="id externo de la donación (idempotencia)")
     ap.add_argument("--message", default=None,
                     help="mensaje de la donación; si trae una sigla, se usa")
@@ -75,7 +93,9 @@ def main() -> int:
                     help="resuelve como donación real: sigla del mensaje, si no las "
                          "intenciones abiertas, si no un empuje GLOBAL")
     ap.add_argument("--list", action="store_true", help="lista los empujes vigentes")
-    ap.add_argument("--expire", metavar="UNIVERSIDAD", help="vence ya los empujes de esa universidad")
+    ap.add_argument("--expire", metavar="UNIVERSIDAD",
+                    help="vence ya los empujes de esa universidad; TODOS o "
+                         "global vence el empuje GLOBAL")
     args = ap.parse_args()
 
     db = SessionLocal()
@@ -85,15 +105,28 @@ def main() -> int:
             return 0
 
         if args.expire:
-            uni = (canonical_university(args.expire) or "").strip()
+            # El empuje GLOBAL (university IS NULL) es el destino por defecto de
+            # toda donación que la escalera no supo dirigir, así que es
+            # exactamente donde cae un monto mal leído — y hasta acá era el único
+            # que este comando NO podía vencer: `canonical_university("TODOS")`
+            # devuelve "TODOS" tal cual y nunca matchea NULL. Con empujes de un
+            # día, eso dejaba el juego entero en el multiplicador máximo por 24 h
+            # sin forma de cortarlo. "TODOS" es la etiqueta que ya usa --list.
+            crudo = args.expire.strip()
+            global_ = crudo.casefold() in {"todos", "global"}
+            uni = None if global_ else (canonical_university(crudo) or "").strip()
+            destino = GameBoost.university.is_(None) if global_ else GameBoost.university == uni
             now = datetime.utcnow()
             n = (
                 db.query(GameBoost)
-                .filter(GameBoost.university == uni, GameBoost.expires_at > now)
+                .filter(destino, GameBoost.expires_at > now)
                 .update({"expires_at": now}, synchronize_session=False)
             )
             db.commit()
-            print(f"vencidos {n} empujes de {uni}")
+            # No hace falta tocar el caché de empujes: es por proceso (este
+            # script no es el server) y además solo memoriza el "no hay
+            # ninguno", así que un vencimiento se ve en la consulta siguiente.
+            print(f"vencidos {n} empujes de {uni or 'TODOS (empuje global)'}")
             return 0
 
         # Modo donación: no se elige a mano a quién va, lo decide la escalera.
@@ -110,7 +143,7 @@ def main() -> int:
                 destino = b.university or "TODOS (empuje global)"
                 print(f"{destino}: +{args.cafecitos} cafecito(s) → "
                       f"×{boosts.multiplier_for(db, b.university):.2f} "
-                      f"por {int((b.expires_at - b.created_at).total_seconds()//60)} min")
+                      f"por {restante(int((b.expires_at - b.created_at).total_seconds()))}")
             return 0
 
         if not args.university:
@@ -144,9 +177,14 @@ def main() -> int:
         db.commit()
 
         mult = boosts.multiplier_for(db, uni)
+        # La duración va primero y el instante con fecha: con empujes de un día,
+        # un `%H:%M` solo es la misma hora de mañana y se lee como una hora que
+        # ya pasó.
+        dura = restante(int((boost.expires_at - boost.created_at).total_seconds()))
         print(
             f"{uni}: +{args.cafecitos} cafecito(s) → ×{mult:.2f} "
-            f"por {boost.expires_at.strftime('%H:%M')} UTC, alcanza a {alcanzados} jugador(es)"
+            f"por {dura} (hasta {boost.expires_at.strftime('%d/%m %H:%M')} UTC), "
+            f"alcanza a {alcanzados} jugador(es)"
         )
         return 0
     finally:

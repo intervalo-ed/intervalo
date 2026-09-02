@@ -781,7 +781,14 @@ def cafecito(data: dict, weeks: list[date]) -> dict:
     # Se compara contra ELLA MISMA fuera de la ventana y no contra las otras
     # universidades: los tamaños son muy distintos y la comparación cruzada mediría
     # sobre todo el tamaño. La unidad es respuestas por estudiante activo por hora,
-    # que es lo único comparable entre una ventana de 30 minutos y el resto.
+    # que es lo único comparable entre ventanas de distinto largo.
+    #
+    # La cuenta no depende de cuánto dure un empuje —`ini`/`fin` salen de la fila
+    # y el divisor son sus horas reales—, pero desde que duran un día
+    # (boosts.BOOST_HOURS) hay que mirar el BASAL con cuidado: se arma con las
+    # horas SIN empuje de esa misma universidad, y una universidad con donaciones
+    # seguidas puede quedarse sin ninguna. Ahí `basal` da None y el lift no se
+    # puede calcular — no es un error, es que no hay contra qué comparar.
     uni_by_player = {p["id"]: p["university"] for p in data["players"]}
     rangos = [(b["university"], b["created_at"], b["expires_at"]) for b in boosts
               if b["created_at"] and b["expires_at"]]

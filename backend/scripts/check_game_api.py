@@ -537,7 +537,7 @@ uba = [b for b in pulso["boosts"] if b["university"] == "UBA"]
 check(len(uba) == 1, f"el pulso trae un solo empuje agregado para la UBA (dio {len(uba)})")
 check(uba and uba[0]["donor_name"] == "Nico", "el cartel conserva el nombre de quien donó")
 check(
-    uba and 0 < uba[0]["expires_in_seconds"] <= game_boosts.BOOST_MINUTES_MAX * 60,
+    uba and 0 < uba[0]["expires_in_seconds"] <= game_boosts.BOOST_HOURS_MAX * 3600,
     "el pulso manda segundos restantes, no un instante",
 )
 
@@ -568,6 +568,50 @@ db.close()
 
 vencido = _responder(_forzar_ejercicio(combo=0))
 check(vencido["xp_awarded"] == xp_base, f"y la XP también (dio {vencido['xp_awarded']})")
+
+# El candado no se puede reiniciar vaciando la universidad primero.
+#
+# El PATCH marcaba la mudanza solo si YA había universidad cargada. Vaciarla sí
+# sellaba, pero la carga SIGUIENTE no volvía a sellar, así que el sello quedaba
+# con la fecha del vaciado. Quien vaciaba su universidad hoy podía mudarse
+# gratis a cualquier empuje que arrancara mañana: `applies_to` compara el sello
+# contra el arranque del empuje, y un sello viejo pasa el filtro. Con empujes de
+# un día el premio por hacerlo pasó de media hora a 24 h.
+db = database.SessionLocal()
+p = db.query(GamePlayer).filter(GamePlayer.id == player_id).first()
+# Estado de quien vació su universidad hace un rato: sin universidad, pero con
+# el sello puesto por ese vaciado.
+p.university, p.university_set_at = None, datetime.utcnow() - timedelta(hours=1)
+db.commit()
+db.close()
+# Y AHORA arranca un empuje para UNC.
+db = database.SessionLocal()
+db.query(GameBoost).delete()
+game_boosts.grant(db, university="UNC", cafecitos=5)
+db.commit()
+db.close()
+client.patch("/game/derivemos/me", json={"university": "UNC"}, headers=H)
+db = database.SessionLocal()
+p = db.query(GamePlayer).filter(GamePlayer.id == player_id).first()
+check(
+    not game_boosts.applies_to(p, db),
+    "mudarse a la universidad impulsada tras haber vaciado no cobra el empuje",
+)
+# Y la primera carga de verdad —nunca tuvo universidad, nunca la cambió— sigue
+# sin sellar: quien recién se suma y elige su universidad cobra desde el arranque.
+p.university, p.university_set_at = None, None
+db.commit()
+db.close()
+client.patch("/game/derivemos/me", json={"university": "UNC"}, headers=H)
+db = database.SessionLocal()
+p = db.query(GamePlayer).filter(GamePlayer.id == player_id).first()
+check(
+    p.university_set_at is None and game_boosts.applies_to(p, db),
+    "pero elegirla por primera vez sí cobra",
+)
+db.query(GameBoost).delete()
+db.commit()
+db.close()
 
 print("10. ranking de universidades por Elo promedio")
 db = database.SessionLocal()
@@ -901,20 +945,42 @@ check(
     f"(dio {game_boosts.multiplier_for(db, 'UNC')})",
 )
 
-# Duración: media hora, y una hora SOLO al tope del multiplicador.
+# Duración: un día, y dos SOLO al tope del multiplicador.
 db.query(GameBoost).delete(); db.commit()
 b1 = game_boosts.grant(db, university="UNR", cafecitos=2)
 b2 = game_boosts.grant(db, university="UNT", cafecitos=30)
 b3 = game_boosts.grant(db, university="UNL",
                        cafecitos=game_boosts.MAX_CAFECITOS_PER_DONATION - 1)
+# El override en minutos tiene que seguir mandando por encima de las horas: es
+# la única forma de probar un empuje corto sin esperar un día, y colapsar las
+# dos unidades en una sola cuenta lo convertía en 24 h (ver boosts.grant).
+b4 = game_boosts.grant(db, university="UNS", cafecitos=2, minutes=3)
 db.commit()
+horas = lambda b: round((b.expires_at - b.created_at).total_seconds() / 3600)
 mins = lambda b: round((b.expires_at - b.created_at).total_seconds() / 60)
-check(mins(b1) == game_boosts.BOOST_MINUTES,
-      f"2 cafecitos duran {mins(b1)} min")
-check(mins(b3) == game_boosts.BOOST_MINUTES,
-      f"y uno menos que el tope tambien: {mins(b3)} min")
-check(mins(b2) == game_boosts.BOOST_MINUTES_MAX,
-      f"solo el tope llega a la hora ({mins(b2)} min)")
+check(horas(b1) == game_boosts.BOOST_HOURS,
+      f"2 cafecitos duran {horas(b1)} h")
+check(horas(b3) == game_boosts.BOOST_HOURS,
+      f"y uno menos que el tope tambien: {horas(b3)} h")
+check(horas(b2) == game_boosts.BOOST_HOURS_MAX,
+      f"solo el tope llega a los dos dias ({horas(b2)} h)")
+check(mins(b4) == 3, f"--minutes sigue mandando sobre las horas (dio {mins(b4)} min)")
+
+# El chip y el pago tienen que decir el MISMO numero. `active_boosts` sumaba los
+# cafecitos en crudo y `multiplier_for` los suma topeados fila por fila, asi que
+# una donacion de 30 anunciaba x3,0 y pagaba x2,0.
+vista_unt = [v for v in game_boosts.active_boosts(db) if v.university == "UNT"]
+check(
+    len(vista_unt) == 1
+    and abs(vista_unt[0].multiplier - game_boosts.multiplier_for(db, "UNT")) < 1e-9,
+    "una donacion de 30 anuncia el mismo multiplicador que paga "
+    f"(chip {vista_unt[0].multiplier if vista_unt else '?'} vs "
+    f"pago {game_boosts.multiplier_for(db, 'UNT')})",
+)
+check(
+    bool(vista_unt) and vista_unt[0].cafecitos == 30,
+    "pero el cartel sigue contando la donacion entera",
+)
 db.close()
 
 print("12b. pedir otro con uno abierto no es un salteo gratis")

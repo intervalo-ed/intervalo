@@ -79,17 +79,21 @@ const CAFECITO_STEP = 0.1
 const MAX_PER_DONATION = 2.0
 const SLIDER_MAX = 10
 
-// Media hora siempre; la hora entera SOLO al tope del multiplicador. Es el único
-// escalón, y ese es el punto: con los minutos creciendo parejo con el
-// multiplicador (15, 30, 45…) cada paso del slider movía dos números a la vez, y
+// Un día siempre; los dos días SOLO al tope del multiplicador. Es el único
+// escalón, y ese es el punto: con la duración creciendo pareja con el
+// multiplicador (12, 24, 36…) cada paso del slider movía dos números a la vez, y
 // dos premios que crecen juntos no se leen ninguno. Con un solo escalón, el
 // slider tiene un lugar al que llegar.
-const BOOST_MINUTES = 30
-const BOOST_MINUTES_MAX = 60
+const BOOST_HOURS = 24
+const BOOST_HOURS_MAX = 48
 
 const multiplierFor = (n: number) => Math.min(MAX_PER_DONATION, 1 + n * CAFECITO_STEP)
-const minutesFor = (n: number) =>
-  multiplierFor(n) >= MAX_PER_DONATION ? BOOST_MINUTES_MAX : BOOST_MINUTES
+const horasDe = (n: number) =>
+  multiplierFor(n) >= MAX_PER_DONATION ? BOOST_HOURS_MAX : BOOST_HOURS
+
+/** "un día" / "dos días", que es como se dice. El número suelto ("24 horas")
+ *  obliga a hacer la cuenta para entender que es un día entero. */
+const duracionDe = (n: number) => (horasDe(n) >= BOOST_HOURS_MAX ? "dos días" : "un día")
 
 // La barra arranca LLENA y no en uno. Arrancando en el mínimo, el número que
 // se lee al llegar es el más chico que se puede invitar, y mover la barra
@@ -367,7 +371,13 @@ function PanelDeVuelta({
   // terminar invitando uno, pero mientras no haya nada acreditado hablarle de
   // "tu cafecito" a quien pidió cinco suena a que se perdieron cuatro.
   const varios = llego ? estado.cafecitos > 1 : pedidos > 1
-  const minutos = Math.max(1, Math.round(estado.expires_in_seconds / 60))
+  // "las próximas 23 horas" / "los próximos 40 minutos", según cuánto quede.
+  // Con empujes de un día, decirlo siempre en minutos daba "los próximos 1439
+  // minutos", que obliga a hacer la cuenta para entender que es casi un día.
+  const restante =
+    estado.expires_in_seconds >= 3600
+      ? `las próximas ${Math.max(1, Math.round(estado.expires_in_seconds / 3600))} horas`
+      : `los próximos ${Math.max(1, Math.round(estado.expires_in_seconds / 60))} minutos`
 
   // Sin cuenta regresiva para salir, al revés que la oferta. Ahí la espera
   // existe para que el pedido se lea; acá la persona ya decidió —y quizás ya
@@ -414,14 +424,14 @@ function PanelDeVuelta({
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
             {estado.university ? (
               <>
-                Durante los próximos {minutos} minutos, todos los de la{" "}
-                {estado.university} que estén jugando suman más XP. Ya se está
-                viendo en las novedades.
+                Durante {restante}, todos los de la{" "}
+                {estado.university} que estén estudiando suman más XP, acá y en
+                Intervalo. Ya se está viendo en las novedades.
               </>
             ) : (
               <>
-                Durante los próximos {minutos} minutos, cualquiera que esté
-                jugando suma más XP. Se lo regalaste a todos.
+                Durante {restante}, cualquiera que esté estudiando suma
+                más XP, acá y en Intervalo. Se lo regalaste a todos.
               </>
             )}
           </p>
@@ -857,11 +867,11 @@ export function CafecitoPanel({
                   oración, y un chip con su propio fondo la parte en dos.
 
                   Los TRES datos que dependen de la barra —el multiplicador, la
-                  universidad y los minutos— van con el mismo tratamiento:
-                  negrita y la tinta del slider. Los minutos estuvieron un rato
-                  en blanco y quedaban leyéndose como parte de la frase fija,
-                  cuando en realidad son la otra mitad de lo que se está
-                  eligiendo (media hora, o una entera al tope). */}
+                  universidad y la duración— van con el mismo tratamiento:
+                  negrita y la tinta del slider. La duración estuvo un rato
+                  en blanco y quedaba leyéndose como parte de la frase fija,
+                  cuando en realidad es la otra mitad de lo que se está
+                  eligiendo (un día, o dos al tope). */}
               <span className="font-semibold" style={{ color: tintaPara(t) }}>
                 {university}
               </span>{" "}
@@ -870,7 +880,7 @@ export function CafecitoPanel({
                 className="font-semibold tabular-nums"
                 style={{ color: tintaPara(t) }}
               >
-                {minutesFor(n)} minutos
+                {duracionDe(n)}
               </span>
               .
             </p>
@@ -938,7 +948,7 @@ export function CafecitoPanel({
         ) : (
           <>
             <p className="mt-4 text-sm leading-relaxed text-foreground/90">
-              Un cafecito multiplica el XP de toda tu universidad por media hora.
+              Un cafecito multiplica el XP de toda tu universidad por un día.
               Elegí dónde estudiás y el próximo se lo llevás vos.
             </p>
             {onPickUniversity && (

@@ -374,7 +374,7 @@ function GeneralTiles({ general }: { general: GameStats["general"] }) {
       <TileDestacada
         label="XP extra por cafecitos"
         value={fmtCount(general.xp_from_boosts)}
-        explicacion="Cada cafecito que le invitan a tu universidad multiplica media hora la experiencia de todos los que estudian ahí, también la tuya. Esto es cuánta te tocó de más por eso — lo que ganaste antes de que empezáramos a llevar la cuenta no está."
+        explicacion="Cada cafecito que le invitan a tu universidad multiplica un día entero la experiencia de todos los que estudian ahí, también la tuya. Esto es cuánta te tocó de más por eso — lo que ganaste antes de que empezáramos a llevar la cuenta no está."
         borde={`color-mix(in oklab, ${CAFE_CLARO} 50%, transparent)`}
         tinta={CAFE_CLARO}
       />
