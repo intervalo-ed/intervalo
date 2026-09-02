@@ -331,10 +331,10 @@ def headline(data: dict, weeks: list[date]) -> list[dict]:
 
     return [
         card("altas", "Altas", "cuentas nuevas de esa semana"),
-        card("instalados", "Instalaciones",
-             "altas de esa semana que instalaron y abrieron la PWA"),
         card("reactivados", "Retenidos",
              "gente de semanas anteriores que volvió a estudiar en esta"),
+        card("instalados", "Instalaciones",
+             "altas de esa semana que instalaron y abrieron la PWA"),
         card("otro_dia", "Vuelven otro día",
              "de los que llegaron a estudiar, cuántos volvieron algún otro día",
              pct_of="activados"),
