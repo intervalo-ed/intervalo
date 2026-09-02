@@ -267,11 +267,21 @@ const SHARE_BASE = "https://www.intervalo.xyz/derivadas"
 // decisión que toma el botón del cafecito cuando el slider lo lleva al dorado.
 export const VERDE = "#25D366"
 export const VERDE_TINTA_OSCURA = "#07271A"
-// El de la barra de arriba va APAGADO, y no es un capricho: #25D366 sobre el
-// fondo del juego da 9,4:1 contra los 4,1:1 del marrón del cafecito, que está
-// pegado al lado. Con los dos al mismo tamaño, el verde se comía al otro. Este
-// da 5,4:1 — se ve verde de WhatsApp y no le grita al vecino.
-const VERDE_APAGADO = "#2E9E5B"
+// El verde de la TINTA: el de la barra de arriba y el de las filas de color de
+// configuración. Va apagado contra el relleno, porque al lado tiene al marrón
+// del cafecito y con los dos al mismo brillo el verde se lo comía.
+//
+// Pero estaba apagado de más. Medido sobre el fondo del juego (#131324):
+// #25D366 da 9,2:1 y el marrón #EABB74 da 10,3:1 — o sea que el verde nunca
+// tuvo más contraste que su vecino, y el #2E9E5B que había acá daba 5,4:1, la
+// mitad. Lo que hacía que se comiera al otro no era el contraste sino la
+// saturación: un verde saturado tira más del ojo que un ámbar suave con el
+// mismo brillo. Así que el freno se mantiene, pero apenas: este da 7,1:1, se
+// lee bastante más verde de WhatsApp y sigue estando por debajo del marrón.
+//
+// Un comentario decía que el marrón daba 4,1:1. No lo da; el número estaba mal
+// y con él la conclusión de cuánto había que bajar el verde.
+export const VERDE_TINTA = "#2CB863"
 
 /** El link con el @ de quien comparte, que es lo que después permite contar
  *  cuánta gente entró por cada persona (ver FIRST_REFERRER en
@@ -378,7 +388,7 @@ export function ShareButton({
         cta("share", "click", { placement })
         onOpen()
       }}
-      style={{ borderColor: `${VERDE_APAGADO}99`, color: VERDE_APAGADO }}
+      style={{ borderColor: `${VERDE_TINTA}99`, color: VERDE_TINTA }}
       className={cn(
         "inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 text-sm transition-colors hover:bg-accent",
         className,

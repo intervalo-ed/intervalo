@@ -1780,7 +1780,11 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   const [slotSalida, setSlotSalida] = useState<HTMLDivElement | null>(null)
 
   return (
-    <div className="h-dvh overflow-hidden" style={GRID_BG_STYLE}>
+    // `game-shell` igual que en el teléfono (ver globals.css). Acá casi nunca
+    // hay muesca que despejar —el `env()` da cero— pero el layout se elige por
+    // user agent y una tablet instalada cae de este lado, así que la regla vale
+    // lo mismo en los dos y no hay motivo para que solo uno la tenga.
+    <div className="game-shell h-dvh overflow-hidden" style={GRID_BG_STYLE}>
       {/* La caja mide un 10% menos que antes en las dos dimensiones: el juego
           ocupa menos pantalla y queda más fondo libre a los costados y, sobre
           todo, abajo. El alto va atado al 90% de la ventana y no solo a un tope

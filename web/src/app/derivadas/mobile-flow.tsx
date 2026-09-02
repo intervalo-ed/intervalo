@@ -1067,7 +1067,12 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
   const startDisabled = player === null || next.isPending || !intro.done
 
   return (
-    <div className="relative grid h-dvh overflow-hidden">
+    // `game-shell` despeja la muesca de arriba y arregla el alto en la PWA
+    // instalada (ver globals.css). Va acá, en el contenedor de las diapos, y no
+    // en el layout de la ruta: es este el que se queda con el alto de la
+    // pantalla, así que es el único lugar donde restar la muesca deja a las
+    // diapos dibujando adentro de lo que sobra.
+    <div className="game-shell relative grid h-dvh overflow-hidden">
       {/* El tinte de café/reclutas, de pantalla completa. Vive FUERA del
           `AnimatePresence` de abajo —a propósito—: ese árbol remonta un
           `motion.div` por cada diapo (por eso tiene `key={slideSeq}`), y
