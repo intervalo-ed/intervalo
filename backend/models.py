@@ -703,6 +703,13 @@ class GamePlayer(Base):
     # ejercicio de turno sino el inventario de lo que la persona ya sabe
     # escribir, y verlo crecer es parte del juego.
     unlocked_keys = Column(Text, nullable=False, default="", server_default="")
+    # Ciclado de números por plantilla (game/cycler.py): qué valores le quedan
+    # por servir a cada ranura de cada plantilla antes de repetir ninguno.
+    # {"t1_pow:n": [3, 5]} = a t1_pow, en su ranura "n", le faltan 3 y 5 antes
+    # de volver a barajar su rango. Se completa lazy, solo con las ranuras que
+    # el jugador ya vio — nace vacío para todo el mundo, igual que
+    # unlocked_keys cuando se agregó.
+    numeric_cycle_json = Column(Text, nullable=False, default="{}", server_default="{}")
 
     # Con qué dispositivo apareció por primera vez: "ios" | "android" |
     # "desktop". Lo manda el cliente (X-Game-Platform) y NO se deduce del
