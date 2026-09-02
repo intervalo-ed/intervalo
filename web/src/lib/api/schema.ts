@@ -615,6 +615,9 @@ export interface paths {
          *
          *     `course` (opcional) es el slug del curso a filtrar. Si no viene, se usa el
          *     curso por defecto (id=1, "analisis").
+         *
+         *     `pwa` es si el cliente está corriendo en display-mode: standalone (ver
+         *     web/src/lib/platform/detect.ts :: isStandalone()). Se persiste una sola vez.
          */
         get: operations["get_user_progress_user_progress_get"];
         put?: never;
@@ -3509,6 +3512,7 @@ export interface operations {
             query?: {
                 tz?: string | null;
                 course?: string | null;
+                pwa?: boolean | null;
             };
             header?: {
                 authorization?: string;

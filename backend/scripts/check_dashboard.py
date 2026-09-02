@@ -71,9 +71,14 @@ db = S()
 db.add(Course(id=1, slug="analisis", name="Análisis"))
 
 # 5 usuarios de alta el martes 18/08 (cohorte de WEEK) y 1 la semana anterior.
+# u1 instala la PWA el mismo día que estudia (18); u2 instala un día después
+# de su única sesión (19) — a propósito, para probar que instalar y estudiar
+# son eventos distintos y D+0 de la retención no está forzado a 100%.
+PWA_AT = {1: utc(18, 13), 2: utc(19, 9)}
 for i in range(1, 6):
     db.add(User(id=i, clerk_user_id=f"c{i}", email=f"u{i}@x.com", name=f"U{i}",
                 created_at=utc(18), reached_home=i <= 3,
+                pwa_first_seen_at=PWA_AT.get(i),
                 first_group_id="uba201" if i <= 3 else None))
 db.add(User(id=9, clerk_user_id="c9", email="u9@x.com", name="U9", created_at=utc(11)))
 
@@ -133,6 +138,8 @@ check("embudo: «llegó al home» sale de users.reached_home",
 check("embudo: modo onboarding/test NO cuentan como sesión arrancada",
       paso["Arrancó una sesión"] == 3, f'(dio {paso["Arrancó una sesión"]})')
 check("embudo: terminó una = 2", paso["Terminó una sesión"] == 2)
+check("embudo: «instaló y abrió la PWA» sale de users.pwa_first_seen_at",
+      paso["Instaló y abrió la PWA"] == 2, f'(dio {paso["Instaló y abrió la PWA"]})')
 check("embudo: «volvió otro día» = 2+ días distintos con sesión",
       paso["Volvió otro día"] == 1, f'(dio {paso["Volvió otro día"]})')
 # El embudo cierra en "volvió otro día". Pedir el día siguiente exacto es más
@@ -151,7 +158,8 @@ def _mini(dias_offset):
     """Una cohorte de 1 persona que estudia en los días indicados de WEEK."""
     alta = q.datetime(WEEK.year, WEEK.month, WEEK.day, 12) + q.timedelta(days=1)
     return {
-        "users": [{"id": 1, "created_at": alta, "reached_home": True}],
+        "users": [{"id": 1, "created_at": alta, "reached_home": True,
+                   "pwa_first_seen_at": None}],
         "enrollments": [{"user_id": 1}],
         "sessions": [
             {"user_id": 1, "mode": "main",
@@ -174,6 +182,8 @@ cards = {c["key"]: c for c in q.headline(data, q._weeks_back(WEEK, 3))}
 check("titulares: altas de la semana = 5", cards["altas"]["value"] == 5)
 check("titulares: la semana anterior tiene 1 alta",
       cards["altas"]["series"][-2] == 1, f'(serie {cards["altas"]["series"]})')
+check("titulares: instalaciones = altas que instalaron la PWA (u1, u2)",
+      cards["instalados"]["value"] == 2, f'(dio {cards["instalados"]["value"]})')
 # Se mide sobre los que ESTUDIARON (u1 y u2), no sobre las 5 altas.
 check("titulares: «vuelven otro día» es sobre los activados, no sobre las altas",
       cards["otro_dia"]["value"] == 50.0, f'(dio {cards["otro_dia"]["value"]})')
@@ -188,13 +198,17 @@ check("titulares: reactivados son de cohortes ANTERIORES, no de esta",
 # ── 3. Retención ─────────────────────────────────────────────────────────────
 ret = q.retention(data, [WEEK])
 coh = ret["cohortes"][0]
-# La base son los que ESTUDIARON (u1 y u2), no las 5 altas: u3 abandonó, u4 solo
-# hizo el onboarding y u5 una sesión de QA.
-check("retención: la base son los que terminaron alguna sesión, no las altas",
+# La base son los que INSTALARON la PWA (u1 y u2), no las 5 altas: u3, u4 y u5
+# nunca instalaron.
+check("retención: la base son los que instalaron la PWA, no las altas",
       coh["n"] == 2 and coh["altas"] == 5, f'(n={coh["n"]} altas={coh["altas"]})')
 pts = {p["k"]: p for p in coh["points"]}
-check("retención: D+0 son 2 de 2 (100%)",
-      pts[0]["n"] == 2 and pts[0]["obs"] == 2 and pts[0]["pct"] == 100.0,
+# u1 instala el mismo día que estudia (18) → cuenta en D+0. u2 instala un día
+# después de su única sesión (19, sesión fue el 18) → NO cuenta en D+0: es
+# justo el caso que prueba que instalar y estudiar son eventos distintos, así
+# que D+0 no está forzado a 100% como en la curva vieja.
+check("retención: D+0 no está forzado a 100% (instalar y estudiar son eventos distintos)",
+      pts[0]["n"] == 1 and pts[0]["obs"] == 2 and pts[0]["pct"] == 50.0,
       f'(dio {pts[0]})')
 check("retención: D+1 es solo u1 (50% de la base)",
       pts[1]["n"] == 1 and pts[1]["pct"] == 50.0, f'(dio {pts[1]})')
@@ -409,11 +423,13 @@ check("render: las filas con base chica quedan atenuadas en la tabla real",
       html.count('class="dim"') > 0 and str(HEAT_MIN_BASE) in html)
 check("render: ya no existe la sección de formato tabla",
       "Formato tabla" not in html)
-# La retención arranca en 100% por construcción: D+0 es el día de la primera
-# sesión de cada uno, no el del alta. Era la confusión que motivó el cambio.
+# A diferencia de la curva vieja (anclada en la primera sesión, donde D+0
+# daba 100% por construcción), acá el ancla es instalar la PWA y "volver" es
+# haber estudiado ESE día — dos eventos distintos, así que D+0 no está
+# forzado a 100%. En este fixture da 50% (ver bloque 3, arriba).
 r0 = payload["retencion"]["cohortes"][0]["points"][0]
-check("retención: D+0 es 100% porque se ancla en la activación",
-      r0["pct"] == 100.0, f"(dio {r0})")
+check("retención: D+0 no está forzado a 100% (instalar y estudiar son eventos distintos)",
+      r0["pct"] == 50.0, f"(dio {r0})")
 check("render: los puntos de la curva llevan tooltip nativo",
       "<title>Cohorte" in html and 'cursor:help' in html)
 
@@ -423,7 +439,7 @@ check("render: los puntos de la curva llevan tooltip nativo",
 _tips = [t.split("</title>")[0] for t in html.split("<title>")[1:]
          if t.startswith("Cohorte")]
 _explica = ("todavía no cumplieron", "el denominador es la cohorte entera",
-            "no hay a quién medir", "por definición, su primer día")
+            "no hay a quién medir")
 check("render: todos los tooltips explican de dónde sale el denominador",
       _tips and all(any(e in t for e in _explica) for t in _tips),
       f"({len(_tips)} tooltips)")

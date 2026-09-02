@@ -96,6 +96,18 @@ class User(Base):
     # El hecho se puede reconstruir, el momento no.
     reached_home = Column(Boolean, nullable=False, default=False, server_default="false")
 
+    # Instaló y abrió la PWA (display-mode: standalone) al menos una vez. Lo
+    # manda el cliente en /user/progress?pwa=1 (ver
+    # web/src/lib/platform/detect.ts :: isStandalone()) y se escribe una sola
+    # vez, igual que reached_home.
+    #
+    # DateTime y no bool, a diferencia de reached_home: acá no hay pasado que
+    # reconstruir (la columna nace vacía para todo el mundo, no hubo que
+    # rellenar nada), así que el momento exacto es dato real desde el día uno
+    # y alimenta la curva de retención re-basada (ver retention() en
+    # metrics/queries.py).
+    pwa_first_seen_at = Column(DateTime, nullable=True)
+
     # Atribución de primer contacto: por qué grupo de WhatsApp llegó la persona
     # ("uba042") y su prefijo de universidad ("uba"). Lo manda el cliente al
     # completar el onboarding, desde lo que capturó al aterrizar (ver
