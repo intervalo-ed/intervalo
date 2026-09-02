@@ -1680,8 +1680,12 @@ def record_answer_db(
         db.query(User).filter(User.id == user_id).update(
             {User.total_xp: User.total_xp + xp_earned}, synchronize_session=False
         )
-        # El objeto en sesión quedó con el valor viejo y aguas abajo se lee (el
-        # resumen, el rank). Que lo relea del UPDATE de arriba.
+        # `synchronize_session=False` no toca el identity map, así que el
+        # objeto `user` en memoria queda con el valor viejo. Hoy nadie lo lee
+        # entre esta línea y el commit —y el commit expira todo, porque
+        # `expire_on_commit` está en su default—, así que esto es defensivo: lo
+        # que evita es que alguien intercale una lectura acá en el futuro y se
+        # lleve el número de antes sin que nada falle.
         db.expire(user, ["total_xp"])
 
     if is_correct:
