@@ -30,6 +30,8 @@ from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
 import emoji_tree
+import xp_boost
+from game import boosts as game_boosts
 from game import cafecito_stream as game_cafecito
 from session_store import get_user_progress_db
 from database import SessionLocal
@@ -42,10 +44,13 @@ from auth import (
     verify_clerk_token,
 )
 from clerk_webhook import WebhookVerificationError, verify_svix_signature
-from models import User, Enrollment, Answer, UnitState
+from models import User, Enrollment, Answer, GamePlayer, UnitState
 from sqlalchemy import and_ as sa_and, case, func, or_ as sa_or, select
 from sqlalchemy.exc import IntegrityError
 from schemas import (
+    BoostTramo,
+    RecruitEntry,
+    RecruitsResponse,
     AnswerResponse,
     DueNotification,
     EmailRunResponse,
@@ -471,14 +476,23 @@ def update_profile(
         ok, reason = validate_username(candidate)
         if not ok:
             raise HTTPException(status_code=422, detail=reason)
-        taken = (
-            db.query(User.id)
-            .filter(User.username == candidate, User.id != current_user.id)
-            .first()
-        )
-        if taken:
+        # Contra el REGISTRO y no contra `users`: el nombre puede ser de un
+        # jugador del minijuego —invitado incluido— o estar retirado pero
+        # todavía resolviendo links `?r=`. Mirar solo `users` entregaba nombres
+        # que ya eran de otra persona. `reclamar` además retira el @ anterior y
+        # baja el nuevo a `users.username`, que pasa a ser caché.
+        import handles
+
+        jugador = db.query(GamePlayer).filter(GamePlayer.user_id == current_user.id).first()
+        try:
+            handles.reclamar(
+                db,
+                candidate,
+                user_id=current_user.id,
+                player_id=jugador.id if jugador else None,
+            )
+        except handles.HandleTomado:
             raise HTTPException(status_code=409, detail="Ese usuario ya está en uso.")
-        current_user.username = candidate
 
     if body.display_name is not None:
         current_user.display_name = body.display_name.strip() or None
@@ -521,6 +535,10 @@ class EnrollmentRequest(BaseModel):
     # web/src/lib/analytics/attribution.ts). Se persiste una sola vez por usuario.
     first_group_id: str | None = None
     first_utm_source: str | None = None
+    # El @ de quien trajo a esta persona, capturado del `?r=` al aterrizar
+    # (ver web/src/lib/analytics/attribution.ts). Es el MISMO parámetro que
+    # ya usa el alta del minijuego: un solo link sirve para los dos.
+    referrer: str | None = None
     # Resultado del ejercicio de prueba del onboarding (primer ítem del curso).
     # True = acertó al primer intento, False = falló alguna vez, None = sin dato.
     intro_item_correct: bool | None = None
@@ -590,6 +608,18 @@ def enroll_user(
     if current_user.first_utm_source is None and body.first_utm_source:
         if re.fullmatch(r"[a-z]{2,20}", body.first_utm_source):
             current_user.first_utm_source = body.first_utm_source
+
+    # Quién trajo a esta persona. Mismo criterio write-once que la atribución de
+    # arriba —quien te trajo te trajo una vez— y la misma validación de formato
+    # que el cliente, para que un parámetro basureado no cree una arista rara.
+    #
+    # `anotar_usuario` se encarga de las guardas contra autoreclutarse, que acá
+    # importan de verdad: en el alta la mayoría todavía no tiene fila de jugador,
+    # así que el `salvo` de siempre sale en None.
+    if body.referrer and re.fullmatch(r"[a-z0-9._]{1,20}", body.referrer):
+        import referrals
+
+        referrals.anotar_usuario(db, current_user, body.referrer)
 
     try:
         db.commit()
@@ -998,6 +1028,25 @@ def internal_due_notifications(
     return push_store.due_notifications(db, force=force)
 
 
+@app.get(
+    "/internal/notifications/events",
+    response_model=list[DueNotification],
+    dependencies=[Depends(require_internal_secret)],
+)
+def internal_due_event_notifications(
+    force: bool = False,
+    db: Session = Depends(get_db),
+):
+    """Worker-facing: los avisos DE EVENTO listos para mandar (los reclama).
+
+    Endpoint aparte del de la notificación normal a propósito: tienen cupos
+    distintos y disparadores distintos, y mezclarlos haría que un tick que falla
+    en uno arrastre al otro."""
+    import push_store
+
+    return push_store.due_event_notifications(db, force=force)
+
+
 @app.post(
     "/internal/push/prune",
     response_model=SimpleResponse,
@@ -1278,6 +1327,43 @@ AROUND_WINDOW = 30
 BELT_RANK = {"white": 0, "blue": 1, "violet": 2, "brown": 3}
 
 
+def _max_belt_by_user(db: Session, user_ids: list[int]) -> dict[int, str]:
+    """El cinturón más alto de cada usuario, en cualquier curso.
+
+    Es lo que pinta el nombre en el ranking, así que lo usan las dos tablas que
+    muestran personas: la individual y la de reclutas. Una sola función porque
+    dos criterios distintos harían que la misma persona se viera de dos colores
+    según por qué lista se la mire.
+
+    Solo sobre los ids que se van a devolver, nunca sobre la tabla entera: antes
+    esto agregaba `unit_states` completa en cada request del leaderboard.
+    """
+    if not user_ids:
+        return {}
+    out: dict[int, str] = {}
+    for uid, belt in (
+        db.query(UnitState.user_id, UnitState.belt)
+        .filter(UnitState.user_id.in_(user_ids), UnitState.suspended.is_(False))
+        .distinct()
+        .all()
+    ):
+        if BELT_RANK.get(belt, -1) > BELT_RANK.get(out.get(uid, ""), -1):
+            out[uid] = belt
+    return out
+
+
+def _mi_universidad(db: Session, user_id: int) -> str | None:
+    """La universidad de una persona, con el MISMO criterio que todo lo demás.
+
+    Delega en `xp_boost.enrollment_de_referencia` en vez de escribir un cuarto
+    `order_by(enrolled_at)`: el repo ya tiene tres criterios distintos de "de qué
+    universidad es esta persona" conviviendo (ver el docstring de esa función), y
+    este es el que comparten el tag del ranking y el empuje de cafecito.
+    """
+    fila = xp_boost.enrollment_de_referencia(db, user_id)
+    return fila.university if fila is not None else None
+
+
 def _first_enrollment_subq():
     """Subquery user_id → (university, career, enrolled_at) del enrollment MÁS
     ANTIGUO de cada usuario (sus respuestas originales de onboarding), sin
@@ -1464,16 +1550,7 @@ def get_leaderboard(
         if page_ids
         else {}
     )
-    max_belt_by_user: dict[int, str] = {}
-    if page_ids:
-        for uid, belt in (
-            db.query(UnitState.user_id, UnitState.belt)
-            .filter(UnitState.user_id.in_(page_ids), UnitState.suspended.is_(False))
-            .distinct()
-            .all()
-        ):
-            if BELT_RANK.get(belt, -1) > BELT_RANK.get(max_belt_by_user.get(uid, ""), -1):
-                max_belt_by_user[uid] = belt
+    max_belt_by_user = _max_belt_by_user(db, page_ids)
 
     entries = [
         LeaderboardEntry(
@@ -1595,6 +1672,69 @@ def get_university_leaderboard(
     )
 
 
+# Cuántos reclutas tiene esta persona en Intervalo, y cuánto le aportaron.
+#
+# Espejo del `/leaderboard/recruits` del minijuego, con la misma asimetría a
+# propósito: la LISTA muestra solo a los que ya aportaron algo, pero los
+# CONTADORES cuentan a todos. "Trajiste a 8 personas" es la noticia aunque 3 no
+# hayan arrancado, y una lista con tres renglones en cero se lee como un reproche.
+_MAX_RECLUTAS = 50
+
+
+@app.get("/leaderboard/recruits", response_model=RecruitsResponse)
+def get_recruits(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    import referrals as referrals_mod
+
+    propio = db.query(GamePlayer.id).filter(GamePlayer.user_id == current_user.id).first()
+    if propio is None:
+        # Sin jugador no hay a quién apuntarle un `?r=`: la arista de los dos
+        # productos cuelga de `game_players.id`. No es un error, es que todavía
+        # no compartió nada.
+        return RecruitsResponse(
+            entries=[],
+            total_recruits=0,
+            total_xp_given=0,
+            share_percent=referrals_mod.SHARE_PERCENT,
+            handle=current_user.username,
+        )
+
+    enroll = _first_enrollment_subq()
+    filas = (
+        db.query(User, enroll.c.university, enroll.c.career)
+        .outerjoin(enroll, enroll.c.user_id == User.id)
+        .filter(User.referred_by_player_id == propio.id, User.referral_xp_given > 0)
+        .order_by(User.referral_xp_given.desc(), User.id.asc())
+        .limit(_MAX_RECLUTAS)
+        .all()
+    )
+    total_recruits, total_xp_given = (
+        db.query(func.count(User.id), func.coalesce(func.sum(User.referral_xp_given), 0))
+        .filter(User.referred_by_player_id == propio.id)
+        .one()
+    )
+    belts = _max_belt_by_user(db, [u.id for (u, _uni, _car) in filas])
+    return RecruitsResponse(
+        entries=[
+            RecruitEntry(
+                rank=i + 1,
+                username=u.username,
+                university=uni,
+                career=car,
+                xp_given=u.referral_xp_given,
+                belt=belts.get(u.id, "white"),
+            )
+            for i, (u, uni, car) in enumerate(filas)
+        ],
+        total_recruits=int(total_recruits or 0),
+        total_xp_given=int(total_xp_given or 0),
+        share_percent=referrals_mod.SHARE_PERCENT,
+        handle=current_user.username,
+    )
+
+
 @app.get("/leaderboard/summary", response_model=LeaderboardSummaryResponse)
 def get_leaderboard_summary(
     university: str | None = Query(default=None),
@@ -1661,6 +1801,21 @@ def get_leaderboard_summary(
         total_students=total_students,
         total_exercises=total_exercises,
         universities=universities,
+        # Sin filtrar por el scope de arriba, a propósito: ver el comentario del
+        # campo en LeaderboardSummaryResponse. `active_boosts` arranca con
+        # `hay_empujes`, que memoriza unos segundos el "no hay ninguno" —que es
+        # el caso casi siempre— así que esto no le agrega consultas al resumen.
+        boosts=[
+            BoostTramo(
+                university=b.university,
+                multiplier=b.multiplier,
+                cafecitos=b.cafecitos,
+                donor_name=b.donor_name,
+                expires_in_seconds=b.expires_in_seconds,
+            )
+            for b in game_boosts.active_boosts(db)
+        ],
+        university=_mi_universidad(db, current_user.id),
     )
 
 

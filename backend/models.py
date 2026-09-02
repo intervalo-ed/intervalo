@@ -1,5 +1,6 @@
 from datetime import datetime
 from sqlalchemy import (
+    CheckConstraint,
     Column,
     Integer,
     String,
@@ -42,6 +43,22 @@ class User(Base):
     # notify_last_sent_on en la misma transacción de claim (due_notifications).
     notify_last_category = Column(String(32), nullable=True)
     notify_last_variant_key = Column(String(64), nullable=True)
+
+    # Tope de las notificaciones DE EVENTO (reclutas y cafecito), aparte del de
+    # la normal. La regla es 3 por día: una normal, hasta dos de evento.
+    #
+    # Contador propio y no un `notify_last_sent_on` compartido: si compartieran
+    # cupo, un cafecito de la mañana le comería el recordatorio de estudio del
+    # mediodía, que es la que sostiene el hábito. `notify_events_on` guarda el
+    # día local al que corresponde el conteo, así se reinicia solo al cambiar de
+    # día sin necesitar un job que lo limpie.
+    # Última semana en que se mandó el resumen de reclutas. Guarda la FECHA y no
+    # un booleano para que el guard sea "ya se le mandó esta semana" y no "ya se
+    # le mandó alguna vez".
+    reclutas_email_sent_on = Column(Date, nullable=True)
+
+    notify_events_on = Column(Date, nullable=True)
+    notify_events_count = Column(Integer, nullable=False, default=0, server_default="0")
 
     # Detección de "te pasaron en el ranking": rank global (por total_xp) tal
     # como estaba la última vez que se chequeó a este usuario en
@@ -122,6 +139,24 @@ class User(Base):
     first_group_id = Column(String(20), nullable=True, index=True)
     first_utm_source = Column(String(20), nullable=True)
 
+    # Quién trajo a esta persona a Intervalo. Apunta a `game_players` y no a
+    # `users` porque el reclutador puede ser un INVITADO del minijuego, que no
+    # tiene fila en `users` — y ese es justo el caso que hace viral al juego.
+    # Como `game_players.user_id` es UNIQUE, el jugador ES el join hacia el
+    # usuario: el pagador de clásico se deriva con un SELECT por PK.
+    #
+    # Se escribe UNA vez, en el alta, con la misma guarda write-once que
+    # `first_group_id`. Ver backend/referrals.py.
+    referred_by_player_id = Column(
+        Integer, ForeignKey("game_players.id"), nullable=True, index=True
+    )
+    # Cuánta XP de CLÁSICO le dio esta persona a quien la trajo, y el resto de la
+    # división en centésimas (0-99). Espejo exacto de las columnas del juego, y
+    # por el mismo motivo: el 10% de una respuesta de 12 XP son 1,2, y
+    # redondeando cada pago hacia abajo el 10% prometido se vuelve 8%.
+    referral_xp_given = Column(Integer, nullable=False, default=0, server_default="0")
+    referral_pending = Column(Integer, nullable=False, default=0, server_default="0")
+
     # Habilidad estimada del modelo Elo jerárquico (theta). 0.0 = neutro
     # (arranca ahí, sin cold start raro: la primera predicción es 0.5 y se
     # ajusta solo). `ability_n` es el conteo de respuestas usadas para el
@@ -166,6 +201,15 @@ class Enrollment(Base):
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     course_id = Column(Integer, ForeignKey("courses.id"), nullable=False)
     university = Column(String(100), nullable=True)
+    # Cuándo se CAMBIÓ la universidad por última vez — NULL si nunca cambió
+    # (incluido el caso normal: se cargó en el onboarding y quedó). Gemelo de
+    # `game_players.university_set_at`, y por el mismo motivo: desde que el
+    # empuje de cafecito vale también acá (ver backend/xp_boost.py), sin este
+    # sello cualquiera podría rehacer el alta con la universidad impulsada y
+    # cobrar el empuje. Hoy no hay UI para cambiarla —/onboarding redirige si ya
+    # estás inscripto y solo POST /user/enroll la escribe— así que la exposición
+    # es de API, pero la columna cuesta dos líneas y el agujero dura 24 h.
+    university_set_at = Column(DateTime, nullable=True)
     career = Column(String(200), nullable=True)
     # Retirada del onboarding (la respuesta no predecía comportamiento). Se
     # conserva por los valores históricos; en altas nuevas queda NULL.
@@ -393,10 +437,24 @@ class Answer(Base):
     response_time_ms = Column(Integer, nullable=True)
     quality_score = Column(Integer, nullable=True)
     xp_earned = Column(Integer, default=0)
-    # XP de esta respuesta antes del multiplicador de racha diaria (por intento
-    # y dificultad personal del ítem). xp_earned - xp_base = XP extra ganado
-    # gracias al multiplicador, mostrado en el resumen de sesión.
+    # XP de esta respuesta antes de los multiplicadores (por intento y dificultad
+    # personal del ítem). xp_earned - xp_base = XP extra ganado gracias a ellos,
+    # mostrado en el resumen de sesión.
     xp_base = Column(Integer, nullable=False, default=0, server_default="0")
+    # De ese extra, cuánto lo puso el empuje de cafecito de la universidad y no
+    # la racha diaria (ver algorithm/xp.py :: xp_from_boost).
+    #
+    # Se guarda por respuesta porque después NO se puede reconstruir: lo único
+    # que sobrevive es el total, y ni el multiplicador que corría en ese momento
+    # ni su reparto entre racha y cafecito quedan en ninguna fila. Es el mismo
+    # motivo por el que existe `game_players.xp_from_boosts`.
+    #
+    # Sirve para dos cosas concretas: separar racha de cafecito en el resumen, y
+    # poder DESCONTAR el empuje de los agregados por ventana de tiempo de las
+    # push de universidad (push_store), que si no anuncian saltos que nadie
+    # resolvió. Lo que NO permite es atribuir por donante: `multiplier_for`
+    # colapsa el empuje global y el dirigido en un solo número.
+    xp_from_boost = Column(Integer, nullable=False, default=0, server_default="0")
 
     # Iteración de progreso del curso (ver CourseProgress). Reiniciar el curso
     # incrementa la iteración; las respuestas viejas quedan etiquetadas.
@@ -678,8 +736,8 @@ class GamePlayer(Base):
     # Cuándo se CAMBIÓ la universidad por última vez — NULL si nunca cambió
     # (incluido el caso normal: se cargó una vez y quedó). Es el candado de los
     # empujes por universidad: sin él, un empuje activo se llenaría de gente que se
-    # muda a la universidad impulsada por media hora y la rivalidad se muere. Ver
-    # game/boosts.py.
+    # muda a la universidad impulsada por un día y la rivalidad se muere. Ver
+    # game/boosts.py. El gemelo de clásico es `enrollments.university_set_at`.
     university_set_at = Column(DateTime, nullable=True)
     career = Column(String(1), nullable=True)
 
@@ -694,7 +752,13 @@ class GamePlayer(Base):
     best_combo = Column(Integer, nullable=False, default=0, server_default="0")
     # Mejor puesto histórico (1 = primero). Detecta récords del lado del server.
     best_rank = Column(Integer, nullable=True)
-    exercises_correct = Column(Integer, nullable=False, default=0, server_default="0")
+    # Indexada por el mismo motivo que `xp`: es el filtro de TODAS las consultas
+    # de ranking. Quién entra a la tabla se decide por acá y no por la XP, que
+    # la puede subir un recluta sin que el reclutador haya derivado nunca (ver
+    # game/router.py :: RESOLVIO_ACA).
+    exercises_correct = Column(
+        Integer, nullable=False, default=0, server_default="0", index=True
+    )
     exercises_attempted = Column(Integer, nullable=False, default=0, server_default="0")
 
     # Teclas del teclado que este jugador ya desbloqueó, separadas por coma y en
@@ -760,6 +824,17 @@ class GamePlayer(Base):
     # sería peor que un cero honesto.
     xp_from_boosts = Column(Integer, nullable=False, default=0, server_default="0")
 
+    # XP de CLÁSICO que este jugador ya se ganó como reclutador pero que todavía
+    # no se le pudo pagar, porque no tiene cuenta de Intervalo donde acreditarla.
+    #
+    # Pasa con el reclutador INVITADO: comparte su link, alguien entra por él y
+    # estudia en clásico, y ese 10% no tiene a dónde ir. Perderlo mataría
+    # justamente el caso viral, así que se acumula acá y se salda en el momento
+    # exacto en que la fila adquiere `user_id` (ver game/deps.py ::
+    # link_guest_to_user). Es, además, el mejor argumento para registrarse: al
+    # hacerlo cobrás lo que ya generaste.
+    classic_xp_owed = Column(Integer, nullable=False, default=0, server_default="0")
+
     # Jugador sembrado (ver scripts/seed_game_bots.py): puebla el ranking para
     # que el primero en llegar tenga a quién escalar. No lo controla nadie —
     # tiene user_id y guest_token en NULL, así que ninguna request lo resuelve.
@@ -782,7 +857,82 @@ class GamePlayer(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
     last_seen_at = Column(DateTime, nullable=True)
 
-    user = relationship("User")
+    # `foreign_keys` explícito: desde que existe `users.referred_by_player_id`
+    # hay DOS caminos de clave foránea entre estas dos tablas, y sin decir cuál
+    # es este SQLAlchemy no puede armar el join.
+    user = relationship("User", foreign_keys=[user_id])
+
+
+class Handle(Base):
+    """El registro de nombres de usuario: quién es dueño de cada @, en TODO Intervalo.
+
+    Hasta acá había dos namespaces que se ignoraban entre sí al validar:
+    `users.username` (que solo miraba `users`) y `game_players.alias` (que miraba
+    `game_players` ∪ `game_alias_history` y nunca `users`). El mismo string podía
+    ser de dos personas distintas, una en cada producto.
+
+    Esta tabla es la ÚNICA autoridad sobre qué nombre está tomado y de quién es.
+    `users.username` y `game_players.alias` sobreviven como caché desnormalizado
+    —para que el ranking siga siendo una consulta de una sola tabla— pero dejan
+    de decidir: lo único que decide es una fila de acá. Nada escribe esas dos
+    columnas fuera de `backend/handles.py`.
+
+    Generaliza `game_alias_history`, que hacía esto mismo pero solo para el juego
+    y solo para los @ ya soltados. Dos cosas que aquella tabla resolvía y que hay
+    que conservar, porque son la razón de que exista:
+
+      · Un @ soltado NO queda libre. Sigue resolviendo links de reclutamiento
+        (`?r=`), así que dárselo a otra persona sería darle también la gente que
+        trajo la primera. Por eso las filas se RETIRAN y no se borran.
+      · Al retirarse, la fila sigue apuntando a su dueño. El link viejo no muere:
+        sigue llevando a quien lo repartió.
+
+    Lo nuevo es que ese blindaje ahora cubre `users.username`, que no tenía
+    historia: cambiarte el username liberaba el string, y con `?r=` unificado eso
+    le regalaba tus reclutas a un desconocido.
+
+    Un dueño y solo uno, pero el dueño puede tener dos caras: una persona
+    registrada que además juega es UNA fila con `user_id` y `player_id` puestos.
+    Un invitado del juego es una fila con solo `player_id` — y ahí vive su @, sin
+    inventarle una fila fantasma en `users`.
+    """
+
+    __tablename__ = "handles"
+
+    handle = Column(String(30), primary_key=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=True, index=True)
+    player_id = Column(Integer, ForeignKey("game_players.id"), nullable=True, index=True)
+    # "active" = es el @ que esta persona usa hoy. "retired" = lo soltó, pero
+    # sigue siendo suyo y sigue resolviendo sus links.
+    status = Column(String(10), nullable=False, default="active", server_default="active")
+    claimed_at = Column(DateTime, nullable=True, default=datetime.utcnow)
+    released_at = Column(DateTime, nullable=True)
+
+    __table_args__ = (
+        # Un handle sin dueño no significa nada: sería un nombre reservado que
+        # nadie puede reclamar y que nada libera.
+        CheckConstraint(
+            "user_id IS NOT NULL OR player_id IS NOT NULL", name="ck_handles_owner"
+        ),
+        CheckConstraint("status IN ('active','retired')", name="ck_handles_status"),
+        # Un solo handle ACTIVO por dueño, que es lo que hace de esto un registro
+        # y no una lista. Parciales porque los retirados sí se acumulan: una
+        # persona puede haber soltado cinco @ y todos siguen siendo suyos.
+        Index(
+            "uq_handles_active_user",
+            "user_id",
+            unique=True,
+            sqlite_where=text("status = 'active' AND user_id IS NOT NULL"),
+            postgresql_where=text("status = 'active' AND user_id IS NOT NULL"),
+        ),
+        Index(
+            "uq_handles_active_player",
+            "player_id",
+            unique=True,
+            sqlite_where=text("status = 'active' AND player_id IS NOT NULL"),
+            postgresql_where=text("status = 'active' AND player_id IS NOT NULL"),
+        ),
+    )
 
 
 class GameAliasHistory(Base):
@@ -975,6 +1125,11 @@ class GameBoost(Base):
 
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
     expires_at = Column(DateTime, nullable=False, index=True)
+    # Cuándo se le contó al donante qué hizo su empuje. El mail sale al
+    # VENCER, que es cuando el número está cerrado, así que esta columna es el
+    # guard de "ya se lo contamos": sin ella, cada corrida del worker le
+    # mandaría el mismo mail otra vez.
+    email_sent_at = Column(DateTime, nullable=True)
 
 
 class GameEvent(Base):

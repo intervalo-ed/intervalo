@@ -370,7 +370,10 @@ def _university_standings(db: Session, min_players: int) -> list[tuple[str, floa
         .filter(
             GamePlayer.university.isnot(None),
             GamePlayer.university != "",
-            GamePlayer.xp > 0,
+            # El mismo filtro de actividad que el ranking (router.RESOLVIO_ACA);
+            # no se importa para no crear un ciclo events ↔ router. Si se
+            # separan, el feed cuenta sobrepasos que la tabla no muestra.
+            GamePlayer.exercises_correct > 0,
             GamePlayer.n_updates >= elo.RAMP_UPDATES,
         )
         .group_by(GamePlayer.university)

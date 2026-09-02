@@ -25,17 +25,20 @@ from .xp import (
     STREAK_TIERS,
     StreakInfo,
     XP_BY_ATTEMPT,
+    MAX_TOTAL_MULTIPLIER,
     XP_LEARNING_CORRECT,
     XP_PRACTICE_CORRECT,
     XP_PRACTICE_WRONG,
     XP_STREAK_BONUS,
     XP_STREAK_INTERVAL,
     difficulty_multiplier,
+    effective_multiplier,
     practice_xp_split,
     review_xp_base,
     review_xp_split,
     streak_info,
     streak_multiplier,
+    xp_from_boost,
 )
 
 __all__ = [
@@ -50,6 +53,7 @@ __all__ = [
     "UnitKey",
     "DIFFICULTY_MIN_SAMPLES",
     "DIFFICULTY_WINDOW",
+    "MAX_TOTAL_MULTIPLIER",
     "STREAK_RESET_AFTER_DAYS",
     "STREAK_TIERS",
     "StreakInfo",
@@ -61,6 +65,7 @@ __all__ = [
     "XP_STREAK_INTERVAL",
     "build_session",
     "difficulty_multiplier",
+    "effective_multiplier",
     "elo_predict",
     "elo_sigmoid",
     "elo_update",
@@ -76,4 +81,5 @@ __all__ = [
     "streak_info",
     "streak_multiplier",
     "update_unit_state",
+    "xp_from_boost",
 ]

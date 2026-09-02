@@ -336,14 +336,25 @@ def _podium_gap(
 def university_weekly_xp(
     db: DBSession, university: str, since: datetime, *, cache: _TickCache | None = None
 ) -> int:
-    """Suma de Answer.xp_earned para usuarios de esa universidad, respondidas
-    desde `since`. Reusa el mismo mapeo Enrollment→university que
-    GET /leaderboard/universities."""
+    """XP que esa universidad se ganó estudiando desde `since`, SIN el empuje.
+
+    Reusa el mismo mapeo Enrollment→university que GET /leaderboard/universities.
+
+    Se descuenta `xp_from_boost` porque esto alimenta las push que comparan
+    universidades ("tu universidad está a N XP de alcanzar a la otra") y el
+    empuje de cafecito dura un día: dos compañeros que resuelven lo mismo, uno
+    dentro y otro fuera de la ventana del empuje, aportan distinto. Sin
+    descontarlo, la notificación anuncia un salto que nadie resolvió, y quien
+    entra a ver no encuentra nada que lo explique.
+
+    El ranking acumulado sí incluye el empuje, y está bien: ahí el empuje es
+    parte de lo que se ganó. Lo que no se sostiene es meterlo en una ventana
+    temporal, donde compite contra semanas que no lo tuvieron."""
     user_ids = _university_user_ids(db, university, cache=cache)
     if not user_ids:
         return 0
     return (
-        db.query(func.sum(Answer.xp_earned))
+        db.query(func.sum(Answer.xp_earned - Answer.xp_from_boost))
         .filter(Answer.user_id.in_(user_ids), Answer.answered_at >= since)
         .scalar()
         or 0
@@ -365,7 +376,12 @@ def _is_top_contributor(
         db.query(Answer.user_id)
         .filter(Answer.user_id.in_(user_ids), Answer.answered_at >= since)
         .group_by(Answer.user_id)
-        .order_by(func.sum(Answer.xp_earned).desc())
+        # Sin el empuje, por el mismo motivo que university_weekly_xp: quien
+        # estudió durante un cafecito no "aportó más" que su compañero, le tocó
+        # un multiplicador. Ordenar por el total con empuje puesto convierte el
+        # "fuiste de los que más aportó" en un premio por haber jugado a la hora
+        # correcta.
+        .order_by(func.sum(Answer.xp_earned - Answer.xp_from_boost).desc())
         .limit(TOP_CONTRIBUTOR_N)
         .all()
     )
@@ -525,6 +541,238 @@ def _personal_best(
 
 def _floor_to_15(minute: int) -> int:
     return (minute // 15) * 15
+
+
+# Cuántas notificaciones DE EVENTO puede recibir alguien por día, además de su
+# notificación normal. El total queda en 3: una del horario elegido, hasta dos
+# porque pasó algo.
+#
+# Dos y no una: los dos eventos que existen —un recluta que empezó a generar XP
+# y un cafecito para tu universidad— son noticias distintas y las dos valen. Y no
+# tres, porque a partir de ahí la app pasa a interrumpir más de lo que informa.
+MAX_EVENTOS_POR_DIA = 2
+
+
+def claim_event_slot(db: DBSession, user: User, local_today: date) -> bool:
+    """¿Le queda cupo de evento a esta persona hoy? Si sí, lo consume. No commitea.
+
+    Claim-on-read, el mismo idiom que `due_notifications` usa para la normal, y
+    por el mismo motivo: sin consumir el cupo en la misma transacción que decide
+    mandar, un tick reintentado o dos corriendo solapados mandan el mismo aviso
+    dos veces.
+
+    El contador se reinicia comparando la FECHA guardada contra el día local de
+    esta persona, así que no hace falta ningún job que lo limpie a medianoche —y
+    cada quien tiene su huso, así que "medianoche" no es un instante único.
+    """
+    if user.notify_events_on != local_today:
+        user.notify_events_on = local_today
+        user.notify_events_count = 0
+    if (user.notify_events_count or 0) >= MAX_EVENTOS_POR_DIA:
+        return False
+    user.notify_events_count = (user.notify_events_count or 0) + 1
+    return True
+
+
+def en_horario_de_avisos(user: User, ahora_utc: datetime | None = None) -> bool:
+    """¿Es una hora decente para interrumpir a esta persona?
+
+    Los avisos de evento son REACTIVOS: se disparan cuando alguien dona o cuando
+    un recluta estudia, y eso puede pasar a las cuatro de la mañana. Sin esta
+    guarda, la app despierta gente.
+
+    Se usa la misma franja que la persona ya eligió para su notificación normal,
+    con una ventana de un par de horas: es la hora en la que dijo que quiere que
+    le hablen. Con empujes de 24 horas, retener un aviso de cafecito hasta esa
+    franja no le saca sentido — cosa que con media hora era imposible.
+    """
+    if not user.notify_time:
+        return False
+    try:
+        tz = ZoneInfo(user.notify_timezone or "UTC")
+    except ZoneInfoNotFoundError:
+        return False
+    local = (ahora_utc or datetime.now(tz=ZoneInfo("UTC"))).astimezone(tz)
+    elegida = int(user.notify_time.split(":")[0])
+    return elegida <= local.hour < elegida + VENTANA_AVISOS_H
+
+
+# Cuántas horas después del horario elegido se sigue considerando "su momento".
+# Dos: lo suficiente para que un evento que pasó justo antes no se pierda, y lo
+# bastante corto como para que no termine llegando de noche.
+VENTANA_AVISOS_H = 2
+
+
+# Cuánta XP tiene que haberte generado un recluta para que valga interrumpirte.
+#
+# Diez. Por debajo, el aviso dice "te generó 1 XP" y eso se lee como que la
+# mecánica no sirve — justo lo contrario de lo que se quiere contar. Diez XP para
+# el reclutador significan cien del recluta, o sea que arrancó de verdad.
+MIN_XP_RECLUTA_PARA_AVISAR = 10
+
+
+def _ya_avisado_hoy(db: DBSession, user_id: int, category: str, desde: datetime) -> bool:
+    """¿A esta persona ya se le mandó un aviso de esta categoría desde `desde`?
+
+    Se apoya en `notification_sends`, que ya es un historial append-only con
+    categoría y fecha, en vez de estrenar una columna de estado. Un aviso de
+    evento no necesita más idempotencia que esta: la pregunta es siempre "¿ya se
+    lo dije hoy?".
+    """
+    return (
+        db.query(NotificationSend.id)
+        .filter(
+            NotificationSend.user_id == user_id,
+            NotificationSend.category == category,
+            NotificationSend.sent_at >= desde,
+        )
+        .first()
+        is not None
+    )
+
+
+def due_event_notifications(db: DBSession, force: bool = False) -> list[dict]:
+    """Los avisos de EVENTO listos para mandar, ya reclamados.
+
+    Misma forma de salida que `due_notifications`, así el notifier no tiene que
+    distinguirlos. Lo que cambia es por qué salen: la normal sale porque llegó su
+    horario, estas salen porque pasó algo.
+
+    Tres guardas, en este orden, y ninguna es opcional:
+
+      1. El horario. Son reactivas y pueden dispararse a las cuatro de la mañana.
+      2. La idempotencia por categoría y día, contra `notification_sends`.
+      3. El cupo, que se consume al concederse (claim-on-read) para que un tick
+         reintentado no mande dos veces.
+    """
+    import notification_copy as copy_mod
+    import xp_boost
+    from models import GameBoost, GamePlayer
+
+    now_utc = datetime.now(tz=ZoneInfo("UTC"))
+    resultado: list[dict] = []
+
+    candidatos = (
+        db.query(User)
+        .filter(User.notify_enabled.is_(True), User.notify_time.isnot(None))
+        .all()
+    )
+
+    for user in candidatos:
+        if not force and not en_horario_de_avisos(user, now_utc):
+            continue
+        try:
+            tz = ZoneInfo(user.notify_timezone or "UTC")
+        except ZoneInfoNotFoundError:
+            continue
+        local_today = now_utc.astimezone(tz).date()
+        # El "hoy" de esta persona en UTC, para comparar contra `sent_at`.
+        desde = now_utc - timedelta(hours=24)
+
+        subs = (
+            db.query(PushSubscription)
+            .filter(PushSubscription.user_id == user.id, PushSubscription.course_id == COURSE_ID)
+            .all()
+        )
+        if not subs:
+            continue
+
+        for category, context in _eventos_pendientes(db, user, desde):
+            if _ya_avisado_hoy(db, user.id, category, desde):
+                continue
+            variant = copy_mod.choose_event_variant(category, context)
+            if variant is None:
+                continue
+            if not claim_event_slot(db, user, local_today):
+                break  # sin cupo: los eventos que queden esperan a mañana
+            title, body = copy_mod.render(category, variant, context)
+            send = NotificationSend(
+                user_id=user.id,
+                course_id=COURSE_ID,
+                category=category,
+                variant_key=variant.key,
+                title=title,
+                body=body,
+            )
+            db.add(send)
+            db.flush()
+            resultado.append(
+                {
+                    "user_id": user.id,
+                    "send_id": send.id,
+                    "title": title,
+                    "body": body,
+                    "subscriptions": [
+                        {"endpoint": sc.endpoint, "p256dh": sc.p256dh, "auth": sc.auth}
+                        for sc in subs
+                    ],
+                }
+            )
+
+    db.commit()
+    return resultado
+
+
+def _eventos_pendientes(
+    db: DBSession, user: User, desde: datetime
+) -> list[tuple[str, dict]]:
+    """Qué le pasó a esta persona que valga la pena contarle. Prioridad primero.
+
+    Reclutas antes que cafecito: lo primero es XP que YA ganaste, lo segundo una
+    oportunidad que todavía tenés que aprovechar. Con cupo para uno solo, gana la
+    noticia.
+    """
+    import xp_boost
+    from models import GamePlayer
+
+    eventos: list[tuple[str, dict]] = []
+
+    # ── Reclutas: alguien que trajiste generó XP y ya pasó el umbral ──────────
+    propio = db.query(GamePlayer).filter(GamePlayer.user_id == user.id).first()
+    if propio is not None:
+        reclutas = (
+            db.query(User)
+            .filter(
+                User.referred_by_player_id == propio.id,
+                User.referral_xp_given >= MIN_XP_RECLUTA_PARA_AVISAR,
+            )
+            .all()
+        )
+        if reclutas:
+            total = sum(r.referral_xp_given for r in reclutas)
+            ctx = {
+                "recruit_count": len(reclutas),
+                "recruit_xp": total,
+                "recruit_total": total,
+            }
+            if len(reclutas) == 1:
+                ctx["recruit_alias"] = reclutas[0].username
+                ctx["recruit_first"] = True
+            eventos.append(("recruit", ctx))
+
+    # ── Cafecito: hay un empuje corriendo que le toca ─────────────────────────
+    tramos = xp_boost.tramos_de_usuario(db, user.id)
+    mult = xp_boost.multiplier_for_user(db, user.id)
+    if tramos and mult > 1.0:
+        # El tramo dirigido si lo hay; si no, el global. El donante solo se
+        # nombra cuando el empuje TIENE nombre — Cafecito no dice quién donó, y
+        # decirle "@fulano invitó" a quien no fue es la única frase del producto
+        # que puede hacer sentir estafado a quien sí pagó.
+        dirigido = next((t for t in tramos if t.university), None)
+        elegido = dirigido or tramos[0]
+        eventos.append(
+            (
+                "cafecito",
+                {
+                    "donor_name": elegido.donor_name if elegido.university else None,
+                    "university": elegido.university,
+                    "boost_multiplier": mult,
+                    "boost_hours_left": max(1, min(t.expires_in_seconds for t in tramos) // 3600),
+                },
+            )
+        )
+
+    return eventos
 
 
 def due_notifications(db: DBSession, force: bool = False) -> list[dict]:

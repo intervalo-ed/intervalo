@@ -20,6 +20,7 @@ from sqlalchemy.orm import Session, load_only
 
 from models import GameAttempt, GameCtaEvent, GameExercise, GamePlayer, User
 from universities import UNIVERSITIES as _UNIVERSIDADES
+import handles
 from usernames import normalize_username, validate_username
 
 from . import boosts
@@ -186,14 +187,33 @@ def _scope_filters(university: str | None, career: str | None) -> list:
     return filters
 
 
+# Quién ENTRA al ranking: quien resolvió al menos una derivada acá.
+#
+# Antes el filtro era `xp > 0`, y eso NO prueba haber resuelto nada:
+# `referrals.acreditar` le suma XP al reclutador con un UPDATE crudo, así que
+# alguien podía figurar en la tabla sin haber derivado nunca. Con los reclutas
+# cruzando de producto el agujero se agranda —quien solo estudia en Intervalo
+# clásico le paga XP de juego a quien lo trajo—, así que arreglarlo es parte del
+# cruce y no un extra.
+#
+# Los cinco lugares que lo usan tienen que moverse JUNTOS. Si el que cuenta
+# cuántos van delante no filtra igual que el que arma la lista, la ventana
+# `around_me` se centra en una fila que no es la propia, y el síntoma es "a
+# veces mi fila aparece corrida", que nadie reporta como bug.
+#
+# Los sembrados NO se excluyen acá, y es a propósito: pueblan el ranking para
+# que el primero en llegar tenga a quién escalar (ver game/schemas.py).
+RESOLVIO_ACA = GamePlayer.exercises_correct > 0
+
+
 def _rank_of(db: Session, player: GamePlayer, scope: list | None = None) -> int:
     """Puesto 1-based en el orden canónico (xp DESC, id ASC). Los que nunca
-    sumaron XP no compiten (espejo del leaderboard principal)."""
+    resolvieron una derivada no compiten (espejo del leaderboard principal)."""
     ahead = (
         db.query(GamePlayer.id)
         .filter(
             *(scope or []),
-            GamePlayer.xp > 0,
+            RESOLVIO_ACA,
             sa_or(
                 GamePlayer.xp > player.xp,
                 sa_and(GamePlayer.xp == player.xp, GamePlayer.id < player.id),
@@ -236,7 +256,7 @@ def _rank_of_elo(db: Session, player: GamePlayer, scope: list | None = None) -> 
         db.query(GamePlayer.id)
         .filter(
             *(scope or []),
-            GamePlayer.xp > 0,
+            RESOLVIO_ACA,
             sa_or(
                 _CALIFICADO > mio,
                 sa_and(
@@ -410,14 +430,20 @@ def patch_me(
         ok, reason = validate_username(alias)
         if not ok:
             raise HTTPException(status_code=422, detail=reason)
-        if alias != player.alias and alias_taken(db, alias):
-            raise HTTPException(status_code=409, detail="Ese @ ya está tomado.")
         if alias != player.alias:
             # El @ que se deja sigue apuntando acá. Es lo que mantiene vivos los
             # links de reclutamiento ya repartidos, que si no morirían justo en
-            # el momento de registrarse (ver models.GameAliasHistory).
+            # el momento de registrarse. Lo hace `handles.reclamar`, que además
+            # verifica contra TODO el namespace —incluidos los usernames de
+            # Intervalo, que este endpoint no miraba— y baja el @ nuevo a
+            # `game_players.alias`, que pasa a ser caché.
             retire_alias(db, player.alias, player.id)
-        player.alias = alias
+            try:
+                handles.reclamar(
+                    db, alias, user_id=player.user_id, player_id=player.id
+                )
+            except handles.HandleTomado:
+                raise HTTPException(status_code=409, detail="Ese @ ya está tomado.")
         if free_edit:
             player.alias_is_generated = False
 
@@ -429,7 +455,15 @@ def patch_me(
         # Solo se marca la MUDANZA, no la primera carga: cargar la universidad por
         # primera vez no puede costarte el empuje que está corriendo, pero
         # mudarte a la universidad impulsada sí (ver boosts.applies_to).
-        if player.university is not None and nueva != player.university:
+        #
+        # "Primera carga" es no tener universidad Y no haberla tenido nunca. La
+        # condición anterior miraba solo `player.university is not None`, y eso
+        # dejaba abierto el camino de vaciar y volver a cargar: dos PATCH
+        # (university="" y después la impulsada) devolvían el candado a NULL y
+        # con él el empuje entero. Con empujes de un día el premio por hacerlo
+        # pasó de media hora a 24 h.
+        primera_carga = player.university is None and player.university_set_at is None
+        if not primera_carga and nueva != player.university:
             player.university_set_at = datetime.utcnow()
         player.university = nueva
     if body.career is not None:
@@ -1334,7 +1368,7 @@ def game_leaderboard_summary(
                 0.0,
             ),
         )
-        .filter(*scope, GamePlayer.xp > 0)
+        .filter(*scope, RESOLVIO_ACA)
         .one()
     )
     universities = [
@@ -1404,7 +1438,7 @@ def game_university_leaderboard(
     filters = [
         GamePlayer.university.isnot(None),
         GamePlayer.university != "",
-        GamePlayer.xp > 0,
+        RESOLVIO_ACA,
         *_scope_filters(university, career),
     ]
     grouped = (
@@ -1499,7 +1533,7 @@ def game_leaderboard(
     """
     por_elo = sort == "elo"
     scope = _scope_filters(university, career)
-    visible = sa_or(GamePlayer.xp > 0, GamePlayer.id == player.id)
+    visible = sa_or(RESOLVIO_ACA, GamePlayer.id == player.id)
 
     total_count = db.query(GamePlayer.id).filter(*scope, visible).count()
     # Con un filtro puesto el jugador puede quedar fuera del scope (filtró por
@@ -1533,6 +1567,10 @@ def game_leaderboard(
                 GamePlayer.id,
                 GamePlayer.alias,
                 GamePlayer.xp,
+                # Se lee más abajo para armar la fila, y sin declararla acá cada
+                # una de las hasta 200 filas disparaba un refresh perezoso para
+                # traer una columna que ya podía venir en la misma consulta.
+                GamePlayer.exercises_correct,
                 GamePlayer.university,
                 GamePlayer.career,
                 GamePlayer.theta,

@@ -18,6 +18,7 @@ import unicodedata
 
 from sqlalchemy.orm import Session
 
+import handles
 from models import User
 
 USERNAME_MIN = 3
@@ -91,7 +92,11 @@ def assign_unique_username(db: Session, full_name: str) -> str:
     """
 
     def _taken(u: str) -> bool:
-        return db.query(User.id).filter(User.username == u).first() is not None
+        # Contra el REGISTRO y no contra `users`: un nombre puede estar tomado
+        # por un jugador del minijuego —invitado incluido— o estar retirado pero
+        # todavía resolviendo links `?r=`. Mirar solo `users` entregaba nombres
+        # que ya eran de otra persona (ver backend/handles.py).
+        return handles.tomado(db, u)
 
     candidates = generate_candidates(full_name) or ["usuario"]
 

@@ -132,12 +132,22 @@ export function ReclutasPanel({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [trigger])
 
-  const reclutar = () => {
+  const registrarReclutamiento = () => {
     sfx.select()
     cta("share", "click", {
       placement: trigger,
       props: { reclutas: reclutas.data?.entries.length ?? 0 },
     })
+  }
+
+  // El botón es un <a> de verdad, igual que el del cafecito y por el mismo
+  // motivo: wa.me es otro origen y tiene que salir de la PWA instalada. Desde
+  // una ventana standalone en iOS, `window.open` es inconsistente según la
+  // versión; un anchor clickeado por la persona abre WhatsApp parejo en los dos
+  // sistemas. El atajo de teclado no tiene anchor, así que ahí sí se abre a
+  // mano, sin ningún `await` en el medio.
+  const reclutarConTeclado = () => {
+    registrarReclutamiento()
     abrirWhatsapp(player?.alias)
   }
 
@@ -145,9 +155,9 @@ export function ReclutasPanel({
   // ~380 ms y durante ese rato la diapo que se va sigue montada junto a la que
   // entra, así que sin esto un Enter en ese instante lo escuchan las dos y se
   // piden DOS derivadas.
-  const reclutarRef = useRef(reclutar)
+  const reclutarRef = useRef(reclutarConTeclado)
   useEffect(() => {
-    reclutarRef.current = reclutar
+    reclutarRef.current = reclutarConTeclado
   })
   const seguidoRef = useRef(false)
   useEffect(() => {
@@ -265,10 +275,14 @@ export function ReclutasPanel({
         )}
 
         <Salida slot={slotAccion}>
+          {/* La pieza compartida con el CTA del ranking en vista Reclutas. Es
+              el mismo anchor de siempre —el que sale de la PWA instalada—, con
+              la telemetría de acá: la diapo la comparte con su atajo de teclado
+              y anotarla dos veces contaría dos clicks por uno. */}
           <ReclutarButton
             alias={player?.alias}
             placement={trigger}
-            telemetryProps={{ reclutas: reclutas.data?.entries.length ?? 0 }}
+            onClick={registrarReclutamiento}
             className={
               slotAccion
                 ? CLASE_ACCION_EN_EL_PIE

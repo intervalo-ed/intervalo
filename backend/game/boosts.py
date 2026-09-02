@@ -1,10 +1,14 @@
 """Empujes de XP por universidad, pagados con cafecitos.
 
-Quien invita un cafecito multiplica el XP de TODA su universidad durante media
-hora. El giro a la universidad —en vez de un multiplicador personal— es lo que
-evita que donar sea comprar puesto: si el empuje le toca a todos los de una
+Quien invita un cafecito multiplica el XP de TODA su universidad durante un día.
+El giro a la universidad —en vez de un multiplicador personal— es lo que evita
+que donar sea comprar puesto: si el empuje le toca a todos los de una
 universidad, adentro de esa universidad el orden no se mueve, y lo que queda es
 la pelea entre universidades.
+
+El empuje ya NO es solo del minijuego: la misma tabla la lee Intervalo clásico
+(ver backend/xp_boost.py), así que una donación hecha jugando a derivadas
+multiplica también el XP de estudio de esa universidad, y al revés.
 
 Reglas, todas acá:
 
@@ -34,17 +38,19 @@ from universities import UNIVERSITIES, canonical_university
 
 from . import events, simulation
 
-# Media hora: alcanza para que la persona que donó vea el efecto en su propia
-# sesión, y es corto como para que el cartel con la cuenta regresiva genere
-# urgencia en los demás ("quedan 12 minutos").
-BOOST_MINUTES = 30
+# Un día entero. Antes era media hora, elegida para que la cuenta regresiva del
+# cartel generara urgencia ("quedan 12 minutos"); con el empuje valiendo también
+# en Intervalo clásico esa urgencia dejó de ser lo que más importa. Lo que
+# importa ahora es que el empuje alcance a la sesión de estudio de la persona,
+# que puede caer en cualquier momento del día y no justo cuando alguien donó.
+BOOST_HOURS = 24
 
-# La hora entera es SOLO para quien llega al tope del multiplicador. Es el único
-# escalón, y ese es el punto: una escala de minutos proporcional a los cafecitos
-# (15, 30, 45…) hace que cada paso del slider mueva dos números a la vez, y con
-# dos premios que crecen juntos ninguno de los dos se lee. Con un solo escalón,
-# el slider tiene un lugar al que llegar.
-BOOST_MINUTES_MAX = 60
+# Los dos días son SOLO para quien llega al tope del multiplicador. Es el único
+# escalón, y ese es el punto: una escala proporcional a los cafecitos (12, 24,
+# 36…) hace que cada paso del slider mueva dos números a la vez, y con dos
+# premios que crecen juntos ninguno de los dos se lee. Con un solo escalón, el
+# slider tiene un lugar al que llegar.
+BOOST_HOURS_MAX = 48
 
 # Cada cafecito suma un décimo al multiplicador.
 CAFECITO_STEP = 0.1
@@ -90,14 +96,14 @@ FUENTE_MAIL = "mp:"
 VENTANA_MISMO_PAGO_S = 180
 
 
-def minutes_for(cafecitos: int) -> int:
+def horas_de(cafecitos: int) -> int:
     """Cuánto dura el empuje de UNA donación.
 
-    Media hora, salvo que la donación llegue al tope del multiplicador: ahí, y
-    solo ahí, una hora. El espejo en el front es `minutesFor` de
+    Un día, salvo que la donación llegue al tope del multiplicador: ahí, y solo
+    ahí, dos. El espejo en el front es `horasDe` de
     web/src/app/derivadas/cafecito-panel.tsx, que es lo que dibuja el slider.
     """
-    return BOOST_MINUTES_MAX if cafecitos >= MAX_CAFECITOS_PER_DONATION else BOOST_MINUTES
+    return BOOST_HOURS_MAX if cafecitos >= MAX_CAFECITOS_PER_DONATION else BOOST_HOURS
 
 
 # Siglas del catálogo, para reconocerlas dentro del mensaje de una donación.
@@ -106,7 +112,13 @@ _KNOWN_SIGLAS = {sigla for sigla, _ in UNIVERSITIES}
 
 @dataclass(frozen=True)
 class BoostView:
-    """Un empuje vigente, ya agregado por universidad. `university=None` = global."""
+    """Un empuje vigente, ya agregado por universidad. `university=None` = global.
+
+    `multiplier` y `cafecitos` NO son dos vistas del mismo número: el primero ya
+    tiene aplicado el tope por donación (fila por fila, ver `_CAPPED`) y el
+    segundo es el total crudo. Con una donación de 30 valen ×2,0 y 30. Mezclarlos
+    hacía que el chip prometiera un multiplicador que la respuesta no pagaba.
+    """
 
     university: str | None
     multiplier: float
@@ -187,6 +199,15 @@ def global_cafecitos(db: Session, now: datetime | None = None) -> int:
     return _cafecitos(db, GameBoost.university.is_(None), now or _now())
 
 
+def cafecitos_de(db: Session, university: str, now: datetime | None = None) -> int:
+    """Los dirigidos a UNA universidad, ya topeados fila por fila.
+
+    Pública porque Intervalo clásico arma el mismo total desde otra tabla (ver
+    backend/xp_boost.py) y no puede depender de `_cafecitos`, que es el detalle
+    de cómo se aplica el tope."""
+    return _cafecitos(db, GameBoost.university == university, now or _now())
+
+
 def multiplier_for(db: Session, university: str | None, now: datetime | None = None) -> float:
     """Multiplicador vigente de una universidad, con lo global ya sumado.
 
@@ -203,31 +224,46 @@ def multiplier_for(db: Session, university: str | None, now: datetime | None = N
     return multiplier_from_cafecitos(total)
 
 
-def applies_to(player: GamePlayer, db: Session, now: datetime | None = None) -> bool:
-    """¿Le corresponde a este jugador el empuje de su universidad?
+def aplica_el_empuje(
+    university: str | None,
+    set_at: datetime | None,
+    db: Session,
+    now: datetime | None = None,
+) -> bool:
+    """¿Le corresponde el empuje de esa universidad a quien se mudó en `set_at`?
 
     No, si se cambió de universidad DESPUÉS de que arrancara el empuje más viejo
     que sigue vigente. Sin este candado, cada empuje se llenaría de gente que se
-    muda por media hora a la universidad impulsada y la rivalidad entre universidades
+    muda por un día a la universidad impulsada y la rivalidad entre universidades
     —que es todo el punto— se muere en una tarde.
 
-    Cargar la universidad por primera vez no cuenta como mudarse: `university_set_at`
-    queda en NULL en ese caso (ver el PATCH de perfil en router.py), así que
-    quien recién se suma y elige su universidad cobra desde el primer momento.
+    Cargar la universidad por primera vez no cuenta como mudarse: el sello queda
+    en NULL en ese caso, así que quien recién se suma y elige su universidad
+    cobra desde el primer momento.
+
+    Toma los dos campos sueltos y no una fila para que la usen los DOS productos:
+    en el minijuego salen de `game_players`, en Intervalo clásico de
+    `enrollments` (ver backend/xp_boost.py). El candado tiene que ser el mismo
+    en los dos lados o mudarse por un lado paga el empuje del otro.
     """
-    if not player.university or player.university_set_at is None:
+    if not university or set_at is None:
         return True
     now = now or _now()
-    # Solo los DIRIGIDOS a su universidad: un empuje global no tiene a dónde
+    # Solo los DIRIGIDOS a esa universidad: un empuje global no tiene a dónde
     # mudarse, así que el candado no le aplica.
     first_started = (
         db.query(func.min(GameBoost.created_at))
-        .filter(GameBoost.university == player.university, GameBoost.expires_at > now)
+        .filter(GameBoost.university == university, GameBoost.expires_at > now)
         .scalar()
     )
     if first_started is None:
         return True
-    return player.university_set_at < first_started
+    return set_at < first_started
+
+
+def applies_to(player: GamePlayer, db: Session, now: datetime | None = None) -> bool:
+    """El candado, para un jugador del minijuego. Ver `aplica_el_empuje`."""
+    return aplica_el_empuje(player.university, player.university_set_at, db, now)
 
 
 def multiplier_for_player(
@@ -261,9 +297,20 @@ def active_boosts(db: Session, now: datetime | None = None) -> list[BoostView]:
     by_uni: dict[str | None, dict] = {}
     for row in rows:
         agg = by_uni.setdefault(
-            row.university, {"cafecitos": 0, "donor_name": None, "expires_at": row.expires_at}
+            row.university,
+            {"cafecitos": 0, "topeados": 0, "donor_name": None, "expires_at": row.expires_at},
         )
+        # DOS sumas, y la diferencia entre las dos es el bug que esto arregla.
+        #
+        # `cafecitos` es el total crudo, que es lo que el cartel cuenta y lo que
+        # boosts.py sanciona más arriba: la donación fue real y el feed la cuenta
+        # entera. Pero el MULTIPLICADOR no se calcula con eso, porque el tope por
+        # donación se aplica fila por fila (ver `_CAPPED`), así que una donación
+        # de 30 anunciaba ×3,0 mientras la respuesta pagaba ×2,0 — y el feed, que
+        # sale de `multiplier_for`, decía ×2,0 al mismo tiempo que el chip decía
+        # ×3,0.
         agg["cafecitos"] += row.cafecitos
+        agg["topeados"] += min(row.cafecitos, MAX_CAFECITOS_PER_DONATION)
         if row.donor_name:
             agg["donor_name"] = row.donor_name
         # El cartel muestra un solo reloj por universidad: el del empuje que dura más.
@@ -272,7 +319,7 @@ def active_boosts(db: Session, now: datetime | None = None) -> list[BoostView]:
     views = [
         BoostView(
             university=uni,
-            multiplier=multiplier_from_cafecitos(agg["cafecitos"]),
+            multiplier=multiplier_from_cafecitos(agg["topeados"]),
             cafecitos=agg["cafecitos"],
             donor_name=agg["donor_name"],
             expires_in_seconds=max(0, int((agg["expires_at"] - now).total_seconds())),
@@ -320,8 +367,12 @@ def grant(
             return None
 
     now = now or _now()
-    if minutes is None:
-        minutes = minutes_for(cafecitos)
+    # Dos unidades, y por eso la rama explícita: la duración normal se cuenta en
+    # HORAS, pero `minutes` sigue existiendo como override de operaciones
+    # (grant_game_boost.py --minutes, que es como se prueba un empuje corto sin
+    # esperar un día). Colapsar las dos en una sola cuenta convertía un
+    # `--minutes 3` en un empuje de 24 h.
+    dura = timedelta(minutes=minutes) if minutes is not None else timedelta(hours=horas_de(cafecitos))
     boost = GameBoost(
         university=uni,
         cafecitos=cafecitos,
@@ -329,7 +380,7 @@ def grant(
         source=source,
         external_ref=external_ref,
         created_at=now,
-        expires_at=now + timedelta(minutes=minutes),
+        expires_at=now + dura,
     )
     db.add(boost)
     # El evento sale con el multiplicador YA acumulado, no con el de esta

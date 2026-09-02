@@ -19,6 +19,9 @@ from database import SessionLocal
 from models import GamePlayer, User
 
 from . import keyboard
+import handles
+import referrals as referrals_top
+
 from .aliases import alias_for_user, generate_guest_alias, retire_alias
 
 _CREATE_ATTEMPTS = 3
@@ -78,6 +81,13 @@ def create_guest_player(db: Session) -> GamePlayer:
                 last_seen_at=datetime.utcnow(),
             )
             db.add(player)
+            db.flush()
+            # El @ del invitado se anota en el registro en la MISMA transacción
+            # que la fila. Si se hiciera después, entre las dos otro alta podría
+            # llevarse el nombre y quedarían dos personas con el mismo @, que es
+            # justo lo que el registro existe para impedir. El IntegrityError del
+            # índice único lo agarra el `except` de abajo y reintenta con otro.
+            handles.reclamar(db, player.alias, player_id=player.id)
             db.commit()
             db.refresh(player)
             return player
@@ -97,6 +107,11 @@ def create_player_for_user(db: Session, user: User) -> GamePlayer:
                 last_seen_at=datetime.utcnow(),
             )
             db.add(player)
+            db.flush()
+            # Estrena jugador pero la persona ya existe: `reclamar` reconoce que
+            # el @ es suyo si ya lo tenía como username y le suma la cara de
+            # jugador a la MISMA fila, en vez de darle un segundo nombre.
+            handles.reclamar(db, player.alias, user_id=user.id, player_id=player.id)
             db.commit()
             db.refresh(player)
             return player
@@ -126,6 +141,23 @@ def link_guest_to_user(db: Session, guest: GamePlayer, user: User) -> GamePlayer
     existing = db.query(GamePlayer).filter(GamePlayer.user_id == user.id).first()
     if existing is None:
         guest.user_id = user.id
+        db.flush()
+        # Si esta persona se había anotado a sí misma como recluta —jugó de
+        # invitada, compartió su link y lo abrió ella— la arista queda apuntando
+        # al jugador que ACABA de volverse suyo. Limpiarla acá es la primera de
+        # las tres guardas; la de runtime en `acreditar_clasico` es la que cierra
+        # el caso incluso para aristas creadas antes de que esto existiera.
+        if user.referred_by_player_id == guest.id:
+            user.referred_by_player_id = None
+        # Y cobra lo que ya había generado sin tener dónde: es el mejor argumento
+        # para registrarse, y por eso se paga en el mismo momento.
+        referrals_top.saldar_deuda_de_clasico(db, guest, user.id)
+        # Las dos caras de la persona pasan a ser UNA en el registro, y gana el @
+        # del JUEGO: es el que vio en pantalla, el que compartió y bajo el que la
+        # conocen en el ranking. El username con el que Clerk dio de alta la
+        # cuenta se retira, pero no se pierde — sigue siendo suyo y sus links
+        # siguen resolviendo (ver backend/handles.py :: vincular).
+        handles.vincular(db, user_id=user.id, player_id=guest.id)
         db.commit()
         db.refresh(guest)
         return guest
@@ -134,6 +166,7 @@ def link_guest_to_user(db: Session, guest: GamePlayer, user: User) -> GamePlayer
     # esa fila; se suman contadores y gana el Elo con más evidencia.
     from models import (  # import local, evita ciclo
         GameAliasHistory,
+        Handle,
         GameAttempt,
         GameBoostIntent,
         GameCtaEvent,
@@ -210,6 +243,30 @@ def link_guest_to_user(db: Session, guest: GamePlayer, user: User) -> GamePlayer
     db.query(GamePlayer).filter(GamePlayer.referred_by == guest.id).update(
         {"referred_by": existing.id}, synchronize_session=False
     )
+    # Lo mismo del lado de clásico: los usuarios que entraron por el link del
+    # invitado pasan a apuntar a la fila que sobrevive.
+    #
+    # El `!= user.id` no es paranoia: sin él, alguien que se anotó a sí mismo con
+    # su propio link queda apuntándose, y desde ahí cobra 10% de su propia XP
+    # para siempre. Es la misma guarda que la rama simple, y la única razón por
+    # la que hay tres: cada una tapa un camino distinto al mismo agujero.
+    db.query(User).filter(
+        User.referred_by_player_id == guest.id, User.id != user.id
+    ).update({"referred_by_player_id": existing.id}, synchronize_session=False)
+    db.query(User).filter(
+        User.referred_by_player_id == guest.id, User.id == user.id
+    ).update({"referred_by_player_id": None}, synchronize_session=False)
+    # La deuda de clásico del invitado se traspasa ANTES del delete, o se pierde
+    # con la fila. Se suma a la de la cuenta que sobrevive, que puede tener la
+    # suya.
+    if (guest.classic_xp_owed or 0) > 0:
+        db.query(GamePlayer).filter(GamePlayer.id == existing.id).update(
+            {GamePlayer.classic_xp_owed: GamePlayer.classic_xp_owed + guest.classic_xp_owed},
+            synchronize_session=False,
+        )
+        guest.classic_xp_owed = 0
+    db.flush()
+    referrals_top.saldar_deuda_de_clasico(db, existing, user.id)
     # Y el @ del invitado, que en un segundo deja de existir, queda apuntando a
     # la cuenta: los links que se mandaron con él siguen trayendo gente para la
     # misma persona (ver models.GameAliasHistory). Junto con los @ que el
@@ -217,7 +274,27 @@ def link_guest_to_user(db: Session, guest: GamePlayer, user: User) -> GamePlayer
     db.query(GameAliasHistory).filter(GameAliasHistory.player_id == guest.id).update(
         {"player_id": existing.id}, synchronize_session=False
     )
+    # Lo mismo en el registro, y en TRES pasos con este orden exacto.
+    #
+    # El @ que sobrevive es el de `existing`, no el del invitado: la fila del
+    # invitado se borra en un segundo. Así que primero hay que RETIRAR el @
+    # activo del invitado y recién después reapuntar sus filas, o la cuenta
+    # quedaría un instante con dos @ activos y el índice parcial lo rebota.
+    activo_del_invitado = handles.activo_de_jugador(db, guest.id)
+    if activo_del_invitado is not None:
+        activo_del_invitado.status = "retired"
+        activo_del_invitado.released_at = datetime.utcnow()
+        db.flush()
+    # Ahora sí: los @ del invitado —el que usaba y los que ya había soltado—
+    # pasan a la cuenta que sobrevive. Va ANTES del delete: reapuntarlos después
+    # los dejaría colgando de un jugador que ya no existe, y con ellos morirían
+    # los links `?r=` de esa persona.
+    db.query(Handle).filter(Handle.player_id == guest.id).update(
+        {"player_id": existing.id}, synchronize_session=False
+    )
     retire_alias(db, guest.alias, existing.id)
+    db.flush()
+    handles.reclamar(db, existing.alias, user_id=user.id, player_id=existing.id)
     db.delete(guest)
     db.commit()
     db.refresh(existing)

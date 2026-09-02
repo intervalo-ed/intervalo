@@ -648,7 +648,7 @@
           "game"
         ],
         "summary": "Game Events Feed",
-        "description": "Historial de lo que va pasando, m\u00e1s los mensajes del chat.\n\nLos `events` son SOLO del sistema \u2014ninguna l\u00ednea la escribe un usuario\u2014 y por\neso no hay nada que moderar ah\u00ed. Los `messages` s\u00ed los escribe la gente y\nviven en otra tabla, con su propio saneado (ver chat.py); van en la misma\nrespuesta porque el chat entero se apoya en eso: no hay un sondeo nuevo, hay\nun campo nuevo en el que ya corr\u00eda cada ocho segundos.\n\nDos cursores y dos ventanas, no una mezclada. Compartiendo las cuarenta filas,\nuna racha de chat empujar\u00eda fuera de pantalla el anuncio de que alguien invit\u00f3\ncafecitos, que es el que mueve donaciones.\n\nCon los dos cursores devuelve \u00fanicamente lo nuevo, que es lo que hace que\nsondearlo cada pocos segundos no cueste nada.",
+        "description": "Historial de lo que va pasando, m\u00e1s los mensajes del chat.\n\nLos `events` son SOLO del sistema \u2014ninguna l\u00ednea la escribe un usuario\u2014 y por\neso no hay nada que moderar ah\u00ed. Los `messages` s\u00ed los escribe la gente y\nviven en otra tabla, con su propio saneado (ver chat.py); van en la misma\nrespuesta porque el chat entero se apoya en eso: no hay un sondeo nuevo, hay\nun campo nuevo en el que ya corr\u00eda cada ocho segundos.\n\nDos cursores y dos ventanas, no una mezclada. Compartiendo las cuarenta filas,\nuna racha de chat empujar\u00eda fuera de pantalla el anuncio de que alguien invit\u00f3\ncafecitos, que es el que mueve donaciones.\n\nCon los dos cursores devuelve \u00fanicamente lo nuevo, que es lo que hace que\nsondearlo cada pocos segundos no cueste nada.\n\nY con `before_id`/`before_msg_id` mira para el otro lado: lo que hay m\u00e1s\natr\u00e1s de esa l\u00ednea. Es lo que pide el panel al llegar arriba de todo\nscrolleando, y es el modo OPUESTO al sondeo \u2014 cada lista usa su cursor\n\"before\" si vino, y si no el \"after\". Que un mismo pedido pueda traer\nnovedades viejas y mensajes nuevos no es un accidente: el panel pagina las\ndos listas juntas, pero puede tocar el fondo de una antes que el de la otra.\n\nSin un `has_more` en la respuesta a prop\u00f3sito: una p\u00e1gina m\u00e1s corta que el\n`limit` pedido YA significa \"no hay m\u00e1s atr\u00e1s\", y el cliente lo sabe sin que\nse lo digan. Un campo aparte ser\u00eda un segundo lugar donde puede estar mal.",
         "operationId": "game_events_feed_game_derivemos_events_get",
         "parameters": [
           {
@@ -671,6 +671,40 @@
               "minimum": 0,
               "default": 0,
               "title": "After Msg Id"
+            }
+          },
+          {
+            "name": "before_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Before Id"
+            }
+          },
+          {
+            "name": "before_msg_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Before Msg Id"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 0,
+              "default": 0,
+              "title": "Limit"
             }
           },
           {
@@ -2388,6 +2422,60 @@
         }
       }
     },
+    "/internal/notifications/events": {
+      "get": {
+        "summary": "Internal Due Event Notifications",
+        "description": "Worker-facing: los avisos DE EVENTO listos para mandar (los reclama).\n\nEndpoint aparte del de la notificaci\u00f3n normal a prop\u00f3sito: tienen cupos\ndistintos y disparadores distintos, y mezclarlos har\u00eda que un tick que falla\nen uno arrastre al otro.",
+        "operationId": "internal_due_event_notifications_internal_notifications_events_get",
+        "parameters": [
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Force"
+            }
+          },
+          {
+            "name": "x-internal-secret",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "X-Internal-Secret"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DueNotification"
+                  },
+                  "title": "Response Internal Due Event Notifications Internal Notifications Events Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/internal/push/prune": {
       "post": {
         "summary": "Internal Prune Push",
@@ -2823,6 +2911,45 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/UniversityLeaderboardResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/leaderboard/recruits": {
+      "get": {
+        "summary": "Get Recruits",
+        "operationId": "get_recruits_leaderboard_recruits_get",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecruitsResponse"
                 }
               }
             }
@@ -3461,6 +3588,86 @@
         ],
         "title": "AnswerRequest"
       },
+      "BoostInfo": {
+        "properties": {
+          "multiplier": {
+            "type": "number",
+            "title": "Multiplier"
+          },
+          "effective_multiplier": {
+            "type": "number",
+            "title": "Effective Multiplier"
+          },
+          "expires_in_seconds": {
+            "type": "integer",
+            "title": "Expires In Seconds"
+          },
+          "tramos": {
+            "items": {
+              "$ref": "#/components/schemas/BoostTramo"
+            },
+            "type": "array",
+            "title": "Tramos"
+          }
+        },
+        "type": "object",
+        "required": [
+          "multiplier",
+          "effective_multiplier",
+          "expires_in_seconds",
+          "tramos"
+        ],
+        "title": "BoostInfo",
+        "description": "El empuje de cafecito que le toca a esta persona, si hay alguno.\n\nEs una LISTA de tramos m\u00e1s dos escalares derivados, y no un empuje solo,\nporque se pueden estar cobrando dos a la vez \u2014el global y el de su\nuniversidad\u2014 con dos donantes y dos vencimientos distintos. El multiplicador\nes la suma de los dos, as\u00ed que no le pertenece a ninguno de los tramos."
+      },
+      "BoostTramo": {
+        "properties": {
+          "university": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "University"
+          },
+          "multiplier": {
+            "type": "number",
+            "title": "Multiplier"
+          },
+          "cafecitos": {
+            "type": "integer",
+            "title": "Cafecitos"
+          },
+          "donor_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Donor Name"
+          },
+          "expires_in_seconds": {
+            "type": "integer",
+            "title": "Expires In Seconds"
+          }
+        },
+        "type": "object",
+        "required": [
+          "university",
+          "multiplier",
+          "cafecitos",
+          "donor_name",
+          "expires_in_seconds"
+        ],
+        "title": "BoostTramo",
+        "description": "Un empuje de cafecito vigente, ya agregado. `university=None` = global.\n\nProyecci\u00f3n fiel de `game.boosts.BoostView`: los mismos cinco campos con los\nmismos significados. Lo usan dos pantallas distintas \u2014la tile de Practicar,\nque muestra los tramos que le tocan a UNA persona, y el cartel del ranking,\nque muestra los de TODAS las universidades\u2014 porque en las dos el objeto es\nel mismo: un cafecito vigente."
+      },
       "CapPreviewResponse": {
         "properties": {
           "value": {
@@ -3715,6 +3922,17 @@
               }
             ],
             "title": "First Utm Source"
+          },
+          "referrer": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Referrer"
           },
           "intro_item_correct": {
             "anyOf": [
@@ -5394,6 +5612,25 @@
             },
             "type": "array",
             "title": "Universities"
+          },
+          "boosts": {
+            "items": {
+              "$ref": "#/components/schemas/BoostTramo"
+            },
+            "type": "array",
+            "title": "Boosts",
+            "default": []
+          },
+          "university": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "University"
           }
         },
         "type": "object",
@@ -5661,6 +5898,105 @@
           "endpoint"
         ],
         "title": "PushUnsubscribeRequest"
+      },
+      "RecruitEntry": {
+        "properties": {
+          "rank": {
+            "type": "integer",
+            "title": "Rank"
+          },
+          "username": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Username"
+          },
+          "university": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "University"
+          },
+          "career": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Career"
+          },
+          "xp_given": {
+            "type": "integer",
+            "title": "Xp Given"
+          },
+          "belt": {
+            "type": "string",
+            "title": "Belt",
+            "default": "white"
+          }
+        },
+        "type": "object",
+        "required": [
+          "rank",
+          "xp_given"
+        ],
+        "title": "RecruitEntry",
+        "description": "Una persona que entr\u00f3 por tu link. Deliberadamente NO lleva su XP total:\nlo que se muestra es cu\u00e1nto te aport\u00f3, no cu\u00e1nto estudia."
+      },
+      "RecruitsResponse": {
+        "properties": {
+          "entries": {
+            "items": {
+              "$ref": "#/components/schemas/RecruitEntry"
+            },
+            "type": "array",
+            "title": "Entries"
+          },
+          "total_recruits": {
+            "type": "integer",
+            "title": "Total Recruits"
+          },
+          "total_xp_given": {
+            "type": "integer",
+            "title": "Total Xp Given"
+          },
+          "share_percent": {
+            "type": "integer",
+            "title": "Share Percent"
+          },
+          "handle": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Handle"
+          }
+        },
+        "type": "object",
+        "required": [
+          "entries",
+          "total_recruits",
+          "total_xp_given",
+          "share_percent"
+        ],
+        "title": "RecruitsResponse"
       },
       "SessionExercise": {
         "properties": {
@@ -6019,6 +6355,11 @@
           "session_number": {
             "type": "integer",
             "title": "Session Number"
+          },
+          "ofrecer_cafecito": {
+            "type": "boolean",
+            "title": "Ofrecer Cafecito",
+            "default": false
           }
         },
         "type": "object",
@@ -6565,6 +6906,16 @@
             },
             "type": "object",
             "title": "Topic States"
+          },
+          "boost": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/BoostInfo"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "main_session_done_today": {
             "type": "boolean",

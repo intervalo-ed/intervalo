@@ -33,8 +33,12 @@ import { XpDots } from "@/components/xp-dots"
 import { badgeWithCrown, CAREER_EMOJI } from "@/lib/career-emoji"
 import { cn } from "@/lib/utils"
 import { Hueco } from "./skeleton-barra"
-import { AMBAR, boostStrength, filaConEmpuje, levelColor } from "./game-colors"
-import { VERDE } from "./cafecito-cta"
+import {
+  BoostBanner,
+  useBoostMultipliers,
+} from "@/components/boost-banner"
+import { filaConEmpuje, levelColor } from "./game-colors"
+import { VERDE, fmtMultiplier } from "./cafecito-cta"
 import { EJEMPLOS_COUNT, EJEMPLOS_XP_TOTAL, ListaDeReclutas } from "./reclutas-list"
 import {
   useGameBoosts,
@@ -42,7 +46,6 @@ import {
   useGameLeaderboardSummary,
   useGameRecruits,
   useGameUniversityLeaderboard,
-  type GameBoost,
   type GameLeaderboardEntry,
   type GameRecruits,
   type GameUniversityRow,
@@ -94,174 +97,15 @@ const CLIMB_SCROLL_FOLLOW = 0.4
 // centro: se mira hacia arriba, a quién falta pasar, más que hacia abajo.
 const ROWS_ABOVE = 4
 
-// Para el chip propio, aclarado hasta que se lee como oro sobre el fondo.
-const ORO_CHIP = `color-mix(in oklab, ${AMBAR} 55%, #FFFFFF)`
-
-// Cuántos empujes entran en el cartel. Cuatro y no tres: van de a DOS por fila,
-// así que un número impar deja siempre un hueco al lado del último. Con dos
-// filas llenas el cartel sigue siendo una cabecera; de ahí para arriba se
-// convierte en una lista y le come el lugar a lo que la gente vino a mirar.
-const BOOSTS_SHOWN = 4
-
 // Espejo de backend/game/boosts.py :: MIN_PLAYERS_RANKED. Acá solo se usa para
-// escribir cuántos jugadores le faltan a una universidad; quién entra al ranking lo
-// decide el server y viaja en `row.ranked`.
+// escribir cuántos jugadores le faltan a una universidad; quién entra al ranking
+// lo decide el server y viaja en `row.ranked`.
 const MIN_PLAYERS_RANKED = 10
 
 // Espejo de backend/game/elo.py :: RAMP_UPDATES. Igual que arriba: acá solo se
 // usa para escribir cuántas respuestas le faltan a una persona; quién tiene el
 // Elo firme lo decide el server y viaja en `entry.elo_ranked`.
 const RAMP_UPDATES = 5
-
-const fmtMultiplier = (m: number) => `×${m.toFixed(1).replace(".", ",")}`
-
-// Minutos Y segundos, con el segundero siempre a la vista: "18:24".
-//
-// Antes decía "18 min" a secas, y un cartel que dice lo mismo durante sesenta
-// segundos no parece un reloj sino una etiqueta. Con los segundos corriendo se
-// lee lo que es —algo que se está por terminar— que es justo lo que hace mirar
-// cuánto sale sumarle tiempo.
-function fmtRemaining(seconds: number): string {
-  const s = Math.max(0, seconds)
-  return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`
-}
-
-/** Cuenta regresiva de un empuje.
- *
- * Arranca de los segundos que mandó el servidor y descuenta sola, así el reloj
- * no necesita que le manden un instante con zona horaria.
- *
- * La resincronización NO se hace acá adentro: el chip se remonta con una `key`
- * que incluye los segundos del pulso, y al remontarse este `useState` se
- * reinicializa solo. Es el reset de estado por key de siempre, y evita el
- * `setLeft(initialSeconds)` sincrónico dentro del efecto, que el compilador de
- * React no permite (react-hooks/set-state-in-effect). */
-function useCountdown(initialSeconds: number): number {
-  const [left, setLeft] = useState(initialSeconds)
-  useEffect(() => {
-    if (initialSeconds <= 0) return
-    const id = setInterval(() => setLeft((s) => (s <= 1 ? 0 : s - 1)), 1000)
-    return () => clearInterval(id)
-  }, [initialSeconds])
-  return left
-}
-
-function BoostChip({ boost, mine }: { boost: GameBoost; mine: boolean }) {
-  const left = useCountdown(boost.expires_in_seconds)
-  if (left <= 0) return null
-  const fuerza = boostStrength(boost.multiplier)
-  return (
-    <span
-      className={cn(
-        "inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-xs tabular-nums ring-1",
-        mine && "font-semibold",
-      )}
-      // Todos marrones, no solo el propio. Un empuje ES un cafecito, y el
-      // cafecito tiene un color en este juego: pintar unos sí y otros no hacía
-      // parecer que fueran dos cosas distintas.
-      //
-      // El BRILLO lo decide el multiplicador, no de quién es: un ×3 se ve de
-      // lejos y un ×1,1 apenas se insinúa, así que la fuerza del café se lee sin
-      // leer el número. Al propio lo distinguen el peso de la letra y el dorado
-      // del texto — si además fuera el más brillante, el brillo dejaría de
-      // significar fuerza y pasaría a significar dos cosas a la vez.
-      style={{
-        backgroundColor: `color-mix(in oklab, ${AMBAR} ${10 + 12 * fuerza}%, transparent)`,
-        color: mine
-          ? ORO_CHIP
-          : `color-mix(in oklab, ${AMBAR} ${68 + 22 * fuerza}%, #FFFFFF)`,
-        "--tw-ring-color": `color-mix(in oklab, ${AMBAR} ${45 + 35 * fuerza}%, transparent)`,
-        // El halo solo aparece de verdad en la mitad de arriba de la escala: a
-        // fuerza baja queda en nada, que es lo que se quiere. Sin él, la
-        // diferencia entre ×2 y ×3 era solo un poco más de relleno.
-        boxShadow: `0 0 ${6 + 10 * fuerza}px color-mix(in oklab, ${AMBAR} ${13 * fuerza}%, transparent)`,
-      } as React.CSSProperties}
-      title={
-        boost.donor_name
-          ? `${boost.donor_name} invitó ${boost.cafecitos} cafecito(s)`
-          : `${boost.cafecitos} cafecito(s)`
-      }
-    >
-      {/* Sin sigla es el empuje GLOBAL: la donación que no se pudo atribuir a
-          ninguna universidad y termina cobrándola todo el juego. */}
-      {boost.university ? (
-        <UniTag university={boost.university} />
-      ) : (
-        <span className="font-semibold uppercase tracking-wide">todos</span>
-      )}
-      {/* El multiplicador con el ícono de XP pegado, que es lo que dice QUÉ se
-          multiplica. Sin él, un "×1,2" suelto al lado de un reloj se puede leer
-          como cualquier cosa. Van juntos y sin separación entre ellos, para que
-          se lean como una sola unidad y no como dos datos. */}
-      <span className="inline-flex items-center gap-0.5 font-semibold">
-        {fmtMultiplier(boost.multiplier)}
-        <XpDots className="size-[0.85em]" />
-      </span>
-      {/* `ml-auto`: el reloj se va contra el borde derecho de su caja en vez de
-          quedar pegado al multiplicador. Como la grilla le da a todos los chips
-          el mismo ancho, los cuatro relojes quedan en una vertical y se pueden
-          comparar de un vistazo. */}
-      <span className={cn("ml-auto", mine && "opacity-80")}>{fmtRemaining(left)}</span>
-    </span>
-  )
-}
-
-/** Siglas con empuje vigente. Se calcula una vez por lista y se pasa a las
- * filas: llamar al hook adentro de cada fila serían cientos de suscripciones
- * al mismo caché para leer el mismo dato. */
-function useBoostMultipliers(): Map<string, number> {
-  const boosts = useGameBoosts()
-  // El empuje global no entra: acá se marcan las filas de las universidades
-  // impulsadas, y si le tocara a TODAS la marca dejaría de distinguir nada —
-  // sería una pared encendida en vez de una comparación. El chip de "TODOS" ya
-  // lo cuenta por su lado.
-  return useMemo(() => {
-    const m = new Map<string, number>()
-    for (const b of boosts) if (b.university) m.set(b.university, b.multiplier)
-    return m
-  }, [boosts])
-}
-
-/** Cartel de empujes vigentes, arriba de todo el ranking.
- *
- * Va acá y no en cada layout para que la vista individual, la universitaria,
- * el escritorio y el teléfono lo hereden de una. Y muestra los empujes de las
- * OTRAS universidades a propósito: ver que otra está en ×1,6 mientras la tuya está
- * en nada es exactamente el motor de esta mecánica. */
-function BoostBanner({ myUniversity }: { myUniversity: string | null }) {
-  const boosts = useGameBoosts()
-  const shown = useMemo(() => {
-    if (boosts.length === 0) return []
-    // La propia primero aunque tenga el multiplicador más bajo: es la que la
-    // persona necesita ver, y la que decide si le conviene donar.
-    const ordered = [...boosts].sort((a, b) => {
-      const am = a.university === myUniversity ? 1 : 0
-      const bm = b.university === myUniversity ? 1 : 0
-      return bm - am || b.multiplier - a.multiplier
-    })
-    return ordered.slice(0, BOOSTS_SHOWN)
-  }, [boosts, myUniversity])
-
-  if (shown.length === 0) return null
-  return (
-    // Dos por fila, apilándose hacia abajo. Con `flex-wrap` los chips medían
-    // cada uno lo suyo y la segunda fila arrancaba corrida respecto de la
-    // primera: una escalera. En una grilla de dos columnas todos miden igual, se
-    // alinean en dos verticales y agregar universidades solo agrega renglones.
-    <div className="grid shrink-0 grid-cols-2 gap-1.5">
-      {shown.map((b) => (
-        <BoostChip
-          // Los segundos van en la key a propósito: cada latido del pulso
-          // remonta el chip y su cuenta regresiva vuelve a arrancar del valor
-          // del servidor (ver useCountdown).
-          key={`${b.university}:${b.expires_in_seconds}`}
-          boost={b}
-          mine={b.university === myUniversity}
-        />
-      ))}
-    </div>
-  )
-}
 
 // El `py-1` de la lista, que no forma parte de ninguna fila.
 const LIST_TOP_PADDING = 4
@@ -440,6 +284,7 @@ export function GameRanking({
   // de arriba, así que sube hasta acá y baja como prop en vez de pedirse dos
   // veces.
   const recruits = useGameRecruits(enabled && view === "recruits")
+  const boostsVigentes = useGameBoosts()
   // Mientras no hay reclutas propios —sea porque todavía no llegó la respuesta
   // o porque en verdad no hay ninguno— la lista de abajo (ListaDeReclutas)
   // muestra los CINCO renglones de ejemplo, sin esperar al servidor: son datos
@@ -598,7 +443,7 @@ export function GameRanking({
           withRecruits
           scopeDisabled={view === "recruits" || !!boostPreview}
         />
-        <BoostBanner myUniversity={myUniversity} />
+        <BoostBanner boosts={boostsVigentes} myUniversity={myUniversity} />
       </div>
 
       {view === "recruits" ? (
@@ -811,7 +656,8 @@ function IndividualRanking({
   centerKey: number
   boostPreview?: { university: string; multiplier: number; color: string } | null
 }) {
-  const boostByUni = useBoostMultipliers()
+  const boostsVigentes = useGameBoosts()
+  const boostByUni = useBoostMultipliers(boostsVigentes)
   const {
     data,
     isPending,
@@ -1618,7 +1464,8 @@ function UniversityRanking({
   sort: RankingSort
 }) {
   const { data, isPending } = useGameUniversityLeaderboard(scope, enabled)
-  const boostByUni = useBoostMultipliers()
+  const boostsVigentes = useGameBoosts()
+  const boostByUni = useBoostMultipliers(boostsVigentes)
   const scrollRef = useRef<HTMLDivElement | null>(null)
   const placedRef = useRef(false)
 

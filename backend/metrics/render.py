@@ -33,6 +33,19 @@ table.big td.ent{font-size:14px;color:var(--fg)}
 td .sub2{color:var(--muted);font-size:11.5px;font-weight:400}
 td .ej{color:var(--indigo-soft);font-size:11.5px;font-style:italic}
 td:has(.ej){white-space:normal;max-width:420px;line-height:1.45;padding:10px 7px}
+
+/* Toggles de cohorte del gráfico de retención: botones de checkbox, sin JS.
+   Cada <input> vive escondido y su <label> hace de botón — el prender/apagar
+   real de las líneas del SVG lo hacen las reglas :has() que arma render.py
+   junto al gráfico, indexadas por cohorte. */
+.chart-head{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:baseline;justify-content:space-between}
+.chart-head h3{margin:0}
+.ret-toggles{display:flex;flex-wrap:wrap;gap:6px}
+.ret-toggles input{position:absolute;opacity:0;pointer-events:none}
+.rt-btn{cursor:pointer;user-select:none;font-size:11.5px;font-weight:650;
+  padding:3px 10px;border-radius:999px;border:1px solid var(--border);color:var(--muted)}
+.rt-chk:checked + .rt-btn{background:var(--indigo);border-color:var(--indigo);color:#fff}
+.rt-chk.rt-combine:checked + .rt-btn-combine{background:var(--violet);border-color:var(--violet)}
 """
 
 # Helpers de presentación compartidos con el panel de Derivemos — ver
@@ -297,17 +310,26 @@ def page(p: dict, *, token: str) -> str:
     # 2 · Cohortes
     r = p["retencion"]
 
-    def tip(label: str, pt: dict, base: int) -> str:
+    def tip(label: str, pt: dict, base: int, *, combinada: bool = False) -> str:
         """Tooltip de un punto, escrito como frase.
 
         El eje dice «D+3» y eso no significa nada solo, así que cada tooltip
         traduce el k, da el numerador y el denominador con nombre, y aclara por
-        qué el denominador no es toda la cohorte."""
+        qué el denominador no es toda la cohorte.
+
+        `combinada=True` es el mismo tooltip para la curva que fusiona las
+        cohortes: mismo texto, sujeto distinto ("la base combinada" en vez de
+        "la cohorte del 17/08")."""
         k, n, obs = pt["k"], pt["n"], pt["obs"]
         cuando = ("el mismo día que instalaron" if k == 0 else
                   "un día después de instalar la PWA" if k == 1 else
                   f"{k} días después de instalar la PWA")
-        cab = f'Cohorte del {label}  ·  D+{k}'
+        if combinada:
+            cab = f'Todas las cohortes combinadas  ·  D+{k}'
+            suj_cap, suj = "La base combinada", "la base combinada"
+        else:
+            cab = f'Cohorte del {label}  ·  D+{k}'
+            suj_cap, suj = "La cohorte", "la cohorte"
         # A diferencia de la curva vieja (donde D+0 daba 100% por construcción,
         # porque el ancla y el evento medido eran la misma sesión), acá instalar
         # y estudiar son eventos distintos: D+0 mide, honestamente, cuánta gente
@@ -315,21 +337,21 @@ def page(p: dict, *, token: str) -> str:
         if pt["pct"] is None:
             return (
                 f'{cab}\n\n'
-                f'Todavía no hay a quién medir: nadie de esta cohorte llegó a cumplir '
+                f'Todavía no hay a quién medir: nadie de {suj} llegó a cumplir '
                 f'{k} días desde que instaló la PWA.')
         falta = base - obs
         # Por qué el denominador no es la cohorte entera, dicho con el número
         # que falta: "83 de 95" no explica nada, "las otras 12 todavía no
         # llegaron a ese día" sí.
         porque = (
-            f'La cohorte son {base} personas, pero {falta} todavía no cumplieron '
+            f'{suj_cap} son {base} personas, pero {falta} todavía no cumplieron '
             f'{k} días desde que instalaron, así que su D+{k} no pasó todavía. '
             f'Meterlas en el denominador las contaría como «no volvió» y '
             f'hundiría la curva por calendario, no por comportamiento.'
             if falta else
-            f'Acá el denominador es la cohorte entera: las {base} ya cumplieron '
+            f'Acá el denominador es {suj} entera: las {base} ya cumplieron '
             f'{k} días desde que instalaron.')
-        cola = ('\n\nTramo punteado: menos de la mitad de la cohorte llegó a este día, '
+        cola = ('\n\nTramo punteado: menos de la mitad de la base llegó a este día, '
                 'así que el porcentaje se mueve mucho con pocos casos.'
                 if _flojo(pt, base) else '')
         return (
@@ -343,14 +365,49 @@ def page(p: dict, *, token: str) -> str:
         "tips": [tip(c["label"], pt, c["n"]) for pt in c["points"]],
         "weak": [_flojo(pt, c["n"]) for pt in c["points"]],
     } for c in r["cohortes"]]
+    # Serie extra al final del array: mismo índice que su <g class="cht-sN">
+    # (ver charts.lines/_legend), así que el CSS de abajo la puede prender y
+    # apagar por posición sin tocar charts.py. Arranca oculta (ver toggle_css)
+    # — "Combinar" es la excepción, no la vista por default.
+    n_coh = len(r["cohortes"])
+    ret_series.append({
+        "label": f'Todas combinadas (n={r["n_combinada"]})',
+        "values": [pt["pct"] for pt in r["combinada"]],
+        "tips": [tip("", pt, r["n_combinada"], combinada=True) for pt in r["combinada"]],
+        "weak": [_flojo(pt, r["n_combinada"]) for pt in r["combinada"]],
+    })
+
+    # Botones de cohorte + "Combinar", en CSS puro (sin JS: ver el docstring
+    # del módulo). Cada checkbox vive antes que el <svg> en el DOM pero fuera
+    # de su árbol, así que las reglas cuelgan de :has() en el contenedor común
+    # (.ret-box) en vez del combinador `~`, que no cruza el div de botones.
+    toggles, hide_rules, combine_hide = "", "", ""
+    if n_coh:
+        toggles = "".join(
+            f'<input type="checkbox" id="rt{i}" class="rt-chk" checked>'
+            f'<label for="rt{i}" class="rt-btn">{esc(c["label"])}</label>'
+            for i, c in enumerate(r["cohortes"]))
+        toggles += ('<input type="checkbox" id="rtc" class="rt-chk rt-combine">'
+                    '<label for="rtc" class="rt-btn rt-btn-combine">Combinar</label>')
+        hide_rules = "".join(
+            f'.ret-box:has(#rt{i}:not(:checked)) .cht-s{i}{{display:none}}'
+            for i in range(n_coh))
+        combine_hide = "".join(
+            f'.ret-box:has(#rtc:checked) .cht-s{i}{{display:none}}' for i in range(n_coh))
+    toggle_css = (
+        f'<style>.ret-box .cht-s{n_coh}{{display:none}}{hide_rules}{combine_hide}'
+        f'.ret-box:has(#rtc:checked) .cht-s{n_coh}{{display:inline}}</style>')
+
     co = p["cohortes"]
-    atr = co["atribucion"]
     body = [
-        '<div class="box"><h3>Retención diaria por cohorte semanal</h3>',
+        f'<div class="box ret-box"><div class="chart-head"><h3>Retención diaria por cohorte '
+        f'semanal</h3><div class="ret-toggles">{toggles}</div></div>{toggle_css}',
         # mono: son la misma métrica en semanas distintas, no categorías. Un
         # solo tono con la más vieja apagada ordena la lectura.
         # Más alto que el resto: con 14 puntos y la curva pegada al piso a
         # partir de D+2, en 220px las series se superponen y no se distinguen.
+        # Más alto todavía desde que hay toggles: con menos líneas activas a
+        # la vez conviene que cada una se lea grande.
         #
         # Sin y_max fijo: con la retención anclada en la primera sesión, D+0
         # daba 100% por construcción y forzar el techo a 100 tenía sentido.
@@ -360,7 +417,7 @@ def page(p: dict, *, token: str) -> str:
         # gráficos de porcentaje del panel (ver ch.vbars en la sección de
         # Producto): el techo se calcula del dato real.
         ch.lines(ret_series, [f"D+{k}" for k in range(r["horizon"] + 1)], mono=True,
-                 height=330),
+                 height=460),
         '<p class="note"><b>D+0 es el día que instaló y abrió la PWA, no el del alta</b>. A '
         'diferencia de la curva anterior —donde el ancla era la primera sesión, así que D+0 daba '
         '100% por construcción—, acá instalar y estudiar son eventos distintos: <b>D+0 no está '
@@ -393,23 +450,6 @@ def page(p: dict, *, token: str) -> str:
         f'<div class="box"><h3>Por curso</h3>'
         f'{_cohort_table(co["curso"], "Curso", "curso")}</div>',
     ]
-    if co["grupos"]:
-        body.append(f'<div class="box"><h3>Grupos con volumen</h3>'
-                    f'{_cohort_table(co["grupos"], "Grupo", "plain")}'
-                    f'<p class="note">Atribución nativa (<code>users.first_group_id</code>), '
-                    f'capturada al aterrizar y guardada al completar el onboarding: cubre '
-                    f'<b>{atr["con"]} de {atr["total"]}</b> usuarios del rango '
-                    f'({num(atr["pct"], "%")}). Solo grupos con 5 o más usuarios.</p></div>')
-    else:
-        body.append(
-            f'<p class="note">El corte <b>por grupo de WhatsApp</b> todavía no tiene volumen: '
-            f'la atribución nativa (<code>users.first_group_id</code>) se guarda desde el 24/08, '
-            f'así que cubre {atr["con"]} de {atr["total"]} usuarios del rango. Aparece solo cuando '
-            f'algún grupo llegue a 5 usuarios; hasta entonces el origen vive en PostHog.</p>')
-    body.append(f'<div class="box"><h3>Unidades declaradas en el onboarding</h3>'
-                f'{_cohort_table(co["unidades"], "Marcó", "plain")}'
-                f'<p class="note">Dato declarativo de la slide nueva. No toca SM-2 — está acá para '
-                f'ver si predice algo antes de darle cualquier efecto.</p></div>')
     body.append(_COHORT_NOTE)
     out.append(_section(2, "Cohortes", "".join(body),
                         sub="El corte que más importa esta semana: quién vuelve, partido por de "

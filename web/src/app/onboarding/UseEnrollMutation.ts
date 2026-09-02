@@ -33,7 +33,7 @@ export function useEnrollMutation() {
       // del dispositivo (se capturó al aterrizar, antes de que existiera el
       // usuario), no una decisión del formulario. Leerla adentro hace que todas
       // las vías de alta la manden sin tener que acordarse.
-      const { groupId, utmSource } = readAttribution()
+      const { groupId, utmSource, referrer } = readAttribution()
       return unwrap(
         await api.POST("/user/enroll", {
           body: {
@@ -44,6 +44,12 @@ export function useEnrollMutation() {
             known_units: knownUnits?.length ? knownUnits.join(",") : null,
             first_group_id: groupId ?? null,
             first_utm_source: utmSource ?? null,
+            // El `?r=` que se capturó al aterrizar. Ya se guardaba write-once
+            // en localStorage para el alta del minijuego; ahora el alta de
+            // Intervalo lo manda también, así que UN link sirve para los dos
+            // productos y sobrevive al ida y vuelta de Google, que se come el
+            // query string.
+            referrer: referrer ?? null,
             intro_item_correct: introItemCorrect ?? null,
             attempts: introItemAttempts ?? null,
             response_time_ms: introItemResponseTimeMs ?? null,

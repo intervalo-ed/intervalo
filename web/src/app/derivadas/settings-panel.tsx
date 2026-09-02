@@ -12,15 +12,25 @@
 // (components/onboarding-fields.tsx), igual que en los hitos del juego.
 
 import { useRef, useState } from "react"
+import Link from "next/link"
 import posthog from "posthog-js"
 import { useQueryClient } from "@tanstack/react-query"
-import { ChevronLeft, Coffee, LogOut, RotateCcw, Volume2, VolumeX } from "lucide-react"
+import {
+  ArrowUpRight,
+  ChevronLeft,
+  Coffee,
+  LogOut,
+  RotateCcw,
+  Volume2,
+  VolumeX,
+} from "lucide-react"
 import { useClerk } from "@clerk/nextjs"
 import { ApiError, unwrap } from "@/lib/api/client"
 import { Button } from "@/components/ui/button"
 import { CareerSelect, UniversityGrid } from "@/components/onboarding-fields"
 import { setSoundMuted, useSoundMuted } from "@/lib/audio/sound-settings"
 import { useSfx } from "@/lib/audio/useSfx"
+import { BELT_HEX } from "@/lib/catalog"
 import { canonicalUniversity } from "@/lib/university-tags"
 import { cn } from "@/lib/utils"
 import { WhatsappGlyph } from "./cafecito-cta"
@@ -75,6 +85,10 @@ function Guardar({ disabled, onClick }: { disabled?: boolean; onClick: () => voi
     </Button>
   )
 }
+
+// El azul de Intervalo para la puerta de vuelta: es el cinturón azul del
+// catálogo, no un color inventado para esta fila.
+const AZUL_INTERVALO = BELT_HEX.blue.onDark
 
 const rowCls =
   "flex w-full items-center justify-between gap-3 rounded-lg border border-border bg-card px-4 py-3 text-left text-sm transition-colors hover:border-white/20"
@@ -418,6 +432,32 @@ export function SettingsPanel({
             {muted ? <VolumeX size={16} /> : <Volume2 size={16} />}
           </span>
         </button>
+
+        {/* La puerta de vuelta a Intervalo. Es la última fila NEUTRA: abajo
+            arranca el bloque de color (reclutar, cafecito) y después el
+            destructivo, y esto no es ni una cosa ni la otra.
+
+            <Link> de Next y no un <a> con target: /derivadas y / son el mismo
+            deploy y el mismo origen, así que esto es navegación interna y se
+            queda adentro de la PWA instalada. Un target="_blank" acá la sacaría
+            a Safari. La regla opuesta vale para cafecito.app, que sí tiene que
+            salir del contenedor (ver la fila del cafecito más abajo).
+
+            Un invitado cae en la landing y no en el panel, que es lo que se
+            busca: es la conversión, no un error. */}
+        <Link
+          href="/"
+          className={rowCls}
+          // El azul sale de BELT_HEX y no de un hex suelto: la paleta de
+          // cinturones tiene una sola fuente de verdad, y `onDark` es la
+          // variante pensada para leerse sobre el fondo del juego. El `80` es
+          // el 50% de alfa del borde, igual que el `/50` de las filas de color
+          // de acá abajo.
+          style={{ color: AZUL_INTERVALO, borderColor: `${AZUL_INTERVALO}80` }}
+        >
+          <span>Ir a Intervalo</span>
+          <ArrowUpRight size={16} />
+        </Link>
 
         {/* Abre la diapo de reclutar, no WhatsApp. Mismo motivo que la fila del
             cafecito de acá abajo: mandando directo al chat, quien comparte no se

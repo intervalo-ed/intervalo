@@ -285,9 +285,12 @@ export function shareUrl(alias?: string | null) {
   return `https://wa.me/?text=${encodeURIComponent(shareLink(alias))}`
 }
 
-/** Abre WhatsApp con el link propio. Una sola definición porque hay dos botones
- *  —el de la diapo y el del ranking en vista Reclutas— y un atajo de teclado que
- *  hacen exactamente lo mismo. */
+/** Abre WhatsApp con el link propio, a mano.
+ *
+ * SOLO para el atajo de teclado, que no tiene anchor que clickear. Todo lo que
+ * se toca usa `ReclutarButton`, que es un `<a>` de verdad: desde una ventana
+ * standalone en iOS, `window.open` a otro origen es inconsistente según la
+ * versión. */
 export function abrirWhatsapp(alias?: string | null) {
   window.open(shareUrl(alias), "_blank", "noopener,noreferrer")
 }
@@ -298,31 +301,43 @@ export function abrirWhatsapp(alias?: string | null) {
  * como la taza del cafecito: el botón se lee "reclutar" y el ícono cierra la
  * frase diciendo por dónde, en vez de anunciarla.
  *
+ * Es un `<a>` y no un `<button>`, igual que el del cafecito y por el mismo
+ * motivo: wa.me es otro origen y tiene que salir de la PWA instalada. Un anchor
+ * clickeado por la persona abre WhatsApp parejo en los dos sistemas.
+ *
  * La geometría la pone quien lo usa (`className`), que es lo único que cambia
  * entre el pie de la diapo y el lugar del CTA del ranking. */
 export function ReclutarButton({
   alias,
   placement,
   telemetryProps,
+  onClick,
   className,
   keycap,
 }: {
   alias?: string | null
   placement: string
   telemetryProps?: Record<string, unknown>
+  // Para quien ya tiene su propia función de "anotá que reclutó" —la diapo la
+  // comparte con el atajo de teclado— y no quiere que se anote dos veces.
+  onClick?: () => void
   className?: string
   keycap?: React.ReactNode
 }) {
   const cta = useCta()
   const sfx = useSfx()
   return (
-    <button
-      type="button"
-      onClick={() => {
-        sfx.select()
-        cta("share", "click", { placement, props: telemetryProps })
-        abrirWhatsapp(alias)
-      }}
+    <a
+      href={shareUrl(alias)}
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={
+        onClick ??
+        (() => {
+          sfx.select()
+          cta("share", "click", { placement, props: telemetryProps })
+        })
+      }
       className={cn(
         "flex items-center justify-center gap-2 text-base font-semibold transition-opacity hover:opacity-90",
         className,
@@ -332,7 +347,7 @@ export function ReclutarButton({
       Reclutar
       <WhatsappGlyph size={18} />
       {keycap}
-    </button>
+    </a>
   )
 }
 

@@ -32,6 +32,7 @@ from algorithm import (
     XP_STREAK_INTERVAL,
     difficulty_multiplier,
     build_session,
+    effective_multiplier,
     is_topic_mastered,
     load_belt_catalogs,
     practice_xp_split,
@@ -41,7 +42,10 @@ from algorithm import (
     streak_info,
     streak_multiplier,
     update_unit_state,
+    xp_from_boost,
 )
+import referrals
+import xp_boost
 from exercise_bank import (
     _row_to_dict,
     course_exercise_types,
@@ -1551,15 +1555,26 @@ def record_answer_db(
             item_row.difficulty_n += 1
 
     streak_mult = streak_multiplier(user.streak_days if user else 0)
+    # El empuje de cafecito de su universidad, si hay alguno corriendo. Casi
+    # siempre no hay, y averiguarlo es gratis: `hay_empujes` memoriza el "no"
+    # unos segundos por proceso (ver xp_boost.multiplier_for_user).
+    boost_mult = xp_boost.multiplier_for_user(db, user_id)
+    # Los dos multiplicadores se aplican JUNTOS y redondeando una sola vez, y con
+    # un tope propio sobre el producto. Ver algorithm/xp.py :: MAX_TOTAL_MULTIPLIER
+    # para por qué el tope es 4,0 y no el ×3 del juego.
+    mult = effective_multiplier(streak_mult, boost_mult)
 
     # Práctica paga plano y sin ajuste de dificultad (volumen ilimitado a
-    # elección del usuario), pero sí escala con el multiplicador de racha diaria
-    # — su base es mucho menor que la de Repaso, así que no se vuelve farmeable.
+    # elección del usuario), pero sí escala con el multiplicador efectivo — su
+    # base es mucho menor que la de Repaso, así que no se vuelve farmeable.
     # Repaso paga por intento, ponderado por la dificultad personal del ítem
     # (solo 1er intento y solo en fase de retención: en aprendizaje la base es
-    # menor y plana, ver review_xp_base) y el mismo multiplicador de racha.
+    # menor y plana, ver review_xp_base) y el mismo multiplicador.
     if db_session.mode == "practice":
-        xp_base, xp_earned = practice_xp_split(first_try, streak_mult)
+        xp_base, xp_earned = practice_xp_split(first_try, mult)
+        # Cuánto de lo cobrado lo puso el empuje y no la racha (ver
+        # algorithm/xp.py :: xp_from_boost).
+        xp_del_empuje = xp_from_boost(xp_base, streak_mult, mult)
     else:
         in_review = current_state.phase == "review"
         difficulty = (
@@ -1568,13 +1583,16 @@ def record_answer_db(
             else 1.0
         )
         xp_base, xp_earned = review_xp_split(
-            attempts, difficulty, streak_mult, learning=not in_review
+            attempts, difficulty, mult, learning=not in_review
         )
+        # Antes del bonus de combo, que es plano: si entrara en la cuenta, el
+        # empuje se llevaría el crédito de algo que no multiplicó.
+        xp_del_empuje = xp_from_boost(xp_base, streak_mult, mult)
         if first_try:
             state.streak += 1
             if state.streak % XP_STREAK_INTERVAL == 0:
                 # Bonus de combo interno a la sesión: no lo multiplica la racha
-                # diaria, así que va a la base (no cuenta como "extra").
+                # diaria ni el empuje, así que va a la base (no cuenta como "extra").
                 xp_earned += XP_STREAK_BONUS
                 xp_base += XP_STREAK_BONUS
         else:
@@ -1628,6 +1646,7 @@ def record_answer_db(
         quality_score=quality,
         xp_earned=xp_earned,
         xp_base=xp_base,
+        xp_from_boost=xp_del_empuje,
         answered_at=datetime.utcnow(),
         iteration=_get_course_progress(user_id, course_id, db).iteration,
     ))
@@ -1645,7 +1664,35 @@ def record_answer_db(
     )
 
     if user:
-        user.total_xp = (user.total_xp or 0) + xp_earned
+        # Incremento RELATIVO por SQL, no `user.total_xp = leído + n`.
+        #
+        # La fila se leyó ~130 líneas más arriba y el commit llega recién ahora.
+        # Escribir el valor absoluto que se leyó pisa cualquier cosa que haya
+        # entrado en el medio, y ya hay dos escritores concurrentes de esta
+        # columna: el FEEDBACK_XP de las encuestas (main.py) y —desde que los
+        # reclutas cruzan de producto— el 10% que un recluta le acuña a quien lo
+        # trajo, que llega como UPDATE crudo desde OTRA transacción.
+        #
+        # En el minijuego el patrón equivalente es seguro porque el receptor
+        # serializa sus propias respuestas con `lock_player` (SELECT … FOR
+        # UPDATE); acá no hay nada así, y tomarlo serializaría todo el camino de
+        # respuesta por algo que hoy no lo necesita. El incremento relativo
+        # resuelve lo mismo sin candado.
+        db.query(User).filter(User.id == user_id).update(
+            {User.total_xp: User.total_xp + xp_earned}, synchronize_session=False
+        )
+        # `synchronize_session=False` no toca el identity map, así que el
+        # objeto `user` en memoria queda con el valor viejo. Hoy nadie lo lee
+        # entre esta línea y el commit —y el commit expira todo, porque
+        # `expire_on_commit` está en su default—, así que esto es defensivo: lo
+        # que evita es que alguien intercale una lectura acá en el futuro y se
+        # lleve el número de antes sin que nada falle.
+        db.expire(user, ["total_xp"])
+        # Y si alguien trajo a esta persona, cobra su 10%. La XP se ACUÑA: al
+        # recluta no se le descuenta nada, cobra exactamente lo mismo que
+        # cobraría sin reclutador. Va en la misma transacción que la respuesta,
+        # así que o entran las dos cosas o no entra ninguna.
+        referrals.acreditar_clasico(db, user, xp_earned)
 
     if is_correct:
         db_session.exercises_correct = (db_session.exercises_correct or 0) + 1
@@ -1736,8 +1783,46 @@ def get_user_progress_db(user_id: int, course_id: int, db: DBSession) -> dict:
     si = streak_info(user.streak_days if user else 0)
     streak_counted_today = bool(user and user.streak_last_date == today)
 
+    # El empuje de cafecito de su universidad, si hay alguno corriendo. `None`
+    # cuando no hay, que es casi siempre: la tile solo cambia de cara cuando hay
+    # algo que contar, y averiguar que no hay nada es gratis (`hay_empujes`
+    # memoriza el "no" unos segundos por proceso).
+    tramos = xp_boost.tramos_de_usuario(db, user_id)
+    boost_mult = xp_boost.multiplier_for_user(db, user_id)
+    boost = None
+    if tramos and boost_mult > 1.0:
+        boost = {
+            "multiplier": boost_mult,
+            # El que de verdad se cobra, calculado con la MISMA función que usa
+            # el que paga (record_answer_db). Si la tile hiciera su propia
+            # cuenta, las dos se desincronizan en el primer ajuste y el que
+            # pierde la confianza es el número.
+            "effective_multiplier": effective_multiplier(si.multiplier, boost_mult),
+            # El MÍNIMO de los tramos vigentes, no el máximo: es el instante en
+            # que el número que se muestra deja de ser cierto. Con el global y
+            # el de su universidad corriendo a la vez, el que vence primero ya
+            # baja el multiplicador aunque el otro siga.
+            "expires_in_seconds": min(t.expires_in_seconds for t in tramos),
+            # La lista entera, porque puede estar cobrando DOS empujes con dos
+            # donantes distintos y el número no le pertenece a ninguno.
+            "tramos": [
+                {
+                    "university": t.university,
+                    # Lo que este tramo solo multiplica. No suma con el de al
+                    # lado: el total ya viene arriba, calculado sobre los
+                    # cafecitos sumados (ver BoostTramo).
+                    "multiplier": t.multiplier,
+                    "cafecitos": t.cafecitos,
+                    "donor_name": t.donor_name,
+                    "expires_in_seconds": t.expires_in_seconds,
+                }
+                for t in tramos
+            ],
+        }
+
     return {
         "topic_states": topic_states,
+        "boost": boost,
         "main_session_done_today": _has_main_session_today(user_id, course_id, db),
         "last_course": last_course_slug,
         "active_cap": cp.active_cap,
@@ -1891,6 +1976,27 @@ def get_summary_db(
             "counted_today": streak_counted_today,
             "xp_bonus": xp_bonus_total,
         },
+        # Ofrecer el cafecito solo cuando la persona ya demostró que se queda.
+        # Las tres señales existen y no hay que construir ninguna:
+        #
+        #   · Instaló y abrió la PWA (`pwa_first_seen_at`). Va del lado del
+        #     SERVIDOR y no de un localStorage porque quien la instaló en el
+        #     teléfono y abre en la compu tiene que contar igual.
+        #   · Lleva al menos 5 sesiones terminadas.
+        #   · Es su tercer día de actividad, o más.
+        #
+        # Y el MOMENTO es el festejo del ×1,2: la pantalla en la que la persona
+        # acaba de recibir algo. Pedir justo ahí es distinto de pedir en frío.
+        #
+        # Ojo con `session_number`: cuenta todas las sesiones terminadas,
+        # incluida la sintética del onboarding, así que 5 acá son 4 de verdad.
+        "ofrecer_cafecito": bool(
+            user
+            and user.pwa_first_seen_at is not None
+            and session_number >= 5
+            and (user.streak_days or 0) >= 3
+            and si.tier_reached
+        ),
         "session_number": session_number,
     }
 

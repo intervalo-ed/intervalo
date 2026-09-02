@@ -5,6 +5,12 @@ import { useRouter } from "next/navigation"
 import { AnimatePresence, motion } from "motion/react"
 import { useQueryClient } from "@tanstack/react-query"
 import posthog from "posthog-js"
+import { CoffeeIcon } from "lucide-react"
+// El marrón y la URL salen del minijuego: es la misma acción de los dos lados y
+// tiene que verse igual. `solid` es la variante con contraste suficiente para
+// texto blanco encima.
+import { CAFECITO_URL } from "@/app/derivadas/cafecito-cta"
+import { BELT_HEX } from "@/lib/catalog"
 import { XpDots } from "@/components/xp-dots"
 import { ChargeBall, Confetti, ConfettiRain } from "@/components/confetti"
 import { Alert, AlertTitle } from "@/components/ui/alert"
@@ -480,6 +486,7 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
               {phase === "streak" && data && (
                 <StreakPane
                   streak={data.streak}
+                  ofrecerCafecito={data.ofrecer_cafecito}
                   tick={tick}
                   onCountDone={(origin) => {
                     if (data.streak.tier_reached) {
@@ -670,12 +677,16 @@ const TIER_CONFETTI_COLORS = Array.from(
 
 // Panel de racha diaria: mismo lenguaje visual que el resumen (número grande,
 // conteo con ticks). Aparece una vez por día, tras la primera sesión completada.
+const CAFE_SOLIDO = BELT_HEX.brown.solid
+
 function StreakPane({
   streak,
   tick,
   onCountDone,
+  ofrecerCafecito = false,
 }: {
   streak: StreakInfo
+  ofrecerCafecito?: boolean
   tick: (rate: number) => void
   onCountDone?: (origin: { x: number; y: number } | null) => void
 }) {
@@ -841,6 +852,39 @@ function StreakPane({
         )}
       </motion.p>
 
+      {/* El pedido va DESPUÉS del festejo y no antes: la persona acaba de ver
+          subir su multiplicador, o sea que acaba de recibir algo. Pedir ahí es
+          distinto de pedir en frío.
+
+          Y solo aparece cuando el servidor dice que corresponde: instaló la PWA,
+          lleva cinco sesiones y va por su tercer día. Antes de eso, quien todavía
+          está probando la app recibiría un pedido de plata como tercera pantalla.
+
+          El <a> es real y sale al navegador: cafecito.app es otro origen, y
+          adentro de una webview standalone Mercado Pago pierde las tarjetas
+          guardadas y los redirects de 3DS. */}
+      {ofrecerCafecito && (
+        <motion.div
+          className="mt-6 flex flex-col items-center gap-2"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6 }}
+        >
+          <p className="text-center text-sm text-muted-foreground">
+            Un cafecito multiplica el XP de toda tu universidad por un día.
+          </p>
+          <a
+            href={CAFECITO_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex h-11 items-center justify-center gap-2 rounded-md px-5 text-sm font-semibold"
+            style={{ backgroundColor: CAFE_SOLIDO, color: "#FFFFFF" }}
+          >
+            Invitar un cafecito
+            <CoffeeIcon className="size-4" />
+          </a>
+        </motion.div>
+      )}
     </div>
   )
 }

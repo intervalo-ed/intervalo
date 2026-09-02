@@ -269,6 +269,17 @@ export interface paths {
          *
          *     Con los dos cursores devuelve únicamente lo nuevo, que es lo que hace que
          *     sondearlo cada pocos segundos no cueste nada.
+         *
+         *     Y con `before_id`/`before_msg_id` mira para el otro lado: lo que hay más
+         *     atrás de esa línea. Es lo que pide el panel al llegar arriba de todo
+         *     scrolleando, y es el modo OPUESTO al sondeo — cada lista usa su cursor
+         *     "before" si vino, y si no el "after". Que un mismo pedido pueda traer
+         *     novedades viejas y mensajes nuevos no es un accidente: el panel pagina las
+         *     dos listas juntas, pero puede tocar el fondo de una antes que el de la otra.
+         *
+         *     Sin un `has_more` en la respuesta a propósito: una página más corta que el
+         *     `limit` pedido YA significa "no hay más atrás", y el cliente lo sabe sin que
+         *     se lo digan. Un campo aparte sería un segundo lugar donde puede estar mal.
          */
         get: operations["game_events_feed_game_derivemos_events_get"];
         put?: never;
@@ -883,6 +894,30 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/internal/notifications/events": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Internal Due Event Notifications
+         * @description Worker-facing: los avisos DE EVENTO listos para mandar (los reclama).
+         *
+         *     Endpoint aparte del de la notificación normal a propósito: tienen cupos
+         *     distintos y disparadores distintos, y mezclarlos haría que un tick que falla
+         *     en uno arrastre al otro.
+         */
+        get: operations["internal_due_event_notifications_internal_notifications_events_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/internal/push/prune": {
         parameters: {
             query?: never;
@@ -1091,6 +1126,23 @@ export interface paths {
          *     la versión anterior.
          */
         get: operations["get_university_leaderboard_leaderboard_universities_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/leaderboard/recruits": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Recruits */
+        get: operations["get_recruits_leaderboard_recruits_get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1398,6 +1450,47 @@ export interface components {
             /** Response Time S */
             response_time_s: number;
         };
+        /**
+         * BoostInfo
+         * @description El empuje de cafecito que le toca a esta persona, si hay alguno.
+         *
+         *     Es una LISTA de tramos más dos escalares derivados, y no un empuje solo,
+         *     porque se pueden estar cobrando dos a la vez —el global y el de su
+         *     universidad— con dos donantes y dos vencimientos distintos. El multiplicador
+         *     es la suma de los dos, así que no le pertenece a ninguno de los tramos.
+         */
+        BoostInfo: {
+            /** Multiplier */
+            multiplier: number;
+            /** Effective Multiplier */
+            effective_multiplier: number;
+            /** Expires In Seconds */
+            expires_in_seconds: number;
+            /** Tramos */
+            tramos: components["schemas"]["BoostTramo"][];
+        };
+        /**
+         * BoostTramo
+         * @description Un empuje de cafecito vigente, ya agregado. `university=None` = global.
+         *
+         *     Proyección fiel de `game.boosts.BoostView`: los mismos cinco campos con los
+         *     mismos significados. Lo usan dos pantallas distintas —la tile de Practicar,
+         *     que muestra los tramos que le tocan a UNA persona, y el cartel del ranking,
+         *     que muestra los de TODAS las universidades— porque en las dos el objeto es
+         *     el mismo: un cafecito vigente.
+         */
+        BoostTramo: {
+            /** University */
+            university: string | null;
+            /** Multiplier */
+            multiplier: number;
+            /** Cafecitos */
+            cafecitos: number;
+            /** Donor Name */
+            donor_name: string | null;
+            /** Expires In Seconds */
+            expires_in_seconds: number;
+        };
         /** CapPreviewResponse */
         CapPreviewResponse: {
             /** Value */
@@ -1486,6 +1579,8 @@ export interface components {
             first_group_id?: string | null;
             /** First Utm Source */
             first_utm_source?: string | null;
+            /** Referrer */
+            referrer?: string | null;
             /** Intro Item Correct */
             intro_item_correct?: boolean | null;
             /** Attempts */
@@ -2179,6 +2274,13 @@ export interface components {
             total_exercises: number;
             /** Universities */
             universities: string[];
+            /**
+             * Boosts
+             * @default []
+             */
+            boosts: components["schemas"]["BoostTramo"][];
+            /** University */
+            university?: string | null;
         };
         /** NotificationSettings */
         NotificationSettings: {
@@ -2266,6 +2368,41 @@ export interface components {
         PushUnsubscribeRequest: {
             /** Endpoint */
             endpoint: string;
+        };
+        /**
+         * RecruitEntry
+         * @description Una persona que entró por tu link. Deliberadamente NO lleva su XP total:
+         *     lo que se muestra es cuánto te aportó, no cuánto estudia.
+         */
+        RecruitEntry: {
+            /** Rank */
+            rank: number;
+            /** Username */
+            username?: string | null;
+            /** University */
+            university?: string | null;
+            /** Career */
+            career?: string | null;
+            /** Xp Given */
+            xp_given: number;
+            /**
+             * Belt
+             * @default white
+             */
+            belt: string;
+        };
+        /** RecruitsResponse */
+        RecruitsResponse: {
+            /** Entries */
+            entries: components["schemas"]["RecruitEntry"][];
+            /** Total Recruits */
+            total_recruits: number;
+            /** Total Xp Given */
+            total_xp_given: number;
+            /** Share Percent */
+            share_percent: number;
+            /** Handle */
+            handle?: string | null;
         };
         /** SessionExercise */
         SessionExercise: {
@@ -2389,6 +2526,11 @@ export interface components {
             streak: components["schemas"]["StreakInfo"];
             /** Session Number */
             session_number: number;
+            /**
+             * Ofrecer Cafecito
+             * @default false
+             */
+            ofrecer_cafecito: boolean;
         };
         /**
          * SessionSurvey
@@ -2599,6 +2741,7 @@ export interface components {
             topic_states: {
                 [key: string]: components["schemas"]["TopicProgress"];
             };
+            boost?: components["schemas"]["BoostInfo"] | null;
             /** Main Session Done Today */
             main_session_done_today: boolean;
             /** Last Course */
@@ -3052,6 +3195,9 @@ export interface operations {
             query?: {
                 after_id?: number;
                 after_msg_id?: number;
+                before_id?: number;
+                before_msg_id?: number;
+                limit?: number;
             };
             header?: {
                 authorization?: string;
@@ -4035,6 +4181,39 @@ export interface operations {
             };
         };
     };
+    internal_due_event_notifications_internal_notifications_events_get: {
+        parameters: {
+            query?: {
+                force?: boolean;
+            };
+            header?: {
+                "x-internal-secret"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DueNotification"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     internal_prune_push_internal_push_prune_post: {
         parameters: {
             query?: never;
@@ -4307,6 +4486,37 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["UniversityLeaderboardResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_recruits_leaderboard_recruits_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RecruitsResponse"];
                 };
             };
             /** @description Validation Error */

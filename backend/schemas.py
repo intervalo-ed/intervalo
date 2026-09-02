@@ -70,8 +70,49 @@ class StreakInfo(BaseModel):
     xp_bonus: int = 0           # XP extra ganado en esta sesión gracias al multiplicador (solo summary)
 
 
+class BoostTramo(BaseModel):
+    """Un empuje de cafecito vigente, ya agregado. `university=None` = global.
+
+    Proyección fiel de `game.boosts.BoostView`: los mismos cinco campos con los
+    mismos significados. Lo usan dos pantallas distintas —la tile de Practicar,
+    que muestra los tramos que le tocan a UNA persona, y el cartel del ranking,
+    que muestra los de TODAS las universidades— porque en las dos el objeto es
+    el mismo: un cafecito vigente.
+    """
+
+    university: str | None
+    # Lo que ESTE tramo solo multiplica. Ojo: `BoostInfo.multiplier` NO es la
+    # suma de los multiplicadores de sus tramos. Los cafecitos se suman primero
+    # y recién después se convierten en factor (`multiplier_from_cafecitos`), así
+    # que dos tramos de ×1,2 no dan ×2,4 sino ×1,4.
+    multiplier: float
+    # El total CRUDO de cafecitos, sin el tope por donación que sí tiene
+    # `multiplier` (ver BoostView): con una donación de 30 valen ×2,0 y 30.
+    cafecitos: int
+    donor_name: str | None
+    expires_in_seconds: int
+
+
+class BoostInfo(BaseModel):
+    """El empuje de cafecito que le toca a esta persona, si hay alguno.
+
+    Es una LISTA de tramos más dos escalares derivados, y no un empuje solo,
+    porque se pueden estar cobrando dos a la vez —el global y el de su
+    universidad— con dos donantes y dos vencimientos distintos. El multiplicador
+    es la suma de los dos, así que no le pertenece a ninguno de los tramos.
+    """
+
+    multiplier: float            # el factor del empuje solo
+    effective_multiplier: float  # racha × empuje, topeado: el que de verdad se cobra
+    # El MÍNIMO de los tramos: el instante en que el número deja de ser cierto.
+    expires_in_seconds: int
+    tramos: list[BoostTramo]
+
+
 class UserProgressResponse(BaseModel):
     topic_states: dict[str, TopicProgress]
+    # None cuando no hay ningún empuje corriendo, que es casi siempre.
+    boost: BoostInfo | None = None
     main_session_done_today: bool
     last_course: str | None = None
     active_cap: int = 18          # ítems en aprendizaje permitidos a la vez
@@ -204,6 +245,36 @@ class LeaderboardResponse(BaseModel):
     universities: list[str]          # universidades presentes (para el filtro)
 
 
+class RecruitEntry(BaseModel):
+    """Una persona que entró por tu link. Deliberadamente NO lleva su XP total:
+    lo que se muestra es cuánto te aportó, no cuánto estudia."""
+
+    rank: int
+    username: str | None = None
+    university: str | None = None
+    career: str | None = None
+    xp_given: int  # XP que ESTA persona te generó
+    # El mismo cinturón máximo que lleva su fila del ranking individual, y por el
+    # mismo motivo: es lo que pinta el nombre. Es la misma persona en las dos
+    # tablas y tiene que verse igual en las dos.
+    belt: str = "white"
+
+
+class RecruitsResponse(BaseModel):
+    entries: list[RecruitEntry]
+    # Los contadores cuentan a TODOS los reclutas, también a los que todavía no
+    # resolvieron nada; la lista muestra solo a los que ya aportaron. Es la misma
+    # asimetría que el ranking del minijuego, y es a propósito: "trajiste a 8
+    # personas" es la noticia, aunque 3 no hayan arrancado.
+    total_recruits: int
+    total_xp_given: int
+    # El porcentaje viaja para que el cliente nunca lo hardcodee: está escrito
+    # con todas las letras en la diapo, así que cambiarlo es cambiar una promesa.
+    share_percent: int
+    # El @ propio, que es lo que arma el link para compartir.
+    handle: str | None = None
+
+
 class UniversityRankRow(BaseModel):
     university: str
     total_xp: int                 # XP acumulada por sus estudiantes
@@ -238,6 +309,26 @@ class LeaderboardSummaryResponse(BaseModel):
     total_students: int            # usuarios con universidad registrada
     total_exercises: int           # ejercicios resueltos (todos los usuarios)
     universities: list[str]        # universidades presentes (para el filtro)
+    # Los empujes de cafecito vigentes, de TODAS las universidades y no solo de
+    # la de quien mira. Esa es la mecánica, no un descuido: ver que la UTN está
+    # en ×2,0 mientras la propia está en nada es lo que hace mirar cuánto sale un
+    # cafecito (context/gamification.md: la pregunta es cómo esto alimenta la
+    # competencia entre universidades).
+    #
+    # Tampoco los toca el filtro de carrera/universidad de la cabecera: filtrar
+    # el ranking a la UBA no apaga el empuje de la UTN, solo deja de mostrar sus
+    # filas. Viajan acá y no por un endpoint nuevo porque son cabecera igual que
+    # los dos números de arriba, y así el ranking sigue haciendo dos pedidos.
+    boosts: list[BoostTramo] = []
+    # La universidad de quien MIRA. Dos pantallas la necesitan y ninguna la tenía:
+    # el cartel de empujes, que pone la propia primero, y el estado vacío de
+    # Reclutas, que pinta sus renglones de ejemplo con la propia porque la promesa
+    # es "así se va a ver TU universidad creciendo".
+    #
+    # Viaja acá y en ningún otro lado a propósito: es un hecho solo, y tenerlo
+    # también colgado de la respuesta de reclutas serían dos campos que pueden
+    # empezar a decir cosas distintas.
+    university: str | None = None
 
 
 # ── Session ───────────────────────────────────────────────────────────────────
@@ -306,3 +397,9 @@ class SessionSummaryResponse(BaseModel):
     xp_earned: int
     streak: StreakInfo
     session_number: int  # nº de orden de esta sesión entre todas las terminadas por el usuario
+    # ¿Corresponde ofrecerle un cafecito en esta pantalla?
+    #
+    # Lo decide el SERVIDOR y no el cliente porque una de las tres señales
+    # —haber instalado la PWA— vive en la base y no en el dispositivo: quien la
+    # instaló en el teléfono y abre en la compu tiene que contar igual.
+    ofrecer_cafecito: bool = False
