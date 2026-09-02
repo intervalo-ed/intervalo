@@ -122,6 +122,18 @@ PUSH_COPY = {
                       "Tu mejor racha de ejercicios en un día fue {n}. ¿La superás hoy? 🚀", 10),
 }
 
+# Avisos de EVENTO (notification_copy.EVENT_VARIANTS): no entran a
+# CATEGORY_WEIGHTS ni a la rotación de arriba — salen porque pasó algo (alguien
+# donó un cafecito, un recluta estudió), no por sorteo, así que no tienen un
+# peso nominal que contrastar. Tabla separada de PUSH_COPY por eso, y no una
+# fila más ahí con un peso inventado.
+EVENT_PUSH_COPY = {
+    "recruit": ("Un recluta suyo estudió y le generó XP",
+                "@fulano entró por tu link y te sumó 8 XP hoy 🪖"),
+    "cafecito": ("Alguien invitó un cafecito para su universidad",
+                 "Alguien de la UBA invitó un cafecito. Tenés ×1,5 por 24 h ☕"),
+}
+
 
 def curso_label(slug: str) -> str:
     emo, name = COURSE_LABEL.get(slug, ("", slug))
@@ -259,7 +271,7 @@ def page(p: dict, *, token: str) -> str:
         f'<a href="#{a}">{esc(t)}</a>'
         for a, t in [("embudo", "Embudo"), ("cohortes", "Cohortes"), ("producto", "Producto"),
                      ("encuestas", "Encuestas"), ("push", "Push"),
-                     ("mails", "Mails")])
+                     ("mails", "Mails"), ("cafecito", "Cafecito"), ("reclutas", "Reclutas")])
 
     out = [
         "<div class='wrap'>",
@@ -545,11 +557,16 @@ def page(p: dict, *, token: str) -> str:
     enviadas_tot = sum(r["enviadas"] for r in rg["por_categoria"]) or 1
     cat_rows = []
     for r in rg["por_categoria"]:
-        desc, ejemplo, peso = PUSH_COPY.get(r["categoria"], ("—", "—", 0))
+        if r["categoria"] in EVENT_PUSH_COPY:
+            desc, ejemplo = EVENT_PUSH_COPY[r["categoria"]]
+            nominal = "evento"
+        else:
+            desc, ejemplo, peso = PUSH_COPY.get(r["categoria"], ("—", "—", 0))
+            nominal = f"{peso}%"
         cat_rows.append([
             f'<b>{esc(r["categoria"])}</b><br><span class="sub2">{esc(desc)}</span>'
             f'<br><span class="ej">{esc(ejemplo)}</span>',
-            r["enviadas"], num(100 * r["enviadas"] / enviadas_tot, "%"), f"{peso}%",
+            r["enviadas"], num(100 * r["enviadas"] / enviadas_tot, "%"), nominal,
             r["abiertas"], num(r["ctr"], "%")])
     out.append(_section(
         5, "Re-enganche · push",
@@ -568,7 +585,12 @@ def page(p: dict, *, token: str) -> str:
         f'<code>notification_copy.py</code>: si se separan mucho, hay variantes que casi nunca '
         f'aplican y el reparto efectivo no es el que se configuró. Si «con notificación activa» '
         f'queda muy por debajo de «suscripciones push», volvió el bug de persistencia de '
-        f'<code>notify_enabled</code>.</p></div>',
+        f'<code>notify_enabled</code>.</p>'
+        f'<p class="note"><b>«recruit» y «cafecito» son avisos de EVENTO</b>, no de la rotación de '
+        f'arriba: salen porque alguien reclutado estudió o alguien donó, con cupo propio '
+        f'(<code>notify_events_count</code>), así que no compiten por el lugar del recordatorio '
+        f'diario. No tienen «nominal» porque no se sortean — la variante la decide el hecho.</p>'
+        f'</div>',
         anchor="push"))
 
     # 6 · Re-enganche: email
@@ -591,9 +613,10 @@ def page(p: dict, *, token: str) -> str:
         f'{_table(["Copy", "A quién va", "Enviados", "Activaron", "Tasa"], mail_rows, empty="sin envíos en la ventana")}'
         '<p class="note"><b>Activar</b> = terminar una sesión dentro de los '
         f'{em["ventana_dias"]} días siguientes al envío. Es lo más cerca de «el mail funcionó» que '
-        'se puede medir con lo que hay. Dos salvedades al leerlo: <b>«streak» no se compara con '
-        'los otros</b> —va a alguien que viene de una racha activa, así que su tasa arranca alta '
-        'por selección y esa gente volvía igual—, y <b>no hay grupo de control</b>: todo el que '
+        'se puede medir con lo que hay. Dos salvedades al leerlo: <b>«streak» y «reclutas_semanal» '
+        'no se comparan con los otros</b> —van a alguien que viene de una racha activa o de '
+        'reclutas que rindieron esta semana, así que su tasa arranca alta por selección y esa '
+        'gente volvía igual—, y <b>no hay grupo de control</b>: todo el que '
         'califica recibe el mail, así que esto es una tasa bruta, no un efecto causal. Para saber '
         'cuánto aporta el mail habría que dejar un holdout sin mandar.</p>'
         '<p class="note"><b>Aperturas: no están.</b> Resend las conoce pero no llegan a esta base; '
@@ -602,6 +625,68 @@ def page(p: dict, *, token: str) -> str:
         '<code>?utm_source=email&amp;utm_campaign=&lt;copy&gt;</code>, así que PostHog los separa '
         'por copy a partir de los envíos de esta semana.</p></div>',
         anchor="mails"))
+
+    # 7 · Cafecito
+    ca = p["cafecito"]
+    out.append(_section(
+        7, "Cafecito",
+        '<div class="grid g4">'
+        + "".join(f'<div class="box kpi"><div class="label">{esc(l)}</div>'
+                  f'<div class="val">{num(v)}</div><div class="hint">{esc(h)}</div></div>'
+                  for l, v, h in [
+                      ("Empujes reales", ca["empujes"], "donaciones, sin grants a mano"),
+                      ("Cafecitos donados", ca["cafecitos"], "en la ventana visible"),
+                      ("XP que generó", ca["xp_generada"], "en respuestas de Intervalo"),
+                      ("Mail de agradecimiento", ca["mails_enviados"],
+                       f'de {ca["vencidos"]} empujes ya vencidos')])
+        + '</div>'
+        f'<p class="note">El embudo completo del cartel —impresiones, clicks, CTR por disparador— '
+        f'vive en el <a href="/panel/{esc(token)}/derivemos">panel de Derivemos</a>, que es donde '
+        f'se dispara. Acá solo lo que le pasa a Intervalo cuando alguien dona: cuánta XP repartió '
+        f'el empuje en esta app (<code>answers.xp_from_boost</code>, sumada UNA vez por respuesta '
+        f'y no por empuje, para no duplicar si dos se solapan) y si el mail que le cuenta al '
+        f'donante qué hizo su empuje ya salió — sale recién cuando el empuje VENCE, no cuando se '
+        f'acredita, porque recién ahí el número está cerrado. <b>«Empujes»</b> cuenta solo '
+        f'donaciones reales: los grants a mano que insertamos para probar la mecánica quedan '
+        f'afuera.</p>',
+        anchor="cafecito"))
+
+    # 8 · Reclutas
+    rc = p["reclutas"]
+    k_rows = [[w["label"], w["nuevos"], w["reclutados"],
+              num(w["pct_reclutados"], "%"), w["base"], num(w["k"])] for w in rc["semanas"]]
+    top_rows = [[f'@{esc(t["alias"])}', _uni_chip(t["university"]) if t["university"] else "—",
+                t["reclutas"], t["xp"]] for t in rc["top"]]
+    out.append(_section(
+        8, "Reclutas",
+        '<div class="grid g4">'
+        + "".join(f'<div class="box kpi"><div class="label">{esc(l)}</div>'
+                  f'<div class="val">{num(v, sfx)}</div><div class="hint">{esc(h)}</div></div>'
+                  for l, v, sfx, h in [
+                      ("Reclutados", rc["total_reclutados"], "", "jugadores que entraron por un link"),
+                      ("Del total de jugadores", rc["pct_reclutados"], "%",
+                       f'sobre {rc["total_jugadores"]}'),
+                      ("K de la última semana",
+                       rc["semanas"][-1]["k"] if rc["semanas"] else None, "",
+                       "reclutas nuevos / base que ya existía"),
+                      ("Top reclutador", rc["top"][0]["xp"] if rc["top"] else None, "",
+                       f'XP de @{rc["top"][0]["alias"]}' if rc["top"] else "todavía nadie reclutó")])
+        + '</div>'
+        f'<div class="box"><h3>Coeficiente de viralidad por semana</h3>'
+        f'{_table(["Semana", "Nuevos", "Reclutados", "% reclutados", "Base previa", "K"], k_rows)}'
+        '<p class="note"><b>K</b> = reclutas nuevos de la semana sobre los jugadores que YA '
+        'EXISTÍAN antes de esa semana — «cuántos usuarios nuevos trae, en promedio, cada usuario '
+        'que ya estaba». No es la fórmula completa de Lean Startup (invitaciones × conversión): no '
+        'sabemos cuántos links se mandaron, solo cuántos prendieron. <b>K &gt; 1 es crecimiento '
+        'que se sostiene solo</b>; por debajo, el link ayuda pero no alcanza como único canal.</p>'
+        '</div>'
+        f'<div class="box"><h3>Top reclutadores</h3>'
+        f'{_table(["Reclutador", "Universidad", "Reclutas", "XP ganada"], top_rows, empty="todavía nadie reclutó")}'
+        '<p class="note">De SIEMPRE y no de la ventana visible — como el ranking del juego: no '
+        'tendría sentido resetear a quien lleva meses trayendo gente solo porque esta semana no '
+        'reclutó a nadie nuevo. Un solo nivel: los reclutas de tus reclutas no suman acá (ver '
+        '<code>game/referrals.py</code>).</p></div>',
+        anchor="reclutas"))
 
     out.append(
         '<footer>'
