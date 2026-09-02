@@ -106,6 +106,22 @@ export interface paths {
          *     peor lugar del embudo. Acá, en cambio, el juego ya sabe todo.
          *
          *     Devuelve 204: el cliente dispara esto y se va sin esperar nada.
+         *
+         *     La universidad sale del jugador, salvo que no tenga: desde que la
+         *     configuración de Intervalo clásico abre esta misma diapo (profile-content.tsx),
+         *     acá llegan personas cuyo `GamePlayer` se creó al vuelo para servir este
+         *     pedido (`deps.create_player_for_user`) y nunca pasó por la pantalla que
+         *     elige universidad. Su fila de Intervalo sí la sabe.
+         *
+         *     Sin este respaldo la intención se anota con `university=None`: alcanza para
+         *     decirle a la persona que su cafecito llegó, pero NO para dirigir el empuje
+         *     (`pending_intents` descarta las que no tienen universidad), así que la
+         *     donación de alguien que nunca jugó terminaba en el reparto global en vez de
+         *     ir a su universidad. Es la misma atribución que se pierde por donar sin
+         *     anotar la intención, un escalón más adelante.
+         *
+         *     Se canoniza porque `Enrollment.university` es texto libre del onboarding y
+         *     los empujes se buscan por sigla; el jugador ya la tiene canonizada.
          */
         post: operations["cafecito_intent_game_derivemos_cafecito_intent_post"];
         delete?: never;

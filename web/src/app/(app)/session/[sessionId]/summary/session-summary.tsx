@@ -1001,11 +1001,17 @@ function PedidoPane({
                 durante un día entero. El tuyo también.
               </>
             ) : (
+              // El mismo copy que la vista de Reclutas del ranking y que el
+              // panel del minijuego. Acá va la variante que NO nombra la
+              // universidad: `SessionSummaryResponse` no la trae, y agregarle
+              // un campo al backend para decir la misma frase con el nombre
+              // adentro es mucho aparato para un renglón.
               <>
-                Quien entre por tu link te deja el{" "}
+                Quienes ingresen con tu link generan un{" "}
                 <span className="font-medium text-foreground">{porcentaje}%</span>{" "}
-                de todo lo que sume, acá y en el minijuego. No se le descuenta
-                nada: esa XP se acuña.
+                más de XP, el cual va{" "}
+                <span className="font-medium text-foreground">para vos</span> y a
+                tu universidad también.
               </>
             )}
           </p>

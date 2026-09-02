@@ -636,6 +636,13 @@ export function CafecitoPanel({
   // mientras no hay oferta que mostrar —el cartel de vuelta, por ejemplo, ya no
   // tiene slider del que previsualizar nada.
   onPreview,
+  // Con qué nombre entra esta diapo al embudo de cafecito. Por default es el
+  // disparador, que es lo que fue siempre; lo manda distinto quien monta el
+  // panel FUERA del juego (components/cafecito-sheet.tsx, la configuración de
+  // Intervalo clásico). Sin esto las impresiones de las dos apps caían en el
+  // mismo `pedido` y el embudo del minijuego contaba en su denominador pantallas
+  // que no se abrieron adentro del minijuego.
+  placement = trigger,
   className,
 }: {
   trigger: CafecitoTrigger
@@ -652,6 +659,7 @@ export function CafecitoPanel({
   keyboard?: boolean
   fullBleed?: boolean
   onPreview?: (preview: { multiplier: number; color: string } | null) => void
+  placement?: string
   className?: string
 }) {
   const cta = useCta()
@@ -678,7 +686,7 @@ export function CafecitoPanel({
 
   useEffect(() => {
     cta("boost_offer", "impression", {
-      placement: trigger,
+      placement,
       solved,
       props: { has_university: university !== null },
     })
@@ -687,7 +695,7 @@ export function CafecitoPanel({
     // denominador del embudo a gente a la que nunca se le mostró un botón que
     // lleve a Cafecito, y haría bajar la conversión por un motivo que no es.
     if (university !== null) {
-      cta("cafecito", "impression", { placement: trigger, solved })
+      cta("cafecito", "impression", { placement, solved })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [trigger])
@@ -766,7 +774,7 @@ export function CafecitoPanel({
     // shift+enter, y el atajo tiene que sonar igual que tocarlo.
     sfx.select()
     cta("cafecito", "click", {
-      placement: trigger,
+      placement,
       solved,
       // La cantidad y el multiplicador solo viven en PostHog: el slider es una
       // calculadora y lo que la persona elija acá no tiene por qué ser lo que
@@ -988,7 +996,7 @@ export function CafecitoPanel({
                   type="button"
                   onClick={() => {
                     cta("boost_offer", "click", {
-                      placement: trigger,
+                      placement,
                       solved,
                       props: { action: "pick_university" },
                     })

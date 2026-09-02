@@ -19,8 +19,9 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session, load_only
 
 from models import GameAttempt, GameCtaEvent, GameExercise, GamePlayer, User
-from universities import UNIVERSITIES as _UNIVERSIDADES
+from universities import UNIVERSITIES as _UNIVERSIDADES, canonical_university
 import handles
+import xp_boost
 from usernames import normalize_username, validate_username
 
 from . import boosts
@@ -650,8 +651,29 @@ def cafecito_intent(
     peor lugar del embudo. Acá, en cambio, el juego ya sabe todo.
 
     Devuelve 204: el cliente dispara esto y se va sin esperar nada.
+
+    La universidad sale del jugador, salvo que no tenga: desde que la
+    configuración de Intervalo clásico abre esta misma diapo (profile-content.tsx),
+    acá llegan personas cuyo `GamePlayer` se creó al vuelo para servir este
+    pedido (`deps.create_player_for_user`) y nunca pasó por la pantalla que
+    elige universidad. Su fila de Intervalo sí la sabe.
+
+    Sin este respaldo la intención se anota con `university=None`: alcanza para
+    decirle a la persona que su cafecito llegó, pero NO para dirigir el empuje
+    (`pending_intents` descarta las que no tienen universidad), así que la
+    donación de alguien que nunca jugó terminaba en el reparto global en vez de
+    ir a su universidad. Es la misma atribución que se pierde por donar sin
+    anotar la intención, un escalón más adelante.
+
+    Se canoniza porque `Enrollment.university` es texto libre del onboarding y
+    los empujes se buscan por sigla; el jugador ya la tiene canonizada.
     """
-    boosts.record_intent(db, player)
+    university = player.university
+    if not university and player.user_id is not None:
+        fila = xp_boost.enrollment_de_referencia(db, player.user_id)
+        if fila is not None:
+            university = canonical_university(fila.university) or None
+    boosts.record_intent(db, player, university=university)
     db.commit()
     return Response(status_code=204)
 
