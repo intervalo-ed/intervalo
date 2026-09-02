@@ -1,5 +1,6 @@
 from datetime import datetime
 from sqlalchemy import (
+    CheckConstraint,
     Column,
     Integer,
     String,
@@ -812,6 +813,78 @@ class GamePlayer(Base):
     last_seen_at = Column(DateTime, nullable=True)
 
     user = relationship("User")
+
+
+class Handle(Base):
+    """El registro de nombres de usuario: quién es dueño de cada @, en TODO Intervalo.
+
+    Hasta acá había dos namespaces que se ignoraban entre sí al validar:
+    `users.username` (que solo miraba `users`) y `game_players.alias` (que miraba
+    `game_players` ∪ `game_alias_history` y nunca `users`). El mismo string podía
+    ser de dos personas distintas, una en cada producto.
+
+    Esta tabla es la ÚNICA autoridad sobre qué nombre está tomado y de quién es.
+    `users.username` y `game_players.alias` sobreviven como caché desnormalizado
+    —para que el ranking siga siendo una consulta de una sola tabla— pero dejan
+    de decidir: lo único que decide es una fila de acá. Nada escribe esas dos
+    columnas fuera de `backend/handles.py`.
+
+    Generaliza `game_alias_history`, que hacía esto mismo pero solo para el juego
+    y solo para los @ ya soltados. Dos cosas que aquella tabla resolvía y que hay
+    que conservar, porque son la razón de que exista:
+
+      · Un @ soltado NO queda libre. Sigue resolviendo links de reclutamiento
+        (`?r=`), así que dárselo a otra persona sería darle también la gente que
+        trajo la primera. Por eso las filas se RETIRAN y no se borran.
+      · Al retirarse, la fila sigue apuntando a su dueño. El link viejo no muere:
+        sigue llevando a quien lo repartió.
+
+    Lo nuevo es que ese blindaje ahora cubre `users.username`, que no tenía
+    historia: cambiarte el username liberaba el string, y con `?r=` unificado eso
+    le regalaba tus reclutas a un desconocido.
+
+    Un dueño y solo uno, pero el dueño puede tener dos caras: una persona
+    registrada que además juega es UNA fila con `user_id` y `player_id` puestos.
+    Un invitado del juego es una fila con solo `player_id` — y ahí vive su @, sin
+    inventarle una fila fantasma en `users`.
+    """
+
+    __tablename__ = "handles"
+
+    handle = Column(String(30), primary_key=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=True, index=True)
+    player_id = Column(Integer, ForeignKey("game_players.id"), nullable=True, index=True)
+    # "active" = es el @ que esta persona usa hoy. "retired" = lo soltó, pero
+    # sigue siendo suyo y sigue resolviendo sus links.
+    status = Column(String(10), nullable=False, default="active", server_default="active")
+    claimed_at = Column(DateTime, nullable=True, default=datetime.utcnow)
+    released_at = Column(DateTime, nullable=True)
+
+    __table_args__ = (
+        # Un handle sin dueño no significa nada: sería un nombre reservado que
+        # nadie puede reclamar y que nada libera.
+        CheckConstraint(
+            "user_id IS NOT NULL OR player_id IS NOT NULL", name="ck_handles_owner"
+        ),
+        CheckConstraint("status IN ('active','retired')", name="ck_handles_status"),
+        # Un solo handle ACTIVO por dueño, que es lo que hace de esto un registro
+        # y no una lista. Parciales porque los retirados sí se acumulan: una
+        # persona puede haber soltado cinco @ y todos siguen siendo suyos.
+        Index(
+            "uq_handles_active_user",
+            "user_id",
+            unique=True,
+            sqlite_where=text("status = 'active' AND user_id IS NOT NULL"),
+            postgresql_where=text("status = 'active' AND user_id IS NOT NULL"),
+        ),
+        Index(
+            "uq_handles_active_player",
+            "player_id",
+            unique=True,
+            sqlite_where=text("status = 'active' AND player_id IS NOT NULL"),
+            postgresql_where=text("status = 'active' AND player_id IS NOT NULL"),
+        ),
+    )
 
 
 class GameAliasHistory(Base):
