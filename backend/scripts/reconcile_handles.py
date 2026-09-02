@@ -114,8 +114,14 @@ def main() -> int:
             )
             acciones += 1
             if not seco:
-                # `reclamar` retira el username viejo y lo deja apuntando a esta
-                # misma persona, así que sus links `?r=` no se rompen.
+                # El username que se desplaza tiene que quedar RESERVADO, y hay
+                # que insertarlo a mano porque en este caso NO está en el
+                # registro: el backfill saltea el username de quien ya tiene fila
+                # activa por su alias, así que estos tres nunca entraron.
+                # `reclamar` solo puede retirar lo que existe, de modo que sin
+                # esto el string quedaría libre para cualquiera — que es
+                # exactamente la regla que este registro existe para sostener.
+                handles.reservar_retirado(db, username_viejo, user_id=u.id)
                 handles.reclamar(db, p.alias, user_id=u.id, player_id=p.id)
 
         if not seco:
@@ -143,8 +149,17 @@ def main() -> int:
             .filter(Handle.handle.is_(None))
             .count()
         )
+        # Ningún username puede quedar sin fila. Si uno queda libre, cualquiera
+        # lo puede tomar — y con él los links `?r=` que su dueño haya repartido.
+        usernames_libres = (
+            db.query(User)
+            .outerjoin(Handle, Handle.handle == User.username)
+            .filter(User.username.isnot(None), Handle.handle.is_(None))
+            .count()
+        )
         print(f"invariantes: dueños con dos @ activos = {dobles_u + dobles_p}")
         print(f"             alias sin registrar      = {huerfanos}")
+        print(f"             usernames sin reservar   = {usernames_libres}")
         print(f"\n{acciones} acción(es) {'a aplicar' if seco else 'aplicadas'}")
         if seco and acciones:
             print("Corré de nuevo con --aplicar para escribirlas.")

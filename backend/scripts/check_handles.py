@@ -174,6 +174,43 @@ check("y alias_taken del juego ve el username de clásico",
 check("aunque ese username esté RETIRADO", aliases.alias_taken(db, "nicolas"))
 check("y un nombre que no tuvo nadie sigue libre", not aliases.alias_taken(db, "nadielotuvo"))
 
+print("8. unificar un @ no puede LIBERAR el username viejo")
+# El caso salió verificando producción, no razonando: el backfill de la migración
+# saltea el username de quien ya tiene fila activa por su alias del juego, así
+# que esos usernames NUNCA entran al registro. Y `reclamar` solo puede retirar lo
+# que existe, de modo que al unificar el @ el username viejo quedaba libre para
+# cualquiera — justo la regla que este registro existe para sostener.
+db.add(User(id=3, clerk_user_id="c3", email="c@c.com", name="C", username="tlopreite"))
+db.commit()
+db.add(GamePlayer(id=18, alias="tmp18", user_id=3))
+db.commit()
+# El estado que deja el backfill: el ALIAS tiene fila activa con las dos caras, y
+# el username no tiene ninguna.
+db.query(Handle).filter(Handle.player_id == 18).delete()
+db.commit()
+handles.reclamar(db, "goldenmedialuna", user_id=3, player_id=18)
+db.commit()
+check("el username viejo efectivamente NO está en el registro",
+      handles.duenio(db, "tlopreite") is None)
+
+handles.reservar_retirado(db, "tlopreite", user_id=3)
+db.commit()
+reservado = handles.duenio(db, "tlopreite")
+check("después de reservarlo, existe", reservado is not None)
+check("queda RETIRADO, no activo", reservado and reservado.status == "retired")
+check("y sigue siendo de esa persona", reservado and reservado.user_id == 3)
+check("el @ que usa sigue siendo el del juego",
+      handles.activo_de_usuario(db, 3).handle == "goldenmedialuna")
+check("nadie más se lo puede llevar", handles.tomado(db, "tlopreite"))
+try:
+    handles.reclamar(db, "tlopreite", user_id=1)
+    check("y reclamarlo desde otra cuenta falla", False)
+except handles.HandleTomado:
+    check("y reclamarlo desde otra cuenta falla", True)
+db.rollback()
+check("reservar dos veces no duplica ni pisa",
+      handles.reservar_retirado(db, "tlopreite", user_id=1) is None)
+
 db.close()
 
 print()

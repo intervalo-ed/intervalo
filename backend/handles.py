@@ -179,6 +179,35 @@ def _sincronizar_cache(db: Session, fila: Handle) -> None:
             p.alias = fila.handle
 
 
+def reservar_retirado(db: Session, handle: str, *, user_id: int) -> Handle | None:
+    """Deja un @ RESERVADO para alguien, sin que sea el que usa. No commitea.
+
+    Existe por un caso que `reclamar` no puede cubrir: un @ que esa persona tenía
+    en uso pero que NUNCA entró al registro. Pasa con los usernames que el
+    backfill de la migración saltea —el de quien ya tenía fila activa por su
+    alias del juego— y que por lo tanto la reconciliación no puede retirar,
+    porque retirar es cambiarle el estado a una fila que existe.
+
+    Sin esto, unificar el @ de esas personas les LIBERA el username viejo, y
+    cualquiera puede tomarlo. Que es exactamente lo que este registro existe para
+    impedir: un @ soltado sigue resolviendo los links `?r=` repartidos.
+
+    Devuelve None si el @ ya tenía dueño, que es el caso normal y no un error.
+    """
+    if not handle or duenio(db, handle) is not None:
+        return None
+    fila = Handle(
+        handle=handle,
+        user_id=user_id,
+        status="retired",
+        claimed_at=_now(),
+        released_at=_now(),
+    )
+    db.add(fila)
+    db.flush()
+    return fila
+
+
 def vincular(db: Session, *, user_id: int, player_id: int) -> None:
     """Une las dos caras de una persona: la de Intervalo y la del juego.
 
