@@ -6292,6 +6292,11 @@
           "session_number": {
             "type": "integer",
             "title": "Session Number"
+          },
+          "ofrecer_cafecito": {
+            "type": "boolean",
+            "title": "Ofrecer Cafecito",
+            "default": false
           }
         },
         "type": "object",

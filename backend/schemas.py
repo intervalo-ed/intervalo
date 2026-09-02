@@ -359,3 +359,9 @@ class SessionSummaryResponse(BaseModel):
     xp_earned: int
     streak: StreakInfo
     session_number: int  # nº de orden de esta sesión entre todas las terminadas por el usuario
+    # ¿Corresponde ofrecerle un cafecito en esta pantalla?
+    #
+    # Lo decide el SERVIDOR y no el cliente porque una de las tres señales
+    # —haber instalado la PWA— vive en la base y no en el dispositivo: quien la
+    # instaló en el teléfono y abre en la compu tiene que contar igual.
+    ofrecer_cafecito: bool = False
