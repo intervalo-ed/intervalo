@@ -398,7 +398,19 @@ def retention(data: dict, weeks: list[date], horizon: int = 14) -> dict:
             points.append({"k": k, "obs": len(obs), "n": hit, "pct": _pct(hit, len(obs))})
         cohorts.append({"label": w.strftime("%d/%m"), "week": w.isoformat(),
                         "n": len(inicio), "altas": len(altas), "points": points})
-    return {"cohortes": cohorts, "horizon": horizon}
+
+    # Vista "combinada": las cohortes fusionadas en una sola curva, sumando
+    # numerador y denominador de cada k antes de sacar el porcentaje (no
+    # promediando los porcentajes ya hechos, que pesaría igual a una cohorte
+    # de 5 que a una de 70). Vive al lado de `cohortes` y no las reemplaza: el
+    # panel elige cuál mostrar.
+    combinada = []
+    for k in range(horizon + 1):
+        obs_k = sum(c["points"][k]["obs"] for c in cohorts)
+        n_k = sum(c["points"][k]["n"] for c in cohorts)
+        combinada.append({"k": k, "obs": obs_k, "n": n_k, "pct": _pct(n_k, obs_k)})
+    return {"cohortes": cohorts, "horizon": horizon, "combinada": combinada,
+            "n_combinada": sum(c["n"] for c in cohorts)}
 
 
 def _behaviour(data: dict, uids: set[int]) -> dict:
