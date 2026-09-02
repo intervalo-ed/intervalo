@@ -108,11 +108,19 @@ check("quien no eligió horario no recibe avisos de evento",
       not push_store.en_horario_de_avisos(sin_horario, a_las(9)))
 
 print("5. el copy elige por el HECHO, no al azar")
-v = copy.choose_event_variant("cafecito", {"donor_alias": "nico", "university": "UBA",
+v = copy.choose_event_variant("cafecito", {"donor_name": "Nico", "university": "UBA",
                                            "boost_multiplier": 1.4})
 check("con donante identificable, lo nombra", v.key == "cafecito_named")
-cuerpo = copy.render("cafecito", v, {"donor_alias": "nico", "university": "UBA",
-                                     "boost_multiplier": 1.4})[1]
+cuerpo = copy.render(
+    "cafecito",
+    v,
+    {"donor_name": "Nico", "university": "UBA", "boost_multiplier": 1.4},
+)[1]
+# `donor_name` es el texto libre que la persona escribió en el formulario de
+# Cafecito ("Santi ITBA", "Nico"), no un @ del producto: ponerle arroba
+# prometería un usuario que se puede buscar y que no existe.
+check("y lo nombra SIN arroba, porque no es un @ del producto",
+      "@" not in cuerpo, f"(dio {cuerpo!r})")
 check("y el multiplicador va con coma, como en el resto del producto",
       "×1,4" in cuerpo, f"(dio {cuerpo!r})")
 
@@ -135,6 +143,48 @@ print("6. las categorías de evento NO entran a la rotación de la normal")
 check("recruit no está en los pesos", copy.CATEGORY_RECRUIT not in copy.CATEGORY_WEIGHTS)
 check("cafecito tampoco", copy.CATEGORY_CAFECITO not in copy.CATEGORY_WEIGHTS)
 check("los pesos siguen sumando 1", abs(sum(copy.CATEGORY_WEIGHTS.values()) - 1.0) < 1e-9)
+
+print("7. la tubería completa: de un empuje real a un aviso reclamado")
+# Hasta acá se probaron las piezas. Esto prueba que estén enchufadas, que es lo
+# único que falla si el cupo y el copy están bien pero nadie los llama.
+from datetime import timedelta  # noqa: E402
+
+from models import Course, Enrollment, GameBoost, GamePlayer, PushSubscription  # noqa: E402
+
+from game import boosts  # noqa: E402
+
+db.add(Course(id=1, slug="analisis", name="Análisis"))
+db.commit()
+db.add(Enrollment(user_id=1, course_id=1, university="UBA"))
+db.add(
+    PushSubscription(
+        user_id=1, course_id=1, endpoint="https://push.test/1", p256dh="k", auth="a"
+    )
+)
+db.commit()
+# El cupo del día ya está gastado por los casos de arriba: se limpia para probar
+# la tubería con cupo disponible.
+u.notify_events_on = None
+u.notify_events_count = 0
+db.commit()
+
+sin_empuje = push_store.due_event_notifications(db, force=True)
+check("sin nada que contar, no sale ningún aviso", sin_empuje == [])
+
+boosts.grant(db, university="UBA", cafecitos=4, donor_name="Nico")
+db.commit()
+boosts.olvidar_cache_de_empujes()
+avisos = push_store.due_event_notifications(db, force=True)
+check("con un empuje corriendo, sale uno", len(avisos) == 1, f"(dio {len(avisos)})")
+if avisos:
+    check("y lleva la suscripción a la que mandarlo",
+          len(avisos[0]["subscriptions"]) == 1)
+    check("con el multiplicador en el cuerpo",
+          "×1,4" in avisos[0]["body"], f"({avisos[0]['body']!r})")
+
+# La idempotencia: el MISMO empuje no vuelve a avisar aunque siga corriendo.
+otra_vez = push_store.due_event_notifications(db, force=True)
+check("y no se repite en la corrida siguiente", otra_vez == [], f"(dio {len(otra_vez)})")
 
 db.close()
 

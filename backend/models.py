@@ -52,6 +52,11 @@ class User(Base):
     # mediodía, que es la que sostiene el hábito. `notify_events_on` guarda el
     # día local al que corresponde el conteo, así se reinicia solo al cambiar de
     # día sin necesitar un job que lo limpie.
+    # Última semana en que se mandó el resumen de reclutas. Guarda la FECHA y no
+    # un booleano para que el guard sea "ya se le mandó esta semana" y no "ya se
+    # le mandó alguna vez".
+    reclutas_email_sent_on = Column(Date, nullable=True)
+
     notify_events_on = Column(Date, nullable=True)
     notify_events_count = Column(Integer, nullable=False, default=0, server_default="0")
 
@@ -1120,6 +1125,11 @@ class GameBoost(Base):
 
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
     expires_at = Column(DateTime, nullable=False, index=True)
+    # Cuándo se le contó al donante qué hizo su empuje. El mail sale al
+    # VENCER, que es cuando el número está cerrado, así que esta columna es el
+    # guard de "ya se lo contamos": sin ella, cada corrida del worker le
+    # mandaría el mismo mail otra vez.
+    email_sent_at = Column(DateTime, nullable=True)
 
 
 class GameEvent(Base):

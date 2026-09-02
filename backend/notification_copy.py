@@ -345,8 +345,11 @@ def _recruit_milestone(context: dict) -> tuple[str, str]:
 
 
 def _cafecito_named(context: dict) -> tuple[str, str]:
+    # SIN arroba. `donor_name` es el texto libre que la persona escribió en el
+    # formulario de Cafecito ("Santi ITBA", "Nico"), no un @ del producto:
+    # ponerle arroba prometería un usuario que se puede buscar y que no existe.
     return "Intervalo", (
-        f"@{context['donor_alias']} invitó un cafecito para la {context['university']}. "
+        f"{context['donor_name']} invitó un cafecito para la {context['university']}. "
         f"Tenés ×{_mult(context)} por 24 h ☕"
     )
 
@@ -394,10 +397,10 @@ EVENT_VARIANTS: dict[str, list[Variant]] = {
         ),
     ],
     CATEGORY_CAFECITO: [
-        Variant("cafecito_named", lambda c: bool(c.get("donor_alias")), _cafecito_named),
+        Variant("cafecito_named", lambda c: bool(c.get("donor_name")), _cafecito_named),
         Variant(
             "cafecito_anon",
-            lambda c: bool(c.get("university")) and not c.get("donor_alias"),
+            lambda c: bool(c.get("university")) and not c.get("donor_name"),
             _cafecito_anon,
         ),
         Variant(

@@ -1025,6 +1025,25 @@ def internal_due_notifications(
     return push_store.due_notifications(db, force=force)
 
 
+@app.get(
+    "/internal/notifications/events",
+    response_model=list[DueNotification],
+    dependencies=[Depends(require_internal_secret)],
+)
+def internal_due_event_notifications(
+    force: bool = False,
+    db: Session = Depends(get_db),
+):
+    """Worker-facing: los avisos DE EVENTO listos para mandar (los reclama).
+
+    Endpoint aparte del de la notificación normal a propósito: tienen cupos
+    distintos y disparadores distintos, y mezclarlos haría que un tick que falla
+    en uno arrastre al otro."""
+    import push_store
+
+    return push_store.due_event_notifications(db, force=force)
+
+
 @app.post(
     "/internal/push/prune",
     response_model=SimpleResponse,

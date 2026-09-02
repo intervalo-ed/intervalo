@@ -669,6 +669,139 @@ def send_report_thanks_email(db: DBSession, user: User, feedback_ids: list[int])
     return sent
 
 
+def due_cafecito_efecto_emails(db: DBSession) -> list[tuple[User, dict]]:
+    """Los empujes que vencieron y a cuyo donante se le puede contar qué hizo.
+
+    Se mira al VENCER y no al acreditar porque recién ahí el número está cerrado.
+
+    A quién avisarle es la parte delicada: Cafecito no dice quién donó. Lo único
+    que ata una donación a una persona es la "intención" que se anota al tocar
+    Invitar, y solo sirve si fue la ÚNICA abierta cuando llegó la donación —si
+    había varias, cualquiera pudo haber sido—. Ese criterio ya está escrito en
+    `boosts.estado_de_donacion` y acá se aplica el mismo: sin donante seguro, no
+    se manda nada. Es preferible no agradecer que agradecerle al que no fue.
+    """
+    from models import GameBoost, GameBoostIntent, GamePlayer
+
+    ahora = datetime.utcnow()
+    vencidos = (
+        db.query(GameBoost)
+        .filter(GameBoost.expires_at <= ahora, GameBoost.email_sent_at.is_(None))
+        .all()
+    )
+
+    salida: list[tuple[User, dict]] = []
+    for boost in vencidos:
+        # Marcar SIEMPRE, aunque no se mande: si no, un empuje sin donante
+        # identificable se re-examina en cada corrida para siempre.
+        boost.email_sent_at = ahora
+
+        hermanas = (
+            db.query(GameBoostIntent)
+            .filter(
+                GameBoostIntent.consumed_at.isnot(None),
+                GameBoostIntent.consumed_at >= boost.created_at - timedelta(seconds=5),
+                GameBoostIntent.consumed_at <= boost.created_at + timedelta(seconds=5),
+            )
+            .all()
+        )
+        if len(hermanas) != 1:
+            continue  # ambiguo: no se puede afirmar quién donó
+        jugador = db.get(GamePlayer, hermanas[0].player_id)
+        if jugador is None or jugador.user_id is None:
+            continue  # donó sin cuenta: no hay a dónde mandarle el mail
+        user = db.get(User, jugador.user_id)
+        if user is None or user.email_unsubscribed:
+            continue
+
+        extra, estudiantes = _efecto_del_empuje(db, boost)
+        salida.append(
+            (user, {"university": boost.university, "xp_extra": extra, "estudiantes": estudiantes})
+        )
+    db.commit()
+    return salida
+
+
+def _efecto_del_empuje(db: DBSession, boost) -> tuple[int, int]:
+    """Cuánta XP extra puso ese empuje, y entre cuántos estudiantes.
+
+    Sale de `answers.xp_from_boost`, que es justamente el dato que no se puede
+    reconstruir después. Ojo con lo que este número ES: la XP que el empuje de
+    ESA universidad puso en esa ventana, no la que puso una donación puntual —
+    los cafecitos de la ventana se suman y el global se mezcla con el dirigido,
+    así que atribuir por donante es imposible por construcción.
+    """
+    from models import Answer, Enrollment
+
+    q = (
+        db.query(
+            func.coalesce(func.sum(Answer.xp_from_boost), 0),
+            func.count(func.distinct(Answer.user_id)),
+        )
+        .filter(
+            Answer.answered_at >= boost.created_at,
+            Answer.answered_at <= boost.expires_at,
+            Answer.xp_from_boost > 0,
+        )
+    )
+    if boost.university:
+        q = q.filter(
+            Answer.user_id.in_(
+                db.query(Enrollment.user_id).filter(Enrollment.university == boost.university)
+            )
+        )
+    extra, estudiantes = q.one()
+    return int(extra or 0), int(estudiantes or 0)
+
+
+def due_reclutas_semanal_emails(db: DBSession) -> list[tuple[User, dict]]:
+    """Los resúmenes semanales de reclutas que corresponde mandar hoy.
+
+    Solo a quien tuvo movimiento: una semana sin nada no se manda. El mail existe
+    para traer buenas noticias, y mandarlo vacío convierte en ruido un canal que
+    se usa una vez por semana.
+    """
+    from models import GamePlayer
+
+    hoy = datetime.utcnow().date()
+    hace_una_semana = hoy - timedelta(days=7)
+
+    candidatos = (
+        db.query(User)
+        .filter(
+            User.email_unsubscribed.is_(False),
+            or_(
+                User.reclutas_email_sent_on.is_(None),
+                User.reclutas_email_sent_on <= hace_una_semana,
+            ),
+        )
+        .all()
+    )
+
+    salida: list[tuple[User, dict]] = []
+    for user in candidatos:
+        propio = db.query(GamePlayer).filter(GamePlayer.user_id == user.id).first()
+        if propio is None:
+            continue
+        filas = (
+            db.query(User.username, User.referral_xp_given)
+            .filter(
+                User.referred_by_player_id == propio.id,
+                User.referral_xp_given > 0,
+            )
+            .order_by(User.referral_xp_given.desc())
+            .limit(20)
+            .all()
+        )
+        if not filas:
+            continue
+        total = sum(x for _, x in filas)
+        salida.append(
+            (user, {"xp_semana": total, "filas": [(u or "", "", x) for u, x in filas]})
+        )
+    return salida
+
+
 def run_lifecycle_emails(db: DBSession) -> dict:
     bounce_sent = 0
     for user in due_bounce_emails(db):
@@ -690,6 +823,20 @@ def run_lifecycle_emails(db: DBSession) -> dict:
         if send_streak_tier_email(db, user, tier):
             streak_tier_sent += 1
 
+    cafecito_efecto_sent = 0
+    for user, datos in due_cafecito_efecto_emails(db):
+        if send_cafecito_efecto_email(db, user, **datos):
+            cafecito_efecto_sent += 1
+
+    reclutas_sent = 0
+    hoy = datetime.utcnow().date()
+    for user, datos in due_reclutas_semanal_emails(db):
+        if send_reclutas_semanal_email(db, user, **datos):
+            user.reclutas_email_sent_on = hoy
+            reclutas_sent += 1
+    if reclutas_sent:
+        db.commit()
+
     report_thanks_sent = 0
     for user, feedback_ids in due_report_thanks_emails(db):
         if send_report_thanks_email(db, user, feedback_ids):
@@ -700,4 +847,6 @@ def run_lifecycle_emails(db: DBSession) -> dict:
         "winback_sent": winback_sent,
         "streak_tier_sent": streak_tier_sent,
         "report_thanks_sent": report_thanks_sent,
+        "cafecito_efecto_sent": cafecito_efecto_sent,
+        "reclutas_sent": reclutas_sent,
     }
