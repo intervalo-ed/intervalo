@@ -30,6 +30,7 @@ import { Button } from "@/components/ui/button"
 import { CareerSelect, UniversityGrid } from "@/components/onboarding-fields"
 import { setSoundMuted, useSoundMuted } from "@/lib/audio/sound-settings"
 import { useSfx } from "@/lib/audio/useSfx"
+import { BELT_HEX } from "@/lib/catalog"
 import { canonicalUniversity } from "@/lib/university-tags"
 import { cn } from "@/lib/utils"
 import { WhatsappGlyph } from "./cafecito-cta"
@@ -84,6 +85,10 @@ function Guardar({ disabled, onClick }: { disabled?: boolean; onClick: () => voi
     </Button>
   )
 }
+
+// El azul de Intervalo para la puerta de vuelta: es el cinturón azul del
+// catálogo, no un color inventado para esta fila.
+const AZUL_INTERVALO = BELT_HEX.blue.onDark
 
 const rowCls =
   "flex w-full items-center justify-between gap-3 rounded-lg border border-border bg-card px-4 py-3 text-left text-sm transition-colors hover:border-white/20"
@@ -440,8 +445,17 @@ export function SettingsPanel({
 
             Un invitado cae en la landing y no en el panel, que es lo que se
             busca: es la conversión, no un error. */}
-        <Link href="/" className={rowCls}>
-          <span className="text-muted-foreground">Ir a Intervalo</span>
+        <Link
+          href="/"
+          className={rowCls}
+          // El azul sale de BELT_HEX y no de un hex suelto: la paleta de
+          // cinturones tiene una sola fuente de verdad, y `onDark` es la
+          // variante pensada para leerse sobre el fondo del juego. El `80` es
+          // el 50% de alfa del borde, igual que el `/50` de las filas de color
+          // de acá abajo.
+          style={{ color: AZUL_INTERVALO, borderColor: `${AZUL_INTERVALO}80` }}
+        >
+          <span>Ir a Intervalo</span>
           <ArrowUpRight size={16} />
         </Link>
 

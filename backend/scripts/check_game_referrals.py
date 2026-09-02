@@ -229,7 +229,15 @@ print("10. cambiar de @ no mata los links ya repartidos")
 db = database.SessionLocal()
 compartidor = db.query(GamePlayer).filter(GamePlayer.id == id_cuenta).first()
 viejo_alias = compartidor.alias
-compartidor.alias = "eldefinitivo"
+# Por `handles.reclamar` y no escribiendo `compartidor.alias` a mano: desde que
+# existe el registro, esa columna es un CACHÉ y la autoridad es la tabla
+# `handles` (ver backend/handles.py). Escribirla directo dejaba el registro sin
+# enterarse del @ nuevo, y `resolver` —que ahora consulta el registro— no lo
+# encontraba. Reclamar además retira el viejo, así que `retire_alias` explícito
+# ya no hace falta.
+import handles  # noqa: E402
+
+handles.reclamar(db, "eldefinitivo", player_id=compartidor.id)
 retire_alias(db, viejo_alias, compartidor.id)
 db.commit()
 db.close()

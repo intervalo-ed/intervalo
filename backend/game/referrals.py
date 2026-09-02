@@ -32,7 +32,8 @@ from __future__ import annotations
 
 from sqlalchemy.orm import Session
 
-from models import GameAliasHistory, GamePlayer
+import handles
+from models import GamePlayer
 
 # Qué porcentaje del XP de un recluta cobra quien lo trajo. Va en la diapo
 # `¿Reclutas?` escrito con todas las letras, así que cambiarlo acá es cambiar una
@@ -61,28 +62,27 @@ def resolver(db: Session, alias: str | None, *, salvo: int | None = None) -> int
     """
     if not alias:
         return None
+    # Una sola consulta contra la PK del registro, activo o retirado: los dos
+    # contestan, y la fila retirada ya apunta a la identidad que sobrevivió (ver
+    # backend/handles.py). Antes esto eran hasta TRES selects en cascada —
+    # game_players, después game_alias_history, y después una re-verificación de
+    # que la fila apuntada siguiera viva—.
+    #
+    # Y ahora resuelve algo que antes no: un `?r=` con el username de alguien que
+    # todavía no jugó. Antes ese link no encontraba a nadie y el reclutamiento se
+    # perdía; ahora la persona existe en el registro aunque no tenga jugador.
+    registro = handles.duenio(db, alias)
+    if registro is None or registro.player_id is None:
+        return None
+    # La fila apuntada puede haberse borrado (una fusión encadenada) o ser un
+    # sembrado: en los dos casos no hay a quién acreditarle nada.
     fila = (
         db.query(GamePlayer.id)
-        .filter(GamePlayer.alias == alias, GamePlayer.is_bot.is_(False))
+        .filter(GamePlayer.id == registro.player_id, GamePlayer.is_bot.is_(False))
         .first()
     )
     if fila is None:
-        viejo = (
-            db.query(GameAliasHistory.player_id)
-            .filter(GameAliasHistory.alias == alias)
-            .first()
-        )
-        if viejo is None:
-            return None
-        # La fila apuntada puede haberse borrado (una fusión encadenada), o ser
-        # un sembrado: en los dos casos no hay a quién acreditarle nada.
-        fila = (
-            db.query(GamePlayer.id)
-            .filter(GamePlayer.id == viejo.player_id, GamePlayer.is_bot.is_(False))
-            .first()
-        )
-        if fila is None:
-            return None
+        return None
     if fila.id == salvo:
         return None
     return fila.id

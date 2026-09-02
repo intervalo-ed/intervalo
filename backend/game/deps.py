@@ -19,6 +19,8 @@ from database import SessionLocal
 from models import GamePlayer, User
 
 from . import keyboard
+import handles
+
 from .aliases import alias_for_user, generate_guest_alias, retire_alias
 
 _CREATE_ATTEMPTS = 3
@@ -78,6 +80,13 @@ def create_guest_player(db: Session) -> GamePlayer:
                 last_seen_at=datetime.utcnow(),
             )
             db.add(player)
+            db.flush()
+            # El @ del invitado se anota en el registro en la MISMA transacción
+            # que la fila. Si se hiciera después, entre las dos otro alta podría
+            # llevarse el nombre y quedarían dos personas con el mismo @, que es
+            # justo lo que el registro existe para impedir. El IntegrityError del
+            # índice único lo agarra el `except` de abajo y reintenta con otro.
+            handles.reclamar(db, player.alias, player_id=player.id)
             db.commit()
             db.refresh(player)
             return player
@@ -97,6 +106,11 @@ def create_player_for_user(db: Session, user: User) -> GamePlayer:
                 last_seen_at=datetime.utcnow(),
             )
             db.add(player)
+            db.flush()
+            # Estrena jugador pero la persona ya existe: `reclamar` reconoce que
+            # el @ es suyo si ya lo tenía como username y le suma la cara de
+            # jugador a la MISMA fila, en vez de darle un segundo nombre.
+            handles.reclamar(db, player.alias, user_id=user.id, player_id=player.id)
             db.commit()
             db.refresh(player)
             return player
@@ -126,6 +140,13 @@ def link_guest_to_user(db: Session, guest: GamePlayer, user: User) -> GamePlayer
     existing = db.query(GamePlayer).filter(GamePlayer.user_id == user.id).first()
     if existing is None:
         guest.user_id = user.id
+        db.flush()
+        # Las dos caras de la persona pasan a ser UNA en el registro, y gana el @
+        # del JUEGO: es el que vio en pantalla, el que compartió y bajo el que la
+        # conocen en el ranking. El username con el que Clerk dio de alta la
+        # cuenta se retira, pero no se pierde — sigue siendo suyo y sus links
+        # siguen resolviendo (ver backend/handles.py :: vincular).
+        handles.vincular(db, user_id=user.id, player_id=guest.id)
         db.commit()
         db.refresh(guest)
         return guest
@@ -134,6 +155,7 @@ def link_guest_to_user(db: Session, guest: GamePlayer, user: User) -> GamePlayer
     # esa fila; se suman contadores y gana el Elo con más evidencia.
     from models import (  # import local, evita ciclo
         GameAliasHistory,
+        Handle,
         GameAttempt,
         GameBoostIntent,
         GameCtaEvent,
@@ -217,7 +239,27 @@ def link_guest_to_user(db: Session, guest: GamePlayer, user: User) -> GamePlayer
     db.query(GameAliasHistory).filter(GameAliasHistory.player_id == guest.id).update(
         {"player_id": existing.id}, synchronize_session=False
     )
+    # Lo mismo en el registro, y en TRES pasos con este orden exacto.
+    #
+    # El @ que sobrevive es el de `existing`, no el del invitado: la fila del
+    # invitado se borra en un segundo. Así que primero hay que RETIRAR el @
+    # activo del invitado y recién después reapuntar sus filas, o la cuenta
+    # quedaría un instante con dos @ activos y el índice parcial lo rebota.
+    activo_del_invitado = handles.activo_de_jugador(db, guest.id)
+    if activo_del_invitado is not None:
+        activo_del_invitado.status = "retired"
+        activo_del_invitado.released_at = datetime.utcnow()
+        db.flush()
+    # Ahora sí: los @ del invitado —el que usaba y los que ya había soltado—
+    # pasan a la cuenta que sobrevive. Va ANTES del delete: reapuntarlos después
+    # los dejaría colgando de un jugador que ya no existe, y con ellos morirían
+    # los links `?r=` de esa persona.
+    db.query(Handle).filter(Handle.player_id == guest.id).update(
+        {"player_id": existing.id}, synchronize_session=False
+    )
     retire_alias(db, guest.alias, existing.id)
+    db.flush()
+    handles.reclamar(db, existing.alias, user_id=user.id, player_id=existing.id)
     db.delete(guest)
     db.commit()
     db.refresh(existing)
