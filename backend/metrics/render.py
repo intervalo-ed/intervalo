@@ -344,7 +344,6 @@ def page(p: dict, *, token: str) -> str:
         "weak": [_flojo(pt, c["n"]) for pt in c["points"]],
     } for c in r["cohortes"]]
     co = p["cohortes"]
-    atr = co["atribucion"]
     body = [
         '<div class="box"><h3>Retención diaria por cohorte semanal</h3>',
         # mono: son la misma métrica en semanas distintas, no categorías. Un
@@ -393,23 +392,6 @@ def page(p: dict, *, token: str) -> str:
         f'<div class="box"><h3>Por curso</h3>'
         f'{_cohort_table(co["curso"], "Curso", "curso")}</div>',
     ]
-    if co["grupos"]:
-        body.append(f'<div class="box"><h3>Grupos con volumen</h3>'
-                    f'{_cohort_table(co["grupos"], "Grupo", "plain")}'
-                    f'<p class="note">Atribución nativa (<code>users.first_group_id</code>), '
-                    f'capturada al aterrizar y guardada al completar el onboarding: cubre '
-                    f'<b>{atr["con"]} de {atr["total"]}</b> usuarios del rango '
-                    f'({num(atr["pct"], "%")}). Solo grupos con 5 o más usuarios.</p></div>')
-    else:
-        body.append(
-            f'<p class="note">El corte <b>por grupo de WhatsApp</b> todavía no tiene volumen: '
-            f'la atribución nativa (<code>users.first_group_id</code>) se guarda desde el 24/08, '
-            f'así que cubre {atr["con"]} de {atr["total"]} usuarios del rango. Aparece solo cuando '
-            f'algún grupo llegue a 5 usuarios; hasta entonces el origen vive en PostHog.</p>')
-    body.append(f'<div class="box"><h3>Unidades declaradas en el onboarding</h3>'
-                f'{_cohort_table(co["unidades"], "Marcó", "plain")}'
-                f'<p class="note">Dato declarativo de la slide nueva. No toca SM-2 — está acá para '
-                f'ver si predice algo antes de darle cualquier efecto.</p></div>')
     body.append(_COHORT_NOTE)
     out.append(_section(2, "Cohortes", "".join(body),
                         sub="El corte que más importa esta semana: quién vuelve, partido por de "
