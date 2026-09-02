@@ -11,78 +11,15 @@ from __future__ import annotations
 from datetime import date, timedelta
 
 from . import charts as ch
+from . import theme
 from .charts import esc, num
 from .queries import FIRST_WEEK
 
-CSS = """
-:root{
-  --bg:#131324; --surface:#1b1b34; --surface-2:#24243f; --border:#2f2f4c;
-  --fg:#eef1f7; --muted:#8b97ad; --grid:#26263f;
-  --indigo:#5457e5; --indigo-soft:#7e80f7; --violet:#9b2fc9; --blue:#1b63d6;
-  --brown:#b4652a;
-  --ok:#22c55e; --warn:#f59e0b; --bad:#f97316;
-}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);
-  font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
-  font-size:15px;line-height:1.55;-webkit-text-size-adjust:100%}
-.wrap{max-width:1100px;margin:0 auto;padding:0 18px 72px}
-a{color:var(--indigo-soft);text-decoration:none}
-a:hover{text-decoration:underline}
-:focus-visible{outline:2px solid var(--indigo-soft);outline-offset:2px;border-radius:4px}
-
-header.top{position:sticky;top:0;z-index:5;background:rgba(19,19,36,.94);
-  backdrop-filter:blur(8px);border-bottom:1px solid var(--border);margin-bottom:26px}
-.top .wrap{padding-top:14px;padding-bottom:12px;display:flex;flex-wrap:wrap;
-  gap:12px;align-items:baseline;justify-content:space-between}
-.brand{font-weight:800;font-size:17px;letter-spacing:-.02em}
-.weeknav{display:flex;gap:6px;align-items:center;font-size:13px}
-.weeknav a,.weeknav .cur{padding:4px 10px;border-radius:999px;border:1px solid var(--border)}
-.weeknav .cur{background:var(--indigo);color:#fff;border-color:var(--indigo);font-weight:600}
-nav.jump{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;padding:0 0 12px}
-nav.jump a{color:var(--muted)}
-
-h2{font-size:13px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);
-  font-weight:700;margin:38px 0 14px;display:flex;gap:10px;align-items:baseline}
-h2 b{color:var(--indigo-soft);font-variant-numeric:tabular-nums}
-h3{font-size:15px;margin:0 0 4px;font-weight:650}
-
-.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;
-  padding:18px 20px;margin-bottom:14px}
-.grid{display:grid;gap:14px}
-/* min(Npx,100%) y no Npx pelado: con auto-fit, un minmax fijo mantiene el track
-   en N aunque el contenedor sea más angosto, y en un celular de 375px la
-   tarjeta se sale de la pantalla y hace scrollear la página entera. */
-.g2{grid-template-columns:repeat(auto-fit,minmax(min(400px,100%),1fr))}
-.g4{grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr))}
-
-.kpi .label{color:var(--muted);font-size:12.5px}
-.kpi .row{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-top:2px}
-.kpi .val{font-size:33px;font-weight:750;letter-spacing:-.03em;
-  font-variant-numeric:tabular-nums;line-height:1.05}
-.kpi .hint{color:var(--muted);font-size:11.5px;margin-top:6px}
-.chip{font-size:11.5px;font-weight:650;padding:2px 8px;border-radius:999px;
-  font-variant-numeric:tabular-nums;white-space:nowrap}
-.chip.up{background:rgba(34,197,94,.16);color:#5ee08a}
-.chip.down{background:rgba(249,115,22,.16);color:#fb9a5c}
-.chip.flat{background:var(--surface-2);color:var(--muted)}
-
-.note{color:var(--muted);font-size:12.5px;margin:12px 0 0;
-  border-left:2px solid var(--border);padding-left:11px}
-.sub{color:var(--muted);font-size:13px;margin:0 0 14px}
-
-.scroll{overflow-x:auto}
-table{border-collapse:collapse;width:100%;font-size:13px;
-  font-variant-numeric:tabular-nums}
-th,td{text-align:right;padding:7px 7px;border-bottom:1px solid var(--border);white-space:nowrap}
-th:first-child,td:first-child{padding-left:0}
-th:last-child,td:last-child{padding-right:0}
-th{color:var(--muted);font-weight:600;font-size:11.5px;letter-spacing:.04em;
-  text-transform:uppercase}
-th:first-child,td:first-child{text-align:left}
-tbody tr:last-child td{border-bottom:0}
-td.dim{color:var(--muted)}
-
+# El grueso del CSS es compartido con el panel de Derivemos — ver
+# metrics/theme.py, que es la piel adoptada. Acá solo queda lo que no tiene
+# sentido fuera de Intervalo: la tabla de cohorte con heatmap y las celdas de
+# copy de push largo.
+CSS = theme.BASE_CSS + """
 /* Tablas de cohorte: más aire y números más grandes, porque son el corte que
    más se mira y ocupan el ancho completo. */
 table.big{font-size:14px}
@@ -91,62 +28,19 @@ table.big td{border-radius:4px}
 table.big td.ent{font-size:14px;color:var(--fg)}
 .emo{margin-right:7px;font-size:15px}
 
-/* Chip de universidad: el mismo del ranking (ver web/src/components/university-tag.tsx),
-   color de marca sobre su propio fondo translúcido. */
-.tag{display:inline-flex;align-items:center;border:1px solid;border-radius:6px;
-  padding:2px 7px;font-size:11.5px;font-weight:700;letter-spacing:.02em}
-.tag-plain{border-color:transparent;background:rgba(255,255,255,.1);
-  color:rgba(238,241,247,.7);font-weight:600}
-
-.pill{display:inline-block;font-size:11px;padding:1px 7px;border-radius:999px;
-  background:var(--surface-2);color:var(--muted);margin-left:6px}
-.empty{color:var(--muted);font-style:italic;font-size:13px;margin:10px 0}
 /* Descripción y ejemplo del copy dentro de la celda: la fila necesita respirar
    en varias líneas, así que acá sí se permite el salto. */
 td .sub2{color:var(--muted);font-size:11.5px;font-weight:400}
 td .ej{color:var(--indigo-soft);font-size:11.5px;font-style:italic}
 td:has(.ej){white-space:normal;max-width:420px;line-height:1.45;padding:10px 7px}
-footer{color:var(--muted);font-size:12px;margin-top:44px;padding-top:18px;
-  border-top:1px solid var(--border)}
-footer b{color:var(--fg)}
-@media print{header.top{position:static}body{background:#fff;color:#111}}
 """
 
-
-def _delta_chip(d, suffix: str = "") -> str:
-    if d is None:
-        return '<span class="chip flat">sin base</span>'
-    cls = "up" if d > 0 else ("down" if d < 0 else "flat")
-    sign = "+" if d > 0 else ""
-    # La diferencia entre dos porcentajes son puntos porcentuales, no un
-    # porcentaje: "-2,2%" sobre un 7,1% se lee como una caída del 2% cuando en
-    # realidad cayó de 9,3 a 7,1.
-    unit = " pp" if suffix == "%" else suffix
-    return f'<span class="chip {cls}">{sign}{num(d, unit)}</span>'
-
-
-def _kpi(c: dict) -> str:
-    sfx = c["suffix"]
-    return (
-        f'<div class="card kpi">'
-        f'<div class="label">{esc(c["label"])}</div>'
-        f'<div class="row"><div class="val">{num(c["value"], sfx)}</div>'
-        f'{ch.spark(c["series"])}</div>'
-        f'<div class="row" style="margin-top:8px">'
-        f'{_delta_chip(c["delta"], sfx)}'
-        f'<span class="hint">vs. semana anterior</span></div>'
-        f'<div class="hint">{esc(c["hint"])}</div></div>')
-
-
-def _table(cols: list[str], rows: list[list], empty: str = "sin datos") -> str:
-    if not rows:
-        return f'<p class="empty">{esc(empty)}</p>'
-    head = "".join(f"<th>{esc(c)}</th>" for c in cols)
-    body = "".join(
-        "<tr>" + "".join(f"<td>{c if isinstance(c, str) and c.startswith('<') else esc(c)}</td>"
-                         for c in r) + "</tr>"
-        for r in rows)
-    return f'<div class="scroll"><table><thead><tr>{head}</tr></thead><tbody>{body}</tbody></table></div>'
+# Helpers de presentación compartidos con el panel de Derivemos — ver
+# metrics/theme.py. Los alias locales evitan reescribir las llamadas ya
+# existentes en este archivo.
+_delta_chip = theme.delta_chip
+_kpi = theme.kpi
+_table = theme.table
 
 
 # Colores de marca de las universidades, espejo de UNIVERSITY_TAGS del front
@@ -322,10 +216,7 @@ def _flojo(pt: dict, base: int) -> bool:
     return pt["pct"] is not None and pt["obs"] * 2 < base
 
 
-def _section(n: int, title: str, body: str, sub: str = "", anchor: str = "") -> str:
-    a = f' id="{esc(anchor)}"' if anchor else ""
-    s = f'<p class="sub">{sub}</p>' if sub else ""
-    return f'<section{a}><h2><b>{n}</b>{esc(title)}</h2>{s}{body}</section>'
+_section = theme.section
 
 
 # ── Página ───────────────────────────────────────────────────────────────────
@@ -356,16 +247,17 @@ def page(p: dict, *, token: str) -> str:
         for a, t in [("embudo", "Embudo"), ("cohortes", "Cohortes"), ("producto", "Producto"),
                      ("encuestas", "Encuestas"), ("push", "Push"),
                      ("mails", "Mails")])
-    # El minijuego tiene su propio panel: mismo token, otro vocabulario. Se
-    # enlaza desde acá para que no haya que acordarse de la URL.
-    jump += (f'<a href="/panel/{esc(token)}/derivemos" '
-             f'style="color:var(--indigo-soft)">Derivemos ↗</a>')
 
     out = [
-        "<header class='top'><div class='wrap'>",
-        "<div class='brand'>intervalo</div>",
-        f"<div class='weeknav'>{''.join(nav)}</div>",
-        "</div></header><div class='wrap'>",
+        "<div class='wrap'>",
+        "<header class='top'>",
+        "<div class='box'><div class='brand'>intervalo</div>",
+        f"<div class='weeknav'>{''.join(nav)}</div></div>",
+        f"<div class='box'><span class='sub'>{m['usuarios']} usuarios en la base</span>"
+        # El minijuego tiene su propio panel: mismo token, otro vocabulario.
+        # Se enlaza desde acá para que no haya que acordarse de la URL.
+        f"<a href='/panel/{esc(token)}/derivemos'>Derivemos →</a></div>",
+        "</header>",
         f"<nav class='jump'>{jump}</nav>",
     ]
 
@@ -391,6 +283,9 @@ def page(p: dict, *, token: str) -> str:
         'endpoint que el home llama en cada carga. Para las cohortes anteriores al 24/08 es una '
         '<b>cota inferior</b>: se reconstruyó de quien tiene sesiones o zona horaria guardada, y '
         'el resto no dejó rastro.</p>'
+        '<p class="note"><b>Instaló y abrió la PWA</b> va después de terminar una sesión y no '
+        'antes: acá nadie instala para conocer el producto, instala porque ya lo usó y quiere '
+        'volver más cómodo. Es la señal que alimenta la curva de retención de más abajo.</p>'
         '<p class="note"><b>Volvió otro día</b> es haber estudiado en dos días distintos, sin '
         'pedir que sean consecutivos, y se cuenta contra el <b>primer día que estudió</b> cada uno '
         'y no contra su alta. Antes había un paso más —volver justo al día siguiente— pero eso es '
@@ -409,33 +304,31 @@ def page(p: dict, *, token: str) -> str:
         traduce el k, da el numerador y el denominador con nombre, y aclara por
         qué el denominador no es toda la cohorte."""
         k, n, obs = pt["k"], pt["n"], pt["obs"]
-        cuando = ("el mismo día que arrancaron" if k == 0 else
-                  "un día después de su primera sesión" if k == 1 else
-                  f"{k} días después de su primera sesión")
+        cuando = ("el mismo día que instalaron" if k == 0 else
+                  "un día después de instalar la PWA" if k == 1 else
+                  f"{k} días después de instalar la PWA")
         cab = f'Cohorte del {label}  ·  D+{k}'
-        if k == 0:
-            return (
-                f'{cab}\n\n'
-                f'Las {obs} personas de esta cohorte que llegaron a estudiar lo hicieron, '
-                f'por definición, su primer día.\n'
-                f'Por eso D+0 siempre da 100%: es el día en que arrancaron.')
+        # A diferencia de la curva vieja (donde D+0 daba 100% por construcción,
+        # porque el ancla y el evento medido eran la misma sesión), acá instalar
+        # y estudiar son eventos distintos: D+0 mide, honestamente, cuánta gente
+        # estudió el mismo día que instaló — puede no ser 100%.
         if pt["pct"] is None:
             return (
                 f'{cab}\n\n'
                 f'Todavía no hay a quién medir: nadie de esta cohorte llegó a cumplir '
-                f'{k} días desde su primera sesión.')
+                f'{k} días desde que instaló la PWA.')
         falta = base - obs
         # Por qué el denominador no es la cohorte entera, dicho con el número
         # que falta: "83 de 95" no explica nada, "las otras 12 todavía no
         # llegaron a ese día" sí.
         porque = (
             f'La cohorte son {base} personas, pero {falta} todavía no cumplieron '
-            f'{k} días desde que arrancaron, así que su D+{k} no pasó todavía. '
+            f'{k} días desde que instalaron, así que su D+{k} no pasó todavía. '
             f'Meterlas en el denominador las contaría como «no volvió» y '
             f'hundiría la curva por calendario, no por comportamiento.'
             if falta else
             f'Acá el denominador es la cohorte entera: las {base} ya cumplieron '
-            f'{k} días desde que arrancaron.')
+            f'{k} días desde que instalaron.')
         cola = ('\n\nTramo punteado: menos de la mitad de la cohorte llegó a este día, '
                 'así que el porcentaje se mueve mucho con pocos casos.'
                 if _flojo(pt, base) else '')
@@ -453,27 +346,31 @@ def page(p: dict, *, token: str) -> str:
     co = p["cohortes"]
     atr = co["atribucion"]
     body = [
-        '<div class="card"><h3>Retención diaria por cohorte semanal</h3>',
+        '<div class="box"><h3>Retención diaria por cohorte semanal</h3>',
         # mono: son la misma métrica en semanas distintas, no categorías. Un
         # solo tono con la más vieja apagada ordena la lectura.
         # Más alto que el resto: con 14 puntos y la curva pegada al piso a
         # partir de D+2, en 220px las series se superponen y no se distinguen.
         ch.lines(ret_series, [f"D+{k}" for k in range(r["horizon"] + 1)], mono=True,
                  height=330, y_max=100),
-        '<p class="note"><b>D+0 es el día de la primera sesión de cada uno, no el del alta</b>, así '
-        'que arranca en 100% por construcción. Con el alta como ancla no arrancaba ahí: quien se '
-        'registraba el lunes y estudiaba recién el miércoles contaba en la base pero no en D+0, y '
-        'ese escalón inicial mezclaba «tardó en arrancar» con «no volvió». Anclado en la '
-        'activación, cada k mide una sola cosa: cuántos siguen volviendo k días después de haber '
-        'empezado.</p>'
-        '<p class="note">El 100% son <b>los que terminaron alguna sesión</b>, no los que se dieron '
-        'de alta: quien se registró y nunca estudió no tiene nada que repetir, y cuánta gente '
-        'llega a estudiar ya se mide en el embudo. La cohorte sigue siendo la semana de alta, así '
-        'que se comparan tandas de usuarios aunque el reloj de cada uno arranque cuando se activó.</p>'
+        '<p class="note"><b>D+0 es el día que instaló y abrió la PWA, no el del alta</b>. A '
+        'diferencia de la curva anterior —donde el ancla era la primera sesión, así que D+0 daba '
+        '100% por construcción—, acá instalar y estudiar son eventos distintos: <b>D+0 no está '
+        'garantizado en 100%</b>, mide honestamente cuánta gente estudió el mismo día que instaló. '
+        'Anclado en la instalación, cada k mide una sola cosa: cuántos siguen volviendo a estudiar '
+        'k días después de haber instalado.</p>'
+        '<p class="note">El 100% son <b>los que instalaron y abrieron la PWA</b>, no los que se '
+        'dieron de alta ni los que solo estudiaron: instalar es un compromiso mayor que registrarse '
+        'o incluso que terminar una sesión, y meter en el denominador a quien nunca instaló '
+        'mezclaría «convertir a estudiar» —que ya mide el embudo— con «convertir a hábito '
+        'instalado», que es lo que esta curva aísla. «Volver» en cada día sigue siendo terminar una '
+        'sesión ese día: instalar no es el objetivo, es el medio. La cohorte sigue siendo la semana '
+        'de alta, así que se comparan tandas de usuarios aunque el reloj de cada uno arranque '
+        'cuando instaló.</p>'
         '<p class="note"><b>El denominador de cada día no es la cohorte entera</b>, y por eso el '
         'n de la leyenda no coincide con el del tooltip: son solo los que ya vivieron ese día. '
-        'Dentro de una misma semana cada uno se activa un día distinto, así que quien estudió por '
-        'primera vez anteayer todavía no puede tener un D+5 — y contarlo como «no volvió» hundiría '
+        'Dentro de una misma semana cada uno instala un día distinto, así que quien instaló '
+        'anteayer todavía no puede tener un D+5 — y contarlo como «no volvió» hundiría '
         'la curva por calendario y no por comportamiento. Es también por eso que cada línea termina '
         'en un k distinto. <b>Donde la línea va punteada y el punto hueco</b>, menos de la mitad de '
         'la cohorte llegó a ese día: el dato existe pero se mueve mucho con pocos casos. '
@@ -481,15 +378,15 @@ def page(p: dict, *, token: str) -> str:
         '</div>',
         # A ancho completo y una debajo de la otra: son el corte principal de la
         # semana y en media pantalla no entraban sin scrollear.
-        f'<div class="card"><h3>Por universidad</h3>'
+        f'<div class="box"><h3>Por universidad</h3>'
         f'{_cohort_table(co["universidad"], "Universidad", "uni")}</div>',
-        f'<div class="card"><h3>Por carrera</h3>'
+        f'<div class="box"><h3>Por carrera</h3>'
         f'{_cohort_table(co["carrera"], "Carrera", "carrera")}</div>',
-        f'<div class="card"><h3>Por curso</h3>'
+        f'<div class="box"><h3>Por curso</h3>'
         f'{_cohort_table(co["curso"], "Curso", "curso")}</div>',
     ]
     if co["grupos"]:
-        body.append(f'<div class="card"><h3>Grupos con volumen</h3>'
+        body.append(f'<div class="box"><h3>Grupos con volumen</h3>'
                     f'{_cohort_table(co["grupos"], "Grupo", "plain")}'
                     f'<p class="note">Atribución nativa (<code>users.first_group_id</code>), '
                     f'capturada al aterrizar y guardada al completar el onboarding: cubre '
@@ -501,7 +398,7 @@ def page(p: dict, *, token: str) -> str:
             f'la atribución nativa (<code>users.first_group_id</code>) se guarda desde el 24/08, '
             f'así que cubre {atr["con"]} de {atr["total"]} usuarios del rango. Aparece solo cuando '
             f'algún grupo llegue a 5 usuarios; hasta entonces el origen vive en PostHog.</p>')
-    body.append(f'<div class="card"><h3>Unidades declaradas en el onboarding</h3>'
+    body.append(f'<div class="box"><h3>Unidades declaradas en el onboarding</h3>'
                 f'{_cohort_table(co["unidades"], "Marcó", "plain")}'
                 f'<p class="note">Dato declarativo de la slide nueva. No toca SM-2 — está acá para '
                 f'ver si predice algo antes de darle cualquier efecto.</p></div>')
@@ -530,7 +427,7 @@ def page(p: dict, *, token: str) -> str:
 
     out.append(_section(
         3, "Producto",
-        f'<div class="card"><h3>Accuracy y abandono por curso</h3>'
+        f'<div class="box"><h3>Accuracy y abandono por curso</h3>'
         + ch.vbars(grupos, series, suffix="%", height=250, width=900)
         + f'<p class="note"><b>Accuracy</b> = P1, aciertos al primer intento '
           f'(<code>quality_score = 5</code>); global {num(pr["p1_global"], "%")} sobre '
@@ -544,13 +441,13 @@ def page(p: dict, *, token: str) -> str:
           f'están en el abandono de arriba a propósito: quien corta en el sexto ejercicio se cansó, '
           f'quien corta en el cero nunca arrancó, y son dos problemas distintos.</p></div>'
         '<div class="grid g2">'
-        f'<div class="card"><h3>Sesiones por curso y modo</h3>'
+        f'<div class="box"><h3>Sesiones por curso y modo</h3>'
         f'{_table(["Curso · modo", "Iniciadas", "Terminadas", "%"], ses_rows)}'
         f'<p class="note">Duración mediana de las terminadas: '
         + " · ".join(f'{k} {num(v)} min' for k, v in pr["duracion"].items())
         + '. <code>duration_seconds</code> está muerta; esto es '
           '<code>finished_at − started_at</code>.</p></div>'
-        f'<div class="card"><h3>Accuracy por habilidad</h3>'
+        f'<div class="box"><h3>Accuracy por habilidad</h3>'
         + ch.hbars(p1_rows, suffix="%", label_w=70, width=520)
         + f'<p class="note">La banda de calibración es {pr["banda"][0]}–{pr["banda"][1]}%: sale de '
           f'cruzar los votos de la encuesta de dificultad contra el comportamiento real. Por '
@@ -574,19 +471,19 @@ def page(p: dict, *, token: str) -> str:
 
     out.append(_section(
         4, "Micro-encuestas",
-        f'<div class="card"><h3>Mezcla de canales</h3>'
+        f'<div class="box"><h3>Mezcla de canales</h3>'
         f'{_table(["Canal", "Mostradas", "Respondidas", "Tasa", "Real", "Nominal"], mix_rows)}'
         '<p class="note">D (interés) es el canal norte, A (dificultad) queda como calibración y B '
         '(explicación) es el más chico. La mezcla real va a estar siempre más cargada a D/A: B '
         'solo loguea impresión si la persona abre «¿Por qué?». <b>No compensar subiendo el peso '
         'de B.</b></p></div>'
-        f'<div class="card"><h3>💡 Interés (canal D) por curso</h3>'
+        f'<div class="box"><h3>💡 Interés (canal D) por curso</h3>'
         + encuesta_chart(e["d_por_curso"], D_ORDER, SURVEY_EMOJI,
                          "Todavía sin respuestas: el canal D se desplegó el 24/08 y las reglas "
                          "anti-fatiga lo muestran como máximo una vez por sesión.")
         + '<p class="note">Si un curso concentra los 🥱, el problema es de ese contenido y no del '
           'mazo entero — que es justo lo que el total escondía.</p></div>'
-        f'<div class="card"><h3>👌 Dificultad (canal A) por curso</h3>'
+        f'<div class="box"><h3>👌 Dificultad (canal A) por curso</h3>'
         + encuesta_chart(e["a_por_curso"], A_ORDER, SURVEY_EMOJI_A,
                          "sin respuestas en la ventana")
         + '<p class="note">Ojo: «justo» existe en los dos canales y significa cosas distintas —acá '
@@ -609,14 +506,14 @@ def page(p: dict, *, token: str) -> str:
     out.append(_section(
         5, "Re-enganche · push",
         '<div class="grid g4">'
-        + "".join(f'<div class="card kpi"><div class="label">{esc(l)}</div>'
+        + "".join(f'<div class="box kpi"><div class="label">{esc(l)}</div>'
                   f'<div class="val">{num(v)}</div></div>'
                   for l, v in [("Suscripciones push", rg["subs"]),
                                ("Con notificación activa", rg["activos"]),
                                ("Enviadas", rg["enviadas"]),
                                ("Abiertas", rg["abiertas"])])
         + '</div>'
-        f'<div class="card"><h3>Por categoría de copy</h3>'
+        f'<div class="box"><h3>Por categoría de copy</h3>'
         f'{_table(["Copy", "Enviadas", "Real", "Nominal", "Abiertas", "CTR"], cat_rows, empty="sin envíos en la ventana")}'
         f'<p class="note">CTR global {num(rg["ctr"], "%")}. <b>Real</b> es qué porción de los '
         f'envíos se llevó cada copy y <b>nominal</b> el peso que tiene asignado en '
@@ -633,7 +530,7 @@ def page(p: dict, *, token: str) -> str:
     out.append(_section(
         6, "Re-enganche · mails de ciclo de vida",
         '<div class="grid g4">'
-        + "".join(f'<div class="card kpi"><div class="label">{esc(l)}</div>'
+        + "".join(f'<div class="box kpi"><div class="label">{esc(l)}</div>'
                   f'<div class="val">{num(v, sfx)}</div><div class="hint">{esc(h)}</div></div>'
                   for l, v, sfx, h in [
                       ("Enviados", em["enviados"], "", "en la ventana visible"),
@@ -642,7 +539,7 @@ def page(p: dict, *, token: str) -> str:
                       ("Tasa de activación", em["pct"], "%", "sobre los enviados"),
                       ("Bajas", em["bajas"], "", f'de {em["usuarios"]} usuarios')])
         + '</div>'
-        f'<div class="card"><h3>Por copy</h3>'
+        f'<div class="box"><h3>Por copy</h3>'
         f'{_table(["Copy", "A quién va", "Enviados", "Activaron", "Tasa"], mail_rows, empty="sin envíos en la ventana")}'
         '<p class="note"><b>Activar</b> = terminar una sesión dentro de los '
         f'{em["ventana_dias"]} días siguientes al envío. Es lo más cerca de «el mail funcionó» que '

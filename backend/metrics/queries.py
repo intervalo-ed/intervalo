@@ -144,7 +144,7 @@ def load(db: DBSession) -> dict:
     data = {
         "users": _rows(db, """
             SELECT id, created_at, first_group_id, first_utm_source, total_xp,
-                   notify_enabled, email_unsubscribed, reached_home,
+                   notify_enabled, email_unsubscribed, reached_home, pwa_first_seen_at,
                    bounce_email_sent_at, winback_email_sent_at,
                    streak_email_sent_at, streak_email_sent_tier
             FROM users"""),
@@ -190,6 +190,15 @@ def _real_sessions(sessions: list[dict]) -> list[dict]:
     return [s for s in sessions if s["mode"] in REAL_MODES]
 
 
+def _pwa_dates(data: dict) -> dict[int, date]:
+    """user_id -> día local en que instaló y abrió la PWA por primera vez.
+
+    Usado por `funnel()`, `headline()` y `retention()` — factorizado para no
+    triplicar el filtro `pwa_first_seen_at is not None`."""
+    return {u["id"]: local_date(u["pwa_first_seen_at"])
+            for u in data["users"] if u["pwa_first_seen_at"] is not None}
+
+
 def funnel(data: dict, week: date) -> dict:
     """Embudo de la cohorte que se dio de alta en `week`, observada hasta hoy.
 
@@ -210,6 +219,11 @@ def funnel(data: dict, week: date) -> dict:
     Ojo al comparar con el PDF semanal: ahí las sesiones se cortaban al domingo
     de la semana; acá la cohorte se sigue hasta hoy, así que los escalones de
     sesión dan un poco más altos. Es a propósito.
+
+    «Instaló y abrió la PWA» va DESPUÉS de terminar una sesión, no antes: acá
+    nadie instala para conocer el producto, instala porque ya lo usó y quiere
+    volver más cómodo. Ponerlo antes mediría otra cosa (curiosidad por la app)
+    en vez de esto (compromiso después de haberla probado).
     """
     uw = _user_week(data["users"])
     cohort = {u["id"] for u in data["users"] if uw[u["id"]] == week}
@@ -228,6 +242,7 @@ def funnel(data: dict, week: date) -> dict:
     # alta, así que quien se registra el lunes y arranca el miércoles vuelve
     # cuando estudia de nuevo, cualquiera sea el día.
     otro_dia = sum(1 for d in dias.values() if len(d) >= 2)
+    instalado = set(_pwa_dates(data)) & cohort
 
     steps = [
         ("Altas", len(cohort)),
@@ -235,6 +250,7 @@ def funnel(data: dict, week: date) -> dict:
         ("Llegó al home", len(home)),
         ("Arrancó una sesión", len(opened)),
         ("Terminó una sesión", sum(1 for d in dias.values() if d)),
+        ("Instaló y abrió la PWA", len(instalado)),
         ("Volvió otro día", otro_dia),
     ]
     top = steps[0][1]
@@ -252,20 +268,23 @@ def headline(data: dict, weeks: list[date]) -> list[dict]:
     """Tarjetas de titulares: una fila por semana para el sparkline, y el delta
     contra la semana anterior.
 
-    Las tres responden preguntas distintas a propósito: cuánta gente entra
-    (altas), cuánta de la que ya estaba sigue viva (reactivados) y qué tan bien
-    engancha la que entra (vuelven otro día). Adquisición, base instalada y
+    Las cuatro responden preguntas distintas a propósito: cuánta gente entra
+    (altas), cuánta se compromete al punto de instalar la app (instalaciones),
+    cuánta de la que ya estaba sigue viva (reactivados) y qué tan bien engancha
+    la que entra (vuelven otro día). Adquisición, compromiso, base instalada y
     calidad del enganche — subir una sin las otras no sirve de nada.
 
-    La tercera mide volver ALGÚN otro día y no específicamente al siguiente:
+    La última mide volver ALGÚN otro día y no específicamente al siguiente:
     el producto promete repetición espaciada, no racha diaria, así que quien
     estudia el martes y vuelve el viernes está haciendo exactamente lo que se
     le pidió. Es también el mismo corte que el último paso del embudo, para que
     los dos números se puedan leer juntos.
     """
     uw = _user_week(data["users"])
+    pwa_at = _pwa_dates(data)
     by_week: dict[date, dict] = {
-        w: {"altas": 0, "reactivados": 0, "otro_dia": 0, "activados": 0} for w in weeks}
+        w: {"altas": 0, "instalados": 0, "reactivados": 0, "otro_dia": 0, "activados": 0}
+        for w in weeks}
 
     dias_por_user = defaultdict(set)
     for s in _real_sessions(data["sessions"]):
@@ -277,6 +296,8 @@ def headline(data: dict, weeks: list[date]) -> list[dict]:
             continue
         b = by_week[w]
         b["altas"] += 1
+        if uid in pwa_at:
+            b["instalados"] += 1
         dias = dias_por_user.get(uid)
         if dias:
             b["activados"] += 1
@@ -310,6 +331,8 @@ def headline(data: dict, weeks: list[date]) -> list[dict]:
 
     return [
         card("altas", "Altas", "cuentas nuevas de esa semana"),
+        card("instalados", "Instalaciones",
+             "altas de esa semana que instalaron y abrieron la PWA"),
         card("reactivados", "Retenidos",
              "gente de semanas anteriores que volvió a estudiar en esta"),
         card("otro_dia", "Vuelven otro día",
@@ -319,32 +342,37 @@ def headline(data: dict, weeks: list[date]) -> list[dict]:
 
 
 def retention(data: dict, weeks: list[date], horizon: int = 14) -> dict:
-    """Curva D+k por cohorte semanal, anclada en la ACTIVACIÓN.
+    """Curva D+k por cohorte semanal, anclada en la INSTALACIÓN de la PWA.
 
     Dos decisiones que definen qué mide esta curva:
 
-    **El 100% son los que estudiaron, no los que se dieron de alta.** Retener es
-    traer de vuelta a alguien que ya usó el producto; quien se registró y nunca
-    terminó una sesión no llegó a tener nada que repetir, y meterlo en el
-    denominador mezcla dos problemas distintos —convertir y retener— en un solo
-    número que baja cuando cualquiera de los dos empeora. Cuánta gente convierte
-    a estudiar se mide en el embudo, que es donde corresponde.
+    **El 100% son los que instalaron y abrieron la PWA, no los que se dieron
+    de alta ni los que solo estudiaron.** Instalar es un compromiso mayor que
+    registrarse o incluso que terminar una sesión: es elegir tener la app a
+    mano para volver. Meter en el denominador a quien nunca instaló mezclaría
+    "convertir a estudiar" (que ya mide el embudo) con "convertir a hábito
+    instalado", que es lo que esta curva quiere aislar.
 
-    **D+0 es el día de su PRIMERA sesión terminada, no el del alta.** Con el
-    alta como ancla, alguien que se registró el lunes y recién estudió el
-    miércoles quedaba dentro de la base pero fuera de D+0, así que la curva no
-    arrancaba en 100% y el escalón inicial mezclaba "tardó en arrancar" con "no
-    volvió". Anclando en la activación, D+0 es 100% por construcción y cada k
-    mide exactamente lo que interesa: cuántos siguen volviendo k días después de
-    haber empezado.
+    **D+0 es el día que instaló y abrió la PWA por primera vez, no el del alta
+    ni el de su primera sesión.** A diferencia de la curva anterior —donde el
+    ancla (primera sesión) y el evento a medir (sesión terminada) eran la
+    misma cosa, así que D+0 daba 100% por construcción—, acá los dos eventos
+    son distintos: instalar no es estudiar. Por eso D+0 NO está garantizado en
+    100%: mide, honestamente, cuánta gente estudió el mismo día que instaló.
+    Es dato, no un artefacto de la cuenta.
+
+    "Volver" en cada D+k —incluido k=0— es terminar una sesión ese día:
+    instalar no es el objetivo, es el medio; lo que importa es si después de
+    instalar la gente efectivamente vuelve a estudiar.
 
     La cohorte SIGUE siendo la semana de alta: así se comparan tandas de
-    usuarios entre sí, aunque el reloj de cada uno arranque cuando se activó.
+    usuarios entre sí, aunque el reloj de cada uno arranque cuando instaló.
 
-    `observables`: alguien que se activó ayer no puede tener D+5 todavía, así
+    `observables`: alguien que instaló ayer no puede tener D+5 todavía, así
     que el denominador de cada k son solo los de la base que ya vivieron ese día.
     """
     uw = _user_week(data["users"])
+    pwa_at = _pwa_dates(data)
     today = local_date(datetime.utcnow())
 
     active = defaultdict(set)  # user_id -> {fechas con sesión terminada}
@@ -355,15 +383,15 @@ def retention(data: dict, weeks: list[date], horizon: int = 14) -> dict:
     cohorts = []
     for w in weeks:
         altas = [uid for uid, ws in uw.items() if ws == w]
-        # La base a retener: los de la cohorte que terminaron alguna sesión.
-        # Su reloj arranca el día de esa primera sesión.
-        inicio = {uid: min(active[uid]) for uid in altas if active.get(uid)}
+        # La base a retener: los de la cohorte que instalaron y abrieron la
+        # PWA. Su reloj arranca el día de esa instalación.
+        inicio = {uid: pwa_at[uid] for uid in altas if uid in pwa_at}
         if not inicio:
             continue
         points = []
         for k in range(horizon + 1):
             obs = [uid for uid, d0 in inicio.items() if d0 + timedelta(days=k) <= today]
-            hit = sum(1 for uid in obs if inicio[uid] + timedelta(days=k) in active[uid])
+            hit = sum(1 for uid in obs if inicio[uid] + timedelta(days=k) in active.get(uid, ()))
             points.append({"k": k, "obs": len(obs), "n": hit, "pct": _pct(hit, len(obs))})
         cohorts.append({"label": w.strftime("%d/%m"), "week": w.isoformat(),
                         "n": len(inicio), "altas": len(altas), "points": points})

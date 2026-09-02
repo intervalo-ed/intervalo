@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query"
 import { useApi } from "@/lib/api/useApi"
 import { queryKeys } from "@/lib/query/keys"
 import { getTimezone } from "@/lib/push/register"
+import { isStandalone } from "@/lib/platform/detect"
 import type { CourseId } from "@/lib/catalog"
 
 export function useUserProgress({ course }: { course?: CourseId } = {}) {
@@ -13,10 +14,14 @@ export function useUserProgress({ course }: { course?: CourseId } = {}) {
     queryFn: async () => {
       // Mandamos la zona horaria del navegador para que el backend persista el
       // "día" del usuario y el gate de repasos no se adelante (ver user_today).
+      // `pwa` es si está corriendo instalada (display-mode: standalone): este
+      // endpoint es el que el home llama en cada carga, así que es el lugar
+      // natural para persistirlo (ver User.pwa_first_seen_at).
       const { data, error } = await api.GET("/user/progress", {
         params: {
           query: {
             tz: getTimezone(),
+            pwa: isStandalone(),
             ...(course ? { course } : {}),
           },
         },

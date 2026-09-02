@@ -668,6 +668,7 @@ def get_user_status(
 def get_user_progress(
     tz: str | None = Query(default=None),
     course: str | None = Query(default=None),
+    pwa: bool | None = Query(default=None),
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
@@ -679,6 +680,9 @@ def get_user_progress(
 
     `course` (opcional) es el slug del curso a filtrar. Si no viene, se usa el
     curso por defecto (id=1, "analisis").
+
+    `pwa` es si el cliente está corriendo en display-mode: standalone (ver
+    web/src/lib/platform/detect.ts :: isStandalone()). Se persiste una sola vez.
     """
     # Este endpoint es el que llama el home en cada carga, así que llegar acá
     # ES haber llegado al home. Es el escalón del embudo que separa "se trabó
@@ -686,6 +690,12 @@ def get_user_progress(
     # User.reached_home). Se escribe una sola vez, no en cada carga.
     if not current_user.reached_home:
         current_user.reached_home = True
+        db.commit()
+
+    # Mismo criterio: se escribe la primera vez que llega en true, nunca se pisa.
+    if pwa and current_user.pwa_first_seen_at is None:
+        from datetime import datetime
+        current_user.pwa_first_seen_at = datetime.utcnow()
         db.commit()
 
     if tz and tz != current_user.timezone:
