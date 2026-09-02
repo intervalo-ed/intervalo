@@ -44,6 +44,7 @@ from algorithm import (
     update_unit_state,
     xp_from_boost,
 )
+import referrals
 import xp_boost
 from exercise_bank import (
     _row_to_dict,
@@ -1687,6 +1688,11 @@ def record_answer_db(
         # que evita es que alguien intercale una lectura acá en el futuro y se
         # lleve el número de antes sin que nada falle.
         db.expire(user, ["total_xp"])
+        # Y si alguien trajo a esta persona, cobra su 10%. La XP se ACUÑA: al
+        # recluta no se le descuenta nada, cobra exactamente lo mismo que
+        # cobraría sin reclutador. Va en la misma transacción que la respuesta,
+        # así que o entran las dos cosas o no entra ninguna.
+        referrals.acreditar_clasico(db, user, xp_earned)
 
     if is_correct:
         db_session.exercises_correct = (db_session.exercises_correct or 0) + 1

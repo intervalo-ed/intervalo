@@ -231,6 +231,32 @@ class LeaderboardResponse(BaseModel):
     universities: list[str]          # universidades presentes (para el filtro)
 
 
+class RecruitEntry(BaseModel):
+    """Una persona que entró por tu link. Deliberadamente NO lleva su XP total:
+    lo que se muestra es cuánto te aportó, no cuánto estudia."""
+
+    rank: int
+    username: str | None = None
+    university: str | None = None
+    career: str | None = None
+    xp_given: int  # XP que ESTA persona te generó
+
+
+class RecruitsResponse(BaseModel):
+    entries: list[RecruitEntry]
+    # Los contadores cuentan a TODOS los reclutas, también a los que todavía no
+    # resolvieron nada; la lista muestra solo a los que ya aportaron. Es la misma
+    # asimetría que el ranking del minijuego, y es a propósito: "trajiste a 8
+    # personas" es la noticia, aunque 3 no hayan arrancado.
+    total_recruits: int
+    total_xp_given: int
+    # El porcentaje viaja para que el cliente nunca lo hardcodee: está escrito
+    # con todas las letras en la diapo, así que cambiarlo es cambiar una promesa.
+    share_percent: int
+    # El @ propio, que es lo que arma el link para compartir.
+    handle: str | None = None
+
+
 class UniversityRankRow(BaseModel):
     university: str
     total_xp: int                 # XP acumulada por sus estudiantes

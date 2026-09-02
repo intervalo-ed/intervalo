@@ -2840,6 +2840,45 @@
         }
       }
     },
+    "/leaderboard/recruits": {
+      "get": {
+        "summary": "Get Recruits",
+        "operationId": "get_recruits_leaderboard_recruits_get",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecruitsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/leaderboard/summary": {
       "get": {
         "summary": "Get Leaderboard Summary",
@@ -3790,6 +3829,17 @@
               }
             ],
             "title": "First Utm Source"
+          },
+          "referrer": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Referrer"
           },
           "intro_item_correct": {
             "anyOf": [
@@ -5736,6 +5786,100 @@
           "endpoint"
         ],
         "title": "PushUnsubscribeRequest"
+      },
+      "RecruitEntry": {
+        "properties": {
+          "rank": {
+            "type": "integer",
+            "title": "Rank"
+          },
+          "username": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Username"
+          },
+          "university": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "University"
+          },
+          "career": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Career"
+          },
+          "xp_given": {
+            "type": "integer",
+            "title": "Xp Given"
+          }
+        },
+        "type": "object",
+        "required": [
+          "rank",
+          "xp_given"
+        ],
+        "title": "RecruitEntry",
+        "description": "Una persona que entr\u00f3 por tu link. Deliberadamente NO lleva su XP total:\nlo que se muestra es cu\u00e1nto te aport\u00f3, no cu\u00e1nto estudia."
+      },
+      "RecruitsResponse": {
+        "properties": {
+          "entries": {
+            "items": {
+              "$ref": "#/components/schemas/RecruitEntry"
+            },
+            "type": "array",
+            "title": "Entries"
+          },
+          "total_recruits": {
+            "type": "integer",
+            "title": "Total Recruits"
+          },
+          "total_xp_given": {
+            "type": "integer",
+            "title": "Total Xp Given"
+          },
+          "share_percent": {
+            "type": "integer",
+            "title": "Share Percent"
+          },
+          "handle": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Handle"
+          }
+        },
+        "type": "object",
+        "required": [
+          "entries",
+          "total_recruits",
+          "total_xp_given",
+          "share_percent"
+        ],
+        "title": "RecruitsResponse"
       },
       "SessionExercise": {
         "properties": {

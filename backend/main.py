@@ -46,6 +46,8 @@ from models import User, Enrollment, Answer, GamePlayer, UnitState
 from sqlalchemy import and_ as sa_and, case, func, or_ as sa_or, select
 from sqlalchemy.exc import IntegrityError
 from schemas import (
+    RecruitEntry,
+    RecruitsResponse,
     AnswerResponse,
     DueNotification,
     EmailRunResponse,
@@ -530,6 +532,10 @@ class EnrollmentRequest(BaseModel):
     # web/src/lib/analytics/attribution.ts). Se persiste una sola vez por usuario.
     first_group_id: str | None = None
     first_utm_source: str | None = None
+    # El @ de quien trajo a esta persona, capturado del `?r=` al aterrizar
+    # (ver web/src/lib/analytics/attribution.ts). Es el MISMO parámetro que
+    # ya usa el alta del minijuego: un solo link sirve para los dos.
+    referrer: str | None = None
     # Resultado del ejercicio de prueba del onboarding (primer ítem del curso).
     # True = acertó al primer intento, False = falló alguna vez, None = sin dato.
     intro_item_correct: bool | None = None
@@ -599,6 +605,18 @@ def enroll_user(
     if current_user.first_utm_source is None and body.first_utm_source:
         if re.fullmatch(r"[a-z]{2,20}", body.first_utm_source):
             current_user.first_utm_source = body.first_utm_source
+
+    # Quién trajo a esta persona. Mismo criterio write-once que la atribución de
+    # arriba —quien te trajo te trajo una vez— y la misma validación de formato
+    # que el cliente, para que un parámetro basureado no cree una arista rara.
+    #
+    # `anotar_usuario` se encarga de las guardas contra autoreclutarse, que acá
+    # importan de verdad: en el alta la mayoría todavía no tiene fila de jugador,
+    # así que el `salvo` de siempre sale en None.
+    if body.referrer and re.fullmatch(r"[a-z0-9._]{1,20}", body.referrer):
+        import referrals
+
+        referrals.anotar_usuario(db, current_user, body.referrer)
 
     try:
         db.commit()
@@ -1601,6 +1619,67 @@ def get_university_leaderboard(
         total_students=total_students,
         total_universities=len(by_uni),
         career_totals=career_totals,
+    )
+
+
+# Cuántos reclutas tiene esta persona en Intervalo, y cuánto le aportaron.
+#
+# Espejo del `/leaderboard/recruits` del minijuego, con la misma asimetría a
+# propósito: la LISTA muestra solo a los que ya aportaron algo, pero los
+# CONTADORES cuentan a todos. "Trajiste a 8 personas" es la noticia aunque 3 no
+# hayan arrancado, y una lista con tres renglones en cero se lee como un reproche.
+_MAX_RECLUTAS = 50
+
+
+@app.get("/leaderboard/recruits", response_model=RecruitsResponse)
+def get_recruits(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    import referrals as referrals_mod
+
+    propio = db.query(GamePlayer.id).filter(GamePlayer.user_id == current_user.id).first()
+    if propio is None:
+        # Sin jugador no hay a quién apuntarle un `?r=`: la arista de los dos
+        # productos cuelga de `game_players.id`. No es un error, es que todavía
+        # no compartió nada.
+        return RecruitsResponse(
+            entries=[],
+            total_recruits=0,
+            total_xp_given=0,
+            share_percent=referrals_mod.SHARE_PERCENT,
+            handle=current_user.username,
+        )
+
+    enroll = _first_enrollment_subq()
+    filas = (
+        db.query(User, enroll.c.university, enroll.c.career)
+        .outerjoin(enroll, enroll.c.user_id == User.id)
+        .filter(User.referred_by_player_id == propio.id, User.referral_xp_given > 0)
+        .order_by(User.referral_xp_given.desc(), User.id.asc())
+        .limit(_MAX_RECLUTAS)
+        .all()
+    )
+    total_recruits, total_xp_given = (
+        db.query(func.count(User.id), func.coalesce(func.sum(User.referral_xp_given), 0))
+        .filter(User.referred_by_player_id == propio.id)
+        .one()
+    )
+    return RecruitsResponse(
+        entries=[
+            RecruitEntry(
+                rank=i + 1,
+                username=u.username,
+                university=uni,
+                career=car,
+                xp_given=u.referral_xp_given,
+            )
+            for i, (u, uni, car) in enumerate(filas)
+        ],
+        total_recruits=int(total_recruits or 0),
+        total_xp_given=int(total_xp_given or 0),
+        share_percent=referrals_mod.SHARE_PERCENT,
+        handle=current_user.username,
     )
 
 

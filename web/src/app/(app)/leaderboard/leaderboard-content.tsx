@@ -12,6 +12,16 @@ import { badgeWithCrown, CAREER_EMOJI } from "@/lib/career-emoji"
 import { BELT_UNIT_TEXT_COLORS } from "@/lib/catalog"
 import { UniTag } from "@/components/university-tag"
 import { LayersIcon, UsersIcon } from "lucide-react"
+// El verde y el glifo de WhatsApp salen del minijuego: son la misma acción y
+// tienen que verse igual en los dos lados. Se importan, no se copian.
+import {
+  VERDE,
+  VERDE_TINTA_OSCURA,
+  WhatsappGlyph,
+  shareLink,
+  shareUrl,
+} from "@/app/derivadas/cafecito-cta"
+import { useRecruits } from "./UseRecruits"
 import { ALL, useLeaderboard } from "./UseLeaderboard"
 import { useLeaderboardSummary } from "./UseLeaderboardSummary"
 import { useUniversityLeaderboard } from "./UseUniversityLeaderboard"
@@ -25,7 +35,7 @@ const BELT_TEXT: Record<string, string> = BELT_UNIT_TEXT_COLORS
 // @/lib/university-tags. El formato es el de los items del inicio: texto en
 // color, borde "+99", fondo "+33".
 
-type RankingView = "individual" | "university"
+type RankingView = "individual" | "university" | "recruits"
 
 const fmt = fmtCount
 
@@ -71,21 +81,22 @@ export function LeaderboardContent() {
       {/* Fila 2: selector de ranking + filtros de carrera y universidad. */}
       <ScopeFilters
         view={view}
-        // El selector conoce una tercera vista ("Reclutas") que es del minijuego
-        // y acá no se ofrece: sin `withRecruits` la opción ni siquiera se
-        // dibuja, así que este descarte nunca ocurre en la práctica.
-        onViewChange={(v) => {
-          if (v !== "recruits") setView(v)
-        }}
+        withRecruits
+        onViewChange={setView}
         career={career}
         onCareerChange={setCareer}
         university={uni}
         onUniversityChange={setUni}
         universities={universities}
+        // Los reclutas son tuyos, no de una universidad ni de una carrera:
+        // filtrarlos por scope no querría decir nada.
+        scopeDisabled={view === "recruits"}
       />
       </div>
 
-      {view === "individual" ? (
+      {view === "recruits" ? (
+        <RecruitsRanking />
+      ) : view === "individual" ? (
         <IndividualRanking university={uni} career={career} />
       ) : (
         <UniversityRanking university={uni} career={career} />
@@ -374,6 +385,79 @@ function ListSkeleton() {
           </div>
         ))}
       </div>
+    </div>
+  )
+}
+
+
+/** Los reclutas propios: quiénes entraron por tu link y cuánto te generaron.
+ *
+ *  Los contadores de arriba cuentan a TODOS, la lista muestra solo a los que ya
+ *  aportaron algo. Es la misma asimetría que el ranking del minijuego: "trajiste
+ *  a 8" es la noticia aunque 3 no hayan arrancado, y una lista con renglones en
+ *  cero se lee como un reproche. */
+function RecruitsRanking() {
+  const { data, isLoading } = useRecruits()
+  const link = shareLink(data?.handle)
+
+  if (isLoading) return <div className="py-10 text-center text-sm text-muted-foreground">Cargando…</div>
+
+  const entries = data?.entries ?? []
+  return (
+    <div className="flex flex-col gap-4">
+      <div className="grid grid-cols-2 gap-2">
+        <Metric label="Reclutas" value={fmt(data?.total_recruits ?? 0)} />
+        <Metric label="Te aportaron" value={fmt(data?.total_xp_given ?? 0)} />
+      </div>
+
+      <p className="text-sm leading-relaxed text-muted-foreground">
+        Quien entre por tu link te deja el{" "}
+        <span className="font-medium text-foreground">
+          {data?.share_percent ?? 10}%
+        </span>{" "}
+        de todo lo que sume, acá y en el minijuego. No se le descuenta nada: esa
+        XP se acuña.
+      </p>
+
+      {/* Un <a> de verdad y no un window.open: wa.me es otro origen y tiene que
+          salir al navegador, que adentro de la PWA instalada es la diferencia
+          entre abrir WhatsApp y quedarse trabado en una ventana sin barra. */}
+      <a
+        href={shareUrl(data?.handle)}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex h-12 w-full items-center justify-center gap-2 rounded-md font-semibold"
+        style={{ backgroundColor: VERDE, color: VERDE_TINTA_OSCURA }}
+      >
+        Reclutar
+        <WhatsappGlyph size={18} />
+      </a>
+      <p className="text-center text-xs text-muted-foreground">{link}</p>
+
+      {entries.length === 0 ? (
+        <p className="py-6 text-center text-sm text-muted-foreground">
+          Todavía no entró nadie por tu link.
+        </p>
+      ) : (
+        <div className="flex flex-col gap-2">
+          {entries.map((e) => (
+            <div
+              key={e.rank}
+              className="flex items-center justify-between gap-3 rounded-lg border border-border bg-card px-4 py-3 text-sm"
+            >
+              <span className="truncate">@{e.username}</span>
+              <span className="flex items-center gap-2">
+                {e.university ? (
+                  <span className="text-xs text-muted-foreground">{e.university}</span>
+                ) : null}
+                <span className="font-semibold tabular-nums" style={{ color: VERDE }}>
+                  {fmt(e.xp_given)}
+                </span>
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
