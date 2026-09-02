@@ -1808,6 +1808,10 @@ def get_user_progress_db(user_id: int, course_id: int, db: DBSession) -> dict:
             "tramos": [
                 {
                     "university": t.university,
+                    # Lo que este tramo solo multiplica. No suma con el de al
+                    # lado: el total ya viene arriba, calculado sobre los
+                    # cafecitos sumados (ver BoostTramo).
+                    "multiplier": t.multiplier,
                     "cafecitos": t.cafecitos,
                     "donor_name": t.donor_name,
                     "expires_in_seconds": t.expires_in_seconds,
