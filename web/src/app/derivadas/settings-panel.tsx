@@ -12,9 +12,18 @@
 // (components/onboarding-fields.tsx), igual que en los hitos del juego.
 
 import { useRef, useState } from "react"
+import Link from "next/link"
 import posthog from "posthog-js"
 import { useQueryClient } from "@tanstack/react-query"
-import { ChevronLeft, Coffee, LogOut, RotateCcw, Volume2, VolumeX } from "lucide-react"
+import {
+  ArrowUpRight,
+  ChevronLeft,
+  Coffee,
+  LogOut,
+  RotateCcw,
+  Volume2,
+  VolumeX,
+} from "lucide-react"
 import { useClerk } from "@clerk/nextjs"
 import { ApiError, unwrap } from "@/lib/api/client"
 import { Button } from "@/components/ui/button"
@@ -418,6 +427,23 @@ export function SettingsPanel({
             {muted ? <VolumeX size={16} /> : <Volume2 size={16} />}
           </span>
         </button>
+
+        {/* La puerta de vuelta a Intervalo. Es la última fila NEUTRA: abajo
+            arranca el bloque de color (reclutar, cafecito) y después el
+            destructivo, y esto no es ni una cosa ni la otra.
+
+            <Link> de Next y no un <a> con target: /derivadas y / son el mismo
+            deploy y el mismo origen, así que esto es navegación interna y se
+            queda adentro de la PWA instalada. Un target="_blank" acá la sacaría
+            a Safari. La regla opuesta vale para cafecito.app, que sí tiene que
+            salir del contenedor (ver la fila del cafecito más abajo).
+
+            Un invitado cae en la landing y no en el panel, que es lo que se
+            busca: es la conversión, no un error. */}
+        <Link href="/" className={rowCls}>
+          <span className="text-muted-foreground">Ir a Intervalo</span>
+          <ArrowUpRight size={16} />
+        </Link>
 
         {/* Abre la diapo de reclutar, no WhatsApp. Mismo motivo que la fila del
             cafecito de acá abajo: mandando directo al chat, quien comparte no se

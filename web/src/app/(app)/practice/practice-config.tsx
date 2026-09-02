@@ -42,6 +42,10 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { parseAsInteger, parseAsStringLiteral, useQueryState } from "nuqs"
 import { useEffect, useMemo, useState, useSyncExternalStore } from "react"
 import { EditorStepper } from "@/app/editor-stepper"
+// El logo del juego, dibujado con bordes CSS y `em` — no hay asset. Trae
+// `motion/react`, que esta pantalla ya usa para la lista de unidades, así que no
+// agrega nada al bundle.
+import { GameLogo } from "@/app/derivadas/game-logo"
 import { useUserProgress } from "@/app/UseUserProgress"
 import { usePracticeStats } from "./UsePracticeStats"
 import { useStartPractice } from "./UseStartPractice"
@@ -452,6 +456,26 @@ export default function PracticeConfig() {
                 {startPractice.isPending ? "Cargando…" : "Practicar"}
               </Button>
             )}
+
+            {/* La puerta al minijuego. Solo el logo, sin etiqueta: el lockup
+                `d/dx [ intervalo ]` YA dice qué es, y ponerle "Jugar a
+                derivadas" al lado sería nombrar dos veces la misma cosa.
+
+                <Link> y no <a target="_blank">: /derivadas es el mismo deploy y
+                el mismo origen, así que es navegación interna y se queda adentro
+                de la PWA instalada (el manifest no define scope, así que el
+                scope es "/" y /derivadas cae adentro).
+
+                Fondo sólido y no el blanco del CTA de arriba: son dos acciones
+                de peso distinto y compartir el tratamiento las pone a competir.
+                `#131324` es el fondo de la marca del juego, el mismo del icono. */}
+            <Link
+              href="/derivadas"
+              className="flex h-14 w-full shrink-0 items-center justify-center rounded-md border border-white/15 bg-[#131324] transition-colors hover:border-white/30"
+              aria-label="Ir a Intervalo DX, el minijuego de derivadas"
+            >
+              <GameLogo fontSize="1.05rem" />
+            </Link>
 
             <DismissibleHint storageKey={HINT_STORAGE_KEY}>
               <span className="block">
