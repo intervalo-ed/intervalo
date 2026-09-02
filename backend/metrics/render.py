@@ -302,11 +302,16 @@ def page(p: dict, *, token: str) -> str:
 
         El eje dice «D+3» y eso no significa nada solo, así que cada tooltip
         traduce el k, da el numerador y el denominador con nombre, y aclara por
-        qué el denominador no es toda la cohorte."""
+        qué el denominador no es toda la cohorte.
+
+        Acumulado y no día exacto: «dentro de los primeros k días», no «el día
+        k puntual». Un match de día exacto contra el día de instalación —que no
+        tiene por qué coincidir con el calendario de repetición espaciada de
+        nadie— hundía la curva incluso para los usuarios más fieles."""
         k, n, obs = pt["k"], pt["n"], pt["obs"]
         cuando = ("el mismo día que instalaron" if k == 0 else
-                  "un día después de instalar la PWA" if k == 1 else
-                  f"{k} días después de instalar la PWA")
+                  "el día que instalaron o al día siguiente" if k == 1 else
+                  f"dentro de los primeros {k} días desde que instalaron")
         cab = f'Cohorte del {label}  ·  D+{k}'
         # A diferencia de la curva vieja (donde D+0 daba 100% por construcción,
         # porque el ancla y el evento medido eran la misma sesión), acá instalar
@@ -351,20 +356,35 @@ def page(p: dict, *, token: str) -> str:
         # solo tono con la más vieja apagada ordena la lectura.
         # Más alto que el resto: con 14 puntos y la curva pegada al piso a
         # partir de D+2, en 220px las series se superponen y no se distinguen.
+        #
+        # Sin y_max fijo: con la retención anclada en la primera sesión, D+0
+        # daba 100% por construcción y forzar el techo a 100 tenía sentido.
+        # Anclada en la instalación, nada garantiza que la curva se acerque a
+        # 100 (acá arriba explica por qué), así que un techo fijo desperdicia
+        # la mitad del gráfico. Mismo criterio que el resto de los gráficos de
+        # porcentaje del panel (ver ch.vbars en la sección de Producto): el
+        # techo se calcula del dato real.
         ch.lines(ret_series, [f"D+{k}" for k in range(r["horizon"] + 1)], mono=True,
-                 height=330, y_max=100),
-        '<p class="note"><b>D+0 es el día que instaló y abrió la PWA, no el del alta</b>. A '
-        'diferencia de la curva anterior —donde el ancla era la primera sesión, así que D+0 daba '
-        '100% por construcción—, acá instalar y estudiar son eventos distintos: <b>D+0 no está '
-        'garantizado en 100%</b>, mide honestamente cuánta gente estudió el mismo día que instaló. '
-        'Anclado en la instalación, cada k mide una sola cosa: cuántos siguen volviendo a estudiar '
-        'k días después de haber instalado.</p>'
+                 height=330),
+        '<p class="note"><b>D+k es «volvió dentro de los primeros k días», no «volvió el día '
+        'exacto k»</b>. La primera versión de esta curva comparaba contra el día exacto —calcado '
+        'del diseño anterior, donde el ancla y la sesión medida eran la misma cosa—, y con el '
+        'ancla en la instalación esa comparación se rompía: instalar no tiene por qué caer en '
+        'ningún día particular del calendario de repetición espaciada de cada uno. La prueba de '
+        'que estaba mal fue que los instaladores —una selección de los usuarios más '
+        'comprometidos— daban una curva más chata que la vieja, cuando debería ser al revés. '
+        'Acumulado en cambio es monótono: una vez que alguien vuelve, cuenta como retenido en '
+        'todos los k siguientes.</p>'
+        '<p class="note"><b>D+0 es el día que instaló y abrió la PWA, no el del alta</b>, y <b>no '
+        'está garantizado en 100%</b>: instalar y estudiar son eventos distintos, así que D+0 mide '
+        'honestamente cuánta gente estudió el mismo día que instaló. Solo cuenta sesiones DESDE la '
+        'instalación en adelante — una sesión anterior no es «volver», es lo que motivó a '
+        'instalar.</p>'
         '<p class="note">El 100% son <b>los que instalaron y abrieron la PWA</b>, no los que se '
         'dieron de alta ni los que solo estudiaron: instalar es un compromiso mayor que registrarse '
         'o incluso que terminar una sesión, y meter en el denominador a quien nunca instaló '
         'mezclaría «convertir a estudiar» —que ya mide el embudo— con «convertir a hábito '
-        'instalado», que es lo que esta curva aísla. «Volver» en cada día sigue siendo terminar una '
-        'sesión ese día: instalar no es el objetivo, es el medio. La cohorte sigue siendo la semana '
+        'instalado», que es lo que esta curva aísla. La cohorte sigue siendo la semana '
         'de alta, así que se comparan tandas de usuarios aunque el reloj de cada uno arranque '
         'cuando instaló.</p>'
         '<p class="note"><b>El denominador de cada día no es la cohorte entera</b>, y por eso el '
