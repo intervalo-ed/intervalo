@@ -269,16 +269,18 @@ def headline(data: dict, weeks: list[date]) -> list[dict]:
     contra la semana anterior.
 
     Las cuatro responden preguntas distintas a propósito: cuánta gente entra
-    (altas), cuánta se compromete al punto de instalar la app (instalaciones),
-    cuánta de la que ya estaba sigue viva (reactivados) y qué tan bien engancha
-    la que entra (vuelven otro día). Adquisición, compromiso, base instalada y
-    calidad del enganche — subir una sin las otras no sirve de nada.
+    (altas), cuánta de la que ya estaba sigue viva (reactivados), cuánta se
+    compromete al punto de instalar la app (instalaciones) y qué tan bien
+    engancha la que entra (vuelven otro día). Adquisición, base instalada,
+    compromiso y calidad del enganche — subir una sin las otras no sirve de
+    nada.
 
     La última mide volver ALGÚN otro día y no específicamente al siguiente:
     el producto promete repetición espaciada, no racha diaria, así que quien
     estudia el martes y vuelve el viernes está haciendo exactamente lo que se
-    le pidió. Es también el mismo corte que el último paso del embudo, para que
-    los dos números se puedan leer juntos.
+    le pidió. Es EL MISMO corte que el último paso del embudo a propósito
+    —mismo criterio, misma cohorte—, para que los dos números se puedan leer
+    juntos sin traducir.
     """
     uw = _user_week(data["users"])
     pwa_at = _pwa_dates(data)
@@ -302,7 +304,8 @@ def headline(data: dict, weeks: list[date]) -> list[dict]:
         if dias:
             b["activados"] += 1
             # Dos días distintos con sesión terminada, sin pedir que sean
-            # consecutivos. Mismo criterio que el último paso del embudo.
+            # consecutivos. MISMO criterio que el último paso del embudo
+            # (funnel(): "otro_dia" en queries.py), a propósito.
             if len(dias) >= 2:
                 b["otro_dia"] += 1
 
