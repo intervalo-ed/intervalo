@@ -40,14 +40,34 @@ function unwrapOperatorName(inner: string): string {
     .toLowerCase()
 }
 
+// El signo que quedó ATRAPADO adentro del nombre de la función.
+//
+// Caso real (nicolin, 02/09, derivada de cos x): la respuesta era $-\sen x$, se
+// escribió primero `sen(x)` con la tecla y después se volvió con el cursor a
+// poner el menos adelante. MathLive lo metió DENTRO del token, así que el campo
+// serializó `\operatorname{-\mathrm{sen}}\left(x\right)`. Acá abajo eso se
+// desenvolvía como el nombre `-sen`, que no está en ninguna de las dos tablas, y
+// salía como `\operatorname{-sen}`: compute-engine lo lee como una función
+// inventada y la respuesta —que estaba BIEN— no parseaba.
+//
+// Se saca el signo afuera del operador, que es donde la persona lo quiso poner.
+// Varios seguidos también (`--sen`), porque escribir dos menos es más fácil que
+// borrar uno.
+const SIGNO_ADELANTE_RE = /^([+-]+)(.+)$/
+
 export function normalizeAnswerLatex(latex: string): string {
   let out = latex.trim()
   out = out.replace(PREFIX_RE, "")
   out = out.replace(OPERATORNAME_RE, (_match, inner: string) => {
-    const name = unwrapOperatorName(inner)
-    if (SPANISH_FUNCTIONS[name]) return SPANISH_FUNCTIONS[name]
-    if (NATIVE_FUNCTIONS.has(name)) return `\\${name}`
-    return `\\operatorname{${name}}`
+    const crudo = unwrapOperatorName(inner)
+    const conSigno = SIGNO_ADELANTE_RE.exec(crudo)
+    const signo = conSigno ? conSigno[1] : ""
+    const name = conSigno ? conSigno[2] : crudo
+    if (SPANISH_FUNCTIONS[name]) return signo + SPANISH_FUNCTIONS[name]
+    if (NATIVE_FUNCTIONS.has(name)) return `${signo}\\${name}`
+    // Sin nombre conocido, se deja como estaba: sacarle el signo a algo que
+    // igual no vamos a poder interpretar solo cambia un error por otro.
+    return `\\operatorname{${crudo}}`
   })
   // Formas sueltas, por si alguien las escribe con el teclado físico.
   out = out.replace(/\\sen\b/g, "\\sin")

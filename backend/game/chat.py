@@ -47,6 +47,10 @@ from . import elo
 # historia que el otro.
 CHAT_LIMIT = 40
 
+# El techo de lo que se puede pedir de una. Gemelo de `events.MAX_LIMIT`: el de
+# arriba es el tamaño de la primera pantalla, este es el freno.
+MAX_LIMIT = 100
+
 # Qué puede tener un mensaje DE UNA LÍNEA (ver `_TEXTO_ARTE_RE` más abajo para
 # el de un dibujo).
 #
@@ -197,19 +201,30 @@ class MessageView:
     seconds_ago: int
 
 
-def recent(db: Session, after_id: int = 0, limit: int = CHAT_LIMIT) -> list[MessageView]:
+def recent(
+    db: Session,
+    after_id: int = 0,
+    limit: int = CHAT_LIMIT,
+    before_id: int = 0,
+) -> list[MessageView]:
     """Los últimos mensajes, del más nuevo al más viejo.
 
     Con `after_id` devuelve solo lo que el cliente todavía no vio. Ese cursor es
     lo que hace que el chat no cueste nada: viaja en el sondeo del feed de
     novedades que ya corría cada ocho segundos, y en régimen la respuesta es una
     lista vacía.
+
+    Con `before_id`, lo de MÁS ATRÁS de esa línea: es lo que pide el panel cuando
+    se llega arriba de todo scrolleando. Excluyente con `after_id` — son dos
+    direcciones, no dos filtros.
     """
     now = datetime.utcnow()
     q = db.query(GameMessage).filter(GameMessage.hidden.is_(False))
-    if after_id:
+    if before_id:
+        q = q.filter(GameMessage.id < before_id)
+    elif after_id:
         q = q.filter(GameMessage.id > after_id)
-    rows = q.order_by(GameMessage.id.desc()).limit(min(limit, CHAT_LIMIT)).all()
+    rows = q.order_by(GameMessage.id.desc()).limit(max(1, min(limit, MAX_LIMIT))).all()
     return [
         MessageView(
             id=r.id,

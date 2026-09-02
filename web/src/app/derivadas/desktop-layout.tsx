@@ -27,9 +27,9 @@ import { useSfx } from "@/lib/audio/useSfx"
 import {
   CafecitoButton,
   ShareButton,
+  elegirTriggerDeCafecito,
   markCafecitoShown,
   shouldShowCafecito,
-  CAFECITO_EVERY,
   TECLA_CAFECITO,
   TECLA_RECLUTAS,
   type CafecitoTrigger,
@@ -37,7 +37,11 @@ import {
 import { CafecitoPanel } from "./cafecito-panel"
 import { ReclutasPanel, type ReclutasTrigger } from "./reclutas-panel"
 import { marcarReclutasMostrado, tocaReclutar } from "./reclutas-trigger"
-import { HITO_PERFIL, HITO_REGISTRO } from "./hitos-del-juego"
+import {
+  HITO_PERFIL,
+  marcarRegistroMostrado,
+  tocaRegistro,
+} from "./hitos-del-juego"
 import {
   AnswerButton,
   AnswerField,
@@ -256,7 +260,10 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   // Contador de respuestas, no de aciertos: es lo que hace que el latido y el
   // sacudón vuelvan a correr cuando dos respuestas seguidas comparten tono.
   const [answerSeq, setAnswerSeq] = useState(0)
-  const [solvedCount, setSolvedCount] = useState(0)
+  // Sin contador de correctas de la pestaña: volvía a cero en cada carga y todo
+  // lo que colgaba de él medía otra cosa que la que decía medir. Gemelo del
+  // comentario de mobile-flow.tsx; ahora todo eso usa las acumuladas del
+  // servidor.
   const [climbFrom, setClimbFrom] = useState<number | null>(null)
   const [centerKey, setCenterKey] = useState(0)
   // El disparador MÁS el número que la diapo va a mostrar. Van juntos porque el
@@ -731,7 +738,10 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
             // esta propiedad, PostHog mezcla «resolvió» con «copió» en la misma
             // tasa de acierto, igual que le pasaba al panel antes de persistirlo.
             peeked: peekedRef.current,
-            solved: solvedCount,
+            // Las acumuladas del servidor, que vienen en esta misma respuesta:
+            // `solvedCount` es de la pestaña y vuelve a cero al recargar. Ver
+            // el gemelo en mobile-flow.tsx.
+            solved: data.exercises_correct,
             combo: data.combo,
             xp: data.xp_awarded,
             multiplier: data.xp_multiplier,
@@ -782,8 +792,6 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
           }
           reconcileXp(data)
 
-          const solved = solvedCount + 1
-          setSolvedCount(solved)
           if (pendingClimbRef.current !== null) {
             posthog.capture("game_rank_change", {
               from: rankBefore,
@@ -799,28 +807,13 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
               : 0
           // El hito del cafecito se cuenta con las correctas ACUMULADAS del
           // jugador, que las manda el servidor, y no con las de esta pestaña.
-          // `solved` vive en un `useState` y vuelve a cero en cada recarga, así
-          // que llegar a veinte pedía veinte aciertos seguidos sin refrescar —
-          // y el cooldown, que sí se guarda en localStorage, se comparaba
-          // contra ese contador de sesión: después de la primera aparición la
-          // cuenta quedaba envenenada y no volvía a salir nunca.
+          // La regla vive en cafecito-cta.tsx, compartida con el teléfono.
           const totalCorrectas = data.exercises_correct
-          // Piso de CAFECITO_EVERY para los tres tipos, no solo para "milestone"
-          // (que ya lo tenía gratis, por el módulo): "récord" y "big_climb" no
-          // tenían ninguno, y un invitado nuevo bate su propio récord —no tiene
-          // casi historia— o pasa a varias cuentas en cero —el ranking está
-          // lleno de ellas— en casi cualquiera de sus primeras derivadas. Antes
-          // de esta cantidad ninguno de los tres cuenta como para interrumpir.
-          const trigger: CafecitoTrigger | null =
-            totalCorrectas < CAFECITO_EVERY
-              ? null
-              : data.is_record
-                ? "record"
-                : delta >= 3
-                  ? "big_climb"
-                  : totalCorrectas % CAFECITO_EVERY === 0
-                    ? "milestone"
-                    : null
+          const trigger = elegirTriggerDeCafecito({
+            isRecord: data.is_record,
+            delta,
+            totalCorrectas,
+          })
           const tocaCafecito =
             trigger !== null && shouldShowCafecito(totalCorrectas, trigger)
           const sinUniversidad = player !== null && !player.university
@@ -865,16 +858,20 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
             marcarReclutasMostrado(totalCorrectas)
             reclutasPendienteRef.current = true
           }
-          if (faltaPreguntarUniversidad && solved >= HITO_PERFIL) {
+          // Los dos con `totalCorrectas` —las acumuladas del servidor— y no con
+          // el contador de la pestaña, que vuelve a cero en cada carga. Ver
+          // hitos-del-juego.ts.
+          if (faltaPreguntarUniversidad && totalCorrectas >= HITO_PERFIL) {
             askedProfileRef.current = true
             pendingMilestoneRef.current = "profile"
           } else if (
-            solved >= HITO_REGISTRO &&
+            tocaRegistro(totalCorrectas) &&
             player !== null &&
             player.is_guest &&
             !askedRegisterRef.current
           ) {
             askedRegisterRef.current = true
+            marcarRegistroMostrado(totalCorrectas)
             pendingMilestoneRef.current = "register"
           }
         },
@@ -905,7 +902,6 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
     exercise,
     answerMutation,
     sfx,
-    solvedCount,
     player,
     boost,
     fireXpProvisional,
@@ -1037,7 +1033,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
     posthog.capture("game_skip", {
       tier: exercise.tier,
       stars: exercise.difficulty_stars,
-      solved: solvedCount,
+      solved: player?.exercises_correct ?? 0,
       exercise_id: exercise.exercise_id,
     })
     // Determinístico y sin desacuerdo posible salvo el 409 de abajo:
@@ -1111,7 +1107,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
     closed,
     skipMutation,
     answerMutation.isPending,
-    solvedCount,
+    player?.exercises_correct,
     queryClient,
     revertirRacha,
     loadNext,
@@ -2047,7 +2043,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                     trigger={cafecito.trigger}
                     correctToday={cafecito.correctToday}
                     university={player?.university ?? null}
-                    solved={solvedCount}
+                    solved={player?.exercises_correct ?? 0}
                     onPickUniversity={() => setSettingsOpen(true)}
                     slotSalida={slotSalida}
                     onPreview={setCafecitoPreview}

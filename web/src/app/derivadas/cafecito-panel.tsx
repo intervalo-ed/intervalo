@@ -695,8 +695,18 @@ export function CafecitoPanel({
   // El slider toma el foco al entrar: es lo que hace que las flechas lo muevan
   // sin tener que apuntarle con el mouse. Es también el único elemento
   // enfocable de la diapo mientras el botón de seguir está deshabilitado.
+  //
+  // `preventScroll` NO es opcional, y es lo que hacía que esta diapo —y solo
+  // esta, porque la de reclutas no enfoca nada— entrara con un fundido en vez de
+  // deslizarse. Este efecto corre en el primer commit, o sea con el panel
+  // todavía en `x: 100%`, y un `focus()` común le pide al navegador que traiga
+  // el elemento enfocado a la vista: sube hasta el ancestro scrolleable —en el
+  // teléfono la raíz de mobile-flow.tsx, que aunque sea `overflow-hidden` sigue
+  // siendo scrolleable por programa— y le escribe el scroll. El deslizamiento se
+  // colapsaba a su estado final y lo único que quedaba a la vista era el tinte
+  // de fondo cambiando de color: exactamente un fundido.
   useEffect(() => {
-    sliderRef.current?.focus()
+    sliderRef.current?.focus({ preventScroll: true })
   }, [])
 
   const intent = useCafecitoIntent()

@@ -7,8 +7,14 @@
 import { useEffect } from "react"
 import { Coffee } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { useSfx } from "@/lib/audio/useSfx"
 import { KeyCap } from "./exercise-card"
-import { readUltimoPedidoAt, saveUltimoPedidoAt } from "./game-storage"
+import {
+  bumpCafecitosVistos,
+  readCafecitosVistos,
+  readUltimoPedidoAt,
+  saveUltimoPedidoAt,
+} from "./game-storage"
 import { useCta } from "./game-telemetry"
 
 // Perfil propio del juego, separado del de Intervalo. Ojo con este valor: ya
@@ -72,6 +78,51 @@ export type CafecitoTrigger = "record" | "big_climb" | "milestone" | "pedido"
 export const TECLA_CAFECITO = "i"
 export const TECLA_RECLUTAS = "w"
 
+// Cuánto tiene que subir de una sola derivada para que cuente como "escalada".
+const SALTO_GRANDE = 3
+
+/** Por qué le sale sola la diapo del café, o `null` si no le toca.
+ *
+ * Vivía copiada y pegada en los dos layouts —mobile-flow.tsx y
+ * desktop-layout.tsx—, que es la forma segura de que dentro de un mes cada
+ * aparato interrumpa por un motivo distinto. Acá está una sola vez.
+ *
+ * `totalCorrectas` son las ACUMULADAS del jugador (las manda el servidor), no
+ * las de esta pestaña: un contador de sesión vuelve a cero en cada recarga, y el
+ * cooldown —que sí se guarda— quedaba comparándose contra él.
+ *
+ * La PRIMERA vez que la diapo sale sola, el motivo es siempre `milestone`. Los
+ * otros dos son felicitaciones, y felicitar a alguien por batir un récord que no
+ * sabía que tenía —un invitado nuevo bate el suyo casi en cualquier derivada, y
+ * pasa a varias cuentas en cero porque el ranking está lleno de ellas— es
+ * celebrar algo que la persona no tiene forma de percibir como logro. Recién con
+ * una aparición encima el récord significa algo. */
+export function elegirTriggerDeCafecito({
+  isRecord,
+  delta,
+  totalCorrectas,
+}: {
+  isRecord: boolean
+  delta: number
+  totalCorrectas: number
+}): CafecitoTrigger | null {
+  // Piso para los TRES, no solo para `milestone` (que ya lo tenía gratis por el
+  // módulo). Antes de esta cantidad ninguno cuenta como para interrumpir.
+  if (totalCorrectas < CAFECITO_EVERY) return null
+  const motivo: CafecitoTrigger | null = isRecord
+    ? "record"
+    : delta >= SALTO_GRANDE
+      ? "big_climb"
+      : totalCorrectas % CAFECITO_EVERY === 0
+        ? "milestone"
+        : null
+  // La primera solo cambia la COPY, no CUÁNDO sale: si no había motivo, sigue
+  // sin haberlo. Al revés, la primera aparición se adelantaría a la primera
+  // derivada que cumpla el piso y se comería el hito.
+  if (motivo === null) return null
+  return readCafecitosVistos() === 0 ? "milestone" : motivo
+}
+
 export function shouldShowCafecito(
   solvedCount: number,
   trigger: CafecitoTrigger | null,
@@ -83,13 +134,17 @@ export function shouldShowCafecito(
   return solvedCount - readUltimoPedidoAt() >= CAFECITO_COOLDOWN
 }
 
-/** Anota el cooldown. La impresión NO se registra acá: la registra la propia
+/** Anota el cooldown y suma una aparición (lo que hace que la SEGUNDA en
+ *  adelante pueda volver a felicitar; ver `elegirTriggerDeCafecito`).
+ *
+ *  La impresión NO se registra acá: la registra la propia
  *  card al montarse (ver `CafecitoCard`), que es cuando el cartel existe de
  *  verdad y además sabe si tiene universidad y por lo tanto si hay un camino a
  *  Cafecito o solo un pedido de datos. Registrarla en los dos lados contaría
  *  dos veces la misma impresión. */
 export function markCafecitoShown(solvedCount: number) {
   saveUltimoPedidoAt(solvedCount)
+  bumpCafecitosVistos()
 }
 
 // Lugares cuya impresión ya se registró en esta carga de página.
@@ -228,6 +283,72 @@ export function shareLink(alias?: string | null) {
 /** El link de WhatsApp, listo para abrir. Es lo único que se manda. */
 export function shareUrl(alias?: string | null) {
   return `https://wa.me/?text=${encodeURIComponent(shareLink(alias))}`
+}
+
+/** Abre WhatsApp con el link propio, a mano.
+ *
+ * SOLO para el atajo de teclado, que no tiene anchor que clickear. Todo lo que
+ * se toca usa `ReclutarButton`, que es un `<a>` de verdad: desde una ventana
+ * standalone en iOS, `window.open` a otro origen es inconsistente según la
+ * versión. */
+export function abrirWhatsapp(alias?: string | null) {
+  window.open(shareUrl(alias), "_blank", "noopener,noreferrer")
+}
+
+/** El botón verde de reclutar.
+ *
+ * El relleno es `VERDE` con letra oscura, y el logo va DESPUÉS de la palabra,
+ * como la taza del cafecito: el botón se lee "reclutar" y el ícono cierra la
+ * frase diciendo por dónde, en vez de anunciarla.
+ *
+ * Es un `<a>` y no un `<button>`, igual que el del cafecito y por el mismo
+ * motivo: wa.me es otro origen y tiene que salir de la PWA instalada. Un anchor
+ * clickeado por la persona abre WhatsApp parejo en los dos sistemas.
+ *
+ * La geometría la pone quien lo usa (`className`), que es lo único que cambia
+ * entre el pie de la diapo y el lugar del CTA del ranking. */
+export function ReclutarButton({
+  alias,
+  placement,
+  telemetryProps,
+  onClick,
+  className,
+  keycap,
+}: {
+  alias?: string | null
+  placement: string
+  telemetryProps?: Record<string, unknown>
+  // Para quien ya tiene su propia función de "anotá que reclutó" —la diapo la
+  // comparte con el atajo de teclado— y no quiere que se anote dos veces.
+  onClick?: () => void
+  className?: string
+  keycap?: React.ReactNode
+}) {
+  const cta = useCta()
+  const sfx = useSfx()
+  return (
+    <a
+      href={shareUrl(alias)}
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={
+        onClick ??
+        (() => {
+          sfx.select()
+          cta("share", "click", { placement, props: telemetryProps })
+        })
+      }
+      className={cn(
+        "flex items-center justify-center gap-2 text-base font-semibold transition-opacity hover:opacity-90",
+        className,
+      )}
+      style={{ backgroundColor: VERDE, color: VERDE_TINTA_OSCURA }}
+    >
+      Reclutar
+      <WhatsappGlyph size={18} />
+      {keycap}
+    </a>
+  )
 }
 
 /** El botón de reclutar de la barra de arriba.

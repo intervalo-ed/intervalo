@@ -110,7 +110,18 @@ export function UsernameSlide({
         <p className="text-sm text-orange-300">{error ?? submitError}</p>
       )}
       <Salida slot={slotSalida}>
-        <div className={cn("flex flex-col gap-2", slotSalida && "w-full")}>
+        {/* En el teléfono el botón mide lo mismo que la caja del @ (`max-w-xs`,
+            como el div de arriba): son la misma pregunta, uno debajo del otro, y
+            con el botón heredando el `max-w-md` del padre se veía como si
+            pertenecieran a dos pantallas distintas. En escritorio no: ahí el
+            botón se portaliza al pie de la columna (`slotSalida`), donde tiene
+            que medir lo mismo que Revisar y Saltear. */}
+        <div
+          className={cn(
+            "flex flex-col gap-2",
+            slotSalida ? "w-full" : "w-full max-w-xs",
+          )}
+        >
           <Button
             size="lg"
             className={ctaCls}

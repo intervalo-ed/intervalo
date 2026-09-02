@@ -11,6 +11,8 @@ import { useQueryClient } from "@tanstack/react-query"
 import posthog from "posthog-js"
 import { Button } from "@/components/ui/button"
 import { CareerSelect, UniversityGrid } from "@/components/onboarding-fields"
+import { InstallSheet } from "@/components/install-sheet"
+import { isStandalone, usePlatform } from "@/lib/platform/detect"
 import { readOnboarding, saveOnboarding } from "@/lib/onboarding/storage"
 import { canonicalUniversity } from "@/lib/university-tags"
 import { cn } from "@/lib/utils"
@@ -24,6 +26,7 @@ import { KeyCap } from "./exercise-card"
 import { colorDeCafe, levelColor } from "./game-colors"
 import { Salida, claseDeSalida } from "./slide-salida"
 import { SlideFlip } from "./slide-flip"
+import { SlideHorizontal } from "./slide-horizontal"
 import { enCampoDeTexto, useTeclas } from "./teclas"
 import { useGameApi } from "./UseGameApi"
 import { useGameLeaderboard, useGameRecruits } from "./UseGameLeaderboard"
@@ -120,9 +123,16 @@ export function ProfileSlides({
   }
 
   // Las dos preguntas del perfil son dos pantallas, y cambiar de pantalla en
-  // este juego es siempre el mismo volteo (slide-flip.tsx). Antes la segunda
-  // reemplazaba a la primera sin más y parecía que la página se hubiera
-  // recargado sola.
+  // este juego es el pase de cada aparato. Antes la segunda reemplazaba a la
+  // primera sin más y parecía que la página se hubiera recargado sola.
+  //
+  // Y es el pase DEL APARATO, no siempre el volteo: estas dos caras viven
+  // adentro de UNA sola diapo del teléfono, así que el `slideSeq` de
+  // mobile-flow.tsx no cambia entre carrera y universidad y el deslizamiento de
+  // afuera no ocurre. Con `SlideFlip` en los dos lados, «¿Dónde?» era la única
+  // pantalla del teléfono que aparecía con un fundido en medio de un juego que
+  // se mueve entero de costado. `slotSalida` —que ya distingue escritorio en
+  // todo este archivo— elige cuál va.
   //
   // Los botones viven AFUERA del `SlideFlip`, y no —como antes— uno por fase
   // adentro de cada cara: `AnimatePresence` cruza las dos caras durante la
@@ -131,47 +141,59 @@ export function ProfileSlides({
   // portalizar al MISMO nodo del pie a la vez y se verían superpuestas un
   // instante. Afuera, el botón no cruza con nada: cambia de golpe con
   // `phase`, que es del padre y no de la cara.
+  const cara =
+    phase === "career" ? (
+      <div className={bodyCls}>
+        <CareerSelect
+          value={career}
+          onSelect={(v) => {
+            sfx.select()
+            setCareer(v)
+          }}
+        />
+      </div>
+    ) : (
+      <div className={bodyCls}>
+        <UniversityGrid
+          university={university}
+          showOther={showOther}
+          otherValue={universityOther}
+          onOtherChange={setUniversityOther}
+          onPick={(u) => {
+            sfx.select()
+            setUniversity(u)
+            setShowOther(false)
+          }}
+          onSelectOther={() => {
+            sfx.select()
+            setUniversity("")
+            setShowOther(true)
+          }}
+          onConfirmOther={confirmOther}
+          onPickSuggestion={(key) => {
+            sfx.select()
+            setUniversityOther(key)
+            inputRef.current?.focus()
+          }}
+          inputRef={inputRef}
+        />
+      </div>
+    )
+
   return (
     <div className={panelCls}>
-      <SlideFlip slide={phase} className="flex min-h-0 flex-1 flex-col">
-        {phase === "career" ? (
-          <div className={bodyCls}>
-            <CareerSelect
-              value={career}
-              onSelect={(v) => {
-                sfx.select()
-                setCareer(v)
-              }}
-            />
-          </div>
-        ) : (
-          <div className={bodyCls}>
-            <UniversityGrid
-              university={university}
-              showOther={showOther}
-              otherValue={universityOther}
-              onOtherChange={setUniversityOther}
-              onPick={(u) => {
-                sfx.select()
-                setUniversity(u)
-                setShowOther(false)
-              }}
-              onSelectOther={() => {
-                sfx.select()
-                setUniversity("")
-                setShowOther(true)
-              }}
-              onConfirmOther={confirmOther}
-              onPickSuggestion={(key) => {
-                sfx.select()
-                setUniversityOther(key)
-                inputRef.current?.focus()
-              }}
-              inputRef={inputRef}
-            />
-          </div>
-        )}
-      </SlideFlip>
+      {slotSalida ? (
+        <SlideFlip slide={phase} className="flex min-h-0 flex-1 flex-col">
+          {cara}
+        </SlideFlip>
+      ) : (
+        // Sin `flex`: `SlideHorizontal` es una grilla de una celda (así apila
+        // las dos caras en el mismo lugar sin sacarlas del flujo), y ponerle
+        // `flex` acá le pisaría el `display`.
+        <SlideHorizontal llave={phase} className="min-h-0 flex-1">
+          {cara}
+        </SlideHorizontal>
+      )}
       <Salida slot={slotSalida}>
         {/* En el pie (escritorio), Continuar y Ahora no van UNO AL LADO DEL
             OTRO —la misma fila que Revisar/¿Por qué?/Saltear en el
@@ -589,6 +611,10 @@ export function RegisterSlide({
             </p>
           </>
         )}
+        {/* Solo en los hitos, no en el registro que se abre desde
+            Configuración: allá la persona vino a hacer una cosa puntual y
+            ofrecerle otra en el medio es ruido. */}
+        {!desdeConfiguracion && <InstalarLinea />}
         {/* El @ ya se eligió antes de llegar acá (en "Elegí tu @" o en el
             registro de Configuración) — en las dos variantes de hito no hay
             nada que elegir, así que el campo no existe. Solo la variante de
@@ -714,6 +740,60 @@ export function RegisterSlide({
         )}
       </Salida>
     </div>
+  )
+}
+
+/** El ofrecimiento de agregar el juego a la pantalla de inicio.
+ *
+ * Va en la slide del registro y no en una barra encima del juego (la smart bar
+ * está excluida de /derivadas a propósito): es el único momento del embudo en
+ * que la persona ya paró a decidir si se queda, así que es el único en que
+ * pedirle que instale algo no interrumpe nada que estuviera haciendo.
+ *
+ * Los pasos son los de siempre —`InstallSheet`, el mismo que usa la app— y no
+ * una copia: son distintos por sistema operativo y mantenerlos en dos lugares
+ * es garantía de que uno quede viejo.
+ *
+ * Tres condiciones para mostrarse, y las tres importan:
+ *   · `platform !== null` es además el gate de MONTAJE (`usePlatform` devuelve
+ *     null en el servidor), así que `isStandalone()` recién se lee en el
+ *     cliente y no hay desajuste de hidratación;
+ *   · en escritorio no se ofrece: no es de donde viene esta gente ni donde el
+ *     ícono en la pantalla de inicio significa algo;
+ *   · ya instalada, no hay nada que ofrecer. */
+function InstalarLinea() {
+  const platform = usePlatform()
+  const [abierta, setAbierta] = useState(false)
+  if (platform === null || platform === "desktop" || isStandalone()) return null
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() => {
+          posthog.capture("game_install_hint_open", { platform })
+          setAbierta(true)
+        }}
+        className="text-sm leading-relaxed text-foreground/70 underline underline-offset-2 transition-colors hover:text-foreground"
+      >
+        Agregalo a tu pantalla de inicio para jugar más cómodo y que te lleguen
+        recordatorios para practicar.
+      </button>
+      <InstallSheet
+        platform={platform}
+        open={abierta}
+        onOpenChange={setAbierta}
+        descripcion={
+          <>
+            Agregá Derivadas a tu{" "}
+            <strong className="font-semibold text-chart-5">
+              pantalla de inicio
+            </strong>{" "}
+            para jugar en pantalla completa, que no se te pierda el progreso y
+            que te lleguen recordatorios para practicar.
+          </>
+        }
+      />
+    </>
   )
 }
 

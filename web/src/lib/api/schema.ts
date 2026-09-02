@@ -269,6 +269,17 @@ export interface paths {
          *
          *     Con los dos cursores devuelve únicamente lo nuevo, que es lo que hace que
          *     sondearlo cada pocos segundos no cueste nada.
+         *
+         *     Y con `before_id`/`before_msg_id` mira para el otro lado: lo que hay más
+         *     atrás de esa línea. Es lo que pide el panel al llegar arriba de todo
+         *     scrolleando, y es el modo OPUESTO al sondeo — cada lista usa su cursor
+         *     "before" si vino, y si no el "after". Que un mismo pedido pueda traer
+         *     novedades viejas y mensajes nuevos no es un accidente: el panel pagina las
+         *     dos listas juntas, pero puede tocar el fondo de una antes que el de la otra.
+         *
+         *     Sin un `has_more` en la respuesta a propósito: una página más corta que el
+         *     `limit` pedido YA significa "no hay más atrás", y el cliente lo sabe sin que
+         *     se lo digan. Un campo aparte sería un segundo lugar donde puede estar mal.
          */
         get: operations["game_events_feed_game_derivemos_events_get"];
         put?: never;
@@ -3184,6 +3195,9 @@ export interface operations {
             query?: {
                 after_id?: number;
                 after_msg_id?: number;
+                before_id?: number;
+                before_msg_id?: number;
+                limit?: number;
             };
             header?: {
                 authorization?: string;

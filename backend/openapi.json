@@ -648,7 +648,7 @@
           "game"
         ],
         "summary": "Game Events Feed",
-        "description": "Historial de lo que va pasando, m\u00e1s los mensajes del chat.\n\nLos `events` son SOLO del sistema \u2014ninguna l\u00ednea la escribe un usuario\u2014 y por\neso no hay nada que moderar ah\u00ed. Los `messages` s\u00ed los escribe la gente y\nviven en otra tabla, con su propio saneado (ver chat.py); van en la misma\nrespuesta porque el chat entero se apoya en eso: no hay un sondeo nuevo, hay\nun campo nuevo en el que ya corr\u00eda cada ocho segundos.\n\nDos cursores y dos ventanas, no una mezclada. Compartiendo las cuarenta filas,\nuna racha de chat empujar\u00eda fuera de pantalla el anuncio de que alguien invit\u00f3\ncafecitos, que es el que mueve donaciones.\n\nCon los dos cursores devuelve \u00fanicamente lo nuevo, que es lo que hace que\nsondearlo cada pocos segundos no cueste nada.",
+        "description": "Historial de lo que va pasando, m\u00e1s los mensajes del chat.\n\nLos `events` son SOLO del sistema \u2014ninguna l\u00ednea la escribe un usuario\u2014 y por\neso no hay nada que moderar ah\u00ed. Los `messages` s\u00ed los escribe la gente y\nviven en otra tabla, con su propio saneado (ver chat.py); van en la misma\nrespuesta porque el chat entero se apoya en eso: no hay un sondeo nuevo, hay\nun campo nuevo en el que ya corr\u00eda cada ocho segundos.\n\nDos cursores y dos ventanas, no una mezclada. Compartiendo las cuarenta filas,\nuna racha de chat empujar\u00eda fuera de pantalla el anuncio de que alguien invit\u00f3\ncafecitos, que es el que mueve donaciones.\n\nCon los dos cursores devuelve \u00fanicamente lo nuevo, que es lo que hace que\nsondearlo cada pocos segundos no cueste nada.\n\nY con `before_id`/`before_msg_id` mira para el otro lado: lo que hay m\u00e1s\natr\u00e1s de esa l\u00ednea. Es lo que pide el panel al llegar arriba de todo\nscrolleando, y es el modo OPUESTO al sondeo \u2014 cada lista usa su cursor\n\"before\" si vino, y si no el \"after\". Que un mismo pedido pueda traer\nnovedades viejas y mensajes nuevos no es un accidente: el panel pagina las\ndos listas juntas, pero puede tocar el fondo de una antes que el de la otra.\n\nSin un `has_more` en la respuesta a prop\u00f3sito: una p\u00e1gina m\u00e1s corta que el\n`limit` pedido YA significa \"no hay m\u00e1s atr\u00e1s\", y el cliente lo sabe sin que\nse lo digan. Un campo aparte ser\u00eda un segundo lugar donde puede estar mal.",
         "operationId": "game_events_feed_game_derivemos_events_get",
         "parameters": [
           {
@@ -671,6 +671,40 @@
               "minimum": 0,
               "default": 0,
               "title": "After Msg Id"
+            }
+          },
+          {
+            "name": "before_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Before Id"
+            }
+          },
+          {
+            "name": "before_msg_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Before Msg Id"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 0,
+              "default": 0,
+              "title": "Limit"
             }
           },
           {

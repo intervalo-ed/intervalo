@@ -29,7 +29,12 @@
 import { useEffect, useRef, useState } from "react"
 import { cn } from "@/lib/utils"
 import { useSfx } from "@/lib/audio/useSfx"
-import { shareUrl, VERDE, VERDE_TINTA_OSCURA, WhatsappGlyph } from "./cafecito-cta"
+import {
+  abrirWhatsapp,
+  ReclutarButton,
+  VERDE,
+  WhatsappGlyph,
+} from "./cafecito-cta"
 import { KeyCap } from "./exercise-card"
 import { useCta } from "./game-telemetry"
 import { ListaDeReclutas } from "./reclutas-list"
@@ -143,7 +148,7 @@ export function ReclutasPanel({
   // mano, sin ningún `await` en el medio.
   const reclutarConTeclado = () => {
     registrarReclutamiento()
-    window.open(shareUrl(player?.alias), "_blank", "noopener,noreferrer")
+    abrirWhatsapp(player?.alias)
   }
 
   // Los atajos, con el mismo pestillo que la diapo del cafecito: el volteo dura
@@ -270,25 +275,21 @@ export function ReclutasPanel({
         )}
 
         <Salida slot={slotAccion}>
-          <a
-            href={shareUrl(player?.alias)}
-            target="_blank"
-            rel="noopener noreferrer"
+          {/* La pieza compartida con el CTA del ranking en vista Reclutas. Es
+              el mismo anchor de siempre —el que sale de la PWA instalada—, con
+              la telemetría de acá: la diapo la comparte con su atajo de teclado
+              y anotarla dos veces contaría dos clicks por uno. */}
+          <ReclutarButton
+            alias={player?.alias}
+            placement={trigger}
             onClick={registrarReclutamiento}
             className={
               slotAccion
                 ? CLASE_ACCION_EN_EL_PIE
-                : "mt-5 flex w-full items-center justify-center gap-2 rounded-md px-4 py-3 text-base font-semibold transition-opacity hover:opacity-90"
+                : "mt-5 w-full rounded-md px-4 py-3"
             }
-            style={{ backgroundColor: VERDE, color: VERDE_TINTA_OSCURA }}
-          >
-            {/* El logo va DESPUÉS de la palabra, como la taza del cafecito: el
-                botón se lee "reclutar" y el ícono cierra la frase diciendo por
-                dónde, en vez de anunciarla. */}
-            Reclutar
-            <WhatsappGlyph size={18} />
-            {keyboard && <KeyCap>{teclas.shiftEnter}</KeyCap>}
-          </a>
+            keycap={keyboard ? <KeyCap>{teclas.shiftEnter}</KeyCap> : null}
+          />
         </Salida>
 
         <Salida slot={slotSalida}>
