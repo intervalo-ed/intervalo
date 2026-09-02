@@ -17,9 +17,22 @@ from sqlalchemy.orm import Session
 from models import GameExercise, GamePlayer, GameTemplateStat
 
 from . import elo
+from .cycler import CyclingRandom, ForcedRandom
 from .templates import TEMPLATE_BY_KEY, TEMPLATES, GameTemplate, latex_es, x
 
 _RECENT_EXCLUDE = 3
+
+# Los primeros ejercicios que ve CUALQUIER jugador nuevo, fijos, para no
+# depender de cómo caiga el Elo/la rampa en el arranque: x, x² y 2x², de más
+# angosto a un poco más armado, para amigarse con el juego antes de que el
+# motor empiece a elegir. Se cuenta por EJERCICIOS SERVIDOS en total, no por
+# respuestas — un jugador nuevo no eligió nada todavía, así que "los primeros
+# 3 que ve" es la cuenta correcta aunque salteé alguno.
+ONBOARDING: tuple[tuple[str, dict], ...] = (
+    ("t0_x", {}),
+    ("t1_pow", {"n": 2}),
+    ("t1_kpow", {"k": 2, "n": 2}),
+)
 
 
 def get_or_create_stat(db: Session, template: GameTemplate) -> GameTemplateStat:
@@ -148,6 +161,25 @@ def pick_template(
     return min(scored, key=lambda s: abs(s[2] - elo.TARGET_MID))
 
 
+def _build_cycled(player: GamePlayer, template: GameTemplate, rng: random.Random):
+    """Genera la instancia de `template`, ciclando sus números por jugador.
+
+    Namespacea las ranuras por `template_key:` para que dos plantillas con una
+    ranura del mismo nombre (ej. "k") no se pisen dentro del mismo blob."""
+    prefix = f"{template.key}:"
+    full = json.loads(player.numeric_cycle_json or "{}")
+    propio = {k[len(prefix):]: v for k, v in full.items() if k.startswith(prefix)}
+
+    generated = template.build(CyclingRandom(rng, propio))
+
+    for k in list(full):
+        if k.startswith(prefix):
+            del full[k]
+    full.update({prefix + k: v for k, v in propio.items()})
+    player.numeric_cycle_json = json.dumps(full)
+    return generated
+
+
 def serve_exercise(
     db: Session,
     player: GamePlayer,
@@ -163,8 +195,16 @@ def serve_exercise(
         GameExercise.status == "served",
     ).update({"status": "expired"}, synchronize_session=False)
 
-    template, stat, p_hat = pick_template(db, player, rng, max_tier=max_tier)
-    generated = template.build(rng)
+    served = db.query(GameExercise).filter(GameExercise.player_id == player.id).count()
+    if served < len(ONBOARDING):
+        key, forced_values = ONBOARDING[served]
+        template = TEMPLATE_BY_KEY[key]
+        stat = get_or_create_stat(db, template)
+        p_hat = elo.predict(player.theta, beta_of(stat))
+        generated = template.build(ForcedRandom(forced_values))
+    else:
+        template, stat, p_hat = pick_template(db, player, rng, max_tier=max_tier)
+        generated = _build_cycled(player, template, rng)
     derivative = sympy.diff(generated.f, x)
 
     exercise = GameExercise(
@@ -175,7 +215,7 @@ def serve_exercise(
         # abra por instancia (ver docs/reports/2026-08-27-elo-derivadas.md §4b)
         # va a hacer falta saber cuál se sirvió, y ese dato no se puede
         # reconstruir hacia atrás. Se guarda la expresión y no un dict de
-        # parámetros porque no cuesta tocar las 26 plantillas y es estrictamente
+        # parámetros porque no cuesta tocar las 29 plantillas y es estrictamente
         # más información: de la expresión salen los parámetros, al revés no.
         params_json=json.dumps({"f": str(generated.f)}),
         prompt_latex=generated.prompt_latex or latex_es(generated.f),

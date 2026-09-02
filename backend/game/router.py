@@ -471,6 +471,7 @@ def reset_player(
     # El teclado también vuelve a cero: reiniciar es empezar de nuevo, y buena
     # parte de lo que se siente al empezar es ver el teclado crecer otra vez.
     player.unlocked_keys = ""
+    player.numeric_cycle_json = "{}"
     player.last_seen_at = datetime.utcnow()
     # El ejercicio abierto pertenece a la partida vieja.
     db.query(GameExercise).filter(
@@ -541,6 +542,7 @@ def _exercise_out(exercise: GameExercise, player: GamePlayer) -> GameExerciseOut
         prompt_latex=exercise.prompt_latex,
         tier=template.tier if template else 0,
         difficulty_stars=elo.difficulty_stars(exercise.p_hat),
+        p_hat=exercise.p_hat,
         combo=player.current_combo,
         keys=game_keyboard.parse_unlocked_ordered(unlocked),
         new_keys=fresh,

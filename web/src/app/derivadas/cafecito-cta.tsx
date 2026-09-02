@@ -24,20 +24,20 @@ export const CAFECITO_URL = "https://cafecito.app/intervalo"
 // todavía está viva. Veinte derivadas son unos pocos minutos de juego y ya
 // alcanzan para que se entienda de qué se trata.
 //
-// EN DESARROLLO sale cada dos aciertos. Con los valores de producción, trabajar
-// en esta diapo pide veinte derivadas bien resueltas para verla UNA vez, y otras
-// diez para volver a verla: cualquier ajuste de una línea cuesta varios minutos
-// de jugar en serio. Va atado a NODE_ENV —la misma guarda que usa el resto del
-// proyecto para lo que no puede llegar a producción— y no bajando los números a
-// mano, que es lo que después se commitea sin querer.
+// CAFECITO_EVERY también es el PISO antes del cual ninguno de los tres
+// disparadores cuenta —"milestone" (los múltiplos de este número) ya lo tenía
+// gratis, pero "récord" y "big_climb" no, y un invitado nuevo bate su propio
+// récord o pasa a varias cuentas en cero (el ranking está lleno de ellas) en
+// casi cualquiera de sus primeras derivadas. Ver el `trigger` de
+// desktop-layout.tsx/mobile-flow.tsx.
 //
-// Cada DOS y no cada uno: la de reclutar sale en los impares (ver
-// RECLUTAS_RESTO en reclutas-panel.tsx) y este ladder revisa el café primero,
-// así que con el café saliendo en cada acierto la otra no aparecía nunca y no
-// había forma de trabajarla sin comentar esta línea.
-const EN_DESARROLLO = process.env.NODE_ENV === "development"
-export const CAFECITO_EVERY = EN_DESARROLLO ? 2 : 20
-export const CAFECITO_COOLDOWN = EN_DESARROLLO ? 0 : 10
+// Antes salía cada dos aciertos en desarrollo, para no tener que jugar veinte
+// derivadas de verdad para ver la diapo una vez. Se sacó: interrumpía
+// probando CUALQUIER otra cosa del juego, que es más seguido de lo que se
+// prueba esta diapo puntual. Para trabajar en cafecito/reclutas, bajar estos
+// números a mano (sin commitearlo).
+export const CAFECITO_EVERY = 20
+export const CAFECITO_COOLDOWN = 10
 
 // Por qué apareció la diapo. Los tres primeros los decide el juego después de
 // una respuesta; `pedido` es cuando la persona la abrió ella misma con el botón

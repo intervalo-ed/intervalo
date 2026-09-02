@@ -68,6 +68,7 @@ import {
 import { ChatButton, ChatPanel } from "./chat-panel"
 import { EventFeed } from "./event-feed"
 import { GameRanking } from "./game-ranking"
+import { AMBAR } from "./game-colors"
 import { HINT_MOBILE, MathInput, type MathInputHandle } from "./math-input"
 import { MathKeyboard } from "./math-keyboard"
 import { parseAnswerToMathJson, warmupComputeEngine } from "./parse-answer"
@@ -86,7 +87,9 @@ import {
 } from "./UseGameExercise"
 import { useGameIdentity } from "./game-telemetry"
 import { useGameEvents, useGamePulse, useMyBoost } from "./UseGameLeaderboard"
-import { gameKeys, useGamePlayer } from "./UseGamePlayer"
+import { gameKeys, useGamePlayer, type GamePlayer } from "./UseGamePlayer"
+import { comboTrasIntento } from "./racha-estimate"
+import { estimarXp } from "./xp-estimate"
 import { useXpConteo } from "./xp-conteo"
 
 const ctaCls =
@@ -146,7 +149,7 @@ type Slide =
 // en vez de correrse (mismo motivo por el que cafecito-panel.tsx mezcla a mano
 // en rgb para el aura del slider). Por eso acá la mezcla se escribe en rgba
 // crudo, con el mismo 12% que usaba la card.
-const TINTE_ALPHA = 0.12
+const TINTE_ALPHA = 0.06
 function hexToRgb(hex: string): readonly [number, number, number] {
   const n = parseInt(hex.slice(1), 16)
   return [(n >> 16) & 255, (n >> 8) & 255, n & 255]
@@ -271,6 +274,18 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
   // Si el color y el sonido de ESTA respuesta ya salieron por el veredicto
   // local, para que la llegada del servidor no los repita.
   const anticipadoRef = useRef(false)
+  // Si el festejo grande (el conteo, guardado hasta Continuar) YA arrancó por
+  // el veredicto local. No es lo mismo que `anticipadoRef`: ese es true
+  // también cuando el veredicto local decidió "incorrecto" (ahí no hay
+  // festejo que adelantar). Ver el mismo comentario en desktop-layout.tsx.
+  const festejoAdelantadoRef = useRef(false)
+  // Igual que `festejoAdelantadoRef` pero para los contadores de la card
+  // (racha/intentos) en vez del festejo de XP: true si ya se escribió un
+  // adelanto en el caché del jugador que todavía no confirmó (o deshizo) la
+  // respuesta real.
+  const rachaAdelantadaRef = useRef(false)
+  // Lo que había ANTES de adelantar, por si hay que devolverlo.
+  const rachaPrevioRef = useRef<{ combo: number; exercises_attempted: number } | null>(null)
   // Contador de respuestas, no de aciertos: es lo que hace que el latido y el
   // sacudón vuelvan a correr cuando dos respuestas seguidas comparten tono.
   const [answerSeq, setAnswerSeq] = useState(0)
@@ -289,6 +304,15 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
   const servedAtRef = useRef<number>(0)
   const pendingRef = useRef<PendingAfter>(null)
   const pendingClimbRef = useRef<number | null>(null)
+  // Cuántas veces se intentó ESTE ejercicio. Lo necesita el festejo optimista
+  // para estimar la XP (ver xp-estimate.ts) antes de que el servidor conteste
+  // con el `attempt_number` real.
+  const attemptRef = useRef(0)
+  // Si el intento que se está mostrando fue el PRIMERO de este ejercicio —en
+  // estado, no en un ref, porque decide si el botón destella y eso es
+  // render—. Se fija junto con `tonoLocal` en `onRevisar`, así que llega en
+  // el mismo instante que el resto del veredicto optimista.
+  const [primerIntento, setPrimerIntento] = useState(true)
   // Una sola vez por visita: skippear no re-pregunta hasta la próxima sesión.
   const askedProfileRef = useRef(false)
   const askedRegisterRef = useRef(false)
@@ -305,7 +329,9 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
     counting,
     xpColor,
     release: releaseXp,
-    fire: fireXp,
+    fireProvisional: fireXpProvisional,
+    reconcile: reconcileXp,
+    abort: abortXp,
   } = useXpConteo({ onComplete: onBurstComplete })
 
   // Late cada 10 s y refresca el ranking solo si alguien respondió algo. Se
@@ -415,6 +441,8 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
       setSolvedLatex(null)
       setFallado(false)
       servedAtRef.current = Date.now()
+      attemptRef.current = 0
+      setPrimerIntento(true)
       inputRef.current?.clear()
       posthog.capture("game_exercise_served", {
         tier: data.tier,
@@ -516,13 +544,22 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
       const delta =
         rankBefore !== null && rankAfter !== null ? rankBefore - rankAfter : 0
       const totalCorrectas = a.exercises_correct
-      const trigger: CafecitoTrigger | null = a.is_record
-        ? "record"
-        : delta >= 3
-          ? "big_climb"
-          : totalCorrectas > 0 && totalCorrectas % CAFECITO_EVERY === 0
-            ? "milestone"
-            : null
+      // Piso de CAFECITO_EVERY para los tres tipos, no solo para "milestone"
+      // (que ya lo tenía gratis, por el módulo): "récord" y "big_climb" no
+      // tenían ninguno, y un invitado nuevo bate su propio récord —no tiene
+      // casi historia— o pasa a varias cuentas en cero —el ranking está lleno
+      // de ellas— en casi cualquiera de sus primeras derivadas. Antes de esta
+      // cantidad ninguno de los tres cuenta como para interrumpir.
+      const trigger: CafecitoTrigger | null =
+        totalCorrectas < CAFECITO_EVERY
+          ? null
+          : a.is_record
+            ? "record"
+            : delta >= 3
+              ? "big_climb"
+              : totalCorrectas % CAFECITO_EVERY === 0
+                ? "milestone"
+                : null
       const tocaCafecito =
         consumed !== "cafecito" &&
         trigger !== null &&
@@ -553,12 +590,16 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
         // tiene qué ofrecer, y lo que quedaba era una pantalla que pedía algo y
         // de paso pedía otra cosa primero.
         //
-        // Por eso este hito no espera solamente a las cinco resueltas: si el
-        // cafecito quiere salir antes, se adelanta y ocupa su turno.
-        if (
-          faltaPreguntarUniversidad &&
-          (tocaCafecito || solvedCount >= HITO_PERFIL)
-        ) {
+        // Este hito NUNCA se adelanta —antes se adelantaba apenas el café
+        // quería salir, pero eso lo disparaba en el PRIMER acierto casi
+        // siempre: alcanza con pasarle a un solo jugador con más XP en cero
+        // (`delta >= 3`, "big_climb") para que un invitado nuevo dispare esta
+        // condición en su primera derivada, mucho antes de `HITO_PERFIL`.
+        // Sale justo en `HITO_PERFIL` y en ningún otro momento, sea cual sea
+        // el motivo que tenga el café para querer salir ese mismo acierto
+        // (mientras tanto, el café se queda callado sin gastar su cooldown,
+        // ver más abajo).
+        if (faltaPreguntarUniversidad && solvedCount >= HITO_PERFIL) {
           askedProfileRef.current = true
           posthog.capture("game_register_slide_shown", { slide: "career" })
           goTo({ kind: "profile" })
@@ -599,6 +640,19 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
     [goTo, loadNext, solvedCount, player, releaseXp],
   )
 
+  // Deshace el adelanto de racha/intentos si el servidor termina en
+  // desacuerdo (o si el camino que lo pisaría con el dato real ni corre,
+  // como el 409 o `!parse_ok`). Se define acá y no adentro de cada callback
+  // porque `onRevisar` y `onSkip` la usan igual.
+  const revertirRacha = useCallback(() => {
+    if (!rachaAdelantadaRef.current || !rachaPrevioRef.current) return
+    const previoReal = rachaPrevioRef.current
+    queryClient.setQueryData(gameKeys.me, (p: GamePlayer | undefined) =>
+      p === undefined ? p : { ...p, ...previoReal },
+    )
+    rachaAdelantadaRef.current = false
+  }, [queryClient])
+
   // Deriva el enunciado en cuanto llega, mientras la persona lo lee: cuando
   // responda, juzgar cuesta diez cuentas.
   const evaluarLocal = useLocalVerdict(exercise?.prompt_latex ?? null)
@@ -612,13 +666,60 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
     // El color y el sonido salen ACÁ si el veredicto local puede decidirlo, sin
     // esperar el viaje al servidor. La XP, el Elo y el puesto siguen viniendo de
     // `/answer`: esto solo adelanta lo que ya se sabe.
+    attemptRef.current += 1
     const local = evaluarLocal(mathjson)
     anticipadoRef.current = local !== null
     if (local !== null) {
       setTonoLocal(local ? "correct" : "wrong")
+      setPrimerIntento(attemptRef.current === 1)
       setAnswerSeq((n) => n + 1)
       if (local) sfx.correct()
       else sfx.wrong()
+      // El «¿Por qué?» también se adelanta acá, no solo el color: sin esto el
+      // campo tardaba en convertirse en el botón (y el pie en mostrarlo) lo
+      // que tardaba `/answer`, mientras el banner de abajo —que sí usa
+      // `tonoLocal`— ya aparecía. `onSuccess` corrige esto si el servidor
+      // termina en desacuerdo (ver más abajo).
+      if (local) setSolvedLatex(latex)
+      else setFallado(true)
+    }
+    festejoAdelantadoRef.current = local === true
+    // Racha e intentos también se adelantan acá, junto al color: solo se
+    // mueven en el PRIMER intento del ejercicio (game/router.py::_aplicar_elo
+    // corta antes en cualquier otro) y con cualquier veredicto CONFIDENTE
+    // —a diferencia del festejo, acá importa tanto el correcto (racha+1) como
+    // el incorrecto (racha a 0), porque los dos mueven el número.
+    if (attemptRef.current === 1 && local !== null) {
+      const previo = queryClient.getQueryData<GamePlayer>(gameKeys.me)
+      if (previo !== undefined) {
+        rachaPrevioRef.current = {
+          combo: previo.combo,
+          exercises_attempted: previo.exercises_attempted,
+        }
+        rachaAdelantadaRef.current = true
+        queryClient.setQueryData(gameKeys.me, {
+          ...previo,
+          combo: comboTrasIntento({ correct: local, comboAntes: exercise.combo }),
+          exercises_attempted: previo.exercises_attempted + 1,
+        })
+      }
+    }
+    if (local) {
+      // El festejo queda ARMADO (modo "espera": no arranca el reloj todavía,
+      // igual que siempre) con una XP ESTIMADA (xp-estimate.ts, espejo de
+      // game/xp.py) desde el instante del veredicto local, en vez de esperar a
+      // `/answer`. Para cuando la persona toque Continuar —que sigue esperando
+      // al servidor, sin cambios— ya no queda nada pendiente de la red: el
+      // número ya está fijado y solo falta soltarlo.
+      fireXpProvisional(
+        estimarXp({
+          attemptNumber: attemptRef.current,
+          pHat: exercise.p_hat,
+          comboAfter: attemptRef.current === 1 && !peekedRef.current ? exercise.combo + 1 : 0,
+          peeked: peekedRef.current,
+        }),
+        { modo: "espera", intento: attemptRef.current, multiplicador: boost?.multiplier ?? 1 },
+      )
     }
 
     answerMutation.mutate(
@@ -637,6 +738,13 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
           // Manda el servidor: el color local ya cumplió su función.
           setTonoLocal(null)
           if (!anticipadoRef.current) setAnswerSeq((n) => n + 1)
+          // El `onSuccess` PROPIO de `useAnswerExercise` (UseGameExercise.ts)
+          // ya corrió antes que este y ya escribió el combo/intentos REALES
+          // en el caché con `data.parse_ok` en true —React Query llama primero
+          // el `onSuccess` del hook, después el de esta llamada—, así que acá
+          // no hace falta corregir nada a mano: solo dar por cerrado el
+          // adelanto, sea porque ya no hace falta o porque nunca se aplicó.
+          rachaAdelantadaRef.current = false
           posthog.capture("game_answer", {
             correct: data.correct,
             parse_ok: data.parse_ok,
@@ -661,10 +769,31 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
             multiplier: data.xp_multiplier,
             response_ms: Date.now() - servedAtRef.current,
           })
-          if (!data.parse_ok) return
+          if (!data.parse_ok) {
+            // El veredicto local dijo "puedo decidir" y el servidor ni pudo
+            // evaluar la respuesta: si ya había armado un festejo optimista,
+            // no queda otra que desarmarlo.
+            if (festejoAdelantadoRef.current) abortXp()
+            // Único camino donde el `onSuccess` del hook NO tocó el caché
+            // (corta antes si `!parse_ok`): acá sí hay que devolver la racha
+            // a mano, porque el servidor no contó esto como un intento real.
+            revertirRacha()
+            // El campo ya se había cambiado al de la derivada resuelta —se
+            // devuelve a como estaba, no hay nada resuelto que mostrar.
+            if (local === true) setSolvedLatex(null)
+            return
+          }
           // Sobrevive a que `lastAnswer` se borre al primer tecleo.
-          if (data.correct) setSolvedLatex(latex)
-          else setFallado(true)
+          if (data.correct) {
+            setSolvedLatex(latex)
+          } else {
+            setFallado(true)
+            // Desacuerdo rarísimo: el local adelantó "correcto", el servidor
+            // dice que no. El campo ya se había cambiado al de la derivada
+            // resuelta —se devuelve a antes de mostrar una solución que no
+            // fue (ver local-verdict.ts sobre qué tan improbable es esto).
+            if (local === true) setSolvedLatex(null)
+          }
           if (data.correct) {
             if (!anticipadoRef.current) sfx.correct()
             // Acá y en ningún otro lado: acertar es lo único que cierra un
@@ -682,10 +811,25 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
             // escritorio: no se puede mostrar algo volando hacia un contador que
             // está en otra pantalla sin mentir sobre dónde estuvo la XP mientras
             // tanto.
-            fireXp(data, { modo: "espera" })
+            //
+            // Si el veredicto local no había podido decidir (o decidió "mal"),
+            // todavía no hay ningún festejo armado: se arranca acá directo con
+            // el dato real antes de reconciliar.
+            if (!festejoAdelantadoRef.current) {
+              fireXpProvisional(data.xp_awarded, {
+                modo: "espera",
+                intento: data.attempt_number,
+                multiplicador: data.xp_multiplier,
+              })
+            }
+            reconcileXp(data)
             if (data.is_record) posthog.capture("game_record", { best_rank: data.best_rank })
           } else {
             if (!anticipadoRef.current) sfx.wrong()
+            // Desacuerdo rarísimo: el local dijo correcto, el servidor dijo que
+            // no. Se desarma el festejo que ya se había armado (ver
+            // local-verdict.ts sobre qué tan improbable es esto).
+            if (festejoAdelantadoRef.current) abortXp()
             // Acá había una rama para el ejercicio que se cerraba sin acertar
             // —al quemar el segundo intento— que dejaba el pase al ranking
             // preparado igual. Ese estado ya no existe: los intentos son
@@ -704,6 +848,10 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
             setExercise(null)
             setLastAnswer(null)
             setTonoLocal(null)
+            // Si el veredicto local había armado el festejo, este ejercicio ya
+            // no existe para desarmarlo con datos reales: se desarma solo.
+            if (festejoAdelantadoRef.current) abortXp()
+            revertirRacha()
             // El 409 dice que el servidor venció lo que teníamos servido, así
             // que un ejercicio adelantado contra ese estado ya no vale.
             descartarAdelanto()
@@ -712,12 +860,39 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
         },
       },
     )
-  }, [exercise, answerMutation, sfx, solvedCount, fireXp, evaluarLocal, loadNext, adelantar, descartarAdelanto])
+  }, [
+    exercise,
+    answerMutation,
+    sfx,
+    solvedCount,
+    boost,
+    fireXpProvisional,
+    reconcileXp,
+    abortXp,
+    queryClient,
+    revertirRacha,
+    evaluarLocal,
+    loadNext,
+    adelantar,
+    descartarAdelanto,
+  ])
 
   const closed = lastAnswer?.parse_ok === true && (lastAnswer.correct || lastAnswer.attempts_left === 0)
   // La respuesta del servidor manda; el tono local solo cubre el hueco entre el
   // toque y su llegada.
   const tone = answerTone(lastAnswer) ?? tonoLocal
+  // Solo para lo VISUAL (qué botones se ven, si el teclado se apaga): se
+  // cierra apenas el veredicto local dice "correcto", sin esperar la
+  // respuesta real. Sin esto, entre el toque y que vuelva `/answer` había un
+  // instante con `closed` todavía en `false` —Revisar, «¿Por qué?» y Saltear
+  // los tres a la vista, en verde— que un momento después colapsaba de golpe a
+  // Continuar solo: dos layouts distintos por un rato, mientras la red viaja.
+  //
+  // Lo que hace un click o un Enter sigue esperando la respuesta real
+  // (`closed`, sin sufijo): el botón está deshabilitado todo ese instante de
+  // cualquier forma (`answerMutation.isPending`), así que no hay riesgo de
+  // avanzar antes de que el servidor confirme.
+  const cerradoVisual = closed || tonoLocal === "correct"
 
   // El banner ¿Seguro? se retira solo: a los 5 s, o con el primer toque en
   // cualquier lugar de la pantalla —no solo tecleando de nuevo en el campo,
@@ -803,12 +978,29 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
       solved: solvedCount,
       exercise_id: exercise.exercise_id,
     })
+    // Determinístico y sin desacuerdo posible salvo el 409 de abajo:
+    // skip_exercise siempre pone el combo en 0 si el ejercicio seguía sin
+    // responder (game/router.py:688). `exercises_attempted` NO se toca acá:
+    // saltear no es responder.
+    const previoRacha = queryClient.getQueryData<GamePlayer>(gameKeys.me)
+    if (previoRacha !== undefined) {
+      rachaPrevioRef.current = {
+        combo: previoRacha.combo,
+        exercises_attempted: previoRacha.exercises_attempted,
+      }
+      rachaAdelantadaRef.current = true
+      queryClient.setQueryData(gameKeys.me, { ...previoRacha, combo: 0 })
+    }
     skipMutation.mutate(
       { exercise_id: exercise.exercise_id },
       {
         onSuccess: (data) => {
           // El endpoint ya devuelve el reemplazo: no hay slide intermedia ni un
-          // /next detrás, el ejercicio nuevo entra en el mismo lugar.
+          // /next detrás, el ejercicio nuevo entra en el mismo lugar. El combo
+          // real ya viene en `data.combo` (y `useSkipExercise` invalida
+          // `gameKeys.me`), así que no hace falta reconciliar nada: solo
+          // cerrar el adelanto.
+          rachaAdelantadaRef.current = false
           setExercise(data)
           setLastAnswer(null)
           setTonoLocal(null)
@@ -833,6 +1025,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
             setExercise(null)
             setLastAnswer(null)
             setTonoLocal(null)
+            revertirRacha()
             // El 409 dice que el servidor venció lo que teníamos servido, así
             // que un ejercicio adelantado contra ese estado ya no vale.
             descartarAdelanto()
@@ -841,7 +1034,17 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
         },
       },
     )
-  }, [exercise, closed, skipMutation, answerMutation.isPending, solvedCount, loadNext, descartarAdelanto])
+  }, [
+    exercise,
+    closed,
+    skipMutation,
+    answerMutation.isPending,
+    solvedCount,
+    queryClient,
+    revertirRacha,
+    loadNext,
+    descartarAdelanto,
+  ])
 
   // Todo menos el logo espera a que la presentación lo devuelva a su lugar.
   const chromeStyle: React.CSSProperties = {
@@ -1051,7 +1254,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   bare
                   input={inputRef}
                   keys={exercise.keys}
-                  className={closed ? "pointer-events-none opacity-45" : undefined}
+                  className={cerradoVisual ? "pointer-events-none opacity-45" : undefined}
                 />
               </div>
               </SlideHorizontal>
@@ -1159,7 +1362,14 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   className="flex-1"
                   tone={tone}
                   seq={answerSeq}
-                  closed={closed}
+                  closed={cerradoVisual}
+                  // Sin destello cuando salió bien a la primera: ahí el pie
+                  // entero cambia de forma (Revisar + Saltear se van, este
+                  // botón pasa a ocupar toda la fila) y ese colapso ya avisa
+                  // por su cuenta. El destello es para cuando el pie NO
+                  // cambia de forma —acertar en el segundo intento o
+                  // más—, que es el único caso en que hace falta.
+                  sinFlash={primerIntento}
                   disabled={answerMutation.isPending || (closed && (next.isPending || esperandoAdelanto))}
                   onClick={() => {
                     if (closed) advanceAfterAnswer(null)
@@ -1172,10 +1382,10 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                     tinta contra 343 disponibles— así que este va `min-w-0` y con
                     menos aire lateral: el que tiene que entrar entero sí o sí es
                     Revisar. */}
-                {!closed && hayPorque && (
+                {!cerradoVisual && hayPorque && (
                   <PorQueButton onClick={abrirPorque} className="min-w-0 px-3" blanco />
                 )}
-                {!closed && (
+                {!cerradoVisual && (
                   <SkipButton
                     disabled={skipMutation.isPending || answerMutation.isPending}
                     onClick={onSkip}
@@ -1230,7 +1440,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
               climbFrom={climbFrom}
               liveXp={liveXp}
               counting={counting}
-              xpColor={xpColor}
+              xpColor={xpColor && (boost?.multiplier ?? 1) > 1 ? AMBAR : xpColor}
               myUniversity={player?.university ?? null}
               enabled={player !== null}
               onRelease={releaseXp}

@@ -65,6 +65,26 @@ export function saveGameToken(token: string) {
   if (changed) for (const listener of tokenListeners) listener()
 }
 
+/** Borra toda huella local de quién era este jugador: el token de invitado y
+ *  los dos contadores que cuelgan de él (el cooldown de cafecito/reclutar y
+ *  los envíos recientes del chat).
+ *
+ *  La usa "Cerrar sesión" en `settings-panel.tsx`: cerrar la sesión de Clerk
+ *  sin esto dejaría el token de invitado viejo guardado, y el próximo alta
+ *  (`useGamePlayer`) lo mandaría de vuelta tal cual, o sea que "cerrar sesión"
+ *  no cerraría nada — solo volvería a mostrar al mismo jugador sin cuenta. */
+export function clearGameIdentity() {
+  tokenCache = null
+  try {
+    window.localStorage.removeItem(TOKEN_KEY)
+    window.localStorage.removeItem(CAFECITO_LAST_KEY)
+    window.localStorage.removeItem(CHAT_SENDS_KEY)
+  } catch {
+    // Nada que limpiar si tampoco se pudo escribir.
+  }
+  for (const listener of tokenListeners) listener()
+}
+
 // Cuándo se le pidió algo a esta persona por última vez: el número de derivada
 // resuelta en el que apareció la última diapo que interrumpe para pedir.
 //

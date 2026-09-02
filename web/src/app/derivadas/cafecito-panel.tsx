@@ -33,7 +33,13 @@ import { BELT_HEX } from "@/lib/catalog"
 import { cn } from "@/lib/utils"
 import { useSfx } from "@/lib/audio/useSfx"
 import { CAFECITO_URL, fmtMultiplier, type CafecitoTrigger } from "./cafecito-cta"
-import { filaConEmpuje } from "./game-colors"
+import {
+  CAFE_AMBAR_RGB as AMBAR_RGB,
+  CAFE_DORADO_RGB as DORADO,
+  colorDeCafe as colorPara,
+  filaConEmpuje,
+  mezclarRGB as mezclar,
+} from "./game-colors"
 import {
   useCafecitoIntent,
   useCafecitoStatus,
@@ -102,15 +108,10 @@ const FUGAZ = { duration: 0.11, ease: "easeOut" } as const
 // El color de la barra sube con la cantidad: apagado a la izquierda, dorado a
 // la derecha. Es el mismo marrón de marca corrido hacia el negro o hacia el
 // blanco, así que la barra "se enciende" al pedir más sin estrenar una paleta.
+// La rampa (`AMBAR_RGB`/`DORADO`/`mezclar`/`colorPara`, importados de
+// `game-colors.ts` como `colorDeCafe`) vive compartida porque las bolitas de
+// XP la reusan cuando la universidad tiene un empuje corriendo.
 //
-// Los extremos se calculan en RGB y no con `color-mix` porque motion no sabe
-// interpolar un `color-mix(...)`: lo trataría como texto y el color saltaría de
-// un paso al otro en vez de correrse.
-const AMBAR_RGB = [0xa8, 0x70, 0x3c] as const
-const mezclar = (a: readonly number[], b: readonly number[], t: number) =>
-  `rgb(${a.map((v, i) => Math.round(v + (b[i] - v) * t)).join(", ")})`
-const APAGADO = [0x6b, 0x4a, 0x28] as const
-const DORADO = [0xea, 0xbb, 0x74] as const
 // La tinta que acompaña al slider: ámbar cuando se pide poco, dorado cuando se
 // pide mucho. La usan el ícono del encabezado, el multiplicador y la universidad,
 // que son las tres cosas de la diapo que hablan de la misma decisión.
@@ -164,11 +165,6 @@ const auraBoton = (t: number, k: number) =>
 // La tinta del botón cuando su fondo se vuelve claro. Marrón muy oscuro y no
 // negro: sobre el dorado, el negro puro se lee como un agujero.
 const TINTA_OSCURA = "#1D1206"
-
-const colorPara = (t: number) =>
-  t < 0.5
-    ? mezclar(APAGADO, AMBAR_RGB, t * 2)
-    : mezclar(AMBAR_RGB, DORADO, (t - 0.5) * 2)
 
 // Las flechas van a los COSTADOS de la barra y no debajo del texto: ahí son su
 // marco —lo que está a los lados de algo que se corre es lo que lo corre— y de
@@ -280,7 +276,12 @@ const Slider = ({
           step={1}
           value={valor}
           onChange={(e) => onCambio(Number(e.target.value))}
-          className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+          // `touch-none`: sin esto, arrastrar el pulgar con el dedo puede
+          // interpretarse como si estuviera arrastrando la PÁGINA (scroll o el
+          // pull-to-refresh del navegador) en vez del slider, sobre todo si el
+          // dedo se corre un poco en vertical mientras desliza — y eso
+          // recargaba el juego a mitad de la elección.
+          className="absolute inset-0 h-full w-full cursor-pointer touch-none opacity-0"
           {...props}
         />
       </div>
@@ -307,7 +308,7 @@ const TRIGGER_COPY: Record<CafecitoTrigger, { title: string; sub: string }> = {
   // que agrega valor cuando nadie interrumpió a nadie.
   pedido: {
     title: "¿Café?",
-    sub: "Es lo que mantiene el juego en pie.",
+    sub: "Intervalo se mantiene únicamente gracias a las donaciones de los estudiantes.",
   },
 }
 
@@ -995,12 +996,12 @@ export function CafecitoPanel({
               fullBleed
                 ? {
                     // Ni el gris de siempre ni el café de la oferta: el 70%
-                    // del 12% que tiñe toda la pantalla (fondoDeSlide,
+                    // del 6% que tiñe toda la pantalla (fondoDeSlide,
                     // mobile-flow.tsx). Es la puerta de salida, no la oferta,
                     // así que no tiene por qué anunciarse igual de fuerte —
                     // pero tampoco tiene por qué fingir que la pantalla de
                     // atrás no cambió de color.
-                    backgroundColor: `color-mix(in oklab, ${CAFE} 8.4%, var(--background))`,
+                    backgroundColor: `color-mix(in oklab, ${CAFE} 4.2%, var(--background))`,
                   }
                 : undefined
             }

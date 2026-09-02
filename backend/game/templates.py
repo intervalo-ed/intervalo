@@ -8,16 +8,23 @@ v1 no incluye regla de la cadena ni anidamientos: los argumentos de las
 funciones son siempre `x` pelada. La cadena entra en v2 como tiers 6-8
 agregando entradas a TEMPLATES — sin tocar esquema ni migraciones (las filas
 de game_template_stats se crean lazy con beta seed por tier).
+
+Cada `rng.randint`/`rng.choice` lleva un nombre de ranura (`"n"`, `"k"`...):
+es lo que `CyclingRandom` (game/cycler.py) usa para agotar el rango de esa
+plantilla antes de repetir un valor. El nombre solo importa DENTRO de una
+plantilla — dos plantillas pueden llamar a su ranura "k" sin chocar, el
+generador las namespacea por template_key antes de persistirlas.
 """
 
 from __future__ import annotations
 
-import random
 from dataclasses import dataclass
 from typing import Callable
 
 import sympy
-from sympy import Integer, Rational, Symbol, cos, exp, log, sin
+from sympy import Integer, Rational, Symbol, cos, exp, log, sin, sqrt, tan
+
+from .cycler import CyclingRandom
 
 x = Symbol("x")
 
@@ -37,7 +44,7 @@ class Generated:
 class GameTemplate:
     key: str
     tier: int
-    build: Callable[[random.Random], Generated]
+    build: Callable[[CyclingRandom], Generated]
     # Feedback cuando el error no matchea ninguno predecible.
     generic_feedback: str = GENERIC_FEEDBACK
 
@@ -58,6 +65,11 @@ _FB_EXP_AS_POW = "$e^x$ no es una potencia de $x$: no bajes el exponente."
 _FB_AX_NO_LN = "Te falta un factor: la derivada de $a^x$ lleva un $\\ln a$."
 _FB_LN_WRONG = "Revisá la tabla: esa no es la derivada de $\\ln x$."
 _FB_LOG_NO_LN = "Te falta el $\\ln a$: revisá la derivada de $\\log_a x$ en la tabla."
+_FB_RECIP_NO_SIGN = "A la derivada de $1/x$ le falta el signo negativo: es $-1/x^2$."
+_FB_RECIP_NO_SQUARE = "Te falta elevar al cuadrado el denominador: la derivada de $1/x$ es $-1/x^2$."
+_FB_SQRT_NO_HALF = "Al bajar el exponente $1/2$, ese número queda multiplicando: no te lo saltees."
+_FB_TAN_NO_SQUARE = "Te falta elevar al cuadrado: la derivada de $\\tan x$ es $1/\\cos^{2}x$."
+_FB_TAN_SIGN = "La derivada de $\\tan x$ no lleva signo negativo."
 
 
 def _product_errors(u: sympy.Expr, v: sympy.Expr) -> tuple[tuple[sympy.Expr, str], ...]:
@@ -78,23 +90,23 @@ def _quotient_errors(u: sympy.Expr, v: sympy.Expr) -> tuple[tuple[sympy.Expr, st
 
 # ── Builders por tier ────────────────────────────────────────────────────────
 
-def _t0_const(rng: random.Random) -> Generated:
-    k = rng.randint(2, 9)
+def _t0_const(rng: CyclingRandom) -> Generated:
+    k = rng.randint("k", 2, 9)
     return Generated(
         f=Integer(k),
         common_errors=((Integer(k), _FB_CONST_STAYS), (Integer(1), _FB_CONST_STAYS)),
     )
 
 
-def _t0_x(rng: random.Random) -> Generated:
+def _t0_x(rng: CyclingRandom) -> Generated:
     return Generated(
         f=x,
         common_errors=((Integer(0), "$x$ no es constante: mirá la segunda fila de la tabla."),),
     )
 
 
-def _t1_pow(rng: random.Random) -> Generated:
-    n = rng.randint(2, 5)
+def _t1_pow(rng: CyclingRandom) -> Generated:
+    n = rng.randint("n", 2, 5)
     return Generated(
         f=x**n,
         common_errors=(
@@ -104,8 +116,8 @@ def _t1_pow(rng: random.Random) -> Generated:
     )
 
 
-def _t1_kx(rng: random.Random) -> Generated:
-    k = rng.randint(2, 9)
+def _t1_kx(rng: CyclingRandom) -> Generated:
+    k = rng.randint("k", 2, 9)
     return Generated(
         f=Integer(k) * x,
         common_errors=(
@@ -115,9 +127,9 @@ def _t1_kx(rng: random.Random) -> Generated:
     )
 
 
-def _t1_kpow(rng: random.Random) -> Generated:
-    k = rng.randint(2, 9)
-    n = rng.randint(2, 5)
+def _t1_kpow(rng: CyclingRandom) -> Generated:
+    k = rng.randint("k", 2, 9)
+    n = rng.randint("n", 2, 5)
     return Generated(
         f=Integer(k) * x**n,
         common_errors=(
@@ -128,10 +140,34 @@ def _t1_kpow(rng: random.Random) -> Generated:
     )
 
 
-def _t2_sum2(rng: random.Random) -> Generated:
-    a = rng.randint(2, 9)
-    b = rng.randint(2, 9)
-    n = rng.randint(2, 5)
+def _t1_recip(rng: CyclingRandom) -> Generated:
+    k = rng.choice("k", [1, 1, 2, 3, 4, 5])
+    f = Integer(k) / x
+    return Generated(
+        f=f,
+        common_errors=(
+            (Integer(k) / x**2, _FB_RECIP_NO_SIGN),
+            (Integer(-k) / x, _FB_RECIP_NO_SQUARE),
+        ),
+    )
+
+
+def _t1_sqrt(rng: CyclingRandom) -> Generated:
+    k = rng.choice("k", [1, 1, 2, 3, 4, 5])
+    f = Integer(k) * sqrt(x)
+    return Generated(
+        f=f,
+        common_errors=(
+            (Integer(k) * Rational(1, 2) * sqrt(x), _FB_POW_KEEP_EXP),
+            (Integer(k) / sqrt(x), _FB_SQRT_NO_HALF),
+        ),
+    )
+
+
+def _t2_sum2(rng: CyclingRandom) -> Generated:
+    a = rng.randint("a", 2, 9)
+    b = rng.randint("b", 2, 9)
+    n = rng.randint("n", 2, 5)
     f = Integer(a) * x**n + Integer(b) * x
     return Generated(
         f=f,
@@ -142,12 +178,12 @@ def _t2_sum2(rng: random.Random) -> Generated:
     )
 
 
-def _t2_sum3(rng: random.Random) -> Generated:
-    a = rng.randint(2, 9)
-    b = rng.randint(2, 9)
-    c = rng.randint(2, 9)
-    n = rng.randint(3, 5)
-    m = rng.randint(2, n - 1)
+def _t2_sum3(rng: CyclingRandom) -> Generated:
+    a = rng.randint("a", 2, 9)
+    b = rng.randint("b", 2, 9)
+    c = rng.randint("c", 2, 9)
+    n = rng.randint("n", 3, 5)
+    m = rng.randint("m", 2, n - 1)
     f = Integer(a) * x**n - Integer(b) * x**m + Integer(c)
     return Generated(
         f=f,
@@ -158,9 +194,9 @@ def _t2_sum3(rng: random.Random) -> Generated:
     )
 
 
-def _t2_pow_plus_const(rng: random.Random) -> Generated:
-    n = rng.randint(2, 5)
-    k = rng.randint(2, 9)
+def _t2_pow_plus_const(rng: CyclingRandom) -> Generated:
+    n = rng.randint("n", 2, 5)
+    k = rng.randint("k", 2, 9)
     f = x**n + Integer(k)
     return Generated(
         f=f,
@@ -171,8 +207,8 @@ def _t2_pow_plus_const(rng: random.Random) -> Generated:
     )
 
 
-def _t3_exp(rng: random.Random) -> Generated:
-    k = rng.choice([1, 1, 2, 3, 4, 5])
+def _t3_exp(rng: CyclingRandom) -> Generated:
+    k = rng.choice("k", [1, 1, 2, 3, 4, 5])
     f = Integer(k) * exp(x)
     return Generated(
         f=f,
@@ -183,8 +219,8 @@ def _t3_exp(rng: random.Random) -> Generated:
     )
 
 
-def _t3_ln(rng: random.Random) -> Generated:
-    k = rng.choice([1, 1, 2, 3, 5])
+def _t3_ln(rng: CyclingRandom) -> Generated:
+    k = rng.choice("k", [1, 1, 2, 3, 5])
     f = Integer(k) * log(x)
     return Generated(
         f=f,
@@ -195,20 +231,32 @@ def _t3_ln(rng: random.Random) -> Generated:
     )
 
 
-def _t3_sin(rng: random.Random) -> Generated:
-    k = rng.choice([1, 1, 2, 3, 4])
+def _t3_sin(rng: CyclingRandom) -> Generated:
+    k = rng.choice("k", [1, 1, 2, 3, 4])
     f = Integer(k) * sin(x)
     return Generated(f=f, common_errors=((Integer(-k) * cos(x), _FB_SIN_SIGN),))
 
 
-def _t3_cos(rng: random.Random) -> Generated:
-    k = rng.choice([1, 1, 2, 3, 4])
+def _t3_cos(rng: CyclingRandom) -> Generated:
+    k = rng.choice("k", [1, 1, 2, 3, 4])
     f = Integer(k) * cos(x)
     return Generated(f=f, common_errors=((Integer(k) * sin(x), _FB_COS_SIGN),))
 
 
-def _t3_ax(rng: random.Random) -> Generated:
-    a = rng.choice([2, 3, 5])
+def _t3_tan(rng: CyclingRandom) -> Generated:
+    k = rng.choice("k", [1, 1, 2, 3, 4])
+    f = Integer(k) * tan(x)
+    return Generated(
+        f=f,
+        common_errors=(
+            (Integer(k) / cos(x), _FB_TAN_NO_SQUARE),
+            (Integer(-k) / cos(x) ** 2, _FB_TAN_SIGN),
+        ),
+    )
+
+
+def _t3_ax(rng: CyclingRandom) -> Generated:
+    a = rng.choice("a", [2, 3, 5])
     f = Integer(a) ** x
     return Generated(
         f=f,
@@ -219,8 +267,8 @@ def _t3_ax(rng: random.Random) -> Generated:
     )
 
 
-def _t3_loga(rng: random.Random) -> Generated:
-    a = rng.choice([2, 3, 5, 10])
+def _t3_loga(rng: CyclingRandom) -> Generated:
+    a = rng.choice("a", [2, 3, 5, 10])
     # log(x, a) queda internamente como log(x)/log(a); la derivada 1/(x·ln a)
     # sale sola. El latex de sympy para esa forma es ilegible: se escribe a mano.
     f = log(x, a)
@@ -233,9 +281,9 @@ def _t3_loga(rng: random.Random) -> Generated:
     )
 
 
-def _t3_trig_sum(rng: random.Random) -> Generated:
-    a = rng.randint(2, 6)
-    b = rng.randint(2, 6)
+def _t3_trig_sum(rng: CyclingRandom) -> Generated:
+    a = rng.randint("a", 2, 6)
+    b = rng.randint("b", 2, 6)
     f = Integer(a) * sin(x) + Integer(b) * cos(x)
     return Generated(
         f=f,
@@ -246,9 +294,9 @@ def _t3_trig_sum(rng: random.Random) -> Generated:
     )
 
 
-def _t3_mix_sum(rng: random.Random) -> Generated:
-    k = rng.randint(2, 6)
-    n = rng.randint(2, 4)
+def _t3_mix_sum(rng: CyclingRandom) -> Generated:
+    k = rng.randint("k", 2, 6)
+    n = rng.randint("n", 2, 4)
     f = exp(x) + Integer(k) * x**n
     return Generated(
         f=f,
@@ -259,60 +307,60 @@ def _t3_mix_sum(rng: random.Random) -> Generated:
     )
 
 
-def _t4_pow_sin(rng: random.Random) -> Generated:
-    n = rng.randint(2, 4)
+def _t4_pow_sin(rng: CyclingRandom) -> Generated:
+    n = rng.randint("n", 2, 4)
     u, v = x**n, sin(x)
     return Generated(f=u * v, common_errors=_product_errors(u, v))
 
 
-def _t4_pow_exp(rng: random.Random) -> Generated:
-    n = rng.randint(2, 4)
+def _t4_pow_exp(rng: CyclingRandom) -> Generated:
+    n = rng.randint("n", 2, 4)
     u, v = x**n, exp(x)
     return Generated(f=u * v, common_errors=_product_errors(u, v))
 
 
-def _t4_exp_cos(rng: random.Random) -> Generated:
+def _t4_exp_cos(rng: CyclingRandom) -> Generated:
     u, v = exp(x), cos(x)
     return Generated(f=u * v, common_errors=_product_errors(u, v))
 
 
-def _t4_pow_ln(rng: random.Random) -> Generated:
-    n = rng.randint(2, 4)
+def _t4_pow_ln(rng: CyclingRandom) -> Generated:
+    n = rng.randint("n", 2, 4)
     u, v = x**n, log(x)
     return Generated(f=u * v, common_errors=_product_errors(u, v))
 
 
-def _t4_exp_sin(rng: random.Random) -> Generated:
+def _t4_exp_sin(rng: CyclingRandom) -> Generated:
     u, v = exp(x), sin(x)
     return Generated(f=u * v, common_errors=_product_errors(u, v))
 
 
-def _t5_sin_over_x(rng: random.Random) -> Generated:
+def _t5_sin_over_x(rng: CyclingRandom) -> Generated:
     u, v = sin(x), x
     return Generated(f=u / v, common_errors=_quotient_errors(u, v))
 
 
-def _t5_pow_over_linear(rng: random.Random) -> Generated:
-    n = rng.randint(2, 3)
-    k = rng.randint(1, 9)
+def _t5_pow_over_linear(rng: CyclingRandom) -> Generated:
+    n = rng.randint("n", 2, 3)
+    k = rng.randint("k", 1, 9)
     u, v = x**n, x + Integer(k)
     return Generated(f=u / v, common_errors=_quotient_errors(u, v))
 
 
-def _t5_exp_over_pow(rng: random.Random) -> Generated:
-    n = rng.randint(1, 3)
+def _t5_exp_over_pow(rng: CyclingRandom) -> Generated:
+    n = rng.randint("n", 1, 3)
     u, v = exp(x), x**n
     return Generated(f=u / v, common_errors=_quotient_errors(u, v))
 
 
-def _t5_ln_over_x(rng: random.Random) -> Generated:
+def _t5_ln_over_x(rng: CyclingRandom) -> Generated:
     u, v = log(x), x
     return Generated(f=u / v, common_errors=_quotient_errors(u, v))
 
 
-def _t5_linear_over_linear(rng: random.Random) -> Generated:
-    a = rng.randint(1, 9)
-    k = rng.randint(1, 9)
+def _t5_linear_over_linear(rng: CyclingRandom) -> Generated:
+    a = rng.randint("a", 1, 9)
+    k = rng.randint("k", 1, 9)
     if a == k:
         k += 1
     u, v = x + Integer(a), x + Integer(k)
@@ -346,6 +394,12 @@ TEMPLATES: tuple[GameTemplate, ...] = (
     GameTemplate("t5_exp_over_pow", 5, _t5_exp_over_pow, "Revisá la regla del cociente."),
     GameTemplate("t5_ln_over_x", 5, _t5_ln_over_x, "Revisá la regla del cociente."),
     GameTemplate("t5_linear_over_linear", 5, _t5_linear_over_linear, "Revisá la regla del cociente."),
+    # Agregadas al final a propósito: check_game_explain.py referencia
+    # TEMPLATES[16] por posición para t4_pow_sin, e insertar por tier hubiera
+    # corrido ese índice sin que el check avisara por qué empezó a fallar.
+    GameTemplate("t1_recip", 1, _t1_recip),
+    GameTemplate("t1_sqrt", 1, _t1_sqrt),
+    GameTemplate("t3_tan", 3, _t3_tan),
 )
 
 TEMPLATE_BY_KEY: dict[str, GameTemplate] = {t.key: t for t in TEMPLATES}

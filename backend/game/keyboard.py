@@ -78,6 +78,8 @@ def _keys_for_power(base: sympy.Expr, expo: sympy.Expr) -> set[str]:
         out.add(KEY_POW)
     elif magnitude == 2:
         out.add(KEY_SQ)
+    elif magnitude == sympy.Rational(1, 2):
+        out.add(KEY_SQRT)
     elif magnitude != 1:
         out.add(KEY_POW)
     if base is sympy.E:

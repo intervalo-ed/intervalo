@@ -74,6 +74,10 @@ class GameExerciseOut(BaseModel):
     prompt_latex: str
     tier: int
     difficulty_stars: int
+    # Crudo, sin redondear a estrellas: lo necesita el festejo optimista del
+    # front para estimar la XP de un acierto ANTES de que /answer conteste
+    # (ver web/src/app/derivadas/xp-estimate.ts, espejo de game/xp.py).
+    p_hat: float
     combo: int
     # Inventario COMPLETO de teclas desbloqueadas del jugador, en orden canónico
     # (ver game/keyboard.py). No es lo que este ejercicio necesita: es todo lo

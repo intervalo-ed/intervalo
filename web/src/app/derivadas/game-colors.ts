@@ -20,6 +20,33 @@ export function levelColor(level: number): string {
 // la pausa: en el juego, marrón = cafecito, en todos lados.
 export const AMBAR = BELT_HEX.brown.onDark
 
+// La rampa completa del café, en RGB: apagado → ámbar (el mismo `AMBAR` de
+// arriba, es su punto medio) → dorado. Vivía duplicada dentro de
+// `cafecito-panel.tsx` (la barra del slider); se saca para acá porque ahora
+// también la usa `xp-pasos.ts` para las bolitas de XP cuando la universidad
+// tiene un empuje corriendo — mismo tono en los dos lados, una sola fuente.
+//
+// Se calcula en RGB y no con `color-mix` porque motion no sabe interpolar un
+// `color-mix(...)`: lo trataría como texto y el color saltaría de un paso al
+// otro en vez de correrse.
+const CAFE_AMBAR_RGB = [0xa8, 0x70, 0x3c] as const
+const CAFE_APAGADO_RGB = [0x6b, 0x4a, 0x28] as const
+const CAFE_DORADO_RGB = [0xea, 0xbb, 0x74] as const
+
+export function mezclarRGB(a: readonly number[], b: readonly number[], t: number): string {
+  return `rgb(${a.map((v, i) => Math.round(v + (b[i] - v) * t)).join(", ")})`
+}
+
+/** Un punto de la rampa de café, de 0 (apagado) a 1 (dorado), pasando por el
+ *  ámbar de marca a la mitad. */
+export function colorDeCafe(t: number): string {
+  return t < 0.5
+    ? mezclarRGB(CAFE_APAGADO_RGB, CAFE_AMBAR_RGB, t * 2)
+    : mezclarRGB(CAFE_AMBAR_RGB, CAFE_DORADO_RGB, (t - 0.5) * 2)
+}
+
+export { CAFE_AMBAR_RGB, CAFE_APAGADO_RGB, CAFE_DORADO_RGB }
+
 // Espejo de backend/game/boosts.py. El empuje más flojo que existe es ×1,1 —un
 // solo cafecito— y el techo es ×3, al que solo se llega entre varios. Esos dos
 // números son los extremos de la escala de brillo del chip.

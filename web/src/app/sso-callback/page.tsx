@@ -21,9 +21,23 @@ import { Spinner } from "@/components/ui/spinner"
 export default function SSOCallbackPage() {
   const router = useRouter()
 
+  // Si esta página corre adentro de la ventanita del login (el registro del
+  // minijuego en escritorio, ver register-slides.tsx :: authenticateWithGoogle),
+  // la sesión ya quedó lista del otro lado en cuanto Clerk llega hasta acá —
+  // misma sesión de navegador, mismo cliente de Clerk— y lo único que falta es
+  // que la ventanita se vaya. Navegarla a algún lado dejaría un `/derivadas`
+  // (o el onboarding) abierto ahí adentro, duplicado del que ya sigue en la
+  // pestaña principal.
+  const enVentanaEmergente =
+    typeof window !== "undefined" && !!window.opener && window.opener !== window
+
   // decorateUrl agrega el dev browser token; en desarrollo puede devolver una
   // URL absoluta a otro dominio, que el router de Next no sabe navegar.
   const navigate = (url: string) => {
+    if (enVentanaEmergente) {
+      window.close()
+      return
+    }
     if (url.startsWith("http")) {
       window.location.href = url
       return
@@ -41,8 +55,8 @@ export default function SSOCallbackPage() {
     <main className="flex min-h-dvh items-center justify-center bg-background">
       <HandleSSOCallback
         navigateToApp={({ decorateUrl }) => navigate(decorateUrl(appDestination()))}
-        navigateToSignIn={() => router.replace("/sign-in")}
-        navigateToSignUp={() => router.replace("/sign-in")}
+        navigateToSignIn={() => navigate("/sign-in")}
+        navigateToSignUp={() => navigate("/sign-in")}
       />
       <Spinner />
     </main>
