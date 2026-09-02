@@ -244,15 +244,24 @@ export function useXpConteo({ onComplete }: { onComplete?: () => void } = {}) {
   const promptRef = useRef<HTMLDivElement | null>(null)
   const targetRef = useRef<HTMLElement | null>(null)
 
-  const fire = useCallback(
-    (answer: GameAnswer, { modo }: { modo: ModoDeConteo }) => {
-      const xp = answer.xp_awarded
+  /** Arranca el festejo con una XP TODAVÍA NO CONFIRMADA por el servidor: la
+   *  llama el veredicto local en el instante en que dice "correcto", sin
+   *  esperar el viaje a `/answer` (ver xp-estimate.ts). `reconcile` ajusta el
+   *  número real cuando esa respuesta llega, y `abort` lo desarma si el
+   *  servidor termina en desacuerdo — casos rarísimos por diseño de
+   *  `local-verdict.ts`, no el camino esperable.
+   *
+   *  `base` queda en `null` (no en `xp_total - xp` como antes: eso todavía no
+   *  se sabe) hasta que `reconcile` lo fija; `liveXp` ya sabe leer ese `null`
+   *  como "no mostrar todavía". */
+  const fireProvisional = useCallback(
+    (
+      xp: number,
+      { modo, intento, multiplicador }: { modo: ModoDeConteo; intento: number; multiplicador: number },
+    ) => {
       if (xp <= 0) return
-      // Si venía uno corriendo, lo pisa. No se le llama `onComplete` al que se
-      // interrumpe: lo único que hace es refrescar el ranking, y el que acaba de
-      // empezar lo va a hacer un segundo después con datos más nuevos.
       limpiar()
-      setBase(answer.xp_total - xp)
+      setBase(null)
       setTotal(xp)
       setSumado(0)
       setColor(null)
@@ -273,12 +282,13 @@ export function useXpConteo({ onComplete }: { onComplete?: () => void } = {}) {
         colores: coloresDelFestejo({
           cuantos: partesRef.current.length,
           xp,
-          multiplicador: answer.xp_multiplier,
-          intento: answer.attempt_number,
+          multiplicador,
+          intento,
+          cafe: multiplicador > 1,
         }),
-        // Se mide ACÁ y no en el primer frame: `fire` corre dentro del onSuccess
-        // de la respuesta, o sea antes del commit que hace desaparecer la
-        // fórmula. Un frame más tarde ya no habría nada que medir.
+        // Se mide ACÁ y no en el primer frame: esto corre en el instante del
+        // veredicto local, antes de que nada haya cambiado en pantalla, así
+        // que la fórmula sigue exactamente donde estaba.
         //
         // Sin fórmula medible, una franja en el medio de la pantalla.
         from: formulaBox(promptRef.current) ?? {
@@ -292,7 +302,10 @@ export function useXpConteo({ onComplete }: { onComplete?: () => void } = {}) {
         setTimeout(() => {
           const partes = partesRef.current
           if (dadosRef.current.size >= partes.length) return
-          setSumado(xp)
+          // No `xp`: la reconciliación puede haber cambiado `partesRef` desde
+          // que esto se agendó, y lo que hay que dar por cerrado es la suma de
+          // ESE reparto, no la estimación original.
+          setSumado(partes.reduce((a, b) => a + b, 0))
           for (let i = 0; i < partes.length; i++) dadosRef.current.add(i)
           terminar()
         }, SALVAVIDAS_MS),
@@ -300,6 +313,57 @@ export function useXpConteo({ onComplete }: { onComplete?: () => void } = {}) {
     },
     [limpiar, terminar],
   )
+
+  /** Ajusta en silencio el conteo ya arrancado por `fireProvisional` a la XP
+   *  REAL que trajo `/answer`. Si coinciden (el caso esperable, sobre todo con
+   *  el `p_hat` ya expuesto al front), solo fija `base` y no toca nada más.
+   *  Si difieren, reparte la diferencia entre los pasos que todavía no se
+   *  cobraron —los que ya sonaron quedan como sonaron, nunca en reversa. */
+  const reconcile = useCallback(
+    (answer: GameAnswer) => {
+      const xp = answer.xp_awarded
+      setBase(answer.xp_total - xp)
+      const partes = partesRef.current
+      const totalActual = partes.reduce((a, b) => a + b, 0)
+      if (xp === totalActual) return
+      const pendientes = partes
+        .map((_, i) => i)
+        .filter((i) => !dadosRef.current.has(i))
+      const yaSumado = totalActual - pendientes.reduce((acc, i) => acc + partes[i], 0)
+      const restante = xp - yaSumado
+      // Sin pasos que ajustar, o la estimación ya se pasó de la XP real: no
+      // hay forma de bajar un número que ya se mostró sin que se vea un salto
+      // hacia atrás, así que se cierra directo en el valor real.
+      if (pendientes.length === 0 || restante <= 0) {
+        limpiar()
+        setSumado(xp)
+        for (let i = 0; i < partes.length; i++) dadosRef.current.add(i)
+        terminar()
+        return
+      }
+      const nuevos = repartir(restante, pendientes.length)
+      pendientes.forEach((idx, k) => {
+        partes[idx] = nuevos[k]
+      })
+    },
+    [limpiar, terminar],
+  )
+
+  /** Desarma un festejo que `fireProvisional` ya arrancó, para el caso
+   *  rarísimo en que el servidor termina en desacuerdo con el veredicto
+   *  local (ver local-verdict.ts). No llama a `onComplete`: no pasó nada, no
+   *  hay ranking que refrescar. */
+  const abort = useCallback(() => {
+    limpiar()
+    pendienteRef.current = false
+    dadosRef.current = new Set()
+    partesRef.current = []
+    setVuelo(null)
+    setBase(null)
+    setTotal(0)
+    setSumado(0)
+    setColor(null)
+  }, [limpiar])
 
   /** Larga el conteo que estaba guardado. Lo llama la pantalla que TIENE el
    *  número, cuando la persona pasa a ella.
@@ -341,7 +405,9 @@ export function useXpConteo({ onComplete }: { onComplete?: () => void } = {}) {
     counting: base !== null && sumado < total,
     // El color del número mientras se llena, o null para el de siempre.
     xpColor: color,
-    fire,
+    fireProvisional,
+    reconcile,
+    abort,
     release,
     // Solo para el modo vuelo.
     vuelo,

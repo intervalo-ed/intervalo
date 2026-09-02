@@ -10,6 +10,8 @@
 //
 // Se chequea con: bun run check:xp
 
+import { colorDeCafe } from "./game-colors"
+
 // Cuánta XP entra por paso. Un acierto normal son veinticinco: de a uno serían
 // veinticinco ticks, o sea varios segundos de conteo por cada derivada. De a
 // tres, la misma XP entra en un puñado que se lee de un vistazo.
@@ -107,6 +109,21 @@ export function colorDeMadurez(madurez: number): string {
   return `hsl(${h.toFixed(1)} ${s.toFixed(1)}% ${L_RAMPA}%)`
 }
 
+// Las bolitas no usan la rampa completa del slider: arrancan del ámbar de
+// marca en vez del apagado (que ahí queda perfecto sobre una barra oscura,
+// pero volando por la pantalla se lee gris y opaco) y se quedan cerca del
+// dorado. El recorrido es CORTO —del ámbar al dorado, nunca más abajo— así que
+// toda la tanda sale brillante en vez de bajar hasta el marrón apagado.
+const ORBE_CAFE_DESDE = 0.55
+
+/** La misma rampa, pero en tonos de café: se usa en vez de la de arriba
+ *  cuando la universidad del jugador tiene un empuje corriendo, para que el
+ *  festejo hable del mismo café que ya se ve en el resto del juego. */
+export function colorDeMadurezCafe(madurez: number): string {
+  const t = acotar(madurez)
+  return colorDeCafe(ORBE_CAFE_DESDE + t * (1 - ORBE_CAFE_DESDE))
+}
+
 /** Los colores de una tanda de orbes: uno por orbe, sorteados alrededor de la
  *  madurez del ejercicio y con el abanico que le corresponde al intento. */
 export function coloresDelFestejo({
@@ -114,15 +131,20 @@ export function coloresDelFestejo({
   xp,
   multiplicador = 1,
   intento,
+  cafe = false,
 }: {
   cuantos: number
   xp: number
   multiplicador?: number
   intento: number
+  /** Si la universidad tiene un empuje corriendo: pinta de café en vez de
+   *  amarillo-verde. */
+  cafe?: boolean
 }): string[] {
   const centro = madurezDe({ xp, multiplicador })
   const abanico = abanicoDe(intento)
+  const colorDe = cafe ? colorDeMadurezCafe : colorDeMadurez
   return Array.from({ length: cuantos }, () =>
-    colorDeMadurez(centro + (Math.random() * 2 - 1) * abanico),
+    colorDe(centro + (Math.random() * 2 - 1) * abanico),
   )
 }

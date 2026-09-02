@@ -6,8 +6,14 @@ import Link from "next/link"
 // instalación.
 export function LegalIndex({
   items,
+  chico = false,
 }: {
   items: { href: string; label: string }[]
+  // Mismo motivo y mismo valor que `chico` en legal-content.tsx: para el dorso
+  // angosto del minijuego en escritorio, donde el `clamp` de siempre mide
+  // contra la ventana entera y sale grande aunque el panel sea chico. Sin
+  // esto, el índice quedaba más grande que el cuerpo que ya se había achicado.
+  chico?: boolean
 }) {
   return (
     <nav aria-label="Índice" className="mt-10 flex flex-col gap-2">
@@ -15,7 +21,11 @@ export function LegalIndex({
         <Link
           key={item.href}
           href={item.href}
-          className="group max-w-[44rem] text-[clamp(1rem,3vw,1.2rem)] leading-[1.8]"
+          className={`group max-w-[44rem] ${
+            chico
+              ? "text-base leading-relaxed"
+              : "text-[clamp(1rem,3vw,1.2rem)] leading-[1.8]"
+          }`}
         >
           <span className="tabular-nums text-[#768899]">{i + 1}.</span>{" "}
           <span className="text-[#E6EEFA] underline underline-offset-4 decoration-[#38385A] transition-colors group-hover:text-[#F6F8FC] group-hover:decoration-[#7E80F7]">

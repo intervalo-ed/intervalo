@@ -927,6 +927,7 @@ export function AnswerButton({
   onClick,
   showKeyHint = false,
   className,
+  sinFlash = false,
 }: {
   tone: AnswerTone
   seq: number
@@ -935,11 +936,20 @@ export function AnswerButton({
   onClick: () => void
   showKeyHint?: boolean
   className?: string
+  // Acertar a la PRIMERA cambia el pie entero, no solo este botón: Revisar y
+  // Saltear se van, «¿Por qué?» entra o no según el caso, y este botón pasa a
+  // decir Continuar — los tres a la vez. El destello verde está pensado para
+  // el otro caso, el de un solo botón que cambia de color sin que nada más se
+  // mueva a su alrededor (acertar en el segundo intento o más, con el pie ya
+  // achicado a un solo botón desde el primer error): ahí SÍ hace falta, es el
+  // único aviso de que salió bien. Con el pie entero reacomodándose además,
+  // sumarle un destello es pisar la propia transición del layout.
+  sinFlash?: boolean
 }) {
   const teclas = useTeclas()
   const reduceMotion = useReducedMotion()
   const shaking = useMoment(tone === "wrong", seq, SHAKE_S * 1000 + 60) && !reduceMotion
-  const flashing = useMoment(tone !== null, seq, FLASH_MS)
+  const flashing = useMoment(tone !== null && !sinFlash, seq, FLASH_MS)
 
   // Solo el verde destella acá. El lima de errar (WRONG) quedó exclusivo del
   // botón del «¿Por qué?» (porque-panel.tsx) — con los dos marcando el mismo

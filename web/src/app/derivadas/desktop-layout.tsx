@@ -62,6 +62,7 @@ import { ChatButton, ChatPanel, TECLA_CHAT } from "./chat-panel"
 import { EloStatsPanel, StatsButton, TECLA_ESTADISTICAS } from "./elo-stats-panel"
 import { GameIntroLogo, type GameIntro } from "./game-intro"
 import { GameRanking, type RankingSort } from "./game-ranking"
+import { AMBAR } from "./game-colors"
 import { IntroPanel, IntroStartButton } from "./intro-panel"
 import { SlideFlip } from "./slide-flip"
 import { puedeVerEstadisticas } from "./stats-gate"
@@ -94,9 +95,11 @@ import {
   type GameExercise,
 } from "./UseGameExercise"
 import { useGamePulse, useMyBoost } from "./UseGameLeaderboard"
-import { gameKeys, useGamePlayer } from "./UseGamePlayer"
+import { gameKeys, useGamePlayer, type GamePlayer } from "./UseGamePlayer"
 import { useGameEvents } from "./UseGameLeaderboard"
 import { useGameStats } from "./UseGameStats"
+import { comboTrasIntento } from "./racha-estimate"
+import { estimarXp } from "./xp-estimate"
 import { useXpConteo } from "./xp-conteo"
 import { OrbFlight } from "@/components/orb-flight"
 
@@ -236,6 +239,20 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   // Si el color y el sonido de ESTA respuesta ya salieron por el veredicto
   // local, para que la llegada del servidor no los repita.
   const anticipadoRef = useRef(false)
+  // Si el festejo grande (bolitas/conteo) YA arrancó por el veredicto local.
+  // No es lo mismo que `anticipadoRef`: ese es true también cuando el
+  // veredicto local decidió "incorrecto" (ahí no hay festejo que adelantar).
+  // Sin esta distinción, un desacuerdo donde el local dijo "mal" y el
+  // servidor dice "bien" se quedaría sin festejo: `anticipadoRef.current`
+  // ya sería true por el color, y el festejo de respaldo no arrancaría nunca.
+  const festejoAdelantadoRef = useRef(false)
+  // Igual que `festejoAdelantadoRef` pero para los contadores de la card
+  // (racha/intentos) en vez del festejo de XP: true si ya se escribió un
+  // adelanto en el caché del jugador que todavía no confirmó (o deshizo) la
+  // respuesta real.
+  const rachaAdelantadaRef = useRef(false)
+  // Lo que había ANTES de adelantar, por si hay que devolverlo.
+  const rachaPrevioRef = useRef<{ combo: number; exercises_attempted: number } | null>(null)
   // Contador de respuestas, no de aciertos: es lo que hace que el latido y el
   // sacudón vuelvan a correr cuando dos respuestas seguidas comparten tono.
   const [answerSeq, setAnswerSeq] = useState(0)
@@ -336,6 +353,13 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   // El dorso de "¿Qué pasa con mis datos?", que se abre desde la slide de
   // registro. Es el quinto y el más nuevo: el menos frecuente de los cinco.
   const [privacyOpen, setPrivacyOpen] = useState(false)
+  // Si a `panel === "register"` se llegó tocando "Usuario" en Configuración
+  // (invitado sin cuenta) y no por el hito de la mitad del juego. Los dos
+  // comparten pantalla, pero no layout: la de configuración es un trámite
+  // corto —la persona ya sabe quién es— así que su caja mide lo mismo que la
+  // del ejercicio (mismo mecanismo que cafecito/reclutas, ver `slotSalida` más
+  // abajo) y no repite "sos fulano, puesto tanto" ni un "Ahora no" de sobra.
+  const [registroDesdeConfig, setRegistroDesdeConfig] = useState(false)
   // El punto del botón: cuántos mensajes entraron desde la última vez que se
   // miró el chat.
   //
@@ -402,6 +426,15 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   const servedAtRef = useRef<number>(0)
   // Puesto anterior, guardado hasta que termina el conteo de XP.
   const pendingClimbRef = useRef<number | null>(null)
+  // Cuántas veces se intentó ESTE ejercicio. Lo necesita el festejo optimista
+  // para estimar la XP (ver xp-estimate.ts) antes de que el servidor conteste
+  // con el `attempt_number` real.
+  const attemptRef = useRef(0)
+  // Si el intento que se está mostrando fue el PRIMERO de este ejercicio —en
+  // estado, no en un ref, porque decide si el botón destella y eso es
+  // render—. Se fija junto con `tonoLocal` en `onRevisar`, así que llega en
+  // el mismo instante que el resto del veredicto optimista.
+  const [primerIntento, setPrimerIntento] = useState(true)
 
   // Cuando entra el último orbe: recién ahí el ranking estrena orden y la fila
   // propia sube. Antes de eso sigue mostrando el puesto viejo.
@@ -415,7 +448,9 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
     liveXp,
     counting,
     xpColor,
-    fire: fireXp,
+    fireProvisional: fireXpProvisional,
+    reconcile: reconcileXp,
+    abort: abortXp,
     vuelo,
     paso: onOrbeLlega,
     attachPrompt,
@@ -486,6 +521,8 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
       setSolvedLatex(null)
       setFallado(false)
       servedAtRef.current = Date.now()
+      attemptRef.current = 0
+      setPrimerIntento(true)
       inputRef.current?.clear()
       inputRef.current?.focus()
       posthog.capture("game_exercise_served", {
@@ -570,6 +607,19 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
     if (statsOpen) setStatsOpen(false)
   }
 
+  // Deshace el adelanto de racha/intentos si el servidor termina en
+  // desacuerdo (o si el camino que lo pisaría con el dato real ni corre,
+  // como el 409 o `!parse_ok`). Se define acá y no adentro de cada callback
+  // porque `onRevisar` y `onSkip` la usan igual.
+  const revertirRacha = useCallback(() => {
+    if (!rachaAdelantadaRef.current || !rachaPrevioRef.current) return
+    const previoReal = rachaPrevioRef.current
+    queryClient.setQueryData(gameKeys.me, (p: GamePlayer | undefined) =>
+      p === undefined ? p : { ...p, ...previoReal },
+    )
+    rachaAdelantadaRef.current = false
+  }, [queryClient])
+
   // Deriva el enunciado en cuanto llega, mientras la persona lo lee: cuando
   // responda, juzgar cuesta diez cuentas.
   const evaluarLocal = useLocalVerdict(exercise?.prompt_latex ?? null)
@@ -583,13 +633,60 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
     // El color y el sonido salen ACÁ si el veredicto local puede decidirlo, sin
     // esperar el viaje al servidor. La XP, el Elo y el puesto siguen viniendo de
     // `/answer`: esto solo adelanta lo que ya se sabe.
+    attemptRef.current += 1
     const local = evaluarLocal(mathjson)
     anticipadoRef.current = local !== null
     if (local !== null) {
       setTonoLocal(local ? "correct" : "wrong")
+      setPrimerIntento(attemptRef.current === 1)
       setAnswerSeq((n) => n + 1)
       if (local) sfx.correct()
       else sfx.wrong()
+    }
+    festejoAdelantadoRef.current = local === true
+    // Racha e intentos también se adelantan acá, junto al color: solo se
+    // mueven en el PRIMER intento del ejercicio (game/router.py::_aplicar_elo
+    // corta antes en cualquier otro) y con cualquier veredicto CONFIDENTE
+    // —a diferencia del festejo, acá importa tanto el correcto (racha+1) como
+    // el incorrecto (racha a 0), porque los dos mueven el número.
+    if (attemptRef.current === 1 && local !== null) {
+      const previo = queryClient.getQueryData<GamePlayer>(gameKeys.me)
+      if (previo !== undefined) {
+        rachaPrevioRef.current = {
+          combo: previo.combo,
+          exercises_attempted: previo.exercises_attempted,
+        }
+        rachaAdelantadaRef.current = true
+        queryClient.setQueryData(gameKeys.me, {
+          ...previo,
+          combo: comboTrasIntento({ correct: local, comboAntes: exercise.combo }),
+          exercises_attempted: previo.exercises_attempted + 1,
+        })
+      }
+    }
+    if (local) {
+      // El festejo grande arranca ACÁ, en el mismo instante que el color, en
+      // vez de esperar a `/answer`: es la misma idea que el veredicto local ya
+      // aplica al color, extendida al festejo. La XP es una ESTIMACIÓN
+      // (xp-estimate.ts, espejo de game/xp.py) — `reconcile` la ajusta sola
+      // cuando llega la real, y si el servidor termina en desacuerdo (rarísimo,
+      // ver local-verdict.ts), `abortXp` la desarma en el `onSuccess`/`onError`
+      // de más abajo.
+      //
+      // `setCenterKey`/`setRankingSort` también se adelantan acá: no dependen
+      // de nada que traiga la respuesta, y los orbes necesitan que el ranking
+      // ya esté mostrando la fila propia en experiencia para tener destino.
+      setCenterKey((n) => n + 1)
+      setRankingSort("experiencia")
+      fireXpProvisional(
+        estimarXp({
+          attemptNumber: attemptRef.current,
+          pHat: exercise.p_hat,
+          comboAfter: attemptRef.current === 1 && !peekedRef.current ? exercise.combo + 1 : 0,
+          peeked: peekedRef.current,
+        }),
+        { modo: "vuelo", intento: attemptRef.current, multiplicador: boost?.multiplier ?? 1 },
+      )
     }
 
     answerMutation.mutate(
@@ -606,6 +703,13 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
           // Manda el servidor: el color local ya cumplió su función.
           setTonoLocal(null)
           if (!anticipadoRef.current) setAnswerSeq((n) => n + 1)
+          // El `onSuccess` PROPIO de `useAnswerExercise` (UseGameExercise.ts)
+          // ya corrió antes que este y ya escribió el combo/intentos REALES
+          // en el caché con `data.parse_ok` en true —React Query llama primero
+          // el `onSuccess` del hook, después el de esta llamada—, así que acá
+          // no hace falta corregir nada a mano: solo dar por cerrado el
+          // adelanto, sea porque ya no hace falta o porque nunca se aplicó.
+          rachaAdelantadaRef.current = false
           // Lo que se escribió pasa a la caja del enunciado si estuvo bien, y
           // marca al ejercicio como errado si no. Las dos cosas sobreviven a que
           // `lastAnswer` se borre en cuanto la persona toque una tecla.
@@ -633,9 +737,23 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
             multiplier: data.xp_multiplier,
             response_ms: Date.now() - servedAtRef.current,
           })
-          if (!data.parse_ok) return
+          if (!data.parse_ok) {
+            // El veredicto local dijo "puedo decidir" y el servidor ni pudo
+            // evaluar la respuesta: si ya había arrancado un festejo optimista,
+            // no queda otra que desarmarlo.
+            if (festejoAdelantadoRef.current) abortXp()
+            // Único camino donde el `onSuccess` del hook NO tocó el caché
+            // (corta antes si `!parse_ok`): acá sí hay que devolver la racha
+            // a mano, porque el servidor no contó esto como un intento real.
+            revertirRacha()
+            return
+          }
           if (!data.correct) {
             if (!anticipadoRef.current) sfx.wrong()
+            // Desacuerdo rarísimo: el local dijo correcto, el servidor dijo que
+            // no. Se desarma el festejo que ya había arrancado (ver
+            // local-verdict.ts sobre qué tan improbable es esto).
+            if (festejoAdelantadoRef.current) abortXp()
             return
           }
           if (!anticipadoRef.current) sfx.correct()
@@ -643,32 +761,26 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
           // ejercicio, así que este es el primer instante en que pedir el
           // siguiente devuelve uno nuevo. Mientras corre el festejo, va y vuelve.
           adelantar()
-          // Los orbes necesitan ver su destino, y el destino es el número de XP
-          // de la fila propia. Así que antes de tirarlos se arma la pantalla que
-          // los puede recibir: el ranking vuelve al individual y a la fila
-          // propia (`centerKey`), y el selector vuelve a experiencia.
-          //
-          // Lo segundo no es cosmética. En el orden por Elo la fila propia
-          // muestra su Elo y no su XP: los orbes no tendrían dónde caer, y el
-          // conteo subiría un número que este acierto no acaba de mover —el Elo
-          // baja con los errores, la XP no—, o sea que festejaría algo que no
-          // pasó. Volver acá también hace que el puesto que la escalada anima
-          // sea el mismo que la respuesta acaba de cambiar.
-          //
-          // Se cambia el ESTADO y no una vista derivada, así el botón de la
-          // cabecera se mueve con la lista: si el selector siguiera marcando
-          // ELO mientras la tabla muestra experiencia, el que estaría mintiendo
-          // sería él. Quien quiera volver al Elo lo toca de nuevo, y se queda
-          // hasta el próximo acierto.
-          setCenterKey((n) => n + 1)
-          setRankingSort("experiencia")
           const rankBefore = data.rank_before ?? null
           const rankAfter = data.rank_after ?? null
           pendingClimbRef.current =
             rankBefore !== null && rankAfter !== null && rankAfter < rankBefore
               ? rankBefore
               : null
-          fireXp(data, { modo: "vuelo" })
+          // La XP real llegó: ajusta en silencio el conteo que el veredicto
+          // local ya arrancó. Si no se pudo adelantar —local dijo "mal" o no
+          // se pudo decidir— todavía no hay ningún festejo corriendo, así que
+          // se arranca acá directo con el dato real antes de reconciliar.
+          if (!festejoAdelantadoRef.current) {
+            setCenterKey((n) => n + 1)
+            setRankingSort("experiencia")
+            fireXpProvisional(data.xp_awarded, {
+              modo: "vuelo",
+              intento: data.attempt_number,
+              multiplicador: data.xp_multiplier,
+            })
+          }
+          reconcileXp(data)
 
           const solved = solvedCount + 1
           setSolvedCount(solved)
@@ -693,13 +805,22 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
           // contra ese contador de sesión: después de la primera aparición la
           // cuenta quedaba envenenada y no volvía a salir nunca.
           const totalCorrectas = data.exercises_correct
-          const trigger: CafecitoTrigger | null = data.is_record
-            ? "record"
-            : delta >= 3
-              ? "big_climb"
-              : totalCorrectas > 0 && totalCorrectas % CAFECITO_EVERY === 0
-                ? "milestone"
-                : null
+          // Piso de CAFECITO_EVERY para los tres tipos, no solo para "milestone"
+          // (que ya lo tenía gratis, por el módulo): "récord" y "big_climb" no
+          // tenían ninguno, y un invitado nuevo bate su propio récord —no tiene
+          // casi historia— o pasa a varias cuentas en cero —el ranking está
+          // lleno de ellas— en casi cualquiera de sus primeras derivadas. Antes
+          // de esta cantidad ninguno de los tres cuenta como para interrumpir.
+          const trigger: CafecitoTrigger | null =
+            totalCorrectas < CAFECITO_EVERY
+              ? null
+              : data.is_record
+                ? "record"
+                : delta >= 3
+                  ? "big_climb"
+                  : totalCorrectas % CAFECITO_EVERY === 0
+                    ? "milestone"
+                    : null
           const tocaCafecito =
             trigger !== null && shouldShowCafecito(totalCorrectas, trigger)
           const sinUniversidad = player !== null && !player.university
@@ -719,10 +840,19 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
           // tiene qué ofrecer, y lo que quedaba era una pantalla que pedía algo y
           // de paso pedía otra cosa primero.
           //
-          // Cuando el cafecito quiere salir y falta la universidad, el hito del
-          // perfil se ADELANTA y ocupa su lugar. Por eso no se marca el cooldown
-          // en ese caso: el cafecito no se mostró, así que no gastó su turno y
-          // vuelve en el próximo hito, ya con universidad que nombrar.
+          // Mientras falte preguntarla, el café se queda callado y NO gasta su
+          // cooldown (no se llama a `markCafecitoShown`): no se mostró, así que
+          // vuelve a estar disponible en su próximo hito natural, ya con
+          // universidad que nombrar.
+          //
+          // La pregunta de perfil NUNCA se adelanta —antes se adelantaba
+          // apenas el café quería salir, pero eso la disparaba en el PRIMER
+          // acierto casi siempre: alcanza con pasar a un solo jugador con más
+          // XP en cero (`delta >= 3`, "big_climb") para que un invitado nuevo
+          // dispare esta condición en su primera derivada, mucho antes de
+          // `HITO_PERFIL`. Sale justo en `HITO_PERFIL` y en ningún otro
+          // momento, sea cual sea el motivo que tenga el café para querer
+          // salir ese mismo acierto.
           if (tocaCafecito && !faltaPreguntarUniversidad) {
             markCafecitoShown(totalCorrectas)
             setCafecito({ trigger, correctToday: data.correct_today })
@@ -735,7 +865,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
             marcarReclutasMostrado(totalCorrectas)
             reclutasPendienteRef.current = true
           }
-          if (faltaPreguntarUniversidad && (tocaCafecito || solved >= HITO_PERFIL)) {
+          if (faltaPreguntarUniversidad && solved >= HITO_PERFIL) {
             askedProfileRef.current = true
             pendingMilestoneRef.current = "profile"
           } else if (
@@ -759,6 +889,10 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
             setExercise(null)
             setLastAnswer(null)
             setTonoLocal(null)
+            // Si el veredicto local había arrancado el festejo, este ejercicio
+            // ya no existe para desarmarlo con datos reales: se desarma solo.
+            if (festejoAdelantadoRef.current) abortXp()
+            revertirRacha()
             // El 409 dice que el servidor venció lo que teníamos servido, así
             // que un ejercicio adelantado contra ese estado ya no vale.
             descartarAdelanto()
@@ -767,7 +901,23 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
         },
       },
     )
-  }, [exercise, answerMutation, sfx, solvedCount, player, fireXp, evaluarLocal, loadNext, adelantar, descartarAdelanto])
+  }, [
+    exercise,
+    answerMutation,
+    sfx,
+    solvedCount,
+    player,
+    boost,
+    fireXpProvisional,
+    reconcileXp,
+    abortXp,
+    queryClient,
+    revertirRacha,
+    evaluarLocal,
+    loadNext,
+    adelantar,
+    descartarAdelanto,
+  ])
 
   // El botón existe cuando ya hay algo para explicar: se acertó, o se erró al
   // menos una vez. Nunca antes del primer intento — ahí sería regalar la
@@ -819,6 +969,18 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   // La respuesta del servidor manda; el tono local solo cubre el hueco entre el
   // toque y su llegada.
   const tone = answerTone(lastAnswer) ?? tonoLocal
+  // Solo para lo VISUAL (qué botones se ven, si el teclado se apaga): se
+  // cierra apenas el veredicto local dice "correcto", sin esperar la
+  // respuesta real. Sin esto, entre el toque y que vuelva `/answer` había un
+  // instante con `closed` todavía en `false` —Revisar, «¿Por qué?» y Saltear
+  // los tres a la vista, en verde— que un momento después colapsaba de golpe a
+  // Continuar solo: dos layouts distintos por un rato, mientras la red viaja.
+  //
+  // Lo que hace un click o Enter sigue esperando la respuesta real (`closed`,
+  // sin sufijo): el botón está deshabilitado todo ese instante de cualquier
+  // forma (`answerMutation.isPending`), así que no hay riesgo de avanzar
+  // antes de que el servidor confirme.
+  const cerradoVisual = closed || tonoLocal === "correct"
 
   // Lo que hace el botón grande. Vive suelto porque lo comparten el click y el
   // Enter, y tienen que hacer exactamente lo mismo.
@@ -840,6 +1002,9 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
       posthog.capture("game_register_slide_shown", {
         slide: milestone === "profile" ? "career" : "register",
       })
+      // Por si quedó en `true` de una visita anterior a Configuración: este es
+      // el hito, no ese camino, y su registro es el de columna entera.
+      if (milestone === "register") setRegistroDesdeConfig(false)
       setNavPanel(milestone)
       return
     }
@@ -875,12 +1040,28 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
       solved: solvedCount,
       exercise_id: exercise.exercise_id,
     })
+    // Determinístico y sin desacuerdo posible salvo el 409 de abajo:
+    // skip_exercise siempre pone el combo en 0 si el ejercicio seguía sin
+    // responder (game/router.py:688). `exercises_attempted` NO se toca acá:
+    // saltear no es responder.
+    const previoRacha = queryClient.getQueryData<GamePlayer>(gameKeys.me)
+    if (previoRacha !== undefined) {
+      rachaPrevioRef.current = {
+        combo: previoRacha.combo,
+        exercises_attempted: previoRacha.exercises_attempted,
+      }
+      rachaAdelantadaRef.current = true
+      queryClient.setQueryData(gameKeys.me, { ...previoRacha, combo: 0 })
+    }
     skipMutation.mutate(
       { exercise_id: exercise.exercise_id },
       {
         onSuccess: (data) => {
           // El endpoint devuelve el reemplazo, así que no hay un /next detrás:
-          // el ejercicio nuevo entra en el mismo viaje.
+          // el ejercicio nuevo entra en el mismo viaje. El combo real ya viene
+          // en `data.combo` (y `useSkipExercise` invalida `gameKeys.me`), así
+          // que no hace falta reconciliar nada: solo cerrar el adelanto.
+          rachaAdelantadaRef.current = false
           setExercise(data)
           setLastAnswer(null)
           // También el tono local, no solo el del servidor. Si `/answer` falló
@@ -916,6 +1097,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
             setExercise(null)
             setLastAnswer(null)
             setTonoLocal(null)
+            revertirRacha()
             // El 409 dice que el servidor venció lo que teníamos servido, así
             // que un ejercicio adelantado contra ese estado ya no vale.
             descartarAdelanto()
@@ -924,7 +1106,17 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
         },
       },
     )
-  }, [exercise, closed, skipMutation, answerMutation.isPending, solvedCount, loadNext, descartarAdelanto])
+  }, [
+    exercise,
+    closed,
+    skipMutation,
+    answerMutation.isPending,
+    solvedCount,
+    queryClient,
+    revertirRacha,
+    loadNext,
+    descartarAdelanto,
+  ])
 
   // Abrir la tabla marca el ejercicio: la respuesta que venga después no mueve
   // el Elo y paga XP simbólica (el server lo aplica, ver game/router.py).
@@ -1541,7 +1733,14 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   // una y ahí `n x^{n-1}` se aprieta. Llegó a 440 y volvió a bajar — con las
   // fracciones escritas en una línea la fórmula más larga pide bastante menos, y
   // veinte píxeles de más en el ranking solo estiran los nombres.
-  const columns = "grid-cols-[minmax(0,1fr)_420px]"
+  // El piso de 420px en la izquierda es el mismo ancho que ya se midió sin
+  // problemas (con teclas de Mac, que son las que más espacio piden: "option +
+  // return"): por debajo de esa ventana total, la card de la intro y la del
+  // ejercicio empezaban a apretarse hasta desbordar su propio borde en vez de
+  // reacomodarse. Con el piso, lo que pasa en una ventana angosta es un scroll
+  // horizontal de toda la página —previsible y contenido— en vez de contenido
+  // roto adentro de una columna que se dejó angostar sin fondo.
+  const columns = "grid-cols-[minmax(420px,1fr)_420px]"
 
   // Las pantallas que llevan pie —botón e historial— abajo, fuera del volteo.
   //
@@ -1551,16 +1750,33 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   // movió de su lugar —ahí abajo, donde estaba Revisar— y el historial de al
   // lado ni se entera, porque no se desmonta.
   //
-  // Las de trámite (perfil, registro) sí se quedan con la columna entera: son
-  // formularios, no una pausa, y su botón es parte de lo que hay que completar.
   const esDiapoDePedido = panel === "cafecito" || panel === "reclutas"
   // Elegir carrera o universidad usa el MISMO pie que las diapos de pedido —
   // el botón vive abajo, por portal— porque se abre desde la configuración,
   // que sigue a la vista del otro lado: es una pausa adentro del ejercicio,
   // no un formulario que se lleva la columna entera.
   const esDiapoDeCampo = panel === "editCareer" || panel === "editUniversity"
+  // El registro —las dos variantes, desde Configuración y desde el hito— se
+  // suma a este grupo por el mismo motivo que cafecito/reclutas: el botón que
+  // cierra la pantalla vive en el pie, así que la caja se achica al tamaño
+  // del ejercicio en vez de comerse la columna (ver el comentario de
+  // `registroDesdeConfig`, más arriba, sobre qué cambia entre las dos).
+  const registroEnElPie = panel === "register"
+  // "Elegí tu @" (la primera vez, antes de la primera derivada) y el hito de
+  // perfil (carrera/universidad) son la MISMA idea: no hay nada que pausar de
+  // por medio —el ejercicio sigue del otro lado, intacto—, así que no tiene
+  // sentido de "trámite de columna entera" y sus cajas miden lo mismo que la
+  // del ejercicio, como todo lo demás de este grupo.
+  const esUsername = panel === "username"
+  const esPerfil = panel === "profile"
   const pieDelPanel =
-    panel === "intro" || panel === "exercise" || esDiapoDePedido || esDiapoDeCampo
+    panel === "intro" ||
+    panel === "exercise" ||
+    esDiapoDePedido ||
+    esDiapoDeCampo ||
+    registroEnElPie ||
+    esUsername ||
+    esPerfil
 
   // El nodo del pie donde las diapos dibujan su botón de salir (ver
   // slide-salida.tsx). Va en estado y no en un ref porque un ref no vuelve a
@@ -1806,6 +2022,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                       onSkip={() => {
                         loadNext()
                       }}
+                      slotSalida={slotSalida}
                     />
                   </div>
                 ) : panel === "editCareer" && player ? (
@@ -1873,7 +2090,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                   />
                 ) : panel === "username" && player ? (
                   <div className="flex min-h-0 flex-1 flex-col rounded-lg border border-border bg-card p-5">
-                    <UsernameSlide player={player} onDone={loadNext} />
+                    <UsernameSlide player={player} onDone={loadNext} slotSalida={slotSalida} />
                   </div>
                 ) : panel === "register" && player ? (
                   <div className="flex min-h-0 flex-1 flex-col rounded-lg border border-border bg-card p-5">
@@ -1887,6 +2104,18 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                         else loadNext()
                       }}
                       onOpenPrivacy={abrirPrivacidad}
+                      desdeConfiguracion={registroDesdeConfig}
+                      slotSalida={slotSalida}
+                      // Atajos de teclado: solo en la variante de hito, que es
+                      // la única con "Ahora no" (Alt+Enter) — la de
+                      // Configuración no tiene ese botón y "Guardar" no tiene
+                      // atajo propio.
+                      keyboard={!registroDesdeConfig}
+                      // Solo escritorio: el login corre en una ventana aparte
+                      // y esta pestaña no se mueve de `/derivadas` (ver
+                      // `autenticarConVentana` en register-slides.tsx). En el
+                      // teléfono no hay ventanas que abrir.
+                      popup
                     />
                   </div>
                 ) : exercise ? (
@@ -2056,7 +2285,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                             newKeys={exercise.new_keys}
                             numpad={false}
                             className={
-                              closed
+                              cerradoVisual
                                 ? "pointer-events-none opacity-45"
                                 : undefined
                             }
@@ -2075,13 +2304,21 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                           {caraDelEjercicio === "porque" ? (
                             <PorQuePanel
                               bare
-                              // Sin esto, `w`/`s` seguían atados a ESTA
-                              // instancia aunque `panel` ya no fuera
-                              // "exercise" —la card del ejercicio no se
+                              // `gameFocused` solo: sin esto, `w`/`s` seguían
+                              // atados a ESTA instancia aunque `panel` ya no
+                              // fuera "exercise" —la card del ejercicio no se
                               // desmonta al abrir Reclutas o Cafecito, solo
                               // queda tapada— y se comían la tecla en
                               // silencio en vez de dejarla pasar.
-                              scrollButtons={gameFocused}
+                              // `porqueOpen` además: `caraDelEjercicio` es
+                              // pegajosa a propósito (no vuelve a "stats" sola
+                              // al cerrar, para que el giro de cierre no salte
+                              // de cara) — sin este chequeo, la PRIMERA vez
+                              // que se abre «¿Por qué?» dejaba este panel
+                              // montado en el dorso para siempre, y su
+                              // listener de captura le robaba la "s" a la
+                              // respuesta en todos los ejercicios siguientes.
+                              scrollButtons={gameFocused && porqueOpen}
                               explanation={porqueTexto}
                               isPending={explainMutation.isPending}
                               isError={explainMutation.isError}
@@ -2104,11 +2341,10 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                   <ExerciseSkeleton />
                 )}
               </SlideFlip>
-              {/* El pie: mismo botón y mismo historial para la intro y para el
-                  ejercicio, en el mismo lugar. Las pantallas de trámite —perfil,
-                  registro, cafecito— no lo llevan, y ahí el volteo se queda con
-                  la columna entera porque es `flex-1` y no tiene con quién
-                  repartirla. */}
+              {/* El pie: mismo botón y mismo historial para todas las
+                  pantallas de esta caja, intro y ejercicio incluidos —hoy no
+                  queda ninguna que se lleve la columna entera con su propio
+                  botón adentro. */}
               {pieDelPanel && (
                 <>
                   <div className={`flex shrink-0 items-stretch gap-2 ${outOfFocus(chatOpen)}`}>
@@ -2117,7 +2353,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                         onStart={startFromIntro}
                         disabled={player === null || next.isPending}
                       />
-                    ) : esDiapoDePedido || esDiapoDeCampo ? (
+                    ) : esDiapoDePedido || esDiapoDeCampo || registroEnElPie || esUsername || esPerfil ? (
                       // La caja vacía donde la diapo (o el campo) dibuja su
                       // botón. Se monta y se desmonta con `panel`, y eso
                       // resuelve el único caso molesto: durante los ~380 ms
@@ -2165,7 +2401,15 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                           className="flex-1"
                           tone={tone}
                           seq={answerSeq}
-                          closed={closed}
+                          closed={cerradoVisual}
+                          // Sin destello cuando salió bien a la primera: ahí
+                          // el pie entero cambia de forma (¿Por qué? y
+                          // Saltear se van, este botón pasa a ocupar toda la
+                          // fila) y ese colapso ya avisa por su cuenta. El
+                          // destello es para cuando el pie NO cambia de forma
+                          // —acertar en el segundo intento o más—, que es el
+                          // único caso en que hace falta.
+                          sinFlash={primerIntento}
                           showKeyHint
                           disabled={
                             answerMutation.isPending || (closed && (next.isPending || esperandoAdelanto))
@@ -2178,7 +2422,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                             única que no la termina: te deja acá y te explica.
                             Puesto último quedaba leyéndose como una tercera
                             salida, que es lo que no es. */}
-                        {!closed && hayPorque && (
+                        {!cerradoVisual && hayPorque && (
                           <PorQueButton
                             showKeyHint
                             onClick={porqueOpen ? cerrarPorque : abrirPorque}
@@ -2187,7 +2431,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                             blanco
                           />
                         )}
-                        {!closed && (
+                        {!cerradoVisual && (
                           <SkipButton
                             showKeyHint
                             disabled={
@@ -2247,7 +2491,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                       enabled={player !== null}
                       liveXp={liveXp}
                       counting={counting}
-                      xpColor={xpColor}
+                      xpColor={xpColor && (boost?.multiplier ?? 1) > 1 ? AMBAR : xpColor}
                       attachXpTarget={attachTarget}
                       myUniversity={player?.university ?? null}
                       centerKey={centerKey}
@@ -2341,6 +2585,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                         }}
                         onNeedsRegister={() => {
                           setSettingsOpen(false)
+                          setRegistroDesdeConfig(true)
                           setNavPanel("register")
                         }}
                         onEditCareer={() => {
@@ -2384,7 +2629,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                         <ChevronLeft size={18} />
                       </button>
                       <div className="no-scrollbar min-h-0 flex-1 overflow-y-auto">
-                        <PrivacidadContent compact condensedIntro />
+                        <PrivacidadContent compact condensedIntro chico sinGrilla />
                       </div>
                     </div>
                   )

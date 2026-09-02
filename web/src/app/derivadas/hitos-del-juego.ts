@@ -11,7 +11,7 @@
 // comparable entre las dos.
 
 /** Cuántas correctas antes de preguntar carrera y universidad. */
-export const HITO_PERFIL = 5
+export const HITO_PERFIL = 3
 
 /** Cuántas correctas antes de ofrecerle registrarse a un invitado. */
 export const HITO_REGISTRO = 12

@@ -21,16 +21,13 @@ import { readUltimoPedidoAt, saveUltimoPedidoAt } from "./game-storage"
 // escalada, que caen en cualquier número. La garantía de que no se pisen la da
 // el cooldown compartido (ver readUltimoPedidoAt en game-storage.ts).
 //
-// EN DESARROLLO sale en los aciertos IMPARES y el café en los pares. Con los
-// valores de producción, tocar un renglón de esta diapo cuesta diez derivadas
-// bien resueltas. Impares y pares y no las dos en cada acierto: el ladder revisa
-// el café primero —en producción gana él, porque puede venir de un récord, que
-// es más raro y más urgente que llegar a un número— así que con las dos saliendo
-// siempre, esta no aparecería nunca en desarrollo.
-const EN_DESARROLLO = process.env.NODE_ENV === "development"
-export const RECLUTAS_CADA = EN_DESARROLLO ? 2 : 20
-export const RECLUTAS_RESTO = EN_DESARROLLO ? 1 : 10
-export const RECLUTAS_COOLDOWN = EN_DESARROLLO ? 0 : 10
+// Antes salía en los aciertos impares en desarrollo (y el café en los pares),
+// para no tener que resolver diez derivadas de verdad para ver la diapo. Se
+// sacó: interrumpía probando cualquier otra cosa del juego. Para trabajar en
+// reclutas/cafecito, bajar estos números a mano (sin commitearlo).
+export const RECLUTAS_CADA = 20
+export const RECLUTAS_RESTO = 10
+export const RECLUTAS_COOLDOWN = 10
 
 /** ¿Toca ofrecer reclutar después de esta respuesta?
  *

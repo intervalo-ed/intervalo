@@ -14,7 +14,8 @@
 import { useRef, useState } from "react"
 import posthog from "posthog-js"
 import { useQueryClient } from "@tanstack/react-query"
-import { ChevronLeft, Coffee, RotateCcw, Volume2, VolumeX } from "lucide-react"
+import { ChevronLeft, Coffee, LogOut, RotateCcw, Volume2, VolumeX } from "lucide-react"
+import { useClerk } from "@clerk/nextjs"
 import { ApiError, unwrap } from "@/lib/api/client"
 import { Button } from "@/components/ui/button"
 import { CareerSelect, UniversityGrid } from "@/components/onboarding-fields"
@@ -25,6 +26,7 @@ import { cn } from "@/lib/utils"
 import { WhatsappGlyph } from "./cafecito-cta"
 import { SlideFlip } from "./slide-flip"
 import { SlideHorizontal, type Direccion } from "./slide-horizontal"
+import { clearGameIdentity } from "./game-storage"
 import { useGameApi } from "./UseGameApi"
 import { useCta } from "./game-telemetry"
 import { gameKeys, type GamePlayer } from "./UseGamePlayer"
@@ -114,6 +116,7 @@ export function SettingsPanel({
 }) {
   const api = useGameApi()
   const cta = useCta()
+  const clerk = useClerk()
   const queryClient = useQueryClient()
   const sfx = useSfx()
   const muted = useSoundMuted()
@@ -209,6 +212,18 @@ export function SettingsPanel({
     }
   }
 
+  // Cierra la sesión de Clerk, borra el rastro local de invitado y recarga
+  // `/derivadas` DE POSTA (no una navegación de Next) — es lo único que
+  // reinicia los módulos que se acuerdan de "ya arrancó el alta de este
+  // jugador" (ver bootstrapStarted en UseGamePlayer.ts). Sin el recargado
+  // completo, cerrar sesión limpiaría el token pero la página seguiría
+  // mostrando al jugador viejo hasta la próxima visita.
+  const signOutAndReset = async () => {
+    clearGameIdentity()
+    await clerk.signOut()
+    window.location.href = "/derivadas"
+  }
+
   const confirmOther = () => {
     const value = canonicalUniversity(otherUniversity)
     if (!value) return
@@ -262,7 +277,7 @@ export function SettingsPanel({
                 setAliasError(null)
               }}
               maxLength={15}
-              className="w-full bg-transparent text-sm outline-none"
+              className="w-full bg-transparent text-base outline-none"
             />
             <button
               type="submit"
@@ -500,6 +515,23 @@ export function SettingsPanel({
           >
             <span>Reiniciar progreso</span>
             <RotateCcw size={16} />
+          </button>
+        )}
+
+        {/* Mismo mecanismo que la configuración de Intervalo
+            (profile-content.tsx): `useClerk().signOut()` hace el trabajo de
+            cerrar la sesión. Acá además hace falta volver a `/derivadas` como
+            invitado nuevo (`signOutAndReset`, arriba), así que no alcanza con
+            el `SignOutButton` de siempre. El invitado no tiene sesión de
+            Clerk que cerrar. */}
+        {!player?.is_guest && (
+          <button
+            type="button"
+            className={cn(rowCls, "border-[#E5484D]/50 text-[#E5484D]/80")}
+            onClick={() => void signOutAndReset()}
+          >
+            <span>Cerrar sesión</span>
+            <LogOut size={16} />
           </button>
         )}
       </div>
