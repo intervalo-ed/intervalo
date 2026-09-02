@@ -30,9 +30,14 @@ from universities import article_for
 
 from . import elo
 
-# Cuántas líneas devuelve el feed. Es un panel corto: más allá de esto nadie
-# scrollea, y lo viejo ya no dice qué está pasando.
+# Cuántas líneas trae el feed de arranque: lo que llena la primera pantalla con
+# margen para scrollear un poco antes de tener que pedir más.
 FEED_LIMIT = 40
+
+# Y cuánto se puede pedir de una sola vez. Es el techo de `limit`, no su valor:
+# el panel pide de a poco y para atrás (ver `before_id`), pero nada de eso puede
+# terminar en un `SELECT` sin freno si algún día alguien manda `limit=100000`.
+MAX_LIMIT = 100
 
 # Puestos ganados de una sola respuesta para que la escalada sea noticia.
 CLIMB_MIN = 5
@@ -147,17 +152,33 @@ def emit(
     return event
 
 
-def recent(db: Session, after_id: int = 0, limit: int = FEED_LIMIT) -> list[EventView]:
+def recent(
+    db: Session,
+    after_id: int = 0,
+    limit: int = FEED_LIMIT,
+    before_id: int = 0,
+) -> list[EventView]:
     """Los últimos eventos, del más nuevo al más viejo.
 
     Con `after_id` devuelve solo lo que el cliente todavía no vio, que es lo que
     hace que el sondeo cueste casi nada cuando no pasa nada.
+
+    Con `before_id` mira para el otro lado: lo que hay MÁS VIEJO que esa línea.
+    Es lo que pide el panel al llegar arriba de todo scrolleando. Los dos son
+    excluyentes —son dos direcciones, no dos filtros— y el llamador elige uno.
+
+    El tope se acota contra `MAX_LIMIT` y no contra `FEED_LIMIT`: aquel es el
+    tamaño de la primera pantalla, este es lo máximo que se puede pedir de una.
+    Mientras fueron el mismo número, pedir más de cuarenta era imposible aunque
+    el parámetro existiera.
     """
     now = _now()
     q = db.query(GameEvent)
-    if after_id:
+    if before_id:
+        q = q.filter(GameEvent.id < before_id)
+    elif after_id:
         q = q.filter(GameEvent.id > after_id)
-    rows = q.order_by(GameEvent.id.desc()).limit(min(limit, FEED_LIMIT)).all()
+    rows = q.order_by(GameEvent.id.desc()).limit(max(1, min(limit, MAX_LIMIT))).all()
     return [
         EventView(
             id=r.id,

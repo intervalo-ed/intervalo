@@ -17,10 +17,14 @@ export function InstallSheet({
   platform,
   open,
   onOpenChange,
+  descripcion,
 }: {
   platform: Platform
   open: boolean
   onOpenChange: (open: boolean) => void
+  // Para qué sirve instalar, cuando quien abre la hoja lo dice distinto. Ver
+  // install-hint-pane.tsx.
+  descripcion?: React.ReactNode
 }) {
   return (
     <DialogPrimitive.Root open={open} onOpenChange={onOpenChange}>
@@ -39,7 +43,7 @@ export function InstallSheet({
               dice qué pasa si lo tocás. Escape y el gesto de atrás siguen
               cerrando, que es lo que hace el Dialog de base-ui por su cuenta. */}
           <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col overflow-y-auto px-5 pt-[env(safe-area-inset-top)]">
-            <InstallHintPane platformOverride={platform} />
+            <InstallHintPane platformOverride={platform} descripcion={descripcion} />
           </div>
 
           {/* Mismas variables que el CTA del summary y del onboarding: el botón

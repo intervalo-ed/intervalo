@@ -29,7 +29,12 @@
 import { useEffect, useRef, useState } from "react"
 import { cn } from "@/lib/utils"
 import { useSfx } from "@/lib/audio/useSfx"
-import { shareUrl, VERDE, VERDE_TINTA_OSCURA, WhatsappGlyph } from "./cafecito-cta"
+import {
+  abrirWhatsapp,
+  ReclutarButton,
+  VERDE,
+  WhatsappGlyph,
+} from "./cafecito-cta"
 import { KeyCap } from "./exercise-card"
 import { useCta } from "./game-telemetry"
 import { ListaDeReclutas } from "./reclutas-list"
@@ -133,7 +138,7 @@ export function ReclutasPanel({
       placement: trigger,
       props: { reclutas: reclutas.data?.entries.length ?? 0 },
     })
-    window.open(shareUrl(player?.alias), "_blank", "noopener,noreferrer")
+    abrirWhatsapp(player?.alias)
   }
 
   // Los atajos, con el mismo pestillo que la diapo del cafecito: el volteo dura
@@ -260,23 +265,17 @@ export function ReclutasPanel({
         )}
 
         <Salida slot={slotAccion}>
-          <button
-            type="button"
-            onClick={reclutar}
+          <ReclutarButton
+            alias={player?.alias}
+            placement={trigger}
+            telemetryProps={{ reclutas: reclutas.data?.entries.length ?? 0 }}
             className={
               slotAccion
                 ? CLASE_ACCION_EN_EL_PIE
-                : "mt-5 flex w-full items-center justify-center gap-2 rounded-md px-4 py-3 text-base font-semibold transition-opacity hover:opacity-90"
+                : "mt-5 w-full rounded-md px-4 py-3"
             }
-            style={{ backgroundColor: VERDE, color: VERDE_TINTA_OSCURA }}
-          >
-            {/* El logo va DESPUÉS de la palabra, como la taza del cafecito: el
-                botón se lee "reclutar" y el ícono cierra la frase diciendo por
-                dónde, en vez de anunciarla. */}
-            Reclutar
-            <WhatsappGlyph size={18} />
-            {keyboard && <KeyCap>{teclas.shiftEnter}</KeyCap>}
-          </button>
+            keycap={keyboard ? <KeyCap>{teclas.shiftEnter}</KeyCap> : null}
+          />
         </Salida>
 
         <Salida slot={slotSalida}>

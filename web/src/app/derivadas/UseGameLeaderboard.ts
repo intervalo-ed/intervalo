@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useCallback, useEffect, useRef } from "react"
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { unwrap } from "@/lib/api/client"
 import { ALL_SCOPE } from "@/components/leaderboard-chrome"
@@ -254,10 +254,17 @@ export function useCafecitoIntent() {
 // para leer, no para reaccionar, y a 8 s ya se siente vivo.
 const EVENTS_INTERVAL_MS = 8_000
 
-// Cuántas líneas se guardan de cada cosa. El servidor manda hasta 40 de cada una
-// y acá se conserva la misma cantidad: lo que se cae por abajo es historia que
-// ya nadie va a scrollear.
-const VENTANA = 40
+// El tamaño de una página, tanto la primera como cada una de las que se piden
+// scrolleando hacia arriba.
+const PAGINA = 40
+
+// Cuánto historial se guarda en total, de cada lista. Ya no son las cuarenta
+// líneas de antes: el panel ahora carga más al llegar arriba de todo, así que
+// este número dejó de ser "lo que se muestra" y pasó a ser el techo de lo que se
+// puede llegar a acumular scrolleando. Diez páginas es más historia de la que
+// existe casi siempre —las novedades se podan a los 7 días— y a la vez un freno
+// para que una pestaña abierta toda la tarde no crezca sin fin.
+const TOPE_HISTORIAL = 400
 
 // Cada cuántos sondeos se vuelve a pedir todo desde cero.
 //
@@ -291,6 +298,14 @@ type Historial = {
   // (tablas distintas), así que son dos cursores.
   cursorEvents: number
   cursorMessages: number
+  // Y el más BAJO, que es por dónde sigue pidiendo el scroll hacia arriba.
+  oldestEvents: number
+  oldestMessages: number
+  // Ya se llegó al principio de esa lista: no hay más atrás y no se pide más.
+  // Se sabe sin preguntárselo al servidor —una página más corta que la pedida ya
+  // lo dice— así que no hay un campo en la respuesta que pueda contradecirlo.
+  finEvents: boolean
+  finMessages: boolean
 }
 
 /** Pega lo nuevo arriba de lo viejo y recorta.
@@ -299,14 +314,40 @@ type Historial = {
  * guardan: el feed las da vuelta al dibujar. */
 function fundir(previo: Historial | undefined, nuevo: Historial): Historial {
   const unir = <T extends { id: number }>(nuevos: T[], viejos: T[]) =>
-    nuevos.length === 0 ? viejos : [...nuevos, ...viejos].slice(0, VENTANA)
+    nuevos.length === 0 ? viejos : [...nuevos, ...viejos].slice(0, TOPE_HISTORIAL)
   return {
     events: unir(nuevo.events, previo?.events ?? []),
     messages: unir(nuevo.messages, previo?.messages ?? []),
     cursorEvents: Math.max(previo?.cursorEvents ?? 0, nuevo.cursorEvents),
     cursorMessages: Math.max(previo?.cursorMessages ?? 0, nuevo.cursorMessages),
+    // El sondeo trae lo NUEVO: el fondo de la historia acumulada no se mueve.
+    oldestEvents: previo?.oldestEvents ?? nuevo.oldestEvents,
+    oldestMessages: previo?.oldestMessages ?? nuevo.oldestMessages,
+    finEvents: previo?.finEvents ?? nuevo.finEvents,
+    finMessages: previo?.finMessages ?? nuevo.finMessages,
     chatEnabled: nuevo.chatEnabled,
   }
+}
+
+/** La resincronización periódica, sin tirar lo que se cargó scrolleando.
+ *
+ * Cada diez vueltas el sondeo vuelve a pedir todo desde cero para que un mensaje
+ * bajado a mano (`hidden`) desaparezca de las pantallas que ya lo tenían. Eso
+ * antes reemplazaba la lista entera, lo que ahora significaría borrar de un
+ * plumazo las páginas viejas que la persona cargó subiendo — y verlas
+ * desaparecer debajo del dedo.
+ *
+ * Así que la página fresca pisa la CABEZA y la cola sobrevive: se conserva todo
+ * lo que sea más viejo que el último id que trajo el servidor, que es
+ * exactamente lo que el pedido fresco no cubrió y por lo tanto no puede
+ * contradecir. */
+function refrescarCabeza<T extends { id: number }>(viejos: T[], frescos: T[]): T[] {
+  if (frescos.length === 0) return viejos
+  const masViejoFresco = frescos[frescos.length - 1].id
+  return [...frescos, ...viejos.filter((v) => v.id < masViejoFresco)].slice(
+    0,
+    TOPE_HISTORIAL,
+  )
 }
 
 // Historial del juego: las novedades del sistema y los mensajes del chat, en el
@@ -337,27 +378,47 @@ export function useGameEvents(enabled: boolean) {
         await api.GET("/game/derivemos/events", {
           params: {
             query: desdeCero
-              ? {}
+              ? { limit: PAGINA }
               : {
                   after_id: previo?.cursorEvents ?? 0,
                   after_msg_id: previo?.cursorMessages ?? 0,
+                  limit: PAGINA,
                 },
           },
         }),
       )
       // Como vienen ordenadas de la más nueva a la más vieja, el cursor es el
-      // primer id de cada lista.
+      // primer id de cada lista y el fondo, el último.
       const ahora = Date.now()
       const sellar = <T extends { seconds_ago: number }>(xs: T[]) =>
         xs.map((x) => ({ ...x, at: ahora - x.seconds_ago * 1000 }))
+      const eventos = sellar(r.events)
+      const mensajes = sellar(r.messages)
       const recibido: Historial = {
-        events: sellar(r.events),
-        messages: sellar(r.messages),
+        events: eventos,
+        messages: mensajes,
         cursorEvents: r.events[0]?.id ?? 0,
         cursorMessages: r.messages[0]?.id ?? 0,
+        oldestEvents: r.events[r.events.length - 1]?.id ?? 0,
+        oldestMessages: r.messages[r.messages.length - 1]?.id ?? 0,
+        // Una página incompleta significa que no hay nada más atrás.
+        finEvents: r.events.length < PAGINA,
+        finMessages: r.messages.length < PAGINA,
         chatEnabled: r.chat_enabled,
       }
-      return desdeCero ? recibido : fundir(previo, recibido)
+      if (!desdeCero) return fundir(previo, recibido)
+      if (!previo) return recibido
+      return {
+        ...recibido,
+        events: refrescarCabeza(previo.events, eventos),
+        messages: refrescarCabeza(previo.messages, mensajes),
+        // El fondo lo sigue marcando lo que se cargó scrolleando, que la
+        // resincronización no toca.
+        oldestEvents: previo.oldestEvents || recibido.oldestEvents,
+        oldestMessages: previo.oldestMessages || recibido.oldestMessages,
+        finEvents: previo.finEvents || recibido.finEvents,
+        finMessages: previo.finMessages || recibido.finMessages,
+      }
     },
     enabled,
     refetchInterval: EVENTS_INTERVAL_MS,
@@ -365,6 +426,89 @@ export function useGameEvents(enabled: boolean) {
     refetchIntervalInBackground: false,
     ...SIN_SEÑAL,
   })
+}
+
+/** Trae una página MÁS VIEJA del historial y la pega al fondo.
+ *
+ * Es lo que dispara el panel al llegar arriba de todo scrolleando. Va aparte del
+ * sondeo y no como otra query porque no es otro recurso: es la MISMA lista, más
+ * larga. Con `useInfiniteQuery` habría dos cachés de lo mismo —el sondeo que
+ * acumula por arriba y las páginas por abajo— y un mensaje nuevo tendría que
+ * entrar en los dos.
+ *
+ * Devuelve solo la función. Si queda algo por traer lo dice el propio historial
+ * (`finEvents`/`finMessages`, ver `hayMasHistorial`), que el panel ya tiene en
+ * la mano: no hace falta una suscripción más para leer lo mismo.
+ *
+ * El pestillo `enVuelo` no es defensivo: el scroll dispara muchas veces por
+ * gesto, y sin él una sola pasada por el techo pediría cinco páginas. */
+export function useHistorialViejo() {
+  const api = useGameApi()
+  const client = useQueryClient()
+  const enVuelo = useRef(false)
+
+  return useCallback(async () => {
+    if (enVuelo.current) return
+    const actual = client.getQueryData<Historial>(gameKeys.events)
+    if (!actual || (actual.finEvents && actual.finMessages)) return
+    enVuelo.current = true
+    try {
+      const r = unwrap(
+        await api.GET("/game/derivemos/events", {
+          params: {
+            query: {
+              // `1` y no `0` para la lista que ya tocó fondo: con cero, el
+              // servidor entiende que no hay cursor "before" y cae en el modo
+              // sondeo, o sea que devolvería las MÁS NUEVAS. Nada tiene id
+              // menor que 1, así que ese valor pide exactamente nada.
+              before_id: actual.finEvents ? 1 : actual.oldestEvents || 1,
+              before_msg_id: actual.finMessages ? 1 : actual.oldestMessages || 1,
+              limit: PAGINA,
+            },
+          },
+        }),
+      )
+      const ahora = Date.now()
+      const sellar = <T extends { seconds_ago: number }>(xs: T[]) =>
+        xs.map((x) => ({ ...x, at: ahora - x.seconds_ago * 1000 }))
+      client.setQueryData<Historial>(gameKeys.events, (prev) =>
+        prev
+          ? {
+              ...prev,
+              events: [...prev.events, ...sellar(r.events)].slice(0, TOPE_HISTORIAL),
+              messages: [...prev.messages, ...sellar(r.messages)].slice(
+                0,
+                TOPE_HISTORIAL,
+              ),
+              oldestEvents:
+                r.events[r.events.length - 1]?.id ?? prev.oldestEvents,
+              oldestMessages:
+                r.messages[r.messages.length - 1]?.id ?? prev.oldestMessages,
+              // También se da por terminado al llegar al tope: ahí el `slice`
+              // de arriba ya está descartando lo que llega, así que seguir
+              // pidiendo sería pedir para tirar.
+              finEvents:
+                prev.finEvents ||
+                r.events.length < PAGINA ||
+                prev.events.length + r.events.length >= TOPE_HISTORIAL,
+              finMessages:
+                prev.finMessages ||
+                r.messages.length < PAGINA ||
+                prev.messages.length + r.messages.length >= TOPE_HISTORIAL,
+            }
+          : prev,
+      )
+    } finally {
+      enVuelo.current = false
+    }
+  }, [api, client])
+}
+
+/** ¿Queda historia por traer? Falso solo cuando las DOS listas tocaron fondo. */
+export function hayMasHistorial(
+  data: { finEvents: boolean; finMessages: boolean } | undefined,
+): boolean {
+  return data ? !data.finEvents || !data.finMessages : false
 }
 
 /** Manda un mensaje al chat.
@@ -390,7 +534,7 @@ export function useSendMessage() {
               ...previo,
               messages: [{ ...mensaje, at: Date.now() }, ...previo.messages].slice(
                 0,
-                VENTANA,
+                TOPE_HISTORIAL,
               ),
               cursorMessages: Math.max(previo.cursorMessages, mensaje.id),
             },

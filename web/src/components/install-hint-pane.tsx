@@ -11,7 +11,13 @@ import { usePlatform, type Platform } from "@/lib/platform/detect"
 // El contenedor pone la salida; el pane es solo el contenido.
 export function InstallHintPane({
   platformOverride,
+  descripcion,
 }: {
+  // Para qué sirve instalar, cuando el contexto lo dice distinto. El minijuego
+  // de derivadas habla de practicar, no de repasos: es el mismo mecanismo pero
+  // no la misma palabra, y con un solo texto fijo una de las dos pantallas
+  // siempre iba a mentir un poco.
+  descripcion?: React.ReactNode
   // La smart bar ya detectó la plataforma antes de decidir si mostrarse, y
   // /dev/notify-pane la fuerza para poder mirar las variantes desde cualquier
   // navegador. Sin override se detecta sola.
@@ -30,14 +36,18 @@ export function InstallHintPane({
         transition={{ duration: 0.4, ease: "easeOut" }}
       >
         <p className="leading-relaxed text-foreground/85">
-          Agregá Intervalo a tu{" "}
-          {/* chart-5 y no primary: el mismo índigo pero más claro, que sobre el
-              fondo oscuro resalta bastante más. */}
-          <strong className="font-semibold text-chart-5">
-            pantalla de inicio
-          </strong>{" "}
-          para tener una mejor experiencia y poder establecer recordatorios para
-          tus repasos.
+          {descripcion ?? (
+            <>
+              Agregá Intervalo a tu{" "}
+              {/* chart-5 y no primary: el mismo índigo pero más claro, que sobre
+                  el fondo oscuro resalta bastante más. */}
+              <strong className="font-semibold text-chart-5">
+                pantalla de inicio
+              </strong>{" "}
+              para tener una mejor experiencia y poder establecer recordatorios
+              para tus repasos.
+            </>
+          )}
         </p>
 
         {/* `usePlatform` devuelve null hasta montar (detecta por userAgent, que

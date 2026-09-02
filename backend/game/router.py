@@ -1226,6 +1226,9 @@ def game_pulse(
 def game_events_feed(
     after_id: int = Query(default=0, ge=0),
     after_msg_id: int = Query(default=0, ge=0),
+    before_id: int = Query(default=0, ge=0),
+    before_msg_id: int = Query(default=0, ge=0),
+    limit: int = Query(default=0, ge=0, le=100),
     player: GamePlayer = Depends(get_current_player),
     db: Session = Depends(get_db),
 ):
@@ -1243,7 +1246,31 @@ def game_events_feed(
 
     Con los dos cursores devuelve únicamente lo nuevo, que es lo que hace que
     sondearlo cada pocos segundos no cueste nada.
+
+    Y con `before_id`/`before_msg_id` mira para el otro lado: lo que hay más
+    atrás de esa línea. Es lo que pide el panel al llegar arriba de todo
+    scrolleando, y es el modo OPUESTO al sondeo — cada lista usa su cursor
+    "before" si vino, y si no el "after". Que un mismo pedido pueda traer
+    novedades viejas y mensajes nuevos no es un accidente: el panel pagina las
+    dos listas juntas, pero puede tocar el fondo de una antes que el de la otra.
+
+    Sin un `has_more` en la respuesta a propósito: una página más corta que el
+    `limit` pedido YA significa "no hay más atrás", y el cliente lo sabe sin que
+    se lo digan. Un campo aparte sería un segundo lugar donde puede estar mal.
     """
+    n = limit or None
+    eventos = game_events.recent(
+        db,
+        after_id=after_id,
+        before_id=before_id,
+        **({"limit": n} if n else {}),
+    )
+    mensajes = game_chat.recent(
+        db,
+        after_id=after_msg_id,
+        before_id=before_msg_id,
+        **({"limit": n} if n else {}),
+    )
     return GameEventsResponse(
         events=[
             GameEventOut(
@@ -1265,7 +1292,7 @@ def game_events_feed(
                 ),
                 seconds_ago=e.seconds_ago,
             )
-            for e in game_events.recent(db, after_id=after_id)
+            for e in eventos
         ],
         messages=[
             GameMessageOut(
@@ -1277,7 +1304,7 @@ def game_events_feed(
                 is_mine=m.player_id == player.id,
                 seconds_ago=m.seconds_ago,
             )
-            for m in game_chat.recent(db, after_id=after_msg_id)
+            for m in mensajes
         ],
         chat_enabled=_chat_habilitado(),
     )

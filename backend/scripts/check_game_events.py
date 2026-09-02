@@ -288,6 +288,36 @@ check(
     "sin referred_by, el anuncio es el genérico",
 )
 
+print("12. paginado hacia atrás: `before_id` trae lo MÁS VIEJO, no lo más nuevo")
+# El panel del teléfono pide páginas viejas al llegar arriba de todo. El error
+# que hay que atrapar acá es el que se cometió escribiéndolo: si `before_id` cae
+# en la rama del sondeo, la respuesta son las líneas más NUEVAS y el scroll
+# empieza a repetir lo que ya estaba en pantalla, para siempre.
+todos = events.recent(db, limit=100)
+check(len(todos) >= 4, f"hay historia con la que probar ({len(todos)} eventos)")
+primera = events.recent(db, limit=2)
+segunda = events.recent(db, before_id=primera[-1].id, limit=2)
+check(
+    all(e.id < primera[-1].id for e in segunda),
+    "la segunda página está entera por debajo del cursor",
+)
+check(
+    not ({e.id for e in primera} & {e.id for e in segunda}),
+    "y no repite nada de la primera",
+)
+check(
+    [e.id for e in primera + segunda] == [e.id for e in todos[:4]],
+    "las dos páginas seguidas dicen lo mismo que pedir todo de una",
+)
+check(
+    events.recent(db, before_id=1) == [],
+    "con before_id=1 no hay nada: es el valor que manda el cliente para la lista que ya tocó fondo",
+)
+check(
+    len(events.recent(db, limit=events.MAX_LIMIT + 50)) <= events.MAX_LIMIT,
+    "el limit sigue acotado por MAX_LIMIT",
+)
+
 db.close()
 print()
 if FAILURES:

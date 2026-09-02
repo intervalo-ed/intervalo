@@ -29,7 +29,9 @@ import { levelColor } from "./game-colors"
 import { readEnviosRecientes, registrarEnvio } from "./game-storage"
 import { claseDeSalida } from "./slide-salida"
 import {
+  hayMasHistorial,
   useGameEvents,
+  useHistorialViejo,
   useSendMessage,
   type ConTiempo,
   type GameEvent,
@@ -52,9 +54,21 @@ const MAX_LINEAS = 6
 const VENTANA_MS = 60_000
 const MAX_POR_MINUTO = 3
 
-// Cuántas líneas se muestran. La ventana del historial son 40 de cada tipo, o
-// sea hasta 80 intercaladas: mostrarlas todas es scroll que nadie va a subir.
-const VISIBLES = 40
+// Sin tope de líneas visibles. Lo hubo —cuarenta, sobre las hasta ochenta que
+// traía el historial— con el argumento de que mostrarlas todas era scroll que
+// nadie iba a subir. Resultó al revés: el panel abría con un tercio de la caja
+// en blanco arriba y abajo, y el scroll no llevaba a ninguna parte, así que lo
+// que parecía es que no había pasado nada. Ahora se dibuja todo lo cargado y
+// subir pide más (ver `useHistorialViejo`), que es de donde salía el scroll que
+// nadie subía: no había nada arriba.
+//
+// El techo lo pone el historial (TOPE_HISTORIAL en UseGameLeaderboard.ts), que
+// es donde tiene que estar: es un límite de memoria, no de diseño.
+
+// A qué distancia del techo se pide la página siguiente. Un poco antes de
+// llegar, para que la carga alcance a resolverse mientras el dedo todavía se
+// mueve.
+const UMBRAL_ARRIBA_PX = 120
 
 // La tecla que abre el chat.
 //
@@ -354,10 +368,7 @@ export function ChatPanel({
       clave: `m${m.id}`,
       mensaje: m,
     }))
-    return [...eventos, ...mensajes]
-      .sort((a, b) => b.at - a.at)
-      .slice(0, VISIBLES)
-      .reverse()
+    return [...eventos, ...mensajes].sort((a, b) => b.at - a.at).reverse()
   }, [data])
 
   // El enfriamiento, en segundos que faltan — cero salvo que ya se hayan
@@ -402,9 +413,25 @@ export function ChatPanel({
   // ¿Está pegado al fondo? Mismo mecanismo que el feed y por lo mismo: seguir lo
   // último sin arrebatarle el scroll a quien está leyendo hacia arriba.
   const pegadoRef = useRef(true)
+
+  // Cargar más al llegar arriba. Lo que se pide es historia MÁS VIEJA, que entra
+  // por el techo de una lista anclada abajo: sin compensar, el contenido nuevo
+  // empuja todo hacia abajo y lo que se estaba leyendo se va de la pantalla. Se
+  // anota el alto de antes y después del pintado se le suma la diferencia al
+  // scroll, así el renglón que estaba bajo el dedo queda donde estaba.
+  const cargarViejas = useHistorialViejo()
+  const hayMas = hayMasHistorial(data)
+  const altoAntesRef = useRef<number | null>(null)
   useLayoutEffect(() => {
     const el = scrollRef.current
-    if (!el || !pegadoRef.current) return
+    if (!el) return
+    const antes = altoAntesRef.current
+    if (antes !== null && el.scrollHeight !== antes) {
+      altoAntesRef.current = null
+      el.scrollTop += el.scrollHeight - antes
+      return
+    }
+    if (!pegadoRef.current) return
     el.scrollTop = el.scrollHeight
   })
 
@@ -487,6 +514,12 @@ export function ChatPanel({
           const el = e.currentTarget
           pegadoRef.current =
             el.scrollHeight - el.scrollTop - el.clientHeight < MARGEN_PEGADO_PX
+          // El pestillo contra pedidos repetidos vive adentro de
+          // `cargarViejas`: el scroll dispara muchas veces por gesto.
+          if (hayMas && el.scrollTop < UMBRAL_ARRIBA_PX) {
+            altoAntesRef.current = el.scrollHeight
+            void cargarViejas()
+          }
         }}
         className="no-scrollbar flex min-h-0 flex-1 flex-col overflow-y-auto px-0.5 py-1"
       >

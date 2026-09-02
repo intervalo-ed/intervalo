@@ -28,6 +28,25 @@ const TITULO = "Intervalo"
 export const metadata: Metadata = {
   title: TITULO,
   description: DESCRIPCION,
+  // Manifest PROPIO del minijuego, que pisa al de la app para esta ruta.
+  //
+  // El de la raíz (app/manifest.ts) tiene `start_url: "/"`, así que quien
+  // agregaba el juego a su pantalla de inicio se quedaba con un ícono que abría
+  // Intervalo: instalaba una cosa y le quedaba otra. Este arranca en
+  // `/derivadas`.
+  //
+  // Es un archivo estático en `public/` y no otro `manifest.ts`: la convención
+  // de archivo de Next solo vale en la raíz de `app`, un manifest por ruta se
+  // enlaza con este campo.
+  //
+  // Sin `scope`: el default lo deriva de `start_url` sacándole el último
+  // segmento, o sea "/", que es lo que ya había. Acotarlo a "/derivadas" haría
+  // que cualquier link fuera del juego saliera del contenedor instalado, y no
+  // hay motivo para estrenar ese comportamiento acá.
+  //
+  // El `id` distinto es lo que hace que el navegador las trate como dos apps y
+  // no pise una instalación con la otra.
+  manifest: "/derivadas.webmanifest",
   openGraph: {
     type: "website",
     url: "https://www.intervalo.xyz/derivadas",

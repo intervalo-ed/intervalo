@@ -179,7 +179,19 @@ const DYNAMIC: Record<string, Key> = {
   pow: { tex: `${BOX}^{${BOX}}`, insert: "#@^{#?}" },
   sq: { tex: `${BOX}^{2}`, insert: "#@^{2}" },
   sqrt: { tex: `\\sqrt{${BOX}}`, insert: "\\sqrt{#?}" },
-  frac: { tex: `\\frac{${BOX}}{${BOX}}`, insert: "\\frac{#?}{#?}" },
+  // `#@` y no `#?` en el numerador: es el token de argumento implícito de
+  // MathLive —"comete lo que está justo antes del cursor"— y es lo que hace que
+  // escribir `1` y tocar esta tecla dé `1/□` con el cursor abajo, en vez de
+  // dejar el 1 al costado de una fracción vacía. `pow` y `sq` ya lo usaban;
+  // esta era la única que se había quedado con dos huecos.
+  //
+  // De paso, la tecla y la barra `/` física pasan a hacer lo mismo: aquella ya
+  // se comportaba así (ver el consejo de escritorio en math-input.tsx).
+  //
+  // `sqrt` NO lleva `#@` a propósito: `\sqrt{#@}` no deja ningún hueco, así que
+  // el cursor terminaría fuera del radical en vez de adentro, que es al revés
+  // de lo que se quiere en el caso común de querer escribir una raíz.
+  frac: { tex: `\\frac{${BOX}}{${BOX}}`, insert: "\\frac{#@}{#?}" },
   e: { tex: "e", insert: "e" },
   expx: { tex: `e^{${BOX}}`, insert: "e^{#?}" },
   ln: {

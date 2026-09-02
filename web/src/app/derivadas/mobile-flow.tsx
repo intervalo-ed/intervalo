@@ -31,9 +31,10 @@ import { useSfx } from "@/lib/audio/useSfx"
 import {
   CafecitoButton,
   ShareButton,
+  elegirTriggerDeCafecito,
   markCafecitoShown,
+  ReclutarButton,
   shouldShowCafecito,
-  CAFECITO_EVERY,
   VERDE,
   type CafecitoTrigger,
 } from "./cafecito-cta"
@@ -53,7 +54,11 @@ import { CafecitoPanel, CAFE } from "./cafecito-panel"
 import { ReclutasPanel, type ReclutasTrigger } from "./reclutas-panel"
 import { ConSalidaAbajo } from "./slide-salida"
 import { marcarReclutasMostrado, tocaReclutar } from "./reclutas-trigger"
-import { HITO_PERFIL, HITO_REGISTRO } from "./hitos-del-juego"
+import {
+  HITO_PERFIL,
+  marcarRegistroMostrado,
+  tocaRegistro,
+} from "./hitos-del-juego"
 import { GameIntroLogo, type GameIntro } from "./game-intro"
 import { INTRO_CLOSE, IntroParagraphs } from "./intro-panel"
 import { DerivativesTable, TableButton } from "./derivatives-table"
@@ -66,8 +71,8 @@ import {
   type Direccion,
 } from "./slide-horizontal"
 import { ChatButton, ChatPanel } from "./chat-panel"
-import { EventFeed } from "./event-feed"
 import { GameRanking } from "./game-ranking"
+import type { RankingView } from "@/components/leaderboard-chrome"
 import { AMBAR } from "./game-colors"
 import { HINT_MOBILE, MathInput, type MathInputHandle } from "./math-input"
 import { MathKeyboard } from "./math-keyboard"
@@ -174,6 +179,18 @@ function fondoDeSlide(kind: Slide["kind"]): string {
 // Es la perilla de esta feature: subirlo la hace más rara, bajarlo más
 // frecuente.
 const NOVEDADES_MINIMAS = 3
+
+// El pase de la slide del @, más lento que el del resto del juego.
+//
+// Es la única pantalla que entra con la persona todavía sin haber tocado nada
+// del juego: viene de la intro, no de responder. Con los 0,28 s de siempre —que
+// están calibrados para el rebote ejercicio/ranking, donde lo que importa es no
+// hacer esperar— aparecía de golpe, y lo primero que pide el juego (elegir cómo
+// te van a ver los demás) merece llegar caminando.
+//
+// Solo esta: subirle el tiempo a `SLIDE_TRANSITION` volvería lento todo el
+// rebote, que es lo que se hace mil veces por partida.
+const PASE_DEL_ALIAS = { duration: 0.45, ease: "easeInOut" } as const
 
 // El "gancho" post-respuesta que queda pendiente de mostrar tras el Continuar.
 type PendingAfter = { answer: GameAnswer } | null
@@ -289,7 +306,11 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
   // Contador de respuestas, no de aciertos: es lo que hace que el latido y el
   // sacudón vuelvan a correr cuando dos respuestas seguidas comparten tono.
   const [answerSeq, setAnswerSeq] = useState(0)
-  const [solvedCount, setSolvedCount] = useState(0)
+  // Sin contador de correctas de la pestaña. Lo hubo, y era una trampa: volvía a
+  // cero en cada carga de página, así que todo lo que colgaba de él —los hitos
+  // de perfil y registro, y el `solved` de la telemetría— medía "cuántas llevás
+  // sin salir del juego" creyendo medir "cuántas llevás". Todo eso usa ahora las
+  // acumuladas que manda el servidor (`exercises_correct`). Ver hitos-del-juego.ts.
   const [climbFrom, setClimbFrom] = useState<number | null>(null)
   const inputRef = useRef<MathInputHandle | null>(null)
   // Ref de CALLBACK que IGNORA el null, y no el objeto pelado. Con el volteo
@@ -532,34 +553,18 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
         return
       }
       // El disparador del cafecito se calcula ACÁ ARRIBA, antes que los hitos de
-      // perfil y registro, porque uno de ellos depende de él.
-      //
-      // Con las correctas ACUMULADAS del jugador (las manda el servidor) y no
-      // con las de esta pestaña: `solvedCount` vuelve a cero en cada recarga, así
-      // que el hito de veinte pedía veinte aciertos sin refrescar, y el cooldown
-      // —que sí se guarda— se comparaba contra ese contador de sesión y quedaba
-      // envenenado después de la primera aparición.
+      // perfil y registro, porque uno de ellos depende de él. La regla vive en
+      // cafecito-cta.tsx, compartida con escritorio.
       const rankBefore = a.rank_before ?? null
       const rankAfter = a.rank_after ?? null
       const delta =
         rankBefore !== null && rankAfter !== null ? rankBefore - rankAfter : 0
       const totalCorrectas = a.exercises_correct
-      // Piso de CAFECITO_EVERY para los tres tipos, no solo para "milestone"
-      // (que ya lo tenía gratis, por el módulo): "récord" y "big_climb" no
-      // tenían ninguno, y un invitado nuevo bate su propio récord —no tiene
-      // casi historia— o pasa a varias cuentas en cero —el ranking está lleno
-      // de ellas— en casi cualquiera de sus primeras derivadas. Antes de esta
-      // cantidad ninguno de los tres cuenta como para interrumpir.
-      const trigger: CafecitoTrigger | null =
-        totalCorrectas < CAFECITO_EVERY
-          ? null
-          : a.is_record
-            ? "record"
-            : delta >= 3
-              ? "big_climb"
-              : totalCorrectas % CAFECITO_EVERY === 0
-                ? "milestone"
-                : null
+      const trigger = elegirTriggerDeCafecito({
+        isRecord: a.is_record,
+        delta,
+        totalCorrectas,
+      })
       const tocaCafecito =
         consumed !== "cafecito" &&
         trigger !== null &&
@@ -599,19 +604,24 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
         // el motivo que tenga el café para querer salir ese mismo acierto
         // (mientras tanto, el café se queda callado sin gastar su cooldown,
         // ver más abajo).
-        if (faltaPreguntarUniversidad && solvedCount >= HITO_PERFIL) {
+        //
+        // Los dos van con `totalCorrectas` —las acumuladas que manda el
+        // servidor— y no con `solvedCount`, que vuelve a cero en cada carga de
+        // página. Ver hitos-del-juego.ts.
+        if (faltaPreguntarUniversidad && totalCorrectas >= HITO_PERFIL) {
           askedProfileRef.current = true
           posthog.capture("game_register_slide_shown", { slide: "career" })
           goTo({ kind: "profile" })
           return
         }
         if (
-          solvedCount >= HITO_REGISTRO &&
+          tocaRegistro(totalCorrectas) &&
           player !== null &&
           player.is_guest &&
           !askedRegisterRef.current
         ) {
           askedRegisterRef.current = true
+          marcarRegistroMostrado(totalCorrectas)
           posthog.capture("game_register_slide_shown", { slide: "register" })
           goTo({ kind: "register" })
           return
@@ -637,7 +647,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
       pendingRef.current = null
       loadNext()
     },
-    [goTo, loadNext, solvedCount, player, releaseXp],
+    [goTo, loadNext, player, releaseXp],
   )
 
   // Deshace el adelanto de racha/intentos si el servidor termina en
@@ -763,7 +773,11 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
             // evento, así que el corte existía en escritorio y no acá — justo
             // en la plataforma donde la tabla se abre con un botón.
             peeked: peekedRef.current,
-            solved: solvedCount,
+            // Las acumuladas del servidor, que vienen en esta misma respuesta.
+            // `solvedCount` es de la pestaña y vuelve a cero al recargar, así
+            // que en los datos aparecían respuestas con `solved` más bajo que el
+            // anterior de la misma persona.
+            solved: data.exercises_correct,
             combo: data.combo,
             xp: data.xp_awarded,
             multiplier: data.xp_multiplier,
@@ -801,7 +815,6 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
             // siguiente devuelve uno nuevo. Alcanza y sobra con lo que tarda la
             // slide del ranking.
             adelantar()
-            setSolvedCount((n) => n + 1)
             pendingRef.current = { answer: data }
             // Modo `espera` porque el número que tiene que subir está en la
             // pantalla siguiente: la XP ya existe, pero contarla acá sería
@@ -864,7 +877,6 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
     exercise,
     answerMutation,
     sfx,
-    solvedCount,
     boost,
     fireXpProvisional,
     reconcileXp,
@@ -975,7 +987,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
     posthog.capture("game_skip", {
       tier: exercise.tier,
       stars: exercise.difficulty_stars,
-      solved: solvedCount,
+      solved: player?.exercises_correct ?? 0,
       exercise_id: exercise.exercise_id,
     })
     // Determinístico y sin desacuerdo posible salvo el 409 de abajo:
@@ -1039,7 +1051,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
     closed,
     skipMutation,
     answerMutation.isPending,
-    solvedCount,
+    player?.exercises_correct,
     queryClient,
     revertirRacha,
     loadNext,
@@ -1088,7 +1100,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
           initial="enter"
           animate="center"
           exit="exit"
-          transition={SLIDE_TRANSITION}
+          transition={slide.kind === "username" ? PASE_DEL_ALIAS : SLIDE_TRANSITION}
           // `min-w-0` no es de adorno: como ítem de grilla, el mínimo por
           // defecto es su CONTENIDO, así que algo más ancho que la pantalla
           // —la pastilla del marcador con un Elo de cuatro cifras, por
@@ -1442,6 +1454,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
               counting={counting}
               xpColor={xpColor && (boost?.multiplier ?? 1) > 1 ? AMBAR : xpColor}
               myUniversity={player?.university ?? null}
+              alias={player?.alias ?? null}
               enabled={player !== null}
               onRelease={releaseXp}
               onChat={() => {
@@ -1453,7 +1466,10 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
               continueDisabled={next.isPending || esperandoAdelanto}
               onCafecito={() => {
                 sfx.select()
-                goTo({ kind: "cafecito", trigger: "pedido", correctToday: 0 })
+                // Con `back`, igual que reclutas: la diapo que abre la persona
+                // interrumpe algo y al salir hay que devolvérselo. Sin esto, el
+                // café abierto desde el ranking volvía al ejercicio.
+                goTo({ kind: "cafecito", trigger: "pedido", correctToday: 0, back: slide })
               }}
               onReclutar={() => {
                 sfx.select()
@@ -1564,17 +1580,27 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                 sinLeerChat={sinVerChat}
                 onCafecito={() => {
                   sfx.select()
-                  goTo({ kind: "cafecito", trigger: "pedido", correctToday: 0 })
+                  goTo({ kind: "cafecito", trigger: "pedido", correctToday: 0, back: slide })
                 }}
                 onReclutar={() => {
                   sfx.select()
                   goTo({ kind: "reclutas", trigger: "pedido", back: slide })
                 }}
               />
-              {/* El MISMO historial que en escritorio. Allá vive apretado abajo
-                  del botón; acá tiene la pantalla entera, que es lo que en el
-                  teléfono le faltaba para poder leerse. */}
-              <EventFeed enabled paginado className="min-h-0 flex-1" />
+              {/* El chat entero, no solo las novedades.
+
+                  Esta pantalla mostraba `EventFeed`, que dibuja doce líneas
+                  centradas: abría con un tercio de la caja en blanco arriba y
+                  otro abajo, y no había forma de que fuera otra cosa. Y al lado
+                  vivía el chat —otra pantalla, con la MISMA lista de novedades
+                  más los mensajes— así que el juego tenía dos pantallas casi
+                  iguales y la peor de las dos era la que salía sola.
+
+                  Ahora es una: la que sale sola es el chat, anclado abajo como
+                  un chat, y subiendo trae más historia. `EventFeed` sigue en
+                  escritorio, que es donde tiene sentido — una franja al costado
+                  del juego, no una pantalla. */}
+              <ChatPanel enabled={player !== null} className="min-h-0 flex-1" />
               <Button
                 size="lg"
                 className={ctaCls}
@@ -1583,7 +1609,12 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   // Leídas: la próxima vez solo frenan las que pasen de acá en
                   // más. Se marca al SALIR y no al entrar por si alguien cierra
                   // la pestaña con la pantalla abierta.
+                  //
+                  // Los mensajes también: la pantalla ahora los muestra, así que
+                  // dejarlos sin marcar haría que el botón del chat siguiera con
+                  // su punto de "hay algo sin leer" apenas salido de leerlo.
                   if (ultimoId !== null) setVisto(ultimoId)
+                  if (ultimoMensajeId !== null) setVistoChat(ultimoMensajeId)
                   advanceAfterAnswer("novedades")
                 }}
               >
@@ -1608,7 +1639,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                 onChat={() => {}}
                 onCafecito={() => {
                   sfx.select()
-                  goTo({ kind: "cafecito", trigger: "pedido", correctToday: 0 })
+                  goTo({ kind: "cafecito", trigger: "pedido", correctToday: 0, back: slide })
                 }}
                 onReclutar={() => {
                   sfx.select()
@@ -1671,7 +1702,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                     trigger={slide.trigger}
                     correctToday={slide.correctToday}
                     university={player?.university ?? null}
-                    solved={solvedCount}
+                    solved={player?.exercises_correct ?? 0}
                     slotSalida={salida}
                     slotAccion={accion}
                     onPickUniversity={() =>
@@ -1741,6 +1772,7 @@ function RankingSlide({
   counting,
   xpColor,
   myUniversity,
+  alias,
   enabled,
   onRelease,
   onChat,
@@ -1758,6 +1790,7 @@ function RankingSlide({
   counting: boolean
   xpColor: string | null
   myUniversity: string | null
+  alias: string | null
   enabled: boolean
   onRelease: () => void
   onChat: () => void
@@ -1780,6 +1813,10 @@ function RankingSlide({
   useEffect(() => {
     releaseRef.current()
   }, [answer])
+
+  // Qué está mostrando el ranking. Lo dice él (`onViewChange`), porque el
+  // selector de vista vive adentro suyo.
+  const [vista, setVista] = useState<RankingView>("individual")
 
   return (
     <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col gap-3 px-4 pb-[var(--cta-pb)] pt-3">
@@ -1805,20 +1842,46 @@ function RankingSlide({
         counting={counting}
         xpColor={xpColor}
         myUniversity={myUniversity}
+        onViewChange={setVista}
         className="min-h-0 flex-1"
       />
       {/* Sin historial de novedades debajo del Continuar: en el teléfono era una
           caja de dos renglones peleándole el alto al ranking y quedando abajo
           del botón, o sea después del final de la pantalla. El historial vive en
           escritorio (desktop-layout.tsx), donde hay una columna que le sobra. */}
-      <Button
-        size="lg"
-        className={ctaCls}
-        disabled={continueDisabled}
-        onClick={onContinue}
-      >
-        Continuar
-      </Button>
+      {/* Mirando "Reclutas", lo que el pie tiene que ofrecer es reclutar: la
+          lista de arriba son las personas que trajiste y lo que te dieron, o los
+          ejemplos de lo que darían. Un "Continuar" blanco ahí es la única
+          pantalla del juego que muestra una promesa y abajo pone la puerta.
+          Seguir sigue estando, al lado y en secundario, con la misma geometría
+          que Revisar/Saltear en el ejercicio. */}
+      {vista === "recruits" ? (
+        <div className="flex items-stretch gap-2">
+          <ReclutarButton
+            alias={alias}
+            placement="ranking_reclutas"
+            className="h-[var(--cta-h)] flex-1 rounded-md"
+          />
+          <Button
+            size="lg"
+            variant="outline"
+            className="h-[var(--cta-h)] rounded-md bg-background px-5"
+            disabled={continueDisabled}
+            onClick={onContinue}
+          >
+            Seguir
+          </Button>
+        </div>
+      ) : (
+        <Button
+          size="lg"
+          className={ctaCls}
+          disabled={continueDisabled}
+          onClick={onContinue}
+        >
+          Continuar
+        </Button>
+      )}
     </div>
   )
 }

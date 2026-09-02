@@ -3,6 +3,8 @@
 
 const TOKEN_KEY = "intervalo:game:token"
 const CAFECITO_LAST_KEY = "intervalo:game:cafecito-last"
+const CAFECITO_VISTOS_KEY = "intervalo:game:cafecito-vistos"
+const REGISTRO_OFRECIDO_KEY = "intervalo:game:registro-ofrecido"
 
 // El token del invitado se lee además como STORE REACTIVO (`subscribeGameToken`
 // + `getGameTokenSnapshot`, que consume `useGameToken` en UseGamePlayer.ts).
@@ -66,8 +68,8 @@ export function saveGameToken(token: string) {
 }
 
 /** Borra toda huella local de quién era este jugador: el token de invitado y
- *  los dos contadores que cuelgan de él (el cooldown de cafecito/reclutar y
- *  los envíos recientes del chat).
+ *  los contadores que cuelgan de él (el cooldown de cafecito/reclutar, cuántas
+ *  veces se mostró el café y los envíos recientes del chat).
  *
  *  La usa "Cerrar sesión" en `settings-panel.tsx`: cerrar la sesión de Clerk
  *  sin esto dejaría el token de invitado viejo guardado, y el próximo alta
@@ -78,6 +80,8 @@ export function clearGameIdentity() {
   try {
     window.localStorage.removeItem(TOKEN_KEY)
     window.localStorage.removeItem(CAFECITO_LAST_KEY)
+    window.localStorage.removeItem(CAFECITO_VISTOS_KEY)
+    window.localStorage.removeItem(REGISTRO_OFRECIDO_KEY)
     window.localStorage.removeItem(CHAT_SENDS_KEY)
   } catch {
     // Nada que limpiar si tampoco se pudo escribir.
@@ -110,6 +114,59 @@ export function readUltimoPedidoAt(): number {
 export function saveUltimoPedidoAt(solvedCount: number) {
   try {
     window.localStorage.setItem(CAFECITO_LAST_KEY, String(solvedCount))
+  } catch {}
+}
+
+// Cuántas veces le salió sola la diapo del café a esta persona.
+//
+// Es OTRA cosa que el cooldown de acá arriba, que cuenta derivadas: este cuenta
+// APARICIONES, y existe para una sola regla —la primera es siempre «¿Café?»—.
+// Ver `elegirTriggerDeCafecito` en cafecito-cta.tsx.
+//
+// Si no se puede leer, cero: peor caso, alguien ve la copy neutra una vez de
+// más, que es exactamente el lado hacia el que conviene errar.
+export function readCafecitosVistos(): number {
+  if (typeof window === "undefined") return 0
+  try {
+    const raw = window.localStorage.getItem(CAFECITO_VISTOS_KEY)
+    const n = raw === null ? 0 : Number(raw)
+    return Number.isFinite(n) && n >= 0 ? n : 0
+  } catch {
+    return 0
+  }
+}
+
+export function bumpCafecitosVistos() {
+  try {
+    window.localStorage.setItem(
+      CAFECITO_VISTOS_KEY,
+      String(readCafecitosVistos() + 1),
+    )
+  } catch {}
+}
+
+// En qué derivada se le ofreció registrarse por última vez, o -Infinity si
+// nunca.
+//
+// Guardado y no en memoria porque el hito pasó a contarse con las correctas
+// ACUMULADAS del jugador (las del servidor) en vez de con las de la pestaña. Con
+// un contador de pestaña, recargar reseteaba la cuenta y la oferta no volvía a
+// salir; con el del servidor pasa lo contrario —recargar la haría salir de nuevo
+// en la primera respuesta, porque la condición ya está cumplida— y una oferta de
+// registro en cada recarga es peor que ninguna. Esto es lo que la espacia.
+export function readRegistroOfrecidoAt(): number {
+  if (typeof window === "undefined") return -Infinity
+  try {
+    const raw = window.localStorage.getItem(REGISTRO_OFRECIDO_KEY)
+    return raw === null ? -Infinity : Number(raw)
+  } catch {
+    return -Infinity
+  }
+}
+
+export function marcarRegistroOfrecido(totalCorrectas: number) {
+  try {
+    window.localStorage.setItem(REGISTRO_OFRECIDO_KEY, String(totalCorrectas))
   } catch {}
 }
 

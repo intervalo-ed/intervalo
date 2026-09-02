@@ -16,7 +16,7 @@
 //     el orden nuevo y la fila sube con un FLIP de motion.
 
 import { memo, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
-import { motion } from "motion/react"
+import { motion, useReducedMotion } from "motion/react"
 import { ArrowDown, ArrowUp, LayersIcon, UsersIcon } from "lucide-react"
 import { CountUp } from "@/components/count-up"
 import {
@@ -51,9 +51,39 @@ import {
 
 // Ritmo de la escalada: cada paso pasa a un jugador. El total está acotado para
 // que una escalada larga no se eternice.
+//
+// El piso son 140 ms y no 80: con 80, una escalada de diez puestos —que en el
+// teléfono es de las más comunes, el ranking está lleno de cuentas en cero— era
+// un borrón. Doce fotogramas por paso no alcanzan para que un resorte se lea, y
+// lo que se veía era la lista temblando. A 140 cada sobrepaso se distingue, que
+// es todo el motivo por el que la escalada existe en vez de un salto.
 const CLIMB_TOTAL_MS = 1600
-const CLIMB_STEP_MIN_MS = 80
+const CLIMB_STEP_MIN_MS = 140
 const CLIMB_STEP_MAX_MS = 220
+
+// El resorte de cada fila. Son dos y no uno, y esa es la diferencia entre "la
+// lista se sacudió" y "pasaste a alguien".
+//
+// La fila PROPIA es la protagonista: más blanda y sin retraso, arranca en el
+// mismo fotograma que el paso. Las demás la acompañan —son a quienes está
+// pasando— así que salen un pelín después y más secas. El ojo sigue entonces un
+// solo movimiento y ve al resto acomodarse detrás, en vez de que todo se mueva
+// junto y no se entienda qué pasó a qué.
+//
+// Constantes de módulo y no objetos armados en el render: `Row` está memoizada
+// con comparación superficial, y un literal nuevo por render le rompería el memo
+// a las noventa filas justo en el fotograma más caro de la aplicación.
+const RESORTE_PROPIO = { type: "spring", stiffness: 210, damping: 30 } as const
+const RESORTE_ACOMPANA = {
+  type: "spring",
+  stiffness: 320,
+  damping: 32,
+  delay: 0.07,
+} as const
+const RESORTE_AMBIENTE = { type: "spring", stiffness: 320, damping: 32 } as const
+
+// Con movimiento reducido no hay resorte que valga: la fila aparece donde va.
+const SIN_MOVIMIENTO = { duration: 0 } as const
 
 // Cuánto se acerca el scroll a la posición de descanso en cada paso de la
 // escalada. Menos de 1 a propósito: el scroll acompaña con retraso, así se ve
@@ -302,6 +332,11 @@ export type GameRankingProps = {
   // Vive afuera —el selector que lo cambia está en la cabecera, no adentro del
   // ranking— así que es una prop y no un estado propio.
   sort?: RankingSort
+  // Avisa qué vista está mostrando el ranking, incluyendo las que impone
+  // `viewOverride`/`boostPreview`. Existe porque el pie de la pantalla del
+  // teléfono cambia con ella: mirando "Reclutas", el botón que corresponde no es
+  // seguir sino reclutar (ver RankingSlide en mobile-flow.tsx).
+  onViewChange?: (view: RankingView) => void
   className?: string
 }
 
@@ -326,6 +361,7 @@ export function GameRanking({
   viewOverride = null,
   boostPreview = null,
   sort = "experiencia",
+  onViewChange,
   className,
 }: GameRankingProps) {
   // ── El ranking vuelve solo a donde el XP puede caer ────────────────────────
@@ -384,6 +420,18 @@ export function GameRanking({
     setElegido({ key: centerKey, view, career: v, university })
   const setUniversity = (v: string) =>
     setElegido({ key: centerKey, view, career, university: v })
+
+  // Se avisa la vista EFECTIVA, la de arriba, no la elegida: `viewOverride` y
+  // `boostPreview` mandan por encima y quien escucha tiene que ver lo mismo que
+  // la persona. El callback viaja por un ref para que cambiar su identidad no
+  // vuelva a dispararlo.
+  const onViewChangeRef = useRef(onViewChange)
+  useEffect(() => {
+    onViewChangeRef.current = onViewChange
+  })
+  useEffect(() => {
+    onViewChangeRef.current?.(view)
+  }, [view])
 
   const summary = useGameLeaderboardSummary(scope, enabled)
   // Solo se pide con la vista abierta: son los reclutas de UNA persona, no el
@@ -639,8 +687,17 @@ function swapsToReach(current: readonly number[], target: readonly number[]): nu
  *
  * Solo se escalona el orden. Si cambia el CONJUNTO de jugadores (entró o salió
  * alguien de la ventana, o se cambió de filtro) no hay cruces que contar y se
- * aplica de una: un alta no es un sobrepaso. */
-function useStagedOrder(entries: GameLeaderboardEntry[]): GameLeaderboardEntry[] {
+ * aplica de una: un alta no es un sobrepaso.
+ *
+ * `pausadoRef` lo calla mientras la fila propia está escalando. Los dos mueven
+ * las mismas tarjetas por motivos distintos —uno cuenta lo que hizo el jugador,
+ * el otro lo que hizo el mundo— y encimados no se lee ninguno de los dos. El
+ * mundo espera: cuando la escalada termina, el reacomodo aplica lo que se
+ * acumuló, que es para lo que existe la cola. */
+function useStagedOrder(
+  entries: GameLeaderboardEntry[],
+  pausadoRef: React.RefObject<boolean>,
+): GameLeaderboardEntry[] {
   const [orderIds, setOrderIds] = useState<number[]>([])
   const targetRef = useRef<number[]>([])
   const orderRef = useRef<number[]>([])
@@ -674,6 +731,8 @@ function useStagedOrder(entries: GameLeaderboardEntry[]): GameLeaderboardEntry[]
       // intervalo es de los pocos que corren toda la sesión: en escritorio el
       // ranking queda montado de principio a fin.
       if (typeof document !== "undefined" && document.hidden) return
+      // La escalada manda: mientras dura, el orden no lo toca nadie más.
+      if (pausadoRef.current) return
 
       const target = targetRef.current
       const actual = orderRef.current
@@ -716,6 +775,9 @@ function useStagedOrder(entries: GameLeaderboardEntry[]): GameLeaderboardEntry[]
       })
     }, SWAP_MS)
     return () => clearInterval(id)
+    // `pausadoRef` es un ref: su identidad no cambia nunca y meterlo acá no
+    // agrega nada más que ruido.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // Los datos son SIEMPRE los últimos; lo único escalonado es el orden.
@@ -776,11 +838,18 @@ function IndividualRanking({
   }, [data])
 
   // El orden llega de a un cruce por vez; los datos, todos juntos.
-  const entries = useStagedOrder(rawEntries)
+  //
+  // El ref se llena unas líneas más abajo, cuando ya se sabe si la escalada
+  // sigue en curso: es un ref y no una prop justamente por eso, el reacomodo lo
+  // lee dentro de su intervalo y no necesita enterarse en el render.
+  const escalandoRef = useRef(false)
+  const entries = useStagedOrder(rawEntries, escalandoRef)
 
   const meIndex = entries.findIndex((e) => e.is_current_player)
   const myRank = meIndex >= 0 ? entries[meIndex].rank : null
-  const climbing = climbFrom !== null && myRank !== null && climbFrom > myRank
+  const quieto = !!useReducedMotion()
+  const climbing =
+    !quieto && climbFrom !== null && myRank !== null && climbFrom > myRank
 
   // ── Escalada puesto por puesto ─────────────────────────────────────────────
   // No es un salto del puesto viejo al nuevo: la fila propia va pasando a uno
@@ -814,6 +883,12 @@ function IndividualRanking({
     const t = setTimeout(() => setClimbState({ key: climbKey, step: step + 1 }), stepMs)
     return () => clearTimeout(t)
   }, [climbing, climbKey, remaining, step, stepMs])
+
+  // Lo que lee `useStagedOrder` para callarse. En un efecto y no en el render
+  // porque `settled` recién se conoce acá.
+  useEffect(() => {
+    escalandoRef.current = climbing && !settled
+  })
 
   // ── Scroll: centrado, anclaje al prepend y carga por baches ────────────────
   const scrollRef = useRef<HTMLDivElement | null>(null)
@@ -1043,6 +1118,10 @@ function IndividualRanking({
             // También la fila propia: si mientras resolvías te pasaron, la
             // flecha tiene que bajar o darse vuelta como la de cualquiera.
             delta={entry.rank_delta}
+            // Primitiva a propósito: `Row` está memoizada con comparación
+            // superficial y esto tiene que poder atravesarla sin romperla.
+            escalando={!settled}
+            quieto={quieto}
             sort={sort}
             boostMultiplier={
               entry.university ? boostByUni.get(entry.university) ?? null : null
@@ -1090,6 +1169,8 @@ const Row = memo(function Row({
   shownRank,
   xp,
   delta,
+  escalando = false,
+  quieto = false,
   sort,
   boostMultiplier,
   xpColor,
@@ -1101,6 +1182,11 @@ const Row = memo(function Row({
   xp: number
   // Puestos que ganó (+) o perdió (−) en los últimos minutos. 0 = sin flecha.
   delta: number
+  // La fila propia está escalando ahora mismo. Cambia con qué resorte se mueve
+  // cada fila: ver RESORTE_PROPIO / RESORTE_ACOMPANA.
+  escalando?: boolean
+  // Movimiento reducido: nada de resortes.
+  quieto?: boolean
   // Qué número cierra la fila: la experiencia o el Elo. Es el mismo que ordena
   // la lista, siempre — mostrar uno y ordenar por el otro se lee como un bug,
   // que es exactamente lo que pasaba antes de que el selector llegara hasta
@@ -1129,7 +1215,15 @@ const Row = memo(function Row({
   return (
     <motion.li
       layout
-      transition={{ type: "spring", stiffness: 320, damping: 32 }}
+      transition={
+        quieto
+          ? SIN_MOVIMIENTO
+          : !escalando
+            ? RESORTE_AMBIENTE
+            : mine
+              ? RESORTE_PROPIO
+              : RESORTE_ACOMPANA
+      }
       data-current={mine ? "true" : undefined}
       className={cn(
         "flex items-center gap-3 rounded-lg px-4 py-3 ring-1 ring-foreground/10",
