@@ -2515,11 +2515,15 @@ export interface components {
             streak: components["schemas"]["StreakInfo"];
             /** Session Number */
             session_number: number;
+            /** Pedido */
+            pedido?: ("cafecito" | "reclutas") | null;
+            /** Handle */
+            handle?: string | null;
             /**
-             * Ofrecer Cafecito
-             * @default false
+             * Share Percent
+             * @default 10
              */
-            ofrecer_cafecito: boolean;
+            share_percent: number;
         };
         /**
          * SessionSurvey

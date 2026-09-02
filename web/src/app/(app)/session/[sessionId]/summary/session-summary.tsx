@@ -9,7 +9,14 @@ import { CoffeeIcon } from "lucide-react"
 // El marrón y la URL salen del minijuego: es la misma acción de los dos lados y
 // tiene que verse igual. `solid` es la variante con contraste suficiente para
 // texto blanco encima.
-import { CAFECITO_URL } from "@/app/derivadas/cafecito-cta"
+import {
+  CAFECITO_URL,
+  VERDE,
+  VERDE_TINTA_OSCURA,
+  WhatsappGlyph,
+  shareLink,
+  shareUrl,
+} from "@/app/derivadas/cafecito-cta"
 import { BELT_HEX } from "@/lib/catalog"
 import { XpDots } from "@/components/xp-dots"
 import { ChargeBall, Confetti, ConfettiRain } from "@/components/confetti"
@@ -152,11 +159,22 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
   // iOS solo expone la Push API a la app instalada, así que en el navegador
   // isPushSupported() da false justo cuando más hace falta invitar a instalar.
   const [phase, setPhase] = useState<
-    "summary" | "streak" | "notify" | "install"
+    "summary" | "streak" | "pedido" | "notify" | "install"
   >("summary")
   const settings = useNotificationSettingsQuery()
   const notifAlreadyEnabled = settings.data?.enabled === true
   const shouldShowStreak = data?.streak.counted_today === true
+  // El pedido de esta pantalla —un cafecito o que recluta— lo decide el
+  // servidor entero (ver backend/summary_asks.py); acá solo se elige DÓNDE cae.
+  //
+  // En el festejo va INCRUSTADO en la pantalla de racha, debajo del "¡Desbloqueaste
+  // el multiplicador ×1,2!": la persona acaba de recibir algo y el pedido llega
+  // en la misma respiración. Fuera del festejo no hay nada a lo que pegarse, así
+  // que se lleva su propia pantalla, igual que el pedido de notificaciones.
+  const pedido = data?.pedido ?? null
+  const pedidoEnElFestejo =
+    pedido === "cafecito" && shouldShowStreak && data?.streak.tier_reached === true
+  const pedidoAparte = pedido !== null && !pedidoEnElFestejo
   // La decisión de mostrar la pestaña se resuelve una sola vez (en el primer
   // Continuar, ya con `data`) y queda congelada: si se recalculara, marcarla
   // como vista la apagaría con el usuario mirándola. Vive en un ref que solo
@@ -270,10 +288,17 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
   function onContinue() {
     // Cada rama toca sfx.continue() una sola vez: goHome ya lo hace por su
     // cuenta, así que las ramas que caen ahí no lo repiten.
+    // El orden de las pantallas es el orden de las ramas: racha → pedido →
+    // notificaciones. El pedido va después del festejo (nunca antes) y antes de
+    // las notificaciones, que es lo único que se puede activar sin salir de la
+    // app y por eso cierra.
     if (phase === "summary") {
       if (shouldShowStreak) {
         sfx.continue()
         setPhase("streak")
+      } else if (pedidoAparte) {
+        sfx.continue()
+        setPhase("pedido")
       } else if (resolveNotifyHint()?.show && !notifAlreadyEnabled) {
         sfx.continue()
         enterNotify()
@@ -283,6 +308,20 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
       return
     }
     if (phase === "streak") {
+      if (pedidoAparte) {
+        sfx.continue()
+        setPhase("pedido")
+        return
+      }
+      if (resolveNotifyHint()?.show && !notifAlreadyEnabled) {
+        sfx.continue()
+        enterNotify()
+        return
+      }
+      goHome()
+      return
+    }
+    if (phase === "pedido") {
       if (resolveNotifyHint()?.show && !notifAlreadyEnabled) {
         sfx.continue()
         enterNotify()
@@ -486,13 +525,20 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
               {phase === "streak" && data && (
                 <StreakPane
                   streak={data.streak}
-                  ofrecerCafecito={data.ofrecer_cafecito}
+                  ofrecerCafecito={pedidoEnElFestejo}
                   tick={tick}
                   onCountDone={(origin) => {
                     if (data.streak.tier_reached) {
                       setStreakConfetti(origin ?? { x: 50, y: 50 })
                     }
                   }}
+                />
+              )}
+              {phase === "pedido" && pedido && (
+                <PedidoPane
+                  clase={pedido}
+                  handle={data?.handle ?? null}
+                  porcentaje={data?.share_percent ?? 10}
                 />
               )}
               {phase === "notify" && (
@@ -854,11 +900,14 @@ function StreakPane({
 
       {/* El pedido va DESPUÉS del festejo y no antes: la persona acaba de ver
           subir su multiplicador, o sea que acaba de recibir algo. Pedir ahí es
-          distinto de pedir en frío.
+          distinto de pedir en frío, y por eso el café aprovecha este momento
+          además de su cadencia de cada seis sesiones.
 
-          Y solo aparece cuando el servidor dice que corresponde: instaló la PWA,
-          lleva cinco sesiones y va por su tercer día. Antes de eso, quien todavía
-          está probando la app recibiría un pedido de plata como tercera pantalla.
+          Este bloque es SOLO el del hito; fuera de un hito el pedido se lleva su
+          propia pantalla (ver PedidoPane). Y aparece solo cuando el servidor dice
+          que corresponde —instaló la PWA, va por su tercer día y no hubo otro
+          pedido en la sesión anterior—, que es lo que evita que quien todavía
+          está probando la app reciba un pedido de plata como tercera pantalla.
 
           El <a> es real y sale al navegador: cafecito.app es otro origen, y
           adentro de una webview standalone Mercado Pago pierde las tarjetas
@@ -885,6 +934,112 @@ function StreakPane({
           </a>
         </motion.div>
       )}
+    </div>
+  )
+}
+
+/** La pantalla de un pedido suelto: el cafecito fuera de un festejo, o reclutar.
+ *
+ *  Los dos pedidos comparten pantalla —y no una cada uno— porque nunca salen
+ *  juntos: el servidor devuelve UNO, alternándolos y con al menos dos sesiones
+ *  de por medio (ver backend/summary_asks.py). Lo único que cambia entre ellos
+ *  es el color, el ícono y qué se gana; la forma es la misma, y que lo sea es
+ *  parte del punto: son las dos maneras de ayudar, no dos cosas distintas.
+ *
+ *  Los dos anclas son `<a target="_blank">` de verdad y no un window.open:
+ *  cafecito.app y wa.me son otro origen y tienen que salir al navegador, que
+ *  adentro de la PWA instalada es la diferencia entre abrir WhatsApp (o Mercado
+ *  Pago con las tarjetas guardadas) y quedarse trabado en una ventana sin barra
+ *  de direcciones ni botón de atrás. */
+function PedidoPane({
+  clase,
+  handle,
+  porcentaje,
+}: {
+  clase: "cafecito" | "reclutas"
+  handle: string | null
+  porcentaje: number
+}) {
+  const cafe = clase === "cafecito"
+  const color = cafe ? CAFE_SOLIDO : VERDE
+  // El verde de WhatsApp es tan claro que el texto blanco encima no llega al
+  // contraste mínimo; el marrón del cafecito sí. Cada uno lleva su tinta.
+  const tinta = cafe ? "#FFFFFF" : VERDE_TINTA_OSCURA
+  // Sin @ el link saldría con el `?r=` vacío y no atribuiría a nadie, así que el
+  // botón se apaga. `aria-disabled` y no `disabled`: un ancla no tiene ese
+  // atributo. Misma guarda que en la vista de Reclutas del ranking.
+  const sinHandle = !cafe && !handle
+
+  return (
+    <div className="flex w-full translate-y-[15px] flex-col items-center gap-6">
+      <motion.div
+        className="flex flex-col items-center gap-6"
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+      >
+        <span
+          className="flex size-16 items-center justify-center rounded-full"
+          style={{ backgroundColor: `${color}1F`, color }}
+        >
+          {cafe ? <CoffeeIcon className="size-8" /> : <WhatsappGlyph size={32} />}
+        </span>
+
+        <div className="flex flex-col items-center gap-3">
+          <span className="text-center text-2xl font-semibold tracking-tight">
+            {cafe
+              ? "¿Nos invitás un cafecito?"
+              : "Traé a alguien de tu universidad"}
+          </span>
+          <p className="max-w-[21rem] text-center text-sm leading-relaxed text-foreground/60">
+            {cafe ? (
+              <>
+                Multiplica el XP de{" "}
+                <span className="font-medium text-foreground">
+                  toda tu universidad
+                </span>{" "}
+                durante un día entero. El tuyo también.
+              </>
+            ) : (
+              <>
+                Quien entre por tu link te deja el{" "}
+                <span className="font-medium text-foreground">{porcentaje}%</span>{" "}
+                de todo lo que sume, acá y en el minijuego. No se le descuenta
+                nada: esa XP se acuña.
+              </>
+            )}
+          </p>
+        </div>
+      </motion.div>
+
+      <motion.div
+        className="flex w-full max-w-[21rem] flex-col items-center gap-2"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5 }}
+      >
+        <a
+          href={cafe ? CAFECITO_URL : shareUrl(handle)}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-disabled={sinHandle}
+          className={cn(
+            "flex h-12 w-full items-center justify-center gap-2 rounded-md text-sm font-semibold transition-opacity",
+            sinHandle && "pointer-events-none opacity-50",
+          )}
+          style={{ backgroundColor: color, color: tinta }}
+        >
+          {cafe ? "Invitar un cafecito" : "Reclutar"}
+          {cafe ? <CoffeeIcon className="size-4" /> : <WhatsappGlyph size={18} />}
+        </a>
+        {/* El link a la vista, para quien prefiera copiarlo a mano antes que
+            pasar por WhatsApp. Igual que en el ranking. */}
+        {!cafe && (
+          <p className="text-center text-xs break-all text-muted-foreground">
+            {shareLink(handle)}
+          </p>
+        )}
+      </motion.div>
     </div>
   )
 }

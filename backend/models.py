@@ -125,6 +125,15 @@ class User(Base):
     # metrics/queries.py).
     pwa_first_seen_at = Column(DateTime, nullable=True)
 
+    # Nº de sesión en la que el resumen le pidió algo por última vez (un cafecito
+    # o que recluta), sin distinguir cuál de los dos. Es lo único que hace falta
+    # para que los dos pedidos nunca salgan pegados: ver summary_asks.py.
+    #
+    # El número de sesión y no un timestamp porque la cadencia se cuenta en
+    # sesiones, no en días — quien hace tres seguidas una tarde tiene que ver lo
+    # mismo que quien las reparte en tres días.
+    summary_ask_last_session = Column(Integer, nullable=True)
+
     # Atribución de primer contacto: por qué grupo de WhatsApp llegó la persona
     # ("uba042") y su prefijo de universidad ("uba"). Lo manda el cliente al
     # completar el onboarding, desde lo que capturó al aterrizar (ver
