@@ -4242,6 +4242,10 @@
             "type": "integer",
             "title": "Difficulty Stars"
           },
+          "p_hat": {
+            "type": "number",
+            "title": "P Hat"
+          },
           "combo": {
             "type": "integer",
             "title": "Combo"
@@ -4269,6 +4273,7 @@
           "prompt_latex",
           "tier",
           "difficulty_stars",
+          "p_hat",
           "combo"
         ],
         "title": "GameExerciseOut"

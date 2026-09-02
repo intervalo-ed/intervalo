@@ -351,25 +351,22 @@ export function PorQuePanel({
                     ))}
                   </ul>
                 </div>
-                {/* `mt-4` propio: ninguno de los dos componentes toma
-                    className, así que el aire entre los bullets y el
-                    gráfico se agrega acá y no en el `gap-1.5` del
-                    contenedor —que también separa el gráfico de la
-                    leyenda de abajo, y esa distancia no había que tocarla. */}
-                <div className="mt-4">
-                  <MathGraph
-                    graphFn={graph.fn}
-                    graphFn2={graph.fn2}
-                    graphView={graph.view}
-                    graphFreeAspect
-                  />
-                </div>
-                {/* Leyenda de colores: sin ella, dos curvas nuevas en un
-                    componente pensado para una sola no dicen cuál es cuál.
-                    La fórmula real y no un genérico "f(x)"/"f'(x)": con dos
-                    curvas en los mismos ejes, lo que identifica a cada una es
-                    la cuenta, no una letra que no cambia entre ejercicios. */}
-                <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground">
+                {/* Leyenda de colores, ANTES del gráfico: sin ella, dos
+                    curvas nuevas en un componente pensado para una sola no
+                    dicen cuál es cuál, y puesta debajo se leía como un pie de
+                    foto que hay que ir a buscar después de mirar — arriba se
+                    lee primero y ya se sabe qué es cada curva desde el
+                    primer vistazo. La fórmula real y no un genérico
+                    "f(x)"/"f'(x)": con dos curvas en los mismos ejes, lo que
+                    identifica a cada una es la cuenta, no una letra que no
+                    cambia entre ejercicios.
+
+                    `mt-4` propio: ninguno de los dos componentes toma
+                    className, así que el aire entre los bullets y esta
+                    leyenda se agrega acá y no en el `gap-1.5` del
+                    contenedor —que también separa la leyenda del gráfico de
+                    abajo, y esa distancia no había que tocarla. */}
+                <div className="mt-4 flex items-center justify-center gap-4 text-xs text-muted-foreground">
                   <span className="flex items-center gap-1.5">
                     <span
                       aria-hidden
@@ -387,6 +384,12 @@ export function PorQuePanel({
                     <MathText text={`$${graph.fn2Latex}$`} />
                   </span>
                 </div>
+                <MathGraph
+                  graphFn={graph.fn}
+                  graphFn2={graph.fn2}
+                  graphView={graph.view}
+                  graphFreeAspect
+                />
               </div>
             )}
           </>

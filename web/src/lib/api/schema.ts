@@ -1706,6 +1706,8 @@ export interface components {
             tier: number;
             /** Difficulty Stars */
             difficulty_stars: number;
+            /** P Hat */
+            p_hat: number;
             /** Combo */
             combo: number;
             /**
