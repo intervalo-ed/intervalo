@@ -32,6 +32,7 @@ from algorithm import (
     XP_STREAK_INTERVAL,
     difficulty_multiplier,
     build_session,
+    effective_multiplier,
     is_topic_mastered,
     load_belt_catalogs,
     practice_xp_split,
@@ -41,7 +42,9 @@ from algorithm import (
     streak_info,
     streak_multiplier,
     update_unit_state,
+    xp_from_boost,
 )
+import xp_boost
 from exercise_bank import (
     _row_to_dict,
     course_exercise_types,
@@ -1551,15 +1554,26 @@ def record_answer_db(
             item_row.difficulty_n += 1
 
     streak_mult = streak_multiplier(user.streak_days if user else 0)
+    # El empuje de cafecito de su universidad, si hay alguno corriendo. Casi
+    # siempre no hay, y averiguarlo es gratis: `hay_empujes` memoriza el "no"
+    # unos segundos por proceso (ver xp_boost.multiplier_for_user).
+    boost_mult = xp_boost.multiplier_for_user(db, user_id)
+    # Los dos multiplicadores se aplican JUNTOS y redondeando una sola vez, y con
+    # un tope propio sobre el producto. Ver algorithm/xp.py :: MAX_TOTAL_MULTIPLIER
+    # para por qué el tope es 4,0 y no el ×3 del juego.
+    mult = effective_multiplier(streak_mult, boost_mult)
 
     # Práctica paga plano y sin ajuste de dificultad (volumen ilimitado a
-    # elección del usuario), pero sí escala con el multiplicador de racha diaria
-    # — su base es mucho menor que la de Repaso, así que no se vuelve farmeable.
+    # elección del usuario), pero sí escala con el multiplicador efectivo — su
+    # base es mucho menor que la de Repaso, así que no se vuelve farmeable.
     # Repaso paga por intento, ponderado por la dificultad personal del ítem
     # (solo 1er intento y solo en fase de retención: en aprendizaje la base es
-    # menor y plana, ver review_xp_base) y el mismo multiplicador de racha.
+    # menor y plana, ver review_xp_base) y el mismo multiplicador.
     if db_session.mode == "practice":
-        xp_base, xp_earned = practice_xp_split(first_try, streak_mult)
+        xp_base, xp_earned = practice_xp_split(first_try, mult)
+        # Cuánto de lo cobrado lo puso el empuje y no la racha (ver
+        # algorithm/xp.py :: xp_from_boost).
+        xp_del_empuje = xp_from_boost(xp_base, streak_mult, mult)
     else:
         in_review = current_state.phase == "review"
         difficulty = (
@@ -1568,13 +1582,16 @@ def record_answer_db(
             else 1.0
         )
         xp_base, xp_earned = review_xp_split(
-            attempts, difficulty, streak_mult, learning=not in_review
+            attempts, difficulty, mult, learning=not in_review
         )
+        # Antes del bonus de combo, que es plano: si entrara en la cuenta, el
+        # empuje se llevaría el crédito de algo que no multiplicó.
+        xp_del_empuje = xp_from_boost(xp_base, streak_mult, mult)
         if first_try:
             state.streak += 1
             if state.streak % XP_STREAK_INTERVAL == 0:
                 # Bonus de combo interno a la sesión: no lo multiplica la racha
-                # diaria, así que va a la base (no cuenta como "extra").
+                # diaria ni el empuje, así que va a la base (no cuenta como "extra").
                 xp_earned += XP_STREAK_BONUS
                 xp_base += XP_STREAK_BONUS
         else:
@@ -1628,6 +1645,7 @@ def record_answer_db(
         quality_score=quality,
         xp_earned=xp_earned,
         xp_base=xp_base,
+        xp_from_boost=xp_del_empuje,
         answered_at=datetime.utcnow(),
         iteration=_get_course_progress(user_id, course_id, db).iteration,
     ))
@@ -1645,7 +1663,26 @@ def record_answer_db(
     )
 
     if user:
-        user.total_xp = (user.total_xp or 0) + xp_earned
+        # Incremento RELATIVO por SQL, no `user.total_xp = leído + n`.
+        #
+        # La fila se leyó ~130 líneas más arriba y el commit llega recién ahora.
+        # Escribir el valor absoluto que se leyó pisa cualquier cosa que haya
+        # entrado en el medio, y ya hay dos escritores concurrentes de esta
+        # columna: el FEEDBACK_XP de las encuestas (main.py) y —desde que los
+        # reclutas cruzan de producto— el 10% que un recluta le acuña a quien lo
+        # trajo, que llega como UPDATE crudo desde OTRA transacción.
+        #
+        # En el minijuego el patrón equivalente es seguro porque el receptor
+        # serializa sus propias respuestas con `lock_player` (SELECT … FOR
+        # UPDATE); acá no hay nada así, y tomarlo serializaría todo el camino de
+        # respuesta por algo que hoy no lo necesita. El incremento relativo
+        # resuelve lo mismo sin candado.
+        db.query(User).filter(User.id == user_id).update(
+            {User.total_xp: User.total_xp + xp_earned}, synchronize_session=False
+        )
+        # El objeto en sesión quedó con el valor viejo y aguas abajo se lee (el
+        # resumen, el rank). Que lo relea del UPDATE de arriba.
+        db.expire(user, ["total_xp"])
 
     if is_correct:
         db_session.exercises_correct = (db_session.exercises_correct or 0) + 1

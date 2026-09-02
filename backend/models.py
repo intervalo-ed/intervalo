@@ -166,6 +166,15 @@ class Enrollment(Base):
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     course_id = Column(Integer, ForeignKey("courses.id"), nullable=False)
     university = Column(String(100), nullable=True)
+    # Cuándo se CAMBIÓ la universidad por última vez — NULL si nunca cambió
+    # (incluido el caso normal: se cargó en el onboarding y quedó). Gemelo de
+    # `game_players.university_set_at`, y por el mismo motivo: desde que el
+    # empuje de cafecito vale también acá (ver backend/xp_boost.py), sin este
+    # sello cualquiera podría rehacer el alta con la universidad impulsada y
+    # cobrar el empuje. Hoy no hay UI para cambiarla —/onboarding redirige si ya
+    # estás inscripto y solo POST /user/enroll la escribe— así que la exposición
+    # es de API, pero la columna cuesta dos líneas y el agujero dura 24 h.
+    university_set_at = Column(DateTime, nullable=True)
     career = Column(String(200), nullable=True)
     # Retirada del onboarding (la respuesta no predecía comportamiento). Se
     # conserva por los valores históricos; en altas nuevas queda NULL.
@@ -393,10 +402,24 @@ class Answer(Base):
     response_time_ms = Column(Integer, nullable=True)
     quality_score = Column(Integer, nullable=True)
     xp_earned = Column(Integer, default=0)
-    # XP de esta respuesta antes del multiplicador de racha diaria (por intento
-    # y dificultad personal del ítem). xp_earned - xp_base = XP extra ganado
-    # gracias al multiplicador, mostrado en el resumen de sesión.
+    # XP de esta respuesta antes de los multiplicadores (por intento y dificultad
+    # personal del ítem). xp_earned - xp_base = XP extra ganado gracias a ellos,
+    # mostrado en el resumen de sesión.
     xp_base = Column(Integer, nullable=False, default=0, server_default="0")
+    # De ese extra, cuánto lo puso el empuje de cafecito de la universidad y no
+    # la racha diaria (ver algorithm/xp.py :: xp_from_boost).
+    #
+    # Se guarda por respuesta porque después NO se puede reconstruir: lo único
+    # que sobrevive es el total, y ni el multiplicador que corría en ese momento
+    # ni su reparto entre racha y cafecito quedan en ninguna fila. Es el mismo
+    # motivo por el que existe `game_players.xp_from_boosts`.
+    #
+    # Sirve para dos cosas concretas: separar racha de cafecito en el resumen, y
+    # poder DESCONTAR el empuje de los agregados por ventana de tiempo de las
+    # push de universidad (push_store), que si no anuncian saltos que nadie
+    # resolvió. Lo que NO permite es atribuir por donante: `multiplier_for`
+    # colapsa el empuje global y el dirigido en un solo número.
+    xp_from_boost = Column(Integer, nullable=False, default=0, server_default="0")
 
     # Iteración de progreso del curso (ver CourseProgress). Reiniciar el curso
     # incrementa la iteración; las respuestas viejas quedan etiquetadas.

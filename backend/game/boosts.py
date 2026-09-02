@@ -199,6 +199,15 @@ def global_cafecitos(db: Session, now: datetime | None = None) -> int:
     return _cafecitos(db, GameBoost.university.is_(None), now or _now())
 
 
+def cafecitos_de(db: Session, university: str, now: datetime | None = None) -> int:
+    """Los dirigidos a UNA universidad, ya topeados fila por fila.
+
+    Pública porque Intervalo clásico arma el mismo total desde otra tabla (ver
+    backend/xp_boost.py) y no puede depender de `_cafecitos`, que es el detalle
+    de cómo se aplica el tope."""
+    return _cafecitos(db, GameBoost.university == university, now or _now())
+
+
 def multiplier_for(db: Session, university: str | None, now: datetime | None = None) -> float:
     """Multiplicador vigente de una universidad, con lo global ya sumado.
 
@@ -215,31 +224,46 @@ def multiplier_for(db: Session, university: str | None, now: datetime | None = N
     return multiplier_from_cafecitos(total)
 
 
-def applies_to(player: GamePlayer, db: Session, now: datetime | None = None) -> bool:
-    """¿Le corresponde a este jugador el empuje de su universidad?
+def aplica_el_empuje(
+    university: str | None,
+    set_at: datetime | None,
+    db: Session,
+    now: datetime | None = None,
+) -> bool:
+    """¿Le corresponde el empuje de esa universidad a quien se mudó en `set_at`?
 
     No, si se cambió de universidad DESPUÉS de que arrancara el empuje más viejo
     que sigue vigente. Sin este candado, cada empuje se llenaría de gente que se
     muda por un día a la universidad impulsada y la rivalidad entre universidades
     —que es todo el punto— se muere en una tarde.
 
-    Cargar la universidad por primera vez no cuenta como mudarse: `university_set_at`
-    queda en NULL en ese caso (ver el PATCH de perfil en router.py), así que
-    quien recién se suma y elige su universidad cobra desde el primer momento.
+    Cargar la universidad por primera vez no cuenta como mudarse: el sello queda
+    en NULL en ese caso, así que quien recién se suma y elige su universidad
+    cobra desde el primer momento.
+
+    Toma los dos campos sueltos y no una fila para que la usen los DOS productos:
+    en el minijuego salen de `game_players`, en Intervalo clásico de
+    `enrollments` (ver backend/xp_boost.py). El candado tiene que ser el mismo
+    en los dos lados o mudarse por un lado paga el empuje del otro.
     """
-    if not player.university or player.university_set_at is None:
+    if not university or set_at is None:
         return True
     now = now or _now()
-    # Solo los DIRIGIDOS a su universidad: un empuje global no tiene a dónde
+    # Solo los DIRIGIDOS a esa universidad: un empuje global no tiene a dónde
     # mudarse, así que el candado no le aplica.
     first_started = (
         db.query(func.min(GameBoost.created_at))
-        .filter(GameBoost.university == player.university, GameBoost.expires_at > now)
+        .filter(GameBoost.university == university, GameBoost.expires_at > now)
         .scalar()
     )
     if first_started is None:
         return True
-    return player.university_set_at < first_started
+    return set_at < first_started
+
+
+def applies_to(player: GamePlayer, db: Session, now: datetime | None = None) -> bool:
+    """El candado, para un jugador del minijuego. Ver `aplica_el_empuje`."""
+    return aplica_el_empuje(player.university, player.university_set_at, db, now)
 
 
 def multiplier_for_player(

@@ -117,6 +117,50 @@ def streak_multiplier(days: int) -> float:
     return streak_info(days).multiplier
 
 
+# ── Racha × empuje de cafecito ────────────────────────────────────────────────
+
+# El techo del producto de los DOS multiplicadores que hoy escalan la XP de
+# Intervalo: la racha diaria (hasta ×2,0, ver STREAK_TIERS) y el empuje de
+# cafecito de la universidad (hasta ×3,0, ver game/boosts.py :: MAX_MULTIPLIER).
+#
+# Es una constante PROPIA y no `boosts.MAX_MULTIPLIER` importado, aunque tenga
+# forma de lo mismo: aquel topea cuántos cafecitos suman entre todos, este topea
+# el producto de dos mecánicas distintas. Mezclarlos rompe una promesa escrita.
+#
+# Y el número es 4,0 y no 3,0 justamente por eso. Con tope 3,0, una sola persona
+# con quince días de racha (×1,5) y su propia donación de diez cafecitos (×2,0)
+# llega sola al techo — y game/boosts.py promete lo contrario con todas las
+# letras: "El ×3 no se compra, se junta — hacen falta al menos dos personas".
+# 4,0 es exactamente el máximo de un donante solo con la racha al máximo, así
+# que nadie lo pasa por su cuenta y a quien no tiene racha alta juntarse con
+# otro donante le sigue sumando.
+MAX_TOTAL_MULTIPLIER = 4.0
+
+
+def effective_multiplier(streak_mult: float, boost_mult: float = 1.0) -> float:
+    """El multiplicador que de verdad se cobra: racha × empuje, topeado.
+
+    Vive acá y no en el que llama porque lo necesitan DOS lugares —el que paga
+    (session_store.record_answer_db) y el que lo muestra (get_user_progress_db,
+    que alimenta la tile "Multiplicador de XP")— y dos implementaciones del
+    mismo `min` se desincronizan en el primer ajuste. Si la tile dice ×2,4 y la
+    caja paga ×2,2, el que pierde la confianza es el número, no el código.
+    """
+    return min(MAX_TOTAL_MULTIPLIER, streak_mult * boost_mult)
+
+
+def xp_from_boost(base: int, streak_mult: float, total_mult: float) -> int:
+    """Cuánto de la XP de esta respuesta la puso el empuje, y no la racha.
+
+    La diferencia entre lo que se pagó y lo que se habría pagado sin empuje —
+    misma definición que `game_players.xp_from_boosts` en el minijuego. Se
+    guarda por respuesta porque después NO se puede reconstruir: de la respuesta
+    sobrevive el total, y ni el multiplicador que corría ni su reparto entre
+    racha y cafecito quedan en ninguna fila.
+    """
+    return round(base * total_mult) - round(base * streak_mult)
+
+
 def review_xp_base(attempts: int, difficulty: float, *, learning: bool = False) -> int:
     """XP base de un ejercicio de Repaso (por intento × dificultad del ítem,
     solo primer intento), sin el multiplicador de racha diaria.
@@ -135,20 +179,23 @@ def review_xp_base(attempts: int, difficulty: float, *, learning: bool = False) 
 def review_xp_split(
     attempts: int,
     difficulty: float,
-    streak_mult: float,
+    mult: float,
     *,
     learning: bool = False,
 ) -> tuple[int, int]:
-    """(xp_base, xp_final) de un ejercicio de Repaso. xp_final aplica el
-    multiplicador de racha diaria sobre la base."""
+    """(xp_base, xp_final) de un ejercicio de Repaso.
+
+    `mult` es el multiplicador EFECTIVO: racha × empuje de cafecito, ya topeado
+    (ver `effective_multiplier`). Se redondea una sola vez, sobre el producto —
+    aplicar los dos factores por separado redondeando cada uno da un número
+    distinto del que muestra la tile."""
     base = review_xp_base(attempts, difficulty, learning=learning)
-    return base, round(base * streak_mult)
+    return base, round(base * mult)
 
 
-def practice_xp_split(first_try: bool, streak_mult: float) -> tuple[int, int]:
+def practice_xp_split(first_try: bool, mult: float) -> tuple[int, int]:
     """(xp_base, xp_final) de un ejercicio de Práctica. A diferencia de Repaso,
     no ajusta por dificultad del ítem, pero también escala con el multiplicador
-    de racha diaria — su base ya es mucho menor, así que no se vuelve
-    farmeable."""
+    efectivo — su base ya es mucho menor, así que no se vuelve farmeable."""
     base = XP_PRACTICE_CORRECT if first_try else XP_PRACTICE_WRONG
-    return base, round(base * streak_mult)
+    return base, round(base * mult)
