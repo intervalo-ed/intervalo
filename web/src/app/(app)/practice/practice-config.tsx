@@ -46,6 +46,7 @@ import { EditorStepper } from "@/app/editor-stepper"
 // `motion/react`, que esta pantalla ya usa para la lista de unidades, así que no
 // agrega nada al bundle.
 import { GameLogo } from "@/app/derivadas/game-logo"
+import { AMBAR } from "@/app/derivadas/game-colors"
 import { useUserProgress } from "@/app/UseUserProgress"
 import { usePracticeStats } from "./UsePracticeStats"
 import { useStartPractice } from "./UseStartPractice"
@@ -76,6 +77,17 @@ const EXPANDED_EVENT = "intervalo:practice-units-expanded-change"
 const HINT_STORAGE_KEY = "intervalo:practice-topics-hint-seen"
 
 const EMPTY_EXPANDED = new Set<string>()
+
+/** "por 23 horas más" / "por 40 minutos más". Los empujes duran un día, así que
+ *  decirlo siempre en minutos daba "por 1439 minutos más". */
+function restanteDelEmpuje(segundos: number): string {
+  if (segundos >= 3600) {
+    const h = Math.max(1, Math.round(segundos / 3600))
+    return `por ${h} ${h === 1 ? "hora" : "horas"} más`
+  }
+  const m = Math.max(1, Math.round(segundos / 60))
+  return `por ${m} ${m === 1 ? "minuto" : "minutos"} más`
+}
 
 function topicKey(belt: BeltKey, topic: string): string {
   return `${belt}/${topic}`
@@ -328,14 +340,28 @@ export default function PracticeConfig() {
                 <div className="grid grid-cols-3 gap-2">
                   <Metric
                     label="Multiplicador de XP"
+                    // Con un cafecito corriendo, el número es el EFECTIVO
+                    // (racha × empuje, topeado), que es el que de verdad se
+                    // cobra. Lo calcula el servidor con la misma función que
+                    // paga: si la tile hiciera su propia cuenta, las dos se
+                    // desincronizan en el primer ajuste.
                     value={
                       <span className="inline-flex items-center gap-1.5">
                         {progressQuery.data
-                          ? `×${progressQuery.data.streak.multiplier.toFixed(1)}`
+                          ? `×${(
+                              progressQuery.data.boost?.effective_multiplier ??
+                              progressQuery.data.streak.multiplier
+                            ).toFixed(1)}`
                           : "…"}
                         <XpDots className="size-[0.8em] text-[#5457e5]" />
                       </span>
                     }
+                    // `valueColor` y no `accent`: accent tiñe la tarjeta entera
+                    // y en Repasar ya lo usa la tile de ítems pendientes, en la
+                    // MISMA grilla de tres. Dos tarjetas cálidas contiguas, cada
+                    // una significando otra cosa, y el color deja de querer
+                    // decir "mirá esto".
+                    valueColor={progressQuery.data?.boost ? AMBAR : undefined}
                     info={
                       progressQuery.data
                         ? {
@@ -347,6 +373,26 @@ export default function PracticeConfig() {
                                   alto es tu multiplicador y más XP sumás por
                                   cada ejercicio.
                                 </p>
+                                {progressQuery.data.boost && (
+                                  <p>
+                                    Ahora mismo hay{" "}
+                                    <span className="font-medium text-foreground">
+                                      un cafecito
+                                    </span>{" "}
+                                    empujando tu XP:{" "}
+                                    <span className="font-medium text-foreground">
+                                      ×
+                                      {progressQuery.data.boost.multiplier.toFixed(
+                                        1,
+                                      )}
+                                    </span>{" "}
+                                    encima de tu racha, {restanteDelEmpuje(
+                                      progressQuery.data.boost
+                                        .expires_in_seconds,
+                                    )}
+                                    .
+                                  </p>
+                                )}
                                 {progressQuery.data.streak.is_max ? (
                                   <>
                                     <p>

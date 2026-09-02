@@ -336,14 +336,25 @@ def _podium_gap(
 def university_weekly_xp(
     db: DBSession, university: str, since: datetime, *, cache: _TickCache | None = None
 ) -> int:
-    """Suma de Answer.xp_earned para usuarios de esa universidad, respondidas
-    desde `since`. Reusa el mismo mapeo Enrollment→university que
-    GET /leaderboard/universities."""
+    """XP que esa universidad se ganó estudiando desde `since`, SIN el empuje.
+
+    Reusa el mismo mapeo Enrollment→university que GET /leaderboard/universities.
+
+    Se descuenta `xp_from_boost` porque esto alimenta las push que comparan
+    universidades ("tu universidad está a N XP de alcanzar a la otra") y el
+    empuje de cafecito dura un día: dos compañeros que resuelven lo mismo, uno
+    dentro y otro fuera de la ventana del empuje, aportan distinto. Sin
+    descontarlo, la notificación anuncia un salto que nadie resolvió, y quien
+    entra a ver no encuentra nada que lo explique.
+
+    El ranking acumulado sí incluye el empuje, y está bien: ahí el empuje es
+    parte de lo que se ganó. Lo que no se sostiene es meterlo en una ventana
+    temporal, donde compite contra semanas que no lo tuvieron."""
     user_ids = _university_user_ids(db, university, cache=cache)
     if not user_ids:
         return 0
     return (
-        db.query(func.sum(Answer.xp_earned))
+        db.query(func.sum(Answer.xp_earned - Answer.xp_from_boost))
         .filter(Answer.user_id.in_(user_ids), Answer.answered_at >= since)
         .scalar()
         or 0
@@ -365,7 +376,12 @@ def _is_top_contributor(
         db.query(Answer.user_id)
         .filter(Answer.user_id.in_(user_ids), Answer.answered_at >= since)
         .group_by(Answer.user_id)
-        .order_by(func.sum(Answer.xp_earned).desc())
+        # Sin el empuje, por el mismo motivo que university_weekly_xp: quien
+        # estudió durante un cafecito no "aportó más" que su compañero, le tocó
+        # un multiplicador. Ordenar por el total con empuje puesto convierte el
+        # "fuiste de los que más aportó" en un premio por haber jugado a la hora
+        # correcta.
+        .order_by(func.sum(Answer.xp_earned - Answer.xp_from_boost).desc())
         .limit(TOP_CONTRIBUTOR_N)
         .all()
     )

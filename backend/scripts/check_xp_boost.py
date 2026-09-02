@@ -39,7 +39,16 @@ sys.path.insert(0, str(BACKEND))
 sys.path.insert(0, str(BACKEND.parent))
 
 import database  # noqa: E402
-from models import Base, Course, Enrollment, Exercise, GameBoost, User  # noqa: E402
+from sqlalchemy import func  # noqa: E402
+from models import (  # noqa: E402
+    Answer,
+    Base,
+    Course,
+    Enrollment,
+    Exercise,
+    GameBoost,
+    User,
+)
 
 Base.metadata.create_all(database.engine)
 S = database.SessionLocal
@@ -225,6 +234,59 @@ check("y lo que pagó de más quedó anotado en xp_from_boost",
       boost_con == xp_con - xp_sin, f"(dio {boost_con}, esperado {xp_con - xp_sin})")
 check("con ×2,0 y sin racha, la XP se duplica",
       xp_con == xp_sin * 2, f"(sin {xp_sin}, con {xp_con})")
+
+print("10. el payload de progreso lleva el empuje, y calla cuando no hay")
+limpiar_empujes(db)
+prog = st.get_user_progress_db(1, 1, db)
+check("sin empuje, `boost` viene en None", prog["boost"] is None)
+
+boosts.grant(db, university=None, cafecitos=2, donor_name="Global")
+boosts.grant(db, university="UBA", cafecitos=4, donor_name="Nico")
+db.commit()
+boosts.olvidar_cache_de_empujes()
+prog = st.get_user_progress_db(1, 1, db)
+b = prog["boost"]
+check("con empuje viene el bloque", b is not None)
+check("con los DOS tramos, no uno", b and len(b["tramos"]) == 2,
+      f"(dio {len(b['tramos']) if b else 0})")
+check("el multiplicador es la suma de los dos (2+4 → ×1,6)",
+      b and abs(b["multiplier"] - 1.6) < 1e-9, f"(dio {b['multiplier'] if b else None})")
+check("y el efectivo lo calcula la MISMA función que paga",
+      b and b["effective_multiplier"] == effective_multiplier(
+          prog["streak"]["multiplier"], b["multiplier"]),
+      f"(dio {b['effective_multiplier'] if b else None})")
+# El vencimiento que se muestra es el del tramo que se apaga PRIMERO: es el
+# instante en que el número deja de ser cierto, aunque el otro siga corriendo.
+check("el vencimiento es el mínimo de los tramos, no el máximo",
+      b and b["expires_in_seconds"] == min(t["expires_in_seconds"] for t in b["tramos"]))
+
+print("11. las push de universidad miden XP SIN el empuje")
+# El ranking acumulado sí lo incluye, y está bien. Lo que no se sostiene es
+# meterlo en una VENTANA temporal, donde compite contra semanas que no lo
+# tuvieron: dos compañeros que resuelven lo mismo, uno con el cafecito puesto y
+# otro sin él, aportarían distinto, y la push anunciaría un salto que nadie
+# resolvió.
+import push_store  # noqa: E402
+
+desde = datetime.utcnow() - timedelta(days=7)
+con_empuje = push_store.university_weekly_xp(db, "UBA", desde)
+crudo = (
+    db.query(func.sum(Answer.xp_earned))
+    .filter(Answer.user_id == 1, Answer.answered_at >= desde)
+    .scalar()
+    or 0
+)
+puesto_por_el_cafe = (
+    db.query(func.sum(Answer.xp_from_boost))
+    .filter(Answer.user_id == 1, Answer.answered_at >= desde)
+    .scalar()
+    or 0
+)
+check("hay una respuesta con empuje para medir", puesto_por_el_cafe > 0,
+      f"(el cafecito puso {puesto_por_el_cafe})")
+check("la ventana semanal descuenta lo que puso el cafecito",
+      con_empuje == crudo - puesto_por_el_cafe,
+      f"(dio {con_empuje}, crudo {crudo}, empuje {puesto_por_el_cafe})")
 
 db.close()
 

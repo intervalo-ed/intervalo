@@ -1773,8 +1773,42 @@ def get_user_progress_db(user_id: int, course_id: int, db: DBSession) -> dict:
     si = streak_info(user.streak_days if user else 0)
     streak_counted_today = bool(user and user.streak_last_date == today)
 
+    # El empuje de cafecito de su universidad, si hay alguno corriendo. `None`
+    # cuando no hay, que es casi siempre: la tile solo cambia de cara cuando hay
+    # algo que contar, y averiguar que no hay nada es gratis (`hay_empujes`
+    # memoriza el "no" unos segundos por proceso).
+    tramos = xp_boost.tramos_de_usuario(db, user_id)
+    boost_mult = xp_boost.multiplier_for_user(db, user_id)
+    boost = None
+    if tramos and boost_mult > 1.0:
+        boost = {
+            "multiplier": boost_mult,
+            # El que de verdad se cobra, calculado con la MISMA función que usa
+            # el que paga (record_answer_db). Si la tile hiciera su propia
+            # cuenta, las dos se desincronizan en el primer ajuste y el que
+            # pierde la confianza es el número.
+            "effective_multiplier": effective_multiplier(si.multiplier, boost_mult),
+            # El MÍNIMO de los tramos vigentes, no el máximo: es el instante en
+            # que el número que se muestra deja de ser cierto. Con el global y
+            # el de su universidad corriendo a la vez, el que vence primero ya
+            # baja el multiplicador aunque el otro siga.
+            "expires_in_seconds": min(t.expires_in_seconds for t in tramos),
+            # La lista entera, porque puede estar cobrando DOS empujes con dos
+            # donantes distintos y el número no le pertenece a ninguno.
+            "tramos": [
+                {
+                    "university": t.university,
+                    "cafecitos": t.cafecitos,
+                    "donor_name": t.donor_name,
+                    "expires_in_seconds": t.expires_in_seconds,
+                }
+                for t in tramos
+            ],
+        }
+
     return {
         "topic_states": topic_states,
+        "boost": boost,
         "main_session_done_today": _has_main_session_today(user_id, course_id, db),
         "last_course": last_course_slug,
         "active_cap": cp.active_cap,
