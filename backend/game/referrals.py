@@ -32,13 +32,13 @@ from __future__ import annotations
 
 from sqlalchemy.orm import Session
 
-import handles
+import referrals as compartido
 from models import GamePlayer
 
 # Qué porcentaje del XP de un recluta cobra quien lo trajo. Va en la diapo
 # `¿Reclutas?` escrito con todas las letras, así que cambiarlo acá es cambiar una
 # promesa que ya se hizo: los reclutas viejos empiezan a pagar distinto.
-SHARE_PERCENT = 10
+SHARE_PERCENT = compartido.SHARE_PERCENT
 
 # La contabilidad va en CENTÉSIMAS de XP y no en XP.
 #
@@ -46,46 +46,13 @@ SHARE_PERCENT = 10
 # el resto en cada respuesta, que sobre el largo plazo es una quinta parte de lo
 # prometido. Con centésimas la cuenta es exacta para cualquier porcentaje entero:
 # `xp * SHARE_PERCENT` ES la deuda en centésimas, sin redondeo ninguno.
-_CENTESIMAS = 100
+_CENTESIMAS = compartido.CENTESIMAS
 
 
-def resolver(db: Session, alias: str | None, *, salvo: int | None = None) -> int | None:
-    """El id del jugador dueño de ese @, o None.
-
-    Mira también los @ VIEJOS (models.GameAliasHistory). Un link no se puede
-    morir porque quien lo mandó se registró: eso es exactamente lo que pasa por
-    el camino normal, porque el juego ofrece reclutar antes de pedir el registro
-    y registrarse es cuando se elige el @ definitivo.
-
-    `salvo` es el jugador que está por ser reclutado: reclutarse a uno mismo no
-    es un caso raro sino el primero que alguien prueba.
-    """
-    if not alias:
-        return None
-    # Una sola consulta contra la PK del registro, activo o retirado: los dos
-    # contestan, y la fila retirada ya apunta a la identidad que sobrevivió (ver
-    # backend/handles.py). Antes esto eran hasta TRES selects en cascada —
-    # game_players, después game_alias_history, y después una re-verificación de
-    # que la fila apuntada siguiera viva—.
-    #
-    # Y ahora resuelve algo que antes no: un `?r=` con el username de alguien que
-    # todavía no jugó. Antes ese link no encontraba a nadie y el reclutamiento se
-    # perdía; ahora la persona existe en el registro aunque no tenga jugador.
-    registro = handles.duenio(db, alias)
-    if registro is None or registro.player_id is None:
-        return None
-    # La fila apuntada puede haberse borrado (una fusión encadenada) o ser un
-    # sembrado: en los dos casos no hay a quién acreditarle nada.
-    fila = (
-        db.query(GamePlayer.id)
-        .filter(GamePlayer.id == registro.player_id, GamePlayer.is_bot.is_(False))
-        .first()
-    )
-    if fila is None:
-        return None
-    if fila.id == salvo:
-        return None
-    return fila.id
+# `resolver` vive en el módulo compartido (backend/referrals.py): resuelve un @
+# contra el registro de nombres, que es el mismo para los dos productos. Se
+# re-exporta para no tocar a sus llamadores.
+resolver = compartido.resolver
 
 
 def anotar(db: Session, recluta: GamePlayer, alias: str | None) -> None:

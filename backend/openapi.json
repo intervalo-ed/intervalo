@@ -3791,6 +3791,17 @@
             ],
             "title": "First Utm Source"
           },
+          "referrer": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Referrer"
+          },
           "intro_item_correct": {
             "anyOf": [
               {

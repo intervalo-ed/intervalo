@@ -123,6 +123,24 @@ class User(Base):
     first_group_id = Column(String(20), nullable=True, index=True)
     first_utm_source = Column(String(20), nullable=True)
 
+    # Quién trajo a esta persona a Intervalo. Apunta a `game_players` y no a
+    # `users` porque el reclutador puede ser un INVITADO del minijuego, que no
+    # tiene fila en `users` — y ese es justo el caso que hace viral al juego.
+    # Como `game_players.user_id` es UNIQUE, el jugador ES el join hacia el
+    # usuario: el pagador de clásico se deriva con un SELECT por PK.
+    #
+    # Se escribe UNA vez, en el alta, con la misma guarda write-once que
+    # `first_group_id`. Ver backend/referrals.py.
+    referred_by_player_id = Column(
+        Integer, ForeignKey("game_players.id"), nullable=True, index=True
+    )
+    # Cuánta XP de CLÁSICO le dio esta persona a quien la trajo, y el resto de la
+    # división en centésimas (0-99). Espejo exacto de las columnas del juego, y
+    # por el mismo motivo: el 10% de una respuesta de 12 XP son 1,2, y
+    # redondeando cada pago hacia abajo el 10% prometido se vuelve 8%.
+    referral_xp_given = Column(Integer, nullable=False, default=0, server_default="0")
+    referral_pending = Column(Integer, nullable=False, default=0, server_default="0")
+
     # Habilidad estimada del modelo Elo jerárquico (theta). 0.0 = neutro
     # (arranca ahí, sin cold start raro: la primera predicción es 0.5 y se
     # ajusta solo). `ability_n` es el conteo de respuestas usadas para el
@@ -790,6 +808,17 @@ class GamePlayer(Base):
     # sería peor que un cero honesto.
     xp_from_boosts = Column(Integer, nullable=False, default=0, server_default="0")
 
+    # XP de CLÁSICO que este jugador ya se ganó como reclutador pero que todavía
+    # no se le pudo pagar, porque no tiene cuenta de Intervalo donde acreditarla.
+    #
+    # Pasa con el reclutador INVITADO: comparte su link, alguien entra por él y
+    # estudia en clásico, y ese 10% no tiene a dónde ir. Perderlo mataría
+    # justamente el caso viral, así que se acumula acá y se salda en el momento
+    # exacto en que la fila adquiere `user_id` (ver game/deps.py ::
+    # link_guest_to_user). Es, además, el mejor argumento para registrarse: al
+    # hacerlo cobrás lo que ya generaste.
+    classic_xp_owed = Column(Integer, nullable=False, default=0, server_default="0")
+
     # Jugador sembrado (ver scripts/seed_game_bots.py): puebla el ranking para
     # que el primero en llegar tenga a quién escalar. No lo controla nadie —
     # tiene user_id y guest_token en NULL, así que ninguna request lo resuelve.
@@ -812,7 +841,10 @@ class GamePlayer(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
     last_seen_at = Column(DateTime, nullable=True)
 
-    user = relationship("User")
+    # `foreign_keys` explícito: desde que existe `users.referred_by_player_id`
+    # hay DOS caminos de clave foránea entre estas dos tablas, y sin decir cuál
+    # es este SQLAlchemy no puede armar el join.
+    user = relationship("User", foreign_keys=[user_id])
 
 
 class Handle(Base):

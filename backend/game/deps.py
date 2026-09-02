@@ -20,6 +20,7 @@ from models import GamePlayer, User
 
 from . import keyboard
 import handles
+import referrals as referrals_top
 
 from .aliases import alias_for_user, generate_guest_alias, retire_alias
 
@@ -141,6 +142,16 @@ def link_guest_to_user(db: Session, guest: GamePlayer, user: User) -> GamePlayer
     if existing is None:
         guest.user_id = user.id
         db.flush()
+        # Si esta persona se había anotado a sí misma como recluta —jugó de
+        # invitada, compartió su link y lo abrió ella— la arista queda apuntando
+        # al jugador que ACABA de volverse suyo. Limpiarla acá es la primera de
+        # las tres guardas; la de runtime en `acreditar_clasico` es la que cierra
+        # el caso incluso para aristas creadas antes de que esto existiera.
+        if user.referred_by_player_id == guest.id:
+            user.referred_by_player_id = None
+        # Y cobra lo que ya había generado sin tener dónde: es el mejor argumento
+        # para registrarse, y por eso se paga en el mismo momento.
+        referrals_top.saldar_deuda_de_clasico(db, guest, user.id)
         # Las dos caras de la persona pasan a ser UNA en el registro, y gana el @
         # del JUEGO: es el que vio en pantalla, el que compartió y bajo el que la
         # conocen en el ranking. El username con el que Clerk dio de alta la
@@ -232,6 +243,30 @@ def link_guest_to_user(db: Session, guest: GamePlayer, user: User) -> GamePlayer
     db.query(GamePlayer).filter(GamePlayer.referred_by == guest.id).update(
         {"referred_by": existing.id}, synchronize_session=False
     )
+    # Lo mismo del lado de clásico: los usuarios que entraron por el link del
+    # invitado pasan a apuntar a la fila que sobrevive.
+    #
+    # El `!= user.id` no es paranoia: sin él, alguien que se anotó a sí mismo con
+    # su propio link queda apuntándose, y desde ahí cobra 10% de su propia XP
+    # para siempre. Es la misma guarda que la rama simple, y la única razón por
+    # la que hay tres: cada una tapa un camino distinto al mismo agujero.
+    db.query(User).filter(
+        User.referred_by_player_id == guest.id, User.id != user.id
+    ).update({"referred_by_player_id": existing.id}, synchronize_session=False)
+    db.query(User).filter(
+        User.referred_by_player_id == guest.id, User.id == user.id
+    ).update({"referred_by_player_id": None}, synchronize_session=False)
+    # La deuda de clásico del invitado se traspasa ANTES del delete, o se pierde
+    # con la fila. Se suma a la de la cuenta que sobrevive, que puede tener la
+    # suya.
+    if (guest.classic_xp_owed or 0) > 0:
+        db.query(GamePlayer).filter(GamePlayer.id == existing.id).update(
+            {GamePlayer.classic_xp_owed: GamePlayer.classic_xp_owed + guest.classic_xp_owed},
+            synchronize_session=False,
+        )
+        guest.classic_xp_owed = 0
+    db.flush()
+    referrals_top.saldar_deuda_de_clasico(db, existing, user.id)
     # Y el @ del invitado, que en un segundo deja de existir, queda apuntando a
     # la cuenta: los links que se mandaron con él siguen trayendo gente para la
     # misma persona (ver models.GameAliasHistory). Junto con los @ que el

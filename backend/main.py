@@ -530,6 +530,10 @@ class EnrollmentRequest(BaseModel):
     # web/src/lib/analytics/attribution.ts). Se persiste una sola vez por usuario.
     first_group_id: str | None = None
     first_utm_source: str | None = None
+    # El @ de quien trajo a esta persona, capturado del `?r=` al aterrizar
+    # (ver web/src/lib/analytics/attribution.ts). Es el MISMO parámetro que
+    # ya usa el alta del minijuego: un solo link sirve para los dos.
+    referrer: str | None = None
     # Resultado del ejercicio de prueba del onboarding (primer ítem del curso).
     # True = acertó al primer intento, False = falló alguna vez, None = sin dato.
     intro_item_correct: bool | None = None
@@ -599,6 +603,18 @@ def enroll_user(
     if current_user.first_utm_source is None and body.first_utm_source:
         if re.fullmatch(r"[a-z]{2,20}", body.first_utm_source):
             current_user.first_utm_source = body.first_utm_source
+
+    # Quién trajo a esta persona. Mismo criterio write-once que la atribución de
+    # arriba —quien te trajo te trajo una vez— y la misma validación de formato
+    # que el cliente, para que un parámetro basureado no cree una arista rara.
+    #
+    # `anotar_usuario` se encarga de las guardas contra autoreclutarse, que acá
+    # importan de verdad: en el alta la mayoría todavía no tiene fila de jugador,
+    # así que el `salvo` de siempre sale en None.
+    if body.referrer and re.fullmatch(r"[a-z0-9._]{1,20}", body.referrer):
+        import referrals
+
+        referrals.anotar_usuario(db, current_user, body.referrer)
 
     try:
         db.commit()
