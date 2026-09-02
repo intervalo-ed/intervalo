@@ -613,6 +613,7 @@ def _ejemplo_mathml(key: str) -> str | None:
 
     from sympy.printing.mathml import mathml
 
+    from game.cycler import CyclingRandom
     from game.templates import TEMPLATE_BY_KEY
 
     plantilla = TEMPLATE_BY_KEY.get(key)
@@ -621,10 +622,28 @@ def _ejemplo_mathml(key: str) -> str | None:
     try:
         # crc32 y no hash(): el hash de un str está salteado por proceso, así que
         # el ejemplo cambiaría en cada reinicio del backend.
-        generado = plantilla.build(random.Random(zlib.crc32(key.encode())))
+        #
+        # `CyclingRandom` y no el `random.Random` pelado: desde que las plantillas
+        # ciclan sus números, `build` recibe el envoltorio y sus `randint`/`choice`
+        # llevan un nombre de ranura adelante (game/cycler.py). Con el crudo, la
+        # llamada revienta con `Random.randint() takes 3 positional arguments but 4
+        # were given` — en TODAS las plantillas, no en algunas.
+        #
+        # El estado va vacío y se descarta: esto dibuja un ejemplo de una vez para
+        # el panel, no sirve a un jugador, así que no hay ciclo que conservar entre
+        # llamadas. La semilla sigue siendo la de siempre, o sea que el ejemplo de
+        # cada plantilla sigue siendo el mismo entre reinicios.
+        generado = plantilla.build(
+            CyclingRandom(random.Random(zlib.crc32(key.encode())), {})
+        )
         return mathml(generado.f, printer="presentation")
     except Exception:  # noqa: BLE001
         # Una plantilla que no se puede dibujar no puede voltear el panel entero.
+        #
+        # Ese mismo `except` es lo que hizo que esto pasara desapercibido: la
+        # firma cambió, la llamada empezó a tirar TypeError, y el panel se limitó
+        # a mostrar todos los ítems sin su fórmula de ejemplo. Ningún error, nada
+        # en los logs, solo una columna que dejó de tener contenido.
         return None
 
 
