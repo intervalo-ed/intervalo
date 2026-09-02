@@ -11,6 +11,8 @@ import { EditApodoDialog } from "./edit-apodo-dialog"
 import { NotificationSettings } from "./notification-settings"
 import { useEmojiState } from "./UseEmojiState"
 import { useNotificationSettingsQuery } from "./UseNotificationSettings"
+import { CafecitoSheet } from "@/components/cafecito-sheet"
+import { useLeaderboardSummary } from "@/app/(app)/leaderboard/UseLeaderboardSummary"
 import { SignOutButton } from "@clerk/nextjs"
 import Link from "next/link"
 import {
@@ -21,8 +23,6 @@ import {
   Volume2Icon,
   VolumeXIcon,
 } from "lucide-react"
-// La URL de donación sale del minijuego: es la misma página para los dos lados.
-import { CAFECITO_URL } from "@/app/derivadas/cafecito-cta"
 
 const btnCls = "h-12 w-full justify-start rounded-md"
 // Los mismos dos colores que usa el panel del minijuego para estas dos
@@ -48,6 +48,13 @@ export function ProfileContent() {
   const notif = useNotificationSettingsQuery()
   const [usernameOpen, setUsernameOpen] = useState(false)
   const [apodoOpen, setApodoOpen] = useState(false)
+  const [cafecitoOpen, setCafecitoOpen] = useState(false)
+  // La universidad que la diapo del café va a nombrar. Sale del mismo endpoint
+  // que el tag del ranking (`_mi_universidad`, o sea el enrollment más antiguo)
+  // y no del jugador del minijuego: quien nunca jugó tiene su universidad acá y
+  // no allá. Sin argumentos consulta el scope completo, que es la consulta que
+  // el ranking ya hace y deja cacheada.
+  const universidad = useLeaderboardSummary().data?.university ?? null
 
   if (me.isPending || emoji.isPending || notif.isPending) {
     return <ProfileSkeleton />
@@ -78,21 +85,33 @@ export function ProfileContent() {
         render={<Link href="/leaderboard" />}
       >
         <UsersIcon className="size-5" />
-        Reclutar
+        {/* «Reclutar» a secas se leía como una orden sin objeto. Lo que se
+            ofrece es traer gente que conocés, y decirlo cambia a quién te
+            imaginás mandándole el link. Mismo rótulo que en el minijuego
+            (derivadas/settings-panel.tsx). */}
+        Reclutar compañeros
       </Button>
 
-      {/* Cafecito SÍ va derecho afuera, y con un anchor de verdad: cafecito.app
-          es otro origen y el pago tiene que abrirse en el navegador. Adentro de
-          una webview standalone, Mercado Pago pierde las tarjetas guardadas y
-          los redirects de 3DS. */}
+      {/* Abre la diapo del cafecito, no Cafecito.
+
+          Era un enlace directo a cafecito.app, y de todos los caminos al mismo
+          lugar ese era el peor: NO anotaba la intención. O sea que quien donaba
+          desde acá llegaba al servidor sin nada que lo identificara, y su
+          donación se la repartían las intenciones abiertas de otras personas o
+          terminaba siendo global. Es exactamente la forma en que se pierde una
+          atribución, y ya pasó con una donación real — por eso los tres botones
+          del minijuego llevan a la diapo (derivadas/settings-panel.tsx) y este
+          ahora también.
+
+          La diapo además muestra el slider, que es lo que convierte "donar" en
+          "elegir cuánto multiplicás el XP de tu universidad", y sabe contarle a
+          la persona qué pasó cuando vuelve. El anchor a cafecito.app sigue
+          existiendo: está adentro del panel, que es de donde tiene que salir. */}
       <Button
         variant="outline"
         size="lg"
         className={cafecitoCls}
-        nativeButton={false}
-        render={
-          <a href={CAFECITO_URL} target="_blank" rel="noopener noreferrer" />
-        }
+        onClick={() => setCafecitoOpen(true)}
       >
         <CoffeeIcon className="size-5" />
         Invitar un cafecito
@@ -140,6 +159,11 @@ export function ProfileContent() {
         open={apodoOpen}
         onOpenChange={setApodoOpen}
         current={me.data?.display_name ?? ""}
+      />
+      <CafecitoSheet
+        open={cafecitoOpen}
+        onOpenChange={setCafecitoOpen}
+        university={universidad}
       />
     </div>
   )

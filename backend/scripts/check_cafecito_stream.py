@@ -32,9 +32,20 @@ sys.path.insert(0, str(BACKEND))
 sys.path.insert(0, str(BACKEND.parent))
 
 import database  # noqa: E402
-from models import Base, GameBoost, GameBoostIntent, GamePlayer  # noqa: E402
+from models import (  # noqa: E402
+    Base,
+    Enrollment,
+    GameBoost,
+    GameBoostIntent,
+    GamePlayer,
+    User,
+)
 from game import boosts  # noqa: E402
 from game import cafecito_stream as cs  # noqa: E402
+
+# El endpoint y no solo `boosts.record_intent`: el respaldo por enrollment que
+# prueba el caso 19 vive ahi, que es donde se sabe de que usuario es el jugador.
+from game.router import cafecito_intent  # noqa: E402
 
 Base.metadata.create_all(bind=database.engine)
 
@@ -52,6 +63,11 @@ def limpiar() -> None:
     db.query(GameBoost).delete()
     db.query(GameBoostIntent).delete()
     db.query(GamePlayer).delete()
+    # Los casos que llegan desde Intervalo clasico dejan usuario y enrollment
+    # atras; sin borrarlos, el enrollment de un caso elige la universidad del
+    # siguiente.
+    db.query(Enrollment).delete()
+    db.query(User).delete()
     db.commit()
     db.close()
 
@@ -286,6 +302,51 @@ cs.aplicar({"name": "", "count": 4, "message": ""})
 e = boosts.estado_de_donacion(db, sola)
 check(e.state == "credited", f"sin ambiguedad, se le confirma ({e.state})")
 check(e.university == "UTN", f"y a su universidad ({e.university})")
+db.close()
+
+print("19. quien dona desde Intervalo clasico cobra para SU universidad")
+# La configuracion de Intervalo clasico abre la misma diapo del cafecito
+# (profile-content.tsx -> cafecito-sheet.tsx). Quien llega por ahi puede no haber
+# jugado nunca: su GamePlayer se crea al vuelo para servir el pedido y no tiene
+# universidad, aunque su enrollment de Intervalo si la sepa.
+#
+# Sin el respaldo del endpoint la intencion se anotaba con university=None, y esa
+# no dirige nada (pending_intents la descarta): la donacion caia en el reparto
+# global. O sea que donar desde clasico no le sumaba a la universidad propia.
+limpiar()
+db = database.SessionLocal()
+u = User(clerk_user_id="clerk-clasico", email="clasico@test.dev", name="Clasica")
+db.add(u); db.flush()
+# Texto libre del onboarding, escrito como lo escribe la gente: el endpoint tiene
+# que canonizarlo a la sigla, que es como se buscan los empujes.
+db.add(Enrollment(user_id=u.id, course_id=1, university="Universidad de Buenos Aires",
+                  enrolled_at=datetime.utcnow()))
+jugador = GamePlayer(user_id=u.id, alias="reciencreada", university=None)
+db.add(jugador); db.commit()
+
+cafecito_intent(player=jugador, db=db)
+anotada = db.query(GameBoostIntent).filter(GameBoostIntent.player_id == jugador.id).first()
+check(anotada is not None and anotada.university == "UBA",
+      f"la intencion toma la universidad del enrollment ({anotada and anotada.university})")
+
+cs.aplicar({"name": "", "count": 3, "message": ""})
+check([b.university for b in empujes()] == ["UBA"],
+      f"y la donacion va a la UBA, no al reparto global (fue a {[b.university for b in empujes()]})")
+db.close()
+
+# Y el jugador que SI tiene universidad sigue mandando el, sin que el enrollment
+# se la pise: es el camino de siempre y es el que mas se usa.
+limpiar()
+db = database.SessionLocal()
+u2 = User(clerk_user_id="clerk-jugador", email="jugador@test.dev", name="Jugador")
+db.add(u2); db.flush()
+db.add(Enrollment(user_id=u2.id, course_id=1, university="UBA", enrolled_at=datetime.utcnow()))
+propio = GamePlayer(user_id=u2.id, alias="yaeligio", university="UTN")
+db.add(propio); db.commit()
+cafecito_intent(player=propio, db=db)
+suya = db.query(GameBoostIntent).filter(GameBoostIntent.player_id == propio.id).first()
+check(suya is not None and suya.university == "UTN",
+      f"la que eligio en el juego le gana al enrollment ({suya and suya.university})")
 db.close()
 
 print()

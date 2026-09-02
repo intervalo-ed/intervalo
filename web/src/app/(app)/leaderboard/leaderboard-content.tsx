@@ -561,13 +561,38 @@ function RecruitsRanking({
           copiarlo a mano. `shrink-0` para que la lista sea lo único que cede
           cuando la pantalla es corta. */}
       <div className="flex shrink-0 flex-col gap-3">
+        {/* El mismo copy que el panel de reclutas del minijuego
+            (derivadas/reclutas-panel.tsx): es la misma mecánica de los dos
+            lados y con dos redacciones distintas cada una explicaba una mitad.
+
+            Con universidad se nombra el circuito completo —el 10% viaja a esta
+            persona, y por eso también a su universidad— en vez de solo su
+            parte. Sin universidad no hay nada que nombrar y queda la genérica.
+
+            Se cayó «No se le descuenta nada: esa XP se acuña»: contestaba una
+            objeción que nadie se hacía todavía, y para hacerlo tenía que
+            introducir la idea de que a alguien podría descontársele algo. */}
         <p className="text-sm leading-relaxed text-muted-foreground">
-          Quien entre por tu link te deja el{" "}
-          <span className="font-medium text-foreground">
+          Quienes ingresen con tu link generan un{" "}
+          <span className="font-medium tabular-nums" style={{ color: VERDE }}>
             {data?.share_percent ?? 10}%
           </span>{" "}
-          de todo lo que sume, acá y en el minijuego. No se le descuenta nada:
-          esa XP se acuña.
+          más de XP, el cual va{" "}
+          <span className="font-medium" style={{ color: VERDE }}>
+            para vos
+          </span>
+          {myUniversity ? (
+            <>
+              {" "}
+              y por lo tanto a la{" "}
+              <span className="font-medium" style={{ color: VERDE }}>
+                {myUniversity}
+              </span>{" "}
+              también.
+            </>
+          ) : (
+            <> y a tu universidad también.</>
+          )}
         </p>
 
         {/* Un <a> de verdad y no un window.open: wa.me es otro origen y tiene

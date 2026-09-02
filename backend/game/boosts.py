@@ -506,12 +506,24 @@ def estado_de_donacion(
     )
 
 
-def record_intent(db: Session, player: GamePlayer, now: datetime | None = None) -> GameBoostIntent:
+def record_intent(
+    db: Session,
+    player: GamePlayer,
+    now: datetime | None = None,
+    university: str | None = None,
+) -> GameBoostIntent:
     """Anota que este jugador se va a Cafecito. Es la pata que no le pide nada al
-    donante: acá el juego todavía sabe quién es y de qué universidad."""
+    donante: acá el juego todavía sabe quién es y de qué universidad.
+
+    `university` deja pasar una universidad de otra fuente para el caso en que el
+    jugador no tenga: quien abre la diapo desde Intervalo clásico puede tener un
+    `GamePlayer` recién creado y sin universidad, pero un enrollment que sí la
+    sabe (ver `router.cafecito_intent`, el único que la manda). Omitida, se usa
+    la del jugador, que es lo de siempre.
+    """
     intent = GameBoostIntent(
         player_id=player.id,
-        university=player.university,
+        university=university if university is not None else player.university,
         created_at=now or _now(),
     )
     db.add(intent)
