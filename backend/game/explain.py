@@ -164,6 +164,12 @@ REGLAS: dict[str, Regla] = {
         "signo menos del segundo término y el $v^{2}$ de abajo.",
         r"\left(\frac{u}{v}\right)' = \frac{u'v - uv'}{v^{2}}",
     ),
+    "tan": Regla(
+        "$\\tan x$ es el cociente entre el seno y el coseno del mismo punto que "
+        "gira. Los dos cambian a la vez, y al repartir ese cambio con la regla "
+        "del cociente lo que queda es $1/\\cos^{2}x$.",
+        r"\left(\tan x\right)' = \frac{1}{\cos^{2} x}",
+    ),
 }
 
 # La forma de cada plantilla, explícita y no inferida de la expresión. Es por un
@@ -198,6 +204,9 @@ FORMA_POR_PLANTILLA: dict[str, str] = {
     "t5_exp_over_pow": "cociente",
     "t5_ln_over_x": "cociente",
     "t5_linear_over_linear": "cociente",
+    "t1_recip": "termino",
+    "t1_sqrt": "termino",
+    "t3_tan": "tan",
 }
 
 
@@ -234,9 +243,11 @@ def _reglas_de(expr: sympy.Expr) -> tuple[str, ...]:
         return ("sen",)
     if expr.func is sympy.cos:
         return ("cos",)
+    if expr.func is sympy.tan:
+        return ("tan",)
     # Una forma que este catálogo no conoce. Devolver vacío deja la explicación
     # con la cuenta y sin imagen: feo, pero cierto. Inventar la imagen
-    # equivocada sería peor, y el check recorre las 26 plantillas justamente
+    # equivocada sería peor, y el check recorre las 29 plantillas justamente
     # para que esto no llegue a producción.
     return ()
 
@@ -327,7 +338,7 @@ def _auto_view(f: sympy.Expr, fprime: sympy.Expr) -> tuple[float, float, float, 
     valores = _muestras(f_num, xs) + _muestras(fp_num, xs)
 
     if not valores:
-        # No debería pasar con las 26 plantillas (el check las recorre todas),
+        # No debería pasar con las 29 plantillas (el check las recorre todas),
         # pero una vista de emergencia es preferible a que el endpoint reviente.
         return (x_lo, x_hi, -6.0, 6.0)
 
@@ -452,6 +463,16 @@ def build(exercise) -> Explanation:
         if base is not None:
             trozos.append(f"Acá la base es ${latex_es(base)}$.")
         resultado = sympy.diff(f, x)
+
+    elif forma == "tan":
+        # sympy.diff(tan(x)) da tan(x)**2 + 1: correcto, pero es una forma
+        # distinta a la que la propia REGLA acaba de enseñar (1/cos²x), y ver
+        # las dos seguidas sin explicación lee como una contradicción. Se
+        # arma el resultado a mano en la forma de la regla en vez de confiar
+        # en la que eligió sympy.
+        coef, _resto = f.as_coeff_Mul()
+        imagen("tan")
+        resultado = coef / sympy.cos(x) ** 2
 
     else:
         imagenes(f)

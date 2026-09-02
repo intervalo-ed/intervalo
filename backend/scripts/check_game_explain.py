@@ -1,7 +1,7 @@
 """Verifica el «¿Por qué?» del juego: game/explain.py y POST /explain.
 
 Lo que más vale de este check es la primera parte, y es aburrida a propósito:
-construir la explicación de las 26 plantillas con muchas semillas. Los
+construir la explicación de las 29 plantillas con muchas semillas. Los
 ejercicios del juego se generan al azar, así que la forma de romper esto no es
 un caso de borde raro sino la combinación de parámetros que nadie miró — un
 `KeyError` de una rama que el catálogo de reglas no conoce, o una plantilla
@@ -55,6 +55,7 @@ from fastapi.testclient import TestClient  # noqa: E402
 import main  # noqa: E402
 from game import explain as game_explain  # noqa: E402
 from game import xp as game_xp  # noqa: E402
+from game.cycler import CyclingRandom  # noqa: E402
 from game.templates import TEMPLATES, latex_es, x  # noqa: E402
 from game.validator import expr_from_stored, numerically_equivalent  # noqa: E402
 
@@ -70,11 +71,11 @@ def check(condition: bool, label: str) -> None:
 
 class _Falso:
     """Un ejercicio sin base de datos: lo único que `build` mira son estos
-    cuatro campos, y armarlos a mano deja recorrer las 26 plantillas por 20
+    cuatro campos, y armarlos a mano deja recorrer las 29 plantillas por 20
     semillas sin escribir 520 filas."""
 
     def __init__(self, template, seed):
-        g = template.build(random.Random(seed))
+        g = template.build(CyclingRandom(random.Random(seed), {}))
         self.template_key = template.key
         self.params_json = json.dumps({"f": str(g.f)})
         self.prompt_latex = g.prompt_latex or latex_es(g.f)
@@ -85,14 +86,14 @@ SEMILLAS = range(20)
 FORMULA_DISPLAY = re.compile(r"\$\$.*?\$\$", re.S)
 
 print("\ncatálogo")
-check(game_explain.plantillas_sin_forma() == [], "las 26 plantillas tienen forma asignada")
-check(len(game_explain.REGLAS) == 13, f"hay 13 reglas ({len(game_explain.REGLAS)})")
+check(game_explain.plantillas_sin_forma() == [], "las 29 plantillas tienen forma asignada")
+check(len(game_explain.REGLAS) == 14, f"hay 14 reglas ({len(game_explain.REGLAS)})")
 check(
     all(r.imagen.strip() for r in game_explain.REGLAS.values()),
     "ninguna regla quedó sin imagen escrita",
 )
 
-print("\nconstrucción (26 plantillas × 20 semillas)")
+print("\nconstrucción (29 plantillas × 20 semillas)")
 explicaciones: dict[str, str] = {}
 resultados: dict[str, game_explain.Explanation] = {}
 rotas: list[str] = []
@@ -281,7 +282,7 @@ jugador = db.query(GamePlayer).filter(GamePlayer.guest_token == TOKEN).first()
 def sembrar(intentos: int, status: str = "served") -> GameExercise:
     """Un ejercicio de la plantilla del producto con `intentos` respuestas ya
     parseadas y erradas."""
-    g = TEMPLATES[16].build(random.Random(3))  # t4_pow_sin
+    g = TEMPLATES[16].build(CyclingRandom(random.Random(3), {}))  # t4_pow_sin
     e = GameExercise(
         player_id=jugador.id,
         template_key="t4_pow_sin",

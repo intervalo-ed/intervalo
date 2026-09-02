@@ -38,9 +38,17 @@ import database  # noqa: E402
 from models import Base, GamePlayer  # noqa: E402
 from game import elo  # noqa: E402
 from game import keyboard as game_keyboard  # noqa: E402
-from game.generator import pick_template, serve_exercise  # noqa: E402
+from game.cycler import CyclingRandom  # noqa: E402
+from game.generator import _build_cycled, pick_template, serve_exercise  # noqa: E402
 from game.mathjson import MathJsonError, to_sympy  # noqa: E402
 from game.templates import TEMPLATES, latex_es  # noqa: E402
+
+
+def build(template, rng, state=None):
+    """`template.build` ahora pide un CyclingRandom. Estado fresco por default:
+    la mayoría de estos chequeos no le importa el ciclado, solo que la
+    plantilla siga generando instancias válidas."""
+    return template.build(CyclingRandom(rng, {} if state is None else state))
 from game.validator import (  # noqa: E402
     AnswerRejected,
     expr_from_stored,
@@ -78,7 +86,7 @@ rng = random.Random(20260827)
 for template in TEMPLATES:
     ok_diff = ok_roundtrip = ok_latex = ok_errors = True
     for _ in range(20):
-        generated = template.build(rng)
+        generated = build(template, rng)
         derivative = sympy.diff(generated.f, x)
         reparsed = expr_from_stored(str(derivative))
         if sympy.simplify(reparsed - derivative) != 0:
@@ -138,7 +146,7 @@ check_raises(
 
 # Feedback específico por error predecible
 tpl = next(t for t in TEMPLATES if t.key == "t4_pow_sin")
-gen = tpl.build(random.Random(7))
+gen = build(tpl, random.Random(7))
 import json  # noqa: E402
 
 errors_json = json.dumps(
@@ -302,6 +310,36 @@ check(served.status == "expired", "servir de nuevo expira el anterior")
 check(served2.template_key != served.template_key, "anti-repetición inmediata")
 db.close()
 
+# ── Ciclado de números ───────────────────────────────────────────────────────
+# t1_pow tiene una sola ranura ("n", dominio {2,3,4,5}): agotarla una vuelta
+# tiene que mostrar los 4 valores sin repetir ninguno, y la vuelta siguiente
+# vuelve a barajar (no repite el mismo orden).
+print("\n— ciclado de números —")
+tpl_pow = next(t for t in TEMPLATES if t.key == "t1_pow")
+estado: dict[str, list] = {}
+vuelta1 = [build(tpl_pow, random.Random(i), estado).f for i in range(4)]
+check(sorted(str(sympy.diff(f, x)) for f in vuelta1) == sorted(str(sympy.diff(x**n, x)) for n in (2, 3, 4, 5)),
+      f"una vuelta completa sirve los 4 exponentes sin repetir ({[str(f) for f in vuelta1]})")
+vuelta2 = [build(tpl_pow, random.Random(100 + i), estado).f for i in range(4)]
+check(sorted(str(f) for f in vuelta2) == sorted(str(f) for f in vuelta1),
+      "la segunda vuelta vuelve a servir los mismos 4 exponentes")
+# Namespacing en _build_cycled: t0_const y t1_kx tienen las dos una ranura "k"
+# — persistidas en el mismo blob (numeric_cycle_json) no se pueden pisar.
+class _JugadorFalso:
+    numeric_cycle_json = "{}"
+
+falso = _JugadorFalso()
+tpl_const, tpl_kx = (next(t for t in TEMPLATES if t.key == k) for k in ("t0_const", "t1_kx"))
+_build_cycled(falso, tpl_const, random.Random(1))
+blob_tras_const = json.loads(falso.numeric_cycle_json)
+_build_cycled(falso, tpl_kx, random.Random(1))
+blob_tras_kx = json.loads(falso.numeric_cycle_json)
+check(
+    "t0_const:k" in blob_tras_const and "t0_const:k" in blob_tras_kx,
+    "servir t1_kx no pisa la ranura 'k' que ya tenía t0_const",
+)
+check("t1_kx:k" in blob_tras_kx, "y t1_kx guarda la suya bajo su propio prefijo")
+
 # ── 5. Teclado acumulativo ───────────────────────────────────────────────────
 # El riesgo real es dejar a alguien sin poder escribir la respuesta: se verifica
 # que TODA tecla que la derivada exige esté desbloqueada después de servirla.
@@ -311,7 +349,7 @@ samples: dict[str, list[str]] = {}
 for template in TEMPLATES:
     ok_covers = ok_vocab = True
     for i in range(20):
-        generated = template.build(rng)
+        generated = build(template, rng)
         derivative = sympy.diff(generated.f, x)
         required = game_keyboard.required_keys(derivative)
         col, fresh = game_keyboard.unlock("", derivative)
@@ -333,7 +371,7 @@ col = ""
 sizes: list[int] = []
 for template in TEMPLATES:
     for _ in range(5):
-        derivative = sympy.diff(template.build(rng).f, x)
+        derivative = sympy.diff(build(template, rng).f, x)
         col, _fresh = game_keyboard.unlock(col, derivative)
         sizes.append(len(game_keyboard.parse_unlocked(col)))
 check(all(b >= a for a, b in zip(sizes, sizes[1:])), "el inventario nunca encoge")
@@ -345,7 +383,7 @@ alcanzable: set[str] = set()
 rng_cov = random.Random(20260828)
 for template in TEMPLATES:
     for _ in range(60):
-        alcanzable |= game_keyboard.required_keys(sympy.diff(template.build(rng_cov).f, x))
+        alcanzable |= game_keyboard.required_keys(sympy.diff(build(template, rng_cov).f, x))
 final = game_keyboard.parse_unlocked(col)
 check(final == alcanzable, f"se desbloquea todo lo alcanzable ({len(final)}/{len(alcanzable)})")
 
@@ -357,7 +395,7 @@ inalcanzables = [k for k in game_keyboard.CANONICAL_ORDER if k not in alcanzable
 print(f"   alcanzables: {' '.join(game_keyboard.in_order(alcanzable))}")
 print(f"   sin plantilla que las pida: {' '.join(inalcanzables) or '(ninguna)'}")
 # Volver a servir algo ya visto no vuelve a anunciarlo como nuevo.
-repetida = sympy.diff(TEMPLATES[0].build(rng).f, x)
+repetida = sympy.diff(build(TEMPLATES[0], rng).f, x)
 _col, fresh_otra_vez = game_keyboard.unlock(col, repetida)
 check(fresh_otra_vez == [], "una tecla ya desbloqueada no se reanuncia")
 
