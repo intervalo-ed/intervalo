@@ -70,8 +70,35 @@ class StreakInfo(BaseModel):
     xp_bonus: int = 0           # XP extra ganado en esta sesión gracias al multiplicador (solo summary)
 
 
+class BoostTramo(BaseModel):
+    """Un empuje de cafecito vigente, ya agregado. `university=None` = global."""
+
+    university: str | None
+    cafecitos: int
+    donor_name: str | None
+    expires_in_seconds: int
+
+
+class BoostInfo(BaseModel):
+    """El empuje de cafecito que le toca a esta persona, si hay alguno.
+
+    Es una LISTA de tramos más dos escalares derivados, y no un empuje solo,
+    porque se pueden estar cobrando dos a la vez —el global y el de su
+    universidad— con dos donantes y dos vencimientos distintos. El multiplicador
+    es la suma de los dos, así que no le pertenece a ninguno de los tramos.
+    """
+
+    multiplier: float            # el factor del empuje solo
+    effective_multiplier: float  # racha × empuje, topeado: el que de verdad se cobra
+    # El MÍNIMO de los tramos: el instante en que el número deja de ser cierto.
+    expires_in_seconds: int
+    tramos: list[BoostTramo]
+
+
 class UserProgressResponse(BaseModel):
     topic_states: dict[str, TopicProgress]
+    # None cuando no hay ningún empuje corriendo, que es casi siempre.
+    boost: BoostInfo | None = None
     main_session_done_today: bool
     last_course: str | None = None
     active_cap: int = 18          # ítems en aprendizaje permitidos a la vez

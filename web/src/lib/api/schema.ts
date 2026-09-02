@@ -1398,6 +1398,39 @@ export interface components {
             /** Response Time S */
             response_time_s: number;
         };
+        /**
+         * BoostInfo
+         * @description El empuje de cafecito que le toca a esta persona, si hay alguno.
+         *
+         *     Es una LISTA de tramos más dos escalares derivados, y no un empuje solo,
+         *     porque se pueden estar cobrando dos a la vez —el global y el de su
+         *     universidad— con dos donantes y dos vencimientos distintos. El multiplicador
+         *     es la suma de los dos, así que no le pertenece a ninguno de los tramos.
+         */
+        BoostInfo: {
+            /** Multiplier */
+            multiplier: number;
+            /** Effective Multiplier */
+            effective_multiplier: number;
+            /** Expires In Seconds */
+            expires_in_seconds: number;
+            /** Tramos */
+            tramos: components["schemas"]["BoostTramo"][];
+        };
+        /**
+         * BoostTramo
+         * @description Un empuje de cafecito vigente, ya agregado. `university=None` = global.
+         */
+        BoostTramo: {
+            /** University */
+            university: string | null;
+            /** Cafecitos */
+            cafecitos: number;
+            /** Donor Name */
+            donor_name: string | null;
+            /** Expires In Seconds */
+            expires_in_seconds: number;
+        };
         /** CapPreviewResponse */
         CapPreviewResponse: {
             /** Value */
@@ -2599,6 +2632,7 @@ export interface components {
             topic_states: {
                 [key: string]: components["schemas"]["TopicProgress"];
             };
+            boost?: components["schemas"]["BoostInfo"] | null;
             /** Main Session Done Today */
             main_session_done_today: boolean;
             /** Last Course */

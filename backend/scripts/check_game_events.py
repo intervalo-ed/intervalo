@@ -43,10 +43,19 @@ def check(condition: bool, label: str) -> None:
 
 
 def fresh_player(db, alias, *, university=None, is_bot=False, combo=0, xp=0,
-                 theta=0.0, n_updates=0):
+                 theta=0.0, n_updates=0, resueltas=None):
+    # `resueltas` sigue a la XP por defecto: quien entra a la tabla de
+    # universidades es quien resolvió acá, no quien tiene XP (ver
+    # game/events.py :: _university_standings y game/router.py :: RESOLVIO_ACA),
+    # porque la XP la puede subir un recluta sin que el reclutador haya derivado.
+    # Los casos que necesitan a alguien con XP y cero resueltas lo piden
+    # explícito.
+    if resueltas is None:
+        resueltas = 1 if xp > 0 else 0
     p = GamePlayer(
         alias=alias, university=university, is_bot=is_bot,
         current_combo=combo, xp=xp, theta=theta, n_updates=n_updates,
+        exercises_correct=resueltas,
     )
     db.add(p)
     db.commit()

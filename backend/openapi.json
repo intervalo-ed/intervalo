@@ -3461,6 +3461,81 @@
         ],
         "title": "AnswerRequest"
       },
+      "BoostInfo": {
+        "properties": {
+          "multiplier": {
+            "type": "number",
+            "title": "Multiplier"
+          },
+          "effective_multiplier": {
+            "type": "number",
+            "title": "Effective Multiplier"
+          },
+          "expires_in_seconds": {
+            "type": "integer",
+            "title": "Expires In Seconds"
+          },
+          "tramos": {
+            "items": {
+              "$ref": "#/components/schemas/BoostTramo"
+            },
+            "type": "array",
+            "title": "Tramos"
+          }
+        },
+        "type": "object",
+        "required": [
+          "multiplier",
+          "effective_multiplier",
+          "expires_in_seconds",
+          "tramos"
+        ],
+        "title": "BoostInfo",
+        "description": "El empuje de cafecito que le toca a esta persona, si hay alguno.\n\nEs una LISTA de tramos m\u00e1s dos escalares derivados, y no un empuje solo,\nporque se pueden estar cobrando dos a la vez \u2014el global y el de su\nuniversidad\u2014 con dos donantes y dos vencimientos distintos. El multiplicador\nes la suma de los dos, as\u00ed que no le pertenece a ninguno de los tramos."
+      },
+      "BoostTramo": {
+        "properties": {
+          "university": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "University"
+          },
+          "cafecitos": {
+            "type": "integer",
+            "title": "Cafecitos"
+          },
+          "donor_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Donor Name"
+          },
+          "expires_in_seconds": {
+            "type": "integer",
+            "title": "Expires In Seconds"
+          }
+        },
+        "type": "object",
+        "required": [
+          "university",
+          "cafecitos",
+          "donor_name",
+          "expires_in_seconds"
+        ],
+        "title": "BoostTramo",
+        "description": "Un empuje de cafecito vigente, ya agregado. `university=None` = global."
+      },
       "CapPreviewResponse": {
         "properties": {
           "value": {
@@ -6565,6 +6640,16 @@
             },
             "type": "object",
             "title": "Topic States"
+          },
+          "boost": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/BoostInfo"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "main_session_done_today": {
             "type": "boolean",

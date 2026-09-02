@@ -72,6 +72,7 @@ import { useCourseEditor } from "./UseCourseEditor"
 import { useStartSession } from "./UseStartSession"
 import { useUserProgress } from "./UseUserProgress"
 import { startSessionTransition } from "@/lib/nav/session-transition"
+import { AMBAR } from "@/app/derivadas/game-colors"
 
 // Exportada porque /onboarding/complete siembra este mismo valor al terminar
 // el wizard: con la literal duplicada, cambiar una sola de las dos dejaba al
@@ -350,12 +351,25 @@ export default function DashboardEntry() {
               <div className="grid grid-cols-3 gap-2">
               <Metric
                 label="Multiplicador de XP"
+                // Con un cafecito corriendo, el número es el EFECTIVO (racha
+                // × empuje, topeado): el que de verdad se cobra. Lo calcula el
+                // servidor con la misma función que paga.
                 value={
                   <span className="inline-flex items-center gap-1.5">
-                    {data ? `×${data.streak.multiplier.toFixed(1)}` : "…"}
+                    {data
+                      ? `×${(
+                          data.boost?.effective_multiplier ??
+                          data.streak.multiplier
+                        ).toFixed(1)}`
+                      : "…"}
                     <XpDots className="size-[0.8em] text-[#5457e5]" />
                   </span>
                 }
+                // `valueColor` y no `accent`: en esta MISMA grilla de tres, la
+                // tile de ítems pendientes ya usa accent. Dos tarjetas cálidas
+                // contiguas, cada una significando otra cosa, y el color deja de
+                // querer decir "mirá esto".
+                valueColor={data?.boost ? AMBAR : undefined}
                 info={
                   data
                     ? {
@@ -367,6 +381,19 @@ export default function DashboardEntry() {
                               tu multiplicador y más XP sumás por cada
                               ejercicio.
                             </p>
+                            {data.boost && (
+                              <p>
+                                Ahora mismo hay{" "}
+                                <span className="font-medium text-foreground">
+                                  un cafecito
+                                </span>{" "}
+                                empujando tu XP:{" "}
+                                <span className="font-medium text-foreground">
+                                  ×{data.boost.multiplier.toFixed(1)}
+                                </span>{" "}
+                                encima de tu racha.
+                              </p>
+                            )}
                             {data.streak.is_max ? (
                               <>
                                 <p>
