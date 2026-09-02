@@ -127,12 +127,22 @@ export function ReclutasPanel({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [trigger])
 
-  const reclutar = () => {
+  const registrarReclutamiento = () => {
     sfx.select()
     cta("share", "click", {
       placement: trigger,
       props: { reclutas: reclutas.data?.entries.length ?? 0 },
     })
+  }
+
+  // El botón es un <a> de verdad, igual que el del cafecito y por el mismo
+  // motivo: wa.me es otro origen y tiene que salir de la PWA instalada. Desde
+  // una ventana standalone en iOS, `window.open` es inconsistente según la
+  // versión; un anchor clickeado por la persona abre WhatsApp parejo en los dos
+  // sistemas. El atajo de teclado no tiene anchor, así que ahí sí se abre a
+  // mano, sin ningún `await` en el medio.
+  const reclutarConTeclado = () => {
+    registrarReclutamiento()
     window.open(shareUrl(player?.alias), "_blank", "noopener,noreferrer")
   }
 
@@ -140,9 +150,9 @@ export function ReclutasPanel({
   // ~380 ms y durante ese rato la diapo que se va sigue montada junto a la que
   // entra, así que sin esto un Enter en ese instante lo escuchan las dos y se
   // piden DOS derivadas.
-  const reclutarRef = useRef(reclutar)
+  const reclutarRef = useRef(reclutarConTeclado)
   useEffect(() => {
-    reclutarRef.current = reclutar
+    reclutarRef.current = reclutarConTeclado
   })
   const seguidoRef = useRef(false)
   useEffect(() => {
@@ -260,9 +270,11 @@ export function ReclutasPanel({
         )}
 
         <Salida slot={slotAccion}>
-          <button
-            type="button"
-            onClick={reclutar}
+          <a
+            href={shareUrl(player?.alias)}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={registrarReclutamiento}
             className={
               slotAccion
                 ? CLASE_ACCION_EN_EL_PIE
@@ -276,7 +288,7 @@ export function ReclutasPanel({
             Reclutar
             <WhatsappGlyph size={18} />
             {keyboard && <KeyCap>{teclas.shiftEnter}</KeyCap>}
-          </button>
+          </a>
         </Salida>
 
         <Salida slot={slotSalida}>

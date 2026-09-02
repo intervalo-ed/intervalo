@@ -751,7 +751,7 @@ export function CafecitoPanel({
     }
   }, [seFue])
 
-  const invitar = () => {
+  const registrarInvitacion = () => {
     // Adentro de `invitar` y no en el onClick: al botón también se llega con
     // shift+enter, y el atajo tiene que sonar igual que tocarlo.
     sfx.select()
@@ -767,15 +767,34 @@ export function CafecitoPanel({
     // Cafecito, que es el último momento en que sabemos quién es.
     intent.mutate()
     setSeFue(true)
+  }
+
+  // El botón es un <a> de verdad y NO un window.open, y eso importa adentro de
+  // la PWA instalada. Cafecito.app es otro origen, así que tiene que abrirse en
+  // el navegador de verdad: Mercado Pago adentro de una webview standalone
+  // pierde las tarjetas guardadas, el gestor de contraseñas y los redirects de
+  // 3DS. En iOS, además, un link externo que navega DENTRO de la ventana
+  // standalone deja a la persona atrapada, sin barra de direcciones ni botón de
+  // atrás. `window.open` desde JS es inconsistente ahí según la versión; un
+  // anchor clickeado por la persona anda parejo en los dos sistemas.
+  //
+  // (La regla opuesta vale para /derivadas ↔ /, que son el mismo origen y van
+  // por <Link> justamente para NO salir de la PWA.)
+  //
+  // El atajo de teclado no tiene anchor que clickear, así que ahí sí se abre a
+  // mano — y sin ningún `await` en el medio, que es lo único que lo salva del
+  // bloqueador de ventanas emergentes.
+  const invitarConTeclado = () => {
+    registrarInvitacion()
     window.open(CAFECITO_URL, "_blank", "noopener,noreferrer")
   }
 
   // Los atajos. `keydown` en document y no en la caja: mientras el foco está en
   // el slider, las flechas son de él, pero Enter tiene que funcionar igual esté
   // donde esté el foco.
-  const invitarRef = useRef(invitar)
+  const invitarRef = useRef(invitarConTeclado)
   useEffect(() => {
-    invitarRef.current = invitar
+    invitarRef.current = invitarConTeclado
   })
   // El cambio de diapo dura unos 220 ms y durante ese rato la que se va sigue
   // montada junto a la que entra (así funciona AnimatePresence, ver
@@ -906,9 +925,11 @@ export function CafecitoPanel({
             />
 
             <Salida slot={slotAccion}>
-              <motion.button
-                type="button"
-                onClick={invitar}
+              <motion.a
+                href={CAFECITO_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={registrarInvitacion}
                 className={
                   slotAccion
                     ? CLASE_ACCION_EN_EL_PIE
@@ -942,7 +963,7 @@ export function CafecitoPanel({
                 Invitar {n === 1 ? "un cafecito" : `${n} cafecitos`}
                 <Coffee size={18} />
                 {keyboard && <KeyCap>{teclas.shiftEnter}</KeyCap>}
-              </motion.button>
+              </motion.a>
             </Salida>
           </>
         ) : (
