@@ -42,7 +42,7 @@ from auth import (
     verify_clerk_token,
 )
 from clerk_webhook import WebhookVerificationError, verify_svix_signature
-from models import User, Enrollment, Answer, UnitState
+from models import User, Enrollment, Answer, GamePlayer, UnitState
 from sqlalchemy import and_ as sa_and, case, func, or_ as sa_or, select
 from sqlalchemy.exc import IntegrityError
 from schemas import (
@@ -471,14 +471,23 @@ def update_profile(
         ok, reason = validate_username(candidate)
         if not ok:
             raise HTTPException(status_code=422, detail=reason)
-        taken = (
-            db.query(User.id)
-            .filter(User.username == candidate, User.id != current_user.id)
-            .first()
-        )
-        if taken:
+        # Contra el REGISTRO y no contra `users`: el nombre puede ser de un
+        # jugador del minijuego —invitado incluido— o estar retirado pero
+        # todavía resolviendo links `?r=`. Mirar solo `users` entregaba nombres
+        # que ya eran de otra persona. `reclamar` además retira el @ anterior y
+        # baja el nuevo a `users.username`, que pasa a ser caché.
+        import handles
+
+        jugador = db.query(GamePlayer).filter(GamePlayer.user_id == current_user.id).first()
+        try:
+            handles.reclamar(
+                db,
+                candidate,
+                user_id=current_user.id,
+                player_id=jugador.id if jugador else None,
+            )
+        except handles.HandleTomado:
             raise HTTPException(status_code=409, detail="Ese usuario ya está en uso.")
-        current_user.username = candidate
 
     if body.display_name is not None:
         current_user.display_name = body.display_name.strip() or None

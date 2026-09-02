@@ -20,6 +20,7 @@ from sqlalchemy.orm import Session, load_only
 
 from models import GameAttempt, GameCtaEvent, GameExercise, GamePlayer, User
 from universities import UNIVERSITIES as _UNIVERSIDADES
+import handles
 from usernames import normalize_username, validate_username
 
 from . import boosts
@@ -429,14 +430,20 @@ def patch_me(
         ok, reason = validate_username(alias)
         if not ok:
             raise HTTPException(status_code=422, detail=reason)
-        if alias != player.alias and alias_taken(db, alias):
-            raise HTTPException(status_code=409, detail="Ese @ ya está tomado.")
         if alias != player.alias:
             # El @ que se deja sigue apuntando acá. Es lo que mantiene vivos los
             # links de reclutamiento ya repartidos, que si no morirían justo en
-            # el momento de registrarse (ver models.GameAliasHistory).
+            # el momento de registrarse. Lo hace `handles.reclamar`, que además
+            # verifica contra TODO el namespace —incluidos los usernames de
+            # Intervalo, que este endpoint no miraba— y baja el @ nuevo a
+            # `game_players.alias`, que pasa a ser caché.
             retire_alias(db, player.alias, player.id)
-        player.alias = alias
+            try:
+                handles.reclamar(
+                    db, alias, user_id=player.user_id, player_id=player.id
+                )
+            except handles.HandleTomado:
+                raise HTTPException(status_code=409, detail="Ese @ ya está tomado.")
         if free_edit:
             player.alias_is_generated = False
 

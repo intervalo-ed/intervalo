@@ -155,6 +155,25 @@ except IntegrityError:
     db.rollback()
     check("un handle sin dueño lo rebota la base", True)
 
+print("7. el cruce entre los dos productos, que es el punto de todo esto")
+# Antes `usernames.py` validaba contra `users` y `game/aliases.py` contra el
+# namespace del juego, sin mirarse. El mismo string podía terminar siendo de dos
+# personas, una en cada producto — y con `?r=<@>` cruzando, eso es pagarle los
+# reclutas al que no fue.
+import game.aliases as aliases  # noqa: E402
+import usernames  # noqa: E402
+
+db.add(GamePlayer(id=12, alias="tmp12"))
+db.commit()
+handles.reclamar(db, "solojuego", player_id=12)
+db.commit()
+check("un @ de invitado figura tomado para el generador de usernames de clásico",
+      usernames.assign_unique_username(db, "Solo Juego") != "solojuego")
+check("y alias_taken del juego ve el username de clásico",
+      aliases.alias_taken(db, "nico"))
+check("aunque ese username esté RETIRADO", aliases.alias_taken(db, "nicolas"))
+check("y un nombre que no tuvo nadie sigue libre", not aliases.alias_taken(db, "nadielotuvo"))
+
 db.close()
 
 print()
