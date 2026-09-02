@@ -302,5 +302,131 @@ def choose_variant(
     return category, variant
 
 
+# ── Avisos de EVENTO ─────────────────────────────────────────────────────────
+#
+# Estos NO entran a `CATEGORY_WEIGHTS` ni a la rotación de arriba, y eso es lo
+# que los define: la normal sale sola, en el horario elegido, y estos salen
+# porque PASÓ algo. Tienen su propio cupo (users.notify_events_count) para que un
+# cafecito no le coma el lugar al recordatorio de estudio, que es el que sostiene
+# el hábito.
+#
+# El emoji del recluta es el casco 🪖, el mismo con el que el feed del minijuego
+# anuncia un reclutamiento: es la misma cosa contada en dos lados.
+
+CATEGORY_RECRUIT = "recruit"
+CATEGORY_CAFECITO = "cafecito"
+
+
+def _recruit_first(context: dict) -> tuple[str, str]:
+    return "Intervalo", (
+        f"Reclutaste a @{context['recruit_alias']} y hoy ya te generó "
+        f"{context['recruit_xp']} XP 🪖"
+    )
+
+
+def _recruit_named(context: dict) -> tuple[str, str]:
+    return "Intervalo", (
+        f"@{context['recruit_alias']} entró por tu link y te sumó "
+        f"{context['recruit_xp']} XP hoy 🪖"
+    )
+
+
+def _recruit_multi(context: dict) -> tuple[str, str]:
+    return "Intervalo", (
+        f"{context['recruit_count']} de tus reclutas estudiaron hoy y te dejaron "
+        f"{context['recruit_xp']} XP 🪖"
+    )
+
+
+def _recruit_milestone(context: dict) -> tuple[str, str]:
+    return "Intervalo", (
+        f"Tus reclutas ya te dieron {context['recruit_total']} XP en total. Nada mal 🪖"
+    )
+
+
+def _cafecito_named(context: dict) -> tuple[str, str]:
+    return "Intervalo", (
+        f"@{context['donor_alias']} invitó un cafecito para la {context['university']}. "
+        f"Tenés ×{_mult(context)} por 24 h ☕"
+    )
+
+
+def _cafecito_anon(context: dict) -> tuple[str, str]:
+    return "Intervalo", (
+        f"Alguien de la {context['university']} invitó un cafecito. "
+        f"Tenés ×{_mult(context)} por 24 h ☕"
+    )
+
+
+def _cafecito_global(context: dict) -> tuple[str, str]:
+    return "Intervalo", (
+        f"Hay un cafecito para todo Intervalo. Tenés ×{_mult(context)} por 24 h ☕"
+    )
+
+
+def _cafecito_ending(context: dict) -> tuple[str, str]:
+    return "Intervalo", (
+        f"Te quedan {context['boost_hours_left']} h de ×{_mult(context)} en la "
+        f"{context['university']}. ¿La aprovechás? ☕"
+    )
+
+
+def _mult(context: dict) -> str:
+    """El multiplicador con coma, como se escribe en castellano y como ya lo
+    muestra el minijuego (`fmtMultiplier` en cafecito-cta.tsx)."""
+    return f"{context['boost_multiplier']:.1f}".replace(".", ",")
+
+
+# El donante solo se nombra cuando se lo puede afirmar. Cafecito no dice quién
+# donó: lo único que lo ata a una persona es la "intención" que se anota al
+# tocar Invitar, y `boosts.estado_de_donacion` ya se niega a afirmarlo cuando hay
+# más de una abierta. Decirle "@fulano invitó" a quien no fue es exactamente la
+# frase que puede hacer sentir estafado a quien sí pagó.
+EVENT_VARIANTS: dict[str, list[Variant]] = {
+    CATEGORY_RECRUIT: [
+        Variant("recruit_first", lambda c: c.get("recruit_first", False), _recruit_first),
+        Variant("recruit_named", lambda c: bool(c.get("recruit_alias")), _recruit_named),
+        Variant("recruit_multi", lambda c: c.get("recruit_count", 0) > 1, _recruit_multi),
+        Variant(
+            "recruit_milestone",
+            lambda c: c.get("recruit_total", 0) > 0,
+            _recruit_milestone,
+        ),
+    ],
+    CATEGORY_CAFECITO: [
+        Variant("cafecito_named", lambda c: bool(c.get("donor_alias")), _cafecito_named),
+        Variant(
+            "cafecito_anon",
+            lambda c: bool(c.get("university")) and not c.get("donor_alias"),
+            _cafecito_anon,
+        ),
+        Variant(
+            "cafecito_global",
+            lambda c: not c.get("university"),
+            _cafecito_global,
+        ),
+        Variant(
+            "cafecito_ending",
+            lambda c: bool(c.get("boost_hours_left")) and not c.get("studied_today", True),
+            _cafecito_ending,
+        ),
+    ],
+}
+
+
+def choose_event_variant(category: str, context: dict) -> Variant | None:
+    """La variante que corresponde a un evento, o None si ninguna aplica.
+
+    Sin rotación aleatoria, a diferencia de la normal: acá la variante la decide
+    el HECHO —si se puede nombrar al donante, si fue uno o varios reclutas— y no
+    el azar. Elegir a dedo entre dos que describen cosas distintas sería mentir
+    la mitad de las veces.
+    """
+    for v in EVENT_VARIANTS.get(category, []):
+        if v.available(context):
+            return v
+    return None
+
+
 def render(category: str, variant: Variant, context: dict) -> tuple[str, str]:
     return variant.render(context)

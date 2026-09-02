@@ -543,6 +543,66 @@ def _floor_to_15(minute: int) -> int:
     return (minute // 15) * 15
 
 
+# Cuántas notificaciones DE EVENTO puede recibir alguien por día, además de su
+# notificación normal. El total queda en 3: una del horario elegido, hasta dos
+# porque pasó algo.
+#
+# Dos y no una: los dos eventos que existen —un recluta que empezó a generar XP
+# y un cafecito para tu universidad— son noticias distintas y las dos valen. Y no
+# tres, porque a partir de ahí la app pasa a interrumpir más de lo que informa.
+MAX_EVENTOS_POR_DIA = 2
+
+
+def claim_event_slot(db: DBSession, user: User, local_today: date) -> bool:
+    """¿Le queda cupo de evento a esta persona hoy? Si sí, lo consume. No commitea.
+
+    Claim-on-read, el mismo idiom que `due_notifications` usa para la normal, y
+    por el mismo motivo: sin consumir el cupo en la misma transacción que decide
+    mandar, un tick reintentado o dos corriendo solapados mandan el mismo aviso
+    dos veces.
+
+    El contador se reinicia comparando la FECHA guardada contra el día local de
+    esta persona, así que no hace falta ningún job que lo limpie a medianoche —y
+    cada quien tiene su huso, así que "medianoche" no es un instante único.
+    """
+    if user.notify_events_on != local_today:
+        user.notify_events_on = local_today
+        user.notify_events_count = 0
+    if (user.notify_events_count or 0) >= MAX_EVENTOS_POR_DIA:
+        return False
+    user.notify_events_count = (user.notify_events_count or 0) + 1
+    return True
+
+
+def en_horario_de_avisos(user: User, ahora_utc: datetime | None = None) -> bool:
+    """¿Es una hora decente para interrumpir a esta persona?
+
+    Los avisos de evento son REACTIVOS: se disparan cuando alguien dona o cuando
+    un recluta estudia, y eso puede pasar a las cuatro de la mañana. Sin esta
+    guarda, la app despierta gente.
+
+    Se usa la misma franja que la persona ya eligió para su notificación normal,
+    con una ventana de un par de horas: es la hora en la que dijo que quiere que
+    le hablen. Con empujes de 24 horas, retener un aviso de cafecito hasta esa
+    franja no le saca sentido — cosa que con media hora era imposible.
+    """
+    if not user.notify_time:
+        return False
+    try:
+        tz = ZoneInfo(user.notify_timezone or "UTC")
+    except ZoneInfoNotFoundError:
+        return False
+    local = (ahora_utc or datetime.now(tz=ZoneInfo("UTC"))).astimezone(tz)
+    elegida = int(user.notify_time.split(":")[0])
+    return elegida <= local.hour < elegida + VENTANA_AVISOS_H
+
+
+# Cuántas horas después del horario elegido se sigue considerando "su momento".
+# Dos: lo suficiente para que un evento que pasó justo antes no se pierda, y lo
+# bastante corto como para que no termine llegando de noche.
+VENTANA_AVISOS_H = 2
+
+
 def due_notifications(db: DBSession, force: bool = False) -> list[dict]:
     """
     Return users who should be notified right now, and claim them.

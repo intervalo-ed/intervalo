@@ -325,7 +325,35 @@ def _logo_html() -> str:
     )
 
 
-def render_email(*, greeting: str, highlight: str, cta_label: str, cta_url: str, unsubscribe_url: str, preview: str | None = None) -> str:
+def _rows_html(rows: list[tuple[str, str, str]] | None, sans: str) -> str:
+    """Una tabla chica de tres columnas, para los mails que muestran un listado.
+
+    Tabla y no flex: los clientes de correo no soportan flexbox de forma
+    confiable, y una lista que se desarma es peor que no tenerla. Mismo diseño
+    claro que el resto de la plantilla, para que la inversión de Gmail en modo
+    oscuro siga jugando a favor.
+
+    Sin filas devuelve el string vacío, así el mail queda exactamente como antes
+    y ningún llamador tiene que ramificar.
+    """
+    if not rows:
+        return ""
+    celdas = ""
+    for izq, medio, der in rows:
+        celdas += (
+            '<tr>'
+            f'<td style="{sans}font-size:14px;padding:6px 0;color:#131324;">{izq}</td>'
+            f'<td style="{sans}font-size:12px;padding:6px 8px;color:#768899;text-align:center;">{medio}</td>'
+            f'<td style="{sans}font-size:14px;padding:6px 0;color:#131324;font-weight:700;text-align:right;">{der}</td>'
+            "</tr>"
+        )
+    return (
+        '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" '
+        'style="margin:0 0 24px;">' + celdas + "</table>"
+    )
+
+
+def render_email(*, greeting: str, highlight: str, cta_label: str, cta_url: str, unsubscribe_url: str, preview: str | None = None, rows: list[tuple[str, str, str]] | None = None) -> str:
     # La app usa DM Sans para el cuerpo; Gmail no carga webfonts, así que se
     # aproxima con un stack sans-serif web-safe (antes no se declaraba nada y
     # el cuerpo caía en Times).
@@ -370,6 +398,7 @@ def render_email(*, greeting: str, highlight: str, cta_label: str, cta_url: str,
 {_logo_html()}
 <p style="{sans}font-size:15px;line-height:1.6;margin:0 0 8px;max-width:22rem;color:#131324;">{greeting}</p>
 <p style="{sans}font-size:15px;line-height:1.6;margin:0 0 24px;font-weight:700;color:#131324;">{highlight}</p>
+{_rows_html(rows, sans)}
 <a href="{cta_url}" style="{btn}">{cta_label}</a>
 <p style="{sans}font-size:11px;line-height:1.7;color:#768899;margin:32px 0 0">Intervalo 2026. Desarrollado por y para estudiantes.<br><a href="{_app_base_url()}/terminos" style="color:#768899">Términos y condiciones</a> &middot; <a href="{_app_base_url()}/privacidad" style="color:#768899">Política de privacidad</a> &middot; <a href="{unsubscribe_url}" style="color:#768899">Desuscribirse</a></p>
 </td></tr>
@@ -496,6 +525,84 @@ def send_winback_email(db: DBSession, user: User) -> bool:
         user.winback_email_sent_at = datetime.utcnow()
         db.commit()
     return sent
+
+
+def send_cafecito_efecto_email(
+    db: DBSession,
+    user: User,
+    *,
+    university: str | None,
+    xp_extra: int,
+    estudiantes: int,
+) -> bool:
+    """Le cuenta a quien invitó un cafecito qué hizo su empuje, ya vencido.
+
+    Se manda al VENCER y no al acreditar: recién ahí el número está cerrado. Y
+    solo si hay número — con `xp_extra` en cero no se manda nada, porque un mail
+    que dice "tu cafecito generó 0 XP" es peor que ningún mail.
+
+    Ojo con lo que este mail NO puede prometer: `boosts.multiplier_for` colapsa
+    el empuje global y el dirigido en un solo número, y los cafecitos de la
+    ventana se suman a propósito. Así que lo honesto es "el empuje de tu
+    universidad generó N XP", nunca "TU cafecito generó N XP".
+    """
+    if xp_extra <= 0:
+        return False
+
+    name = greeting_name(user)
+    unsubscribe_url = f"{_api_base_url()}/email/unsubscribe?token={unsubscribe_token(user.id)}"
+    donde = f"la {university}" if university else "todo Intervalo"
+    greeting = f"{name}, tu cafecito ya terminó de hacer efecto."
+    highlight = (
+        f"Durante 24 horas {donde} sumó {xp_extra} XP extra, "
+        f"repartidos entre {estudiantes} estudiantes."
+    )
+    html = render_email(
+        greeting=greeting,
+        highlight=highlight,
+        cta_label="Ver",
+        cta_url=_cta_url("cafecito_efecto"),
+        unsubscribe_url=unsubscribe_url,
+        preview=greeting,
+    )
+    asunto = f"Tu cafecito le dio {xp_extra} XP a {donde} ☕"
+    return _send(user.email, asunto, html, unsubscribe_url, text=f"{greeting} {highlight}")
+
+
+def send_reclutas_semanal_email(
+    db: DBSession,
+    user: User,
+    *,
+    xp_semana: int,
+    filas: list[tuple[str, str, int]],
+) -> bool:
+    """El resumen semanal de lo que generaron los reclutas de esta persona.
+
+    `filas` es (@alias, universidad, xp) ya ordenada por aporte, igual que la
+    vista de Reclutas del ranking.
+
+    Semana sin movimiento: NO se manda. Este mail existe para traer buenas
+    noticias; mandarlo vacío lo convierte en ruido y enseña a ignorarlo, que es
+    justo lo que no se quiere de un canal que se usa una vez por semana.
+    """
+    if xp_semana <= 0 or not filas:
+        return False
+
+    name = greeting_name(user)
+    unsubscribe_url = f"{_api_base_url()}/email/unsubscribe?token={unsubscribe_token(user.id)}"
+    greeting = f"{name}, esto es lo que sumaron los que trajiste."
+    highlight = f"{xp_semana} XP esta semana, de {len(filas)} personas."
+    html = render_email(
+        greeting=greeting,
+        highlight=highlight,
+        cta_label="Ver",
+        cta_url=_cta_url("reclutas_semanal"),
+        unsubscribe_url=unsubscribe_url,
+        preview=greeting,
+        rows=[(f"@{alias}", uni or "", f"{xp} XP") for alias, uni, xp in filas],
+    )
+    asunto = f"Tus reclutas te dieron {xp_semana} XP esta semana 🪖"
+    return _send(user.email, asunto, html, unsubscribe_url, text=f"{greeting} {highlight}")
 
 
 def send_streak_tier_email(db: DBSession, user: User, tier: int) -> bool:
