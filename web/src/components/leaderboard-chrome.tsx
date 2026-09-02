@@ -93,8 +93,9 @@ export function FilterBox({
   )
 }
 
-// Las vistas del ranking. "recruits" es solo del minijuego —Intervalo no tiene
-// reclutas— así que la opción aparece únicamente si quien monta esto la pide.
+// Las vistas del ranking. "recruits" es opt-in (`withRecruits`) porque no toda
+// pantalla que monta esto tiene reclutas que mostrar: la eligen los dos rankings
+// —el del minijuego y el de Intervalo clásico—, no la vista pública.
 export type RankingView = "individual" | "university" | "recruits"
 
 // "Reclutas" a secas y no "Mis reclutas": al lado de Individual y Universitario

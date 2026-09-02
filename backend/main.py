@@ -30,6 +30,8 @@ from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
 import emoji_tree
+import xp_boost
+from game import boosts as game_boosts
 from game import cafecito_stream as game_cafecito
 from session_store import get_user_progress_db
 from database import SessionLocal
@@ -46,6 +48,7 @@ from models import User, Enrollment, Answer, GamePlayer, UnitState
 from sqlalchemy import and_ as sa_and, case, func, or_ as sa_or, select
 from sqlalchemy.exc import IntegrityError
 from schemas import (
+    BoostTramo,
     RecruitEntry,
     RecruitsResponse,
     AnswerResponse,
@@ -1324,6 +1327,43 @@ AROUND_WINDOW = 30
 BELT_RANK = {"white": 0, "blue": 1, "violet": 2, "brown": 3}
 
 
+def _max_belt_by_user(db: Session, user_ids: list[int]) -> dict[int, str]:
+    """El cinturón más alto de cada usuario, en cualquier curso.
+
+    Es lo que pinta el nombre en el ranking, así que lo usan las dos tablas que
+    muestran personas: la individual y la de reclutas. Una sola función porque
+    dos criterios distintos harían que la misma persona se viera de dos colores
+    según por qué lista se la mire.
+
+    Solo sobre los ids que se van a devolver, nunca sobre la tabla entera: antes
+    esto agregaba `unit_states` completa en cada request del leaderboard.
+    """
+    if not user_ids:
+        return {}
+    out: dict[int, str] = {}
+    for uid, belt in (
+        db.query(UnitState.user_id, UnitState.belt)
+        .filter(UnitState.user_id.in_(user_ids), UnitState.suspended.is_(False))
+        .distinct()
+        .all()
+    ):
+        if BELT_RANK.get(belt, -1) > BELT_RANK.get(out.get(uid, ""), -1):
+            out[uid] = belt
+    return out
+
+
+def _mi_universidad(db: Session, user_id: int) -> str | None:
+    """La universidad de una persona, con el MISMO criterio que todo lo demás.
+
+    Delega en `xp_boost.enrollment_de_referencia` en vez de escribir un cuarto
+    `order_by(enrolled_at)`: el repo ya tiene tres criterios distintos de "de qué
+    universidad es esta persona" conviviendo (ver el docstring de esa función), y
+    este es el que comparten el tag del ranking y el empuje de cafecito.
+    """
+    fila = xp_boost.enrollment_de_referencia(db, user_id)
+    return fila.university if fila is not None else None
+
+
 def _first_enrollment_subq():
     """Subquery user_id → (university, career, enrolled_at) del enrollment MÁS
     ANTIGUO de cada usuario (sus respuestas originales de onboarding), sin
@@ -1510,16 +1550,7 @@ def get_leaderboard(
         if page_ids
         else {}
     )
-    max_belt_by_user: dict[int, str] = {}
-    if page_ids:
-        for uid, belt in (
-            db.query(UnitState.user_id, UnitState.belt)
-            .filter(UnitState.user_id.in_(page_ids), UnitState.suspended.is_(False))
-            .distinct()
-            .all()
-        ):
-            if BELT_RANK.get(belt, -1) > BELT_RANK.get(max_belt_by_user.get(uid, ""), -1):
-                max_belt_by_user[uid] = belt
+    max_belt_by_user = _max_belt_by_user(db, page_ids)
 
     entries = [
         LeaderboardEntry(
@@ -1684,6 +1715,7 @@ def get_recruits(
         .filter(User.referred_by_player_id == propio.id)
         .one()
     )
+    belts = _max_belt_by_user(db, [u.id for (u, _uni, _car) in filas])
     return RecruitsResponse(
         entries=[
             RecruitEntry(
@@ -1692,6 +1724,7 @@ def get_recruits(
                 university=uni,
                 career=car,
                 xp_given=u.referral_xp_given,
+                belt=belts.get(u.id, "white"),
             )
             for i, (u, uni, car) in enumerate(filas)
         ],
@@ -1768,6 +1801,21 @@ def get_leaderboard_summary(
         total_students=total_students,
         total_exercises=total_exercises,
         universities=universities,
+        # Sin filtrar por el scope de arriba, a propósito: ver el comentario del
+        # campo en LeaderboardSummaryResponse. `active_boosts` arranca con
+        # `hay_empujes`, que memoriza unos segundos el "no hay ninguno" —que es
+        # el caso casi siempre— así que esto no le agrega consultas al resumen.
+        boosts=[
+            BoostTramo(
+                university=b.university,
+                multiplier=b.multiplier,
+                cafecitos=b.cafecitos,
+                donor_name=b.donor_name,
+                expires_in_seconds=b.expires_in_seconds,
+            )
+            for b in game_boosts.active_boosts(db)
+        ],
+        university=_mi_universidad(db, current_user.id),
     )
 
 

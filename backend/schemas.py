@@ -71,9 +71,23 @@ class StreakInfo(BaseModel):
 
 
 class BoostTramo(BaseModel):
-    """Un empuje de cafecito vigente, ya agregado. `university=None` = global."""
+    """Un empuje de cafecito vigente, ya agregado. `university=None` = global.
+
+    Proyección fiel de `game.boosts.BoostView`: los mismos cinco campos con los
+    mismos significados. Lo usan dos pantallas distintas —la tile de Practicar,
+    que muestra los tramos que le tocan a UNA persona, y el cartel del ranking,
+    que muestra los de TODAS las universidades— porque en las dos el objeto es
+    el mismo: un cafecito vigente.
+    """
 
     university: str | None
+    # Lo que ESTE tramo solo multiplica. Ojo: `BoostInfo.multiplier` NO es la
+    # suma de los multiplicadores de sus tramos. Los cafecitos se suman primero
+    # y recién después se convierten en factor (`multiplier_from_cafecitos`), así
+    # que dos tramos de ×1,2 no dan ×2,4 sino ×1,4.
+    multiplier: float
+    # El total CRUDO de cafecitos, sin el tope por donación que sí tiene
+    # `multiplier` (ver BoostView): con una donación de 30 valen ×2,0 y 30.
     cafecitos: int
     donor_name: str | None
     expires_in_seconds: int
@@ -240,6 +254,10 @@ class RecruitEntry(BaseModel):
     university: str | None = None
     career: str | None = None
     xp_given: int  # XP que ESTA persona te generó
+    # El mismo cinturón máximo que lleva su fila del ranking individual, y por el
+    # mismo motivo: es lo que pinta el nombre. Es la misma persona en las dos
+    # tablas y tiene que verse igual en las dos.
+    belt: str = "white"
 
 
 class RecruitsResponse(BaseModel):
@@ -291,6 +309,26 @@ class LeaderboardSummaryResponse(BaseModel):
     total_students: int            # usuarios con universidad registrada
     total_exercises: int           # ejercicios resueltos (todos los usuarios)
     universities: list[str]        # universidades presentes (para el filtro)
+    # Los empujes de cafecito vigentes, de TODAS las universidades y no solo de
+    # la de quien mira. Esa es la mecánica, no un descuido: ver que la UTN está
+    # en ×2,0 mientras la propia está en nada es lo que hace mirar cuánto sale un
+    # cafecito (context/gamification.md: la pregunta es cómo esto alimenta la
+    # competencia entre universidades).
+    #
+    # Tampoco los toca el filtro de carrera/universidad de la cabecera: filtrar
+    # el ranking a la UBA no apaga el empuje de la UTN, solo deja de mostrar sus
+    # filas. Viajan acá y no por un endpoint nuevo porque son cabecera igual que
+    # los dos números de arriba, y así el ranking sigue haciendo dos pedidos.
+    boosts: list[BoostTramo] = []
+    # La universidad de quien MIRA. Dos pantallas la necesitan y ninguna la tenía:
+    # el cartel de empujes, que pone la propia primero, y el estado vacío de
+    # Reclutas, que pinta sus renglones de ejemplo con la propia porque la promesa
+    # es "así se va a ver TU universidad creciendo".
+    #
+    # Viaja acá y en ningún otro lado a propósito: es un hecho solo, y tenerlo
+    # también colgado de la respuesta de reclutas serían dos campos que pueden
+    # empezar a decir cosas distintas.
+    university: str | None = None
 
 
 # ── Session ───────────────────────────────────────────────────────────────────
