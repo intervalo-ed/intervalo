@@ -45,6 +45,7 @@ from algorithm import (
     xp_from_boost,
 )
 import referrals
+import summary_asks
 import xp_boost
 from exercise_bank import (
     _row_to_dict,
@@ -1952,6 +1953,25 @@ def get_summary_db(
         .count()
     )
 
+    # ¿Le pedimos algo en esta pantalla? La regla entera vive en summary_asks —
+    # acá solo se anota EN QUÉ sesión salió, que es lo que después mantiene al
+    # café y al WhatsApp separados.
+    #
+    # La escritura es condicional para que un refetch del mismo resumen no
+    # cuente como un pedido nuevo: `pedido_del_resumen` ya devuelve lo mismo
+    # cuando el último pedido fue esta sesión, y sin la guarda commitearíamos en
+    # cada visita a la misma pantalla.
+    pedido = summary_asks.pedido_del_resumen(
+        session_number=session_number,
+        tier_reached=si.tier_reached,
+        streak_days=(user.streak_days or 0) if user else 0,
+        tiene_pwa=bool(user and user.pwa_first_seen_at is not None),
+        ultimo_pedido=user.summary_ask_last_session if user else None,
+    )
+    if pedido is not None and user and user.summary_ask_last_session != session_number:
+        user.summary_ask_last_session = session_number
+        db.commit()
+
     return {
         "session_id": str(session_id_db),
         "user_name": "",
@@ -1976,27 +1996,9 @@ def get_summary_db(
             "counted_today": streak_counted_today,
             "xp_bonus": xp_bonus_total,
         },
-        # Ofrecer el cafecito solo cuando la persona ya demostró que se queda.
-        # Las tres señales existen y no hay que construir ninguna:
-        #
-        #   · Instaló y abrió la PWA (`pwa_first_seen_at`). Va del lado del
-        #     SERVIDOR y no de un localStorage porque quien la instaló en el
-        #     teléfono y abre en la compu tiene que contar igual.
-        #   · Lleva al menos 5 sesiones terminadas.
-        #   · Es su tercer día de actividad, o más.
-        #
-        # Y el MOMENTO es el festejo del ×1,2: la pantalla en la que la persona
-        # acaba de recibir algo. Pedir justo ahí es distinto de pedir en frío.
-        #
-        # Ojo con `session_number`: cuenta todas las sesiones terminadas,
-        # incluida la sintética del onboarding, así que 5 acá son 4 de verdad.
-        "ofrecer_cafecito": bool(
-            user
-            and user.pwa_first_seen_at is not None
-            and session_number >= 5
-            and (user.streak_days or 0) >= 3
-            and si.tier_reached
-        ),
+        "pedido": pedido,
+        "handle": user.username if user else None,
+        "share_percent": referrals.SHARE_PERCENT,
         "session_number": session_number,
     }
 

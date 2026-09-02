@@ -397,9 +397,16 @@ class SessionSummaryResponse(BaseModel):
     xp_earned: int
     streak: StreakInfo
     session_number: int  # nº de orden de esta sesión entre todas las terminadas por el usuario
-    # ¿Corresponde ofrecerle un cafecito en esta pantalla?
+    # ¿Le pedimos algo en esta pantalla, y cuál de las dos cosas?
     #
-    # Lo decide el SERVIDOR y no el cliente porque una de las tres señales
-    # —haber instalado la PWA— vive en la base y no en el dispositivo: quien la
-    # instaló en el teléfono y abre en la compu tiene que contar igual.
-    ofrecer_cafecito: bool = False
+    # Lo decide el SERVIDOR y no el cliente por dos motivos: una de las señales
+    # —haber instalado la PWA— vive en la base y no en el dispositivo (quien la
+    # instaló en el teléfono y abre en la compu tiene que contar igual), y la
+    # separación entre los dos pedidos necesita recordar en qué sesión salió el
+    # anterior. Ver backend/summary_asks.py.
+    pedido: Literal["cafecito", "reclutas"] | None = None
+    # El @ de quien mira y el porcentaje vigente, para armar el pedido de
+    # reclutas sin un segundo request desde el resumen. `handle` en None mientras
+    # no tenga: el CTA se deshabilita solo, igual que en el ranking.
+    handle: str | None = None
+    share_percent: int = 10

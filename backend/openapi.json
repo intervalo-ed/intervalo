@@ -6356,10 +6356,36 @@
             "type": "integer",
             "title": "Session Number"
           },
-          "ofrecer_cafecito": {
-            "type": "boolean",
-            "title": "Ofrecer Cafecito",
-            "default": false
+          "pedido": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "cafecito",
+                  "reclutas"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pedido"
+          },
+          "handle": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Handle"
+          },
+          "share_percent": {
+            "type": "integer",
+            "title": "Share Percent",
+            "default": 10
           }
         },
         "type": "object",

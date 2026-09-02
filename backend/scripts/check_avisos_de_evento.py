@@ -19,6 +19,9 @@ Lo que se prueba es lo que no se ve mirando el teléfono:
 · Que el copy elija la variante por el HECHO y no al azar, y que nunca nombre a
   un donante que no se puede afirmar.
 
+Los pedidos del resumen de sesión —el cafecito y el de reclutar, que son otra
+superficie— tienen su propio check: check_pedidos_del_resumen.py.
+
 Uso:
     python backend/scripts/check_avisos_de_evento.py
 
@@ -186,30 +189,10 @@ if avisos:
 otra_vez = push_store.due_event_notifications(db, force=True)
 check("y no se repite en la corrida siguiente", otra_vez == [], f"(dio {len(otra_vez)})")
 
-print("8. el CTA del resumen solo aparece cuando la persona ya se quedó")
-# Las tres señales tienen que darse a la vez, y el momento es el festejo del
-# hito. Sin esto, quien todavía está probando la app recibe un pedido de plata
-# como tercera pantalla.
-from algorithm import streak_info  # noqa: E402
-
-
-def ofrece(*, pwa, sesiones, dias):
-    """La misma expresión que arma `get_summary_db`, para poder recorrer los
-    casos sin montar una sesión entera."""
-    si = streak_info(dias)
-    return bool(pwa is not None and sesiones >= 5 and dias >= 3 and si.tier_reached)
-
-
-check("con todo dado, ofrece", ofrece(pwa=datetime(2026, 9, 1), sesiones=5, dias=3))
-check("sin la PWA instalada, no", not ofrece(pwa=None, sesiones=5, dias=3))
-check("con menos de 5 sesiones, no", not ofrece(pwa=datetime(2026, 9, 1), sesiones=4, dias=3))
-check("en su segundo día, no", not ofrece(pwa=datetime(2026, 9, 1), sesiones=9, dias=2))
-# El hito es lo que define el MOMENTO: el día 4 sigue teniendo ×1,2 pero ya no
-# es la pantalla en la que acaba de subir, así que no se pide.
-check("y en un día que NO es hito, tampoco",
-      not ofrece(pwa=datetime(2026, 9, 1), sesiones=9, dias=4))
-check("pero en el hito siguiente (9 días) vuelve a corresponder",
-      ofrece(pwa=datetime(2026, 9, 1), sesiones=9, dias=9))
+# Los pedidos del RESUMEN (el cafecito y el de reclutar) se probaban acá cuando
+# eran una expresión suelta adentro de `get_summary_db`. Ahora viven en
+# summary_asks.py y tienen su propio check, que además cubre la alternancia y la
+# separación entre los dos: backend/scripts/check_pedidos_del_resumen.py.
 
 db.close()
 
