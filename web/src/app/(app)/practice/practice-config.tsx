@@ -503,9 +503,19 @@ export default function PracticeConfig() {
               </Button>
             )}
 
-            {/* La puerta al minijuego. Solo el logo, sin etiqueta: el lockup
-                `d/dx [ intervalo ]` YA dice qué es, y ponerle "Jugar a
-                derivadas" al lado sería nombrar dos veces la misma cosa.
+            {/* La puerta al minijuego: «Ir a» y el lockup, como una sola cosa
+                centrada.
+
+                El logo iba solo, con el argumento de que `d/dx [ intervalo ]`
+                YA dice qué es. Dice qué es, pero no que sea un LUGAR: un logo
+                suelto adentro de una caja se lee como un cartel de marca —algo
+                que está ahí— y no como algo que se toca para ir a otro lado.
+                «Ir a» no repite el nombre, que era el riesgo: pone el verbo que
+                faltaba y deja que el logo siga siendo el sustantivo.
+
+                Las dos piezas van juntas y el grupo entero se centra: el `gap`
+                las mantiene a la misma distancia y el `justify-center` centra lo
+                que forman, no cada una por su lado.
 
                 <Link> y no <a target="_blank">: /derivadas es el mismo deploy y
                 el mismo origen, así que es navegación interna y se queda adentro
@@ -517,9 +527,21 @@ export default function PracticeConfig() {
                 `#131324` es el fondo de la marca del juego, el mismo del icono. */}
             <Link
               href="/derivadas"
-              className="flex h-14 w-full shrink-0 items-center justify-center rounded-md border border-white/15 bg-[#131324] transition-colors hover:border-white/30"
+              className="flex h-14 w-full shrink-0 items-center justify-center gap-2.5 rounded-md border border-white/15 bg-[#131324] transition-colors hover:border-white/30"
               aria-label="Ir a Intervalo DX, el minijuego de derivadas"
             >
+              {/* Apagado contra el logo: es la parte que se lee una vez y ya,
+                  mientras que el lockup es lo que hay que reconocer. Con los dos
+                  al mismo peso, «Ir a» le compite al nombre.
+
+                  El color va en este span y no en el enlace porque el lockup
+                  trae el suyo propio y fijo (`text-[#F6F8FC]` en game-logo.tsx):
+                  heredar no es una opción, así que «Ir a» tiene que elegir un
+                  tono, y el que corresponde es uno apenas por debajo de ese.
+
+                  Para el lector de pantalla esto no existe — el `aria-label` del
+                  enlace reemplaza todo su contenido. */}
+              <span className="text-sm text-white/60">Ir a</span>
               <GameLogo fontSize="1.05rem" />
             </Link>
 

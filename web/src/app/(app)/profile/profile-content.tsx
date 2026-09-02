@@ -26,13 +26,20 @@ import { CAFECITO_URL } from "@/app/derivadas/cafecito-cta"
 
 const btnCls = "h-12 w-full justify-start rounded-md"
 // Los mismos dos colores que usa el panel del minijuego para estas dos
-// acciones: verde WhatsApp para reclutar, ámbar café para el cafecito.
+// acciones: verde WhatsApp para reclutar, ámbar café para el cafecito. El verde
+// es `VERDE_TINTA` (derivadas/cafecito-cta.tsx), que es de donde sale el de
+// allá; acá va escrito porque Tailwind no puede generar una clase de un valor
+// que no ve escrito, así que si se cambia allá hay que cambiarlo acá.
+//
+// El borde va al 85% y no al 50%: a la mitad, mezclado contra la card, quedaba
+// tan oscuro que se leía como el borde gris de cualquier fila y estas tres
+// dejaban de distinguirse del resto de la lista.
 const reclutarCls =
-  "h-12 w-full justify-start rounded-md border-[#2E9E5B]/50 text-[#2E9E5B] hover:bg-[#2E9E5B]/10 hover:text-[#2E9E5B]"
+  "h-12 w-full justify-start rounded-md border-[#2CB863]/85 text-[#2CB863] hover:bg-[#2CB863]/10 hover:text-[#2CB863]"
 const cafecitoCls =
-  "h-12 w-full justify-start rounded-md border-[#EABB74]/50 text-[#EABB74] hover:bg-[#EABB74]/10 hover:text-[#EABB74]"
+  "h-12 w-full justify-start rounded-md border-[#EABB74]/85 text-[#EABB74] hover:bg-[#EABB74]/10 hover:text-[#EABB74]"
 const signOutCls =
-  "h-12 w-full justify-start rounded-md border-red-500/30 text-red-400 hover:bg-red-500/10 hover:text-red-400"
+  "h-12 w-full justify-start rounded-md border-red-500/70 text-red-400 hover:bg-red-500/10 hover:text-red-400"
 
 export function ProfileContent() {
   const muted = useSoundMuted()

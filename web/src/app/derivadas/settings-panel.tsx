@@ -33,7 +33,7 @@ import { useSfx } from "@/lib/audio/useSfx"
 import { BELT_HEX } from "@/lib/catalog"
 import { canonicalUniversity } from "@/lib/university-tags"
 import { cn } from "@/lib/utils"
-import { WhatsappGlyph } from "./cafecito-cta"
+import { VERDE_TINTA, WhatsappGlyph } from "./cafecito-cta"
 import { SlideFlip } from "./slide-flip"
 import { SlideHorizontal, type Direccion } from "./slide-horizontal"
 import { clearGameIdentity } from "./game-storage"
@@ -450,10 +450,10 @@ export function SettingsPanel({
           className={rowCls}
           // El azul sale de BELT_HEX y no de un hex suelto: la paleta de
           // cinturones tiene una sola fuente de verdad, y `onDark` es la
-          // variante pensada para leerse sobre el fondo del juego. El `80` es
-          // el 50% de alfa del borde, igual que el `/50` de las filas de color
+          // variante pensada para leerse sobre el fondo del juego. El `D9` es
+          // el 85% de alfa del borde, igual que el `/85` de las filas de color
           // de acá abajo.
-          style={{ color: AZUL_INTERVALO, borderColor: `${AZUL_INTERVALO}80` }}
+          style={{ color: AZUL_INTERVALO, borderColor: `${AZUL_INTERVALO}D9` }}
         >
           <span>Ir a Intervalo</span>
           <ArrowUpRight size={16} />
@@ -470,9 +470,18 @@ export function SettingsPanel({
             cta("share", "click", { placement: "settings" })
             onShare()
           }}
-          className={cn(rowCls, "border-[#2E9E5B]/50 text-[#2E9E5B]")}
+          // El verde sale de cafecito-cta.tsx y no de un hex suelto: es el
+          // mismo de la tinta del botón de la barra, y con el literal repetido
+          // acá cambiarlo en un lado dejaba dos verdes distintos en la misma
+          // pantalla. Va en `style` y no en una clase porque Tailwind no puede
+          // generar una clase de un valor que no ve escrito.
+          style={{ color: VERDE_TINTA, borderColor: `${VERDE_TINTA}D9` }}
+          className={rowCls}
         >
-          <span>Reclutar</span>
+          {/* «Reclutar» a secas se leía como una orden sin objeto. Lo que se
+              ofrece es traer gente que conocés, y decirlo cambia a quién te
+              imaginás mandándole el link. */}
+          <span>Reclutar compañeros</span>
           <WhatsappGlyph size={16} />
         </button>
 
@@ -494,7 +503,7 @@ export function SettingsPanel({
             cta("cafecito", "click", { placement: "settings" })
             onCafecito()
           }}
-          className={cn(rowCls, "border-[#EABB74]/50 text-[#EABB74]")}
+          className={cn(rowCls, "border-[#EABB74]/85 text-[#EABB74]")}
         >
           <span>Invitar un cafecito</span>
           <Coffee size={16} />
@@ -514,7 +523,7 @@ export function SettingsPanel({
         <a
           href={mailtoCafecito(player?.alias)}
           onClick={() => cta("cafecito", "click", { placement: "settings_reclamo" })}
-          className={cn(rowCls, "border-[#E5484D]/50 text-[#E5484D]/80")}
+          className={cn(rowCls, "border-[#E5484D]/85 text-[#E5484D]/80")}
         >
           <span>Mi cafecito no apareció</span>
           <Coffee size={16} />
@@ -550,7 +559,7 @@ export function SettingsPanel({
         ) : (
           <button
             type="button"
-            className={cn(rowCls, "border-[#E5484D]/50 text-[#E5484D]/80")}
+            className={cn(rowCls, "border-[#E5484D]/85 text-[#E5484D]/80")}
             onClick={() => setConfirmReset(true)}
           >
             <span>Reiniciar progreso</span>
@@ -567,7 +576,7 @@ export function SettingsPanel({
         {!player?.is_guest && (
           <button
             type="button"
-            className={cn(rowCls, "border-[#E5484D]/50 text-[#E5484D]/80")}
+            className={cn(rowCls, "border-[#E5484D]/85 text-[#E5484D]/80")}
             onClick={() => void signOutAndReset()}
           >
             <span>Cerrar sesión</span>

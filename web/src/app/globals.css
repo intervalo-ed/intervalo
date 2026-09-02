@@ -138,9 +138,32 @@
   body {
     height: 100lvh;
   }
-  .app-shell {
+  .app-shell,
+  .game-shell {
     height: 100lvh;
   }
+}
+
+/* El shell del minijuego, que hasta acá no sabía nada de muescas.
+
+   Intervalo clásico despeja la de arriba en su cabecera
+   (components/ui/screen.tsx, `--hdr-pt` + `env(safe-area-inset-top)`) y la de
+   abajo con `--cta-pb`/`--nav-safe-pb`. El juego usaba `--cta-pb` —así que el
+   piso ya estaba— pero no tenía NADA arriba: instalado en el teléfono, la barra
+   de estado se apoyaba encima de la tuerca y de los cuatro botones de la
+   cabecera, que es justo la fila que hay que poder tocar.
+
+   Va en el shell y no en cada pantalla a propósito. El juego son trece diapos
+   que se turnan adentro del mismo contenedor, y cada una trae su propia
+   cabecera: repartir el despeje entre las trece es garantizar que la que se
+   agregue mañana se lo olvide. Acá lo paga el contenedor una sola vez y todas
+   las diapos dibujan adentro de lo que queda.
+
+   El `env()` no se envuelve en la media query de standalone: en el navegador
+   común vale cero —la barra de Safari ya ocupa ese lugar— así que no hace falta
+   condicionarlo, y una regla menos es una menos que puede quedar vieja. */
+.game-shell {
+  padding-top: env(safe-area-inset-top, 0px);
 }
 
 @layer base {
