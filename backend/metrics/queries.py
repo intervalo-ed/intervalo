@@ -33,7 +33,7 @@ from __future__ import annotations
 
 import statistics
 from collections import Counter, defaultdict
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, time, timedelta
 
 from sqlalchemy import text
 from sqlalchemy.orm import Session as DBSession
@@ -146,7 +146,7 @@ def load(db: DBSession) -> dict:
             SELECT id, created_at, first_group_id, first_utm_source, total_xp,
                    notify_enabled, email_unsubscribed, reached_home, pwa_first_seen_at,
                    bounce_email_sent_at, winback_email_sent_at,
-                   streak_email_sent_at, streak_email_sent_tier
+                   streak_email_sent_at, streak_email_sent_tier, reclutas_email_sent_on
             FROM users"""),
         "enrollments": _rows(db, """
             SELECT user_id, course_id, university, career, known_units, enrolled_at
@@ -156,7 +156,7 @@ def load(db: DBSession) -> dict:
             FROM sessions"""),
         "answers": _rows(db, """
             SELECT session_id, user_id, course_id, exercise_external_id, belt,
-                   exercise_type, quality_score, answered_at
+                   exercise_type, quality_score, answered_at, xp_from_boost
             FROM answers"""),
         "feedback": _rows(db, """
             SELECT user_id, course_id, exercise_external_id, question_type, value,
@@ -166,6 +166,17 @@ def load(db: DBSession) -> dict:
         "push": _rows(db, "SELECT DISTINCT user_id FROM push_subscriptions"),
         "sends": _rows(db, """
             SELECT category, sent_at, delivery_status, opened_at FROM notification_sends"""),
+        # Las dos tablas del minijuego que hacen falta para las secciones de
+        # Cafecito y Reclutas: el resto del embudo (impresiones, clicks por
+        # disparador) vive en el panel de Derivemos, que es donde se dispara.
+        # Acá solo lo que le pasa a ESTE panel — XP repartida y quién trajo a
+        # quién — así que no hace falta cargar game_exercises/game_attempts.
+        "game_boosts": _rows(db, """
+            SELECT university, cafecitos, source, created_at, expires_at, email_sent_at
+            FROM game_boosts"""),
+        "game_players": _rows(db, """
+            SELECT id, alias, university, referred_by, referral_xp_given, is_bot, created_at
+            FROM game_players"""),
     }
     return data
 
@@ -678,7 +689,7 @@ EMAIL_TIPOS = [
 
 
 def emails(data: dict, weeks: list[date]) -> dict:
-    """Los cuatro mails de ciclo de vida: envíos y activación.
+    """Los cinco mails de ciclo de vida: envíos y activación.
 
     **Activación** = el usuario terminó una sesión dentro de los
     EMAIL_ACTIVATION_DAYS días posteriores al envío. Es lo más cerca que se
@@ -687,10 +698,11 @@ def emails(data: dict, weeks: list[date]) -> dict:
 
     Dos advertencias para leer estos números:
 
-    - **`streak` no se compara con los otros.** Va a quien viene de una racha
-      activa, o sea que su activación arranca altísima por selección: esa gente
-      iba a volver igual. Los que miden algo son `bounce` y `winback`, donde el
-      destinatario estaba inactivo por definición.
+    - **`streak` y `reclutas_semanal` no se comparan con los otros.** Van a
+      quien viene de una racha activa o de reclutas que rindieron esta semana
+      —selección en los dos casos—, así que su activación arranca alta y esa
+      gente iba a volver igual. Los que miden algo son `bounce` y `winback`,
+      donde el destinatario estaba inactivo por definición.
     - **No hay grupo de control.** Nadie elegible se queda sin mail, así que
       "activación" es una tasa bruta y no un efecto causal. Para saber cuánto
       aporta el mail habría que dejar un holdout sin mandar.
@@ -737,6 +749,19 @@ def emails(data: dict, weeks: list[date]) -> dict:
     tipos.append({"tipo": "report_thanks", "desc": "Reportó un problema de contenido",
                   "enviados": enviados, "activados": act, "pct": _pct(act, enviados)})
 
+    # reclutas_email_sent_on es una FECHA (día local del último envío, ver
+    # lifecycle_emails.due_reclutas_semanal_emails), no un datetime UTC como el
+    # resto de EMAIL_TIPOS: es semanal y se pisa en cada envío, así que solo
+    # sobrevive la fecha del más reciente. Se lleva a un datetime aproximado
+    # (medianoche local) para poder reusar `activacion()` sin duplicar su lógica.
+    reclutas_rows = [
+        (u["id"], datetime.combine(u["reclutas_email_sent_on"], time.min) - AR_OFFSET)
+        for u in data["users"]
+        if u["reclutas_email_sent_on"] is not None and lo <= u["reclutas_email_sent_on"] < hi]
+    enviados, act = activacion(reclutas_rows)
+    tipos.append({"tipo": "reclutas_semanal", "desc": "Resumen semanal de lo que generaron sus reclutas",
+                  "enviados": enviados, "activados": act, "pct": _pct(act, enviados)})
+
     total = sum(t["enviados"] for t in tipos)
     return {
         "tipos": tipos,
@@ -774,6 +799,108 @@ def reenganche(data: dict, weeks: list[date]) -> dict:
     }
 
 
+def cafecito(data: dict, weeks: list[date]) -> dict:
+    """Lo básico del empuje de Cafecito, visto desde Intervalo.
+
+    El embudo completo —impresiones, clicks, CTR por disparador— vive en el
+    panel de Derivemos, que es donde se dispara el cartel. Acá solo lo que le
+    pasa a ESTA app cuando alguien dona: cuánta XP repartió el empuje en las
+    respuestas de la ventana visible, y si el mail de agradecimiento salió.
+
+    **`empujes` cuenta solo `source == "cafecito"`** (donaciones reales, ver
+    game/cafecito_stream.py). Los grants a mano (`source == "manual"`, que
+    insertamos nosotros para probar la mecánica) quedan afuera para no inflar
+    el número de ingresos con pruebas.
+
+    **`xp_generada` es de la VENTANA visible, no por empuje.** Sumar la XP de
+    cada empuje por separado inflaría el total si dos empujes se solapan en el
+    tiempo (uno global y uno dirigido, por ejemplo): la misma respuesta
+    contaría dos veces. Sumando `answers.xp_from_boost` una sola vez por
+    respuesta, en la ventana, el total no puede pasarse de lo que la app
+    realmente repartió.
+    """
+    lo, hi = weeks[0], weeks[-1] + timedelta(days=7)
+    boosts = [b for b in data["game_boosts"]
+              if b["source"] == "cafecito" and lo <= local_date(b["created_at"]) < hi]
+    xp_generada = sum(a["xp_from_boost"] for a in data["answers"]
+                      if a["xp_from_boost"] and lo <= local_date(a["answered_at"]) < hi)
+    ahora = datetime.utcnow()
+    vencidos = [b for b in boosts if b["expires_at"] is not None and b["expires_at"] <= ahora]
+    return {
+        "empujes": len(boosts),
+        "cafecitos": sum(b["cafecitos"] for b in boosts),
+        "universidades": len({b["university"] for b in boosts if b["university"]}),
+        "xp_generada": xp_generada,
+        "vencidos": len(vencidos),
+        "mails_enviados": sum(1 for b in vencidos if b["email_sent_at"] is not None),
+    }
+
+
+def reclutas(data: dict, weeks: list[date]) -> dict:
+    """Reclutas: cuánta gente nueva entra por el link de alguien que ya está, y
+    quién trae más.
+
+    **Coeficiente de viralidad (K)**, en la versión que se puede medir con lo
+    que hay instrumentado: reclutas nuevos de la semana sobre la base de
+    jugadores que YA EXISTÍAN antes de esa semana. No es la fórmula con tasa de
+    conversión por invitación —no sabemos cuántos links se mandaron, solo
+    cuántos prendieron—, así que esto es "cuántos usuarios nuevos trae, en
+    promedio, cada usuario que ya estaba". K > 1 es crecimiento que se sostiene
+    solo; por debajo, el link ayuda pero no alcanza como único canal.
+
+    **Top reclutadores es de SIEMPRE, no de la ventana visible** — como el
+    ranking del juego: no tendría sentido resetear a quien lleva meses trayendo
+    gente solo porque esta semana no reclutó a nadie nuevo.
+
+    Un jugador `is_bot` no cuenta ni como reclutador ni como recluta: es
+    sembrado de ranking (scripts/seed_game_bots.py), no una persona.
+
+    Referido a un solo nivel: los reclutas de tus reclutas no te suman acá
+    (ver game/referrals.py). `referral_xp_given` es cuánta XP le dio CADA
+    recluta a quien lo trajo, así que sumarla por reclutador da el total que
+    ganó por reclutar.
+    """
+    jugadores = [p for p in data["game_players"] if not p["is_bot"]]
+    por_semana: dict[date, list[dict]] = defaultdict(list)
+    for p in jugadores:
+        por_semana[week_start(local_date(p["created_at"]))].append(p)
+
+    filas = []
+    base = sum(1 for p in jugadores if local_date(p["created_at"]) < weeks[0])
+    for w in weeks:
+        nuevos = por_semana.get(w, [])
+        reclutados = [p for p in nuevos if p["referred_by"] is not None]
+        filas.append({
+            "label": w.strftime("%d/%m"), "week": w.isoformat(),
+            "nuevos": len(nuevos), "reclutados": len(reclutados),
+            "pct_reclutados": _pct(len(reclutados), len(nuevos)),
+            "k": round(len(reclutados) / base, 2) if base else None, "base": base,
+        })
+        base += len(nuevos)
+
+    por_reclutador: dict[int, dict] = defaultdict(lambda: {"reclutas": 0, "xp": 0})
+    for p in jugadores:
+        if p["referred_by"] is not None:
+            r = por_reclutador[p["referred_by"]]
+            r["reclutas"] += 1
+            r["xp"] += p["referral_xp_given"]
+
+    por_id = {p["id"]: p for p in jugadores}
+    top = sorted(
+        ({"alias": por_id[rid]["alias"], "university": por_id[rid]["university"], **stats}
+         for rid, stats in por_reclutador.items() if rid in por_id),
+        key=lambda r: -r["xp"])[:10]
+
+    total_reclutados = sum(1 for p in jugadores if p["referred_by"] is not None)
+    return {
+        "semanas": filas,
+        "top": top,
+        "total_reclutados": total_reclutados,
+        "total_jugadores": len(jugadores),
+        "pct_reclutados": _pct(total_reclutados, len(jugadores)),
+    }
+
+
 # ── Entrada ──────────────────────────────────────────────────────────────────
 
 def build(db: DBSession, week: date, weeks_shown: int = 3) -> dict:
@@ -798,4 +925,6 @@ def build(db: DBSession, week: date, weeks_shown: int = 3) -> dict:
         "encuestas": encuestas(data, weeks),
         "reenganche": reenganche(data, weeks),
         "emails": emails(data, weeks),
+        "cafecito": cafecito(data, weeks),
+        "reclutas": reclutas(data, weeks),
     }

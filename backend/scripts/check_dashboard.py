@@ -38,7 +38,7 @@ sys.path.insert(0, str(BACKEND.parent))
 
 import database  # noqa: E402
 from models import (  # noqa: E402
-    Answer, Base, Course, Enrollment, ExerciseFeedback,
+    Answer, Base, Course, Enrollment, ExerciseFeedback, GameBoost, GamePlayer,
     Session as SessionModel, User,
 )
 
@@ -124,6 +124,41 @@ sesion(3, 18, terminada=False, respuestas=3)
 sesion(4, 18, mode="onboarding", respuestas=1)
 # u5: una sesión de QA — tampoco cuenta.
 sesion(5, 18, mode="test", respuestas=5)
+
+# ── Cafecito y Reclutas ──────────────────────────────────────────────────────
+# gp1 (reclutador) es de ANTES de WEEK; gp2/gp3 lo reclutaron adentro de WEEK,
+# gp4 entró orgánico la misma semana. gp9 es bot: no puede aparecer en ningún
+# lado (ni como reclutador, ni como recluta, ni en la base de "quién ya estaba").
+db.add(GamePlayer(id=101, alias="reclutador", university="UBA", is_bot=False,
+                  theta=0.0, n_updates=0, xp=0, unlocked_keys="",
+                  created_at=utc(10), last_seen_at=utc(10)))
+db.add(GamePlayer(id=102, alias="recluta_uno", university="UBA", is_bot=False,
+                  referred_by=101, referral_xp_given=50,
+                  theta=0.0, n_updates=0, xp=0, unlocked_keys="",
+                  created_at=utc(18), last_seen_at=utc(18)))
+db.add(GamePlayer(id=103, alias="recluta_dos", university="UTN", is_bot=False,
+                  referred_by=101, referral_xp_given=30,
+                  theta=0.0, n_updates=0, xp=0, unlocked_keys="",
+                  created_at=utc(19), last_seen_at=utc(19)))
+db.add(GamePlayer(id=104, alias="organico", university="UBA", is_bot=False,
+                  theta=0.0, n_updates=0, xp=0, unlocked_keys="",
+                  created_at=utc(20), last_seen_at=utc(20)))
+db.add(GamePlayer(id=109, alias="bot", university="UBA", is_bot=True,
+                  referred_by=101, referral_xp_given=999,
+                  theta=0.0, n_updates=0, xp=0, unlocked_keys="",
+                  created_at=utc(10), last_seen_at=utc(10)))
+
+# b1: donación real, con su mail de agradecimiento ya mandado. b2: donación
+# real, vencida, todavía sin mail. b3: grant a mano — no cuenta en NADA de lo
+# de arriba (ver DONADO en game_queries.py, mismo criterio acá).
+db.add(GameBoost(id=201, university="UBA", cafecitos=3, source="cafecito",
+                 created_at=utc(18, 14), expires_at=utc(18, 14) + timedelta(minutes=30),
+                 email_sent_at=utc(18, 15)))
+db.add(GameBoost(id=202, university="UTN", cafecitos=2, source="cafecito",
+                 created_at=utc(19, 10), expires_at=utc(19, 10) + timedelta(minutes=30)))
+db.add(GameBoost(id=203, university="UBA", cafecitos=5, source="manual",
+                 created_at=utc(18, 16), expires_at=utc(18, 16) + timedelta(minutes=30)))
+
 db.commit()
 
 data = q.load(db)
@@ -365,7 +400,8 @@ check("mails: solo cuenta los envíos de la ventana visible",
 payload = q.build(db, WEEK)
 check("build: devuelve todos los bloques",
       set(payload) == {"meta", "headline", "funnel", "retencion", "cohortes",
-                       "producto", "encuestas", "reenganche", "emails"})
+                       "producto", "encuestas", "reenganche", "emails",
+                       "cafecito", "reclutas"})
 
 import json  # noqa: E402
 try:
@@ -520,7 +556,7 @@ check("render: los emojis de la encuesta acompañan los rótulos",
       all(e in html for e in ("🥱", "🙂", "💡", "😴", "👌", "🤯")))
 # El fixture solo tiene blanco y azul, así que se verifica que salgan esos dos
 # con su color y que el mapa cubra los cuatro cinturones del curso.
-from metrics.render import PUSH_COPY  # noqa: E402
+from metrics.render import PUSH_COPY, EVENT_PUSH_COPY  # noqa: E402
 # Sin envíos en el fixture la tabla de push sale vacía, así que el mapa de
 # descripciones se verifica directo contra las categorías reales del backend.
 import notification_copy  # noqa: E402
@@ -531,6 +567,52 @@ check("render: los pesos nominales de push coinciden con notification_copy",
       all(PUSH_COPY[k][2] == round(v * 100)
           for k, v in notification_copy.CATEGORY_WEIGHTS.items()),
       f"(panel: {[(k, v[2]) for k, v in PUSH_COPY.items()]})")
+# Los avisos de EVENTO (recruit/cafecito) viven en una tabla aparte de
+# PUSH_COPY a propósito (no tienen peso nominal, ver render.py), pero tienen
+# que cubrir las mismas categorías que notification_copy.EVENT_VARIANTS.
+check("render: hay descripción y ejemplo para cada aviso de evento",
+      set(EVENT_PUSH_COPY) == set(notification_copy.EVENT_VARIANTS),
+      f"(faltan: {set(notification_copy.EVENT_VARIANTS) - set(EVENT_PUSH_COPY)})")
+check("render: ningún aviso de evento se coló en PUSH_COPY (no tienen peso nominal)",
+      set(PUSH_COPY).isdisjoint(EVENT_PUSH_COPY))
+
+# ── Cafecito y Reclutas ──────────────────────────────────────────────────────
+caf = q.cafecito(data, [WEEK])
+check("cafecito: «empujes» cuenta solo donaciones reales, no el grant a mano",
+      caf["empujes"] == 2 and caf["cafecitos"] == 5, f"(dio {caf})")
+check("cafecito: dos universidades distintas empujadas en la ventana",
+      caf["universidades"] == 2, f"(dio {caf['universidades']})")
+check("cafecito: vencidos y mails: b1 ya tiene mail, b2 todavía no",
+      caf["vencidos"] == 2 and caf["mails_enviados"] == 1, f"(dio {caf})")
+
+# xp_generada se prueba con un `data` armado a mano y no con el fixture
+# compartido: mezclarla ahí perturbaría los conteos exactos de sesiones y
+# respuestas que usan las ~90 aserciones de las demás secciones.
+_xp_data = {
+    "answers": [
+        {"xp_from_boost": 5, "answered_at": utc(18, 14)},
+        {"xp_from_boost": 3, "answered_at": utc(18, 14)},
+        {"xp_from_boost": 0, "answered_at": utc(18, 14)},  # sin empuje: no suma
+        {"xp_from_boost": 5, "answered_at": utc(10, 12)},  # fuera de ventana: no suma
+    ],
+    "game_boosts": data["game_boosts"],
+}
+check("cafecito: xp_generada suma xp_from_boost de la ventana, una vez por respuesta",
+      q.cafecito(_xp_data, [WEEK])["xp_generada"] == 8,
+      f'(dio {q.cafecito(_xp_data, [WEEK])["xp_generada"]})')
+
+rec = q.reclutas(data, [WEEK])
+sem = rec["semanas"][0]
+check("reclutas: gp2 y gp3 llegan reclutados por gp1 adentro de WEEK, gp4 orgánico",
+      sem["nuevos"] == 3 and sem["reclutados"] == 2, f"(dio {sem})")
+check("reclutas: K = reclutados / base previa (2 reclutas / 1 jugador que ya estaba)",
+      sem["base"] == 1 and sem["k"] == 2.0, f"(dio {sem})")
+check("reclutas: el bot no cuenta como base ni como reclutador",
+      rec["total_jugadores"] == 4, f"(dio {rec['total_jugadores']})")
+check("reclutas: top reclutador es gp1, con XP de sus dos reclutas y no la del bot "
+      "(50+30, no +999 de gp9)",
+      rec["top"][0]["alias"] == "reclutador" and rec["top"][0]["xp"] == 80,
+      f"(dio {rec['top'][:1]})")
 
 # ── 10. Semana vacía ─────────────────────────────────────────────────────────
 # Una semana sin datos tiene que renderizar, no explotar: es el caso de la
