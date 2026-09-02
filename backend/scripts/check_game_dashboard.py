@@ -445,6 +445,34 @@ vacio = q.build(s, WEEK + timedelta(weeks=8))
 html2 = game_render.page(vacio, token="tok")
 check("una semana vacía no rompe el panel", len(html2) > 5000)
 
+# La fórmula de ejemplo de cada plantilla, que se dibuja con MathML.
+#
+# Esto se chequea aparte y no se da por visto en el HTML porque `_ejemplo_mathml`
+# atrapa CUALQUIER excepción y devuelve None —una plantilla rota no puede voltear
+# el panel entero, y eso está bien— pero esa misma red hace que un ejemplo que
+# dejó de dibujarse no se note en ningún lado: no hay error, no hay log, solo una
+# columna que se queda vacía.
+#
+# Pasó de verdad: cuando las plantillas empezaron a ciclar sus números, `build`
+# cambió de firma y esta llamada quedó tirando TypeError en las 29, en silencio,
+# durante varios deploys. Todos los chequeos del panel seguían en verde.
+from metrics.game_queries import _ejemplo_mathml  # noqa: E402
+from game.templates import TEMPLATE_BY_KEY  # noqa: E402
+
+sin_ejemplo = [k for k in TEMPLATE_BY_KEY if not _ejemplo_mathml(k)]
+check(
+    "todas las plantillas dibujan su fórmula de ejemplo",
+    not sin_ejemplo,
+    f"(sin ejemplo: {sin_ejemplo})" if sin_ejemplo else f"({len(TEMPLATE_BY_KEY)} plantillas)",
+)
+# Y el mismo ejemplo entre llamadas: la semilla sale de `crc32(key)` justamente
+# para que el panel no cambie de fórmula en cada reinicio del backend.
+primera = next(iter(TEMPLATE_BY_KEY))
+check(
+    "y el ejemplo de una plantilla no cambia entre llamadas",
+    _ejemplo_mathml(primera) == _ejemplo_mathml(primera),
+)
+
 s.close()
 
 print()
