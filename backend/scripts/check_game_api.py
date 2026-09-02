@@ -629,13 +629,17 @@ for uni, n, xp_cada, theta in (("CHICA", 12, 300, 1.5), ("GRANDE", 20, 4000, 0.5
                 xp=xp_cada,
                 theta=theta,
                 n_updates=game_elo.RAMP_UPDATES,
+                # Quien entra al ranking es quien resolvió acá, no quien tiene
+                # XP (ver game/router.py :: RESOLVIO_ACA): la XP la puede subir
+                # un recluta sin que el reclutador haya derivado nunca.
+                exercises_correct=5,
                 is_bot=True,
             )
         )
 # Un novato de CHICA que todavía no salió de la rampa: NO tiene que arrastrar el
 # promedio, porque su θ es el valor semilla y no midió nada todavía.
 db.add(GamePlayer(alias="percapita_chica_novato", university="CHICA", xp=10,
-                  theta=0.0, n_updates=0, is_bot=True))
+                  theta=0.0, n_updates=0, exercises_correct=1, is_bot=True))
 db.commit()
 db.close()
 

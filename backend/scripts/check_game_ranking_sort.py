@@ -87,6 +87,14 @@ for i in range(30):
 yo.xp = 900
 yo.theta = 0.4
 yo.n_updates = elo.RAMP_UPDATES + 3
+# Y con derivadas resueltas, que es lo que decide quién entra al ranking (ver
+# game/router.py :: RESOLVIO_ACA). Sin esto el fixture describía a alguien
+# imposible de otra manera —900 de XP sin haber resuelto nada— y ese jugador
+# entraba a la lista solo por la excepción "el propio se ve siempre", que
+# `_rank_of_elo` no comparte a propósito: cuenta quiénes van delante entre los
+# que compiten. La comparación fila por fila de abajo mezclaba las dos reglas y
+# marcaba desalineadas a las filas que van después de la propia.
+yo.exercises_correct = 12
 db.commit()
 
 
@@ -193,6 +201,37 @@ desalineados = [
     if game_router._rank_of_elo(db, db.get(GamePlayer, e["player_id"])) != e["rank"]
 ]
 check(not desalineados, f"ninguna fila desalineada (desalineadas: {desalineados[:5]})")
+
+print("\n9. quien tiene XP pero no resolvió nada NO entra al ranking")
+# El caso no es hipotético: `referrals.acreditar` le suma XP al reclutador con
+# un UPDATE crudo, así que se puede llegar a XP alta sin haber derivado nunca —
+# y con los reclutas cruzando de producto, alguien que solo estudia en Intervalo
+# clásico le paga XP de juego a quien lo trajo.
+p05 = db.query(GamePlayer).filter_by(alias="p05").first()
+puesto_antes = game_router._rank_of(db, p05)
+total_antes = pedir(limit=1)["total_count"]
+
+db.add(GamePlayer(alias="soloreclutas", xp=5000, theta=0.5,
+                  n_updates=elo.RAMP_UPDATES + 5, university="UBA",
+                  exercises_correct=0))
+db.commit()
+
+for orden in ("xp", "elo"):
+    tabla = pedir(limit=200, sort=orden)
+    check(
+        "soloreclutas" not in [e["alias"] for e in tabla["entries"]],
+        f"[{orden}] con 5000 de XP y cero resueltas sigue fuera de la tabla",
+    )
+# Y lo que importa de verdad: no le corre el puesto a nadie. Con la XP más alta
+# de la tabla, si entrara empujaría a todos un lugar para abajo.
+check(
+    game_router._rank_of(db, p05) == puesto_antes,
+    f"y no le corre el puesto a nadie (p05 sigue {puesto_antes})",
+)
+check(
+    pedir(limit=1)["total_count"] == total_antes,
+    "ni infla el total que se muestra arriba de la tabla",
+)
 
 db.close()
 

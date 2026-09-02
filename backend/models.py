@@ -717,7 +717,13 @@ class GamePlayer(Base):
     best_combo = Column(Integer, nullable=False, default=0, server_default="0")
     # Mejor puesto histórico (1 = primero). Detecta récords del lado del server.
     best_rank = Column(Integer, nullable=True)
-    exercises_correct = Column(Integer, nullable=False, default=0, server_default="0")
+    # Indexada por el mismo motivo que `xp`: es el filtro de TODAS las consultas
+    # de ranking. Quién entra a la tabla se decide por acá y no por la XP, que
+    # la puede subir un recluta sin que el reclutador haya derivado nunca (ver
+    # game/router.py :: RESOLVIO_ACA).
+    exercises_correct = Column(
+        Integer, nullable=False, default=0, server_default="0", index=True
+    )
     exercises_attempted = Column(Integer, nullable=False, default=0, server_default="0")
 
     # Teclas del teclado que este jugador ya desbloqueó, separadas por coma y en

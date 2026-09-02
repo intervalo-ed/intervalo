@@ -61,7 +61,17 @@ def upgrade() -> None:
             ),
         )
 
+    # `game_players.exercises_correct` pasa de no filtrarse nunca a ser el WHERE
+    # de las cinco consultas de ranking (ver game/router.py :: RESOLVIO_ACA), que
+    # es exactamente el motivo por el que `xp` ya estaba indexada.
+    indices = {ix["name"] for ix in inspector.get_indexes("game_players")}
+    if "ix_game_players_exercises_correct" not in indices:
+        op.create_index(
+            "ix_game_players_exercises_correct", "game_players", ["exercises_correct"]
+        )
+
 
 def downgrade() -> None:
+    op.drop_index("ix_game_players_exercises_correct", table_name="game_players")
     op.drop_column("answers", "xp_from_boost")
     op.drop_column("enrollments", "university_set_at")
