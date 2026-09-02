@@ -325,7 +325,35 @@ def _logo_html() -> str:
     )
 
 
-def render_email(*, greeting: str, highlight: str, cta_label: str, cta_url: str, unsubscribe_url: str, preview: str | None = None) -> str:
+def _rows_html(rows: list[tuple[str, str, str]] | None, sans: str) -> str:
+    """Una tabla chica de tres columnas, para los mails que muestran un listado.
+
+    Tabla y no flex: los clientes de correo no soportan flexbox de forma
+    confiable, y una lista que se desarma es peor que no tenerla. Mismo diseño
+    claro que el resto de la plantilla, para que la inversión de Gmail en modo
+    oscuro siga jugando a favor.
+
+    Sin filas devuelve el string vacío, así el mail queda exactamente como antes
+    y ningún llamador tiene que ramificar.
+    """
+    if not rows:
+        return ""
+    celdas = ""
+    for izq, medio, der in rows:
+        celdas += (
+            '<tr>'
+            f'<td style="{sans}font-size:14px;padding:6px 0;color:#131324;">{izq}</td>'
+            f'<td style="{sans}font-size:12px;padding:6px 8px;color:#768899;text-align:center;">{medio}</td>'
+            f'<td style="{sans}font-size:14px;padding:6px 0;color:#131324;font-weight:700;text-align:right;">{der}</td>'
+            "</tr>"
+        )
+    return (
+        '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" '
+        'style="margin:0 0 24px;">' + celdas + "</table>"
+    )
+
+
+def render_email(*, greeting: str, highlight: str, cta_label: str, cta_url: str, unsubscribe_url: str, preview: str | None = None, rows: list[tuple[str, str, str]] | None = None) -> str:
     # La app usa DM Sans para el cuerpo; Gmail no carga webfonts, así que se
     # aproxima con un stack sans-serif web-safe (antes no se declaraba nada y
     # el cuerpo caía en Times).
@@ -370,6 +398,7 @@ def render_email(*, greeting: str, highlight: str, cta_label: str, cta_url: str,
 {_logo_html()}
 <p style="{sans}font-size:15px;line-height:1.6;margin:0 0 8px;max-width:22rem;color:#131324;">{greeting}</p>
 <p style="{sans}font-size:15px;line-height:1.6;margin:0 0 24px;font-weight:700;color:#131324;">{highlight}</p>
+{_rows_html(rows, sans)}
 <a href="{cta_url}" style="{btn}">{cta_label}</a>
 <p style="{sans}font-size:11px;line-height:1.7;color:#768899;margin:32px 0 0">Intervalo 2026. Desarrollado por y para estudiantes.<br><a href="{_app_base_url()}/terminos" style="color:#768899">Términos y condiciones</a> &middot; <a href="{_app_base_url()}/privacidad" style="color:#768899">Política de privacidad</a> &middot; <a href="{unsubscribe_url}" style="color:#768899">Desuscribirse</a></p>
 </td></tr>
@@ -498,6 +527,84 @@ def send_winback_email(db: DBSession, user: User) -> bool:
     return sent
 
 
+def send_cafecito_efecto_email(
+    db: DBSession,
+    user: User,
+    *,
+    university: str | None,
+    xp_extra: int,
+    estudiantes: int,
+) -> bool:
+    """Le cuenta a quien invitó un cafecito qué hizo su empuje, ya vencido.
+
+    Se manda al VENCER y no al acreditar: recién ahí el número está cerrado. Y
+    solo si hay número — con `xp_extra` en cero no se manda nada, porque un mail
+    que dice "tu cafecito generó 0 XP" es peor que ningún mail.
+
+    Ojo con lo que este mail NO puede prometer: `boosts.multiplier_for` colapsa
+    el empuje global y el dirigido en un solo número, y los cafecitos de la
+    ventana se suman a propósito. Así que lo honesto es "el empuje de tu
+    universidad generó N XP", nunca "TU cafecito generó N XP".
+    """
+    if xp_extra <= 0:
+        return False
+
+    name = greeting_name(user)
+    unsubscribe_url = f"{_api_base_url()}/email/unsubscribe?token={unsubscribe_token(user.id)}"
+    donde = f"la {university}" if university else "todo Intervalo"
+    greeting = f"{name}, tu cafecito ya terminó de hacer efecto."
+    highlight = (
+        f"Durante 24 horas {donde} sumó {xp_extra} XP extra, "
+        f"repartidos entre {estudiantes} estudiantes."
+    )
+    html = render_email(
+        greeting=greeting,
+        highlight=highlight,
+        cta_label="Ver",
+        cta_url=_cta_url("cafecito_efecto"),
+        unsubscribe_url=unsubscribe_url,
+        preview=greeting,
+    )
+    asunto = f"Tu cafecito le dio {xp_extra} XP a {donde} ☕"
+    return _send(user.email, asunto, html, unsubscribe_url, text=f"{greeting} {highlight}")
+
+
+def send_reclutas_semanal_email(
+    db: DBSession,
+    user: User,
+    *,
+    xp_semana: int,
+    filas: list[tuple[str, str, int]],
+) -> bool:
+    """El resumen semanal de lo que generaron los reclutas de esta persona.
+
+    `filas` es (@alias, universidad, xp) ya ordenada por aporte, igual que la
+    vista de Reclutas del ranking.
+
+    Semana sin movimiento: NO se manda. Este mail existe para traer buenas
+    noticias; mandarlo vacío lo convierte en ruido y enseña a ignorarlo, que es
+    justo lo que no se quiere de un canal que se usa una vez por semana.
+    """
+    if xp_semana <= 0 or not filas:
+        return False
+
+    name = greeting_name(user)
+    unsubscribe_url = f"{_api_base_url()}/email/unsubscribe?token={unsubscribe_token(user.id)}"
+    greeting = f"{name}, esto es lo que sumaron los que trajiste."
+    highlight = f"{xp_semana} XP esta semana, de {len(filas)} personas."
+    html = render_email(
+        greeting=greeting,
+        highlight=highlight,
+        cta_label="Ver",
+        cta_url=_cta_url("reclutas_semanal"),
+        unsubscribe_url=unsubscribe_url,
+        preview=greeting,
+        rows=[(f"@{alias}", uni or "", f"{xp} XP") for alias, uni, xp in filas],
+    )
+    asunto = f"Tus reclutas te dieron {xp_semana} XP esta semana 🪖"
+    return _send(user.email, asunto, html, unsubscribe_url, text=f"{greeting} {highlight}")
+
+
 def send_streak_tier_email(db: DBSession, user: User, tier: int) -> bool:
     name = greeting_name(user)
     mult = _tier_multiplier(tier)
@@ -562,6 +669,139 @@ def send_report_thanks_email(db: DBSession, user: User, feedback_ids: list[int])
     return sent
 
 
+def due_cafecito_efecto_emails(db: DBSession) -> list[tuple[User, dict]]:
+    """Los empujes que vencieron y a cuyo donante se le puede contar qué hizo.
+
+    Se mira al VENCER y no al acreditar porque recién ahí el número está cerrado.
+
+    A quién avisarle es la parte delicada: Cafecito no dice quién donó. Lo único
+    que ata una donación a una persona es la "intención" que se anota al tocar
+    Invitar, y solo sirve si fue la ÚNICA abierta cuando llegó la donación —si
+    había varias, cualquiera pudo haber sido—. Ese criterio ya está escrito en
+    `boosts.estado_de_donacion` y acá se aplica el mismo: sin donante seguro, no
+    se manda nada. Es preferible no agradecer que agradecerle al que no fue.
+    """
+    from models import GameBoost, GameBoostIntent, GamePlayer
+
+    ahora = datetime.utcnow()
+    vencidos = (
+        db.query(GameBoost)
+        .filter(GameBoost.expires_at <= ahora, GameBoost.email_sent_at.is_(None))
+        .all()
+    )
+
+    salida: list[tuple[User, dict]] = []
+    for boost in vencidos:
+        # Marcar SIEMPRE, aunque no se mande: si no, un empuje sin donante
+        # identificable se re-examina en cada corrida para siempre.
+        boost.email_sent_at = ahora
+
+        hermanas = (
+            db.query(GameBoostIntent)
+            .filter(
+                GameBoostIntent.consumed_at.isnot(None),
+                GameBoostIntent.consumed_at >= boost.created_at - timedelta(seconds=5),
+                GameBoostIntent.consumed_at <= boost.created_at + timedelta(seconds=5),
+            )
+            .all()
+        )
+        if len(hermanas) != 1:
+            continue  # ambiguo: no se puede afirmar quién donó
+        jugador = db.get(GamePlayer, hermanas[0].player_id)
+        if jugador is None or jugador.user_id is None:
+            continue  # donó sin cuenta: no hay a dónde mandarle el mail
+        user = db.get(User, jugador.user_id)
+        if user is None or user.email_unsubscribed:
+            continue
+
+        extra, estudiantes = _efecto_del_empuje(db, boost)
+        salida.append(
+            (user, {"university": boost.university, "xp_extra": extra, "estudiantes": estudiantes})
+        )
+    db.commit()
+    return salida
+
+
+def _efecto_del_empuje(db: DBSession, boost) -> tuple[int, int]:
+    """Cuánta XP extra puso ese empuje, y entre cuántos estudiantes.
+
+    Sale de `answers.xp_from_boost`, que es justamente el dato que no se puede
+    reconstruir después. Ojo con lo que este número ES: la XP que el empuje de
+    ESA universidad puso en esa ventana, no la que puso una donación puntual —
+    los cafecitos de la ventana se suman y el global se mezcla con el dirigido,
+    así que atribuir por donante es imposible por construcción.
+    """
+    from models import Answer, Enrollment
+
+    q = (
+        db.query(
+            func.coalesce(func.sum(Answer.xp_from_boost), 0),
+            func.count(func.distinct(Answer.user_id)),
+        )
+        .filter(
+            Answer.answered_at >= boost.created_at,
+            Answer.answered_at <= boost.expires_at,
+            Answer.xp_from_boost > 0,
+        )
+    )
+    if boost.university:
+        q = q.filter(
+            Answer.user_id.in_(
+                db.query(Enrollment.user_id).filter(Enrollment.university == boost.university)
+            )
+        )
+    extra, estudiantes = q.one()
+    return int(extra or 0), int(estudiantes or 0)
+
+
+def due_reclutas_semanal_emails(db: DBSession) -> list[tuple[User, dict]]:
+    """Los resúmenes semanales de reclutas que corresponde mandar hoy.
+
+    Solo a quien tuvo movimiento: una semana sin nada no se manda. El mail existe
+    para traer buenas noticias, y mandarlo vacío convierte en ruido un canal que
+    se usa una vez por semana.
+    """
+    from models import GamePlayer
+
+    hoy = datetime.utcnow().date()
+    hace_una_semana = hoy - timedelta(days=7)
+
+    candidatos = (
+        db.query(User)
+        .filter(
+            User.email_unsubscribed.is_(False),
+            or_(
+                User.reclutas_email_sent_on.is_(None),
+                User.reclutas_email_sent_on <= hace_una_semana,
+            ),
+        )
+        .all()
+    )
+
+    salida: list[tuple[User, dict]] = []
+    for user in candidatos:
+        propio = db.query(GamePlayer).filter(GamePlayer.user_id == user.id).first()
+        if propio is None:
+            continue
+        filas = (
+            db.query(User.username, User.referral_xp_given)
+            .filter(
+                User.referred_by_player_id == propio.id,
+                User.referral_xp_given > 0,
+            )
+            .order_by(User.referral_xp_given.desc())
+            .limit(20)
+            .all()
+        )
+        if not filas:
+            continue
+        total = sum(x for _, x in filas)
+        salida.append(
+            (user, {"xp_semana": total, "filas": [(u or "", "", x) for u, x in filas]})
+        )
+    return salida
+
+
 def run_lifecycle_emails(db: DBSession) -> dict:
     bounce_sent = 0
     for user in due_bounce_emails(db):
@@ -583,6 +823,20 @@ def run_lifecycle_emails(db: DBSession) -> dict:
         if send_streak_tier_email(db, user, tier):
             streak_tier_sent += 1
 
+    cafecito_efecto_sent = 0
+    for user, datos in due_cafecito_efecto_emails(db):
+        if send_cafecito_efecto_email(db, user, **datos):
+            cafecito_efecto_sent += 1
+
+    reclutas_sent = 0
+    hoy = datetime.utcnow().date()
+    for user, datos in due_reclutas_semanal_emails(db):
+        if send_reclutas_semanal_email(db, user, **datos):
+            user.reclutas_email_sent_on = hoy
+            reclutas_sent += 1
+    if reclutas_sent:
+        db.commit()
+
     report_thanks_sent = 0
     for user, feedback_ids in due_report_thanks_emails(db):
         if send_report_thanks_email(db, user, feedback_ids):
@@ -593,4 +847,6 @@ def run_lifecycle_emails(db: DBSession) -> dict:
         "winback_sent": winback_sent,
         "streak_tier_sent": streak_tier_sent,
         "report_thanks_sent": report_thanks_sent,
+        "cafecito_efecto_sent": cafecito_efecto_sent,
+        "reclutas_sent": reclutas_sent,
     }

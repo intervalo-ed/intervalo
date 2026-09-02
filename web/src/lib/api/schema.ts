@@ -883,6 +883,30 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/internal/notifications/events": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Internal Due Event Notifications
+         * @description Worker-facing: los avisos DE EVENTO listos para mandar (los reclama).
+         *
+         *     Endpoint aparte del de la notificación normal a propósito: tienen cupos
+         *     distintos y disparadores distintos, y mezclarlos haría que un tick que falla
+         *     en uno arrastre al otro.
+         */
+        get: operations["internal_due_event_notifications_internal_notifications_events_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/internal/push/prune": {
         parameters: {
             query?: never;
@@ -2471,6 +2495,11 @@ export interface components {
             streak: components["schemas"]["StreakInfo"];
             /** Session Number */
             session_number: number;
+            /**
+             * Ofrecer Cafecito
+             * @default false
+             */
+            ofrecer_cafecito: boolean;
         };
         /**
          * SessionSurvey
@@ -4086,6 +4115,39 @@ export interface operations {
         };
     };
     internal_due_notifications_internal_notifications_due_get: {
+        parameters: {
+            query?: {
+                force?: boolean;
+            };
+            header?: {
+                "x-internal-secret"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DueNotification"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    internal_due_event_notifications_internal_notifications_events_get: {
         parameters: {
             query?: {
                 force?: boolean;

@@ -2388,6 +2388,60 @@
         }
       }
     },
+    "/internal/notifications/events": {
+      "get": {
+        "summary": "Internal Due Event Notifications",
+        "description": "Worker-facing: los avisos DE EVENTO listos para mandar (los reclama).\n\nEndpoint aparte del de la notificaci\u00f3n normal a prop\u00f3sito: tienen cupos\ndistintos y disparadores distintos, y mezclarlos har\u00eda que un tick que falla\nen uno arrastre al otro.",
+        "operationId": "internal_due_event_notifications_internal_notifications_events_get",
+        "parameters": [
+          {
+            "name": "force",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Force"
+            }
+          },
+          {
+            "name": "x-internal-secret",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "X-Internal-Secret"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DueNotification"
+                  },
+                  "title": "Response Internal Due Event Notifications Internal Notifications Events Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/internal/push/prune": {
       "post": {
         "summary": "Internal Prune Push",
@@ -6238,6 +6292,11 @@
           "session_number": {
             "type": "integer",
             "title": "Session Number"
+          },
+          "ofrecer_cafecito": {
+            "type": "boolean",
+            "title": "Ofrecer Cafecito",
+            "default": false
           }
         },
         "type": "object",
