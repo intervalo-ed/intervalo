@@ -155,6 +155,13 @@
   }
   html {
     @apply font-sans;
+    /* Saca el zoom por doble tap en todo Intervalo: en mobile, tocar dos
+       veces seguidas cualquier cosa (un botón, una card) no tiene por qué
+       acercar la pantalla, y ese zoom accidental rompía la experiencia más
+       de lo que ayudaba. `manipulation` y no `none`: deja el pellizco de dos
+       dedos intacto, que es el zoom que sí hace falta para accesibilidad —
+       lo único que saca es el doble tap. */
+    touch-action: manipulation;
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading;

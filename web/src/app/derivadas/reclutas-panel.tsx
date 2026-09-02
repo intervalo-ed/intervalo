@@ -16,9 +16,9 @@
 //   al único lugar al que se llega sin querer es al próximo ejercicio.
 //
 // La diferencia de anatomía es una sola: acá no hay subtítulo. El del café
-// justifica la interrupción («es lo que mantiene el juego en pie») y esta diapo
-// no necesita justificarse, así que ese renglón lo ocupa lo primero que hay que
-// decir.
+// justifica la interrupción (que Intervalo se sostiene con donaciones de
+// estudiantes) y esta diapo no necesita justificarse, así que ese renglón lo
+// ocupa lo primero que hay que decir.
 //
 // Lo que sí es distinto es lo que ofrece. El cafecito pide plata y devuelve un
 // multiplicador para toda una universidad; esto no pide nada más que un mensaje
@@ -299,9 +299,9 @@ export function ReclutasPanel({
               fullBleed
                 ? {
                     // Gemelo del de cafecito-panel.tsx: ni el gris de siempre
-                    // ni el verde de la oferta, el 70% del 12% que tiñe toda
+                    // ni el verde de la oferta, el 70% del 6% que tiñe toda
                     // la pantalla (fondoDeSlide, mobile-flow.tsx).
-                    backgroundColor: `color-mix(in oklab, ${VERDE} 8.4%, var(--background))`,
+                    backgroundColor: `color-mix(in oklab, ${VERDE} 4.2%, var(--background))`,
                   }
                 : undefined
             }

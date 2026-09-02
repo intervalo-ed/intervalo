@@ -94,6 +94,21 @@ type Linea =
   | { tipo: "evento"; at: number; clave: string; evento: ConTiempo<GameEvent> }
   | { tipo: "mensaje"; at: number; clave: string; mensaje: ConTiempo<GameMessage> }
 
+/** Un mensaje propio que todavía no confirmó el servidor (ver `mandar`). */
+type MensajePendiente = {
+  localId: number
+  text: string
+  failed: boolean
+  // Capturados al escribir, no releídos si se reintenta: es la misma foto
+  // del jugador con la que se vería si el servidor ya hubiera contestado.
+  alias: string
+  level: number
+  university: string | null
+  // Sellado al crearlo (evento, no render) para armar el `ConTiempo` que
+  // `MensajeRow` espera sin llamar a `Date.now()` durante el dibujado.
+  at: number
+}
+
 /** El renglón de un mensaje.
  *
  * Misma anatomía que una fila del ranking y que una línea del feed —el @ pintado
@@ -102,7 +117,16 @@ type Linea =
  * que el texto va abajo y no al lado: un mensaje puede ocupar dos renglones y
  * meterlo en la misma línea que el nombre parte la frase por la mitad.
  */
-function MensajeRow({ mensaje }: { mensaje: ConTiempo<GameMessage> }) {
+function MensajeRow({
+  mensaje,
+  pendiente,
+  onReintentar,
+}: {
+  mensaje: ConTiempo<GameMessage>
+  /** `undefined` = mensaje confirmado por el servidor, como siempre. */
+  pendiente?: "enviando" | "fallo"
+  onReintentar?: () => void
+}) {
   return (
     <motion.li
       layout
@@ -113,6 +137,7 @@ function MensajeRow({ mensaje }: { mensaje: ConTiempo<GameMessage> }) {
       className={cn(
         "flex flex-col gap-0.5 rounded-md px-2 py-1.5 text-xs leading-snug",
         mensaje.is_mine && "bg-primary/10",
+        pendiente === "enviando" && "opacity-60",
       )}
     >
       <span className="flex items-baseline gap-1.5">
@@ -127,9 +152,11 @@ function MensajeRow({ mensaje }: { mensaje: ConTiempo<GameMessage> }) {
             <UniTag university={mensaje.university} />
           </span>
         )}
-        <span className="ml-auto shrink-0 tabular-nums text-[0.68rem] text-muted-foreground/70">
-          {fmtAgo(mensaje.seconds_ago)}
-        </span>
+        {pendiente === undefined && (
+          <span className="ml-auto shrink-0 tabular-nums text-[0.68rem] text-muted-foreground/70">
+            {fmtAgo(mensaje.seconds_ago)}
+          </span>
+        )}
       </span>
       {/* `break-words` y no `truncate`: un mensaje se lee entero o no se lee.
           El tope de 140 caracteres es lo que garantiza que "entero" sean dos
@@ -152,6 +179,21 @@ function MensajeRow({ mensaje }: { mensaje: ConTiempo<GameMessage> }) {
       >
         {mensaje.text}
       </span>
+      {/* Lo único que cambia con la confirmación real: mientras viaja, un
+          aviso chico; si el servidor lo rechazó, un reintento que reusa el
+          mismo texto en vez de pedir que se vuelva a escribir. */}
+      {pendiente === "enviando" && (
+        <span className="text-[0.65rem] text-muted-foreground/70">Enviando…</span>
+      )}
+      {pendiente === "fallo" && (
+        <button
+          type="button"
+          onClick={onReintentar}
+          className="w-fit text-[0.68rem] text-orange-400 underline underline-offset-2"
+        >
+          No se pudo mandar — reintentar
+        </button>
+      )}
     </motion.li>
   )
 }
@@ -276,6 +318,18 @@ export function ChatPanel({
   const [error, setError] = useState<string | null>(null)
   const inputRef = useRef<HTMLTextAreaElement | null>(null)
 
+  // El mensaje propio se ve al toque, sin esperar la confirmación real (ver
+  // `MensajePendiente` más arriba en el archivo): el cuadro se vacía y el
+  // mensaje aparece "enviando" de inmediato, y pasa a confirmado (se saca de
+  // acá, ya vive en `data.messages`) o a "fallo" según lo que conteste el
+  // servidor. Sin esto, entre el toque y el `onSuccess` —que puede tardar por
+  // la moderación del lado del server— el cuadro vacío y la lista sin
+  // cambios se leen como "no se mandó".
+  const [pendientes, setPendientes] = useState<MensajePendiente[]>([])
+  // Negativos: los ids reales son autoincrement positivo de la base
+  // (GameMessageOut), así que nunca chocan.
+  const nextLocalIdRef = useRef(-1)
+
   const esInvitado = player === null || player.is_guest
   // El chat puede estar apagado del lado del servidor (GAME_CHAT_ENABLED). Se
   // asume prendido mientras no llegó la primera respuesta: apagar el campo por
@@ -354,32 +408,73 @@ export function ChatPanel({
     el.scrollTop = el.scrollHeight
   })
 
-  const puedeMandar =
-    puedeEscribir && texto.trim().length > 0 && falta === 0 && !enviar.isPending
+  // Sin `!enviar.isPending`: cada envío se rastrea solo, por su propia
+  // entrada en `pendientes` — nada se serializa por un flag compartido, así
+  // que escribir un mensaje nuevo no espera a que el anterior confirme.
+  const puedeMandar = puedeEscribir && texto.trim().length > 0 && falta === 0
+
+  /** El motivo del error tal cual lo manda el servidor: en español y
+   *  dirigido a la persona (422 del saneado, 429 del tope, 403 de invitado).
+   *  Mostrar el suyo y no uno inventado acá es lo que hace que sea cierto. */
+  function detalleDeError(e: unknown): string {
+    return typeof e === "object" && e !== null && "message" in e
+      ? String((e as { message: unknown }).message)
+      : "No se pudo mandar."
+  }
 
   const mandar = () => {
-    if (!puedeMandar) return
+    if (!puedeMandar || player === null) return
     const limpio = texto.trim()
+    const localId = nextLocalIdRef.current--
+    // Se vacía y se muestra YA, no en el `onSuccess`: es lo que hace que
+    // escribir el mensaje siguiente no tenga que esperar a que este
+    // confirme, y que el toque se sienta recibido al instante en vez de
+    // depender de la moderación del servidor para dar cualquier señal.
+    setPendientes((ps) => [
+      ...ps,
+      {
+        localId,
+        text: limpio,
+        failed: false,
+        alias: player.alias,
+        level: player.level,
+        university: player.university ?? null,
+        at: Date.now(),
+      },
+    ])
+    setTexto("")
+    setError(null)
+    pegadoRef.current = true
     enviar.mutate(limpio, {
       onSuccess: () => {
         sfx.select()
-        setTexto("")
-        setError(null)
+        setPendientes((ps) => ps.filter((p) => p.localId !== localId))
         registrarEnvio(Date.now(), VENTANA_MS)
         // Recién calculado y no `0` a mano: si todavía queda lugar en la
         // ventana (este no fue el tercero), el compositor sigue sirviendo.
         setFalta(restante())
-        pegadoRef.current = true
       },
       onError: (e: unknown) => {
-        // El servidor manda el motivo en español y dirigido a la persona (422
-        // del saneado, 429 del tope, 403 de invitado). Mostrar el suyo y no uno
-        // inventado acá es lo que hace que el mensaje sea cierto.
-        const detalle =
-          typeof e === "object" && e !== null && "message" in e
-            ? String((e as { message: unknown }).message)
-            : "No se pudo mandar."
-        setError(detalle)
+        setPendientes((ps) => ps.map((p) => (p.localId === localId ? { ...p, failed: true } : p)))
+        setError(detalleDeError(e))
+      },
+    })
+  }
+
+  /** Reintenta un mensaje que falló, con el mismo texto — sin que la persona
+   *  tenga que volver a escribirlo. */
+  const reintentar = (p: MensajePendiente) => {
+    setPendientes((ps) => ps.map((x) => (x.localId === p.localId ? { ...x, failed: false } : x)))
+    enviar.mutate(p.text, {
+      onSuccess: () => {
+        sfx.select()
+        setPendientes((ps) => ps.filter((x) => x.localId !== p.localId))
+        registrarEnvio(Date.now(), VENTANA_MS)
+        setFalta(restante())
+      },
+      onError: (e: unknown) => {
+        setPendientes((ps) => ps.map((x) => (x.localId === p.localId ? { ...x, failed: true } : x)))
+        setError(detalleDeError(e))
       },
     })
   }
@@ -395,7 +490,7 @@ export function ChatPanel({
         }}
         className="no-scrollbar flex min-h-0 flex-1 flex-col overflow-y-auto px-0.5 py-1"
       >
-        {lineas.length === 0 ? (
+        {lineas.length === 0 && pendientes.length === 0 ? (
           <p className="px-2 py-3 text-xs text-muted-foreground">
             Todavía no dijo nada nadie.
           </p>
@@ -408,6 +503,26 @@ export function ChatPanel({
                 <NovedadRow key={l.clave} evento={l.evento} />
               ),
             )}
+            {/* Siempre al final: son los más recientes, y todavía no tienen
+                un `id` real con el que intercalarse por tiempo entre las
+                novedades. */}
+            {pendientes.map((p) => (
+              <MensajeRow
+                key={`pend-${p.localId}`}
+                mensaje={{
+                  id: p.localId,
+                  alias: p.alias,
+                  level: p.level,
+                  university: p.university,
+                  text: p.text,
+                  is_mine: true,
+                  seconds_ago: 0,
+                  at: p.at,
+                }}
+                pendiente={p.failed ? "fallo" : "enviando"}
+                onReintentar={() => reintentar(p)}
+              />
+            ))}
           </ul>
         )}
       </div>
@@ -474,7 +589,7 @@ export function ChatPanel({
                     : "Escribí algo…"
               }
               className={cn(
-                "min-w-0 flex-1 resize-none rounded-md border border-border bg-background px-3 py-2 text-sm outline-none",
+                "min-w-0 flex-1 resize-none rounded-md border border-border bg-background px-3 py-2 text-base md:text-sm outline-none",
                 "placeholder:text-muted-foreground/70 focus:border-primary/60",
                 "disabled:cursor-not-allowed disabled:opacity-60",
               )}
