@@ -356,17 +356,33 @@ def retention(data: dict, weeks: list[date], horizon: int = 14) -> dict:
     "convertir a estudiar" (que ya mide el embudo) con "convertir a hábito
     instalado", que es lo que esta curva quiere aislar.
 
-    **D+0 es el día que instaló y abrió la PWA por primera vez, no el del alta
-    ni el de su primera sesión.** A diferencia de la curva anterior —donde el
-    ancla (primera sesión) y el evento a medir (sesión terminada) eran la
-    misma cosa, así que D+0 daba 100% por construcción—, acá los dos eventos
-    son distintos: instalar no es estudiar. Por eso D+0 NO está garantizado en
-    100%: mide, honestamente, cuánta gente estudió el mismo día que instaló.
-    Es dato, no un artefacto de la cuenta.
+    **D+k es «¿volvió DENTRO de los primeros k días?», no «¿volvió el día
+    EXACTO k?».** La primera versión de esta curva comparaba contra el día
+    exacto, calcado del diseño anterior (anclado en la primera sesión, donde
+    el ancla y el evento medido eran la misma sesión). Con el ancla en la
+    instalación esa comparación se rompe: instalar no tiene por qué caer en
+    ningún día particular del calendario de repetición espaciada de esa
+    persona. Alguien fiel que repasa los días 0, 3, 9 y 20 —el patrón que SM-2
+    arma a propósito— puede instalar la PWA un día cualquiera en el medio, y
+    un match de día exacto contra ese ancla random falla casi siempre por más
+    fiel que sea. La prueba de que estaba mal: los instaladores, que son una
+    selección de los usuarios MÁS comprometidos, daban una curva más chata que
+    la vieja en vez de más alta. Acumulado en cambio es monótono: una vez que
+    alguien volvió, cuenta como retenido en todos los k siguientes.
 
-    "Volver" en cada D+k —incluido k=0— es terminar una sesión ese día:
-    instalar no es el objetivo, es el medio; lo que importa es si después de
-    instalar la gente efectivamente vuelve a estudiar.
+    **El 100% son los que instalaron y abrieron la PWA, no los que se dieron
+    de alta ni los que solo estudiaron.** Instalar es un compromiso mayor que
+    registrarse o incluso que terminar una sesión: es elegir tener la app a
+    mano para volver. Meter en el denominador a quien nunca instaló mezclaría
+    "convertir a estudiar" (que ya mide el embudo) con "convertir a hábito
+    instalado", que es lo que esta curva quiere aislar.
+
+    **D+0 es el día que instaló y abrió la PWA por primera vez, no el del alta
+    ni el de su primera sesión**, y NO está garantizado en 100%: instalar no
+    es estudiar, así que D+0 mide, honestamente, cuánta gente estudió el mismo
+    día que instaló. Es dato, no un artefacto de la cuenta. Solo se cuentan
+    sesiones DESDE la instalación en adelante —una sesión anterior no es
+    «volver», es lo que motivó a instalar.
 
     La cohorte SIGUE siendo la semana de alta: así se comparan tandas de
     usuarios entre sí, aunque el reloj de cada uno arranque cuando instaló.
@@ -391,10 +407,18 @@ def retention(data: dict, weeks: list[date], horizon: int = 14) -> dict:
         inicio = {uid: pwa_at[uid] for uid in altas if uid in pwa_at}
         if not inicio:
             continue
+        # Primer día (offset >= 0 desde la instalación) con sesión terminada,
+        # por usuario. None si nunca volvió a estudiar después de instalar —
+        # una sesión ANTERIOR a instalar no cuenta como "volver".
+        primer_retorno: dict[int, int | None] = {}
+        for uid, d0 in inicio.items():
+            offsets = [(d - d0).days for d in active.get(uid, ()) if d >= d0]
+            primer_retorno[uid] = min(offsets) if offsets else None
         points = []
         for k in range(horizon + 1):
             obs = [uid for uid, d0 in inicio.items() if d0 + timedelta(days=k) <= today]
-            hit = sum(1 for uid in obs if inicio[uid] + timedelta(days=k) in active.get(uid, ()))
+            hit = sum(1 for uid in obs
+                      if primer_retorno[uid] is not None and primer_retorno[uid] <= k)
             points.append({"k": k, "obs": len(obs), "n": hit, "pct": _pct(hit, len(obs))})
         cohorts.append({"label": w.strftime("%d/%m"), "week": w.isoformat(),
                         "n": len(inicio), "altas": len(altas), "points": points})
