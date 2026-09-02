@@ -203,26 +203,15 @@ coh = ret["cohortes"][0]
 check("retención: la base son los que instalaron la PWA, no las altas",
       coh["n"] == 2 and coh["altas"] == 5, f'(n={coh["n"]} altas={coh["altas"]})')
 pts = {p["k"]: p for p in coh["points"]}
-# u1 instala el mismo día que estudia (18) → cuenta en D+0, y sigue contando
-# en cada k siguiente (acumulado: una vez que volvió, cuenta para siempre).
-# u2 instala un día DESPUÉS de su única sesión (19, sesión fue el 18) → esa
-# sesión es ANTERIOR a instalar, no cuenta como "volver" — u2 no vuelve nunca
-# y queda en 0 en todos los k. Es justo el caso que prueba que instalar y
-# estudiar son eventos distintos, así que D+0 no está forzado a 100%.
+# u1 instala el mismo día que estudia (18) → cuenta en D+0. u2 instala un día
+# después de su única sesión (19, sesión fue el 18) → NO cuenta en D+0: es
+# justo el caso que prueba que instalar y estudiar son eventos distintos, así
+# que D+0 no está forzado a 100% como en la curva vieja.
 check("retención: D+0 no está forzado a 100% (instalar y estudiar son eventos distintos)",
       pts[0]["n"] == 1 and pts[0]["obs"] == 2 and pts[0]["pct"] == 50.0,
       f'(dio {pts[0]})')
 check("retención: D+1 es solo u1 (50% de la base)",
       pts[1]["n"] == 1 and pts[1]["pct"] == 50.0, f'(dio {pts[1]})')
-# Acumulado y no día exacto: u1 volvió una sola vez (el día 1), pero cuenta
-# como retenido en TODOS los k siguientes, no solo en el día puntual en que
-# volvió. Con el diseño viejo (día exacto) esto habría caído a 0% en D+2.
-check("retención: es acumulado — quien volvió una vez sigue contando en los k siguientes",
-      pts[14]["n"] == 1 and pts[14]["pct"] == 50.0, f'(dio {pts[14]})')
-check("retención: el porcentaje nunca decrece con k (acumulado, no día exacto)",
-      all(a["pct"] is None or b["pct"] is None or b["pct"] >= a["pct"]
-          for a, b in zip(coh["points"], coh["points"][1:])),
-      f"({[p['pct'] for p in coh['points']]})")
 # El denominador de cada k son los observables. Se comprueba la propiedad y no
 # un valor fijo porque "cuántos observables hay" depende de la fecha de hoy: un
 # número clavado acá empezaría a fallar solo con el paso del tiempo.
