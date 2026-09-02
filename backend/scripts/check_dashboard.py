@@ -444,6 +444,32 @@ check("render: todos los tooltips explican de dónde sale el denominador",
       _tips and all(any(e in t for e in _explica) for t in _tips),
       f"({len(_tips)} tooltips)")
 
+# Vista "combinada": con una sola cohorte en el fixture, fusionar es un
+# no-op — sumar un solo sumando da el mismo numerador y denominador que ya
+# tenía esa cohorte, punto por punto.
+_comb = payload["retencion"]["combinada"]
+check("retención: con una sola cohorte, la vista combinada es igual a esa cohorte",
+      _comb == payload["retencion"]["cohortes"][0]["points"], f"(combinada={_comb[0]})")
+check("retención: n_combinada es la suma de las bases de cada cohorte",
+      payload["retencion"]["n_combinada"] == payload["retencion"]["cohortes"][0]["n"])
+# Los botones de cohorte + "Combinar" son CSS puro (checkbox + :has()), sin
+# JS — ver el docstring del módulo. Se prueba que el enganche exista: un
+# checkbox por cohorte, uno para combinar, y la regla que prende la serie
+# combinada (índice = cantidad de cohortes) cuando ese checkbox se tilda.
+check("render: hay un toggle por cohorte más el de combinar",
+      html.count('class="rt-chk') == len(payload["retencion"]["cohortes"]) + 1)
+_n_coh = len(payload["retencion"]["cohortes"])
+check("render: combinar prende la serie fusionada y apaga las cohortes",
+      f'#rtc:checked) .cht-s{_n_coh}{{display:inline}}' in html
+      and f'.cht-s{_n_coh}{{display:none}}' in html)
+_tips_comb = [t.split("</title>")[0] for t in html.split("<title>")[1:]
+              if t.startswith("Todas las cohortes combinadas")]
+_explica_comb = ("todavía no cumplieron", "el denominador es la base combinada entera",
+                  "no hay a quién medir")
+check("render: el tooltip de la vista combinada también explica el denominador",
+      _tips_comb and all(any(e in t for e in _explica_comb) for t in _tips_comb),
+      f"({len(_tips_comb)} tooltips)")
+
 # Marca de cola. `_flojo` es la regla; se prueba directo porque depende de la
 # fecha de corrida y en el fixture no siempre hay una cohorte con cola.
 from metrics.render import _flojo  # noqa: E402

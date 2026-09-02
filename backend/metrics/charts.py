@@ -246,6 +246,10 @@ def lines(series: list[dict], x_labels: list[str], *, suffix: str = "%",
         else:
             w = 2
 
+        # Cada serie va en su propio <g>, indexado por posición: es el
+        # gancho que usa el panel para prender/apagar cohortes por CSS
+        # (:has() + checkbox) sin depender de JS — ver render.py.
+        out.append(f'<g class="cht-s{si}">')
         seg, dots = [], []
         for i, v in enumerate(s["values"]):
             if v is None:
@@ -292,6 +296,7 @@ def lines(series: list[dict], x_labels: list[str], *, suffix: str = "%",
                        f'stroke-opacity="{op}" stroke-width="{w}"{dash} '
                        f'stroke-linejoin="round" stroke-linecap="round"/>')
         out.extend(dots)
+        out.append('</g>')
 
     for i, lab in enumerate(x_labels):
         if len(x_labels) > 10 and i % 2:
@@ -402,10 +407,13 @@ def _legend(labels: list[str], x: float, y: float, mono: bool = False) -> str:
     out, cx = [], x
     for i, lab in enumerate(labels):
         color = MONO if mono else SERIES[i % len(SERIES)]
-        out.append(f'<rect x="{cx:.1f}" y="{y - 8}" width="9" height="9" rx="2" '
+        # Mismo índice que el <g> de la serie en lines(): un toggle apaga la
+        # línea y su chip de leyenda con la misma regla CSS.
+        out.append(f'<g class="cht-s{i}">'
+                   f'<rect x="{cx:.1f}" y="{y - 8}" width="9" height="9" rx="2" '
                    f'fill="{color}" fill-opacity="{alphas[i]}"/>'
                    f'<text x="{cx + 13:.1f}" y="{y}" fill="var(--muted)" font-size="11" '
-                   f'{FONT}>{esc(lab)}</text>')
+                   f'{FONT}>{esc(lab)}</text></g>')
         cx += 26 + 6.4 * len(lab)
     return "".join(out)
 
