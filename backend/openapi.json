@@ -6362,6 +6362,11 @@
           "streak": {
             "$ref": "#/components/schemas/StreakInfo"
           },
+          "xp_from_boost": {
+            "type": "integer",
+            "title": "Xp From Boost",
+            "default": 0
+          },
           "session_number": {
             "type": "integer",
             "title": "Session Number"

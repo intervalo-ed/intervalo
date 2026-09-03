@@ -186,6 +186,18 @@ class User(Base):
         Integer, nullable=False, default=0, server_default="0"
     )
 
+    # Cuánta de `total_xp` la pusieron los reclutas y no el estudio propio.
+    #
+    # Existe para poder preguntar "¿esta persona resolvió algo ACÁ?" sin mirar
+    # `answers`, que es la tabla más grande: `total_xp > referral_xp_earned` es
+    # una comparación entre dos columnas de la misma fila. Es el gemelo de
+    # `game_players.exercises_correct`, que el minijuego usa para lo mismo y por
+    # el mismo motivo — un reclutador puede subir de XP sin haber resuelto nunca,
+    # y sin este corte aparece en el ranking igual.
+    referral_xp_earned = Column(
+        Integer, nullable=False, default=0, server_default="0"
+    )
+
     # Habilidad estimada del modelo Elo jerárquico (theta). 0.0 = neutro
     # (arranca ahí, sin cold start raro: la primera predicción es 0.5 y se
     # ajusta solo). `ability_n` es el conteo de respuestas usadas para el

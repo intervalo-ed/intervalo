@@ -140,7 +140,15 @@ def acreditar_clasico(db: Session, recluta: User, xp_ganada: int) -> int:
     recluta.referral_xp_given += entera
     if reclutador.user_id is not None:
         db.query(User).filter(User.id == reclutador.user_id).update(
-            {User.total_xp: User.total_xp + entera}, synchronize_session=False
+            {
+                User.total_xp: User.total_xp + entera,
+                # En el mismo UPDATE, para que las dos no se puedan separar: es
+                # lo que después permite preguntar cuánta de la XP de alguien
+                # salió de estudiar y cuánta de reclutar (ver el filtro del
+                # ranking en main.VISIBLE_EN_RANKING).
+                User.referral_xp_earned: User.referral_xp_earned + entera,
+            },
+            synchronize_session=False,
         )
     else:
         db.query(GamePlayer).filter(GamePlayer.id == reclutador.id).update(
@@ -166,7 +174,11 @@ def saldar_deuda_de_clasico(db: Session, player: GamePlayer, user_id: int) -> in
     if monto <= 0:
         return 0
     db.query(User).filter(User.id == user_id).update(
-        {User.total_xp: User.total_xp + monto}, synchronize_session=False
+        {
+            User.total_xp: User.total_xp + monto,
+            User.referral_xp_earned: User.referral_xp_earned + monto,
+        },
+        synchronize_session=False,
     )
     db.query(GamePlayer).filter(GamePlayer.id == player.id).update(
         {GamePlayer.classic_xp_owed: GamePlayer.classic_xp_owed - monto},

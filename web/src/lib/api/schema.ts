@@ -2550,6 +2550,11 @@ export interface components {
             /** Xp Earned */
             xp_earned: number;
             streak: components["schemas"]["StreakInfo"];
+            /**
+             * Xp From Boost
+             * @default 0
+             */
+            xp_from_boost: number;
             /** Session Number */
             session_number: number;
             /** Pedido */

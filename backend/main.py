@@ -554,6 +554,28 @@ class EnrollmentRequest(BaseModel):
     response_time_ms: int | None = None
 
 
+def _sellar_mudanza(enrollment: Enrollment, nueva: str) -> None:
+    """Marca CUÁNDO esta persona se cambió de universidad. Gemelo exacto de la
+    guarda de `game/router.py` que hace lo mismo con `game_players`.
+
+    Es lo que sostiene el candado antimudanza del empuje: `boosts.aplica_el_empuje`
+    da por bueno el empuje cuando el sello está en NULL, así que una columna que
+    nadie escribe es un candado que no existe. Sin esto, con empujes de 24-48 h
+    alcanzaba un `POST /user/enroll` apuntando a la universidad impulsada para
+    cobrar el multiplicador.
+
+    Solo la MUDANZA, no la primera carga: cargar la universidad por primera vez
+    no puede costarte el empuje que está corriendo. Y "primera carga" es no
+    tenerla Y no haberla tenido nunca, o vaciarla y volver a cargarla devolvería
+    el sello a NULL — el mismo camino que ya se cerró del lado del juego.
+    """
+    from datetime import datetime
+
+    primera_carga = not enrollment.university and enrollment.university_set_at is None
+    if not primera_carga and nueva != enrollment.university:
+        enrollment.university_set_at = datetime.utcnow()
+
+
 @app.post("/user/enroll", response_model=EnrollmentResponse)
 def enroll_user(
     body: EnrollmentRequest,
@@ -580,6 +602,7 @@ def enroll_user(
 
     if existing:
         # Update enrollment
+        _sellar_mudanza(existing, university)
         existing.university = university
         existing.career = body.career
         existing.motivation = body.motivation
@@ -640,6 +663,7 @@ def enroll_user(
         ).first()
         if winner is None:
             raise
+        _sellar_mudanza(winner, university)
         winner.university = university
         winner.career = body.career
         winner.motivation = body.motivation
@@ -1370,6 +1394,25 @@ def _mi_universidad(db: Session, user_id: int) -> str | None:
     return fila.university if fila is not None else None
 
 
+# Quién aparece en el ranking de Intervalo clásico.
+#
+# Gemelo de `game/router.py :: RESOLVIO_ACA`, y por el mismo motivo: la XP la
+# puede subir un RECLUTA sin que el reclutador haya resuelto nunca un ejercicio
+# acá (`referrals.acreditar_clasico` le suma a `total_xp` con un UPDATE crudo).
+# Con el filtro viejo —`total_xp > 0`— alcanzaba con traer a alguien para entrar
+# a la tabla, que es exactamente el agujero que el minijuego cerró en esta misma
+# serie cambiando a `exercises_correct > 0`.
+#
+# La comparación es entre dos columnas de la misma fila y no un EXISTS contra
+# `answers`: el ranking lo pregunta en cada request y `answers` es la tabla más
+# grande del esquema.
+#
+# Los CINCO lugares que lo usan tienen que moverse JUNTOS. Si el que cuenta el
+# total no filtra igual que el que arma la lista, los números de la cabecera
+# dejan de cuadrar con las filas de abajo, y nadie reporta eso como bug.
+VISIBLE_EN_RANKING = User.total_xp > User.referral_xp_earned
+
+
 def _first_enrollment_subq():
     """Subquery user_id → (university, career, enrolled_at) del enrollment MÁS
     ANTIGUO de cada usuario (sus respuestas originales de onboarding), sin
@@ -1459,7 +1502,7 @@ def get_leaderboard(
     # inflaban la cola. El propio usuario entra igual con 0: verse último dice
     # "estás acá, empezá a subir" — no aparecer diría "no existís". Con 0 XP su
     # rank queda count(>0)+1 y los demás ceros no compiten el desempate.
-    filters = [*filters, sa_or(User.total_xp > 0, User.id == current_user.id)]
+    filters = [*filters, sa_or(VISIBLE_EN_RANKING, User.id == current_user.id)]
 
     # Universidades presentes (set completo, sin aplicar el scope), para poblar
     # el filtro del front.
@@ -1616,9 +1659,9 @@ def get_university_leaderboard(
     filters = [
         enroll.c.university.isnot(None),
         enroll.c.university != "",
-        # Mismo criterio que el leaderboard individual: los que nunca sumaron
-        # XP no cuentan como estudiantes de su universidad.
-        User.total_xp > 0,
+        # Mismo criterio que el leaderboard individual: los que nunca
+        # resolvieron nada no cuentan como estudiantes de su universidad.
+        VISIBLE_EN_RANKING,
     ]
     if university is not None:
         filters.append(enroll.c.university == university)
@@ -1777,7 +1820,7 @@ def get_leaderboard_summary(
             db.query(func.count())
             .select_from(enroll)
             .join(User, User.id == enroll.c.user_id)
-            .filter(has_university, User.total_xp > 0)
+            .filter(has_university, VISIBLE_EN_RANKING)
             .scalar()
             or 0
         )
@@ -1792,7 +1835,7 @@ def get_leaderboard_summary(
             db.query(func.count())
             .select_from(enroll)
             .join(User, User.id == enroll.c.user_id)
-            .filter(*scoped, User.total_xp > 0)
+            .filter(*scoped, VISIBLE_EN_RANKING)
             .scalar()
             or 0
         )
@@ -1852,7 +1895,7 @@ def get_public_university_leaderboard(db: Session = Depends(get_db)):
         .filter(
             enroll.c.university.isnot(None),
             enroll.c.university != "",
-            User.total_xp > 0,
+            VISIBLE_EN_RANKING,
         )
         .group_by(enroll.c.university)
         .order_by(func.min(enroll.c.enrolled_at).asc(), enroll.c.university.asc())
@@ -2055,6 +2098,27 @@ def save_test_feedback(body: TestFeedbackSaveRequest):
 FEEDBACK_XP = 1  # XP fijo por responder una encuesta o enviar un reporte (no por la impression).
 
 
+def _sumar_xp(db: Session, user: User, cuanto: int) -> None:
+    """Suma XP con un UPDATE RELATIVO, no leyendo y escribiendo en Python.
+
+    `current_user` se cargó al empezar el request y la encuesta aparece DURANTE
+    la sesión, así que entre esa lectura y este commit puede haber entrado una
+    respuesta con su propio pago. Un `SET total_xp = <lo que leí> + 1` borra esa
+    respuesta entera.
+
+    Es el mismo motivo, y el mismo remedio, que `session_store.record_answer_db`
+    —cuyo comentario nombra a este lugar como el escritor concurrente del que hay
+    que cuidarse— y que el pago al reclutador en `referrals.py`.
+    """
+    db.query(User).filter(User.id == user.id).update(
+        {User.total_xp: User.total_xp + cuanto}, synchronize_session=False
+    )
+    # El objeto en memoria quedó viejo por el `synchronize_session=False`: se
+    # expira para que quien lo lea después (la respuesta, un refresh) traiga el
+    # valor de la base y no el de antes del UPDATE.
+    db.expire(user, ["total_xp"])
+
+
 @app.post("/session/feedback", response_model=SessionFeedbackResponse)
 def submit_session_feedback(
     body: SessionFeedbackRequest,
@@ -2119,7 +2183,7 @@ def submit_session_feedback(
         entry.free_text = body.free_text
         entry.reason = validate_reason(entry.question_type, body.value, body.reason)
         entry.answered_at = datetime.utcnow()
-        current_user.total_xp = (current_user.total_xp or 0) + FEEDBACK_XP
+        _sumar_xp(db, current_user, FEEDBACK_XP)
         db.commit()
         return {"success": True, "feedback_id": entry.id, "xp_earned": FEEDBACK_XP}
 
@@ -2146,7 +2210,7 @@ def submit_session_feedback(
             answered_at=now,
         )
         db.add(entry)
-        current_user.total_xp = (current_user.total_xp or 0) + FEEDBACK_XP
+        _sumar_xp(db, current_user, FEEDBACK_XP)
         db.commit()
         return {"success": True, "feedback_id": entry.id, "xp_earned": FEEDBACK_XP}
 

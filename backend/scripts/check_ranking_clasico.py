@@ -276,6 +276,45 @@ recs = main.get_recruits(current_user=mirador, db=db)
 sin_cinturon = [e for e in recs.entries if e.username == "u5"][0]
 check("quien no desbloqueó nada es 'white'", sin_cinturon.belt == "white")
 
+print("8. quién aparece en el ranking: haber resuelto, no haber reclutado")
+# El agujero que esto cierra es el mismo que el minijuego cerró en esta serie:
+# `referrals.acreditar_clasico` le suma a `total_xp` del reclutador con un UPDATE
+# crudo, así que con el filtro viejo (`total_xp > 0`) alcanzaba con traer a
+# alguien para entrar a la tabla sin haber respondido nunca un ejercicio.
+solo_recluto = alta(9, "UBA", xp=0)
+solo_recluto.total_xp = 120
+solo_recluto.referral_xp_earned = 120
+db.commit()
+
+visibles = [e.username for e in main.get_leaderboard(
+    university=None, career=None, limit=50, offset=0, around_me=False,
+    current_user=mirador, db=db,
+).entries]
+check("quien solo reclutó NO entra", "u9" not in visibles, f"(dio {visibles})")
+check("y los que estudiaron siguen estando", "u2" in visibles and "u3" in visibles)
+
+# Una sola respuesta propia ya lo hace visible: el corte es "resolvió algo acá",
+# no "resolvió mucho".
+solo_recluto.total_xp = 121
+db.commit()
+visibles = [e.username for e in main.get_leaderboard(
+    university=None, career=None, limit=50, offset=0, around_me=False,
+    current_user=mirador, db=db,
+).entries]
+check("con 1 XP propia ya entra", "u9" in visibles, f"(dio {visibles})")
+
+# Y los agregados de la cabecera tienen que contar exactamente a los mismos: si
+# el total no filtra igual que la lista, los números de arriba no cuadran con las
+# filas de abajo.
+solo_recluto.total_xp = 120
+db.commit()
+r_vis = resumen()
+check(
+    "el total de estudiantes cuenta a los mismos que la lista",
+    r_vis.total_students == len(visibles) - 1,
+    f"(total {r_vis.total_students}, lista {len(visibles) - 1})",
+)
+
 print()
 if fallos:
     print(f"{len(fallos)} FALLA(S): " + ", ".join(fallos))

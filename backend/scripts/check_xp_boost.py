@@ -150,6 +150,36 @@ db.commit()
 check("y quien la cargó una sola vez y nunca la movió, cobra",
       abs(xp_boost.multiplier_for_user(db, 2) - 1.5) < 1e-9)
 
+# Y ahora el CABLEADO, que es lo que faltaba: arriba el sello se escribe a mano,
+# así que se probaba la función y no que alguien la llame. `enrollments.university_set_at`
+# no tenía NINGÚN escritor —el único endpoint que toca la universidad de clásico
+# es este—, o sea que el candado no existía y alcanzaba un `POST /user/enroll`
+# apuntando a la impulsada para cobrar.
+import main  # noqa: E402
+
+fila2 = db.query(Enrollment).filter(Enrollment.user_id == 2).first()
+fila2.university, fila2.university_set_at = "UTN", None
+db.commit()
+main._sellar_mudanza(fila2, "UTN")
+check("re-guardar la MISMA universidad no sella nada",
+      fila2.university_set_at is None)
+main._sellar_mudanza(fila2, "UBA")
+check("mudarse sí sella", fila2.university_set_at is not None)
+fila2.university = "UBA"
+db.commit()
+check("y el sello le apaga el empuje, igual que en el juego",
+      xp_boost.multiplier_for_user(db, 2) == 1.0,
+      f"(dio {xp_boost.multiplier_for_user(db, 2)})")
+
+# La primera carga no puede costar el empuje. Y "primera carga" incluye la fila
+# con la universidad VACÍA, que es como queda un alta sin elegirla: sin esto, el
+# onboarding de quien la carga por primera vez durante un empuje se lo perdía.
+fila2.university, fila2.university_set_at = "", None
+db.commit()
+main._sellar_mudanza(fila2, "UBA")
+check("cargarla por primera vez sobre una fila vacía no sella",
+      fila2.university_set_at is None)
+
 print("6. el tope del producto es 4,0, no el ×3 del juego")
 check("racha máxima sola no llega al tope", effective_multiplier(2.0, 1.0) == 2.0)
 check("una donación sola tampoco (×2 es lo que aporta una persona)",
@@ -198,11 +228,11 @@ for i in range(2):
 db.commit()
 
 
-def responder(external_ids: list[str]) -> tuple[int, int]:
+def responder(external_ids: list[str], modo: str = "main") -> tuple[int, int]:
     """Arma una sesión, contesta bien el primer ejercicio, y devuelve
     (xp_earned, xp_from_boost) de esa respuesta."""
     sess = SessionModel(
-        user_id=1, course_id=1, mode="main", started_at=datetime.utcnow(),
+        user_id=1, course_id=1, mode=modo, started_at=datetime.utcnow(),
         exercises_total=len(external_ids),
         served_external_ids=json.dumps(external_ids),
     )
@@ -234,6 +264,32 @@ check("y lo que pagó de más quedó anotado en xp_from_boost",
       boost_con == xp_con - xp_sin, f"(dio {boost_con}, esperado {xp_con - xp_sin})")
 check("con ×2,0 y sin racha, la XP se duplica",
       xp_con == xp_sin * 2, f"(sin {xp_sin}, con {xp_con})")
+
+# Y en PRÁCTICA también, que es la rama que ningún caso recorría: el reparto lo
+# hace otra función (`practice_xp_split`) y podría no anotar el empuje.
+for i in (2, 3):
+    db.add(Exercise(
+        course_id=1, external_id=f"bst_{i}", belt="white", topic="t", exercise_type="FORM",
+        question=f"pregunta {i}", option_a="a", option_b="b", option_c="c", option_d="d",
+        correct_index=0, has_math=False, feedback_correct="ok",
+        feedback_incorrect='"no importa"',
+    ))
+db.commit()
+
+limpiar_empujes(db)
+xp_p_sin, boost_p_sin = responder(["bst_2"], modo="practice")
+check("en práctica sin empuje, xp_from_boost queda en cero", boost_p_sin == 0,
+      f"(dio {boost_p_sin})")
+
+limpiar_empujes(db)
+boosts.grant(db, university="UBA", cafecitos=10)
+db.commit()
+boosts.olvidar_cache_de_empujes()
+xp_p_con, boost_p_con = responder(["bst_3"], modo="practice")
+check("en práctica el empuje también paga", xp_p_con > xp_p_sin,
+      f"(sin {xp_p_sin}, con {xp_p_con})")
+check("y también queda anotado", boost_p_con == xp_p_con - xp_p_sin,
+      f"(dio {boost_p_con}, esperado {xp_p_con - xp_p_sin})")
 
 print("10. el payload de progreso lleva el empuje, y calla cuando no hay")
 limpiar_empujes(db)

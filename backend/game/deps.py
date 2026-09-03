@@ -124,6 +124,32 @@ def create_player_for_user(db: Session, user: User) -> GamePlayer:
     raise HTTPException(status_code=503, detail="No pudimos crear tu jugador. Probá de nuevo.")
 
 
+def _descontar_lo_autogenerado(reclutador: GamePlayer, user: User) -> None:
+    """Saca de la deuda lo que esta persona se generó a sí misma. No commitea.
+
+    Las tres guardas contra autoreclutarse cubren el ESTADO, no la historia. Hay
+    un camino que las esquiva a las tres: juego de invitado → comparto mi link →
+    lo abro yo → me anoto en clásico (la guarda de `anotar_usuario` pasa porque
+    el jugador todavía no tiene `user_id`) → estudio, y cada respuesta acumula el
+    10% en `classic_xp_owed` (la guarda de runtime tampoco dispara: sigue sin
+    `user_id`). Al volver al juego logueado, la arista se limpia... y acto seguido
+    se paga toda esa deuda.
+
+    Lo autogenerado es exactamente `user.referral_xp_given`: esa columna cuenta
+    lo que ESTA persona le dio a quien la trajo, y quien la trajo era ella misma.
+    Se descuenta solo eso y no la deuda entera, porque el mismo invitado puede
+    haber traído gente de verdad, y eso sí lo ganó.
+    """
+    propio = user.referral_xp_given or 0
+    if propio <= 0:
+        return
+    reclutador.classic_xp_owed = max(0, (reclutador.classic_xp_owed or 0) - propio)
+    # La arista ya no existe, así que la contabilidad de ese lado tampoco: dejarla
+    # haría que la vista de Reclutas siga mostrando un aporte sin reclutador.
+    user.referral_xp_given = 0
+    user.referral_pending = 0
+
+
 def link_guest_to_user(db: Session, guest: GamePlayer, user: User) -> GamePlayer:
     """Merge guest→user. Commitea. Devuelve el jugador vigente.
 
@@ -149,6 +175,7 @@ def link_guest_to_user(db: Session, guest: GamePlayer, user: User) -> GamePlayer
         # el caso incluso para aristas creadas antes de que esto existiera.
         if user.referred_by_player_id == guest.id:
             user.referred_by_player_id = None
+            _descontar_lo_autogenerado(guest, user)
         # Y cobra lo que ya había generado sin tener dónde: es el mejor argumento
         # para registrarse, y por eso se paga en el mismo momento.
         referrals_top.saldar_deuda_de_clasico(db, guest, user.id)
@@ -253,9 +280,13 @@ def link_guest_to_user(db: Session, guest: GamePlayer, user: User) -> GamePlayer
     db.query(User).filter(
         User.referred_by_player_id == guest.id, User.id != user.id
     ).update({"referred_by_player_id": existing.id}, synchronize_session=False)
-    db.query(User).filter(
-        User.referred_by_player_id == guest.id, User.id == user.id
-    ).update({"referred_by_player_id": None}, synchronize_session=False)
+    if user.referred_by_player_id == guest.id:
+        db.query(User).filter(User.id == user.id).update(
+            {"referred_by_player_id": None}, synchronize_session=False
+        )
+        # Misma resta que en la rama simple, y ANTES del traspaso: si la deuda
+        # autogenerada pasa a `existing`, se paga igual un renglón más abajo.
+        _descontar_lo_autogenerado(guest, user)
     # La deuda de clásico del invitado se traspasa ANTES del delete, o se pierde
     # con la fila. Se suma a la de la cuenta que sobrevive, que puede tener la
     # suya.
@@ -266,6 +297,12 @@ def link_guest_to_user(db: Session, guest: GamePlayer, user: User) -> GamePlayer
         )
         guest.classic_xp_owed = 0
     db.flush()
+    # El UPDATE de arriba es `synchronize_session=False`, así que NO tocó el
+    # objeto en memoria: `existing.classic_xp_owed` todavía tiene el valor previo
+    # al traspaso. Sin expirarlo, `saldar_deuda_de_clasico` lee ese valor viejo
+    # —casi siempre 0— y no paga nada; y como solo se la llama al fusionar, esa
+    # XP no se vuelve a mirar nunca. Se pierde sin dejar rastro.
+    db.expire(existing, ["classic_xp_owed"])
     referrals_top.saldar_deuda_de_clasico(db, existing, user.id)
     # Y el @ del invitado, que en un segundo deja de existir, queda apuntando a
     # la cuenta: los links que se mandaron con él siguen trayendo gente para la
