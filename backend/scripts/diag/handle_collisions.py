@@ -28,11 +28,11 @@ Los cinco casos, que no son lo mismo:
       antes de asumir que la columna está llena.
 
 Uso:
-    python backend/scripts/check_handle_collisions.py
+    python backend/scripts/diag/handle_collisions.py
 
 Contra producción, con la misma DATABASE_URL que la app:
     railway ssh --service backend
-    python backend/scripts/check_handle_collisions.py
+    python backend/scripts/diag/handle_collisions.py
 """
 import os
 import sys
@@ -40,7 +40,7 @@ from pathlib import Path
 
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-BACKEND = Path(__file__).resolve().parent.parent
+BACKEND = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(BACKEND))
 sys.path.insert(0, str(BACKEND.parent))
 
