@@ -367,6 +367,12 @@ def _cafecito_global(context: dict) -> tuple[str, str]:
     )
 
 
+# Desde cuántas horas restantes el empuje pasa a leerse como "se está
+# terminando". Seis: menos que una jornada, así que la frase "¿la aprovechás?"
+# pide algo que todavía entra en el día.
+CAFECITO_ULTIMAS_HORAS = 6
+
+
 def _cafecito_ending(context: dict) -> tuple[str, str]:
     return "Intervalo", (
         f"Te quedan {context['boost_hours_left']} h de ×{_mult(context)} en la "
@@ -397,6 +403,26 @@ EVENT_VARIANTS: dict[str, list[Variant]] = {
         ),
     ],
     CATEGORY_CAFECITO: [
+        # Primera, y no última: las tres de abajo cubren TODOS los casos entre
+        # ellas —con donante, sin donante pero con universidad, y global—, así
+        # que puesta al final esta variante no se alcanzaba nunca. Y pedía
+        # `studied_today` con default True, o sea que ni siquiera se activaba
+        # cuando nadie lo ponía en el contexto.
+        #
+        # Su guarda es la única que le pertenece: queda poco tiempo Y esta
+        # persona todavía no estudió hoy. Cuando el empuje recién arranca hay
+        # veinte horas por delante y lo que importa es QUIÉN lo invitó, que es
+        # lo que hace donar; cuando se está terminando, lo que importa es que se
+        # está terminando.
+        Variant(
+            "cafecito_ending",
+            lambda c: (
+                bool(c.get("university"))
+                and 0 < c.get("boost_hours_left", 0) <= CAFECITO_ULTIMAS_HORAS
+                and c.get("studied_today") is False
+            ),
+            _cafecito_ending,
+        ),
         Variant("cafecito_named", lambda c: bool(c.get("donor_name")), _cafecito_named),
         Variant(
             "cafecito_anon",
@@ -407,11 +433,6 @@ EVENT_VARIANTS: dict[str, list[Variant]] = {
             "cafecito_global",
             lambda c: not c.get("university"),
             _cafecito_global,
-        ),
-        Variant(
-            "cafecito_ending",
-            lambda c: bool(c.get("boost_hours_left")) and not c.get("studied_today", True),
-            _cafecito_ending,
         ),
     ],
 }
