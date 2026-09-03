@@ -295,16 +295,6 @@ export function shareUrl(alias?: string | null) {
   return `https://wa.me/?text=${encodeURIComponent(shareLink(alias))}`
 }
 
-/** Abre WhatsApp con el link propio, a mano.
- *
- * SOLO para el atajo de teclado, que no tiene anchor que clickear. Todo lo que
- * se toca usa `ReclutarButton`, que es un `<a>` de verdad: desde una ventana
- * standalone en iOS, `window.open` a otro origen es inconsistente según la
- * versión. */
-export function abrirWhatsapp(alias?: string | null) {
-  window.open(shareUrl(alias), "_blank", "noopener,noreferrer")
-}
-
 /** El botón verde de reclutar.
  *
  * El relleno es `VERDE` con letra oscura, y el logo va DESPUÉS de la palabra,
@@ -324,6 +314,7 @@ export function ReclutarButton({
   onClick,
   className,
   keycap,
+  ref,
 }: {
   alias?: string | null
   placement: string
@@ -333,11 +324,18 @@ export function ReclutarButton({
   onClick?: () => void
   className?: string
   keycap?: React.ReactNode
+  // Para que el atajo de teclado pueda CLICKEAR este anchor en vez de abrir la
+  // ventana por su cuenta. Antes había un `window.open` aparte para ese caso,
+  // justificado con que el atajo "no tiene anchor que clickear" — y lo tiene,
+  // es este. Todo el párrafo de arriba sobre por qué el anchor gana vale igual
+  // para el atajo, y era justo el camino que quedaba expuesto.
+  ref?: React.Ref<HTMLAnchorElement>
 }) {
   const cta = useCta()
   const sfx = useSfx()
   return (
     <a
+      ref={ref}
       href={shareUrl(alias)}
       target="_blank"
       rel="noopener noreferrer"

@@ -54,6 +54,7 @@ def pedido_del_resumen(
     tier_reached: bool,
     streak_days: int,
     tiene_pwa: bool,
+    tiene_handle: bool,
     ultimo_pedido: int | None,
 ) -> str | None:
     """Qué pedir en el resumen de la sesión `session_number`, o None.
@@ -62,6 +63,12 @@ def pedido_del_resumen(
     la que la persona acaba de ver subir su multiplicador. Pedir ahí es distinto
     de pedir en frío, así que el café aprovecha ese momento además de su
     cadencia.
+
+    `tiene_handle` es la señal que le falta al pedido de reclutas: el link lleva
+    `?r=<@>`, y sin @ el botón sale apagado sin explicación y el link que se
+    muestra abajo no atribuye a nadie. Esa pantalla no es un pedido, es un
+    callejón — y encima gastaba el turno, así que el pedido siguiente esperaba
+    otra vuelta entera por una pantalla que no ofrecía nada.
 
     `ultimo_pedido` es el `session_number` del último pedido que se mostró. Si es
     el de ESTA sesión el pedido se repite tal cual: el resumen se puede refetchear
@@ -75,7 +82,7 @@ def pedido_del_resumen(
     # WhatsApp se saltea esa vuelta, no se apila detrás.
     if tiene_pwa and (tier_reached or session_number % PEDIDO_CADA == 0):
         pedido = CAFECITO
-    elif session_number % PEDIDO_CADA == RECLUTAS_RESTO:
+    elif tiene_handle and session_number % PEDIDO_CADA == RECLUTAS_RESTO:
         pedido = RECLUTAS
     else:
         return None

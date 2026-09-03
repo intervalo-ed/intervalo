@@ -26,11 +26,11 @@
 // de reclutas va ADENTRO de la diapo en el teléfono: es lo único que convierte
 // "el 10% de lo que sumen" en algo que se puede mirar.
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef } from "react"
+import { PORCENTAJE_POR_DEFECTO } from "@/components/reclutas-list"
 import { cn } from "@/lib/utils"
 import { useSfx } from "@/lib/audio/useSfx"
 import {
-  abrirWhatsapp,
   ReclutarButton,
   VERDE,
   WhatsappGlyph,
@@ -38,7 +38,12 @@ import {
 import { KeyCap } from "./exercise-card"
 import { useCta } from "./game-telemetry"
 import { ListaDeReclutas } from "./reclutas-list"
-import { CLASE_ACCION_EN_EL_PIE, claseDeSalida, Salida } from "./slide-salida"
+import {
+  CLASE_ACCION_EN_EL_PIE,
+  claseDeSalida,
+  Salida,
+  useCuentaRegresiva,
+} from "./slide-salida"
 import { enCampoDeTexto, useTeclas } from "./teclas"
 import { useCachedPlayer } from "./UseGamePlayer"
 import { useGameRecruits } from "./UseGameLeaderboard"
@@ -50,12 +55,6 @@ import { useGameRecruits } from "./UseGameLeaderboard"
 // En cero en desarrollo — misma guarda que COOLDOWN_S en cafecito-panel.tsx.
 const EN_DESARROLLO = process.env.NODE_ENV === "development"
 const ESPERA_S = EN_DESARROLLO ? 0 : 8
-
-// El porcentaje que se muestra mientras el servidor no contestó todavía. Es el
-// mismo valor que `SHARE_PERCENT` en backend/game/referrals.py; la respuesta lo
-// trae y pisa a este, así que si algún día cambia allá, acá solo queda un
-// parpadeo del valor viejo y no un número mentiroso permanente.
-const PORCENTAJE_POR_DEFECTO = 10
 
 // `record` sigue reservado para el cafecito: la diapo de reclutar que sale sola
 // lo hace por conteo, y "hito" es lo que la distingue de la que abrió la persona.
@@ -70,16 +69,6 @@ const LO_PIDIO = (t: ReclutasTrigger) => t === "pedido"
 /** La cuenta regresiva del botón de salir. Devuelve los segundos que faltan, y
  *  cero cuando ya se puede. El intervalo se limpia solo al desmontar: la diapo
  *  vive lo que dura la decisión y nada más. */
-function useEspera(segundos: number) {
-  const [restante, setRestante] = useState(segundos)
-  useEffect(() => {
-    if (segundos === 0) return
-    const t = setInterval(() => setRestante((s) => (s <= 1 ? 0 : s - 1)), 1000)
-    return () => clearInterval(t)
-  }, [segundos])
-  return restante
-}
-
 export function ReclutasPanel({
   trigger,
   // La lista va adentro de la diapo solo donde no hay ranking a la vista. En
@@ -124,7 +113,7 @@ export function ReclutasPanel({
   const reclutas = useGameRecruits(conLista)
   const porcentaje = reclutas.data?.share_percent ?? PORCENTAJE_POR_DEFECTO
 
-  const restante = useEspera(LO_PIDIO(trigger) ? 0 : ESPERA_S)
+  const restante = useCuentaRegresiva(LO_PIDIO(trigger) ? 0 : ESPERA_S)
   const listo = restante === 0
 
   useEffect(() => {
@@ -144,11 +133,12 @@ export function ReclutasPanel({
   // motivo: wa.me es otro origen y tiene que salir de la PWA instalada. Desde
   // una ventana standalone en iOS, `window.open` es inconsistente según la
   // versión; un anchor clickeado por la persona abre WhatsApp parejo en los dos
-  // sistemas. El atajo de teclado no tiene anchor, así que ahí sí se abre a
-  // mano, sin ningún `await` en el medio.
+  // sistemas. El atajo de teclado CLICKEA ese mismo anchor: un click sintético
+  // conserva el manejo nativo de `target="_blank"`, que es lo que se quería.
+  const botonRef = useRef<HTMLAnchorElement | null>(null)
   const reclutarConTeclado = () => {
     registrarReclutamiento()
-    abrirWhatsapp(player?.alias)
+    botonRef.current?.click()
   }
 
   // Los atajos, con el mismo pestillo que la diapo del cafecito: el volteo dura
@@ -280,6 +270,7 @@ export function ReclutasPanel({
               la telemetría de acá: la diapo la comparte con su atajo de teclado
               y anotarla dos veces contaría dos clicks por uno. */}
           <ReclutarButton
+            ref={botonRef}
             alias={player?.alias}
             placement={trigger}
             onClick={registrarReclutamiento}

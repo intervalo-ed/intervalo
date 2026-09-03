@@ -15,7 +15,8 @@
     "types:api:file": "openapi-typescript ../backend/openapi.json -o src/lib/api/schema.ts",
     "check:reclutas": "bun run scripts/check-reclutas-trigger.ts",
     "check:xp": "bun run scripts/check-xp-pasos.ts",
-    "check:latex": "bun run scripts/check-latex-normalize.ts"
+    "check:latex": "bun run scripts/check-latex-normalize.ts",
+    "check:restante": "bun run scripts/check-restante.ts"
   },
   "dependencies": {
     "@base-ui/react": "1.6.0",

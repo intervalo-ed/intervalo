@@ -1,7 +1,10 @@
 "use client"
 
+import { parseAsStringLiteral, useQueryState } from "nuqs"
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { CountUp } from "@/components/count-up"
+import { PORCENTAJE_POR_DEFECTO } from "@/components/reclutas-list"
+import { Hueco } from "@/components/skeleton-barra"
 import { XpDots } from "@/components/xp-dots"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Spinner } from "@/components/ui/spinner"
@@ -63,12 +66,23 @@ function empujeDeFila(
 // @/lib/university-tags. El formato es el de los items del inicio: texto en
 // color, borde "+99", fondo "+33".
 
-type RankingView = "individual" | "university" | "recruits"
+// Las tres vistas del ranking. Como tupla `const` y no como union suelta: es lo
+// que `parseAsStringLiteral` necesita para validar el `?view=` de la URL, y así
+// el tipo y los valores aceptados salen de una sola declaración.
+const VISTAS = ["individual", "university", "recruits"] as const
 
 const fmt = fmtCount
 
 export function LeaderboardContent() {
-  const [view, setView] = useState<RankingView>("individual")
+  // La vista viaja en la URL y no en un `useState` suelto. El botón «Reclutar
+  // compañeros» del perfil manda acá justamente para que la persona vea que el
+  // link le paga un porcentaje, y aterrizaba en el ranking de personas: el link
+  // y el botón de WhatsApp quedaban escondidos detrás de un selector que había
+  // que descubrir. De paso queda linkeable y sobrevive al botón de atrás.
+  const [view, setView] = useQueryState(
+    "view",
+    parseAsStringLiteral(VISTAS).withDefault("individual"),
+  )
   const [career, setCareer] = useState<string>(ALL)
   const [uni, setUni] = useState<string>(ALL)
 
@@ -83,12 +97,17 @@ export function LeaderboardContent() {
   // arriba también los muestran, y pedidos en los dos lugares serían dos
   // consultas para el mismo dato.
   const recruits = useRecruits({ enabled: view === "recruits" })
-  // Mientras no hay reclutas propios —sea porque todavía no llegó la respuesta
-  // o porque en verdad no hay ninguno— la lista de abajo muestra los CINCO
+  // Mientras no hay reclutas propios la lista de abajo muestra los CINCO
   // renglones de ejemplo, sin esperar al servidor: son datos fijos del cliente.
   // Los indicadores tienen que contar lo mismo que esos renglones y no cero, que
   // al lado de cinco filas se leería como una contradicción y no como «todavía
   // no tenés ninguno».
+  //
+  // Pero «no hay ninguno» y «todavía no llegó la respuesta» no son lo mismo, y
+  // acá se trataban igual: quien sí tenía reclutas veía «5» y «+346» animándose
+  // con CountUp y recién después su número real. Los renglones de ejemplo se
+  // marcan punteados; los indicadores no se marcaban de ninguna manera, así que
+  // el número inventado se leía como dato. Mientras viaja va un hueco.
   const reclutasVacio = (recruits.data?.entries.length ?? 0) === 0
   const reclutasCount = reclutasVacio
     ? EJEMPLOS_COUNT
@@ -127,7 +146,11 @@ export function LeaderboardContent() {
                   className="inline-flex items-center gap-1.5"
                   style={{ color: VERDE }}
                 >
-                  <CountUp value={reclutasCount} format={fmt} />
+                  {recruits.isPending ? (
+                    <Hueco alto="h-[1em]" className="w-10" barra="h-3.5 w-full" />
+                  ) : (
+                    <CountUp value={reclutasCount} format={fmt} />
+                  )}
                   <UsersIcon className="size-[0.85em]" />
                 </span>
               }
@@ -140,7 +163,11 @@ export function LeaderboardContent() {
                   style={{ color: VERDE }}
                 >
                   +
-                  <CountUp value={reclutasXp} format={fmt} />
+                  {recruits.isPending ? (
+                    <Hueco alto="h-[1em]" className="w-10" barra="h-3.5 w-full" />
+                  ) : (
+                    <CountUp value={reclutasXp} format={fmt} />
+                  )}
                   <XpDots className="size-[0.85em]" />
                 </span>
               }
@@ -575,7 +602,7 @@ function RecruitsRanking({
         <p className="text-sm leading-relaxed text-muted-foreground">
           Quienes ingresen con tu link generan un{" "}
           <span className="font-medium tabular-nums" style={{ color: VERDE }}>
-            {data?.share_percent ?? 10}%
+            {data?.share_percent ?? PORCENTAJE_POR_DEFECTO}%
           </span>{" "}
           más de XP, el cual va{" "}
           <span className="font-medium" style={{ color: VERDE }}>
@@ -617,9 +644,14 @@ function RecruitsRanking({
           Reclutar
           <WhatsappGlyph size={18} />
         </a>
-        <p className="text-center text-xs break-all text-muted-foreground">
-          {shareLink(data?.handle)}
-        </p>
+        {/* Sin @ no se muestra: `shareLink(undefined)` sale sin `?r=`, o sea un
+            link copiable que no atribuye a nadie, y justo debajo del botón que
+            ya está apagado por el mismo motivo. Es peor que no mostrarlo. */}
+        {data?.handle && (
+          <p className="text-center text-xs break-all text-muted-foreground">
+            {shareLink(data.handle)}
+          </p>
+        )}
       </div>
     </div>
   )

@@ -76,13 +76,17 @@ export function ProfileContent() {
           Reclutar va a la vista del ranking y no directo a WhatsApp: mandando al
           chat, quien comparte no se entera de que el link le paga un porcentaje
           de lo que hagan los que entren — o sea que se pierde justo lo que lo
-          haría compartir de nuevo. Mismo motivo que la fila del juego. */}
+          haría compartir de nuevo. Mismo motivo que la fila del juego.
+
+          Con `?view=recruits`, que es el punto: sin eso caía en el ranking de
+          personas y el link quedaba detrás de un selector que hay que
+          descubrir, o sea sin ver nunca el porcentaje que motivó el viaje. */}
       <Button
         variant="outline"
         size="lg"
         className={reclutarCls}
         nativeButton={false}
-        render={<Link href="/leaderboard" />}
+        render={<Link href="/leaderboard?view=recruits" />}
       >
         <UsersIcon className="size-5" />
         {/* «Reclutar» a secas se leía como una orden sin objeto. Lo que se

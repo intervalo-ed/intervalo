@@ -20,8 +20,27 @@
 // docena de piezas de estado mudadas de lugar y duplicadas en el flujo del
 // teléfono, para mover un botón cuarenta píxeles.
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { createPortal } from "react-dom"
+
+/** La cuenta regresiva del botón de salida: "Ahora no (7)", "Ahora no (6)"…
+ *
+ * La espera existe para que el pedido se llegue a leer. Vive acá porque las dos
+ * diapos de pedido tenían la MISMA función con dos nombres (`useCooldown` en el
+ * café, `useEspera` en reclutas) y ya habían divergido: a la del café le faltaba
+ * la guarda del cero, así que en los disparadores sin espera dejaba un
+ * `setInterval` de 1 Hz corriendo toda la vida de la diapo para no cambiar nada
+ * —React descarta el re-render porque el valor no se mueve, pero el timer
+ * sigue—. */
+export function useCuentaRegresiva(segundos: number): number {
+  const [restante, setRestante] = useState(segundos)
+  useEffect(() => {
+    if (segundos <= 0) return
+    const t = setInterval(() => setRestante((s) => (s <= 1 ? 0 : s - 1)), 1000)
+    return () => clearInterval(t)
+  }, [segundos])
+  return restante
+}
 
 /** El botón de salida, puesto donde corresponda.
  *

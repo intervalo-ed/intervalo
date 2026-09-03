@@ -1,5 +1,6 @@
 "use client"
 
+import { restanteEnPalabras } from "@/components/boost-banner"
 import { CountUp } from "@/components/count-up"
 import { CourseSwitcher } from "@/components/course-switcher"
 import { DismissibleHint } from "@/components/dismissible-hint"
@@ -78,15 +79,11 @@ const HINT_STORAGE_KEY = "intervalo:practice-topics-hint-seen"
 
 const EMPTY_EXPANDED = new Set<string>()
 
-/** "por 23 horas más" / "por 40 minutos más". Los empujes duran un día, así que
- *  decirlo siempre en minutos daba "por 1439 minutos más". */
+/** "por 23 horas más" / "por 40 minutos más". El cálculo lo hace
+ *  `restanteEnPalabras`, compartido con el chip del ranking y con la diapo del
+ *  cafecito: los tres tienen que decir el mismo número en la misma pantalla. */
 function restanteDelEmpuje(segundos: number): string {
-  if (segundos >= 3600) {
-    const h = Math.max(1, Math.round(segundos / 3600))
-    return `por ${h} ${h === 1 ? "hora" : "horas"} más`
-  }
-  const m = Math.max(1, Math.round(segundos / 60))
-  return `por ${m} ${m === 1 ? "minuto" : "minutos"} más`
+  return `por ${restanteEnPalabras(segundos).texto} más`
 }
 
 function topicKey(belt: BeltKey, topic: string): string {

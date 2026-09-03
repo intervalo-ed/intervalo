@@ -15,7 +15,7 @@ import { useLayoutEffect, useRef, useState } from "react"
 import { outOfFocus } from "./out-of-focus"
 import { AnimatePresence, motion } from "motion/react"
 import { cn } from "@/lib/utils"
-import { Hueco } from "./skeleton-barra"
+import { Hueco } from "@/components/skeleton-barra"
 import { levelColor } from "./game-colors"
 import { useGameEvents, type GameEvent } from "./UseGameLeaderboard"
 

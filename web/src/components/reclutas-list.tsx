@@ -80,6 +80,16 @@ const EJEMPLOS = [
 // renglones de ejemplo, los números de "Reclutas" y "Te aportaron" tienen que
 // contar lo mismo que se ve acá abajo, no cero — cero al lado de cinco filas
 // sería contradecirse.
+// El porcentaje que se muestra mientras el servidor no contestó todavía. Es el
+// mismo valor que `SHARE_PERCENT` en backend/referrals.py; la respuesta lo trae
+// y pisa a este, así que si algún día cambia allá, acá solo queda un parpadeo
+// del valor viejo y no un número mentiroso permanente.
+//
+// Vive acá, al lado de la tabla que comparten los cuatro consumidores, porque
+// estaba escrito TRES veces y solo una tenía nombre: los otros dos eran un `10`
+// pelado adentro del JSX, o sea el mismo razonamiento sin dejar rastro.
+export const PORCENTAJE_POR_DEFECTO = 10
+
 export const EJEMPLOS_COUNT = EJEMPLOS.length
 export const EJEMPLOS_XP_TOTAL = EJEMPLOS.reduce((sum, e) => sum + e.xp_given, 0)
 

@@ -26,6 +26,7 @@
 import { useEffect, useRef, useState } from "react"
 import { motion, useReducedMotion } from "motion/react"
 import { ArrowLeft, ArrowRight, Coffee, UsersIcon } from "lucide-react"
+import { restanteEnPalabras } from "@/components/boost-banner"
 import { ALL_SCOPE, fmtCount } from "@/components/leaderboard-chrome"
 import { UniTag } from "@/components/university-tag"
 import { XpDots } from "@/components/xp-dots"
@@ -47,7 +48,12 @@ import {
   type GameCafecitoStatus,
 } from "./UseGameLeaderboard"
 import { KeyCap } from "./exercise-card"
-import { CLASE_ACCION_EN_EL_PIE, claseDeSalida, Salida } from "./slide-salida"
+import {
+  CLASE_ACCION_EN_EL_PIE,
+  claseDeSalida,
+  Salida,
+  useCuentaRegresiva,
+} from "./slide-salida"
 import { useCta } from "./game-telemetry"
 import { enCampoDeTexto, useTeclas } from "./teclas"
 
@@ -324,17 +330,6 @@ const LO_PIDIO = (t: CafecitoTrigger) => t === "pedido"
 /** La cuenta regresiva del botón de seguir. Devuelve los segundos que faltan, y
  *  cero cuando ya se puede. El intervalo se limpia solo al desmontar: la diapo
  *  vive lo que dura la decisión y nada más. */
-function useCooldown(segundos: number) {
-  const [restante, setRestante] = useState(segundos)
-  useEffect(() => {
-    const t = setInterval(() => {
-      setRestante((s) => (s <= 1 ? 0 : s - 1))
-    }, 1000)
-    return () => clearInterval(t)
-  }, [])
-  return restante
-}
-
 /** Lo que ve quien VOLVIÓ de Cafecito.
  *
  * Tapa un agujero del embudo: la persona tocaba invitar, se iba a pagar en otra
@@ -372,12 +367,12 @@ function PanelDeVuelta({
   // "tu cafecito" a quien pidió cinco suena a que se perdieron cuatro.
   const varios = llego ? estado.cafecitos > 1 : pedidos > 1
   // "las próximas 23 horas" / "los próximos 40 minutos", según cuánto quede.
-  // Con empujes de un día, decirlo siempre en minutos daba "los próximos 1439
-  // minutos", que obliga a hacer la cuenta para entender que es casi un día.
-  const restante =
-    estado.expires_in_seconds >= 3600
-      ? `las próximas ${Math.max(1, Math.round(estado.expires_in_seconds / 3600))} horas`
-      : `los próximos ${Math.max(1, Math.round(estado.expires_in_seconds / 60))} minutos`
+  // El número lo calcula `restanteEnPalabras`, la misma función que usan el chip
+  // del ranking y el copy de Practicar: acá había una copia con `Math.round`, y
+  // con hora y media restante esta diapo decía "2 horas" mientras el chip decía
+  // "1h 30m" en la misma pantalla.
+  const { texto: cuanto, enHoras } = restanteEnPalabras(estado.expires_in_seconds)
+  const restante = `${enHoras ? "las próximas" : "los próximos"} ${cuanto}`
 
   // Sin cuenta regresiva para salir, al revés que la oferta. Ahí la espera
   // existe para que el pedido se lea; acá la persona ya decidió —y quizás ya
@@ -671,7 +666,7 @@ export function CafecitoPanel({
     trigger === "milestone" && correctToday > 0
       ? `Ya llevás ${correctToday} ${correctToday === 1 ? "derivada resuelta" : "derivadas resueltas"} hoy.`
       : copy.sub
-  const restante = useCooldown(LO_PIDIO(trigger) ? 0 : COOLDOWN_S)
+  const restante = useCuentaRegresiva(LO_PIDIO(trigger) ? 0 : COOLDOWN_S)
   const listo = restante === 0
   const sfx = useSfx()
   const [n, setN] = useState(SLIDER_INICIAL)
@@ -683,6 +678,9 @@ export function CafecitoPanel({
   const quieto = !!useReducedMotion()
   const teclas = useTeclas()
   const sliderRef = useRef<HTMLInputElement | null>(null)
+  // El anchor de "Invitar", para que el atajo de teclado lo clickee en vez de
+  // abrir la ventana por su cuenta (ver `invitarConTeclado`).
+  const botonRef = useRef<HTMLAnchorElement | null>(null)
 
   useEffect(() => {
     cta("boost_offer", "impression", {
@@ -799,12 +797,16 @@ export function CafecitoPanel({
   // (La regla opuesta vale para /derivadas ↔ /, que son el mismo origen y van
   // por <Link> justamente para NO salir de la PWA.)
   //
-  // El atajo de teclado no tiene anchor que clickear, así que ahí sí se abre a
-  // mano — y sin ningún `await` en el medio, que es lo único que lo salva del
-  // bloqueador de ventanas emergentes.
+  // El atajo de teclado CLICKEA ese mismo anchor en vez de abrir la ventana a
+  // mano. Antes hacía `window.open`, justificado con que "el atajo no tiene
+  // anchor que clickear" — y sí lo tiene, es el de abajo. Todo el párrafo de
+  // arriba sobre por qué el anchor es mejor que `window.open` vale igual para
+  // el atajo, y era justo el camino que quedaba expuesto a lo que el resto del
+  // código evita: un click sintético sobre un `<a target="_blank">` real
+  // conserva el manejo nativo de la webview standalone.
   const invitarConTeclado = () => {
     registrarInvitacion()
-    window.open(CAFECITO_URL, "_blank", "noopener,noreferrer")
+    botonRef.current?.click()
   }
 
   // Los atajos. `keydown` en document y no en la caja: mientras el foco está en
@@ -944,6 +946,7 @@ export function CafecitoPanel({
 
             <Salida slot={slotAccion}>
               <motion.a
+                ref={botonRef}
                 href={CAFECITO_URL}
                 target="_blank"
                 rel="noopener noreferrer"
