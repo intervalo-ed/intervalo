@@ -28,6 +28,7 @@ from pydantic import BaseModel
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
+import handles
 from models import User
 from usernames import assign_unique_username
 
@@ -223,13 +224,39 @@ def _resolve_email_and_name(claims: ClerkClaims) -> tuple[str, str]:
     return email, name or email  # sin nombre, el email sostiene el NOT NULL
 
 
+def _registrar_handle(db: Session, user: User) -> None:
+    """Deja el @ de esta persona anotado en el registro. No commitea.
+
+    El alta escribía `users.username` directo, y esa columna dejó de ser la
+    autoridad cuando nació `handles`: es una caché que el registro baja. Un @ que
+    solo existe en la caché es invisible para el minijuego —`alias_taken` le
+    pregunta al registro— así que un invitado podía reclamar el mismo string y
+    quedaban dos personas con el mismo @, cada una resolviendo sus links `?r=`.
+
+    Y hacia el otro lado: al unificarse con su jugador, `handles.vincular` no
+    encontraba nada que retirar y el username viejo quedaba LIBRE para cualquiera.
+
+    Reusa el @ que la persona ya tenía si sigue siendo suyo o si está libre —
+    nadie tiene por qué perder su nombre porque el registro llegó después—; solo
+    pide uno nuevo cuando ese string ya es de otro.
+    """
+    if handles.activo_de_usuario(db, user.id) is not None:
+        return
+    actual = (user.username or "").strip()
+    if actual:
+        fila = handles.duenio(db, actual)
+        if fila is None or fila.user_id == user.id:
+            handles.reclamar(db, actual, user_id=user.id)
+            return
+    handles.reclamar(db, assign_unique_username(db, user.name), user_id=user.id)
+
+
 def _link_existing_by_email(db: Session, user: User, sub: str, name: str) -> User:
     """Fila preexistente encontrada por email → engancharla a esta identidad."""
     user.clerk_user_id = sub
     if not user.name:
         user.name = name
-    if not user.username:
-        user.username = assign_unique_username(db, user.name)
+    _registrar_handle(db, user)
     db.commit()
     db.refresh(user)
     return user
@@ -272,13 +299,12 @@ def get_or_create_user_from_clerk(
             if user:
                 return _link_existing_by_email(db, user, claims.sub, name)
 
-            user = User(
-                clerk_user_id=claims.sub,
-                email=email,
-                name=name,
-                username=assign_unique_username(db, name),
-            )
+            user = User(clerk_user_id=claims.sub, email=email, name=name)
             db.add(user)
+            # El flush primero: el registro necesita el `id` de la fila, y el @
+            # lo baja él a `users.username` (handles._sincronizar_cache).
+            db.flush()
+            _registrar_handle(db, user)
             db.commit()
             db.refresh(user)
             print(
@@ -286,10 +312,15 @@ def get_or_create_user_from_clerk(
                 flush=True,
             )
             return user
-        except IntegrityError as exc:
+        except (IntegrityError, handles.HandleTomado) as exc:
+            # `HandleTomado` es la misma carrera vista un instante antes: otra
+            # transacción commiteó el @ entre que `assign_unique_username` lo dio
+            # por libre y el registro fue a tomarlo. Se reintenta igual, y el
+            # intento siguiente genera el candidato que sigue.
             db.rollback()
             print(
-                f"[provision] race en el intento {attempt + 1} para {claims.sub}: {exc.orig}",
+                f"[provision] race en el intento {attempt + 1} para {claims.sub}: "
+                f"{getattr(exc, 'orig', exc)}",
                 flush=True,
             )
 

@@ -166,6 +166,26 @@ class User(Base):
     referral_xp_given = Column(Integer, nullable=False, default=0, server_default="0")
     referral_pending = Column(Integer, nullable=False, default=0, server_default="0")
 
+    # Cuánto de `referral_xp_given` YA se le contó a quien trajo a esta persona,
+    # por cada canal. La diferencia contra `referral_xp_given` es lo NUEVO, que es
+    # lo único que un aviso puede llamar "hoy" y un mail "esta semana".
+    #
+    # Van acá, en la fila del RECLUTA, y no en la del reclutador: con una sola
+    # marca por reclutador se sabría cuánta XP nueva entró, pero no de cuántas
+    # personas — y el copy se elige justamente por eso ("uno de tus reclutas" vs
+    # "tres de tus reclutas"). Con la marca por recluta, "cuántos se movieron" es
+    # contar filas con diferencia.
+    #
+    # Dos columnas y no una porque los dos canales tienen cadencias distintas: el
+    # aviso sale el día que pasó algo y el mail una vez por semana, así que cada
+    # uno tiene que recordar su propio corte.
+    referral_xp_push_seen = Column(
+        Integer, nullable=False, default=0, server_default="0"
+    )
+    referral_xp_email_seen = Column(
+        Integer, nullable=False, default=0, server_default="0"
+    )
+
     # Habilidad estimada del modelo Elo jerárquico (theta). 0.0 = neutro
     # (arranca ahí, sin cold start raro: la primera predicción es 0.5 y se
     # ajusta solo). `ability_n` es el conteo de respuestas usadas para el

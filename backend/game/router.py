@@ -445,6 +445,12 @@ def patch_me(
                 )
             except handles.HandleTomado:
                 raise HTTPException(status_code=409, detail="Ese @ ya está tomado.")
+            except IntegrityError:
+                # La misma carrera un instante después: `reclamar` hace `flush()`
+                # adentro, así que el UNIQUE se levanta acá y no en el commit
+                # final. Es un conflicto de usuario, no un 500.
+                db.rollback()
+                raise HTTPException(status_code=409, detail="Ese @ ya está tomado.")
         if free_edit:
             player.alias_is_generated = False
 

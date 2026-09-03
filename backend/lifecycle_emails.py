@@ -42,6 +42,7 @@ import sys
 import uuid
 from datetime import datetime, timedelta
 from pathlib import Path
+from typing import NamedTuple
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from sqlalchemy import func, or_
@@ -754,13 +755,33 @@ def _efecto_del_empuje(db: DBSession, boost) -> tuple[int, int]:
     return int(extra or 0), int(estudiantes or 0)
 
 
-def due_reclutas_semanal_emails(db: DBSession) -> list[tuple[User, dict]]:
+# Cuántos reclutas entran en el listado del mail. El total de arriba los cuenta a
+# TODOS: recortar la tabla no puede recortar el número que la encabeza.
+_RECLUTAS_LISTADOS = 20
+
+
+class ResumenDeReclutas(NamedTuple):
+    """Un mail semanal listo para mandar, con lo que hay que anotar si sale."""
+
+    user: User
+    datos: dict
+    reclutas_a_marcar: tuple[int, ...]
+
+
+def due_reclutas_semanal_emails(db: DBSession) -> list[ResumenDeReclutas]:
     """Los resúmenes semanales de reclutas que corresponde mandar hoy.
 
     Solo a quien tuvo movimiento: una semana sin nada no se manda. El mail existe
     para traer buenas noticias, y mandarlo vacío convierte en ruido un canal que
     se usa una vez por semana.
+
+    "Movimiento" es XP NUEVA, no acumulada. `referral_xp_given` no baja nunca, así
+    que preguntar por el total mandaba el mismo número todas las semanas y la
+    guarda de arriba no se activaba jamás: apenas alguien tenía un recluta, ya
+    tenía uno para siempre. Lo que decide es la diferencia contra
+    `referral_xp_email_seen`, que se mueve recién cuando el mail sale.
     """
+    import xp_boost
     from models import GamePlayer
 
     hoy = datetime.utcnow().date()
@@ -778,26 +799,47 @@ def due_reclutas_semanal_emails(db: DBSession) -> list[tuple[User, dict]]:
         .all()
     )
 
-    salida: list[tuple[User, dict]] = []
+    salida: list[ResumenDeReclutas] = []
     for user in candidatos:
         propio = db.query(GamePlayer).filter(GamePlayer.user_id == user.id).first()
         if propio is None:
             continue
-        filas = (
-            db.query(User.username, User.referral_xp_given)
+        se_movieron = (
+            db.query(
+                User.id,
+                User.username,
+                User.referral_xp_given,
+                User.referral_xp_email_seen,
+            )
             .filter(
                 User.referred_by_player_id == propio.id,
-                User.referral_xp_given > 0,
+                User.referral_xp_given > User.referral_xp_email_seen,
             )
-            .order_by(User.referral_xp_given.desc())
-            .limit(20)
             .all()
         )
-        if not filas:
+        if not se_movieron:
             continue
-        total = sum(x for _, x in filas)
+        aportes = sorted(
+            ((r.id, r.username, r.referral_xp_given - r.referral_xp_email_seen)
+             for r in se_movieron),
+            key=lambda t: (-t[2], t[0]),
+        )
+        total = sum(x for _, _, x in aportes)
+        if total <= 0:
+            continue
+        listados = aportes[:_RECLUTAS_LISTADOS]
+        universidades = xp_boost.universidades_de(db, [i for i, _, _ in listados])
         salida.append(
-            (user, {"xp_semana": total, "filas": [(u or "", "", x) for u, x in filas]})
+            ResumenDeReclutas(
+                user=user,
+                datos={
+                    "xp_semana": total,
+                    "filas": [
+                        (u or "", universidades.get(i, ""), x) for i, u, x in listados
+                    ],
+                },
+                reclutas_a_marcar=tuple(i for i, _, _ in aportes),
+            )
         )
     return salida
 
@@ -830,12 +872,20 @@ def run_lifecycle_emails(db: DBSession) -> dict:
 
     reclutas_sent = 0
     hoy = datetime.utcnow().date()
-    for user, datos in due_reclutas_semanal_emails(db):
-        if send_reclutas_semanal_email(db, user, **datos):
-            user.reclutas_email_sent_on = hoy
-            reclutas_sent += 1
-    if reclutas_sent:
+    for resumen in due_reclutas_semanal_emails(db):
+        if not send_reclutas_semanal_email(db, resumen.user, **resumen.datos):
+            continue
+        # Commit por destinatario, no al final del lote: las marcas dicen "esta
+        # XP ya se contó", y si el proceso se muere a mitad de una tanda con
+        # todas las marcas en memoria, los mails que ya salieron vuelven a salir
+        # la semana que viene con el mismo número.
+        resumen.user.reclutas_email_sent_on = hoy
+        db.query(User).filter(User.id.in_(resumen.reclutas_a_marcar)).update(
+            {User.referral_xp_email_seen: User.referral_xp_given},
+            synchronize_session=False,
+        )
         db.commit()
+        reclutas_sent += 1
 
     report_thanks_sent = 0
     for user, feedback_ids in due_report_thanks_emails(db):

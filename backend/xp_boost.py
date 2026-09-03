@@ -57,6 +57,34 @@ def enrollment_de_referencia(db: Session, user_id: int) -> Enrollment | None:
     ).first()
 
 
+def universidades_de(db: Session, user_ids: list[int]) -> dict[int, str]:
+    """`{user_id: sigla}` para varios usuarios, con el criterio de arriba.
+
+    La forma de lote de `enrollment_de_referencia`, para los lugares que
+    necesitan la universidad de una lista de personas y no de una. Mismo orden y
+    mismo desempate, resuelto en Python sobre una sola consulta: la lista viene
+    acotada (los reclutas de alguien) y armar un ROW_NUMBER para eso sería
+    pagarle a la base una complejidad que no hace falta.
+
+    Los que no tienen enrollment no aparecen en el dict. Ausente y "sin
+    universidad" son la misma cosa acá, y el que llama decide cómo mostrarlo.
+    """
+    if not user_ids:
+        return {}
+    filas = db.scalars(
+        select(Enrollment)
+        .where(Enrollment.user_id.in_(user_ids))
+        .order_by(Enrollment.enrolled_at.asc(), Enrollment.id.asc())
+    ).all()
+    salida: dict[int, str] = {}
+    for fila in filas:
+        # La primera que aparece por usuario es la más antigua: el order_by ya
+        # dejó la lista en el orden que decide el criterio.
+        if fila.user_id not in salida and fila.university:
+            salida[fila.user_id] = fila.university
+    return salida
+
+
 def multiplier_for_user(
     db: Session, user_id: int, now: datetime | None = None
 ) -> float:
