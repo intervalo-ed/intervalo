@@ -18,6 +18,7 @@ import {
   shareUrl,
 } from "@/app/derivadas/cafecito-cta"
 import { BELT_HEX } from "@/lib/catalog"
+import { PORCENTAJE_POR_DEFECTO } from "@/components/reclutas-list"
 import { XpDots } from "@/components/xp-dots"
 import { ChargeBall, Confetti, ConfettiRain } from "@/components/confetti"
 import { Alert, AlertTitle } from "@/components/ui/alert"
@@ -538,7 +539,7 @@ export default function SessionSummary({ sessionId }: { sessionId: string }) {
                 <PedidoPane
                   clase={pedido}
                   handle={data?.handle ?? null}
-                  porcentaje={data?.share_percent ?? 10}
+                  porcentaje={data?.share_percent ?? PORCENTAJE_POR_DEFECTO}
                 />
               )}
               {phase === "notify" && (
@@ -1039,8 +1040,14 @@ function PedidoPane({
           {cafe ? <CoffeeIcon className="size-4" /> : <WhatsappGlyph size={18} />}
         </a>
         {/* El link a la vista, para quien prefiera copiarlo a mano antes que
-            pasar por WhatsApp. Igual que en el ranking. */}
-        {!cafe && (
+            pasar por WhatsApp. Igual que en el ranking.
+
+            Sin @ no se muestra: `shareLink(null)` sale sin `?r=`, o sea un link
+            copiable que no atribuye a nadie, y justo debajo de un botón apagado.
+            Es peor que no mostrarlo — invita a copiar el equivocado. Con la
+            guarda del servidor esta pantalla ya no debería salir sin @ (ver
+            summary_asks.tiene_handle); esto es la red de contención. */}
+        {!cafe && handle && (
           <p className="text-center text-xs break-all text-muted-foreground">
             {shareLink(handle)}
           </p>

@@ -80,7 +80,7 @@ import {
   STRIP_ROW,
   columnaDeTira,
 } from "./math-keyboard"
-import { Barra, Hueco } from "./skeleton-barra"
+import { Barra, Hueco } from "@/components/skeleton-barra"
 import { parseAnswerToMathJson, warmupComputeEngine } from "./parse-answer"
 import { useLocalVerdict } from "./UseLocalVerdict"
 import { EditCareerPanel, EditUniversityPanel } from "./edit-profile-field"

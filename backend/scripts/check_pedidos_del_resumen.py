@@ -57,6 +57,7 @@ def pide(
     hito: bool = False,
     dias: int = 10,
     pwa: bool = True,
+    handle: bool = True,
     ultimo: int | None = None,
 ) -> str | None:
     return pedido_del_resumen(
@@ -64,6 +65,7 @@ def pide(
         tier_reached=hito,
         streak_days=dias,
         tiene_pwa=pwa,
+        tiene_handle=handle,
         ultimo_pedido=ultimo,
     )
 
@@ -141,6 +143,21 @@ check("los dos pedidos son los que el contrato declara",
 check("y el módulo no expone un tercero por accidente",
       {v for k, v in vars(summary_asks).items()
        if k.isupper() and isinstance(v, str)} == {CAFECITO, RECLUTAS})
+
+print("9. sin @ no se pide reclutar, y el turno no se gasta")
+# El link de reclutas lleva `?r=<@>`. Sin @ el botón sale apagado sin
+# explicación y el link que se muestra abajo no atribuye a nadie: la pantalla no
+# es un pedido, es un callejón. Y encima gastaba el turno, así que el pedido
+# siguiente esperaba otra vuelta entera por una pantalla que no ofrecía nada.
+check("la sesión de reclutas se saltea sin @", pide(3, handle=False) is None)
+check("y el café en la misma situación sí sale",
+      pide(6, handle=False) == CAFECITO)
+check("con @ vuelve a corresponder", pide(3, handle=True) == RECLUTAS)
+# Lo que hace que el turno no se gaste: `session_store` solo anota cuando el
+# pedido no es None, así que devolver None es exactamente no consumirlo. Se
+# afirma acá porque es lo que sostiene la separación de la vuelta siguiente.
+check("y no habiendo pedido, la vuelta siguiente arranca limpia",
+      pide(6, handle=False, ultimo=None) == CAFECITO)
 
 print()
 if fallos:

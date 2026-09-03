@@ -1,5 +1,9 @@
 // La barra gris de los esqueletos de carga, y la regla de cómo se usan.
 //
+// Vive en `components/` y no en `derivadas/` porque la usan los dos productos:
+// el ranking de Intervalo clásico necesita el mismo hueco para no afirmar un
+// número mientras la respuesta viaja.
+//
 // LA REGLA: un esqueleto no se dibuja de nuevo, se calca. Cada uno vive PEGADO
 // al componente que espeja —`ListSkeleton` al lado de `Row`, `FeedSkeleton` al
 // lado de `EventRow`— y repite sus contenedores con las mismas clases, cambiando

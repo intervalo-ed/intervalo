@@ -32,7 +32,7 @@ import { UniTag } from "@/components/university-tag"
 import { XpDots } from "@/components/xp-dots"
 import { badgeWithCrown, CAREER_EMOJI } from "@/lib/career-emoji"
 import { cn } from "@/lib/utils"
-import { Hueco } from "./skeleton-barra"
+import { Hueco } from "@/components/skeleton-barra"
 import {
   BoostBanner,
   useBoostMultipliers,
@@ -285,12 +285,17 @@ export function GameRanking({
   // veces.
   const recruits = useGameRecruits(enabled && view === "recruits")
   const boostsVigentes = useGameBoosts()
-  // Mientras no hay reclutas propios —sea porque todavía no llegó la respuesta
-  // o porque en verdad no hay ninguno— la lista de abajo (ListaDeReclutas)
-  // muestra los CINCO renglones de ejemplo, sin esperar al servidor: son datos
-  // fijos del cliente. Los indicadores de arriba tienen que contar lo mismo
-  // que esos renglones y no cero, que al lado de cinco filas se leería como una
+  // Mientras no hay reclutas propios la lista de abajo (ListaDeReclutas) muestra
+  // los CINCO renglones de ejemplo, sin esperar al servidor: son datos fijos del
+  // cliente. Los indicadores de arriba tienen que contar lo mismo que esos
+  // renglones y no cero, que al lado de cinco filas se leería como una
   // contradicción y no como "todavía no tenés ninguno".
+  //
+  // Pero "no hay ninguno" y "todavía no llegó la respuesta" NO son lo mismo, y
+  // acá se trataban igual: quien sí tenía reclutas veía "5" y "+346" animándose
+  // con CountUp —los renglones de ejemplo se marcan punteados, los indicadores
+  // no se marcaban de ninguna manera— y recién después su número real. Mientras
+  // viaja va el mismo hueco que usan los otros indicadores de esta cabecera.
   const reclutasVacio = (recruits.data?.entries.length ?? 0) === 0
   const reclutasCount = reclutasVacio ? EJEMPLOS_COUNT : (recruits.data?.total_recruits ?? 0)
   const reclutasXp = reclutasVacio ? EJEMPLOS_XP_TOTAL : (recruits.data?.total_xp_given ?? 0)
@@ -313,7 +318,11 @@ export function GameRanking({
                 label="Reclutas"
                 value={
                   <span className="inline-flex items-center gap-1.5" style={{ color: VERDE }}>
-                    <CountUp value={reclutasCount} format={fmtCount} />
+                    {recruits.isPending ? (
+                      <Hueco alto="h-[1em]" className="w-10" barra="h-3.5 w-full" />
+                    ) : (
+                      <CountUp value={reclutasCount} format={fmtCount} />
+                    )}
                     <UsersIcon className="size-[0.85em]" />
                   </span>
                 }
@@ -323,7 +332,11 @@ export function GameRanking({
                 value={
                   <span className="inline-flex items-center gap-1.5" style={{ color: VERDE }}>
                     +
-                    <CountUp value={reclutasXp} format={fmtCount} />
+                    {recruits.isPending ? (
+                      <Hueco alto="h-[1em]" className="w-10" barra="h-3.5 w-full" />
+                    ) : (
+                      <CountUp value={reclutasXp} format={fmtCount} />
+                    )}
                     <XpDots className="size-[0.85em]" />
                   </span>
                 }

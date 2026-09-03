@@ -2010,6 +2010,7 @@ def get_summary_db(
         tier_reached=si.tier_reached,
         streak_days=(user.streak_days or 0) if user else 0,
         tiene_pwa=bool(user and user.pwa_first_seen_at is not None),
+        tiene_handle=bool(user and user.username),
         ultimo_pedido=user.summary_ask_last_session if user else None,
     )
     if pedido is not None and user and user.summary_ask_last_session != session_number:

@@ -62,31 +62,74 @@ export function fmtRemaining(seconds: number): string {
   return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`
 }
 
+/** Lo que queda, en palabras: `{ texto: "23 horas", enHoras: true }`.
+ *
+ * Vive al lado de `fmtRemaining` porque las dos tienen que decir lo MISMO. El
+ * copy del cafecito y el de Practicar tenían cada uno su versión, las dos con
+ * `Math.round`: con hora y media restante decían "2 horas" mientras el chip del
+ * ranking, en la misma pantalla del producto, decía "1h 30m". Redondear para
+ * arriba promete tiempo que no hay, así que las tres truncan.
+ *
+ * Devuelve las piezas y no la frase armada porque el artículo cambia con la
+ * unidad ("las próximas 23 horas" contra "los próximos 40 minutos"), y eso lo
+ * resuelve mejor cada copy que un parámetro más acá. */
+export function restanteEnPalabras(seconds: number): {
+  texto: string
+  enHoras: boolean
+} {
+  const s = Math.max(0, seconds)
+  if (s >= 3600) {
+    const h = Math.max(1, Math.floor(s / 3600))
+    return { texto: `${h} ${h === 1 ? "hora" : "horas"}`, enHoras: true }
+  }
+  const m = Math.max(1, Math.floor(s / 60))
+  return { texto: `${m} ${m === 1 ? "minuto" : "minutos"}`, enHoras: false }
+}
+
 /** Cuenta regresiva de un empuje.
  *
  * Arranca de los segundos que mandó el servidor y descuenta sola, así el reloj
  * no necesita que le manden un instante con zona horaria.
  *
- * La resincronización NO se hace acá adentro: el chip se remonta con una `key`
- * que incluye los segundos del servidor, y al remontarse este `useState` se
- * reinicializa solo. Es el reset de estado por key de siempre, y evita el
- * `setLeft(initialSeconds)` sincrónico dentro del efecto, que el compilador de
- * React no permite (react-hooks/set-state-in-effect). */
+ * Descuenta contra un VENCIMIENTO absoluto, no restándole el paso a un
+ * contador. Los dos motivos son la misma cosa —lo que se muestra tiene que ser
+ * el tiempo que falta de verdad— vista desde dos lados:
+ *
+ *  · El paso sigue al tiempo que QUEDA, no al que había al montar. Antes se
+ *    calculaba una sola vez de `initialSeconds`: un chip que montaba con más de
+ *    una hora se quedaba en pasos de 30 s para siempre, así que al bajar de la
+ *    hora el formato cambiaba a mm:ss y el número saltaba de 59:30 a 59:00 a
+ *    58:30. El segundero —el único motivo por el que existe ese formato— quedaba
+ *    roto justo en la última hora, que es la que importa.
+ *  · El navegador estrangula los timers de las pestañas de fondo. Restando el
+ *    paso, cada tick que no corre es tiempo que el cartel nunca descuenta;
+ *    leyendo el reloj en cada tick, volver a la pestaña muestra el número
+ *    correcto sin importar cuántos se perdieron.
+ *
+ * La resincronización contra el servidor NO se hace acá adentro: el chip se
+ * remonta con una `key` que incluye los segundos que mandó, y al remontarse
+ * estos `useState` se reinicializan solos. Es el reset de estado por key de
+ * siempre, y evita el `setLeft(...)` sincrónico dentro del efecto que el
+ * compilador de React no permite (react-hooks/set-state-in-effect). */
 export function useCountdown(initialSeconds: number): number {
-  const [left, setLeft] = useState(initialSeconds)
+  const [vence] = useState(() => Date.now() + Math.max(0, initialSeconds) * 1000)
+  const [left, setLeft] = useState(() => Math.max(0, initialSeconds))
+
   useEffect(() => {
-    if (initialSeconds <= 0) return
-    // El paso sigue al formato: con más de una hora por delante `fmtRemaining`
-    // solo muestra minutos, así que descontar de a un segundo serían ~86.400
-    // renders por día para cambiar el cartel una vez por minuto. Bajo la hora
-    // vuelve al segundero, que ahí sí se ve correr.
-    const paso = initialSeconds >= 3600 ? 30 : 1
-    const id = setInterval(
-      () => setLeft((s) => (s <= paso ? 0 : s - paso)),
-      paso * 1000,
+    if (left <= 0) return
+    // Sobre la hora `fmtRemaining` solo muestra minutos, así que descontar de a
+    // un segundo serían ~86.400 renders por día para cambiar el cartel una vez
+    // por minuto. Bajo la hora vuelve el segundero, que ahí sí se ve correr.
+    const paso = left > 3600 ? 30_000 : 1_000
+    // `setTimeout` y no `setInterval`: el efecto se re-arma en cada tick, así
+    // que el paso se recalcula solo al cruzar la hora.
+    const id = setTimeout(
+      () => setLeft(Math.max(0, Math.round((vence - Date.now()) / 1000))),
+      paso,
     )
-    return () => clearInterval(id)
-  }, [initialSeconds])
+    return () => clearTimeout(id)
+  }, [left, vence])
+
   return left
 }
 
