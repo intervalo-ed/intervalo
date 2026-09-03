@@ -167,6 +167,84 @@ db.commit()
 check("y anotar el @ de un jugador que ya es tuyo tampoco crea la arista",
       otro.referred_by_player_id is None)
 
+print("7. la fusión con una cuenta que ya tenía jugador")
+# La rama que ningún caso recorría, y donde la deuda quedaba IMPAGABLE: el
+# traspaso a la fila que sobrevive va por SQL con `synchronize_session=False`,
+# que no toca el objeto en memoria, así que `saldar_deuda_de_clasico` leía el
+# valor de antes del traspaso —casi siempre 0— y no pagaba nada. La XP no se
+# borraba de la base, pero quedaba en una fila ya vinculada y esa función no se
+# vuelve a llamar nunca para ese usuario.
+from game import deps  # noqa: E402
+
+db.add(User(id=30, clerk_user_id="c30", email="reg@a.com", name="Registrada"))
+db.commit()
+db.add(GamePlayer(id=30, alias="lafila", user_id=30))          # la que sobrevive
+db.add(GamePlayer(id=31, alias="elinvitado", guest_token="t31", classic_xp_owed=13))
+db.commit()
+handles.reclamar(db, "lafila", user_id=30, player_id=30)
+handles.reclamar(db, "elinvitado", player_id=31)
+db.commit()
+
+deps.link_guest_to_user(db, db.get(GamePlayer, 31), db.get(User, 30))
+check("la deuda del invitado se le paga a la cuenta que lo absorbió",
+      db.get(User, 30).total_xp == 13, f"(dio {db.get(User, 30).total_xp})")
+check("y el contador de la fila que sobrevive queda en cero",
+      db.get(GamePlayer, 30).classic_xp_owed == 0,
+      f"(dio {db.get(GamePlayer, 30).classic_xp_owed})")
+
+print("8. la deuda AUTOGENERADA antes de vincular no se cobra")
+# El camino que las tres guardas no cubrían, porque cubren el estado y no la
+# historia: mientras el jugador no tenía `user_id`, la guarda de runtime no
+# disparaba y cada respuesta acumulaba el 10% de la propia XP en `classic_xp_owed`.
+# Al vincular, la arista se limpiaba... y acto seguido se pagaba toda esa deuda.
+db.add(User(id=40, clerk_user_id="c40", email="auto@a.com", name="Auto"))
+db.commit()
+db.add(GamePlayer(id=40, alias="miyo", guest_token="t40"))
+db.commit()
+handles.reclamar(db, "miyo", player_id=40)
+db.commit()
+yo2 = db.get(User, 40)
+referrals.anotar_usuario(db, yo2, "miyo")
+db.commit()
+# Estudia: cada respuesta le acumula el 10% a su propio jugador invitado.
+for _ in range(4):
+    referrals.acreditar_clasico(db, yo2, 100)
+db.commit()
+autogenerado = db.get(GamePlayer, 40).classic_xp_owed
+check("la deuda se acumuló mientras el jugador no tenía cuenta",
+      autogenerado == 40, f"(dio {autogenerado})")
+xp_antes = db.get(User, 40).total_xp
+
+deps.link_guest_to_user(db, db.get(GamePlayer, 40), yo2)
+check("al vincular, la arista queda limpia",
+      db.get(User, 40).referred_by_player_id is None)
+check("y NO se le paga lo que se generó a sí misma",
+      db.get(User, 40).total_xp == xp_antes,
+      f"(antes {xp_antes}, ahora {db.get(User, 40).total_xp})")
+check("el aporte de esa arista muerta se borra de su fila",
+      db.get(User, 40).referral_xp_given == 0,
+      f"(dio {db.get(User, 40).referral_xp_given})")
+
+# Pero lo que ese mismo invitado ganó trayendo gente DE VERDAD sí se cobra: la
+# resta es por lo autogenerado, no por la deuda entera.
+db.add(User(id=41, clerk_user_id="c41", email="otro@a.com", name="Otro"))
+db.commit()
+db.add(GamePlayer(id=42, alias="mixto", guest_token="t42"))
+db.commit()
+handles.reclamar(db, "mixto", player_id=42)
+db.commit()
+propio = db.get(User, 41)
+referrals.anotar_usuario(db, propio, "mixto")
+db.commit()
+referrals.acreditar_clasico(db, propio, 200)   # 20 autogenerados
+db.query(GamePlayer).filter(GamePlayer.id == 42).update(
+    {"classic_xp_owed": GamePlayer.classic_xp_owed + 55}   # 55 de un recluta real
+)
+db.commit()
+deps.link_guest_to_user(db, db.get(GamePlayer, 42), propio)
+check("cobra lo de los reclutas reales y nada de lo propio",
+      db.get(User, 41).total_xp == 55, f"(dio {db.get(User, 41).total_xp})")
+
 db.close()
 
 print()

@@ -400,6 +400,11 @@ class SessionSummaryResponse(BaseModel):
     topic_states: dict[str, TopicProgress]
     xp_earned: int
     streak: StreakInfo
+    # Cuánta de la XP de arriba la puso el empuje de cafecito. Va SEPARADO de
+    # `streak.xp_bonus`, que es solo el de la racha: los dos multiplicadores se
+    # aplican sobre la misma base, así que sumarlos en un número deja al resumen
+    # mostrando una cuenta que no cierra con ninguno de los dos.
+    xp_from_boost: int = 0
     session_number: int  # nº de orden de esta sesión entre todas las terminadas por el usuario
     # ¿Le pedimos algo en esta pantalla, y cuál de las dos cosas?
     #

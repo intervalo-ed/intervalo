@@ -1908,7 +1908,18 @@ def get_summary_db(
 
     xp_earned = sum(a.xp_earned or 0 for a in answers)
     xp_base_total = sum(a.xp_base or 0 for a in answers)
+    # El extra se reparte en DOS, y no es un detalle de presentación: desde que
+    # el cafecito multiplica el XP de clásico, `xp_earned - xp_base` dejó de ser
+    # "el bonus por tu racha" y pasó a ser la suma de los dos multiplicadores.
+    # El resumen mostraba ese número entero al lado de "×1,2" —el de la racha—,
+    # así que con un empuje corriendo la pantalla enseñaba una cuenta que no
+    # cerraba con ninguno de los dos.
+    #
+    # `answers.xp_from_boost` existe justamente porque el aporte del empuje no se
+    # puede reconstruir después: acá es de donde sale.
+    xp_del_empuje = sum(a.xp_from_boost or 0 for a in answers)
     xp_bonus_total = max(0, xp_earned - xp_base_total)
+    xp_bonus_racha = max(0, xp_bonus_total - xp_del_empuje)
     # Solo el primer summary cierra la sesión: cada revisita re-corría esto y
     # pisaba finished_at con la hora actual, destruyendo el timestamp real de
     # finalización (y con él la duración de la sesión). Además, con finished_at
@@ -1994,8 +2005,14 @@ def get_summary_db(
             "tier_reached": si.tier_reached,
             "prev_multiplier": si.prev_multiplier,
             "counted_today": streak_counted_today,
-            "xp_bonus": xp_bonus_total,
+            # Solo lo que puso la RACHA. El campo vive adentro de `streak` y se
+            # dibuja al lado de su multiplicador, así que tiene que ser el número
+            # de esa cuenta y no el del total.
+            "xp_bonus": xp_bonus_racha,
         },
+        # Y lo que puso el cafecito, aparte. Cero cuando no hubo empuje, que es
+        # lo que hace que el front no tenga que ramificar para el caso normal.
+        "xp_from_boost": xp_del_empuje,
         "pedido": pedido,
         "handle": user.username if user else None,
         "share_percent": referrals.SHARE_PERCENT,
