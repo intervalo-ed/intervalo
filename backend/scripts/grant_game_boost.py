@@ -123,9 +123,12 @@ def main() -> int:
                 .update({"expires_at": now}, synchronize_session=False)
             )
             db.commit()
-            # No hace falta tocar el caché de empujes: es por proceso (este
-            # script no es el server) y además solo memoriza el "no hay
-            # ninguno", así que un vencimiento se ve en la consulta siguiente.
+            # No hace falta tocar el caché de empujes, y no por el motivo que
+            # decía antes: ahora memoriza también el "sí hay". Pero es por
+            # proceso —este script no es el server— y solo memoriza la
+            # EXISTENCIA: el server puede creer unos segundos que todavía hay
+            # uno, correr las consultas y sumar cero. O sea que el corte se
+            # siente en el acto igual.
             print(f"vencidos {n} empujes de {uni or 'TODOS (empuje global)'}")
             return 0
 

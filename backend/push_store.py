@@ -255,14 +255,31 @@ class _TickCache:
 def _university_user_ids(
     db: DBSession, university: str, *, cache: _TickCache | None = None
 ) -> list[int]:
+    """Quiénes son de esta universidad, con el criterio del resto del producto.
+
+    El enrollment MÁS ANTIGUO sin importar el curso, que es lo que decide el tag
+    del ranking y lo que cobra el empuje (`xp_boost.enrollment_de_referencia`).
+    Antes filtraba `course_id == 1` y se quedaba con TODAS las filas que
+    matchearan: era el tercero de los tres criterios que convivían en el repo, y
+    el único que decidía a quién se le habla en una push.
+
+    La consecuencia era concreta, no teórica: alguien inscripto primero en un
+    curso ≠ 1 aportaba a la ventana semanal de una universidad —o de ninguna— y
+    veía impulsada otra. Un mismo estudiante podía recibir "tu universidad está a
+    N XP" de una universidad distinta de la que muestra su fila.
+    """
     if cache is not None and university in cache.university_user_ids:
         return cache.university_user_ids[university]
-    user_ids = [
-        e.user_id
-        for e in db.query(Enrollment)
-        .filter(Enrollment.course_id == COURSE_ID, Enrollment.university == university)
+    # Una sola consulta, ordenada por el criterio: la primera fila de cada
+    # usuario es la que manda, igual que en `xp_boost.universidades_de`.
+    de_cada_uno: dict[int, str | None] = {}
+    for e in (
+        db.query(Enrollment)
+        .order_by(Enrollment.enrolled_at.asc(), Enrollment.id.asc())
         .all()
-    ]
+    ):
+        de_cada_uno.setdefault(e.user_id, e.university)
+    user_ids = [uid for uid, uni in de_cada_uno.items() if uni == university]
     if cache is not None:
         cache.university_user_ids[university] = user_ids
     return user_ids
@@ -873,8 +890,8 @@ def _eventos_pendientes(
             )
 
     # ── Cafecito: hay un empuje corriendo que le toca ─────────────────────────
-    tramos = xp_boost.tramos_de_usuario(db, user.id, now=ahora)
-    mult = xp_boost.multiplier_for_user(db, user.id, now=ahora)
+    empuje = xp_boost.empuje_de_usuario(db, user.id, now=ahora)
+    tramos, mult = empuje.tramos, empuje.multiplier
     if tramos and mult > 1.0:
         # El tramo dirigido si lo hay; si no, el global. El donante solo se
         # nombra cuando el empuje TIENE nombre — Cafecito no dice quién donó, y

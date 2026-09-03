@@ -27,6 +27,7 @@ from usernames import normalize_username, validate_username
 from . import boosts
 from . import chat as game_chat
 from . import limits
+from . import ranking
 from . import elo
 from . import events as game_events
 from . import explain as game_explain
@@ -188,23 +189,9 @@ def _scope_filters(university: str | None, career: str | None) -> list:
     return filters
 
 
-# Quién ENTRA al ranking: quien resolvió al menos una derivada acá.
-#
-# Antes el filtro era `xp > 0`, y eso NO prueba haber resuelto nada:
-# `referrals.acreditar` le suma XP al reclutador con un UPDATE crudo, así que
-# alguien podía figurar en la tabla sin haber derivado nunca. Con los reclutas
-# cruzando de producto el agujero se agranda —quien solo estudia en Intervalo
-# clásico le paga XP de juego a quien lo trajo—, así que arreglarlo es parte del
-# cruce y no un extra.
-#
-# Los cinco lugares que lo usan tienen que moverse JUNTOS. Si el que cuenta
-# cuántos van delante no filtra igual que el que arma la lista, la ventana
-# `around_me` se centra en una fila que no es la propia, y el síntoma es "a
-# veces mi fila aparece corrida", que nadie reporta como bug.
-#
-# Los sembrados NO se excluyen acá, y es a propósito: pueblan el ranking para
-# que el primero en llegar tenga a quién escalar (ver game/schemas.py).
-RESOLVIO_ACA = GamePlayer.exercises_correct > 0
+# `RESOLVIO_ACA`, `ORDEN_XP` y `ORDEN_ELO` viven en game/ranking.py: los usan
+# también el feed de eventos y las estadísticas, y tienen que moverse juntos.
+RESOLVIO_ACA = ranking.RESOLVIO_ACA
 
 
 def _rank_of(db: Session, player: GamePlayer, scope: list | None = None) -> int:
@@ -225,24 +212,9 @@ def _rank_of(db: Session, player: GamePlayer, scope: list | None = None) -> int:
     return ahead + 1
 
 
-# ── El ranking individual se puede ordenar por dos cosas ──────────────────────
-# La XP mide cuánto jugaste; el Elo, qué tan difícil resolvés. El selector de la
-# cabecera (desktop-layout.tsx) elegía entre las dos, pero hasta acá solo
-# cambiaba la vista Universitario: pedir "por Elo" dejaba la lista de PERSONAS
-# ordenada por XP, o sea que el control prometía una cosa y hacía otra.
-#
-# El orden por Elo pone primero a quien ya salió de la rampa (elo.RAMP_UPDATES)
-# y recién después a los provisorios. Es el mismo criterio que el ranking de
-# universidades, que ordena por `(ranked, rating_avg, rated_players)`, un nivel
-# más abajo: con tres respuestas el theta todavía es ruido, y sin este corte una
-# racha de suerte alcanza para encabezar la tabla del juego entero.
-_CALIFICADO = case((GamePlayer.n_updates >= elo.RAMP_UPDATES, 1), else_=0)
-
-# La clave del orden por Elo, como tupla para `order_by(*...)`. El desempate por
-# `id` es el mismo que el del orden por XP: sin él, dos thetas iguales pueden
-# salir en cualquier orden y la lista tiembla de una página a la otra.
-_ORDEN_ELO = (_CALIFICADO.desc(), GamePlayer.theta.desc(), GamePlayer.id.asc())
-_ORDEN_XP = (GamePlayer.xp.desc(), GamePlayer.id.asc())
+_CALIFICADO = ranking.CALIFICADO
+_ORDEN_ELO = ranking.ORDEN_ELO
+_ORDEN_XP = ranking.ORDEN_XP
 
 
 def _rank_of_elo(db: Session, player: GamePlayer, scope: list | None = None) -> int:
@@ -1695,7 +1667,10 @@ def game_recruits(
         )
         .filter(
             GamePlayer.referred_by == player.id,
-            GamePlayer.exercises_correct > 0,
+            # La lista muestra a los reclutas que ya resolvieron algo, con el
+            # mismo predicado que decide quién entra al ranking: es la misma
+            # pregunta ("¿jugó acá?") y no tiene por qué escribirse dos veces.
+            ranking.RESOLVIO_ACA,
         )
         .order_by(GamePlayer.referral_xp_given.desc(), GamePlayer.id.asc())
         .limit(_MAX_RECLUTAS)
