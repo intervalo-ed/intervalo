@@ -108,11 +108,15 @@ def acreditar_clasico(db: Session, recluta: User, xp_ganada: int) -> int:
     Devuelve la XP entera acreditada (0 la mayoría de las veces que la parte no
     llega a un punto entero).
 
-    El pago se hace por SQL relativo (`SET total_xp = total_xp + n`) y no
-    leyendo-y-escribiendo en Python: es la fila de OTRA persona, que puede estar
-    respondiendo en este mismo instante y de la que no tenemos el candado. Es el
-    mismo motivo por el que la escritura propia de `record_answer_db` también es
-    relativa.
+    Las dos filas que se tocan se protegen distinto, y cada una como puede:
+
+    · La del RECLUTADOR se paga por SQL relativo (`SET total_xp = total_xp + n`).
+      Es la fila de otra persona, que puede estar respondiendo en este mismo
+      instante y de la que no tenemos candado, así que la suma la hace la base.
+    · La del RECLUTA se relee con `FOR UPDATE`. Su contabilidad en centésimas
+      necesita el pendiente actual para partirlo, o sea leer-calcular-escribir, y
+      eso no se puede hacer relativo. Es el mismo candado que el minijuego toma
+      en `/answer` (deps.lock_player) y por el mismo motivo.
 
     Si el reclutador todavía no tiene cuenta —es un invitado del juego— la deuda
     se acumula en `game_players.classic_xp_owed` y se salda al registrarse. No se
@@ -130,6 +134,30 @@ def acreditar_clasico(db: Session, recluta: User, xp_ganada: int) -> int:
     # que existieran las otras dos guardas.
     if reclutador.user_id == recluta.id:
         return 0
+
+    # La fila del RECLUTA se relee tomando su candado antes de tocar el resto en
+    # centésimas. El pago al reclutador es SQL relativo y no lo necesita, pero
+    # esta parte no se puede hacer así: `divmod` necesita el pendiente actual
+    # para partirlo, o sea leer, calcular y escribir. Dos respuestas
+    # concurrentes de la misma persona —doble toque, un retry de red sobre otro
+    # slot— leían el mismo pendiente y una de las dos escrituras se perdía; el
+    # guard de idempotencia por slot no lo cubre porque son slots distintos.
+    #
+    # En el minijuego esto es seguro porque `/answer` toma `deps.lock_player`;
+    # en clásico no había nada equivalente, y el comentario de
+    # `session_store.record_answer_db` lo dice con todas las letras. Es el mismo
+    # `FOR UPDATE`, sobre la fila que hace falta y por el tiempo que hace falta.
+    #
+    # El flush va ANTES, y no es un detalle: la sesión tiene `autoflush=False`,
+    # así que sin bajar primero lo escrito en esta transacción la relectura
+    # traería el valor commiteado y pisaría el resto que dejó el pago anterior.
+    # Con dos pagos en la misma transacción, el 10% se volvía 0%.
+    db.flush()
+    db.refresh(
+        recluta,
+        ["referral_pending", "referral_xp_given"],
+        with_for_update=True,
+    )
 
     debe = recluta.referral_pending + xp_ganada * SHARE_PERCENT
     entera, resto = divmod(debe, CENTESIMAS)

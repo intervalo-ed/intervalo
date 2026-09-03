@@ -211,6 +211,20 @@ def pending_topic_count(db: DBSession, user_id: int, today: date) -> int:
 
 # ── Ranking / universidad — helpers de contexto para el copy ──────────────────
 
+# La tz la reporta el navegador y puede venir rota o vacía. El fallback es
+# Argentina, donde vive casi toda la base — el mismo que ya usan
+# `session_store.user_today` y `lifecycle_emails._user_zone`. Acá era "UTC", que
+# adelanta el corte del día tres horas y hacía que "hoy" empezara a las 21.
+_DEFAULT_TZ = "America/Argentina/Buenos_Aires"
+
+
+def _zona_de(user: User) -> ZoneInfo:
+    try:
+        return ZoneInfo(user.notify_timezone or _DEFAULT_TZ)
+    except ZoneInfoNotFoundError:
+        return ZoneInfo(_DEFAULT_TZ)
+
+
 def _local_day_bounds_utc(day: date, tz: ZoneInfo) -> tuple[datetime, datetime]:
     """Medianoche a medianoche del `day` en `tz`, expresado en UTC naive (para
     comparar contra columnas DateTime que guardan datetime.utcnow()). Mismo
@@ -565,7 +579,26 @@ def claim_event_slot(db: DBSession, user: User, local_today: date) -> bool:
     El contador se reinicia comparando la FECHA guardada contra el día local de
     esta persona, así que no hace falta ningún job que lo limpie a medianoche —y
     cada quien tiene su huso, así que "medianoche" no es un instante único.
+
+    La fila se relee TOMANDO SU CANDADO antes de decidir. Sin eso, el claim
+    protegía contra el tick reintentado pero no contra dos corriendo solapados,
+    que es la mitad de la promesa que el docstring venía haciendo: en READ
+    COMMITTED las dos transacciones leen `notify_events_count = 0`, ninguna ve la
+    fila sin commitear de la otra, y las dos mandan. Es el mismo `FOR UPDATE` que
+    `deps.lock_player` usa para los contadores del juego.
     """
+    # `with_for_update` es un no-op en SQLite (un solo escritor por archivo), así
+    # que los checks siguen corriendo igual y en Postgres la garantía es real.
+    # El flush ANTES de releer, y esta sesión tiene `autoflush=False`: en un
+    # mismo tick se piden hasta dos cupos para la misma persona, y el segundo
+    # tiene que ver lo que consumió el primero. Sin bajarlo primero, la relectura
+    # traería el valor commiteado —el de antes del primer cupo— y los dos pasarían.
+    db.flush()
+    # Y la relectura con el candado tomado: el claim protegía contra el tick
+    # reintentado pero no contra dos corriendo solapados, que es la mitad de la
+    # promesa que este docstring venía haciendo.
+    db.refresh(user, ["notify_events_on", "notify_events_count"], with_for_update=True)
+
     if user.notify_events_on != local_today:
         user.notify_events_on = local_today
         user.notify_events_count = 0
@@ -589,13 +622,18 @@ def en_horario_de_avisos(user: User, ahora_utc: datetime | None = None) -> bool:
     """
     if not user.notify_time:
         return False
+    local = (ahora_utc or datetime.now(tz=ZoneInfo("UTC"))).astimezone(_zona_de(user))
     try:
-        tz = ZoneInfo(user.notify_timezone or "UTC")
-    except ZoneInfoNotFoundError:
+        elegida = int(user.notify_time.split(":")[0])
+    except ValueError:
+        # El endpoint valida el formato, pero el dato es viejo y puede venir de
+        # antes: una hora ilegible no puede tirar un 500 en el tick.
         return False
-    local = (ahora_utc or datetime.now(tz=ZoneInfo("UTC"))).astimezone(tz)
-    elegida = int(user.notify_time.split(":")[0])
-    return elegida <= local.hour < elegida + VENTANA_AVISOS_H
+    # La resta con módulo, y no `elegida <= hora < elegida + 2`: con la franja de
+    # las 23 esa comparación pedía `23 <= hora < 25`, así que la hora 0 nunca
+    # entraba y quien eligió el horario más tarde tenía una hora de ventana en
+    # vez de dos.
+    return (local.hour - elegida) % 24 < VENTANA_AVISOS_H
 
 
 # Cuántas horas después del horario elegido se sigue considerando "su momento".
@@ -680,13 +718,16 @@ def due_event_notifications(db: DBSession, force: bool = False) -> list[dict]:
     for user in candidatos:
         if not force and not en_horario_de_avisos(user, now_utc):
             continue
-        try:
-            tz = ZoneInfo(user.notify_timezone or "UTC")
-        except ZoneInfoNotFoundError:
-            continue
+        tz = _zona_de(user)
         local_today = now_utc.astimezone(tz).date()
-        # El "hoy" de esta persona en UTC, para comparar contra `sent_at`.
-        desde = now_utc - timedelta(hours=24)
+        # Naive-UTC, que es lo que guardan las columnas DateTime del esquema.
+        ahora_naive = now_utc.replace(tzinfo=None)
+        # Los límites del DÍA LOCAL de esta persona, no una ventana móvil de 24 h.
+        # `sent_at` es naive-UTC (models.NotificationSend), así que el borde va
+        # sin tzinfo: comparar un datetime aware contra una columna naive solo
+        # funciona mientras el servidor esté en UTC, y es de las cosas que se
+        # rompen el día que deja de estarlo.
+        desde, _ = _local_day_bounds_utc(local_today, tz)
 
         subs = (
             db.query(PushSubscription)
@@ -696,7 +737,9 @@ def due_event_notifications(db: DBSession, force: bool = False) -> list[dict]:
         if not subs:
             continue
 
-        for evento in _eventos_pendientes(db, user):
+        for evento in _eventos_pendientes(
+            db, user, ahora=ahora_naive, dia_local=local_today, tz=tz
+        ):
             category, context = evento.categoria, evento.contexto
             if _ya_avisado_hoy(db, user.id, category, desde):
                 continue
@@ -766,12 +809,23 @@ class EventoPendiente(NamedTuple):
     reclutas_a_marcar: tuple[int, ...] = ()
 
 
-def _eventos_pendientes(db: DBSession, user: User) -> list[EventoPendiente]:
+def _eventos_pendientes(
+    db: DBSession,
+    user: User,
+    *,
+    ahora: datetime,
+    dia_local: date,
+    tz: ZoneInfo,
+) -> list[EventoPendiente]:
     """Qué le pasó a esta persona que valga la pena contarle. Prioridad primero.
 
     Reclutas antes que cafecito: lo primero es XP que YA ganaste, lo segundo una
     oportunidad que todavía tenés que aprovechar. Con cupo para uno solo, gana la
     noticia.
+
+    `ahora` viaja como parámetro y no se lee acá adentro: los dos eventos y el
+    cupo tienen que decidirse con el MISMO instante, o el que se evalúa último
+    puede ver un empuje que el primero todavía veía vivo.
     """
     import xp_boost
     from models import GamePlayer
@@ -819,8 +873,8 @@ def _eventos_pendientes(db: DBSession, user: User) -> list[EventoPendiente]:
             )
 
     # ── Cafecito: hay un empuje corriendo que le toca ─────────────────────────
-    tramos = xp_boost.tramos_de_usuario(db, user.id)
-    mult = xp_boost.multiplier_for_user(db, user.id)
+    tramos = xp_boost.tramos_de_usuario(db, user.id, now=ahora)
+    mult = xp_boost.multiplier_for_user(db, user.id, now=ahora)
     if tramos and mult > 1.0:
         # El tramo dirigido si lo hay; si no, el global. El donante solo se
         # nombra cuando el empuje TIENE nombre — Cafecito no dice quién donó, y
@@ -836,6 +890,11 @@ def _eventos_pendientes(db: DBSession, user: User) -> list[EventoPendiente]:
                     "university": elegido.university,
                     "boost_multiplier": mult,
                     "boost_hours_left": max(1, min(t.expires_in_seconds for t in tramos) // 3600),
+                    # Lo que separa "mirá quién invitó" de "se está terminando y
+                    # no lo aprovechaste". Va explícito en False y no ausente:
+                    # la guarda de `cafecito_ending` pregunta por `is False`, así
+                    # que un contexto sin el dato no la activa por accidente.
+                    "studied_today": _exercises_on(db, user.id, dia_local, tz) > 0,
                 },
             )
         )
@@ -877,12 +936,11 @@ def due_notifications(db: DBSession, force: bool = False) -> list[dict]:
     result: list[dict] = []
 
     for user in candidates:
-        tz_name = user.notify_timezone or "UTC"
-        try:
-            tz = ZoneInfo(tz_name)
-        except ZoneInfoNotFoundError:
-            continue
-
+        # Antes una tz rota descartaba a la persona en silencio y una tz vacía la
+        # trataba como UTC. Las dos cosas eran la misma decisión mal tomada:
+        # quien no reportó huso vive en Argentina, y saltearlo es dejarlo sin su
+        # notificación para siempre. Es el mismo fallback del resto del proyecto.
+        tz = _zona_de(user)
         local_now = now_utc.astimezone(tz)
         local_today = local_now.date()
 

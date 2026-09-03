@@ -54,7 +54,7 @@ from exercise_bank import (
     list_exercises_db,
     mark_exercise_served,
 )
-from sqlalchemy import func
+from sqlalchemy import func, or_
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session as DBSession
 from models import (
@@ -1927,27 +1927,60 @@ def get_summary_db(
     if db_session.finished_at is None:
         db_session.finished_at = datetime.utcnow()
     db_session.xp_earned = xp_earned
+    # El flush explícito, porque más abajo `session_number` cuenta las sesiones
+    # con `finished_at` puesto y tiene que verse a sí misma. Antes lo hacía por
+    # accidente el `commit()` que había en el medio; con un solo commit al final
+    # no queda nadie que lo garantice, y el número del subtítulo ("completaste
+    # tu sesión número n") salía uno abajo — que además corre la cadencia de los
+    # pedidos del resumen, porque se cuenta en sesiones.
+    db.flush()
 
     # Racha global de días: completar cualquier sesión suma el día (una sola vez
-    # por día; refetch del summary no re-cuenta). Más de STREAK_RESET_AFTER_DAYS
-    # días sin actividad resetean el acumulado antes de contar el día de hoy.
+    # por día). Más de STREAK_RESET_AFTER_DAYS días sin actividad resetean el
+    # acumulado antes de contar el día de hoy.
+    #
+    # El día se gana con un UPDATE CONDICIONAL y no leyendo-sumando-escribiendo,
+    # y no es cosmético: este resumen se pide por GET, así que dos pestañas, un
+    # refetch de React o el prefetch del navegador pueden entrar a la vez. Con la
+    # versión anterior las dos leían `streak_last_date != hoy` y las dos sumaban
+    # +1 — y `streak_days` alimenta `streak_multiplier`, así que un día de más es
+    # XP de más para siempre.
+    #
+    # El `WHERE` es lo que reparte: gana UNA sola transacción por día, y las demás
+    # actualizan cero filas. `rowcount` es entonces la respuesta exacta a "¿este
+    # request contó el día?", que es lo que el front usa para decidir si muestra
+    # la pantalla de racha.
     user = db.query(User).filter(User.id == user_id).first()
     streak_counted_today = False
-    if user and user.streak_last_date != today:
+    if user:
         inactive_days = (
             (today - user.streak_last_date).days
             if user.streak_last_date is not None
             else 0
         )
-        if inactive_days > STREAK_RESET_AFTER_DAYS:
-            user.streak_days = 0
+        se_cortó = inactive_days > STREAK_RESET_AFTER_DAYS
+        valores = {
+            User.streak_last_date: today,
+            # Expresión SQL, no un número calculado en Python: el incremento lo
+            # hace la base sobre el valor que tenga la fila en ese momento.
+            User.streak_days: 1 if se_cortó else User.streak_days + 1,
+        }
+        if se_cortó:
             # Quien pierde la racha y vuelve a llegar a un hito merece la
             # felicitación de nuevo (ver lifecycle_emails.due_streak_tier_emails).
-            user.streak_email_sent_tier = None
-        user.streak_days = (user.streak_days or 0) + 1
-        user.streak_last_date = today
-        streak_counted_today = True
-    db.commit()
+            valores[User.streak_email_sent_tier] = None
+        filas = (
+            db.query(User)
+            .filter(
+                User.id == user_id,
+                or_(User.streak_last_date.is_(None), User.streak_last_date != today),
+            )
+            .update(valores, synchronize_session=False)
+        )
+        streak_counted_today = filas == 1
+        # El UPDATE no tocó el objeto en memoria: se expira para que lo de abajo
+        # lea el valor que quedó en la base y no el de antes.
+        db.expire(user, ["streak_days", "streak_last_date", "streak_email_sent_tier"])
 
     si = streak_info(user.streak_days if user else 0)
 
@@ -1981,7 +2014,14 @@ def get_summary_db(
     )
     if pedido is not None and user and user.summary_ask_last_session != session_number:
         user.summary_ask_last_session = session_number
-        db.commit()
+
+    # UN solo commit para las tres cosas que este resumen escribe: el cierre de
+    # la sesión, el día de racha y el pedido. Antes había dos, y en el hueco
+    # entre ellos un request que se muere dejaba la sesión cerrada y la racha
+    # contada pero el pedido sin anotar — o sea, el pedido saliendo dos veces
+    # seguidas, que es exactamente lo que `summary_ask_last_session` existe para
+    # impedir.
+    db.commit()
 
     return {
         "session_id": str(session_id_db),

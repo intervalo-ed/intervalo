@@ -117,6 +117,13 @@ r1 = st.get_summary_db(s1, 1, db)
 check("el resumen trae el campo del empuje", "xp_from_boost" in r1)
 check("y viene en cero", r1["xp_from_boost"] == 0, f"(dio {r1['xp_from_boost']})")
 
+# El número del subtítulo ("completaste tu sesión número n") cuenta las sesiones
+# terminadas incluyéndose a sí misma. Se afirma acá porque también es la cuenta
+# con la que se mide la cadencia de los pedidos: uno abajo, y el café y el
+# WhatsApp salen una sesión corridos para siempre.
+check("la primera sesión terminada es la número 1", r1["session_number"] == 1,
+      f"(dio {r1['session_number']})")
+
 print("2. con empuje, el extra se reparte y NO se le carga todo a la racha")
 # Racha alta para que los dos multiplicadores estén en juego a la vez: es el
 # único caso donde el número mezclado se puede confundir con el de la racha.

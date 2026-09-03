@@ -110,6 +110,32 @@ sin_horario = User(id=2, clerk_user_id="c2", email="b@b.com", name="B")
 check("quien no eligió horario no recibe avisos de evento",
       not push_store.en_horario_de_avisos(sin_horario, a_las(9)))
 
+# La ventana tiene que DAR LA VUELTA a medianoche. Con `elegida <= hora <
+# elegida + 2`, la franja de las 23 pedía `23 <= hora < 25`: la hora 0 no
+# entraba nunca y quien eligió el horario más tarde tenía una hora de ventana en
+# vez de dos. El caso de arriba ("a las 23, no") pasaba por otro motivo — la
+# persona tiene la franja de las 9 —, así que no cubría esto.
+nocturno = User(id=98, clerk_user_id="c98", email="n@n.com", name="N",
+                notify_enabled=True, notify_time="23:00",
+                notify_timezone="America/Argentina/Buenos_Aires")
+check("a las 23 con franja de las 23, sí",
+      push_store.en_horario_de_avisos(nocturno, a_las(23)))
+check("y a medianoche todavía sí, que es la segunda hora de su ventana",
+      push_store.en_horario_de_avisos(nocturno, a_las(0)))
+check("a la 1 ya no", not push_store.en_horario_de_avisos(nocturno, a_las(1)))
+check("y a las 22, tampoco todavía",
+      not push_store.en_horario_de_avisos(nocturno, a_las(22)))
+
+# Un `notify_time` ilegible no puede tirar un 500 en el tick: el endpoint valida
+# el formato, pero el dato es viejo y puede venir de antes.
+roto = User(id=97, clerk_user_id="c97", email="r@r.com", name="R",
+            notify_enabled=True, notify_time="tarde", notify_timezone="UTC")
+try:
+    push_store.en_horario_de_avisos(roto, a_las(9))
+    check("una hora ilegible no explota", True)
+except Exception as e:  # noqa: BLE001
+    check("una hora ilegible no explota", False, f"-> {type(e).__name__}")
+
 print("5. el copy elige por el HECHO, no al azar")
 v = copy.choose_event_variant("cafecito", {"donor_name": "Nico", "university": "UBA",
                                            "boost_multiplier": 1.4})
@@ -136,6 +162,27 @@ check("y no aparece ninguna arroba en el cuerpo",
 
 v = copy.choose_event_variant("cafecito", {"boost_multiplier": 1.3})
 check("sin universidad es el empuje global", v.key == "cafecito_global")
+
+# La variante de "se está terminando" era CÓDIGO MUERTO: estaba última y las
+# tres de arriba cubren todos los casos entre ellas, así que no se alcanzaba
+# nunca. Y pedía `studied_today` con default True, o sea que tampoco se activaba
+# cuando nadie lo ponía en el contexto — y nadie lo ponía.
+recien = {"donor_name": "Nico", "university": "UBA", "boost_multiplier": 1.4,
+          "boost_hours_left": 20, "studied_today": False}
+check("cuando el empuje recién arranca importa QUIÉN lo invitó",
+      copy.choose_event_variant("cafecito", recien).key == "cafecito_named")
+
+terminando = {**recien, "boost_hours_left": 3}
+v = copy.choose_event_variant("cafecito", terminando)
+check("con pocas horas y sin haber estudiado, avisa que se termina",
+      v.key == "cafecito_ending", f"(dio {v.key})")
+cuerpo_fin = copy.render("cafecito", v, terminando)[1]
+check("y dice cuántas horas quedan", "3 h" in cuerpo_fin, f"({cuerpo_fin!r})")
+
+check("pero si ya estudió hoy, no se le insiste",
+      copy.choose_event_variant(
+          "cafecito", {**terminando, "studied_today": True}
+      ).key == "cafecito_named")
 
 v = copy.choose_event_variant("recruit", {"recruit_count": 3, "recruit_xp": 40})
 check("varios reclutas en un día se cuentan juntos", v.key == "recruit_multi")
