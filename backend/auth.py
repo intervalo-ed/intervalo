@@ -299,10 +299,19 @@ def get_or_create_user_from_clerk(
             if user:
                 return _link_existing_by_email(db, user, claims.sub, name)
 
-            user = User(clerk_user_id=claims.sub, email=email, name=name)
+            user = User(
+                clerk_user_id=claims.sub,
+                email=email,
+                name=name,
+                # El candidato se elige ANTES de escribir nada, y no adentro de
+                # `_registrar_handle` después del flush: elegirlo hace varios
+                # SELECT, y hacerlos con la transacción de escritura ya abierta
+                # deja el candado tomado todo ese rato. En Postgres se nota como
+                # contención; en SQLite, directamente como "database is locked".
+                username=assign_unique_username(db, name),
+            )
             db.add(user)
-            # El flush primero: el registro necesita el `id` de la fila, y el @
-            # lo baja él a `users.username` (handles._sincronizar_cache).
+            # El flush antes de registrar: la fila de `handles` necesita el `id`.
             db.flush()
             _registrar_handle(db, user)
             db.commit()
