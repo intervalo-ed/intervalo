@@ -40,11 +40,42 @@ La racha cuenta **días distintos con ≥1 sesión completada**, no necesariamen
 | 9 | ×1.4 |
 | 18 | ×1.6 |
 | 30 | ×1.8 |
-| 45 | ×2.0 (máximo) |
+| 45 | ×2.0 (máximo de la racha) |
 
 Se resetea a 0 tras 30 días consecutivos sin actividad (`STREAK_RESET_AFTER_DAYS`).
 
-`Answer.xp_base` (antes del multiplicador) vs `Answer.xp_earned` (después) — la diferencia es lo que el resumen de sesión muestra como "bonus por tu racha".
+### Multiplicador de cafecito, y el tope del producto (`MAX_TOTAL_MULTIPLIER`)
+
+La racha ya no es el único multiplicador. Un cafecito invitado en el minijuego
+multiplica el XP de **toda una universidad** durante 24 h (48 h al tope de una
+donación), y desde el cruce eso vale también en Intervalo clásico:
+`backend/xp_boost.py` traduce «de qué universidad es esta persona» al vocabulario
+que `game/boosts.py` ya entiende y le pregunta a él. No hay una segunda mecánica
+ni una segunda tabla.
+
+Los dos multiplicadores se aplican **juntos, redondeando una sola vez sobre el
+producto** (`effective_multiplier`), con un tope propio de **×4,0**
+(`MAX_TOTAL_MULTIPLIER`), no el ×3,0 del juego. El tope es 4,0 y no 3,0 porque la
+racha sola llega a ×2,0 y **una** donación sola llega a ×2,0: con tope 3,0 lo
+alcanzaría una sola persona con racha alta y su propia donación, y
+`game/boosts.py` promete con todas las letras lo contrario — «el ×3 no se compra,
+se junta».
+
+**El candado antimudanza** (`enrollments.university_set_at`,
+`game_players.university_set_at`) es lo que sostiene la rivalidad: mudarse a la
+universidad impulsada después de que arrancó el empuje no lo cobra. Sin él, cada
+empuje se llenaría de gente que se muda por un día.
+
+### Cómo se reparte el extra
+
+`Answer.xp_base` es antes de los multiplicadores y `Answer.xp_earned` después. La
+diferencia **no** es "el bonus por tu racha": es la suma de los dos
+multiplicadores. Lo que puso el cafecito se guarda aparte, en
+`Answer.xp_from_boost`, porque no se puede reconstruir después — solo sobrevive el
+total. El resumen de sesión devuelve las dos partes por separado
+(`streak.xp_bonus` y `xp_from_boost`), y las push de universidad descuentan el
+empuje de sus ventanas semanales: el ranking acumulado sí lo incluye, pero
+meterlo en una ventana temporal lo hace competir contra semanas que no lo tenían.
 
 ## Belts y graduación
 
@@ -53,6 +84,28 @@ Ver [domain-model.md](domain-model.md#maestría-y-graduación-algorithmgraduatio
 ## Ranking (leaderboard) — el objetivo de largo plazo
 
 Ranking global y **por universidad** (`web/src/lib/nav`/`leaderboard/UseUniversityLeaderboard.ts`), ordenado por `User.total_xp`. `User.notify_last_rank` guarda el último rank global conocido del usuario para detectar "te pasaron en el ranking" y disparar el push correspondiente (categoría `ranking`, `notification_copy.py::_ranking_named`/`_ranking_generic`).
+
+**Quién aparece**: `main.VISIBLE_EN_RANKING` es `total_xp > referral_xp_earned`, o
+sea «resolvió algo acá». No alcanza con tener XP: desde los reclutas cruzados, la
+XP la puede subir un recluta sin que el reclutador haya respondido nunca un
+ejercicio. El gemelo del minijuego es `game/ranking.py :: RESOLVIO_ACA`
+(`exercises_correct > 0`), y los dos existen por el mismo motivo. Los lugares que
+filtran tienen que moverse juntos: si el que cuenta el total no filtra igual que
+el que arma la lista, los números de la cabecera dejan de cuadrar con las filas.
+
+**Una tercera vista: Reclutas.** Quien entra por el link de alguien (`?r=<@>`) le
+paga un **10%** (`referrals.SHARE_PERCENT`) de lo que gane, en la moneda que gane
+— XP de clásico a `users.total_xp`, XP de juego a `game_players.xp`, sin
+cruzarse—. La XP se **acuña**: al recluta no se le descuenta nada. Un solo nivel:
+los reclutas de tus reclutas no pagan. La contabilidad va en centésimas
+(`referral_pending`) porque el 10% de 25 XP son 2,5 y redondear cada pago hacia
+abajo convertiría el 10% en 8%.
+
+**El @ es uno solo en todo Intervalo** (`backend/handles.py`): una tabla
+`handles` que es la autoridad, con `users.username` y `game_players.alias` como
+caché desnormalizado para que el ranking no tenga que joinear en cada request. Un
+@ soltado **no se libera**: queda `retired` y sigue resolviendo los links `?r=`
+que esa persona repartió.
 
 Categorías de notificación atadas al ranking/universidad (`backend/notification_copy.py`, pesos sobre 1.0):
 - `university` (0.20): XP semanal aportado a la universidad, top contribuyente, brecha contra universidad rival.
@@ -66,4 +119,4 @@ Categorías de notificación atadas al ranking/universidad (`backend/notificatio
 
 Track de desbloqueo append-only por carrera (`emoji_tree.py`, `User.emoji_path`/`emoji_worn`), mostrado/vestido en el leaderboard — capa de ownership (Core Drive 4 de Octalysis) distinta de XP/belts, pensada como otro insumo de estatus social visible en el ranking, no como sistema de recompensa aislado.
 
-Última verificación: 2026-08-11
+Última verificación: 2026-09-03

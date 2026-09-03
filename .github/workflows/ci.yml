@@ -1,0 +1,109 @@
+# La suite, corrida sola en cada PR.
+#
+# Hasta acá no había CI de ninguna clase: treinta y tres checks de backend y
+# cinco de front que se corrían a mano, de a uno, y solo si quien revisaba se
+# acordaba. En una serie de seis PRs que agregó seis checks, nadie los corrió
+# todos juntos hasta que se hizo una auditoría — y esa auditoría encontró un
+# endpoint que devolvía 500 con un check verde al lado, porque el check llamaba
+# a la función y salteaba FastAPI.
+#
+# Dos jobs y no uno: el backend no necesita bun y el front no necesita Python,
+# así que corren en paralelo y el que falla se identifica sin leer un log mezclado.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+# Un PR que recibe tres pushes seguidos no necesita tres corridas: la última es
+# la que dice algo. Cancelar las anteriores es lo que hace que el CI conteste en
+# el orden en que se trabaja.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend:
+    name: backend
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          # La que se usa en desarrollo. El repo no fija versión en
+          # ningún lado, así que si Railway se mueve hay que mover esto también.
+          python-version: "3.13"
+          cache: pip
+
+      - name: Instalar dependencias
+        # El requirements de la RAÍZ es el que instala el build de Railway (ver
+        # el comentario de tzdata ahí), así que es el que hay que reproducir.
+        # Hoy es idéntico a backend/requirements.txt, que es lo que los dos
+        # archivos prometen ("mantener los dos en espejo").
+        run: pip install -r requirements.txt
+
+      - name: Suite de checks
+        # Un solo comando, y la lista de qué corre vive en el script: agregar un
+        # check no toca este archivo. Los scripts que miran la base REAL están
+        # aparte a propósito (backend/scripts/diag/) y NO entran acá.
+        run: python backend/scripts/run_checks.py
+
+  front:
+    name: front
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+
+      - name: Instalar dependencias
+        working-directory: web
+        run: bun install --frozen-lockfile
+
+      - name: Typecheck
+        working-directory: web
+        run: bunx tsc --noEmit
+
+      - name: Checks propios
+        working-directory: web
+        # Los cuatro que no necesitan navegador ni servidor. `check:latex` estuvo
+        # sin correr desde que se escribió: se agregó el script y el `bun run`
+        # correspondiente, y nada lo llamaba.
+        run: |
+          bun run check:xp
+          bun run check:reclutas
+          bun run check:latex
+          bun run check:restante
+
+      - name: Build
+        working-directory: web
+        # El build corre `sync:all`, que regenera el catálogo, el árbol de emojis
+        # y los tipos de la API desde `backend/openapi.json`. Si eso deja
+        # archivos distintos de los commiteados, el repo tiene generados viejos —
+        # y el paso de abajo es el que lo dice, porque un build verde con tipos
+        # viejos es exactamente el fallo que no se ve.
+        run: bun run build
+
+      - name: Los archivos generados están al día
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "El build cambió archivos que están commiteados:"
+            git status --porcelain
+            echo
+            echo "Correr en local y commitear el resultado:"
+            echo "  cd web && bun run build"
+            exit 1
+          fi
+
+      # El lint va último y NO frena el merge: hay 31 problemas preexistentes
+      # —refs en render, setState en efectos— que son reales pero que arreglar es
+      # su propio trabajo, y bloquear con eso convierte al CI en algo que se
+      # ignora. Queda a la vista para que el número no suba sin que nadie lo note.
+      - name: Lint (informativo)
+        working-directory: web
+        continue-on-error: true
+        run: bun run lint

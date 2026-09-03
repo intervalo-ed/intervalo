@@ -7,7 +7,7 @@ desplegar, mirar los datos y recién después dar vuelta los escritores.
 
 Y NO decide ganadores. Si un mismo string es de dos personas distintas, el
 backfill deja la primera fila y saltea la segunda en silencio; quién se queda
-con qué lo resuelve `scripts/reconcile_handles.py`, que renombra gente y por eso
+con qué lo resuelve `scripts/diag/reconcile_handles.py`, que renombra gente y por eso
 no puede vivir acá: Alembic corre solo en cada deploy de Railway, y un
 renombrado que te sorprende a las 3 AM no es algo para automatizar.
 

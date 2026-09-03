@@ -22,12 +22,12 @@ distintas, y tres divergencias. O sea que esto no le saca el @ a nadie para
 dárselo a otro; solo unifica el nombre de tres personas consigo mismas.
 
 Uso:
-    python backend/scripts/reconcile_handles.py            # en seco, no escribe
-    python backend/scripts/reconcile_handles.py --aplicar  # escribe
+    python backend/scripts/diag/reconcile_handles.py            # en seco, no escribe
+    python backend/scripts/diag/reconcile_handles.py --aplicar  # escribe
 
 En producción:
     railway ssh --service backend
-    python backend/scripts/reconcile_handles.py
+    python backend/scripts/diag/reconcile_handles.py
 """
 import argparse
 import os
@@ -36,7 +36,7 @@ from pathlib import Path
 
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-BACKEND = Path(__file__).resolve().parent.parent
+BACKEND = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(BACKEND))
 sys.path.insert(0, str(BACKEND.parent))
 
