@@ -221,6 +221,19 @@ def vincular(db: Session, *, user_id: int, player_id: int) -> None:
     del_usuario = activo_de_usuario(db, user_id)
 
     if del_jugador is not None:
+        # El username de clásico se retira, pero solo se puede retirar lo que
+        # existe: si nunca entró al registro —el alta lo escribía derecho a
+        # `users.username`— no hay fila que cambiarle el estado, y
+        # `_sincronizar_cache` lo pisa con el alias del juego. Ahí el string
+        # queda LIBRE, y con él los links `?r=` que esa persona repartió.
+        #
+        # Reservarlo es exactamente lo que `reservar_retirado` existe para
+        # hacer, y va antes de reclamar: después, la caché ya se pisó y no
+        # queda de dónde sacar el nombre viejo.
+        if del_usuario is None:
+            u = db.get(User, user_id)
+            if u is not None and u.username:
+                reservar_retirado(db, u.username, user_id=user_id)
         reclamar(db, del_jugador.handle, user_id=user_id, player_id=player_id)
         return
     if del_usuario is not None:

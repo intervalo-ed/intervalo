@@ -170,6 +170,10 @@ class EmailRunResponse(BaseModel):
     winback_sent: int
     streak_tier_sent: int
     report_thanks_sent: int
+    # Los dos mails del cruce. Sin declararlos acá, FastAPI los descartaba del
+    # response y el log del worker decía que no se mandó ninguno.
+    cafecito_efecto_sent: int = 0
+    reclutas_sent: int = 0
 
 
 class SweepAbandonedResponse(BaseModel):

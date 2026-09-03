@@ -3786,6 +3786,16 @@
           "report_thanks_sent": {
             "type": "integer",
             "title": "Report Thanks Sent"
+          },
+          "cafecito_efecto_sent": {
+            "type": "integer",
+            "title": "Cafecito Efecto Sent",
+            "default": 0
+          },
+          "reclutas_sent": {
+            "type": "integer",
+            "title": "Reclutas Sent",
+            "default": 0
           }
         },
         "type": "object",

@@ -493,6 +493,13 @@ def update_profile(
             )
         except handles.HandleTomado:
             raise HTTPException(status_code=409, detail="Ese usuario ya está en uso.")
+        except IntegrityError:
+            # El chequeo de arriba es TOCTOU: dos personas pidiendo el mismo @ a
+            # la vez llegan las dos hasta acá. La carrera se levanta ACÁ y no en
+            # el commit de más abajo porque `reclamar` hace `flush()` adentro
+            # (ver handles.py), y sin este except el conflicto salía 500.
+            db.rollback()
+            raise HTTPException(status_code=409, detail="Ese usuario ya está en uso.")
 
     if body.display_name is not None:
         current_user.display_name = body.display_name.strip() or None
@@ -500,9 +507,8 @@ def update_profile(
     try:
         db.commit()
     except IntegrityError:
-        # El chequeo de `taken` de arriba es TOCTOU: dos personas pidiendo el
-        # mismo handle a la vez llegan las dos hasta acá. Es un conflicto de
-        # usuario, no un error del servidor.
+        # Red de contención: hoy lo único que puede chocar es el @, y ya se
+        # resolvió arriba. Queda por si mañana este endpoint escribe algo más.
         db.rollback()
         raise HTTPException(status_code=409, detail="Ese usuario ya está en uso.")
     db.refresh(current_user)

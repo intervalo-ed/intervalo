@@ -102,6 +102,71 @@ check("va como tabla y no como flex, que los clientes de correo no soportan",
       "<table" in mail["html"])
 check("y el botón dice Ver", ">Ver<" in mail["html"])
 
+print("6. el PRODUCTOR: quién recibe el resumen, y con qué números")
+# Las secciones de arriba prueban el renderizado con datos escritos a mano. Esto
+# prueba quién los arma, que es donde estaba el bug: el mail decía «esta semana»
+# con el acumulado histórico, y la guarda de «sin movimiento no se manda» nunca
+# se activaba porque `referral_xp_given > 0` es verdadero para siempre.
+from models import Course, Enrollment, GamePlayer  # noqa: E402
+
+db.add(Course(id=1, slug="analisis", name="Análisis"))
+db.commit()
+db.add(GamePlayer(id=7, alias="ana", user_id=1))
+db.commit()
+db.add(User(id=2, clerk_user_id="c2", email="b@b.com", name="Tomi",
+            username="tomi", referred_by_player_id=7, referral_xp_given=40))
+db.add(User(id=3, clerk_user_id="c3", email="c@c.com", name="Lu",
+            username="lu", referred_by_player_id=7, referral_xp_given=15))
+db.commit()
+db.add(Enrollment(user_id=2, course_id=1, university="UTN"))
+db.add(Enrollment(user_id=3, course_id=1, university="UBA"))
+db.commit()
+
+pendientes = le.due_reclutas_semanal_emails(db)
+check("con XP nueva, la persona entra", len(pendientes) == 1, f"(dio {len(pendientes)})")
+r = pendientes[0]
+check("el total es la suma de lo nuevo", r.datos["xp_semana"] == 55,
+      f"(dio {r.datos['xp_semana']})")
+check("las filas van de mayor a menor", [f[2] for f in r.datos["filas"]] == [40, 15],
+      f"(dio {[f[2] for f in r.datos['filas']]})")
+# La universidad venía SIEMPRE vacía: el productor la armaba como `""` y el mail
+# dibujaba una columna en blanco.
+check("y cada fila lleva su universidad",
+      [f[1] for f in r.datos["filas"]] == ["UTN", "UBA"],
+      f"(dio {[f[1] for f in r.datos['filas']]})")
+
+print("7. la marca corta la semana: sin XP nueva no se manda otra vez")
+antes = len(enviados)
+resumen = le.run_lifecycle_emails(db)
+check("la corrida manda uno", resumen["reclutas_sent"] == 1,
+      f"(dio {resumen['reclutas_sent']})")
+check("y salió de verdad", len(enviados) == antes + 1)
+check("las marcas quedaron paradas en lo ya contado",
+      db.get(User, 2).referral_xp_email_seen == 40
+      and db.get(User, 3).referral_xp_email_seen == 15)
+
+# Una semana después, sin XP nueva. Es la aserción que faltaba: la ventana de
+# `reclutas_email_sent_on` tapaba el bug, así que hay que preguntar con la fecha
+# ya corrida.
+from datetime import datetime, timedelta  # noqa: E402
+
+db.get(User, 1).reclutas_email_sent_on = (
+    datetime.utcnow().date() - timedelta(days=8)
+)
+db.commit()
+check("sin movimiento, la semana siguiente no manda nada",
+      le.due_reclutas_semanal_emails(db) == [])
+
+db.get(User, 2).referral_xp_given = 65
+db.commit()
+otra = le.due_reclutas_semanal_emails(db)
+check("pero con 25 XP más sí vuelve", len(otra) == 1)
+if otra:
+    check("y cuenta 25, no 80", otra[0].datos["xp_semana"] == 25,
+          f"(dio {otra[0].datos['xp_semana']})")
+    check("con una sola fila, la que se movió",
+          len(otra[0].datos["filas"]) == 1)
+
 db.close()
 
 print()

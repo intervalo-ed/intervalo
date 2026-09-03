@@ -152,7 +152,14 @@ print("7. la tubería completa: de un empuje real a un aviso reclamado")
 # único que falla si el cupo y el copy están bien pero nadie los llama.
 from datetime import timedelta  # noqa: E402
 
-from models import Course, Enrollment, GameBoost, GamePlayer, PushSubscription  # noqa: E402
+from models import (  # noqa: E402
+    Course,
+    Enrollment,
+    GameBoost,
+    GamePlayer,
+    NotificationSend,
+    PushSubscription,
+)
 
 from game import boosts  # noqa: E402
 
@@ -189,10 +196,102 @@ if avisos:
 otra_vez = push_store.due_event_notifications(db, force=True)
 check("y no se repite en la corrida siguiente", otra_vez == [], f"(dio {len(otra_vez)})")
 
-# Los pedidos del RESUMEN (el cafecito y el de reclutar) se probaban acá cuando
-# eran una expresión suelta adentro de `get_summary_db`. Ahora viven en
-# summary_asks.py y tienen su propio check, que además cubre la alternancia y la
-# separación entre los dos: backend/scripts/check_pedidos_del_resumen.py.
+print("8. el aviso de reclutas cuenta lo NUEVO, no lo de toda la vida")
+# El bug que esto ataja: `referral_xp_given` es acumulativo y no baja nunca, así
+# que preguntar por el total decía «hoy te dejaron N XP» con el N de siempre, y
+# volvía a decirlo mañana, y pasado. Lo que se cuenta es la diferencia contra la
+# marca, que se mueve recién cuando el aviso sale.
+reclutador = User(
+    id=2, clerk_user_id="c2", email="b@b.com", name="B",
+    notify_enabled=True, notify_time="09:00", notify_timezone="UTC",
+)
+db.add(reclutador)
+db.commit()
+db.add(GamePlayer(id=9, alias="reclutador", user_id=2))
+db.add(
+    PushSubscription(
+        user_id=2, course_id=1, endpoint="https://push.test/2", p256dh="k", auth="a"
+    )
+)
+db.commit()
+
+recluta = User(
+    id=3, clerk_user_id="c3", email="c@c.com", name="C", username="tomi",
+    referred_by_player_id=9, referral_xp_given=4,
+)
+db.add(recluta)
+db.commit()
+
+sin_umbral = [a for a in push_store.due_event_notifications(db, force=True)
+              if a["user_id"] == 2]
+check("con 4 XP no alcanza el umbral, no se avisa", sin_umbral == [])
+
+recluta.referral_xp_given = 30
+db.commit()
+avisos2 = [a for a in push_store.due_event_notifications(db, force=True)
+           if a["user_id"] == 2]
+check("con 30 XP sí sale el aviso", len(avisos2) == 1, f"(dio {len(avisos2)})")
+if avisos2:
+    check("y dice las 30, no otra cosa", "30 XP" in avisos2[0]["body"],
+          f"({avisos2[0]['body']!r})")
+check(
+    "la marca quedó parada en lo ya contado",
+    db.get(User, 3).referral_xp_push_seen == 30,
+    f"(dio {db.get(User, 3).referral_xp_push_seen})",
+)
+
+# Al día siguiente, sin XP nueva: el aviso NO puede volver a salir. Esta es la
+# aserción que faltaba — la idempotencia por día tapaba el bug, así que hay que
+# preguntar con el día ya cambiado.
+def pasa_un_dia() -> None:
+    """Mueve el reloj, no la historia: el cupo se reinicia y los envíos de ayer
+    quedan fuera de la ventana de 24 h, pero las filas siguen ahí. Borrarlas
+    haría que el copy de la PRIMERA vez volviera a salir siempre."""
+    reclutador.notify_events_on = None
+    reclutador.notify_events_count = 0
+    for envio in db.query(NotificationSend).all():
+        envio.sent_at = envio.sent_at - timedelta(days=1)
+    db.commit()
+
+
+pasa_un_dia()
+manana = [a for a in push_store.due_event_notifications(db, force=True)
+          if a["user_id"] == 2]
+check("mañana, sin XP nueva, no se repite", manana == [], f"(dio {len(manana)})")
+
+recluta.referral_xp_given = 55
+db.commit()
+tercera = [a for a in push_store.due_event_notifications(db, force=True)
+           if a["user_id"] == 2]
+check("pero con 25 XP más sí vuelve a salir", len(tercera) == 1)
+if tercera:
+    check("y cuenta 25, no 55", "25 XP" in tercera[0]["body"],
+          f"({tercera[0]['body']!r})")
+    # "Reclutaste a @X" se puede decir UNA vez. Antes salía de una bandera que se
+    # prendía en todos los avisos de un solo recluta, así que la décima vez
+    # también anunciaba el reclutamiento como si fuera nuevo.
+    check("y ya no lo anuncia como el primero",
+          not tercera[0]["body"].startswith("Reclutaste"),
+          f"({tercera[0]['body']!r})")
+
+print("9. la respuesta pasa por el response_model del endpoint")
+# El check llamaba a `push_store` directo y saltaba FastAPI, así que un payload
+# que el `response_model` rechaza pasaba verde acá y tiraba 500 en producción en
+# cuanto hubiera un solo aviso. Validar contra el schema es la única forma de
+# que el contrato del worker esté cubierto.
+from schemas import DueNotification  # noqa: E402
+
+pasa_un_dia()
+recluta.referral_xp_given = 200
+db.commit()
+crudos = push_store.due_event_notifications(db, force=True)
+check("hay algo que validar", len(crudos) >= 1, f"(dio {len(crudos)})")
+try:
+    [DueNotification.model_validate(a) for a in crudos]
+    valida, motivo = True, ""
+except Exception as e:  # noqa: BLE001
+    valida, motivo = False, str(e).splitlines()[0]
+check("cada aviso valida contra DueNotification", valida, motivo)
 
 db.close()
 

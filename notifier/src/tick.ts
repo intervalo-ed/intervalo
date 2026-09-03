@@ -99,17 +99,22 @@ const sendPush = (
     }),
   )
 
-/** One scheduler tick: fetch due users, send pushes, prune dead subscriptions. */
-export const runTick = (
+/** Una tanda de pushes: pide los que corresponde mandar, los manda, reporta la
+ * entrega y limpia las suscripciones muertas.
+ *
+ * El endpoint es un parámetro porque hay dos que devuelven exactamente la misma
+ * forma: `/due` (la notificación del horario elegido) y `/events` (los avisos de
+ * cafecito y reclutas). Lo que cambia es POR QUÉ salen, y eso ya lo decidió el
+ * backend; de este lado no hay ninguna diferencia que justifique dos copias del
+ * envío, el reporte de entrega y el prune. */
+const correrTanda = (
   config: NotifierConfig,
-  options: { force?: boolean } = {},
+  { ruta, etiqueta, force }: { ruta: string; etiqueta: string; force?: boolean },
 ): Effect.Effect<void, Error, HttpClient.HttpClient> =>
   Effect.gen(function* () {
     const client = yield* HttpClient.HttpClient
 
-    const url = `${config.apiBaseUrl}/internal/notifications/due${
-      options.force ? "?force=true" : ""
-    }`
+    const url = `${config.apiBaseUrl}${ruta}${force ? "?force=true" : ""}`
     const dueRes = yield* client
       .execute(
         HttpClientRequest.get(url).pipe(
@@ -128,7 +133,7 @@ export const runTick = (
       })),
     )
     yield* Console.log(
-      `tick: ${users.length} user(s) due, ${jobs.length} push(es) to send`,
+      `${etiqueta}: ${users.length} user(s) due, ${jobs.length} push(es) to send`,
     )
     if (jobs.length === 0) return
 
@@ -178,10 +183,37 @@ export const runTick = (
     }
   }).pipe(Effect.mapError((e) => (e instanceof Error ? e : new Error(String(e)))))
 
+/** La notificación diaria: sale porque llegó el horario que la persona eligió. */
+export const runTick = (
+  config: NotifierConfig,
+  options: { force?: boolean } = {},
+): Effect.Effect<void, Error, HttpClient.HttpClient> =>
+  correrTanda(config, {
+    ruta: "/internal/notifications/due",
+    etiqueta: "tick",
+    force: options.force,
+  })
+
+/** Los avisos de evento: salen porque pasó algo —un cafecito para tu
+ * universidad, un recluta que empezó a generarte XP—. Tienen cupo propio y
+ * disparador propio, así que van en su propia tanda: un fallo del endpoint de
+ * eventos no puede dejar sin mandar la notificación del horario. */
+export const runEventTick = (
+  config: NotifierConfig,
+  options: { force?: boolean } = {},
+): Effect.Effect<void, Error, HttpClient.HttpClient> =>
+  correrTanda(config, {
+    ruta: "/internal/notifications/events",
+    etiqueta: "event tick",
+    force: options.force,
+  })
+
 interface EmailRunResult {
   bounce_sent: number
   winback_sent: number
   streak_tier_sent: number
+  cafecito_efecto_sent: number
+  reclutas_sent: number
 }
 
 /** One scheduler tick for lifecycle emails: the backend resolves recipients
@@ -201,7 +233,9 @@ export const runEmailTick = (
       .pipe(Effect.flatMap(HttpClientResponse.filterStatusOk))
     const result = (yield* res.json) as unknown as EmailRunResult
     yield* Console.log(
-      `email tick: ${result.bounce_sent} bounce, ${result.winback_sent} win-back, ${result.streak_tier_sent} streak-tier sent`,
+      `email tick: ${result.bounce_sent} bounce, ${result.winback_sent} win-back, ` +
+        `${result.streak_tier_sent} streak-tier, ${result.cafecito_efecto_sent} cafecito, ` +
+        `${result.reclutas_sent} reclutas sent`,
     )
   }).pipe(Effect.mapError((e) => (e instanceof Error ? e : new Error(String(e)))))
 

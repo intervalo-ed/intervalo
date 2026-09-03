@@ -211,6 +211,52 @@ db.rollback()
 check("reservar dos veces no duplica ni pisa",
       handles.reservar_retirado(db, "tlopreite", user_id=1) is None)
 
+print("el camino de runtime, no la función suelta")
+# Lo de arriba prueba que `reservar_retirado` haga lo suyo. Esto prueba que
+# ALGUIEN la llame: el bug no era que la función estuviera mal, era que el
+# único que la usaba fuera un script manual, así que en la app el username
+# viejo se liberaba igual.
+import auth  # noqa: E402
+
+# Un alta como la hace Clerk hoy: la fila se crea sin username y el registro se
+# lo pone. Antes se escribía `users.username` derecho y el @ quedaba invisible
+# para el minijuego, que le pregunta al registro y no a `users`.
+nueva = User(id=4, clerk_user_id="c4", email="d@d.com", name="Martina Paz")
+db.add(nueva)
+db.flush()
+auth._registrar_handle(db, nueva)
+db.commit()
+del_alta = handles.activo_de_usuario(db, 4)
+check("el alta deja el @ anotado en el registro", del_alta is not None)
+check("y la caché quedó igual que el registro",
+      del_alta and db.get(User, 4).username == del_alta.handle,
+      f"(registro {del_alta and del_alta.handle!r}, caché {db.get(User, 4).username!r})")
+check("y el minijuego lo ve tomado",
+      del_alta and handles.tomado(db, del_alta.handle))
+username_del_alta = del_alta.handle
+
+# Ahora se registra habiendo jugado antes de invitada: gana el @ del juego.
+db.add(GamePlayer(id=24, alias="derivadora77", user_id=4))
+db.commit()
+handles.reclamar(db, "derivadora77", player_id=24)
+db.commit()
+handles.vincular(db, user_id=4, player_id=24)
+db.commit()
+
+check("al unificar gana el @ del juego",
+      handles.activo_de_usuario(db, 4).handle == "derivadora77",
+      f"(dio {handles.activo_de_usuario(db, 4).handle!r})")
+viejo = handles.duenio(db, username_del_alta)
+check("y el username viejo NO quedó libre", viejo is not None)
+check("quedó retirado", viejo and viejo.status == "retired")
+check("y sigue siendo de la misma persona", viejo and viejo.user_id == 4)
+try:
+    handles.reclamar(db, username_del_alta, user_id=1)
+    check("nadie más se lo puede llevar", False)
+except handles.HandleTomado:
+    check("nadie más se lo puede llevar", True)
+db.rollback()
+
 db.close()
 
 print()

@@ -14,6 +14,7 @@ from __future__ import annotations
 import sys
 from datetime import date, datetime, time, timedelta
 from pathlib import Path
+from typing import NamedTuple
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from sqlalchemy import func
@@ -631,6 +632,24 @@ def _ya_avisado_hoy(db: DBSession, user_id: int, category: str, desde: datetime)
     )
 
 
+def _hubo_aviso_de(db: DBSession, user_id: int, category: str) -> bool:
+    """¿Alguna vez se le mandó un aviso de esta categoría? Sin ventana.
+
+    Hermano de `_ya_avisado_hoy`, y la diferencia es el punto: aquella pregunta
+    "¿ya se lo dije hoy?" para no repetir, esta pregunta "¿se lo dije alguna
+    vez?" para elegir el copy de la primera vez.
+    """
+    return (
+        db.query(NotificationSend.id)
+        .filter(
+            NotificationSend.user_id == user_id,
+            NotificationSend.category == category,
+        )
+        .first()
+        is not None
+    )
+
+
 def due_event_notifications(db: DBSession, force: bool = False) -> list[dict]:
     """Los avisos de EVENTO listos para mandar, ya reclamados.
 
@@ -677,7 +696,8 @@ def due_event_notifications(db: DBSession, force: bool = False) -> list[dict]:
         if not subs:
             continue
 
-        for category, context in _eventos_pendientes(db, user, desde):
+        for evento in _eventos_pendientes(db, user):
+            category, context = evento.categoria, evento.contexto
             if _ya_avisado_hoy(db, user.id, category, desde):
                 continue
             variant = copy_mod.choose_event_variant(category, context)
@@ -685,6 +705,14 @@ def due_event_notifications(db: DBSession, force: bool = False) -> list[dict]:
                 continue
             if not claim_event_slot(db, user, local_today):
                 break  # sin cupo: los eventos que queden esperan a mañana
+            # La marca se mueve en la misma transacción que decide mandar, igual
+            # que el cupo: si esto quedara para después del envío, un tick que se
+            # cae entre las dos cosas vuelve a contar la misma XP mañana.
+            if evento.reclutas_a_marcar:
+                db.query(User).filter(User.id.in_(evento.reclutas_a_marcar)).update(
+                    {User.referral_xp_push_seen: User.referral_xp_given},
+                    synchronize_session=False,
+                )
             title, body = copy_mod.render(category, variant, context)
             send = NotificationSend(
                 user_id=user.id,
@@ -699,11 +727,23 @@ def due_event_notifications(db: DBSession, force: bool = False) -> list[dict]:
             resultado.append(
                 {
                     "user_id": user.id,
-                    "send_id": send.id,
+                    # `pending_count` es de la notificación normal —es lo que le
+                    # permite decir "tenés N ítems para repasar"— y un aviso de
+                    # evento no tiene ninguno. Va igual, en cero, porque la
+                    # promesa del docstring es que el notifier no tenga que
+                    # distinguir las dos salidas: mientras la forma sea la misma,
+                    # el worker es uno solo y el `response_model` es uno solo.
+                    "pending_count": 0,
                     "title": title,
                     "body": body,
+                    "notification_id": send.id,
                     "subscriptions": [
-                        {"endpoint": sc.endpoint, "p256dh": sc.p256dh, "auth": sc.auth}
+                        {
+                            "id": sc.id,
+                            "endpoint": sc.endpoint,
+                            "p256dh": sc.p256dh,
+                            "auth": sc.auth,
+                        }
                         for sc in subs
                     ],
                 }
@@ -713,9 +753,20 @@ def due_event_notifications(db: DBSession, force: bool = False) -> list[dict]:
     return resultado
 
 
-def _eventos_pendientes(
-    db: DBSession, user: User, desde: datetime
-) -> list[tuple[str, dict]]:
+class EventoPendiente(NamedTuple):
+    """Un aviso que corresponde mandar, con lo que hay que anotar si sale.
+
+    `reclutas_a_marcar` son los ids de las filas cuya XP ya quedó contada en este
+    aviso. Van acá y no adentro del contexto porque el contexto es del copy: se
+    lo pasa a `render` y no tiene por qué llevar cosas que el copy no usa.
+    """
+
+    categoria: str
+    contexto: dict
+    reclutas_a_marcar: tuple[int, ...] = ()
+
+
+def _eventos_pendientes(db: DBSession, user: User) -> list[EventoPendiente]:
     """Qué le pasó a esta persona que valga la pena contarle. Prioridad primero.
 
     Reclutas antes que cafecito: lo primero es XP que YA ganaste, lo segundo una
@@ -725,30 +776,47 @@ def _eventos_pendientes(
     import xp_boost
     from models import GamePlayer
 
-    eventos: list[tuple[str, dict]] = []
+    eventos: list[EventoPendiente] = []
 
-    # ── Reclutas: alguien que trajiste generó XP y ya pasó el umbral ──────────
+    # ── Reclutas: alguien que trajiste generó XP NUEVA desde el último aviso ──
+    #
+    # Nueva, no acumulada. `referral_xp_given` no baja nunca, así que preguntar
+    # por el total decía "hoy te dejaron N XP" con el N de toda la vida, y volvía
+    # a decirlo mañana. La diferencia contra `referral_xp_push_seen` es lo único
+    # que pasó desde la última vez que se lo contamos.
     propio = db.query(GamePlayer).filter(GamePlayer.user_id == user.id).first()
     if propio is not None:
-        reclutas = (
+        se_movieron = (
             db.query(User)
             .filter(
                 User.referred_by_player_id == propio.id,
-                User.referral_xp_given >= MIN_XP_RECLUTA_PARA_AVISAR,
+                User.referral_xp_given > User.referral_xp_push_seen,
             )
             .all()
         )
-        if reclutas:
-            total = sum(r.referral_xp_given for r in reclutas)
+        nueva = sum(r.referral_xp_given - r.referral_xp_push_seen for r in se_movieron)
+        # El umbral es sobre lo NUEVO: interrumpir por 1 XP se lee como que la
+        # mecánica no sirve, y ese 1 XP sigue contando para el aviso siguiente
+        # porque la marca no se mueve hasta que el aviso sale.
+        if nueva >= MIN_XP_RECLUTA_PARA_AVISAR:
             ctx = {
-                "recruit_count": len(reclutas),
-                "recruit_xp": total,
-                "recruit_total": total,
+                "recruit_count": len(se_movieron),
+                "recruit_xp": nueva,
+                "recruit_total": sum(r.referral_xp_given for r in se_movieron),
             }
-            if len(reclutas) == 1:
-                ctx["recruit_alias"] = reclutas[0].username
-                ctx["recruit_first"] = True
-            eventos.append(("recruit", ctx))
+            if len(se_movieron) == 1:
+                ctx["recruit_alias"] = se_movieron[0].username
+                # "Reclutaste a @X" solo se puede decir una vez. Sale de si
+                # alguna vez le mandamos un aviso de esta categoría, que es lo
+                # único que sabe de verdad si ya se lo contamos; antes salía de
+                # una bandera que se prendía en TODOS los avisos de un solo
+                # recluta, así que la primera vez era también la décima.
+                ctx["recruit_first"] = not _hubo_aviso_de(db, user.id, "recruit")
+            eventos.append(
+                EventoPendiente(
+                    "recruit", ctx, tuple(r.id for r in se_movieron)
+                )
+            )
 
     # ── Cafecito: hay un empuje corriendo que le toca ─────────────────────────
     tramos = xp_boost.tramos_de_usuario(db, user.id)
@@ -761,7 +829,7 @@ def _eventos_pendientes(
         dirigido = next((t for t in tramos if t.university), None)
         elegido = dirigido or tramos[0]
         eventos.append(
-            (
+            EventoPendiente(
                 "cafecito",
                 {
                     "donor_name": elegido.donor_name if elegido.university else None,

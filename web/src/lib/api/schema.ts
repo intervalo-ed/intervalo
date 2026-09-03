@@ -1559,6 +1559,16 @@ export interface components {
             streak_tier_sent: number;
             /** Report Thanks Sent */
             report_thanks_sent: number;
+            /**
+             * Cafecito Efecto Sent
+             * @default 0
+             */
+            cafecito_efecto_sent: number;
+            /**
+             * Reclutas Sent
+             * @default 0
+             */
+            reclutas_sent: number;
         };
         /** EmojiStateResponse */
         EmojiStateResponse: {
