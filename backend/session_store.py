@@ -13,6 +13,7 @@ import random
 import sys
 from contextlib import contextmanager
 from dataclasses import dataclass, field
+from typing import NamedTuple
 from datetime import datetime, date, time, timedelta
 from pathlib import Path
 
@@ -1413,6 +1414,150 @@ def _unit_difficulty(
     return difficulty_multiplier(first_try_rate, samples)
 
 
+def _actualizar_elo(
+    db: DBSession,
+    *,
+    user: User | None,
+    course_id: int,
+    external_id: str | None,
+    unit_key: UnitKey,
+    mode: str,
+    first_try: bool,
+) -> None:
+    """Mueve el Elo jerárquico: la habilidad de la persona y la dificultad del
+    ejercicio y del ítem, las tres en la misma transacción que la respuesta.
+
+    Sale de `record_answer_db` porque es lo único de esas 300 líneas que no
+    comparte nada con el resto salvo `first_try`: no lee ni escribe el estado
+    SM-2, no toca la XP y no participa del feedback que se devuelve. Adentro era
+    un bloque de cuarenta líneas con tres niveles de anidado que había que
+    saltear para seguir el hilo de la función.
+
+    Con el mismo criterio P1 de todo el informe (quality_score == 5, no
+    is_correct). Solo en repaso real: práctica no tiene target de dificultad
+    propio y test es QA — mezclarlos ensucia la señal (ver
+    2026-08-26-motor-de-sesiones.md §0/§5/§9). Sin job y sin reentrenamiento.
+    """
+    if not (user and external_id) or mode in ("practice", "test"):
+        return
+    ex_row = db.query(Exercise).filter(
+        Exercise.course_id == course_id,
+        Exercise.external_id == external_id,
+    ).first()
+    if ex_row is None:
+        return
+    item_row = db.query(ItemDifficulty).filter(
+        ItemDifficulty.course_id == course_id,
+        ItemDifficulty.belt == unit_key.belt.value,
+        ItemDifficulty.topic == unit_key.topic,
+        ItemDifficulty.exercise_type == unit_key.exercise_type,
+    ).first()
+    if item_row is None:
+        item_row = ItemDifficulty(
+            course_id=course_id,
+            belt=unit_key.belt.value,
+            topic=unit_key.topic,
+            exercise_type=unit_key.exercise_type,
+        )
+        db.add(item_row)
+        db.flush()
+    new_theta, new_beta_x, new_beta_i = elo_update(
+        user.ability, ex_row.difficulty, item_row.difficulty,
+        user.ability_n, ex_row.difficulty_n, item_row.difficulty_n,
+        1 if first_try else 0,
+    )
+    user.ability = new_theta
+    user.ability_n += 1
+    ex_row.difficulty = new_beta_x
+    ex_row.difficulty_n += 1
+    item_row.difficulty = new_beta_i
+    item_row.difficulty_n += 1
+
+
+class PagoDeRespuesta(NamedTuple):
+    """Lo que paga una respuesta, repartido en sus partes.
+
+    `base` es antes de los multiplicadores, `earned` es lo que se acredita, y
+    `del_empuje` es cuánto de la diferencia la puso el cafecito y no la racha —
+    ese último no se puede reconstruir después, y es lo que se guarda en
+    `answers.xp_from_boost`.
+
+    `combo` es el contador de aciertos limpios seguidos DENTRO de la sesión, que
+    entra y sale porque el bonus depende de él y él de si esta respuesta fue al
+    primer intento. Devolverlo en vez de mutar el estado de la sesión adentro
+    deja la función entera decidible por sus argumentos.
+    """
+
+    base: int
+    earned: int
+    del_empuje: int
+    combo: int
+
+
+def _repartir_xp(
+    db: DBSession,
+    *,
+    user: User | None,
+    user_id: int,
+    course_id: int,
+    unit_key: UnitKey,
+    mode: str,
+    en_repaso: bool,
+    first_try: bool,
+    attempts: int,
+    combo: int,
+) -> PagoDeRespuesta:
+    """Cuánto paga esta respuesta, y de dónde sale cada parte.
+
+    Práctica paga plano y sin ajuste de dificultad (volumen ilimitado a elección
+    del usuario), pero sí escala con el multiplicador efectivo — su base es mucho
+    menor que la de Repaso, así que no se vuelve farmeable. Repaso paga por
+    intento, ponderado por la dificultad personal del ítem (solo 1er intento y
+    solo en fase de retención: en aprendizaje la base es menor y plana, ver
+    review_xp_base) y el mismo multiplicador.
+    """
+    streak_mult = streak_multiplier(user.streak_days if user else 0)
+    # El empuje de cafecito de su universidad, si hay alguno corriendo. Casi
+    # siempre no hay, y averiguarlo es gratis: `hay_empujes` memoriza el "no"
+    # unos segundos por proceso (ver xp_boost.multiplier_for_user).
+    boost_mult = xp_boost.multiplier_for_user(db, user_id)
+    # Los dos multiplicadores se aplican JUNTOS y redondeando una sola vez, y con
+    # un tope propio sobre el producto. Ver algorithm/xp.py :: MAX_TOTAL_MULTIPLIER
+    # para por qué el tope es 4,0 y no el ×3 del juego.
+    mult = effective_multiplier(streak_mult, boost_mult)
+
+    if mode == "practice":
+        xp_base, xp_earned = practice_xp_split(first_try, mult)
+        # Cuánto de lo cobrado lo puso el empuje y no la racha (ver
+        # algorithm/xp.py :: xp_from_boost).
+        return PagoDeRespuesta(
+            xp_base, xp_earned, xp_from_boost(xp_base, streak_mult, mult), combo
+        )
+
+    difficulty = (
+        _unit_difficulty(user_id, course_id, unit_key, db)
+        if first_try and en_repaso
+        else 1.0
+    )
+    xp_base, xp_earned = review_xp_split(
+        attempts, difficulty, mult, learning=not en_repaso
+    )
+    # Antes del bonus de combo, que es plano: si entrara en la cuenta, el empuje
+    # se llevaría el crédito de algo que no multiplicó.
+    del_empuje = xp_from_boost(xp_base, streak_mult, mult)
+
+    if not first_try:
+        return PagoDeRespuesta(xp_base, xp_earned, del_empuje, 0)
+
+    combo += 1
+    if combo % XP_STREAK_INTERVAL == 0:
+        # Bonus de combo interno a la sesión: no lo multiplica la racha diaria ni
+        # el empuje, así que va a la base (no cuenta como "extra").
+        xp_earned += XP_STREAK_BONUS
+        xp_base += XP_STREAK_BONUS
+    return PagoDeRespuesta(xp_base, xp_earned, del_empuje, combo)
+
+
 def record_answer_db(
     session_id_db: int,
     user_id: int,
@@ -1516,88 +1661,30 @@ def record_answer_db(
 
     user = db.query(User).filter(User.id == user_id).first()
 
-    # Elo jerárquico: habilidad del usuario y dificultad del ejercicio/ítem,
-    # con el mismo criterio P1 de todo el informe (quality_score == 5, no
-    # is_correct). Solo en repaso real: práctica no tiene target de dificultad
-    # propio y test es QA — mezclarlos ensucia la señal (ver
-    # 2026-08-26-motor-de-sesiones.md §0/§5/§9). Misma transacción que ya
-    # escribe la respuesta: sin job, sin reentrenamiento.
-    if user and resolved_external_id and db_session.mode not in ("practice", "test"):
-        ex_row = db.query(Exercise).filter(
-            Exercise.course_id == course_id,
-            Exercise.external_id == resolved_external_id,
-        ).first()
-        if ex_row is not None:
-            item_row = db.query(ItemDifficulty).filter(
-                ItemDifficulty.course_id == course_id,
-                ItemDifficulty.belt == unit_key.belt.value,
-                ItemDifficulty.topic == unit_key.topic,
-                ItemDifficulty.exercise_type == unit_key.exercise_type,
-            ).first()
-            if item_row is None:
-                item_row = ItemDifficulty(
-                    course_id=course_id,
-                    belt=unit_key.belt.value,
-                    topic=unit_key.topic,
-                    exercise_type=unit_key.exercise_type,
-                )
-                db.add(item_row)
-                db.flush()
-            new_theta, new_beta_x, new_beta_i = elo_update(
-                user.ability, ex_row.difficulty, item_row.difficulty,
-                user.ability_n, ex_row.difficulty_n, item_row.difficulty_n,
-                1 if first_try else 0,
-            )
-            user.ability = new_theta
-            user.ability_n += 1
-            ex_row.difficulty = new_beta_x
-            ex_row.difficulty_n += 1
-            item_row.difficulty = new_beta_i
-            item_row.difficulty_n += 1
+    _actualizar_elo(
+        db,
+        user=user,
+        course_id=course_id,
+        external_id=resolved_external_id,
+        unit_key=unit_key,
+        mode=db_session.mode,
+        first_try=first_try,
+    )
 
-    streak_mult = streak_multiplier(user.streak_days if user else 0)
-    # El empuje de cafecito de su universidad, si hay alguno corriendo. Casi
-    # siempre no hay, y averiguarlo es gratis: `hay_empujes` memoriza el "no"
-    # unos segundos por proceso (ver xp_boost.multiplier_for_user).
-    boost_mult = xp_boost.multiplier_for_user(db, user_id)
-    # Los dos multiplicadores se aplican JUNTOS y redondeando una sola vez, y con
-    # un tope propio sobre el producto. Ver algorithm/xp.py :: MAX_TOTAL_MULTIPLIER
-    # para por qué el tope es 4,0 y no el ×3 del juego.
-    mult = effective_multiplier(streak_mult, boost_mult)
-
-    # Práctica paga plano y sin ajuste de dificultad (volumen ilimitado a
-    # elección del usuario), pero sí escala con el multiplicador efectivo — su
-    # base es mucho menor que la de Repaso, así que no se vuelve farmeable.
-    # Repaso paga por intento, ponderado por la dificultad personal del ítem
-    # (solo 1er intento y solo en fase de retención: en aprendizaje la base es
-    # menor y plana, ver review_xp_base) y el mismo multiplicador.
-    if db_session.mode == "practice":
-        xp_base, xp_earned = practice_xp_split(first_try, mult)
-        # Cuánto de lo cobrado lo puso el empuje y no la racha (ver
-        # algorithm/xp.py :: xp_from_boost).
-        xp_del_empuje = xp_from_boost(xp_base, streak_mult, mult)
-    else:
-        in_review = current_state.phase == "review"
-        difficulty = (
-            _unit_difficulty(user_id, course_id, unit_key, db)
-            if first_try and in_review
-            else 1.0
-        )
-        xp_base, xp_earned = review_xp_split(
-            attempts, difficulty, mult, learning=not in_review
-        )
-        # Antes del bonus de combo, que es plano: si entrara en la cuenta, el
-        # empuje se llevaría el crédito de algo que no multiplicó.
-        xp_del_empuje = xp_from_boost(xp_base, streak_mult, mult)
-        if first_try:
-            state.streak += 1
-            if state.streak % XP_STREAK_INTERVAL == 0:
-                # Bonus de combo interno a la sesión: no lo multiplica la racha
-                # diaria ni el empuje, así que va a la base (no cuenta como "extra").
-                xp_earned += XP_STREAK_BONUS
-                xp_base += XP_STREAK_BONUS
-        else:
-            state.streak = 0
+    pago = _repartir_xp(
+        db,
+        user=user,
+        user_id=user_id,
+        course_id=course_id,
+        unit_key=unit_key,
+        mode=db_session.mode,
+        en_repaso=current_state.phase == "review",
+        first_try=first_try,
+        attempts=attempts,
+        combo=state.streak,
+    )
+    xp_base, xp_earned, xp_del_empuje = pago.base, pago.earned, pago.del_empuje
+    state.streak = pago.combo
 
     db_us = db.query(UnitState).filter(
         UnitState.user_id == user_id,
@@ -1788,8 +1875,11 @@ def get_user_progress_db(user_id: int, course_id: int, db: DBSession) -> dict:
     # cuando no hay, que es casi siempre: la tile solo cambia de cara cuando hay
     # algo que contar, y averiguar que no hay nada es gratis (`hay_empujes`
     # memoriza el "no" unos segundos por proceso).
-    tramos = xp_boost.tramos_de_usuario(db, user_id)
-    boost_mult = xp_boost.multiplier_for_user(db, user_id)
+    # Los dos de una sola llamada: preguntarlos separado resolvía dos veces el
+    # enrollment y dos veces el candado, y este endpoint lo pide el dashboard
+    # para los tres cursos en paralelo.
+    empuje = xp_boost.empuje_de_usuario(db, user_id)
+    tramos, boost_mult = empuje.tramos, empuje.multiplier
     boost = None
     if tramos and boost_mult > 1.0:
         boost = {

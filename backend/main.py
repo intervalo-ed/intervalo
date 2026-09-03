@@ -1913,15 +1913,16 @@ def get_public_university_leaderboard(db: Session = Depends(get_db)):
 # ── Emoji unlock tree (badges) ──────────────────────────────────────────────────
 
 def _emoji_bucket(db: Session, user: User) -> str | None:
-    """Bucket de carrera del usuario (E/S/T/M/Otra), de su enrollment más
-    antiguo (sin importar curso — ver _first_enrollment_subq)."""
-    e = (
-        db.query(Enrollment)
-        .filter(Enrollment.user_id == user.id)
-        .order_by(Enrollment.enrolled_at.asc())
-        .first()
-    )
-    return e.career if e else None
+    """Bucket de carrera del usuario (E/S/T/M/Otra), de su enrollment de
+    referencia — el más antiguo sin importar el curso.
+
+    Sale de `xp_boost.enrollment_de_referencia`, que es la misma función que usa
+    el empuje. Acá había una tercera copia del criterio, y le faltaba el
+    desempate por `id`: dos enrollments con el mismo `enrolled_at` elegían una
+    fila arbitraria según cómo ordenara el motor, así que el árbol de emojis
+    podía cambiar de rama entre dos requests sin que nadie tocara nada."""
+    fila = xp_boost.enrollment_de_referencia(db, user.id)
+    return fila.career if fila else None
 
 
 def _emoji_state(db: Session, user: User) -> EmojiStateResponse:

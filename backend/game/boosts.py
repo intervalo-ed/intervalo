@@ -148,29 +148,40 @@ def _now() -> datetime:
 # respuesta unos segundos sin volver a preguntar. `grant` limpia la memoria al
 # terminar, y por eso una donación se siente en el acto y no cuando vence el TTL.
 #
-# El SÍ no se memoriza: con un empuje vigente las consultas corren completas como
-# siempre. Es el caso raro y es el que tiene que estar bien.
+# El SÍ TAMBIÉN se memoriza, con el mismo TTL, y eso cambió con la duración.
+# Cuando un empuje duraba treinta minutos, "hay uno" era el caso raro y valía
+# pagar las consultas completas; con `BOOST_HOURS = 24` el caso raro dura uno o
+# dos días enteros, y durante todo ese tiempo CADA respuesta de Intervalo clásico
+# y cada pulso del juego pagaban las tres consultas otra vez.
+#
+# Lo que se memoriza es solo la EXISTENCIA, no los montos: el multiplicador se
+# sigue calculando contra la base en cada llamada. Así una donación que entra en
+# el medio se cobra completa desde el primer instante, y el único error posible
+# son cinco segundos de "ya no hay ninguno" cuando el último acaba de vencer —
+# exactamente el mismo margen que ya se aceptaba del otro lado.
 #
 # Es caché por proceso: con varios workers cada uno tiene el suyo, y lo peor que
-# pasa es que uno tarde unos segundos de más en enterarse de que ya no hay nada.
-_SIN_EMPUJES_TTL_SEGUNDOS = 5.0
-_sin_empujes_hasta = 0.0
+# pasa es que uno tarde unos segundos de más en enterarse.
+_EMPUJES_TTL_SEGUNDOS = 5.0
+_empujes_hasta = 0.0
+_habia_empujes = False
 
 
 def olvidar_cache_de_empujes() -> None:
     """Fuerza a la próxima consulta a volver a mirar la base."""
-    global _sin_empujes_hasta
-    _sin_empujes_hasta = 0.0
+    global _empujes_hasta
+    _empujes_hasta = 0.0
 
 
 def hay_empujes(db: Session, now: datetime) -> bool:
-    global _sin_empujes_hasta
-    if time.monotonic() < _sin_empujes_hasta:
-        return False
-    existe = db.query(GameBoost.id).filter(GameBoost.expires_at > now).first() is not None
-    if not existe:
-        _sin_empujes_hasta = time.monotonic() + _SIN_EMPUJES_TTL_SEGUNDOS
-    return existe
+    global _empujes_hasta, _habia_empujes
+    if time.monotonic() < _empujes_hasta:
+        return _habia_empujes
+    _habia_empujes = (
+        db.query(GameBoost.id).filter(GameBoost.expires_at > now).first() is not None
+    )
+    _empujes_hasta = time.monotonic() + _EMPUJES_TTL_SEGUNDOS
+    return _habia_empujes
 
 
 # El tope por donación se aplica FILA POR FILA y no sobre la suma: si se topeara
@@ -208,20 +219,43 @@ def cafecitos_de(db: Session, university: str, now: datetime | None = None) -> i
     return _cafecitos(db, GameBoost.university == university, now or _now())
 
 
-def multiplier_for(db: Session, university: str | None, now: datetime | None = None) -> float:
-    """Multiplicador vigente de una universidad, con lo global ya sumado.
+def multiplier_desde(
+    db: Session,
+    university: str | None,
+    set_at: datetime | None,
+    now: datetime | None = None,
+) -> float:
+    """El reparto del empuje, una sola vez y para los dos productos.
 
-    Lo global entra siempre, incluso para quien no cargó universidad: es un
+    Lo global entra SIEMPRE, incluso para quien no cargó universidad: es un
     regalo para todos, y dejar afuera justo al que todavía no eligió sería al
-    revés de lo que se busca.
+    revés de lo que se busca. Lo dirigido se suma solo si el candado antimudanza
+    lo deja pasar.
+
+    Toma los dos campos sueltos y no una fila, igual que `aplica_el_empuje` y por
+    el mismo motivo: en el minijuego salen de `game_players`, en Intervalo
+    clásico de `enrollments`. Lo que cambia entre los dos productos es de DÓNDE
+    salen los campos; el reparto es el mismo, y estaba escrito tres veces —acá,
+    en `multiplier_for_player` y en `xp_boost.multiplier_for_user`—. No divergían
+    todavía; divergen al primer cambio, y `multiplier_for`, que alimenta el feed
+    de eventos, es la más fácil de olvidar.
+
+    `set_at=None` saltea el candado, que es lo correcto para quien pregunta por
+    una universidad y no por una persona (el feed, el chip del cartel): ahí no
+    hay nadie que se haya podido mudar.
     """
     now = now or _now()
     if not hay_empujes(db, now):
         return 1.0
     total = global_cafecitos(db, now)
-    if university:
+    if university and aplica_el_empuje(university, set_at, db, now):
         total += _cafecitos(db, GameBoost.university == university, now)
     return multiplier_from_cafecitos(total)
+
+
+def multiplier_for(db: Session, university: str | None, now: datetime | None = None) -> float:
+    """Multiplicador vigente de una universidad, sin mirar a ninguna persona."""
+    return multiplier_desde(db, university, None, now)
 
 
 def aplica_el_empuje(
@@ -269,13 +303,8 @@ def applies_to(player: GamePlayer, db: Session, now: datetime | None = None) -> 
 def multiplier_for_player(
     db: Session, player: GamePlayer, now: datetime | None = None
 ) -> float:
-    now = now or _now()
-    if not hay_empujes(db, now):
-        return 1.0
-    total = global_cafecitos(db, now)
-    if player.university and applies_to(player, db, now=now):
-        total += _cafecitos(db, GameBoost.university == player.university, now)
-    return multiplier_from_cafecitos(total)
+    """El multiplicador de un jugador del minijuego. Ver `multiplier_desde`."""
+    return multiplier_desde(db, player.university, player.university_set_at, now)
 
 
 def active_boosts(db: Session, now: datetime | None = None) -> list[BoostView]:

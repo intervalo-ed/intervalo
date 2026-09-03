@@ -23,6 +23,7 @@ en game/, que es donde está el socket y el mail.
 from __future__ import annotations
 
 from datetime import datetime
+from typing import NamedTuple
 
 from sqlalchemy import select
 from sqlalchemy.orm import Session
@@ -43,11 +44,15 @@ def enrollment_de_referencia(db: Session, user_id: int) -> Enrollment | None:
     El desempate por `id` también es el mismo: dos enrollments con el mismo
     `enrolled_at` elegían una fila arbitraria según cómo ordenara el motor.
 
-    Ojo, para el que venga a unificar esto: en el repo conviven TRES criterios de
-    "de qué universidad es esta persona". Este y el del leaderboard son el mismo;
-    `main._emoji_bucket` ordena por `enrolled_at` sin desempatar, y
-    `push_store._university_user_ids` filtra por `course_id == 1` y se queda con
-    todas las filas que matcheen. No son intercambiables.
+    Es el ÚNICO criterio del repo, y eso costó unificarlo: convivían tres, y el
+    docstring que estaba acá los enumeraba en vez de arreglarlos. Los otros dos
+    eran `main._emoji_bucket` (ordenaba por `enrolled_at` sin desempatar, así que
+    dos filas con la misma fecha elegían cualquiera) y
+    `push_store._university_user_ids` (filtraba `course_id == 1` y se quedaba con
+    todas las filas que matchearan, así que alguien inscripto primero en otro
+    curso aportaba a la ventana semanal de una universidad y veía impulsada otra).
+    Los dos pasan por acá ahora. El del leaderboard es el mismo criterio escrito
+    en SQL (`main._first_enrollment_subq`), porque ahí hace falta como subquery.
     """
     return db.scalars(
         select(Enrollment)
@@ -85,56 +90,82 @@ def universidades_de(db: Session, user_ids: list[int]) -> dict[int, str]:
     return salida
 
 
-def multiplier_for_user(
-    db: Session, user_id: int, now: datetime | None = None
-) -> float:
-    """El multiplicador de empuje que le toca a este usuario. 1.0 si no hay.
+class Empuje(NamedTuple):
+    """Lo que le toca a una persona: el número que paga y de dónde sale.
 
-    Mismo reparto que en el juego (`boosts.multiplier_for_player`): lo global le
-    toca a todo el mundo, incluso a quien no cargó universidad, y lo dirigido se
-    suma solo si el candado antimudanza lo deja pasar.
+    Los dos juntos y no cada uno por su cuenta, porque preguntarlos separado
+    resolvía dos veces el enrollment y dos veces el candado — y el dashboard pide
+    `/user/progress` de los tres cursos en paralelo, así que eran ~30 consultas
+    redundantes por carga. Y cada llamada tomaba su propio `utcnow()`: con un
+    empuje venciendo en ese instante, el multiplicador podía salir de un lado y
+    los tramos del otro.
+    """
+
+    multiplier: float
+    tramos: list[boosts.BoostView]
+
+
+def empuje_de_usuario(
+    db: Session, user_id: int, now: datetime | None = None
+) -> Empuje:
+    """El empuje que le toca a este usuario: multiplicador y tramos, de una.
 
     La primera línea es la que hace que esto se pueda llamar en el camino
     caliente de cada respuesta: casi siempre no hay ningún empuje vigente, y
     `hay_empujes` memoriza ese "no" unos segundos por proceso. Sin ese atajo,
     cada respuesta de Intervalo pagaría dos consultas para averiguar que no pasa
-    nada. El SÍ no se memoriza: es el caso raro y es el que tiene que estar bien.
+    nada.
+
+    Los tramos son una LISTA y no un empuje solo porque puede estar cobrando dos
+    a la vez: el global y el de su universidad, con dos donantes y dos
+    vencimientos distintos. El número que se paga es la suma de los dos, así que
+    no le pertenece a ninguno de los dos tramos — mostrar uno y llamarlo "el
+    empuje" hace que la cuenta regresiva llegue a cero con el multiplicador
+    todavía arriba de 1.
     """
     now = now or datetime.utcnow()
     if not boosts.hay_empujes(db, now):
-        return 1.0
+        return Empuje(1.0, [])
+
+    fila = enrollment_de_referencia(db, user_id)
+    propia = fila.university if fila is not None else None
+    set_at = fila.university_set_at if fila is not None else None
+    if propia and not boosts.aplica_el_empuje(propia, set_at, db, now):
+        propia = None
 
     total = boosts.global_cafecitos(db, now)
+    if propia:
+        total += boosts.cafecitos_de(db, propia, now)
+
+    return Empuje(
+        boosts.multiplier_from_cafecitos(total),
+        [
+            v
+            for v in boosts.active_boosts(db, now)
+            if v.university is None or v.university == propia
+        ],
+    )
+
+
+def multiplier_for_user(
+    db: Session, user_id: int, now: datetime | None = None
+) -> float:
+    """Solo el multiplicador. Para el camino de cada respuesta, que no dibuja
+    ningún cartel y no tiene por qué pagar `active_boosts`."""
+    now = now or datetime.utcnow()
+    if not boosts.hay_empujes(db, now):
+        return 1.0
     fila = enrollment_de_referencia(db, user_id)
-    if fila is not None and fila.university:
-        if boosts.aplica_el_empuje(fila.university, fila.university_set_at, db, now):
-            total += boosts.cafecitos_de(db, fila.university, now)
-    return boosts.multiplier_from_cafecitos(total)
+    return boosts.multiplier_desde(
+        db,
+        fila.university if fila is not None else None,
+        fila.university_set_at if fila is not None else None,
+        now,
+    )
 
 
 def tramos_de_usuario(
     db: Session, user_id: int, now: datetime | None = None
 ) -> list[boosts.BoostView]:
-    """Los empujes vigentes que le tocan a este usuario, uno por origen.
-
-    Devuelve una LISTA y no un empuje solo porque puede estar cobrando dos a la
-    vez: el global y el de su universidad, con dos donantes y dos vencimientos
-    distintos. El número que se paga es la suma de los dos
-    (`multiplier_for_user`), así que no le pertenece a ninguno de los dos
-    tramos — mostrar uno y llamarlo "el empuje" hace que la cuenta regresiva
-    llegue a cero con el multiplicador todavía arriba de 1.
-    """
-    now = now or datetime.utcnow()
-    if not boosts.hay_empujes(db, now):
-        return []
-
-    fila = enrollment_de_referencia(db, user_id)
-    propia = fila.university if fila is not None else None
-    if propia and not boosts.aplica_el_empuje(propia, fila.university_set_at, db, now):
-        propia = None
-
-    return [
-        v
-        for v in boosts.active_boosts(db, now)
-        if v.university is None or v.university == propia
-    ]
+    """Solo los tramos. Ver `empuje_de_usuario`."""
+    return empuje_de_usuario(db, user_id, now).tramos

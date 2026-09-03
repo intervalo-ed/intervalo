@@ -17,9 +17,18 @@ módulo del juego y siguen valiendo igual:
   no por fila. Ver `anotar_usuario`.
 
 Este módulo es el de arriba: vive en `backend/` y no en `backend/game/` porque lo
-usan los dos motores, y `session_store` (el motor SM-2) no debería importar del
-bounded context del juego. `game/referrals.py` importa de acá y re-exporta lo
+usan los dos motores. `game/referrals.py` importa de acá y re-exporta lo
 compartido, así que sus llamadores no se enteran.
+
+Lo que decía antes —que `session_store` "no debería importar del bounded context
+del juego"— ya no describe el repo, y conviene decirlo bien: `session_store`
+importa `xp_boost`, que importa `game.boosts`, en el camino caliente de cada
+respuesta. Es una excepción deliberada y en un solo sentido, y está documentada
+donde corresponde (`game/__init__.py`): `game_boosts` es tabla compartida, así
+que el motor SM-2 LEE de ese paquete y nada de `game/` escribe del otro lado.
+La razón por la que este módulo está acá arriba es la de la primera línea, que
+sigue siendo cierta: la arista cuelga de `game_players` y el pago cae en `users`,
+así que no le pertenece a ninguno de los dos paquetes.
 """
 
 from __future__ import annotations
