@@ -72,6 +72,25 @@ def _pct_txt(v) -> str:
     return "—" if v is None else num(v, "%")
 
 
+# Las dos formas de mirar lo mismo: la tasa y el volumen del que sale.
+#
+# El coeficiente va primero porque es el número que decide —arriba de uno el
+# juego crece solo— pero es una división, y una división sin sus dos términos a
+# la vista no se puede auditar: un K que salta de 0,02 a 0,12 puede ser mucha
+# gente nueva reclutada o poca gente vieja en el denominador, y son dos
+# situaciones distintas. La segunda vista muestra justamente eso.
+VISTAS_VIRALIDAD: tuple[tuple[str, str], ...] = (
+    ("k", "Coeficiente"),
+    ("volumen", "Nuevos y reclutados"),
+)
+VISTA_VIRALIDAD_POR_DEFECTO = VISTAS_VIRALIDAD[0][0]
+
+# Azul para los que entran y verde para los que entran POR ALGUIEN, que es el
+# mismo verde con el que el juego pinta reclutar (WhatsApp) en la app.
+AZUL_NUEVOS = "#4f7fe0"
+VERDE_RECLUTAS = "#2fb673"
+
+
 def _kpi_chico(label: str, valor, hint: str = "", suffix: str = "", dec: int = 1) -> str:
     """Un número con su etiqueta, sin sparkline ni delta.
 
@@ -146,10 +165,13 @@ def week_of_today() -> date:
 
 # ── Página ───────────────────────────────────────────────────────────────────
 
-def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
+def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
+         viral: str = VISTA_VIRALIDAD_POR_DEFECTO) -> str:
     m = p["meta"]
     claves = [c for c, _ in SECCIONES]
     seccion = seccion if seccion in claves else SECCION_POR_DEFECTO
+    vistas = [v for v, _ in VISTAS_VIRALIDAD]
+    viral = viral if viral in vistas else VISTA_VIRALIDAD_POR_DEFECTO
     week = date.fromisoformat(m["week"])
     labels = m["labels"]
     semanas = [date.fromisoformat(w) for w in m["weeks"]]
@@ -190,18 +212,23 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         f"<div class='weeknav'>{''.join(nav)}</div>"
         "</div></header>")
 
-    def link(*, s: str | None = None, corte: str | None = None) -> str:
+    def link(*, s: str | None = None, corte: str | None = None,
+             v: str | None = None) -> str:
         """La URL del panel cambiando UNA cosa y dejando el resto como está.
 
-        Es lo que hace que las tres barras convivan: elegir semana no pierde la
-        pestaña, y elegir desglose no devuelve a la primera."""
+        Es lo que hace que las barras convivan: elegir semana no pierde la
+        pestaña, elegir desglose no devuelve a la primera, y cambiar la vista
+        del gráfico de viralidad no pierde ninguna de las dos."""
         s = s if s is not None else seccion
         corte = corte if corte is not None else p["profundidad"]["corte"]
+        v = v if v is not None else viral
         q = f"?w={week.isoformat()}"
         if s != SECCION_POR_DEFECTO:
             q += f"&s={s}"
         if corte != "total":
             q += f"&corte={corte}"
+        if v != VISTA_VIRALIDAD_POR_DEFECTO:
+            q += f"&v={v}"
         return f"/panel/{esc(token)}/dx{q}"
 
     tabs = "".join(
@@ -458,31 +485,60 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
     # ── 5 · Reclutas ─────────────────────────────────────────────────────────
     out = []
     rc = p["reclutas"]
-    filas_k = [[w["label"], w["nuevos"], w["reclutados"], _pct_txt(w["pct_reclutados"]),
-                w["base"], num(w["k"], dec=2)] for w in rc["semanas"]]
+    etiquetas = [w["label"] for w in rc["semanas"]]
+    if viral == "volumen":
+        series_viral = [
+            {"label": "Nuevos", "color": AZUL_NUEVOS,
+             "values": [w["nuevos"] for w in rc["semanas"]],
+             "tips": [f'{w["label"]}: {w["nuevos"]} jugadores nuevos'
+                      for w in rc["semanas"]]},
+            {"label": "Reclutados", "color": VERDE_RECLUTAS,
+             "values": [w["reclutados"] for w in rc["semanas"]],
+             "tips": [f'{w["label"]}: {w["reclutados"]} entraron por un link '
+                      f'({_pct_txt(w["pct_reclutados"])} de los nuevos)'
+                      for w in rc["semanas"]]},
+        ]
+        sufijo_viral = ""
+    else:
+        series_viral = [
+            {"label": "K", "color": VERDE_RECLUTAS,
+             "values": [w["k"] for w in rc["semanas"]],
+             "tips": [f'{w["label"]}: {num(w["k"], dec=2)} — {w["reclutados"]} '
+                      f'reclutas sobre {w["base"]} que ya estaban'
+                      for w in rc["semanas"]]},
+        ]
+        sufijo_viral = ""
+
+    selector_viral = "".join(
+        f'<span class="cur">{esc(t)}</span>' if v == viral
+        else f'<a href="{link(v=v)}">{esc(t)}</a>'
+        for v, t in VISTAS_VIRALIDAD)
+    grafico_viral = (
+        f"<div class='cortes'><span class='sub'>Vista</span>{selector_viral}</div>"
+        + ch.lines(series_viral, etiquetas, suffix=sufijo_viral, height=240,
+                   legend=viral == "volumen"))
+
     filas_top = [[f'@{esc(t["alias"])}',
                   _uni_chip(t["university"]) if t["university"] else "—",
                   t["reclutas"], t["xp"]] for t in rc["top"]]
     out.append(_section(
         5, "Reclutas",
-        '<div class="grid g4">'
+        # Dos titulares y no cuatro: el K de la última semana y el top
+        # reclutador estaban repitiendo, en formato de número grande, el último
+        # punto de la curva y la primera fila de la tabla que vienen justo
+        # abajo. Un titular que repite lo de al lado gasta el lugar donde
+        # debería estar lo que no se ve en ningún otro lado.
+        '<div class="grid g2">'
         + "".join(_kpi_chico(l, v, h, suffix=sfx, dec=0 if not sfx else 1)
                   for l, v, sfx, h in [
                       ("Reclutados", rc["total_reclutados"], "",
                        "jugadores que entraron por un link"),
                       ("Del total de jugadores", rc["pct_reclutados"], "%",
-                       f'sobre {rc["total_jugadores"]}'),
-                      ("K de la última semana",
-                       rc["semanas"][-1]["k"] if rc["semanas"] else None, "",
-                       "reclutas nuevos / base que ya existía"),
-                      ("Top reclutador", rc["top"][0]["xp"] if rc["top"] else None, "",
-                       f'XP de @{rc["top"][0]["alias"]}' if rc["top"]
-                       else "todavía nadie reclutó")])
+                       f'sobre {rc["total_jugadores"]}')])
         + "</div>"
         + _box(
             "Coeficiente de viralidad por semana",
-            _table(["Semana", "Nuevos", "Reclutados", "% reclutados", "Base previa", "K"],
-                   filas_k),
+            grafico_viral,
             note=(
                 "<b>K</b> = reclutas nuevos de la semana sobre los jugadores que YA EXISTÍAN "
                 "antes de esa semana, o sea «cuántos jugadores nuevos trae, en promedio, cada "

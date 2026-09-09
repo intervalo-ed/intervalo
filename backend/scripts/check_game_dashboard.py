@@ -539,6 +539,38 @@ check("y el bot no está en el denominador", rc["total_jugadores"] == 5,
       f'({rc["total_jugadores"]})')
 top = {t["alias"]: t for t in rc["top"]}
 check("el reclutador aparece en el top", "cero" in top, f'({list(top)})')
+
+# Las dos vistas del gráfico de viralidad. Son los MISMOS números dibujados de
+# dos formas —la tasa y el volumen del que sale— así que la vista es
+# presentación pura: no toca el payload ni el caché, solo la URL.
+h_k = game_render.page(q.build(s, WEEK), token="tok", seccion="reclutas")
+h_vol = game_render.page(q.build(s, WEEK), token="tok", seccion="reclutas",
+                         viral="volumen")
+check("por defecto se dibuja el coeficiente",
+      '<span class="cur">Coeficiente</span>' in h_k)
+check("y la otra vista se ofrece como link", "&v=volumen" in h_k)
+check("la vista de volumen marca la suya",
+      '<span class="cur">Nuevos y reclutados</span>' in h_vol)
+check("y dibuja DOS líneas con leyenda",
+      ">Nuevos<" in h_vol and ">Reclutados<" in h_vol)
+check("cada una con su color", game_render.AZUL_NUEVOS in h_vol
+      and game_render.VERDE_RECLUTAS in h_vol)
+check("la tabla de viralidad ya no está",
+      "Base previa" not in h_k and "Base previa" not in h_vol)
+check("y los dos titulares que repetían tampoco",
+      '<div class="label">K de la última semana</div>' not in h_k
+      and '<div class="label">Top reclutador</div>' not in h_k)
+check("pero la caja de top reclutadores sigue estando",
+      "<h3>Top reclutadores</h3>" in h_k)
+# Una vista inventada cae en la de siempre, igual que una pestaña que no existe.
+h_raro = game_render.page(q.build(s, WEEK), token="tok", seccion="reclutas",
+                          viral="inventada")
+check("una vista que no existe cae en el coeficiente",
+      '<span class="cur">Coeficiente</span>' in h_raro)
+# Y la vista viaja en los links de semana y de pestaña: cambiar de semana no
+# puede devolver al gráfico por defecto.
+check("la vista viaja en los demás links", h_vol.count("&v=volumen") >= 3,
+      f'({h_vol.count("&v=volumen")} links)')
 check("con su cuenta de reclutas", top["cero"]["reclutas"] == 1 if top else False)
 
 # ── 7 · La página se arma ───────────────────────────────────────────────────
