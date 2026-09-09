@@ -851,6 +851,15 @@ class GamePlayer(Base):
     referral_xp_push_seen = Column(
         Integer, nullable=False, default=0, server_default="0"
     )
+    # La primera vez que se vio a esta persona jugando desde la app INSTALADA.
+    #
+    # Gemela de `users.pwa_first_seen_at` y con la misma regla: se escribe la
+    # primera vez que llega en true y no se pisa nunca. Es la única señal de que
+    # el pedido de la pantalla de inicio funcionó — el cliente sabe si está en
+    # standalone (`isStandalone()`), pero eso vive en el navegador y no llega a
+    # ninguna tabla si nadie lo manda.
+    pwa_first_seen_at = Column(DateTime, nullable=True)
+
     # Cuándo se le mandó el último "volvé" del juego. Se compara contra
     # `last_seen_at`: si volvió a jugar después del mail, la próxima ausencia
     # vuelve a habilitarlo. Misma regla que `users.winback_email_sent_at`, y

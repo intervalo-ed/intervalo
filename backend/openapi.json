@@ -82,8 +82,25 @@
           "game"
         ],
         "summary": "Get Me",
+        "description": "El jugador, y de paso si est\u00e1 jugando desde la app instalada.\n\n`pwa` viaja ac\u00e1 y no en un endpoint propio por lo mismo que en Intervalo\n(`/user/progress`): es un dato del cliente que no vale un viaje extra, y esta\nllamada ya la hace todo el mundo al abrir el juego.\n\nSe escribe la primera vez que llega en true y no se pisa nunca. Es la \u00fanica\nse\u00f1al de que la diapo de la pantalla de inicio sirvi\u00f3: el navegador sabe si\nest\u00e1 en standalone, pero eso muere ah\u00ed si nadie lo manda.",
         "operationId": "get_me_game_derivemos_me_get",
         "parameters": [
+          {
+            "name": "pwa",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Pwa"
+            }
+          },
           {
             "name": "authorization",
             "in": "header",

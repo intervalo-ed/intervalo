@@ -246,10 +246,18 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
 
     # ── 0 · Titulares ────────────────────────────────────────────────────────
     out = []
+    # Tres filas de cuatro, y las filas son la lectura: entrada, crecimiento y
+    # sesión. Un solo `grid g4` con doce adentro daría lo mismo en pantalla
+    # ancha, pero al angostarse los reacomoda de a dos y las filas dejan de
+    # existir — que es justo lo que hace que doce números se lean como doce
+    # números sueltos.
+    filas = [p["headline"][i:i + 4] for i in range(0, len(p["headline"]), 4)]
     out.append(_section(
         0, f"Titulares · semana del {labels[-1]}",
-        f'<div class="grid g4">{"".join(_kpi(c) for c in p["headline"])}</div>',
-        sub="El sparkline son las semanas visibles."))
+        "".join(f'<div class="grid g4">{"".join(_kpi(c) for c in fila)}</div>'
+                for fila in filas),
+        sub="El sparkline son las semanas visibles. Arriba quién entra, en el medio "
+            "quién vuelve y quién trae gente, abajo cómo es una sentada."))
     paneles["titulares"] = "".join(out)
 
     # ── 1 · Embudo ───────────────────────────────────────────────────────────

@@ -33,7 +33,18 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** Get Me */
+        /**
+         * Get Me
+         * @description El jugador, y de paso si está jugando desde la app instalada.
+         *
+         *     `pwa` viaja acá y no en un endpoint propio por lo mismo que en Intervalo
+         *     (`/user/progress`): es un dato del cliente que no vale un viaje extra, y esta
+         *     llamada ya la hace todo el mundo al abrir el juego.
+         *
+         *     Se escribe la primera vez que llega en true y no se pisa nunca. Es la única
+         *     señal de que la diapo de la pantalla de inicio sirvió: el navegador sabe si
+         *     está en standalone, pero eso muere ahí si nadie lo manda.
+         */
         get: operations["get_me_game_derivemos_me_get"];
         put?: never;
         post?: never;
@@ -3085,7 +3096,9 @@ export interface operations {
     };
     get_me_game_derivemos_me_get: {
         parameters: {
-            query?: never;
+            query?: {
+                pwa?: boolean | null;
+            };
             header?: {
                 authorization?: string;
                 "x-game-token"?: string;
