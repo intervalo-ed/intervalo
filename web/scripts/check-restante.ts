@@ -8,8 +8,12 @@
 // "2 horas" mientras el chip decía "1h 30m", en la misma pantalla del producto.
 //
 // Redondear para arriba promete tiempo que no hay, así que las dos truncan. Eso
-// es lo que se comprueba acá, más los bordes: el cruce de la hora (que es donde
-// el chip cambia de formato) y el minuto que falta.
+// es lo que se comprueba acá, más los bordes.
+//
+// El reloj es SIEMPRE HH:MM:SS. Antes cambiaba de formato al cruzar la hora
+// ("23h 40m" arriba, "18:24" abajo) y eso hacía dudar del número: el mismo
+// empuje se leía de dos maneras según cuándo lo mirabas. El copy sigue hablando
+// en palabras, que es otra cosa y se lee en un párrafo.
 
 import { fmtRemaining, restanteEnPalabras } from "../src/components/boost-banner"
 
@@ -20,16 +24,22 @@ function check(ok: boolean, label: string) {
 }
 
 console.log("\nel reloj del chip")
-check(fmtRemaining(86_400) === "24h 00m", `24 h exactas → ${fmtRemaining(86_400)}`)
-check(fmtRemaining(85_140) === "23h 39m", `23 h 39 m → ${fmtRemaining(85_140)}`)
-check(fmtRemaining(3600) === "1h 00m", `la hora justa → ${fmtRemaining(3600)}`)
-// Un segundo abajo de la hora ya es mm:ss: es el cruce que el paso de la cuenta
-// regresiva tiene que acompañar, o el segundero avanza de a 30.
-check(fmtRemaining(3599) === "59:59", `un segundo menos → ${fmtRemaining(3599)}`)
-check(fmtRemaining(90) === "1:30", `minuto y medio → ${fmtRemaining(90)}`)
-check(fmtRemaining(5) === "0:05", `cinco segundos → ${fmtRemaining(5)}`)
-check(fmtRemaining(0) === "0:00", `cero → ${fmtRemaining(0)}`)
-check(fmtRemaining(-10) === "0:00", `negativo no se muestra → ${fmtRemaining(-10)}`)
+check(fmtRemaining(86_400) === "24:00:00", `24 h exactas → ${fmtRemaining(86_400)}`)
+check(fmtRemaining(85_140) === "23:39:00", `23 h 39 m → ${fmtRemaining(85_140)}`)
+check(fmtRemaining(3600) === "01:00:00", `la hora justa → ${fmtRemaining(3600)}`)
+// El cruce de la hora ya no cambia nada: es el mismo formato de un lado y del
+// otro, que es justamente el punto.
+check(fmtRemaining(3599) === "00:59:59", `un segundo menos → ${fmtRemaining(3599)}`)
+check(fmtRemaining(90) === "00:01:30", `minuto y medio → ${fmtRemaining(90)}`)
+check(fmtRemaining(5) === "00:00:05", `cinco segundos → ${fmtRemaining(5)}`)
+check(fmtRemaining(0) === "00:00:00", `cero → ${fmtRemaining(0)}`)
+check(fmtRemaining(-10) === "00:00:00", `negativo no se muestra → ${fmtRemaining(-10)}`)
+// El ancho no puede saltar: los cuatro chips del cartel están en una grilla y se
+// leen como una vertical. Con dos formatos, cruzar la hora los descolocaba.
+const anchos = new Set(
+  [0, 5, 90, 3599, 3600, 85_140, 86_400].map((s) => fmtRemaining(s).length),
+)
+check(anchos.size === 1, `siempre el mismo ancho (${[...anchos].join(", ")})`)
 
 console.log("\nlas palabras del copy")
 const p = (s: number) => restanteEnPalabras(s).texto
@@ -46,14 +56,14 @@ console.log("\nlos dos formatos no se contradicen")
 // El caso que motivó unificarlos: hora y media. Con `Math.round` el copy decía
 // "2 horas" y el chip "1h 30m".
 check(
-  p(5400) === "1 hora" && fmtRemaining(5400) === "1h 30m",
+  p(5400) === "1 hora" && fmtRemaining(5400) === "01:30:00",
   `hora y media: copy "${p(5400)}", chip "${fmtRemaining(5400)}"`,
 )
 // Y en general: la parte entera de horas que anuncia el copy nunca puede ser
 // mayor que la que muestra el reloj.
 let coherentes = true
 for (let s = 3600; s <= 172_800; s += 37) {
-  const delReloj = Number(fmtRemaining(s).split("h")[0])
+  const delReloj = Number(fmtRemaining(s).split(":")[0])
   const delCopy = Number(p(s).split(" ")[0])
   if (delCopy > delReloj) coherentes = false
 }

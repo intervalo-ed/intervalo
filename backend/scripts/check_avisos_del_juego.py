@@ -285,14 +285,19 @@ check(
 )
 check("los pesos suman 1", abs(sum(copy.PESOS.values()) - 1.0) < 1e-9)
 
-# EL número que no puede aparecer. El ranking de universidades del juego va por
-# Elo promedio —está escrito así en game_university_leaderboard, y es lo que
-# impide que un cafecito compre un puesto— así que un aviso que diga «te faltan
-# N XP» manda a la gente a hacer lo único que NO mueve esa tabla.
+# El aviso de universidades compara la CARRERA DE XP de la semana, no el ranking
+# de Elo. Son dos tablas distintas y solo sobre la primera se le puede pedir algo
+# a la persona: «sumá XP para alcanzarla» funciona ahí, y en la del Elo no —el
+# empuje del cafecito ni siquiera la mueve—. Por eso el número tiene que estar, y
+# tiene que decir de qué período es.
 _, uni_cerca = copy.VARIANTES[copy.CAT_UNIVERSIDAD][1].render(
-    {"universidad": "UBA", "rival_universidad": "UTN"}
+    {"universidad": "UBA", "rival_universidad": "UTN", "xp_diferencia": 140}
 )
-check("lo de universidades no promete XP", "XP" not in uni_cerca, uni_cerca)
+check("lo de universidades compara por XP", "140 XP" in uni_cerca, uni_cerca)
+check("y aclara que es de esta semana", "esta semana" in uni_cerca, uni_cerca)
+check("sin la diferencia en XP no se manda",
+      not copy.VARIANTES[copy.CAT_UNIVERSIDAD][1].disponible(
+          {"uni_cerca": True, "universidad": "UBA", "rival_universidad": "UTN"}))
 todos = [
     v.render(
         {
@@ -301,7 +306,7 @@ todos = [
             "mejor_tanda": 7, "empuje_mult": 1.4, "empuje_horas": 3, "jugo_hoy": False,
             "donante": "Nico", "recluta_alias": "ana", "recluta_xp": 30, "reclutas": 1,
             "primer_recluta": True, "rival_alias": "ana", "perdio_puesto": True,
-            "uni_paso": True, "uni_cerca": True,
+            "uni_paso": True, "uni_cerca": True, "xp_diferencia": 140,
         }
     )
     for lista in copy.VARIANTES.values()
@@ -309,6 +314,53 @@ todos = [
 ]
 check("todas las variantes se titulan dx", all(t == "dx" for t, _ in todos))
 check("y ninguna queda con un placeholder sin llenar", not any("{" in c for _, c in todos))
+
+# ── La carrera de XP entre universidades ────────────────────────────────────
+print()
+print("— universidades por XP —")
+# p1 y p2 son UBA, p3 es UTN. Se les dan derivadas con XP para armar la tabla:
+# la UBA arriba y la UTN pisándole los talones.
+from models import GameExercise  # noqa: E402
+
+_ex = [0]
+
+
+def derivada(pid: int, xp: int, cuando) -> None:
+    _ex[0] += 1
+    s.add(GameExercise(id=_ex[0], player_id=pid, template_key="t1", prompt_latex="x",
+                       expected_derivative="1", theta_at_serve=0.5, beta_at_serve=-1.0,
+                       p_hat=0.75, status="answered", created_at=cuando,
+                       answered_at=cuando))
+    s.add(GameAttempt(exercise_id=_ex[0], player_id=pid, attempt_number=1,
+                      parse_ok=True, is_correct=True, xp_awarded=xp, created_at=cuando))
+
+
+LUNES = AHORA - timedelta(days=AHORA.weekday())
+derivada(1, 100, LUNES + timedelta(hours=1))
+derivada(3, 92, LUNES + timedelta(hours=2))
+s.commit()
+
+cache = avisos._Cache(s, AHORA)
+tabla = cache.xp_por_universidad()
+check("la tabla ordena por XP de la semana", [u for u, _ in tabla] == ["UBA", "UTN"],
+      f"({tabla})")
+# Ocho de diferencia sobre cien es menos del 15%: es una disputa, y eso es lo
+# que se avisa, con el número.
+ctx_uba = avisos._contexto_universidad(p1, cache)
+check("con la de atrás cerca, avisa la disputa",
+      ctx_uba and ctx_uba.get("uni_cerca") and ctx_uba["xp_diferencia"] == 8,
+      f"({ctx_uba})")
+check("y nombra a la rival", ctx_uba and ctx_uba["rival_universidad"] == "UTN")
+# Si la diferencia se agranda deja de ser disputa y pasa a ser un sobrepaso.
+derivada(1, 500, LUNES + timedelta(hours=3))
+s.commit()
+ctx_lejos = avisos._contexto_universidad(p1, avisos._Cache(s, AHORA))
+check("con la diferencia holgada, cuenta el sobrepaso",
+      ctx_lejos and ctx_lejos.get("uni_paso") and not ctx_lejos.get("uni_cerca"),
+      f"({ctx_lejos})")
+# El último de la tabla no tiene a quién pasar ni quién lo persiga por abajo.
+check("el último de la tabla no recibe nada",
+      avisos._contexto_universidad(p3, avisos._Cache(s, AHORA)) is None)
 
 # ── 8 · Reactivos de verdad, sobre la base ─────────────────────────────────
 print("\n— la tubería reactiva —")
@@ -326,10 +378,13 @@ de_uba = [e for e in eventos if e["player_id"] in (1, 2)]
 check("el cafecito de la UBA avisa a sus jugadores", len(de_uba) == 2, f"({len(de_uba)})")
 check("y el cuerpo dice el multiplicador", all("×" in e["body"] for e in de_uba))
 otra_vez = avisos.due_game_event_notifications(s, force=True)
+cafes = [e for e in otra_vez
+         if e["player_id"] in (1, 2)
+         and s.get(GameNotificationSend, e["notification_id"]).category == copy.CAT_EMPUJE]
 check(
     "el mismo cafecito no vuelve a avisar hoy",
-    not [e for e in otra_vez if e["player_id"] in (1, 2)],
-    f"({len(otra_vez)})",
+    not cafes,
+    f"({len(cafes)} de {len(otra_vez)} avisos en la segunda vuelta)",
 )
 
 # ── 9 · El payload, por HTTP ───────────────────────────────────────────────

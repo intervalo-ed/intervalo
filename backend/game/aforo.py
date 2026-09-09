@@ -2,7 +2,7 @@
 
 El empuje de cafecito premia a quien pone plata; este premia a quien trae gente.
 Cuando entra la persona número 10 de una universidad en el mismo día, esa
-universidad se lleva un ×1,5 de dos horas, sin que nadie done nada.
+universidad se lleva un ×1,2 de dos horas, sin que nadie done nada.
 
 **Qué cuenta como una persona nueva.** La suma de los dos productos, que es lo
 que hace que "entrar a Intervalo" signifique una sola cosa:
@@ -52,12 +52,17 @@ UMBRAL_PERSONAS = 10
 # misma tarde. Un empuje de aforo de 24 h le comería el lugar al pago.
 BOOST_MINUTOS = 120
 
-# ×1,5 escrito en la moneda del motor. Todo el cálculo del multiplicador está
+# ×1,2 escrito en la moneda del motor. Todo el cálculo del multiplicador está
 # denominado en cafecitos (`boosts.CAFECITO_STEP`), así que un empuje que no se
 # pagó con cafecitos igual tiene que decir cuántos "vale" para sumar con los que
-# sí. Cinco décimos = ×1,5. Si algún día cambia CAFECITO_STEP, esto se recalcula
-# solo y el ×1,5 se mantiene.
-MULTIPLICADOR = 1.5
+# sí. Dos décimos = ×1,2. Si algún día cambia CAFECITO_STEP, esto se recalcula
+# solo y el ×1,2 se mantiene.
+#
+# Bajó de ×1,5 a ×1,2 y el motivo es el mismo que el de las dos horas: este
+# empuje no se paga. Un regalo del mismo tamaño que dos cafecitos invitados le
+# quita sentido a invitarlos — ×1,2 se nota, suma con el que sí se pagó, y no
+# compite con él.
+MULTIPLICADOR = 1.2
 CAFECITOS_EQUIVALENTES = round((MULTIPLICADOR - 1.0) / boosts.CAFECITO_STEP)
 
 # El sello de la fila. Separa este empuje de una donación en TODAS las lecturas

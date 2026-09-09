@@ -35,7 +35,6 @@ from sqlalchemy.orm import Session as DBSession
 
 from models import (
     GameAttempt,
-    GameEvent,
     GameNotificationSend,
     GamePlayer,
     GamePushSubscription,
@@ -286,6 +285,17 @@ class _Cache:
         self._cargar_xp()
         return (self._xp_jugador or {}).get(player_id, 0)
 
+    def xp_por_universidad(self) -> list[tuple[str, int]]:
+        """(sigla, XP de la semana), de más a menos.
+
+        Es la MISMA cuenta que el titular `social_semana` —la XP que juntó cada
+        universidad entre lunes y domingo— así que sale del mismo caché: si se
+        calcularan aparte, un aviso podría decir que la UBA lleva 300 XP y el
+        otro que lleva 280.
+        """
+        self._cargar_xp()
+        return sorted((self._xp_uni or {}).items(), key=lambda kv: -kv[1])
+
     def puestos(self) -> list[tuple[int, str]]:
         """El ranking del juego, en orden, como (id, alias).
 
@@ -410,32 +420,54 @@ def _contexto_ranking(player: GamePlayer, cache: _Cache) -> dict | None:
     }
 
 
-def _contexto_universidad(db: DBSession, player: GamePlayer, desde: datetime) -> dict | None:
-    """Lo que pasó con su universidad desde el último aviso.
+# Qué tan cerca tiene que estar la de atrás para que valga interrumpir. Un 15%
+# de la XP semanal de la de adelante: más lejos no es una disputa —es la tabla— y
+# avisar de algo que no se va a decidir esta semana enseña a ignorar el canal.
+MARGEN_DISPUTA = 0.15
 
-    Se lee del feed del juego, que ya calcula los sobrepasos en el tick de la
-    simulación (`game/events.py :: sync_universities`). Recalcularlos acá daría
-    un aviso que puede contradecir lo que la persona ve en pantalla.
+
+def _contexto_universidad(player: GamePlayer, cache: "_Cache") -> dict | None:
+    """La carrera de XP de la semana entre su universidad y la de al lado.
+
+    **Por XP y no por Elo**, y esa es la decisión. El juego tiene dos tablas de
+    universidades: la del ranking, que va por Elo promedio, y esta, que es cuánta
+    XP juntó cada una entre lunes y domingo. Un aviso solo puede pedir algo sobre
+    la segunda: «sumá XP para alcanzarla» funciona acá y no funciona en la del
+    Elo, donde el empuje del cafecito ni siquiera mueve la aguja.
+
+    Antes esto se colgaba del feed (`game/events.py :: sync_universities`), que
+    calcula sus sobrepasos con Elo promedio. El aviso quedaba mandando a la gente
+    a hacer lo único que NO movía la tabla que le estaba nombrando.
+
+    Devuelve el sobrepaso si su universidad quedó ARRIBA de otra, y si no la
+    disputa: quién le viene pisando los talones, con la diferencia en XP.
     """
     uni = player.university
     if not uni:
         return None
-    evento = (
-        db.query(GameEvent)
-        .filter(
-            GameEvent.kind.in_(("uni_pass", "uni_close")),
-            GameEvent.created_at >= desde,
-            ((GameEvent.kind == "uni_pass") & (GameEvent.university == uni))
-            | ((GameEvent.kind == "uni_close") & (GameEvent.university_b == uni)),
-        )
-        .order_by(GameEvent.created_at.desc())
-        .first()
-    )
-    if evento is None:
+    tabla = cache.xp_por_universidad()
+    if len(tabla) < 2:
         return None
-    if evento.kind == "uni_pass":
-        return {"uni_paso": True, "universidad": uni, "rival_universidad": evento.university_b}
-    return {"uni_cerca": True, "universidad": uni, "rival_universidad": evento.university}
+    posicion = next((i for i, (u, _) in enumerate(tabla) if u == uni), None)
+    if posicion is None:
+        return None
+
+    _, mia = tabla[posicion]
+    if mia <= 0:
+        return None
+
+    # Si hay alguien abajo y está cerca, es una disputa: eso es lo accionable.
+    if posicion + 1 < len(tabla):
+        rival, suya = tabla[posicion + 1]
+        if suya > 0 and (mia - suya) <= mia * MARGEN_DISPUTA:
+            return {"uni_cerca": True, "universidad": uni,
+                    "rival_universidad": rival, "xp_diferencia": int(mia - suya)}
+
+    # Si no, contar a quién pasó: la de abajo, cuando la diferencia es holgada.
+    if posicion + 1 < len(tabla):
+        return {"uni_paso": True, "universidad": uni,
+                "rival_universidad": tabla[posicion + 1][0]}
+    return None
 
 
 def _hubo_aviso_de(db: DBSession, player_id: int, categoria: str) -> bool:
@@ -633,7 +665,7 @@ def due_game_event_notifications(db: DBSession, force: bool = False) -> list[dic
             elif categoria == copy.CAT_RANKING:
                 contexto = _contexto_ranking(player, cache)
             else:
-                contexto = _contexto_universidad(db, player, medianoche)
+                contexto = _contexto_universidad(player, cache)
             if contexto is None:
                 continue
             variante = copy.elegir_reactiva(categoria, contexto)

@@ -11,23 +11,21 @@ De aquellas siete se traen dos —`social` y `universidad`, porque el juego tien
 universidad y XP propias— y se descartan tres: `practice` habla de repasos SM-2,
 y `podium` y `personal_best` miran tablas de Intervalo.
 
-**Qué se mide con XP y qué con Elo, porque acá es fácil mentir.** El ranking de
-PERSONAS del juego va por XP (`ranking.ORDEN_XP`), y la XP es también lo que
-multiplica el cafecito: por eso `social_semana` y `social_aporte` hablan de XP y
-el número es real.
+**Qué compara cada aviso, porque el juego tiene DOS tablas de universidades.**
 
-El ranking de UNIVERSIDADES, en cambio, va por Elo promedio, y es una decisión
-deliberada del producto —«la pregunta interesante es cuál deriva mejor, no cuál
-tuvo más tiempo libre»— que además es lo que impide que un cafecito compre un
-puesto, porque el empuje mueve XP y no mueve θ (game/router.py ::
-game_university_leaderboard). Así que ningún aviso puede decir «tu universidad
-está a N XP de la otra»: sería un número que la propia tabla del juego
-desmiente. `uni_cerca` usa la misma frase sin número que ya usa el feed del
-juego, «está a nada de pasar a».
+La del ranking va por **Elo promedio** —«cuál deriva mejor, no cuál tuvo más
+tiempo libre»— y es lo que impide que un cafecito compre un puesto, porque el
+empuje mueve XP y no mueve θ (game/router.py :: game_university_leaderboard).
 
-Ojo que en Intervalo clásico es al revés —allá las universidades sí se comparan
-por XP semanal (`push_store.university_weekly_xp`)—, y esa diferencia entre los
-dos productos es justo la trampa.
+La otra es la **carrera de XP de la semana**: cuánta XP juntó cada universidad
+entre lunes y domingo. Es la que mueve el cafecito, la que mueve jugar, y la
+única sobre la que un aviso puede pedir algo — «sumá XP para alcanzarla» es una
+instrucción que funciona ahí y no funciona en la del Elo.
+
+**Los avisos de universidad comparan por XP semanal**, y lo dicen: «esta
+semana». Colgarlos del ranking de Elo sería mandar a la gente a hacer lo único
+que no mueve esa tabla. Es el mismo criterio con el que Intervalo clásico compara
+universidades (`push_store.university_weekly_xp`).
 
 El título es `dx` y no `Intervalo`: son dos apps instaladas, con dos íconos
 distintos en la pantalla de inicio, y en la bandeja de notificaciones tienen que
@@ -202,19 +200,17 @@ def _ranking_generico(ctx: dict) -> tuple[str, str]:
 
 def _uni_paso(ctx: dict) -> tuple[str, str]:
     return TITULO, (
-        f"La {ctx['universidad']} le pasó a la {ctx['rival_universidad']} en el "
-        f"ranking 🏛️"
+        f"La {ctx['universidad']} le pasó a la {ctx['rival_universidad']} en XP "
+        f"esta semana 🏛️"
     )
 
 
 def _uni_cerca(ctx: dict) -> tuple[str, str]:
-    # Sin número, y no por pereza: la distancia en esta tabla es de Elo
-    # promedio, no de XP, y ponerla en un aviso invita a "sumo XP para
-    # defenderla" — que es exactamente lo que NO mueve este ranking. La frase es
-    # la misma que el feed del juego ya usa para el mismo hecho.
+    # Con el número, porque acá SÍ es de XP y sumarla es exactamente lo que
+    # cierra esa diferencia. El aviso pide algo que la persona puede hacer.
     return TITULO, (
-        f"La {ctx['rival_universidad']} está a nada de pasar a la "
-        f"{ctx['universidad']}. ¿La defendés? 🏛️"
+        f"La {ctx['rival_universidad']} está a {ctx['xp_diferencia']} XP de la "
+        f"{ctx['universidad']} esta semana. ¿La defendés? 🏛️"
     )
 
 
@@ -313,7 +309,7 @@ VARIANTES: dict[str, list[Variante]] = {
         Variante(
             "uni_cerca",
             lambda c: bool(c.get("uni_cerca"))
-            and _hay(c, "universidad", "rival_universidad"),
+            and _hay(c, "universidad", "rival_universidad", "xp_diferencia"),
             _uni_cerca,
         ),
     ],
