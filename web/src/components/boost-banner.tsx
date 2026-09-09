@@ -64,23 +64,27 @@ const ORO_CHIP = `color-mix(in oklab, ${AMBAR} 55%, #FFFFFF)`
 // convierte en una lista y le come el lugar a lo que la gente vino a mirar.
 const BOOSTS_SHOWN = 4
 
-// Dos regímenes, porque los empujes pasaron a durar un día (boosts.BOOST_HOURS).
+// Un solo formato, siempre HH:MM:SS ("23:40:12", "00:18:24").
 //
-// Bajo la hora: minutos Y segundos, con el segundero a la vista ("18:24"). Antes
-// decía "18 min" a secas, y un cartel que dice lo mismo durante sesenta segundos
-// no parece un reloj sino una etiqueta. Con los segundos corriendo se lee lo que
-// es —algo que se está por terminar— que es justo lo que hace mirar cuánto sale
-// sumarle tiempo.
+// Antes eran dos regímenes: "23h 40m" arriba de la hora y "18:24" abajo. Se
+// unificó porque el cambio de formato a mitad de la cuenta es lo que hace dudar
+// del número — el cartel pasaba de una etiqueta a un reloj sin avisar, y el
+// mismo empuje se leía de dos maneras según cuándo lo mirabas. Con un solo
+// formato el ancho tampoco salta, así que los cuatro chips quedan alineados en
+// una vertical de punta a punta de la cuenta.
 //
-// Sobre la hora: horas y minutos ("23h 40m"). El mismo formato mm:ss daría
-// "1439:59", que no se lee como nada, y un segundero que corre cuando faltan
-// veinte horas promete una urgencia que no existe.
+// Y el segundero corre siempre. La objeción vieja era que "un segundero cuando
+// faltan veinte horas promete una urgencia que no existe": es cierto que no hay
+// urgencia, pero un reloj que no se mueve no se lee como calma sino como algo
+// que se colgó.
 export function fmtRemaining(seconds: number): string {
   const s = Math.max(0, seconds)
-  if (s >= 3600) {
-    return `${Math.floor(s / 3600)}h ${String(Math.floor((s % 3600) / 60)).padStart(2, "0")}m`
-  }
-  return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`
+  const dosDigitos = (n: number) => String(n).padStart(2, "0")
+  return [
+    dosDigitos(Math.floor(s / 3600)),
+    dosDigitos(Math.floor((s % 3600) / 60)),
+    dosDigitos(s % 60),
+  ].join(":")
 }
 
 /** Lo que queda, en palabras: `{ texto: "23 horas", enHoras: true }`.
@@ -116,12 +120,10 @@ export function restanteEnPalabras(seconds: number): {
  * contador. Los dos motivos son la misma cosa —lo que se muestra tiene que ser
  * el tiempo que falta de verdad— vista desde dos lados:
  *
- *  · El paso sigue al tiempo que QUEDA, no al que había al montar. Antes se
- *    calculaba una sola vez de `initialSeconds`: un chip que montaba con más de
- *    una hora se quedaba en pasos de 30 s para siempre, así que al bajar de la
- *    hora el formato cambiaba a mm:ss y el número saltaba de 59:30 a 59:00 a
- *    58:30. El segundero —el único motivo por el que existe ese formato— quedaba
- *    roto justo en la última hora, que es la que importa.
+ *  · Un tick por segundo, siempre. Hubo un paso de 30 s arriba de la hora,
+ *    cuando el formato de ese tramo no mostraba segundos; ahora los muestra
+ *    (ver `fmtRemaining`), así que un paso más largo dejaría el segundero
+ *    saltando de a treinta y el reloj se leería roto.
  *  · El navegador estrangula los timers de las pestañas de fondo. Restando el
  *    paso, cada tick que no corre es tiempo que el cartel nunca descuenta;
  *    leyendo el reloj en cada tick, volver a la pestaña muestra el número
@@ -138,15 +140,12 @@ export function useCountdown(initialSeconds: number): number {
 
   useEffect(() => {
     if (left <= 0) return
-    // Sobre la hora `fmtRemaining` solo muestra minutos, así que descontar de a
-    // un segundo serían ~86.400 renders por día para cambiar el cartel una vez
-    // por minuto. Bajo la hora vuelve el segundero, que ahí sí se ve correr.
-    const paso = left > 3600 ? 30_000 : 1_000
     // `setTimeout` y no `setInterval`: el efecto se re-arma en cada tick, así
-    // que el paso se recalcula solo al cruzar la hora.
+    // que el próximo se agenda recién cuando el anterior terminó y dos ticks no
+    // se pueden encimar si el navegador se atrasa.
     const id = setTimeout(
       () => setLeft(Math.max(0, Math.round((vence - Date.now()) / 1000))),
-      paso,
+      1_000,
     )
     return () => clearTimeout(id)
   }, [left, vence])

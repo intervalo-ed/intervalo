@@ -9,7 +9,8 @@ Lo que se defiende acá:
   - al día siguiente vuelve a estar disponible;
   - el día es el argentino, no el UTC (a las 22:30 de Buenos Aires sigue
     siendo hoy aunque en UTC ya sea mañana);
-  - el multiplicador es ×1,5 y dura 2 h, y SUMA con un cafecito vigente;
+  - el multiplicador es el de `aforo.MULTIPLICADOR` y dura 2 h, y SUMA con un
+    cafecito vigente;
   - el cartel no miente: `cafecitos` cuenta solo lo donado y el empuje de
     aforo se anuncia con su propia bandera;
   - el feed no dice "invitó cafecitos" de algo que no invitó nadie;
@@ -142,9 +143,9 @@ check(boost is not None and boost.source == aforo.SOURCE, "queda sellado como af
 check(boost is not None and boost.donor_name is None, "y sin donante, porque no lo hubo")
 
 
-print("\n3. ×1,5 durante 2 horas")
-check(abs(boosts.multiplier_for(db, "UBA", now=HOY) - 1.5) < 1e-9,
-      f"×1,5 (dio {boosts.multiplier_for(db, 'UBA', now=HOY)})")
+print(f"\n3. ×{aforo.MULTIPLICADOR} durante {aforo.BOOST_MINUTOS} minutos")
+check(abs(boosts.multiplier_for(db, "UBA", now=HOY) - aforo.MULTIPLICADOR) < 1e-9,
+      f"×{aforo.MULTIPLICADOR} (dio {boosts.multiplier_for(db, 'UBA', now=HOY)})")
 dura = (boost.expires_at - boost.created_at).total_seconds() / 3600
 check(abs(dura - 2.0) < 1e-9, f"dura 2 h (dio {dura})")
 check(abs(boosts.multiplier_for(db, "UBA", now=HOY + timedelta(hours=2, minutes=1)) - 1.0) < 1e-9,
@@ -171,7 +172,8 @@ repetido = boosts.grant(
     minutes=aforo.BOOST_MINUTOS, now=HOY, anunciar=False,
 )
 check(repetido is None, "el UNIQUE de external_ref frena la carrera sin candado")
-check(abs(boosts.multiplier_for(db, "UBA", now=HOY) - 1.5) < 1e-9, "y el multiplicador no se duplicó")
+check(abs(boosts.multiplier_for(db, "UBA", now=HOY) - aforo.MULTIPLICADOR) < 1e-9,
+      "y el multiplicador no se duplicó")
 
 
 print("\n5. mañana vuelve a estar disponible")
@@ -210,8 +212,10 @@ for _ in range(10):
 db.commit()
 aforo.revisar(db, "UNLP", DIA3)
 db.commit()
-check(abs(boosts.multiplier_for(db, "UNLP", now=DIA3) - 1.8) < 1e-9,
-      f"con el aforo encima queda ×1,8 (dio {boosts.multiplier_for(db, 'UNLP', now=DIA3)})")
+esperado = 1.0 + 3 * boosts.CAFECITO_STEP + (aforo.MULTIPLICADOR - 1.0)
+check(abs(boosts.multiplier_for(db, "UNLP", now=DIA3) - esperado) < 1e-9,
+      f"con el aforo encima queda ×{esperado:.1f} "
+      f"(dio {boosts.multiplier_for(db, 'UNLP', now=DIA3)})")
 
 vista = [v for v in boosts.active_boosts(db, now=DIA3) if v.university == "UNLP"][0]
 check(vista.cafecitos == 3, f"el cartel cuenta 3 cafecitos, los que se donaron (dio {vista.cafecitos})")
@@ -237,7 +241,9 @@ check(len(aforos) == n_aforo,
       f"un evento de aforo por cada empuje de aforo ({len(aforos)} eventos, {n_aforo} empujes)")
 check(all(e.actor_alias is None for e in eventos if "personas nuevas" in e.text),
       "y ninguno le pone nombre de protagonista a algo que hicieron diez")
-check(any("×1,5" in t for t in aforos), "con el multiplicador en la frase")
+_mult_txt = f"×{aforo.MULTIPLICADOR}".replace(".", ",")
+check(any(_mult_txt in t for t in aforos),
+      f"con el multiplicador en la frase ({_mult_txt})")
 check(any("2 horas" in t for t in aforos), "y con la duración")
 
 
@@ -322,7 +328,7 @@ db.commit()
 main.app.dependency_overrides[get_current_user] = lambda: decima
 r = client.post("/user/enroll", json={"course": "analisis", "university": HTTP_UNI, "career": "ING"})
 check(r.status_code == 200, f"POST /user/enroll devuelve 200 (dio {r.status_code})")
-check(abs(boosts.multiplier_for(db, HTTP_UNI) - 1.5) < 1e-9,
+check(abs(boosts.multiplier_for(db, HTTP_UNI) - aforo.MULTIPLICADOR) < 1e-9,
       f"y el alta número 10 prendió el empuje sola (dio {boosts.multiplier_for(db, HTTP_UNI)})")
 
 # Un re-enrollment de la misma persona no puede prender nada nuevo mañana.
@@ -345,7 +351,7 @@ token = r.json()["guest_token"]
 r = client.patch("/game/derivemos/me", headers={"X-Game-Token": token},
                  json={"university": JUEGO_UNI})
 check(r.status_code == 200, f"PATCH /me devuelve 200 (dio {r.status_code})")
-check(abs(boosts.multiplier_for(db, JUEGO_UNI) - 1.5) < 1e-9,
+check(abs(boosts.multiplier_for(db, JUEGO_UNI) - aforo.MULTIPLICADOR) < 1e-9,
       f"y el décimo jugador que carga su universidad lo prende (dio {boosts.multiplier_for(db, JUEGO_UNI)})")
 
 # El PATCH que no toca la universidad no puede prender nada.
