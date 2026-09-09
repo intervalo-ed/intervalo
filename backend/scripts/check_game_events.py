@@ -145,6 +145,33 @@ print("7. universidades: sobrepaso y 'viene pisando'")
 db.query(GameEvent).delete()
 db.add(GameSimState(id=1, version=0))
 db.commit()
+
+
+_ex_uni = [90_000]
+
+
+def xp_de_la_semana(sigla: str, xp: int) -> None:
+    """Le da a cada jugador de esa universidad una respuesta con `xp` de XP.
+
+    El orden del feed pasó a salir de la XP de la SEMANA (game_attempts), no del
+    theta promedio: aquel oscilaba con cada respuesta y anunciaba sobrepasos que
+    no habían pasado. Así que el escenario se arma moviendo XP y no theta.
+    """
+    from models import GameAttempt, GameExercise
+
+    ahora = datetime.utcnow()
+    for p in db.query(GamePlayer).filter(GamePlayer.university == sigla).all():
+        _ex_uni[0] += 1
+        db.add(GameExercise(
+            id=_ex_uni[0], player_id=p.id, template_key="t1", prompt_latex="x",
+            expected_derivative="1", theta_at_serve=0.5, beta_at_serve=-1.0,
+            p_hat=0.75, status="answered", created_at=ahora, answered_at=ahora))
+        db.add(GameAttempt(
+            exercise_id=_ex_uni[0], player_id=p.id, attempt_number=1,
+            parse_ok=True, is_correct=True, xp_awarded=xp, created_at=ahora))
+    db.commit()
+
+
 # CHICA arranca abajo; después la damos vuelta.
 for i in range(3):
     fresh_player(db, f"chica{i}", university="CHICA", xp=100, theta=0.4,
@@ -152,6 +179,8 @@ for i in range(3):
     fresh_player(db, f"grande{i}", university="GRANDE", xp=300, theta=1.2,
                  n_updates=events.elo.RAMP_UPDATES)
 db.commit()
+xp_de_la_semana("CHICA", 10)
+xp_de_la_semana("GRANDE", 100)
 
 simulation.get_state(db)
 events.sync_universities(db, min_players=3)
@@ -161,9 +190,8 @@ check(
     "el primer barrido no anuncia nada: no hay foto anterior contra qué comparar",
 )
 
-for p in db.query(GamePlayer).filter(GamePlayer.university == "CHICA").all():
-    p.theta = 2.0
-db.commit()
+# CHICA pasa a GRANDE, y con margen de sobra: 3x310 contra 3x100.
+xp_de_la_semana("CHICA", 300)
 events.sync_universities(db, min_players=3)
 db.commit()
 passed = db.query(GameEvent).filter(GameEvent.kind == "uni_pass").first()
@@ -175,9 +203,8 @@ check(passed is not None and passed.university == "CHICA" and passed.university_
       f"{passed.university_b if passed else '—'}")
 
 # Empatadas: tiene que avisar que una viene pisando, y una sola vez.
-for p in db.query(GamePlayer).filter(GamePlayer.university == "GRANDE").all():
-    p.theta = 1.98
-db.commit()
+# CHICA lleva 930 y GRANDE 300; se le suman 620 para dejarla a 920.
+xp_de_la_semana("GRANDE", 206)
 events.sync_universities(db, min_players=3)
 db.commit()
 events.sync_universities(db, min_players=3)
@@ -187,6 +214,27 @@ check(
     f"'viene pisando' se avisa una vez por ventana ({events.UNI_CLOSE_COOLDOWN_MINUTES} min)",
 )
 
+# El bug que trajo todo esto: dos universidades pegadas se pasaban una a la otra
+# en ticks alternos y cada vuelta era una línea del feed. En producción el orden
+# salía del Elo promedio —once puntos de rating sobre mil— así que «la UNC le
+# pasó a la UBA» se anunciaba sin que hubiera pasado nada. Ahora un sobrepaso
+# pide margen.
+db.query(GameEvent).delete()
+db.commit()
+simulation.get_state(db)
+events.sync_universities(db, min_players=3)
+db.commit()
+db.query(GameEvent).delete()
+db.commit()
+# Un empujoncito que la deja apenas arriba: menos del margen, no es noticia.
+xp_de_la_semana("GRANDE", 5)
+events.sync_universities(db, min_players=3)
+db.commit()
+check(
+    db.query(GameEvent).filter(GameEvent.kind == "uni_pass").count() == 0,
+    f"ganar por menos del {int(events.UNI_PASS_MARGEN * 100)}% no es un sobrepaso",
+)
+
 # Con tres universidades parejas hay dos parejas en disputa a la vez; el barrido
 # tiene que contar solo la más ajustada, no llenar el feed.
 db.query(GameEvent).delete()
@@ -194,6 +242,7 @@ for i in range(3):
     fresh_player(db, f"tercera{i}", university="TERCERA", xp=880, theta=1.99,
                  n_updates=events.elo.RAMP_UPDATES)
 db.commit()
+xp_de_la_semana("TERCERA", 305)
 events.sync_universities(db, min_players=3)
 db.commit()
 check(

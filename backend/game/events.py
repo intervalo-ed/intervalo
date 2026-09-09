@@ -25,7 +25,7 @@ from datetime import datetime, timedelta
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 
-from models import GameEvent, GamePlayer, GameSimState
+from models import GameAttempt, GameEvent, GamePlayer, GameSimState
 from universities import article_for
 
 from . import elo, ranking
@@ -379,36 +379,62 @@ def on_answer(
 
 # --- universidades -------------------------------------------------------------
 
-def _university_standings(db: Session, min_players: int) -> list[tuple[str, float]]:
-    """(sigla, Elo promedio) de las universidades rankeadas, de mayor a menor.
+# Cuánto tiene que superar una universidad a la otra para que el sobrepaso sea
+# noticia y no ruido de redondeo. Un 2% de la XP de la de adelante: por debajo
+# están empatadas, y anunciar un empate como sobrepaso es lo que convierte al
+# feed en algo que se ignora.
+UNI_PASS_MARGEN = 0.02
 
-    Mismo criterio que el endpoint del ranking —Elo promedio, contando solo a los
-    que ya salieron de la rampa, y un mínimo de jugadores—. Si acá se ordenara
-    distinto, el feed contaría sobrepasos que la tabla no muestra.
+
+def _university_standings(db: Session, min_players: int,
+                          now: datetime | None = None) -> list[tuple[str, float]]:
+    """(sigla, XP de la semana) de las universidades, de mayor a menor.
+
+    **Por XP y no por Elo promedio, y eso cambió.** El criterio era el mismo que
+    el de la tabla —Elo promedio de los calificados— con el argumento de que si
+    acá se ordenara distinto el feed contaría sobrepasos que la tabla no muestra.
+    El problema es que ese orden OSCILA: medido en producción, UTN 1039, UNC 1033
+    y UBA 1022, o sea once puntos de rating sobre mil con treinta y un
+    calificados de un lado y veintiuno del otro. Un promedio así se da vuelta con
+    cada respuesta, así que el feed anunciaba «la UNC le pasó a la UBA» una y
+    otra vez sin que hubiera pasado nada.
+
+    La XP de la semana no tiene ese problema: las distancias son grandes (27.370
+    / 19.601 / 8.543 la misma tarde), se mueve solo cuando alguien juega, y es lo
+    único sobre lo que un jugador puede hacer algo — el Elo mide qué tan difícil
+    resolvés, no cuánto aportaste.
+
+    De la SEMANA y no del total: la XP acumulada ordena por cuántos jugadores
+    tiene cada universidad y no cambia nunca, así que no habría sobrepaso que
+    contar. Semana a semana, en cambio, es una carrera de verdad.
+
+    La tabla del ranking sigue ordenando por Elo, a propósito: son dos preguntas
+    distintas —cuál deriva mejor y cuál está aportando más esta semana— y por eso
+    el texto del evento NOMBRA la métrica.
     """
+    now = now or _now()
+    lunes = datetime.combine(
+        (now - timedelta(days=now.weekday())).date(), datetime.min.time())
     rows = (
         db.query(
             GamePlayer.university,
-            func.count(GamePlayer.id),
-            func.coalesce(func.sum(GamePlayer.theta), 0.0),
+            func.count(func.distinct(GamePlayer.id)),
+            func.coalesce(func.sum(GameAttempt.xp_awarded), 0),
         )
+        .join(GameAttempt, GameAttempt.player_id == GamePlayer.id)
         .filter(
             GamePlayer.university.isnot(None),
             GamePlayer.university != "",
-            # El mismo filtro de actividad que la tabla, importado y no copiado:
-            # si se separan, el feed cuenta sobrepasos que el ranking no muestra.
-            # Vivía en `router.py`, que esto no puede importar sin cerrar un
-            # ciclo, y por eso estaba reinlineado — ahora vive un nivel más abajo.
+            # El mismo filtro de actividad que la tabla, importado y no copiado.
             ranking.RESOLVIO_ACA,
-            GamePlayer.n_updates >= elo.RAMP_UPDATES,
+            GameAttempt.created_at >= lunes,
         )
         .group_by(GamePlayer.university)
         .all()
     )
     standings = [
-        (uni, float(theta_sum) / rated)
-        for uni, rated, theta_sum in rows
-        if rated >= min_players
+        (uni, float(xp)) for uni, jugadores, xp in rows
+        if jugadores >= min_players and xp > 0
     ]
     standings.sort(key=lambda r: r[1], reverse=True)
     return standings
@@ -422,8 +448,9 @@ def sync_universities(db: Session, min_players: int, now: datetime | None = None
     el tráfico — no hace falta ni worker ni cron.
     """
     now = now or _now()
-    standings = _university_standings(db, min_players)
+    standings = _university_standings(db, min_players, now=now)
     order = [uni for uni, _ in standings]
+    puntos = dict(standings)
 
     state = db.query(GameSimState).filter(GameSimState.id == 1).first()
     if state is None:
@@ -454,13 +481,18 @@ def sync_universities(db: Session, min_players: int, now: datetime | None = None
         superada = order[i + 1]
         if rank_before.get(superada, -1) >= before:
             continue
+        # Y con margen: dos universidades pegadas se pasan una a la otra en
+        # ticks alternos, y cada vuelta sería una línea del feed.
+        mia, suya = puntos[uni], puntos[superada]
+        if suya <= 0 or (mia - suya) < mia * UNI_PASS_MARGEN:
+            continue
         # "la UNSAM le pasó a la UNL" / "el ITBA…": el artículo lo decide el
         # nombre completo de cada casa de estudios, no la sigla.
         a0, a1 = article_for(uni).capitalize(), article_for(superada)
         emit(
             db,
             "uni_pass",
-            f"{a0} {{u0}} le pasó a {a1} {{u1}} en el ranking de universidades.",
+            f"{a0} {{u0}} le pasó a {a1} {{u1}} en XP esta semana.",
             university=uni,
             university_b=superada,
             dedupe_key=f"pass:{uni}:{superada}",
@@ -488,7 +520,7 @@ def sync_universities(db: Session, min_players: int, now: datetime | None = None
         emit(
             db,
             "uni_close",
-            f"{a0} {{u0}} está a nada de pasar a {a1} {{u1}}.",
+            f"{a0} {{u0}} está a nada de pasar a {a1} {{u1}} en XP esta semana.",
             university=abajo,
             university_b=arriba,
             dedupe_key=f"close:{abajo}:{arriba}",
