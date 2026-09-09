@@ -45,7 +45,7 @@ from datetime import date, datetime, timedelta
 
 from sqlalchemy.orm import Session as DBSession
 
-from .queries import _pct, _rows, local_date, week_start
+from .queries import AR_OFFSET, _pct, _rows, local_date, week_start
 
 # Hueco que corta una sesión de juego. Media hora es lo que dura un empuje de
 # cafecito y lo que la industria usa como default de sesión; lo importante no es
@@ -80,6 +80,41 @@ DEPTH_MAX = 40
 PLATFORM_ORDER: tuple[str, ...] = ("android", "ios", "desktop")
 PLATFORM_LABEL = {"android": "Android", "ios": "iOS", "desktop": "Escritorio",
                   None: "Sin dato"}
+
+# Las tres franjas del día, en hora de Argentina, y dónde empieza cada una.
+#
+# Los bordes salen de mirar la distribución real y no de la costumbre. Dos cosas
+# la gobiernan: el 78% de las partidas arranca entre las 11 y las 16, y de la
+# medianoche a las 7 hay tres personas en toda la historia del juego.
+#
+#   · **13 y no 12** para cerrar la mañana. Es la hora del almuerzo acá, y además
+#     es la que reparte: con el corte en las 12, la mañana pierde un tercio de su
+#     masa (47 partidas contra 71) porque las 12 sola son el 10% de todo. El pico
+#     va de las 11 a las 16 y ningún borde puede partirlo por el medio sin quedar
+#     arbitrario; las 13 lo parten donde la gente se levanta de la silla.
+#   · **La madrugada va adentro de la noche.** Con tres partidas en toda la
+#     historia, una cuarta línea sería ruido, y `MIN_BASE_SERIE` la escondería
+#     igual. Que 00-06 cuente como noche es además como se vive: quien deriva a
+#     la una de la mañana está terminando su noche, no empezando su día.
+#
+# **Qué NO es este corte.** El juego se difunde por WhatsApp en tandas, así que
+# la hora de arranque es en buena parte la hora en que salió el mensaje. Eso lo
+# acerca más a «por qué difusión llegaste» que a «a qué hora rendís mejor», y por
+# eso la sección lo dice en voz alta en vez de dejar que se lea como lo segundo.
+FRANJA_ORDER: tuple[str, ...] = ("manana", "tarde", "noche")
+FRANJA_LABEL = {"manana": "Mañana", "tarde": "Tarde", "noche": "Noche"}
+FRANJA_DESDE = {"manana": 6, "tarde": 13, "noche": 20}
+
+
+def _franja(dt: datetime) -> str:
+    """En qué franja cae un instante UTC, leído en hora de Argentina."""
+    h = (dt + AR_OFFSET).hour
+    if FRANJA_DESDE["manana"] <= h < FRANJA_DESDE["tarde"]:
+        return "manana"
+    if FRANJA_DESDE["tarde"] <= h < FRANJA_DESDE["noche"]:
+        return "tarde"
+    return "noche"
+
 
 # El origen de un empuje que cuenta como ingreso: `cafecito` es el que entró por
 # el oyente del stream (game/cafecito_stream.py). Los otros dos —`manual`, que
@@ -582,13 +617,15 @@ def funnel(data: dict, week: date) -> dict:
 # Los cortes con los que se puede partir la curva. `total` es una sola línea con
 # todo el mundo; los otros tres la parten para poder comparar.
 #
-# Son los tres ejes por los que el juego puede ser distinto para dos personas:
+# Son los cuatro ejes por los que el juego puede ser distinto para dos personas:
 # CUÁNDO llegaron (la difusión de esa semana no es la de la anterior), DE DÓNDE
-# (cada universidad llega por su propio grupo y con su propia carrera) y CON QUÉ
-# (el teclado matemático sobre una pantalla táctil es otro producto). Cualquier
-# otra cosa —carrera, origen del link— se puede mirar en las secciones que ya
-# están; estas tres cambian la forma de la curva, que es lo que se compara acá.
-CORTES = ("total", "cohorte", "universidad", "aparato")
+# (cada universidad llega por su propio grupo y con su propia carrera), CON QUÉ
+# (el teclado matemático sobre una pantalla táctil es otro producto) y A QUÉ HORA
+# (no es lo mismo el hueco entre dos cursadas que la cama a la una de la mañana).
+# Cualquier otra cosa —carrera, origen del link— se puede mirar en las secciones
+# que ya están; estos cuatro cambian la forma de la curva, que es lo que se
+# compara acá.
+CORTES = ("total", "cohorte", "universidad", "aparato", "horario")
 
 # Cuántas series como máximo. Tres cohortes porque es lo que pidió el uso —dos
 # no es tendencia y cuatro ya no se distinguen— y cinco universidades porque a
@@ -661,8 +698,8 @@ def profundidad(data: dict, weeks: list[date], now: datetime | None = None,
 
     `corte` agrega líneas, y de dos maneras distintas:
 
-      - `universidad` y `aparato` PARTEN la cohorte de la semana en montones,
-        así que sus líneas suman exactamente la del total;
+      - `universidad`, `aparato` y `horario` PARTEN la cohorte de la semana en
+        montones, así que sus líneas suman exactamente la del total;
       - `cohorte` TRAE OTRAS cohortes —la elegida y las dos anteriores— para
         comparar camadas entre sí. Ahí las líneas no suman nada: son tres
         poblaciones distintas, y esa es justamente la comparación.
@@ -672,17 +709,24 @@ def profundidad(data: dict, weeks: list[date], now: datetime | None = None,
     corte_reloj = now - timedelta(minutes=SESSION_GAP_MINUTES)
     semana = weeks[-1]
 
-    # La primera tanda de cada uno: cuántas derivadas tiene y cuándo terminó.
-    # Se arma una sola vez para todos los jugadores porque `cohorte` vuelve a
-    # recorrer tres semanas y `universidad`/`aparato` reparten la misma.
+    # La primera tanda de cada uno: cuántas derivadas tiene, cuándo terminó y
+    # cuándo arrancó. Se arma una sola vez para todos los jugadores porque
+    # `cohorte` vuelve a recorrer tres semanas y los otros tres reparten la misma.
+    #
+    # El arranque es el de la TANDA y no el `created_at` del jugador, que es
+    # cuando cargó la página. Para esta población son casi el mismo instante
+    # —quien responde, responde enseguida— pero la curva dibuja primeras
+    # sesiones, así que el ancla honesto es cuándo empezó la sesión que se está
+    # midiendo y no cuándo apareció la fila.
     por_jugador: dict[int, list[dict]] = defaultdict(list)
     for a in data["_firsts"]:
         por_jugador[a["player_id"]].append(a)
-    primera_de: dict[int, tuple[int, datetime]] = {}
+    primera_de: dict[int, tuple[int, datetime, datetime]] = {}
     for pid, lista in por_jugador.items():
         tanda = _primera_sesion(lista)
         if tanda:
-            primera_de[pid] = (len(tanda), tanda[-1]["created_at"])
+            primera_de[pid] = (len(tanda), tanda[-1]["created_at"],
+                               tanda[0]["created_at"])
 
     def largos_de(w: date) -> tuple[list[dict], list[int]]:
         """Las partidas cerradas de la cohorte de `w`, y su largo."""
@@ -725,9 +769,18 @@ def profundidad(data: dict, weeks: list[date], now: datetime | None = None,
             if len(v) >= MIN_BASE_SERIE:
                 series.append(serie(w.strftime("%d/%m"), w.isoformat(), v))
     else:
+        def clave_de(p: dict) -> str | None:
+            if corte == "universidad":
+                return p["university"]
+            if corte == "aparato":
+                return p["platform"]
+            # `horario` sale de la tanda y no de la fila del jugador: es la hora
+            # a la que arrancó a jugar, leída en Argentina.
+            return _franja(primera_de[p["id"]][2])
+
         grupos: dict = defaultdict(list)
         for p in cerrados:
-            clave = p["university"] if corte == "universidad" else p["platform"]
+            clave = clave_de(p)
             if clave:
                 grupos[clave].append(primera_de[p["id"]][0])
         vivos = [(k, v) for k, v in grupos.items() if len(v) >= MIN_BASE_SERIE]
@@ -735,12 +788,19 @@ def profundidad(data: dict, weeks: list[date], now: datetime | None = None,
             vivos.sort(key=lambda kv: -len(kv[1]))
             vivos = vivos[:MAX_UNIVERSIDADES]
         else:
-            orden = {k: i for i, k in enumerate(PLATFORM_ORDER)}
+            # Las franjas y los aparatos tienen un orden propio —el del día y el
+            # del peso de cada plataforma— y ordenarlos por tamaño los mezclaría
+            # de una semana a la otra.
+            orden_fijo = PLATFORM_ORDER if corte == "aparato" else FRANJA_ORDER
+            orden = {k: i for i, k in enumerate(orden_fijo)}
             vivos.sort(key=lambda kv: orden.get(kv[0], 99))
-        series = [
-            serie(str(k) if corte == "universidad" else PLATFORM_LABEL[k], str(k), v)
-            for k, v in vivos
-        ]
+
+        def etiqueta(k) -> str:
+            if corte == "universidad":
+                return str(k)
+            return (PLATFORM_LABEL if corte == "aparato" else FRANJA_LABEL)[k]
+
+        series = [serie(etiqueta(k), str(k), v) for k, v in vivos]
 
     return {
         "corte": corte,
@@ -753,7 +813,7 @@ def profundidad(data: dict, weeks: list[date], now: datetime | None = None,
         # cortes que PARTEN la cohorte: en «por cohorte» las líneas son otras
         # camadas y no hay nada que cubrir.
         "cubiertos": (sum(x["base"] for x in series)
-                      if corte in ("universidad", "aparato") else base),
+                      if corte in ("universidad", "aparato", "horario") else base),
         "mediana": _median([float(n) for n in largos]),
         "p90": _p([float(n) for n in largos], 0.90),
         "peor_escalon": peor,

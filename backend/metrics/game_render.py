@@ -352,6 +352,26 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
                       f'con menos de cinco partidas, que dibujarían el ruido de cuatro personas '
                       f'con la misma tinta que la tendencia de cuarenta.' if afuera else "."))
 
+
+    # Qué son las franjas va SIEMPRE que el corte esté elegido, tenga líneas o
+    # no: la definición del corte no depende de que esta semana haya alcanzado
+    # para dibujarlo, y quien abre el desglose y encuentra el gráfico vacío es
+    # justamente quien más necesita saber qué habría visto.
+    if corte == "horario":
+        alcance += (
+            '<br><br><b>La franja es la hora a la que arrancó la partida</b>, en horario de '
+            'Argentina: mañana 06–13, tarde 13–20, noche 20–06. Los bordes salen de la '
+            'distribución real y no de la costumbre — el 78% de las partidas arranca entre las '
+            '11 y las 16, y de la medianoche a las 7 hay tres en toda la historia del juego, '
+            'así que la madrugada va adentro de la noche en vez de ser una cuarta línea de '
+            'ruido. El corte de la mañana está en las 13 y no en las 12 porque a las 12 la '
+            'mañana pierde un tercio de su masa sin ningún motivo más que la costumbre.'
+            '<br><br><b>Ojo con leerlo como un horario bueno y uno malo.</b> El juego se difunde '
+            'por WhatsApp en tandas, así que la hora de arranque es en buena parte la hora a la '
+            'que salió el mensaje: el corte se parece más a «por qué difusión llegaste» que a '
+            '«cuándo rendís mejor». Medido sobre las tres cohortes que hay, la mañana aguanta '
+            'más en dos y menos en la tercera.')
+
     if not series:
         grafico = '<p class="empty">todavía no hay partidas cerradas en esta ventana</p>'
     else:
@@ -367,7 +387,8 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
         f'<span class="cur">{esc(t)}</span>' if c == corte
         else f'<a href="{link(corte=c)}">{esc(t)}</a>'
         for c, t in [("total", "Todos"), ("cohorte", "Por cohorte"),
-                     ("universidad", "Por universidad"), ("aparato", "Por aparato")])
+                     ("universidad", "Por universidad"), ("aparato", "Por aparato"),
+                     ("horario", "Por horario")])
     cuerpo = (f"<div class='cortes'><span class='sub'>Desglose</span>{selector}</div>"
               + grafico)
 

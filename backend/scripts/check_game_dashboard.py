@@ -480,6 +480,53 @@ finally:
 check("un corte que no existe cae en el total",
       q.profundidad(data, weeks, now=NOW, corte="inventado")["corte"] == "total")
 
+# ── 6b · Las franjas horarias ──────────────────────────────────────────────
+print()
+print("— horarios —")
+
+
+def AR(hora: int, minuto: int = 0) -> datetime:
+    """El instante UTC que en Argentina se lee a esa hora."""
+    return datetime(2026, 8, 17, hora, minuto) - q.AR_OFFSET
+
+
+# Los bordes, uno por uno. Son la definición del corte: si alguno se corriera sin
+# querer, las tres líneas del panel cambiarían de significado en silencio.
+for hora, minuto, esperada in [
+    (5, 59, "noche"), (6, 0, "manana"), (12, 59, "manana"),
+    (13, 0, "tarde"), (19, 59, "tarde"), (20, 0, "noche"),
+    (1, 0, "noche"), (23, 30, "noche"),
+]:
+    check(f"{hora:02d}:{minuto:02d} de Argentina cae en «{esperada}»",
+          q._franja(AR(hora, minuto)) == esperada,
+          f"(dio {q._franja(AR(hora, minuto))})")
+
+# Y el cableado: la franja sale de la hora ARGENTINA de arranque de la tanda, no
+# de la UTC de la columna. Las tres partidas cerradas del escenario arrancan
+# 14:00 UTC, que son las 11 de la mañana acá — sin el huso serían «tarde», que es
+# justo el error que no se vería en el gráfico.
+q.MIN_BASE_SERIE = 1
+try:
+    hor = q.profundidad(data, weeks, now=NOW, corte="horario")
+    check("las partidas de las 14 UTC son de la mañana argentina",
+          [x["label"] for x in hor["series"]] == ["Mañana"],
+          f'({[x["label"] for x in hor["series"]]})')
+    check("y el desglose por horario reparte, no recorta",
+          sum(x["base"] for x in hor["series"]) == hor["base"],
+          f'({sum(x["base"] for x in hor["series"])} de {hor["base"]})')
+    check("cada franja lleva su clave para poder pintarla",
+          all(x["clave"] in q.FRANJA_ORDER for x in hor["series"]),
+          f'({[x["clave"] for x in hor["series"]]})')
+finally:
+    q.MIN_BASE_SERIE = 5
+
+# El orden es el del día y no el del tamaño: si se ordenaran por cuántos hay, las
+# tres líneas cambiarían de lugar de una semana a la otra.
+check("las franjas están declaradas en el orden del día",
+      q.FRANJA_ORDER == ("manana", "tarde", "noche"), f"({q.FRANJA_ORDER})")
+check("y las tres tienen etiqueta",
+      all(k in q.FRANJA_LABEL for k in q.FRANJA_ORDER))
+
 # La cohorte es la de la SEMANA ELEGIDA y no la ventana visible entera. Sin el
 # corte por arriba, pedir una semana vieja devolvía una curva con gente que esa
 # semana todavía no existía: p5 es de cuatro semanas antes y su cohorte es él
@@ -641,7 +688,7 @@ h = game_render.page(q.build(s, WEEK), token="tok", seccion="inventada")
 check("una pestaña que no existe cae en la primera", h.count("<h2>") == 1
       and "Titulares" in h)
 
-# Los cuatro cortes tienen que armar la pestaña de profundidad, incluido el que
+# Los cinco cortes tienen que armar la pestaña de profundidad, incluido el que
 # se queda sin series: ahí el gráfico no se dibuja y la caja se cae si nadie lo
 # previó.
 for c in q.CORTES:
@@ -650,9 +697,18 @@ for c in q.CORTES:
     # El corte activo se dibuja como texto marcado y no como link: los otros
     # tres siguen siendo links, y el activo no puede llevar a sí mismo.
     activo = {"total": "Todos", "cohorte": "Por cohorte",
-              "universidad": "Por universidad", "aparato": "Por aparato"}[c]
+              "universidad": "Por universidad", "aparato": "Por aparato",
+              "horario": "Por horario"}[c]
     check(f"y el corte «{c}» queda marcado en la barra",
           f'<span class="cur">{activo}</span>' in h)
+    # El corte por horario es el único que además explica qué NO es: la hora de
+    # arranque es en buena parte la hora en que salió el mensaje de difusión, y
+    # sin decirlo el gráfico se lee como «a esta hora la gente rinde mejor».
+    if c == "horario":
+        check("y el corte por horario avisa que mide difusión tanto como hábito",
+              "por qué difusión llegaste" in h)
+        check("y deja escritos los bordes de las franjas",
+              "mañana 06–13, tarde 13–20, noche 20–06" in h)
     # Las tres barras conviven: cambiar de semana o de pestaña no puede perder
     # el desglose elegido, y elegir desglose no puede devolver a la primera
     # pestaña. Se verifica sobre los links, que es donde viaja el estado.
