@@ -380,7 +380,8 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         + "".join(_kpi_chico(l, v, h, dec=0)
                   for l, v, h in [
                       ("Suscripciones push", pu["subs"], "navegadores registrados"),
-                      ("Con notificación activa", pu["activos"], "jugadores que la prendieron"),
+                      ("Con notificación activa", pu["activos"],
+                       f'{pu["alcanzables"]} con navegador suscripto'),
                       ("Enviadas", pu["enviadas"], "en la ventana visible"),
                       ("Abiertas", pu["abiertas"], "clicks en la notificación")])
         + "</div>"
@@ -394,10 +395,14 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                 f'<code>game/notification_copy.py</code>. Si se separan mucho hay variantes '
                 f'que casi nunca aplican —piden un hecho que no ocurre— y el reparto '
                 f'efectivo no es el que se configuró.'
-                f'<br><br>Si «con notificación activa» queda muy por debajo de las '
-                f'suscripciones, alguien se suscribió y la preferencia no se guardó. Para un '
-                f'jugador con cuenta esa preferencia vive en <code>users</code> y para un '
-                f'invitado en <code>game_players</code>, así que el número mira las dos.'
+                f'<br><br><b>«Con notificación activa» no es «va a recibir avisos de dx».</b> '
+                f'Para un jugador con cuenta la preferencia vive en <code>users</code>, o sea '
+                f'que la puede haber prendido en Intervalo y para otro producto; para un '
+                f'invitado vive en <code>game_players</code>. El número mira las dos, y el '
+                f'renglón de abajo dice cuántos de esos además tienen un navegador suscripto, '
+                f'que es la condición que falta para que le llegue algo. Si ese segundo número '
+                f'queda muy por debajo de las suscripciones, alguien se suscribió y la '
+                f'preferencia no se guardó.'
                 f'<br><br><b>Las cuatro de abajo son avisos de EVENTO</b> y no entran al '
                 f'sorteo: salen porque pasó algo —alguien donó, un recluta empezó a rendir, '
                 f'te pasaron en el ranking— y tienen cupo propio, así que no compiten por el '
