@@ -7,6 +7,10 @@ export type UniversityTag = {
   key: string
   fullName: string
   color: string
+  // Fondo y borde propios, para la universidad que no se deja resumir en un
+  // solo color (ver `chip` en la UNC). Sin esto, los tres se derivan de
+  // `color` — ver `estilosDeTag`.
+  chip?: { background: string; border: string }
   font: React.CSSProperties // fontFamily, fontWeight, letterSpacing
   tagFontSize: string
   tagDy?: number // ajuste vertical fino (px) del tag chico del leaderboard
@@ -19,6 +23,23 @@ const TAG_FONT: React.CSSProperties = {
   letterSpacing: "0.02em",
 }
 const TAG_FONT_SIZE = "9.0px"
+
+// La fórmula de la tag: el color de marca hace de texto, de borde al 60% y de
+// fondo al 20%. Vive acá y no en cada componente porque estaba copiada en
+// TRES lugares —el tag del ranking, las sugerencias del step de universidad y
+// las del recupero de perfil— y en cuanto una universidad dejó de ser
+// monocroma (la UNC) las tres tenían que enterarse a la vez. Devuelve solo
+// color/borde/fondo + tipografía: el tamaño y el ajuste vertical los pone
+// cada lugar, que no son el mismo (9 px en el ranking, `text-xs` en los
+// botones).
+export function estilosDeTag(cfg: UniversityTag): React.CSSProperties {
+  return {
+    color: cfg.color,
+    borderColor: cfg.chip?.border ?? `${cfg.color}99`,
+    backgroundColor: cfg.chip?.background ?? `${cfg.color}33`,
+    ...cfg.font,
+  }
+}
 
 export const UNIVERSITY_TAGS: UniversityTag[] = [
   {
@@ -50,9 +71,20 @@ export const UNIVERSITY_TAGS: UniversityTag[] = [
     tagFontSize: TAG_FONT_SIZE,
   },
   {
+    // La única con fondo propio, y a propósito: su color anterior (#4A63D6)
+    // era un azul violáceo indistinguible del de la UBA (#4F76E0) y del de la
+    // UNS (#2E8FE0) a 9 px. Ahora lleva los dos colores del isotipo de la
+    // FCEFyN —el verdeazulado de fondo, el amarillo de tinta—, así que se
+    // reconoce por ESTRUCTURA (es la única de dos colores) y no solo por tono.
+    //
+    // El amarillo está corrido del dorado real del logo (un crema, ≈#E9D9A6):
+    // sobre el #131324 del juego ese crema deja de leerse como amarillo. Y no
+    // se baja más que esto porque abajo espera el #E3A73C de la UADE, el otro
+    // dorado del ranking.
     key: "UNC",
     fullName: "Universidad Nacional de Córdoba",
-    color: "#4A63D6",
+    color: "#EACB52",
+    chip: { background: "#123230", border: "#2E6360" },
     font: TAG_FONT,
     tagFontSize: TAG_FONT_SIZE,
   },

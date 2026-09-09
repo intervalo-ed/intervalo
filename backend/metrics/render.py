@@ -63,8 +63,17 @@ _table = theme.table
 # que hace <UniTag/>.
 UNIVERSITY_COLOR = {
     "UBA": "#4F76E0", "UTN": "#EC4869", "UNSAM": "#4D90F2", "UNLP": "#21B8AE",
-    "UNC": "#4A63D6", "UNR": "#D742A0", "UNL": "#29CBD9", "UNT": "#9AA7B8",
+    "UNC": "#EACB52", "UNR": "#D742A0", "UNL": "#29CBD9", "UNT": "#9AA7B8",
     "UNS": "#2E8FE0", "UADE": "#E3A73C", "ITBA": "#2C7DBE", "UNLaM": "#3FAE5C",
+}
+
+# Fondo y borde propios, para la universidad que no se deja resumir en un solo
+# color — espejo del campo `chip` de UNIVERSITY_TAGS en el front. Solo la UNC:
+# lleva los dos colores del isotipo de la FCEFyN porque su azul anterior no se
+# distinguía del de la UBA. `UNIVERSITY_COLOR` sigue siendo el color ÚNICO de
+# cada una, el que necesita la curva de profundidad para pintar una línea.
+UNIVERSITY_CHIP = {
+    "UNC": ("#123230", "#2E6360"),
 }
 
 # Los mismos emojis que ve el usuario, para que el panel y la app nombren las
@@ -142,12 +151,14 @@ def curso_label(slug: str) -> str:
 
 def _uni_chip(sigla: str) -> str:
     """El chip de universidad del ranking: color de marca sobre su propio fondo
-    translúcido, o gris si la universidad entró por «Otra»."""
+    translúcido, o gris si la universidad entró por «Otra». La que tenga fondo
+    y borde propios en UNIVERSITY_CHIP los usa en lugar de derivarlos."""
     color = UNIVERSITY_COLOR.get(sigla)
     if not color:
         return (f'<span class="tag tag-plain">{esc(sigla)}</span>')
-    return (f'<span class="tag" style="color:{color};border-color:{color}99;'
-            f'background:{color}33">{esc(sigla)}</span>')
+    fondo, borde = UNIVERSITY_CHIP.get(sigla, (f"{color}33", f"{color}99"))
+    return (f'<span class="tag" style="color:{color};border-color:{borde};'
+            f'background:{fondo}">{esc(sigla)}</span>')
 
 
 def _emoji_label(pair: tuple[str, str] | None, fallback: str) -> str:

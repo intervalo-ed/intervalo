@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils"
 import {
   ONBOARDING_UNIVERSITIES,
   UNIVERSITY_TAG_BY_KEY,
+  estilosDeTag,
   matchUniversities,
 } from "@/lib/university-tags"
 
@@ -214,12 +215,7 @@ export function UniversityGrid({
                     type="button"
                     onClick={() => onPickSuggestion(s.key)}
                     className="inline-flex items-center justify-center rounded-md border px-2.5 py-1.5 text-xs transition-opacity hover:opacity-80"
-                    style={{
-                      color: s.color,
-                      borderColor: `${s.color}99`,
-                      backgroundColor: `${s.color}33`,
-                      ...s.font,
-                    }}
+                    style={estilosDeTag(s)}
                   >
                     {s.key}
                   </button>
