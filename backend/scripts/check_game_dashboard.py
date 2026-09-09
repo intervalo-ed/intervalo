@@ -42,7 +42,7 @@ sys.path.insert(0, str(BACKEND.parent))
 import database  # noqa: E402
 from models import (  # noqa: E402
     Base, Course, GameAttempt, GameBoost, GameCtaEvent, GameEvent, GameExercise,
-    GamePlayer, User,
+    GameNotificationSend, GamePlayer, GamePushSubscription, User,
 )
 
 Base.metadata.create_all(database.engine)
@@ -226,6 +226,43 @@ s.add(GameCtaEvent(player_id=1, cta="share", action="impression", created_at=T(0
 s.add(GameCtaEvent(player_id=1, cta="share", action="click", created_at=T(0, 15, 2)))
 # Un CTA del bot, que tampoco puede contar.
 s.add(GameCtaEvent(player_id=9, cta="cafecito", action="click", created_at=T(0, 15)))
+
+# ── Re-enganche ──────────────────────────────────────────────────────────────
+# p1 registrado: su preferencia vive en `users` (es el titular del cupo).
+# p2 invitado: la suya vive en su propia fila.
+# p3 sin suscribir: no puede recibir aunque tenga la preferencia prendida.
+s.query(User).filter(User.id == 1).update({"notify_enabled": True})
+s.query(GamePlayer).filter(GamePlayer.id == 2).update({"notify_enabled": True})
+s.query(GamePlayer).filter(GamePlayer.id == 3).update({"notify_enabled": True})
+for pid in (1, 2):
+    s.add(GamePushSubscription(player_id=pid, endpoint=f"https://push.test/{pid}",
+                               p256dh="k", auth="a"))
+
+# Cuatro avisos: tres programados y uno de evento, con un solo click. El de
+# evento es el que NO tiene peso nominal.
+AVISOS = [
+    (1, "social", "social_hoy", T(0, 15), True),
+    (1, "reactivacion", "reactivacion_ayer", T(1, 15), False),
+    (2, "social", "social_semana", T(2, 15), False),
+    (2, "empuje", "empuje_anon", T(3, 15), False),
+]
+for pid, cat, var, cuando, abierto in AVISOS:
+    s.add(GameNotificationSend(
+        player_id=pid, category=cat, variant_key=var, title="dx", body="cuerpo",
+        sent_at=cuando, delivery_status="ok",
+        opened_at=cuando + timedelta(minutes=5) if abierto else None))
+
+# Un aviso del BOT, que no puede contar en ningún número.
+s.add(GameNotificationSend(player_id=9, category="social", variant_key="social_hoy",
+                           title="dx", body="cuerpo", sent_at=T(0, 15)))
+s.add(GamePushSubscription(player_id=9, endpoint="https://push.test/bot",
+                           p256dh="k", auth="a"))
+
+# Mails: a p4 le salió el "volvé" y volvió a jugar al día siguiente; a p1 le
+# salió el resumen de reclutas y no volvió.
+s.query(GamePlayer).filter(GamePlayer.id == 4).update(
+    {"winback_email_sent_at": T(2, 13)})
+s.query(User).filter(User.id == 2).update({"reclutas_email_sent_on": T(0, 15).date()})
 
 # Dos empujes con el MISMO tamaño y distinto origen: uno donado de verdad y uno
 # que insertamos nosotros para probar. Es el par que fija la definición — el
@@ -447,6 +484,57 @@ try:
 finally:
     q.MIN_BASE_SERIE = 5
 
+# ── Re-enganche: push ───────────────────────────────────────────────────────
+print()
+print("— push —")
+pu = q.push(data, weeks)
+check("las suscripciones del bot no cuentan", pu["subs"] == 2, f'({pu["subs"]})')
+# La preferencia vive en `users` para el registrado y en `game_players` para el
+# invitado. Contar una sola de las dos tablas da la mitad de la respuesta, y es
+# el error que este titular existe para detectar.
+check("y «con notificación activa» mira las dos tablas",
+      pu["activos"] == 3, f'({pu["activos"]}, esperaba p1 por users y p2/p3 por game_players)')
+check("los avisos del bot tampoco", pu["enviadas"] == 4, f'({pu["enviadas"]})')
+check("un solo click", pu["abiertas"] == 1 and pu["ctr"] == 25.0,
+      f'({pu["abiertas"]}, ctr {pu["ctr"]})')
+cats = {c["categoria"]: c for c in pu["por_categoria"]}
+check("la categoría más mandada va primero",
+      pu["por_categoria"][0]["categoria"] == "social")
+check("y cada una lleva su CTR", cats["social"]["enviadas"] == 2
+      and cats["social"]["abiertas"] == 1 and cats["social"]["ctr"] == 50.0,
+      f'({cats["social"]})')
+
+# ── Re-enganche: mails ──────────────────────────────────────────────────────
+print()
+print("— mails —")
+ma = q.mails(data, weeks)
+tipos = {t["tipo"]: t for t in ma["tipos"]}
+# A p4 le salió el "volvé" el día 2 a las 13 y respondió a las 14 del mismo día:
+# volvió dentro de la ventana.
+check("el volvé cuenta a quien vuelve a derivar",
+      tipos["winback_dx"]["enviados"] == 1 and tipos["winback_dx"]["activados"] == 1,
+      f'({tipos["winback_dx"]})')
+# Al usuario 2 (jugador p4) le salió el resumen de reclutas el día 0; p4 recién
+# respondió el día 2, o sea DENTRO de los tres días.
+check("y el resumen de reclutas también tiene su fila",
+      tipos["reclutas_semanal"]["enviados"] == 1, f'({tipos["reclutas_semanal"]})')
+check("la tasa global sale de los dos", ma["enviados"] == 2, f'({ma["enviados"]})')
+check("y se informa a cuántos se les puede escribir",
+      ma["alcanzables"] == 2, f'({ma["alcanzables"]}, los jugadores con cuenta)')
+
+# ── Reclutas ────────────────────────────────────────────────────────────────
+print()
+print("— reclutas —")
+rc = q.reclutas(data, weeks)
+# p2 entró por el link de p5: es el único reclutado del escenario.
+check("cuenta a quien entró por un link", rc["total_reclutados"] == 1,
+      f'({rc["total_reclutados"]})')
+check("y el bot no está en el denominador", rc["total_jugadores"] == 5,
+      f'({rc["total_jugadores"]})')
+top = {t["alias"]: t for t in rc["top"]}
+check("el reclutador aparece en el top", "cero" in top, f'({list(top)})')
+check("con su cuenta de reclutas", top["cero"]["reclutas"] == 1 if top else False)
+
 # ── 7 · La página se arma ───────────────────────────────────────────────────
 print("\n— render —")
 payload = q.build(s, WEEK)
@@ -466,7 +554,8 @@ check("una semana vacía no rompe el panel", len(html2) > 5000)
 # Cada pestaña se arma sola y trae SU sección y ninguna otra: es lo que hace que
 # el panel deje de ser un scroll.
 titulos = {"titulares": "Titulares", "embudo": "Embudo de la partida",
-           "profundidad": "Profundidad"}
+           "profundidad": "Profundidad", "push": "Re-enganche · push",
+           "mails": "Re-enganche · mails", "reclutas": "Reclutas"}
 for clave, _ in game_render.SECCIONES:
     h = game_render.page(q.build(s, WEEK), token="tok", seccion=clave)
     otros = [t for k, t in titulos.items() if k != clave]
@@ -476,8 +565,12 @@ for clave, _ in game_render.SECCIONES:
           not any(f'<h2><b>' in h and t in h.split('<h2>')[-1] for t in otros)
           or h.count("<h2>") == 1,
           f'({h.count(chr(60) + "h2>")} secciones)')
+    # La etiqueta de la barra es la de SECCIONES, que es más corta que el
+    # título de la sección: la pestaña dice «Push» y el encabezado
+    # «Re-enganche · push».
+    etiqueta = dict(game_render.SECCIONES)[clave]
     check(f"la pestaña «{clave}» queda marcada en la barra",
-          f'<span class="cur">{titulos[clave].split()[0]}</span>' in h)
+          f'<span class="cur">{etiqueta}</span>' in h)
 
 # Una pestaña inventada cae en la primera en vez de dar una página vacía.
 h = game_render.page(q.build(s, WEEK), token="tok", seccion="inventada")

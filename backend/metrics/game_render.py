@@ -50,7 +50,13 @@ CSS = theme.BASE_CSS
 # que hay dando vueltas, y una cuarta sería la que se olvida de actualizarse.
 # Son los mismos del chip que el jugador ve en su ranking, que es lo que hace
 # que una línea del desglose se reconozca sin leer la leyenda.
-from .render import UNIVERSITY_COLOR  # noqa: E402
+from .render import UNIVERSITY_COLOR, _uni_chip  # noqa: E402
+
+# Los pesos del sorteo se LEEN de donde se deciden, no se copian: la columna
+# «nominal» de la tabla de push existe justamente para detectar que el reparto
+# real no es el configurado, y una copia vieja de los pesos convertiría a esa
+# columna en la que miente.
+from game.notification_copy import PESOS as PESOS_DEL_COPY  # noqa: E402
 
 # Helpers de presentación compartidos con el panel de Intervalo — ver
 # metrics/theme.py. Los alias locales evitan reescribir las llamadas ya
@@ -66,8 +72,51 @@ def _pct_txt(v) -> str:
     return "—" if v is None else num(v, "%")
 
 
-# Las tres pestañas del panel, en el orden en que conviene leerlas: cuánta
-# gente hay, dónde se cae, y cuánto aguanta la que se queda.
+def _kpi_chico(label: str, valor, hint: str = "", suffix: str = "", dec: int = 1) -> str:
+    """Un número con su etiqueta, sin sparkline ni delta.
+
+    `theme.kpi` es el de los titulares y pide serie y variación semanal: son
+    ocho números que se miran comparándolos con la semana anterior. Estos son
+    otra cosa —cuántas suscripciones hay, cuántos mails salieron— y no tienen
+    contra qué compararse semana a semana sin inventar una serie.
+    """
+    return (f'<div class="box kpi"><div class="label">{esc(label)}</div>'
+            f'<div class="val">{num(valor, suffix, dec)}</div>'
+            + (f'<div class="hint">{esc(hint)}</div>' if hint else "")
+            + "</div>")
+
+
+# Qué dice cada copy, para que la tabla de push se pueda leer sin abrir el
+# código. La descripción y el ejemplo viven acá —son texto de panel— pero el
+# PESO no: se lee de `game/notification_copy.py`, que es donde se decide.
+#
+# Tenerlo escrito a mano sería la forma segura de que la columna «nominal»
+# muestre el reparto de hace tres meses justo en la tabla que existe para
+# detectar que el reparto real no es el configurado.
+COPY_PROGRAMADO = {
+    "social": ("Cuántos compañeros de su universidad ya derivaron hoy",
+               "{n} compañeros de la {uni} ya derivaron hoy. ¿Vos? 🎓"),
+    "reactivacion": ("Hace días que no entra",
+                     "Hace {n} días que no derivás. Te están pasando 👀"),
+    "record": ("Su mejor tanda de derivadas seguidas",
+               "Tu mejor tanda fueron {n} derivadas seguidas. ¿La superás? 🚀"),
+}
+
+COPY_REACTIVO = {
+    "empuje": ("Alguien invitó un cafecito para su universidad",
+               "Alguien de la {uni} invitó un cafecito. Tenés ×1,4 por 24 h ☕"),
+    "recluta": ("Un reclutado suyo empezó a generarle XP",
+                "Reclutaste a @{alias} y ya te dio {xp} XP 🪖"),
+    "ranking": ("Alguien lo pasó en el ranking",
+                "@{alias} te pasó en el ranking. ¿Lo dejás así? 🤼"),
+    "universidad": ("Su universidad pasó o está por ser pasada",
+                    "La {uni} le pasó a la {rival} en el ranking 🏛️"),
+}
+
+
+# Las pestañas del panel, en el orden en que conviene leerlas: cuánta gente hay,
+# dónde se cae, cuánto aguanta la que se queda, y —recién ahí— qué hacemos para
+# traerla de vuelta y quién nos trae gente nueva.
 #
 # Son PESTAÑAS y no una página larga porque las tres se miran de a una: no hay
 # ninguna lectura que necesite el embudo y la curva de profundidad a la vez, y
@@ -83,6 +132,9 @@ SECCIONES: tuple[tuple[str, str], ...] = (
     ("titulares", "Titulares"),
     ("embudo", "Embudo"),
     ("profundidad", "Profundidad"),
+    ("push", "Push"),
+    ("mails", "Mails"),
+    ("reclutas", "Reclutas"),
 )
 SECCION_POR_DEFECTO = SECCIONES[0][0]
 
@@ -301,6 +353,151 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
             f"el cafecito existen para mover esta curva.",
         anchor="profundidad"))
     paneles["profundidad"] = "".join(out)
+
+    # ── 3 · Push ─────────────────────────────────────────────────────────────
+    out = []
+    pu = p["push"]
+    total_enviadas = pu["enviadas"] or 1
+    filas_copy = []
+    for r in pu["por_categoria"]:
+        cat = r["categoria"]
+        if cat in COPY_REACTIVO:
+            desc, ejemplo = COPY_REACTIVO[cat]
+            nominal = "evento"
+        else:
+            desc, ejemplo = COPY_PROGRAMADO.get(cat, ("—", "—"))
+            peso = PESOS_DEL_COPY.get(cat)
+            nominal = "—" if peso is None else num(100 * peso, "%", dec=0)
+        filas_copy.append([
+            f'<b>{esc(cat)}</b><br><span class="sub2">{esc(desc)}</span>'
+            f'<br><span class="ej">{esc(ejemplo)}</span>',
+            r["enviadas"], num(100 * r["enviadas"] / total_enviadas, "%"), nominal,
+            r["abiertas"], _pct_txt(r["ctr"])])
+
+    out.append(_section(
+        3, "Re-enganche · push",
+        '<div class="grid g4">'
+        + "".join(_kpi_chico(l, v, h, dec=0)
+                  for l, v, h in [
+                      ("Suscripciones push", pu["subs"], "navegadores registrados"),
+                      ("Con notificación activa", pu["activos"], "jugadores que la prendieron"),
+                      ("Enviadas", pu["enviadas"], "en la ventana visible"),
+                      ("Abiertas", pu["abiertas"], "clicks en la notificación")])
+        + "</div>"
+        + _box(
+            "Por categoría de copy",
+            _table(["Copy", "Enviadas", "Real", "Nominal", "Abiertas", "CTR"],
+                   filas_copy, empty="todavía no salió ningún aviso"),
+            note=(
+                f'CTR global {_pct_txt(pu["ctr"])}. <b>Real</b> es qué porción de los envíos '
+                f'se llevó cada copy y <b>nominal</b> el peso que tiene asignado en '
+                f'<code>game/notification_copy.py</code>. Si se separan mucho hay variantes '
+                f'que casi nunca aplican —piden un hecho que no ocurre— y el reparto '
+                f'efectivo no es el que se configuró.'
+                f'<br><br>Si «con notificación activa» queda muy por debajo de las '
+                f'suscripciones, alguien se suscribió y la preferencia no se guardó. Para un '
+                f'jugador con cuenta esa preferencia vive en <code>users</code> y para un '
+                f'invitado en <code>game_players</code>, así que el número mira las dos.'
+                f'<br><br><b>Las cuatro de abajo son avisos de EVENTO</b> y no entran al '
+                f'sorteo: salen porque pasó algo —alguien donó, un recluta empezó a rendir, '
+                f'te pasaron en el ranking— y tienen cupo propio, así que no compiten por el '
+                f'lugar del recordatorio del día. No tienen «nominal» porque la variante la '
+                f'decide el hecho.')),
+        sub="El canal que existe para que alguien vuelva sin que se lo tengamos que recordar "
+            "por WhatsApp. Le llega también a los invitados, que son la mayoría del juego.",
+        anchor="push"))
+    paneles["push"] = "".join(out)
+
+    # ── 4 · Mails ────────────────────────────────────────────────────────────
+    out = []
+    ma = p["mails"]
+    filas_mail = [[f'<b>{esc(t["tipo"])}</b>', esc(t["desc"]), t["enviados"],
+                   t["activados"], _pct_txt(t["pct"])] for t in ma["tipos"]]
+    out.append(_section(
+        4, "Re-enganche · mails de ciclo de vida",
+        '<div class="grid g4">'
+        + "".join(_kpi_chico(l, v, h, suffix=sfx, dec=0 if not sfx else 1)
+                  for l, v, sfx, h in [
+                      ("Enviados", ma["enviados"], "", "en la ventana visible"),
+                      ("Activaron", ma["activados"], "",
+                       f'volvieron a derivar en {ma["ventana_dias"]} días'),
+                      ("Tasa de activación", ma["pct"], "%", "sobre los enviados"),
+                      ("Bajas", ma["bajas"], "",
+                       f'de {ma["alcanzables"]} jugadores con mail')])
+        + "</div>"
+        + _box(
+            "Por copy",
+            _table(["Copy", "A quién va", "Enviados", "Activaron", "Tasa"],
+                   filas_mail, empty="todavía no salió ningún mail"),
+            note=(
+                f'<b>Activar</b> = responder una derivada dentro de los '
+                f'{ma["ventana_dias"]} días siguientes al envío. Es lo más cerca de «el mail '
+                f'funcionó» que se puede medir sin aperturas: Resend las conoce pero no '
+                f'llegan a esta base, y necesitan un webhook '
+                f'(<code>email.opened</code>) contra un endpoint nuevo.'
+                f'<br><br>Dos salvedades. <b>«reclutas_semanal» no se compara con el otro</b>: '
+                f'va a quien tiene reclutas rindiendo esta semana, o sea gente que ya está '
+                f'activa, así que su tasa arranca alta por selección y esa gente volvía '
+                f'igual. Y <b>no hay grupo de control</b>: todo el que califica recibe el '
+                f'mail, así que esto es una tasa bruta y no un efecto causal — para saber '
+                f'cuánto aporta habría que dejar un holdout sin mandar.'
+                f'<br><br><b>Al invitado no le llega ninguno</b>, y no es un olvido: '
+                f'<code>users.email</code> viene de Clerk. A esa persona solo se la puede '
+                f'alcanzar por push. El mail del cafecito tampoco está acá: su marcador se '
+                f'escribe aunque el mail no salga, así que contarlo sería inventar envíos.')),
+        sub="Los dos mails que le llegan a un jugador CON cuenta. Lo que miden es si el mail "
+            "lo trajo de vuelta, no si lo abrió.",
+        anchor="mails"))
+    paneles["mails"] = "".join(out)
+
+    # ── 5 · Reclutas ─────────────────────────────────────────────────────────
+    out = []
+    rc = p["reclutas"]
+    filas_k = [[w["label"], w["nuevos"], w["reclutados"], _pct_txt(w["pct_reclutados"]),
+                w["base"], num(w["k"], dec=2)] for w in rc["semanas"]]
+    filas_top = [[f'@{esc(t["alias"])}',
+                  _uni_chip(t["university"]) if t["university"] else "—",
+                  t["reclutas"], t["xp"]] for t in rc["top"]]
+    out.append(_section(
+        5, "Reclutas",
+        '<div class="grid g4">'
+        + "".join(_kpi_chico(l, v, h, suffix=sfx, dec=0 if not sfx else 1)
+                  for l, v, sfx, h in [
+                      ("Reclutados", rc["total_reclutados"], "",
+                       "jugadores que entraron por un link"),
+                      ("Del total de jugadores", rc["pct_reclutados"], "%",
+                       f'sobre {rc["total_jugadores"]}'),
+                      ("K de la última semana",
+                       rc["semanas"][-1]["k"] if rc["semanas"] else None, "",
+                       "reclutas nuevos / base que ya existía"),
+                      ("Top reclutador", rc["top"][0]["xp"] if rc["top"] else None, "",
+                       f'XP de @{rc["top"][0]["alias"]}' if rc["top"]
+                       else "todavía nadie reclutó")])
+        + "</div>"
+        + _box(
+            "Coeficiente de viralidad por semana",
+            _table(["Semana", "Nuevos", "Reclutados", "% reclutados", "Base previa", "K"],
+                   filas_k),
+            note=(
+                "<b>K</b> = reclutas nuevos de la semana sobre los jugadores que YA EXISTÍAN "
+                "antes de esa semana, o sea «cuántos jugadores nuevos trae, en promedio, cada "
+                "uno de los que ya estaban». No es la fórmula completa —invitaciones × "
+                "conversión—: no sabemos cuántos links se mandaron, solo cuántos prendieron. "
+                "<b>K &gt; 1 es crecimiento que se sostiene solo</b>; por debajo, el link "
+                "ayuda pero no alcanza como único canal."))
+        + _box(
+            "Top reclutadores",
+            _table(["Reclutador", "Universidad", "Reclutas", "XP ganada"], filas_top,
+                   empty="todavía nadie reclutó"),
+            note=(
+                "De SIEMPRE y no de la ventana visible, como el ranking del juego: no tendría "
+                "sentido resetear a quien lleva meses trayendo gente solo porque esta semana "
+                "no reclutó a nadie nuevo. Un solo nivel — los reclutas de tus reclutas no "
+                "suman acá (ver <code>game/referrals.py</code>). <b>XP ganada</b> es la suma "
+                "de lo que cada recluta le generó, que es el 10% de lo que ese recluta hizo.")),
+        sub="El único canal de crecimiento que no depende de que difundamos nosotros.",
+        anchor="reclutas"))
+    paneles["reclutas"] = "".join(out)
 
     out = [cabecera, paneles[seccion]]
     out.append(

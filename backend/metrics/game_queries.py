@@ -141,7 +141,8 @@ def load(db: DBSession) -> dict:
     """
     data = {
         "players": _rows(db, """
-            SELECT id, user_id, university, referred_by, platform, is_bot,
+            SELECT id, user_id, alias, university, referred_by, referral_xp_given,
+                   platform, is_bot, notify_enabled, winback_email_sent_at,
                    created_at, last_seen_at
             FROM game_players"""),
         "exercises": _rows(db, "SELECT id, player_id, created_at FROM game_exercises"),
@@ -149,6 +150,25 @@ def load(db: DBSession) -> dict:
             SELECT player_id, attempt_number, parse_ok, is_correct, created_at
             FROM game_attempts"""),
         "boosts": _rows(db, "SELECT cafecitos, source, created_at FROM game_boosts"),
+        # Los avisos push del juego y los navegadores suscriptos. Las dos tablas
+        # son chicas por construcción —una fila por envío y una por navegador—
+        # y sin ellas la sección de re-enganche no tiene nada que contar.
+        "avisos": _rows(db, """
+            SELECT player_id, category, variant_key, sent_at, delivery_status,
+                   opened_at
+            FROM game_notification_sends"""),
+        "suscripciones": _rows(db, "SELECT player_id FROM game_push_subscriptions"),
+        # De `users`, SOLO lo que el panel del juego necesita para los mails, y
+        # solo de quienes tienen jugador. La tabla entera se había sacado de acá
+        # a propósito —se cargaba completa y no la leía ninguna sección— así que
+        # esto vuelve acotado: el marcador del resumen semanal, la baja del
+        # canal y si tiene los avisos prendidos, que para un jugador registrado
+        # es donde vive la preferencia (game/notifications.py).
+        "usuarios": _rows(db, """
+            SELECT u.id, u.email_unsubscribed, u.reclutas_email_sent_on,
+                   u.notify_enabled
+            FROM users u
+            JOIN game_players p ON p.user_id = u.id"""),
         "cta": _rows(db, "SELECT player_id, created_at FROM game_cta_events"),
     }
 
@@ -159,6 +179,8 @@ def load(db: DBSession) -> dict:
     data["exercises"] = [e for e in data["exercises"] if e["player_id"] not in bots]
     data["attempts"] = [a for a in data["attempts"] if a["player_id"] not in bots]
     data["cta"] = [c for c in data["cta"] if c["player_id"] not in bots]
+    data["avisos"] = [a for a in data["avisos"] if a["player_id"] not in bots]
+    data["suscripciones"] = [x for x in data["suscripciones"] if x["player_id"] not in bots]
     data["_bots"] = len(bots)
 
     # Respuestas de verdad: las que el parser entendió. Se ordenan una sola vez
@@ -592,6 +614,188 @@ def profundidad(data: dict, weeks: list[date], now: datetime | None = None,
     }
 
 
+# ── 3 · Re-enganche: push ────────────────────────────────────────────
+
+# Cuántos días después de un mail se sigue contando como que lo trajo de vuelta.
+# El mismo número que usa el panel de Intervalo, para que las dos tasas de
+# activación se puedan leer una al lado de la otra.
+DIAS_DE_ACTIVACION = 3
+
+
+def _con_avisos_prendidos(data: dict) -> set[int]:
+    """Los jugadores que tienen los avisos prendidos.
+
+    La preferencia vive en `users` cuando el jugador tiene cuenta y en
+    `game_players` cuando es invitado (game/notifications.py :: titular_del_cupo),
+    así que preguntarle a una sola de las dos tablas da la mitad de la respuesta.
+
+    Es justo la comparación que hace útil el titular «con notificación activa»:
+    si queda muy por debajo de las suscripciones, alguien se suscribió y la
+    preferencia no se guardó.
+    """
+    usuarios_prendidos = {u["id"] for u in data["usuarios"] if u["notify_enabled"]}
+    salida = set()
+    for p in data["players"]:
+        prendido = (p["user_id"] in usuarios_prendidos if p["user_id"]
+                    else bool(p["notify_enabled"]))
+        if prendido:
+            salida.add(p["id"])
+    return salida
+
+
+def push(data: dict, weeks: list[date]) -> dict:
+    """Los avisos del juego: cuántos salieron, de qué copy y cuántos se tocaron.
+
+    El reparto REAL contra el NOMINAL es lo que esta tabla existe para mostrar.
+    Las categorías programadas se sortean con los pesos de
+    `game/notification_copy.py::PESOS`, pero solo entran al sorteo si el hecho
+    que cuentan existe: si «social» pide cinco compañeros jugando hoy y casi
+    nunca los hay, su peso nominal se reparte entre las otras y el copy que sale
+    no es el que se configuró. Verlos separados es la única forma de enterarse.
+
+    Las reactivas —cafecito, reclutas, ranking, universidad— no tienen nominal
+    porque no se sortean: la variante la decide el hecho, y tienen cupo propio,
+    así que tampoco compiten por el lugar del recordatorio del día.
+    """
+    lo, hi = weeks[0], weeks[-1] + timedelta(days=7)
+    enviados = [a for a in data["avisos"]
+                if a["sent_at"] is not None and lo <= local_date(a["sent_at"]) < hi]
+
+    por_cat: dict[str, dict] = defaultdict(lambda: {"enviadas": 0, "abiertas": 0})
+    for a in enviados:
+        c = por_cat[a["category"]]
+        c["enviadas"] += 1
+        if a["opened_at"] is not None:
+            c["abiertas"] += 1
+
+    abiertas = sum(1 for a in enviados if a["opened_at"] is not None)
+    return {
+        "subs": len(data["suscripciones"]),
+        "activos": len(_con_avisos_prendidos(data)),
+        "enviadas": len(enviados),
+        "entregadas": sum(1 for a in enviados if a["delivery_status"] == "ok"),
+        "abiertas": abiertas,
+        "ctr": _pct(abiertas, len(enviados)),
+        "por_categoria": sorted(
+            [{"categoria": k, **v, "ctr": _pct(v["abiertas"], v["enviadas"])}
+             for k, v in por_cat.items()],
+            key=lambda r: -r["enviadas"]),
+    }
+
+
+# ── 4 · Re-enganche: mails ──────────────────────────────────────────
+
+def mails(data: dict, weeks: list[date]) -> dict:
+    """Los mails del juego: a cuántos les llegó y cuántos volvieron a jugar.
+
+    **Activación** = respondió una derivada dentro de los `DIAS_DE_ACTIVACION`
+    días posteriores al envío. Es lo más cerca de «el mail funcionó» que se
+    puede medir sin aperturas —Resend las conoce pero no llegan a esta base— y
+    es la pregunta que importa: un mail que se abre y no te trae de vuelta no
+    sirve.
+
+    Dos advertencias, las mismas que en el panel de Intervalo.
+    `reclutas_semanal` NO se compara con el otro: va a quien tiene reclutas que
+    rindieron esta semana, o sea gente que ya está activa, así que su tasa
+    arranca alta por selección. Y no hay grupo de control: todo el que califica
+    recibe el mail, así que esto es una tasa bruta y no un efecto causal.
+
+    **Falta el del cafecito**, y no es un olvido: su marcador
+    (`game_boosts.email_sent_at`) se escribe aunque el mail no salga, así que
+    contarlo como enviado sería inventar envíos; y su destinatario se resuelve a
+    través de `game_boost_intents`, que este panel no carga. Lo que hay de ese
+    mail está en la sección Cafecito del panel de Intervalo.
+    """
+    lo, hi = weeks[0], weeks[-1] + timedelta(days=7)
+
+    # Cuándo respondió cada jugador, para poder preguntar «¿volvió después del
+    # mail?». `_answers` ya viene ordenada por (jugador, fecha).
+    jugo: dict[int, list[datetime]] = defaultdict(list)
+    for a in data["_answers"]:
+        if a["created_at"] is not None:
+            jugo[a["player_id"]].append(a["created_at"])
+
+    def activacion(filas: list[tuple[int, datetime]]) -> tuple[int, int]:
+        vueltas = 0
+        for pid, cuando in filas:
+            limite = cuando + timedelta(days=DIAS_DE_ACTIVACION)
+            if any(cuando <= t <= limite for t in jugo.get(pid, ())):
+                vueltas += 1
+        return len(filas), vueltas
+
+    tipos = []
+
+    volve = [(p["id"], p["winback_email_sent_at"]) for p in data["players"]
+             if p["winback_email_sent_at"] is not None
+             and lo <= local_date(p["winback_email_sent_at"]) < hi]
+    n, act = activacion(volve)
+    tipos.append({"tipo": "winback_dx", "desc": "Derivó y hace 5+ días que no vuelve",
+                  "enviados": n, "activados": act, "pct": _pct(act, n)})
+
+    # `reclutas_email_sent_on` es una FECHA local y no un instante —es semanal y
+    # se pisa en cada envío, así que solo sobrevive la del último— y vive en
+    # `users`. Se lleva a medianoche local (UTC-3) para poder reusar
+    # `activacion()` en vez de duplicar su lógica.
+    def _dia(v):
+        """La fecha del marcador semanal, venga como sea.
+
+        `_rows` normaliza las columnas que terminan en `_at`, que es la
+        convención del esquema para los instantes. `reclutas_email_sent_on`
+        termina en `_on` porque es una FECHA, así que no pasa por ahí: Postgres
+        la devuelve como `date` y SQLite como texto. Sin esto el panel anda en
+        producción y explota en local, que es la peor forma de que ande.
+        """
+        if v is None or isinstance(v, date) and not isinstance(v, datetime):
+            return v
+        if isinstance(v, datetime):
+            return v.date()
+        try:
+            return date.fromisoformat(str(v)[:10])
+        except ValueError:
+            return None
+
+    jugador_de = {p["user_id"]: p["id"] for p in data["players"] if p["user_id"]}
+    filas_reclutas = []
+    for u in data["usuarios"]:
+        dia = _dia(u["reclutas_email_sent_on"])
+        if dia is None or u["id"] not in jugador_de or not (lo <= dia < hi):
+            continue
+        filas_reclutas.append(
+            (jugador_de[u["id"]],
+             datetime.combine(dia, datetime.min.time()) + timedelta(hours=3)))
+    n, act = activacion(filas_reclutas)
+    tipos.append({"tipo": "reclutas_semanal",
+                  "desc": "Resumen semanal de lo que generaron sus reclutas",
+                  "enviados": n, "activados": act, "pct": _pct(act, n)})
+
+    total = sum(t["enviados"] for t in tipos)
+    activados = sum(t["activados"] for t in tipos)
+    return {
+        "tipos": tipos,
+        "enviados": total,
+        "activados": activados,
+        "pct": _pct(activados, total),
+        "bajas": sum(1 for u in data["usuarios"] if u["email_unsubscribed"]),
+        "alcanzables": len(data["usuarios"]),
+        "ventana_dias": DIAS_DE_ACTIVACION,
+    }
+
+
+# ── 5 · Reclutas ──────────────────────────────────────────────────
+
+def reclutas(data: dict, weeks: list[date]) -> dict:
+    """Quién trae gente nueva por su link, y cuánto rinde.
+
+    Delega en la del panel de Intervalo en vez de reescribirla: es la MISMA
+    cuenta sobre las MISMAS filas —aquella sección ya lee `game_players`, que es
+    donde vive todo esto— y dos copias de una definición de K terminarían dando
+    dos números distintos para la misma pregunta. Lo único que cambia es de
+    dónde salen las filas: acá ya vienen sin bots desde `load()`.
+    """
+    from .queries import reclutas as _reclutas_de_intervalo
+    return _reclutas_de_intervalo({"game_players": data["players"]}, weeks)
+
+
 # ── Entrada ──────────────────────────────────────────────────────────────────
 
 def build(db: DBSession, week: date, weeks_shown: int = 4,
@@ -614,4 +818,7 @@ def build(db: DBSession, week: date, weeks_shown: int = 4,
         "headline": headline(data, weeks),
         "funnel": funnel(data, week),
         "profundidad": profundidad(data, weeks, corte=corte),
+        "push": push(data, weeks),
+        "mails": mails(data, weeks),
+        "reclutas": reclutas(data, weeks),
     }
