@@ -63,7 +63,7 @@ _table = theme.table
 # que hace <UniTag/>.
 UNIVERSITY_COLOR = {
     "UBA": "#4F76E0", "UTN": "#EC4869", "UNSAM": "#4D90F2", "UNLP": "#21B8AE",
-    "UNC": "#EACB52", "UNR": "#D742A0", "UNL": "#29CBD9", "UNT": "#9AA7B8",
+    "UNC": "#E4CE7B", "UNR": "#D742A0", "UNL": "#29CBD9", "UNT": "#9AA7B8",
     "UNS": "#2E8FE0", "UADE": "#E3A73C", "ITBA": "#2C7DBE", "UNLaM": "#3FAE5C",
 }
 
