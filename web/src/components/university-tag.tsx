@@ -1,4 +1,4 @@
-import { UNIVERSITY_TAG_BY_KEY } from "@/lib/university-tags"
+import { estilosDeTag, UNIVERSITY_TAG_BY_KEY } from "@/lib/university-tags"
 
 // Tag de universidad (leaderboard individual, ranking por universidad y las
 // secciones de ranking de la landing) — color de marca + tipografía
@@ -17,12 +17,9 @@ export function UniTag({ university }: { university: string }) {
     <span
       className="inline-flex shrink-0 items-center justify-center rounded-md border px-1 py-1 text-center leading-none"
       style={{
-        color: cfg.color,
-        borderColor: `${cfg.color}99`,
-        backgroundColor: `${cfg.color}33`,
+        ...estilosDeTag(cfg),
         fontSize: cfg.tagFontSize,
         transform: cfg.tagDy ? `translateY(${cfg.tagDy}px)` : undefined,
-        ...cfg.font,
       }}
     >
       {university}

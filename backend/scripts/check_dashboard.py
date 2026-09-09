@@ -425,6 +425,20 @@ check("render: no hay llaves de formato sin resolver", "{" not in html.split("<s
 # emoji + nombre para carreras y cursos, los mismos que ve el usuario.
 check("render: la universidad usa el chip de marca del ranking",
       'class="tag" style="color:#4F76E0' in html)
+# La UNC es la única con fondo y borde propios (los dos colores del isotipo de
+# la FCEFyN) porque su azul anterior no se distinguía del de la UBA. Se
+# comprueba llamando a `_uni_chip` directo y no buscando en el HTML: el fixture
+# no tiene por qué tener una fila de Córdoba, y lo que hay que fijar es que la
+# excepción siga existiendo si alguien "simplifica" la función.
+from metrics.render import UNIVERSITY_CHIP, _uni_chip  # noqa: E402
+check("render: sin fondo propio, el chip deriva borde y fondo del color",
+      _uni_chip("UBA") == ('<span class="tag" style="color:#4F76E0;'
+                           'border-color:#4F76E099;background:#4F76E033">UBA</span>'))
+check("render: la UNC lleva el verdeazulado propio, no un lavado del amarillo",
+      _uni_chip("UNC") == ('<span class="tag" style="color:#EACB52;'
+                           'border-color:#2E6360;background:#123230">UNC</span>'))
+check("render: la excepción del chip es solo la UNC",
+      set(UNIVERSITY_CHIP) == {"UNC"})
 check("render: la carrera se muestra con su emoji y su nombre",
       "⚙️" in html and "Ingeniería" in html)
 check("render: el curso usa el emoji del onboarding",
