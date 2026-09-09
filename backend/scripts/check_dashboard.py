@@ -435,7 +435,7 @@ check("render: sin fondo propio, el chip deriva borde y fondo del color",
       _uni_chip("UBA") == ('<span class="tag" style="color:#4F76E0;'
                            'border-color:#4F76E099;background:#4F76E033">UBA</span>'))
 check("render: la UNC lleva el verdeazulado propio, no un lavado del amarillo",
-      _uni_chip("UNC") == ('<span class="tag" style="color:#EACB52;'
+      _uni_chip("UNC") == ('<span class="tag" style="color:#E4CE7B;'
                            'border-color:#2E6360;background:#123230">UNC</span>'))
 check("render: la excepción del chip es solo la UNC",
       set(UNIVERSITY_CHIP) == {"UNC"})

@@ -78,12 +78,14 @@ export const UNIVERSITY_TAGS: UniversityTag[] = [
     // reconoce por ESTRUCTURA (es la única de dos colores) y no solo por tono.
     //
     // El amarillo está corrido del dorado real del logo (un crema, ≈#E9D9A6):
-    // sobre el #131324 del juego ese crema deja de leerse como amarillo. Y no
-    // se baja más que esto porque abajo espera el #E3A73C de la UADE, el otro
-    // dorado del ranking.
+    // sobre el #131324 del juego ese crema deja de leerse como amarillo. Pero
+    // lo que se le bajó es la SATURACIÓN, no el brillo: apagado por brillo
+    // pierde nitidez a 9 px y además se acerca al #E3A73C de la UADE, el otro
+    // dorado del ranking. Un paso más de desaturación y deja de ser amarillo
+    // para ser beige, que es lo que hundía a la versión fiel al logo.
     key: "UNC",
     fullName: "Universidad Nacional de Córdoba",
-    color: "#EACB52",
+    color: "#E4CE7B",
     chip: { background: "#123230", border: "#2E6360" },
     font: TAG_FONT,
     tagFontSize: TAG_FONT_SIZE,
