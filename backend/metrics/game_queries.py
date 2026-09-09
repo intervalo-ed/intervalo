@@ -669,9 +669,18 @@ def push(data: dict, weeks: list[date]) -> dict:
             c["abiertas"] += 1
 
     abiertas = sum(1 for a in enviados if a["opened_at"] is not None)
+    prendidos = _con_avisos_prendidos(data)
+    # Prender la preferencia no alcanza: hace falta además un navegador
+    # suscripto. Y los dos números se separan solos por una razón que no es un
+    # bug — un jugador registrado hereda la preferencia de Intervalo, donde la
+    # prendió para OTRO producto, así que «con notificación activa» puede ser
+    # nueve con cero suscripciones. Sin este segundo número, ese nueve se lee
+    # como «nueve personas van a recibir avisos de dx», que es falso.
+    suscriptos = {x["player_id"] for x in data["suscripciones"]}
     return {
         "subs": len(data["suscripciones"]),
-        "activos": len(_con_avisos_prendidos(data)),
+        "activos": len(prendidos),
+        "alcanzables": len(prendidos & suscriptos),
         "enviadas": len(enviados),
         "entregadas": sum(1 for a in enviados if a["delivery_status"] == "ok"),
         "abiertas": abiertas,

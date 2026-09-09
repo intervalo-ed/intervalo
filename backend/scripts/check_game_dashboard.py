@@ -494,6 +494,12 @@ check("las suscripciones del bot no cuentan", pu["subs"] == 2, f'({pu["subs"]})'
 # el error que este titular existe para detectar.
 check("y «con notificación activa» mira las dos tablas",
       pu["activos"] == 3, f'({pu["activos"]}, esperaba p1 por users y p2/p3 por game_players)')
+# Pero prender la preferencia no alcanza: hace falta un navegador suscripto. Los
+# dos números se separan sin que haya ningún bug —p3 la tiene prendida y no se
+# suscribió— y en producción se separan MÁS, porque un jugador registrado hereda
+# la preferencia de Intervalo, donde la prendió para otro producto.
+check("y «alcanzables» son los que además se suscribieron",
+      pu["alcanzables"] == 2, f'({pu["alcanzables"]}, p3 tiene la preferencia y ningún navegador)')
 check("los avisos del bot tampoco", pu["enviadas"] == 4, f'({pu["enviadas"]})')
 check("un solo click", pu["abiertas"] == 1 and pu["ctr"] == 25.0,
       f'({pu["abiertas"]}, ctr {pu["ctr"]})')
