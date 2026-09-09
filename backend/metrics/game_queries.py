@@ -477,9 +477,14 @@ def headline(data: dict, weeks: list[date]) -> list[dict]:
         # alcanzables después.
         card("Visitas totales", per_week(visitas), "",
              "Cuántas veces se sentó alguien a jugar. La misma persona que entra "
-             "el lunes y el jueves cuenta dos."),
+             "el lunes y el jueves cuenta dos. Incluye las visitas que no "
+             "llegaron a ninguna derivada: para eso está el embudo."),
         card("Usuarios nuevos", per_week(altas), "",
-             "Los que abrieron el juego por primera vez esa semana."),
+             "Abrieron el link por primera vez esa semana. La fila se crea al "
+             "CARGAR la página, así que incluye a quien se fue en la pantalla de "
+             "intro sin ver una derivada — que hoy es más de la mitad. Los "
+             "«estudiantes» del ranking son otra cosa: los que acertaron al "
+             "menos una, de siempre."),
         card("Instalan la app", per_week(instalaciones), "%",
              "De los nuevos de la semana, cuántos la abrieron ya instalada. La "
              "señal llega recién cuando la abren, así que la semana en curso "
