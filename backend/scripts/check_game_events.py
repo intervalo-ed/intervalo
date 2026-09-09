@@ -29,7 +29,7 @@ sys.path.insert(0, str(BACKEND.parent))
 
 import database  # noqa: E402
 from models import Base, GameEvent, GamePlayer, GameSimState  # noqa: E402
-from game import events, simulation  # noqa: E402
+from game import events, ranking, simulation  # noqa: E402
 
 Base.metadata.create_all(bind=database.engine)
 
@@ -64,27 +64,82 @@ def fresh_player(db, alias, *, university=None, is_bot=False, combo=0, xp=0,
 
 db = database.SessionLocal()
 
-print("1. escaladas: solo las grandes son noticia")
+print("1. entradas al top: se anuncia entrar, no escalar")
+# El ranking necesita gente para que los cortes existan: `MULTIPLO_DEL_CORTE`
+# pide el doble del corte compitiendo, y el corte más grande es 50.
+relleno = [fresh_player(db, f"relleno{i}", xp=1000 - i) for i in range(120)]
 ana = fresh_player(db, "ana")
 events.on_answer(db, ana, rank_before=40, rank_after=38, level_before=0, level_after=0)
 db.commit()
 check(
-    db.query(GameEvent).filter(GameEvent.kind == "climb").count() == 0,
-    f"pasar a 2 personas no se anuncia (umbral {events.CLIMB_MIN})",
+    db.query(GameEvent).filter(GameEvent.kind == "top").count() == 0,
+    "moverse del 40 al 38 no cruza ningún corte y no se anuncia",
 )
-events.on_answer(db, ana, rank_before=40, rank_after=28, level_before=0, level_after=0)
+events.on_answer(db, ana, rank_before=60, rank_after=48, level_before=0, level_after=0)
 db.commit()
-climb = db.query(GameEvent).filter(GameEvent.kind == "climb").first()
-check(climb is not None and "12 personas" in climb.text, f"pasar a 12 sí: {climb.text if climb else '—'}")
-check(climb is not None and climb.emoji == "🚀", "y viene con su emoji")
+top = db.query(GameEvent).filter(GameEvent.kind == "top").first()
+check(top is not None and top.text == "{a} entró al top 50.",
+      f"entrar al top 50 sí: {top.text if top else '—'}")
+check(top is not None and top.emoji == "🚀", "y viene con su emoji")
+
+print("1b. el corte más alto y uno solo")
+db.query(GameEvent).delete()
+db.commit()
+events.on_answer(db, ana, rank_before=150, rank_after=8, level_before=0, level_after=0)
+db.commit()
+saltos = db.query(GameEvent).filter(GameEvent.kind == "top").all()
+check(len(saltos) == 1, f"del puesto 150 al 8 sale UNA línea, no cuatro ({len(saltos)})")
+check(saltos and "top 10" in saltos[0].text,
+      f"y es la del corte más alto que cruzó: {saltos[0].text if saltos else '—'}")
+
+print("1c. quedarse adentro no vuelve a ser noticia")
+antes = db.query(GameEvent).filter(GameEvent.kind == "top").count()
+for _ in range(3):
+    events.on_answer(db, ana, rank_before=8, rank_after=7, level_before=0, level_after=0)
+    db.commit()
+check(db.query(GameEvent).filter(GameEvent.kind == "top").count() == antes,
+      "responder bien sentado adentro del top 10 no anuncia nada")
+# Y volver a cruzarlo tampoco, dentro de la ventana: el ping-pong de la misma
+# tarde no son dos entradas.
+events.on_answer(db, ana, rank_before=30, rank_after=9, level_before=0, level_after=0)
+db.commit()
+check(db.query(GameEvent).filter(GameEvent.kind == "top").count() == antes,
+      f"ni volver a entrar dentro de la ventana ({events.DEDUPE_TOP_MINUTES} min)")
+
+print("1d. un corte que no existe no se anuncia")
+db.query(GameEvent).delete()
+# Entra al ranking quien resolvió acá, así que apagar `exercises_correct` encoge
+# la tabla sin borrar a nadie —y se revierte igual de fácil.
+for p in relleno[12:]:
+    p.exercises_correct = 0
+db.commit()
+check(ranking.cuantos_compiten(db) == 12, "quedan doce compitiendo")
+events.on_answer(db, ana, rank_before=12, rank_after=9, level_before=0, level_after=0)
+db.commit()
+check(
+    db.query(GameEvent).filter(GameEvent.kind == "top").count() == 0,
+    f"con doce compitiendo, entrar al top 10 no distingue a nadie "
+    f"(pide {10 * events.MULTIPLO_DEL_CORTE})",
+)
+events.on_answer(db, ana, rank_before=9, rank_after=2, level_before=0, level_after=0)
+db.commit()
+check(
+    db.query(GameEvent).filter(GameEvent.kind == "top").count() == 1,
+    "pero el top 3 sí, que con doce sigue dejando afuera a nueve",
+)
+for p in relleno[12:]:
+    p.exercises_correct = 1
+db.commit()
 
 print("2. puntero nuevo")
+db.query(GameEvent).delete()
+db.commit()
 events.on_answer(db, ana, rank_before=3, rank_after=1, level_before=0, level_after=0)
 db.commit()
 check(db.query(GameEvent).filter(GameEvent.kind == "lead").count() == 1, "llegar al 1 se anuncia")
 check(
-    db.query(GameEvent).filter(GameEvent.kind == "climb").count() == 1,
-    "y NO se cuenta además como escalada: es un solo hecho",
+    db.query(GameEvent).filter(GameEvent.kind == "top").count() == 0,
+    "y NO se cuenta además como entrada al top 3: es un solo hecho",
 )
 
 print("3. rachas: hitos, y una sola vez cada uno")
@@ -258,12 +313,88 @@ check(article_for(None) == "la", "sin universidad, el default no rompe la oraci�
 check(all(e.text.rstrip().endswith(".") for e in events.recent(db)),
       "todas las oraciones del feed cierran con punto")
 
+print("7a. el piso del podio es el mismo que el de la tabla")
+# `MIN_JUGADORES_UNI` es una copia declarada de `boosts.MIN_PLAYERS_RANKED`:
+# boosts importa events, así que traerlo al revés cerraría el ciclo. Mismo caso
+# que `_SOURCE_AFORO` en check_aforo.py, y por eso el mismo chequeo.
+from game import boosts  # noqa: E402
+
+check(events.MIN_JUGADORES_UNI == boosts.MIN_PLAYERS_RANKED,
+      f"events.MIN_JUGADORES_UNI ({events.MIN_JUGADORES_UNI}) == "
+      f"boosts.MIN_PLAYERS_RANKED ({boosts.MIN_PLAYERS_RANKED})")
+
+# El otro riesgo del podio es silencioso: si el scope saliera None para quien SÍ
+# tiene universidad, el router pasaría puestos en None y el podio no se anunciaría
+# nunca sin que nada falle. Por eso se chequea derecho.
+_con_uni = fresh_player(db, "conuni", university="UBA")
+_sin_uni = fresh_player(db, "sinuni")
+check(ranking.scope_de_universidad(_con_uni) is not None,
+      "con universidad cargada, el scope existe")
+check(ranking.scope_de_universidad(_sin_uni) is None,
+      "sin universidad, el scope es None y no una lista vacía")
+
+print("7b. el podio de la universidad")
+db.query(GameEvent).delete()
+db.commit()
+# Una casa de estudios con nueve jugadores: uno menos que el piso.
+for i in range(9):
+    fresh_player(db, f"sammy{i}", university="UNSAM", xp=50 + i)
+db.commit()
+petisa = fresh_player(db, "petisa", university="UNSAM", xp=10)
+petisa.exercises_correct = 0
+db.commit()
+check(ranking.cuantos_compiten(db, ranking.scope_de_universidad(petisa)) == 9,
+      "la UNSAM tiene nueve compitiendo")
+events.on_answer(db, petisa, rank_before=None, rank_after=None, level_before=0,
+                 level_after=0, uni_rank_before=5, uni_rank_after=1)
+db.commit()
+check(
+    db.query(GameEvent).filter(GameEvent.kind == "uni_top").count() == 0,
+    f"con nueve, ser el número 1 no es un podio (piso {events.MIN_JUGADORES_UNI})",
+)
+# El décimo la habilita.
+petisa.exercises_correct = 1
+db.commit()
+events.on_answer(db, petisa, rank_before=None, rank_after=None, level_before=0,
+                 level_after=0, uni_rank_before=5, uni_rank_after=1)
+db.commit()
+podio = db.query(GameEvent).filter(GameEvent.kind == "uni_top").first()
+check(podio is not None and podio.text == "{a} es el número 1 de la {u0}.",
+      f"con diez sí: {podio.text if podio else '—'}")
+check(podio is not None and podio.university == "UNSAM" and podio.emoji == "🏆",
+      "con la sigla aparte y su emoji propio")
+
+# El artículo lo decide el nombre completo, no la sigla: «del ITBA», no «de el».
+for i in range(10):
+    fresh_player(db, f"itba{i}", university="ITBA", xp=70 + i)
+db.commit()
+tecno = fresh_player(db, "tecno", university="ITBA", xp=5)
+db.commit()
+events.on_answer(db, tecno, rank_before=None, rank_after=None, level_before=0,
+                 level_after=0, uni_rank_before=8, uni_rank_after=3)
+db.commit()
+instituto = (db.query(GameEvent).filter(GameEvent.kind == "uni_top")
+             .order_by(GameEvent.id.desc()).first())
+check(instituto is not None and instituto.text == "{a} entró al top 3 del {u0}.",
+      f"la contracción sale bien: {instituto.text if instituto else '—'}")
+
+# Y sin universidad no hay podio al que entrar, por más que los puestos lleguen.
+db.query(GameEvent).delete()
+db.commit()
+events.on_answer(db, beto, rank_before=None, rank_after=None, level_before=0,
+                 level_after=0, uni_rank_before=5, uni_rank_after=1)
+db.commit()
+check(db.query(GameEvent).filter(GameEvent.kind == "uni_top").count() == 0,
+      "sin universidad cargada no se anuncia ningún podio")
+
 print("8b. las piezas para pintar")
+db.query(GameEvent).delete()
+db.commit()
 ana.theta = 2.4
 db.commit()
 events.on_answer(db, ana, rank_before=90, rank_after=50, level_before=0, level_after=0)
 db.commit()
-pintable = db.query(GameEvent).filter(GameEvent.kind == "climb").order_by(GameEvent.id.desc()).first()
+pintable = db.query(GameEvent).filter(GameEvent.kind == "top").order_by(GameEvent.id.desc()).first()
 check(pintable.actor_alias == "@ana", "el nombre viaja con arroba y aparte del texto")
 check(pintable.actor_level is not None and pintable.actor_level > 0,
       f"y con el nivel del jugador, que es lo que lo pinta (dio {pintable.actor_level})")

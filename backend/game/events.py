@@ -4,8 +4,9 @@ El feed que vive debajo del CTA es SOLO del sistema: ninguna línea la escribe u
 usuario, así que no hay nada que moderar. Lo que sí hay que cuidar es el ruido,
 y de eso se ocupan tres cosas:
 
-  · **Umbrales.** Una escalada de un puesto no es noticia; una de cinco sí. Una
-    racha de tres tampoco; una de diez sí.
+  · **Umbrales.** Una racha de tres no es noticia; una de diez sí. Entrar al
+    top 10 lo es; ganar diez puestos en el fondo de la tabla no, porque abajo
+    está todo amontonado y diez puestos son dos respuestas.
   · **`dedupe_key`.** El hito de racha 25 de alguien se cuenta UNA vez, no en
     cada respuesta que lo mantenga. Lo mismo el registro, o el aviso de que una
     universidad viene pisándole los talones a otra.
@@ -39,8 +40,40 @@ FEED_LIMIT = 40
 # terminar en un `SELECT` sin freno si algún día alguien manda `limit=100000`.
 MAX_LIMIT = 100
 
-# Puestos ganados de una sola respuesta para que la escalada sea noticia.
-CLIMB_MIN = 5
+# Los cortes del ranking que son noticia al ENTRAR.
+#
+# Reemplazan a la escalada por puestos («pasó a 17 personas de una»), que era el
+# 83% del feed: 609 de 731 eventos en un día de producción, y 33 de las últimas
+# 40 líneas —o sea la primera pantalla entera— cubriendo veintiocho minutos.
+# Todo lo demás que el juego tiene para contar vivía menos de media hora.
+#
+# El umbral viejo era barato por una razón estructural y no por estar mal
+# elegido: en el fondo de la tabla la gente está amontonada, así que la mediana
+# de una escalada eran diez puestos y la mitad no llegaba a diez. Pasar a diez
+# personas que tienen 20 XP no es una hazaña, es aritmética.
+#
+# Sin el 1: ese es `lead`, que ya tiene su propia frase y su propia corona.
+CORTES_DEL_RANKING = (3, 10, 25, 50)
+
+# Y los de adentro de la universidad. Solo dos, y no un top 10: en una casa de
+# estudios de doce jugadores el top 10 son casi todos, que es el mismo problema
+# que `MULTIPLO_DEL_CORTE` resuelve para el ranking global.
+CORTES_DE_UNIVERSIDAD = (1, 3)
+
+# Cuánta gente tiene que competir para que un corte signifique algo: el doble del
+# corte. Entrar al top 50 con 51 jugadores en la tabla es «no sos el último», y
+# anunciarlo es exactamente el ruido que este módulo existe para frenar. Con el
+# doble, el corte deja afuera por lo menos a la mitad del juego.
+MULTIPLO_DEL_CORTE = 2
+
+# Cuántos jugadores necesita una universidad para que su podio sea un podio.
+#
+# Escrito acá y no importado de game/boosts.py —donde la misma regla se llama
+# `MIN_PLAYERS_RANKED`— porque boosts importa events: traerlo al revés cierra el
+# ciclo. Es el mismo caso que `_SOURCE_AFORO`, y como aquel, el check verifica
+# que los dos digan lo mismo. Sin el piso, «@fulano es el número 1 de la UNR»
+# sale con un solo jugador en la UNR, y eso no es un logro: es una tautología.
+MIN_JUGADORES_UNI = 10
 
 # Hitos de racha que se cuentan. No es "cada 5": una racha de 5 la tiene
 # cualquiera, y el feed se llenaría de rachas.
@@ -58,11 +91,22 @@ UNI_CLOSE_COOLDOWN_MINUTES = 30
 # mueve la simulación.
 PRUNE_DAYS = 7
 
+# Cuánto tarda un corte del ranking en volver a ser noticia para la misma
+# persona.
+#
+# Con ventana y no «una sola vez para siempre»: caerse del top 10 y volver tres
+# semanas después es una noticia de verdad, y el ping-pong de la misma tarde no
+# lo es. Atado a `PRUNE_DAYS` a propósito —la deduplicación se resuelve mirando
+# la tabla, así que una ventana más larga que lo que se guarda no se cumpliría y
+# nadie se enteraría.
+DEDUPE_TOP_MINUTES = PRUNE_DAYS * 24 * 60
+
 EMOJI = {
     "boost": "☕",
     "signup": "🎓",
     "referral": "🪖",
-    "climb": "🚀",
+    "top": "🚀",
+    "uni_top": "🏆",
     "streak": "🔥",
     "lead": "👑",
     "level": "⚡",
@@ -311,6 +355,109 @@ def on_boost(
     )
 
 
+def _de(university: str) -> str:
+    """«de la UBA», «del ITBA».
+
+    No se puede armar pegando `article_for` detrás de un "de": «de el ITBA» no
+    existe en castellano, y la contracción es justamente lo que el catálogo no
+    tiene por qué saber.
+    """
+    return "del" if article_for(university) == "el" else "de la"
+
+
+def _entrada_al_top(
+    db: Session,
+    player: GamePlayer,
+    rank_before: int | None,
+    rank_after: int | None,
+) -> None:
+    """«{a} entró al top N»: lo que reemplazó a la escalada por puestos.
+
+    Tres reglas, y cada una tapa una forma distinta de volverlo ruido:
+
+      · **Es una ENTRADA**, no un estado. Pide `rank_before > corte >= rank_after`,
+        así que responder bien sentado adentro del top 10 no anuncia nada.
+      · **Se cuenta el corte más alto y nada más.** Quien salta del puesto 150 al
+        40 dice «entró al top 50», no además «al top 100»: es un solo hecho.
+      · **El corte tiene que existir.** Con menos de `MULTIPLO_DEL_CORTE` × N
+        compitiendo, entrar al top N no distingue a nadie. El COUNT sale una sola
+        vez y solo cuando ya hubo un cruce, que es una de cada veinticinco
+        respuestas correctas — medido en producción, 18 eventos por día contra
+        470 respuestas.
+    """
+    if rank_before is None or rank_after is None:
+        return
+    compiten: int | None = None
+    for corte in CORTES_DEL_RANKING:
+        if not rank_before > corte >= rank_after:
+            continue
+        if compiten is None:
+            compiten = ranking.cuantos_compiten(db)
+        if compiten < corte * MULTIPLO_DEL_CORTE:
+            # Los cortes siguientes son más grandes y piden todavía más gente,
+            # así que si este no llega, ninguno llega.
+            return
+        emit(
+            db,
+            "top",
+            f"{{a}} entró al top {corte}.",
+            actor_alias=f"@{player.alias}",
+            actor_level=elo.level_of(player.theta),
+            player_id=player.id,
+            # La sigla viaja aunque el texto no la nombre: es lo que hace que la
+            # línea se resalte para los compañeros de esa universidad.
+            university=player.university,
+            dedupe_key=f"top:{player.id}:{corte}",
+            dedupe_minutes=DEDUPE_TOP_MINUTES,
+        )
+        return
+
+
+def _entrada_al_podio(
+    db: Session,
+    player: GamePlayer,
+    rank_before: int | None,
+    rank_after: int | None,
+) -> None:
+    """«{a} es el número 1 de la UBA» / «entró al top 3 del ITBA».
+
+    La versión chica de la de arriba, y la que más tracción tiene: el ranking
+    general lo encabezan siempre los mismos, pero el podio de una universidad se
+    disputa entre gente que se conoce.
+
+    El piso de `MIN_JUGADORES_UNI` es lo único que la separa de ser una
+    tautología — hoy lo pasan tres casas de estudios de siete.
+    """
+    scope = ranking.scope_de_universidad(player)
+    if scope is None or rank_before is None or rank_after is None:
+        return
+    uni = (player.university or "").strip()
+    for corte in CORTES_DE_UNIVERSIDAD:
+        if not rank_before > corte >= rank_after:
+            continue
+        if ranking.cuantos_compiten(db, scope) < MIN_JUGADORES_UNI:
+            return
+        texto = (
+            f"{{a}} es el número 1 {_de(uni)} {{u0}}."
+            if corte == 1
+            else f"{{a}} entró al top {corte} {_de(uni)} {{u0}}."
+        )
+        emit(
+            db,
+            "uni_top",
+            texto,
+            actor_alias=f"@{player.alias}",
+            actor_level=elo.level_of(player.theta),
+            player_id=player.id,
+            university=uni,
+            # La sigla entra en la clave: quien se cambia de universidad entra a
+            # un podio nuevo, y ese sí es un hecho nuevo.
+            dedupe_key=f"unitop:{player.id}:{uni}:{corte}",
+            dedupe_minutes=DEDUPE_TOP_MINUTES,
+        )
+        return
+
+
 def on_answer(
     db: Session,
     player: GamePlayer,
@@ -318,8 +465,16 @@ def on_answer(
     rank_after: int | None,
     level_before: int,
     level_after: int,
+    uni_rank_before: int | None = None,
+    uni_rank_after: int | None = None,
 ) -> None:
-    """Todo lo que una sola respuesta correcta puede volver noticia."""
+    """Todo lo que una sola respuesta correcta puede volver noticia.
+
+    Los cuatro puestos llegan calculados de afuera y no se leen acá: el router ya
+    los cuenta para armar la respuesta del endpoint, y volver a contarlos sería
+    pagar los mismos COUNT dos veces en el camino más caliente del juego. Los de
+    universidad vienen en None cuando la persona no cargó ninguna.
+    """
     if not _real(player):
         return
 
@@ -339,18 +494,14 @@ def on_answer(
             dedupe_key=f"lead:{player.id}",
             dedupe_minutes=60,
         )
-    elif rank_before is not None and rank_after is not None:
-        ganados = rank_before - rank_after
-        if ganados >= CLIMB_MIN:
-            emit(
-                db,
-                "climb",
-                f"{{a}} pasó a {ganados} personas de una.",
-                actor_alias=f"@{player.alias}",
-                actor_level=elo.level_of(player.theta),
-                player_id=player.id,
-                university=player.university,
-            )
+    else:
+        _entrada_al_top(db, player, rank_before, rank_after)
+
+    # El podio de la universidad va aparte y NO entra en el `elif` de arriba: es
+    # otra tabla y otra noticia. Alguien que llega al número 1 del juego entero
+    # llegó también al de su casa de estudios, y las dos cosas se cuentan —la
+    # segunda le habla a sus compañeros, que son quienes van a querer disputarla.
+    _entrada_al_podio(db, player, uni_rank_before, uni_rank_after)
 
     if player.current_combo in STREAK_MILESTONES:
         emit(
