@@ -198,22 +198,14 @@ def _scope_filters(university: str | None, career: str | None) -> list:
 RESOLVIO_ACA = ranking.RESOLVIO_ACA
 
 
-def _rank_of(db: Session, player: GamePlayer, scope: list | None = None) -> int:
-    """Puesto 1-based en el orden canónico (xp DESC, id ASC). Los que nunca
-    resolvieron una derivada no compiten (espejo del leaderboard principal)."""
-    ahead = (
-        db.query(GamePlayer.id)
-        .filter(
-            *(scope or []),
-            RESOLVIO_ACA,
-            sa_or(
-                GamePlayer.xp > player.xp,
-                sa_and(GamePlayer.xp == player.xp, GamePlayer.id < player.id),
-            ),
-        )
-        .count()
-    )
-    return ahead + 1
+# Puesto 1-based en el orden canónico (xp DESC, id ASC). Los que nunca
+# resolvieron una derivada no compiten (espejo del leaderboard principal).
+#
+# El cuerpo se mudó a game/ranking.py cuando el feed pasó a anunciar entradas al
+# top: ahí ya vivían `RESOLVIO_ACA` y los órdenes, justamente porque una segunda
+# copia de la regla es la forma más segura de que las dos se separen. El alias
+# queda porque el nombre corto se lee mejor en el camino caliente.
+_rank_of = ranking.puesto
 
 
 _CALIFICADO = ranking.CALIFICADO
@@ -1102,6 +1094,12 @@ def answer_exercise(
         return _registrar_fallo_de_parseo(db, exercise, player, body, prior_attempts, exc)
 
     rank_before = _rank_of(db, player)
+    # El otro podio que el feed anuncia: el de adentro de la universidad. El
+    # COUNT va acotado a esa casa de estudios, así que cuesta menos que el de
+    # arriba, y se saltea entero cuando la persona no cargó ninguna —que es la
+    # mitad de los invitados.
+    scope_uni = ranking.scope_de_universidad(player)
+    uni_rank_before = _rank_of(db, player, scope_uni) if scope_uni else None
 
     level_before, theta_before, theta_after = _aplicar_elo(
         db, exercise, player, attempt_number, correct, peeked=body.peeked
@@ -1152,6 +1150,11 @@ def answer_exercise(
     # caía justo en el camino más pesado —el de errar, que además paga la
     # comparación contra los errores predecibles.
     rank_after = _rank_of(db, player) if correct else rank_before
+    # Mismo razonamiento que el de arriba: al errar la XP no se movió, así que
+    # volver a contar devuelve por definición el mismo número.
+    uni_rank_after = (
+        _rank_of(db, player, scope_uni) if (correct and scope_uni) else uni_rank_before
+    )
     if correct:
         # El ranking cambió: el pulso lo va a notar y los demás refrescan.
         simulation.bump_version(db)
@@ -1168,6 +1171,8 @@ def answer_exercise(
             rank_after=rank_after,
             level_before=level_before,
             level_after=elo.level_of(player.theta),
+            uni_rank_before=uni_rank_before,
+            uni_rank_after=uni_rank_after,
         )
 
     # La respuesta se arma ENTERA antes del commit. Con `expire_on_commit` en su

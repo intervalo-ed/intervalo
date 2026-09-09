@@ -75,6 +75,57 @@ es la mecánica que gobierna la experiencia entera:
   el piso como Elo de desbloqueo de la fila, así que la promesa de la pantalla y
   lo que el generador hace son el mismo número.
 
+### El feed de eventos (`game/events.py`)
+
+La lista que corre debajo del CTA. Es **solo del sistema** —ninguna línea la
+escribe un usuario, así que no hay nada que moderar— y todo el diseño está puesto
+en que no sea ruido. Nueve tipos:
+
+| tipo | qué anuncia |
+|---|---|
+| `top` 🚀 | entrar al top 3, 10, 25 o 50 del ranking general |
+| `uni_top` 🏆 | ser el número 1, o entrar al top 3, de la propia universidad |
+| `lead` 👑 | llegar al puesto 1 del juego entero |
+| `streak` 🔥 | rachas de 10, 25, 50, 100 y 250 sin errar |
+| `level` ⚡ | desbloquear derivadas más difíciles |
+| `signup` 🎓 / `referral` 🪖 | un registro, o el registro de alguien que trajo otro |
+| `boost` ☕ | una donación de cafecitos, o el aforo del día de una universidad |
+| `uni_pass` 🏛️ / `uni_close` 👀 | una universidad que pasa a otra en XP de la semana, o que viene pisándola |
+
+**`top` y `uni_top` reemplazaron a la escalada por puestos** («@fulano pasó a 17
+personas de una»), que era **el 83% del feed**: 609 de 731 eventos en un día de
+producción, y 33 de las últimas 40 líneas —la primera pantalla entera—
+cubriendo veintiocho minutos. Todo lo demás que el juego tiene para contar vivía
+menos de media hora antes de quedar tapado.
+
+El umbral viejo no estaba mal elegido, era barato por estructura: en el fondo de
+la tabla la gente está amontonada, así que la mediana de una escalada eran diez
+puestos y la mitad no llegaba a diez. Pasar a diez personas que tienen 20 XP no
+es una hazaña. Los cortes salieron de simular la escalera contra siete días
+reales: **18 eventos por día** para el ranking general y **5** para los podios de
+universidad, contra los 609 de antes.
+
+Cuatro frenos, y cada uno tapa una forma distinta de volverlo ruido:
+
+- **Es una entrada, no un estado.** Pide `puesto_antes > corte >= puesto_después`,
+  así que responder bien sentado adentro del top 10 no anuncia nada.
+- **Un solo corte por respuesta**, el más alto: del puesto 150 al 40 se anuncia
+  «entró al top 50» y no además «al top 100».
+- **El corte tiene que existir**: hace falta que compitan por lo menos el doble
+  del corte (`MULTIPLO_DEL_CORTE`), o entrar al top 50 con 51 jugadores sería
+  «no sos el último». Para el podio de universidad el equivalente es un piso de
+  10 jugadores —el mismo `MIN_PLAYERS_RANKED` que usa la tabla—, sin el cual
+  «@fulano es el número 1 de la UNR» sale con un solo jugador en la UNR.
+- **Deduplicación con ventana de 7 días**, no «una sola vez para siempre»:
+  caerse del top 10 y volver tres semanas después es una noticia de verdad; el
+  ping-pong de la misma tarde no. La ventana está atada a `PRUNE_DAYS` porque la
+  deduplicación se resuelve mirando la tabla, y una ventana más larga que lo que
+  se guarda no se cumpliría.
+
+Los puestos los cuenta `game/ranking.py::puesto`, la misma función que usa el
+endpoint de respuesta —el feed anuncia posiciones y tiene que contar exactamente
+igual que la tabla o va a anunciar entradas que la tabla no muestra.
+
 ### Los dos pedidos de la pantalla de inicio (`pedido-instalar.tsx`, `pedido-notificaciones.tsx`)
 
 Dos diapos que interrumpen la partida, en ese orden y no en otro: en iOS el push

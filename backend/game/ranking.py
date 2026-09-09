@@ -13,7 +13,8 @@ misma pregunta con las columnas de `users`.
 
 from __future__ import annotations
 
-from sqlalchemy import case
+from sqlalchemy import and_, case, or_
+from sqlalchemy.orm import Session
 
 from models import GamePlayer
 
@@ -54,3 +55,48 @@ CALIFICADO = case((GamePlayer.n_updates >= elo.RAMP_UPDATES, 1), else_=0)
 # orden y la lista tiembla de una página a la otra.
 ORDEN_ELO = (CALIFICADO.desc(), GamePlayer.theta.desc(), GamePlayer.id.asc())
 ORDEN_XP = (GamePlayer.xp.desc(), GamePlayer.id.asc())
+
+
+def puesto(db: Session, player: GamePlayer, scope: list | None = None) -> int:
+    """Puesto 1-based en el orden canónico (xp DESC, id ASC).
+
+    Cuenta cuántos van DELANTE, que es lo mismo que ordenar la tabla y buscar la
+    fila propia pero sin traerla. `scope` acota la comparación a un subconjunto
+    —hoy, a una universidad— y por eso la misma función sirve para el puesto
+    global y para el de adentro de la casa de estudios.
+
+    Vive acá y no en el router por el motivo que da el encabezado del módulo: el
+    feed anuncia posiciones y necesita contar EXACTAMENTE igual que la tabla. Con
+    una copia en cada lado, el día que una de las dos cambie el feed va a
+    anunciar entradas al top que la tabla no muestra.
+    """
+    ahead = (
+        db.query(GamePlayer.id)
+        .filter(
+            *(scope or []),
+            RESOLVIO_ACA,
+            or_(
+                GamePlayer.xp > player.xp,
+                and_(GamePlayer.xp == player.xp, GamePlayer.id < player.id),
+            ),
+        )
+        .count()
+    )
+    return ahead + 1
+
+
+def cuantos_compiten(db: Session, scope: list | None = None) -> int:
+    """Cuánta gente hay en el ranking, con el mismo filtro que `puesto`.
+
+    Lo usa el feed para no anunciar un corte que no existe: en un juego de ocho
+    personas, «entró al top 10» lo dice cualquiera por el solo hecho de estar.
+    """
+    return db.query(GamePlayer.id).filter(*(scope or []), RESOLVIO_ACA).count()
+
+
+def scope_de_universidad(player: GamePlayer) -> list | None:
+    """El filtro que acota `puesto` a la universidad del jugador, o None si no
+    cargó ninguna. Devolver None y no una lista vacía es la diferencia entre «su
+    universidad» y «todo el juego», y quien llama tiene que poder distinguirlas."""
+    uni = (player.university or "").strip()
+    return [GamePlayer.university == uni] if uni else None
