@@ -368,9 +368,23 @@ def create_player(
 
 @router.get("/me", response_model=GamePlayerOut)
 def get_me(
+    pwa: bool | None = Query(default=None),
     player: GamePlayer = Depends(get_current_player),
     db: Session = Depends(get_db),
 ):
+    """El jugador, y de paso si está jugando desde la app instalada.
+
+    `pwa` viaja acá y no en un endpoint propio por lo mismo que en Intervalo
+    (`/user/progress`): es un dato del cliente que no vale un viaje extra, y esta
+    llamada ya la hace todo el mundo al abrir el juego.
+
+    Se escribe la primera vez que llega en true y no se pisa nunca. Es la única
+    señal de que la diapo de la pantalla de inicio sirvió: el navegador sabe si
+    está en standalone, pero eso muere ahí si nadie lo manda.
+    """
+    if pwa and player.pwa_first_seen_at is None:
+        player.pwa_first_seen_at = datetime.utcnow()
+        db.commit()
     return _player_out(db, player)
 
 

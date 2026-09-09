@@ -106,7 +106,7 @@ s.flush()
 # p9  BOT: no tiene que aparecer en ninguna métrica
 PLAYERS = [
     dict(id=1, user_id=1, alias="uno", university="UBA", career="E", is_bot=False,
-         platform="desktop",
+         platform="desktop", pwa_first_seen_at=T(0, 15),
          created_at=T(0, 14), last_seen_at=T(0, 16)),
     dict(id=2, user_id=None, alias="dos", university="UBA", career="E", is_bot=False,
          platform="android", referred_by=5,
@@ -313,14 +313,20 @@ h = {c["label"]: c for c in q.headline(data, weeks)}
 # recién el lunes siguiente, así que su respuesta cae en la semana de al lado.
 check("usuarios nuevos de la semana", h["Usuarios nuevos"]["value"] == 4,
       f'({h["Usuarios nuevos"]["value"]})')
-# "Ingresó" se arma con toda huella fechada, no solo con el alta: los cuatro
-# altas de la semana más p0, que es de antes y volvió a jugar.
-check("los ingresos suman a los que ya existían y volvieron",
-      h["Ingresos"]["value"] == 5, f'({h["Ingresos"]["value"]})')
-check("y son personas distintas, no visitas",
-      h["Ingresos"]["value"] >= h["Usuarios nuevos"]["value"])
+# Las VISITAS son tandas y no personas: p1 entra el día 0 y vuelve dos horas
+# después, así que aporta dos. Es la diferencia con «usuarios nuevos», que son
+# cuatro, y lo que hace que este número pueda subir sin que entre nadie nuevo.
+check("las visitas cuentan tandas y no personas",
+      h["Visitas totales"]["value"] > h["Usuarios nuevos"]["value"],
+      f'({h["Visitas totales"]["value"]} visitas contra '
+      f'{h["Usuarios nuevos"]["value"]} personas nuevas)')
 check("se registran", h["Se registran"]["value"] == 50.0,
       f'({h["Se registran"]["value"]}%)')
+# La instalación es la otra mitad de «a quién podemos alcanzar después». p1 abrió
+# la app instalada; los otros tres no.
+check("las instalaciones salen de quien abrió la app instalada",
+      h["Instalan la app"]["value"] == 25.0,
+      f'({h["Instalan la app"]["value"]}%, esperaba 1 de 4)')
 # p0 es de una semana anterior y jugó en esta; los cuatro nuevos no cuentan acá
 # por más que hayan jugado, porque su alta es de esta misma semana.
 check("los retenidos son de otra semana", h["Usuarios retenidos"]["value"] == 1,
@@ -346,7 +352,27 @@ check("la primera sesión corta en el primer hueco de media hora",
 # Primeras tandas: p1 9, p2 2, p4 5, p3 1 (su tanda cae recién el lunes
 # siguiente, pero el alta es de esta semana y la cohorte es por alta).
 check("y la mediana es sobre los nuevos que llegaron a responder",
-      h["Primera sesión"]["value"] == 3.5, f'({h["Primera sesión"]["value"]})')
+      h["1ª sesión"]["value"] == 3.5, f'({h["1ª sesión"]["value"]})')
+
+# ── La fila de sesiones ─────────────────────────────────────────────────────
+# p1 tiene una segunda tanda (las de las 16, dos horas después) y p2 tiene la
+# suya del día 3. Los dos de cuatro que respondieron: 50%.
+check("«vuelven a jugar» mira sentadas, no semanas",
+      h["Vuelven a jugar"]["value"] == 50.0,
+      f'({h["Vuelven a jugar"]["value"]}%, esperaba p1 y p2 de cuatro)')
+# La segunda tanda se mide POR TANDA: p1 aporta la suya y p2 la suya, así que
+# son dos números y no dos personas promediadas.
+check("la 2ª y siguientes se miden por tanda",
+      h["2ª y siguientes"]["value"] is not None,
+      f'({h["2ª y siguientes"]["value"]})')
+# Y la duración: la primera tanda de p1 son diez respuestas de 14:00 a 14:09.
+check("la duración de la 1ª sesión sale en minutos",
+      h["Duración 1ª sesión"]["value"] is not None
+      and h["Duración 1ª sesión"]["value"] > 0,
+      f'({h["Duración 1ª sesión"]["value"]} min)')
+
+check("son doce titulares, en tres filas de cuatro", len(q.headline(data, weeks)) == 12,
+      f"({len(q.headline(data, weeks))})")
 
 # ── 4 · Embudo ───────────────────────────────────────────────────────────────
 print("\n— embudo —")

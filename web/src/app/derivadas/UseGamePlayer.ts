@@ -5,6 +5,7 @@ import { useAuth } from "@clerk/nextjs"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { readAttribution } from "@/lib/analytics/attribution"
 import { unwrap } from "@/lib/api/client"
+import { isStandalone } from "@/lib/platform/detect"
 import type { components } from "@/lib/api/schema"
 import {
   getGameTokenServerSnapshot,
@@ -134,7 +135,18 @@ export function useGamePlayer() {
 
   const me = useQuery({
     queryKey: gameKeys.me,
-    queryFn: async () => unwrap(await api.GET("/game/derivemos/me")),
+    // `pwa` es la única forma de que el server se entere de que esta persona
+    // está jugando desde la app instalada: `isStandalone()` vive en el
+    // navegador y ahí se muere. Va pegado a una llamada que ya se hace, sin
+    // viaje extra, y del otro lado solo se escribe la PRIMERA vez que llega en
+    // true (game/router.py :: get_me). Es lo que permite saber si la diapo de
+    // la pantalla de inicio sirvió para algo.
+    queryFn: async () =>
+      unwrap(
+        await api.GET("/game/derivemos/me", {
+          params: { query: isStandalone() ? { pwa: true } : {} },
+        }),
+      ),
     // Sin identidad no hay quien preguntar: el bootstrap la crea primero. El
     // token viene del store reactivo, así que en cuanto el alta lo guarda esta
     // query se activa sola.

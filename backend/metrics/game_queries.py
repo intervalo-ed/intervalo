@@ -143,7 +143,7 @@ def load(db: DBSession) -> dict:
         "players": _rows(db, """
             SELECT id, user_id, alias, university, referred_by, referral_xp_given,
                    platform, is_bot, notify_enabled, winback_email_sent_at,
-                   created_at, last_seen_at
+                   pwa_first_seen_at, created_at, last_seen_at
             FROM game_players"""),
         "exercises": _rows(db, "SELECT id, player_id, created_at FROM game_exercises"),
         "attempts": _rows(db, """
@@ -210,27 +210,45 @@ def _in_week(dt: datetime | None, week: date) -> bool:
 
 # ── 0 · Titulares ──────────────────────────────────────────────────────────
 
-def _primera_sesion(lista: list[dict]) -> list[dict]:
-    """La PRIMERA tanda de un jugador: corta en el primer hueco largo.
+def _sesiones(lista: list[dict]) -> list[list[dict]]:
+    """Las tandas de un jugador, cortando en cada hueco largo.
 
-    `lista` son las respuestas de un solo jugador en orden —`_answers` y
-    `_firsts` ya vienen ordenadas por (jugador, fecha), así que agruparlas
-    alcanza—. Es el único lugar donde se decide dónde termina una sesión, y lo
-    usan el titular de la primera sesión y la curva de profundidad: si se
-    partiera en dos, el panel tendría dos definiciones de «sesión» y una de las
-    dos envejecería mal.
+    `lista` son los eventos de un solo jugador en orden —`_answers` y `_firsts`
+    ya vienen ordenadas por (jugador, fecha), así que agruparlas alcanza—. Es el
+    ÚNICO lugar donde se decide dónde termina una sesión: la usan el titular de
+    la primera sesión, el de la segunda, el de la duración, el conteo de visitas
+    y la curva de profundidad. Si se partiera en dos, el panel tendría dos
+    definiciones de «sesión» y una de las dos envejecería mal.
     """
+    salida: list[list[dict]] = []
     fin = None
-    tanda: list[dict] = []
     for a in lista:
         t = a["created_at"]
         if t is None:
             continue
-        if fin is not None and (t - fin) > timedelta(minutes=SESSION_GAP_MINUTES):
-            break
+        if fin is None or (t - fin) > timedelta(minutes=SESSION_GAP_MINUTES):
+            salida.append([])
         fin = t
-        tanda.append(a)
-    return tanda
+        salida[-1].append(a)
+    return salida
+
+
+def _primera_sesion(lista: list[dict]) -> list[dict]:
+    """La primera tanda, que es la que mide la curva de profundidad."""
+    tandas = _sesiones(lista)
+    return tandas[0] if tandas else []
+
+
+def _minutos(tanda: list[dict]) -> float:
+    """Cuánto duró una tanda, del primer evento al último.
+
+    Una tanda de un solo evento dura cero, y eso NO es un dato faltante: es
+    alguien que respondió una vez y se fue. Meterlo como nulo escondería
+    justamente el caso más común del juego.
+    """
+    if len(tanda) < 2:
+        return 0.0
+    return (tanda[-1]["created_at"] - tanda[0]["created_at"]).total_seconds() / 60.0
 
 
 def _correctas_de_la_primera_sesion(lista: list[dict]) -> int:
@@ -239,11 +257,22 @@ def _correctas_de_la_primera_sesion(lista: list[dict]) -> int:
 
 
 def headline(data: dict, weeks: list[date]) -> list[dict]:
-    """Los ocho números de arriba: entra gente, se queda, y trae más gente.
+    """Los doce números de arriba, en tres filas de cuatro.
 
-    La fila de arriba es el embudo de entrada —quién llegó, quién se quedó— y la
-    de abajo el motor de crecimiento —qué deja y a quién trae—. Es el orden en
-    que se toman las decisiones, no el orden en que salieron las features.
+    Cada fila contesta una pregunta distinta, y el orden es el de las decisiones
+    y no el de las features:
+
+      1. **Entrada** — cuánta gente vino, cuánta es nueva, y cuántos de esos
+         cruzaron los dos umbrales que los vuelven alcanzables: instalar la app y
+         registrarse.
+      2. **Crecimiento** — quién vuelve, quién trae gente y qué deja.
+      3. **Sesiones** — qué tan profunda es la primera sentada, si hay una
+         segunda, y cuánto duran.
+
+    La tercera fila es la que estaba faltando: el juego se juega de una sentada,
+    así que el número que decide todo es cuánto aguanta esa sentada y si hay
+    alguna después. Estaba repartido entre un solo titular y la curva de
+    profundidad.
     """
     players = data["players"]
     answers = data["_answers"]
@@ -260,11 +289,18 @@ def headline(data: dict, weeks: list[date]) -> list[dict]:
     # `last_seen_at` es un solo instante y se lo lleva la segunda. Los pageviews
     # de verdad los tiene PostHog; acá el número es un piso, nunca un techo.
     visto: dict[date, set[int]] = defaultdict(set)
+    # Y la misma huella, guardada por jugador y con su instante: es lo que
+    # permite contar VISITAS —cuántas veces se sentó alguien a jugar— y no solo
+    # cuántas personas distintas hubo. Una persona que entra tres veces en la
+    # semana son tres visitas y un ingreso.
+    huellas: dict[int, list[dict]] = defaultdict(list)
 
     def marcar(pid: int, cuando) -> None:
         w = _week_of(cuando)
         if w is not None:
             visto[w].add(pid)
+        if cuando is not None:
+            huellas[pid].append({"created_at": cuando})
 
     for p in players:
         marcar(p["id"], p["created_at"])
@@ -280,14 +316,35 @@ def headline(data: dict, weeks: list[date]) -> list[dict]:
     for a in answers:
         por_jugador[a["player_id"]].append(a)
 
+    # Las tandas de cada jugador, sobre TODA huella y no solo sobre respuestas:
+    # quien abre el juego, mira y se va también visitó. Se ordenan una vez.
+    tandas_de: dict[int, list[list[dict]]] = {
+        pid: _sesiones(sorted(hs, key=lambda h: h["created_at"]))
+        for pid, hs in huellas.items()
+    }
+
     def nuevos(w: date) -> list[dict]:
         return [p for p in players if _in_week(p["created_at"], w)]
 
     def per_week(fn) -> list:
         return [fn(w) for w in weeks]
 
-    def ingresos(w: date) -> int:
-        return len(visto.get(w, ()))
+    def visitas(w: date) -> int:
+        """Cuántas veces se sentó alguien a jugar esa semana.
+
+        Una tanda es una visita: la misma persona que entra el lunes y el jueves
+        cuenta dos. Es la diferencia con «usuarios nuevos», que cuenta personas,
+        y es lo que dice si la gente vuelve DENTRO de la semana.
+
+        No hay tabla de pageviews —el juego registra lo que la persona HACE— así
+        que la tanda se arma con toda huella fechada: el alta, un ejercicio
+        servido, una respuesta, un cartel visto, y `last_seen_at`, que es lo
+        único que deja quien volvió y no tocó nada. Es un piso, nunca un techo.
+        """
+        return sum(
+            1 for tandas in tandas_de.values() for t in tandas
+            if t and _in_week(t[0]["created_at"], w)
+        )
 
     def altas(w: date) -> int:
         return len(nuevos(w))
@@ -295,6 +352,20 @@ def headline(data: dict, weeks: list[date]) -> list[dict]:
     def registrados(w: date) -> float | None:
         ns = nuevos(w)
         return _pct(sum(1 for p in ns if p["user_id"]), len(ns))
+
+    def instalaciones(w: date) -> float | None:
+        """De los nuevos de la semana, cuántos abrieron la app YA INSTALADA.
+
+        Es la única medida de si la diapo de la pantalla de inicio sirve. Se
+        cuenta sobre los nuevos y no sobre todos por lo mismo que el registro:
+        una cohorte se compara con otra, y el acumulado sube solo con el tiempo.
+
+        Ojo con leerlo antes de tiempo: la señal llega cuando la persona ABRE la
+        app instalada, que puede ser al día siguiente de haberla agregado. Una
+        cohorte de esta semana todavía está sumando.
+        """
+        ns = nuevos(w)
+        return _pct(sum(1 for p in ns if p["pwa_first_seen_at"]), len(ns))
 
     def retenidos(w: date) -> int:
         """Gente de OTRA semana que volvió a jugar en esta.
@@ -326,6 +397,14 @@ def headline(data: dict, weeks: list[date]) -> list[dict]:
         base = sum(1 for p in players if (alta_de.get(p["id"]) or date.max) < w)
         return round(reclutas(w) / base, 2) if base else None
 
+    def _tandas_jugadas(p: dict) -> list[list[dict]]:
+        """Las tandas de RESPUESTAS de un jugador, que son las que se miden.
+
+        Distintas de `tandas_de`, que incluye huellas sin actividad: para «cuánto
+        aguanta una sentada» solo cuentan las que tuvieron respuestas.
+        """
+        return _sesiones(por_jugador.get(p["id"], []))
+
     def primera_sesion(w: date) -> float | None:
         """Mediana de derivadas resueltas en la primera tanda de cada uno.
 
@@ -340,6 +419,52 @@ def headline(data: dict, weeks: list[date]) -> list[dict]:
         ]
         return _median(valores)
 
+    def sesiones_siguientes(w: date) -> float | None:
+        """Mediana de derivadas de la SEGUNDA tanda en adelante.
+
+        Se mide una fila por tanda y no una por persona: alguien con cuatro
+        vueltas aporta cuatro números, porque la pregunta es «cuánto rinde una
+        vuelta», no «cuánto rinde alguien que vuelve».
+
+        Es el contraste que le da sentido al número de al lado. Si la segunda
+        sentada es más corta que la primera, el juego engancha y no retiene; si
+        es más larga, quien vuelve viene decidido y el problema está en traerlo.
+        """
+        valores = [
+            float(sum(1 for a in tanda if a["is_correct"]))
+            for p in nuevos(w)
+            for tanda in _tandas_jugadas(p)[1:]
+        ]
+        return _median(valores)
+
+    def vuelven(w: date) -> float | None:
+        """De los que jugaron su primera tanda, cuántos tuvieron una segunda.
+
+        El número que gobierna el juego. La retención de la fila de arriba mira
+        semanas; esta mira sentadas, que es la unidad real de este producto: se
+        entra por un link, se juega hasta cansarse, y volver es una decisión
+        aparte que la mayoría no toma.
+        """
+        con_tanda = [p for p in nuevos(w) if por_jugador.get(p["id"])]
+        return _pct(
+            sum(1 for p in con_tanda if len(_tandas_jugadas(p)) > 1),
+            len(con_tanda),
+        )
+
+    def duracion_primera(w: date) -> float | None:
+        """Cuántos minutos dura la primera sentada, en mediana.
+
+        Va al lado de las derivadas de esa misma tanda a propósito: cinco
+        derivadas en dos minutos y cinco en veinte son dos productos distintos.
+        Sin este número no se puede saber si el techo lo pone el aburrimiento o
+        la dificultad.
+        """
+        valores = [
+            _minutos(_primera_sesion(por_jugador[p["id"]]))
+            for p in nuevos(w) if por_jugador.get(p["id"])
+        ]
+        return _median(valores)
+
     def card(label: str, series: list, suffix: str, hint: str, dec: int = 1) -> dict:
         value = series[-1]
         prev = series[-2] if len(series) > 1 else None
@@ -348,27 +473,43 @@ def headline(data: dict, weeks: list[date]) -> list[dict]:
                 "delta": delta, "hint": hint, "dec": dec}
 
     return [
-        # Fila 1 · quién entró y quién se quedó.
-        card("Ingresos", per_week(ingresos), "",
-             "Personas distintas que abrieron el juego esa semana. Es un piso: una "
-             "visita sin actividad de alguien que ya existía no deja rastro."),
+        # Fila 1 · quién entró, y cuántos cruzaron los umbrales que los vuelven
+        # alcanzables después.
+        card("Visitas totales", per_week(visitas), "",
+             "Cuántas veces se sentó alguien a jugar. La misma persona que entra "
+             "el lunes y el jueves cuenta dos."),
         card("Usuarios nuevos", per_week(altas), "",
              "Los que abrieron el juego por primera vez esa semana."),
+        card("Instalan la app", per_week(instalaciones), "%",
+             "De los nuevos de la semana, cuántos la abrieron ya instalada. La "
+             "señal llega recién cuando la abren, así que la semana en curso "
+             "todavía está sumando."),
         card("Se registran", per_week(registrados), "%",
              "De los nuevos de la semana, cuántos dejaron de ser invitados."),
+        # Fila 2 · quién vuelve, quién trae gente y qué deja.
         card("Usuarios retenidos", per_week(retenidos), "",
              "Gente de otra semana que volvió a jugar en esta."),
-        # Fila 2 · qué deja y a quién trae.
-        card("Cafecitos", per_week(cafecitos), "",
-             "Solo los donados de verdad: los grants a mano y los de aforo no cuentan."),
         card("Reclutas", per_week(reclutas), "",
              "Nuevos que entraron por el link de otro jugador."),
         card("Coeficiente de viralidad", per_week(viralidad), "",
              "Cuánta gente trajo cada uno de los que ya estaban. Uno es el juego "
              "creciendo solo.", dec=2),
-        card("Primera sesión", per_week(primera_sesion), "",
+        card("Cafecitos", per_week(cafecitos), "",
+             "Solo los donados de verdad: los grants a mano y los de aforo no cuentan."),
+        # Fila 3 · la sentada, que es la unidad real de este juego.
+        card("1ª sesión", per_week(primera_sesion), "",
              "Mediana de derivadas resueltas en la primera tanda, entre los que "
              "llegaron a responder."),
+        card("2ª y siguientes", per_week(sesiones_siguientes), "",
+             "Mediana por TANDA, no por persona: quien vuelve cuatro veces aporta "
+             "cuatro números. Más corta que la 1ª significa que engancha y no "
+             "retiene."),
+        card("Vuelven a jugar", per_week(vuelven), "%",
+             "De los que jugaron su primera tanda, cuántos tuvieron una segunda. "
+             "Sentadas, no semanas: es la unidad real de este juego."),
+        card("Duración 1ª sesión", per_week(duracion_primera), " min",
+             "Mediana. Cinco derivadas en dos minutos y cinco en veinte son dos "
+             "productos distintos."),
     ]
 
 
