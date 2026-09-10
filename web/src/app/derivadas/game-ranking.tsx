@@ -147,9 +147,6 @@ export type GameRankingProps = {
   attachXpTarget?: (node: HTMLElement | null) => void
   // Cambiar este número vuelve a centrar la fila propia con animación.
   centerKey?: number
-  // La carrera del jugador. Solo se usa para saber si un filtro puesto es EL
-  // SUYO y por lo tanto no hay que soltarlo al acertar.
-  myCareer?: string | null
   // Universidad del jugador: se resalta en la vista universitaria igual que su
   // fila en la individual.
   myUniversity?: string | null
@@ -201,7 +198,6 @@ export function GameRanking({
   attachXpTarget,
   centerKey = 0,
   myUniversity = null,
-  myCareer = null,
   viewOverride = null,
   boostPreview = null,
   sort = "experiencia",
@@ -211,14 +207,14 @@ export function GameRanking({
   // ── El ranking vuelve solo a donde el XP puede caer ────────────────────────
   // Al acertar, la XP entra en la fila propia. Si en ese momento se estaba
   // mirando el ranking de universidades —o el individual filtrado por OTRA
-  // carrera o universidad— esa fila no está en pantalla, y el festejo termina en
-  // una lista donde el número que sube no es de nadie que se vea.
+  // universidad— esa fila no está en pantalla, y el festejo termina en una lista
+  // donde el número que sube no es de nadie que se vea.
   //
-  // Así que el ranking se acomoda solo: vuelve al individual, y suelta los
-  // filtros SALVO los propios. Filtrar por la carrera o la universidad de uno no
-  // es irse a mirar otra cosa: es la misma competencia recortada, la fila propia
-  // sigue ahí y sigue recibiendo la XP. Sacar ese filtro sería sacar a la persona
-  // del ranking en el que estaba compitiendo.
+  // Así que el ranking se acomoda solo: vuelve al individual, y suelta el filtro
+  // SALVO que sea el propio. Filtrar por la universidad de uno no es irse a
+  // mirar otra cosa: es la misma competencia recortada, la fila propia sigue ahí
+  // y sigue recibiendo la XP. Sacar ese filtro sería sacar a la persona del
+  // ranking en el que estaba compitiendo.
   //
   // `centerKey` es la señal, y no una prop nueva: la bumpea el layout justo al
   // acertar, para que el ranking devuelva la fila propia a su lugar antes de que
@@ -231,9 +227,8 @@ export function GameRanking({
   const [elegido, setElegido] = useState<{
     key: number
     view: RankingView
-    career: string
     university: string
-  }>({ key: centerKey, view: "individual", career: ALL_SCOPE, university: ALL_SCOPE })
+  }>({ key: centerKey, view: "individual", university: ALL_SCOPE })
 
   const acaboDeAcertar = elegido.key !== centerKey
   const propio = (valor: string, mio: string | null) =>
@@ -244,26 +239,24 @@ export function GameRanking({
   const view = boostPreview
     ? "individual"
     : (viewOverride ?? (acaboDeAcertar ? "individual" : elegido.view))
-  const career = boostPreview
-    ? ALL_SCOPE
-    : acaboDeAcertar
-      ? propio(elegido.career, myCareer)
-      : elegido.career
   const university = boostPreview
     ? boostPreview.university
     : acaboDeAcertar
       ? propio(elegido.university, myUniversity)
       : elegido.university
-  const scope: Scope = { university, career }
+  // `career` va SIEMPRE en ALL_SCOPE y no desaparece del scope: el backend
+  // sigue aceptando el parámetro —Intervalo clásico lo usa— y, sobre todo, es
+  // parte de la clave de caché del ranking. Sacarlo del objeto partiría en dos
+  // las cachés que cafecito-panel.tsx y register-slides.tsx comparten con esta
+  // pantalla, y las dos dejarían de encontrar la lista que ya está pedida.
+  const scope: Scope = { university, career: ALL_SCOPE }
 
   // Los setters guardan SIEMPRE la clave del momento: así lo que se elija después
   // de un acierto queda, en vez de volver a reiniciarse en el siguiente render.
   const setView = (v: RankingView) =>
-    setElegido({ key: centerKey, view: v, career, university })
-  const setCareer = (v: string) =>
-    setElegido({ key: centerKey, view, career: v, university })
+    setElegido({ key: centerKey, view: v, university })
   const setUniversity = (v: string) =>
-    setElegido({ key: centerKey, view, career, university: v })
+    setElegido({ key: centerKey, view, university: v })
 
   // Se avisa la vista EFECTIVA, la de arriba, no la elegida: `viewOverride` y
   // `boostPreview` mandan por encima y quien escucha tiene que ver lo mismo que
@@ -445,15 +438,19 @@ export function GameRanking({
             </>
           )}
         </div>
+        {/* Sin la caja de carrera: son cinco carreras contra veintipico de
+            universidades, y el recorte que la gente busca es el de su facultad
+            —perdón, el de su universidad—, no el de su rama. En una pantalla de
+            teléfono los tres selectores entraban a 100 px cada uno. Intervalo
+            clásico la conserva, así que la caja no se borró: es opt-in. */}
         <ScopeFilters
           view={view}
           onViewChange={setView}
-          career={career}
-          onCareerChange={setCareer}
           university={university}
           onUniversityChange={setUniversity}
           universities={summary.data?.universities ?? []}
           withRecruits
+          withCareer={false}
           scopeDisabled={view === "recruits" || !!boostPreview}
         />
         <BoostBanner boosts={boostsVigentes} myUniversity={myUniversity} />
@@ -573,10 +570,24 @@ function useStagedOrder(
   // Memoizado para que su identidad sea estable: es la dependencia de la lista
   // final, y sin esto había que compararlo armando un `join(",")` de todos los
   // ids en cada render.
-  const shownIds = useMemo(
-    () => (orderIds.length > 0 ? orderIds : entries.map((e) => e.player_id)),
-    [orderIds, entries],
-  )
+  const shownIds = useMemo(() => {
+    const ids = entries.map((e) => e.player_id)
+    if (orderIds.length === 0) return ids
+    // Si cambió el CONJUNTO —se puso o se sacó un filtro, entró o salió alguien
+    // de la ventana— el orden escalonado no aplica: no hay cruces que contar.
+    // Es la misma regla que el intervalo de abajo, aplicada acá en vez de
+    // esperar a que el intervalo la note.
+    //
+    // Esperar costaba una lista MAL DIBUJADA los 420 ms del tick: el orden viejo
+    // se mapea contra los datos nuevos y lo que no está en los dos se cae, así
+    // que filtrar por una universidad sin gente en común con lo que se estaba
+    // mirando dejaba la lista vacía y después se llenaba sola. Justo el gesto
+    // en el que la persona está mirando si el filtro hizo algo.
+    const previos = new Set(orderIds)
+    if (ids.length !== orderIds.length || ids.some((id) => !previos.has(id)))
+      return ids
+    return orderIds
+  }, [orderIds, entries])
 
   useEffect(() => {
     targetRef.current = entries.map((e) => e.player_id)

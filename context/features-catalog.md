@@ -48,6 +48,14 @@ Producto aparte, con identidad y economía propias pero la misma tabla de
 cafecitos. Lo único documentado acá es **cómo elige qué ejercicio servir**, que
 es la mecánica que gobierna la experiencia entera:
 
+- **El ranking se filtra por universidad y por nada más.** La cabecera es la
+  misma que la de Intervalo (`components/leaderboard-chrome.tsx`), pero la caja
+  de carrera está apagada acá: son cinco carreras contra veintipico de
+  universidades, y lo que la gente busca recortar es su universidad. Al acertar
+  el ranking vuelve solo al individual y suelta el filtro, salvo que el filtro
+  puesto sea el de la universidad propia — ahí la fila propia sigue en pantalla
+  y sigue recibiendo la XP, así que sacarlo sería sacar a la persona del ranking
+  en el que estaba compitiendo.
 - **El @ se asigna y después se elige.** Quien entra sin cuenta arranca con un
   @ autogenerado (`game/aliases.py`): `casifinal`, `triplechoripan`,
   `goldenmedialuna` — comida rioplatense y vida de cursada, sin números. El

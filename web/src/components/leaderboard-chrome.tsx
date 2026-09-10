@@ -58,18 +58,31 @@ export function FilterBox({
   value,
   onChange,
   display,
+  // Deshabilitado de VERDAD, no apagado a medias. `ScopeFilters` bajaba la
+  // opacidad de estas cajas y nada más, así que un selector que se veía
+  // apagado seguía aceptando clicks: el valor mostrado venía de otro lado y
+  // la elección quedaba guardada sin efecto, para aparecer de golpe cuando el
+  // otro lado soltaba el control. Desde el asiento de la persona eso es «la
+  // primera vez el filtro no hizo nada».
+  disabled = false,
   children,
 }: {
   label: string
   value: string
   onChange: (v: string) => void
   display: (v: string) => React.ReactNode
+  disabled?: boolean
   children: React.ReactNode
 }) {
   return (
-    <Select value={value} onValueChange={(v) => v && onChange(v)}>
+    <Select
+      value={value}
+      onValueChange={(v) => v && onChange(v)}
+      disabled={disabled}
+    >
       <SelectTrigger
         aria-label={label}
+        disabled={disabled}
         className="flex h-auto! w-full flex-col items-stretch justify-center gap-1 rounded-md border border-white/10 bg-white/5 px-3 py-[10px] text-foreground shadow-none [&>svg]:hidden"
       >
         <SelectValue className="truncate text-left text-[0.75rem] font-semibold leading-none tabular-nums">
@@ -112,12 +125,18 @@ const VIEW_LABEL: Record<RankingView, string> = {
 export function ScopeFilters({
   view,
   onViewChange,
-  career,
+  career = ALL_SCOPE,
   onCareerChange,
   university,
   onUniversityChange,
   universities,
   withRecruits = false,
+  // La caja de carrera es opt-in, igual que la de reclutas. El ranking del
+  // minijuego la sacó —tres selectores para elegir entre cinco carreras eran
+  // más pantalla de la que ese filtro se ganaba— y el de Intervalo la
+  // conserva. El componente es UNO solo a propósito, así que la diferencia se
+  // pide con una prop y no clonando la cabecera.
+  withCareer = true,
   // Carrera y universidad no significan nada sobre los reclutas propios: son
   // tuyos, y filtrarlos por universidad es filtrar una lista de cinco personas.
   // Se apagan en vez de desaparecer para que la fila no cambie de forma al
@@ -126,16 +145,26 @@ export function ScopeFilters({
 }: {
   view: RankingView
   onViewChange: (v: RankingView) => void
-  career: string
-  onCareerChange: (v: string) => void
+  career?: string
+  onCareerChange?: (v: string) => void
   university: string
   onUniversityChange: (v: string) => void
   universities: string[]
   withRecruits?: boolean
+  withCareer?: boolean
   scopeDisabled?: boolean
 }) {
   return (
-    <div className={cn("grid grid-cols-3 gap-2", scopeDisabled && "[&>*:not(:first-child)]:opacity-40")}>
+    <div
+      className={cn(
+        "grid gap-2",
+        // Derivado de cuántas cajas se dibujan y no fijo en tres: con la de
+        // carrera apagada, `grid-cols-3` dejaba una columna vacía a la derecha
+        // y las dos que quedaban a dos tercios de ancho.
+        withCareer ? "grid-cols-3" : "grid-cols-2",
+        scopeDisabled && "[&>*:not(:first-child)]:opacity-40",
+      )}
+    >
       <FilterBox
         label="Ranking"
         value={view}
@@ -147,25 +176,29 @@ export function ScopeFilters({
         {withRecruits && <SelectItem value="recruits">Reclutas</SelectItem>}
       </FilterBox>
 
-      <FilterBox
-        label="Carrera"
-        value={career}
-        onChange={onCareerChange}
-        display={(v) => (v === ALL_SCOPE ? "Todas" : (CAREER_NAME[v] ?? v))}
-      >
-        <SelectItem value={ALL_SCOPE}>Todas</SelectItem>
-        {CAREER_META.map((c) => (
-          <SelectItem key={c.key} value={c.key}>
-            {c.name}
-          </SelectItem>
-        ))}
-      </FilterBox>
+      {withCareer && (
+        <FilterBox
+          label="Carrera"
+          value={career}
+          onChange={onCareerChange ?? (() => {})}
+          display={(v) => (v === ALL_SCOPE ? "Todas" : (CAREER_NAME[v] ?? v))}
+          disabled={scopeDisabled}
+        >
+          <SelectItem value={ALL_SCOPE}>Todas</SelectItem>
+          {CAREER_META.map((c) => (
+            <SelectItem key={c.key} value={c.key}>
+              {c.name}
+            </SelectItem>
+          ))}
+        </FilterBox>
+      )}
 
       <FilterBox
         label="Universidad"
         value={university}
         onChange={onUniversityChange}
         display={(v) => (v === ALL_SCOPE ? "Todas" : v)}
+        disabled={scopeDisabled}
       >
         <SelectItem value={ALL_SCOPE}>Todas</SelectItem>
         {universities.map((u) => (

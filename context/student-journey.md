@@ -50,7 +50,10 @@ Al terminar, ve un **resumen**: XP ganado (separando el bonus por racha) y una a
 
 Esta es, junto con el home, la pantalla que sostiene el uso a largo plazo (ver [gamification.md](gamification.md) para el porqué). El estudiante puede:
 - Alternar entre **ranking individual** y **ranking universitario** — ver dónde está su universidad frente a otras, no solo dónde está él.
-- Filtrar por **carrera** y por **universidad**.
+- Filtrar por **carrera** y por **universidad**. (En el ranking del minijuego
+  de derivadas el filtro por carrera no existe: solo se filtra por
+  universidad. La cabecera es el mismo componente y la caja de carrera es
+  opt-in — ver `ScopeFilters :: withCareer`.)
 - Ver estadísticas globales de la comunidad (estudiantes registrados, ejercicios completados) además de su posición.
 - Ver el nombre de cada estudiante coloreado según su cinturón más alto, y su badge de emoji actual junto al nombre (ver abajo) — el ranking es también donde el estatus visual (emoji, color de cinturón) se hace público frente a otros.
 
