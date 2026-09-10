@@ -69,6 +69,7 @@ CHECKS = [
     "check_game_stats",
     "check_game_unlocks",
     "check_game_username",
+    "check_game_xp",
     "check_handles",
     "check_mails_cafecito_reclutas",
     "check_opciones_equivalentes",

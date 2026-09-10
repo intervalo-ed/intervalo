@@ -32,6 +32,7 @@ from fastapi.testclient import TestClient  # noqa: E402
 
 import database  # noqa: E402
 from game import xp as game_xp  # noqa: E402
+from game.templates import TEMPLATE_BY_KEY  # noqa: E402
 from models import (  # noqa: E402
     Base,
     GameBoost,
@@ -138,7 +139,10 @@ r = client.post(
 )
 j = r.json()
 check(j["correct"], "acierta al 2º intento con forma equivalente")
-expected_second = game_xp.XP_BY_ATTEMPT[2]
+# Derivado del tier de la plantilla forzada («t1_kpow») y no de una constante:
+# desde que la XP la fija el ítem, lo que hay que comprobar es que el segundo
+# intento pague la fracción que le toca A ESA derivada.
+expected_second = game_xp.xp_for_answer(2, True, TEMPLATE_BY_KEY["t1_kpow"].tier, 0)[0]
 check(
     j["xp_awarded"] == expected_second,
     f"XP de 2º intento = {expected_second} (dio {j['xp_awarded']})",
@@ -499,7 +503,8 @@ check(
 # respuesta, y un "+15" adentro de un total multiplicado se lee como un error.
 con_bonus = _responder(_forzar_ejercicio(combo=game_xp.COMBO_INTERVAL - 1))
 check(
-    con_bonus["combo_bonus"] == round(game_xp.COMBO_BONUS * 1.4),
+    con_bonus["combo_bonus"]
+    == round(game_xp.xp_for_answer(1, True, TEMPLATE_BY_KEY["t1_kpow"].tier, game_xp.COMBO_INTERVAL)[1] * 1.4),
     f"el bonus de combo también escala (dio {con_bonus['combo_bonus']})",
 )
 

@@ -688,7 +688,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
       fireXpProvisional(
         estimarXp({
           attemptNumber: attemptRef.current,
-          pHat: exercise.p_hat,
+          tier: exercise.tier,
           comboAfter: attemptRef.current === 1 && !peekedRef.current ? exercise.combo + 1 : 0,
           peeked: peekedRef.current,
         }),

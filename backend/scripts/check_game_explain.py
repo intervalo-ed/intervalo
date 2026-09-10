@@ -242,31 +242,31 @@ check(
 )
 
 print("\nXP")
-check(game_xp.xp_for_answer(1, True, 0.5, 1)[0] > 0, "el primer intento paga")
-check(game_xp.xp_for_answer(2, True, 0.5, 0) == (8, 0), "el segundo intento paga 8")
+check(game_xp.xp_for_answer(1, True, 3, 1)[0] > 0, "el primer intento paga")
+check(game_xp.xp_for_answer(2, True, 3, 0) == (6, 0), "el segundo intento paga menos")
 check(
-    game_xp.xp_for_answer(3, True, 0.5, 0) == (game_xp.XP_INSISTIENDO, 0),
-    f"del tercero en adelante paga {game_xp.XP_INSISTIENDO}",
+    game_xp.xp_for_answer(3, True, 3, 0) == (4, 0),
+    "del tercero en adelante paga la fracción de insistir",
 )
 check(
-    game_xp.xp_for_answer(9, True, 0.5, 0) == (game_xp.XP_INSISTIENDO, 0),
+    game_xp.xp_for_answer(9, True, 3, 0) == (4, 0),
     "y sigue pagando lo mismo por más que insista",
 )
 check(
     all(
-        game_xp.xp_for_answer(n, True, 0.5, 5, explained=True) == (game_xp.XP_EXPLICADO, 0)
+        game_xp.xp_for_answer(n, True, 3, 5, explained=True) == (game_xp.XP_EXPLICADO, 0)
         for n in (1, 2, 3, 40)
     ),
     f"haber leído el ¿Por qué? deja el acierto en {game_xp.XP_EXPLICADO}, sea cual sea el intento",
 )
 check(
-    game_xp.xp_for_answer(2, True, 0.5, 0, peeked=True, explained=True)[0]
+    game_xp.xp_for_answer(2, True, 3, 0, peeked=True, explained=True)[0]
     == game_xp.XP_EXPLICADO,
     "con tabla Y explicación gana la más barata de las dos",
 )
-check(game_xp.xp_for_answer(1, False, 0.5, 0) == (0, 0), "errar no paga nada")
+check(game_xp.xp_for_answer(1, False, 3, 0) == (0, 0), "errar no paga nada")
 check(
-    game_xp.xp_for_answer(1, True, 0.5, 5, explained=True)[1] == 0,
+    game_xp.xp_for_answer(1, True, 3, 5, explained=True)[1] == 0,
     "el bonus de combo no se cobra habiendo leído",
 )
 

@@ -82,7 +82,7 @@ from .schemas import (
     GameUniversityLeaderboardResponse,
     GameUniversityRow,
 )
-from .templates import GENERIC_FEEDBACK, latex_es
+from .templates import GENERIC_FEEDBACK, TEMPLATE_BY_KEY, latex_es
 from .validator import (
     AnswerRejected,
     expr_from_stored,
@@ -938,10 +938,16 @@ def _otorgar_xp(
     entrega el servidor, así que no hace falta que el cliente la confiese (ver
     la columna en models.py).
     """
+    # El tier de la plantilla y no el p̂ del ejercicio: la XP la fija la derivada
+    # que se ve, no la probabilidad de que ESTA persona la acierte (ver el
+    # encabezado de game/xp.py). `.get` con piso en 0 porque una plantilla puede
+    # salir del catálogo y sus ejercicios servidos siguen abiertos: que se pague
+    # poco es mejor que un 500 al responder.
+    plantilla = TEMPLATE_BY_KEY.get(exercise.template_key)
     xp_awarded, combo_bonus = game_xp.xp_for_answer(
         attempt_number,
         correct,
-        exercise.p_hat,
+        plantilla.tier if plantilla else 0,
         player.current_combo,
         peeked=peeked,
         explained=bool(exercise.explained),
