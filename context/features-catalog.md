@@ -70,6 +70,23 @@ es la mecánica que gobierna la experiencia entera:
 - **Rampa de arranque.** Los tres primeros ejercicios son fijos (x, x², 2x²) y
   hasta la quinta respuesta el tier disponible crece de a uno, para que el juego
   no abra con una exponencial por cómo haya caído el Elo.
+- **Antes de repetir, se afloja la dificultad.** No se sirve ninguna de las
+  últimas 8 plantillas (`generator._RECENT_EXCLUDE`), y cuando esa exclusión
+  deja la banda vacía se ENSANCHA la banda —`_BANDAS`: [0.70, 0.80], después
+  [0.55, 0.92], después [0.35, 0.98]— y recién si ninguna tiene candidatas se
+  acorta la ventana, de 8 a 4 a 2 a 0. El criterio: una derivada un poco mal
+  calibrada se nota menos que la cuarta vez de la misma.
+
+  La ventana estuvo en 3 y fabricaba un ciclo de 4: la banda tiene entre 3 y 8
+  plantillas, restarle 3 dejaba a menudo UNA sola candidata legal, y las tres
+  ramas de rescate devolvían en silencio lo recién visto. Medido en producción
+  sobre 7.838 ejercicios, la repetición de enunciado era del 2,4% en los
+  primeros diez, 50,1% entre el 26 y el 50 y 77,5% del 51 en adelante.
+- **Cada plantilla tiene coeficientes, y no es decoración.** Ocho eran una sola
+  expresión —`sen(x)/x` se sirvió 626 veces siendo siempre literalmente la
+  misma— y como el motor cicla entre cuatro o cinco plantillas, una plantilla de
+  una variante es una derivada que vuelve textual. `CyclingRandom`
+  (`game/cycler.py`) agota el rango de cada ranura antes de repetir un valor.
 - **La β se ancla a la semilla de su tier** (`elo.effective_beta`), pesada en
   PERSONAS distintas y no en respuestas. Sin ese ancla un motor adaptativo se
   autoengaña: lo difícil solo se le sirve a quien va bien, así que lo difícil
