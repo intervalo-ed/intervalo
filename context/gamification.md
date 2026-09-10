@@ -29,6 +29,38 @@ Bonus fijo por racha de aciertos limpios dentro de la sesión: cada 5 correctas 
 
 Plano, sin ajuste de dificultad: 3 XP si acierta al primer intento (`XP_PRACTICE_CORRECT`), 0 si no. Sí escala con el multiplicador de racha diaria. Base deliberadamente baja para que no sea farmeable — práctica es volumen ilimitado a elección del usuario.
 
+### XP por derivada — minijuego dx (`game/xp.py`)
+
+Economía aparte de la de arriba: escribe `game_players.xp` y nunca
+`users.total_xp`. **La base sale del `tier` de la plantilla** —lo escrito a mano
+en `templates.py`, que es la dificultad que la persona ve— con esta tabla:
+
+| tier | 0 | 1 | 2 | 3 | 4 | 5 |
+|---|---|---|---|---|---|---|
+| XP | 8 | 12 | 15 | 20 | 26 | 34 |
+
+El segundo intento paga `8/25` de esa base, el tercero en adelante `5/25`, y el
+bonus cada 5 correctas limpias seguidas es `15/25`. **Todo fracción y nada
+plano**, o la inversión vuelve por la ventana: un +15 fijo es +71% sobre una
+respuesta de 21 y +188% sobre una de 8, así que la derivada fácil con combo le
+pasaría a la difícil sin él. Copiar de la tabla (5) y acertar tras leer el
+«¿Por qué?» (3) pagan plano y son la única excepción — esa dificultad la
+resolvió la ayuda.
+
+**Hasta 2026-09 la dificultad no entraba por el tier sino por p̂**, la
+probabilidad de que ESA persona acertara ESE ejercicio, multiplicando un 25 fijo
+por `0.75 + 0.85·(1−p̂)`. Como el selector mantiene p̂ en una banda angosta, el
+factor vivía en un 15% de rango contra el ×3 del cafecito, y encima se invertía:
+p̂ es relativo al jugador, así que a alguien fuerte lo difícil le pagaba MENOS.
+Medido sobre 6.448 aciertos de producción, la correlación dificultad/XP era 0,24
+y `sen(x)/x` pagaba entre 5 y 114. Un jugador lo reportó como «puntajes
+aleatorios, no dependientes de la dificultad». El rango nuevo es 4,25×, elegido
+a propósito para que le gane al ×3 del cafecito — `check_game_xp.py` lo fija.
+
+La β aprendida (`game_template_stats.beta`) **no** paga: se mueve sola con cada
+respuesta, así que la misma derivada pagaría distinto cada semana. La β elige,
+el tier paga.
+
 ### Multiplicador de racha diaria (`STREAK_TIERS`)
 
 La racha cuenta **días distintos con ≥1 sesión completada**, no necesariamente consecutivos:
