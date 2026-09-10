@@ -636,6 +636,10 @@ def send_cafecito_efecto_email(
     el empuje global y el dirigido en un solo número, y los cafecitos de la
     ventana se suman a propósito. Así que lo honesto es "el empuje de tu
     universidad generó N XP", nunca "TU cafecito generó N XP".
+
+    Por lo mismo el texto no nombra una duración: desde que dura
+    `1 + ceil(cafecitos/2)` horas, la ventana puede juntar empujes de duraciones
+    distintas y no hay UN número que sea cierto.
     """
     if xp_extra <= 0:
         return False
@@ -645,7 +649,7 @@ def send_cafecito_efecto_email(
     donde = f"la {university}" if university else "todo Intervalo"
     greeting = f"{name}, tu cafecito ya terminó de hacer efecto."
     highlight = (
-        f"Durante 24 horas {donde} sumó {xp_extra} XP extra, "
+        f"Mientras duró el empuje, {donde} sumó {xp_extra} XP extra, "
         f"repartidos entre {estudiantes} estudiantes."
     )
     html = render_email(
