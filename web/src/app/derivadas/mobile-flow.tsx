@@ -1939,6 +1939,7 @@ function RankingSlide({
         counting={counting}
         xpColor={xpColor}
         myUniversity={myUniversity}
+        mobile
         onViewChange={setVista}
         className="min-h-0 flex-1"
       />

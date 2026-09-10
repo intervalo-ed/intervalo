@@ -110,9 +110,17 @@ const RAMP_UPDATES = 5
 // El `py-1` de la lista, que no forma parte de ninguna fila.
 const LIST_TOP_PADDING = 4
 
-// Sin tocar la rueda por este tiempo, la lista vuelve sola a la fila propia:
-// mirar el ranking ajeno está bien, perderse en él no.
-const IDLE_RECENTER_MS = 10_000
+// Sin tocar la lista por este tiempo, vuelve sola a la fila propia: mirar el
+// ranking ajeno está bien, perderse en él no.
+//
+// Dos números porque son dos gestos distintos. En el escritorio la lista está
+// SIEMPRE en pantalla, al costado del ejercicio, así que mirarla es algo que se
+// hace mientras se piensa la derivada: diez segundos llegaban en la mitad de
+// una lectura. En el teléfono la lista es una diapo aparte, a la que se entró a
+// propósito y de la que se sale con un botón, y ahí lo que hace falta no es más
+// tiempo sino que el gesto mande (ver `manoRef`).
+const IDLE_RECENTER_MS = 20_000
+const IDLE_RECENTER_MS_MOVIL = 10_000
 
 // Dónde tiene que quedar el scroll para que la fila marcada como propia
 // descanse a ROWS_ABOVE del techo. Lo usan las dos vistas —la individual con la
@@ -147,6 +155,10 @@ export type GameRankingProps = {
   attachXpTarget?: (node: HTMLElement | null) => void
   // Cambiar este número vuelve a centrar la fila propia con animación.
   centerKey?: number
+  // Si esto se dibuja en un teléfono. Gobierna UNA cosa: cómo se comporta el
+  // recentrado automático (ver IDLE_RECENTER_MS y `manoRef`). No cambia nada de
+  // lo que se muestra — para eso están los layouts, que ya son dos archivos.
+  mobile?: boolean
   // Universidad del jugador: se resalta en la vista universitaria igual que su
   // fila en la individual.
   myUniversity?: string | null
@@ -197,6 +209,7 @@ export function GameRanking({
   xpColor = null,
   attachXpTarget,
   centerKey = 0,
+  mobile = false,
   myUniversity = null,
   viewOverride = null,
   boostPreview = null,
@@ -475,6 +488,7 @@ export function GameRanking({
           xpColor={xpColor}
           attachXpTarget={sort === "elo" ? undefined : attachXpTarget}
           centerKey={centerKey}
+          mobile={mobile}
           boostPreview={boostPreview}
         />
       ) : (
@@ -667,6 +681,7 @@ function IndividualRanking({
   xpColor,
   attachXpTarget,
   centerKey,
+  mobile,
   boostPreview,
 }: {
   scope: Scope
@@ -678,6 +693,7 @@ function IndividualRanking({
   xpColor: string | null
   attachXpTarget?: (node: HTMLElement | null) => void
   centerKey: number
+  mobile: boolean
   boostPreview?: { university: string; multiplier: number; color: string } | null
 }) {
   const boostsVigentes = useGameBoosts()
@@ -762,6 +778,17 @@ function IndividualRanking({
 
   // ── Scroll: centrado, anclaje al prepend y carga por baches ────────────────
   const scrollRef = useRef<HTMLDivElement | null>(null)
+  // La persona movió la lista con la mano. Apaga el recentrado automático hasta
+  // que la lista se vuelva a montar — en el teléfono eso es la derivada
+  // siguiente, porque la diapo del ranking se monta de nuevo con cada respuesta.
+  //
+  // Se escuchan `wheel` y `touchmove`, y NO `scroll`: `scroll` lo disparan
+  // también los scrolls programáticos, empezando por el propio `snapToMe`, que
+  // rearmaba el timer del recentrado con su propio movimiento. O sea que el
+  // único listener que había no distinguía quién movió la lista. El comentario
+  // de IDLE_RECENTER_MS decía «se reinicia con cada rueda» desde que se
+  // escribió; recién ahora es cierto.
+  const manoRef = useRef(false)
   const centeredRef = useRef(false)
   const prevTopRankRef = useRef<number | null>(null)
   const prevHeightRef = useRef(0)
@@ -771,6 +798,22 @@ function IndividualRanking({
   // para que no dependa del alto de la caja: la fila propia queda siempre la
   // quinta, entren ocho filas o quince.
   const restingScrollTop = useCallback(() => restingScrollTopFor(scrollRef.current), [])
+
+  // `entries.length` en las dependencias por lo mismo que abajo: en el primer
+  // render la lista es el esqueleto y `scrollRef` está vacío.
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+    const marcar = () => {
+      manoRef.current = true
+    }
+    el.addEventListener("wheel", marcar, { passive: true })
+    el.addEventListener("touchmove", marcar, { passive: true })
+    return () => {
+      el.removeEventListener("wheel", marcar)
+      el.removeEventListener("touchmove", marcar)
+    }
+  }, [entries.length])
 
   const snapToMe = useCallback(
     (smooth: boolean) => {
@@ -855,8 +898,13 @@ function IndividualRanking({
   // iría yendo de la vista sola.
   useEffect(() => {
     if (myRank === null || !settled) return
+    // Salvo que la persona esté mirando otra parte de la lista por su cuenta. El
+    // reacomodo existe para que la fila propia no se vaya sola de la vista; si
+    // se fue porque alguien la mandó a mirar el puesto 40, traerla de vuelta no
+    // es cuidar nada, es interrumpir.
+    if (mobile && manoRef.current) return
     snapToMe(true)
-  }, [myRank, settled, snapToMe])
+  }, [myRank, settled, snapToMe, mobile])
 
   // Recentrado a pedido del layout (al resolver) — con animación.
   const firstCenterKey = useRef(centerKey)
@@ -865,7 +913,8 @@ function IndividualRanking({
     snapToMe(true)
   }, [centerKey, snapToMe])
 
-  // Recentrado por inactividad: el timer se reinicia con cada rueda.
+  // Recentrado por inactividad.
+  //
   // `entries.length` en las dependencias no es decorativo: en el primer render
   // la lista todavía es el esqueleto y `scrollRef` está vacío, así que sin un
   // dato que cambie al llegar las filas el efecto no volvería a correr y el
@@ -876,7 +925,13 @@ function IndividualRanking({
     let timer: ReturnType<typeof setTimeout>
     const arm = () => {
       clearTimeout(timer)
-      timer = setTimeout(() => snapToMe(true), IDLE_RECENTER_MS)
+      // En el teléfono, el primer gesto lo apaga y no se vuelve a armar: se
+      // queda donde la persona lo dejó hasta la derivada siguiente. Sigue
+      // colgado de `scroll` y no de la rueda porque el momentum de iOS sigue
+      // disparando `scroll` un rato después de soltar, y esos también tienen
+      // que limpiar el timer.
+      if (mobile && manoRef.current) return
+      timer = setTimeout(() => snapToMe(true), mobile ? IDLE_RECENTER_MS_MOVIL : IDLE_RECENTER_MS)
     }
     el.addEventListener("scroll", arm, { passive: true })
     arm()
@@ -884,7 +939,7 @@ function IndividualRanking({
       clearTimeout(timer)
       el.removeEventListener("scroll", arm)
     }
-  }, [snapToMe, entries.length])
+  }, [snapToMe, entries.length, mobile])
 
   const topSentinelRef = useRef<HTMLDivElement | null>(null)
   const bottomSentinelRef = useRef<HTMLDivElement | null>(null)
