@@ -16,6 +16,7 @@
     "check:reclutas": "bun run scripts/check-reclutas-trigger.ts",
     "check:instalacion": "bun run scripts/check-instalacion-trigger.ts",
     "check:universitario": "bun run scripts/check-ranking-universitario.ts",
+    "check:filtros": "bun run scripts/check-filtros-ranking.ts",
     "check:xp": "bun run scripts/check-xp-pasos.ts",
     "check:latex": "bun run scripts/check-latex-normalize.ts",
     "check:restante": "bun run scripts/check-restante.ts"

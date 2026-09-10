@@ -32,6 +32,30 @@ export const CAREER_NAME: Record<string, string> = Object.fromEntries(
   CAREER_META.map((c) => [c.key, c.name]),
 )
 
+/** Las opciones del selector de universidad, con la elegida SIEMPRE adentro.
+ *
+ *  Existe por un bug que costó dos intentos de arreglo. El <Select> de Base UI
+ *  es controlado, y cuando el valor que se le pasa no figura entre sus
+ *  <SelectItem> montados, no se queda quieto: revierte al valor inicial y avisa
+ *  llamando a `onValueChange` con ÉL. O sea que el componente le contesta al
+ *  padre "elegiste Todas" sin que nadie haya elegido nada.
+ *
+ *  Y la lista se vaciaba sola: sale de `summary.data.universities`, y el resumen
+ *  se pide con el scope adentro de la clave de caché, así que elegir una
+ *  universidad estrena clave, deja `data` en undefined por un commit y borra
+ *  todas las opciones menos "Todas". El resultado, desde el asiento de la
+ *  persona: la primera vez que filtrás no pasa nada, y la segunda —con el
+ *  resumen ya cacheado— funciona.
+ *
+ *  La causa se saca en cada pantalla pidiendo el catálogo sin scope (el backend
+ *  lo devuelve igual para todos: «esas van siempre sin scope», dice su
+ *  docstring). Esto es la red de abajo: mientras la elegida esté montada, no hay
+ *  revert posible, venga la lista vacía por donde venga. */
+export function opcionesDeUniversidad(universities: string[], elegida: string): string[] {
+  const fuera = elegida !== ALL_SCOPE && !universities.includes(elegida)
+  return fuera ? [elegida, ...universities] : universities
+}
+
 export const fmtCount = (n: number) => n.toLocaleString("es")
 
 export function Metric({
@@ -201,7 +225,7 @@ export function ScopeFilters({
         disabled={scopeDisabled}
       >
         <SelectItem value={ALL_SCOPE}>Todas</SelectItem>
-        {universities.map((u) => (
+        {opcionesDeUniversidad(universities, university).map((u) => (
           <SelectItem key={u} value={u}>
             {u}
           </SelectItem>
