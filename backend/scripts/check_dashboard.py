@@ -425,20 +425,20 @@ check("render: no hay llaves de formato sin resolver", "{" not in html.split("<s
 # emoji + nombre para carreras y cursos, los mismos que ve el usuario.
 check("render: la universidad usa el chip de marca del ranking",
       'class="tag" style="color:#4F76E0' in html)
-# La UNC es la única con fondo y borde propios (los dos colores del isotipo de
-# la FCEFyN) porque su azul anterior no se distinguía del de la UBA. Se
+# Las tres tintas del chip salen del MISMO color, para toda universidad. Se
 # comprueba llamando a `_uni_chip` directo y no buscando en el HTML: el fixture
-# no tiene por qué tener una fila de Córdoba, y lo que hay que fijar es que la
-# excepción siga existiendo si alguien "simplifica" la función.
-from metrics.render import UNIVERSITY_CHIP, _uni_chip  # noqa: E402
-check("render: sin fondo propio, el chip deriva borde y fondo del color",
+# no tiene por qué tener una fila de cada una. La UNC entra explícita porque es
+# la que se retocó —y porque llegó a tener fondo propio por un rato—, así que
+# vale fijar que volvió a la fórmula común.
+from metrics.render import UNIVERSITY_COLOR, _uni_chip  # noqa: E402
+check("render: el chip deriva borde y fondo del color de marca",
       _uni_chip("UBA") == ('<span class="tag" style="color:#4F76E0;'
                            'border-color:#4F76E099;background:#4F76E033">UBA</span>'))
-check("render: la UNC lleva el verdeazulado propio, no un lavado del amarillo",
-      _uni_chip("UNC") == ('<span class="tag" style="color:#E4CE7B;'
-                           'border-color:#2E6360;background:#123230">UNC</span>'))
-check("render: la excepción del chip es solo la UNC",
-      set(UNIVERSITY_CHIP) == {"UNC"})
+check("render: la UNC usa la misma fórmula que el resto, sin excepción",
+      _uni_chip("UNC") == ('<span class="tag" style="color:#3E9C93;'
+                           'border-color:#3E9C9399;background:#3E9C9333">UNC</span>'))
+check("render: ningún color de marca se repite entre universidades",
+      len(set(UNIVERSITY_COLOR.values())) == len(UNIVERSITY_COLOR))
 check("render: la carrera se muestra con su emoji y su nombre",
       "⚙️" in html and "Ingeniería" in html)
 check("render: el curso usa el emoji del onboarding",
