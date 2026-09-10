@@ -38,7 +38,8 @@ const correctas = Array.from({ length: HASTA }, (_, i) => i + 1)
 
 console.log("1. Cae en los múltiplos de tres y en ninguno más")
 
-const cayeron = correctas.filter(esVueltaUniversitaria)
+const UNI = "ITBA"
+const cayeron = correctas.filter((n) => esVueltaUniversitaria(n, UNI))
 const esperadas = correctas.filter((n) => n % VUELTA_UNIVERSITARIA_CADA === 0)
 check(
   cayeron.length === esperadas.length && cayeron.every((n, i) => n === esperadas[i]),
@@ -48,9 +49,9 @@ check(
   cayeron.slice(0, 5).join(",") === "3,6,9,12,15",
   `las primeras cinco son 3, 6, 9, 12 y 15 (dio ${cayeron.slice(0, 5).join(",")})`,
 )
-check(!esVueltaUniversitaria(0), "con cero correctas no cae: no hay festejo que mover")
+check(!esVueltaUniversitaria(0, UNI), "con cero correctas no cae: no hay festejo que mover")
 check(
-  correctas.every((n) => esVueltaUniversitaria(n) === (n % 3 === 0)),
+  correctas.every((n) => esVueltaUniversitaria(n, UNI) === (n % 3 === 0)),
   "y no hay ningún número suelto que se cuele",
 )
 
@@ -85,17 +86,37 @@ const interrumpen = (n: number) =>
   n === NOTIF_PRIMERA ||
   (n - NOTIF_PRIMERA) % NOTIF_CADA === 0
 
-const solapados = correctas.filter((n) => esVueltaUniversitaria(n) && interrumpen(n))
+const solapados = correctas.filter((n) => esVueltaUniversitaria(n, UNI) && interrumpen(n))
 check(
   solapados.length > 0,
   `se solapa con algún pedido en ${solapados.length} de ${cayeron.length} vueltas, y está bien: no compiten por el turno`,
 )
 check(
-  esVueltaUniversitaria(HITO_REGISTRO) === (HITO_REGISTRO % 3 === 0),
+  esVueltaUniversitaria(HITO_REGISTRO, UNI) === (HITO_REGISTRO % 3 === 0),
   "el hito de registro no mueve la cuenta ni para un lado ni para el otro",
 )
 
-console.log("4. El contador es del servidor")
+console.log("4. Sin universidad no hay vuelta, y eso incluye la primera")
+
+// El juego pide la universidad en la derivada HITO_PERFIL, que es 3: o sea
+// EXACTAMENTE cuando caería la primera vuelta universitaria. Antes de este
+// chequeo la primera de todas caía sobre una lista en la que la persona todavía
+// no estaba: sin fila propia, el número no trepaba en ningún lado y los orbes se
+// apagaban a mitad de camino por falta de destino. Se vio en producción.
+check(
+  correctas.every((n) => !esVueltaUniversitaria(n, null)),
+  "sin universidad cargada no cae nunca, en ninguna de las 200",
+)
+check(
+  HITO_PERFIL % VUELTA_UNIVERSITARIA_CADA === 0,
+  `el pedido de universidad (${HITO_PERFIL}) y la primera vuelta caen en el mismo número: por eso hace falta el guardia`,
+)
+check(
+  !esVueltaUniversitaria(HITO_PERFIL, null) && esVueltaUniversitaria(2 * VUELTA_UNIVERSITARIA_CADA, UNI),
+  `quien carga la universidad en la ${HITO_PERFIL} tiene su primera vuelta en la ${2 * VUELTA_UNIVERSITARIA_CADA}`,
+)
+
+console.log("5. El contador es del servidor")
 
 // No hay estado que llevar: la función es pura y toma el acumulado que viene en
 // la respuesta de /answer. Un contador por pestaña se reiniciaría al recargar y
@@ -106,7 +127,7 @@ check(
   "el módulo no necesita localStorage: corre sin navegador y sin estado",
 )
 check(
-  esVueltaUniversitaria(9) && esVueltaUniversitaria(9),
+  esVueltaUniversitaria(9, UNI) && esVueltaUniversitaria(9, UNI),
   "llamarla dos veces con el mismo número da lo mismo: es pura",
 )
 

@@ -697,7 +697,9 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
       // que se cuenta este acierto sobre el que ya había. El `onSuccess` de
       // abajo lo corrige con el número real, y si difieren la vista cambia
       // antes de que el conteo empiece (el primer paso tarda medio segundo).
-      setUniversityRound(esVueltaUniversitaria((player?.exercises_correct ?? 0) + 1))
+      setUniversityRound(
+        esVueltaUniversitaria((player?.exercises_correct ?? 0) + 1, player?.university ?? null),
+      )
       fireXpProvisional(
         estimarXp({
           attemptNumber: attemptRef.current,
@@ -808,7 +810,9 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
           // vuelta acá le cambiaría la vista a alguien que estaba mirando el
           // ranking de universidades sin haber pedido nada.
           if (data.correct) {
-            setUniversityRound(esVueltaUniversitaria(data.exercises_correct))
+            setUniversityRound(
+              esVueltaUniversitaria(data.exercises_correct, player?.university ?? null),
+            )
           }
           reconcileXp(data)
 
