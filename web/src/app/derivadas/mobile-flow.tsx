@@ -1938,7 +1938,7 @@ function RankingSlide({
   // contador del servidor que vino en ESTA respuesta, así que no hay estado que
   // llevar: la diapo se monta de nuevo con cada derivada y la cuenta ya está
   // hecha. Ver vuelta-universitaria.ts.
-  const universityRound = esVueltaUniversitaria(answer.exercises_correct)
+  const universityRound = esVueltaUniversitaria(answer.exercises_correct, myUniversity)
 
   return (
     <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col gap-3 px-4 pb-[var(--cta-pb)] pt-3">

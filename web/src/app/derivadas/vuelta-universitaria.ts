@@ -33,7 +33,23 @@ export const VUELTA_UNIVERSITARIA_CADA = 3
  *
  *  Se cuentan solo las CORRECTAS: «cada 3 derivadas resueltas» son tres
  *  resueltas. Una errada no mueve el contador — y además no tendría XP que
- *  contar, así que la vuelta caería sobre un festejo que no existe. */
-export function esVueltaUniversitaria(correctasTotales: number): boolean {
-  return correctasTotales > 0 && correctasTotales % VUELTA_UNIVERSITARIA_CADA === 0
+ *  contar, así que la vuelta caería sobre un festejo que no existe.
+ *
+ *  `universidad` no es un extra: sin ella la vuelta no tiene sentido y se ve
+ *  rota. El ranking universitario no tendría fila propia, así que el número no
+ *  treparía en ningún lado y los orbes se apagarían a mitad de camino por falta
+ *  de destino. Y no es un caso raro: el juego pide la universidad en la derivada
+ *  3 (hitos-del-juego.ts :: HITO_PERFIL), o sea EXACTAMENTE en la primera vuelta
+ *  universitaria — la primera de todas caía siempre sobre una lista en la que la
+ *  persona todavía no estaba. Sin universidad se festeja sobre la tarjeta
+ *  propia, como siempre, y la primera vuelta llega en la 6. */
+export function esVueltaUniversitaria(
+  correctasTotales: number,
+  universidad: string | null,
+): boolean {
+  return (
+    universidad !== null &&
+    correctasTotales > 0 &&
+    correctasTotales % VUELTA_UNIVERSITARIA_CADA === 0
+  )
 }
