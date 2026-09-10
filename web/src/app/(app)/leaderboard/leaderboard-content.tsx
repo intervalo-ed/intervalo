@@ -87,7 +87,17 @@ export function LeaderboardContent() {
   const [uni, setUni] = useState<string>(ALL)
 
   const summary = useLeaderboardSummary({ university: uni, career })
-  const universities = summary.data?.universities ?? []
+  // Sin scope, y por el mismo motivo que en el ranking del minijuego (ver el
+  // comentario largo de game-ranking.tsx): el resumen se cachea por scope, así
+  // que filtrar estrena clave y vacía la lista de opciones por un commit — y el
+  // <Select> controlado de Base UI, al no encontrar el valor elegido entre sus
+  // opciones, revierte solo y avisa con onValueChange("all"). La primera vez
+  // parece que el filtro no hiciera nada.
+  //
+  // El backend devuelve la misma lista con scope y sin él, así que esta clave
+  // fija ya está en caché desde el montaje.
+  const catalogo = useLeaderboardSummary()
+  const universities = catalogo.data?.universities ?? []
   const boosts = summary.data?.boosts ?? []
   const myUniversity = summary.data?.university ?? null
 

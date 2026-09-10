@@ -78,6 +78,7 @@ jobs:
           bun run check:reclutas
           bun run check:instalacion
           bun run check:universitario
+          bun run check:filtros
           bun run check:latex
           bun run check:restante
 

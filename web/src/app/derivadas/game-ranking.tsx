@@ -211,6 +211,11 @@ export type GameRankingProps = {
  *  y la traducción se hace acá, en el único lugar donde los dos se tocan. */
 export type RankingSort = "experiencia" | "elo"
 
+// El scope sin acotar, con identidad estable. Es la clave de caché del catálogo
+// de universidades y del resumen sin filtrar, así que tiene que ser SIEMPRE el
+// mismo objeto o cada render pediría de nuevo.
+const SIN_SCOPE: Scope = { university: ALL_SCOPE, career: ALL_SCOPE }
+
 export function GameRanking({
   climbFrom = null,
   enabled = true,
@@ -301,6 +306,19 @@ export function GameRanking({
   }, [view])
 
   const summary = useGameLeaderboardSummary(scope, enabled)
+  // El catálogo de universidades del desplegable va SIN scope, y no es una
+  // optimización: es el arreglo del bug de «la primera vez el filtro no hace
+  // nada». El resumen se cachea por scope, así que elegir una universidad
+  // estrena clave y deja `data` en undefined por un commit; con la lista vacía,
+  // el <Select> controlado de Base UI no encuentra el valor elegido entre sus
+  // opciones y REVIERTE, llamando a onValueChange("all") por su cuenta. La
+  // segunda vez funcionaba solo porque el resumen ya estaba cacheado.
+  //
+  // El backend devuelve la misma lista para cualquier scope —lo dice su
+  // docstring: «esas van siempre sin scope»— así que pedirla acotada nunca tuvo
+  // sentido. Con la clave fija la entrada ya está en caché desde el montaje: no
+  // agrega un pedido, saca uno.
+  const catalogo = useGameLeaderboardSummary(SIN_SCOPE, enabled)
   // Solo se pide con la vista abierta: son los reclutas de UNA persona, no el
   // ranking entero, y antes de esto nadie más que `RecruitsRanking` la
   // necesitaba (ver useGameRecruits). Ahora también alimenta los indicadores
@@ -485,7 +503,7 @@ export function GameRanking({
           onViewChange={setView}
           university={university}
           onUniversityChange={setUniversity}
-          universities={summary.data?.universities ?? []}
+          universities={catalogo.data?.universities ?? []}
           withRecruits
           withCareer={false}
           scopeDisabled={view === "recruits" || !!boostPreview}
