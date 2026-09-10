@@ -145,6 +145,10 @@ export type GameRankingProps = {
   enabled?: boolean
   // XP a mostrar en la fila propia mientras el conteo la va llenando.
   liveXp?: number | null
+  // Lo mismo pero como delta, para la vuelta universitaria: ahí el número que
+  // trepa es el de la universidad, cuya base no es la XP del jugador (ver
+  // `xpSumada` en xp-conteo.ts).
+  liveXpDelta?: number | null
   // Mientras el conteo está en curso, `liveXp` manda sobre el dato del ranking.
   counting?: boolean
   // El color del número mientras se llena: el azul-violeta de la XP, y null
@@ -155,6 +159,12 @@ export type GameRankingProps = {
   attachXpTarget?: (node: HTMLElement | null) => void
   // Cambiar este número vuelve a centrar la fila propia con animación.
   centerKey?: number
+  // La vuelta universitaria: este acierto se cuenta sobre la universidad de la
+  // persona en vez de sobre su tarjeta (ver vuelta-universitaria.ts). Es un
+  // reacomodo del mismo rango que el de acertar —lo decide el layout, dura lo
+  // que dura el festejo— así que una elección explícita de la persona le gana,
+  // igual que le gana al reacomodo de siempre.
+  universityRound?: boolean
   // Si esto se dibuja en un teléfono. Gobierna UNA cosa: cómo se comporta el
   // recentrado automático (ver IDLE_RECENTER_MS y `manoRef`). No cambia nada de
   // lo que se muestra — para eso están los layouts, que ya son dos archivos.
@@ -205,10 +215,12 @@ export function GameRanking({
   climbFrom = null,
   enabled = true,
   liveXp = null,
+  liveXpDelta = null,
   counting = false,
   xpColor = null,
   attachXpTarget,
   centerKey = 0,
+  universityRound = false,
   mobile = false,
   myUniversity = null,
   viewOverride = null,
@@ -251,7 +263,12 @@ export function GameRanking({
   // diapo de reclutas está abierta, lo que hay que mirar es la lista de reclutas.
   const view = boostPreview
     ? "individual"
-    : (viewOverride ?? (acaboDeAcertar ? "individual" : elegido.view))
+    : (viewOverride ??
+      (acaboDeAcertar
+        ? universityRound
+          ? "university"
+          : "individual"
+        : elegido.view))
   const university = boostPreview
     ? boostPreview.university
     : acaboDeAcertar
@@ -291,6 +308,13 @@ export function GameRanking({
   // veces.
   const recruits = useGameRecruits(enabled && view === "recruits")
   const boostsVigentes = useGameBoosts()
+  // La lista de universidades se pide SIEMPRE, aunque se esté mirando la
+  // individual. Antes solo se pedía con la vista abierta, y desde que el festejo
+  // puede saltar a la universitaria sin aviso eso significaba que la primera
+  // vuelta universitaria de cada sesión caía sobre un esqueleto: la XP animando
+  // sobre un hueco, que es la única vez que importa. Es una consulta de una sola
+  // tabla agrupada, y de paso cambiar de pestaña pasa a ser instantáneo.
+  useGameUniversityLeaderboard(scope, enabled)
   // Mientras no hay reclutas propios la lista de abajo (ListaDeReclutas) muestra
   // los CINCO renglones de ejemplo, sin esperar al servidor: son datos fijos del
   // cliente. Los indicadores de arriba tienen que contar lo mismo que esos
@@ -497,6 +521,14 @@ export function GameRanking({
           enabled={enabled}
           myUniversity={myUniversity}
           sort={sort}
+          // Lo mismo que recibe la fila propia en la vista individual, y por lo
+          // mismo: en la vuelta universitaria el número que trepa es el de la
+          // universidad, así que el conteo y el destino de los orbes tienen que
+          // apuntar ahí. Fuera de la vuelta viajan en null y no pasa nada.
+          liveXpDelta={sort === "elo" ? null : liveXpDelta}
+          counting={counting}
+          xpColor={xpColor}
+          attachXpTarget={sort === "elo" ? undefined : attachXpTarget}
         />
       )}
     </div>
@@ -1306,8 +1338,9 @@ function XpDeJugador({
           <span className="font-semibold text-foreground">
             {fmtCount(xp)} de experiencia
           </span>
-          . Cada derivada bien resuelta suma: un poco más si era difícil, y de
-          arranque más del triple si sale al primer intento.
+          . Cada derivada bien resuelta suma según qué tan difícil era —la más
+          difícil paga cuatro veces lo que la más fácil— y bastante más si sale
+          al primer intento.
         </p>
         <p className="mt-2 text-muted-foreground">
           Mide cuánto jugaste, no qué tan bien — nunca baja, y los cafecitos la
@@ -1387,18 +1420,36 @@ function EloDeJugador({
  *  (desktop-layout.tsx), al lado de `EloDeUniversidad`, que es la del "elo" —
  *  ordenar por una y mostrar la otra se leería como un bug, mismo criterio
  *  que ya vale para esa. */
-function XpDeUniversidad({ row }: { row: GameUniversityRow }) {
+function XpDeUniversidad({
+  row,
+  // El número a mostrar. Casi siempre `row.xp`; en la vuelta universitaria es el
+  // que va trepando mientras dura el conteo. Se pasa desde afuera y no se lee de
+  // `row` acá adentro porque el cálculo necesita la foto de antes del acierto,
+  // que vive en la lista.
+  xp,
+  color = null,
+  attachXpTarget,
+}: {
+  row: GameUniversityRow
+  xp: number
+  color?: string | null
+  attachXpTarget?: (node: HTMLElement | null) => void
+}) {
   const { abierto, setAbierto, gestos } = useCartel()
 
   return (
     <Popover open={abierto} onOpenChange={setAbierto}>
       <PopoverTrigger
         {...gestos}
+        ref={attachXpTarget}
         className="inline-flex shrink-0 items-center gap-1 rounded text-sm font-semibold tabular-nums outline-none transition-opacity hover:opacity-80"
+        style={color === null ? undefined : { color }}
         aria-label={`Cuánta experiencia sumó ${row.university}`}
       >
-        <CountUp value={row.xp} format={fmtCount} />
-        <XpDots className="size-[0.85em]" />
+        <CountUp value={xp} format={fmtCount} />
+        {/* Sin `text-white` mientras cuenta, igual que en la fila propia: el
+            ícono se dibuja con `currentColor`. */}
+        <XpDots className={cn("size-[0.85em]", color !== null && "text-current")} />
       </PopoverTrigger>
       <PopoverContent {...gestos} className="text-left text-xs leading-relaxed">
         <p>
@@ -1536,17 +1587,49 @@ function UniversityRanking({
   enabled,
   myUniversity,
   sort,
+  liveXpDelta = null,
+  counting = false,
+  xpColor = null,
+  attachXpTarget,
 }: {
   scope: Scope
   enabled: boolean
   myUniversity: string | null
   sort: RankingSort
+  // El conteo, apuntando a la fila de la universidad propia: es la que sube en
+  // la vuelta universitaria. Acá es un DELTA y no un total como en la vista
+  // individual, porque la base es otra: el número que crece es el de la
+  // universidad, que ya está en pantalla con el valor de antes del acierto.
+  liveXpDelta?: number | null
+  counting?: boolean
+  xpColor?: string | null
+  attachXpTarget?: (node: HTMLElement | null) => void
 }) {
   const { data, isPending } = useGameUniversityLeaderboard(scope, enabled)
   const boostsVigentes = useGameBoosts()
   const boostByUni = useBoostMultipliers(boostsVigentes)
   const scrollRef = useRef<HTMLDivElement | null>(null)
   const placedRef = useRef(false)
+
+  // El total de la universidad propia ANTES del acierto que se está contando.
+  //
+  // Hace falta congelarlo porque la lista no se refresca mientras el conteo
+  // corre —el pulso se pausa y la invalidación llega recién al final— así que
+  // `row.xp` es el valor viejo durante todo el festejo, y sumarle lo contado es
+  // lo único que hace que el número trepe. El `max` de abajo es lo que evita
+  // contar dos veces cuando la lista SÍ se refresca: ahí `row.xp` ya incluye el
+  // acierto y gana él.
+  //
+  // En un efecto y no en el render: se toma la foto en el último render en que
+  // el conteo estaba quieto, que es exactamente el momento anterior al acierto.
+  const miXpPrevia = useMemo(
+    () => data?.rows.find((r) => r.university === myUniversity)?.xp ?? null,
+    [data, myUniversity],
+  )
+  const previaRef = useRef<number | null>(null)
+  useEffect(() => {
+    if (!counting) previaRef.current = miXpPrevia
+  }, [counting, miXpPrevia])
 
   // La universidad propia se acomoda igual que la fila propia de la vista
   // individual: a cuatro filas del techo. Sin esto, entrar a "Universitario"
@@ -1628,7 +1711,21 @@ function UniversityRanking({
                 del selector de la cabecera: mostrar un número distinto del
                 que ordena se lee como un bug. */}
             {sort === "experiencia" ? (
-              <XpDeUniversidad row={row} />
+              <XpDeUniversidad
+                row={row}
+                // Mismo criterio que la fila propia de la vista individual:
+                // mientras el conteo corre manda él, y una vez terminado el
+                // mayor de los dos, para que el número no retroceda si la lista
+                // viene atrasada. La XP que sube es la MISMA que suma en el
+                // ranking individual — la universidad es la suma de los suyos.
+                xp={
+                  mine && liveXpDelta !== null && previaRef.current !== null
+                    ? Math.max(row.xp, previaRef.current + liveXpDelta)
+                    : row.xp
+                }
+                color={mine ? xpColor : null}
+                attachXpTarget={mine ? attachXpTarget : undefined}
+              />
             ) : (
               <EloDeUniversidad row={row} />
             )}

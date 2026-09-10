@@ -82,7 +82,7 @@ import {
 } from "./slide-horizontal"
 import { ChatButton, ChatPanel } from "./chat-panel"
 import { GameRanking } from "./game-ranking"
-import type { RankingView } from "@/components/leaderboard-chrome"
+import { ALL_SCOPE, type RankingView } from "@/components/leaderboard-chrome"
 import { AMBAR } from "./game-colors"
 import { HINT_MOBILE, MathInput, type MathInputHandle } from "./math-input"
 import { MathKeyboard } from "./math-keyboard"
@@ -101,9 +101,15 @@ import {
   type GameExercise,
 } from "./UseGameExercise"
 import { useGameIdentity } from "./game-telemetry"
-import { useGameEvents, useGamePulse, useMyBoost } from "./UseGameLeaderboard"
+import {
+  useGameEvents,
+  useGamePulse,
+  useGameUniversityLeaderboard,
+  useMyBoost,
+} from "./UseGameLeaderboard"
 import { gameKeys, useGamePlayer, type GamePlayer } from "./UseGamePlayer"
 import { comboTrasIntento } from "./racha-estimate"
+import { esVueltaUniversitaria } from "./vuelta-universitaria"
 import { estimarXp } from "./xp-estimate"
 import { useXpConteo } from "./xp-conteo"
 
@@ -366,6 +372,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
 
   const {
     liveXp,
+    xpSumada: liveXpDelta,
     counting,
     xpColor,
     release: releaseXp,
@@ -377,6 +384,14 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
   // Late cada 10 s y refresca el ranking solo si alguien respondió algo. Se
   // pausa mientras dura el conteo: ahí el orden viejo tiene que quedarse quieto.
   useGamePulse({ enabled: player !== null, paused: counting })
+
+  // La lista de universidades, tibia desde el arranque y no desde la primera
+  // diapo de ranking. En el teléfono el ranking vive dentro de una diapo, así
+  // que sin esto la caché se llena recién con el primer acierto — y quien vuelve
+  // con dos correctas hechas tiene su PRIMERA vuelta universitaria en el acierto
+  // siguiente, o sea sobre un esqueleto. Mismo scope que el que la diapo usa al
+  // montarse (sin filtros), así que comparten la entrada de caché.
+  useGameUniversityLeaderboard({ university: ALL_SCOPE, career: ALL_SCOPE }, player !== null)
 
   // El empuje de la universidad sale del mismo pulso, sin pedido propio.
   const boost = useMyBoost(player?.university)
@@ -1512,6 +1527,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
               answer={slide.answer}
               climbFrom={climbFrom}
               liveXp={liveXp}
+              liveXpDelta={liveXpDelta}
               counting={counting}
               xpColor={xpColor && (boost?.multiplier ?? 1) > 1 ? AMBAR : xpColor}
               myUniversity={player?.university ?? null}
@@ -1866,6 +1882,7 @@ function RankingSlide({
   answer,
   climbFrom,
   liveXp,
+  liveXpDelta,
   counting,
   xpColor,
   myUniversity,
@@ -1884,6 +1901,7 @@ function RankingSlide({
   answer: GameAnswer
   climbFrom: number | null
   liveXp: number | null
+  liveXpDelta: number | null
   counting: boolean
   xpColor: string | null
   myUniversity: string | null
@@ -1915,6 +1933,13 @@ function RankingSlide({
   // selector de vista vive adentro suyo.
   const [vista, setVista] = useState<RankingView>("individual")
 
+  // Cada 3 derivadas bien resueltas, la que aparece al tocar Continuar es la
+  // lista de universidades y el conteo trepa sobre la propia. Se decide con el
+  // contador del servidor que vino en ESTA respuesta, así que no hay estado que
+  // llevar: la diapo se monta de nuevo con cada derivada y la cuenta ya está
+  // hecha. Ver vuelta-universitaria.ts.
+  const universityRound = esVueltaUniversitaria(answer.exercises_correct)
+
   return (
     <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col gap-3 px-4 pb-[var(--cta-pb)] pt-3">
       {/* La misma barra que en el ejercicio, y en el mismo lugar: entre las dos
@@ -1937,8 +1962,10 @@ function RankingSlide({
         enabled={enabled}
         liveXp={liveXp}
         counting={counting}
+        liveXpDelta={liveXpDelta}
         xpColor={xpColor}
         myUniversity={myUniversity}
+        universityRound={universityRound}
         mobile
         onViewChange={setVista}
         className="min-h-0 flex-1"
