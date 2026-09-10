@@ -85,21 +85,24 @@ const CAFECITO_STEP = 0.1
 const MAX_PER_DONATION = 2.0
 const SLIDER_MAX = 10
 
-// Un día siempre; los dos días SOLO al tope del multiplicador. Es el único
-// escalón, y ese es el punto: con la duración creciendo pareja con el
-// multiplicador (12, 24, 36…) cada paso del slider movía dos números a la vez, y
-// dos premios que crecen juntos no se leen ninguno. Con un solo escalón, el
-// slider tiene un lugar al que llegar.
-const BOOST_HOURS = 24
-const BOOST_HOURS_MAX = 48
+// Espejo de `horas_de` en backend/game/boosts.py, que es donde está escrito el
+// porqué: una base fija más medio cafecito, redondeando para arriba, así que la
+// duración baja DE A PARES. El tope del slider compra seis horas y el cafecito
+// suelto, dos.
+const BOOST_HOURS_BASE = 1
+const BOOST_HOURS_MAX = BOOST_HOURS_BASE + Math.ceil(SLIDER_MAX / 2)
 
 const multiplierFor = (n: number) => Math.min(MAX_PER_DONATION, 1 + n * CAFECITO_STEP)
 const horasDe = (n: number) =>
-  multiplierFor(n) >= MAX_PER_DONATION ? BOOST_HOURS_MAX : BOOST_HOURS
+  BOOST_HOURS_BASE + Math.ceil(Math.min(Math.max(n, 0), SLIDER_MAX) / 2)
 
-/** "un día" / "dos días", que es como se dice. El número suelto ("24 horas")
- *  obliga a hacer la cuenta para entender que es un día entero. */
-const duracionDe = (n: number) => (horasDe(n) >= BOOST_HOURS_MAX ? "dos días" : "un día")
+/** "6 horas". Decía "un día"/"dos días" porque el número suelto obligaba a
+ *  hacer la cuenta para entender que 24 h era un día entero; con duraciones de
+ *  dos a seis horas la hora ES la unidad natural y no hay nada que traducir. */
+const duracionDe = (n: number) => {
+  const h = horasDe(n)
+  return h === 1 ? "1 hora" : `${h} horas`
+}
 
 // La barra arranca LLENA y no en uno. Arrancando en el mínimo, el número que
 // se lee al llegar es el más chico que se puede invitar, y mover la barra
@@ -910,7 +913,7 @@ export function CafecitoPanel({
                   negrita y la tinta del slider. La duración estuvo un rato
                   en blanco y quedaba leyéndose como parte de la frase fija,
                   cuando en realidad es la otra mitad de lo que se está
-                  eligiendo (un día, o dos al tope). */}
+                  eligiendo (de dos a seis horas, según el slider). */}
               <span className="font-semibold" style={{ color: tintaPara(t) }}>
                 {university}
               </span>{" "}

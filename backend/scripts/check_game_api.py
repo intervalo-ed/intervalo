@@ -949,7 +949,17 @@ check(
     f"(dio {game_boosts.multiplier_for(db, 'UNC')})",
 )
 
-# Duración: un día, y dos SOLO al tope del multiplicador.
+# Duración: base + medio cafecito redondeando para arriba, o sea que baja de a
+# pares. La tabla entera se comprueba de una, que es lo que hay que fijar: un
+# solo caso suelto no distingue "baja de a pares" de "baja de a uno".
+ESPERADO = {1: 2, 2: 2, 3: 3, 4: 3, 5: 4, 6: 4, 7: 5, 8: 5, 9: 6, 10: 6}
+dio = {n: game_boosts.horas_de(n) for n in ESPERADO}
+check(dio == ESPERADO, f"la duración baja de a pares, de 2 h a 6 h (dio {dio})")
+check(game_boosts.horas_de(30) == game_boosts.BOOST_HOURS_MAX,
+      "los cafecitos de más no alargan nada, igual que no suben el multiplicador")
+check(game_boosts.BOOST_HOURS_MAX == 6,
+      f"el techo de una donación son 6 h (dio {game_boosts.BOOST_HOURS_MAX})")
+
 db.query(GameBoost).delete(); db.commit()
 b1 = game_boosts.grant(db, university="UNR", cafecitos=2)
 b2 = game_boosts.grant(db, university="UNT", cafecitos=30)
@@ -962,12 +972,11 @@ b4 = game_boosts.grant(db, university="UNS", cafecitos=2, minutes=3)
 db.commit()
 horas = lambda b: round((b.expires_at - b.created_at).total_seconds() / 3600)
 mins = lambda b: round((b.expires_at - b.created_at).total_seconds() / 60)
-check(horas(b1) == game_boosts.BOOST_HOURS,
-      f"2 cafecitos duran {horas(b1)} h")
-check(horas(b3) == game_boosts.BOOST_HOURS,
-      f"y uno menos que el tope tambien: {horas(b3)} h")
+check(horas(b1) == 2, f"2 cafecitos duran {horas(b1)} h")
+check(horas(b3) == game_boosts.BOOST_HOURS_MAX,
+      f"9 cae en el mismo par que 10, asi que llega al techo igual: {horas(b3)} h")
 check(horas(b2) == game_boosts.BOOST_HOURS_MAX,
-      f"solo el tope llega a los dos dias ({horas(b2)} h)")
+      f"una donacion de 30 no dura mas que una de 10 ({horas(b2)} h)")
 check(mins(b4) == 3, f"--minutes sigue mandando sobre las horas (dio {mins(b4)} min)")
 
 # El chip y el pago tienen que decir el MISMO numero. `active_boosts` sumaba los

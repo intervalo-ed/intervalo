@@ -25,6 +25,7 @@ Reglas, todas acá:
 
 from __future__ import annotations
 
+import math
 import re
 import time
 from dataclasses import dataclass
@@ -38,19 +39,23 @@ from universities import UNIVERSITIES, canonical_university
 
 from . import events, simulation
 
-# Un día entero. Antes era media hora, elegida para que la cuenta regresiva del
-# cartel generara urgencia ("quedan 12 minutos"); con el empuje valiendo también
-# en Intervalo clásico esa urgencia dejó de ser lo que más importa. Lo que
-# importa ahora es que el empuje alcance a la sesión de estudio de la persona,
-# que puede caer en cualquier momento del día y no justo cuando alguien donó.
-BOOST_HOURS = 24
-
-# Los dos días son SOLO para quien llega al tope del multiplicador. Es el único
-# escalón, y ese es el punto: una escala proporcional a los cafecitos (12, 24,
-# 36…) hace que cada paso del slider mueva dos números a la vez, y con dos
-# premios que crecen juntos ninguno de los dos se lee. Con un solo escalón, el
-# slider tiene un lugar al que llegar.
-BOOST_HOURS_MAX = 48
+# La duración de una donación es una base fija más medio cafecito, redondeando
+# para arriba: `1 + ceil(cafecitos / 2)`. O sea que baja DE A PARES —10 y 9 dan
+# seis horas, 8 y 7 dan cinco, y así hasta las dos horas del cafecito suelto—.
+#
+# Antes era un día entero, y dos al tope. Ese día venía de que el empuje vale
+# también en Intervalo clásico y tenía que alcanzar la sesión de estudio de la
+# persona, que cae en cualquier momento. Lo que lo vuelve innecesario es que las
+# donaciones llegan EN RÁFAGAS y no repartidas en el día: medido sobre las 24
+# donaciones que existen, de los pares que caen sobre una misma universidad 9
+# entran en una ventana de 6 h y 12 en una de 24. Acortar a seis conserva el 75%
+# de los solapamientos, y el solapamiento es lo único que permite llegar al ×3
+# —que no se compra, se junta—.
+#
+# El precio queda escrito acá para que conste que se aceptó: con un solo escalón
+# el slider tenía UN lugar al que llegar, y ahora la duración crece junto con el
+# multiplicador. Dos premios que crecen a la vez se leen peor que uno solo.
+BOOST_HOURS_BASE = 1
 
 # Cada cafecito suma un décimo al multiplicador.
 CAFECITO_STEP = 0.1
@@ -64,6 +69,10 @@ MAX_MULTIPLIER = 3.0
 # guardan igual (la donación fue real y el feed la cuenta entera), pero no
 # empujan el multiplicador.
 MAX_CAFECITOS_PER_DONATION = 10
+
+# El techo de duración, derivado y no escrito a mano: es lo que dura la donación
+# más larga que una persona puede hacer sola.
+BOOST_HOURS_MAX = BOOST_HOURS_BASE + math.ceil(MAX_CAFECITOS_PER_DONATION / 2)
 
 # Cuántos jugadores necesita una universidad para entrar al ranking per cápita.
 # Con menos, un solo jugador afortunado la manda al tope y el ranking pasa a
@@ -102,13 +111,15 @@ _SOURCE_AFORO = "aforo"
 
 
 def horas_de(cafecitos: int) -> int:
-    """Cuánto dura el empuje de UNA donación.
+    """Cuánto dura el empuje de UNA donación: `1 + ceil(cafecitos / 2)` horas.
 
-    Un día, salvo que la donación llegue al tope del multiplicador: ahí, y solo
-    ahí, dos. El espejo en el front es `horasDe` de
+    Los cafecitos que pasan el tope por donación no alargan nada, igual que no
+    suben el multiplicador: se topean ANTES de la cuenta, así que una donación
+    de 30 dura lo mismo que una de 10. El espejo en el front es `horasDe` de
     web/src/app/derivadas/cafecito-panel.tsx, que es lo que dibuja el slider.
     """
-    return BOOST_HOURS_MAX if cafecitos >= MAX_CAFECITOS_PER_DONATION else BOOST_HOURS
+    topados = min(max(cafecitos, 0), MAX_CAFECITOS_PER_DONATION)
+    return BOOST_HOURS_BASE + math.ceil(topados / 2)
 
 
 # Siglas del catálogo, para reconocerlas dentro del mensaje de una donación.
@@ -160,9 +171,9 @@ def _now() -> datetime:
 #
 # El SÍ TAMBIÉN se memoriza, con el mismo TTL, y eso cambió con la duración.
 # Cuando un empuje duraba treinta minutos, "hay uno" era el caso raro y valía
-# pagar las consultas completas; con `BOOST_HOURS = 24` el caso raro dura uno o
-# dos días enteros, y durante todo ese tiempo CADA respuesta de Intervalo clásico
-# y cada pulso del juego pagaban las tres consultas otra vez.
+# pagar las consultas completas; con empujes de horas el caso raro dura media
+# tarde, y durante todo ese tiempo CADA respuesta de Intervalo clásico y cada
+# pulso del juego pagaban las tres consultas otra vez.
 #
 # Lo que se memoriza es solo la EXISTENCIA, no los montos: el multiplicador se
 # sigue calculando contra la base en cada llamada. Así una donación que entra en

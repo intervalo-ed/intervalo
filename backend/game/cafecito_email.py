@@ -81,7 +81,7 @@ def log(mensaje: str) -> None:
 PRECIO_CAFECITO = 100
 
 # Techo de sanidad. Nadie dona diez mil cafecitos; un número así es un monto mal
-# leído, y aplicarlo dejaría el juego en el multiplicador máximo por DOS DÍAS
+# leído, y aplicarlo dejaría el juego en el multiplicador máximo por SEIS HORAS
 # (ver boosts.BOOST_HOURS_MAX). Antes duraba una hora y se podía aguantar; ahora
 # la salida es `grant_game_boost.py --expire TODOS`, que vence el empuje global
 # —el destino por defecto de una donación que la escalera no supo dirigir, o

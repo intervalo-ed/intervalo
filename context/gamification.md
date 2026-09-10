@@ -47,8 +47,9 @@ Se resetea a 0 tras 30 días consecutivos sin actividad (`STREAK_RESET_AFTER_DAY
 ### Multiplicador de cafecito, y el tope del producto (`MAX_TOTAL_MULTIPLIER`)
 
 La racha ya no es el único multiplicador. Un cafecito invitado en el minijuego
-multiplica el XP de **toda una universidad** durante 24 h (48 h al tope de una
-donación), y desde el cruce eso vale también en Intervalo clásico:
+multiplica el XP de **toda una universidad** durante unas horas —`1 + ⌈cafecitos/2⌉`,
+o sea de 2 h por un cafecito suelto a 6 h por los diez de una donación al tope—,
+y desde el cruce eso vale también en Intervalo clásico:
 `backend/xp_boost.py` traduce «de qué universidad es esta persona» al vocabulario
 que `game/boosts.py` ya entiende y le pregunta a él. No hay una segunda mecánica
 ni una segunda tabla.
@@ -64,7 +65,7 @@ se junta».
 **El candado antimudanza** (`enrollments.university_set_at`,
 `game_players.university_set_at`) es lo que sostiene la rivalidad: mudarse a la
 universidad impulsada después de que arrancó el empuje no lo cobra. Sin él, cada
-empuje se llenaría de gente que se muda por un día.
+empuje se llenaría de gente que se muda por un rato.
 
 ### Empuje por aforo: 10 personas nuevas en un día (`game/aforo.py`)
 
