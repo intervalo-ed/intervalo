@@ -2,7 +2,8 @@
 
 Política del reporte del motor adaptada al juego: rampa inicial por tier,
 banda objetivo p̂ ∈ [0.70, 0.80] y ε-exploración hacia la plantilla con menos
-observaciones. Anti-repetición: no servir ninguna de las últimas 3 plantillas.
+observaciones. Anti-repetición: no servir ninguna de las últimas _RECENT_EXCLUDE
+plantillas, y antes de romper esa regla se prueba ensanchando la banda.
 """
 
 from __future__ import annotations
@@ -20,7 +21,44 @@ from . import elo
 from .cycler import CyclingRandom, ForcedRandom
 from .templates import TEMPLATE_BY_KEY, TEMPLATES, GameTemplate, latex_es, x
 
-_RECENT_EXCLUDE = 3
+# Cuántas de las últimas plantillas servidas quedan fuera de juego.
+#
+# Estuvo en 3, y 3 fabricaba un ciclo de 4. La banda objetivo tiene entre 3 y 8
+# plantillas según el θ; restarle las 3 recientes dejaba a menudo UNA sola
+# candidata legal, y `rng.choice` sobre una lista de uno no es azar. Medido en
+# producción sobre 7.838 ejercicios: la repetición de enunciado era del 2,4% en
+# los primeros diez, 50,1% entre el 26 y el 50, y 77,5% del 51 en adelante; un
+# jugador contó «4 veces la misma en 10 oportunidades consecutivas», que es
+# exactamente la salida esperada de un ciclo de 4.
+#
+# Ocho no sale de una simulación sino de la forma del problema: es lo que hace
+# falta para que la ventana tape una tanda entera de las que la gente hace de
+# una sentada, y es el número a partir del cual la escalera de abajo —ensanchar
+# la banda antes que repetir— empieza a hacer el trabajo pesado.
+_RECENT_EXCLUDE = 8
+
+# La escalera de rescate, en orden de preferencia.
+#
+# Antes había tres ramas que, al quedarse sin candidatas, devolvían EN SILENCIO
+# las recién vistas. Con una ventana de 8 sobre una banda de 3 a 8 plantillas,
+# esas ramas pasarían a ser el camino normal, así que el orden se invierte:
+# primero se afloja la DIFICULTAD y solo después la ventana.
+#
+# El criterio es que una derivada un poco mal calibrada se nota menos que la
+# cuarta vez de la misma. Una fuera de banda sigue siendo una derivada que la
+# persona no vio; la repetida ya no es un ejercicio, es una transcripción — y es
+# lo que el reporte llamó «demasiado mecánico, podría liquidar el entusiasmo».
+_BANDAS = (
+    (elo.TARGET_LOW, elo.TARGET_HIGH),
+    (0.55, 0.92),
+    (0.35, 0.98),
+)
+
+# Y recién si NINGUNA banda tiene candidatas se acorta la ventana, de a pedazos y
+# no tirándola entera: 4 y 2 todavía tapan la vuelta inmediata, que es la que se
+# nota. El 0 final está para que la función no pueda quedarse sin nada que servir
+# — es la garantía de terminación, no una opción.
+_VENTANAS = (_RECENT_EXCLUDE, 4, 2, 0)
 
 # Los primeros ejercicios que ve CUALQUIER jugador nuevo, fijos, para no
 # depender de cómo caiga el Elo/la rampa en el arranque: x, x² y 2x², de más
@@ -97,7 +135,12 @@ def beta_of(stat: GameTemplateStat) -> float:
     return elo.effective_beta(stat.beta, stat.tier, stat.n_players)
 
 
-def _recent_template_keys(db: Session, player: GamePlayer) -> set[str]:
+def _recent_template_keys(db: Session, player: GamePlayer) -> list[str]:
+    """Las últimas plantillas servidas, de la más reciente a la más vieja.
+
+    Lista y no conjunto: la escalera de `pick_template` acorta la ventana cuando
+    se queda sin candidatas, y para acortarla hay que saber cuál es la más vieja.
+    """
     rows = (
         db.query(GameExercise.template_key)
         .filter(GameExercise.player_id == player.id)
@@ -105,7 +148,7 @@ def _recent_template_keys(db: Session, player: GamePlayer) -> set[str]:
         .limit(_RECENT_EXCLUDE)
         .all()
     )
-    return {key for (key,) in rows}
+    return [key for (key,) in rows]
 
 
 def desbloqueadas(player: GamePlayer) -> list[GameTemplate]:
@@ -136,50 +179,62 @@ def pick_template(
     rng = rng or random.Random()
     recent = _recent_template_keys(db, player)
 
-    # `permitidas` y no TEMPLATES en TODAS las ramas de acá abajo, fallbacks
-    # incluidos: cada uno de esos `if not ...` está para no quedarse sin nada
-    # que servir, y si alguno vuelve a la lista completa el piso se evapora
-    # justo en el caso raro. Nunca queda vacía —T0 no tiene piso—.
+    # `permitidas` y no TEMPLATES en TODAS las ramas de acá abajo: cada rescate
+    # está para no quedarse sin nada que servir, y si alguno volviera a la lista
+    # completa el piso de rating se evaporaría justo en el caso raro. Nunca queda
+    # vacía —T0 no tiene piso—.
     permitidas = desbloqueadas(player)
-
-    candidates = [t for t in permitidas if t.key not in recent]
     if player.n_updates < elo.RAMP_UPDATES:
-        ramped = [t for t in candidates if t.tier <= player.n_updates]
-        # La exclusión de recientes puede vaciar un tier chico (T0 tiene 2
-        # plantillas): en la rampa la variedad importa menos que el orden.
-        if not ramped:
-            ramped = [t for t in permitidas if t.tier <= player.n_updates]
-        candidates = ramped
+        permitidas = [t for t in permitidas if t.tier <= player.n_updates] or permitidas
     if max_tier is not None:
-        easier = [t for t in candidates if t.tier <= max_tier]
-        # Mismo criterio que la rampa: si el tope deja el set vacío, se prefiere
-        # repetir una plantilla reciente antes que faltar a la promesa. Si ni
-        # así hay nada (se salteó desde T0), el tope se ignora.
-        if not easier:
-            easier = [t for t in permitidas if t.tier <= max_tier]
-        if easier:
-            candidates = easier
-    if not candidates:
-        candidates = list(permitidas)
+        # El tope del salteo se aplica ACÁ y no como un filtro más adelante: el
+        # botón promete una más fácil, así que es parte de qué se puede servir y
+        # no algo que la escalera pueda aflojar. Si ni así hay nada (se salteó
+        # desde T0), se ignora.
+        permitidas = [t for t in permitidas if t.tier <= max_tier] or permitidas
 
-    stats = stats_for(db, candidates)
+    stats = stats_for(db, permitidas)
     # `effective_beta` y no `stat.beta`: la β guardada de una plantilla que
     # todavía vio poca gente está dominada por quien haya pasado por ahí, y a
     # quien pasa lo elige este mismo motor. Ver el docstring de elo.effective_beta.
     scored: list[tuple[GameTemplate, GameTemplateStat, float]] = [
         (template, stats[template.key], elo.predict(player.theta, beta_of(stats[template.key])))
-        for template in candidates
+        for template in permitidas
     ]
 
-    in_band = [s for s in scored if elo.TARGET_LOW <= s[2] <= elo.TARGET_HIGH]
-
+    # ε-exploración: manda sobre todo lo demás cuando toca, pero respeta la
+    # ventana entera. Es un desempate entre plantillas poco vistas, o sea que si
+    # la única candidata es una que la persona acaba de hacer, no hay nada que
+    # explorar y se sigue de largo.
     if rng.random() < elo.EPSILON:
-        explore = [s for s in scored if elo.EXPLORE_LOW <= s[2] <= elo.EXPLORE_HIGH]
+        explore = [
+            s
+            for s in scored
+            if elo.EXPLORE_LOW <= s[2] <= elo.EXPLORE_HIGH and s[0].key not in recent
+        ]
         if explore:
             return min(explore, key=lambda s: s[1].n_observations)
 
-    if in_band:
-        return rng.choice(in_band)
+    # La escalera: primero se afloja la dificultad, después la ventana. El orden
+    # es el que dice el comentario de _BANDAS — repetir es lo último.
+    for ventana in _VENTANAS:
+        vetadas = set(recent[:ventana])
+        libres = [s for s in scored if s[0].key not in vetadas]
+        if not libres:
+            continue
+        for low, high in _BANDAS:
+            en_banda = [s for s in libres if low <= s[2] <= high]
+            if en_banda:
+                return rng.choice(en_banda)
+        # Ninguna banda tuvo candidatas con esta ventana, pero HAY plantillas
+        # libres: antes de acortar la ventana se sirve la más cercana al centro.
+        # Es el caso del jugador que se pasó de rosca —en θ alto todo el catálogo
+        # queda por debajo de la banda más ancha— y ahí lo correcto es darle lo
+        # más difícil que haya sin repetir, no repetir lo más difícil que haya.
+        return min(libres, key=lambda s: abs(s[2] - elo.TARGET_MID))
+
+    # Inalcanzable mientras `_VENTANAS` termine en 0 y `permitidas` no esté vacía
+    # (T0 no tiene piso de rating). Queda por si alguna de las dos cosas cambia.
     return min(scored, key=lambda s: abs(s[2] - elo.TARGET_MID))
 
 
