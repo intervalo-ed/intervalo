@@ -61,6 +61,29 @@ La β aprendida (`game_template_stats.beta`) **no** paga: se mueve sola con cada
 respuesta, así que la misma derivada pagaría distinto cada semana. La β elige,
 el tier paga.
 
+### La vuelta universitaria (dx)
+
+Cada **3 derivadas bien resueltas** (`vuelta-universitaria.ts`), el festejo se
+cuenta sobre el **ranking universitario** en vez de sobre la tarjeta propia: en
+escritorio los orbes vuelan a la fila de la universidad, y en el teléfono la
+diapo que aparece al tocar Continuar es la lista de universidades.
+
+**Solo cambia dónde se dibuja.** La XP le suma a la persona exactamente igual —
+el total de una universidad ES la suma de la XP de sus jugadores
+(`game_university_leaderboard`), así que lo que se ve aterrizar en la
+universidad es literalmente lo propio subiendo por el otro lado. No hay columna
+nueva, ni migración, ni cambio de balance.
+
+Existe porque el ranking universitario es el motor de retención de largo plazo
+—65% del peso de las notificaciones está atado a él— y hasta ahora había que ir
+a buscarlo a un selector. Cada 3 y no cada 5 ni cada 10: tiene que leerse como
+parte del ritmo, no como una interrupción rara. Dos de cada tres festejos siguen
+siendo sobre la tarjeta propia, que es el que la persona vino a buscar.
+
+El contador es `game_players.exercises_correct`, cumulativo y del servidor: un
+contador por pestaña se reiniciaría al recargar y la persona vería dos vueltas
+seguidas, o ninguna en veinte derivadas.
+
 ### Multiplicador de racha diaria (`STREAK_TIERS`)
 
 La racha cuenta **días distintos con ≥1 sesión completada**, no necesariamente consecutivos:

@@ -48,6 +48,10 @@ Producto aparte, con identidad y economía propias pero la misma tabla de
 cafecitos. Lo único documentado acá es **cómo elige qué ejercicio servir**, que
 es la mecánica que gobierna la experiencia entera:
 
+- **Cada 3 correctas, el festejo cuenta sobre la universidad.** La XP sigue
+  siendo de la persona y le suma igual; lo que cambia es sobre qué fila trepa el
+  número y adónde vuelan los orbes. Ver `vuelta-universitaria.ts` y
+  `context/gamification.md`.
 - **El ranking se filtra por universidad y por nada más.** La cabecera es la
   misma que la de Intervalo (`components/leaderboard-chrome.tsx`), pero la caja
   de carrera está apagada acá: son cinco carreras contra veintipico de

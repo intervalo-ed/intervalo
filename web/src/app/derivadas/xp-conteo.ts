@@ -399,6 +399,11 @@ export function useXpConteo({ onComplete }: { onComplete?: () => void } = {}) {
     // termina: si volviera a null habría un parpadeo al valor viejo mientras el
     // ranking se refresca.
     liveXp: base === null ? null : base + sumado,
+    // Cuánta XP lleva contada ESTE festejo, sin la base. Es lo que hay que
+    // sumarle a un total que no es el del jugador —el de su universidad, que en
+    // la vuelta universitaria es el número que trepa— porque ahí la base es
+    // otra y `liveXp`, que es absoluta, no sirve.
+    xpSumada: base === null ? null : sumado,
     // Mientras esto sea true el conteo MANDA sobre el dato del ranking: si no,
     // una lista ya refrescada mostraría el total desde el primer paso y el número
     // no subiría nunca.

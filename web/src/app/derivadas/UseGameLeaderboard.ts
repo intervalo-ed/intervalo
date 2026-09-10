@@ -597,5 +597,11 @@ export function useGameUniversityLeaderboard(scope: Scope, enabled: boolean) {
       ),
     enabled,
     staleTime: 30_000,
+    // Por lo mismo que `useGameLeaderboard`: quien decide cuándo se actualiza es
+    // el festejo (la invalidación de xp-conteo :: onComplete), no el montaje.
+    // Desde que la vuelta universitaria cuenta sobre la fila de la universidad,
+    // un refetch al montar traería el total CON el acierto ya sumado y el conteo
+    // arrancaría desde ahí, mostrando la XP dos veces.
+    refetchOnMount: false,
   })
 }

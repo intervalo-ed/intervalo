@@ -103,6 +103,7 @@ import { gameKeys, useGamePlayer, type GamePlayer } from "./UseGamePlayer"
 import { useGameEvents } from "./UseGameLeaderboard"
 import { useGameStats } from "./UseGameStats"
 import { comboTrasIntento } from "./racha-estimate"
+import { esVueltaUniversitaria } from "./vuelta-universitaria"
 import { estimarXp } from "./xp-estimate"
 import { useXpConteo } from "./xp-conteo"
 import { OrbFlight } from "@/components/orb-flight"
@@ -443,6 +444,12 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   // el mismo instante que el resto del veredicto optimista.
   const [primerIntento, setPrimerIntento] = useState(true)
 
+  // Si el acierto que se está festejando es de los que cuentan sobre la
+  // universidad (ver vuelta-universitaria.ts). Vive al lado de `centerKey`
+  // porque se decide en el mismo instante y por la misma razón: los orbes
+  // necesitan que el ranking ya esté mostrando la fila a la que van a volar.
+  const [universityRound, setUniversityRound] = useState(false)
+
   // Cuando entra el último orbe: recién ahí el ranking estrena orden y la fila
   // propia sube. Antes de eso sigue mostrando el puesto viejo.
   const onBurstComplete = useCallback(() => {
@@ -453,6 +460,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
 
   const {
     liveXp,
+    xpSumada: liveXpDelta,
     counting,
     xpColor,
     fireProvisional: fireXpProvisional,
@@ -685,6 +693,11 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
       // ya esté mostrando la fila propia en experiencia para tener destino.
       setCenterKey((n) => n + 1)
       setRankingSort("experiencia")
+      // Estimado, como la XP: el contador del servidor todavía no llegó, así
+      // que se cuenta este acierto sobre el que ya había. El `onSuccess` de
+      // abajo lo corrige con el número real, y si difieren la vista cambia
+      // antes de que el conteo empiece (el primer paso tarda medio segundo).
+      setUniversityRound(esVueltaUniversitaria((player?.exercises_correct ?? 0) + 1))
       fireXpProvisional(
         estimarXp({
           attemptNumber: attemptRef.current,
@@ -789,6 +802,13 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
               intento: data.attempt_number,
               multiplicador: data.xp_multiplier,
             })
+          }
+          // El contador de verdad manda sobre el estimado de `onRevisar`. Solo
+          // en los aciertos: errar no mueve `exercises_correct`, y apagar la
+          // vuelta acá le cambiaría la vista a alguien que estaba mirando el
+          // ranking de universidades sin haber pedido nada.
+          if (data.correct) {
+            setUniversityRound(esVueltaUniversitaria(data.exercises_correct))
           }
           reconcileXp(data)
 
@@ -2490,11 +2510,13 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                       climbFrom={climbFrom}
                       enabled={player !== null}
                       liveXp={liveXp}
+                      liveXpDelta={liveXpDelta}
                       counting={counting}
                       xpColor={xpColor && (boost?.multiplier ?? 1) > 1 ? AMBAR : xpColor}
                       attachXpTarget={attachTarget}
                       myUniversity={player?.university ?? null}
                       centerKey={centerKey}
+                      universityRound={universityRound}
                       // Con la diapo de reclutar abierta, el ranking de al lado
                       // muestra los reclutas. Es la mitad que falta del pedido:
                       // la diapo dice cuánto se gana y la tabla muestra con
