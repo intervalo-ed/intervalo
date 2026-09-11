@@ -1140,9 +1140,15 @@ class GameSimState(Base):
     last_tick_at = Column(DateTime, nullable=True)
     # Última vez que se refrescaron las fotos de puesto de todos los jugadores.
     last_snapshot_at = Column(DateTime, nullable=True)
-    # Último orden visto del ranking de universidades, como JSON de siglas. Es la
-    # referencia contra la que se detecta un sobrepaso: sin una foto anterior,
-    # "la UNT le pasó a la UNR" no se puede afirmar, solo el orden de ahora.
+    # La última foto del ranking de universidades, como JSON. Es la referencia
+    # contra la que se detecta un sobrepaso: sin una foto anterior, "la UNT le
+    # pasó a la UNR" no se puede afirmar, solo el orden de ahora.
+    #
+    # El formato lo arma y lo lee game/events.py (`_leer_foto`, `_FOTO_VERSION`);
+    # hoy trae el orden, quién va adelante en cada PAR y qué pares están pegados.
+    # La versión vieja —una lista pelada de siglas— se sigue leyendo. El nombre
+    # de la columna quedó del formato viejo: renombrarla pide una migración de
+    # datos que no compra nada.
     uni_order_json = Column(Text, nullable=True)
     version = Column(Integer, nullable=False, default=0, server_default="0")
 
@@ -1340,6 +1346,15 @@ class GameEvent(Base):
     # nada de pasar a"). El resaltado de "esto es tu universidad" mira las dos.
     university_b = Column(String(120), nullable=True)
     dedupe_key = Column(String(80), nullable=True, index=True)
+    # Cuánto pesa la noticia (game/events.py :: FUERZA_*). Es lo que deja comparar
+    # la línea nueva contra la que YA está publicada: una sola línea por persona
+    # cada veinte minutos, y que la que sobreviva sea la más fuerte y no la
+    # primera que disparó.
+    #
+    # NULL en lo que no es de una persona (`boost`, `uni_pass`, `uni_close`) y en
+    # las filas anteriores a la migración 0077 — esas se barren solas en una
+    # semana (events.PRUNE_DAYS).
+    strength = Column(Integer, nullable=True)
 
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow, index=True)
 
@@ -1427,7 +1442,9 @@ class GameMessage(Base):
     __tablename__ = "game_messages"
 
     id = Column(Integer, primary_key=True, index=True)
-    # Quién escribió. NOT NULL porque escribir pide cuenta: los invitados leen.
+    # Quién escribió. NOT NULL porque un mensaje siempre tiene un jugador detrás
+    # —invitado o registrado, los dos tienen fila y alias— y es lo que deja
+    # marcar "esto lo escribí yo" y bajar lo que escribió alguien en particular.
     player_id = Column(Integer, ForeignKey("game_players.id"), nullable=False, index=True)
     # Su @ y su universidad al momento de escribir (ver arriba).
     alias = Column(String(30), nullable=False)

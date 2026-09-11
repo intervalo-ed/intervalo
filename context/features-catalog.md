@@ -106,9 +106,11 @@ es la mecánica que gobierna la experiencia entera:
 
 ### El feed de eventos (`game/events.py`)
 
-La lista que corre debajo del CTA. Es **solo del sistema** —ninguna línea la
-escribe un usuario, así que no hay nada que moderar— y todo el diseño está puesto
-en que no sea ruido. Nueve tipos:
+La lista que corre debajo del CTA, y que en el panel del chat se intercala con lo
+que escribe la gente: es **una sola columna**, así que cada línea de más del
+sistema es un mensaje de una persona que se pierde. Es solo del sistema —ninguna
+línea la escribe un usuario, así que no hay nada que moderar— y todo el diseño
+está puesto en que no sea ruido. Nueve tipos:
 
 | tipo | qué anuncia |
 |---|---|
@@ -119,7 +121,7 @@ en que no sea ruido. Nueve tipos:
 | `level` ⚡ | desbloquear derivadas más difíciles |
 | `signup` 🎓 / `referral` 🪖 | un registro, o el registro de alguien que trajo otro |
 | `boost` ☕ | una donación de cafecitos, o el aforo del día de una universidad |
-| `uni_pass` 🏛️ / `uni_close` 👀 | una universidad que pasa a otra en XP de la semana, o que viene pisándola |
+| `uni_pass` 🏛️ / `uni_close` 👀 | una universidad que pasa a otra en experiencia, o que se le viene encima |
 
 **`top` y `uni_top` reemplazaron a la escalada por puestos** («@fulano pasó a 17
 personas de una»), que era **el 83% del feed**: 609 de 731 eventos en un día de
@@ -154,6 +156,117 @@ Cuatro frenos, y cada uno tapa una forma distinta de volverlo ruido:
 Los puestos los cuenta `game/ranking.py::puesto`, la misma función que usa el
 endpoint de respuesta —el feed anuncia posiciones y tiene que contar exactamente
 igual que la tabla o va a anunciar entradas que la tabla no muestra.
+
+#### Una línea por persona cada veinte minutos
+
+Los cuatro frenos de arriba miran el HECHO, y hay un ruido que ninguno puede ver:
+cinco hechos distintos de la misma persona en una sesión son cinco líneas, cada
+una cumpliendo su regla. Medido en producción: alguien puso 5 líneas en un día
+(top 50, top 25, racha 25, racha 50, racha 100), otro 6, y entre cuatro personas
+armaron **20 de los 47 eventos del día** que no eran de universidad — contra 38
+mensajes de gente en el mismo rato.
+
+Así que hay un quinto freno, y mira a la PERSONA: `COOLDOWN_PERSONA_MINUTES`
+(veinte, menos de lo que dura una sesión). Dos reglas:
+
+- **Dentro de una respuesta gana la más fuerte, no la primera.** Cada noticia
+  tiene un peso (`FUERZA_*`), y la fuerza depende del corte y no del tipo: entrar
+  al top 10 del juego pesa más que ser el número 1 de una universidad de doce,
+  pero eso pesa más que entrar al top 50. Antes el orden lo decidía el orden en
+  que estaban escritas las líneas de `on_answer`.
+- **Entre respuestas, la nueva se calla** salvo que sea de las que interrumpen
+  pase lo que pase (`FUERZA_INTERRUMPE`: el puntero, el top 3, la racha de 250) o
+  que MEJORE lo dicho por `SALTO_PARA_MEJORAR`. Este segundo número es lo que
+  frena una escalera, que por definición es creciente: con +25, de los cinco
+  escalones quedan la entrada y el remate.
+
+Callarse **no quema la clave**: la deduplicación se resuelve mirando la tabla y
+la fila no llegó a existir, así que el hito sigue disponible. El registro
+(`signup`/`referral`) está exento —es la única línea que dice que el juego tiene
+gente nueva— pero sí ANCLA el reloj, así que «se sumó @fulano» y «@fulano entró
+al top 50» treinta segundos después son una línea. `boost`, `uni_pass` y
+`uni_close` tienen `player_id` en NULL y quedan fuera del mecanismo en las dos
+direcciones: no son de nadie.
+
+El puntero (`lead`) tuvo el mismo problema en su propia escala: la clave era una
+POR PERSONA, así que dos que se turnan el 1 tenían dos ventanas corriendo y
+ninguna veía a la otra (cinco líneas en un día por una disputa entre dos). Ahora
+la clave es del HECHO —una sola, global, con tres horas de ventana— y además se
+pide que el puntero nuevo no sea el mismo de la vez pasada: anunciarlo dos veces
+seguidas es decir dos veces lo mismo.
+
+#### La carrera entre universidades
+
+`uni_pass` y `uni_close` corren sobre la **experiencia histórica**: la misma suma
+que muestra la tabla del juego (`sum(GamePlayer.xp)` de quien resolvió acá), y
+solo entre las universidades que la tabla muestra arriba —las que pasan el piso
+de calificados—.
+
+Fue el aviso más ruidoso que el feed llegó a tener: **43 líneas en 54 horas
+contra UN sobrepaso real**, y encima narrando una carrera invisible. Corría sobre
+la XP de la SEMANA, que no aparece en ninguna pantalla, así que la UNSAM podía
+encabezar las dos vistas que existen —82.296 de experiencia contra 76.116 de la
+UNC, y 1063 de Elo contra 1037— mientras el feed anunciaba que estaba a nada de
+pasarla. Un aviso que contradice la pantalla no se lee como un matiz.
+
+Que la experiencia histórica se mueva despacio no es un defecto: fue el argumento
+para irse a la semana —«la acumulada no cambia nunca»— y es justo al revés, es lo
+que hace que un sobrepaso SEA una noticia en vez del temblor de una métrica que
+oscila.
+
+Las dos noticias son **transiciones** y no estados:
+
+- **«le pasó a»** sale cuando cambia el líder CONFIRMADO de un par, y confirmado
+  quiere decir adelante por más de `UNI_PASS_MARGEN` (2%). Guardar el líder por
+  PAR es lo que hace que el sobrepaso exista: detectándolo por el orden, un cruce
+  ajustado no se anunciaba tarde sino nunca, porque en el barrido del cruce el
+  margen es cero y en el siguiente el orden ya coincidía con la foto.
+- **«está a nada de pasar a»** sale cuando un par ENTRA en la banda de disputa
+  (`UNI_CLOSE_RATIO`, el mismo 2% — la banda es exactamente la zona donde el
+  sobrepaso todavía no se puede afirmar), y no vuelve a salir hasta que primero
+  se separen más de `UNI_CLOSE_SALIDA` (5%). Sin esos dos umbrales, un par parado
+  en el 2,0% entra y sale con cada barrido.
+
+La clave de deduplicación es del **par no ordenado**: «la UNC viene atrás de la
+UNSAM» y «la UNSAM viene atrás de la UNC» son el mismo hecho. Era direccional, o
+sea dos claves por par corriendo sus ventanas en paralelo — una línea cada quince
+minutos mientras durara, que es de donde salieron las 43.
+
+La foto anterior vive en `game_sim_state.uni_order_json` y guarda el orden, el
+líder de cada par y los pares pegados. Un par que aparece por primera vez se
+anota sin anunciar; con la foto en el formato viejo tampoco se anuncia nada, para
+que un deploy no dispare una ráfaga de sobrepasos que nunca ocurrieron.
+
+### El chat (`game/chat.py`, `chat-panel.tsx`)
+
+Una sola columna donde se intercalan las novedades del sistema y lo que escribe
+la gente, ordenadas por cuándo pasó cada cosa. No son dos widgets apilados a
+propósito: que «alguien invitó 5 cafecitos para la UTN» aparezca entre dos
+mensajes es lo que hace que el panel se lea como un lugar, y es la única forma de
+que un anuncio se comente. Las dos listas viajan en el mismo sondeo que ya corría
+cada ocho segundos (`GET /events`, con un cursor por lista), así que abrirlo no
+le cuesta nada al servidor.
+
+**Escribe cualquiera, invitados incluidos.** Pedía cuenta, con el argumento de
+que un invitado se crea con un POST sin credenciales y su token no vence ni se
+puede revocar, así que no hay a quién pedirle cuentas — y además el chat de paso
+empujaba el registro. Se decidió en contra: la mayoría de la gente que está
+jugando no tiene cuenta, y un chat al que esa mayoría no puede contestar no es un
+chat. Lo único que se conserva de aquello es que a quien SÍ tiene cuenta se le
+sigue pidiendo la sesión viva de Clerk, porque su token de invitado queda
+guardado después del link y publicar bajo el nombre de alguien no se deshace.
+
+Lo que queda de freno: **tres mensajes por minuto** por jugador, **140
+caracteres** y **seis renglones**, y una **allowlist** de caracteres que deja
+afuera los enlaces, el marcado y los emojis (con una excepción para el arte ASCII
+de más de un renglón). No hay filtro de malas palabras y es deliberado: escribir
+una lista a mano es garantizar falsos positivos en un país donde media
+conversación es puteada afectuosa. Para bajar un mensaje está la columna
+`hidden`, y con la puerta abierta esa es la única herramienta de moderación que
+hay.
+
+El chat se puede apagar entero desde el server (`GAME_CHAT_ENABLED`, opt-in): eso
+frena escribir, nunca leer.
 
 ### Los dos pedidos de la pantalla de inicio (`pedido-instalar.tsx`, `pedido-notificaciones.tsx`)
 

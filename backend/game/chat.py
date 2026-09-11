@@ -7,11 +7,15 @@ las oraciones las arma el servidor. Así que todo lo que este módulo hace de m�
 
 Las tres defensas, en orden de importancia:
 
-1. **Escribir pide cuenta.** No está acá sino en el router, pero es lo que
-   sostiene todo lo demás: un invitado se crea con un POST sin credenciales, y su
-   token no vence ni se puede revocar. Un mensaje de invitado no tendría a nadie
-   detrás a quien pedirle cuentas. Es el mismo criterio con el que `PATCH /me` le
-   niega a los invitados elegir su @.
+1. **Tres mensajes por minuto.** No vive acá (es `limits.por_jugador(3)`) pero
+   pasó a ser la primera, y no por casualidad: la que estaba en este lugar era
+   «escribir pide cuenta», y se sacó. El argumento era que un invitado se crea
+   con un POST sin credenciales y su token no vence ni se puede revocar, así que
+   no hay a quién pedirle cuentas; el argumento del otro lado, que ganó, es que
+   un chat al que la mayoría de la gente que está jugando no puede contestar no
+   es un chat. Con la puerta abierta, el tope de frecuencia es lo que sostiene
+   todo lo demás: sin él, que un mensaje sea corto y sin links alcanza para que
+   sea corto y sin links, no para que no sean mil.
 2. **Allowlist, no lista negra.** Se acepta un conjunto chico de caracteres en vez
    de prohibir uno grande. Una lista negra se esquiva con acentos raros,
    homoglifos o un espacio en el medio; la allowlist deja afuera de un saque los
@@ -19,15 +23,14 @@ Las tres defensas, en orden de importancia:
    `_universidad_aceptable` en router.py, que hasta hoy era el único texto libre
    compartido del juego. El arte ASCII (`_TEXTO_ARTE_RE`) es la única excepción,
    y solo para un mensaje de más de un renglón — ver su comentario.
-3. **Hasta tres mensajes por minuto.** No vive acá tampoco (es
-   `limits.por_jugador(3)`) pero es la tercera pata: sin tope de frecuencia, lo
-   demás alcanza para que el mensaje sea corto y sin links, no para que no sean
-   mil.
+3. **Ciento cuarenta caracteres y seis renglones.** Un mensaje que no puede
+   empujar el resto de la conversación fuera de pantalla.
 
 Lo que este módulo NO hace, a propósito: no filtra malas palabras. No hay lista ni
 clasificador, y escribir una a mano es garantizar falsos positivos en un país
 donde media conversación es puteada afectuosa. Bajar un mensaje se hace con un
-UPDATE sobre `hidden`.
+UPDATE sobre `hidden`, y con la puerta abierta a los invitados esa sigue siendo
+la única herramienta de moderación que hay.
 """
 
 from __future__ import annotations
@@ -176,6 +179,10 @@ def publicar(db: Session, player: GamePlayer, texto: str) -> GameMessage:
     El @, la universidad y el nivel se copian ACÁ y no se leen después: un mensaje
     es lo que se dijo en un momento, y quien lo dijo puede cambiar de universidad
     mañana sin que cambie lo que quedó escrito ayer.
+
+    Sirve igual para un invitado: el alias se lo pone el juego al crearlo
+    (game/aliases.py :: generate_guest_alias) y el nivel sale de su theta como el
+    de cualquiera, así que no hay nada especial que contemplar acá.
     """
     fila = GameMessage(
         player_id=player.id,

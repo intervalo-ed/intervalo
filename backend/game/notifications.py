@@ -435,9 +435,15 @@ def _contexto_universidad(player: GamePlayer, cache: "_Cache") -> dict | None:
     la segunda: «sumá XP para alcanzarla» funciona acá y no funciona en la del
     Elo, donde el empuje del cafecito ni siquiera mueve la aguja.
 
-    Antes esto se colgaba del feed (`game/events.py :: sync_universities`), que
-    calcula sus sobrepasos con Elo promedio. El aviso quedaba mandando a la gente
-    a hacer lo único que NO movía la tabla que le estaba nombrando.
+    Este aviso llegó a colgarse del feed (`game/events.py :: sync_universities`),
+    que en aquel momento calculaba sus sobrepasos con Elo promedio: el aviso
+    quedaba mandando a la gente a hacer lo único que NO movía la tabla que le
+    estaba nombrando. Hoy el feed ya no usa Elo, pero tampoco usa esto: corre
+    sobre la experiencia HISTÓRICA, que es la que muestra la tabla del juego.
+    Son dos ventanas distintas a propósito —el feed cuenta una carrera que se ve
+    en pantalla, y este aviso empuja algo que se puede cambiar ESTA semana— y si
+    alguna vez se quieren unificar, la consulta de `_university_standings` ya
+    está escrita del otro lado.
 
     Devuelve el sobrepaso si su universidad quedó ARRIBA de otra, y si no la
     disputa: quién le viene pisando los talones, con la diferencia en XP.

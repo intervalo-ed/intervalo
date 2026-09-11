@@ -22,6 +22,16 @@ import { useCta } from "./game-telemetry"
 // tiempo el que quería donar caía en un 404 sin que nadie se enterara.
 export const CAFECITO_URL = "https://cafecito.app/intervalo"
 
+// Cuánto sale un cafecito, en pesos. El cartel pide de a uno y hasta de a diez
+// sin decir nunca cuánto cuesta cada uno, que es pedir plata sin decir cuánta.
+//
+// El precio lo fija Cafecito y no esta app, así que este número es una COPIA:
+// si allá cambia, acá hay que tocarlo a mano. Verificado contra
+// cafecito.app/intervalo el 2026-09-11 — «ARS $100». Un precio que miente en el
+// cartel es peor que no ponerlo, así que si hay dudas de que siga vigente, lo
+// correcto es sacar la línea y no dejarla envejecer.
+export const PRECIO_CAFECITO = 100
+
 // Hitos: cada cuántas resueltas se considera mostrar la diapo, y cuántas
 // resueltas tienen que pasar entre dos (cooldown).
 //

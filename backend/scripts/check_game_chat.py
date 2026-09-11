@@ -7,8 +7,12 @@ a un grupo de estudiantes está peor que uno roto.
 
 Cuatro cosas se prueban acá porque jugando no se ven:
 
-· Quién puede escribir. Un invitado que igual escribe no se nota hasta que aparece
-  el spam, y para entonces no hay a quién bloquear.
+· Quién puede escribir. Escribe cualquiera —el invitado incluido, que es la
+  mayoría de la gente que está jugando— y por eso importa más, no menos, que lo
+  que queda de freno esté comprobado: lo único que separa al chat del spam son el
+  tope de frecuencia y el saneado. Y que a quien SÍ tiene cuenta se le siga
+  pidiendo la sesión viva de Clerk: su token de invitado sigue guardado después
+  del link, así que sin ese chequeo alcanzaría para publicar en su nombre.
 · Qué pasa el saneado. Es una allowlist, y una allowlist mal armada no falla
   ruidosamente: acepta de más y nadie se entera.
 · Que los dos cursores devuelvan solo lo nuevo. De eso depende que el chat sea
@@ -87,14 +91,24 @@ usuario = User(email="chat@test.dev", name="Chat Test", username="chatero")
 db.add(usuario)
 db.commit()
 db.refresh(usuario)
-registrado = GamePlayer(user_id=usuario.id, alias="chatero", university="UBA", theta=0.0)
-db.add(registrado)
-db.commit()
-db.refresh(registrado)
+
+# El jugador con cuenta es un invitado que SE REGISTRÓ, como en la vida real: el
+# link le pone el `user_id` y le DEJA su token de invitado (models.py ::
+# guest_token). Armarlo así y no como una fila suelta es lo que hace posible el
+# chequeo que importa ahora que el chat está abierto: que ese token guardado
+# sirva para leer pero NO para escribir en su nombre sin la sesión viva.
 r = client.post("/game/derivemos/player", json={})
 CUENTA = {"X-Game-Token": r.json()["guest_token"]}
-# El jugador de la cuenta se resuelve por Clerk; el token de invitado que viaja al
-# lado es el que el navegador ya tenía guardado, igual que en la vida real.
+registrado = (
+    db.query(GamePlayer)
+    .filter(GamePlayer.guest_token == CUENTA["X-Game-Token"])
+    .first()
+)
+registrado.user_id = usuario.id
+registrado.alias = "chatero"
+registrado.university = "UBA"
+db.commit()
+db.refresh(registrado)
 CUENTA_CLERK = {**CUENTA, "Authorization": "Bearer falso"}
 
 
@@ -106,12 +120,22 @@ def mandar(texto: str, headers=None):
 
 
 print("\n1. quién puede escribir")
+# Escribir pedía cuenta y ya no. Un invitado se crea con un POST sin credenciales
+# y su token no vence ni se puede revocar —ese era el argumento— pero un chat al
+# que la mayoría de la gente que está jugando no puede contestar no es un chat.
 r = mandar("hola a todos", headers=INVITADO)
-check(r.status_code == 403, f"un invitado no escribe (dio {r.status_code})")
-check("Registrate" in r.json().get("detail", ""), "y el 403 le dice qué hacer")
+check(r.status_code == 201, f"un invitado escribe (dio {r.status_code}: {r.text[:120]})")
+check(r.json().get("alias"),
+      f"y sale con el alias que el juego le puso: @{r.json().get('alias')}")
 
+# Lo que NO se relajó: quien tiene cuenta sigue necesitando la sesión viva. Su
+# token de invitado queda guardado después del link (models.py :: guest_token),
+# así que sin esto alcanzaría con ese token para publicar bajo su nombre — y
+# publicar en nombre de alguien no se deshace desde el otro lado.
 r = mandar("hola a todos", headers=CUENTA)
-check(r.status_code == 403, f"sin sesión de Clerk tampoco (dio {r.status_code})")
+check(r.status_code == 403,
+      f"pero con cuenta y sin sesión de Clerk, no (dio {r.status_code})")
+check("Iniciá sesión" in r.json().get("detail", ""), "y el 403 le dice qué hacer")
 
 r = mandar("hola a todos")
 check(r.status_code == 201, f"con cuenta y sesión sí (dio {r.status_code}: {r.text[:120]})")
@@ -231,12 +255,23 @@ check(
     f"cinco pedidos a otra puerta no gastan el cupo del chat (dio {r.status_code})",
 )
 
-# El invitado tiene que llevarse el 403 y no el 429: el orden de las dependencias
-# es lo que hace que el mensaje sea el útil.
+# El tope es del JUGADOR y el invitado es un jugador: el cuarto mensaje del
+# minuto le tiene que dar 429 igual que a cualquiera. Acá se verificaba lo
+# contrario —que le ganara el 403 al 429— porque el invitado ni llegaba al
+# limitador.
 _lim.olvidar_todo()
-client.post("/game/derivemos/message", json={"text": "uno"}, headers=INVITADO)
-r = client.post("/game/derivemos/message", json={"text": "dos"}, headers=INVITADO)
-check(r.status_code == 403, f"al invitado le gana el 403, no el 429 (dio {r.status_code})")
+for i in range(3):
+    client.post("/game/derivemos/message", json={"text": f"mensaje {i}"}, headers=INVITADO)
+r = client.post("/game/derivemos/message", json={"text": "el cuarto"}, headers=INVITADO)
+check(r.status_code == 429,
+      f"al invitado también lo frena el tope por minuto (dio {r.status_code})")
+
+# Y el orden de las dependencias sigue importando para quien tiene cuenta sin
+# sesión: el 403 explica qué hacer, el 429 no dice nada.
+_lim.olvidar_todo()
+client.post("/game/derivemos/message", json={"text": "uno"}, headers=CUENTA)
+r = client.post("/game/derivemos/message", json={"text": "dos"}, headers=CUENTA)
+check(r.status_code == 403, f"y ahí le gana el 403, no el 429 (dio {r.status_code})")
 
 print("\n4. leer: los dos cursores")
 _lim.olvidar_todo()

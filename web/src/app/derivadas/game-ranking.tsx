@@ -45,6 +45,7 @@ import { curvaDelSalto, duracionDelSalto, filasDelSalto } from "./salto-ranking"
 import { VERDE, fmtMultiplier } from "./cafecito-cta"
 import { EJEMPLOS_COUNT, EJEMPLOS_XP_TOTAL, ListaDeReclutas } from "./reclutas-list"
 import {
+  porExperiencia,
   useGameBoosts,
   useGameLeaderboard,
   useGameLeaderboardSummary,
@@ -2000,13 +2001,10 @@ function UniversityRanking({
 
   // Por Elo el orden YA llega del servidor (mostrar un número distinto del
   // que ordena se lee como un bug, ver GameUniversityRow). Por experiencia se
-  // reordena ACÁ: el dato ya viaja en cada fila, así que pedir un fetch nuevo
-  // solo para cambiar de pestaña sería más lento que lo que reemplaza.
-  //
-  // `[...]` y no un `.sort()` sobre `data.rows`: ese array es el mismo objeto
-  // que React Query cachea, y mutarlo in place correría el orden por debajo
-  // de cualquier otra vista que lo esté leyendo al mismo tiempo.
-  const rows = sort === "experiencia" ? [...data.rows].sort((a, b) => b.xp - a.xp) : data.rows
+  // reordena ACÁ con `porExperiencia`, que es la misma función que usa el
+  // cartel del cafecito: las dos pantallas muestran la misma carrera y se
+  // habían separado.
+  const rows = sort === "experiencia" ? porExperiencia(data.rows) : data.rows
 
   return (
     <div
