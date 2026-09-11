@@ -245,17 +245,18 @@ def difficulty_stars(p_hat: float) -> int:
 # θ ≈ β + logit(0.75)/SCALE = β + 1.34. O sea que θ=0.3 es "las sumas ya salen
 # cómodas" (T2), θ=1.6 "los productos" (T4) y θ=2.2 "los cocientes" (T5). Un
 # jugador nuevo arranca en θ=0 y por lo tanto en blanco, como corresponde.
-# Los cortes se corrieron +1,738 el 2026-09-11, junto con el re-anclaje de la
-# escala (`scripts/diag/recentrar_escala.py`). Eran (0.3, 1.6, 2.2) contra las
-# semillas de entonces; al correr θ y β juntas —un cambio de coordenadas, no de
-# creencias— los cortes tienen que moverse lo mismo o los cinturones cambiarían
-# de dueño sin que nadie haya respondido nada. Con este corrimiento, el día del
-# re-anclaje ni una sola persona cambió de color.
+# Volvieron a (0.3, 1.6, 2.2) al recalcular el historial con las reglas nuevas
+# (`scripts/diag/backfill_elo.py`). Habían estado corridos +1,738 unas horas,
+# mientras el θ de la gente venía del motor viejo y solo se lo había re-expresado
+# en la coordenada nueva; el backfill lo recalcula de cero contra β anclada a las
+# semillas, así que los cortes recuperan exactamente su sentido original: θ=0,3
+# es «las sumas ya salen cómodas» (T2), θ=1,6 «los productos» (T4) y θ=2,2 «los
+# cocientes» (T5).
 #
-# La lectura original sigue valiendo restando 1,738: el primer corte es «las
-# sumas ya salen cómodas» (T2), el segundo «los productos» (T4) y el tercero
-# «los cocientes» (T5).
-_LEVEL_CUTS = (2.038, 3.338, 3.938)
+# Medido antes de aplicarlo: con estos cortes 145 personas suben de cinturón y
+# NINGUNA baja. Conservar la distribución de hoy a fuerza de percentiles habría
+# degradado a 23.
+_LEVEL_CUTS = (0.3, 1.6, 2.2)
 
 
 def level_of(theta: float) -> int:
@@ -274,11 +275,17 @@ def level_of(theta: float) -> int:
 # 200 puntos por unidad de θ es lo que hace que el número se mueva de forma
 # legible: los tiers de BETA_SEED están separados ~0.6, así que subir un tier son
 # ~120 puntos, y un acierto del primer intento en la banda objetivo son ~40.
-# Bajó de 1000 a 652 el 2026-09-11, y es la otra mitad del mismo cambio de
-# coordenadas: al correr todos los θ en +1,738 el rating de cada persona habría
-# subido 348 puntos de la nada. Restarlos acá deja los marcadores exactamente
-# donde estaban — nadie ganó ni perdió un punto por una recalibración interna.
-RATING_BASE = 652
+# 821, elegido para que la MEDIANA del rating quede donde estaba (973) después
+# de recalcular el historial con las reglas nuevas. Anclar la mediana no
+# significa que nadie se mueva —el punto del backfill es justamente que la gente
+# quede donde su registro dice— sino que el centro de la distribución no se
+# desploma: los que ganan ganan y los que pierden pierden, alrededor del mismo
+# eje. Medido: 126 suben, 143 bajan una mediana de 72 puntos, y el que más sube
+# gana 335.
+#
+# Pasó por 652 unas horas, cuando el re-anclaje de escala corrió los θ sin
+# recalcularlos; ese número ya no aplica.
+RATING_BASE = 821
 RATING_PER_THETA = 200
 # Piso, como el de la FIDE. θ puede caer bien abajo si alguien erra todo, y un
 # marcador que llega a cero (o a un negativo) se lee como un juego roto, no como
