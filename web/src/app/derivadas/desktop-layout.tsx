@@ -2635,6 +2635,9 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                     <div className="flex min-h-0 flex-1 flex-col rounded-lg border border-border bg-card p-3">
                       <ChatPanel
                         open={chatOpen}
+                        // Acá sí: se llega con la tecla `u`, y lo que sigue es
+                        // escribir. El teléfono no la pasa — ver `enfocaAlAbrir`.
+                        enfocaAlAbrir
                         enabled={player !== null}
                         onClose={cerrarChat}
                         className="flex-1"

@@ -33,7 +33,12 @@ import { XpDots } from "@/components/xp-dots"
 import { BELT_HEX } from "@/lib/catalog"
 import { cn } from "@/lib/utils"
 import { useSfx } from "@/lib/audio/useSfx"
-import { CAFECITO_URL, fmtMultiplier, type CafecitoTrigger } from "./cafecito-cta"
+import {
+  CAFECITO_URL,
+  PRECIO_CAFECITO,
+  fmtMultiplier,
+  type CafecitoTrigger,
+} from "./cafecito-cta"
 import {
   CAFE_AMBAR_RGB as AMBAR_RGB,
   CAFE_DORADO_RGB as DORADO,
@@ -42,6 +47,7 @@ import {
   mezclarRGB as mezclar,
 } from "./game-colors"
 import {
+  porExperiencia,
   useCafecitoIntent,
   useCafecitoStatus,
   useGameUniversityLeaderboard,
@@ -487,10 +493,16 @@ function PanelDeVuelta({
 // Una arriba (mejor puesto), la propia en el medio, una abajo (peor puesto):
 // es lo que convierte "invitá un cafecito" en "esto es lo que ya está en
 // juego", con la propia universidad ubicada donde compite de verdad, no
-// suelta. Las vecinas llevan ×1,0 —no compran nada, están para dar contexto—
-// y la propia lleva el multiplicador que se está por comprar, en el mismo
-// formato ámbar (`filaConEmpuje`, game-colors.ts) que ya usan las filas con un
-// empuje corriendo.
+// suelta. La propia lleva además el multiplicador que se está por comprar, en
+// el mismo formato ámbar (`filaConEmpuje`, game-colors.ts) que ya usan las
+// filas con un empuje corriendo; las vecinas no, porque no reciben nada de
+// este cafecito.
+//
+// El puesto sale de ordenar por EXPERIENCIA (`porExperiencia`), que es la
+// carrera que el cafecito mueve: multiplica XP y no toca el θ. Se tomaba el
+// orden tal como lo devuelve el servidor, que es por Elo promedio, así que las
+// "vecinas" eran las de otra tabla — y la de escritorio, que sí reordena
+// (game-ranking.tsx), mostraba un trío distinto para la misma idea.
 //
 // Si el ranking no tiene vecina real de un lado —la universidad propia está
 // primera o última, o todavía no juntó XP— se inventa una plausible en vez de
@@ -498,12 +510,20 @@ function PanelDeVuelta({
 function CajaDeUniversidad({
   university,
   players,
+  xp,
   multiplier,
   color,
   propia = false,
 }: {
   university: string
   players: number
+  // La experiencia acumulada de toda la universidad: el número por el que
+  // compiten y el que el cafecito multiplica. Es el mismo que muestra la fila
+  // del ranking (game-ranking.tsx :: XpDeUniversidad).
+  xp: number
+  // Lo que este cafecito le hace a ese número. Solo la propia lo recibe, así
+  // que solo ella lo muestra: en las vecinas era un ×1,0 fijo ocupando el lugar
+  // donde tenía que ir el dato de quién va ganando.
   multiplier: number
   // La tinta del slider (tintaPara(t)) para la propia; un gris apagado para
   // las vecinas, que no reciben nada de este cafecito.
@@ -523,10 +543,14 @@ function CajaDeUniversidad({
       style={propia ? filaConEmpuje(multiplier) : undefined}
     >
       <UniTag university={university} />
-      {/* Personas y XP pegados, igual que en el ranking (game-ranking.tsx):
-          número primero, ícono después, los dos grupos uno al lado del otro.
-          Acá los dos van del mismo color —el de la propia se pinta con el
-          slider igual que el multiplicador, no solo el número de XP. */}
+      {/* Personas y experiencia pegadas, igual que en el ranking
+          (game-ranking.tsx): número primero, ícono después, los dos grupos uno
+          al lado del otro. Acá el ícono de XP iba al lado del MULTIPLICADOR, o
+          sea que las tres cajas no traían un solo dato sobre quién va ganando —
+          las vecinas mostraban ×1,0 y listo.
+
+          Los dos grupos van del mismo color: el de la propia se pinta con el
+          slider, igual que el multiplicador que lo cierra. */}
       <span
         className="inline-flex shrink-0 items-center gap-2 text-sm font-semibold tabular-nums"
         style={{ color }}
@@ -536,9 +560,13 @@ function CajaDeUniversidad({
           <UsersIcon className="size-[0.85em]" />
         </span>
         <span className="inline-flex items-center gap-1">
-          {fmtMultiplier(multiplier)}
+          {fmtCount(xp)}
           <XpDots className="size-[0.85em]" />
         </span>
+        {/* Y el multiplicador al final, solo en la propia: leído después de la
+            experiencia se entiende como lo que le hace a ESE número, que es
+            exactamente lo que el cafecito compra. */}
+        {propia && <span>{fmtMultiplier(multiplier)}</span>}
       </span>
     </div>
   )
@@ -556,9 +584,13 @@ const UNIVERSIDADES_DE_RELLENO = ["UBA", "UTN", "UNC", "UNLP", "UCA", "UNSAM"] a
 function universidadDeRelleno(
   yaUsadas: readonly string[],
   players: number,
-): { university: string; players: number } {
+  xp: number,
+): { university: string; players: number; xp: number } {
   const nombre = UNIVERSIDADES_DE_RELLENO.find((u) => !yaUsadas.includes(u)) ?? "Otra"
-  return { university: nombre, players }
+  // Con `xp` y no en cero: la caja inventada se lee igual que las de verdad, y
+  // un cero ahí parecería un dato —"esta universidad no sumó nada"— en vez de
+  // un relleno. Se deriva de la propia, como ya se hacía con las personas.
+  return { university: nombre, players, xp: Math.max(1, Math.round(xp)) }
 }
 
 const SIN_FILTRO = { university: ALL_SCOPE, career: ALL_SCOPE }
@@ -576,30 +608,50 @@ function UniversidadesCercanas({
   enabled: boolean
 }) {
   const { data } = useGameUniversityLeaderboard(SIN_FILTRO, enabled)
-  const filas = data?.rows ?? []
+  // Por experiencia, que es la carrera que este cafecito mueve. El servidor las
+  // manda ordenadas por Elo promedio y acá se tomaba ese orden tal cual, así que
+  // las "vecinas" eran las de una tabla que el cafecito no toca.
+  const filas = porExperiencia(data?.rows ?? [])
   const indice = filas.findIndex((f) => f.university === university)
-  const propia = indice >= 0 ? filas[indice] : { university, players: 1 }
+  const propia = indice >= 0 ? filas[indice] : { university, players: 1, xp: 0 }
 
   const arriba =
     indice > 0
       ? filas[indice - 1]
-      : universidadDeRelleno([propia.university], propia.players + 15)
+      : universidadDeRelleno([propia.university], propia.players + 15, propia.xp * 1.4)
   const abajo =
     indice >= 0 && indice < filas.length - 1
       ? filas[indice + 1]
-      : universidadDeRelleno([propia.university, arriba.university], Math.max(1, propia.players - 8))
+      : universidadDeRelleno(
+          [propia.university, arriba.university],
+          Math.max(1, propia.players - 8),
+          propia.xp * 0.6,
+        )
 
   return (
     <div className="mt-4 flex flex-col gap-2">
-      <CajaDeUniversidad university={arriba.university} players={arriba.players} multiplier={1} color={GRIS_VECINA} />
+      <CajaDeUniversidad
+        university={arriba.university}
+        players={arriba.players}
+        xp={arriba.xp}
+        multiplier={1}
+        color={GRIS_VECINA}
+      />
       <CajaDeUniversidad
         university={propia.university}
         players={propia.players}
+        xp={propia.xp}
         multiplier={multiplier}
         color={color}
         propia
       />
-      <CajaDeUniversidad university={abajo.university} players={abajo.players} multiplier={1} color={GRIS_VECINA} />
+      <CajaDeUniversidad
+        university={abajo.university}
+        players={abajo.players}
+        xp={abajo.xp}
+        multiplier={1}
+        color={GRIS_VECINA}
+      />
     </div>
   )
 }
@@ -1021,6 +1073,20 @@ export function CafecitoPanel({
             )}
           </>
         )}
+
+        {/* Cuánto sale uno. Va acá abajo y en letra chica a propósito: el
+            cartel entero está armado para que se entienda qué COMPRA el
+            cafecito —el multiplicador, la universidad, la duración— y meter el
+            precio arriba lo convertiría en una góndola. Pero no decirlo en
+            ningún lado es pedir plata sin decir cuánta, y el slider llega hasta
+            diez.
+
+            Debajo de la acción y encima de la salida, que es donde se mira
+            justo antes de decidir. El número sale de `PRECIO_CAFECITO`, que es
+            una copia de lo que dice Cafecito — ver su comentario. */}
+        <p className="mt-3 text-center text-xs text-muted-foreground/70">
+          1 cafecito = ${PRECIO_CAFECITO}
+        </p>
 
         {/* La salida. Con recuadro y no como texto suelto: es un botón de
             verdad, y sin borde parecía un pie de página. "Ahora no" y no

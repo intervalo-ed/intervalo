@@ -13,9 +13,12 @@
 // es de hasta ocho segundos y eso está bien: no es una conversación, es un
 // tablón donde se deja un mensaje cada tanto.
 //
-// Escribir pide cuenta. Al invitado no se le esconde el campo: se le muestra
-// apagado con el motivo, porque un campo que no está no invita a registrarse y
-// uno que dice por qué no anda, sí.
+// Escribe cualquiera, invitados incluidos. Lo pedía —el campo se le mostraba
+// apagado, con "Registrate para escribir" de placeholder— y se decidió en
+// contra: la mayoría de la gente que está jugando no tiene cuenta, y un chat al
+// que esa mayoría no puede contestar no es un chat, es un tablón con un campo
+// gris al pie. Los frenos que quedan viven en el server (tres por minuto, 140
+// caracteres, allowlist de caracteres; ver game/chat.py).
 
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 import { motion } from "motion/react"
@@ -307,6 +310,7 @@ export function ChatButton({
 export function ChatPanel({
   enabled,
   open = true,
+  enfocaAlAbrir = false,
   onClose,
   className,
 }: {
@@ -318,6 +322,15 @@ export function ChatPanel({
   // Default `true` para quien lo monta al abrirlo y punto, como una pantalla del
   // teléfono.
   open?: boolean
+  // ¿Al abrirse se lleva el foco al campo? En escritorio SÍ: se llegó tecleando
+  // `u`, y lo que sigue es escribir. En el teléfono NO, y esa es la diferencia
+  // que esta prop existe para marcar — allá enfocar levanta el teclado, que se
+  // come media pantalla de una conversación que la persona vino a LEER.
+  //
+  // Default `false` a propósito: el teléfono monta este panel en dos lugares
+  // (la diapo de chat y la de novedades) sin pasar `open`, así que el default
+  // tiene que ser el que no sorprende. Quien quiera el foco lo pide.
+  enfocaAlAbrir?: boolean
   // El botón Volver que reemplaza al compositor mientras corre el
   // enfriamiento de después de mandar (ver más abajo). Sin esto —el teléfono,
   // que cierra el chat con su propio botón de salir— no aparece.
@@ -344,13 +357,17 @@ export function ChatPanel({
   // (GameMessageOut), así que nunca chocan.
   const nextLocalIdRef = useRef(-1)
 
-  const esInvitado = player === null || player.is_guest
   // El chat puede estar apagado del lado del servidor (GAME_CHAT_ENABLED). Se
   // asume prendido mientras no llegó la primera respuesta: apagar el campo por
   // no saber todavía sería mostrar el peor de los dos estados durante el
   // arranque.
+  //
+  // Y es lo ÚNICO que lo apaga: ser invitado ya no. Al registrado sin sesión
+  // viva el server le contesta 403 y el motivo se muestra tal cual (ver
+  // `mandar`), que es el único caso que queda en el que mandar puede fallar por
+  // quién sos.
   const apagado = data !== undefined && !data.chatEnabled
-  const puedeEscribir = !esInvitado && !apagado
+  const puedeEscribir = !apagado
 
   // Las dos listas, intercaladas por cuándo pasó cada cosa. Vienen de la más
   // nueva a la más vieja y se dan vuelta al final, igual que el feed: así lo
@@ -390,9 +407,11 @@ export function ChatPanel({
     return () => clearInterval(t)
   }, [])
 
-  // Al abrir, el foco va al campo. Se llegó acá tecleando `u` o tocando un
-  // botón: en los dos casos lo que sigue es escribir, y hacer que además haya que
-  // ir a hacer clic sería pedir un paso que nadie entiende para qué está.
+  // Al abrir, el foco va al campo — pero solo donde se pidió (ver
+  // `enfocaAlAbrir`). En escritorio se llegó tecleando `u` y lo que sigue es
+  // escribir, así que hacer además un clic sería un paso que nadie entiende para
+  // qué está. En el teléfono es al revés: entrar al chat levantaba el teclado
+  // solo, tapando media conversación antes de que la persona alcanzara a leerla.
   //
   // Colgado de `open` y NO del montaje, que es lo que estaba mal: en escritorio
   // el panel se monta la primera vez que se abre y ya no se desmonta más
@@ -405,9 +424,9 @@ export function ChatPanel({
   // dejaría de escribir en los dos lados. Al cerrar, el layout lo devuelve a la
   // fórmula (ver cerrarChat).
   useEffect(() => {
-    if (!open || !puedeEscribir) return
+    if (!enfocaAlAbrir || !open || !puedeEscribir) return
     inputRef.current?.focus()
-  }, [open, puedeEscribir])
+  }, [enfocaAlAbrir, open, puedeEscribir])
 
   const scrollRef = useRef<HTMLDivElement | null>(null)
   // ¿Está pegado al fondo? Mismo mecanismo que el feed y por lo mismo: seguir lo
@@ -615,11 +634,7 @@ export function ChatPanel({
               maxLength={MAX_TEXTO}
               disabled={!puedeEscribir}
               placeholder={
-                apagado
-                  ? "El chat está apagado por ahora"
-                  : esInvitado
-                    ? "Registrate para escribir"
-                    : "Escribí algo…"
+                apagado ? "El chat está apagado por ahora" : "Escribí algo…"
               }
               className={cn(
                 "min-w-0 flex-1 resize-none rounded-md border border-border bg-background px-3 py-2 text-base md:text-sm outline-none",

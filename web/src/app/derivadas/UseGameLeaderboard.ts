@@ -585,6 +585,26 @@ export function useGameRecruits(enabled: boolean) {
   })
 }
 
+/** Las universidades ordenadas por experiencia, de mayor a menor.
+ *
+ *  El servidor las devuelve ordenadas por Elo promedio —mostrar un número
+ *  distinto del que ordena se lee como un bug, ver GameUniversityRow— así que
+ *  quien quiera la otra carrera reordena acá. El dato ya viaja en cada fila, de
+ *  modo que pedir un fetch nuevo solo para cambiar de criterio sería más lento
+ *  que esto.
+ *
+ *  Vive acá y no en cada pantalla porque son DOS las que lo necesitan y se
+ *  habían separado: el ranking de escritorio reordenaba, y el cartel del
+ *  cafecito del teléfono no —así que le mostraba a la persona sus vecinas de
+ *  Elo cuando lo que el cafecito mueve es la experiencia—.
+ *
+ *  `[...]` y no un `.sort()` sobre el array que llega: ese es el mismo objeto
+ *  que React Query cachea, y mutarlo in place correría el orden por debajo de
+ *  cualquier otra vista que lo esté leyendo al mismo tiempo. */
+export function porExperiencia(rows: readonly GameUniversityRow[]): GameUniversityRow[] {
+  return [...rows].sort((a, b) => b.xp - a.xp)
+}
+
 export function useGameUniversityLeaderboard(scope: Scope, enabled: boolean) {
   const api = useGameApi()
   return useQuery({

@@ -1827,31 +1827,35 @@ def _puede_escribir(
 
     Es una dependencia y no un chequeo adentro del endpoint porque el ORDEN
     importa. El tope de frecuencia también es una dependencia, y FastAPI las
-    resuelve en el orden en que aparecen en la firma: poniendo esta primero, un
-    invitado se lleva el 403 que le explica qué hacer, y además no gasta cupo del
-    limitador. Con el chequeo adentro del cuerpo pasaba lo contrario — el primer
-    intento daba 403 y el segundo un 429 que no dice nada, porque el intento
-    rechazado igual había consumido su turno.
+    resuelve en el orden en que aparecen en la firma: poniendo esta primero, a
+    quien no puede escribir le llega el 403 que le explica qué hacer, y además no
+    gasta cupo del limitador. Con el chequeo adentro del cuerpo pasaba lo
+    contrario — el primer intento daba 403 y el segundo un 429 que no dice nada,
+    porque el intento rechazado igual había consumido su turno.
 
-    Escribir pide cuenta, por dos motivos distintos que apuntan al mismo lado:
+    **Escribir ya no pide cuenta.** Lo pedía con dos argumentos —que un invitado
+    se crea con un POST sin credenciales y no tiene a nadie detrás a quien pedirle
+    cuentas, y que el chat de paso empujaba el registro— y se decidió en contra:
+    un chat al que la mayoría de la gente que está jugando no puede contestar no
+    es un chat, es un tablón de anuncios con un campo apagado al pie.
 
-    · Un invitado se crea con un POST sin credenciales de ningún tipo. Un mensaje
-      suyo no tiene a nadie detrás a quien pedirle cuentas, y el único freno para
-      fabricar invitados es un tope por IP — que a propósito es laxo, porque el
-      público entra desde el wifi de una universidad (ver limits.py).
-    · Es el mismo criterio con el que se elige el @: lo que muestra tu nombre a
-      todos los demás pide cuenta. Y de paso el chat empuja el registro, igual que
-      el @ y que los reclutas.
+    Lo que queda de freno no es poco y no cambió: tres mensajes por minuto
+    (`limits.por_jugador`), 140 caracteres, y una allowlist de caracteres que deja
+    afuera los enlaces y el marcado (game/chat.py). Para bajar un mensaje está la
+    columna `hidden`, que es lo único que hay y conviene tenerlo presente: el
+    token de un invitado no vence ni se puede revocar, así que si esto se vuelve
+    un problema, la palanca más barata es pedir unas cuantas derivadas resueltas
+    antes de la primera vez — una línea acá, sin migración.
 
-    Y pide la sesión de Clerk viva, no alcanza el token de invitado guardado, por
-    exactamente la misma razón que el @: ese token no vence ni se puede revocar, y
-    publicar bajo el nombre de alguien no se puede deshacer desde el otro lado.
+    Lo que SÍ se conserva es la sesión de Clerk viva para quien tiene cuenta, y no
+    es una reliquia del gate anterior: el token de invitado se conserva después
+    del link (models.py :: guest_token), así que sin este chequeo alcanzaría con
+    ese token guardado para publicar bajo el nombre de alguien registrado. Es la
+    misma razón por la que el @ lo pide.
     """
     if not _chat_habilitado():
         raise HTTPException(status_code=503, detail="El chat está apagado por ahora.")
-    if player.user_id is None:
-        raise HTTPException(status_code=403, detail="Registrate para escribir en el chat.")
-    if not authorization:
+    if player.user_id is not None and not authorization:
         raise HTTPException(
             status_code=403, detail="Iniciá sesión de nuevo para escribir."
         )
