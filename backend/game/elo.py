@@ -42,6 +42,20 @@ BETA_SEED: dict[int, float] = {0: -2.2, 1: -1.6, 2: -1.0, 3: -0.4, 4: 0.3, 5: 0.
 # personas son toda la evidencia; con 30 queda 79% aprendida.
 BETA_PRIOR_PLAYERS = 8.0
 
+# Tope de cuánta evidencia se le computa al ancla. Sin esto el peso de la semilla
+# es `BETA_PRIOR_PLAYERS / (n_players + BETA_PRIOR_PLAYERS)`, o sea que **se
+# diluye solo a medida que el juego crece**: con 23 personas la semilla pesa 26%,
+# con 400 pesa 2%. Es el freno que se afloja justo cuando más hace falta, porque
+# el sesgo que tiene que frenar —a lo difícil solo lo ve quien va bien— no
+# desaparece con la escala, se acumula.
+#
+# Con el tope en 20, la semilla nunca pesa menos del 29% por más gente que pase.
+# No es para desconfiar de los datos: es para que una plantilla no pueda terminar
+# creyéndose más fácil que otra dos tiers abajo solo porque la vieron doscientas
+# personas que el propio motor eligió. Medido en producción: sin tope, las 29
+# plantillas terminaron entre 1 y 3,5 unidades por debajo de su semilla.
+BETA_PRIOR_CAP = 20
+
 # Castigo de θ al saltear un ejercicio. Plano a propósito: el lr de `update`
 # decae con la experiencia, y con ese decaimiento un jugador veterano podría
 # saltear sin que el juego le bajara nunca la dificultad — justo lo contrario de
@@ -49,11 +63,35 @@ BETA_PRIOR_PLAYERS = 8.0
 # a ~0.6: cada salteo cuesta un cuarto de tier, cuatro seguidos bajan uno entero.
 SKIP_THETA_PENALTY = 0.15
 
-# Hiperparámetros del update (grid del reporte: a_u=0.8 b_u=0.15 a_x=1.2 b_x=0.05).
+# Hiperparámetros del update. El grid del reporte daba a_u=0.8 b_u=0.15 a_x=1.2
+# b_x=0.05, y esos valores dejaban el reparto al revés de lo que conviene.
+#
+# **Lo que importa no es el paso sino `a/b`**, que es cuánto puede moverse cada
+# número EN TOTAL a lo largo de su vida: el paso decae como `a/(1+b·n)`, así que
+# lo acumulado tiende a `(a/b)·ln(1+b·n)`. Con los valores viejos la plantilla
+# tenía capacidad 1.2/0.05 = 24 y la persona 0.8/0.15 = 5,3. **La plantilla podía
+# moverse 4,5 veces más que la persona**, y encima acumula observaciones mucho
+# más rápido —una plantilla la ven todos, un jugador juega solo lo suyo—.
+#
+# El resultado, medido sobre 11.414 primeras respuestas: la sorpresa de cada
+# acierto se la comía la plantilla. El motor concluía «esta derivada era fácil»
+# en vez de «esta persona sabe», las 29 β se hundieron hasta 3,5 unidades por
+# debajo de su semilla, y la mediana de θ quedó clavada en 0,07 con el 70% de la
+# gente en cinturón blanco.
+#
+# Se invierte el reparto: capacidad de la persona 0.8/0.07 = 11,4 contra 0.8/0.10
+# = 8 de la plantilla. La persona se lleva la sorpresa, que es lo correcto acá
+# porque **los ejercicios los escribimos nosotros** y les pusimos el tier a mano;
+# la incógnita es la gente, no el catálogo.
+#
+# Simulado contra la historia real: con estos valores la mediana de θ pasa de
+# 0,07 a 0,39, el p90 de 0,89 a 2,03, los cinturones de [295,117,8,2] a
+# [184,177,25,36], y el orden de dificultad entre tiers vuelve a ser monótono
+# (con los valores viejos T3 terminaba más difícil que T5).
 _A_USER = 0.8
-_B_USER = 0.15
-_A_TEMPLATE = 1.2
-_B_TEMPLATE = 0.05
+_B_USER = 0.07
+_A_TEMPLATE = 0.8
+_B_TEMPLATE = 0.10
 
 
 def effective_beta(beta: float, tier: int, n_players: int) -> float:
@@ -102,7 +140,62 @@ def effective_beta(beta: float, tier: int, n_players: int) -> float:
     if n_players <= 0:
         return BETA_SEED.get(tier, 0.0)
     seed = BETA_SEED.get(tier, 0.0)
-    return (n_players * beta + BETA_PRIOR_PLAYERS * seed) / (n_players + BETA_PRIOR_PLAYERS)
+    # El tope: ver BETA_PRIOR_CAP. Más allá de ahí la evidencia extra ya no
+    # compra más confianza, porque lo que limita no es cuánta gente pasó sino
+    # que a quién pasa lo elige este mismo motor.
+    n = min(n_players, BETA_PRIOR_CAP) if BETA_PRIOR_CAP else n_players
+    return (n * beta + BETA_PRIOR_PLAYERS * seed) / (n + BETA_PRIOR_PLAYERS)
+
+
+# Cuánto se deja correr la escala antes de volver a centrarla. La media de las β
+# se mueve ~0,0007 por respuesta, así que con esta banda muerta el reajuste cae
+# cada ~70 respuestas: suficiente para que el gasto sea despreciable y para que
+# la escala nunca se vaya más de un 2% de un tier.
+RECENTRADO_UMBRAL = 0.05
+
+# Y cuánto es DEMASIADO para corregir solo. Un corrector automático hace ajustes
+# chicos y continuos; un δ grande no significa "corregí fuerte", significa que
+# pasó algo estructural —que la migración de re-anclaje nunca corrió, por
+# ejemplo— y eso lo mira una persona, no un `if`.
+#
+# Sin este tope el primer deploy habría aplicado los +2,4 acumulados de una,
+# corriendo las β sin correr los θ: el motor pasaría a creer que toda la gente es
+# 2,4 unidades más débil de lo que es. Medido contra la historia real, el 56% de
+# los jugadores caería a T0-T1 y tardaría un mes de tráfico en volver. Correr la
+# escala de golpe es un cambio de COORDENADAS y hay que mover las dos puntas
+# juntas; eso lo hace `scripts/diag/recentrar_escala.py`, a mano y con
+# confirmación.
+RECENTRADO_MAX = 0.5
+
+
+def desvio_de_escala(betas: dict[str, float], tiers: dict[str, int]) -> float:
+    """Cuánto se corrió la escala entera de dificultad respecto de las semillas.
+
+    **El problema que resuelve.** `p̂ = σ((θ − β)·SCALE)` depende de la RESTA, así
+    que sumarle la misma constante a todos los θ y todas las β no cambia ni una
+    predicción: la escala tiene un grado de libertad suelto. Y suelto no se queda
+    quieto — se va para donde lo empuje la asimetría de las tasas de aprendizaje.
+    Medido en producción: las 29 β terminaron 2,4 unidades por debajo de sus
+    semillas en promedio, con `sen(x)/x` (T5) creyéndose más fácil que la semilla
+    de `kx` (T1). La escalera de dificultad quedó dada vuelta.
+
+    **Lo que hace.** Devuelve el δ que hay que sumarle a TODAS las β para que su
+    promedio vuelva al promedio de las semillas. Un solo número para todas: eso
+    corrige exactamente el grado de libertad suelto y **no toca nada más**. El
+    orden entre plantillas y las distancias entre ellas —que es lo que el motor
+    aprendió de verdad y que los datos respaldan— quedan intactos.
+
+    Es deliberado que NO se recentre tier por tier. Los datos dicen que los tiers
+    se separan la mitad de lo que suponen las semillas (dentro de una misma banda
+    de θ, T5 y T1 rinden casi igual: derivar es mecánico, y quien sabe la regla
+    del cociente no sufre más con `sen(x)/x` que con `2x`). Forzar cada tier a su
+    semilla sería pisar ese aprendizaje; correr la escala entera, no.
+    """
+    if not betas:
+        return 0.0
+    media = sum(betas.values()) / len(betas)
+    objetivo = sum(BETA_SEED.get(tiers.get(k, 0), 0.0) for k in betas) / len(betas)
+    return objetivo - media
 
 
 def predict(theta: float, beta: float) -> float:

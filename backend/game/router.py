@@ -8,6 +8,7 @@ la reporta el cliente.
 
 from __future__ import annotations
 
+import logging
 import os
 import re
 from datetime import datetime, timedelta
@@ -18,7 +19,14 @@ from sqlalchemy import and_ as sa_and, case, func, or_ as sa_or
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session, load_only
 
-from models import GameAttempt, GameCtaEvent, GameExercise, GamePlayer, User
+from models import (
+    GameAttempt,
+    GameCtaEvent,
+    GameExercise,
+    GamePlayer,
+    GameTemplateStat,
+    User,
+)
 from universities import UNIVERSITIES as _UNIVERSIDADES, canonical_university
 import handles
 import xp_boost
@@ -857,6 +865,47 @@ def _registrar_fallo_de_parseo(
     return respuesta
 
 
+def _recentrar_escala(db: Session) -> float:
+    """Vuelve a centrar la escala de dificultad si se corrió demasiado.
+
+    `p̂` depende de `θ − β`, así que la escala tiene un grado de libertad suelto
+    (ver `elo.desvio_de_escala`) y se va sola para donde la empuje la asimetría
+    de las tasas. Esto es el ancla que la fija: corre TODAS las β por igual, lo
+    que corrige el corrimiento global sin tocar ni el orden entre plantillas ni
+    las distancias, que es lo que el motor aprendió de verdad.
+
+    Con el ancla puesta, la sorpresa de cada respuesta no tiene a dónde irse
+    salvo a θ — que es exactamente lo que se busca: que el motor concluya «esta
+    persona sabe» en vez de «esta derivada era fácil».
+
+    Cuesta un AVG sobre 29 filas, y solo escribe cuando el desvío pasa la banda
+    muerta (~1 de cada 70 respuestas). Va en la misma transacción que la
+    respuesta, así que no hace falta ningún job aparte.
+    """
+    filas = db.query(GameTemplateStat).all()
+    if not filas:
+        return 0.0
+    delta = elo.desvio_de_escala(
+        {f.template_key: f.beta for f in filas},
+        {f.template_key: f.tier for f in filas},
+    )
+    if abs(delta) <= elo.RECENTRADO_UMBRAL:
+        return 0.0
+    if abs(delta) > elo.RECENTRADO_MAX:
+        # Ver RECENTRADO_MAX: un desvío así no se corrige solo. Se avisa una vez
+        # por respuesta y se sigue — el juego no se cae porque la escala esté
+        # corrida, solo queda midiendo con la regla vieja hasta que alguien corra
+        # la migración.
+        logging.getLogger(__name__).warning(
+            "escala corrida %+.2f, por encima del tope %.2f: correr "
+            "scripts/diag/recentrar_escala.py", delta, elo.RECENTRADO_MAX,
+        )
+        return 0.0
+    for fila in filas:
+        fila.beta += delta
+    return delta
+
+
 def _aplicar_elo(
     db: Session,
     exercise: GameExercise,
@@ -912,6 +961,7 @@ def _aplicar_elo(
         stat.n_observations += 1
         if correct:
             stat.n_correct += 1
+        _recentrar_escala(db)
 
     player.exercises_attempted += 1
     # La racha no distingue: mirar la tabla no la corta, errar sí.

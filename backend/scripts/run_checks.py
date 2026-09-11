@@ -65,6 +65,7 @@ CHECKS = [
     "check_game_generator",
     "check_game_ranking_sort",
     "check_game_referrals",
+    "check_game_escala",
     "check_game_seleccion",
     "check_game_simulation",
     "check_game_stats",

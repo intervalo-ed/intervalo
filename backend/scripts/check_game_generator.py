@@ -210,8 +210,18 @@ check(elo.effective_beta(-9.0, 5, 0) == elo.BETA_SEED[5],
 mitad = elo.effective_beta(-9.0, 5, int(K))
 check(abs(mitad - (-9.0 + elo.BETA_SEED[5]) / 2) < 1e-9,
       f"con K personas queda a mitad de camino ({mitad:.2f})")
-check(abs(elo.effective_beta(-9.0, 5, 2000) - (-9.0)) < 0.06,
-      "con mucha gente la semilla se lava sola")
+# Antes se defendia lo contrario —"con mucha gente la semilla se lava sola"— y
+# eso resulto ser el agujero: el peso de la semilla era prior/(n+prior), asi que
+# el freno se aflojaba justo a medida que el juego crecia, y el sesgo que tiene
+# que frenar no se va con la escala sino que se acumula. Medido el 2026-09-11:
+# las 29 plantillas terminaron entre 1 y 3,5 unidades debajo de su semilla. Con
+# BETA_PRIOR_CAP la semilla conserva un piso de peso por mucha gente que pase.
+lavada = elo.effective_beta(-9.0, 5, 2000)
+tope = elo.effective_beta(-9.0, 5, elo.BETA_PRIOR_CAP)
+check(abs(lavada - tope) < 1e-9,
+      f"pasado el tope, mas gente ya no diluye la semilla ({lavada:.2f})")
+check(lavada > -9.0 + 1.5,
+      f"y la semilla sigue pesando de verdad con 2000 personas ({lavada:.2f})")
 check(elo.BETA_SEED[5] > elo.effective_beta(-9.0, 5, 3) > -9.0,
       "y siempre queda entre la semilla y lo aprendido")
 
