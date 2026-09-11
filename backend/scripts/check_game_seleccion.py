@@ -225,5 +225,39 @@ check(
 menor = min(variantes(t) for t in TEMPLATES if t.tier >= 4)
 check(menor >= 9, "la plantilla mas flaca de T4-T5 tiene %d variantes" % menor)
 
+print("5. La banda vacia no diluye hacia lo facil")
+
+db = database.SessionLocal()
+fresco = GamePlayer(
+    guest_token="fresco", alias="fresco", theta=3.0, n_updates=elo.RAMP_UPDATES + 50
+)
+db.add(fresco)
+db.commit()
+rng = random.Random(11)
+primeras_tiers = []
+for _ in range(5):
+    plantilla, stat, p_hat = generator.pick_template(db, fresco, rng=rng)
+    primeras_tiers.append(plantilla.tier)
+    db.add(
+        GameExercise(
+            player_id=fresco.id,
+            template_key=plantilla.key,
+            prompt_latex="x",
+            expected_derivative="1",
+            theta_at_serve=fresco.theta,
+            beta_at_serve=stat.beta,
+            p_hat=p_hat,
+            status="expired",
+        )
+    )
+    db.commit()
+db.close()
+
+check(
+    primeras_tiers == [5] * 5,
+    "las primeras 5 tiradas de un theta=3.0 recien llegado son todas de tier 5 (dio %s)"
+    % primeras_tiers,
+)
+
 print("\n%d fallos" % len(FAILURES) if FAILURES else "\ntodo ok")
 sys.exit(1 if FAILURES else 0)

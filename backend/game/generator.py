@@ -3,7 +3,8 @@
 Política del reporte del motor adaptada al juego: rampa inicial por tier,
 banda objetivo p̂ ∈ [0.70, 0.80] y ε-exploración hacia la plantilla con menos
 observaciones. Anti-repetición: no servir ninguna de las últimas _RECENT_EXCLUDE
-plantillas, y antes de romper esa regla se prueba ensanchando la banda.
+plantillas, y antes de romper esa regla se prueba sirviendo la más cercana a la
+banda en vez de repetir.
 """
 
 from __future__ import annotations
@@ -37,7 +38,7 @@ from .templates import TEMPLATE_BY_KEY, TEMPLATES, GameTemplate, latex_es, x
 # la banda antes que repetir— empieza a hacer el trabajo pesado.
 _RECENT_EXCLUDE = 8
 
-# La escalera de rescate, en orden de preferencia.
+# El desempate entre candidatas igual de buenas, en la escalera de rescate.
 #
 # Antes había tres ramas que, al quedarse sin candidatas, devolvían EN SILENCIO
 # las recién vistas. Con una ventana de 8 sobre una banda de 3 a 8 plantillas,
@@ -48,11 +49,25 @@ _RECENT_EXCLUDE = 8
 # cuarta vez de la misma. Una fuera de banda sigue siendo una derivada que la
 # persona no vio; la repetida ya no es un ejercicio, es una transcripción — y es
 # lo que el reporte llamó «demasiado mecánico, podría liquidar el entusiasmo».
-_BANDAS = (
-    (elo.TARGET_LOW, elo.TARGET_HIGH),
-    (0.55, 0.92),
-    (0.35, 0.98),
-)
+#
+# Hasta acá, dos bandas intermedias (0.55-0.92 y 0.35-0.98) hacían de colchón
+# antes de la banda objetivo vacía, con `rng.choice` UNIFORME dentro de cada
+# una. Para alguien fuerte la banda objetivo está casi siempre vacía —todo le
+# sale más fácil que 0.80— así que caía a la banda de 0.55-0.92, que agarra a
+# la vez templates genuinamente difíciles (p̂≈0.55) y fáciles (p̂≈0.92), y el
+# `rng.choice` entre ellos diluye hacia lo fácil porque hay más plantillas de
+# tier bajo que de tier alto. Medido en producción: a igualdad de θ, la β
+# servida BAJÓ (más fácil) en vez de subir, hasta 0.72 en un jugador con 280
+# derivadas y 95% de acierto que seguía sin salir de cinturón azul.
+#
+# El arreglo: si la banda objetivo está vacía, ir derecho a la más cercana al
+# centro entre TODO lo no vetado —sin las dos bandas intermedias de por
+# medio—, que es exactamente lo que hace `pick_template` un poco más abajo.
+# `_CASI_EMPATE` es la tolerancia para no volverse determinista: `BETA_SEED`
+# separa tiers por ~0.6, que a p̂≈0.75 son ~0.09 de diferencia entre tiers
+# vecinos, así que 0.02 solo empata plantillas que ya son, en la práctica, del
+# mismo escalón de dificultad — nunca mezcla dos tiers.
+_CASI_EMPATE = 0.02
 
 # Y recién si NINGUNA banda tiene candidatas se acorta la ventana, de a pedazos y
 # no tirándola entera: 4 y 2 todavía tapan la vuelta inmediata, que es la que se
@@ -215,27 +230,36 @@ def pick_template(
         if explore:
             return min(explore, key=lambda s: s[1].n_observations)
 
-    # La escalera: primero se afloja la dificultad, después la ventana. El orden
-    # es el que dice el comentario de _BANDAS — repetir es lo último.
+    # La escalera: primero se afloja la dificultad, después la ventana. Repetir
+    # es lo último.
     for ventana in _VENTANAS:
         vetadas = set(recent[:ventana])
         libres = [s for s in scored if s[0].key not in vetadas]
         if not libres:
             continue
-        for low, high in _BANDAS:
-            en_banda = [s for s in libres if low <= s[2] <= high]
-            if en_banda:
-                return rng.choice(en_banda)
-        # Ninguna banda tuvo candidatas con esta ventana, pero HAY plantillas
-        # libres: antes de acortar la ventana se sirve la más cercana al centro.
-        # Es el caso del jugador que se pasó de rosca —en θ alto todo el catálogo
-        # queda por debajo de la banda más ancha— y ahí lo correcto es darle lo
-        # más difícil que haya sin repetir, no repetir lo más difícil que haya.
-        return min(libres, key=lambda s: abs(s[2] - elo.TARGET_MID))
+        en_banda = [s for s in libres if elo.TARGET_LOW <= s[2] <= elo.TARGET_HIGH]
+        if en_banda:
+            return rng.choice(en_banda)
+        # La banda objetivo no tuvo candidatas con esta ventana, pero HAY
+        # plantillas libres: antes de acortar la ventana se sirve la más cercana
+        # al centro, SIN pasar por una banda ancha intermedia de por medio. Es el
+        # caso del jugador que se pasó de rosca —en θ alto todo el catálogo queda
+        # por debajo de la banda objetivo— y ahí lo correcto es darle lo más
+        # difícil que haya sin repetir, no diluir la elección entre lo difícil
+        # que hay y lo fácil que sobra.
+        #
+        # `_CASI_EMPATE` desempata al azar entre las que quedaron igual de
+        # cerca, para no servir siempre la primera en orden de lista cuando hay
+        # varias plantillas del mismo tier tan buenas la una como la otra.
+        mejor = min(abs(s[2] - elo.TARGET_MID) for s in libres)
+        empatadas = [s for s in libres if abs(s[2] - elo.TARGET_MID) <= mejor + _CASI_EMPATE]
+        return rng.choice(empatadas)
 
     # Inalcanzable mientras `_VENTANAS` termine en 0 y `permitidas` no esté vacía
     # (T0 no tiene piso de rating). Queda por si alguna de las dos cosas cambia.
-    return min(scored, key=lambda s: abs(s[2] - elo.TARGET_MID))
+    mejor = min(abs(s[2] - elo.TARGET_MID) for s in scored)
+    empatadas = [s for s in scored if abs(s[2] - elo.TARGET_MID) <= mejor + _CASI_EMPATE]
+    return rng.choice(empatadas)
 
 
 def _build_cycled(player: GamePlayer, template: GameTemplate, rng: random.Random):
