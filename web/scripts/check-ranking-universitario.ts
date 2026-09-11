@@ -16,6 +16,7 @@
 import {
   VUELTA_UNIVERSITARIA_CADA,
   esVueltaUniversitaria,
+  vistaInicialDelRanking,
 } from "../src/app/derivadas/vuelta-universitaria"
 import { RECLUTAS_CADA, RECLUTAS_RESTO } from "../src/app/derivadas/reclutas-trigger"
 import { CAFECITO_EVERY } from "../src/app/derivadas/cafecito-cta"
@@ -129,6 +130,36 @@ check(
 check(
   esVueltaUniversitaria(9, UNI) && esVueltaUniversitaria(9, UNI),
   "llamarla dos veces con el mismo número da lo mismo: es pura",
+)
+
+console.log("6. En el teléfono la vuelta se dice eligiendo la lista inicial")
+
+// El bug que motivó esta sección: la regla estaba bien y nadie la consumía. El
+// teléfono le pasaba `universityRound` al ranking, pero esa prop solo hace algo
+// cuando cambia `centerKey` sobre un componente que no se desmonta —el caso de
+// escritorio—, y el teléfono ni siquiera manda `centerKey`. O sea que la vuelta
+// universitaria no se vio NUNCA en el teléfono, aunque context/gamification.md
+// la describía. Verificado en el navegador antes de arreglarla.
+check(
+  vistaInicialDelRanking(VUELTA_UNIVERSITARIA_CADA, UNI) === "university",
+  `a las ${VUELTA_UNIVERSITARIA_CADA} el ranking del teléfono abre en universidades`,
+)
+check(
+  correctas
+    .filter((n) => n % VUELTA_UNIVERSITARIA_CADA !== 0)
+    .every((n) => vistaInicialDelRanking(n, UNI) === "individual"),
+  "y en todas las demás abre en la lista de personas",
+)
+check(
+  correctas.every(
+    (n) =>
+      (vistaInicialDelRanking(n, UNI) === "university") === esVueltaUniversitaria(n, UNI),
+  ),
+  "la lista inicial y la regla dicen lo mismo en las 200: son la misma decisión",
+)
+check(
+  correctas.every((n) => vistaInicialDelRanking(n, null) === "individual"),
+  "sin universidad cargada nunca abre en universidades: esa lista no tendría fila propia",
 )
 
 console.log(fallos === 0 ? "\ntodo ok" : `\n${fallos} fallos`)

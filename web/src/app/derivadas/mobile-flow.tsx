@@ -109,7 +109,7 @@ import {
 } from "./UseGameLeaderboard"
 import { gameKeys, useGamePlayer, type GamePlayer } from "./UseGamePlayer"
 import { comboTrasIntento } from "./racha-estimate"
-import { esVueltaUniversitaria } from "./vuelta-universitaria"
+import { vistaInicialDelRanking } from "./vuelta-universitaria"
 import { estimarXp } from "./xp-estimate"
 import { useXpConteo } from "./xp-conteo"
 
@@ -611,7 +611,22 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
         // `goTo(slide.back)` con la MISMA diapo de ranking, y ahí reiniciar es
         // exactamente lo que arrancaba a la persona de donde estaba mirando.
         memoriaRanking.current = memoriaEnBlanco()
-        setScopeRanking({ view: "individual", university: ALL_SCOPE })
+        // Y con qué lista arranca. Acá se decide la vuelta universitaria: cada 3
+        // correctas el festejo se cuenta sobre la universidad, así que la lista
+        // que aparece al tocar Continuar es la de universidades y el número que
+        // trepa es el de la propia (ver vuelta-universitaria.ts).
+        //
+        // Se dice ACÁ, eligiendo la vista inicial, y no con la prop
+        // `universityRound` del ranking. Esa prop la lee escritorio, donde el
+        // «acabo de acertar» es el cambio de `centerKey` sobre un componente que
+        // NUNCA se desmonta. En el teléfono el ranking se monta de cero con cada
+        // derivada, así que `elegido.key` nace igual a `centerKey` y esa señal no
+        // puede dispararse jamás: la vuelta universitaria estuvo muerta en el
+        // teléfono desde que se escribió. El montaje ES el «acabo de acertar».
+        setScopeRanking({
+          view: vistaInicialDelRanking(a.exercises_correct, player?.university ?? null),
+          university: ALL_SCOPE,
+        })
         goTo({ kind: "ranking", answer: a })
         return
       }
@@ -1979,13 +1994,6 @@ function RankingSlide({
   // selector de vista vive adentro suyo.
   const [vista, setVista] = useState<RankingView>("individual")
 
-  // Cada 3 derivadas bien resueltas, la que aparece al tocar Continuar es la
-  // lista de universidades y el conteo trepa sobre la propia. Se decide con el
-  // contador del servidor que vino en ESTA respuesta, así que no hay estado que
-  // llevar: la diapo se monta de nuevo con cada derivada y la cuenta ya está
-  // hecha. Ver vuelta-universitaria.ts.
-  const universityRound = esVueltaUniversitaria(answer.exercises_correct, myUniversity)
-
   return (
     <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col gap-3 px-4 pb-[var(--cta-pb)] pt-3">
       {/* La misma barra que en el ejercicio, y en el mismo lugar: entre las dos
@@ -2016,7 +2024,6 @@ function RankingSlide({
         liveXpDelta={liveXpDelta}
         xpColor={xpColor}
         myUniversity={myUniversity}
-        universityRound={universityRound}
         mobile
         onViewChange={setVista}
         className="min-h-0 flex-1"
