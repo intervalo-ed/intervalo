@@ -66,9 +66,28 @@ db = database.SessionLocal()
 db.add(Course(id=1, name="Análisis", slug="analisis"))
 db.commit()
 
+# Las fechas del test FLOTAN hacia adelante en vez de estar clavadas, y no es
+# cosmética: `boosts.grant` guarda `created_at=now` y `expires_at=now + dura`,
+# así que una fecha fija termina quedando en el pasado contra el reloj real y
+# los empujes de una sección se cuelan como "vencidos" en otra.
+#
+# Pasó de verdad. DIA3 estaba clavado en 2026-09-11; ese día el empuje manual de
+# la sección 7 venció contra `utcnow()` por primera vez, entró en
+# `due_cafecito_efecto_emails` y —al compartir `created_at` EXACTO con el empuje
+# de aforo de la sección 9— se comió la intención de donación de esa sección y le
+# mandó el mail a quien no correspondía. El CI del repo entero se puso en rojo
+# solo, sin que nadie tocara una línea.
+#
+# Treinta días de colchón: más que cualquier corrida y que cualquier reloj
+# corrido, y adentro de una misma corrida sigue siendo determinístico porque
+# todo cuelga de este mismo ancla.
+_ANCLA = (datetime.utcnow() + timedelta(days=30)).replace(
+    hour=15, minute=0, second=0, microsecond=0
+)
+
 # Un mediodía argentino cualquiera, para que el día local y el UTC coincidan y
 # los casos de borde se prueben aparte y a propósito.
-HOY = datetime(2026, 9, 8, 15, 0, 0)  # 12:00 en Buenos Aires
+HOY = _ANCLA  # 12:00 en Buenos Aires
 
 _seq = 0
 
@@ -189,20 +208,24 @@ check(otro is not None and otro.external_ref != boost.external_ref, "con otra re
 
 
 print("\n6. el día es el argentino, no el UTC")
-# 2026-09-10 01:30 UTC son las 22:30 del 9 en Buenos Aires: sigue siendo el 9.
-TARDE_UTC = datetime(2026, 9, 10, 1, 30, 0)
-check(aforo.dia_de(TARDE_UTC).isoformat() == "2026-09-09",
-      f"22:30 de Buenos Aires todavía es el 9 (dio {aforo.dia_de(TARDE_UTC)})")
+# 01:30 UTC son las 22:30 del día ANTERIOR en Buenos Aires (UTC-3, sin horario de
+# verano): el día local va uno atrás del UTC a esa hora. El esperado se deriva
+# del ancla en vez de ser un literal, o el test vuelve a caducar solo.
+TARDE_UTC = (_ANCLA + timedelta(days=2)).replace(hour=1, minute=30)
+DIA_LOCAL_DE_TARDE = (TARDE_UTC.date() - timedelta(days=1)).isoformat()
+check(aforo.dia_de(TARDE_UTC).isoformat() == DIA_LOCAL_DE_TARDE,
+      f"22:30 de Buenos Aires todavía es el día anterior (dio {aforo.dia_de(TARDE_UTC)}, esperaba {DIA_LOCAL_DE_TARDE})")
 for _ in range(10):
-    alta_clasico("UNC", TARDE_UTC - timedelta(hours=6))  # 16:30 del 9, mismo día local
+    alta_clasico("UNC", TARDE_UTC - timedelta(hours=6))  # 16:30, el mismo día local
 db.commit()
 check(aforo.personas_nuevas_hoy(db, "UNC", TARDE_UTC) == 10,
       "las altas de la tarde cuentan para la noche del mismo día local")
-check(aforo.referencia_de("UNC", TARDE_UTC).endswith("2026-09-09"), "y la referencia usa el día local")
+check(aforo.referencia_de("UNC", TARDE_UTC).endswith(DIA_LOCAL_DE_TARDE),
+      "y la referencia usa el día local")
 
 
 print("\n7. suma con un cafecito vigente, sin pisarlo")
-DIA3 = datetime(2026, 9, 11, 15, 0, 0)
+DIA3 = _ANCLA + timedelta(days=3)
 boosts.grant(db, university="UNLP", cafecitos=3, donor_name="Mati",
              source="manual", external_ref="test-mati", now=DIA3)
 db.commit()
