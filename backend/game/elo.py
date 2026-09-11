@@ -153,6 +153,20 @@ def effective_beta(beta: float, tier: int, n_players: int) -> float:
 # la escala nunca se vaya más de un 2% de un tier.
 RECENTRADO_UMBRAL = 0.05
 
+# Y cuánto es DEMASIADO para corregir solo. Un corrector automático hace ajustes
+# chicos y continuos; un δ grande no significa "corregí fuerte", significa que
+# pasó algo estructural —que la migración de re-anclaje nunca corrió, por
+# ejemplo— y eso lo mira una persona, no un `if`.
+#
+# Sin este tope el primer deploy habría aplicado los +2,4 acumulados de una,
+# corriendo las β sin correr los θ: el motor pasaría a creer que toda la gente es
+# 2,4 unidades más débil de lo que es. Medido contra la historia real, el 56% de
+# los jugadores caería a T0-T1 y tardaría un mes de tráfico en volver. Correr la
+# escala de golpe es un cambio de COORDENADAS y hay que mover las dos puntas
+# juntas; eso lo hace `scripts/diag/recentrar_escala.py`, a mano y con
+# confirmación.
+RECENTRADO_MAX = 0.5
+
 
 def desvio_de_escala(betas: dict[str, float], tiers: dict[str, int]) -> float:
     """Cuánto se corrió la escala entera de dificultad respecto de las semillas.

@@ -8,6 +8,7 @@ la reporta el cliente.
 
 from __future__ import annotations
 
+import logging
 import os
 import re
 from datetime import datetime, timedelta
@@ -889,6 +890,16 @@ def _recentrar_escala(db: Session) -> float:
         {f.template_key: f.tier for f in filas},
     )
     if abs(delta) <= elo.RECENTRADO_UMBRAL:
+        return 0.0
+    if abs(delta) > elo.RECENTRADO_MAX:
+        # Ver RECENTRADO_MAX: un desvío así no se corrige solo. Se avisa una vez
+        # por respuesta y se sigue — el juego no se cae porque la escala esté
+        # corrida, solo queda midiendo con la regla vieja hasta que alguien corra
+        # la migración.
+        logging.getLogger(__name__).warning(
+            "escala corrida %+.2f, por encima del tope %.2f: correr "
+            "scripts/diag/recentrar_escala.py", delta, elo.RECENTRADO_MAX,
+        )
         return 0.0
     for fila in filas:
         fila.beta += delta
