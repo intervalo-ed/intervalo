@@ -2512,6 +2512,10 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                   <div className="flex min-h-0 flex-1 flex-col justify-center overflow-hidden rounded-lg border border-border bg-card p-3">
                     <GameRanking
                       climbFrom={climbFrom}
+                      // El salto se apaga apenas arranca y no al terminar: así
+                      // vale una sola vez por derivada, sin depender de que
+                      // `servir` lo limpie. Ver `onSaltoArranca`.
+                      onSaltoArranca={() => setClimbFrom(null)}
                       enabled={player !== null}
                       liveXp={liveXp}
                       liveXpDelta={liveXpDelta}

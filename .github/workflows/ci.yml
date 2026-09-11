@@ -81,6 +81,7 @@ jobs:
           bun run check:filtros
           bun run check:latex
           bun run check:restante
+          bun run check:salto
 
       - name: Build
         working-directory: web

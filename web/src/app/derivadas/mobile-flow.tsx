@@ -81,7 +81,7 @@ import {
   type Direccion,
 } from "./slide-horizontal"
 import { ChatButton, ChatPanel } from "./chat-panel"
-import { GameRanking } from "./game-ranking"
+import { GameRanking, memoriaEnBlanco, type MemoriaDelRanking } from "./game-ranking"
 import { ALL_SCOPE, type RankingView } from "@/components/leaderboard-chrome"
 import { AMBAR } from "./game-colors"
 import { HINT_MOBILE, MathInput, type MathInputHandle } from "./math-input"
@@ -337,6 +337,26 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
   // sin salir del juego" creyendo medir "cuántas llevás". Todo eso usa ahora las
   // acumuladas que manda el servidor (`exercises_correct`). Ver hitos-del-juego.ts.
   const [climbFrom, setClimbFrom] = useState<number | null>(null)
+  // Lo que el ranking se acuerda entre una diapo y otra (ver
+  // `MemoriaDelRanking`). Vive acá y no adentro del ranking porque la diapo del
+  // ranking se REMONTA con cada navegación —`goTo` cambia `slideSeq`, que es la
+  // key del `AnimatePresence`—, así que irse al chat y volver construye un
+  // ranking nuevo. Se reinicia una vez por derivada, en `advanceAfterAnswer`.
+  const memoriaRanking = useRef<MemoriaDelRanking>(memoriaEnBlanco())
+  // La vista y el filtro van aparte, en estado y no en el ref, porque esto se
+  // lee en el RENDER —es el estado inicial del ranking— y el compilador de React
+  // no deja leer un ref mientras se renderiza.
+  const [scopeRanking, setScopeRanking] = useState<{
+    view: RankingView
+    university: string
+  }>({ view: "individual", university: ALL_SCOPE })
+  // Estables, y no objetos nuevos por render: son dependencias de efectos del
+  // ranking. Cada uno escribe lo suyo —acá se toca el ref de acá— que es lo que
+  // hace que el ranking no tenga que modificar una prop para acordarse de nada.
+  const leerMemoriaRanking = useCallback(() => memoriaRanking.current, [])
+  const guardarMemoriaRanking = useCallback((m: MemoriaDelRanking) => {
+    memoriaRanking.current = m
+  }, [])
   const inputRef = useRef<MathInputHandle | null>(null)
   // Ref de CALLBACK que IGNORA el null, y no el objeto pelado. Con el volteo
   // entre ejercicios la card vieja y la nueva conviven un rato, y la vieja
@@ -585,6 +605,13 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
         // recién ahí empezar a esperar dejaba casi un segundo de nada entre el
         // dedo y el festejo.
         releaseXp()
+        // La memoria del ranking arranca en blanco: ESTE es el único lugar donde
+        // nace una diapo de ranking nueva, y por eso es el único donde se
+        // reinicia. Hacerlo en `goTo` sería el bug: volver del chat llama a
+        // `goTo(slide.back)` con la MISMA diapo de ranking, y ahí reiniciar es
+        // exactamente lo que arrancaba a la persona de donde estaba mirando.
+        memoriaRanking.current = memoriaEnBlanco()
+        setScopeRanking({ view: "individual", university: ALL_SCOPE })
         goTo({ kind: "ranking", answer: a })
         return
       }
@@ -1526,6 +1553,13 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
             <RankingSlide
               answer={slide.answer}
               climbFrom={climbFrom}
+              // El salto se da por visto apenas arranca: si la persona se va al
+              // chat a mitad de vuelo, al volver no lo ve de nuevo.
+              onSaltoArranca={() => setClimbFrom(null)}
+              leerMemoria={leerMemoriaRanking}
+              guardarMemoria={guardarMemoriaRanking}
+              scopeInicial={scopeRanking}
+              onScopeElegido={setScopeRanking}
               liveXp={liveXp}
               liveXpDelta={liveXpDelta}
               counting={counting}
@@ -1587,6 +1621,8 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   setLastAnswer(null)
                   setTonoLocal(null)
                   setClimbFrom(null)
+                  memoriaRanking.current = memoriaEnBlanco()
+                  setScopeRanking({ view: "individual", university: ALL_SCOPE })
                   pendingRef.current = null
                   // Reiniciar vence TODO lo servido, también lo adelantado.
                   descartarAdelanto()
@@ -1881,6 +1917,11 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
 function RankingSlide({
   answer,
   climbFrom,
+  onSaltoArranca,
+  leerMemoria,
+  guardarMemoria,
+  scopeInicial,
+  onScopeElegido,
   liveXp,
   liveXpDelta,
   counting,
@@ -1900,6 +1941,11 @@ function RankingSlide({
 }: {
   answer: GameAnswer
   climbFrom: number | null
+  onSaltoArranca: () => void
+  leerMemoria: () => MemoriaDelRanking
+  guardarMemoria: (m: MemoriaDelRanking) => void
+  scopeInicial: { view: RankingView; university: string }
+  onScopeElegido: (s: { view: RankingView; university: string }) => void
   liveXp: number | null
   liveXpDelta: number | null
   counting: boolean
@@ -1959,6 +2005,11 @@ function RankingSlide({
           que es a lo que se vino. */}
       <GameRanking
         climbFrom={climbFrom}
+        onSaltoArranca={onSaltoArranca}
+        leerMemoria={leerMemoria}
+        guardarMemoria={guardarMemoria}
+        scopeInicial={scopeInicial}
+        onScopeElegido={onScopeElegido}
         enabled={enabled}
         liveXp={liveXp}
         counting={counting}
