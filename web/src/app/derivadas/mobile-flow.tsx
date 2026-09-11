@@ -81,7 +81,7 @@ import {
   type Direccion,
 } from "./slide-horizontal"
 import { ChatButton, ChatPanel } from "./chat-panel"
-import { GameRanking } from "./game-ranking"
+import { GameRanking, memoriaEnBlanco, type MemoriaDelRanking } from "./game-ranking"
 import { ALL_SCOPE, type RankingView } from "@/components/leaderboard-chrome"
 import { AMBAR } from "./game-colors"
 import { HINT_MOBILE, MathInput, type MathInputHandle } from "./math-input"
@@ -109,7 +109,7 @@ import {
 } from "./UseGameLeaderboard"
 import { gameKeys, useGamePlayer, type GamePlayer } from "./UseGamePlayer"
 import { comboTrasIntento } from "./racha-estimate"
-import { esVueltaUniversitaria } from "./vuelta-universitaria"
+import { vistaInicialDelRanking } from "./vuelta-universitaria"
 import { estimarXp } from "./xp-estimate"
 import { useXpConteo } from "./xp-conteo"
 
@@ -337,6 +337,26 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
   // sin salir del juego" creyendo medir "cuántas llevás". Todo eso usa ahora las
   // acumuladas que manda el servidor (`exercises_correct`). Ver hitos-del-juego.ts.
   const [climbFrom, setClimbFrom] = useState<number | null>(null)
+  // Lo que el ranking se acuerda entre una diapo y otra (ver
+  // `MemoriaDelRanking`). Vive acá y no adentro del ranking porque la diapo del
+  // ranking se REMONTA con cada navegación —`goTo` cambia `slideSeq`, que es la
+  // key del `AnimatePresence`—, así que irse al chat y volver construye un
+  // ranking nuevo. Se reinicia una vez por derivada, en `advanceAfterAnswer`.
+  const memoriaRanking = useRef<MemoriaDelRanking>(memoriaEnBlanco())
+  // La vista y el filtro van aparte, en estado y no en el ref, porque esto se
+  // lee en el RENDER —es el estado inicial del ranking— y el compilador de React
+  // no deja leer un ref mientras se renderiza.
+  const [scopeRanking, setScopeRanking] = useState<{
+    view: RankingView
+    university: string
+  }>({ view: "individual", university: ALL_SCOPE })
+  // Estables, y no objetos nuevos por render: son dependencias de efectos del
+  // ranking. Cada uno escribe lo suyo —acá se toca el ref de acá— que es lo que
+  // hace que el ranking no tenga que modificar una prop para acordarse de nada.
+  const leerMemoriaRanking = useCallback(() => memoriaRanking.current, [])
+  const guardarMemoriaRanking = useCallback((m: MemoriaDelRanking) => {
+    memoriaRanking.current = m
+  }, [])
   const inputRef = useRef<MathInputHandle | null>(null)
   // Ref de CALLBACK que IGNORA el null, y no el objeto pelado. Con el volteo
   // entre ejercicios la card vieja y la nueva conviven un rato, y la vieja
@@ -585,6 +605,28 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
         // recién ahí empezar a esperar dejaba casi un segundo de nada entre el
         // dedo y el festejo.
         releaseXp()
+        // La memoria del ranking arranca en blanco: ESTE es el único lugar donde
+        // nace una diapo de ranking nueva, y por eso es el único donde se
+        // reinicia. Hacerlo en `goTo` sería el bug: volver del chat llama a
+        // `goTo(slide.back)` con la MISMA diapo de ranking, y ahí reiniciar es
+        // exactamente lo que arrancaba a la persona de donde estaba mirando.
+        memoriaRanking.current = memoriaEnBlanco()
+        // Y con qué lista arranca. Acá se decide la vuelta universitaria: cada 3
+        // correctas el festejo se cuenta sobre la universidad, así que la lista
+        // que aparece al tocar Continuar es la de universidades y el número que
+        // trepa es el de la propia (ver vuelta-universitaria.ts).
+        //
+        // Se dice ACÁ, eligiendo la vista inicial, y no con la prop
+        // `universityRound` del ranking. Esa prop la lee escritorio, donde el
+        // «acabo de acertar» es el cambio de `centerKey` sobre un componente que
+        // NUNCA se desmonta. En el teléfono el ranking se monta de cero con cada
+        // derivada, así que `elegido.key` nace igual a `centerKey` y esa señal no
+        // puede dispararse jamás: la vuelta universitaria estuvo muerta en el
+        // teléfono desde que se escribió. El montaje ES el «acabo de acertar».
+        setScopeRanking({
+          view: vistaInicialDelRanking(a.exercises_correct, player?.university ?? null),
+          university: ALL_SCOPE,
+        })
         goTo({ kind: "ranking", answer: a })
         return
       }
@@ -1526,6 +1568,13 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
             <RankingSlide
               answer={slide.answer}
               climbFrom={climbFrom}
+              // El salto se da por visto apenas arranca: si la persona se va al
+              // chat a mitad de vuelo, al volver no lo ve de nuevo.
+              onSaltoArranca={() => setClimbFrom(null)}
+              leerMemoria={leerMemoriaRanking}
+              guardarMemoria={guardarMemoriaRanking}
+              scopeInicial={scopeRanking}
+              onScopeElegido={setScopeRanking}
               liveXp={liveXp}
               liveXpDelta={liveXpDelta}
               counting={counting}
@@ -1587,6 +1636,8 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   setLastAnswer(null)
                   setTonoLocal(null)
                   setClimbFrom(null)
+                  memoriaRanking.current = memoriaEnBlanco()
+                  setScopeRanking({ view: "individual", university: ALL_SCOPE })
                   pendingRef.current = null
                   // Reiniciar vence TODO lo servido, también lo adelantado.
                   descartarAdelanto()
@@ -1881,6 +1932,11 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
 function RankingSlide({
   answer,
   climbFrom,
+  onSaltoArranca,
+  leerMemoria,
+  guardarMemoria,
+  scopeInicial,
+  onScopeElegido,
   liveXp,
   liveXpDelta,
   counting,
@@ -1900,6 +1956,11 @@ function RankingSlide({
 }: {
   answer: GameAnswer
   climbFrom: number | null
+  onSaltoArranca: () => void
+  leerMemoria: () => MemoriaDelRanking
+  guardarMemoria: (m: MemoriaDelRanking) => void
+  scopeInicial: { view: RankingView; university: string }
+  onScopeElegido: (s: { view: RankingView; university: string }) => void
   liveXp: number | null
   liveXpDelta: number | null
   counting: boolean
@@ -1933,13 +1994,6 @@ function RankingSlide({
   // selector de vista vive adentro suyo.
   const [vista, setVista] = useState<RankingView>("individual")
 
-  // Cada 3 derivadas bien resueltas, la que aparece al tocar Continuar es la
-  // lista de universidades y el conteo trepa sobre la propia. Se decide con el
-  // contador del servidor que vino en ESTA respuesta, así que no hay estado que
-  // llevar: la diapo se monta de nuevo con cada derivada y la cuenta ya está
-  // hecha. Ver vuelta-universitaria.ts.
-  const universityRound = esVueltaUniversitaria(answer.exercises_correct, myUniversity)
-
   return (
     <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col gap-3 px-4 pb-[var(--cta-pb)] pt-3">
       {/* La misma barra que en el ejercicio, y en el mismo lugar: entre las dos
@@ -1959,13 +2013,17 @@ function RankingSlide({
           que es a lo que se vino. */}
       <GameRanking
         climbFrom={climbFrom}
+        onSaltoArranca={onSaltoArranca}
+        leerMemoria={leerMemoria}
+        guardarMemoria={guardarMemoria}
+        scopeInicial={scopeInicial}
+        onScopeElegido={onScopeElegido}
         enabled={enabled}
         liveXp={liveXp}
         counting={counting}
         liveXpDelta={liveXpDelta}
         xpColor={xpColor}
         myUniversity={myUniversity}
-        universityRound={universityRound}
         mobile
         onViewChange={setVista}
         className="min-h-0 flex-1"

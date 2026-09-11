@@ -53,3 +53,26 @@ export function esVueltaUniversitaria(
     correctasTotales % VUELTA_UNIVERSITARIA_CADA === 0
   )
 }
+
+/** Con qué lista abre el ranking del TELÉFONO después de una respuesta.
+ *
+ *  Vive acá, al lado de la regla, porque es su único consumidor en el teléfono y
+ *  porque la asimetría entre las dos plataformas merece estar escrita donde
+ *  alguien la vaya a buscar.
+ *
+ *  En escritorio la vuelta se dice con `universityRound` sobre un ranking que
+ *  NUNCA se desmonta: la señal es que cambie `centerKey`, y el componente compara
+ *  esa clave contra la que tenía guardada. En el teléfono el ranking se monta de
+ *  cero con cada derivada, así que esa clave nace igual a la de afuera y la
+ *  comparación no puede dar distinto nunca — la vuelta universitaria estuvo
+ *  muerta ahí desde que se escribió, en septiembre de 2026. El montaje ES el
+ *  «acabo de acertar», así que lo que hay que elegir es con qué lista arranca.
+ *
+ *  Lo que la persona elija después le gana, igual que en escritorio: esto decide
+ *  el arranque, no lo que se muestra de ahí en adelante. */
+export function vistaInicialDelRanking(
+  correctasTotales: number,
+  universidad: string | null,
+): "individual" | "university" {
+  return esVueltaUniversitaria(correctasTotales, universidad) ? "university" : "individual"
+}

@@ -10,13 +10,16 @@
 //   · Scroll infinito por baches hacia arriba y hacia abajo, anclando la
 //     posición al cargar hacia arriba para que la lista no pegue saltos.
 //   · Vuelve a acomodar la fila propia sola —a cuatro filas del techo, no en el
-//     centro— a los 10 s sin tocar la rueda, o cuando el layout lo pide.
+//     centro— a los 10 s sin tocar la lista, o cuando el layout lo pide. En el
+//     teléfono, con la lista movida a mano no vuelve a acomodar nada hasta la
+//     derivada siguiente (ver `MemoriaDelRanking`).
 //   · Muestra el XP mientras el conteo del festejo lo va llenando (`liveXp`),
 //     pintado del color de ese paso (`xpColor`), y recién cuando termina llega
-//     el orden nuevo y la fila sube con un FLIP de motion.
+//     el orden nuevo y la fila sube DE UN SALTO, con el FLIP de motion y el
+//     scroll acompañando (ver salto-ranking.ts).
 
 import { memo, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
-import { motion, useReducedMotion } from "motion/react"
+import { motion, useReducedMotion, type Transition } from "motion/react"
 import { ArrowDown, ArrowUp, LayersIcon, UsersIcon } from "lucide-react"
 import { CountUp } from "@/components/count-up"
 import {
@@ -38,6 +41,7 @@ import {
   useBoostMultipliers,
 } from "@/components/boost-banner"
 import { filaConEmpuje, levelColor } from "./game-colors"
+import { curvaDelSalto, duracionDelSalto, filasDelSalto } from "./salto-ranking"
 import { VERDE, fmtMultiplier } from "./cafecito-cta"
 import { EJEMPLOS_COUNT, EJEMPLOS_XP_TOTAL, ListaDeReclutas } from "./reclutas-list"
 import {
@@ -52,46 +56,62 @@ import {
   type Scope,
 } from "./UseGameLeaderboard"
 
-// Ritmo de la escalada: cada paso pasa a un jugador. El total está acotado para
-// que una escalada larga no se eternice.
+// Acá vivía la escalada: la fila propia subía de a UN puesto por vez, con un
+// resorte por paso, para que se viera a quién estabas pasando. Se cambió por un
+// salto único (ver salto-ranking.ts) y conviene dejar escrito por qué, porque el
+// argumento de antes no era tonto.
 //
-// El piso son 140 ms y no 80: con 80, una escalada de diez puestos —que en el
-// teléfono es de las más comunes, el ranking está lleno de cuentas en cero— era
-// un borrón. Doce fotogramas por paso no alcanzan para que un resorte se lea, y
-// lo que se veía era la lista temblando. A 140 cada sobrepaso se distingue, que
-// es todo el motivo por el que la escalada existe en vez de un salto.
-const CLIMB_TOTAL_MS = 1600
-const CLIMB_STEP_MIN_MS = 140
-const CLIMB_STEP_MAX_MS = 220
+// El piso de 140 ms por paso existía justamente para que cada sobrepaso se
+// distinguiera. El problema es que ese piso rompía el tope: `CLIMB_TOTAL_MS` se
+// llamaba "total" y decía 1600, pero treinta puestos duraban 140 × 30 = 4200 ms,
+// y a partir de veintidós ya se pasaba de los tres segundos. En el teléfono, con
+// el ranking lleno de cuentas en cero, los saltos de decenas de puestos son los
+// COMUNES, así que el caso que la escalada prometía cuidar era el que peor
+// quedaba: cuatro segundos de filas temblando, porque a 140 ms un resorte
+// tampoco llega a asentarse.
+//
+// El salto único pierde a quién pasaste y gana que el tope sea cierto. Lo que
+// queda de "a cuántos" es el número del puesto, que cuenta en vivo durante el
+// viaje (ver `RankEnVuelo`).
 
-// El resorte de cada fila. Son dos y no uno, y esa es la diferencia entre "la
-// lista se sacudió" y "pasaste a alguien".
+// El resorte del reacomodo de siempre: el que corre cuando el mundo se mueve
+// solo, sin salto de por medio.
 //
-// La fila PROPIA es la protagonista: más blanda y sin retraso, arranca en el
-// mismo fotograma que el paso. Las demás la acompañan —son a quienes está
-// pasando— así que salen un pelín después y más secas. El ojo sigue entonces un
-// solo movimiento y ve al resto acomodarse detrás, en vez de que todo se mueva
-// junto y no se entienda qué pasó a qué.
-//
-// Constantes de módulo y no objetos armados en el render: `Row` está memoizada
+// Constante de módulo y no un objeto armado en el render: `Row` está memoizada
 // con comparación superficial, y un literal nuevo por render le rompería el memo
 // a las noventa filas justo en el fotograma más caro de la aplicación.
-const RESORTE_PROPIO = { type: "spring", stiffness: 210, damping: 30 } as const
-const RESORTE_ACOMPANA = {
-  type: "spring",
-  stiffness: 320,
-  damping: 32,
-  delay: 0.07,
-} as const
 const RESORTE_AMBIENTE = { type: "spring", stiffness: 320, damping: 32 } as const
 
 // Con movimiento reducido no hay resorte que valga: la fila aparece donde va.
 const SIN_MOVIMIENTO = { duration: 0 } as const
 
-// Cuánto se acerca el scroll a la posición de descanso en cada paso de la
-// escalada. Menos de 1 a propósito: el scroll acompaña con retraso, así se ve
-// que la fila trepa por la pantalla en vez de quedarse clavada en su lugar.
-const CLIMB_SCROLL_FOLLOW = 0.4
+// Las tres fases del salto. `agachado` dura UN fotograma pintado —el que dibuja
+// la fila en el puesto del que viene, para que el FLIP de motion tenga contra
+// qué medir— y `volando` dura lo que dure el salto.
+type Fase = "agachado" | "volando" | "listo"
+
+// Un solo objeto de transición por duración, cacheado. No es microoptimización:
+// es lo que hace que las hasta noventa filas de un salto compartan la MISMA
+// identidad de transición, igual que compartían `RESORTE_AMBIENTE`. Hay una sola
+// duración por salto, así que una caché de un elemento acierta siempre.
+let ultimoTween: { ms: number; t: Transition } | null = null
+function tweenDelSalto(ms: number): Transition {
+  if (ultimoTween?.ms !== ms) {
+    ultimoTween = { ms, t: { type: "tween", duration: ms / 1000, ease: curvaDelSalto } }
+  }
+  return ultimoTween.t
+}
+
+// Cuánto se retrasa la ventana respecto de la fila durante el salto: la ventana
+// recorre `p ** RETRASO_VENTANA` mientras la fila recorre `p`, así que va siempre
+// atrás y las dos llegan juntas.
+//
+// El retraso existe para que se vea que la fila TREPA por la pantalla en vez de
+// quedar clavada en su lugar mientras el resto desfila. Antes era un 0,4 de
+// acercamiento por paso, que dejaba una deuda al final y se pagaba con un scroll
+// suave aparte —o sea, un segundo movimiento pegado al primero—. Así el retraso
+// se salda adentro del mismo viaje.
+const RETRASO_VENTANA = 1.5
 
 // Filas que quedan por encima de la propia cuando la lista descansa. No es el
 // centro: se mira hacia arriba, a quién falta pasar, más que hacia abajo.
@@ -118,9 +138,37 @@ const LIST_TOP_PADDING = 4
 // hace mientras se piensa la derivada: diez segundos llegaban en la mitad de
 // una lectura. En el teléfono la lista es una diapo aparte, a la que se entró a
 // propósito y de la que se sale con un botón, y ahí lo que hace falta no es más
-// tiempo sino que el gesto mande (ver `manoRef`).
+// tiempo sino que el gesto mande (ver `MemoriaDelRanking`).
 const IDLE_RECENTER_MS = 20_000
 const IDLE_RECENTER_MS_MOVIL = 10_000
+
+/** Lo que el ranking del teléfono se acuerda entre una diapo y otra.
+ *
+ *  Vive en `MobileFlow` y no acá adentro, y ese es todo el punto: en el teléfono
+ *  el ranking SE REMONTA con cada navegación —`goTo` cambia `slideSeq`, que es la
+ *  key del `AnimatePresence`— así que irse al chat y volver construye un ranking
+ *  nuevo, con el scroll en cero y sin memoria de nada. Un ref adentro del
+ *  componente no puede acordarse de nada que sobreviva a eso, que es por lo que
+ *  el arreglo anterior (PR #353) se quedaba corto.
+ *
+ *  Se reinicia UNA vez por derivada, en el `goTo({ kind: "ranking" })` de
+ *  `advanceAfterAnswer`. O sea: el ranking se centra al entrar después de tocar
+ *  Continuar, y de ahí en más la lista es de la persona hasta la derivada
+ *  siguiente.
+ *
+ *  Escritorio no la usa: ahí el ranking es la cara de un `FlipCard` que nunca se
+ *  desmonta, así que sus refs ya duran lo que tienen que durar. */
+export type MemoriaDelRanking = {
+  // Movió la lista con la mano. Apaga TODO recentrado automático.
+  mano: boolean
+  // Dónde la dejó, para devolvérsela igual al volver.
+  top: number
+}
+
+/** Una memoria en blanco: la de la derivada que recién empieza. */
+export function memoriaEnBlanco(): MemoriaDelRanking {
+  return { mano: false, top: 0 }
+}
 
 // Dónde tiene que quedar el scroll para que la fila marcada como propia
 // descanse a ROWS_ABOVE del techo. Lo usan las dos vistas —la individual con la
@@ -136,12 +184,33 @@ function restingScrollTopFor(el: HTMLElement | null): number | null {
   return Math.max(0, anchor.offsetTop - LIST_TOP_PADDING)
 }
 
+/** El scroll que deja una fila entera en pantalla, con una fila de margen.
+ *
+ *  Es la franja que el salto no negocia: adentro de ella la ventana puede ir con
+ *  el retraso que quiera, afuera manda la fila y la ventana la sigue a su
+ *  velocidad. Está acá afuera —y no adentro del efecto, como estaba— porque
+ *  ahora hay que aplicarla en cada fotograma del vuelo y también en el fotograma
+ *  agachado. */
+function encuadrar(el: HTMLElement, y: number, alto: number, deseado: number): number {
+  const margen = alto
+  const masAbajo = y + alto + margen - el.clientHeight
+  const masArriba = y - margen
+  const acotado = Math.max(Math.min(deseado, masArriba), masAbajo)
+  return Math.max(0, Math.min(acotado, el.scrollHeight - el.clientHeight))
+}
+
 // Resaltado de "esta fila sos vos": el mismo en las dos vistas.
 const MINE_ROW_CLASS = "bg-primary/10 ring-primary/30"
 
 export type GameRankingProps = {
-  // Puesto anterior: si viene y es peor que el actual, se anima la escalada.
+  // Puesto anterior: si viene y es peor que el actual, se anima el salto.
   climbFrom?: number | null
+  // Avisa que el salto acaba de arrancar. Quien manda `climbFrom` TIENE que
+  // ponerlo en null acá: es lo que hace que el salto se dé por visto apenas está
+  // en el aire, y no al terminar. La diferencia importa en el teléfono, donde
+  // irse al chat a mitad de vuelo desmonta el ranking: al volver, el salto ya no
+  // vuelve a empezar.
+  onSaltoArranca?: () => void
   enabled?: boolean
   // XP a mostrar en la fila propia mientras el conteo la va llenando.
   liveXp?: number | null
@@ -166,9 +235,28 @@ export type GameRankingProps = {
   // igual que le gana al reacomodo de siempre.
   universityRound?: boolean
   // Si esto se dibuja en un teléfono. Gobierna UNA cosa: cómo se comporta el
-  // recentrado automático (ver IDLE_RECENTER_MS y `manoRef`). No cambia nada de
-  // lo que se muestra — para eso están los layouts, que ya son dos archivos.
+  // recentrado automático (ver IDLE_RECENTER_MS y `MemoriaDelRanking`). No cambia
+  // nada de lo que se muestra — para eso están los layouts, que ya son dos
+  // archivos.
   mobile?: boolean
+  // Lo que el ranking tiene que recordar entre diapo y diapo (ver
+  // `MemoriaDelRanking`). Las manda solo el teléfono, que es donde el componente
+  // se remonta con cada navegación; sin ellas el ranking se acuerda de todo en
+  // sus propios refs, que es lo que escritorio necesita y ya tenía.
+  //
+  // Viaja como un par de funciones y no como el ref pelado por una razón del
+  // linter que además es buena: modificar una prop —aunque sea un ref— está
+  // prohibido, y con razón. Así cada uno escribe lo suyo: el ranking sus refs
+  // locales, `MobileFlow` su memoria, cada uno adentro de su propio componente.
+  leerMemoria?: () => MemoriaDelRanking
+  guardarMemoria?: (m: MemoriaDelRanking) => void
+  // Con qué vista y qué filtro arranca. Es una prop y no parte de `memoria`
+  // porque esto se lee en el RENDER —es el estado inicial de `elegido`— y el
+  // compilador de React no deja leer un ref mientras se renderiza. Quien la
+  // manda es el teléfono, para que volver del chat te devuelva a la lista que
+  // estabas mirando; lo que se elija después se avisa por `onScopeElegido`.
+  scopeInicial?: { view: RankingView; university: string }
+  onScopeElegido?: (s: { view: RankingView; university: string }) => void
   // Universidad del jugador: se resalta en la vista universitaria igual que su
   // fila en la individual.
   myUniversity?: string | null
@@ -216,8 +304,13 @@ export type RankingSort = "experiencia" | "elo"
 // mismo objeto o cada render pediría de nuevo.
 const SIN_SCOPE: Scope = { university: ALL_SCOPE, career: ALL_SCOPE }
 
+// Con qué arranca el ranking cuando nadie dice lo contrario: la lista de
+// personas, sin filtrar. Constante de módulo para que su identidad no cambie.
+const SCOPE_INICIAL = { view: "individual" as RankingView, university: ALL_SCOPE }
+
 export function GameRanking({
   climbFrom = null,
+  onSaltoArranca,
   enabled = true,
   liveXp = null,
   liveXpDelta = null,
@@ -227,6 +320,10 @@ export function GameRanking({
   centerKey = 0,
   universityRound = false,
   mobile = false,
+  leerMemoria,
+  guardarMemoria,
+  scopeInicial = SCOPE_INICIAL,
+  onScopeElegido,
   myUniversity = null,
   viewOverride = null,
   boostPreview = null,
@@ -258,7 +355,7 @@ export function GameRanking({
     key: number
     view: RankingView
     university: string
-  }>({ key: centerKey, view: "individual", university: ALL_SCOPE })
+  }>({ key: centerKey, view: scopeInicial.view, university: scopeInicial.university })
 
   const acaboDeAcertar = elegido.key !== centerKey
   const propio = (valor: string, mio: string | null) =>
@@ -288,10 +385,16 @@ export function GameRanking({
 
   // Los setters guardan SIEMPRE la clave del momento: así lo que se elija después
   // de un acierto queda, en vez de volver a reiniciarse en el siguiente render.
-  const setView = (v: RankingView) =>
+  // Y lo avisan hacia afuera, que es lo que le permite al teléfono devolver esta
+  // misma lista cuando el ranking se remonta.
+  const setView = (v: RankingView) => {
     setElegido({ key: centerKey, view: v, university })
-  const setUniversity = (v: string) =>
+    onScopeElegido?.({ view: v, university })
+  }
+  const setUniversity = (v: string) => {
     setElegido({ key: centerKey, view, university: v })
+    onScopeElegido?.({ view, university: v })
+  }
 
   // Se avisa la vista EFECTIVA, la de arriba, no la elegida: `viewOverride` y
   // `boostPreview` mandan por encima y quien escucha tiene que ver lo mismo que
@@ -525,12 +628,15 @@ export function GameRanking({
           // experiencia (desktop-layout.tsx), así que esto es lo que pasa en el
           // hueco entre el acierto y ese cambio, no el caso normal.
           climbFrom={sort === "elo" ? null : climbFrom}
+          onSaltoArranca={onSaltoArranca}
           liveXp={sort === "elo" ? null : liveXp}
           counting={counting}
           xpColor={xpColor}
           attachXpTarget={sort === "elo" ? undefined : attachXpTarget}
           centerKey={centerKey}
           mobile={mobile}
+          leerMemoria={leerMemoria}
+          guardarMemoria={guardarMemoria}
           boostPreview={boostPreview}
         />
       ) : (
@@ -664,8 +770,19 @@ function useStagedOrder(
       // intervalo es de los pocos que corren toda la sesión: en escritorio el
       // ranking queda montado de principio a fin.
       if (typeof document !== "undefined" && document.hidden) return
-      // La escalada manda: mientras dura, el orden no lo toca nadie más.
-      if (pausadoRef.current) return
+      // El salto manda: mientras dura, el orden no lo toca nadie más. Pero la
+      // cola se deja ALINEADA con lo que el salto está mostrando, que es el
+      // orden del servidor: sin esto, al terminar el salto la lista volvía de un
+      // golpe al orden viejo para recién ahí caminar de a un cruce hasta el
+      // nuevo, o sea que el reacomodo deshacía a ojos vista lo que el salto
+      // acababa de hacer.
+      if (pausadoRef.current) {
+        if (!mismoOrden(targetRef.current, orderRef.current)) {
+          queueRef.current = []
+          setOrderIds(targetRef.current)
+        }
+        return
+      }
 
       const target = targetRef.current
       const actual = orderRef.current
@@ -726,24 +843,30 @@ function IndividualRanking({
   enabled,
   sort,
   climbFrom,
+  onSaltoArranca,
   liveXp,
   counting,
   xpColor,
   attachXpTarget,
   centerKey,
   mobile,
+  leerMemoria,
+  guardarMemoria,
   boostPreview,
 }: {
   scope: Scope
   enabled: boolean
   sort: RankingSort
   climbFrom: number | null
+  onSaltoArranca?: () => void
   liveXp: number | null
   counting: boolean
   xpColor: string | null
   attachXpTarget?: (node: HTMLElement | null) => void
   centerKey: number
   mobile: boolean
+  leerMemoria?: () => MemoriaDelRanking
+  guardarMemoria?: (m: MemoriaDelRanking) => void
   boostPreview?: { university: string; multiplier: number; color: string } | null
 }) {
   const boostsVigentes = useGameBoosts()
@@ -775,71 +898,151 @@ function IndividualRanking({
 
   // El orden llega de a un cruce por vez; los datos, todos juntos.
   //
-  // El ref se llena unas líneas más abajo, cuando ya se sabe si la escalada
-  // sigue en curso: es un ref y no una prop justamente por eso, el reacomodo lo
-  // lee dentro de su intervalo y no necesita enterarse en el render.
+  // El ref se llena unas líneas más abajo, cuando ya se sabe si el salto sigue
+  // en curso: es un ref y no una prop justamente por eso, el reacomodo lo lee
+  // dentro de su intervalo y no necesita enterarse en el render.
   const escalandoRef = useRef(false)
-  const entries = useStagedOrder(rawEntries, escalandoRef)
+  const staged = useStagedOrder(rawEntries, escalandoRef)
 
-  const meIndex = entries.findIndex((e) => e.is_current_player)
-  const myRank = meIndex >= 0 ? entries[meIndex].rank : null
+  // El puesto propio sale de la lista CRUDA y no de la escalonada. Es el mismo
+  // dato —`useStagedOrder` escalona el ORDEN, nunca los datos— y leerlo acá
+  // rompe la circularidad de "para saber si hay salto necesito la lista, y para
+  // armar la lista necesito saber si hay salto".
+  const meIndexRaw = rawEntries.findIndex((e) => e.is_current_player)
+  const myRank = meIndexRaw >= 0 ? rawEntries[meIndexRaw].rank : null
   const quieto = !!useReducedMotion()
   const climbing =
     !quieto && climbFrom !== null && myRank !== null && climbFrom > myRank
 
-  // ── Escalada puesto por puesto ─────────────────────────────────────────────
-  // No es un salto del puesto viejo al nuevo: la fila propia va pasando a uno
-  // por vez, y en cada paso las dos tarjetas permutan con el FLIP de motion. Es
-  // lo que hace que se vea a quién superaste, en vez de aparecer más arriba.
-  const distance = climbing ? climbFrom - (myRank as number) : 0
+  // ── El salto ───────────────────────────────────────────────────────────────
+  // UN movimiento continuo del puesto viejo al nuevo, con aceleración, velocidad
+  // de crucero acotada y un tope duro de tres segundos (ver salto-ranking.ts).
+  // Son dos fotogramas y nada más: en el primero la fila se dibuja DONDE ESTABA
+  // y sin transición, y en el segundo donde va. El `layout` de motion interpola
+  // el camino entero.
+  //
+  // Cuántas filas hay por debajo de la propia en la ventana cargada: el salto no
+  // puede pedir más que eso. La lista es infinita por baches y el puesto del que
+  // venís puede no estar cargado. Se acota ACÁ, donde todavía se puede corregir
+  // la duración, y no al insertar la fila como se hacía antes —ahí la duración
+  // quedaba calculada sobre una distancia que nunca se recorría.
+  const disponibles = meIndexRaw < 0 ? 0 : rawEntries.length - 1 - meIndexRaw
+  const filasPosibles = filasDelSalto(
+    climbing ? climbFrom - (myRank as number) : 0,
+    disponibles,
+  )
 
-  // Identidad de la escalada en curso. Derivar el paso de esta clave (en vez de
-  // resetearlo con un setState sincrónico en un efecto) evita el render en
-  // cascada que marca el linter.
-  const climbKey = climbing
-    ? `${climbFrom}:${entries.map((e) => e.player_id).join(",")}`
-    : null
-  const [climbState, setClimbState] = useState<{ key: string | null; step: number }>({
-    key: null,
-    step: 0,
+  // El salto se congela al arrancar: filas, duración y puesto de origen quedan
+  // guardados en el estado en vez de recalcularse. Así el vuelo se completa
+  // aunque `climbFrom` desaparezca a mitad de camino —que es justo lo que pasa,
+  // porque `onSaltoArranca` lo apaga para que volver del chat no lo repita.
+  const [salto, setSalto] = useState<{
+    key: number | null
+    fase: Fase
+    filas: number
+    ms: number
+    desde: number
+  }>({ key: null, fase: "listo", filas: 0, ms: 0, desde: 0 })
+
+  // Terminado el salto y apagado el `climbFrom`, la clave se suelta. Sin esto,
+  // dos derivadas seguidas que arrancan del MISMO puesto compartirían clave y la
+  // segunda no saltaría. Se ajusta durante el render, que es el patrón que React
+  // documenta para acomodar estado cuando cambian los datos de afuera.
+  //
+  // Y se suelta solo con `climbFrom` ya apagado, no apenas termina el vuelo: esa
+  // es la red contra un layout que se olvide de apagarlo. Ahí el salto no entra
+  // en loop, simplemente no vuelve a arrancar.
+  if (!climbing && salto.fase === "listo" && salto.key !== null) {
+    setSalto({ key: null, fase: "listo", filas: 0, ms: 0, desde: 0 })
+  }
+
+  const nuevo = climbing && filasPosibles > 0 && salto.key !== climbFrom
+  const fase: Fase = nuevo ? "agachado" : salto.fase
+  const filas = nuevo ? filasPosibles : salto.filas
+  const saltoMs = nuevo ? duracionDelSalto(filasPosibles) : salto.ms
+  const desde = nuevo ? (climbFrom as number) : salto.desde
+  const settled = fase === "listo"
+
+  // El aviso viaja por un ref y NO por las dependencias del efecto de abajo, y
+  // no es prolijidad: los dos layouts lo pasan como una flecha inline, así que
+  // su identidad cambia en cada render. Con él en las dependencias, cada render
+  // del festejo —y hay uno por paso del conteo— volvía a correr el efecto y
+  // cancelaba el `requestAnimationFrame` antes de que llegara a disparar: el
+  // salto se quedaba agachado para siempre, con la fila hundida y el número
+  // clavado en el puesto viejo. Medido en el navegador, no deducido.
+  const arrancaRef = useRef(onSaltoArranca)
+  useEffect(() => {
+    arrancaRef.current = onSaltoArranca
   })
-  const step = climbState.key === climbKey ? climbState.step : 0
-  const remaining = Math.max(0, distance - step)
-  const settled = !climbing || remaining === 0
-
-  // Duración de cada paso, con el total acotado: una escalada de tres puestos se
-  // saborea, una de treinta no puede durar diez segundos.
-  const stepMs =
-    distance > 0
-      ? Math.max(CLIMB_STEP_MIN_MS, Math.min(CLIMB_STEP_MAX_MS, Math.round(CLIMB_TOTAL_MS / distance)))
-      : 0
 
   useEffect(() => {
-    if (!climbing || remaining === 0) return
-    const t = setTimeout(() => setClimbState({ key: climbKey, step: step + 1 }), stepMs)
+    if (fase === "listo") return
+    if (fase === "agachado") {
+      // Un fotograma agachado y sale. `requestAnimationFrame` y no un timeout de
+      // cero: lo que hace falta no es que pase el tiempo sino que el navegador
+      // haya PINTADO la fila en su puesto viejo, porque el FLIP de motion mide
+      // contra lo último que hubo en pantalla.
+      const salir = () => {
+        setSalto({ key: desde, fase: "volando", filas, ms: saltoMs, desde })
+        // Ya está en el aire: el salto de esta derivada se dio por visto. Lo que
+        // lo apaga es el layout, poniendo `climbFrom` en null — y por eso se
+        // avisa al ARRANCAR y no al terminar: si la persona se va al chat a
+        // mitad de vuelo, al volver no tiene que ver el salto de nuevo.
+        arrancaRef.current?.()
+      }
+      const raf = requestAnimationFrame(salir)
+      // Y una red, porque con la pestaña tapada NO HAY FOTOGRAMAS: ahí
+      // `requestAnimationFrame` no corre nunca y la fila se quedaría agachada
+      // —hundida en el puesto viejo, con el número clavado— hasta que algo la
+      // sacara. Que el salto no se vea es aceptable; que la lista quede mal
+      // dibujada, no. El primero de los dos que llegue gana: el otro se cancela
+      // solo, porque el cambio de fase limpia este efecto.
+      const red = setTimeout(salir, 120)
+      return () => {
+        cancelAnimationFrame(raf)
+        clearTimeout(red)
+      }
+    }
+    const t = setTimeout(
+      () => setSalto({ key: desde, fase: "listo", filas, ms: saltoMs, desde }),
+      saltoMs,
+    )
     return () => clearTimeout(t)
-  }, [climbing, climbKey, remaining, step, stepMs])
+  }, [fase, filas, saltoMs, desde])
 
-  // Lo que lee `useStagedOrder` para callarse. En un efecto y no en el render
-  // porque `settled` recién se conoce acá.
+  // Lo que lee `useStagedOrder` para callarse. Ahora dice la verdad: se apaga
+  // cuando el salto TERMINÓ de moverse, no cuando arrancó su último paso.
   useEffect(() => {
-    escalandoRef.current = climbing && !settled
+    escalandoRef.current = !settled
   })
+
+  // Mientras el salto vuela, la lista es la CRUDA y no la escalonada. Los dos
+  // mueven las mismas tarjetas por motivos distintos —uno cuenta lo que hizo el
+  // jugador, el otro lo que hizo el mundo— y para que el salto salga del puesto
+  // correcto la fila propia tiene que estar ya en el suyo por debajo. Sin esto,
+  // cuando el CONJUNTO de jugadores no cambia, el escalonado todavía tiene el
+  // orden viejo y el salto empieza empujando la fila POR DEBAJO de donde ya
+  // estaba: una caída de hasta tres segundos antes de subir.
+  const entries = settled ? staged : rawEntries
+  const meIndex = entries.findIndex((e) => e.is_current_player)
 
   // ── Scroll: centrado, anclaje al prepend y carga por baches ────────────────
   const scrollRef = useRef<HTMLDivElement | null>(null)
-  // La persona movió la lista con la mano. Apaga el recentrado automático hasta
-  // que la lista se vuelva a montar — en el teléfono eso es la derivada
-  // siguiente, porque la diapo del ranking se monta de nuevo con cada respuesta.
-  //
-  // Se escuchan `wheel` y `touchmove`, y NO `scroll`: `scroll` lo disparan
-  // también los scrolls programáticos, empezando por el propio `snapToMe`, que
-  // rearmaba el timer del recentrado con su propio movimiento. O sea que el
-  // único listener que había no distinguía quién movió la lista. El comentario
-  // de IDLE_RECENTER_MS decía «se reinicia con cada rueda» desde que se
-  // escribió; recién ahora es cierto.
-  const manoRef = useRef(false)
   const centeredRef = useRef(false)
+  // Lo que la persona hizo con la lista. Refs locales, que es lo único que este
+  // componente puede escribir; la copia que sobrevive al remonte vive en
+  // `MobileFlow` y se sincroniza por `guardarMemoria` (ver `MemoriaDelRanking`).
+  const manoRef = useRef(false)
+  const topRef = useRef(0)
+  // Primer efecto de layout del componente, así que corre antes que el centrado
+  // y antes que cualquier efecto pasivo: cuando alguno de ellos pregunte por la
+  // mano, ya está contestado.
+  useLayoutEffect(() => {
+    const m = leerMemoria?.()
+    if (!m) return
+    manoRef.current = m.mano
+    topRef.current = m.top
+  }, [leerMemoria])
   const prevTopRankRef = useRef<number | null>(null)
   const prevHeightRef = useRef(0)
 
@@ -849,6 +1052,17 @@ function IndividualRanking({
   // quinta, entren ocho filas o quince.
   const restingScrollTop = useCallback(() => restingScrollTopFor(scrollRef.current), [])
 
+  // La persona movió la lista con la mano: apaga el recentrado automático hasta
+  // la derivada siguiente. Se avisa hacia afuera con `guardarMemoria` porque en
+  // el teléfono este componente se remonta con cada navegación: un ref que viva
+  // solo acá adentro se olvida de todo apenas la persona abre el chat, que es
+  // exactamente lo que le faltaba al arreglo anterior.
+  //
+  // Se escuchan `wheel` y `touchmove`, y NO `scroll`: `scroll` lo disparan
+  // también los scrolls programáticos, empezando por el propio `snapToMe`, que
+  // rearmaba el timer del recentrado con su propio movimiento. O sea que el
+  // único listener que había no distinguía quién movió la lista.
+  //
   // `entries.length` en las dependencias por lo mismo que abajo: en el primer
   // render la lista es el esqueleto y `scrollRef` está vacío.
   useEffect(() => {
@@ -856,6 +1070,7 @@ function IndividualRanking({
     if (!el) return
     const marcar = () => {
       manoRef.current = true
+      guardarMemoria?.({ mano: true, top: el.scrollTop })
     }
     el.addEventListener("wheel", marcar, { passive: true })
     el.addEventListener("touchmove", marcar, { passive: true })
@@ -863,7 +1078,7 @@ function IndividualRanking({
       el.removeEventListener("wheel", marcar)
       el.removeEventListener("touchmove", marcar)
     }
-  }, [entries.length])
+  }, [entries.length, guardarMemoria])
 
   const snapToMe = useCallback(
     (smooth: boolean) => {
@@ -891,7 +1106,12 @@ function IndividualRanking({
     if (!el || entries.length === 0) return
     const firstRank = entries[0]?.rank ?? null
     if (!centeredRef.current) {
-      snapToMe(false)
+      // Con la mano puesta, montarse de nuevo no es entrar al ranking: es volver
+      // a donde estabas. Restaurar en vez de centrar es toda la diferencia entre
+      // las dos cosas, y es lo que hace que irse al chat y volver no te arranque
+      // del puesto 40 que estabas mirando.
+      if (manoRef.current) el.scrollTop = topRef.current
+      else snapToMe(false)
       centeredRef.current = true
     } else if (
       prevTopRankRef.current !== null &&
@@ -917,31 +1137,59 @@ function IndividualRanking({
     // que hace falta. La XP en vuelo no cambia ninguna de las dos cosas.
   }, [entries, snapToMe])
 
-  // El scroll acompaña la escalada, con retraso. Se acerca solo una fracción del
-  // camino en cada paso, así se ve que la fila trepa por la pantalla en vez de
-  // quedar clavada en el centro mientras el resto desfila. Lo único que no se
-  // negocia es que la tarjeta propia nunca se salga de la vista: por eso el
-  // resultado se acota a la franja donde sigue entera en pantalla.
+  // ── El scroll durante el salto ─────────────────────────────────────────────
+  // Dónde estaba la fila y dónde el scroll, tomados en el único fotograma en que
+  // la fila todavía está dibujada en su puesto viejo.
+  const origenRef = useRef<{ y: number; scroll: number; alto: number } | null>(null)
+
   useLayoutEffect(() => {
-    if (!climbing) return
+    if (fase !== "agachado") return
     const el = scrollRef.current
     const mine = el?.querySelector<HTMLElement>("[data-current='true']")
     if (!el || !mine) return
-    const resting = restingScrollTop()
-    if (resting === null) return
-    const margin = mine.offsetHeight
-    const lowest = mine.offsetTop + mine.offsetHeight + margin - el.clientHeight
-    const highest = mine.offsetTop - margin
-    const followed = el.scrollTop + (resting - el.scrollTop) * CLIMB_SCROLL_FOLLOW
-    el.scrollTop = Math.max(Math.min(followed, highest), lowest)
-  }, [step, climbing, restingScrollTop])
+    // El puesto del que venís puede caer fuera de la ventana —podés venir de
+    // cuarenta filas más abajo— así que se lo trae a la vista SIN animación. Es
+    // el único fotograma en que esto pega un salto, y es justo el fotograma en
+    // que la fila no se veía.
+    el.scrollTop = encuadrar(el, mine.offsetTop, mine.offsetHeight, el.scrollTop)
+    origenRef.current = { y: mine.offsetTop, scroll: el.scrollTop, alto: mine.offsetHeight }
+  }, [fase])
 
-  // Al terminar de escalar, el retraso acumulado se salda: la fila vuelve a su
-  // posición de descanso con un scroll suave.
-  useEffect(() => {
-    if (!climbing || !settled) return
-    snapToMe(true)
-  }, [climbing, settled, climbKey, snapToMe])
+  useLayoutEffect(() => {
+    if (fase !== "volando") return
+    const el = scrollRef.current
+    const mine = el?.querySelector<HTMLElement>("[data-current='true']")
+    const origen = origenRef.current
+    if (!el || !mine || !origen) return
+    // Post-commit el DOM ya está en el orden nuevo: esto es el destino.
+    const yFin0 = mine.offsetTop
+    const sFin = restingScrollTop() ?? el.scrollTop
+    const dY = yFin0 - origen.y
+    const dS = sFin - origen.scroll
+    const inicio = performance.now()
+    let raf = 0
+    const tick = (ahora: number) => {
+      // Si la persona tocó la lista, el salto suelta el scroll. La mano gana
+      // también acá: el vuelo es un festejo, no una orden.
+      if (manoRef.current) return
+      const t = Math.min(1, (ahora - inicio) / saltoMs)
+      const p = curvaDelSalto(t)
+      // La posición de la fila se INTERPOLA con la misma curva con la que motion
+      // la mueve, en vez de leerse del DOM: durante el vuelo `offsetTop` ya es el
+      // destino, no dónde está. `mine.offsetTop` se relee igual para absorber un
+      // bache que entre por arriba y corra todo hacia abajo.
+      const yFin = mine.offsetTop
+      const y = yFin - dY * (1 - p)
+      const corrimiento = yFin - yFin0
+      const deseado = origen.scroll + corrimiento + dS * Math.pow(p, RETRASO_VENTANA)
+      el.scrollTop = encuadrar(el, y, origen.alto, deseado)
+      raf = t < 1 ? requestAnimationFrame(tick) : 0
+    }
+    raf = requestAnimationFrame(tick)
+    return () => {
+      if (raf) cancelAnimationFrame(raf)
+    }
+  }, [fase, saltoMs, restingScrollTop])
 
   // Cambiar de puesto siempre reacomoda, escales vos o te pasen los demás:
   // mientras resolvés el ranking sigue moviéndose, y sin esto la fila propia se
@@ -975,11 +1223,16 @@ function IndividualRanking({
     let timer: ReturnType<typeof setTimeout>
     const arm = () => {
       clearTimeout(timer)
-      // En el teléfono, el primer gesto lo apaga y no se vuelve a armar: se
-      // queda donde la persona lo dejó hasta la derivada siguiente. Sigue
-      // colgado de `scroll` y no de la rueda porque el momentum de iOS sigue
-      // disparando `scroll` un rato después de soltar, y esos también tienen
-      // que limpiar el timer.
+      // De paso se anota dónde quedó la lista, que es lo que se restaura cuando
+      // el ranking se vuelve a montar. Acá y no en el gesto a propósito: el
+      // momentum de iOS sigue moviendo la lista un rato después de soltar, y lo
+      // que hay que guardar es dónde QUEDÓ.
+      topRef.current = el.scrollTop
+      guardarMemoria?.({ mano: manoRef.current, top: el.scrollTop })
+      // En el teléfono, el primer gesto apaga el recentrado y no se vuelve a
+      // armar: la lista se queda donde la persona la dejó hasta la derivada
+      // siguiente. El timer sigue colgado de `scroll` y no de la rueda porque el
+      // momentum también tiene que limpiarlo.
       if (mobile && manoRef.current) return
       timer = setTimeout(() => snapToMe(true), mobile ? IDLE_RECENTER_MS_MOVIL : IDLE_RECENTER_MS)
     }
@@ -989,7 +1242,7 @@ function IndividualRanking({
       clearTimeout(timer)
       el.removeEventListener("scroll", arm)
     }
-  }, [snapToMe, entries.length, mobile])
+  }, [snapToMe, entries.length, mobile, guardarMemoria])
 
   const topSentinelRef = useRef<HTMLDivElement | null>(null)
   const bottomSentinelRef = useRef<HTMLDivElement | null>(null)
@@ -1008,10 +1261,15 @@ function IndividualRanking({
       io.observe(node)
       observers.push(io)
     }
-    watch(topSentinelRef.current, hasPreviousPage && !isFetchingPreviousPage, () =>
+    // Mientras la fila vuela, la lista no crece. Un bache a mitad de salto mueve
+    // el piso por debajo de algo que ya está en el aire, y el vuelo barre hasta
+    // dos mil píxeles: los centinelas se cruzan seguro.
+    watch(topSentinelRef.current, settled && hasPreviousPage && !isFetchingPreviousPage, () =>
       fetchPreviousPage(),
     )
-    watch(bottomSentinelRef.current, hasNextPage && !isFetchingNextPage, () => fetchNextPage())
+    watch(bottomSentinelRef.current, settled && hasNextPage && !isFetchingNextPage, () =>
+      fetchNextPage(),
+    )
     return () => observers.forEach((o) => o.disconnect())
   }, [
     hasPreviousPage,
@@ -1021,6 +1279,7 @@ function IndividualRanking({
     fetchPreviousPage,
     fetchNextPage,
     entries.length,
+    settled,
   ])
 
   // `isPending` y no `isLoading`: son distintos justo en el caso que importa.
@@ -1037,14 +1296,20 @@ function IndividualRanking({
     return <p className="text-sm text-muted-foreground">Todavía no hay ranking.</p>
   }
 
-  // Orden de este paso: la fila propia todavía a `remaining` puestos de su lugar.
+  // El fotograma agachado: la fila propia se dibuja en el puesto del que viene.
+  // El resto del vuelo ya está en el suyo y lo que la mueve es el FLIP.
+  //
+  // Sin `Math.min` acá: `filasDelSalto` ya acotó por las filas cargadas, y ese
+  // es justamente el motivo por el que ese tope se mudó allá arriba. Con el
+  // `Math.min` la fila quedaba clavada al final de la lista y la duración
+  // seguía calculándose sobre una distancia que nunca se recorría.
   const ordered =
-    remaining === 0 || meIndex < 0
+    fase !== "agachado" || meIndex < 0
       ? entries
       : (() => {
           const rows = [...entries]
           const [mine] = rows.splice(meIndex, 1)
-          rows.splice(Math.min(rows.length, meIndex + remaining), 0, mine)
+          rows.splice(meIndex + filas, 0, mine)
           return rows
         })()
 
@@ -1060,8 +1325,16 @@ function IndividualRanking({
     // y como la vista de universidades nunca tuvo tope, el hueco aparecía y
     // desaparecía al cambiar de vista. Una fila cortada arriba dice "hay más
     // gente encima", que es cierto; un hueco al pie no dice nada.
-    <div
+    //
+    // `layoutScroll` y no un div pelado: acá adentro corren animaciones de
+    // `layout` mientras el salto escribe `scrollTop` en cada fotograma, y motion
+    // solo descuenta el scroll de un contenedor si el nodo lo declara. Sin esto
+    // la proyección mide en coordenadas de pantalla y el scroll le pelea a la
+    // interpolación, que es parte de por qué la escalada anterior se veía
+    // temblorosa aun moviendo el scroll una sola vez por paso.
+    <motion.div
       ref={scrollRef}
+      layoutScroll
       className="no-scrollbar relative -mx-1 min-h-0 flex-1 overflow-y-auto overscroll-contain px-1"
     >
       {hasPreviousPage && <div ref={topSentinelRef} aria-hidden className="h-px" />}
@@ -1075,11 +1348,12 @@ function IndividualRanking({
           <Row
             key={entry.player_id}
             entry={entry}
-            // Durante la escalada el puesto propio va bajando de a uno, igual
-            // que la fila.
-            shownRank={
-              entry.is_current_player ? entry.rank + remaining : entry.rank
-            }
+            shownRank={entry.rank}
+            // De qué puesto viene, solo en la fila propia y solo mientras dura
+            // el salto: el número cuenta durante el viaje, con la misma curva
+            // que la fila. En las otras ochenta y nueve filas es la constante
+            // `null`, así que ni se enteran de que hay un salto.
+            rankDesde={entry.is_current_player && saltoMs > 0 ? desde : null}
             // Mientras el conteo corre manda él (aunque la lista ya tenga el
             // total); una vez que terminó, el mayor de los dos, para que el
             // número no retroceda si el ranking viene atrasado.
@@ -1093,9 +1367,16 @@ function IndividualRanking({
             // También la fila propia: si mientras resolvías te pasaron, la
             // flecha tiene que bajar o darse vuelta como la de cualquiera.
             delta={entry.rank_delta}
-            // Primitiva a propósito: `Row` está memoizada con comparación
-            // superficial y esto tiene que poder atravesarla sin romperla.
-            escalando={!settled}
+            // Un número y no un objeto de transición, y eso NO es un detalle:
+            // la transición del salto depende de la distancia, así que armarla
+            // acá le rompería el memo a las noventa filas justo en el fotograma
+            // más caro. Cambia dos veces por respuesta (0 → N → 0), lo mismo que
+            // cambiaba el booleano que reemplaza.
+            saltoMs={settled ? 0 : saltoMs}
+            // Solo la fila propia y solo un fotograma: el que la dibuja en el
+            // puesto viejo. Las demás no se mueven en ese commit, así que
+            // reciben la constante `false`.
+            agachado={entry.is_current_player && fase === "agachado"}
             quieto={quieto}
             sort={sort}
             boostMultiplier={
@@ -1121,7 +1402,7 @@ function IndividualRanking({
         </div>
       )}
       {hasNextPage && <div ref={bottomSentinelRef} aria-hidden className="h-px" />}
-    </div>
+    </motion.div>
   )
 }
 
@@ -1139,12 +1420,45 @@ function IndividualRanking({
 // Las props de las filas ajenas son todas primitivas más `entry`, que viene
 // estable del caché de la query: la comparación superficial de `memo` alcanza
 // para que solo se rehaga la fila propia, que es la única que cambia.
+/** El número del puesto mientras la fila viaja: cuenta de `desde` a `hasta` con
+ *  la MISMA curva y la misma duración que el salto, así que el dígito y la fila
+ *  son un solo movimiento.
+ *
+ *  Componente con estado propio, y no un número que baje desde la lista, por lo
+ *  mismo que `Row` está memoizada: contarlo desde arriba serían ciento ochenta
+ *  renders de las noventa filas en tres segundos, o sea exactamente el fotograma
+ *  caro que el memo existe para evitar. Acá el único que se vuelve a dibujar es
+ *  este `<span>`. Si alguna vez alguien quiere «simplificarlo» subiendo el
+ *  estado, este párrafo es el motivo por el que no.
+ *
+ *  Y es lo que reemplaza a ver a quién pasaste: ya no se ve a QUIÉN, pero se ve
+ *  a cuántos, y en vivo. */
+function RankEnVuelo({ desde, hasta, ms }: { desde: number; hasta: number; ms: number }) {
+  const [n, setN] = useState(desde)
+  useEffect(() => {
+    let raf = 0
+    const inicio = performance.now()
+    const tick = (ahora: number) => {
+      const t = Math.min(1, (ahora - inicio) / ms)
+      setN(Math.round(desde + (hasta - desde) * curvaDelSalto(t)))
+      raf = t < 1 ? requestAnimationFrame(tick) : 0
+    }
+    raf = requestAnimationFrame(tick)
+    return () => {
+      if (raf) cancelAnimationFrame(raf)
+    }
+  }, [desde, hasta, ms])
+  return <>{n}</>
+}
+
 const Row = memo(function Row({
   entry,
   shownRank,
+  rankDesde = null,
   xp,
   delta,
-  escalando = false,
+  saltoMs = 0,
+  agachado = false,
   quieto = false,
   sort,
   boostMultiplier,
@@ -1154,13 +1468,23 @@ const Row = memo(function Row({
 }: {
   entry: GameLeaderboardEntry
   shownRank: number
+  // De qué puesto viene la fila propia, mientras dura el salto. Con esto el
+  // número cuenta durante el viaje en vez de saltar de golpe: es lo único que
+  // queda de «a cuántos pasaste» ahora que no se ve a quién. `null` en todas las
+  // demás filas, y también en la propia fuera del salto.
+  rankDesde?: number | null
   xp: number
   // Puestos que ganó (+) o perdió (−) en los últimos minutos. 0 = sin flecha.
   delta: number
-  // La fila propia está escalando ahora mismo. Cambia con qué resorte se mueve
-  // cada fila: ver RESORTE_PROPIO / RESORTE_ACOMPANA.
-  escalando?: boolean
-  // Movimiento reducido: nada de resortes.
+  // Cuánto dura el salto en curso, o 0 si no hay ninguno. Es un número y no un
+  // objeto de transición justamente para no romper el memo: ver el comentario
+  // de arriba y `tweenDelSalto`.
+  saltoMs?: number
+  // El fotograma en que la fila propia se dibuja en el puesto del que viene. Se
+  // pinta sin transición para que, si por lo que fuera tuviera que
+  // teletransportarse, lo haga en un fotograma y no con un resorte hacia abajo.
+  agachado?: boolean
+  // Movimiento reducido: nada de animaciones.
   quieto?: boolean
   // Qué número cierra la fila: la experiencia o el Elo. Es el mismo que ordena
   // la lista, siempre — mostrar uno y ordenar por el otro se lee como un bug,
@@ -1191,13 +1515,11 @@ const Row = memo(function Row({
     <motion.li
       layout
       transition={
-        quieto
+        quieto || agachado
           ? SIN_MOVIMIENTO
-          : !escalando
+          : saltoMs === 0
             ? RESORTE_AMBIENTE
-            : mine
-              ? RESORTE_PROPIO
-              : RESORTE_ACOMPANA
+            : tweenDelSalto(saltoMs)
       }
       data-current={mine ? "true" : undefined}
       className={cn(
@@ -1212,8 +1534,11 @@ const Row = memo(function Row({
             : filaConEmpuje(boostMultiplier)
       }
     >
-      <span className="w-4 shrink-0 text-center text-sm font-semibold tabular-nums text-muted-foreground">
-        {shownRank}
+      {/* `w-8` y no `w-4`: con tres cifras el número no entraba, y el contador
+          en vuelo hace que se vea cambiar de ancho mientras cuenta hacia abajo,
+          que es peor que verlo fijo y ancho. */}
+      <span className="w-8 shrink-0 text-center text-sm font-semibold tabular-nums text-muted-foreground">
+        {rankDesde === null ? shownRank : <RankEnVuelo desde={rankDesde} hasta={shownRank} ms={saltoMs} />}
       </span>
       <span className="flex min-w-0 flex-1 items-center gap-1.5">
         <span
