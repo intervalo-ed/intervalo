@@ -70,7 +70,7 @@ export type FilaRecluta = {
 // lee como un ranking real en marcha.
 //
 // Las universidades de acá son el FALLBACK, para cuando todavía no se sabe la
-// de quien mira (ver `filasDeEjemplo`). Con universidad, las cinco se pintan con
+// de quien mira (ver `useFilasDeEjemplo`). Con universidad, las cinco se pintan con
 // la SUYA: la promesa es "así se va a ver tu universidad ganando", y una fila
 // de la UCA al lado de la propia no la cuenta tan bien como cinco de la propia.
 //
@@ -103,9 +103,13 @@ export const EJEMPLOS_COUNT = EJEMPLOS.length
 export const EJEMPLOS_XP_TOTAL = EJEMPLOS.reduce((sum, e) => sum + e.xp_given, 0)
 
 /** Las filas de ejemplo, pintadas con la universidad de quien mira y con los @
- *  que le pasen. Pura: el sorteo lo hace `useFilasDeEjemplo`, que es quien puede
- *  garantizar que se haga una sola vez. */
-export function filasDeEjemplo(
+ *  que le pasen.
+ *
+ *  Privada a propósito: los @ llegan de afuera y con la lista vacía las filas
+ *  salen SIN NOMBRE, sin que nada falle. Quien la use tiene que pasar por
+ *  `useFilasDeEjemplo`, que es el único que puede garantizar un sorteo por
+ *  montaje — exportar las dos es dejar puesta la que se equivoca en silencio. */
+function filasDeEjemplo(
   university: string | null = null,
   cuantas: number = EJEMPLOS_COUNT,
   alias: readonly string[] = [],
