@@ -33,7 +33,7 @@ import {
   EJEMPLOS_COUNT,
   EJEMPLOS_XP_TOTAL,
   ListaDeReclutas,
-  filasDeEjemplo,
+  useFilasDeEjemplo,
   type FilaRecluta,
 } from "@/components/reclutas-list"
 import { filaConEmpuje } from "@/app/derivadas/game-colors"
@@ -565,11 +565,13 @@ function RecruitsRanking({
 }) {
   const entries = data?.entries ?? []
   const vacia = entries.length === 0
+  // Siempre, no adentro del ternario de abajo: es un hook.
+  const ejemplo = useFilasDeEjemplo(myUniversity)
   // Los renglones de ejemplo se pintan con la universidad de quien mira: la
   // promesa es "así se va a ver tu universidad creciendo", y una fila de la UCA
   // al lado de la propia no la cuenta igual.
   const filas: FilaRecluta[] = vacia
-    ? filasDeEjemplo(myUniversity)
+    ? ejemplo
     : entries.map((e) => ({
         key: e.rank,
         rank: e.rank,
