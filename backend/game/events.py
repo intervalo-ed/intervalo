@@ -972,13 +972,30 @@ def sync_universities(db: Session, min_players: int, now: datetime | None = None
             previo = (lider_antes or {}).get(par)
 
             # Quién va adelante, con histéresis: adentro de la banda no se puede
-            # afirmar nada, así que se conserva lo último que sí se pudo.
+            # AFIRMAR nada, así que se conserva lo último que sí se pudo.
+            #
+            # El `else` de abajo es el que arregla un sobrepaso que se tragaba en
+            # silencio. Un par que está en disputa la primera vez que se lo ve no
+            # tenía a nadie anotado, y entonces `previo is None` significaba dos
+            # cosas: "par nuevo, no anuncies" y "par empatado, todavía no sé".
+            # Cuando la disputa se resolvía, seguía valiendo None y el sobrepaso
+            # no salía. Pasó en producción con la UNSAM y la UNC —que venían
+            # pingponeando dentro de la banda justo cuando se guardó la primera
+            # foto—: la UNC se fue de 76k a 106k, le pasó a la UNSAM por 22%, y
+            # el feed no dijo nada.
+            #
+            # Anotando igual a quien va adelante HOY, la creencia existe desde el
+            # primer barrido: mientras dure la disputa se conserva, y el día que
+            # el margen se afirme del otro lado, eso ES un sobrepaso y se cuenta.
+            # Si se afirma del mismo lado, no cambió nada y no se cuenta.
             if margen > UNI_PASS_MARGEN:
                 lider_ahora[par] = arriba
                 if previo is not None and previo != arriba:
                     sobrepasos.append((arriba, abajo))
             elif previo is not None:
                 lider_ahora[par] = previo
+            else:
+                lider_ahora[par] = arriba
 
             # Y la banda de disputa, que es exactamente la zona donde el
             # sobrepaso todavía no se puede afirmar.
@@ -1002,7 +1019,8 @@ def sync_universities(db: Session, min_players: int, now: datetime | None = None
 
     # Sin foto anterior no hay contra qué comparar. Un par que aparece por
     # primera vez —una universidad que recién cruza el piso de calificados—
-    # queda anotado arriba sin anunciar nada, por lo mismo: `previo is None`.
+    # queda anotado arriba sin anunciar nada: el barrido que lo estrena solo
+    # registra quién va adelante, y recién el siguiente puede decir que cambió.
     if lider_antes is None:
         return
 
