@@ -16,7 +16,7 @@
 import {
   EJEMPLOS_COUNT,
   ListaDeReclutas as Tabla,
-  filasDeEjemplo,
+  useFilasDeEjemplo,
   type FilaRecluta,
 } from "@/components/reclutas-list"
 import { levelColor } from "./game-colors"
@@ -55,10 +55,13 @@ export function ListaDeReclutas({
   ejemplos?: number
   className?: string
 }) {
+  // El hook va SIEMPRE, aunque haya reclutas: sortear @ que no se van a usar no
+  // cuesta nada, y llamarlo adentro del ternario sería un hook condicional.
+  const ejemplo = useFilasDeEjemplo(university, ejemplos)
   const vacia = entries.length === 0
   return (
     <Tabla
-      filas={vacia ? filasDeEjemplo(university, ejemplos) : entries.map(aFila)}
+      filas={vacia ? ejemplo : entries.map(aFila)}
       ejemplo={vacia}
       className={className}
     />

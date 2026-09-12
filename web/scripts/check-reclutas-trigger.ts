@@ -17,6 +17,12 @@ import {
   tocaReclutar,
 } from "../src/app/derivadas/reclutas-trigger"
 import { CAFECITO_COOLDOWN, CAFECITO_EVERY } from "../src/app/derivadas/cafecito-cta"
+import {
+  CARACTERES_VALIDOS,
+  LARGO_MAXIMO,
+  POOL_DE_EJEMPLO,
+  sortearAliasDeEjemplo,
+} from "../src/components/reclutas-ejemplos"
 
 // `game-storage` habla con localStorage y esto corre en bun, sin navegador.
 const guardado = new Map<string, string>()
@@ -124,6 +130,75 @@ console.log("4. no sale antes de tiempo")
 limpio()
 check(!tocaReclutar(0), "con cero resueltas no sale")
 check(!tocaReclutar(-3), "ni con un número imposible")
+
+console.log("\nlos @ de los renglones de ejemplo")
+// EL TESTIGO. Los tres de la diapo eran `cociente3196`, `tangente4626` y
+// `escalar5925`: palabra de matemática más cuatro dígitos, que es el formato que
+// el generador de invitados ABANDONÓ —el número delata que el nombre no lo
+// eligió nadie, y la palabra viene del temario (game/aliases.py)—. O sea que la
+// lista prometía reclutas con un @ que hoy no le toca a nadie.
+const RETIRADO = /\d{4}$/
+const conFormatoViejo = POOL_DE_EJEMPLO.filter((a) => RETIRADO.test(a))
+check(
+  conFormatoViejo.length === 0,
+  `ninguno vuelve al formato retirado de cuatro dígitos (${conFormatoViejo.join(", ") || "ninguno"})`,
+)
+
+check(
+  new Set(POOL_DE_EJEMPLO).size === POOL_DE_EJEMPLO.length,
+  `los ${POOL_DE_EJEMPLO.length} del pool son distintos`,
+)
+const largos = POOL_DE_EJEMPLO.filter((a) => a.length > LARGO_MAXIMO)
+check(
+  largos.length === 0,
+  `ninguno pasa los ${LARGO_MAXIMO} caracteres (${largos.join(", ") || "ninguno"})`,
+)
+const invalidos = POOL_DE_EJEMPLO.filter((a) => !CARACTERES_VALIDOS.test(a))
+check(
+  invalidos.length === 0,
+  `todos podrían ser el @ de alguien de verdad (${invalidos.join(", ") || "ninguno"})`,
+)
+
+// Cinco es lo que muestra el panel del ranking; la diapo recorta a tres. Con el
+// pozo en menos del doble, dos aperturas seguidas repetirían medio renglonero.
+check(
+  POOL_DE_EJEMPLO.length >= 10,
+  `hay pozo para que dos aperturas seguidas no se parezcan (${POOL_DE_EJEMPLO.length})`,
+)
+
+const cinco = sortearAliasDeEjemplo(5)
+check(
+  cinco.length === 5 && new Set(cinco).size === 5,
+  `un sorteo de cinco no repite (${cinco.join(", ")})`,
+)
+check(
+  cinco.every((a) => (POOL_DE_EJEMPLO as readonly string[]).includes(a)),
+  "y todos salen del pool",
+)
+
+// Pedir más de lo que hay no puede devolver huecos: la fila mostraría un nombre
+// vacío al lado de un aporte en verde.
+const todos = sortearAliasDeEjemplo(POOL_DE_EJEMPLO.length + 5)
+check(
+  todos.length === POOL_DE_EJEMPLO.length &&
+    todos.every((a) => typeof a === "string" && a.length > 0),
+  `pedir de más devuelve el pool entero y sin huecos (${todos.length})`,
+)
+
+// Con el sorteo inyectado el resultado es reproducible, que es lo que deja
+// comprobar que el azar de verdad elige y no devuelve siempre la cabeza.
+const primero = sortearAliasDeEjemplo(3, () => 0)
+const ultimo = sortearAliasDeEjemplo(3, () => 0.999999)
+check(
+  primero[0] !== ultimo[0],
+  `el sorteo mira el pool entero, no solo el principio (${primero[0]} vs ${ultimo[0]})`,
+)
+// Y el borde: un azar que devuelva 1 exacto no puede irse de rango.
+const borde = sortearAliasDeEjemplo(3, () => 1)
+check(
+  borde.length === 3 && borde.every((a) => typeof a === "string" && a.length > 0),
+  "con un azar que devuelve 1 exacto tampoco salen huecos",
+)
 
 console.log()
 if (fallos > 0) {
