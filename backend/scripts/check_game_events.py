@@ -444,6 +444,61 @@ _de_la_tabla = dict(
 _del_feed = dict(events._standings_de_universidades(db, 3))
 check(all(_de_la_tabla.get(u) == xp for u, xp in _del_feed.items()),
       f"cada universidad del feed trae la experiencia de la tabla: {_del_feed}")
+print("7i. una disputa que se resuelve ES un sobrepaso")
+# EL TESTIGO, y este salió de producción con el código ya desplegado. La UNSAM y
+# la UNC venían pingponeando dentro de la banda justo cuando se guardó la primera
+# foto, así que el par quedó SIN líder anotado. Después la UNC se fue de 76.116 a
+# 106.136 y le pasó a la UNSAM por 22% — y el feed no dijo nada, porque
+# `previo is None` significaba las dos cosas a la vez: "par nuevo, no anuncies" y
+# "par empatado, todavía no sé quién va".
+#
+# La diferencia con 7e —la foto vieja— es exactamente esa: ahí NO hay foto y
+# callarse es lo correcto; acá la foto existe y el par está adentro.
+db.query(GameEvent).delete()
+db.commit()
+# Se estrena el par con las dos casi empatadas: 15.000 contra 14.901, o sea
+# 0,66%, adentro de la banda. GRANDE va adelante por un pelo.
+fijar("TERCERA", 1)
+fijar("CHICA", 4967)
+fijar("GRANDE", 5000)
+estado = db.query(GameSimState).filter(GameSimState.id == 1).first()
+estado.uni_order_json = None
+db.commit()
+barrer()
+check(cuantos("uni_pass") == 0, "estrenar un par empatado no anuncia ningún sobrepaso")
+check(
+    foto()["lead"].get("CHICA|GRANDE") == "GRANDE",
+    f"pero el par queda anotado con quien va adelante hoy "
+    f"({foto()['lead'].get('CHICA|GRANDE')})",
+)
+
+# Y ahora CHICA se despega: 18.000 contra 15.000, o sea 16,7%. Eso es un
+# sobrepaso, y antes de este arreglo no salía.
+fijar("CHICA", 6000)
+barrer()
+paso = db.query(GameEvent).filter(GameEvent.kind == "uni_pass").first()
+check(
+    paso is not None and paso.university == "CHICA" and paso.university_b == "GRANDE",
+    f"resolver la disputa del otro lado sí lo es: "
+    f"{paso.university if paso else '—'} → {paso.university_b if paso else '—'}",
+)
+
+# El otro lado de la misma moneda: si la disputa se resuelve a favor de QUIEN YA
+# IBA ADELANTE, nadie pasó a nadie. Solo se despegó.
+db.query(GameEvent).delete()
+db.commit()
+fijar("CHICA", 4967)
+fijar("GRANDE", 5000)
+estado.uni_order_json = None
+db.commit()
+barrer()
+fijar("GRANDE", 6000)
+barrer()
+check(
+    cuantos("uni_pass") == 0,
+    "pero despegarse yendo ya adelante no es pasar a nadie: no se anuncia",
+)
+
 
 print("8a. artículos")
 from universities import article_for  # noqa: E402
