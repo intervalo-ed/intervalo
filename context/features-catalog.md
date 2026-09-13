@@ -166,11 +166,11 @@ está puesto en que no sea ruido. Nueve tipos:
 
 | tipo | qué anuncia |
 |---|---|
-| `top` 🚀 | entrar al top 3, 10, 25 o 50 del ranking general |
-| `uni_top` 🏆 | ser el número 1, o entrar al top 3, de la propia universidad |
+| `top` 🪜 | entrar al top 3, 10, 25 o 50 del ranking general |
+| `uni_top` 🏆 | ser el número 1, o entrar al top 3, de la propia universidad — **solo lo ve esa universidad** |
 | `lead` 👑 | llegar al puesto 1 del juego entero |
 | `streak` 🔥 | rachas de 10, 25, 50, 100 y 250 sin errar |
-| `level` ⚡ | desbloquear derivadas más difíciles |
+| `level` 🎨 | desbloquear la familia siguiente (los productos, los cocientes) |
 | `signup` 🎓 / `referral` 🪖 | un registro, o el registro de alguien que trajo otro |
 | `boost` ☕ | una donación de cafecitos, o el aforo del día de una universidad |
 | `uni_pass` 🏛️ / `uni_close` 👀 | una universidad que pasa a otra en experiencia, o que se le viene encima |
@@ -247,6 +247,34 @@ la clave es del HECHO —una sola, global, con tres horas de ventana— y ademá
 pide que el puntero nuevo no sea el mismo de la vez pasada: anunciarlo dos veces
 seguidas es decir dos veces lo mismo.
 
+#### Lo que solo ve una universidad (`KINDS_INTERNOS`)
+
+El podio de adentro de una casa de estudios es la tabla que más se disputa —el
+número 1 global lo pelean siempre los mismos, el de una universidad se lo pelea
+gente que cursa junta— y es exactamente por eso que a los de afuera no les dice
+nada. «@fulano destronó a @mengano en el ranking de la UNC» es una escena para
+doce personas y una línea de ruido para las otras doscientas; fueron 21 en una
+semana.
+
+Así que `uni_top` es la primera noticia con audiencia: la ve quien estudia ahí y
+nadie más. Quien no cargó universidad —un invitado— no ve ninguna, que es lo
+correcto: no hay casa de estudios de la que le sea de puertas adentro.
+
+Se decide por `kind` y no con una columna nueva porque acá la audiencia ES el
+tipo de noticia: no existe un podio de universidad que además sea público. El día
+que exista, esto se convierte en una columna y no antes.
+
+**El filtro vive en el SQL de `recent` y no en un `if` posterior**, y eso no es
+una optimización. El cliente pagina hacia atrás con `before_id`, y una página más
+corta que el `limit` pedido significa «no hay más atrás» (el endpoint no manda un
+`has_more` a propósito). Filtrando después de traer las filas, una tanda de
+podios internos le cortaría el scroll a quien no es de esa universidad.
+
+Y como la escena tiene dos personas, la línea nombra a las dos: quien queda
+SEGUNDO en la universidad es exactamente quien tenía el número 1, porque una
+respuesta mueve a una persona sola. El mismo razonamiento que `lead`, un piso
+más abajo, y con la misma salvedad — solo se nombra si es alguien de verdad.
+
 #### La carrera entre universidades
 
 `uni_pass` y `uni_close` corren sobre la **experiencia histórica**: la misma suma
@@ -268,7 +296,7 @@ oscila.
 
 Las dos noticias son **transiciones** y no estados:
 
-- **«le pasó a»** sale cuando cambia el líder CONFIRMADO de un par, y confirmado
+- **El sobrepaso** sale cuando cambia el líder CONFIRMADO de un par, y confirmado
   quiere decir adelante por más de `UNI_PASS_MARGEN` (2%). Guardar el líder por
   PAR es lo que hace que el sobrepaso exista: detectándolo por el orden, un cruce
   ajustado no se anunciaba tarde sino nunca, porque en el barrido del cruce el
@@ -289,7 +317,86 @@ líder de cada par y los pares pegados. Un par que aparece por primera vez se
 anota sin anunciar; con la foto en el formato viejo tampoco se anuncia nada, para
 que un deploy no dispare una ráfaga de sobrepasos que nunca ocurrieron.
 
-### El chat (`game/chat.py`, `chat-panel.tsx`)
+#### Cómo está escrita cada línea (`game/events_copy.py`)
+
+El ruido no es la única forma de que un feed se deje de leer. Medido después de
+que los frenos de arriba bajaran el volumen a la mitad: **74 líneas en 48 horas,
+escritas con DIEZ frases**. La de subir de nivel salió idéntica dieciocho veces
+—«@fulano desbloqueó derivadas más difíciles»— y las trece de racha se
+diferenciaban en un número. Un feed que se repite así se vuelve papel pintado.
+
+Cada noticia tiene un **pool de frases** (69 en total) y la variante la elige una
+semilla, que es la clave del hecho. Determinístico y no `random`, por tres
+motivos y el tercero es el que importa: el mismo hecho re-emitido no puede salir
+redactado de dos maneras; el check queda reproducible; y `random` repite la
+variante anterior una de cada N veces, cuando lo que se busca no es azar sino que
+dos líneas SEGUIDAS no se parezcan.
+
+**La forma es fija: sujeto — verbo — objeto, una sola oración, sin remate.**
+Quién lo hizo, qué hizo, a quién o a qué. No es preferencia de estilo: es lo que
+hace que la columna se pueda barrer con el ojo, y son treinta y siete líneas por
+día intercaladas con el chat. De ahí salen tres reglas, las tres con chequeo:
+
+- **Nada de frases dadas vuelta** («Puntero nuevo: {a}», «Se picó: 1.200 XP entre
+  A y B», «Llegó {a}»): dicen lo mismo que su versión derecha y no se leen más
+  rápido. El check exige que cada frase abra con su sujeto — el marcador del
+  protagonista, o el artículo de la universidad en mayúscula.
+- **Ni un punto en el medio.** Lo que no entra antes del punto final no entra. Lo
+  que se cayó por esto fueron los remates que opinaban sobre el hecho recién
+  contado: «Alguien avise si respira», «Ahora se complica», «No estuvo cerca».
+- **La variedad va en el VERBO**, que es donde no cuesta legibilidad: superó,
+  dejó atrás, le serruchó el piso; encadenó, clavó, enganchó.
+
+Ninguna línea pasa los 80 caracteres medida con el alias más largo que hay en
+producción.
+
+Y las frases dicen lo que la versión de una sola no decía, en los cinco casos con
+datos que ya estaban a mano:
+
+- **`level` dice CUÁL familia se desbloqueó** —las sumas, los productos, los
+  cocientes— en vez de «derivadas más difíciles». Es la línea más frecuente del
+  feed (110 de 122 en una semana son al nivel 1) y ahora son tres palabras:
+  «@fulano desbloqueó los productos». Es la única categoría donde el verbo NO
+  varía, a propósito — con el verbo fijo la cabeza deja de leerlo y va derecho a
+  qué se desbloqueó; la variedad está en si se nombra corto o por la regla. El
+  ícono 🎨 y el nombre ya pintado del color nuevo cuentan la otra mitad. Cuál
+  familia corresponde a cuál nivel NO está tabulado: sale de `elo.tier_objetivo`,
+  que lo deriva de los cortes de nivel y de las semillas de dificultad, así que
+  el día que alguno se mueva la frase se mueve con él en vez de quedar mintiendo.
+- **`lead` dice a quién se le sacó el 1.** Quien está segundo ahora es
+  exactamente quien lo tenía —una respuesta mueve a una persona sola—, y se
+  nombra solo si es alguien de verdad: los sembrados no se nombran nunca.
+- **`top` dice de qué puesto venía** («entró al top 50 desde el puesto 84»). El
+  router ya lo había calculado para armar la respuesta del endpoint.
+- **`uni_close` dice cuánta XP falta** en vez de «están cerca», que es lo único
+  accionable que ese aviso puede decir.
+- **`boost` dice cuánto dura** además de cuánto multiplica. Con la universidad ya
+  en el techo el multiplicador no se mueve y lo que la donación compró fue
+  tiempo: es el mismo agujero que el cartel del cafecito dejó de tener.
+
+Dos reglas de castellano, y ninguna es de gusto. **Los artículos se piden
+armados** (`Articulos`: «la UBA», «del ITBA», «al ITBA»), porque «superó a el
+ITBA» es un error que no se ve probando con universidades que llevan «la» —solo
+el día que un instituto entra en la tabla—. Y **nada de adjetivos ni pronombres
+que concuerden**, ni con la universidad (los institutos van en masculino) ni con
+la persona (un alias no dice el género de nadie). El «le» de «le serruchó el
+piso» sí va: es objeto indirecto y es invariable en género.
+
+«La UBA **le pasó** a la UNSAM» estuvo en producción y es el testigo de
+`check_game_events_copy.py`: en rioplatense «a la UNSAM le pasó» se lee como que
+a la UNSAM le OCURRIÓ algo. Pero «pasó a» a secas tampoco alcanzaba —el verbo más
+pálido que había para el hecho más grande de la tabla—, así que el sobrepaso usa
+**superó**, **dejó atrás**, **desplazó** y **le serruchó el piso**. Y hay un pool
+aparte para cuando no estuvo cerca («barrió», «pasó por arriba», con el número),
+que solo sale con más de 10% de ventaja: un sobrepaso recién confirmado pasa el
+margen por poco, y decir «barrió» sobre un 2% es la clase de afirmación que hace
+que el feed deje de creerse.
+
+Dos decisiones de vocabulario más, las dos con chequeo propio para que no vuelvan
+solas: las rachas **alternan «errar» y «pifiar»** —la misma idea con dos
+registros, el doble de frases sin agregar ninguna— y **no se cuentan «al hilo»**.
+
+## El chat (`game/chat.py`, `chat-panel.tsx`)
 
 Una sola columna donde se intercalan las novedades del sistema y lo que escribe
 la gente, ordenadas por cuándo pasó cada cosa. No son dos widgets apilados a

@@ -477,6 +477,15 @@ def grant(
             donor_level=(
                 elo.level_of(donante.theta) if donante is not None else None
             ),
+            # Cuánto dura ESTA donación, para que el feed cuente las dos cosas
+            # que un cafecito compra y no solo una. El multiplicador solo no
+            # alcanza: con la universidad ya en el techo no se mueve, y lo que
+            # se pagó fue tiempo (es el mismo agujero que el cartel acaba de
+            # dejar de tener, ver web/.../impacto-del-cafecito.ts).
+            #
+            # `or None` porque un empuje de cortesía puede venir en minutos y no
+            # llegar a la hora: mejor la frase sin reloj que un «por 0 horas».
+            horas=int(dura.total_seconds() // 3600) or None,
         )
     # El ranking va a moverse distinto a partir de ahora: que el pulso avise.
     simulation.bump_version(db)

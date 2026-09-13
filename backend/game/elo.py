@@ -267,6 +267,43 @@ def level_of(theta: float) -> int:
     return len(_LEVEL_CUTS)
 
 
+# Cuántos niveles hay. Es `len(_LEVEL_CUTS)`, o sea el nivel más alto que
+# `level_of` puede devolver, y se expone porque el feed necesita saber cuándo
+# alguien llegó al último escalón y no a uno más.
+NIVEL_MAX = len(_LEVEL_CUTS)
+
+
+def theta_de_nivel(level: int) -> float:
+    """El θ exacto en el que se ENTRA al nivel `level`.
+
+    La inversa de `level_of` en su único punto interesante: el borde. El nivel 0
+    no tiene borde de entrada —se arranca ahí— y devuelve 0,0.
+    """
+    if level <= 0:
+        return 0.0
+    return _LEVEL_CUTS[min(level, NIVEL_MAX) - 1]
+
+
+# Cuánto por encima de β cae la banda objetivo: θ = β + logit(TARGET_MID)/SCALE.
+# Es la relación que ya estaba escrita en el comentario de `_LEVEL_CUTS` —«una
+# plantilla cae en la banda objetivo cuando θ ≈ β + 1.34»— pero como número y no
+# como prosa, para que quien la use no tenga que copiar el 1,34 a mano.
+_OFFSET_DE_BANDA = math.log(TARGET_MID / (1.0 - TARGET_MID)) / SCALE
+
+
+def tier_objetivo(theta: float) -> int:
+    """Qué tier le queda en la banda objetivo a alguien con este θ.
+
+    O sea: qué dificultad le está sirviendo el juego. Se calcula y no se tabula
+    a propósito — el feed anuncia "llegó a los cocientes" cuando alguien sube de
+    nivel, y esa frase es CIERTA solo mientras los cortes de nivel y las semillas
+    de tier digan lo que hoy dicen. Derivándola de las dos, el día que alguna se
+    mueva la frase se mueve con ella en vez de quedar mintiendo.
+    """
+    objetivo = theta - _OFFSET_DE_BANDA
+    return min(BETA_SEED, key=lambda tier: abs(BETA_SEED[tier] - objetivo))
+
+
 # El θ en la escala de ajedrez, para poder mostrarlo. Es un cambio de UNIDADES y
 # nada más: el orden entre jugadores y las distancias relativas son las mismas.
 # Se hace porque θ = 0.83 no le dice nada a nadie, y 1166 sí — todo el mundo sabe

@@ -199,8 +199,12 @@ def _ranking_generico(ctx: dict) -> tuple[str, str]:
 # ── Universidades ────────────────────────────────────────────────────────────
 
 def _uni_paso(ctx: dict) -> tuple[str, str]:
+    # «Le pasó a» no: en rioplatense «a la UNSAM le pasó» se lee como que a la
+    # UNSAM le OCURRIÓ algo. Y «pasó a» a secas tampoco, que es el verbo más
+    # pálido que hay para el hecho más grande de la tabla. El mismo criterio que
+    # del lado del feed (game/events_copy.py).
     return TITULO, (
-        f"La {ctx['universidad']} le pasó a la {ctx['rival_universidad']} en XP "
+        f"La {ctx['universidad']} superó a la {ctx['rival_universidad']} en XP "
         f"esta semana 🏛️"
     )
 

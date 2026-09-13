@@ -61,6 +61,7 @@ CHECKS = [
     "check_game_chat",
     "check_game_dashboard",
     "check_game_events",
+    "check_game_events_copy",
     "check_game_explain",
     "check_game_generator",
     "check_game_ranking_sort",

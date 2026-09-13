@@ -1425,6 +1425,10 @@ def game_events_feed(
         db,
         after_id=after_id,
         before_id=before_id,
+        # De quién es este feed: las noticias del podio de adentro de una casa de
+        # estudios solo las ve esa casa de estudios (game/events.py ::
+        # KINDS_INTERNOS).
+        universidad_del_lector=player.university,
         **({"limit": n} if n else {}),
     )
     mensajes = game_chat.recent(

@@ -16,6 +16,11 @@ cosas lo frenan:
     DISTINTOS de la misma persona en veinte minutos son cinco líneas, cada una
     cumpliendo su regla. El freno está en `_publicar`, mira a la persona y no al
     hecho, y elige la noticia más fuerte en vez de la primera que disparó.
+  · **Variedad.** El ruido no es la única forma de que un feed se deje de
+    leer: setenta y cuatro líneas escritas con diez frases —la de subir de nivel
+    salió idéntica dieciocho veces— se vuelven papel pintado igual de rápido.
+    Cómo se escribe cada noticia vive en `events_copy.py`, que tiene un pool por
+    hecho y elige con una semilla fija; acá adentro no hay ni una frase suelta.
   · **Solo gente real.** Los jugadores sembrados mueven el ranking (ver
     simulation.py) pero no generan eventos con nombre y apellido: que un número
     suba es una cosa, y afirmar "@fulano pasó a doce personas" cuando @fulano no
@@ -29,13 +34,12 @@ import json
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 
-from sqlalchemy import func
+from sqlalchemy import func, or_
 from sqlalchemy.orm import Session
 
 from models import GameEvent, GamePlayer, GameSimState
-from universities import article_for
 
-from . import elo, ranking
+from . import elo, events_copy, ranking
 
 # Cuántas líneas trae el feed de arranque: lo que llena la primera pantalla con
 # margen para scrollear un poco antes de tener que pedir más.
@@ -195,15 +199,43 @@ FUERZA_INTERRUMPE = 85
 # caso imaginable, más el puntero.
 SALTO_PARA_MEJORAR = 25
 
+# El ícono de cada tipo de línea. Son diez en una sola columna, así que cada uno
+# tiene que distinguirse de los otros nueve a 16 píxeles y sin leer el texto.
+#
+# `top` es una escalera y no un cohete: el cohete decía «esto despegó», que es lo
+# que la escalada por puestos afirmaba antes de que la reemplazaran los cortes
+# (ver `CORTES_DEL_RANKING`); un corte del ranking ES un escalón. Y `level` es
+# una paleta porque lo que cambia a la vista es el COLOR del nombre —el feed lo
+# pinta con `actor_level`, igual que el ranking—, así que el ícono dice lo que la
+# frase ya no tiene que decir.
+# Las noticias que solo ve la universidad de la que hablan.
+#
+# El podio interno es la tabla que más se disputa —el número 1 global lo pelean
+# siempre los mismos, el de una universidad se lo pelea gente que cursa junta—
+# pero es exactamente por eso que a los de afuera no les dice nada: «@fulano
+# destronó a @mengano en el ranking de la UNC» es una escena para doce personas
+# y una línea de ruido para las otras doscientas. Medido: 21 en una semana.
+#
+# Se decide por `kind` y no con una columna nueva porque acá la audiencia ES el
+# tipo de noticia: no hay un podio de universidad que además sea público. El día
+# que lo haya, esto se convierte en una columna y no antes.
+#
+# El filtro vive en el SQL de `recent` y no en un `if` después de traer las
+# filas, y no es un detalle de eficiencia: el cliente pagina con `before_id` y
+# una página más corta que el `limit` pedido significa «no hay más atrás» (ver
+# el docstring del endpoint). Filtrando en Python, una tanda de podios internos
+# le cortaría el scroll a quien no es de esa universidad.
+KINDS_INTERNOS = ("uni_top",)
+
 EMOJI = {
     "boost": "☕",
     "signup": "🎓",
     "referral": "🪖",
-    "top": "🚀",
+    "top": "🪜",
     "uni_top": "🏆",
     "streak": "🔥",
     "lead": "👑",
-    "level": "⚡",
+    "level": "🎨",
     "uni_pass": "🏛️",
     "uni_close": "👀",
 }
@@ -303,8 +335,15 @@ def recent(
     after_id: int = 0,
     limit: int = FEED_LIMIT,
     before_id: int = 0,
+    universidad_del_lector: str | None = None,
 ) -> list[EventView]:
-    """Los últimos eventos, del más nuevo al más viejo.
+    """Los últimos eventos QUE ESTE LECTOR PUEDE VER, del más nuevo al más viejo.
+
+    `universidad_del_lector` es de quién es el feed, y lo único que cambia es si
+    entran las noticias de `KINDS_INTERNOS` —el podio de adentro de una casa de
+    estudios—. En `None` (un invitado, o alguien que todavía no cargó dónde
+    estudia) no entra ninguna, que es lo correcto: no hay universidad de la que
+    sea de puertas adentro.
 
     Con `after_id` devuelve solo lo que el cliente todavía no vio, que es lo que
     hace que el sondeo cueste casi nada cuando no pasa nada.
@@ -320,6 +359,18 @@ def recent(
     """
     now = _now()
     q = db.query(GameEvent)
+    # Adentro del SQL, por lo que dice el comentario de `KINDS_INTERNOS`: si esto
+    # se filtrara después, una página corta le diría al cliente que llegó al
+    # final del historial cuando solo se topó con noticias ajenas.
+    if universidad_del_lector:
+        q = q.filter(
+            or_(
+                GameEvent.kind.notin_(KINDS_INTERNOS),
+                GameEvent.university == universidad_del_lector,
+            )
+        )
+    else:
+        q = q.filter(GameEvent.kind.notin_(KINDS_INTERNOS))
     if before_id:
         q = q.filter(GameEvent.id < before_id)
     elif after_id:
@@ -384,7 +435,10 @@ def on_signup(db: Session, player: GamePlayer) -> None:
             emit(
                 db,
                 "referral",
-                "{a} reclutó a {b}.",
+                events_copy.referral(
+                    f"signup:{player.id}",
+                    arts=events_copy.articulos_de(referente.university),
+                ),
                 actor_alias=f"@{referente.alias}",
                 actor_level=elo.level_of(referente.theta),
                 actor_b_alias=f"@{player.alias}",
@@ -400,7 +454,9 @@ def on_signup(db: Session, player: GamePlayer) -> None:
     emit(
         db,
         "signup",
-        "{a} se sumó al juego.",
+        events_copy.signup(
+            f"signup:{player.id}", arts=events_copy.articulos_de(player.university)
+        ),
         actor_alias=f"@{player.alias}",
         actor_level=elo.level_of(player.theta),
         player_id=player.id,
@@ -426,13 +482,16 @@ def on_aforo(
     diferencia con `on_boost` — ahí hay alguien que puso plata y merece que se
     lo vea.
     """
-    art = article_for(university).capitalize()
-    mult = f"×{multiplier:.1f}".replace(".", ",")
-    reloj = "una hora" if horas == 1 else f"{horas} horas"
     emit(
         db,
         "boost",
-        f"{art} {{u0}} llegó a {personas} personas nuevas hoy: {mult} por {reloj}. 🎉",
+        events_copy.aforo(
+            f"aforo:{university}:{personas}",
+            personas=personas,
+            multiplier=multiplier,
+            horas=horas,
+            arts=events_copy.articulos_de(university),
+        ),
         university=university,
     )
 
@@ -445,6 +504,7 @@ def on_boost(
     donor_name: str | None,
     donor_alias: str | None = None,
     donor_level: int | None = None,
+    horas: int | None = None,
 ) -> None:
     """Alguien invitó cafecitos. `university=None` es el empuje global.
 
@@ -475,24 +535,34 @@ def on_boost(
         quien, nivel = f"@{donor_alias}", donor_level
     if quien is None:
         quien = "Alguien"
-    cuantos = "un cafecito" if cafecitos == 1 else f"{cafecitos} cafecitos"
-    mult = f"×{multiplier:.1f}".replace(".", ",")
+    semilla = f"boost:{university}:{cafecitos}:{multiplier}:{quien}"
     if university is None:
         # La donación que no se pudo atribuir no se pierde: la cobra todo el
         # mundo, y el feed lo cuenta como lo que es, un regalo para todos.
         emit(
             db,
             "boost",
-            f"{{a}} invitó {cuantos} para TODOS: {mult} para todo el juego.",
+            events_copy.boost(
+                semilla,
+                cafecitos=cafecitos,
+                multiplier=multiplier,
+                horas=horas,
+                arts=None,
+            ),
             actor_alias=quien,
             actor_level=nivel,
         )
         return
-    art = article_for(university)
     emit(
         db,
         "boost",
-        f"{{a}} invitó {cuantos} para {art} {{u0}}: {mult} para toda la universidad.",
+        events_copy.boost(
+            semilla,
+            cafecitos=cafecitos,
+            multiplier=multiplier,
+            horas=horas,
+            arts=events_copy.articulos_de(university),
+        ),
         actor_alias=quien,
         # Con nivel SOLO cuando el nombre es el @ del juego (ver arriba): el
         # texto libre de Cafecito no es necesariamente un jugador, y pintarlo con
@@ -500,16 +570,6 @@ def on_boost(
         actor_level=nivel,
         university=university,
     )
-
-
-def _de(university: str) -> str:
-    """«de la UBA», «del ITBA».
-
-    No se puede armar pegando `article_for` detrás de un "de": «de el ITBA» no
-    existe en castellano, y la contracción es justamente lo que el catálogo no
-    tiene por qué saber.
-    """
-    return "del" if article_for(university) == "el" else "de la"
 
 
 @dataclass(frozen=True)
@@ -523,6 +583,10 @@ class _Candidato:
     actor_level: int
     university: str | None = None
     dedupe_minutes: int | None = None
+    # El segundo nombre de la oración, cuando la variante elegida lo usa
+    # («{a} le sacó el número 1 a {b}»). El cliente ignora lo que sobra, así
+    # que mandarlo con una variante que no lo nombra no cuesta nada.
+    actor_b_alias: str | None = None
 
 
 def _fuerza_reciente(db: Session, player_id: int, now: datetime) -> int | None:
@@ -603,6 +667,7 @@ def _publicar(
             cand.text,
             actor_alias=f"@{player.alias}",
             actor_level=cand.actor_level,
+            actor_b_alias=cand.actor_b_alias,
             player_id=player.id,
             university=cand.university,
             dedupe_key=cand.dedupe_key,
@@ -653,7 +718,9 @@ def _entrada_al_top(
         return _Candidato(
             fuerza=FUERZA_TOP[corte],
             kind="top",
-            text=f"{{a}} entró al top {corte}.",
+            text=events_copy.top(
+                f"top:{player.id}:{corte}", corte=corte, desde=rank_before
+            ),
             actor_level=elo.level_of(player.theta),
             # La sigla viaja aunque el texto no la nombre: es lo que hace que la
             # línea se resalte para los compañeros de esa universidad.
@@ -688,16 +755,27 @@ def _entrada_al_podio(
             continue
         if ranking.cuantos_compiten(db, scope) < MIN_JUGADORES_UNI:
             return None
-        texto = (
-            f"{{a}} es el número 1 {_de(uni)} {{u0}}."
-            if corte == 1
-            else f"{{a}} entró al top {corte} {_de(uni)} {{u0}}."
+        # A quién se le sacó el número 1 de la casa de estudios. El mismo
+        # razonamiento que arriba con el puntero del juego entero: quien queda
+        # segundo es quien lo tenía, porque una respuesta mueve a una persona
+        # sola. Y solo si es alguien de verdad — los sembrados no se nombran.
+        desplazado = None
+        if corte == 1:
+            segundo = ranking.en_puesto(db, 2, scope)
+            if segundo is not None and segundo.id != player.id and _real(segundo):
+                desplazado = f"@{segundo.alias}"
+        texto = events_copy.uni_top(
+            f"unitop:{player.id}:{uni}:{corte}",
+            corte=corte,
+            arts=events_copy.articulos_de(uni),
+            desplazado=desplazado is not None,
         )
         return _Candidato(
             fuerza=FUERZA_UNI_TOP[corte],
             kind="uni_top",
             text=texto,
             actor_level=elo.level_of(player.theta),
+            actor_b_alias=desplazado,
             university=uni,
             # La sigla entra en la clave: quien se cambia de universidad entra a
             # un podio nuevo, y ese sí es un hecho nuevo.
@@ -773,12 +851,32 @@ def on_answer(
     # Puntero nuevo, que es la noticia más grande que el juego tiene.
     if rank_after == 1 and (rank_before or 0) > 1:
         if _puntero_es_noticia(db, player):
+            # A quién se le sacó el 1. Quien está SEGUNDO ahora es exactamente
+            # quien lo tenía: una respuesta mueve a una persona sola, así que el
+            # que quedó atrás es el que estaba adelante. Cuesta una consulta más
+            # en el camino caliente y pasa dieciocho veces por semana — es la
+            # diferencia entre anunciar un puesto y anunciar una escena.
+            #
+            # Se nombra solo si es alguien de verdad: los sembrados pueblan el
+            # ranking pero no se nombran (ver `_real`), y «le sacó el número 1 a
+            # @unbot» sería justamente la afirmación falsa que este módulo
+            # existe para no hacer.
+            segundo = ranking.en_puesto(db, 2)
+            desplazado = (
+                f"@{segundo.alias}"
+                if segundo is not None and segundo.id != player.id and _real(segundo)
+                else None
+            )
             candidatos.append(
                 _Candidato(
                     fuerza=FUERZA_LEAD,
                     kind="lead",
-                    text="{a} es el nuevo número 1.",
+                    text=events_copy.lead(
+                        f"lead:{player.id}:{player.xp}",
+                        desplazado=desplazado is not None,
+                    ),
                     actor_level=nivel,
+                    actor_b_alias=desplazado,
                     university=player.university,
                     dedupe_key="lead",
                     dedupe_minutes=LEAD_COOLDOWN_MINUTES,
@@ -798,7 +896,10 @@ def on_answer(
             _Candidato(
                 fuerza=FUERZA_STREAK[player.current_combo],
                 kind="streak",
-                text=f"{{a}} lleva {player.current_combo} seguidas sin errar.",
+                text=events_copy.streak(
+                    f"streak:{player.id}:{player.current_combo}",
+                    seguidas=player.current_combo,
+                ),
                 actor_level=nivel,
                 university=player.university,
                 dedupe_key=f"streak:{player.id}:{player.current_combo}",
@@ -810,7 +911,9 @@ def on_answer(
             _Candidato(
                 fuerza=FUERZA_LEVEL,
                 kind="level",
-                text="{a} desbloqueó derivadas más difíciles.",
+                text=events_copy.level(
+                    f"level:{player.id}:{level_after}", nivel=level_after
+                ),
                 actor_level=level_after,
                 university=player.university,
                 dedupe_key=f"level:{player.id}:{level_after}",
@@ -962,7 +1065,7 @@ def sync_universities(db: Session, min_players: int, now: datetime | None = None
     sobrepaso real, porque «está a nada de pasar» describía una situación que
     dura horas y se re-anunciaba cada media ventana.
 
-      · **«le pasó a»** sale cuando cambia el líder CONFIRMADO de un par, y
+      · **«pasó a»** sale cuando cambia el líder CONFIRMADO de un par, y
         confirmado quiere decir adelante por más de `UNI_PASS_MARGEN`. Dentro de
         la banda se conserva el líder anterior.
       · **«está a nada de pasar a»** sale cuando un par ENTRA en la banda
@@ -991,8 +1094,11 @@ def sync_universities(db: Session, min_players: int, now: datetime | None = None
     # existe.
     lider_ahora: dict[str, str] = {}
     pegados_ahora: set[str] = set()
-    sobrepasos: list[tuple[str, str]] = []
-    entrantes: list[tuple[float, str, str]] = []
+    # Los dos llevan el número además de las siglas: el feed dice cuánta XP
+    # separa a un par que se vino encima, y eso no se puede recalcular abajo
+    # sin volver a recorrer las standings.
+    sobrepasos: list[tuple[str, str, float, float, float]] = []
+    entrantes: list[tuple[float, str, str, float]] = []
 
     for i, (arriba, xp_arriba) in enumerate(standings):
         if xp_arriba <= 0:
@@ -1012,7 +1118,7 @@ def sync_universities(db: Session, min_players: int, now: datetime | None = None
             # Cuando la disputa se resolvía, seguía valiendo None y el sobrepaso
             # no salía. Pasó en producción con la UNSAM y la UNC —que venían
             # pingponeando dentro de la banda justo cuando se guardó la primera
-            # foto—: la UNC se fue de 76k a 106k, le pasó a la UNSAM por 22%, y
+            # foto—: la UNC se fue de 76k a 106k, pasó a la UNSAM por 22%, y
             # el feed no dijo nada.
             #
             # Anotando igual a quien va adelante HOY, la creencia existe desde el
@@ -1022,7 +1128,9 @@ def sync_universities(db: Session, min_players: int, now: datetime | None = None
             if margen > UNI_PASS_MARGEN:
                 lider_ahora[par] = arriba
                 if previo is not None and previo != arriba:
-                    sobrepasos.append((arriba, abajo))
+                    sobrepasos.append(
+                        (arriba, abajo, xp_arriba, margen, xp_arriba - xp_abajo)
+                    )
             elif previo is not None:
                 lider_ahora[par] = previo
             else:
@@ -1034,7 +1142,7 @@ def sync_universities(db: Session, min_players: int, now: datetime | None = None
             if margen <= UNI_CLOSE_RATIO or (estaba and margen <= UNI_CLOSE_SALIDA):
                 pegados_ahora.add(par)
             if margen <= UNI_CLOSE_RATIO and not estaba:
-                entrantes.append((margen, abajo, arriba))
+                entrantes.append((margen, abajo, arriba, xp_arriba - xp_abajo))
 
     # La foto se guarda ACÁ, antes de cualquiera de los `return` que siguen. Si
     # se mueve abajo de uno, el barrido se queda sin referencia: el primero pasa
@@ -1055,14 +1163,23 @@ def sync_universities(db: Session, min_players: int, now: datetime | None = None
     if lider_antes is None:
         return
 
-    for gana, pierde in sobrepasos:
-        # "la UNSAM le pasó a la UNL" / "el ITBA…": el artículo lo decide el
-        # nombre completo de cada casa de estudios, no la sigla.
-        a0, a1 = article_for(gana).capitalize(), article_for(pierde)
+    for gana, pierde, xp_gana, margen, diferencia in sobrepasos:
+        # El artículo lo decide el nombre completo de cada casa de estudios y no
+        # la sigla: «la UNSAM», «el ITBA». La XP entra en la semilla para que dos
+        # sobrepasos del mismo par no salgan redactados igual — siempre crece.
         emit(
             db,
             "uni_pass",
-            f"{a0} {{u0}} le pasó a {a1} {{u1}} en experiencia.",
+            events_copy.uni_pass(
+                f"pass:{_par(gana, pierde)}:{int(xp_gana)}",
+                gana=events_copy.articulos_de(gana),
+                pierde=events_copy.articulos_de(pierde),
+                # Con cuánta ventaja quedó: es lo que separa «superó» de
+                # «barrió», y decir la segunda sobre un 2% sería la clase de
+                # afirmación que hace que el feed deje de creerse.
+                margen=margen,
+                diferencia=int(diferencia),
+            ),
             university=gana,
             university_b=pierde,
             dedupe_key=f"pass:{_par(gana, pierde)}",
@@ -1076,12 +1193,18 @@ def sync_universities(db: Session, min_players: int, now: datetime | None = None
     # tick — el aviso deja de ser una noticia y tapa lo que sí lo es.
     if pegados_antes is None:
         return
-    for _margen, abajo, arriba in sorted(entrantes)[:1]:
-        a0, a1 = article_for(abajo).capitalize(), article_for(arriba)
+    for _margen, abajo, arriba, diferencia in sorted(entrantes)[:1]:
+        # Con el número, que es lo único accionable que el aviso puede decir:
+        # «están cerca» no se puede hacer nada, «faltan 1.200 XP» sí.
         emit(
             db,
             "uni_close",
-            f"{a0} {{u0}} está a nada de pasar a {a1} {{u1}} en experiencia.",
+            events_copy.uni_close(
+                f"close:{_par(abajo, arriba)}:{int(diferencia)}",
+                abajo=events_copy.articulos_de(abajo),
+                arriba=events_copy.articulos_de(arriba),
+                diferencia=int(diferencia),
+            ),
             university=abajo,
             university_b=arriba,
             # Del PAR, sin dirección: ida y vuelta son el mismo hecho. Con la
