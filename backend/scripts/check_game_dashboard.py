@@ -305,10 +305,14 @@ check("el largo de la partida se mide en primeros intentos",
       len(data["_firsts"]) == 25 and len(data["_firsts"]) == len(data["_answers"]),
       f'({len(data["_firsts"])} primeros intentos sobre {len(data["_answers"])} respuestas)')
 
-# ── 3 · Titulares ──────────────────────────────────────────────────────────
+# ── 3 · Los números de la semana ───────────────────────────────────────────
 print()
-print("— titulares —")
-h = {c["label"]: c for c in q.headline(data, weeks)}
+print("— numeros de la semana —")
+# `headline` devuelve un dict por sección, no una lista: los doce números viven
+# arriba del gráfico que los explica. Acá se aplanan porque lo que se fija en
+# este bloque son las DEFINICIONES, que no dependen de dónde se dibuje cada una.
+REPARTO = q.headline(data, weeks)
+h = {c["label"]: c for cards in REPARTO.values() for c in cards}
 # Los cuatro estudiantes de la semana, más nadie: el bot no cuenta y p3 respondió
 # recién el lunes siguiente, así que su respuesta cae en la semana de al lado.
 check("usuarios nuevos de la semana", h["Usuarios nuevos"]["value"] == 4,
@@ -371,8 +375,27 @@ check("la duración de la 1ª sesión sale en minutos",
       and h["Duración 1ª sesión"]["value"] > 0,
       f'({h["Duración 1ª sesión"]["value"]} min)')
 
-check("son doce titulares, en tres filas de cuatro", len(q.headline(data, weeks)) == 12,
-      f"({len(q.headline(data, weeks))})")
+# El reparto es la parte que se puede romper sin que nadie lo note: una tarjeta
+# que se cae del dict desaparece de la página y ninguna consulta falla por eso.
+check("los doce números siguen estando", len(h) == 12, f"({len(h)})")
+check("repartidos entre embudo, profundidad y reclutas",
+      {k: len(v) for k, v in REPARTO.items()}
+      == {"embudo": 4, "profundidad": 5, "reclutas": 3},
+      f"({ {k: len(v) for k, v in REPARTO.items()} })")
+# Cada uno va donde está el gráfico que lo explica, y la sección a la que apunta
+# tiene que existir como pestaña: una clave mal escrita acá es una fila de
+# números que no se dibuja en ningún lado.
+check("y cada grupo apunta a una pestaña que existe",
+      set(REPARTO) <= {c for c, _ in game_render.SECCIONES},
+      f"({sorted(REPARTO)})")
+# Las derivadas de la primera tanda y sus minutos tienen que quedar PEGADAS:
+# cinco derivadas en dos minutos y cinco en veinte son dos productos distintos,
+# y con dos tarjetas en el medio esa lectura no ocurre.
+etiquetas_prof = [c["label"] for c in REPARTO["profundidad"]]
+check("la duración va al lado de las derivadas de esa misma tanda",
+      abs(etiquetas_prof.index("1ª sesión")
+          - etiquetas_prof.index("Duración 1ª sesión")) == 1,
+      f"({etiquetas_prof})")
 
 # ── 4 · Embudo ───────────────────────────────────────────────────────────────
 print("\n— embudo —")
@@ -474,6 +497,38 @@ try:
           [x["label"] for x in coh["series"]]
           == sorted(x["label"] for x in coh["series"]))
     check("y no son más de tres", len(coh["series"]) <= q.MAX_COHORTES)
+finally:
+    q.MIN_BASE_SERIE = 5
+
+# ── El corte por sesión ────────────────────────────────────────────────────
+# Es el único que cambia de UNIDAD entre sus dos líneas: la primera cuenta
+# personas y la segunda cuenta tandas. Si alguna vez se "arreglara" para que
+# sumen, el número dejaría de contestar la pregunta que motivó el corte.
+ses = q.profundidad(data, weeks, now=NOW, corte="sesion")
+check("la primera línea del corte por sesión ES la curva de «Todos»",
+      ses["series"][0]["curva"] == pr["curva"]
+      and ses["series"][0]["base"] == pr["base"],
+      f'({ses["series"][0]["base"]} vs {pr["base"]})')
+# Con el piso en cinco no hay segunda línea en este escenario: las tandas de la
+# segunda vuelta son dos. Que falte la segunda no puede llevarse puesta la
+# primera, que es la referencia contra la que se lee todo el gráfico.
+check("y sin base para la segunda, la primera sigue dibujándose",
+      len(ses["series"]) == 1, f'({[x["label"] for x in ses["series"]]})')
+
+q.MIN_BASE_SERIE = 1
+try:
+    ses = q.profundidad(data, weeks, now=NOW, corte="sesion")
+    check("con base, salen las dos líneas",
+          [x["label"] for x in ses["series"]] == ["1ª sesión", "2ª y siguientes"],
+          f'({[x["label"] for x in ses["series"]]})')
+    # p1 y p2 tienen una segunda tanda cada uno; p4 no. Son DOS tandas sobre
+    # tres personas cerradas, así que la segunda línea no puede valer tres: si
+    # valiera, estaría contando gente en vez de vueltas.
+    check("la segunda línea cuenta tandas y no personas",
+          ses["series"][1]["base"] == 2, f'({ses["series"][1]["base"]})')
+    check("y las dos líneas NO suman el total, porque no reparten nada",
+          sum(x["base"] for x in ses["series"]) != ses["base"],
+          f'({sum(x["base"] for x in ses["series"])} vs {ses["base"]})')
 finally:
     q.MIN_BASE_SERIE = 5
 
@@ -661,10 +716,18 @@ check("el data.json queda linkeado", "/panel/tok/dx/data.json" in html)
 vacio = q.build(s, WEEK + timedelta(weeks=8))
 html2 = game_render.page(vacio, token="tok")
 check("una semana vacía no rompe el panel", len(html2) > 5000)
+# Y el corte por sesión es el que más superficie tiene para romperse ahí: dibuja
+# la primera línea aunque no tenga base —es la referencia— así que pasa por
+# `ch.lines` con una curva entera de None en vez de caer en el «no hay partidas».
+vacio_ses = q.build(s, WEEK + timedelta(weeks=8), corte="sesion")
+html3 = game_render.page(vacio_ses, token="tok", seccion="profundidad")
+check("y tampoco rompe el corte por sesión", len(html3) > 5000, f"({len(html3)} bytes)")
+check("que además avisa por qué le falta la segunda línea",
+      "Todavía no hay segunda línea" in html3)
 
 # Cada pestaña se arma sola y trae SU sección y ninguna otra: es lo que hace que
 # el panel deje de ser un scroll.
-titulos = {"titulares": "Titulares", "embudo": "Embudo de la partida",
+titulos = {"embudo": "Embudo de la partida",
            "profundidad": "Profundidad", "push": "Re-enganche · push",
            "mails": "Re-enganche · mails", "reclutas": "Reclutas"}
 for clave, _ in game_render.SECCIONES:
@@ -682,11 +745,31 @@ for clave, _ in game_render.SECCIONES:
     etiqueta = dict(game_render.SECCIONES)[clave]
     check(f"la pestaña «{clave}» queda marcada en la barra",
           f'<span class="cur">{etiqueta}</span>' in h)
+    # Y los números de la semana viajan con su sección. Es la forma callada de
+    # que el reparto se rompa: una tarjeta con la clave mal escrita se dibuja
+    # igual de linda, pero arriba del gráfico que no la explica — o no se dibuja
+    # en ninguna parte y nadie se entera, porque ninguna consulta falla por eso.
+    mios = [c["label"] for c in REPARTO.get(clave, [])]
+    ajenos = [c["label"] for k, cards in REPARTO.items() if k != clave
+              for c in cards]
+    check(f"los numeros de «{clave}» estan en su pestaña",
+          all(f'<div class="label">{lab}</div>' in h for lab in mios),
+          f"({len(mios)} tarjetas)")
+    check(f"y ninguno ajeno en «{clave}»",
+          not any(f'<div class="label">{lab}</div>' in h for lab in ajenos))
 
 # Una pestaña inventada cae en la primera en vez de dar una página vacía.
 h = game_render.page(q.build(s, WEEK), token="tok", seccion="inventada")
 check("una pestaña que no existe cae en la primera", h.count("<h2>") == 1
-      and "Titulares" in h)
+      and "Embudo de la partida" in h)
+# Y «titulares» es una pestaña inventada como cualquier otra: el panel la tuvo
+# durante meses, así que hay links pegados por ahí que la siguen pidiendo y
+# tienen que abrir el panel en vez de una página en blanco.
+h = game_render.page(q.build(s, WEEK), token="tok", seccion="titulares")
+check("un link viejo a «titulares» cae en el embudo", h.count("<h2>") == 1
+      and "Embudo de la partida" in h)
+check("y ya no queda ninguna seccion que se llame asi",
+      "titulares" not in {c for c, _ in game_render.SECCIONES})
 
 # Los cinco cortes tienen que armar la pestaña de profundidad, incluido el que
 # se queda sin series: ahí el gráfico no se dibuja y la caja se cae si nadie lo
@@ -696,7 +779,7 @@ for c in q.CORTES:
     check(f"la página se arma con el corte «{c}»", len(h) > 8000, f"({len(h)} bytes)")
     # El corte activo se dibuja como texto marcado y no como link: los otros
     # tres siguen siendo links, y el activo no puede llevar a sí mismo.
-    activo = {"total": "Todos", "cohorte": "Por cohorte",
+    activo = {"total": "Todos", "sesion": "Por sesión", "cohorte": "Por cohorte",
               "universidad": "Por universidad", "aparato": "Por aparato",
               "horario": "Por horario"}[c]
     check(f"y el corte «{c}» queda marcado en la barra",

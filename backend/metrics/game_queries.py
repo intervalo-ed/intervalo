@@ -291,23 +291,28 @@ def _correctas_de_la_primera_sesion(lista: list[dict]) -> int:
     return sum(1 for a in _primera_sesion(lista) if a["is_correct"])
 
 
-def headline(data: dict, weeks: list[date]) -> list[dict]:
-    """Los doce números de arriba, en tres filas de cuatro.
+def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
+    """Los doce números de la semana, repartidos entre las secciones.
 
-    Cada fila contesta una pregunta distinta, y el orden es el de las decisiones
-    y no el de las features:
+    **Ya no hay sección de titulares**, y la clave de cada lista es la pestaña
+    donde aterriza el grupo. Doce números juntos arriba de todo son doce números
+    que hay que memorizar: cada uno se lee contra un gráfico que estaba dos
+    pestañas más allá, y esa pestaña arrancaba con un gráfico al que le faltaba
+    justo su número. Puesto arriba del gráfico que lo explica, el número deja de
+    ser un marcador y pasa a ser el resumen de lo que se está mirando.
 
-      1. **Entrada** — cuánta gente vino, cuánta es nueva, y cuántos de esos
-         cruzaron los dos umbrales que los vuelven alcanzables: instalar la app y
-         registrarse.
-      2. **Crecimiento** — quién vuelve, quién trae gente y qué deja.
-      3. **Sesiones** — qué tan profunda es la primera sentada, si hay una
-         segunda, y cuánto duran.
+    El reparto, y por qué:
 
-    La tercera fila es la que estaba faltando: el juego se juega de una sentada,
-    así que el número que decide todo es cuánto aguanta esa sentada y si hay
-    alguna después. Estaba repartido entre un solo titular y la curva de
-    profundidad.
+      - **embudo** — quién entró, y cuántos cruzaron los dos umbrales que los
+        vuelven alcanzables después: instalar la app y registrarse. Son la
+        cohorte del embudo de abajo, contada de otra forma.
+      - **profundidad** — la sentada, que es la unidad real de este juego: qué
+        tan honda es la primera, cuánto dura, cuánto rinde la siguiente y si hay
+        siguiente. Cierra con los retenidos, que miden la misma vuelta pero en
+        SEMANAS: al lado de «Vuelven a jugar» se ve que son dos preguntas y no
+        dos versiones de la misma.
+      - **reclutas** — lo que aporta la gente que ya está, en las dos monedas que
+        el juego acepta: gente nueva y cafecitos.
     """
     players = data["players"]
     answers = data["_answers"]
@@ -507,50 +512,58 @@ def headline(data: dict, weeks: list[date]) -> list[dict]:
         return {"label": label, "value": value, "suffix": suffix, "series": series,
                 "delta": delta, "hint": hint, "dec": dec}
 
-    return [
-        # Fila 1 · quién entró, y cuántos cruzaron los umbrales que los vuelven
-        # alcanzables después.
-        card("Visitas totales", per_week(visitas), "",
-             "Cuántas veces se sentó alguien a jugar. La misma persona que entra "
-             "el lunes y el jueves cuenta dos. Incluye las visitas que no "
-             "llegaron a ninguna derivada: para eso está el embudo."),
-        card("Usuarios nuevos", per_week(altas), "",
-             "Abrieron el link por primera vez esa semana. La fila se crea al "
-             "CARGAR la página, así que incluye a quien se fue en la pantalla de "
-             "intro sin ver una derivada — que hoy es más de la mitad. Los "
-             "«estudiantes» del ranking son otra cosa: los que acertaron al "
-             "menos una, de siempre."),
-        card("Instalan la app", per_week(instalaciones), "%",
-             "De los nuevos de la semana, cuántos la abrieron ya instalada. La "
-             "señal llega recién cuando la abren, así que la semana en curso "
-             "todavía está sumando."),
-        card("Se registran", per_week(registrados), "%",
-             "De los nuevos de la semana, cuántos dejaron de ser invitados."),
-        # Fila 2 · quién vuelve, quién trae gente y qué deja.
-        card("Usuarios retenidos", per_week(retenidos), "",
-             "Gente de otra semana que volvió a jugar en esta."),
-        card("Reclutas", per_week(reclutas), "",
-             "Nuevos que entraron por el link de otro jugador."),
-        card("Coeficiente de viralidad", per_week(viralidad), "",
-             "Cuánta gente trajo cada uno de los que ya estaban. Uno es el juego "
-             "creciendo solo.", dec=2),
-        card("Cafecitos", per_week(cafecitos), "",
-             "Solo los donados de verdad: los grants a mano y los de aforo no cuentan."),
-        # Fila 3 · la sentada, que es la unidad real de este juego.
-        card("1ª sesión", per_week(primera_sesion), "",
-             "Mediana de derivadas resueltas en la primera tanda, entre los que "
-             "llegaron a responder."),
-        card("2ª y siguientes", per_week(sesiones_siguientes), "",
-             "Mediana por TANDA, no por persona: quien vuelve cuatro veces aporta "
-             "cuatro números. Más corta que la 1ª significa que engancha y no "
-             "retiene."),
-        card("Vuelven a jugar", per_week(vuelven), "%",
-             "De los que jugaron su primera tanda, cuántos tuvieron una segunda. "
-             "Sentadas, no semanas: es la unidad real de este juego."),
-        card("Duración 1ª sesión", per_week(duracion_primera), " min",
-             "Mediana. Cinco derivadas en dos minutos y cinco en veinte son dos "
-             "productos distintos."),
-    ]
+    return {
+        "embudo": [
+            card("Visitas totales", per_week(visitas), "",
+                 "Cuántas veces se sentó alguien a jugar. La misma persona que entra "
+                 "el lunes y el jueves cuenta dos. Incluye las visitas que no "
+                 "llegaron a ninguna derivada: para eso está el embudo de abajo."),
+            card("Usuarios nuevos", per_week(altas), "",
+                 "Abrieron el link por primera vez esa semana, y son la cohorte del "
+                 "embudo de abajo. La fila se crea al CARGAR la página, así que "
+                 "incluye a quien se fue en la pantalla de intro sin ver una "
+                 "derivada — que hoy es más de la mitad. Los «estudiantes» del "
+                 "ranking son otra cosa: los que acertaron al menos una, de siempre."),
+            card("Instalan la app", per_week(instalaciones), "%",
+                 "De los nuevos de la semana, cuántos la abrieron ya instalada. La "
+                 "señal llega recién cuando la abren, así que la semana en curso "
+                 "todavía está sumando."),
+            card("Se registran", per_week(registrados), "%",
+                 "De los nuevos de la semana, cuántos dejaron de ser invitados. Es "
+                 "el mismo corte que el paso «se registró» de abajo, en tasa."),
+        ],
+        "profundidad": [
+            # Las derivadas de la primera tanda y sus minutos van PEGADAS: cinco
+            # derivadas en dos minutos y cinco en veinte son dos productos
+            # distintos, y con dos tarjetas en el medio eso no se lee.
+            card("1ª sesión", per_week(primera_sesion), "",
+                 "Mediana de derivadas resueltas en la primera tanda, entre los que "
+                 "llegaron a responder. Es el número que resume la curva de abajo."),
+            card("Duración 1ª sesión", per_week(duracion_primera), " min",
+                 "Mediana. Va al lado de las derivadas de esa misma tanda: cinco en "
+                 "dos minutos y cinco en veinte son dos productos distintos."),
+            card("2ª y siguientes", per_week(sesiones_siguientes), "",
+                 "Mediana por TANDA, no por persona: quien vuelve cuatro veces aporta "
+                 "cuatro números. Más corta que la 1ª significa que engancha y no "
+                 "retiene."),
+            card("Vuelven a jugar", per_week(vuelven), "%",
+                 "De los que jugaron su primera tanda, cuántos tuvieron una segunda. "
+                 "Sentadas, no semanas: es la unidad real de este juego."),
+            card("Usuarios retenidos", per_week(retenidos), "",
+                 "Gente de otra semana que volvió a jugar en esta. La misma vuelta "
+                 "que la tarjeta de al lado, pero medida en semanas y sobre toda la "
+                 "base en vez de sobre los nuevos."),
+        ],
+        "reclutas": [
+            card("Reclutas", per_week(reclutas), "",
+                 "Nuevos que entraron por el link de otro jugador."),
+            card("Coeficiente de viralidad", per_week(viralidad), "",
+                 "Cuánta gente trajo cada uno de los que ya estaban. Uno es el juego "
+                 "creciendo solo.", dec=2),
+            card("Cafecitos", per_week(cafecitos), "",
+                 "Solo los donados de verdad: los grants a mano y los de aforo no cuentan."),
+        ],
+    }
 
 
 # ── 1 · Embudo ───────────────────────────────────────────────────────────────
@@ -617,15 +630,20 @@ def funnel(data: dict, week: date) -> dict:
 # Los cortes con los que se puede partir la curva. `total` es una sola línea con
 # todo el mundo; los otros tres la parten para poder comparar.
 #
-# Son los cuatro ejes por los que el juego puede ser distinto para dos personas:
-# CUÁNDO llegaron (la difusión de esa semana no es la de la anterior), DE DÓNDE
-# (cada universidad llega por su propio grupo y con su propia carrera), CON QUÉ
-# (el teclado matemático sobre una pantalla táctil es otro producto) y A QUÉ HORA
-# (no es lo mismo el hueco entre dos cursadas que la cama a la una de la mañana).
-# Cualquier otra cosa —carrera, origen del link— se puede mirar en las secciones
-# que ya están; estos cuatro cambian la forma de la curva, que es lo que se
-# compara acá.
-CORTES = ("total", "cohorte", "universidad", "aparato", "horario")
+# Cuatro son ejes de la PERSONA: CUÁNDO llegó (la difusión de esa semana no es
+# la de la anterior), DE DÓNDE (cada universidad llega por su propio grupo y con
+# su propia carrera), CON QUÉ (el teclado matemático sobre una pantalla táctil es
+# otro producto) y A QUÉ HORA (no es lo mismo el hueco entre dos cursadas que la
+# cama a la una de la mañana). Cualquier otro dato de la persona —carrera, origen
+# del link— se puede mirar en las secciones que ya están; estos cuatro cambian la
+# forma de la curva, que es lo que se compara acá.
+#
+# `sesion` no es un eje de la persona sino de la VUELTA: la misma gente, mirada
+# en su primera sentada y en las que vinieron después. Va segundo porque es el
+# pariente más cercano de «Todos» —su primera línea ES la curva de «Todos»— y
+# porque contesta la pregunta que la sección deja abierta: si el que vuelve
+# aguanta más que el que recién llega.
+CORTES = ("total", "sesion", "cohorte", "universidad", "aparato", "horario")
 
 # Cuántas series como máximo. Tres cohortes porque es lo que pidió el uso —dos
 # no es tendencia y cuatro ya no se distinguen— y cinco universidades porque a
@@ -679,7 +697,8 @@ def profundidad(data: dict, weeks: list[date], now: datetime | None = None,
 
     **La partida es la PRIMERA sesión**, no la vida entera del jugador, y está
     cerrada cuando esa tanda ya no puede crecer: pasaron más de
-    `SESSION_GAP_MINUTES` desde su última respuesta.
+    `SESSION_GAP_MINUTES` desde su última respuesta. La excepción es el corte
+    `sesion`, que es justamente el que va a buscar las otras tandas.
 
     Antes se medía la vida entera y se esperaban 24 h de silencio para leerla.
     Los datos de producción dicen por qué eso no se arreglaba bajando la espera:
@@ -696,13 +715,26 @@ def profundidad(data: dict, weeks: list[date], now: datetime | None = None,
     la vida entera, alguien de agosto que vuelve en octubre movía la mediana de
     agosto para siempre—.
 
-    `corte` agrega líneas, y de dos maneras distintas:
+    `corte` agrega líneas, y de tres maneras distintas:
 
       - `universidad`, `aparato` y `horario` PARTEN la cohorte de la semana en
         montones, así que sus líneas suman exactamente la del total;
       - `cohorte` TRAE OTRAS cohortes —la elegida y las dos anteriores— para
         comparar camadas entre sí. Ahí las líneas no suman nada: son tres
-        poblaciones distintas, y esa es justamente la comparación.
+        poblaciones distintas, y esa es justamente la comparación;
+      - `sesion` TRAE OTRAS TANDAS de la misma cohorte: la primera de cada uno
+        contra la segunda en adelante. Tampoco suman, y encima cambian de
+        unidad — la primera línea cuenta personas y la segunda cuenta tandas.
+
+    Ese cambio de unidad es a propósito y es el mismo criterio del número «2ª y
+    siguientes» de arriba: quien volvió cuatro veces aporta una partida a la
+    primera línea y tres a la segunda, porque la pregunta es cuánto rinde una
+    vuelta y no cuánto rinde alguien que vuelve.
+
+    Y trae una advertencia que no se ve en el gráfico: si la segunda línea
+    aguanta más que la primera, eso NO es que el juego se vuelva más fácil la
+    segunda vez. Es que a la segunda vuelta solo llega el que se enganchó, así
+    que la población está filtrada por lo mismo que se está midiendo.
     """
     now = now or datetime.utcnow()
     corte = corte if corte in CORTES else "total"
@@ -721,12 +753,19 @@ def profundidad(data: dict, weeks: list[date], now: datetime | None = None,
     por_jugador: dict[int, list[dict]] = defaultdict(list)
     for a in data["_firsts"]:
         por_jugador[a["player_id"]].append(a)
+    # Se guardan TODAS las tandas y no solo la primera: el corte `sesion` necesita
+    # las de la segunda vuelta en adelante, y partirlas dos veces sería recorrer
+    # el mismo historial dos veces para llegar a la misma lista.
+    tandas_de: dict[int, list[list[dict]]] = {}
     primera_de: dict[int, tuple[int, datetime, datetime]] = {}
     for pid, lista in por_jugador.items():
-        tanda = _primera_sesion(lista)
-        if tanda:
-            primera_de[pid] = (len(tanda), tanda[-1]["created_at"],
-                               tanda[0]["created_at"])
+        tandas = _sesiones(lista)
+        if not tandas:
+            continue
+        tandas_de[pid] = tandas
+        primera = tandas[0]
+        primera_de[pid] = (len(primera), primera[-1]["created_at"],
+                           primera[0]["created_at"])
 
     def largos_de(w: date) -> tuple[list[dict], list[int]]:
         """Las partidas cerradas de la cohorte de `w`, y su largo."""
@@ -757,6 +796,24 @@ def profundidad(data: dict, weeks: list[date], now: datetime | None = None,
 
     if corte == "total":
         series = [serie("Siguen jugando", None, largos)]
+    elif corte == "sesion":
+        # La segunda línea se cierra tanda por tanda y no jugador por jugador.
+        # En la práctica solo la ÚLTIMA de alguien puede estar abierta —que
+        # exista una tanda posterior ya prueba que la anterior se cerró— pero
+        # escribirlo así deja la regla en un solo lugar en vez de depender de esa
+        # deducción.
+        siguientes = [
+            len(t) for p in cerrados for t in tandas_de[p["id"]][1:]
+            if t[-1]["created_at"] < corte_reloj
+        ]
+        # La primera línea va SIEMPRE, aunque no llegue al piso: es la misma
+        # curva que «Todos», o sea la referencia contra la que se mira la otra, y
+        # un desglose donde falta la referencia no se puede leer. El piso lo paga
+        # la segunda, que es la que puede tener cuatro tandas y dibujar una
+        # escalera de a 25 puntos.
+        series = [serie("1ª sesión", "1", largos)]
+        if len(siguientes) >= MIN_BASE_SERIE:
+            series.append(serie("2ª y siguientes", "2+", siguientes))
     elif corte == "cohorte":
         # La elegida y las dos anteriores, de la más vieja a la más nueva: el
         # orden del tiempo es el orden en que se lee la comparación.

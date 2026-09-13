@@ -398,6 +398,12 @@ def spark(values: list[float], *, width: int = 96, height: int = 26) -> str:
                 f'<path d="{d}" fill="none" stroke="var(--indigo-soft)" stroke-width="1.8" '
                 f'stroke-linecap="round" stroke-linejoin="round"/>'
                 f'<circle cx="{last[0]:.1f}" cy="{last[1]:.1f}" r="2.6" fill="var(--indigo-soft)"/>',
+                # Pisa el `flex:none` de `_svg`, que viene después en el mismo
+                # atributo. No estirarse y no encogerse son dos cosas distintas y
+                # `none` prohíbe las dos: en una tarjeta angosta el número se
+                # partía en dos renglones para dejarle al sparkline sus 96 px.
+                # Con viewBox, comprimirlo solo achata la curva.
+                extra="flex:0 1 auto;min-width:0;",
                 fluid=False)
 
 
