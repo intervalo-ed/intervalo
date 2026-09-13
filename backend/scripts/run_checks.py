@@ -64,6 +64,7 @@ CHECKS = [
     "check_game_events_copy",
     "check_game_explain",
     "check_game_generator",
+    "check_game_opinion",
     "check_game_ranking_sort",
     "check_game_referrals",
     "check_game_escala",

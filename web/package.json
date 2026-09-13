@@ -15,6 +15,7 @@
     "types:api:file": "openapi-typescript ../backend/openapi.json -o src/lib/api/schema.ts",
     "check:reclutas": "bun run scripts/check-reclutas-trigger.ts",
     "check:instalacion": "bun run scripts/check-instalacion-trigger.ts",
+    "check:opinion": "bun run scripts/check-opinion-trigger.ts",
     "check:universitario": "bun run scripts/check-ranking-universitario.ts",
     "check:filtros": "bun run scripts/check-filtros-ranking.ts",
     "check:xp": "bun run scripts/check-xp-pasos.ts",

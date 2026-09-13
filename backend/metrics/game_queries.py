@@ -51,7 +51,8 @@ from sqlalchemy.orm import Session as DBSession
 # medición que miente sobre justo lo que existe para vigilar.
 from game import elo
 
-from .queries import AR_OFFSET, _pct, _rows, local_date, week_start
+from .queries import (A_ORDER, AR_OFFSET, P1_BAND, _pct, _rows, local_date,
+                      week_start)
 
 # Hueco que corta una sesión de juego. Media hora es lo que dura un empuje de
 # cafecito y lo que la industria usa como default de sesión; lo importante no es
@@ -253,6 +254,14 @@ def load(db: DBSession) -> dict:
         "cta": _rows(db, """
             SELECT player_id, cta, action, placement, solved, created_at
             FROM game_cta_events"""),
+        # La encuesta de dificultad. Trae los agregados congelados de la ventana
+        # —`ventana`, `aciertos`, `p_hat_medio`— y no se recalculan desde
+        # `exercises`: son lo que el motor creía cuando la persona votó, y β y θ
+        # se movieron desde entonces.
+        "votes": _rows(db, """
+            SELECT player_id, voto, shown_at, answered_at, theta_at_vote,
+                   ventana, aciertos, p_hat_medio, delta_theta
+            FROM game_difficulty_votes"""),
     }
 
     # Los bots se sacan UNA vez, acá, y no en cada bloque: filtrar en diez
@@ -268,6 +277,7 @@ def load(db: DBSession) -> dict:
     data["exercises"] = [e for e in data["exercises"] if e["player_id"] not in fuera]
     data["attempts"] = [a for a in data["attempts"] if a["player_id"] not in fuera]
     data["cta"] = [c for c in data["cta"] if c["player_id"] not in fuera]
+    data["votes"] = [v for v in data["votes"] if v["player_id"] not in fuera]
     data["avisos"] = [a for a in data["avisos"] if a["player_id"] not in fuera]
     data["suscripciones"] = [x for x in data["suscripciones"] if x["player_id"] not in fuera]
     # Los cafecitos no tienen jugador —`game_boosts` guarda nombre, universidad y
@@ -1987,7 +1997,84 @@ def calibracion(data: dict) -> dict:
             "banda": (round(100 * elo.TARGET_LOW), round(100 * elo.TARGET_HIGH))}
 
 
-# ── 10 · Fricción ────────────────────────────────────────────────────────────
+# ── 10 · La opinión de la gente ──────────────────────────────────────────────
+
+def opinion(data: dict) -> dict:
+    """Lo que el motor prometía contra lo que dijo la persona.
+
+    La sección anterior —`calibracion`— compara la promesa del motor con el
+    REGISTRO. Esta la compara con la PERSONA, que es la única fuente de
+    información que el juego no tenía: θ y β salen de los aciertos, y los
+    aciertos no saben si alguien se está aburriendo.
+
+    **El número que hay que mirar es la fila de «justo»**: si el motor estuviera
+    bien calibrado y la banda estuviera bien puesta, quien dice que está justo
+    tendría que venir acertando cerca de `elo.TARGET_MID` (75%). En el clásico
+    ese mismo voto se emite acertando el 61% (`queries.P1_BAND`). Si acá cae en
+    90, lo que hay que mover no es el θ de nadie: es la banda.
+
+    Todo se lee de la fila del voto y no se recalcula desde `game_exercises`: la
+    fila congeló lo que el motor creía en ese momento, y β y θ se mueven todo el
+    tiempo (ver el docstring de `models.GameDifficultyVote`).
+    """
+    votos = data["votes"]
+    mostradas = len(votos)
+    contestadas = [v for v in votos if v["answered_at"] is not None and v["voto"]]
+
+    filas = []
+    for valor in A_ORDER:
+        suyos = [v for v in contestadas if v["voto"] == valor]
+        if not suyos:
+            continue
+        con_ventana = [v for v in suyos if (v["ventana"] or 0) > 0]
+        # El prometido y el real se pesan por respuestas y no por persona: una
+        # ventana de 20 dice más que una de 8, y promediando promedios las dos
+        # pesarían igual.
+        n_resp = sum(v["ventana"] for v in con_ventana)
+        prometido = (sum((v["p_hat_medio"] or 0) * v["ventana"] for v in con_ventana) / n_resp
+                     if n_resp else None)
+        real = (sum(v["aciertos"] for v in con_ventana) / n_resp) if n_resp else None
+        movidos = [v for v in suyos if v["delta_theta"]]
+        subieron = sum(
+            1 for v in movidos
+            if elo.level_of((v["theta_at_vote"] or 0) + v["delta_theta"])
+            > elo.level_of(v["theta_at_vote"] or 0)
+        )
+        filas.append({
+            "voto": valor,
+            "n": len(suyos),
+            "prometido": round(100 * prometido, 1) if prometido is not None else None,
+            "real": round(100 * real, 1) if real is not None else None,
+            "delta_medio": (round(sum(v["delta_theta"] for v in movidos) / len(movidos), 2)
+                            if movidos else None),
+            "movidos": len(movidos),
+            "cambiaron_nivel": subieron,
+        })
+
+    # A qué tasa de acierto la gente se siente cómoda. Es el titular de la
+    # sección, y se saca solo de «justo»: los otros dos votos dicen dónde NO
+    # quiere estar.
+    justo = next((f for f in filas if f["voto"] == "justo"), None)
+    movido_total = sum(v["delta_theta"] for v in contestadas)
+
+    return {
+        "filas": filas,
+        "mostradas": mostradas,
+        "contestadas": len(contestadas),
+        "pct_respuesta": _pct(len(contestadas), mostradas),
+        "comodo_en": justo["real"] if justo else None,
+        "objetivo": round(100 * elo.TARGET_MID),
+        # La banda del clásico, que sale de cruzar ESTOS MISMOS tres votos
+        # contra el comportamiento medido: por encima de su tope el ítem está
+        # blando y por debajo del piso está duro (`queries.P1_BAND`). Va como
+        # referencia y no como objetivo — allá se mide sobre el ítem y acá sobre
+        # la persona, así que no son el mismo número, son la misma pregunta.
+        "banda_clasico": list(P1_BAND),
+        "theta_movido": round(movido_total, 1),
+        "jugadores": len({v["player_id"] for v in contestadas}),
+    }
+
+# ── 11 · Fricción ────────────────────────────────────────────────────────────
 
 def friccion(data: dict) -> dict:
     """Dónde la persona pelea con el juego en vez de con la derivada.
@@ -2054,5 +2141,6 @@ def build(db: DBSession, week: date, weeks_shown: int = 4,
         "carteles": carteles(data),
         "monetizacion": monetizacion(data),
         "calibracion": calibracion(data),
+        "opinion": opinion(data),
         "friccion": friccion(data),
     }

@@ -41,7 +41,8 @@ sys.path.insert(0, str(BACKEND.parent))
 
 import database  # noqa: E402
 from models import (  # noqa: E402
-    Base, Course, GameAttempt, GameBoost, GameBoostIntent, GameCtaEvent, GameEvent,
+    Base, Course, GameAttempt, GameBoost, GameBoostIntent, GameCtaEvent,
+    GameDifficultyVote, GameEvent,
     GameExercise,
     GameGroup,
     GameNotificationSend, GamePlayer, GamePushSubscription, User,
@@ -1275,6 +1276,70 @@ check("que además avisa por qué le falta la segunda línea",
 # el panel deje de ser un scroll.
 # Una marca por pestaña: un título que solo aparece en ELLA. Con cuatro
 # secciones por pestaña no alcanza con contar `<h2>`, hay que mirar cuál es.
+print("— la opinión de la gente —")
+# La sección nueva de Jugabilidad. Va pegada a Calibración y en ese orden a
+# propósito: las dos comparan la promesa del motor contra algo, y la diferencia
+# es contra qué — el registro una, la persona la otra. Si alguna vez se separan,
+# el argumento de por qué existe esta sección se pierde.
+MARCA_OPINION = "Lo que dice la gente"
+h_jug = game_render.page(q.build(s, WEEK), token="tok", seccion="jugabilidad")
+check("la sección de opinión vive en Jugabilidad", MARCA_OPINION in h_jug)
+check("y va justo después de Calibración del motor",
+      h_jug.index("Calibración del motor") < h_jug.index(MARCA_OPINION) < h_jug.index(">Fricción<"))
+for clave, _ in game_render.SECCIONES:
+    if clave == "jugabilidad":
+        continue
+    otra = game_render.page(q.build(s, WEEK), token="tok", seccion=clave)
+    check(f"y no se cuela en «{clave}»", MARCA_OPINION not in otra)
+
+# Sin un solo voto la sección se dibuja igual y dice que no hay datos, en vez de
+# afirmar un cero. Es el estado en el que va a estar el día del deploy.
+check("sin votos, la sección no miente con ceros",
+      "todavía nadie votó" in h_jug and "0,0%" not in h_jug.split(MARCA_OPINION)[1][:2000])
+
+# Y con votos: quien dice «justo» viene acertando el 90% contra el 75% al que
+# apunta el motor, que es exactamente el hallazgo que esta sección existe para
+# gritar. Si el titular deja de salir, la sección se vuelve decorativa.
+for i in range(8):
+    s.add(GameDifficultyVote(
+        player_id=1, voto="justo", shown_at=T(0, 12), answered_at=T(0, 12),
+        theta_at_vote=1.0, n_updates_at_vote=30,
+        ventana=20, aciertos=18, p_hat_medio=0.85, delta_theta=0.0))
+for i in range(4):
+    s.add(GameDifficultyVote(
+        player_id=2, voto="muy_facil", shown_at=T(0, 12), answered_at=T(0, 12),
+        theta_at_vote=1.5, n_updates_at_vote=40,
+        ventana=20, aciertos=20, p_hat_medio=0.88, delta_theta=0.45))
+# Una mostrada y no contestada: es la que hace que la tasa de respuesta no sea
+# siempre 100%.
+s.add(GameDifficultyVote(
+    player_id=3, voto=None, shown_at=T(0, 12), answered_at=None,
+    theta_at_vote=0.5, n_updates_at_vote=12, ventana=0, aciertos=0,
+    p_hat_medio=None, delta_theta=0.0))
+# Y una del bot, que no puede contar para nada.
+s.add(GameDifficultyVote(
+    player_id=9, voto="muy_dificil", shown_at=T(0, 12), answered_at=T(0, 12),
+    theta_at_vote=0.0, n_updates_at_vote=99, ventana=20, aciertos=1,
+    p_hat_medio=0.9, delta_theta=-0.6))
+s.flush()
+
+op = q.build(s, WEEK)["opinion"]
+check("el voto del bot no cuenta", op["contestadas"] == 12,
+      f'(dio {op["contestadas"]}, esperaba 12)')
+check("la mostrada y no contestada sí cuenta en el denominador",
+      op["mostradas"] == 13 and op["pct_respuesta"] == 92.3,
+      f'({op["contestadas"]}/{op["mostradas"]} = {op["pct_respuesta"]}%)')
+check("«se sienten cómodos en» sale de «justo» y de ningún otro voto",
+      op["comodo_en"] == 90.0, f'(dio {op["comodo_en"]})')
+check("y θ movido suma solo los ajustes de verdad",
+      op["theta_movido"] == 1.8, f'(dio {op["theta_movido"]})')
+
+h_con = game_render.page(q.build(s, WEEK), token="tok", seccion="jugabilidad")
+check("el titular dice la distancia contra la banda del motor",
+      "15" in h_con.split(MARCA_OPINION)[1][:4000] and "por encima" in h_con)
+check("y nombra la constante que habría que mover",
+      "elo.TARGET_LOW/HIGH" in h_con)
+
 titulos = {"activacion": "Difusión: a cuánta gente se llegó",
            "retencion": "Re-enganche · mails de ciclo de vida",
            "jugabilidad": "Calibración del motor",

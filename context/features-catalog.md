@@ -155,6 +155,34 @@ brazo que hace daño y no para declararlo ganado.
   a competir por la banda como cualquier otra. El panel de la tecla `p` muestra
   el piso como Elo de desbloqueo de la fila, así que la promesa de la pantalla y
   lo que el generador hace son el mismo número.
+- **Y una vez cada tanto se le pregunta** (`game/opinion.py`). Todo lo de
+  arriba el motor lo mide; esto es lo único que averigua preguntando. A las 10
+  resueltas, después cada 30 y como mucho tres veces, aparece una diapo con tres
+  opciones: 😴 muy fáciles / 👌 justas / 🤯 muy difíciles. Son los mismos tres
+  valores que el canal A de la micro-encuesta de Intervalo, para que los dos
+  productos se puedan cruzar sin traducir.
+
+  El voto **ajusta el θ de quien lo emite**, y ahí está lo que hay que entender:
+  el voto elige el signo y la evidencia elige el tamaño. Sobre las últimas 20
+  respuestas de primer intento sin tabla se calcula un paso de Newton encogido
+  —`Δθ = Σ(acertó − p̂) / (SCALE·Σp̂(1−p̂) + I₀)`— y se aplica solo si va para el
+  mismo lado que el voto, con tope de un tier (0,60) y una banda muerta de 0,15
+  abajo. Quien dice «muy fácil» sin estarle ganando al motor no se mueve: el
+  color del ranking se sigue ganando resolviendo, y el ajuste solo lo acredita
+  antes.
+
+  No inventa una creencia. El paso de θ decae con la experiencia (a las 100
+  respuestas vale 0,025 por acierto), así que a un veterano subvaluado el motor
+  tarda decenas de respuestas en encontrarlo; esto aplica de una la corrección
+  que iba a hacer igual. Medido el 2026-09-13 sobre 15.106 primeras respuestas:
+  el motor promete 0,87 y la gente entrega 0,92, o sea 0,66 de θ — un tier
+  entero de subvaluación.
+
+  Lo que el ajuste NO puede arreglar es el techo del catálogo: la β creída más
+  alta es 0,654, así que arriba de θ ≈ 2,35 la banda objetivo ya no existe y
+  subir θ mueve el color pero no el ejercicio. Simulado sobre el historial real,
+  3 de 220 disparos caen ahí — la pregunta sale temprano y a esa altura casi
+  nadie llegó. El arreglo de verdad son los tiers 6-8 con regla de la cadena.
 
 ### El feed de eventos (`game/events.py`)
 

@@ -22,6 +22,7 @@ from sqlalchemy.orm import Session, load_only
 from models import (
     GameAttempt,
     GameCtaEvent,
+    GameDifficultyVote,
     GameExercise,
     GamePlayer,
     GameTemplateStat,
@@ -35,6 +36,7 @@ from usernames import normalize_username, validate_username
 from . import boosts
 from . import chat as game_chat
 from . import limits
+from . import opinion as game_opinion
 from . import ranking
 from . import elo
 from . import events as game_events
@@ -78,6 +80,8 @@ from .schemas import (
     GameLeaderboardSummary,
     GameMessageIn,
     GameMessageOut,
+    GameOpinionOut,
+    GameOpinionRequest,
     GamePulse,
     GamePlayerCreateRequest,
     GamePlayerCreateResponse,
@@ -1975,6 +1979,142 @@ def record_cta(
     )
     db.commit()
     return None
+
+
+# ── La opinión sobre la dificultad ───────────────────────────────────────────
+
+_OPINION_ACCIONES = ("impression", "answer")
+
+# Cuánto para atrás se busca la impresión que esta respuesta contesta. Si no
+# aparece ninguna dentro de la ventana, se crea la fila al vuelo: perder el voto
+# porque el cliente no mandó la impresión —o porque la mandó hace media hora y
+# la persona volvió después— sería tirar el dato por un detalle de plomería.
+_OPINION_VENTANA_IMPRESION = timedelta(hours=6)
+
+
+def _tanda_reciente(db: Session, player: GamePlayer) -> list[tuple[float, bool]]:
+    """Los últimos primeros intentos sin tabla, del más nuevo al más viejo.
+
+    Las dos restricciones son las mismas que usa `metrics.game_queries.
+    calibracion` y por el mismo motivo: un acierto al tercer intento no es lo
+    que p̂ predice, y uno copiado de la tabla tampoco.
+    """
+    filas = (
+        db.query(GameExercise.p_hat, GameAttempt.is_correct)
+        .join(GameAttempt, GameAttempt.exercise_id == GameExercise.id)
+        .filter(
+            GameExercise.player_id == player.id,
+            GameAttempt.attempt_number == 1,
+            GameAttempt.parse_ok.is_(True),
+            GameExercise.peeked.is_(False),
+            GameExercise.p_hat.isnot(None),
+        )
+        .order_by(GameExercise.id.desc())
+        .limit(game_opinion.VENTANA)
+        .all()
+    )
+    return [(float(p), bool(ok)) for p, ok in filas]
+
+
+@router.post(
+    "/opinion",
+    response_model=GameOpinionOut,
+    dependencies=[Depends(limits.por_jugador(30, "opinion"))],
+)
+def record_opinion(
+    body: GameOpinionRequest,
+    player: GamePlayer = Depends(get_current_player),
+    db: Session = Depends(get_db),
+):
+    """«¿Cómo te vienen resultando?» — el único dato de opinión que el juego pide.
+
+    Hace dos cosas con la misma respuesta y conviene no confundirlas. **Guarda**
+    el voto junto a lo que el motor creía en ese momento, que es lo que vuelve la
+    opinión una medición y no una anécdota (el panel de Jugabilidad la lee así).
+    Y **ajusta θ** cuando el registro de la persona respalda lo que dijo.
+
+    El gate se repite acá y no se confía en el cliente, igual que en `/stats`:
+    con menos de `opinion.MIN_RESPUESTAS` primeros intentos el voto se guarda
+    igual pero no mueve nada, porque antes de eso el registro habla de por dónde
+    el juego hizo entrar a la persona y no de la persona.
+
+    No falla por contenido —un voto desconocido se ignora— por lo mismo que
+    `/cta`: esto aparece en la mitad de una partida, y un error acá le rompería
+    el juego a alguien por un dato que es opcional.
+    """
+    if body.accion not in _OPINION_ACCIONES:
+        raise HTTPException(status_code=422, detail="acción desconocida")
+
+    ahora = datetime.utcnow()
+    level_before = elo.level_of(player.theta)
+
+    if body.accion == "impression":
+        db.add(
+            GameDifficultyVote(
+                player_id=player.id,
+                shown_at=ahora,
+                theta_at_vote=player.theta,
+                n_updates_at_vote=player.n_updates,
+                platform=(body.platform or player.platform),
+            )
+        )
+        db.commit()
+        return GameOpinionOut(
+            delta_theta=0.0, level_before=level_before, level_after=level_before
+        )
+
+    if body.voto not in game_opinion.VOTOS:
+        return GameOpinionOut(
+            delta_theta=0.0, level_before=level_before, level_after=level_before
+        )
+
+    ajuste = game_opinion.ajuste_de_theta(body.voto, _tanda_reciente(db, player))
+
+    # La impresión que este voto contesta, si el cliente la mandó. Se busca la
+    # más reciente sin responder: si quedaron varias colgadas —la persona cerró
+    # la pestaña con la pregunta abierta más de una vez— la vieja se queda como
+    # lo que fue, una pregunta ignorada.
+    fila = (
+        db.query(GameDifficultyVote)
+        .filter(
+            GameDifficultyVote.player_id == player.id,
+            GameDifficultyVote.answered_at.is_(None),
+            GameDifficultyVote.shown_at >= ahora - _OPINION_VENTANA_IMPRESION,
+        )
+        .order_by(GameDifficultyVote.shown_at.desc())
+        .first()
+    )
+    if fila is None:
+        fila = GameDifficultyVote(
+            player_id=player.id,
+            shown_at=ahora,
+            theta_at_vote=player.theta,
+            n_updates_at_vote=player.n_updates,
+        )
+        db.add(fila)
+
+    fila.voto = body.voto
+    fila.answered_at = ahora
+    fila.ventana = ajuste.ventana
+    fila.aciertos = ajuste.aciertos
+    fila.p_hat_medio = ajuste.p_hat_medio
+    fila.delta_theta = ajuste.delta
+    if body.platform:
+        fila.platform = body.platform
+
+    # θ se mueve acá y `n_updates` NO. Ese contador cuenta respuestas —gobierna
+    # la rampa inicial y quién entra al ranking— y un voto no es una respuesta.
+    # Inflarlo haría además que el paso de aprendizaje del motor decayera por un
+    # dato que no salió de resolver nada.
+    if ajuste.delta:
+        player.theta = player.theta + ajuste.delta
+    db.commit()
+
+    return GameOpinionOut(
+        delta_theta=ajuste.delta,
+        level_before=level_before,
+        level_after=elo.level_of(player.theta),
+    )
 
 
 # ── Avisos push ──────────────────────────────────────────────────────────────

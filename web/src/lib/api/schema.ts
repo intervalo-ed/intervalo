@@ -530,6 +530,40 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/game/derivemos/opinion": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Record Opinion
+         * @description «¿Cómo te vienen resultando?» — el único dato de opinión que el juego pide.
+         *
+         *     Hace dos cosas con la misma respuesta y conviene no confundirlas. **Guarda**
+         *     el voto junto a lo que el motor creía en ese momento, que es lo que vuelve la
+         *     opinión una medición y no una anécdota (el panel de Jugabilidad la lee así).
+         *     Y **ajusta θ** cuando el registro de la persona respalda lo que dijo.
+         *
+         *     El gate se repite acá y no se confía en el cliente, igual que en `/stats`:
+         *     con menos de `opinion.MIN_RESPUESTAS` primeros intentos el voto se guarda
+         *     igual pero no mueve nada, porque antes de eso el registro habla de por dónde
+         *     el juego hizo entrar a la persona y no de la persona.
+         *
+         *     No falla por contenido —un voto desconocido se ignora— por lo mismo que
+         *     `/cta`: esto aparece en la mitad de una partida, y un error acá le rompería
+         *     el juego a alguien por un dato que es opcional.
+         */
+        post: operations["record_opinion_game_derivemos_opinion_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/game/derivemos/push/subscribe": {
         parameters: {
             query?: never;
@@ -2162,6 +2196,44 @@ export interface components {
             /** Timezone */
             timezone?: string | null;
         };
+        /**
+         * GameOpinionOut
+         * @description Qué hizo el motor con el voto.
+         *
+         *     `delta_theta` en 0 es la respuesta más común y no es un error: el voto solo
+         *     mueve θ cuando el registro de la persona va para el mismo lado. El front lo
+         *     usa para decidir si decir algo además de «anotado».
+         *
+         *     Los dos niveles van aparte y no como un booleano «cambió» porque el color del
+         *     nombre en el ranking sale del nivel, y el front necesita saber a cuál pasó
+         *     para pintarlo, no solo que pasó a otro.
+         */
+        GameOpinionOut: {
+            /** Delta Theta */
+            delta_theta: number;
+            /** Level Before */
+            level_before: number;
+            /** Level After */
+            level_after: number;
+        };
+        /**
+         * GameOpinionRequest
+         * @description La encuesta de dificultad, en dos pasos.
+         *
+         *     `accion` es `"impression"` cuando la pregunta aparece y `"answer"` cuando se
+         *     contesta. Son dos llamadas y no una porque la diferencia entre las dos es el
+         *     dato: una pregunta mostrada y no contestada es información sobre la pregunta,
+         *     y sin registrar la impresión no hay manera de saber cuánta gente la ignora.
+         *     Es la misma forma que `POST /session/feedback` en el clásico.
+         */
+        GameOpinionRequest: {
+            /** Accion */
+            accion: string;
+            /** Voto */
+            voto?: string | null;
+            /** Platform */
+            platform?: string | null;
+        };
         /** GamePlayerCreateRequest */
         GamePlayerCreateRequest: {
             /** Group Id */
@@ -3735,6 +3807,42 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    record_opinion_game_derivemos_opinion_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+                "x-game-token"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["GameOpinionRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GameOpinionOut"];
+                };
             };
             /** @description Validation Error */
             422: {

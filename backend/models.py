@@ -1411,6 +1411,69 @@ class GameCtaEvent(Base):
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow, index=True)
 
 
+class GameDifficultyVote(Base):
+    """Qué le pareció la dificultad a la persona, y qué hizo el motor con eso.
+
+    Es la única opinión que el juego recoge. El motor decide todo con lo que mide
+    —`p̂ = σ((θ − β)·SCALE)`— y acá entra lo otro: cómo se siente quien juega. La
+    fórmula del ajuste y sus constantes viven en `game/opinion.py`.
+
+    **Se guardan los agregados de la ventana y no solo el voto**, y eso no es
+    redundancia con `game_exercises`: β se mueve con cada respuesta y
+    `scripts/diag/backfill_elo.py` reescribe θ de todo el historial, así que
+    recalcular «qué prometía el motor cuando esta persona votó» la semana que
+    viene daría otro número. Es lo mismo que ya argumenta `GameMessage`: un voto
+    es lo que se dijo en un momento, no una vista de quien lo dijo hoy.
+
+    Dos filas por pregunta no: una sola, en dos pasos. Se crea al mostrarla
+    (`answered_at` en NULL) y se completa al votar, calcado de
+    `POST /session/feedback` en el clásico. `answered_at IS NULL` es «se mostró y
+    la ignoraron», que es lo que mide la tasa de respuesta y lo que permitiría
+    frenar la pregunta si la gente la saltea sistemáticamente.
+    """
+
+    __tablename__ = "game_difficulty_votes"
+
+    id = Column(Integer, primary_key=True, index=True)
+    player_id = Column(Integer, ForeignKey("game_players.id"), nullable=False, index=True)
+
+    # "muy_facil" | "justo" | "muy_dificil", NULL mientras no haya respondido.
+    # Son los mismos tres valores literales que el canal A de `exercise_feedback`
+    # (game/opinion.py :: VOTOS) para que los dos productos se puedan cruzar sin
+    # una tabla de traducción en el medio.
+    voto = Column(String(12), nullable=True)
+
+    shown_at = Column(DateTime, nullable=False, default=datetime.utcnow, index=True)
+    answered_at = Column(DateTime, nullable=True)
+
+    # Dónde estaba el motor cuando se preguntó.
+    theta_at_vote = Column(Float, nullable=False)
+    n_updates_at_vote = Column(Integer, nullable=False)
+
+    # Y qué venía pasando: sobre cuántas respuestas se miró, cuántas acertó, y
+    # qué probabilidad de acierto les prometía el motor. Estas tres columnas son
+    # el panel entero — la opinión sola no dice nada si no está contra lo que el
+    # motor creía en ese mismo momento.
+    ventana = Column(Integer, nullable=False, default=0)
+    aciertos = Column(Integer, nullable=False, default=0)
+    p_hat_medio = Column(Float, nullable=True)
+
+    # Lo que se le aplicó a θ. Cero es un valor legítimo y frecuente: el voto
+    # solo mueve cuando la evidencia va para el mismo lado.
+    delta_theta = Column(Float, nullable=False, default=0.0)
+
+    platform = Column(String(8), nullable=True)
+
+    __table_args__ = (
+        Index("idx_game_votes_player_shown", "player_id", "shown_at"),
+        # Que los tres valores sigan siendo los tres del canal A del clásico.
+        CheckConstraint(
+            "voto IS NULL OR voto IN ('muy_facil','justo','muy_dificil')",
+            name="ck_game_votes_voto",
+        ),
+    )
+
+
 class GameBoostIntent(Base):
     """"Voy a donar": lo que el juego sabe justo antes de mandarte a Cafecito.
 
