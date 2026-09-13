@@ -117,7 +117,8 @@ db.commit()
 top = db.query(GameEvent).filter(GameEvent.kind == "top").first()
 check(top is not None and "{a}" in top.text and "top 50" in top.text,
       f"entrar al top 50 sí: {top.text if top else '—'}")
-check(top is not None and top.emoji == "🚀", "y viene con su emoji")
+check(top is not None and top.emoji == events.EMOJI["top"],
+      f"y viene con su emoji ({top.emoji if top else '—'})")
 
 print("1b. el corte más alto y uno solo")
 db.query(GameEvent).delete()
@@ -571,7 +572,8 @@ podio = db.query(GameEvent).filter(GameEvent.kind == "uni_top").first()
 check(podio is not None and "{a}" in podio.text and "{u0}" in podio.text
       and "número 1" in podio.text,
       f"con diez sí: {podio.text if podio else '—'}")
-check(podio is not None and podio.university == "UNSAM" and podio.emoji == "🏆",
+check(podio is not None and podio.university == "UNSAM"
+      and podio.emoji == events.EMOJI["uni_top"],
       "con la sigla aparte y su emoji propio")
 
 # El artículo lo decide el nombre completo, no la sigla: «del ITBA», no «de el».

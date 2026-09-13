@@ -199,15 +199,24 @@ FUERZA_INTERRUMPE = 85
 # caso imaginable, más el puntero.
 SALTO_PARA_MEJORAR = 25
 
+# El ícono de cada tipo de línea. Son diez en una sola columna, así que cada uno
+# tiene que distinguirse de los otros nueve a 16 píxeles y sin leer el texto.
+#
+# `top` es una escalera y no un cohete: el cohete decía «esto despegó», que es lo
+# que la escalada por puestos afirmaba antes de que la reemplazaran los cortes
+# (ver `CORTES_DEL_RANKING`); un corte del ranking ES un escalón. Y `level` es
+# una paleta porque lo que cambia a la vista es el COLOR del nombre —el feed lo
+# pinta con `actor_level`, igual que el ranking—, así que el ícono dice lo que la
+# frase ya no tiene que decir.
 EMOJI = {
     "boost": "☕",
     "signup": "🎓",
     "referral": "🪖",
-    "top": "🚀",
+    "top": "🪜",
     "uni_top": "🏆",
     "streak": "🔥",
     "lead": "👑",
-    "level": "⚡",
+    "level": "🎨",
     "uni_pass": "🏛️",
     "uni_close": "👀",
 }
@@ -1039,7 +1048,7 @@ def sync_universities(db: Session, min_players: int, now: datetime | None = None
     # Los dos llevan el número además de las siglas: el feed dice cuánta XP
     # separa a un par que se vino encima, y eso no se puede recalcular abajo
     # sin volver a recorrer las standings.
-    sobrepasos: list[tuple[str, str, float]] = []
+    sobrepasos: list[tuple[str, str, float, float, float]] = []
     entrantes: list[tuple[float, str, str, float]] = []
 
     for i, (arriba, xp_arriba) in enumerate(standings):
@@ -1070,7 +1079,9 @@ def sync_universities(db: Session, min_players: int, now: datetime | None = None
             if margen > UNI_PASS_MARGEN:
                 lider_ahora[par] = arriba
                 if previo is not None and previo != arriba:
-                    sobrepasos.append((arriba, abajo, xp_arriba))
+                    sobrepasos.append(
+                        (arriba, abajo, xp_arriba, margen, xp_arriba - xp_abajo)
+                    )
             elif previo is not None:
                 lider_ahora[par] = previo
             else:
@@ -1103,7 +1114,7 @@ def sync_universities(db: Session, min_players: int, now: datetime | None = None
     if lider_antes is None:
         return
 
-    for gana, pierde, xp_gana in sobrepasos:
+    for gana, pierde, xp_gana, margen, diferencia in sobrepasos:
         # El artículo lo decide el nombre completo de cada casa de estudios y no
         # la sigla: «la UNSAM», «el ITBA». La XP entra en la semilla para que dos
         # sobrepasos del mismo par no salgan redactados igual — siempre crece.
@@ -1114,6 +1125,11 @@ def sync_universities(db: Session, min_players: int, now: datetime | None = None
                 f"pass:{_par(gana, pierde)}:{int(xp_gana)}",
                 gana=events_copy.articulos_de(gana),
                 pierde=events_copy.articulos_de(pierde),
+                # Con cuánta ventaja quedó: es lo que separa «superó» de
+                # «barrió», y decir la segunda sobre un 2% sería la clase de
+                # afirmación que hace que el feed deje de creerse.
+                margen=margen,
+                diferencia=int(diferencia),
             ),
             university=gana,
             university_b=pierde,

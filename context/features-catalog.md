@@ -166,11 +166,11 @@ está puesto en que no sea ruido. Nueve tipos:
 
 | tipo | qué anuncia |
 |---|---|
-| `top` 🚀 | entrar al top 3, 10, 25 o 50 del ranking general |
+| `top` 🪜 | entrar al top 3, 10, 25 o 50 del ranking general |
 | `uni_top` 🏆 | ser el número 1, o entrar al top 3, de la propia universidad |
 | `lead` 👑 | llegar al puesto 1 del juego entero |
 | `streak` 🔥 | rachas de 10, 25, 50, 100 y 250 sin errar |
-| `level` ⚡ | desbloquear la familia siguiente (la regla del producto, la del cociente) |
+| `level` 🎨 | desbloquear la familia siguiente (los productos, los cocientes) |
 | `signup` 🎓 / `referral` 🪖 | un registro, o el registro de alguien que trajo otro |
 | `boost` ☕ | una donación de cafecitos, o el aforo del día de una universidad |
 | `uni_pass` 🏛️ / `uni_close` 👀 | una universidad que pasa a otra en experiencia, o que se le viene encima |
@@ -268,7 +268,7 @@ oscila.
 
 Las dos noticias son **transiciones** y no estados:
 
-- **«pasó a»** sale cuando cambia el líder CONFIRMADO de un par, y confirmado
+- **El sobrepaso** sale cuando cambia el líder CONFIRMADO de un par, y confirmado
   quiere decir adelante por más de `UNI_PASS_MARGEN` (2%). Guardar el líder por
   PAR es lo que hace que el sobrepaso exista: detectándolo por el orden, un cruce
   ajustado no se anunciaba tarde sino nunca, porque en el barrido del cruce el
@@ -307,12 +307,16 @@ dos líneas SEGUIDAS no se parezcan.
 Las frases dicen además lo que la versión de una sola no decía, y en los tres
 casos el dato ya estaba a mano:
 
-- **`level` dice CUÁL familia se desbloqueó** —la regla de la suma, la del
-  producto, la del cociente— en vez de «derivadas más difíciles». Es la línea más
-  frecuente del feed (110 de 122 en una semana son al nivel 1). Cuál corresponde
-  a cuál nivel NO está tabulado: sale de `elo.tier_objetivo`, que lo deriva de
-  los cortes de nivel y de las semillas de dificultad, así que el día que alguno
-  se mueva la frase se mueve con él en vez de quedar mintiendo.
+- **`level` dice CUÁL familia se desbloqueó** —las sumas, los productos, los
+  cocientes— en vez de «derivadas más difíciles». Es la línea más frecuente del
+  feed (110 de 122 en una semana son al nivel 1) y ahora entra de un vistazo:
+  «@fulano desbloqueó los productos». Es la única categoría donde el verbo NO
+  varía, y es a propósito — con el verbo fijo la cabeza deja de leerlo y va
+  derecho a qué se desbloqueó; la variedad va en el remate. El ícono 🎨 y el
+  nombre ya pintado del color nuevo cuentan la otra mitad. Cuál familia
+  corresponde a cuál nivel NO está tabulado: sale de `elo.tier_objetivo`, que lo
+  deriva de los cortes de nivel y de las semillas de dificultad, así que el día
+  que alguno se mueva la frase se mueve con él en vez de quedar mintiendo.
 - **`top` dice de qué puesto venía** («entró al top 50 desde el puesto 84»). El
   router ya lo calculó para armar la respuesta del endpoint.
 - **`lead` dice a quién se le sacó el 1.** Quien está segundo ahora es
@@ -333,7 +337,18 @@ la persona (un alias no dice el género de nadie).
 
 «La UBA **le pasó** a la UNSAM» estuvo en producción y es el testigo de
 `check_game_events_copy.py`: en rioplatense «a la UNSAM le pasó» se lee como que
-a la UNSAM le OCURRIÓ algo. Pasar a alguien es transitivo y va sin dativo.
+a la UNSAM le OCURRIÓ algo. Pero «pasó a» a secas tampoco alcanzaba —el verbo más
+pálido que había para el hecho más grande de la tabla—, así que el sobrepaso usa
+verbos que dicen algo: **superó**, **dejó atrás**, **le serruchó el piso**. Y hay
+un pool aparte para cuando no estuvo cerca («barrió», «pasó por arriba»), que
+solo sale con más de 10% de ventaja: un sobrepaso recién confirmado pasa el
+margen por poco, y decir «barrió» sobre un 2% es la clase de afirmación que hace
+que el feed deje de creerse.
+
+Dos decisiones de vocabulario más, las dos con chequeo propio para que no vuelvan
+solas: las rachas **alternan «errar» y «pifiar»** —la misma idea con dos
+registros, media docena de frases más sin agregar ninguna— y **no se cuentan «al
+hilo»**.
 
 ### El chat (`game/chat.py`, `chat-panel.tsx`)
 

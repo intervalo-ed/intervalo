@@ -64,26 +64,27 @@ from . import elo
 # cortes de nivel y de las semillas de dificultad. Si mañana los cortes se
 # mueven, la frase se mueve con ellos en vez de quedar mintiendo.
 #
-# Con el vocabulario de la práctica y no con el de la tabla de tiers: «las
-# sumas» se lee como la suma de la primaria, que en un juego de derivadas es
-# justo la confusión que no se puede permitir. «La regla de la suma», no.
+# En plural y corto —«los productos», no «la regla del producto»— porque la
+# línea entera es «{a} desbloqueó los productos» y lo que se busca ahí es que
+# entre de un vistazo. El ícono 🎨 y el nombre ya pintado del color nuevo cuentan
+# la otra mitad.
 #
 # `check_game_events_copy.py` verifica que todos los tiers que existen en
 # `templates.py` tengan nombre acá.
 FAMILIA_POR_TIER: dict[int, str] = {
-    0: "la derivada de una constante",
-    1: "la regla de la potencia",
-    2: "la regla de la suma",
+    0: "las constantes",
+    1: "las potencias",
+    2: "las sumas",
     3: "la tabla de derivadas",
-    4: "la regla del producto",
-    5: "la regla del cociente",
+    4: "los productos",
+    5: "los cocientes",
 }
 
 
 def familia_de_nivel(nivel: int) -> str:
     """Qué se le abre a alguien que acaba de entrar al nivel `nivel`."""
     tier = elo.tier_objetivo(elo.theta_de_nivel(nivel))
-    return FAMILIA_POR_TIER.get(tier, "las derivadas difíciles")
+    return FAMILIA_POR_TIER.get(tier, "las difíciles")
 
 
 # ── Los artículos, armados ───────────────────────────────────────────────────
@@ -253,34 +254,38 @@ def uni_top(semilla: str, *, corte: int, arts: Articulos) -> str:
 # ── Racha ────────────────────────────────────────────────────────────────────
 # El pool cambia con el hito, y eso ES la personalización: diez seguidas y
 # doscientas cincuenta seguidas no son la misma noticia dicha con otro número.
+#
+# «Pifiar» y «errar» se alternan a propósito: son la misma idea con dos
+# registros, y tener los dos es media docena de frases más sin agregar ninguna.
+# «Al hilo» no se usa.
 
 _RACHA: dict[int, list[str]] = {
     10: [
         "{a} lleva 10 seguidas sin errar.",
-        "{a} va 10 al hilo.",
-        "{a} encadenó 10 sin errar.",
+        "{a} encadenó 10 sin pifiar.",
+        "{a} lleva 10 seguidas sin pifiar.",
         "10 seguidas de {a}, sin errar una.",
     ],
     25: [
-        "{a} lleva 25 seguidas sin errar.",
-        "{a} va 25 al hilo y sigue.",
-        "25 seguidas de {a}.",
+        "{a} lleva 25 seguidas sin pifiar.",
         "{a} encadenó 25 sin errar. Y sigue.",
+        "25 seguidas de {a}, sin pifiar una.",
+        "{a} lleva 25 sin errar y no afloja.",
     ],
     50: [
-        "{a} lleva 50 seguidas sin errar.",
-        "{a} va 50 al hilo. No está fallando una.",
-        "50 seguidas de {a}. Cincuenta.",
+        "{a} lleva 50 seguidas sin pifiar.",
+        "{a} encadenó 50 sin errar. No está fallando una.",
+        "50 seguidas de {a}. Cincuenta, sin pifiar una.",
     ],
     100: [
-        "{a} lleva 100 seguidas sin errar. Cien.",
+        "{a} lleva 100 seguidas sin pifiar. Cien.",
         "{a} encadenó 100 sin errar.",
-        "{a} va 100 al hilo. Alguien avise si respira.",
+        "{a} lleva 100 sin pifiar. Alguien avise si respira.",
     ],
     250: [
         "{a} lleva 250 seguidas sin errar.",
-        "{a} va 250 al hilo. Doscientas cincuenta.",
-        "{a} encadenó 250 sin errar. Alguien fíjese si está bien.",
+        "{a} encadenó 250 sin pifiar. Doscientas cincuenta.",
+        "{a} lleva 250 sin errar. Alguien fíjese si está bien.",
     ],
 }
 
@@ -288,8 +293,8 @@ _RACHA: dict[int, list[str]] = {
 # esto, agregar un número allá revienta con KeyError en el camino caliente.
 _RACHA_GENERICA = [
     "{a} lleva $n seguidas sin errar.",
-    "{a} va $n al hilo.",
-    "{a} encadenó $n sin errar.",
+    "{a} encadenó $n sin pifiar.",
+    "{a} lleva $n seguidas sin pifiar.",
 ]
 
 
@@ -300,20 +305,26 @@ def streak(semilla: str, *, seguidas: int) -> str:
 # ── Subir de nivel ───────────────────────────────────────────────────────────
 # La línea más frecuente del feed —110 de 122 en una semana fueron al nivel 1— y
 # la que menos decía: «desbloqueó derivadas más difíciles», idéntica para los
-# tres niveles. Ahora dice CUÁL se desbloqueó, que es el único dato que la
-# persona todavía no tenía.
-
+# tres niveles. Ahora dice CUÁLES, que es el único dato que la persona todavía no
+# tenía, y en cuatro palabras.
+#
+# El verbo es SIEMPRE «desbloqueó», y la variedad va en el remate. Es la única
+# categoría donde el pool no cambia la oración entera: acá lo que se busca es una
+# línea corta que se lea de reojo, y para eso conviene que el verbo sea el mismo
+# siempre — la cabeza deja de leerlo y va derecho a qué se desbloqueó. Los
+# remates no llevan ningún adjetivo que concuerde con la persona, por lo mismo
+# que el resto del archivo: un alias no dice el género de nadie.
 _NIVEL = [
-    "{a} llegó a $fam.",
-    "A {a} ahora le toca $fam.",
     "{a} desbloqueó $fam.",
-    "El juego le subió la apuesta a {a}: ahora $fam.",
+    "{a} desbloqueó $fam. Ahora se complica.",
+    "{a} desbloqueó $fam. Se pone bueno.",
+    "{a} desbloqueó $fam. Suerte con eso.",
 ]
 
 _NIVEL_TOPE = [
-    "{a} llegó a $fam, que es lo más difícil que hay acá.",
+    "{a} desbloqueó $fam, lo más difícil que hay acá.",
     "{a} desbloqueó $fam. El último escalón.",
-    "A {a} ahora le toca $fam. De acá no se sube más.",
+    "{a} desbloqueó $fam. De acá no se sube más.",
 ]
 
 
@@ -434,21 +445,48 @@ def aforo(
 
 # ── Universidades ────────────────────────────────────────────────────────────
 # «Le pasó a» era el bug que abrió todo esto: en castellano rioplatense «a la
-# UNSAM le pasó» se lee como que a la UNSAM le OCURRIÓ algo. Pasar a alguien es
-# transitivo y va sin dativo — la UBA pasó a la UNSAM.
+# UNSAM le pasó» se lee como que a la UNSAM le OCURRIÓ algo. Pero «pasó a» a
+# secas tampoco alcanza —es el verbo más pálido que había para el hecho más
+# grande que la tabla tiene—, así que el pool usa verbos que dicen algo:
+# superar, dejar atrás, serrucharle el piso.
+#
+# El dativo de «le serruchó el piso a la UNSAM» sí es correcto: ahí «le» es el
+# objeto indirecto del modismo y además es invariable en género, así que
+# funciona igual con un instituto. El que estaba mal era el de «pasar».
 #
 # Sufijos: `g` gana y `p` pierde el sobrepaso; `a` persigue y `r` va arriba en la
-# disputa. Y ni una contracción escrita a mano: «pasó $a_p {u1}» sale «pasó a la
-# UNSAM» o «pasó al ITBA» según corresponda, que es lo que `Articulos` existe
-# para garantizar.
+# disputa. Y ni una contracción escrita a mano: «superó $a_p {u1}» sale «superó
+# a la UNSAM» o «superó al ITBA» según corresponda, que es lo que `Articulos`
+# existe para garantizar.
 
 _UNI_PASS = [
-    "$Art_g {u0} pasó $a_p {u1} en experiencia.",
+    "$Art_g {u0} superó $a_p {u1} en experiencia.",
+    "$Art_g {u0} le serruchó el piso $a_p {u1}.",
     "$Art_g {u0} se puso arriba $de_p {u1}.",
     "$Art_p {u1} perdió el puesto: ahora va arriba $art_g {u0}.",
-    "Cambio de orden: $art_g {u0} pasó $a_p {u1} en experiencia.",
+    "Cambio de orden: $art_g {u0} superó $a_p {u1} en experiencia.",
     "$Art_g {u0} dejó atrás $a_p {u1}.",
 ]
+
+# Cuando no estuvo cerca. Un sobrepaso recién confirmado pasa el margen por
+# poco, así que estas frases casi nunca salen — y cuando salen es porque el par
+# venía empatado hace rato y se resolvió de golpe. Le pasó a la UNC contra la
+# UNSAM: se fue de 76k a 106k y quedó 22% arriba.
+#
+# Existe el pool separado porque «barrió» es una AFIRMACIÓN. Dicha sobre un 2%
+# de diferencia es exactamente la clase de frase que hace que el feed deje de
+# creerse, que es lo que este módulo entero trata de evitar.
+_UNI_PASS_PALIZA = [
+    "$Art_g {u0} barrió $a_p {u1}: le saca $n XP.",
+    "$Art_g {u0} pasó por arriba $de_p {u1}. $n XP de diferencia.",
+    "$Art_g {u0} le serruchó el piso $a_p {u1} y le saca $n XP.",
+    "$Art_g {u0} superó $a_p {u1} por $n XP. No estuvo cerca.",
+]
+
+# A partir de cuánta ventaja el sobrepaso se cuenta como paliza. No es un umbral
+# de los que deciden qué sale —el sobrepaso ya se anunció— sino de los que
+# deciden cómo se dice.
+MARGEN_DE_PALIZA = 0.10
 
 _UNI_CLOSE = [
     "$Art_a {u0} está a $n XP $de_r {u1}.",
@@ -463,8 +501,22 @@ _UNI_CLOSE_SIN_NUMERO = [
 ]
 
 
-def uni_pass(semilla: str, *, gana: Articulos, pierde: Articulos) -> str:
-    return _armar(semilla, _UNI_PASS, **_campos("g", gana), **_campos("p", pierde))
+def uni_pass(
+    semilla: str,
+    *,
+    gana: Articulos,
+    pierde: Articulos,
+    margen: float = 0.0,
+    diferencia: int | None = None,
+) -> str:
+    paliza = margen >= MARGEN_DE_PALIZA and diferencia
+    return _armar(
+        semilla,
+        _UNI_PASS_PALIZA if paliza else _UNI_PASS,
+        n=miles(diferencia) if diferencia else None,
+        **_campos("g", gana),
+        **_campos("p", pierde),
+    )
 
 
 def uni_close(

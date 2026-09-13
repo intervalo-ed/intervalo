@@ -70,6 +70,7 @@ POOLS: dict[str, list[str]] = {
     "cafecito global": events_copy._BOOST_GLOBAL,
     "aforo": events_copy._AFORO,
     "sobrepaso": events_copy._UNI_PASS,
+    "sobrepaso paliza": events_copy._UNI_PASS_PALIZA,
     "disputa": events_copy._UNI_CLOSE,
     "disputa sin número": events_copy._UNI_CLOSE_SIN_NUMERO,
 }
@@ -85,14 +86,38 @@ print("1. EL TESTIGO: «le pasó a»")
 culpables = [f"{n}: {f}" for n, f in TODAS if "le pasó" in f or "le paso" in f]
 check(not culpables, f"ninguna variante usa el dativo para un sobrepaso: {culpables}")
 
-# Y el pool del sobrepaso sí dice lo que tiene que decir, con el verbo
-# transitivo. Sin esto, borrar las cinco variantes también haría pasar el de
-# arriba.
-paso = [f for f in events_copy._UNI_PASS if "pasó" in f or "arriba" in f or "atrás" in f]
+# Y los pools del sobrepaso sí cuentan un sobrepaso, con un verbo que dice
+# algo. Sin esto, borrar las variantes también haría pasar el chequeo de arriba.
+VERBOS = ("superó", "serruchó", "arriba", "atrás", "barrió", "perdió el puesto")
+sobrepaso = events_copy._UNI_PASS + events_copy._UNI_PASS_PALIZA
+mudas = [f for f in sobrepaso if not any(v in f for v in VERBOS)]
 check(
-    len(paso) == len(events_copy._UNI_PASS),
-    f"y las {len(events_copy._UNI_PASS)} del sobrepaso cuentan un sobrepaso "
-    f"({len(paso)} lo dicen)",
+    not mudas,
+    f"las {len(sobrepaso)} del sobrepaso usan un verbo de verdad: {mudas}",
+)
+
+# «Barrió» es una AFIRMACIÓN, y un sobrepaso recién confirmado pasa el margen
+# por poco. Decirla sobre un 2% es la clase de frase que hace que el feed deje
+# de creerse.
+apretado = events_copy.uni_pass(
+    "x", gana=events_copy.articulos_de("UBA"),
+    pierde=events_copy.articulos_de("UNSAM"), margen=0.021, diferencia=1700,
+)
+check(
+    "barrió" not in apretado and "por arriba" not in apretado,
+    f"un sobrepaso ajustado no se cuenta como paliza: {apretado}",
+)
+paliza = {
+    events_copy.uni_pass(
+        f"x{i}", gana=events_copy.articulos_de("UNC"),
+        pierde=events_copy.articulos_de("UNSAM"), margen=0.22, diferencia=30020,
+    )
+    for i in range(200)
+}
+check(
+    len(paliza) == len(events_copy._UNI_PASS_PALIZA)
+    and all("30.020 XP" in f for f in paliza),
+    f"y uno de 22% sí, con el número: {sorted(paliza)[0]}",
 )
 
 # El aviso push comparte el error de origen y por eso comparte el testigo.
@@ -102,6 +127,18 @@ push = notification_copy._uni_paso(
     {"universidad": "UBA", "rival_universidad": "UNSAM"}
 )[1]
 check("le pasó" not in push, f"el aviso push tampoco: {push}")
+
+# Y dos decisiones de vocabulario, que sin chequeo vuelven solas la próxima
+# vez que alguien agregue una variante.
+hilo = [f"{n}: {f}" for n, f in TODAS if "al hilo" in f]
+check(not hilo, f"ninguna racha se cuenta «al hilo»: {hilo}")
+rachas = [f for n, f in TODAS if n.startswith("racha")]
+check(
+    any("pifiar" in f for f in rachas) and any("errar" in f for f in rachas),
+    f"y las rachas alternan pifiar y errar "
+    f"({sum('pifiar' in f for f in rachas)} y "
+    f"{sum('errar' in f for f in rachas)} de {len(rachas)})",
+)
 
 
 print("\n2. hay variedad de verdad")
@@ -251,6 +288,25 @@ check(
     f"el nivel 1 —el 90% de los que salen— ya no es genérico: "
     f"«{events_copy.familia_de_nivel(1)}»",
 )
+# Y la línea entra de un vistazo, que es lo que se le pidió. El verbo siempre el
+# mismo —la cabeza deja de leerlo y va derecho a qué se desbloqueó— y la base,
+# sin el remate ni el nombre, son tres palabras.
+check(
+    all("desbloqueó" in f for f in events_copy._NIVEL + events_copy._NIVEL_TOPE),
+    "todas las de nivel usan el mismo verbo",
+)
+niveles = {events_copy.level(f"s{i}", nivel=1) for i in range(200)}
+base = min(niveles, key=len).replace("{a} ", "")
+check(
+    len(base.split()) <= 4,
+    f"y la más corta son cuatro palabras o menos: «{base}»",
+)
+check(
+    max(len(f.replace("{a} ", "")) for f in niveles) <= 46,
+    f"ninguna se va de largo: "
+    f"«{max(niveles, key=len).replace('{a} ', '')}» "
+    f"({max(len(f.replace('{a} ', '')) for f in niveles)} caracteres)",
+)
 
 
 print("\n5. el sorteo es estable entre procesos")
@@ -290,6 +346,14 @@ check(
     f"sobran {set(events.EMOJI) - kinds_con_copy}, faltan "
     f"{kinds_con_copy - set(events.EMOJI)}",
 )
+# Los diez íconos se distinguen entre sí: son una columna sola, y dos líneas
+# con el mismo emoji se leen como el mismo tipo de noticia.
+check(
+    len(set(events.EMOJI.values())) == len(events.EMOJI),
+    f"los {len(events.EMOJI)} tipos tienen íconos distintos: "
+    f"{' '.join(events.EMOJI.values())}",
+)
+
 # Y ninguna frase quedó escrita adentro de events.py.
 #
 # Se mira el ÁRBOL y no el texto: los comentarios de events.py citan las frases
