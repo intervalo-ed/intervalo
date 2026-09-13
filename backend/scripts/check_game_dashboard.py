@@ -703,6 +703,19 @@ check("y el bot no está en el denominador", rc["total_jugadores"] == 5,
       f'({rc["total_jugadores"]})')
 top = {t["alias"]: t for t in rc["top"]}
 check("el reclutador aparece en el top", "cero" in top, f'({list(top)})')
+# «Arrancaron» es lo que separa reclutar de repartir un link. En el escenario
+# el recluta de `cero` respondió, así que su columna vale 1: si valiera 0 con
+# un recluta que jugó, la tabla estaría contando otra cosa.
+check("y la tabla dice cuántos de sus reclutas arrancaron",
+      top["cero"]["activados"] == 1 if top else False,
+      f'({top["cero"]["activados"] if top else "?"})')
+# El eje de K no lleva %: es una razón —cuánta gente trae cada uno— y
+# `ch.lines` rotula en porcentaje por defecto. Con el sufijo puesto mal, un
+# K de 0,68 se dibujaba como «0,68%», cien veces menos.
+h_via = game_render.page(q.build(s, WEEK), token="tok", seccion="activacion")
+eje = h_via.split("Coeficiente de viralidad por semana")[1][:3000]
+check("el eje del coeficiente no se rotula en porcentaje",
+      "%<" not in eje and "%'" not in eje)
 
 # El gráfico de viralidad dibuja UNA serie y ya no ofrece desglose. La vista de
 # volumen existía para poder auditar la división —un K que salta puede ser más

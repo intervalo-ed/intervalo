@@ -201,12 +201,7 @@ def load(db: DBSession) -> dict:
             SELECT player_id, exercise_id, attempt_number, parse_ok, is_correct,
                    created_at
             FROM game_attempts"""),
-        # `donor_name` y `university` son para la tabla de donadores. Vienen
-        # de la plataforma de cafecito, así que el nombre puede estar vacío —
-        # y de hecho lo está en la mayoría.
-        "boosts": _rows(db, """
-            SELECT cafecitos, source, created_at, donor_name, university
-            FROM game_boosts"""),
+        "boosts": _rows(db, "SELECT cafecitos, source, created_at FROM game_boosts"),
         # El tracker de difusión, copiado por scripts/diag/sync_grupos.py. Es
         # el denominador del clickrate y lo único que no sale de esta base.
         "grupos": _rows(db, """
@@ -1182,50 +1177,22 @@ def reclutas(data: dict, weeks: list[date], week: date | None = None) -> dict:
         base_act += sum(1 for p in nuevos if p["id"] in activos)
 
     base["serie_activados"] = serie
-    base["donadores"] = _donadores(data)
+
+    # El top de reclutadores, con una columna que el del panel de Intervalo no
+    # puede tener: cuántos de sus reclutas llegaron a jugar. Traer diez personas
+    # y que ninguna arranque no es reclutar, es repartir un link — y sin esta
+    # columna las dos cosas se ven igual.
+    activos = {a["player_id"] for a in data["_answers"]}
+    act_por_reclutador: dict[int, int] = defaultdict(int)
+    for p in data["players"]:
+        if p["referred_by"] is not None and p["id"] in activos:
+            act_por_reclutador[p["referred_by"]] += 1
+    por_alias = {p["alias"]: p["id"] for p in data["players"]}
+    for fila in base["top"]:
+        rid = por_alias.get(fila["alias"])
+        fila["activados"] = act_por_reclutador.get(rid, 0)
     return base
 
-
-def _donadores(data: dict) -> dict:
-    """Quién puso plata, de siempre.
-
-    **Los anónimos NO compiten por el primer puesto.** `donor_name` viene vacío
-    en la mayoría de las donaciones, y agruparlos a todos bajo «Anónimo» pondría
-    esa fila arriba de todo con la suma de mucha gente distinta — que es
-    exactamente la lectura falsa que la tabla invitaría a hacer. Van aparte, como
-    un total, y la tabla lista solo a los que dejaron nombre.
-
-    Solo `source == cafecito`: los grants a mano y los del aforo no son plata de
-    nadie, y mezclarlos convertiría a quien administra el juego en el mayor
-    donante de su propio juego.
-    """
-    donados = [b for b in data["boosts"] if b["source"] == DONADO]
-    con_nombre: dict[str, dict] = defaultdict(
-        lambda: {"cafecitos": 0, "veces": 0, "universidad": None, "ultima": None})
-    anon_cafecitos = anon_veces = 0
-    for b in donados:
-        nombre = (b.get("donor_name") or "").strip()
-        if not nombre:
-            anon_cafecitos += b["cafecitos"] or 0
-            anon_veces += 1
-            continue
-        d = con_nombre[nombre]
-        d["cafecitos"] += b["cafecitos"] or 0
-        d["veces"] += 1
-        d["universidad"] = d["universidad"] or b["university"]
-        cuando = local_date(b["created_at"])
-        if cuando and (d["ultima"] is None or cuando > d["ultima"]):
-            d["ultima"] = cuando
-    filas = sorted(
-        ({"nombre": n, **d} for n, d in con_nombre.items()),
-        key=lambda f: -f["cafecitos"])
-    return {
-        "top": filas[:8],
-        "anon_cafecitos": anon_cafecitos,
-        "anon_veces": anon_veces,
-        "total": sum(b["cafecitos"] or 0 for b in donados),
-        "donaciones": len(donados),
-    }
 
 # ── 6 · Experimentos ─────────────────────────────────────────────────────────
 

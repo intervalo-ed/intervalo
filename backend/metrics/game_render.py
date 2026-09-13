@@ -568,7 +568,11 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                   f'reclutas activados sobre {w["base_act"]} activados que ya estaban'
                   for w in sa]},
     ]
-    grafico_viral = ch.lines(series_viral, etiquetas_viral, height=240, legend=False)
+    # `suffix=""` explícito: `ch.lines` rotula en % por defecto y K NO es un
+    # porcentaje sino una razón —cuánta gente trae cada uno—. Sin esto el eje
+    # dice «0,6%» donde el número vale 0,6, que es cien veces menos.
+    grafico_viral = ch.lines(series_viral, etiquetas_viral, suffix="",
+                             height=240, legend=False)
 
     filas_top = [[f'@{esc(t["alias"])}',
                   _uni_chip(t["university"]) if t["university"] else "—",
@@ -595,26 +599,36 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                 "cuántos prendieron."
                 "<br><br>El numerador es de un dígito por semana, así que la curva tiembla "
                 "entera con una persona. Por eso se dibuja la historia completa y no las "
-                "últimas cuatro: lo que se lee acá es la tendencia, nunca un punto."))
+                "últimas cuatro: lo que se lee acá es la tendencia, nunca un punto."
+                "<br><br><b>Y la trampa grande, que conviene tener presente antes de "
+                "festejar un K alto:</b> el denominador es la base que había ANTES de la "
+                "semana, así que una ola de difusión lo multiplica de golpe. Con el producto "
+                "recién nacido la base es chica y K sale alto; la semana siguiente, con la "
+                "misma gente compartiendo igual, K se desploma solo porque el denominador "
+                "creció. <b>Esta K mide reclutas por persona-semana, no la tasa de "
+                "reproducción de una camada</b>, y no son lo mismo mientras la difusión siga "
+                "moviendo la base. La versión honesta —reclutas que genera una cohorte a lo "
+                "largo de su vida, sobre el tamaño de esa cohorte— necesita seguir a cada "
+                "camada por separado y todavía no está."))
         + _box(
-            "Quién puso plata",
-            _table(["Donante", "Universidad", "Cafecitos", "Veces", "Última"],
-                   [[f'<b>{esc(d["nombre"])}</b>',
-                     _uni_chip(d["universidad"]) if d["universidad"] else "—",
-                     num(d["cafecitos"]), num(d["veces"]),
-                     d["ultima"].strftime("%d/%m") if d["ultima"] else "—"]
-                    for d in rc["donadores"]["top"]],
-                   empty="todavía nadie dejó su nombre"),
+            "Los diez que más trajeron",
+            _table(["Reclutador", "Universidad", "Reclutas", "Arrancaron", "XP ganada"],
+                   [[f'@{esc(t["alias"])}',
+                     _uni_chip(t["university"]) if t["university"] else "—",
+                     num(t["reclutas"]), num(t["activados"]), num(t["xp"])]
+                    for t in rc["top"]],
+                   empty="todavía nadie reclutó"),
             note=(
-                f'De siempre, y solo donaciones de verdad: los grants a mano y los del aforo '
-                f'no son plata de nadie. Van <b>{num(rc["donadores"]["total"])} cafecitos</b> '
-                f'en {num(rc["donadores"]["donaciones"])} donaciones.'
-                + (f'<br><br><b>{num(rc["donadores"]["anon_cafecitos"])} de esos cafecitos '
-                   f'llegaron sin nombre</b>, en {num(rc["donadores"]["anon_veces"])} '
-                   f'donaciones, y por eso no están en la tabla. Agruparlos bajo «Anónimo» '
-                   f'los pondría primeros con la suma de mucha gente distinta, que es '
-                   f'justamente la lectura falsa que la tabla invitaría a hacer.'
-                   if rc["donadores"]["anon_cafecitos"] else "")),
+                "De SIEMPRE y no de la ventana visible, como el ranking del juego: no tendría "
+                "sentido resetear a quien lleva meses trayendo gente solo porque esta semana "
+                "no reclutó a nadie."
+                "<br><br><b>«Arrancaron» es la columna que hace útil a esta tabla.</b> Traer "
+                "diez personas de las que ninguna llega a responder una derivada no es "
+                "reclutar, es repartir un link, y sin esa columna las dos cosas se ven igual. "
+                "Es también el numerador del K de activados de arriba, abierto por persona."
+                "<br><br>Un solo nivel: los reclutas de tus reclutas no suman acá (ver "
+                "<code>game/referrals.py</code>). <b>XP ganada</b> es la suma de lo que cada "
+                "recluta le generó, que es el 10% de lo que ese recluta hizo."),
         ),
         sub="El único canal de crecimiento que no depende de que difundamos nosotros. "
             "El acumulado de siempre —cuántos reclutas hubo en total y qué porción del "
