@@ -1261,6 +1261,88 @@ def camadas(data: dict, week: date) -> dict:
     }
 
 
+# Debajo de esto una universidad es una fila de ruido: con dos jugadores, un
+# solo recluta manda el K a 0,5 y la pone arriba de UBA. Las que no llegan se
+# juntan en «Otras» en vez de desaparecer — el total tiene que cerrar.
+MIN_JUGADORES_UNI = 5
+
+
+def reclutas_por_universidad(data: dict) -> list[dict]:
+    """Quién trae gente, abierto por dónde estudia.
+
+    **La universidad se pregunta a las 3 correctas** (`HITO_PERFIL` en
+    `web/src/app/derivadas/hitos-del-juego.ts`), así que tenerla cargada IMPLICA
+    haber jugado. Eso gobierna toda la lectura de esta tabla y conviene tenerlo
+    presente antes que cualquier número:
+
+    - el denominador no es «cuánta gente de esa universidad abrió el juego» sino
+      «cuánta llegó a decir dónde estudia», que es un subconjunto bastante más
+      chico y bastante más enganchado — medido el 13/09, 307 de 968;
+    - por lo mismo, casi todos los que tienen universidad están activados (66 de
+      67 en UNC, 46 de 47 en UNLP), así que acá las dos K se parecen mucho más
+      entre sí que en la tabla de camadas, donde el denominador sí incluía a los
+      que no arrancaron;
+    - y los que NO tienen universidad no reclutan nunca. No es una casualidad:
+      el cartel de compartir aparece jugando, o sea del otro lado del mismo
+      hito.
+
+    **`reclutadores` es la columna que hace que esta tabla no mienta.** El
+    reclutamiento está brutalmente concentrado —medido: 23 personas en todo el
+    producto, y en cada universidad la primera trae cerca de la mitad de las de
+    su casa— así que un K alto puede ser una cultura o puede ser una persona, y
+    sin esta columna las dos se ven igual. UBA es el caso extremo: sus 7
+    reclutas salieron de UN jugador.
+    """
+    activos = {a["player_id"] for a in data["_answers"]}
+    jugadores = data["players"]
+
+    trajo: dict[int, list[dict]] = defaultdict(list)
+    for p in jugadores:
+        if p["referred_by"] is not None:
+            trajo[p["referred_by"]].append(p)
+
+    por_uni: dict[str | None, list[dict]] = defaultdict(list)
+    for p in jugadores:
+        por_uni[p["university"] or None].append(p)
+
+    def fila(clave: str, gente: list[dict], chip: bool) -> dict:
+        act = [p for p in gente if p["id"] in activos]
+        reclutas = sum(len(trajo.get(p["id"], ())) for p in gente)
+        act_traidos = sum(1 for p in act for r in trajo.get(p["id"], ())
+                          if r["id"] in activos)
+        cuentas = sorted((len(trajo[p["id"]]) for p in gente if trajo.get(p["id"])),
+                         reverse=True)
+        return {
+            "clave": clave,
+            "chip": chip,
+            "jugadores": len(gente),
+            "activados": len(act),
+            "reclutas": reclutas,
+            "reclutas_act": act_traidos,
+            "reclutadores": len(cuentas),
+            # Qué porción del reclutamiento de esa casa hizo su primer
+            # reclutador. Es lo que separa «acá se comparte» de «acá hay
+            # alguien que comparte».
+            "top_pct": _pct(cuentas[0], reclutas) if cuentas and reclutas else None,
+            "k": round(reclutas / len(gente), 2) if gente else None,
+            "k_act": round(act_traidos / len(act), 2) if act else None,
+        }
+
+    grandes = [u for u, g in por_uni.items()
+               if u is not None and len(g) >= MIN_JUGADORES_UNI]
+    chicas = [u for u, g in por_uni.items()
+              if u is not None and len(g) < MIN_JUGADORES_UNI]
+
+    filas = [fila(u, por_uni[u], True) for u in grandes]
+    filas.sort(key=lambda f: (-f["reclutas"], -f["jugadores"]))
+    if chicas:
+        f = fila(f"Otras ({len(chicas)})", [p for u in chicas for p in por_uni[u]], False)
+        filas.append(f)
+    if None in por_uni:
+        filas.append(fila("Sin universidad", por_uni[None], False))
+    return filas
+
+
 # ── 5-ter · Retención por camada ─────────────────────────────────────────────
 
 # Cuánto tarda una camada en terminar de retener, y no es lo mismo para las
@@ -1876,6 +1958,7 @@ def build(db: DBSession, week: date, weeks_shown: int = 4,
         "mails": mails(data, weeks),
         "reclutas": reclutas(data, weeks),
         "camadas": camadas(data, week),
+        "reclutas_uni": reclutas_por_universidad(data),
         "experimentos": experimentos(data),
         "difusion": difusion(data),
         "carteles": carteles(data),
