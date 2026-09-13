@@ -503,6 +503,37 @@ class GameCtaRequest(BaseModel):
     solved: Optional[int] = Field(default=None, ge=0, le=1_000_000)
 
 
+class GameOpinionRequest(BaseModel):
+    """La encuesta de dificultad, en dos pasos.
+
+    `accion` es `"impression"` cuando la pregunta aparece y `"answer"` cuando se
+    contesta. Son dos llamadas y no una porque la diferencia entre las dos es el
+    dato: una pregunta mostrada y no contestada es información sobre la pregunta,
+    y sin registrar la impresión no hay manera de saber cuánta gente la ignora.
+    Es la misma forma que `POST /session/feedback` en el clásico.
+    """
+
+    accion: str = Field(max_length=12)
+    voto: Optional[str] = Field(default=None, max_length=12)
+    platform: Optional[str] = Field(default=None, max_length=8)
+
+
+class GameOpinionOut(BaseModel):
+    """Qué hizo el motor con el voto.
+
+    `delta_theta` en 0 es la respuesta más común y no es un error: el voto solo
+    mueve θ cuando el registro de la persona va para el mismo lado. El front lo
+    usa para decidir si decir algo además de «anotado».
+
+    Los dos niveles van aparte y no como un booleano «cambió» porque el color del
+    nombre en el ranking sale del nivel, y el front necesita saber a cuál pasó
+    para pintarlo, no solo que pasó a otro.
+    """
+
+    delta_theta: float
+    level_before: int
+    level_after: int
+
 # ── Avisos push ──────────────────────────────────────────────────────────────
 # Espejo de los de Intervalo (main.py), y no importados de allá porque el router
 # del juego no puede importar main sin cerrar un ciclo. La forma es la misma

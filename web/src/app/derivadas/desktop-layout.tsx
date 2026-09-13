@@ -36,6 +36,8 @@ import {
 } from "./cafecito-cta"
 import { CafecitoPanel } from "./cafecito-panel"
 import { ReclutasPanel, type ReclutasTrigger } from "./reclutas-panel"
+import { marcarOpinionMostrada, tocaOpinion } from "./opinion-trigger"
+import { OpinionSlide } from "./opinion-slide"
 import { marcarReclutasMostrado, tocaReclutar } from "./reclutas-trigger"
 import {
   HITO_PERFIL,
@@ -121,6 +123,7 @@ type Panel =
   | "register"
   | "cafecito"
   | "reclutas"
+  | "opinion"
 
 // Los hitos que interrumpen el ejercicio son un subconjunto: la intro no se
 // "agenda", ocurre antes de que haya juego.
@@ -299,6 +302,9 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   // diapo tiene que entrar con el mismo volteo con el que entraría la derivada
   // siguiente, y no al costado mientras todavía se mira el resultado.
   const reclutasPendienteRef = useRef(false)
+  // La encuesta de dificultad, agendada igual que reclutas: se decide al
+  // responder y entra al tocar Continuar, en el lugar del ejercicio.
+  const opinionPendienteRef = useRef(false)
   // La tabla está a la vista ahora mismo.
   const [tableOpen, setTableOpen] = useState(false)
   // Las estadísticas personales están a la vista (tecla `j`, ver el efecto de
@@ -894,6 +900,13 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
             // `else` es lo que lo vuelve imposible en vez de improbable.
             marcarReclutasMostrado(totalCorrectas)
             reclutasPendienteRef.current = true
+          } else if (tocaOpinion(totalCorrectas)) {
+            // Última del ladder por lo mismo que en el teléfono: no convierte a
+            // nadie, así que no puede quedarse con el turno de algo que sí. El
+            // `else if` la mete en la misma cadena y no en una condición aparte
+            // porque las tres ocupan el mismo turno.
+            marcarOpinionMostrada(totalCorrectas)
+            opinionPendienteRef.current = true
           }
           // Los dos con `totalCorrectas` —las acumuladas del servidor— y no con
           // el contador de la pestaña, que vuelve a cero en cada carga. Ver
@@ -1054,6 +1067,12 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
       reclutasPendienteRef.current = false
       setReclutas({ trigger: "hito" })
       setNavPanel("reclutas")
+      return
+    }
+    // Y la encuesta, por el mismo lugar.
+    if (opinionPendienteRef.current) {
+      opinionPendienteRef.current = false
+      setNavPanel("opinion")
       return
     }
     loadNext()
@@ -1416,7 +1435,8 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
       // El orden importa: las diapos primero. Las tres caras de abajo solo
       // pueden reclamarse el Enter si son lo que se está viendo, y lo que se
       // ve cuando hay una diapo abierta es la diapo.
-      if (panel === "cafecito" || panel === "reclutas") return
+      if (panel === "cafecito" || panel === "reclutas" || panel === "opinion")
+        return
       if (statsOpen) {
         sfx.select()
         setStatsOpen(false)
@@ -1783,7 +1803,11 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   // movió de su lugar —ahí abajo, donde estaba Revisar— y el historial de al
   // lado ni se entera, porque no se desmonta.
   //
-  const esDiapoDePedido = panel === "cafecito" || panel === "reclutas"
+  // La encuesta entra acá aunque no pida nada: lo que comparte con las otras
+  // dos es la FORMA —el botón de seguir abajo, por portal, donde estaba
+  // Revisar— y no el motivo.
+  const esDiapoDePedido =
+    panel === "cafecito" || panel === "reclutas" || panel === "opinion"
   // Elegir carrera o universidad usa el MISMO pie que las diapos de pedido —
   // el botón vive abajo, por portal— porque se abre desde la configuración,
   // que sigue a la vista del otro lado: es una pausa adentro del ejercicio,
@@ -2124,6 +2148,13 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                       if (volverA === "settings") setSettingsOpen(true)
                       else if (!exercise) loadNext()
                     }}
+                  />
+                ) : panel === "opinion" ? (
+                  <OpinionSlide
+                    slotSalida={slotSalida}
+                    // Siempre llega por hito —no hay botón que la abra— así que
+                    // lo que sigue es la derivada siguiente.
+                    onContinue={() => loadNext()}
                   />
                 ) : panel === "username" && player ? (
                   <div className="flex min-h-0 flex-1 flex-col rounded-lg border border-border bg-card p-5">

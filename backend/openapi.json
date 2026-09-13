@@ -1337,6 +1337,68 @@
         }
       }
     },
+    "/game/derivemos/opinion": {
+      "post": {
+        "tags": [
+          "game"
+        ],
+        "summary": "Record Opinion",
+        "description": "\u00ab\u00bfC\u00f3mo te vienen resultando?\u00bb \u2014 el \u00fanico dato de opini\u00f3n que el juego pide.\n\nHace dos cosas con la misma respuesta y conviene no confundirlas. **Guarda**\nel voto junto a lo que el motor cre\u00eda en ese momento, que es lo que vuelve la\nopini\u00f3n una medici\u00f3n y no una an\u00e9cdota (el panel de Jugabilidad la lee as\u00ed).\nY **ajusta \u03b8** cuando el registro de la persona respalda lo que dijo.\n\nEl gate se repite ac\u00e1 y no se conf\u00eda en el cliente, igual que en `/stats`:\ncon menos de `opinion.MIN_RESPUESTAS` primeros intentos el voto se guarda\nigual pero no mueve nada, porque antes de eso el registro habla de por d\u00f3nde\nel juego hizo entrar a la persona y no de la persona.\n\nNo falla por contenido \u2014un voto desconocido se ignora\u2014 por lo mismo que\n`/cta`: esto aparece en la mitad de una partida, y un error ac\u00e1 le romper\u00eda\nel juego a alguien por un dato que es opcional.",
+        "operationId": "record_opinion_game_derivemos_opinion_post",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          },
+          {
+            "name": "x-game-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "X-Game-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GameOpinionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameOpinionOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/game/derivemos/push/subscribe": {
       "post": {
         "tags": [
@@ -5400,6 +5462,69 @@
           "enabled"
         ],
         "title": "GameNotificationSettingsRequest"
+      },
+      "GameOpinionOut": {
+        "properties": {
+          "delta_theta": {
+            "type": "number",
+            "title": "Delta Theta"
+          },
+          "level_before": {
+            "type": "integer",
+            "title": "Level Before"
+          },
+          "level_after": {
+            "type": "integer",
+            "title": "Level After"
+          }
+        },
+        "type": "object",
+        "required": [
+          "delta_theta",
+          "level_before",
+          "level_after"
+        ],
+        "title": "GameOpinionOut",
+        "description": "Qu\u00e9 hizo el motor con el voto.\n\n`delta_theta` en 0 es la respuesta m\u00e1s com\u00fan y no es un error: el voto solo\nmueve \u03b8 cuando el registro de la persona va para el mismo lado. El front lo\nusa para decidir si decir algo adem\u00e1s de \u00abanotado\u00bb.\n\nLos dos niveles van aparte y no como un booleano \u00abcambi\u00f3\u00bb porque el color del\nnombre en el ranking sale del nivel, y el front necesita saber a cu\u00e1l pas\u00f3\npara pintarlo, no solo que pas\u00f3 a otro."
+      },
+      "GameOpinionRequest": {
+        "properties": {
+          "accion": {
+            "type": "string",
+            "maxLength": 12,
+            "title": "Accion"
+          },
+          "voto": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 12
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Voto"
+          },
+          "platform": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 8
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Platform"
+          }
+        },
+        "type": "object",
+        "required": [
+          "accion"
+        ],
+        "title": "GameOpinionRequest",
+        "description": "La encuesta de dificultad, en dos pasos.\n\n`accion` es `\"impression\"` cuando la pregunta aparece y `\"answer\"` cuando se\ncontesta. Son dos llamadas y no una porque la diferencia entre las dos es el\ndato: una pregunta mostrada y no contestada es informaci\u00f3n sobre la pregunta,\ny sin registrar la impresi\u00f3n no hay manera de saber cu\u00e1nta gente la ignora.\nEs la misma forma que `POST /session/feedback` en el cl\u00e1sico."
       },
       "GamePlayerCreateRequest": {
         "properties": {

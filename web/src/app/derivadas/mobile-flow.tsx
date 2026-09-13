@@ -63,6 +63,8 @@ import { PedidoInstalar, puedeOfrecerInstalar } from "./pedido-instalar"
 import { PedidoNotificaciones } from "./pedido-notificaciones"
 import { puedeOfrecerNotificaciones } from "./UseAvisosDelJuego"
 import { marcarPwaDesde } from "./game-storage"
+import { marcarOpinionMostrada, tocaOpinion } from "./opinion-trigger"
+import { OpinionSlide } from "./opinion-slide"
 import { marcarReclutasMostrado, tocaReclutar } from "./reclutas-trigger"
 import {
   HITO_PERFIL,
@@ -169,6 +171,9 @@ type Slide =
   // escalón siguiente al de arriba y no una alternativa: en iOS el push web no
   // existe fuera de la pantalla de inicio.
   | { kind: "notificaciones" }
+  // «¿Cómo te vienen resultando?». Sin `back` ni `trigger` por lo mismo que la
+  // de instalar: no se puede abrir a mano, siempre llega después de responder.
+  | { kind: "opinion" }
 
 // El tinte de fondo de café/reclutas, de pantalla completa (ver el `motion.div`
 // debajo de la grilla, más abajo). Antes vivía adentro de la caja de la propia
@@ -594,6 +599,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
         | "reclutas"
         | "instalar"
         | "notificaciones"
+        | "opinion"
         | null,
     ) => {
       const pending = pendingRef.current
@@ -773,6 +779,15 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
       if (consumed !== "reclutas" && tocaReclutar(totalCorrectas)) {
         marcarReclutasMostrado(totalCorrectas)
         goTo({ kind: "reclutas", trigger: "hito" })
+        return
+      }
+      // La encuesta va ÚLTIMA del ladder y es deliberado: no convierte a nadie,
+      // así que no puede quedarse con el turno de algo que sí. Igual sale, y
+      // temprano — los otros escalones piden en hitos puntuales y la mayoría de
+      // las respuestas no los dispara, así que el turno libre aparece enseguida.
+      if (consumed !== "opinion" && tocaOpinion(totalCorrectas)) {
+        marcarOpinionMostrada(totalCorrectas)
+        goTo({ kind: "opinion" })
         return
       }
       pendingRef.current = null
@@ -1939,6 +1954,21 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   <PedidoInstalar
                     slotSalida={salida}
                     onContinue={() => advanceAfterAnswer("instalar")}
+                    fullBleed
+                    className="flex-none"
+                  />
+                )}
+              </ConSalidaAbajo>
+            </div>
+          )}
+
+          {slide.kind === "opinion" && (
+            <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col px-5 pb-[var(--cta-pb)] pt-4">
+              <ConSalidaAbajo>
+                {({ salida }) => (
+                  <OpinionSlide
+                    slotSalida={salida}
+                    onContinue={() => advanceAfterAnswer("opinion")}
                     fullBleed
                     className="flex-none"
                   />

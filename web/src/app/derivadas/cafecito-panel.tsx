@@ -26,6 +26,8 @@
 import { useEffect, useRef, useState } from "react"
 import { motion, useReducedMotion } from "motion/react"
 import { ArrowLeft, ArrowRight, Coffee, UsersIcon } from "lucide-react"
+
+import { MercadoPagoIcon } from "./mercadopago-icon"
 import { restanteEnPalabras } from "@/components/boost-banner"
 import { ALL_SCOPE, fmtCount } from "@/components/leaderboard-chrome"
 import { UniTag } from "@/components/university-tag"
@@ -1068,12 +1070,18 @@ export function CafecitoPanel({
                   transition: "color 150ms ease-out",
                 }}
               >
-                {/* La taza va DESPUÉS de la palabra: el botón se lee "invitar
-                    cinco cafecitos" y el ícono cierra la frase en vez de
-                    anunciarla. Adelante empujaba el texto a la derecha y el botón
-                    quedaba descentrado con la tecla del otro lado. */}
+                {/* El ícono va DESPUÉS de la palabra: el botón se lee "invitar
+                    cinco cafecitos" y cierra la frase en vez de anunciarla.
+                    Adelante empujaba el texto a la derecha y el botón quedaba
+                    descentrado con la tecla del otro lado.
+
+                    Y es el de Mercado Pago y no una taza: acá ya no se está
+                    hablando de café, se está por salir a pagar. La taza dice de
+                    qué se trata —y por eso sigue arriba, en la cabecera— pero en
+                    el botón lo que hace falta es que se reconozca con qué se
+                    paga antes de tocarlo. */}
                 Invitar {n === 1 ? "un cafecito" : `${n} cafecitos`}
-                <Coffee size={18} />
+                <MercadoPagoIcon />
                 {keyboard && <KeyCap>{teclas.shiftEnter}</KeyCap>}
               </motion.a>
             </Salida>

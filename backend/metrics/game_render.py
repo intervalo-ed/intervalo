@@ -56,13 +56,16 @@ CSS = theme.BASE_CSS
 # que hay dando vueltas, y una cuarta sería la que se olvida de actualizarse.
 # Son los mismos del chip que el jugador ve en su ranking, que es lo que hace
 # que una línea del desglose se reconozca sin leer la leyenda.
-from .render import UNIVERSITY_COLOR, _uni_chip  # noqa: E402
+from .render import (  # noqa: E402
+    SURVEY_EMOJI_A, SURVEY_TEXT, UNIVERSITY_COLOR, _uni_chip,
+)
 
 # Los pesos del sorteo se LEEN de donde se deciden, no se copian: la columna
 # «nominal» de la tabla de push existe justamente para detectar que el reparto
 # real no es el configurado, y una copia vieja de los pesos convertiría a esa
 # columna en la que miente.
 from game.notification_copy import PESOS as PESOS_DEL_COPY  # noqa: E402
+from game.opinion import TOPE as OPINION_TOPE  # noqa: E402
 
 # Helpers de presentación compartidos con el panel de Intervalo — ver
 # metrics/theme.py. Los alias locales evitan reescribir las llamadas ya
@@ -1027,10 +1030,92 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
             "Esto compara esa promesa con lo que pasó.",
         anchor="calibracion")
 
+    # ── La opinión de la gente ───────────────────────────────────────────────
+    op = p["opinion"]
+    _rot = lambda v: f'{SURVEY_EMOJI_A.get(v, "")} {SURVEY_TEXT.get(v, v)}'.strip()
+
+    filas_op = [[f'<b>{esc(_rot(f["voto"]))}</b>', num(f["n"]),
+                 _pct_txt(f["prometido"]), _pct_txt(f["real"]),
+                 _chip(round(f["real"] - f["prometido"], 1), "%")
+                 if f["real"] is not None and f["prometido"] is not None else "—",
+                 num(f["delta_medio"], dec=2) if f["delta_medio"] is not None else "—",
+                 f'{num(f["movidos"])} · {num(f["cambiaron_nivel"])} de color']
+                for f in op["filas"]]
+
+    # El titular: a qué tasa de acierto la gente dice que está justo. Es la única
+    # manera de saber si la banda del motor está donde tiene que estar, porque
+    # ninguna cantidad de respuestas contesta esa pregunta sola.
+    if op["comodo_en"] is None:
+        titular = ("Todavía nadie contestó «justo», así que no se puede decir a qué "
+                   "tasa de acierto la gente se siente cómoda.")
+    else:
+        distancia = round(op["comodo_en"] - op["objetivo"], 1)
+        titular = (
+            f'Quien dice que está <b>justo</b> viene acertando el '
+            f'<b>{num(op["comodo_en"], "%")}</b>, y el motor apunta al '
+            f'{num(op["objetivo"], "%")}: '
+            + ("están en el mismo lugar." if abs(distancia) < 3 else
+               f'<b>{num(abs(distancia), " pp")}</b> '
+               f'{"por encima" if distancia > 0 else "por debajo"}. Si el hueco se '
+               f'sostiene, lo que hay que mover no es el θ de nadie sino '
+               f'<code>elo.TARGET_LOW/HIGH</code>.'))
+
+    pieza_opinion = _section(
+        3, "Lo que dice la gente",
+        '<div class="grid g4">'
+        + "".join(_kpi_chico(l, v, h, suffix=sfx, dec=d) for l, v, sfx, h, d in [
+            ("Contestaron", op["pct_respuesta"], "%",
+             f'{num(op["contestadas"])} de {num(op["mostradas"])} preguntas', 1),
+            ("Se sienten cómodos en", op["comodo_en"], "%",
+             f'el motor apunta al {num(op["objetivo"], "%")}', 1),
+            ("Personas", op["jugadores"], "", "que votaron al menos una vez", 0),
+            ("θ movido", op["theta_movido"], "",
+             "sumando todos los ajustes, en unidades de θ", 1),
+        ])
+        + "</div>"
+        + _box("Cuántos dijeron cada cosa",
+               ch.stack([{"label": _rot(f["voto"]), "n": f["n"]} for f in op["filas"]])
+               if op["filas"] else '<p class="empty">todavía nadie votó</p>')
+        + _box("Lo que el motor prometía contra lo que la persona entregó",
+               ch.vbars([_rot(f["voto"]) for f in op["filas"]],
+                        [{"label": "Prometido",
+                          "values": [f["prometido"] for f in op["filas"]]},
+                         {"label": "Real",
+                          "values": [f["real"] for f in op["filas"]]}],
+                        suffix="%", height=230)
+               if op["filas"] else '<p class="empty">todavía nadie votó</p>',
+               note=titular +
+                    f' En el clásico, cruzar estos mismos tres votos contra el '
+                    f'comportamiento medido da la banda '
+                    f'{num(op["banda_clasico"][0], "%")}–'
+                    f'{num(op["banda_clasico"][1], "%")} '
+                    f'(<code>queries.P1_BAND</code>); va como referencia y no como '
+                    f'objetivo, porque allá se mide sobre el ítem y acá sobre la '
+                    f'persona.'
+                    '<br><br><b>Las dos columnas se pesan por respuestas y no por '
+                    'persona</b>, y salen de lo que quedó congelado en la fila del '
+                    'voto: β se mueve con cada respuesta, así que recalcular hoy '
+                    'qué prometía el motor cuando alguien votó daría otro número.')
+        + _box("Qué hizo el motor con cada voto",
+               _table(["Voto", "Votos", "Prometido", "Real", "Brecha", "Δθ medio",
+                       "Movieron"], filas_op,
+                      empty="todavía no hay votos"),
+               note='El voto solo ajusta θ cuando el registro de la persona va para '
+                    'el mismo lado, así que <b>«movieron» es casi siempre menos que '
+                    '«votos»</b> — quien dice «muy fácil» sin estarle ganando al '
+                    'motor no se mueve. «Justo» nunca ajusta nada por definición. '
+                    'El tope de un ajuste es un tier '
+                    f'(<code>opinion.TOPE</code> = {num(OPINION_TOPE, dec=2)}), que '
+                    'es lo que hace que un voto pueda subir de color pero nunca '
+                    'saltear un nivel.'),
+        sub="El motor decide la dificultad con lo que mide. Esto es lo único que "
+            "mide preguntando.",
+        anchor="opinion")
+
     # ── Fricción ─────────────────────────────────────────────────────────────
     fr = p["friccion"]
     pieza_friccion = _section(
-        3, "Fricción",
+        4, "Fricción",
         '<div class="grid g4">'
         + "".join(_kpi_chico(l, v, h, suffix=sfx, dec=d) for l, v, sfx, h, d in [
             ("Salteadas", fr["pct_salteados"], "%", "«esta no la sé»", 1),
@@ -1059,7 +1144,8 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         "retencion": (_fila_kpi(p["headline"]["retencion"])
                       + pieza_push + pieza_mails),
         "jugabilidad": (_fila_kpi(p["headline"]["jugabilidad"])
-                        + pieza_profundidad + pieza_calibracion + pieza_friccion),
+                        + pieza_profundidad + pieza_calibracion + pieza_opinion
+                        + pieza_friccion),
         "monetizacion": (_fila_kpi(p["headline"]["monetizacion"])
                          + pieza_monetizacion),
         "experimentacion": pieza_experimentos,

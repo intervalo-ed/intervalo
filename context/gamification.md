@@ -60,6 +60,31 @@ a propósito para que le gane al ×3 del cafecito — `check_game_xp.py` lo fija
 La β aprendida (`game_template_stats.beta`) **no** paga: se mueve sola con cada
 respuesta, así que la misma derivada pagaría distinto cada semana. La β elige,
 el tier paga.
+### La dificultad que la persona pide (dx)
+
+A las 10 derivadas resueltas —después cada 30, y tres veces como mucho— el juego
+pregunta **«¿Cómo te vienen resultando?»** con tres opciones: 😴 muy fáciles /
+👌 justas / 🤯 muy difíciles.
+
+El voto mueve el Elo de quien lo emite, en las dos direcciones, con una regla que
+conviene tener clara: **el voto elige el signo, la evidencia elige el tamaño.**
+El número sale de las últimas 20 respuestas de primer intento sin tabla abierta
+(`game/opinion.py`), se aplica solo si el registro va para el mismo lado que el
+voto, y nunca supera un tier (0,60 de θ, unos 120 puntos de rating). «Justo»
+nunca mueve nada.
+
+Consecuencias que importan para el resto de la gamificación:
+
+- **El color del nombre puede cambiar por un voto**, porque sale de `level_of(θ)`.
+  Se sigue ganando resolviendo: el ajuste no puede pasar de un nivel, y no sale
+  si el propio registro no lo respalda.
+- **No toca `n_updates`**, que es lo que gobierna la rampa inicial y quién entra
+  al ranking. Un voto no es una respuesta.
+- **No da XP.** Agradecer con una recompensa convierte la encuesta en un trámite
+  pago y arruina el dato (ver `context/writing-voice.md`).
+- **Un Elo más alto paga más XP**, porque la XP se cobra por tier
+  (`XP_POR_TIER`). Es el incentivo alineado y a la vez el límite del abuso:
+  subir sin saber resolver no paga, porque hay que acertarlas.
 
 ### La vuelta universitaria (dx)
 
