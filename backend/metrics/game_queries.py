@@ -1760,6 +1760,268 @@ def difusion(data: dict) -> dict:
     }
 
 
+# ── 7b · Experimentos por GRUPO (no por jugador) ─────────────────────────────
+#
+# `experimentos()` de arriba compara proporciones entre JUGADORES —cada uno cae
+# solo en un brazo (`variant`)—. Acá el sorteo es por GRUPO de WhatsApp: todos
+# sus miembros ven el mismo mensaje, así que la observación es el grupo y el
+# dato de cada observación es su clickrate. Comparar dos proporciones sobre
+# 11.000 jugadores en vez de una diferencia de medias sobre ~90 grupos cree
+# tener diez veces más muestra de la que tiene de verdad — ver
+# docs/reports/reporte-ab-imagen-ranking-2026-09-14.pdf, sección 4.
+
+# Igual que EXPERIMENTOS: declarado ANTES de ver los datos. `mde_pp` y el
+# resto salen de la sección 5 del documento. Cada brazo es el `id` de un plan
+# de Hermes (`game_groups.ultima_campana`) — dos ids distintos es lo que
+# separa las dos ramas sin una columna nueva.
+#
+# `sigma_pp` = 5,66, el desvío RESIDUAL dentro de universidad (documento,
+# sección 4/5 — corregida el 14/09 tras revisión cruzada con Lean). Vale
+# porque `experimento_grupos()`, más abajo, analiza por el mismo estrato que
+# sortea: compara RESIDUOS (clickrate de cada grupo menos el promedio de su
+# universidad), no el clickrate crudo. Usar el 6,07 sin estratificar acá
+# pediría 101 grupos por brazo en vez de 88 — 26 grupos de más, el 10% del
+# pool elegible entero (253), por no aprovechar un descuento de varianza que
+# el sorteo por bloques ya paga solo.
+EXPERIMENTOS_GRUPOS: tuple[dict, ...] = (
+    {
+        "clave": "dx-ab-imagen",
+        "titulo": "La imagen del ranking",
+        "hipotesis": (
+            "Los seis mensajes de siempre, salvo que el último —el que apela a la "
+            "universidad— viaja como el pie de una foto del top 5 en vez de como "
+            "texto suelto. Ver la propia universidad en el ranking, mostrada y no "
+            "solo afirmada, sube el clickrate del grupo."
+        ),
+        "desde": date(2026, 9, 15),
+        "brazos": (("dx-ab-imagen-control", "Control (texto)"),
+                   ("dx-ab-imagen-tratamiento", "Tratamiento (imagen)")),
+        "sigma_pp": 5.66,
+        "mde_pp": 2.40,
+        "alpha": 0.05,
+        "potencia": 0.80,
+        "prediccion": (
+            "Análisis por residuos dentro de universidad (mismo estrato que el "
+            "sorteo): 88 grupos por brazo, 176 en total — contra 202 si se "
+            "comparara el clickrate crudo. Comprometido de antemano, se lee una "
+            "sola vez."
+        ),
+    },
+)
+
+
+def n_comprometido_medias(exp: dict) -> int:
+    """Grupos por brazo para poder leer una diferencia de MEDIAS.
+
+    Misma lógica que `n_comprometido` (dos proporciones) pero escrita para la
+    fórmula de dos medias del documento, sección 5: n ≥ 2·((z_{1-α/2}+z_{1-β})·σ/mde)².
+    """
+    za = _z_de(1 - exp["alpha"] / 2)
+    zb = _z_de(exp["potencia"])
+    return int(2 * ((za + zb) * exp["sigma_pp"] / exp["mde_pp"]) ** 2) + 1
+
+
+def _sigma_corregido(residuos: list[float], n_total_bloque: int, n_universidades: int) -> float | None:
+    """Desvío de los residuos, con la corrección de grados de libertad.
+
+    Detectado por Lean el 14/09 con una simulación de 40.000 corridas bajo H0
+    sobre los estratos reales de esta ola: sin esto, el alfa declarado en 5%
+    sale 5,78% de verdad —16% más falsos positivos de los prometidos—, por
+    dos motivos que se corrigen acá:
+
+      1. `stdev` (÷ n−1), no `pstdev` (÷ n): el residuo de un BRAZO es una
+         muestra, no la población entera de ese brazo.
+      2. Cada media de universidad que se restó para armar el residuo
+         (`media_uni` en `experimento_grupos`) le saca un grado de libertad
+         de más — `n_universidades` de ellos—, y `sqrt(n/(n-U))` es lo que
+         se lo devuelve al σ.
+
+    El `n` del factor del punto 2 es el **total del bloque, los dos brazos
+    juntos** (`n_total_bloque`) — NO el `len(residuos)` de este brazo. Las
+    medias por universidad se estiman una sola vez con las observaciones de
+    los dos brazos, así que los `n_universidades` grados de libertad se
+    consumen una sola vez sobre el total, no una vez por brazo. Usar el n del
+    brazo (primera versión, detectada por Lean el 14/09 con otra simulación)
+    descuenta el mismo grado de libertad dos veces y gasta alfa de más: da
+    4,62% en vez de 5% —conservador, no roto, pero corrige potencia gratis—.
+    Con el n total la simulación de Lean da 4,99% ≈ el 5,00% nominal.
+
+    Potencia (60.000 corridas/celda, mismos estratos, σ_w=5,66), la razón por
+    la que se eligió esta versión y no la conservadora — con `n_total_bloque`
+    el diseño entrega EXACTAMENTE el 80% que declaró para el MDE de 2,40 pp:
+
+        efecto     n_brazo−U    N_total−U (esta versión)
+        1,50 pp      40,9%         42,1%
+        2,00 pp      63,6%         64,7%
+        2,40 pp      79,2%         80,0%
+        3,00 pp      93,5%         93,8%
+
+    La conservadora sigue siendo un test válido (no infla falsos positivos)
+    y solo cuesta 0,8 puntos de potencia en el MDE — la diferencia real es
+    que con ella el panel ya no mide el experimento que el documento describe
+    (sección 5): declarar 80%/5% y entregar 79,2%/4,62% es un test distinto
+    del prometido, aunque más estricto.
+    """
+    n = len(residuos)
+    if n < 2:
+        return None
+    base = statistics.stdev(residuos)
+    if n_total_bloque <= n_universidades:
+        return base
+    return base * math.sqrt(n_total_bloque / (n_total_bloque - n_universidades))
+
+
+def experimento_grupos(data: dict) -> list[dict]:
+    """Un bloque por experimento de grupos: clickrate por grupo, no por jugador.
+
+    **El análisis está ESTRATIFICADO por universidad, igual que el sorteo**
+    (ver `docs/experimentos/2026-09-14-ab-imagen-asignacion.csv` y la sección 5
+    del documento, corregida el 14/09 tras revisión cruzada con Lean). Sortear
+    por bloques y analizar crudo tira el beneficio que ya se pagó: el residuo
+    —el clickrate de cada grupo menos el promedio de SU universidad, contando
+    los dos brazos— saca la parte de la varianza que es "de qué casa es" y dejа
+    un σ más chico, que es lo que permite 88 grupos por brazo en vez de 101.
+
+    Solo por universidad, no por los tres estratos del sorteo (universidad ×
+    tamaño × contacto previo): con ~60 grupos con datos, un residuo de tres
+    factores tiene más celdas que observaciones y el σ que sale está
+    artificialmente achicado — un experimento subdimensionado por un σ
+    inventado es peor que uno caro. El tamaño y el contacto previo se
+    estratifican en el SORTEO, que no cuesta nada; se analiza con el único
+    factor que se puede estimar de verdad.
+
+    Los guardarraíles (activación, activados por grupo, volvió otro día) se
+    calculan siempre, como en `experimentos()` — sirven para VETAR un resultado
+    bueno, nunca para rescatar uno malo, y no esperan al n comprometido.
+    """
+    grupos = {g["id"]: g for g in data["grupos"]}
+    jugadores_de: dict[str, list[dict]] = defaultdict(list)
+    for p in data["players"]:
+        if p["first_group_id"]:
+            jugadores_de[p["first_group_id"]].append(p)
+    con_ejercicio = {e["player_id"] for e in data["exercises"]}
+    fechas_por_jugador: dict[int, set] = defaultdict(set)
+    for e in data["exercises"]:
+        d = local_date(e["created_at"])
+        if d:
+            fechas_por_jugador[e["player_id"]].add(d)
+
+    def clickrate_de(g: str) -> float:
+        return 100 * len(jugadores_de.get(g, ())) / (grupos[g]["miembros"] or 1)
+
+    salida = []
+    for exp in EXPERIMENTOS_GRUPOS:
+        n_pedido = n_comprometido_medias(exp)
+
+        # Los grupos de LOS DOS BRAZOS, para el promedio por universidad — el
+        # bloque de un diseño estratificado son los grupos de esa universidad
+        # sin importar a qué brazo tocaron, no solo los de un brazo.
+        ids_por_plan = {
+            plan_id: [g for g, d in grupos.items()
+                      if d["ultima_campana"] == plan_id
+                      and (d["miembros"] or 0) >= MIN_MIEMBROS_FILA
+                      and d["universidad"]]
+            for plan_id, _ in exp["brazos"]
+        }
+        todos_los_ids = [g for ids in ids_por_plan.values() for g in ids]
+        clickrate_uni: dict[str, list[float]] = defaultdict(list)
+        for g in todos_los_ids:
+            clickrate_uni[grupos[g]["universidad"]].append(clickrate_de(g))
+        media_uni = {u: statistics.mean(cs) for u, cs in clickrate_uni.items()}
+
+        brazos = []
+        for plan_id, nombre in exp["brazos"]:
+            ids_grupo = ids_por_plan[plan_id]
+            clickrates = []
+            residuos = []
+            activados_por_grupo = []
+            vuelven_ids = []
+            servidos_totales = 0
+            jugadores_totales = 0
+            for g in ids_grupo:
+                cr = clickrate_de(g)
+                clickrates.append(cr)
+                residuos.append(cr - media_uni[grupos[g]["universidad"]])
+                gente = jugadores_de.get(g, [])
+                activados = [j for j in gente if j["id"] in con_ejercicio]
+                activados_por_grupo.append(len(activados))
+                servidos_totales += len(activados)
+                jugadores_totales += len(gente)
+                vuelven_ids.extend(j["id"] for j in activados
+                                    if len(fechas_por_jugador.get(j["id"], ())) >= 2)
+            n = len(ids_grupo)
+            n_uni = len({grupos[g]["universidad"] for g in ids_grupo})
+            brazos.append({
+                "clave": plan_id,
+                "label": nombre,
+                "n": n,
+                "clickrate_medio": round(statistics.mean(clickrates), 2) if clickrates else None,
+                # El desvío que se muestra y el que entra al z-test son el
+                # MISMO —sobre los residuos, no sobre el clickrate crudo,
+                # y con la corrección de grados de libertad de
+                # `_sigma_corregido`—: es el que de verdad gobierna si el
+                # experimento está listo, y mostrar el crudo al lado hubiera
+                # sido otro número sin uso.
+                "desvio_pp": (round(sig, 2)
+                              if (sig := _sigma_corregido(residuos, len(todos_los_ids), n_uni)) is not None
+                              else None),
+                "pct_activado": _pct(servidos_totales, jugadores_totales),
+                "activados_por_grupo": (round(statistics.mean(activados_por_grupo), 1)
+                                        if activados_por_grupo else None),
+                "pct_vuelven": _pct(len(vuelven_ids), servidos_totales),
+                "falta": max(0, n_pedido - n),
+                "_residuos": residuos,
+                "_n_uni": n_uni,
+            })
+
+        listo = all(b["n"] >= n_pedido for b in brazos)
+        lectura = None
+        if listo and len(brazos) == 2 and all(b["desvio_pp"] is not None for b in brazos):
+            control, test = brazos[0], brazos[1]
+            nc, nt = control["n"], test["n"]
+            n_total_bloque = len(todos_los_ids)
+            sc = _sigma_corregido(control["_residuos"], n_total_bloque, control["_n_uni"])
+            st = _sigma_corregido(test["_residuos"], n_total_bloque, test["_n_uni"])
+            # La diferencia de medias de RESIDUOS es el efecto ajustado por
+            # universidad. Con los brazos balanceados adentro de cada estrato
+            # (el sampler lo garantiza a lo sumo un grupo de diferencia), esto
+            # queda prácticamente igual a la diferencia de medias crudas —lo
+            # que cambia es el error estándar, más chico.
+            xc = statistics.mean(control["_residuos"])
+            xt = statistics.mean(test["_residuos"])
+            se = math.sqrt((sc ** 2) / nc + (st ** 2) / nt)
+            z = (xt - xc) / se if se else 0.0
+            za = _z_de(1 - exp["alpha"] / 2)
+            lectura = {
+                "delta_pp": round(xt - xc, 2),
+                "z": round(z, 2),
+                "p_valor": 2 * (1 - _phi(abs(z))),
+                "ic_pp": (round(xt - xc - za * se, 2), round(xt - xc + za * se, 2)),
+                "rechaza": (abs(z) > za) if se else False,
+            }
+
+        for b in brazos:
+            del b["_residuos"]
+            del b["_n_uni"]
+
+        salida.append({
+            "clave": exp["clave"],
+            "titulo": exp["titulo"],
+            "hipotesis": exp["hipotesis"],
+            "prediccion": exp["prediccion"],
+            "desde": exp["desde"],
+            "mde_pp": exp["mde_pp"],
+            "alpha": exp["alpha"],
+            "potencia": exp["potencia"],
+            "n_pedido": n_pedido,
+            "brazos": brazos,
+            "listo": listo,
+            "lectura": lectura,
+            "sin_arrancar": sum(b["n"] for b in brazos) == 0,
+        })
+    return salida
+
+
 # ── 8 · Carteles ─────────────────────────────────────────────────────────────
 
 # Qué es cada cartel, para que la tabla se lea sin abrir el código.
@@ -2137,6 +2399,7 @@ def build(db: DBSession, week: date, weeks_shown: int = 4,
         "camadas": camadas(data, week),
         "reclutas_uni": reclutas_por_universidad(data),
         "experimentos": experimentos(data),
+        "experimentos_grupos": experimento_grupos(data),
         "difusion": difusion(data),
         "carteles": carteles(data),
         "monetizacion": monetizacion(data),

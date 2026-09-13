@@ -72,9 +72,9 @@ import {
   tocaRegistro,
 } from "./hitos-del-juego"
 import { GameIntroLogo, type GameIntro } from "./game-intro"
-import {
-  INSTRUCCION_MINIMA, INTRO_CLOSE, IntroParagraphs, piezaDeTutorial,
-} from "./intro-panel"
+import { INSTRUCCION_MINIMA, INTRO_CLOSE, IntroParagraphs } from "./intro-panel"
+import { ReglasSlide } from "./reglas-slide"
+import { marcarReglasMostradas, tocaReglas } from "./reglas-trigger"
 import { brazoDelJuego } from "@/lib/experiments/UseGameVariant"
 import { DerivativesTable, TableButton } from "./derivatives-table"
 import { PorQueButton, PorQuePanel, type PorQueGraph } from "./porque-panel"
@@ -123,12 +123,19 @@ const ctaCls =
 
 type Slide =
   | { kind: "intro" }
-  // Primera vez en este dispositivo, sin invitado guardado: se muestra entre
-  // la intro y la primera derivada (ver startFromIntro). No lleva `back`
-  // porque solo se llega acá desde la intro, nunca desde otra pantalla.
+  // Elegir el @. En el control se muestra entre la intro y la primera derivada
+  // (ver startFromIntro); en el brazo `derivada-primero`, DESPUÉS de resolverla
+  // y antes del ranking, para que la XP entre a una fila que ya tiene el nombre
+  // que la persona eligió. No lleva `back` porque de los dos lados se sale
+  // hacia adelante, nunca a la pantalla anterior.
   | { kind: "username" }
   | { kind: "exercise" }
   | { kind: "ranking"; answer: GameAnswer }
+  // Las tres reglas que la puerta mínima no dijo, una sola vez y después del
+  // primer ranking (reglas-slide.tsx). Solo el brazo `derivada-primero` llega
+  // acá. Sin `back`: se entra desde el ranking y se sale a la derivada
+  // siguiente, nunca al revés.
+  | { kind: "reglas" }
   | { kind: "profile" }
   | { kind: "register" }
   // `back` es a dónde vuelve al cerrar. Se guarda porque a configuración se
@@ -394,6 +401,15 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
   // Una sola vez por visita: skippear no re-pregunta hasta la próxima sesión.
   const askedProfileRef = useRef(false)
   const askedRegisterRef = useRef(false)
+  // Brazo `derivada-primero`. El @ se pide una vez por sesión y la condición de
+  // verdad la pone el servidor (`alias_is_generated` se apaga al elegirlo); el
+  // ref cubre el caso en que la PATCH falle por red, donde la diapo sigue de
+  // largo y sin esto volvería a aparecer en la respuesta siguiente.
+  const askedUsernameRef = useRef(false)
+  // Las reglas, en cambio, no tienen condición del servidor: la memoria vive en
+  // localStorage (reglas-trigger.ts) y este ref es el que cubre el rato entre
+  // que se muestran y se anotan.
+  const reglasMostradasRef = useRef(false)
 
   // Cuando termina el conteo: recién ahí el ranking estrena orden y sube.
   const onBurstComplete = useCallback(() => {
@@ -600,6 +616,8 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
         | "instalar"
         | "notificaciones"
         | "opinion"
+        | "username"
+        | "reglas"
         | null,
     ) => {
       const pending = pendingRef.current
@@ -609,9 +627,40 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
       }
       const a = pending.answer
 
+      // ── Brazo `derivada-primero`: el @, entre la derivada y el ranking ────
+      //
+      // Va ANTES del ranking y no después, y ese orden es la mitad de la idea:
+      // la pantalla siguiente es la fila propia subiendo con la XP recién
+      // ganada, y tiene que llevar el nombre que la persona acaba de elegir. Al
+      // revés —ranking primero— el primer puesto que ve dice un @ generado que
+      // no reconoce, y el que eligió no lo ve moverse nunca.
+      //
+      // La condición de fondo es del servidor (`alias_is_generated`), así que
+      // se apaga sola en cuanto hay un @ elegido y no hace falta anotar nada.
+      // Sin `isFirstVisit`, a diferencia del control: acá la pregunta no es
+      // «primera vez en este aparato» sino «todavía no elegiste», y a quien se
+      // fue antes de resolver la primera hay que poder preguntarle cuando
+      // vuelva.
+      if (
+        consumed === null &&
+        puertaMinima &&
+        a.correct &&
+        !askedUsernameRef.current &&
+        player?.is_guest &&
+        player.alias_is_generated
+      ) {
+        askedUsernameRef.current = true
+        goTo({ kind: "username" })
+        return
+      }
+
       // Toda correcta pasa por el ranking: ahí está el marcador y ahí sube el
       // número. Las erradas siguen de largo al próximo ejercicio.
-      if (consumed === null && a.correct) {
+      //
+      // `"username"` entra en la misma puerta que `null` porque no es un
+      // escalón del ladder: es una pausa ENTRE la respuesta y su festejo, y lo
+      // que sigue después de ella es exactamente lo que seguía antes.
+      if ((consumed === null || consumed === "username") && a.correct) {
         const rankBefore = a.rank_before ?? null
         const rankAfter = a.rank_after ?? null
         if (rankBefore !== null && rankAfter !== null && rankAfter < rankBefore) {
@@ -681,6 +730,24 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
       // —contestada o salteada— el cafecito sale igual, y si todavía no hay
       // universidad la diapo se encarga sola: tiene su propia versión para ese caso.
       const faltaPreguntarUniversidad = sinUniversidad && !askedProfileRef.current
+
+      // ── Brazo `derivada-primero`: las reglas, después del primer ranking ──
+      //
+      // Antes que las novedades y que todo el resto del ladder, que es lo único
+      // que hace que la explicación caiga donde se pensó: pegada al festejo del
+      // que habla. Con una sola correcta encima ninguno de los otros escalones
+      // dispara, así que en la práctica no le saca el turno a nada.
+      if (
+        consumed === "ranking" &&
+        puertaMinima &&
+        !reglasMostradasRef.current &&
+        tocaReglas(a.exercises_correct)
+      ) {
+        reglasMostradasRef.current = true
+        marcarReglasMostradas(a.exercises_correct)
+        goTo({ kind: "reglas" })
+        return
+      }
 
       // Recién salido del ranking: si mientras jugaba pasaron cosas, se muestran
       // antes de seguir. Va acá y no antes del ranking porque el orden importa —
@@ -793,7 +860,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
       pendingRef.current = null
       loadNext()
     },
-    [goTo, loadNext, player, releaseXp],
+    [goTo, loadNext, player, releaseXp, puertaMinima],
   )
 
   // Deshace el adelanto de racha/intentos si el servidor termina en
@@ -1313,7 +1380,23 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
 
           {slide.kind === "username" && player && (
             <div className="mx-auto flex w-full max-w-md flex-1 flex-col px-5 pb-[var(--cta-pb)]">
-              <UsernameSlide player={player} onDone={loadNext} />
+              <UsernameSlide
+                player={player}
+                // Desde la intro no hay nada que festejar y lo que sigue es la
+                // primera derivada; desde una respuesta hay un ranking
+                // esperando. `pendingRef` es lo que distingue las dos, y es el
+                // mismo discriminador que ya usa el "Ahora no" del registro.
+                onDone={() => {
+                  if (pendingRef.current) advanceAfterAnswer("username")
+                  else loadNext()
+                }}
+              />
+            </div>
+          )}
+
+          {slide.kind === "reglas" && (
+            <div className="mx-auto flex w-full max-w-md flex-1 flex-col px-5 pb-[var(--cta-pb)]">
+              <ReglasSlide onContinue={() => advanceAfterAnswer("reglas")} />
             </div>
           )}
 
@@ -1362,9 +1445,6 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   bare
                   className="flex-1"
                   streak={player?.combo ?? 0}
-                  tutorial={
-                    puertaMinima ? piezaDeTutorial(player?.exercises_correct ?? 0) : null
-                  }
                   attempted={player?.exercises_attempted ?? 0}
                   elo={player?.elo ?? null}
                   multiplier={boost?.multiplier ?? 1}

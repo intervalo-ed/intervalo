@@ -670,7 +670,6 @@ export function ExerciseCard({
   promptRef,
   bare = false,
   children,
-  tutorial = null,
   className,
 }: {
   // Correctas al primer intento seguidas (el combo del jugador).
@@ -693,12 +692,6 @@ export function ExerciseCard({
   // decide cuánto aire hay entre las dos cosas es él (ver math-keyboard.tsx).
   bare?: boolean
   children?: React.ReactNode
-  // Una pieza del tutorial repartido, en el brazo `derivada-primero` del
-  // experimento de la puerta (intro-panel.tsx :: piezaDeTutorial). Va acá y no
-  // en cada layout para que el teléfono y escritorio la pongan en el MISMO
-  // lugar: el experimento compara una puerta contra otra, y si cada plataforma
-  // dibujara la explicación donde le queda cómodo estaría comparando dos cosas.
-  tutorial?: string | null
   className?: string
 }) {
   return (
@@ -719,13 +712,6 @@ export function ExerciseCard({
         multiplier={multiplier}
         className="shrink-0"
       />
-      {/* Debajo del marcador y encima del enunciado: es el orden en que se
-          lee, y además cada pieza habla justamente de uno de esos números. */}
-      {tutorial && (
-        <p className="shrink-0 text-center text-sm leading-snug text-muted-foreground">
-          {tutorial}
-        </p>
-      )}
       {/* En escritorio la card crece hasta llenar la columna. Lo que crece es la
           caja de la FÓRMULA, y el campo queda pegado abajo de todo: es lo que
           hace que el teclado —que va justo después— quede a la misma distancia

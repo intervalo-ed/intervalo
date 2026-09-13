@@ -824,6 +824,93 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         anchor="experimentos"))
     pieza_experimentos = "".join(out)
 
+    # ── 6b · Experimentos por grupo de WhatsApp ──────────────────────────────
+    # Mismo trato que la sección de arriba —estado primero, guardarraíles
+    # siempre, lectura solo con el n comprometido— pero la unidad es el GRUPO,
+    # no el jugador: la tabla muestra clickrate medio y desvío ENTRE GRUPOS, no
+    # una proporción de jugadores (ver game_queries.py :: experimento_grupos).
+    out = []
+    bloques = []
+    for e in p["experimentos_grupos"]:
+        brazos = e["brazos"]
+        total = sum(b["n"] for b in brazos)
+        falta = max((b["falta"] for b in brazos), default=0)
+
+        if e["sin_arrancar"]:
+            estado = _caja_estado(
+                "Sin datos todavía",
+                "Ningún grupo de ninguno de los dos brazos recibió esta campaña "
+                "todavía.", "espera")
+        elif falta > 0:
+            estado = _caja_estado(
+                f'Todavía no se puede leer — faltan {num(falta)} grupo(s) por brazo',
+                f'Van {num(total)} de los {num(2 * e["n_pedido"])} grupos comprometidos '
+                f'({num(e["n_pedido"])} por brazo, 40+ miembros). El p-valor no se calcula '
+                f'hasta llegar: mirar todos los días y parar en cuanto cruza '
+                f'{num(e["alpha"], dec=2)} no es leer el experimento, es repetir el sorteo '
+                f'hasta que salga.', "espera")
+        else:
+            L = e["lectura"]
+            if L is None:
+                estado = _caja_estado("Listo para leer", "Ya hay muestra suficiente.", "listo")
+            elif L["rechaza"]:
+                signo = "a favor" if L["delta_pp"] > 0 else "EN CONTRA"
+                estado = _caja_estado(
+                    f'Diferencia significativa {signo}: {num(L["delta_pp"], " pp")}',
+                    f'z = {num(L["z"], dec=2)}, p-valor {_p_txt(L["p_valor"])}. '
+                    f'Intervalo del 95% para la diferencia de medias: '
+                    f'[{num(L["ic_pp"][0])} ; {num(L["ic_pp"][1])}] pp. '
+                    f'Antes de implementar, mirar los guardarraíles de la tabla.',
+                    "gana" if L["delta_pp"] > 0 else "pierde")
+            else:
+                estado = _caja_estado(
+                    f'Sin diferencia detectable: {num(L["delta_pp"], " pp")}',
+                    f'z = {num(L["z"], dec=2)}, p-valor {_p_txt(L["p_valor"])}. El intervalo '
+                    f'del 95% —[{num(L["ic_pp"][0])} ; {num(L["ic_pp"][1])}] pp— contiene al '
+                    f'cero. No es «son iguales»: es que un efecto de '
+                    f'{num(e["mde_pp"], " pp", dec=1)} o más habría aparecido, y uno más '
+                    f'chico este diseño no lo puede ver.', "plano")
+
+        filas = [[
+            f'<b>{esc(b["label"])}</b>', num(b["n"]),
+            "—" if b["clickrate_medio"] is None else num(b["clickrate_medio"], "%", dec=1),
+            "—" if b["desvio_pp"] is None else num(b["desvio_pp"], " pp", dec=1),
+            _pct_txt(b["pct_activado"]),
+            "—" if b["activados_por_grupo"] is None else num(b["activados_por_grupo"], dec=1),
+            _pct_txt(b["pct_vuelven"]),
+        ] for b in brazos]
+
+        bloques.append(
+            _box(esc(e["titulo"]), estado
+                 + _table(["Brazo", "Grupos", "Clickrate medio", "Desvío (por universidad)",
+                           "Activación", "Activados / grupo", "Volvió otro día"], filas,
+                          empty="todavía ningún grupo")
+                 + '<p class="note">«Clickrate medio» es el crudo, para leer de un vistazo. '
+                   '«Desvío» —y el z-test de arriba— son sobre el RESIDUO de cada grupo '
+                   'contra el promedio de su universidad: es el mismo estrato que usó el '
+                   'sorteo, y analizarlo así es lo que permite 88 grupos por brazo en vez '
+                   'de 101 (ver el docstring de <code>experimento_grupos()</code>).'
+                   '<br><br><b>Las tres últimas columnas son guardarraíles, no objetivos.</b> '
+                   'Un clickrate que sube sin que suba la activación es gente que tocó el '
+                   'link por curiosidad, no jugadores nuevos — se miran siempre, incluso '
+                   'antes del n.</p>',
+                 note=f'<b>Hipótesis:</b> {esc(e["hipotesis"])}'
+                      f'<br><br>Declarado el {e["desde"].strftime("%d/%m")}: efecto mínimo '
+                      f'{num(e["mde_pp"], " pp", dec=1)} entre grupos, '
+                      f'alfa {num(e["alpha"], dec=2)}, potencia '
+                      f'{num(100 * e["potencia"], "%", dec=0)} → '
+                      f'<b>{num(e["n_pedido"])} grupos por brazo</b>. '
+                      f'{esc(e["prediccion"])}'))
+
+    out.append(_section(
+        2, "Experimentos por grupo de WhatsApp",
+        "".join(bloques) or '<p class="empty">no hay experimentos de grupo declarados</p>',
+        sub="La unidad acá es el GRUPO, no el jugador: todos sus miembros ven el mismo "
+            "mensaje, así que lo que se aleatoriza y se cuenta es el grupo — ver "
+            "docs/reports/reporte-ab-imagen-ranking-2026-09-14.pdf.",
+        anchor="experimentos-grupos"))
+    pieza_experimentos_grupos = "".join(out)
+
     # ── Difusión: el clickrate ───────────────────────────────────────────────
     out = []
     di = p["difusion"]
@@ -1148,7 +1235,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                         + pieza_friccion),
         "monetizacion": (_fila_kpi(p["headline"]["monetizacion"])
                          + pieza_monetizacion),
-        "experimentacion": pieza_experimentos,
+        "experimentacion": pieza_experimentos + pieza_experimentos_grupos,
     }
 
     out = [cabecera, paneles[seccion]]

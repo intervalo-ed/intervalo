@@ -69,7 +69,9 @@ import { EloStatsPanel, StatsButton, TECLA_ESTADISTICAS } from "./elo-stats-pane
 import { GameIntroLogo, type GameIntro } from "./game-intro"
 import { GameRanking, type RankingSort } from "./game-ranking"
 import { AMBAR } from "./game-colors"
-import { IntroPanel, IntroStartButton, piezaDeTutorial } from "./intro-panel"
+import { IntroPanel, IntroStartButton } from "./intro-panel"
+import { ReglasSlide } from "./reglas-slide"
+import { marcarReglasMostradas, tocaReglas } from "./reglas-trigger"
 import { brazoDelJuego } from "@/lib/experiments/UseGameVariant"
 import { SlideFlip } from "./slide-flip"
 import { puedeVerEstadisticas } from "./stats-gate"
@@ -124,6 +126,9 @@ type Panel =
   | "cafecito"
   | "reclutas"
   | "opinion"
+  // Las tres reglas del brazo `derivada-primero` (reglas-slide.tsx), una sola
+  // vez, en el primer Continuar después de la primera derivada resuelta.
+  | "reglas"
 
 // Los hitos que interrumpen el ejercicio son un subconjunto: la intro no se
 // "agenda", ocurre antes de que haya juego.
@@ -427,6 +432,15 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   const pendingMilestoneRef = useRef<Milestone | null>(null)
   const askedProfileRef = useRef(false)
   const askedRegisterRef = useRef(false)
+  // Brazo `derivada-primero`: el @ y las reglas, agendados al responder y
+  // mostrados en el Continuar, como el resto de las pantallas que interrumpen
+  // acá. La condición de fondo del @ la pone el servidor
+  // (`alias_is_generated`); la de las reglas, localStorage (reglas-trigger.ts).
+  // Los dos refs son los que cubren el rato entre agendar y mostrar.
+  const usernamePendienteRef = useRef(false)
+  const askedUsernameRef = useRef(false)
+  const reglasPendienteRef = useRef(false)
+  const reglasMostradasRef = useRef(false)
   const inputRef = useRef<MathInputHandle | null>(null)
   // Ref de CALLBACK y no el objeto pelado: durante un cambio de PANEL las dos
   // caras conviven un rato (slide-flip.tsx), y la que se va publica `null` al
@@ -908,6 +922,37 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
             marcarOpinionMostrada(totalCorrectas)
             opinionPendienteRef.current = true
           }
+          // ── Brazo `derivada-primero` ──────────────────────────────────
+          //
+          // El @ primero y las reglas después, que es el orden del teléfono
+          // (mobile-flow.tsx) menos una cosa que acá no se puede dar: allá el @
+          // entra ANTES del ranking, porque el ranking es una pantalla que
+          // llega después. Acá el ranking es la columna de al lado y la XP ya
+          // voló hacia ella en el instante de responder, así que lo que se ve
+          // es la fila propia cambiando de nombre en vez de estrenándolo. La
+          // alternativa era congelar el festejo de escritorio hasta que se
+          // eligiera el @, y eso sería romper lo que funciona para copiar un
+          // orden.
+          //
+          // Sin `isFirstVisit`, igual que en el teléfono: la pregunta no es
+          // «primera vez en este aparato» sino «todavía no elegiste».
+          if (
+            puertaMinima &&
+            !askedUsernameRef.current &&
+            player !== null &&
+            player.is_guest &&
+            player.alias_is_generated
+          ) {
+            askedUsernameRef.current = true
+            usernamePendienteRef.current = true
+          }
+          if (
+            puertaMinima &&
+            !reglasMostradasRef.current &&
+            tocaReglas(totalCorrectas)
+          ) {
+            reglasPendienteRef.current = true
+          }
           // Los dos con `totalCorrectas` —las acumuladas del servidor— y no con
           // el contador de la pestaña, que vuelve a cero en cada carga. Ver
           // hitos-del-juego.ts.
@@ -963,6 +1008,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
     loadNext,
     adelantar,
     descartarAdelanto,
+    puertaMinima,
   ])
 
   // El botón existe cuando ya hay algo para explicar: se acertó, o se erró al
@@ -1028,6 +1074,16 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   // antes de que el servidor confirme.
   const cerradoVisual = closed || tonoLocal === "correct"
 
+  // Las reglas del brazo test, puestas en pantalla. Suelta porque entran por
+  // dos puertas —el Continuar del ejercicio y el final de «Elegí tu @»— y las
+  // dos tienen que anotar lo mismo.
+  const mostrarReglas = useCallback(() => {
+    reglasPendienteRef.current = false
+    reglasMostradasRef.current = true
+    marcarReglasMostradas(player?.exercises_correct ?? 0)
+    setNavPanel("reglas")
+  }, [player])
+
   // Lo que hace el botón grande. Vive suelto porque lo comparten el click y el
   // Enter, y tienen que hacer exactamente lo mismo.
   const onPrimary = useCallback(() => {
@@ -1042,6 +1098,20 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
     // card —salen de ella en el primer frame y cruzan por encima de todo, en una
     // capa `fixed`— así que la derivada siguiente puede entrar debajo de ellos
     // sin molestar a nadie. Enter no se bloquea nunca más.
+    // El brazo `derivada-primero` va primero de todo: es la explicación del
+    // juego llegando tarde a propósito, y cualquier otra cosa que se meta en el
+    // medio la deja hablando de algo que ya pasó hace tres derivadas. Con una
+    // sola correcta encima ninguno de los hitos de abajo dispara, así que en la
+    // práctica no le saca el turno a nada.
+    if (usernamePendienteRef.current) {
+      usernamePendienteRef.current = false
+      setNavPanel("username")
+      return
+    }
+    if (reglasPendienteRef.current) {
+      mostrarReglas()
+      return
+    }
     const milestone = pendingMilestoneRef.current
     if (milestone) {
       pendingMilestoneRef.current = null
@@ -1076,7 +1146,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
       return
     }
     loadNext()
-  }, [closed, onRevisar, loadNext, cafecito])
+  }, [closed, onRevisar, loadNext, cafecito, mostrarReglas])
 
   const onSkip = useCallback(() => {
     if (
@@ -1435,7 +1505,15 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
       // El orden importa: las diapos primero. Las tres caras de abajo solo
       // pueden reclamarse el Enter si son lo que se está viendo, y lo que se
       // ve cuando hay una diapo abierta es la diapo.
-      if (panel === "cafecito" || panel === "reclutas" || panel === "opinion")
+      // Las reglas del brazo test se suman al grupo: también tienen su propio
+      // Enter adentro (reglas-slide.tsx), por el mismo motivo — `enterFocused`
+      // no llega hasta acá, así que la pantalla escucha el suyo.
+      if (
+        panel === "cafecito" ||
+        panel === "reclutas" ||
+        panel === "opinion" ||
+        panel === "reglas"
+      )
         return
       if (statsOpen) {
         sfx.select()
@@ -1826,6 +1904,10 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   // del ejercicio, como todo lo demás de este grupo.
   const esUsername = panel === "username"
   const esPerfil = panel === "profile"
+  // Las reglas del brazo test entran al mismo grupo y por la misma razón que la
+  // encuesta: no piden nada, pero comparten la FORMA — el Continuar abajo, por
+  // portal, donde estaba Revisar.
+  const esReglas = panel === "reglas"
   const pieDelPanel =
     panel === "intro" ||
     panel === "exercise" ||
@@ -1833,7 +1915,8 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
     esDiapoDeCampo ||
     registroEnElPie ||
     esUsername ||
-    esPerfil
+    esPerfil ||
+    esReglas
 
   // El nodo del pie donde las diapos dibujan su botón de salir (ver
   // slide-salida.tsx). Va en estado y no en un ref porque un ref no vuelve a
@@ -2156,9 +2239,29 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                     // lo que sigue es la derivada siguiente.
                     onContinue={() => loadNext()}
                   />
+                ) : panel === "reglas" ? (
+                  <div className="flex min-h-0 flex-1 flex-col rounded-lg border border-border bg-card p-5">
+                    <ReglasSlide
+                      keyboard
+                      slotSalida={slotSalida}
+                      // Siempre llega por hito, así que lo que sigue es la
+                      // derivada siguiente.
+                      onContinue={() => loadNext()}
+                    />
+                  </div>
                 ) : panel === "username" && player ? (
                   <div className="flex min-h-0 flex-1 flex-col rounded-lg border border-border bg-card p-5">
-                    <UsernameSlide player={player} onDone={loadNext} slotSalida={slotSalida} />
+                    <UsernameSlide
+                      player={player}
+                      // En el control se llega desde la intro y lo que sigue es
+                      // la primera derivada. En el brazo test se llega desde el
+                      // primer acierto, y ahí faltan las reglas.
+                      onDone={() => {
+                        if (reglasPendienteRef.current) mostrarReglas()
+                        else loadNext()
+                      }}
+                      slotSalida={slotSalida}
+                    />
                   </div>
                 ) : panel === "register" && player ? (
                   <div className="flex min-h-0 flex-1 flex-col rounded-lg border border-border bg-card p-5">
@@ -2269,11 +2372,6 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                             bare
                             className="flex-1"
                             streak={player?.combo ?? 0}
-                            tutorial={
-                              puertaMinima
-                                ? piezaDeTutorial(player?.exercises_correct ?? 0)
-                                : null
-                            }
                             attempted={player?.exercises_attempted ?? 0}
                             elo={player?.elo ?? null}
                             multiplier={boost?.multiplier ?? 1}
@@ -2425,8 +2523,14 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                       <IntroStartButton
                         onStart={startFromIntro}
                         disabled={player === null || next.isPending}
+                        minima={puertaMinima}
                       />
-                    ) : esDiapoDePedido || esDiapoDeCampo || registroEnElPie || esUsername || esPerfil ? (
+                    ) : esDiapoDePedido ||
+                      esDiapoDeCampo ||
+                      registroEnElPie ||
+                      esUsername ||
+                      esPerfil ||
+                      esReglas ? (
                       // La caja vacía donde la diapo (o el campo) dibuja su
                       // botón. Se monta y se desmonta con `panel`, y eso
                       // resuelve el único caso molesto: durante los ~380 ms
