@@ -378,9 +378,9 @@ check("la duración de la 1ª sesión sale en minutos",
 # El reparto es la parte que se puede romper sin que nadie lo note: una tarjeta
 # que se cae del dict desaparece de la página y ninguna consulta falla por eso.
 check("los doce números siguen estando", len(h) == 12, f"({len(h)})")
-check("repartidos entre embudo, profundidad y reclutas",
+check("repartidos de a cuatro entre las tres pestañas que los explican",
       {k: len(v) for k, v in REPARTO.items()}
-      == {"embudo": 4, "profundidad": 5, "reclutas": 3},
+      == {"activacion": 4, "retencion": 4, "jugabilidad": 4},
       f"({ {k: len(v) for k, v in REPARTO.items()} })")
 # Cada uno va donde está el gráfico que lo explica, y la sección a la que apunta
 # tiene que existir como pestaña: una clave mal escrita acá es una fila de
@@ -391,7 +391,7 @@ check("y cada grupo apunta a una pestaña que existe",
 # Las derivadas de la primera tanda y sus minutos tienen que quedar PEGADAS:
 # cinco derivadas en dos minutos y cinco en veinte son dos productos distintos,
 # y con dos tarjetas en el medio esa lectura no ocurre.
-etiquetas_prof = [c["label"] for c in REPARTO["profundidad"]]
+etiquetas_prof = [c["label"] for c in REPARTO["jugabilidad"]]
 check("la duración va al lado de las derivadas de esa misma tanda",
       abs(etiquetas_prof.index("1ª sesión")
           - etiquetas_prof.index("Duración 1ª sesión")) == 1,
@@ -671,8 +671,8 @@ check("el reclutador aparece en el top", "cero" in top, f'({list(top)})')
 # Las dos vistas del gráfico de viralidad. Son los MISMOS números dibujados de
 # dos formas —la tasa y el volumen del que sale— así que la vista es
 # presentación pura: no toca el payload ni el caché, solo la URL.
-h_k = game_render.page(q.build(s, WEEK), token="tok", seccion="reclutas")
-h_vol = game_render.page(q.build(s, WEEK), token="tok", seccion="reclutas",
+h_k = game_render.page(q.build(s, WEEK), token="tok", seccion="activacion")
+h_vol = game_render.page(q.build(s, WEEK), token="tok", seccion="activacion",
                          viral="volumen")
 check("por defecto se dibuja el coeficiente",
       '<span class="cur">Coeficiente</span>' in h_k)
@@ -688,10 +688,13 @@ check("la tabla de viralidad ya no está",
 check("y los dos titulares que repetían tampoco",
       '<div class="label">K de la última semana</div>' not in h_k
       and '<div class="label">Top reclutador</div>' not in h_k)
-check("pero la caja de top reclutadores sigue estando",
-      "<h3>Top reclutadores</h3>" in h_k)
+# El top de reclutadores se fue del panel junto con las dos tarjetas
+# acumuladas: es de SIEMPRE, así que no hay semana en que diga algo que no
+# dijera la anterior, y no hay decisión que dependa de quién encabeza.
+check("y el top de reclutadores tampoco está",
+      "<h3>Top reclutadores</h3>" not in h_k)
 # Una vista inventada cae en la de siempre, igual que una pestaña que no existe.
-h_raro = game_render.page(q.build(s, WEEK), token="tok", seccion="reclutas",
+h_raro = game_render.page(q.build(s, WEEK), token="tok", seccion="activacion",
                           viral="inventada")
 check("una vista que no existe cae en el coeficiente",
       '<span class="cur">Coeficiente</span>' in h_raro)
@@ -798,7 +801,7 @@ check("quien no tiene variante no entra a ningún brazo",
       sum(b["n"] for b in q.experimentos(con_viejos)[0]["brazos"]) == 100)
 
 # ── Y que la pantalla lo diga ──────────────────────────────────────────────
-html_exp = game_render.page(q.build(s, WEEK), token="tok", seccion="experimentos")
+html_exp = game_render.page(q.build(s, WEEK), token="tok", seccion="experimentacion")
 check("la pestaña avisa que todavía no se puede leer",
       "Todavía no se puede leer" in html_exp or "Sin datos todavía" in html_exp)
 check("y no muestra un p-valor antes de tiempo",
@@ -818,7 +821,7 @@ check("y no se le escapa marcado a la vista",
 def _pintar(exp_listo):
     payload = dict(q.build(s, WEEK))
     payload["experimentos"] = [exp_listo]
-    return game_render.page(payload, token="tok", seccion="experimentos")
+    return game_render.page(payload, token="tok", seccion="experimentacion")
 
 
 for etiqueta, datos in (("gana", escenario(400, 224, 264)),
@@ -855,25 +858,29 @@ check("una semana vacía no rompe el panel", len(html2) > 5000)
 # la primera línea aunque no tenga base —es la referencia— así que pasa por
 # `ch.lines` con una curva entera de None en vez de caer en el «no hay partidas».
 vacio_ses = q.build(s, WEEK + timedelta(weeks=8), corte="sesion")
-html3 = game_render.page(vacio_ses, token="tok", seccion="profundidad")
+html3 = game_render.page(vacio_ses, token="tok", seccion="jugabilidad")
 check("y tampoco rompe el corte por sesión", len(html3) > 5000, f"({len(html3)} bytes)")
 check("que además avisa por qué le falta la segunda línea",
       "Todavía no hay segunda línea" in html3)
 
 # Cada pestaña se arma sola y trae SU sección y ninguna otra: es lo que hace que
 # el panel deje de ser un scroll.
-titulos = {"embudo": "Embudo de la partida",
-           "profundidad": "Profundidad", "push": "Re-enganche · push",
-           "mails": "Re-enganche · mails", "reclutas": "Reclutas",
-           "experimentos": "Experimentos"}
+# Una marca por pestaña: un título que solo aparece en ELLA. Con cuatro
+# secciones por pestaña no alcanza con contar `<h2>`, hay que mirar cuál es.
+titulos = {"activacion": "Difusión: a cuánta gente se llegó",
+           "retencion": "Re-enganche · push",
+           "jugabilidad": "Calibración del motor",
+           "experimentacion": "Experimentos"}
 for clave, _ in game_render.SECCIONES:
     h = game_render.page(q.build(s, WEEK), token="tok", seccion=clave)
     otros = [t for k, t in titulos.items() if k != clave]
     check(f"la pestaña «{clave}» trae su sección",
           f'>{titulos[clave]}</h2>' in h or titulos[clave] in h)
-    check(f"y ninguna otra en «{clave}»",
-          not any(f'<h2><b>' in h and t in h.split('<h2>')[-1] for t in otros)
-          or h.count("<h2>") == 1,
+    # Ya no se cuenta: una pestaña tiene varias secciones. Lo que se fija es
+    # que no aparezca la marca de OTRA pestaña, que es lo que delataría que
+    # una pieza quedó pegada en el lugar equivocado.
+    check(f"y ninguna pieza ajena en «{clave}»",
+          not any(t in h for t in otros),
           f'({h.count(chr(60) + "h2>")} secciones)')
     # La etiqueta de la barra es la de SECCIONES, que es más corta que el
     # título de la sección: la pestaña dice «Push» y el encabezado
@@ -896,14 +903,14 @@ for clave, _ in game_render.SECCIONES:
 
 # Una pestaña inventada cae en la primera en vez de dar una página vacía.
 h = game_render.page(q.build(s, WEEK), token="tok", seccion="inventada")
-check("una pestaña que no existe cae en la primera", h.count("<h2>") == 1
-      and "Embudo de la partida" in h)
+check("una pestaña que no existe cae en la primera",
+      "Difusión: a cuánta gente se llegó" in h)
 # Y «titulares» es una pestaña inventada como cualquier otra: el panel la tuvo
 # durante meses, así que hay links pegados por ahí que la siguen pidiendo y
 # tienen que abrir el panel en vez de una página en blanco.
 h = game_render.page(q.build(s, WEEK), token="tok", seccion="titulares")
-check("un link viejo a «titulares» cae en el embudo", h.count("<h2>") == 1
-      and "Embudo de la partida" in h)
+check("un link viejo a «titulares» cae en la primera",
+      "Difusión: a cuánta gente se llegó" in h)
 check("y ya no queda ninguna seccion que se llame asi",
       "titulares" not in {c for c, _ in game_render.SECCIONES})
 
@@ -911,7 +918,7 @@ check("y ya no queda ninguna seccion que se llame asi",
 # se queda sin series: ahí el gráfico no se dibuja y la caja se cae si nadie lo
 # previó.
 for c in q.CORTES:
-    h = game_render.page(q.build(s, WEEK, corte=c), token="tok", seccion="profundidad")
+    h = game_render.page(q.build(s, WEEK, corte=c), token="tok", seccion="jugabilidad")
     check(f"la página se arma con el corte «{c}»", len(h) > 8000, f"({len(h)} bytes)")
     # El corte activo se dibuja como texto marcado y no como link: los otros
     # tres siguen siendo links, y el activo no puede llevar a sí mismo.
@@ -935,7 +942,7 @@ for c in q.CORTES:
         check(f"y el corte «{c}» viaja en los links de semana y pestaña",
               h.count(f"&corte={c}") >= 3, f'({h.count(f"&corte={c}")} links)')
     check(f"los links de la barra de cortes conservan la pestaña con «{c}»",
-          h.count("s=profundidad") >= 3, f'({h.count("s=profundidad")} links)')
+          h.count("s=jugabilidad") >= 3, f'({h.count("s=jugabilidad")} links)')
 
 s.close()
 

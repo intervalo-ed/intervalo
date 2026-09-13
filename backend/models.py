@@ -1476,3 +1476,54 @@ class GameMessage(Base):
     # tanto queda el rastro de qué se bajó y cuándo se había escrito.
     hidden = Column(Boolean, nullable=False, default=False, server_default="false")
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow, index=True)
+
+
+class GameGroup(Base):
+    """Un grupo de WhatsApp del tracker de difusión, copiado a la base.
+
+    **Por qué existe.** El panel sabía cuántos jugadores trajo cada grupo
+    (`game_players.first_group_id`) pero no cuánta gente había en ese grupo, así
+    que no podía calcular lo único que compara dos difusiones entre sí: el
+    clickrate por miembro. Ese dato vivía —y sigue viviendo— en un Google Sheet
+    fuera del repo, y hasta ahora se cruzaba A MANO: el reporte del 28/08 tiene
+    los nueve grupos escritos como constantes en el `.py`.
+
+    **Esto es una COPIA, no la fuente.** La fuente sigue siendo el Sheet, que es
+    donde se trabaja: se agregan grupos, se pide acceso, se anota el envío. Acá
+    entra un espejo de las columnas que el panel necesita, refrescado por
+    `scripts/diag/sync_grupos.py` cuando se manda una ola. Si la copia queda
+    vieja, el panel lo dice con la fecha de sincronización en vez de mentir en
+    silencio.
+
+    `id` es el mismo string del `?g=` del link (`uba042`), o sea la clave con la
+    que ya viene atribuido el jugador. Sin traducción de por medio: un id que hay
+    que mapear es un id que algún día se mapea mal.
+    """
+
+    __tablename__ = "game_groups"
+
+    id = Column(String(20), primary_key=True)
+    universidad = Column(String(120), nullable=True, index=True)
+    # Facultad/cluster y materia, para poder agrupar el clickrate por algo más
+    # fino que la universidad. La materia predice la vuelta mejor que la
+    # universidad (Análisis II/III 26% contra Estadística 6%), así que es el
+    # corte que de verdad decide a quién conviene mandarle.
+    cluster = Column(String(120), nullable=True)
+    materia = Column(String(120), nullable=True)
+    titulo = Column(String(200), nullable=True)
+    # Cuánta gente hay adentro. Es el denominador del clickrate y lo único que
+    # esta tabla aporta que no estuviera ya en la base.
+    miembros = Column(Integer, nullable=True)
+    # Último envío ANOTADO en el tracker, y con qué producto. `producto` es lo
+    # que dice si el grupo ya está quemado para dx.
+    ultimo_envio = Column(Date, nullable=True, index=True)
+    ultima_campana = Column(String(120), nullable=True, index=True)
+    producto = Column(String(40), nullable=True, index=True)
+    # De qué pestaña salió: `Grupos` o `Comunidades`. Las dos se mandan igual
+    # pero tienen claves de identidad distintas —código de invitación contra id
+    # de tracker— y esa diferencia ya hizo parecer huérfano a un grupo que no lo
+    # era. Guardarlo deja reconciliar sin adivinar.
+    fuente = Column(String(20), nullable=True)
+    # Cuándo se copió esta fila. El panel la muestra: una copia vieja que no
+    # avisa que es vieja es peor que no tener la copia.
+    synced_at = Column(DateTime, nullable=False, default=datetime.utcnow)

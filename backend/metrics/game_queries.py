@@ -46,6 +46,11 @@ from datetime import date, datetime, timedelta
 
 from sqlalchemy.orm import Session as DBSession
 
+# La banda objetivo se LEE de donde se decide, no se copia: es el número que
+# el motor promete, y una copia vieja acá convertiría a la calibración en la
+# medición que miente sobre justo lo que existe para vigilar.
+from game import elo
+
 from .queries import AR_OFFSET, _pct, _rows, local_date, week_start
 
 # Hueco que corta una sesión de juego. Media hora es lo que dura un empuje de
@@ -179,13 +184,30 @@ def load(db: DBSession) -> dict:
         "players": _rows(db, """
             SELECT id, user_id, alias, university, referred_by, referral_xp_given,
                    platform, is_bot, notify_enabled, winback_email_sent_at,
-                   pwa_first_seen_at, created_at, last_seen_at, variant
+                   pwa_first_seen_at, created_at, last_seen_at, variant,
+                   first_group_id
             FROM game_players"""),
-        "exercises": _rows(db, "SELECT id, player_id, created_at FROM game_exercises"),
+        # `p_hat` y `status` son para la calibración y la fricción; `peeked`
+        # separa «resolvió» de «copió», que mezclados arruinan la tasa de
+        # acierto. Siguen siendo pocas columnas sobre una tabla chica.
+        "exercises": _rows(db, """
+            SELECT id, player_id, created_at, p_hat, status, peeked, template_key
+            FROM game_exercises"""),
+        # `exercise_id` ata el intento al ejercicio que lo originó, y sin esa
+        # atadura no hay forma de comparar el p̂ que el motor prometió con lo
+        # que esa persona efectivamente contestó: la calibración se mide por
+        # ejercicio, no por jugador.
         "attempts": _rows(db, """
-            SELECT player_id, attempt_number, parse_ok, is_correct, created_at
+            SELECT player_id, exercise_id, attempt_number, parse_ok, is_correct,
+                   created_at
             FROM game_attempts"""),
         "boosts": _rows(db, "SELECT cafecitos, source, created_at FROM game_boosts"),
+        # El tracker de difusión, copiado por scripts/diag/sync_grupos.py. Es
+        # el denominador del clickrate y lo único que no sale de esta base.
+        "grupos": _rows(db, """
+            SELECT id, universidad, cluster, materia, miembros, ultimo_envio,
+                   ultima_campana, producto, synced_at
+            FROM game_groups"""),
         # Los avisos push del juego y los navegadores suscriptos. Las dos tablas
         # son chicas por construcción —una fila por envío y una por navegador—
         # y sin ellas la sección de re-enganche no tiene nada que contar.
@@ -205,7 +227,12 @@ def load(db: DBSession) -> dict:
                    u.notify_enabled
             FROM users u
             JOIN game_players p ON p.user_id = u.id"""),
-        "cta": _rows(db, "SELECT player_id, created_at FROM game_cta_events"),
+        # `cta` y `action` traen el CTR de cada cartel, que es el escalón que
+        # gobierna los reclutas (`share`) y el cafecito y que hasta ahora el
+        # panel no miraba.
+        "cta": _rows(db, """
+            SELECT player_id, cta, action, placement, solved, created_at
+            FROM game_cta_events"""),
     }
 
     # Los bots se sacan UNA vez, acá, y no en cada bloque: filtrar en diez
@@ -293,27 +320,26 @@ def _correctas_de_la_primera_sesion(lista: list[dict]) -> int:
 
 
 def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
-    """Los doce números de la semana, repartidos entre las secciones.
+    """Los doce números de la semana, repartidos entre las cuatro pestañas.
 
-    **Ya no hay sección de titulares**, y la clave de cada lista es la pestaña
-    donde aterriza el grupo. Doce números juntos arriba de todo son doce números
-    que hay que memorizar: cada uno se lee contra un gráfico que estaba dos
-    pestañas más allá, y esa pestaña arrancaba con un gráfico al que le faltaba
-    justo su número. Puesto arriba del gráfico que lo explica, el número deja de
-    ser un marcador y pasa a ser el resumen de lo que se está mirando.
+    **No hay sección de titulares**, y la clave de cada lista es la pestaña que
+    encabeza. Doce números juntos arriba de todo son doce números que hay que
+    memorizar: cada uno se lee contra un gráfico que estaba dos pestañas más
+    allá, y esa pestaña arrancaba con un gráfico al que le faltaba justo su
+    número.
 
-    El reparto, y por qué:
+    El reparto sigue la PREGUNTA que contesta cada uno, no la feature de la que
+    sale:
 
-      - **embudo** — quién entró, y cuántos cruzaron los dos umbrales que los
-        vuelven alcanzables después: instalar la app y registrarse. Son la
-        cohorte del embudo de abajo, contada de otra forma.
-      - **profundidad** — la sentada, que es la unidad real de este juego: qué
-        tan honda es la primera, cuánto dura, cuánto rinde la siguiente y si hay
-        siguiente. Cierra con los retenidos, que miden la misma vuelta pero en
-        SEMANAS: al lado de «Vuelven a jugar» se ve que son dos preguntas y no
-        dos versiones de la misma.
-      - **reclutas** — lo que aporta la gente que ya está, en las dos monedas que
-        el juego acepta: gente nueva y cafecitos.
+      - **activacion** — quién llega (volumen) y quién trae gente (reclutas).
+      - **retencion** — las cuatro cosas que cuestan algo: volver otro día,
+        instalar, registrarse y poner plata.
+      - **jugabilidad** — la sentada: qué tan honda es, cuánto dura, cuánto
+        rinde la siguiente y si hay siguiente.
+
+    Los dos primeros de activación son métricas de VOLUMEN y eso es deliberado:
+    no deciden nada por sí solas —suben si se difunde más— pero sin ellas no se
+    sabe si un porcentaje se calculó sobre treinta personas o sobre mil.
     """
     players = data["players"]
     answers = data["_answers"]
@@ -514,7 +540,11 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
                 "delta": delta, "hint": hint, "dec": dec}
 
     return {
-        "embudo": [
+        # Activación · quién llega y quién trae gente. Los dos primeros son
+        # métricas de volumen —vanidosas y a propósito: sirven para saber con
+        # cuánta gente se está jugando, no para decidir— y los dos últimos son
+        # el canal que no depende de que difundamos nosotros.
+        "activacion": [
             card("Visitas totales", per_week(visitas), "",
                  "Cuántas veces se sentó alguien a jugar. La misma persona que entra "
                  "el lunes y el jueves cuenta dos. Incluye las visitas que no "
@@ -523,20 +553,33 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
                  "Abrieron el link por primera vez esa semana, y son la cohorte del "
                  "embudo de abajo. La fila se crea al CARGAR la página, así que "
                  "incluye a quien se fue en la pantalla de intro sin ver una "
-                 "derivada — que hoy es más de la mitad. Los «estudiantes» del "
-                 "ranking son otra cosa: los que acertaron al menos una, de siempre."),
-            card("Instalan la app", per_week(instalaciones), "%",
-                 "De los nuevos de la semana, cuántos la abrieron ya instalada. La "
-                 "señal llega recién cuando la abren, así que la semana en curso "
-                 "todavía está sumando."),
-            card("Se registran", per_week(registrados), "%",
-                 "De los nuevos de la semana, cuántos dejaron de ser invitados. Es "
-                 "el mismo corte que el paso «se registró» de abajo, en tasa."),
+                 "derivada — que hoy es más de la mitad."),
+            card("Reclutas", per_week(reclutas), "",
+                 "Nuevos que entraron por el link de otro jugador."),
+            card("Coeficiente de viralidad", per_week(viralidad), "",
+                 "Cuánta gente trajo cada uno de los que ya estaban. Uno es el juego "
+                 "creciendo solo.", dec=2),
         ],
-        "profundidad": [
-            # Las derivadas de la primera tanda y sus minutos van PEGADAS: cinco
-            # derivadas en dos minutos y cinco en veinte son dos productos
-            # distintos, y con dos tarjetas en el medio eso no se lee.
+        # Retención · las cuatro cosas que alguien hace cuando el juego le
+        # importó lo suficiente: volver otro día, instalarlo, registrarse y
+        # poner plata. Ninguna es gratis para quien la hace, y por eso las
+        # cuatro son señal.
+        "retencion": [
+            card("Usuarios retenidos", per_week(retenidos), "",
+                 "Gente de otra semana que volvió a jugar en esta. Es la definición "
+                 "de retención del panel: dos días distintos, no dos sentadas."),
+            card("Instalan la app", per_week(instalaciones), "%",
+                 "De los nuevos de la semana, cuántos la abrieron ya instalada. Ojo "
+                 "con leerlo como tendencia: son 16 en toda la vida del producto, así "
+                 "que la serie se mueve entera con una persona."),
+            card("Se registran", per_week(registrados), "%",
+                 "De los nuevos de la semana, cuántos dejaron de ser invitados."),
+            card("Cafecitos", per_week(cafecitos), "",
+                 "Solo los donados de verdad: los grants a mano y los de aforo no cuentan."),
+        ],
+        # Jugabilidad · la sentada, que es la unidad real de este juego: se entra
+        # por un link, se juega hasta cansarse, y volver es una decisión aparte.
+        "jugabilidad": [
             card("1ª sesión", per_week(primera_sesion), "",
                  "Mediana de derivadas resueltas en la primera tanda, entre los que "
                  "llegaron a responder. Es el número que resume la curva de abajo."),
@@ -549,20 +592,7 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
                  "retiene."),
             card("Vuelven a jugar", per_week(vuelven), "%",
                  "De los que jugaron su primera tanda, cuántos tuvieron una segunda. "
-                 "Sentadas, no semanas: es la unidad real de este juego."),
-            card("Usuarios retenidos", per_week(retenidos), "",
-                 "Gente de otra semana que volvió a jugar en esta. La misma vuelta "
-                 "que la tarjeta de al lado, pero medida en semanas y sobre toda la "
-                 "base en vez de sobre los nuevos."),
-        ],
-        "reclutas": [
-            card("Reclutas", per_week(reclutas), "",
-                 "Nuevos que entraron por el link de otro jugador."),
-            card("Coeficiente de viralidad", per_week(viralidad), "",
-                 "Cuánta gente trajo cada uno de los que ya estaban. Uno es el juego "
-                 "creciendo solo.", dec=2),
-            card("Cafecitos", per_week(cafecitos), "",
-                 "Solo los donados de verdad: los grants a mano y los de aforo no cuentan."),
+                 "Sentadas, no semanas — la retención por semanas está en su pestaña."),
         ],
     }
 
@@ -1259,6 +1289,227 @@ def experimentos(data: dict) -> list[dict]:
     return salida
 
 
+# ── 7 · Difusión: a cuánta gente se llegó y cuánta entró ─────────────────────
+
+# Piso para que un grupo, una universidad o una campaña merezcan su propia fila.
+# Con menos de esto el clickrate es una fracción de números chicos: un grupo de
+# 20 miembros con 1 jugador da 5% y con 2 da 10%, y esa diferencia no es una
+# señal, es una persona.
+MIN_MIEMBROS_FILA = 40
+
+
+def difusion(data: dict) -> dict:
+    """El clickrate de la difusión: de cuánta gente alcanzada, cuánta entró.
+
+    **Es la única métrica del panel que necesita un dato de afuera.** El
+    numerador —cuántos jugadores trajo cada grupo— sale de
+    `game_players.first_group_id`; el denominador —cuánta gente hay en ese
+    grupo— vive en un Google Sheet y llega por `scripts/diag/sync_grupos.py`.
+    Hasta que esa tabla existió, el cruce se hacía a mano y quedaba escrito como
+    constantes en un `.py`.
+
+    **Lo que el clickrate NO es.** El denominador son los miembros del grupo, no
+    los que vieron el mensaje: WhatsApp no dice eso y nadie lo sabe. Así que
+    todas las tasas de acá son COTAS INFERIORES. Sirven para comparar un grupo
+    contra otro —el sesgo es parejo— y no para afirmar «tal porcentaje de la
+    gente hizo clic».
+
+    La cobertura se reporta siempre. Un jugador cuyo grupo no está en la copia
+    del tracker no se puede dividir, y si esos son un tercio, un clickrate
+    global que los ignore está midiendo otra cosa.
+    """
+    grupos = {g["id"]: g for g in data["grupos"]}
+    jugadores: dict[str, int] = defaultdict(int)
+    for p in data["players"]:
+        if p["first_group_id"]:
+            jugadores[p["first_group_id"]] += 1
+
+    atribuidos = sum(jugadores.values())
+    cubiertos = sum(n for g, n in jugadores.items() if g in grupos)
+    sin_fila = sorted(
+        ((g, n) for g, n in jugadores.items() if g not in grupos),
+        key=lambda kv: -kv[1])
+
+    def tasa(claves) -> dict:
+        miembros = sum(grupos[g]["miembros"] or 0 for g in claves)
+        gente = sum(jugadores.get(g, 0) for g in claves)
+        return {"grupos": len(claves), "miembros": miembros, "jugadores": gente,
+                "pct": _pct(gente, miembros)}
+
+    # Solo los grupos que YA recibieron dx: a los otros nunca se les mandó nada,
+    # y meterlos al denominador diluiría el clickrate con gente que no tuvo
+    # oportunidad de convertir.
+    tocados = [g for g, d in grupos.items()
+               if d["producto"] == "dx" and (d["miembros"] or 0) > 0]
+
+    def agrupar(campo: str) -> list[dict]:
+        cubos: dict[str, list[str]] = defaultdict(list)
+        for g in tocados:
+            clave = grupos[g][campo]
+            if clave:
+                cubos[clave].append(g)
+        filas = []
+        for clave, gs in cubos.items():
+            t = tasa(gs)
+            if t["miembros"] >= MIN_MIEMBROS_FILA:
+                filas.append({"clave": str(clave), **t})
+        return sorted(filas, key=lambda f: -(f["pct"] or 0))
+
+    detalle = []
+    for g in tocados:
+        d = grupos[g]
+        t = tasa([g])
+        if t["miembros"] >= MIN_MIEMBROS_FILA and t["jugadores"]:
+            detalle.append({"id": g, "universidad": d["universidad"],
+                            "materia": d["materia"] or d["cluster"], **t})
+    detalle.sort(key=lambda f: -(f["pct"] or 0))
+
+    sincro = max((g["synced_at"] for g in data["grupos"] if g["synced_at"]),
+                 default=None)
+    return {
+        "global": tasa(tocados),
+        "por_universidad": agrupar("universidad"),
+        "por_campana": agrupar("ultima_campana"),
+        "top": detalle[:8],
+        "atribuidos": atribuidos,
+        "cubiertos": cubiertos,
+        "pct_cobertura": _pct(cubiertos, atribuidos),
+        "sin_fila": sin_fila[:5],
+        "n_sin_fila": len(sin_fila),
+        "sincronizado": sincro,
+        "vacio": not data["grupos"],
+    }
+
+
+# ── 8 · Carteles ─────────────────────────────────────────────────────────────
+
+# Qué es cada cartel, para que la tabla se lea sin abrir el código.
+CARTELES = {
+    "share": "Reclutar: compartir el link",
+    "cafecito": "Invitar un cafecito",
+    "boost_offer": "Oferta de multiplicador",
+    "register": "Registrarse para elegir el @",
+}
+
+
+def carteles(data: dict) -> list[dict]:
+    """Impresiones y clicks de cada llamado a la acción.
+
+    Es el escalón que gobierna los reclutas y el cafecito, y el panel no lo
+    miraba: se veía el resultado —cuántos reclutas hubo— sin ver la puerta por
+    la que hay que pasar para llegar ahí. Un CTR que se desploma explica una
+    caída de reclutas sin necesidad de mirar nada más.
+    """
+    conteo: dict[str, dict[str, int]] = defaultdict(lambda: {"imp": 0, "clk": 0})
+    momento: dict[str, list[float]] = defaultdict(list)
+    for e in data["cta"]:
+        c = conteo[e["cta"]]
+        if e["action"] == "impression":
+            c["imp"] += 1
+            if e["solved"] is not None:
+                momento[e["cta"]].append(float(e["solved"]))
+        elif e["action"] == "click":
+            c["clk"] += 1
+    salida = [{
+        "cta": k,
+        "desc": CARTELES.get(k, k),
+        "impresiones": v["imp"],
+        "clicks": v["clk"],
+        "ctr": _pct(v["clk"], v["imp"]),
+        # En qué derivada se muestra, en mediana. Un cartel con CTR bajo puede
+        # estar mal escrito o puede estar saliendo demasiado temprano, y sin
+        # este número las dos explicaciones son igual de plausibles.
+        "mediana_solved": _median(momento.get(k, [])),
+    } for k, v in conteo.items()]
+    return sorted(salida, key=lambda f: -f["impresiones"])
+
+
+# ── 9 · Calibración del motor ────────────────────────────────────────────────
+
+# Los cubos de p̂ con los que se compara lo prometido contra lo entregado. Son
+# anchos a propósito: con cubos finos cada uno queda con pocas respuestas y la
+# curva tiembla por muestreo en vez de por descalibración.
+_CUBOS_PHAT = ((0.0, 0.5), (0.5, 0.65), (0.65, 0.75), (0.75, 0.85), (0.85, 1.01))
+
+
+def calibracion(data: dict) -> dict:
+    """Lo que el motor PROMETE contra lo que la gente ENTREGA.
+
+    El motor sirve lo que estima que se va a acertar 3 de cada 4 veces
+    (`elo.TARGET_LOW`–`TARGET_HIGH`). Si eso fuera cierto, en el cubo de p̂ 0,75
+    la tasa real de acierto sería 75%. La distancia entre las dos columnas es el
+    error de calibración, y ya se midió descalibrado una vez: prometía 85% y
+    entregaba 90%.
+
+    **Se mide sobre PRIMEROS intentos y sin tabla.** Un acierto al tercer intento
+    no es lo que p̂ predice, y uno copiado de la tabla tampoco: mezclarlos infla
+    la tasa real y hace parecer calibrado un motor que no lo está.
+    """
+    phat = {e["id"]: e["p_hat"] for e in data["exercises"]
+            if e["p_hat"] is not None and not e["peeked"]}
+    primeros = {}
+    for a in data["_firsts"]:
+        eid = a.get("exercise_id")
+        if eid is not None and eid not in primeros:
+            primeros[eid] = a
+
+    filas = []
+    for lo, hi in _CUBOS_PHAT:
+        respondidos = [eid for eid, ph in phat.items()
+                       if lo <= ph < hi and eid in primeros]
+        if not respondidos:
+            continue
+        aciertos = sum(1 for eid in respondidos if primeros[eid]["is_correct"])
+        prometido = sum(phat[eid] for eid in respondidos)
+        filas.append({
+            "rango": ("%.2f–%.2f" % (lo, hi)).replace(".", ","),
+            "n": len(respondidos),
+            "prometido": round(100 * prometido / len(respondidos), 1),
+            "real": round(100 * aciertos / len(respondidos), 1),
+        })
+    brecha = None
+    if filas:
+        peso = sum(f["n"] for f in filas)
+        brecha = round(sum(f["n"] * (f["real"] - f["prometido"]) for f in filas) / peso, 1)
+    return {"filas": filas, "brecha": brecha,
+            "banda": (round(100 * elo.TARGET_LOW), round(100 * elo.TARGET_HIGH))}
+
+
+# ── 10 · Fricción ────────────────────────────────────────────────────────────
+
+def friccion(data: dict) -> dict:
+    """Dónde la persona pelea con el juego en vez de con la derivada.
+
+    Tres cosas distintas que se confunden si se miran juntas: saltear es «esta no
+    la sé», mirar la tabla es «la busco», y que el parser rechace una respuesta
+    correcta es «la sé y el juego no me deja». Solo la tercera es un bug, y es la
+    que más caro sale: la persona hizo todo bien y el juego le dijo que no.
+    """
+    total = len(data["exercises"])
+    salteados = sum(1 for e in data["exercises"] if e["status"] == "skipped")
+    con_tabla = sum(1 for e in data["exercises"] if e["peeked"])
+    firsts = data["_firsts"]
+    parse_ok = sum(1 for a in firsts if a["parse_ok"])
+    # Intentos hasta acertar, entre los que acertaron. La mediana dice si el
+    # juego se gana de una o a fuerza de insistir.
+    por_ej: dict = defaultdict(list)
+    for a in data["_answers"]:
+        por_ej[a.get("exercise_id")].append(a)
+    hasta_acertar = [
+        float(min(a["attempt_number"] for a in intentos if a["is_correct"]))
+        for intentos in por_ej.values()
+        if any(a["is_correct"] for a in intentos)
+    ]
+    return {
+        "servidos": total,
+        "pct_salteados": _pct(salteados, total),
+        "pct_con_tabla": _pct(con_tabla, total),
+        "pct_parse_ok": _pct(parse_ok, len(firsts)),
+        "fallos_parseo": len(firsts) - parse_ok,
+        "mediana_intentos": _median(hasta_acertar),
+    }
+
+
 # ── Entrada ──────────────────────────────────────────────────────────────────
 
 def build(db: DBSession, week: date, weeks_shown: int = 4,
@@ -1285,4 +1536,8 @@ def build(db: DBSession, week: date, weeks_shown: int = 4,
         "mails": mails(data, weeks),
         "reclutas": reclutas(data, weeks),
         "experimentos": experimentos(data),
+        "difusion": difusion(data),
+        "carteles": carteles(data),
+        "calibracion": calibracion(data),
+        "friccion": friccion(data),
     }
