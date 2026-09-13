@@ -831,10 +831,45 @@ check("y el top de reclutadores tampoco está",
 check("con su cuenta de reclutas", top["cero"]["reclutas"] == 1 if top else False)
 # La tabla de camadas es la auditoría de los dos K: sin los cuatro términos
 # escritos, el número de arriba hay que creerlo.
-check("la tabla de camadas trae los dos numeradores y los dos denominadores",
+# ── El reclutamiento abierto por universidad ──────────────────────────────
+check("la tabla nueva abre el reclutamiento por universidad",
       all(f"<th>{c}</th>" in h_k for c in
-          ("Camada", "Entraron", "Activados", "Reclutas", "Reclutas activados",
+          ("Universidad", "Jugadores", "Reclutas", "Arrancaron", "Reclutadores",
            "K", "K de activados")))
+check("y la de camadas se fue", "La cuenta, camada por camada" not in h_k)
+
+ru = {f["clave"]: f for f in q.reclutas_por_universidad(data)}
+# `cero` (p5) es el único reclutador del escenario y no tiene universidad
+# cargada, así que su recluta cuenta para la fila «sin universidad». No es un
+# caso raro: en producción 661 de 968 jugadores no llegaron a decir dónde
+# estudian, porque la pregunta sale recién a las 3 correctas.
+check("el recluta se le cuenta a la universidad de SU RECLUTADOR",
+      ru["Sin universidad"]["reclutas"] == 1,
+      f'({ {k: v["reclutas"] for k, v in ru.items()} })')
+check("y el K sale sobre los jugadores de esa casa",
+      ru["Sin universidad"]["k"] == round(1 / ru["Sin universidad"]["jugadores"], 2),
+      f'({ru["Sin universidad"]["k"]} sobre {ru["Sin universidad"]["jugadores"]})')
+# La columna que evita leer «acá se comparte» donde hay UNA persona que
+# comparte. En producción son 23 reclutadores en todo el producto y en cada
+# casa el primero trae cerca de la mitad.
+check("cuenta cuántas personas distintas reclutaron",
+      ru["Sin universidad"]["reclutadores"] == 1,
+      f'({ru["Sin universidad"]["reclutadores"]})')
+check("y qué porción trajo el primero",
+      ru["Sin universidad"]["top_pct"] == 100.0,
+      f'({ru["Sin universidad"]["top_pct"]}%, su único reclutador trajo todo)')
+# Las universidades con menos de MIN_JUGADORES_UNI no desaparecen: se juntan,
+# porque con dos jugadores un solo recluta manda el K arriba de UBA.
+chicas = [f for f in q.reclutas_por_universidad(data) if f["clave"].startswith("Otras")]
+check("las casas chicas se juntan en vez de desaparecer",
+      len(chicas) == 1 and chicas[0]["jugadores"] > 0, f"({chicas})")
+check("y las filas suman todos los jugadores",
+      sum(f["jugadores"] for f in q.reclutas_por_universidad(data))
+      == len(data["players"]),
+      f'({sum(f["jugadores"] for f in q.reclutas_por_universidad(data))} '
+      f'de {len(data["players"])})')
+check("la nota avisa que tener universidad implica haber jugado",
+      "se pregunta a las 3 correctas" in h_k)
 # Una camada a medio terminar tiene que decirlo EN la tabla y EN la curva: su
 # K está incompleto y leerlo como caída es el error fácil. Las camadas del
 # escenario son todas de agosto, o sea que están cerradas hace rato, así que
@@ -851,7 +886,8 @@ check("una camada sola no dibuja curva de K",
       len(_una["camadas"]["filas"]) == 1
       and "una camada sola no hace una curva" in _h_una,
       f'({len(_una["camadas"]["filas"])} camadas)')
-check("pero la tabla la trae igual", "La cuenta, camada por camada" in _h_una)
+check("pero el desglose por universidad se dibuja igual",
+      "De dónde sale el reclutamiento" in _h_una)
 
 check("con el escenario de agosto están todas cerradas",
       all(c["madura"] for c in _cm), f"({len(_cm)} camadas)")
@@ -867,8 +903,8 @@ def _huecos(pagina: str) -> int:
     return trozo.count('fill="var(--surface)" stroke=')
 
 
-check("y entonces ni la tabla ni la curva marcan nada",
-      '<span class="sub2">sumando</span>' not in h_k and _huecos(h_k) == 0,
+check("y entonces la curva no marca nada",
+      "todavía sumando" not in h_k and _huecos(h_k) == 0,
       f"({_huecos(h_k)} puntos huecos)")
 
 _md = q.MADURACION_DIAS
@@ -882,8 +918,8 @@ finally:
     q.MADURACION_DIAS = _md
 check("moviendo la ventana, ninguna queda cerrada",
       not any(c["madura"] for c in _cm2), f"({len(_cm2)} camadas)")
-check("y la tabla las marca como sumando",
-      '<span class="sub2">sumando</span>' in _h_verde)
+check("y el gráfico las marca en su tooltip",
+      "todavía sumando" in _h_verde)
 # El marcado del gráfico es el mismo hecho por otro camino: `weak` dibuja el
 # punto hueco y el tramo punteado. Si la tabla dice «sumando» y la curva lo
 # dibuja firme, una de las dos miente.

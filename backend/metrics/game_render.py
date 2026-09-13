@@ -593,15 +593,21 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
     # existir si todavía no se mostró ninguno.
     sh = next((c for c in p["carteles"] if c["cta"] == "share"), None)
 
-    # Al revés que el gráfico: la camada más nueva primero. En la curva se lee
-    # una tendencia y el tiempo tiene que correr para la derecha; en la tabla se
-    # busca un número, y el que se busca es casi siempre el último.
-    filas_camadas = [[
-        (f'{esc(c["label"])}' if c["madura"] else
-         f'<span>{esc(c["label"])} <span class="sub2">sumando</span></span>'),
-        num(c["n"]), num(c["n_act"]), num(c["reclutas"]), num(c["reclutas_act"]),
-        num(c["k"], dec=2), f'<b>{num(c["k_act"], dec=2)}</b>',
-    ] for c in reversed(cm)]
+    # El reclutamiento abierto por universidad. Ordenado por reclutas y no por
+    # K: la pregunta que la tabla contesta primero es de dónde sale la gente que
+    # entró, y recién después a qué ritmo la trae cada casa.
+    filas_uni = [[
+        _uni_chip(u["clave"]) if u["chip"] else f'<b>{esc(u["clave"])}</b>',
+        num(u["jugadores"]), num(u["reclutas"]), num(u["reclutas_act"]),
+        # El número de reclutadores, y debajo cuánto de esa cosecha hizo el
+        # primero. Es lo que separa «acá se comparte» de «acá hay UNA persona
+        # que comparte», y sin eso las dos filas se leen igual.
+        (f'<span>{num(u["reclutadores"])}'
+         + (f' <span class="sub2">el 1º trajo {_pct_txt(u["top_pct"])}</span>'
+            if u["top_pct"] is not None else "")
+         + "</span>"),
+        num(u["k"], dec=2), f'<b>{num(u["k_act"], dec=2)}</b>',
+    ] for u in p["reclutas_uni"]]
     out.append(_section(
         2, "Reclutas",
         # Lo que aporta la gente que ya está, en las dos monedas que el juego
@@ -645,18 +651,26 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                 "<br><br>El numerador es de un dígito por camada, así que la curva tiembla "
                 "entera con una persona. Lo que se lee acá es la tendencia, nunca un punto."))
         + _box(
-            "La cuenta, camada por camada",
-            _table(["Camada", "Entraron", "Activados", "Reclutas",
-                    "Reclutas activados", "K", "K de activados"],
-                   filas_camadas, empty="todavía no hay camadas"),
+            "De dónde sale el reclutamiento",
+            _table(["Universidad", "Jugadores", "Reclutas", "Arrancaron",
+                    "Reclutadores", "K", "K de activados"],
+                   filas_uni, empty="todavía no hay jugadores con universidad"),
             note=(
-                "Los dos numeradores y los dos denominadores, escritos. <b>K</b> = Reclutas ÷ "
-                "Entraron. <b>K de activados</b> = Reclutas activados ÷ Activados. Están para "
-                "que ninguno de los dos números de arriba haya que creerlo: si uno llama la "
-                "atención, acá se ve de qué división salió."
-                "<br><br>«Reclutas» son los que trajo ESA camada, no los que entraron esa "
-                "semana por un link — son parecidos pero no iguales, y la diferencia son los "
-                "reclutas que llegan cruzando el domingo."))
+                "<b>La universidad se pregunta a las 3 correctas</b>, así que tenerla cargada "
+                "implica haber jugado. El denominador de esta tabla no es «cuánta gente de esa "
+                "casa abrió el juego» sino «cuánta llegó a decir dónde estudia» — un "
+                "subconjunto bastante más chico y bastante más enganchado. Por eso las dos K "
+                "de acá se parecen mucho más entre sí que las de la camada, donde el "
+                "denominador sí incluía a los que no arrancaron."
+                "<br><br>Y por eso mismo la fila «sin universidad» no recluta nunca: el cartel "
+                "de compartir aparece jugando, o sea del otro lado del mismo hito. No es que "
+                "esa gente comparta menos — es que todavía no llegó a donde está el botón."
+                "<br><br><b>«Reclutadores» es la columna que hace que esta tabla no mienta.</b> "
+                "El reclutamiento está brutalmente concentrado: son 23 personas en todo el "
+                "producto, y en cada casa la primera trae cerca de la mitad de las de su casa. "
+                "Un K alto puede ser una cultura o puede ser una persona, y sin esta columna "
+                "las dos se ven igual. Antes de mandar la próxima ola a la universidad que "
+                "encabeza, mirar de cuántas manos salió."))
         + _box(
             "El cartel de compartir",
             '<div class="grid g3">'
