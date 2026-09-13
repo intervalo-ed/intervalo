@@ -9,6 +9,7 @@ const INSTALAR_KEY = "intervalo:game:instalar"
 const NOTIF_KEY = "intervalo:game:notificaciones"
 const OPINION_KEY = "intervalo:game:opinion"
 const REGLAS_KEY = "intervalo:game:reglas"
+const CIERRE_KEY = "intervalo:game:cafecito-cierre"
 const PWA_DESDE_KEY = "intervalo:game:pwa-desde"
 
 // El token del invitado se lee además como STORE REACTIVO (`subscribeGameToken`
@@ -92,6 +93,7 @@ export function clearGameIdentity() {
     window.localStorage.removeItem(NOTIF_KEY)
     window.localStorage.removeItem(OPINION_KEY)
     window.localStorage.removeItem(REGLAS_KEY)
+    window.localStorage.removeItem(CIERRE_KEY)
     window.localStorage.removeItem(PWA_DESDE_KEY)
     window.localStorage.removeItem(CHAT_SENDS_KEY)
   } catch {
@@ -275,6 +277,33 @@ export function readPedidoState(clave: string): PedidoRepetido {
 export function savePedidoState(clave: string, estado: PedidoRepetido) {
   try {
     window.localStorage.setItem(clave, JSON.stringify(estado))
+  } catch {}
+}
+
+// Qué empuje ya se cerró en pantalla: el `boost_id` del último cafecito cuyo
+// total final se le mostró a quien lo invitó.
+//
+// Existe para que la cara de cierre salga UNA vez y no en cada aparición de la
+// diapo durante las 48 h que el servidor la recuerda
+// (game/boosts.py :: MEMORIA_CIERRE_HORAS). Un número y no una lista: cada
+// donación cierra después de la anterior, así que recordar la última alcanza.
+//
+// Si no se puede leer ni escribir, se muestra de nuevo. Es el lado barato: el
+// costo de repetir un agradecimiento es mucho menor que el de no darlo.
+export function readCierreMostrado(): number | null {
+  if (typeof window === "undefined") return null
+  try {
+    const raw = window.localStorage.getItem(CIERRE_KEY)
+    const n = raw === null ? NaN : Number(raw)
+    return Number.isFinite(n) ? n : null
+  } catch {
+    return null
+  }
+}
+
+export function marcarCierreMostrado(boostId: number) {
+  try {
+    window.localStorage.setItem(CIERRE_KEY, String(boostId))
   } catch {}
 }
 

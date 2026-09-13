@@ -150,11 +150,15 @@ export interface paths {
         };
         /**
          * Cafecito Status
-         * @description Qué pasó con el cafecito de quien acaba de volver de Cafecito.
+         * @description Qué pasó con el cafecito de esta persona, y qué lleva hecho su empuje.
          *
-         *     Lo consulta la diapo cuando la pestaña vuelve a estar a la vista. Es de
-         *     lectura y barato —una intención y, si está cumplida, los empujes de ese
-         *     instante— así que no necesita nada especial.
+         *     Lo consulta la diapo del cafecito antes de decidir qué cara dibujar: a quien
+         *     donó le muestra el número en vez de volver a pedirle.
+         *
+         *     Sigue siendo de lectura, pero ya no es de tres filas: con la donación
+         *     resuelta agrega la suma de la XP del empuje en su ventana, en los dos
+         *     productos. La ventana es de horas y filtra por universidad, así que es una
+         *     cuenta chica — y la diapo sale cada veinte derivadas, no en cada respuesta.
          */
         get: operations["cafecito_status_game_derivemos_cafecito_status_get"];
         put?: never;
@@ -1919,7 +1923,7 @@ export interface components {
         };
         /**
          * GameCafecitoStatus
-         * @description Qué pasó con la donación de quien acaba de volver de Cafecito.
+         * @description Qué pasó con la donación de esta persona, y qué lleva hecho su empuje.
          *
          *     Existe por un agujero del embudo: la persona tocaba «invitar», se iba a
          *     Cafecito en otra pestaña, pagaba, volvía — y encontraba la misma pantalla que
@@ -1951,6 +1955,18 @@ export interface components {
              * @default 0
              */
             expires_in_seconds: number;
+            /**
+             * Xp Extra
+             * @default 0
+             */
+            xp_extra: number;
+            /**
+             * Estudiantes
+             * @default 0
+             */
+            estudiantes: number;
+            /** Boost Id */
+            boost_id?: number | null;
         };
         /**
          * GameCtaRequest

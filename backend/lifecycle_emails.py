@@ -838,35 +838,30 @@ def due_cafecito_efecto_emails(db: DBSession) -> list[tuple[User, dict]]:
 
 
 def _efecto_del_empuje(db: DBSession, boost) -> tuple[int, int]:
-    """Cuánta XP extra puso ese empuje, y entre cuántos estudiantes.
+    """Cuánta XP extra puso ese empuje, y entre cuántas personas.
 
-    Sale de `answers.xp_from_boost`, que es justamente el dato que no se puede
-    reconstruir después. Ojo con lo que este número ES: la XP que el empuje de
-    ESA universidad puso en esa ventana, no la que puso una donación puntual —
-    los cafecitos de la ventana se suman y el global se mezcla con el dirigido,
-    así que atribuir por donante es imposible por construcción.
+    La cuenta vive en `game/boosts.py :: efecto_del_empuje`, compartida con el
+    endpoint que le devuelve el mismo número a quien donó mientras el empuje
+    todavía corre (`GET /game/derivemos/cafecito-status`). Un mail y una pantalla
+    que dicen el mismo número tienen que sacarlo del mismo lugar.
+
+    Suma los DOS productos. Hasta que `game_attempts.xp_from_boost` existió, esto
+    leía solo `answers` y por lo tanto le contaba a quien donó JUGANDO todo menos
+    lo que pasó en el juego.
+
+    Ojo con lo que este número ES: la XP que el empuje de ESA universidad puso en
+    esa ventana, no la que puso una donación puntual — los cafecitos de la
+    ventana se suman y el global se mezcla con el dirigido, así que atribuir por
+    donante es imposible por construcción.
     """
-    from models import Answer, Enrollment
+    from game.boosts import efecto_del_empuje
 
-    q = (
-        db.query(
-            func.coalesce(func.sum(Answer.xp_from_boost), 0),
-            func.count(func.distinct(Answer.user_id)),
-        )
-        .filter(
-            Answer.answered_at >= boost.created_at,
-            Answer.answered_at <= boost.expires_at,
-            Answer.xp_from_boost > 0,
-        )
+    return efecto_del_empuje(
+        db,
+        university=boost.university,
+        desde=boost.created_at,
+        hasta=boost.expires_at,
     )
-    if boost.university:
-        q = q.filter(
-            Answer.user_id.in_(
-                db.query(Enrollment.user_id).filter(Enrollment.university == boost.university)
-            )
-        )
-    extra, estudiantes = q.one()
-    return int(extra or 0), int(estudiantes or 0)
 
 
 # Cuántos reclutas entran en el listado del mail. El total de arriba los cuenta a

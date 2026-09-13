@@ -1254,6 +1254,19 @@ class GameAttempt(Base):
     is_correct = Column(Boolean, nullable=False)
     response_ms = Column(Integer, nullable=True)
     xp_awarded = Column(Integer, nullable=False, default=0)
+    # De esa XP, cuánto lo puso el empuje de cafecito de la universidad.
+    #
+    # Gemela de `Answer.xp_from_boost` y con el mismo nombre a propósito: es el
+    # mismo dato del otro producto, y la consulta que los suma
+    # (game/boosts.py :: efecto_del_empuje) los lee como una sola cosa.
+    #
+    # Se guarda por intento porque después NO se puede reconstruir: acá arriba
+    # solo sobrevive `xp_awarded`, ya multiplicado, y el multiplicador de ese
+    # momento no queda en ninguna fila. `game_players.xp_from_boosts` acumula lo
+    # mismo pero sin dimensiones —sin fecha, sin universidad, sin empuje— así
+    # que no sirve para preguntar "cuánto puso el empuje de la UBA entre las
+    # 14 y las 17".
+    xp_from_boost = Column(Integer, nullable=False, default=0, server_default="0")
     # Solo en el intento 1 (el único que mueve el Elo).
     theta_before = Column(Float, nullable=True)
     theta_after = Column(Float, nullable=True)

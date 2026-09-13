@@ -525,6 +525,34 @@ copy sale de tablas que el juego no toca.
   por Elo promedio (que es lo que impide que un cafecito compre puesto), así que
   ningún aviso puede prometer XP para escalar la tabla de universidades.
 
+### La diapo del cafecito, y sus cuatro caras
+
+Sale cada 20 derivadas (`cafecito-cta.tsx`) y desde el 14/09 no siempre pide.
+Cuál cara dibuja lo contesta el servidor (`GET /cafecito-status`), no una bandera
+local, así que sobrevive a cerrar la pestaña y a cambiar de aparato:
+
+| cara | cuándo |
+|---|---|
+| **oferta** | lo de siempre: la barra, el multiplicador que se compra, el precio |
+| **vuelta** | acabás de volver de Cafecito, en esta misma visita (`PanelDeVuelta`) |
+| **impacto** | donaste y el empuje está corriendo: **«1.240 XP extra para la UBA»**, y cuánta gente lo sumó |
+| **cierre** | el empuje venció: el total final, **una sola vez** en las 48 h que el servidor lo recuerda |
+
+Con el empuje vivo pero sin número —nadie jugó todavía— el titular es el
+multiplicador y **nunca un cero**: es la misma regla que ya seguía el mail del
+vencimiento, donde «tu cafecito generó 0 XP» es peor que no decir nada.
+
+**Donde NO reemplaza a la oferta** es cuando la persona abre el cafecito a
+propósito (botón de cabecera, tecla `i`, configuración): ahí el número va arriba
+en un renglón y la oferta queda. Ese es el camino que convierte, y taparlo sería
+cambiar «dejá de pedirle a quien ya donó» por «no lo dejes donar de nuevo».
+
+En el teléfono la diapo va a pantalla completa con el tinte café y conserva las
+tres cajas de universidades vecinas; en escritorio va en su card, con Enter, y el
+ranking de al lado hace ese trabajo. Lo que se apaga en la cara de impacto es
+`Shift+Enter` (no hay dónde ir) y la previsualización del ranking (no hay barra
+que previsualizar).
+
 **Mails** (solo para quien tiene cuenta: `users.email` viene de Clerk, así que al
 invitado solo se lo alcanza por push). Se reusan los dos que ya eran conscientes
 del juego —el resumen semanal de reclutas y el efecto del cafecito— y se agrega

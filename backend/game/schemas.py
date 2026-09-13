@@ -356,7 +356,7 @@ class GameBoostOut(BaseModel):
 
 
 class GameCafecitoStatus(BaseModel):
-    """Qué pasó con la donación de quien acaba de volver de Cafecito.
+    """Qué pasó con la donación de esta persona, y qué lleva hecho su empuje.
 
     Existe por un agujero del embudo: la persona tocaba «invitar», se iba a
     Cafecito en otra pestaña, pagaba, volvía — y encontraba la misma pantalla que
@@ -371,7 +371,8 @@ class GameCafecitoStatus(BaseModel):
 
     # "none"     — no tocó el botón (o fue hace mucho)
     # "pending"  — lo tocó y todavía no llegó nada
-    # "credited" — llegó y ya está aplicado
+    # "credited" — llegó y el empuje está corriendo
+    # "closed"   — el empuje ya venció; `xp_extra` es el total final
     state: str
     # A dónde fue el empuje. None con state="credited" es el empuje GLOBAL, que
     # es donde cae la donación de quien todavía no eligió universidad.
@@ -381,6 +382,19 @@ class GameCafecitoStatus(BaseModel):
     # vigente ya sumado; es el número que la pantalla muestra grande.
     multiplier: float = 1.0
     expires_in_seconds: int = 0
+    # Cuánta XP extra sumó esa universidad DESDE la donación, y entre cuántas
+    # personas. Los dos productos juntos (game/boosts.py :: efecto_del_empuje).
+    #
+    # Cero con `state="credited"` no es un error: es que todavía no jugó nadie.
+    # La pantalla que lo lee no puede mostrar ese cero — «tu cafecito generó 0
+    # XP» es peor que no decir nada (misma regla que el mail, ver
+    # lifecycle_emails.send_cafecito_efecto_email) — así que ahí muestra el
+    # multiplicador y el tiempo que queda.
+    xp_extra: int = 0
+    estudiantes: int = 0
+    # Llave del empuje reportado, para que la pantalla pueda mostrar la cara de
+    # cierre una sola vez. None cuando no hay empuje resuelto.
+    boost_id: Optional[int] = None
 
 
 class GamePulse(BaseModel):
