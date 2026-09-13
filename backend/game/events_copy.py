@@ -328,7 +328,7 @@ _RECLUTA = [
 
 _RECLUTA_CON_UNI = [
     "{a} reclutó a {b} para $art_u {u0}.",
-    "{a} sumó a {b} $a_u {u0}.",
+    "{a} sumó a {b} a las filas $de_u {u0}.",
     "{a} trajo a {b} $a_u {u0}.",
 ]
 
