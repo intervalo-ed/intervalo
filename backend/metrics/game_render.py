@@ -41,7 +41,9 @@ from datetime import date, datetime, timedelta
 from . import charts as ch
 from . import theme
 from .charts import esc, num
-from .game_queries import FIRST_WEEK, PEDIDO_CAFECITO, PLATFORM_LABEL
+from .game_queries import (
+    FIRST_WEEK, PEDIDO_CAFECITO, PLATFORM_LABEL, VENTANA_DONANTE_SEG,
+)
 
 # El grueso del CSS es el mismo que Intervalo (ver metrics/theme.py) — es la
 # piel de la que se copió en primer lugar. Acá solo quedan las reglas que no
@@ -937,6 +939,40 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         '<span class="sub2">no las anota</span>',
         num(l["clicks"]), _pct_txt(l["ctr"]),
     ] for l in mo["lugares"]]
+    # ── A quién se le pudo agradecer ─────────────────────────────────────────
+    gr = mo["gracias"]
+    pieza_gracias = _section(
+        2, "A quién se le pudo agradecer",
+        '<div class="grid g4">'
+        + "".join(_kpi_chico(l, v, h) for l, v, h in [
+            ("Donaciones", gr["donaciones"], "en la ventana del panel"),
+            ("Sabemos quién", gr["unico"],
+             f'{num(gr["ambiguas"])} quedaron ambiguas'
+             + (f' · {num(gr["sin_boton"])} sin tocar el botón'
+                if gr["sin_boton"] else "")),
+            ("Y tiene cuenta", gr["con_cuenta"],
+             f'{num(gr["unico"] - gr["con_cuenta"])} donaron sin cuenta'),
+            ("Se le agradeció", gr["agradecidos"],
+             f'{_pct_txt(gr["pct_agradecidos"])} de las donaciones'),
+        ])
+        + "</div>"
+        + f'<p class="note"><b>Cafecito no devuelve quién pagó.</b> Sus campos son todos '
+          f'opcionales y no se pueden marcar obligatorios, así que la única pata del juego '
+          f'es el «voy a donar»: cuando alguien toca ESE botón sí sabemos quién es, y la '
+          f'donación se cruza contra las intenciones consumidas en ±'
+          f'{num(VENTANA_DONANTE_SEG)} segundos.'
+          f'<br><br><b>Con dos personas distintas en esa ventana no se puede afirmar nada.</b> '
+          f'Solo una pagó y las otras cobran el empuje igual, así que nombrar a cualquiera '
+          f'sería inventar. Ahí se pierde casi todo lo que se pierde, y es la parte que tiene '
+          f'arreglo del lado del producto —una ventana más angosta, o cruzar por monto—; '
+          f'«donó sin cuenta» no lo tiene.'
+          f'<br><br>Solo donaciones de verdad: los grants a mano y los del aforo no los donó '
+          f'nadie. Meterlos en el denominador inventaría un problema que no existe, y pasó al '
+          f'medir esto la primera vez.</p>',
+        sub="Cuánta plata entra sin que sepamos de quién. Es también el denominador del mail "
+            "de agradecimiento, que sale solo cuando las cuatro columnas dan.",
+        anchor="gracias")
+
     pieza_monetizacion = _section(
         1, "Dónde se pide el cafecito",
         _box("", _table(["Lugar", "Impresiones", "Clicks", "CTR"], filas_lugares,
@@ -961,7 +997,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
              ),
         sub="El cafecito no se pide en un lugar: se pide en nueve. Esto es cuál de los "
             "nueve trae la plata.",
-        anchor="monetizacion")
+        anchor="monetizacion") + pieza_gracias
 
     # ── Calibración ──────────────────────────────────────────────────────────
     ca = p["calibracion"]
