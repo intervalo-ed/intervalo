@@ -271,6 +271,21 @@ def _in_week(dt: datetime | None, week: date) -> bool:
     return d is not None and week <= d <= week + timedelta(days=6)
 
 
+def _semanas_hasta(week: date) -> list[date]:
+    """Todas las semanas del panel hasta la elegida, no las últimas cuatro.
+
+    Lo piden las tres curvas que miran camadas —activación, retención,
+    viralidad— y siempre por el mismo motivo: con cuatro puntos una tendencia no
+    se distingue de un rebote, y las tres tienen numeradores chicos.
+    """
+    semanas: list[date] = []
+    w = FIRST_WEEK
+    while w <= week:
+        semanas.append(w)
+        w += timedelta(weeks=1)
+    return semanas or [week]
+
+
 # ── 0 · Titulares ──────────────────────────────────────────────────────────
 
 def _sesiones(lista: list[dict]) -> list[list[dict]]:
@@ -343,7 +358,6 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
     """
     players = data["players"]
     answers = data["_answers"]
-    alta_de = {p["id"]: local_date(p["created_at"]) for p in players}
 
     # ── Quién estuvo cada semana ────────────────────────────────────────
     # No hay tabla de visitas: el juego no registra un pageview, registra lo que
@@ -356,18 +370,11 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
     # `last_seen_at` es un solo instante y se lo lleva la segunda. Los pageviews
     # de verdad los tiene PostHog; acá el número es un piso, nunca un techo.
     visto: dict[date, set[int]] = defaultdict(set)
-    # Y la misma huella, guardada por jugador y con su instante: es lo que
-    # permite contar VISITAS —cuántas veces se sentó alguien a jugar— y no solo
-    # cuántas personas distintas hubo. Una persona que entra tres veces en la
-    # semana son tres visitas y un ingreso.
-    huellas: dict[int, list[dict]] = defaultdict(list)
 
     def marcar(pid: int, cuando) -> None:
         w = _week_of(cuando)
         if w is not None:
             visto[w].add(pid)
-        if cuando is not None:
-            huellas[pid].append({"created_at": cuando})
 
     for p in players:
         marcar(p["id"], p["created_at"])
@@ -383,13 +390,6 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
     for a in answers:
         por_jugador[a["player_id"]].append(a)
 
-    # Las tandas de cada jugador, sobre TODA huella y no solo sobre respuestas:
-    # quien abre el juego, mira y se va también visitó. Se ordenan una vez.
-    tandas_de: dict[int, list[list[dict]]] = {
-        pid: _sesiones(sorted(hs, key=lambda h: h["created_at"]))
-        for pid, hs in huellas.items()
-    }
-
     def nuevos(w: date) -> list[dict]:
         return [p for p in players if _in_week(p["created_at"], w)]
 
@@ -398,59 +398,13 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
     # función, y dos definiciones de K terminan dando dos números distintos
     # para la misma pregunta. Ya pasó con el K semanal.
     cam = _camadas(data, weeks)
+    ret = _camadas_retencion(data, weeks)
 
     def per_week(fn) -> list:
         return [fn(w) for w in weeks]
 
-    def visitas(w: date) -> int:
-        """Cuántas veces se sentó alguien a jugar esa semana.
-
-        Una tanda es una visita: la misma persona que entra el lunes y el jueves
-        cuenta dos. Es la diferencia con «usuarios nuevos», que cuenta personas,
-        y es lo que dice si la gente vuelve DENTRO de la semana.
-
-        No hay tabla de pageviews —el juego registra lo que la persona HACE— así
-        que la tanda se arma con toda huella fechada: el alta, un ejercicio
-        servido, una respuesta, un cartel visto, y `last_seen_at`, que es lo
-        único que deja quien volvió y no tocó nada. Es un piso, nunca un techo.
-        """
-        return sum(
-            1 for tandas in tandas_de.values() for t in tandas
-            if t and _in_week(t[0]["created_at"], w)
-        )
-
     def altas(w: date) -> int:
         return len(nuevos(w))
-
-    def registrados(w: date) -> float | None:
-        ns = nuevos(w)
-        return _pct(sum(1 for p in ns if p["user_id"]), len(ns))
-
-    def instalaciones(w: date) -> float | None:
-        """De los nuevos de la semana, cuántos abrieron la app YA INSTALADA.
-
-        Es la única medida de si la diapo de la pantalla de inicio sirve. Se
-        cuenta sobre los nuevos y no sobre todos por lo mismo que el registro:
-        una cohorte se compara con otra, y el acumulado sube solo con el tiempo.
-
-        Ojo con leerlo antes de tiempo: la señal llega cuando la persona ABRE la
-        app instalada, que puede ser al día siguiente de haberla agregado. Una
-        cohorte de esta semana todavía está sumando.
-        """
-        ns = nuevos(w)
-        return _pct(sum(1 for p in ns if p["pwa_first_seen_at"]), len(ns))
-
-    def retenidos(w: date) -> int:
-        """Gente de OTRA semana que volvió a jugar en esta.
-
-        Se mide por respuesta y no por visita: volver a abrir la página sin hacer
-        nada no es retención, es un rebote con más pasos.
-        """
-        return len({
-            a["player_id"] for a in answers
-            if _in_week(a["created_at"], w)
-            and (alta_de.get(a["player_id"]) or date.max) < w
-        })
 
     def cafecitos(w: date) -> int:
         return sum(b["cafecitos"] for b in data["boosts"]
@@ -509,8 +463,9 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
     def _tandas_jugadas(p: dict) -> list[list[dict]]:
         """Las tandas de RESPUESTAS de un jugador, que son las que se miden.
 
-        Distintas de `tandas_de`, que incluye huellas sin actividad: para «cuánto
-        aguanta una sentada» solo cuentan las que tuvieron respuestas.
+        Sobre RESPUESTAS y no sobre toda huella: para «cuánto aguanta una
+        sentada» solo cuentan las que tuvieron actividad, porque abrir la página
+        y mirar no es jugar.
         """
         return _sesiones(por_jugador.get(p["id"], []))
 
@@ -635,16 +590,29 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
         # importó lo suficiente: volver otro día, instalarlo, registrarse y
         # poner plata. Ninguna es gratis para quien la hace, y por eso las
         # cuatro son señal.
+        # Retención · los cuatro sobre los ACTIVADOS de la camada, que es el
+        # cambio que los vuelve legibles. Medidos sobre las altas, los tres
+        # porcentajes se caían con cada ola de difusión sin que nadie hubiera
+        # retenido peor: una ola trae mucha gente que no llega a jugar, y
+        # alguien que nunca jugó no puede volver, ni registrarse, ni instalar
+        # nada. Eso es activación, y ya tiene su pestaña.
         "retencion": [
-            card("Usuarios retenidos", per_week(retenidos), "",
-                 "Gente de otra semana que volvió a jugar en esta. Es la definición "
-                 "de retención del panel: dos días distintos, no dos sentadas."),
-            card("Instalan la app", per_week(instalaciones), "%",
-                 "De los nuevos de la semana, cuántos la abrieron ya instalada. Ojo "
-                 "con leerlo como tendencia: son 16 en toda la vida del producto, así "
-                 "que la serie se mueve entera con una persona."),
-            card("Se registran", per_week(registrados), "%",
-                 "De los nuevos de la semana, cuántos dejaron de ser invitados."),
+            card("Activados de la camada", per_week(lambda w: ret[w]["activados"]), "",
+                 "Los de la camada de esa semana que llegaron a responder al menos "
+                 "una derivada. Es el denominador de los otros tres: acá solo "
+                 "entra gente que ya jugó."),
+            card("Vuelven otro día", per_week(lambda w: ret[w]["vuelven"]), "%",
+                 "De esos, cuántos respondieron algo en un segundo día distinto. "
+                 "Días y no sentadas —eso está en Jugabilidad— y por respuesta y "
+                 "no por visita: volver a abrir la página sin tocar nada es un "
+                 "rebote con más pasos.", dec=1),
+            card("Se registran", per_week(lambda w: ret[w]["registran"]), "%",
+                 "De los activados, cuántos dejaron de ser invitados.", dec=1),
+            card("Instalan la app", per_week(lambda w: ret[w]["instalan"]), "%",
+                 "De los activados, cuántos la abrieron ya instalada. Es la única "
+                 "medida de si la diapo de la pantalla de inicio sirve. Ojo con "
+                 "leerlo como tendencia: son 16 en toda la vida del producto, así "
+                 "que la serie se mueve entera con una persona.", dec=1),
         ],
         # Monetización · el pedido de cafecito de punta a punta, en el orden en
         # que ocurre al revés: primero la plata que entró y después las dos
@@ -1287,18 +1255,126 @@ def camadas(data: dict, week: date) -> dict:
     cuatro puntos una tendencia no se distingue de un rebote, y el numerador de
     esto es de un dígito por camada.
     """
-    semanas: list[date] = []
-    w = FIRST_WEEK
-    while w <= week:
-        semanas.append(w)
-        w += timedelta(weeks=1)
-    if not semanas:
-        semanas = [week]
+    semanas = _semanas_hasta(week)
     filas = _camadas(data, semanas)
     return {
         "filas": [filas[w] for w in semanas],
         "maduracion_dias": MADURACION_DIAS,
     }
+
+
+# ── 5-ter · Retención por camada ─────────────────────────────────────────────
+
+# Cuánto tarda una camada en terminar de retener, y no es lo mismo para las
+# tres cosas que se miden. Medido en producción el 13/09, contando desde el alta
+# de cada persona:
+#
+#   · volver otro día (n=50) — el 76% vuelve al día siguiente, el 94% dentro de
+#     dos días, y la vuelta más tardía de las cincuenta cayó a los 8 días.
+#   · registrarse (n=60) — mediana 15 minutos, el 86,7% dentro del día, la más
+#     tardía a los 7,8 días.
+#   · instalar la app (n=16) — mediana 10 horas, pero la cola es larga: la más
+#     tardía cayó a los 13,4 días.
+#
+# **La cola está censurada por la edad del producto.** dx tiene 16 días, así que
+# nadie PUDO volver a los treinta: estos techos son un piso del techo real y hay
+# que volver a medirlos cuando haya camadas de dos meses. Mientras tanto sirven
+# para lo único que se usan acá, que es marcar qué punto de la curva todavía
+# está sumando y no se puede leer como una caída.
+METRICAS_RETENCION: tuple[tuple[str, str, str, int], ...] = (
+    ("activados", "Activados de la camada", "", 1),
+    ("vuelven", "Vuelven otro día", "%", 8),
+    ("registran", "Se registran", "%", 8),
+    ("instalan", "Instalan la app", "%", 14),
+)
+# La vuelta y no el volumen: es la única de las cuatro que no se mueve sola con
+# cuánto se difunda, y es la pregunta que la pestaña existe para contestar.
+METRICA_RETENCION_POR_DEFECTO = "vuelven"
+
+
+def _camadas_retencion(data: dict, semanas: list[date]) -> dict[date, dict]:
+    """Qué hizo cada camada después de arrancar, sobre los que arrancaron.
+
+    **El denominador son los ACTIVADOS de la camada y no sus altas.** Ese es
+    todo el cambio respecto de lo que había antes, y es el que vuelve legibles a
+    los tres porcentajes: medidos sobre las altas se caían con cada ola de
+    difusión sin que nadie hubiera retenido peor. Una ola trae mucha gente que
+    no llega a jugar, y quien nunca jugó no puede volver, ni registrarse, ni
+    instalar nada — eso es activación, que ya tiene su propia pestaña y su
+    propia curva.
+
+    Con el denominador corregido, las dos preguntas quedan separadas: cuánta
+    gente llega a jugar se mira en Activación, y qué hace la que jugó se mira
+    acá.
+
+    **Vuelve otro día = dos DÍAS distintos con respuesta.** Días y no sentadas
+    —esa es la de Jugabilidad, que mide la vuelta dentro del mismo rato— y por
+    respuesta y no por visita, porque volver a abrir la página sin tocar nada es
+    un rebote con más pasos.
+
+    Las tres se le cuentan a la camada de la persona, así que un registro del
+    martes suma para la camada del sábado anterior. Son cohortes: cada una se
+    mide contra sí misma, y por eso se pueden comparar entre semanas.
+    """
+    activos = {a["player_id"] for a in data["_answers"]}
+
+    # Los días distintos con respuesta de cada jugador. Se arma una vez: es lo
+    # único caro de esta función y lo piden todas las camadas.
+    dias_de: dict[int, set[date]] = defaultdict(set)
+    for a in data["_answers"]:
+        d = local_date(a["created_at"])
+        if d is not None:
+            dias_de[a["player_id"]].add(d)
+
+    por_camada: dict[date, list[dict]] = defaultdict(list)
+    for p in data["players"]:
+        w = _week_of(p["created_at"])
+        if w is not None and p["id"] in activos:
+            por_camada[w].append(p)
+
+    hoy = local_date(datetime.utcnow())
+    filas: dict[date, dict] = {}
+    for w in semanas:
+        act = por_camada.get(w, [])
+        n = len(act)
+        vuelven = sum(1 for p in act if len(dias_de.get(p["id"], ())) > 1)
+        registran = sum(1 for p in act if p["user_id"])
+        instalan = sum(1 for p in act if p["pwa_first_seen_at"])
+        filas[w] = {
+            "label": w.strftime("%d/%m"),
+            "week": w.isoformat(),
+            "activados": n,
+            "n_vuelven": vuelven,
+            "n_registran": registran,
+            "n_instalan": instalan,
+            "vuelven": _pct(vuelven, n),
+            "registran": _pct(registran, n),
+            "instalan": _pct(instalan, n),
+            # Una ventana por métrica y no una sola: instalar tiene una cola
+            # mucho más larga que registrarse, y una camada puede estar cerrada
+            # para una cosa y todavía sumando para la otra.
+            "madura": {clave: hoy >= w + timedelta(days=7 + dias)
+                       for clave, _, _, dias in METRICAS_RETENCION},
+        }
+    return filas
+
+
+def retencion(data: dict, week: date,
+              metrica: str = METRICA_RETENCION_POR_DEFECTO) -> dict:
+    """Los cuatro números de retención, camada por camada, desde el principio.
+
+    Una por vez y no las cuatro juntas, por lo mismo que la curva de activación:
+    tres son porcentajes que viven abajo del 15% y la cuarta es un conteo que
+    llega a los cientos. En el mismo eje las tres primeras quedarían pegadas al
+    piso, que es justo donde hay que poder verlas moverse.
+    """
+    claves = {m for m, _, _, _ in METRICAS_RETENCION}
+    metrica = metrica if metrica in claves else METRICA_RETENCION_POR_DEFECTO
+    semanas = _semanas_hasta(week)
+    filas = _camadas_retencion(data, semanas)
+    etiqueta, sufijo = next((e, s) for m, e, s, _ in METRICAS_RETENCION if m == metrica)
+    return {"metrica": metrica, "etiqueta": etiqueta, "suffix": sufijo,
+            "filas": [filas[w] for w in semanas]}
 
 
 # ── 6 · Experimentos ─────────────────────────────────────────────────────────
@@ -1853,13 +1929,7 @@ def evolucion(data: dict, week: date, metrica: str = METRICA_POR_DEFECTO) -> dic
         if w is not None:
             por_semana[w].append(p)
 
-    semanas: list[date] = []
-    w = FIRST_WEEK
-    while w <= week:
-        semanas.append(w)
-        w += timedelta(weeks=1)
-    if not semanas:
-        semanas = [week]
+    semanas = _semanas_hasta(week)
 
     filas = []
     for w in semanas:
@@ -1881,7 +1951,8 @@ def evolucion(data: dict, week: date, metrica: str = METRICA_POR_DEFECTO) -> dic
 # ── Entrada ──────────────────────────────────────────────────────────────────
 
 def build(db: DBSession, week: date, weeks_shown: int = 4,
-          corte: str = "total", metrica: str = METRICA_POR_DEFECTO) -> dict:
+          corte: str = "total", metrica: str = METRICA_POR_DEFECTO,
+          metrica_ret: str = METRICA_RETENCION_POR_DEFECTO) -> dict:
     """Payload completo del panel del juego para la semana `week` (su lunes)."""
     data = load(db)
     weeks = _weeks_back(week, weeks_shown)
@@ -1905,6 +1976,7 @@ def build(db: DBSession, week: date, weeks_shown: int = 4,
         "camadas": camadas(data, week),
         "experimentos": experimentos(data),
         "evolucion": evolucion(data, week, metrica),
+        "retencion": retencion(data, week, metrica_ret),
         "difusion": difusion(data),
         "carteles": carteles(data),
         "monetizacion": monetizacion(data),

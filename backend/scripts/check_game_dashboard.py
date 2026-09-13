@@ -104,6 +104,11 @@ s.flush()
 #     viralidad—. Cuatro semanas y no una para que quede afuera de la ventana
 #     visible: acá se lo quiere solo como "el de antes", no como parte de las
 #     cohortes que miden profundidad, difusión y aparato.
+# p6  entra y se va sin responder nada: el rebote, que es más de la mitad del
+#     tráfico real. Existe para que `activados` y `nuevos` NO sean el mismo
+#     número: con los cuatro de arriba activando al 100%, un porcentaje medido
+#     sobre altas y uno medido sobre activados daban idéntico, y ningún check
+#     podía distinguirlos. Los tres de retención se miden sobre activados.
 # p9  BOT: no tiene que aparecer en ninguna métrica
 PLAYERS = [
     dict(id=1, user_id=1, alias="uno", university="UBA", career="E", is_bot=False,
@@ -121,6 +126,9 @@ PLAYERS = [
     dict(id=5, user_id=None, alias="cero", university=None, career=None,
          is_bot=False, platform=None,
          created_at=T(-28, 14), last_seen_at=T(0, 15)),
+    dict(id=6, user_id=None, alias="seis", university="UBA", career="E",
+         is_bot=False, platform="android",
+         created_at=T(3, 14), last_seen_at=T(3, 14, 2)),
     dict(id=9, user_id=None, alias="bot", university="UBA", career="E", is_bot=True,
          platform="desktop",
          created_at=T(0, 10), last_seen_at=T(0, 11)),
@@ -289,7 +297,7 @@ weeks = q._weeks_back(WEEK, 4)
 
 # ── 1 · Los bots no existen ──────────────────────────────────────────────────
 print("\n— bots —")
-check("los estudiantes sembrados se excluyen", len(data["players"]) == 5,
+check("los estudiantes sembrados se excluyen", len(data["players"]) == 6,
       f'({len(data["players"])} estudiantes)')
 check("sus ejercicios también", all(e["player_id"] != 9 for e in data["exercises"]))
 check("sus respuestas también", all(a["player_id"] != 9 for a in data["attempts"]))
@@ -322,15 +330,15 @@ REPARTO = q.headline(data, weeks)
 h = {c["label"]: c for cards in REPARTO.values() for c in cards}
 # Los cuatro estudiantes de la semana, más nadie: el bot no cuenta y p3 respondió
 # recién el lunes siguiente, así que su respuesta cae en la semana de al lado.
-check("usuarios nuevos de la semana", h["Usuarios nuevos"]["value"] == 4,
-      f'({h["Usuarios nuevos"]["value"]})')
+check("usuarios nuevos de la semana", h["Usuarios nuevos"]["value"] == 5,
+      f'({h["Usuarios nuevos"]["value"]}, los cuatro que jugaron + el que rebotó)')
 # Los ÚNICOS son personas, no tandas: p1 entra el día 0 y vuelve dos horas
 # después, y sigue siendo UNO. Es la diferencia con la métrica que estaba antes
 # —visitas, que contaba tandas— y el motivo del cambio: «cuántas personas
 # distintas abrieron el juego» es la pregunta de volumen que se quería contestar.
 check("los únicos cuentan personas y no tandas",
-      h["Usuarios únicos"]["value"] == 5,
-      f'({h["Usuarios únicos"]["value"]}, esperaba los 4 nuevos + p0)')
+      h["Usuarios únicos"]["value"] == 6,
+      f'({h["Usuarios únicos"]["value"]}, esperaba los 5 nuevos + p0)')
 # Y nunca puede haber menos únicos que nuevos: todo nuevo es, por definición,
 # alguien que se asomó esa semana.
 check("y nunca son menos que los nuevos",
@@ -343,18 +351,40 @@ check("la activación se mide sobre los nuevos de la semana",
       h["Usuarios activados"]["value"] == 4,
       f'({h["Usuarios activados"]["value"]} de {h["Usuarios nuevos"]["value"]})')
 check("y el porcentaje sale de esos dos",
-      h["Activación"]["value"] == 100.0, f'({h["Activación"]["value"]}%)')
+      h["Activación"]["value"] == 80.0,
+      f'({h["Activación"]["value"]}%, 4 de 5)')
+# ── Retención, toda sobre los ACTIVADOS de la camada ──────────────────────
+# La camada de la semana son cinco altas y cuatro activados. Los tres
+# porcentajes de abajo se dividen por CUATRO: quien nunca respondió no puede
+# volver, ni registrarse, ni instalar nada, y meterlo en el denominador mide
+# activación disfrazada de retención.
+check("el denominador de retención son los activados, no las altas",
+      h["Activados de la camada"]["value"] == 4
+      and h["Usuarios nuevos"]["value"] == 5,
+      f'({h["Activados de la camada"]["value"]} de {h["Usuarios nuevos"]["value"]})')
+# p1 y p4 tienen cuenta; p2 y p3 siguen de invitados. Sobre los cuatro
+# activados da 50%; sobre las cinco altas daría 40%, que es el número que este
+# check existe para NO dejar pasar.
 check("se registran", h["Se registran"]["value"] == 50.0,
-      f'({h["Se registran"]["value"]}%)')
+      f'({h["Se registran"]["value"]}%, sobre altas daría 40,0%)')
 # La instalación es la otra mitad de «a quién podemos alcanzar después». p1 abrió
 # la app instalada; los otros tres no.
+# Solo p1 abrió la app instalada: 1 de los 4 activados.
 check("las instalaciones salen de quien abrió la app instalada",
       h["Instalan la app"]["value"] == 25.0,
-      f'({h["Instalan la app"]["value"]}%, esperaba 1 de 4)')
-# p0 es de una semana anterior y jugó en esta; los cuatro nuevos no cuentan acá
-# por más que hayan jugado, porque su alta es de esta misma semana.
-check("los retenidos son de otra semana", h["Usuarios retenidos"]["value"] == 1,
-      f'({h["Usuarios retenidos"]["value"]})')
+      f'({h["Instalan la app"]["value"]}%, esperaba 1 de 4 activados)')
+# La vuelta se mide en DÍAS distintos con respuesta, no en sentadas: p1
+# responde el día 0 y otra vez el día 4, así que vuelve; p2 y p4 juegan un solo
+# día; p3 tiene una sola respuesta. Uno de cuatro.
+check("vuelve quien respondió en un segundo día distinto",
+      h["Vuelven otro día"]["value"] == 25.0,
+      f'({h["Vuelven otro día"]["value"]}%, esperaba p1 de cuatro)')
+# Y no es la misma cuenta que la de Jugabilidad, que mira SENTADAS: ahí p1 y p2
+# vuelven —p2 tiene dos tandas el mismo día— y acá p2 no.
+check("y no es la vuelta por sentadas de Jugabilidad",
+      h["Vuelven otro día"]["value"] != h["Vuelven a jugar"]["value"],
+      f'(días {h["Vuelven otro día"]["value"]}% contra '
+      f'sentadas {h["Vuelven a jugar"]["value"]}%)')
 check("el titular de cafecitos no cuenta los grants a mano",
       h["Cafecitos"]["value"] == 3, f'({h["Cafecitos"]["value"]}, no 6)')
 # ── El K de camada ────────────────────────────────────────────────────────
@@ -380,7 +410,7 @@ check("y da su propia división", c_cero["k_act"] == 1.0, f'({c_cero["k_act"]})'
 # es una afirmación distinta de «no se puede calcular».
 c_hoy = CAM[WEEK.isoformat()]
 check("una camada que no reclutó a nadie da cero, no vacío",
-      c_hoy["k"] == 0.0 and c_hoy["n"] == 4,
+      c_hoy["k"] == 0.0 and c_hoy["n"] == 5,
       f'(k={c_hoy["k"]} sobre {c_hoy["n"]})')
 # Y una semana sin nadie no puede dar cero: dividir por cero no es cero.
 vacias = [c for c in q.camadas(data, WEEK)["filas"] if c["n"] == 0]
@@ -449,20 +479,19 @@ check("la duración de la 1ª sesión sale en minutos",
 
 # El reparto es la parte que se puede romper sin que nadie lo note: una tarjeta
 # que se cae del dict desaparece de la página y ninguna consulta falla por eso.
-check("son diecinueve números", len(h) == 19, f"({len(h)})")
-# Retención es la única fila de tres, y es a propósito: volver, instalar y
-# registrarse son tres cosas que cuestan tiempo, y el cafecito —que cuesta
-# plata— se fue a su propia pestaña con el embudo que lo explica. Inventar un
-# cuarto para emparejar la grilla sería poner un número para llenar un hueco.
-check("repartidos de a cuatro salvo retención, que tiene tres",
+check("son veinte números", len(h) == 20, f"({len(h)})")
+check("repartidos de a cuatro en cinco grupos",
       {k: len(v) for k, v in REPARTO.items()}
-      == {"activacion": 4, "retencion": 3, "monetizacion": 4, "reclutas": 4,
+      == {"activacion": 4, "retencion": 4, "monetizacion": 4, "reclutas": 4,
           "jugabilidad": 4},
       f"({ {k: len(v) for k, v in REPARTO.items()} })")
-# Y el cafecito no quedó en los dos lados: mudarlo es sacarlo de donde estaba.
-check("el cafecito se mudó y no se copió",
+# El cafecito se mudó a Monetización y no quedó en los dos lados. Y el primero
+# de la fila es el denominador de los otros tres, que es lo que hace que la
+# fila se lea como una sola cuenta.
+check("retención arranca por su denominador y no tiene el cafecito",
       [c["label"] for c in REPARTO["retencion"]]
-      == ["Usuarios retenidos", "Instalan la app", "Se registran"],
+      == ["Activados de la camada", "Vuelven otro día", "Se registran",
+          "Instalan la app"],
       f'({[c["label"] for c in REPARTO["retencion"]]})')
 # Cada uno va donde está el gráfico que lo explica, y la sección a la que apunta
 # tiene que existir como pestaña: una clave mal escrita acá es una fila de
@@ -756,7 +785,7 @@ rc = q.reclutas(data, weeks)
 # p2 entró por el link de p5: es el único reclutado del escenario.
 check("cuenta a quien entró por un link", rc["total_reclutados"] == 1,
       f'({rc["total_reclutados"]})')
-check("y el bot no está en el denominador", rc["total_jugadores"] == 5,
+check("y el bot no está en el denominador", rc["total_jugadores"] == 6,
       f'({rc["total_jugadores"]})')
 top = {t["alias"]: t for t in rc["top"]}
 check("el reclutador aparece en el top", "cero" in top, f'({list(top)})')
@@ -857,6 +886,67 @@ _ejes = [t for t in _re.findall(r">([0-9][0-9.,]*)<",
                                    .split("</svg>")[0])]
 check("las marcas del eje de K no se repiten",
       len(set(_ejes)) >= 4, f"({_ejes})")
+
+# ── 6a-bis · La curva de retención ─────────────────────────────────────────
+print()
+print("— curva de retención —")
+
+rt = q.retencion(data, WEEK)
+check("arranca en la vuelta y no en el volumen", rt["metrica"] == "vuelven",
+      f'({rt["metrica"]})')
+check("una métrica que no existe cae en esa misma",
+      q.retencion(data, WEEK, "inventada")["metrica"] == "vuelven")
+check("la serie cubre toda la historia hasta la camada elegida",
+      len(rt["filas"]) == 9, f'({len(rt["filas"])} semanas)')
+check("y termina en la camada elegida", rt["filas"][-1]["week"] == WEEK.isoformat())
+# Los dos términos de cada tasa viajan en la fila: una tasa sin su numerador y
+# su denominador no se puede auditar, y estas viven abajo del 15%.
+f_hoy = rt["filas"][-1]
+check("cada fila trae los numeradores además de las tasas",
+      f_hoy["n_vuelven"] == 1 and f_hoy["n_registran"] == 2
+      and f_hoy["n_instalan"] == 1 and f_hoy["activados"] == 4,
+      f"({f_hoy})")
+check("y ningún numerador puede superar al denominador",
+      all(f["n_vuelven"] <= f["activados"] and f["n_registran"] <= f["activados"]
+          and f["n_instalan"] <= f["activados"] for f in rt["filas"]))
+# Una camada sin activados da vacío y no cero: dividir por cero no es cero.
+vacias_r = [f for f in rt["filas"] if f["activados"] == 0]
+check("una camada sin activados da vacío, no cero",
+      bool(vacias_r) and all(f["vuelven"] is None and f["registran"] is None
+                             and f["instalan"] is None for f in vacias_r),
+      f"({len(vacias_r)} camadas sin nadie que jugara)")
+# La ventana de maduración es propia de cada métrica: instalar tiene una cola
+# mucho más larga que registrarse, así que una camada puede estar cerrada para
+# una y todavía abierta para la otra. Se prueba contra HOY, que es lo que la
+# limita.
+_hoy_r = q.week_start(q.local_date(datetime.utcnow()))
+_madura_hoy = q._camadas_retencion(data, [_hoy_r])[_hoy_r]["madura"]
+check("la camada en curso no está madura para ninguna métrica",
+      not any(_madura_hoy.values()), f"({_madura_hoy})")
+# Una de hace dos semanas ya cerró para volver (ventana 8 días) pero todavía no
+# para instalar (14). Si las dos ventanas fueran una sola, esto daría igual.
+_dos = _hoy_r - timedelta(weeks=2)
+_madura_dos = q._camadas_retencion(data, [_dos])[_dos]["madura"]
+check("y a las dos semanas cerró la vuelta pero no la instalación",
+      _madura_dos["vuelven"] and not _madura_dos["instalan"],
+      f"({_madura_dos})")
+
+h_ret = game_render.page(q.build(s, WEEK), token="tok", seccion="retencion")
+check("la curva arranca marcada en la vuelta",
+      '<span class="cur">Vuelven otro día</span>' in h_ret)
+check("y las otras tres se ofrecen como link",
+      all(f"&mr={k}" in h_ret for k in ("activados", "registran", "instalan")))
+# El parámetro es propio y no el de la curva de activación: con uno compartido,
+# pasar por la otra pestaña pisaba la elección de esta.
+check("la curva de activación no comparte parámetro con esta",
+      "&m=" not in h_ret.replace("&mr=", ""))
+h_ret2 = game_render.page(q.build(s, WEEK, metrica_ret="instalan"),
+                          token="tok", seccion="retencion")
+check("elegir otra curva la marca a ella",
+      '<span class="cur">Instalan la app</span>' in h_ret2)
+check("y esa elección viaja en los demás links",
+      h_ret2.count("&mr=instalan") >= 3, f'({h_ret2.count("&mr=instalan")} links)')
+
 
 # ── 6b-bis · Monetización ──────────────────────────────────────────────────
 print()

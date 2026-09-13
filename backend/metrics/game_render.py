@@ -42,7 +42,8 @@ from . import charts as ch
 from . import theme
 from .charts import esc, num
 from .game_queries import (
-    FIRST_WEEK, METRICAS, METRICA_POR_DEFECTO, PEDIDO_CAFECITO, PLATFORM_LABEL,
+    FIRST_WEEK, METRICAS, METRICAS_RETENCION, METRICA_POR_DEFECTO,
+    METRICA_RETENCION_POR_DEFECTO, PEDIDO_CAFECITO, PLATFORM_LABEL,
 )
 
 # El grueso del CSS es el mismo que Intervalo (ver metrics/theme.py) — es la
@@ -281,15 +282,22 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         "</div></header>")
 
     def link(*, s: str | None = None, corte: str | None = None,
-             m: str | None = None) -> str:
+             m: str | None = None, mr: str | None = None) -> str:
         """La URL del panel cambiando UNA cosa y dejando el resto como está.
 
-        Es lo que hace que las tres barras convivan: elegir semana no pierde la
+        Es lo que hace que las barras convivan: elegir semana no pierde la
         pestaña, elegir desglose no devuelve a la primera, y elegir qué curva
-        mirar no pierde ninguna de las dos."""
+        mirar no pierde ninguna de las otras.
+
+        Las dos curvas llevan parámetros distintos —`m` la de activación, `mr`
+        la de retención— y no uno compartido a propósito: con uno solo, pasar
+        por la otra pestaña pisaba la elección de la primera, porque cada curva
+        valida contra su propia lista y cae en su default cuando no reconoce el
+        valor."""
         s = s if s is not None else seccion
         corte = corte if corte is not None else p["profundidad"]["corte"]
         m = m if m is not None else p["evolucion"]["metrica"]
+        mr = mr if mr is not None else p["retencion"]["metrica"]
         q = f"?w={week.isoformat()}"
         if s != SECCION_POR_DEFECTO:
             q += f"&s={s}"
@@ -297,6 +305,8 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
             q += f"&corte={corte}"
         if m != METRICA_POR_DEFECTO:
             q += f"&m={m}"
+        if mr != METRICA_RETENCION_POR_DEFECTO:
+            q += f"&mr={mr}"
         return f"/panel/{esc(token)}/dx{q}"
 
     tabs = "".join(
@@ -474,7 +484,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
             r["abiertas"], _pct_txt(r["ctr"])])
 
     out.append(_section(
-        1, "Re-enganche · push",
+        2, "Re-enganche · push",
         '<div class="grid g4">'
         + "".join(_kpi_chico(l, v, h, dec=0)
                   for l, v, h in [
@@ -518,7 +528,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
     filas_mail = [[f'<b>{esc(t["tipo"])}</b>', esc(t["desc"]), t["enviados"],
                    t["activados"], _pct_txt(t["pct"])] for t in ma["tipos"]]
     out.append(_section(
-        2, "Re-enganche · mails de ciclo de vida",
+        3, "Re-enganche · mails de ciclo de vida",
         '<div class="grid g4">'
         + "".join(_kpi_chico(l, v, h, suffix=sfx, dec=0 if not sfx else 1)
                   for l, v, sfx, h in [
@@ -838,6 +848,71 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
             "activación porque es la única que no se mueve sola con el volumen.",
         anchor="evolucion")
 
+    # ── Retención semana a semana, sobre los activados de cada camada ────────
+    rt = p["retencion"]
+    selector_ret = "".join(
+        f'<span class="cur">{esc(et)}</span>' if k == rt["metrica"]
+        else f'<a href="{link(mr=k)}">{esc(et)}</a>'
+        for k, et, _, _ in METRICAS_RETENCION)
+    # El numerador de cada porcentaje, para el tooltip: una tasa sin sus dos
+    # términos no se puede auditar, y estas viven abajo del 15% con
+    # denominadores que cambian diez veces entre camadas.
+    _numerador = {"vuelven": "n_vuelven", "registran": "n_registran",
+                  "instalan": "n_instalan"}
+
+    def _tip_ret(f):
+        base = f'{f["label"]}: {num(f[rt["metrica"]], rt["suffix"])}'
+        clave = _numerador.get(rt["metrica"])
+        if clave:
+            base += f' — {f[clave]} de los {f["activados"]} que arrancaron'
+        if not f["madura"][rt["metrica"]]:
+            base += " · todavía sumando"
+        return base
+
+    serie_ret = [{
+        "label": rt["etiqueta"],
+        "color": VERDE_RECLUTAS,
+        "values": [f[rt["metrica"]] for f in rt["filas"]],
+        # Igual que en la curva de camadas: el punto hueco es «esto todavía
+        # puede subir», que es distinto de «esto bajó». La ventana es propia de
+        # cada métrica —instalar tiene una cola mucho más larga que
+        # registrarse— así que una misma camada puede estar cerrada para una y
+        # abierta para la otra.
+        "weak": [not f["madura"][rt["metrica"]] for f in rt["filas"]],
+        "tips": [_tip_ret(f) for f in rt["filas"]],
+    }]
+    pieza_retencion = _section(
+        1, "Semana a semana",
+        _box("", f"<div class='cortes'><span class='sub'>Curva</span>"
+                 f"{selector_ret}</div>"
+             + ch.lines(serie_ret, [f["label"] for f in rt["filas"]],
+                        suffix=rt["suffix"], height=240, legend=False),
+             note=(
+                 "<b>Los tres porcentajes se miden sobre los ACTIVADOS de la camada, no "
+                 "sobre sus altas.</b> Es lo que los vuelve comparables entre semanas: "
+                 "medidos sobre las altas se caían con cada ola de difusión sin que nadie "
+                 "hubiera retenido peor, porque una ola trae mucha gente que no llega a "
+                 "jugar — y quien nunca jugó no puede volver, ni registrarse, ni instalar "
+                 "nada. Eso es activación, y tiene su propia pestaña."
+                 "<br><br>Una curva por vez y no las cuatro juntas: tres son porcentajes "
+                 "que viven abajo del 15% y la cuarta es un conteo que llega a los "
+                 "cientos. En el mismo eje las tres primeras quedarían pegadas al piso, "
+                 "que es justo donde hay que poder verlas moverse."
+                 "<br><br><b>Los puntos huecos todavía están sumando</b>, y cada métrica "
+                 "tiene su propia ventana porque no tardan lo mismo. Medido el 13/09 "
+                 "desde el alta de cada persona: la vuelta llega al día siguiente en el "
+                 "76% de los casos y la más tardía de las 50 tardó 8 días; el registro "
+                 "tiene mediana de 15 minutos y la cola llega a 7,8 días; instalar la app "
+                 "tiene mediana de 10 horas pero la más tardía cayó a los 13,4. "
+                 "<b>Esas colas están censuradas por la edad del producto</b> —dx tiene "
+                 "16 días, así que nadie PUDO volver a los treinta— así que son un piso "
+                 "del techo real y hay que volver a medirlas con camadas de dos meses."
+                 "<br><br>Va desde la primera camada del panel hasta la elegida: con "
+                 "cuatro puntos una tendencia no se distingue de un rebote.")),
+        sub="Los cuatro números de arriba, camada por camada. Arranca en la vuelta porque "
+            "es la única que no se mueve sola con cuánto difundamos.",
+        anchor="retencion")
+
     # ── Difusión: el clickrate ───────────────────────────────────────────────
     out = []
     di = p["difusion"]
@@ -1004,7 +1079,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         "activacion": (_fila_kpi(p["headline"]["activacion"])
                        + pieza_evolucion + pieza_difusion + pieza_reclutas),
         "retencion": (_fila_kpi(p["headline"]["retencion"])
-                      + pieza_push + pieza_mails),
+                      + pieza_retencion + pieza_push + pieza_mails),
         "jugabilidad": (_fila_kpi(p["headline"]["jugabilidad"])
                         + pieza_profundidad + pieza_calibracion + pieza_friccion),
         "monetizacion": (_fila_kpi(p["headline"]["monetizacion"])
