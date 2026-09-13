@@ -223,6 +223,12 @@ for pid, cuando, trig in [(1, T(0, 15), "milestone"), (1, T(0, 15, 30), "milesto
                        placement=trig, solved=10, university="UBA", created_at=cuando))
 s.add(GameCtaEvent(player_id=1, cta="cafecito", action="click", placement="milestone",
                    solved=10, university="UBA", created_at=T(0, 15, 1)))
+# El click sin impresión, que es un bug real de `settings-panel.tsx`: ahí el
+# botón dispara el click sin montar nunca el contador de impresiones. Se siembra
+# para probar que el panel lo trata como lo que es —un numerador sin
+# denominador— y no lo suma a un CTR que quedaría inflado.
+s.add(GameCtaEvent(player_id=2, cta="cafecito", action="click", placement="settings",
+                   created_at=T(1, 16)))
 s.add(GameCtaEvent(player_id=1, cta="share", action="impression", created_at=T(0, 15)))
 s.add(GameCtaEvent(player_id=1, cta="share", action="click", created_at=T(0, 15, 2)))
 # Un CTA del bot, que tampoco puede contar.
@@ -443,11 +449,21 @@ check("la duración de la 1ª sesión sale en minutos",
 
 # El reparto es la parte que se puede romper sin que nadie lo note: una tarjeta
 # que se cae del dict desaparece de la página y ninguna consulta falla por eso.
-check("son dieciséis números", len(h) == 16, f"({len(h)})")
-check("repartidos de a cuatro en cuatro grupos",
+check("son diecinueve números", len(h) == 19, f"({len(h)})")
+# Retención es la única fila de tres, y es a propósito: volver, instalar y
+# registrarse son tres cosas que cuestan tiempo, y el cafecito —que cuesta
+# plata— se fue a su propia pestaña con el embudo que lo explica. Inventar un
+# cuarto para emparejar la grilla sería poner un número para llenar un hueco.
+check("repartidos de a cuatro salvo retención, que tiene tres",
       {k: len(v) for k, v in REPARTO.items()}
-      == {"activacion": 4, "retencion": 4, "reclutas": 4, "jugabilidad": 4},
+      == {"activacion": 4, "retencion": 3, "monetizacion": 4, "reclutas": 4,
+          "jugabilidad": 4},
       f"({ {k: len(v) for k, v in REPARTO.items()} })")
+# Y el cafecito no quedó en los dos lados: mudarlo es sacarlo de donde estaba.
+check("el cafecito se mudó y no se copió",
+      [c["label"] for c in REPARTO["retencion"]]
+      == ["Usuarios retenidos", "Instalan la app", "Se registran"],
+      f'({[c["label"] for c in REPARTO["retencion"]]})')
 # Cada uno va donde está el gráfico que lo explica, y la sección a la que apunta
 # tiene que existir como pestaña: una clave mal escrita acá es una fila de
 # números que no se dibuja en ningún lado.
@@ -842,6 +858,66 @@ _ejes = [t for t in _re.findall(r">([0-9][0-9.,]*)<",
 check("las marcas del eje de K no se repiten",
       len(set(_ejes)) >= 4, f"({_ejes})")
 
+# ── 6b-bis · Monetización ──────────────────────────────────────────────────
+print()
+print("— monetización —")
+
+# La plata y las dos tasas que la explican. El escenario: 4 impresiones del
+# cartel (milestone x2, record x2), 1 click desde milestone, 1 click desde
+# ajustes SIN impresión, y una donación de 3 cafecitos.
+check("los cafecitos son solo los donados de verdad",
+      h["Cafecitos"]["value"] == 3, f'({h["Cafecitos"]["value"]}, el manual no cuenta)')
+check("y las donaciones cuentan veces, no cafecitos",
+      h["Donaciones"]["value"] == 1, f'({h["Donaciones"]["value"]})')
+# 1 click sobre 4 impresiones. El click de ajustes NO entra: su lugar nunca
+# anota impresiones, así que sumarlo daría 50% con el mismo denominador de 4.
+# Es el bug que la tabla de abajo tiene que dejar a la vista.
+check("el CTR deja afuera los clicks sin denominador",
+      h["Tocan el cartel"]["value"] == 25.0,
+      f'({h["Tocan el cartel"]["value"]}%, con los dos clicks daría 50,0%)')
+check("y la última tasa cierra el embudo con la plata",
+      h["Del click a la plata"]["value"] == 100.0,
+      f'({h["Del click a la plata"]["value"]}%, 1 donación sobre 1 click medible)')
+
+mo = q.monetizacion(data)
+lug = {l["lugar"]: l for l in mo["lugares"]}
+check("la tabla abre el cartel por dónde sale",
+      set(lug) == {"milestone", "record", "settings"}, f"({sorted(lug)})")
+check("y cada lugar trae su propio CTR",
+      lug["milestone"]["ctr"] == 50.0 and lug["record"]["ctr"] == 0.0,
+      f'(milestone {lug["milestone"]["ctr"]}, record {lug["record"]["ctr"]})')
+# El lugar sin impresiones se lista igual y con el CTR VACÍO, no con un cero:
+# un 0% es «nadie lo tocó» y acá lo que pasa es que no se puede calcular.
+check("el lugar sin impresiones se lista con el CTR vacío",
+      lug["settings"]["clicks"] == 1 and lug["settings"]["impresiones"] == 0
+      and lug["settings"]["ctr"] is None,
+      f'({lug["settings"]})')
+check("y va al final, donde no ordena por un número que no tiene",
+      mo["lugares"][-1]["lugar"] == "settings")
+check("el panel dice cuántos clicks quedaron sin denominador",
+      mo["sin_denominador"] == 1, f'({mo["sin_denominador"]})')
+
+h_mon = game_render.page(q.build(s, WEEK), token="tok", seccion="monetizacion")
+check("y lo avisa en la página", "clicks sin denominador" in h_mon)
+check("la tabla marca el lugar que no anota impresiones",
+      "no las anota" in h_mon)
+# Los tres carteles que se fueron de acá, cada uno por su motivo. `share` pide
+# una persona y no plata; `boost_offer` dividía una acción de nicho por un
+# denominador global y daba 1,2% sin significar nada; `register` nunca existió.
+check("compartir no está en monetización",
+      "Reclutar: compartir el link" not in h_mon)
+check("y la oferta de multiplicador tampoco",
+      "Oferta de multiplicador" not in h_mon and "boost_offer" not in h_mon)
+check("el cartel que nunca existió salió del mapa",
+      "register" not in q.CARTELES, f"({sorted(q.CARTELES)})")
+# `share` aterrizó en Reclutas, que es donde está la curva que explica.
+h_act = game_render.page(q.build(s, WEEK), token="tok", seccion="activacion")
+check("compartir vive ahora al lado del K que gobierna",
+      "<h3>El cartel de compartir</h3>" in h_act)
+check("con sus tres números", all(
+    f'<div class="label">{e}</div>' in h_act for e in ("Lo vieron", "Lo tocaron", "CTR")))
+
+
 # ── 6c · La pestaña de experimentos ────────────────────────────────────────
 print()
 print("— experimentos —")
@@ -1014,6 +1090,7 @@ check("que además avisa por qué le falta la segunda línea",
 titulos = {"activacion": "Difusión: a cuánta gente se llegó",
            "retencion": "Re-enganche · push",
            "jugabilidad": "Calibración del motor",
+           "monetizacion": "Dónde se pide el cafecito",
            "experimentacion": "Experimentos"}
 for clave, _ in game_render.SECCIONES:
     h = game_render.page(q.build(s, WEEK), token="tok", seccion=clave)

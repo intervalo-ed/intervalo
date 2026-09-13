@@ -208,16 +208,22 @@ COPY_REACTIVO = {
 # No hay pestaña de titulares y por eso la primera es el embudo: los números de
 # la semana se repartieron entre las secciones que los explican. Un `?s=titulares`
 # viejo cae acá solo, como cualquier pestaña que no existe.
-# Cuatro, y cada una contesta UNA pregunta: quién llega, quién se queda, cómo se
-# juega, y qué estamos probando. Antes eran seis y estaban organizadas por
-# feature —el embudo, la profundidad, los avisos, los reclutas— que es el orden
-# en que se construyó el producto y no el orden en que se toman decisiones. Con
-# ese reparto, «reclutas» y «embudo» contestaban la misma pregunta desde dos
-# pestañas distintas, y la retención no estaba en ninguna.
+# Cinco, y cada una contesta UNA pregunta: quién llega, quién se queda, cómo se
+# juega, quién paga, y qué estamos probando. Antes eran seis y estaban
+# organizadas por feature —el embudo, la profundidad, los avisos, los reclutas—
+# que es el orden en que se construyó el producto y no el orden en que se toman
+# decisiones. Con ese reparto, «reclutas» y «embudo» contestaban la misma
+# pregunta desde dos pestañas distintas, y la retención no estaba en ninguna.
+#
+# Monetización se separó de Retención porque son dos preguntas y no una. Poner
+# plata cuesta plata y volver a jugar cuesta tiempo, y el cafecito además tiene
+# un embudo propio —se muestra, se toca, se paga— que adentro de Retención era
+# un número suelto sin nada contra qué leerlo.
 SECCIONES: tuple[tuple[str, str], ...] = (
     ("activacion", "Activación"),
     ("retencion", "Retención"),
     ("jugabilidad", "Jugabilidad"),
+    ("monetizacion", "Monetización"),
     ("experimentacion", "Experimentación"),
 )
 SECCION_POR_DEFECTO = SECCIONES[0][0]
@@ -468,7 +474,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
             r["abiertas"], _pct_txt(r["ctr"])])
 
     out.append(_section(
-        2, "Re-enganche · push",
+        1, "Re-enganche · push",
         '<div class="grid g4">'
         + "".join(_kpi_chico(l, v, h, dec=0)
                   for l, v, h in [
@@ -512,7 +518,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
     filas_mail = [[f'<b>{esc(t["tipo"])}</b>', esc(t["desc"]), t["enviados"],
                    t["activados"], _pct_txt(t["pct"])] for t in ma["tipos"]]
     out.append(_section(
-        3, "Re-enganche · mails de ciclo de vida",
+        2, "Re-enganche · mails de ciclo de vida",
         '<div class="grid g4">'
         + "".join(_kpi_chico(l, v, h, suffix=sfx, dec=0 if not sfx else 1)
                   for l, v, sfx, h in [
@@ -583,6 +589,10 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
     grafico_viral = ch.lines(series_viral, etiquetas_viral, suffix="",
                              height=240, legend=False)
 
+    # El cartel de compartir, que es el primer escalón del canal. Puede no
+    # existir si todavía no se mostró ninguno.
+    sh = next((c for c in p["carteles"] if c["cta"] == "share"), None)
+
     # Al revés que el gráfico: la camada más nueva primero. En la curva se lee
     # una tendencia y el tiempo tiene que correr para la derecha; en la tabla se
     # busca un número, y el que se busca es casi siempre el último.
@@ -647,6 +657,27 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                 "<br><br>«Reclutas» son los que trajo ESA camada, no los que entraron esa "
                 "semana por un link — son parecidos pero no iguales, y la diferencia son los "
                 "reclutas que llegan cruzando el domingo."))
+        + _box(
+            "El cartel de compartir",
+            '<div class="grid g3">'
+            + "".join(
+                _kpi_chico(l, v, h, suffix=sfx) for l, v, sfx, h in [
+                    ("Lo vieron", (sh or {}).get("impresiones"), "",
+                     "una impresión por partida, no por render"),
+                    ("Lo tocaron", (sh or {}).get("clicks"), "", "clicks sobre el botón"),
+                    ("CTR", (sh or {}).get("ctr"), "%", "de siempre, no de la semana"),
+                ])
+            + "</div>",
+            note=(
+                "La puerta del canal de arriba: nadie recluta sin tocar esto primero, así "
+                "que un CTR que se cae explica un K que baja sin necesidad de mirar nada "
+                "más. Está acá y no en la tabla de carteles que había en Retención porque "
+                "compartir no es monetizar — lo que pide es una persona, no plata."
+                "<br><br><b>Le falta el momento.</b> Los otros carteles anotan en qué "
+                "derivada salen y este no —`solved` viene vacío en las 2.056 impresiones—, "
+                "así que un CTR bajo puede ser el copy o puede ser que salga demasiado "
+                "temprano, y las dos explicaciones siguen siendo igual de plausibles."),
+        )
         + _box(
             "Los diez que más trajeron",
             _table(["Reclutador", "Universidad", "Reclutas", "Arrancaron", "XP ganada"],
@@ -881,17 +912,39 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         anchor="difusion"))
     pieza_difusion = "".join(out)
 
-    # ── Carteles ─────────────────────────────────────────────────────────────
-    def pieza_carteles(cuales, numero, titulo, subtitulo, nota):
-        filas = [[f'<b>{esc(c["cta"])}</b><br><span class="sub2">{esc(c["desc"])}</span>',
-                  num(c["impresiones"]), num(c["clicks"]), _pct_txt(c["ctr"]),
-                  num(c["mediana_solved"])]
-                 for c in p["carteles"] if c["cta"] in cuales]
-        return _section(
-            numero, titulo,
-            _box("", _table(["Cartel", "Impresiones", "Clicks", "CTR", "Sale en la derivada"],
-                            filas, empty="todavía no se mostró ninguno"), note=nota),
-            sub=subtitulo, anchor=f"carteles-{numero}")
+    # ── Monetización: dónde se pide el cafecito ──────────────────────────────
+    mo = p["monetizacion"]
+    filas_lugares = [[
+        f'<b>{esc(l["desc"])}</b><br><span class="sub2">{esc(l["lugar"])}</span>',
+        num(l["impresiones"]) if l["impresiones"] else
+        '<span class="sub2">no las anota</span>',
+        num(l["clicks"]), _pct_txt(l["ctr"]),
+    ] for l in mo["lugares"]]
+    pieza_monetizacion = _section(
+        1, "Dónde se pide el cafecito",
+        _box("", _table(["Lugar", "Impresiones", "Clicks", "CTR"], filas_lugares,
+                        empty="todavía no se mostró ninguno"),
+             note=(
+                 "<b>El mismo pedido convierte cinco veces distinto según dónde salga</b>, "
+                 "y en una sola fila eso no se ve: el cartel del cafecito daba 16,8% de CTR "
+                 "junto, juntando un botón que vive permanentemente en la barra con una "
+                 "interrupción que aparece al cruzar un hito. Es la decisión que esta tabla "
+                 "existe para tomar — dónde poner el pedido, no cómo escribirlo."
+                 "<br><br>La impresión de la barra se cuenta <b>una por partida y no por "
+                 "render</b>, así que su denominador es «tuvo el cafecito adelante» y no "
+                 "«se dibujó el botón». Ojo igual al comparar contra los contextuales: la "
+                 "barra está siempre a la vista y el hito interrumpe, así que un CTR más "
+                 "alto ahí no es solo mejor copy."
+                 + (f'<br><br><b>Hay {num(mo["sin_denominador"])} clicks sin denominador.</b> '
+                    f'Los lugares marcados «no las anota» disparan el click sin montar el '
+                    f'contador de impresiones (<code>settings-panel.tsx</code>), así que su '
+                    f'CTR no se puede calcular. Están listados igual y quedan fuera de las '
+                    f'dos tasas de arriba: esconderlos haría que el agujero siguiera sin '
+                    f'verse otro mes.' if mo["sin_denominador"] else "")),
+             ),
+        sub="El cafecito no se pide en un lugar: se pide en nueve. Esto es cuál de los "
+            "nueve trae la plata.",
+        anchor="monetizacion")
 
     # ── Calibración ──────────────────────────────────────────────────────────
     ca = p["calibracion"]
@@ -951,17 +1004,11 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         "activacion": (_fila_kpi(p["headline"]["activacion"])
                        + pieza_evolucion + pieza_difusion + pieza_reclutas),
         "retencion": (_fila_kpi(p["headline"]["retencion"])
-                      + pieza_carteles(
-                          ("share", "cafecito", "boost_offer", "register"), 1,
-                          "Los carteles que piden algo",
-                          "Compartir el link, registrarse, invitar un cafecito, aceptar el "
-                          "multiplicador.",
-                          "Un CTR bajo puede ser el copy o puede ser el momento: la última "
-                          "columna dice en qué derivada sale, en mediana. Sin ella las dos "
-                          "explicaciones son igual de plausibles.")
                       + pieza_push + pieza_mails),
         "jugabilidad": (_fila_kpi(p["headline"]["jugabilidad"])
                         + pieza_profundidad + pieza_calibracion + pieza_friccion),
+        "monetizacion": (_fila_kpi(p["headline"]["monetizacion"])
+                         + pieza_monetizacion),
         "experimentacion": pieza_experimentos,
     }
 

@@ -456,6 +456,56 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
         return sum(b["cafecitos"] for b in data["boosts"]
                    if _in_week(b["created_at"], w) and b["source"] == DONADO)
 
+    def donaciones(w: date) -> int:
+        """Cuántas VECES alguien puso plata, no cuántos cafecitos entraron.
+
+        Va al lado del total porque los dos juntos dicen algo que ninguno solo:
+        139 cafecitos en 20 donaciones —lo medido hasta el 13/09— es un producto
+        con unos pocos mecenas, y los mismos 139 en 139 donaciones sería otro
+        producto. Con este volumen, esa diferencia decide qué se puede esperar
+        de la ola siguiente.
+        """
+        return sum(1 for b in data["boosts"]
+                   if _in_week(b["created_at"], w) and b["source"] == DONADO)
+
+    # Los lugares del cartel del cafecito que anotan CLICK y nunca IMPRESIÓN.
+    # `settings-panel.tsx` dispara los dos de ajustes sin montar el contador de
+    # impresiones, así que esos clicks —21 de 365 en toda la vida del producto—
+    # existen y son reales pero no tienen denominador. Quedan FUERA de las dos
+    # tasas de acá abajo, porque un numerador sin su denominador las infla, y
+    # entran igual en la tabla de la sección con el CTR vacío: ahí la ausencia
+    # es justamente lo que hay que ver.
+    _lugares_medibles = {
+        e["placement"] for e in data["cta"]
+        if e["cta"] == "cafecito" and e["action"] == "impression"
+    }
+
+    def _pedido(w: date, action: str) -> int:
+        return sum(1 for e in data["cta"]
+                   if e["cta"] == "cafecito" and e["action"] == action
+                   and e["placement"] in _lugares_medibles
+                   and _in_week(e["created_at"], w))
+
+    def tocan_el_cartel(w: date) -> float | None:
+        """De los que vieron el pedido de cafecito, cuántos lo tocaron."""
+        return _pct(_pedido(w, "click"), _pedido(w, "impression"))
+
+    def del_click_a_la_plata(w: date) -> float | None:
+        """De los que tocaron el pedido, cuántos terminaron donando.
+
+        **No es una conversión persona a persona y no puede serlo:**
+        `game_boosts` no guarda `player_id` —la donación llega por el oyente del
+        stream de Cafecito, que solo trae nombre, universidad y monto— así que
+        esto es una razón entre dos agregados de la misma semana. Alguien puede
+        donar sin haber tocado el cartel (el link circula suelto) y alguien
+        puede tocarlo el domingo y pagar el lunes.
+
+        Sirve igual, y es el único número que cierra el embudo: si el cartel se
+        toca mucho y no entra plata, el problema está del otro lado del click y
+        no en el copy.
+        """
+        return _pct(donaciones(w), _pedido(w, "click"))
+
     def _tandas_jugadas(p: dict) -> list[list[dict]]:
         """Las tandas de RESPUESTAS de un jugador, que son las que se miden.
 
@@ -595,8 +645,32 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
                  "que la serie se mueve entera con una persona."),
             card("Se registran", per_week(registrados), "%",
                  "De los nuevos de la semana, cuántos dejaron de ser invitados."),
+        ],
+        # Monetización · el pedido de cafecito de punta a punta, en el orden en
+        # que ocurre al revés: primero la plata que entró y después las dos
+        # tasas que la explican. Tres es lo que quedó en Retención y no es un
+        # descuido: «volver, instalar, registrarse» son las tres cosas que
+        # alguien hace cuando el juego le importó, y el cafecito es una cuarta
+        # de otra naturaleza —cuesta plata, no tiempo— que además tiene su
+        # propio embudo para mirar al lado.
+        "monetizacion": [
             card("Cafecitos", per_week(cafecitos), "",
-                 "Solo los donados de verdad: los grants a mano y los de aforo no cuentan."),
+                 "Solo los donados de verdad: los grants a mano y los de aforo no "
+                 "cuentan. Es el número de volumen de la pestaña — dice cuánto "
+                 "entró, no si el pedido funciona."),
+            card("Donaciones", per_week(donaciones), "",
+                 "Cuántas veces alguien puso plata. Al lado del total dice algo que "
+                 "ninguno de los dos solo: 139 cafecitos en 20 donaciones es un "
+                 "producto con mecenas, y en 139 donaciones sería otro."),
+            card("Tocan el cartel", per_week(tocan_el_cartel), "%",
+                 "De los que vieron el pedido de cafecito, cuántos lo tocaron. La "
+                 "impresión se cuenta UNA por partida y no por render, así que el "
+                 "denominador es «tuvo el cafecito adelante».", dec=1),
+            card("Del click a la plata", per_week(del_click_a_la_plata), "%",
+                 "De los que lo tocaron, cuántos terminaron donando. No es persona a "
+                 "persona —`game_boosts` no guarda quién donó— sino una razón entre "
+                 "dos agregados de la semana. Es igual el único número que cierra el "
+                 "embudo.", dec=1),
         ],
         # Jugabilidad · la sentada, que es la unidad real de este juego: se entra
         # por un link, se juega hasta cansarse, y volver es una decisión aparte.
@@ -1512,11 +1586,15 @@ def difusion(data: dict) -> dict:
 # ── 8 · Carteles ─────────────────────────────────────────────────────────────
 
 # Qué es cada cartel, para que la tabla se lea sin abrir el código.
+# Los tres carteles que el juego SÍ emite. Hubo un cuarto, `register`, que el
+# panel prometía en su tabla y nunca existió: cero eventos en toda la vida del
+# producto (`game-telemetry.ts` lo tiene en el tipo, pero nadie lo dispara). Una
+# fila que no puede aparecer nunca se lee como «acá no pasó nada» y no como «esto
+# no está instrumentado», que son cosas muy distintas.
 CARTELES = {
     "share": "Reclutar: compartir el link",
     "cafecito": "Invitar un cafecito",
     "boost_offer": "Oferta de multiplicador",
-    "register": "Registrarse para elegir el @",
 }
 
 
@@ -1550,6 +1628,75 @@ def carteles(data: dict) -> list[dict]:
         "mediana_solved": _median(momento.get(k, [])),
     } for k, v in conteo.items()]
     return sorted(salida, key=lambda f: -f["impresiones"])
+
+
+# ── 8-bis · Monetización ─────────────────────────────────────────────────────
+
+# Dónde sale el cartel del cafecito, con el nombre que manda el front como clave.
+# El orden de este diccionario no importa: la tabla ordena por impresiones.
+LUGARES_CAFECITO = {
+    "header_mobile": "La barra, en el teléfono",
+    "header_desktop": "La barra, en escritorio",
+    "milestone": "Un hito, cada tantas derivadas",
+    "pedido": "Cuando lo piden",
+    "record": "Al batir un récord",
+    "big_climb": "Después de una subida grande",
+    "clasico_config": "Armando un clásico",
+    "settings": "Ajustes",
+    "settings_reclamo": "Ajustes · reclamar un cafecito",
+}
+
+
+def monetizacion(data: dict) -> dict:
+    """El cartel del cafecito, abierto por dónde sale.
+
+    **Es lo que reemplaza a la tabla de carteles, y el motivo es que aquella
+    tapaba justo lo que había que ver.** El cafecito salía como UNA fila con un
+    CTR de 16,8%, y ese promedio junta un botón que vive permanentemente en la
+    barra con una interrupción que aparece al cruzar un hito. Medido el 13/09:
+    la barra en escritorio convierte 41,5% y el hito 8,4% — cinco veces, dentro
+    de la misma fila.
+
+    Lo que se mostraba al lado tampoco servía:
+
+    - **`boost_offer` daba 1,2% y no significaba nada.** Su impresión es «se
+      mostró la diapo del cafecito» (954 veces) y su click es «alguien tocó
+      *Elegir mi universidad*» (11), que es un botón que solo aparece si todavía
+      no elegiste una. Dividir uno por otro no es un CTR: es una acción de nicho
+      sobre un denominador global, y el 1,2% se leía como un desastre cuando lo
+      único que dice es que casi todos ya tienen universidad.
+    - **`share` es reclutamiento y no plata**, así que se fue a su sección, con
+      la curva de K que explica.
+    - **`register` nunca existió** (ver `CARTELES`).
+
+    Los lugares que anotan click y nunca impresión se listan igual, con el CTR
+    vacío: son 21 clicks reales sin denominador —`settings-panel.tsx` dispara el
+    click sin montar el contador— y esconderlos haría que el bug siguiera sin
+    verse otro mes.
+    """
+    conteo: dict[str, dict[str, int]] = defaultdict(lambda: {"imp": 0, "clk": 0})
+    for e in data["cta"]:
+        if e["cta"] != "cafecito":
+            continue
+        c = conteo[e["placement"] or "—"]
+        if e["action"] == "impression":
+            c["imp"] += 1
+        elif e["action"] == "click":
+            c["clk"] += 1
+    filas = [{
+        "lugar": k,
+        "desc": LUGARES_CAFECITO.get(k, k),
+        "impresiones": v["imp"],
+        "clicks": v["clk"],
+        "ctr": _pct(v["clk"], v["imp"]),
+    } for k, v in conteo.items()]
+    # Los que no tienen impresiones van al final: su CTR es vacío, así que
+    # ordenarlos entre los demás los pondría en un lugar que no significa nada.
+    filas.sort(key=lambda f: (f["impresiones"] == 0, -f["impresiones"]))
+    return {
+        "lugares": filas,
+        "sin_denominador": sum(f["clicks"] for f in filas if not f["impresiones"]),
+    }
 
 
 # ── 9 · Calibración del motor ────────────────────────────────────────────────
@@ -1760,6 +1907,7 @@ def build(db: DBSession, week: date, weeks_shown: int = 4,
         "evolucion": evolucion(data, week, metrica),
         "difusion": difusion(data),
         "carteles": carteles(data),
+        "monetizacion": monetizacion(data),
         "calibracion": calibracion(data),
         "friccion": friccion(data),
     }
