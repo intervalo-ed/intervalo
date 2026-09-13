@@ -74,8 +74,7 @@ export const INTRO_CLOSE = "¿Arrancamos?"
  *
  *  La instrucción es la regla 1 de `IntroParagraphs` dicha en imperativo:
  *  aquella explica qué es un ejercicio, esta pide que se resuelva. Por eso la
- *  diapo de reglas arranca en la 2 y NO renumera — no es que falte la primera,
- *  es que ya se dio. */
+ *  diapo de reglas la saltea (`REGLAS_DESDE`) — ya se dio acá, en la puerta. */
 export const BIENVENIDA_MINIMA = "¡Bienvenido!"
 export const INSTRUCCION_MINIMA =
   "Resolvé la siguiente derivada para comenzar a jugar."
@@ -111,16 +110,20 @@ export function IntroParagraphs({
   className,
   // Desde qué regla arrancar, contando desde cero.
   //
-  // La numeración NO se recalcula: el brazo `derivada-primero` muestra de la 2 a
-  // la 4 y tienen que seguir diciendo 2, 3 y 4, porque la 1 ya se dio en la
-  // puerta (INSTRUCCION_MINIMA) y renumerar sería negar que existió.
-  //
-  // Y por eso la diapo de reglas pide un CORTE y no tiene lista propia: el día
-  // que se agregue una quinta regla acá, aparece sola del otro lado. Con dos
-  // listas separadas, ese día una de las dos se queda vieja — que es justo lo
-  // que le pasó al tutorial repartido que esto reemplaza.
+  // La diapo de reglas pide un CORTE y no tiene lista propia: el día que se
+  // agregue una quinta regla acá, aparece sola del otro lado. Con dos listas
+  // separadas, ese día una de las dos se queda vieja — que es justo lo que le
+  // pasó al tutorial repartido que esto reemplaza.
   desde = 0,
-}: { className?: string; desde?: number }) {
+  // Numerar desde 1 en vez de conservar la posición en la lista completa.
+  //
+  // El brazo `derivada-primero` corta en la segunda regla, y durante un rato
+  // las mostró como 2, 3 y 4 con un renglón arriba explicando cuál faltaba. Se
+  // lee peor de lo que suena: tres ítems que empiezan en 2 hacen buscar el 1
+  // aunque el texto diga dónde quedó. Numeradas desde 1 y sin ese renglón, son
+  // simplemente tres reglas.
+  renumera = false,
+}: { className?: string; desde?: number; renumera?: boolean }) {
   // Los párrafos se arman ACÁ y no en una constante del módulo. Cuando eran
   // JSX de nivel de módulo, los elementos quedaban creados una sola vez al
   // evaluarse el archivo, y Fast Refresh no puede reconciliar eso: al editar el
@@ -160,7 +163,9 @@ export function IntroParagraphs({
         // La lista es fija y su orden también, así que el índice alcanza como
         // clave.
         <p key={desde + i} className={className}>
-          <span className="font-semibold text-foreground">{desde + i + 1}.</span>{" "}
+          <span className="font-semibold text-foreground">
+            {(renumera ? i : desde + i) + 1}.
+          </span>{" "}
           {p}
         </p>
       ))}

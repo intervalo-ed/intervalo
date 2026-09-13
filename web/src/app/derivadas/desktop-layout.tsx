@@ -2627,12 +2627,16 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
 
                       </>
                     ) : (
-                      // Mientras carga la primera derivada. El botón no puede
+                      // Mientras carga la primera derivada. El hueco no puede
                       // faltar: es lo que sostiene el alto de la columna.
-                      <div
-                        className="h-[var(--cta-h)] w-full animate-pulse rounded-md bg-foreground/10"
-                        aria-hidden
-                      />
+                      //
+                      // Invisible y quieto, no un esqueleto que late. Esto cae
+                      // justo entre dos pantallas que terminan las dos en un
+                      // Continuar —elegir el @ y la derivada—, así que un
+                      // recuadro gris pulsando en el medio se leía como que el
+                      // botón se iba y volvía. Lo que tiene que pasar es que un
+                      // Continuar reemplace al otro, sin nada en el medio.
+                      <div className="h-[var(--cta-h)] w-full" aria-hidden />
                     )}
                   </div>
                   {/* `|| porqueOpen`: leyendo el «¿por qué?» tampoco importa
