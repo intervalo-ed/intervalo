@@ -425,31 +425,39 @@ check("la duración va al lado de las derivadas de esa misma tanda",
           - etiquetas_prof.index("Duración 1ª sesión")) == 1,
       f"({etiquetas_prof})")
 
-# ── 4 · Embudo ───────────────────────────────────────────────────────────────
-print("\n— embudo —")
-f = q.funnel(data, WEEK)
-pasos = {p["label"]: p["n"] for p in f["steps"]}
-check("base = estudiantes de la cohorte", f["base"] == 4)
-check("todos vieron una derivada", pasos["Vio una derivada"] == 4)
-check("todos respondieron", pasos["Respondió"] == 4)
-# El paso lleva el número del hito de producto, no un redondo: se pide carrera
-# y universidad en la tercera, y el paso de al lado —«cargó universidad»— se lee
-# contra los que llegaron a que se lo preguntaran.
-check("el paso anterior a la universidad es el hito real",
-      pasos[f"Llegó a {q.PEDIDO_PERFIL}"] == 3,
-      f'({pasos[f"Llegó a {q.PEDIDO_PERFIL}"]})')
-check("llegó a 10", pasos["Llegó a 10"] == 1)
-check("volvió otro día", pasos["Volvió otro día"] == 1, f'({pasos["Volvió otro día"]})')
-# Los pasos que no están anidados no pueden mostrar «% del paso anterior»: era
-# de donde salía el «600% del paso anterior» que no quiere decir nada.
-por_label = {p["label"]: p for p in f["steps"]}
-check("los pasos anidados se leen contra el anterior",
-      por_label[f"Llegó a {q.PEDIDO_PERFIL}"]["pct_prev"] is not None)
-check("los que no lo están, no", por_label["Cargó universidad"]["pct_prev"] is None
-      and por_label["Se registró"]["pct_prev"] is None
-      and por_label["Volvió otro día"]["pct_prev"] is None)
-check("y la cadena no se corta por ellos: «llegó a 25» sigue midiendo contra «llegó a 10»",
-      por_label["Llegó a 25"]["pct_prev"] == 0.0)
+# ── 4 · Evolución semanal ────────────────────────────────────────────────────
+# El embudo de la partida se fue del panel: sus primeros pasos son los números
+# de la fila de activación (nuevos → activados), «llegó a k» es la curva de
+# profundidad y «se registró» y «volvió otro día» son Retención. Quedaba
+# diciendo tres veces lo mismo, así que se borró con su consulta.
+print()
+print("— evolución —")
+ev = q.evolucion(data, WEEK)
+check("arranca en la tasa de activación", ev["metrica"] == "activacion",
+      f'({ev["metrica"]})')
+check("una métrica que no existe cae en esa misma",
+      q.evolucion(data, WEEK, "inventada")["metrica"] == "activacion")
+# La serie va desde la primera semana del panel hasta la elegida, no las últimas
+# cuatro: con cuatro puntos una tendencia no se distingue de un rebote.
+semanas_esperadas = (WEEK - q.FIRST_WEEK).days // 7 + 1
+check("la serie cubre toda la historia hasta la semana elegida",
+      len(ev["filas"]) == semanas_esperadas,
+      f'({len(ev["filas"])} semanas, esperaba {semanas_esperadas})')
+check("y termina en la semana elegida",
+      ev["filas"][-1]["week"] == WEEK.isoformat())
+# Las cuatro curvas existen sobre las mismas filas: se elige cuál se dibuja, no
+# se recalcula nada.
+ultima = ev["filas"][-1]
+check("cada fila trae los cuatro números",
+      all(k in ultima for k in ("unicos", "nuevos", "activados", "activacion")))
+check("los activados nunca superan a los nuevos",
+      all(f["activados"] <= f["nuevos"] for f in ev["filas"]))
+check("y los únicos nunca son menos que los nuevos",
+      all(f["unicos"] >= f["nuevos"] for f in ev["filas"]))
+# El sufijo va con la métrica: sin esto el porcentaje se dibujaría sin el % y
+# los conteos con él.
+check("el porcentaje lleva su unidad y los conteos no",
+      ev["suffix"] == "%" and q.evolucion(data, WEEK, "nuevos")["suffix"] == "")
 
 # ── 5 · Profundidad ──────────────────────────────────────────────────────────
 print("\n— profundidad —")
@@ -864,6 +872,12 @@ html = game_render.page(payload, token="tok")
 check("la página se arma entera", len(html) > 10000, f"({len(html)} bytes)")
 check("no quedó ningún None crudo en el HTML", "None" not in html)
 check("lleva el papel cuadriculado del juego", "background-size:40px 40px" in html)
+# El canal de la barra de scroll se reserva siempre. Sin esto, la pestaña que
+# entra en una pantalla alta —Experimentación— no dibuja barra, el viewport
+# queda 15 px más ancho y el contenido centrado se corre 7 px respecto de las
+# otras tres: al cambiar de pestaña se ve saltar TODO el panel de costado.
+check("reserva el canal de la barra de scroll",
+      "scrollbar-gutter:stable" in html)
 check("y el borde de las cajas del juego", "#38385a" in html)
 check("enlaza el panel de Intervalo", "/panel/tok</a>" in html or "/panel/tok'" in html)
 check("el data.json queda linkeado", "/panel/tok/dx/data.json" in html)

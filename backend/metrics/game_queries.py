@@ -201,7 +201,12 @@ def load(db: DBSession) -> dict:
             SELECT player_id, exercise_id, attempt_number, parse_ok, is_correct,
                    created_at
             FROM game_attempts"""),
-        "boosts": _rows(db, "SELECT cafecitos, source, created_at FROM game_boosts"),
+        # `donor_name` y `university` son para la tabla de donadores. Vienen
+        # de la plataforma de cafecito, así que el nombre puede estar vacío —
+        # y de hecho lo está en la mayoría.
+        "boosts": _rows(db, """
+            SELECT cafecitos, source, created_at, donor_name, university
+            FROM game_boosts"""),
         # El tracker de difusión, copiado por scripts/diag/sync_grupos.py. Es
         # el denominador del clickrate y lo único que no sale de esta base.
         "grupos": _rows(db, """
@@ -687,65 +692,6 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
     }
 
 
-# ── 1 · Embudo ───────────────────────────────────────────────────────────────
-
-def funnel(data: dict, week: date) -> dict:
-    """Embudo de la cohorte que abrió el juego en `week`, seguida hasta hoy.
-
-    Arranca en «abrió el juego» y no en «vio el link»: la fila de
-    `game_players` se crea en la primera carga, así que todo lo anterior
-    (impresiones de WhatsApp, clicks que no llegaron a cargar) solo lo sabe
-    PostHog. El embudo lo dice en vez de fingir que empieza antes.
-    """
-    cohort = [p for p in data["players"] if _in_week(p["created_at"], week)]
-    ids = {p["id"] for p in cohort}
-    answers = [a for a in data["_answers"] if a["player_id"] in ids]
-
-    served: Counter = Counter(e["player_id"] for e in data["exercises"] if e["player_id"] in ids)
-    correct_by = Counter(a["player_id"] for a in answers if a["is_correct"])
-    respondieron = {a["player_id"] for a in answers}
-    dias_by: dict[int, set] = defaultdict(set)
-    for a in answers:
-        dias_by[a["player_id"]].add(local_date(a["created_at"]))
-
-    base = len(cohort)
-    # `cadena` marca los pasos que SÍ están anidados: cada uno es un subconjunto
-    # del anterior, así que «% del paso anterior» significa algo. Los otros tres
-    # no lo están —se puede cargar la universidad sin haber llegado a 25, y quien
-    # viene de Intervalo llega registrado desde el minuto cero— y para ellos el
-    # único denominador honesto es la cohorte. Sin esta distinción salían cosas
-    # como «600% del paso anterior», que no quiere decir nada.
-    steps = [
-        ("Abrió el juego", base, True),
-        ("Vio una derivada", sum(1 for pid in ids if served.get(pid)), True),
-        ("Respondió", len(respondieron), True),
-        ("Acertó una", sum(1 for pid in ids if correct_by.get(pid, 0) >= 1), True),
-        # Tres y no cinco: es la derivada donde el juego frena y pide carrera y
-        # universidad, así que el paso de al lado —«cargó universidad»— se lee
-        # contra la gente que efectivamente llegó a que se lo preguntaran.
-        (f"Llegó a {PEDIDO_PERFIL}",
-         sum(1 for pid in ids if correct_by.get(pid, 0) >= PEDIDO_PERFIL), True),
-        # Cada pedido va pegado al hito que lo dispara y no todos juntos al
-        # final: la universidad se pide en la 3 y el registro en la 12, así que
-        # leídos en ese lugar dicen cuánta de la gente que llegó a que se lo
-        # preguntaran contestó. Al fondo de la lista no decían nada — parecían
-        # dos pasos más de una cadena a la que no pertenecen.
-        ("Cargó universidad", sum(1 for p in cohort if p["university"]), False),
-        ("Llegó a 10", sum(1 for pid in ids if correct_by.get(pid, 0) >= 10), True),
-        ("Se registró", sum(1 for p in cohort if p["user_id"]), False),
-        ("Llegó a 25", sum(1 for pid in ids if correct_by.get(pid, 0) >= 25), True),
-        ("Volvió otro día", sum(1 for pid in ids if len(dias_by.get(pid, ())) >= 2), False),
-    ]
-
-    out, prev = [], None
-    for label, n, cadena in steps:
-        out.append({"label": label, "n": n, "cadena": cadena, "pct_base": _pct(n, base),
-                    "pct_prev": _pct(n, prev) if (cadena and prev) else None})
-        if cadena:
-            prev = n
-    return {"base": base, "steps": out}
-
-
 # ── 2 · Profundidad de partida ─────────────────────────────────────────────
 
 # Los cortes con los que se puede partir la curva. `total` es una sola línea con
@@ -1176,18 +1122,110 @@ def mails(data: dict, weeks: list[date]) -> dict:
 
 # ── 5 · Reclutas ──────────────────────────────────────────────────
 
-def reclutas(data: dict, weeks: list[date]) -> dict:
+def reclutas(data: dict, weeks: list[date], week: date | None = None) -> dict:
     """Quién trae gente nueva por su link, y cuánto rinde.
 
-    Delega en la del panel de Intervalo en vez de reescribirla: es la MISMA
-    cuenta sobre las MISMAS filas —aquella sección ya lee `game_players`, que es
-    donde vive todo esto— y dos copias de una definición de K terminarían dando
-    dos números distintos para la misma pregunta. Lo único que cambia es de
-    dónde salen las filas: acá ya vienen sin bots desde `load()`.
+    Delega la parte común en la del panel de Intervalo en vez de reescribirla:
+    es la MISMA cuenta sobre las MISMAS filas, y dos copias de una definición de
+    K terminarían dando dos números distintos para la misma pregunta.
+
+    Lo que se agrega acá y allá no puede estar es **la serie de K de
+    activados**. Necesita saber quién respondió algo, y la del panel de
+    Intervalo solo recibe `game_players`. Es también la que se dibuja: el K
+    general quedó como número en la fila de arriba, para poder auditar, pero la
+    curva muestra la que decide (ver `viralidad_activados` en `headline`).
+
+    **La serie va desde la primera semana del panel hasta la elegida**, no las
+    últimas cuatro. Con cuatro puntos una tendencia no se distingue de un
+    rebote, y esta es justamente la métrica que hay que leer a lo largo de
+    varias semanas porque su numerador es de un dígito.
     """
     from .queries import reclutas as _reclutas_de_intervalo
-    return _reclutas_de_intervalo({"game_players": data["players"]}, weeks)
 
+    base = _reclutas_de_intervalo({"game_players": data["players"]}, weeks)
+
+    # La historia completa hasta la semana elegida.
+    fin = week or weeks[-1]
+    todas: list[date] = []
+    w = FIRST_WEEK
+    while w <= fin:
+        todas.append(w)
+        w += timedelta(weeks=1)
+    if not todas:
+        todas = [fin]
+
+    activos = {a["player_id"] for a in data["_answers"]}
+    jugadores = data["players"]
+    por_semana: dict[date, list[dict]] = defaultdict(list)
+    for p in jugadores:
+        sem = _week_of(p["created_at"])
+        if sem is not None:
+            por_semana[sem].append(p)
+
+    serie = []
+    # La base arranca con los activados anteriores a la primera semana, que es
+    # cero por construcción: antes de FIRST_WEEK no había producto.
+    base_act = sum(1 for p in jugadores
+                   if (_week_of(p["created_at"]) or date.max) < todas[0]
+                   and p["id"] in activos)
+    for w in todas:
+        nuevos = por_semana.get(w, [])
+        rec_act = sum(1 for p in nuevos
+                      if p["referred_by"] is not None and p["id"] in activos)
+        serie.append({
+            "label": w.strftime("%d/%m"),
+            "week": w.isoformat(),
+            "k_act": round(rec_act / base_act, 2) if base_act else None,
+            "reclutas_act": rec_act,
+            "base_act": base_act,
+        })
+        base_act += sum(1 for p in nuevos if p["id"] in activos)
+
+    base["serie_activados"] = serie
+    base["donadores"] = _donadores(data)
+    return base
+
+
+def _donadores(data: dict) -> dict:
+    """Quién puso plata, de siempre.
+
+    **Los anónimos NO compiten por el primer puesto.** `donor_name` viene vacío
+    en la mayoría de las donaciones, y agruparlos a todos bajo «Anónimo» pondría
+    esa fila arriba de todo con la suma de mucha gente distinta — que es
+    exactamente la lectura falsa que la tabla invitaría a hacer. Van aparte, como
+    un total, y la tabla lista solo a los que dejaron nombre.
+
+    Solo `source == cafecito`: los grants a mano y los del aforo no son plata de
+    nadie, y mezclarlos convertiría a quien administra el juego en el mayor
+    donante de su propio juego.
+    """
+    donados = [b for b in data["boosts"] if b["source"] == DONADO]
+    con_nombre: dict[str, dict] = defaultdict(
+        lambda: {"cafecitos": 0, "veces": 0, "universidad": None, "ultima": None})
+    anon_cafecitos = anon_veces = 0
+    for b in donados:
+        nombre = (b.get("donor_name") or "").strip()
+        if not nombre:
+            anon_cafecitos += b["cafecitos"] or 0
+            anon_veces += 1
+            continue
+        d = con_nombre[nombre]
+        d["cafecitos"] += b["cafecitos"] or 0
+        d["veces"] += 1
+        d["universidad"] = d["universidad"] or b["university"]
+        cuando = local_date(b["created_at"])
+        if cuando and (d["ultima"] is None or cuando > d["ultima"]):
+            d["ultima"] = cuando
+    filas = sorted(
+        ({"nombre": n, **d} for n, d in con_nombre.items()),
+        key=lambda f: -f["cafecitos"])
+    return {
+        "top": filas[:8],
+        "anon_cafecitos": anon_cafecitos,
+        "anon_veces": anon_veces,
+        "total": sum(b["cafecitos"] or 0 for b in donados),
+        "donaciones": len(donados),
+    }
 
 # ── 6 · Experimentos ─────────────────────────────────────────────────────────
 
@@ -1600,10 +1638,103 @@ def friccion(data: dict) -> dict:
     }
 
 
+# ── 11 · Evolución semanal de los números de activación ──────────────────────
+
+# Las cuatro curvas que se pueden mirar, con su etiqueta y su unidad. El orden es
+# el de la fila de arriba, y el que viene marcado es el último: los tres primeros
+# son volumen —suben si se difunde más— y el cuarto es el único que dice si el
+# producto mejoró.
+METRICAS: tuple[tuple[str, str, str], ...] = (
+    ("unicos", "Usuarios únicos", ""),
+    ("nuevos", "Usuarios nuevos", ""),
+    ("activados", "Usuarios activados", ""),
+    ("activacion", "Activación", "%"),
+)
+METRICA_POR_DEFECTO = "activacion"
+
+
+def _vistos_por_semana(data: dict) -> dict:
+    """Qué jugadores dejaron alguna huella en cada semana.
+
+    Se arma con toda huella fechada —el alta, `last_seen_at`, un ejercicio, una
+    respuesta, un cartel— porque el juego no registra pageviews: registra lo que
+    la persona HACE. Es un piso, nunca un techo.
+
+    Vive acá afuera porque lo usan dos lugares —los titulares y la curva— y dos
+    copias de esta definición darían dos números distintos para «cuánta gente
+    distinta se asomó».
+    """
+    visto: dict[date, set[int]] = defaultdict(set)
+
+    def marcar(pid, cuando) -> None:
+        w = _week_of(cuando)
+        if w is not None:
+            visto[w].add(pid)
+
+    for p in data["players"]:
+        marcar(p["id"], p["created_at"])
+        marcar(p["id"], p["last_seen_at"])
+    for e in data["exercises"]:
+        marcar(e["player_id"], e["created_at"])
+    for a in data["attempts"]:
+        marcar(a["player_id"], a["created_at"])
+    for c in data["cta"]:
+        marcar(c["player_id"], c["created_at"])
+    return visto
+
+
+def evolucion(data: dict, week: date, metrica: str = METRICA_POR_DEFECTO) -> dict:
+    """Los cuatro números de activación, semana a semana, desde el principio.
+
+    **Desde la primera semana del panel hasta la elegida, no las últimas
+    cuatro.** Es la misma razón que la curva de viralidad: con cuatro puntos una
+    tendencia no se distingue de un rebote, y la pregunta que esta sección
+    contesta —«¿esto está mejorando?»— no se puede contestar con cuatro.
+
+    Se dibuja una por vez y no las cuatro juntas: tres son conteos que llegan a
+    los cientos y la cuarta es un porcentaje. En el mismo eje, el porcentaje
+    quedaría pegado al piso y no se vería moverse — que es justamente el único
+    de los cuatro que dice si el producto mejoró.
+    """
+    metrica = metrica if metrica in {m for m, _, _ in METRICAS} else METRICA_POR_DEFECTO
+    visto = _vistos_por_semana(data)
+    activos = {a["player_id"] for a in data["_answers"]}
+
+    por_semana: dict[date, list[dict]] = defaultdict(list)
+    for p in data["players"]:
+        w = _week_of(p["created_at"])
+        if w is not None:
+            por_semana[w].append(p)
+
+    semanas: list[date] = []
+    w = FIRST_WEEK
+    while w <= week:
+        semanas.append(w)
+        w += timedelta(weeks=1)
+    if not semanas:
+        semanas = [week]
+
+    filas = []
+    for w in semanas:
+        nuevos = por_semana.get(w, [])
+        act = sum(1 for p in nuevos if p["id"] in activos)
+        filas.append({
+            "label": w.strftime("%d/%m"),
+            "week": w.isoformat(),
+            "unicos": len(visto.get(w, ())),
+            "nuevos": len(nuevos),
+            "activados": act,
+            "activacion": _pct(act, len(nuevos)),
+        })
+    etiqueta, sufijo = next((e, s) for m, e, s in METRICAS if m == metrica)
+    return {"metrica": metrica, "etiqueta": etiqueta, "suffix": sufijo,
+            "filas": filas}
+
+
 # ── Entrada ──────────────────────────────────────────────────────────────────
 
 def build(db: DBSession, week: date, weeks_shown: int = 4,
-          corte: str = "total") -> dict:
+          corte: str = "total", metrica: str = METRICA_POR_DEFECTO) -> dict:
     """Payload completo del panel del juego para la semana `week` (su lunes)."""
     data = load(db)
     weeks = _weeks_back(week, weeks_shown)
@@ -1620,12 +1751,12 @@ def build(db: DBSession, week: date, weeks_shown: int = 4,
             "bots_excluidos": data["_bots"],
         },
         "headline": headline(data, weeks),
-        "funnel": funnel(data, week),
         "profundidad": profundidad(data, weeks, corte=corte),
         "push": push(data, weeks),
         "mails": mails(data, weeks),
-        "reclutas": reclutas(data, weeks),
+        "reclutas": reclutas(data, weeks, week),
         "experimentos": experimentos(data),
+        "evolucion": evolucion(data, week, metrica),
         "difusion": difusion(data),
         "carteles": carteles(data),
         "calibracion": calibracion(data),

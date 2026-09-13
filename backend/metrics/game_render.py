@@ -42,8 +42,7 @@ from . import charts as ch
 from . import theme
 from .charts import esc, num
 from .game_queries import (
-    FIRST_WEEK, PEDIDO_CAFECITO, PEDIDO_PERFIL, PEDIDO_REGISTRO,
-    PLATFORM_LABEL,
+    FIRST_WEEK, METRICAS, METRICA_POR_DEFECTO, PEDIDO_CAFECITO, PLATFORM_LABEL,
 )
 
 # El grueso del CSS es el mismo que Intervalo (ver metrics/theme.py) — es la
@@ -275,18 +274,23 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         f"<div class='weeknav'>{''.join(nav)}</div>"
         "</div></header>")
 
-    def link(*, s: str | None = None, corte: str | None = None) -> str:
+    def link(*, s: str | None = None, corte: str | None = None,
+             m: str | None = None) -> str:
         """La URL del panel cambiando UNA cosa y dejando el resto como está.
 
-        Es lo que hace que las dos barras convivan: elegir semana no pierde la
-        pestaña, y elegir desglose no devuelve a la primera."""
+        Es lo que hace que las tres barras convivan: elegir semana no pierde la
+        pestaña, elegir desglose no devuelve a la primera, y elegir qué curva
+        mirar no pierde ninguna de las dos."""
         s = s if s is not None else seccion
         corte = corte if corte is not None else p["profundidad"]["corte"]
+        m = m if m is not None else p["evolucion"]["metrica"]
         q = f"?w={week.isoformat()}"
         if s != SECCION_POR_DEFECTO:
             q += f"&s={s}"
         if corte != "total":
             q += f"&corte={corte}"
+        if m != METRICA_POR_DEFECTO:
+            q += f"&m={m}"
         return f"/panel/{esc(token)}/dx{q}"
 
     tabs = "".join(
@@ -301,44 +305,6 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
     # colgando de un `if`.
     cabecera = "".join(out)
 
-    # ── 1 · Embudo ───────────────────────────────────────────────────────────
-    out = []
-    f = p["funnel"]
-    def nota(s: dict) -> str:
-        if s["pct_prev"] is not None:
-            return f'{num(s["pct_prev"], "%")} del paso anterior'
-        # Los pasos que no están anidados se leen contra la cohorte: es el único
-        # denominador que significa algo para ellos.
-        if not s["cadena"] and s["pct_base"] is not None:
-            return f'{num(s["pct_base"], "%")} de la cohorte'
-        return ""
-
-    rows = [{"label": s["label"], "value": s["n"], "note": nota(s)} for s in f["steps"]]
-    out.append(_section(
-        2, "Embudo de la partida",
-        # Los cuatro números de arriba son la misma cohorte que las barras,
-        # contada de otra forma: cuántas veces se sentó alguien, cuántos eran
-        # nuevos y cuántos de esos cruzaron los dos umbrales que los vuelven
-        # alcanzables después. El embudo dice dónde se cae; ellos, contra qué.
-        # Barras más finas y más juntas que el default: diez pasos con el aire
-        # de siempre pedían media pantalla de scroll para leer una lista que se
-        # entiende de un vistazo.
-        _box("", ch.hbars(rows, colors=["var(--indigo)"], bar_h=18, gap=6),
-             note="<b>Arranca en «abrió el juego»</b> y no en «vio el link»: la fila del estudiante "
-                  "se crea en la primera carga de la página, así que todo lo anterior —cuánta "
-                  "gente vio el mensaje de WhatsApp, cuánta tocó y no llegó a cargar— solo lo "
-                  "sabe PostHog. Preferimos que el embudo empiece tarde y sea cierto."
-                  "<br><br><b>«Cargó universidad» y «se registró» no son parte de la "
-                  "cadena</b>, y por eso se leen contra la cohorte y no contra el paso de "
-                  "arriba. Están puestos donde el juego los pide —carrera y universidad en la "
-                  f"derivada <b>{PEDIDO_PERFIL}</b>, el registro en la <b>{PEDIDO_REGISTRO}</b>— "
-                  "para poder compararlos con la gente que llegó hasta ahí. Alguien que viene "
-                  "de Intervalo cuenta en los dos desde el minuto cero, sin haber derivado "
-                  "nada."),
-        sub=f"Cohorte de los {num(f['base'])} estudiantes que abrieron el juego en la semana del "
-            f"{labels[-1]}, seguida hasta hoy.",
-        anchor="embudo"))
-    pieza_embudo = "".join(out)
 
     # ── 2 · Profundidad ──────────────────────────────────────────────────────
     out = []
@@ -585,23 +551,30 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
     # ── 5 · Reclutas ─────────────────────────────────────────────────────────
     out = []
     rc = p["reclutas"]
-    etiquetas = [w["label"] for w in rc["semanas"]]
-    # Una sola serie y sin selector. El tooltip carga los dos términos de la
-    # división, que es lo que hacía falta para poder auditar un salto.
+    # La curva es la de ACTIVADOS y no la general: es la única de las dos que es
+    # una tasa de reproducción —la unidad que se produce es la misma que
+    # produce— y por lo tanto la única cuya distancia a 1 significa algo. La
+    # general se queda como número en la fila de arriba, para poder auditar.
+    #
+    # Y va desde la primera semana del panel hasta la elegida, no las últimas
+    # cuatro: con cuatro puntos una tendencia no se distingue de un rebote, y
+    # esta métrica tiene el numerador en un dígito.
+    sa = rc["serie_activados"]
+    etiquetas_viral = [w["label"] for w in sa]
     series_viral = [
-        {"label": "K", "color": VERDE_RECLUTAS,
-         "values": [w["k"] for w in rc["semanas"]],
-         "tips": [f'{w["label"]}: {num(w["k"], dec=2)} — {w["reclutados"]} '
-                  f'reclutas sobre {w["base"]} que ya estaban'
-                  for w in rc["semanas"]]},
+        {"label": "K de activados", "color": VERDE_RECLUTAS,
+         "values": [w["k_act"] for w in sa],
+         "tips": [f'{w["label"]}: {num(w["k_act"], dec=2)} — {w["reclutas_act"]} '
+                  f'reclutas activados sobre {w["base_act"]} activados que ya estaban'
+                  for w in sa]},
     ]
-    grafico_viral = ch.lines(series_viral, etiquetas, height=240, legend=False)
+    grafico_viral = ch.lines(series_viral, etiquetas_viral, height=240, legend=False)
 
     filas_top = [[f'@{esc(t["alias"])}',
                   _uni_chip(t["university"]) if t["university"] else "—",
                   t["reclutas"], t["xp"]] for t in rc["top"]]
     out.append(_section(
-        4, "Reclutas",
+        3, "Reclutas",
         # Lo que aporta la gente que ya está, en las dos monedas que el juego
         # acepta: gente nueva y cafecitos.
         #
@@ -610,13 +583,39 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
             "Coeficiente de viralidad por semana",
             grafico_viral,
             note=(
-                "<b>K</b> = reclutas nuevos de la semana sobre los jugadores que YA EXISTÍAN "
-                "antes de esa semana, o sea «cuántos jugadores nuevos trae, en promedio, cada "
-                "uno de los que ya estaban». No es la fórmula completa —invitaciones × "
-                "conversión—: no sabemos cuántos links se mandaron, solo cuántos prendieron. "
-                "<b>K &gt; 1 es crecimiento que se sostiene solo</b>; por debajo, el link "
-                "ayuda pero no alcanza como único canal."))
-        ,
+                "<b>K de activados</b> = reclutas de la semana que llegaron a responder algo, "
+                "sobre los jugadores activados que YA EXISTÍAN antes de esa semana. Es la que "
+                "se dibuja porque es la única de las dos que es una tasa de reproducción: la "
+                "unidad que se produce —un jugador activado— es la misma que produce. De los "
+                "24 jugadores que alguna vez reclutaron a alguien, los 24 tenían 3 o más "
+                "respuestas; nadie sin activar reclutó nunca."
+                "<br><br><b>K &gt; 1 es crecimiento que se sostiene solo</b>; por debajo, el "
+                "link ayuda pero no alcanza como único canal. No es la fórmula completa "
+                "—invitaciones × conversión—: no sabemos cuántos links se mandaron, solo "
+                "cuántos prendieron."
+                "<br><br>El numerador es de un dígito por semana, así que la curva tiembla "
+                "entera con una persona. Por eso se dibuja la historia completa y no las "
+                "últimas cuatro: lo que se lee acá es la tendencia, nunca un punto."))
+        + _box(
+            "Quién puso plata",
+            _table(["Donante", "Universidad", "Cafecitos", "Veces", "Última"],
+                   [[f'<b>{esc(d["nombre"])}</b>',
+                     _uni_chip(d["universidad"]) if d["universidad"] else "—",
+                     num(d["cafecitos"]), num(d["veces"]),
+                     d["ultima"].strftime("%d/%m") if d["ultima"] else "—"]
+                    for d in rc["donadores"]["top"]],
+                   empty="todavía nadie dejó su nombre"),
+            note=(
+                f'De siempre, y solo donaciones de verdad: los grants a mano y los del aforo '
+                f'no son plata de nadie. Van <b>{num(rc["donadores"]["total"])} cafecitos</b> '
+                f'en {num(rc["donadores"]["donaciones"])} donaciones.'
+                + (f'<br><br><b>{num(rc["donadores"]["anon_cafecitos"])} de esos cafecitos '
+                   f'llegaron sin nombre</b>, en {num(rc["donadores"]["anon_veces"])} '
+                   f'donaciones, y por eso no están en la tabla. Agruparlos bajo «Anónimo» '
+                   f'los pondría primeros con la suma de mucha gente distinta, que es '
+                   f'justamente la lectura falsa que la tabla invitaría a hacer.'
+                   if rc["donadores"]["anon_cafecitos"] else "")),
+        ),
         sub="El único canal de crecimiento que no depende de que difundamos nosotros. "
             "El acumulado de siempre —cuántos reclutas hubo en total y qué porción del "
             "padrón son— salió del panel: solo puede subir, así que no hay semana en que "
@@ -727,6 +726,39 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         anchor="experimentos"))
     pieza_experimentos = "".join(out)
 
+    # ── Evolución semanal de los números de activación ───────────────────────
+    ev = p["evolucion"]
+    selector_metrica = "".join(
+        f'<span class="cur">{esc(et)}</span>' if m == ev["metrica"]
+        else f'<a href="{link(m=m)}">{esc(et)}</a>'
+        for m, et, _ in METRICAS)
+    serie_ev = [{
+        "label": ev["etiqueta"],
+        "color": "var(--indigo-soft)",
+        "values": [f[ev["metrica"]] for f in ev["filas"]],
+        "tips": [f'{f["label"]}: {num(f[ev["metrica"]], ev["suffix"])}'
+                 + (f' — {f["activados"]} de {f["nuevos"]} nuevos'
+                    if ev["metrica"] == "activacion" else "")
+                 for f in ev["filas"]],
+    }]
+    pieza_evolucion = _section(
+        1, "Semana a semana",
+        _box("", f"<div class='cortes'><span class='sub'>Curva</span>"
+                 f"{selector_metrica}</div>"
+             + ch.lines(serie_ev, [f["label"] for f in ev["filas"]],
+                        suffix=ev["suffix"], height=240, legend=False),
+             note="Una por vez y no las cuatro juntas: tres son conteos que llegan a los "
+                  "cientos y la cuarta es un porcentaje. En el mismo eje el porcentaje "
+                  "quedaría pegado al piso y no se lo vería moverse, que es justo el único "
+                  "de los cuatro que dice si el producto mejoró — los otros tres suben "
+                  "solos si se difunde más."
+                  "<br><br>Va desde la primera semana del panel hasta la elegida y no las "
+                  "últimas cuatro: con cuatro puntos una tendencia no se distingue de un "
+                  "rebote."),
+        sub="Los cuatro números de arriba, a lo largo del tiempo. Arranca en la tasa de "
+            "activación porque es la única que no se mueve sola con el volumen.",
+        anchor="evolucion")
+
     # ── Difusión: el clickrate ───────────────────────────────────────────────
     out = []
     di = p["difusion"]
@@ -794,7 +826,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         'para afirmar «tal porcentaje de la gente hizo clic».')
 
     out.append(_section(
-        1, "Difusión: a cuánta gente se llegó",
+        2, "Difusión: a cuánta gente se llegó",
         cuerpo_dif + "".join(f'<p class="note">{a}</p>' for a in aviso),
         sub="Lo único del panel que necesita un dato de afuera: cuánta gente hay en cada "
             "grupo vive en el tracker y llega por una copia.",
@@ -869,20 +901,13 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
     # algo llama la atención.
     paneles = {
         "activacion": (_fila_kpi(p["headline"]["activacion"])
-                       + pieza_difusion + pieza_embudo
-                       + pieza_carteles(
-                           ("share",), 3, "El cartel de reclutar",
-                           "El escalón que gobierna los reclutas: cuántos de los que lo ven "
-                           "lo tocan.",
-                           "Es la puerta del único canal de crecimiento que no depende de "
-                           "nosotros. Un CTR que se cae explica una caída de reclutas sin "
-                           "necesidad de mirar nada más.")
-                       + pieza_reclutas),
+                       + pieza_evolucion + pieza_difusion + pieza_reclutas),
         "retencion": (_fila_kpi(p["headline"]["retencion"])
                       + pieza_carteles(
-                          ("cafecito", "boost_offer", "register"), 1,
+                          ("share", "cafecito", "boost_offer", "register"), 1,
                           "Los carteles que piden algo",
-                          "Registrarse, invitar un cafecito, aceptar el multiplicador.",
+                          "Compartir el link, registrarse, invitar un cafecito, aceptar el "
+                          "multiplicador.",
                           "Un CTR bajo puede ser el copy o puede ser el momento: la última "
                           "columna dice en qué derivada sale, en mediana. Sin ella las dos "
                           "explicaciones son igual de plausibles.")

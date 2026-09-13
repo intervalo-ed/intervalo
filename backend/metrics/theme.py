@@ -35,6 +35,13 @@ BASE_CSS = """
   --ok:#22c55e; --warn:#f59e0b; --bad:#f97316;
 }
 *{box-sizing:border-box}
+/* El canal de la barra de scroll se reserva SIEMPRE, scrollee o no la
+   página. Sin esto, una pestaña corta —Experimentación es la única que
+   entra en una pantalla alta— no dibuja barra, el viewport queda 15 px más
+   ancho y el contenido centrado se corre 7 px a la derecha respecto de las
+   otras tres. Al cambiar de pestaña eso se ve como un salto lateral de
+   TODO el panel, que es exactamente lo que un tablero no puede hacer. */
+html{scrollbar-gutter:stable}
 body{margin:0;color:var(--fg);
   background-color:var(--bg);
   /* Papel cuadriculado: el mismo GRID_BG_STYLE del juego, traducido a CSS. */
