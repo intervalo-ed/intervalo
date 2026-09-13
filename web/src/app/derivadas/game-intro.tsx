@@ -189,10 +189,21 @@ export function useGameIntro({
   // La primera medición ocurre acá, cuando React entrega el nodo: es el mismo
   // momento que un efecto de layout (antes de pintar), así que el logo se mide
   // en su lugar y a su tamaño final sin que nadie alcance a verlo ahí.
+  //
+  // `saltar` tiene que estar ACÁ y no solo en el estado inicial. Estando solo
+  // allá, la presentación se saltaba durante exactamente un render: este
+  // callback corre en cuanto React entrega el nodo —o sea enseguida— y ponía
+  // "writing" pase lo que pase, así que el brazo test arrancaba en "done", esta
+  // línea lo devolvía a la pista y la animación se veía entera. Era invisible
+  // en cualquier revisión que mirara la pantalla después de los ~4,6 s que dura.
   const attachSlot = useCallback((node: HTMLDivElement | null) => {
     slotEl.current = node
     if (!node || measuredRef.current) return
     measuredRef.current = true
+    // Sin presentación no hay nada que medir: el logo se queda en su hueco, a su
+    // tamaño, y `natural`/`target` quedan en null — que es justo lo que
+    // `GameIntroLogo` espera para dibujarlo quieto.
+    if (saltar) return
     const m = readBox(node)
     if (!m) {
       // Sin caja medible no hay presentación posible; se sigue de largo.
@@ -202,7 +213,7 @@ export function useGameIntro({
     setNatural(m)
     setWord(readWord(node))
     setPhase("writing")
-  }, [])
+  }, [saltar])
 
   // Espera a las fuentes antes de escribir: con la tipografía todavía sin
   // cargar, la palabra entraría con otra letra y cambiaría de ancho a mitad de

@@ -60,8 +60,9 @@ empezar: de cada 100 personas que abren dx, 47,6 llegan a que se les muestre una
 derivada; en el teléfono, que es el 83% del tráfico, 45,2.
 
 - **`control`** — el flujo de arriba, sin tocar.
-- **`derivada-primero`** — nada entre aterrizar y la derivada: el logo quieto,
-  sin presentación, una sola línea (`INSTRUCCION_MINIMA`) y el botón.
+- **`derivada-primero`** — nada entre aterrizar y la derivada: el logo quieto
+  —`useGameIntro({ saltar })`, sin presentación ni cortina—, el saludo, una
+  línea (`PuertaMinima`) y el botón.
 
   Las reglas y el apodo no se borran, **se corren detrás de la primera derivada
   resuelta**, en este orden: **@ → ranking → reglas**.
