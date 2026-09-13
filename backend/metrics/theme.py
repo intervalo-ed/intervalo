@@ -115,11 +115,12 @@ section{display:flex;flex-direction:column;gap:12px}
 .g2{grid-template-columns:repeat(auto-fit,minmax(min(420px,100%),1fr))}
 .g3{grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr))}
 .g4{grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr))}
+.g5{grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr))}
 
 .kpi .label{color:var(--muted);font-size:12.5px}
 .kpi .row{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-top:2px}
 .kpi .val{font-size:31px;font-weight:750;letter-spacing:-.03em;
-  font-variant-numeric:tabular-nums;line-height:1.05}
+  font-variant-numeric:tabular-nums;line-height:1.05;white-space:nowrap}
 .kpi .hint{color:var(--muted);font-size:11.5px;margin-top:6px}
 .chip{font-size:11.5px;font-weight:650;padding:2px 8px;border-radius:6px;
   font-variant-numeric:tabular-nums;white-space:nowrap}

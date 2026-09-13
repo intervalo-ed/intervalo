@@ -21,9 +21,15 @@ contenido y acá hay tablas— ni la altura fija: un panel scrollea.
 Las secciones están numeradas y en el orden en que conviene leerlas: cuánta
 gente entra, cuánto aguanta, y recién después de dónde salió y con qué la juega.
 
+**No hay sección de titulares**: los doce números de la semana viven arriba del
+gráfico que los explica, cada uno en su pestaña (ver `game_queries.headline`).
+Juntos arriba de todo eran doce marcadores que había que memorizar para bajar a
+buscar contra qué leerlos, y cada sección arrancaba con un gráfico al que le
+faltaba justo su número.
+
 El panel llegó a tener once secciones —el diagnóstico del Elo, la tabla de
 plantillas, el embudo del cafecito, la fricción del teclado— y se recortó a
-seis. Lo que se fue no estaba mal medido: era instrumentación del motor, que se
+cinco. Lo que se fue no estaba mal medido: era instrumentación del motor, que se
 mira cuando se está tocando el motor y no todos los días. Las consultas se
 borraron con la sección, no se dejaron colgadas alimentando un `data.json` que
 nadie lee (`git log` las tiene si hacen falta de nuevo).
@@ -91,13 +97,25 @@ AZUL_NUEVOS = "#4f7fe0"
 VERDE_RECLUTAS = "#2fb673"
 
 
+def _fila_kpi(cards: list[dict], clase: str = "g4") -> str:
+    """La fila de números de la semana que encabeza una sección.
+
+    Va ARRIBA del gráfico y no debajo: es el resumen de lo que se está por
+    mirar, y leerlo después del gráfico es leerlo dos veces. La clase define
+    cuántos entran por fila a lo ancho — `g4` para cuatro, `g5` para cinco, `g3`
+    para tres— y con `auto-fit` cada una se reacomoda sola al angostarse.
+    """
+    return f'<div class="grid {clase}">{"".join(_kpi(c) for c in cards)}</div>'
+
+
 def _kpi_chico(label: str, valor, hint: str = "", suffix: str = "", dec: int = 1) -> str:
     """Un número con su etiqueta, sin sparkline ni delta.
 
-    `theme.kpi` es el de los titulares y pide serie y variación semanal: son
-    ocho números que se miran comparándolos con la semana anterior. Estos son
-    otra cosa —cuántas suscripciones hay, cuántos mails salieron— y no tienen
-    contra qué compararse semana a semana sin inventar una serie.
+    El otro —`theme.kpi`, el que arma `_fila_kpi`— pide serie y variación
+    semanal: son los doce números de la semana, que se leen comparándolos con la
+    anterior. Estos son otra cosa —cuántas suscripciones hay, cuántos mails
+    salieron, cuántos reclutas hubo DESDE SIEMPRE— y no tienen contra qué
+    compararse semana a semana sin inventar una serie.
     """
     return (f'<div class="box kpi"><div class="label">{esc(label)}</div>'
             f'<div class="val">{num(valor, suffix, dec)}</div>'
@@ -147,8 +165,11 @@ COPY_REACTIVO = {
 # desglose— en un link que se puede compartir y que sobrevive al botón de
 # atrás. Con el estado del lado del navegador, cambiar el desglose —que sí
 # recarga, porque cambia los datos— devolvía a la primera pestaña.
+#
+# No hay pestaña de titulares y por eso la primera es el embudo: los números de
+# la semana se repartieron entre las secciones que los explican. Un `?s=titulares`
+# viejo cae acá solo, como cualquier pestaña que no existe.
 SECCIONES: tuple[tuple[str, str], ...] = (
-    ("titulares", "Titulares"),
     ("embudo", "Embudo"),
     ("profundidad", "Profundidad"),
     ("push", "Push"),
@@ -244,22 +265,6 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
     cabecera = "".join(out)
     paneles: dict[str, str] = {}
 
-    # ── 0 · Titulares ────────────────────────────────────────────────────────
-    out = []
-    # Tres filas de cuatro, y las filas son la lectura: entrada, crecimiento y
-    # sesión. Un solo `grid g4` con doce adentro daría lo mismo en pantalla
-    # ancha, pero al angostarse los reacomoda de a dos y las filas dejan de
-    # existir — que es justo lo que hace que doce números se lean como doce
-    # números sueltos.
-    filas = [p["headline"][i:i + 4] for i in range(0, len(p["headline"]), 4)]
-    out.append(_section(
-        0, f"Titulares · semana del {labels[-1]}",
-        "".join(f'<div class="grid g4">{"".join(_kpi(c) for c in fila)}</div>'
-                for fila in filas),
-        sub="El sparkline son las semanas visibles. Arriba quién entra, en el medio "
-            "quién vuelve y quién trae gente, abajo cómo es una sentada."))
-    paneles["titulares"] = "".join(out)
-
     # ── 1 · Embudo ───────────────────────────────────────────────────────────
     out = []
     f = p["funnel"]
@@ -275,10 +280,15 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
     rows = [{"label": s["label"], "value": s["n"], "note": nota(s)} for s in f["steps"]]
     out.append(_section(
         1, "Embudo de la partida",
+        # Los cuatro números de arriba son la misma cohorte que las barras,
+        # contada de otra forma: cuántas veces se sentó alguien, cuántos eran
+        # nuevos y cuántos de esos cruzaron los dos umbrales que los vuelven
+        # alcanzables después. El embudo dice dónde se cae; ellos, contra qué.
+        _fila_kpi(p["headline"]["embudo"])
         # Barras más finas y más juntas que el default: diez pasos con el aire
         # de siempre pedían media pantalla de scroll para leer una lista que se
         # entiende de un vistazo.
-        _box("", ch.hbars(rows, colors=["var(--indigo)"], bar_h=18, gap=6),
+        + _box("", ch.hbars(rows, colors=["var(--indigo)"], bar_h=18, gap=6),
              note="<b>Arranca en «abrió el juego»</b> y no en «vio el link»: la fila del estudiante "
                   "se crea en la primera carga de la página, así que todo lo anterior —cuánta "
                   "gente vio el mensaje de WhatsApp, cuánta tocó y no llegó a cargar— solo lo "
@@ -344,6 +354,30 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
         alcance = ('<br><br><b>Cada línea es una camada distinta</b>, no un pedazo de esta: '
                    'la de la semana elegida y las dos anteriores, cada una seguida desde su '
                    'propio día uno. Por eso no suman — se comparan.')
+    elif corte == "sesion":
+        # Las dos advertencias van juntas porque sin ellas el gráfico se lee al
+        # revés: parece que la segunda vuelta es más fácil, cuando lo que pasa es
+        # que a la segunda vuelta llega otra gente.
+        alcance = (
+            '<br><br><b>Las dos líneas no se reparten nada</b>, y ni siquiera cuentan lo '
+            'mismo: la primera es la primera tanda de cada uno —la misma curva que '
+            '«Todos»— y la segunda son TODAS las que vinieron después, contadas de a '
+            '<b>tanda</b> y no de a persona. Quien volvió cuatro veces aporta una partida a '
+            'la primera línea y tres a la segunda, porque la pregunta es cuánto rinde una '
+            'vuelta y no cuánto rinde alguien que vuelve.'
+            '<br><br><b>Si la segunda aguanta más, no es que el juego se vuelva más fácil.</b> '
+            'A la segunda vuelta solo llega el que se enganchó, así que la población ya está '
+            'filtrada por lo mismo que se está midiendo. Lo que sí se puede leer es la forma: '
+            'si el escalón se corre de lugar entre una línea y la otra, el que vuelve se cae '
+            'por otro motivo que el que recién llega.'
+            '<br><br>Es además <b>el único corte que no se congela</b>. Los demás miran una '
+            'sentada que ya pasó; las vueltas siguen ocurriendo, así que la segunda línea de '
+            'una semana vieja se sigue moviendo cada vez que alguien de esa camada vuelve.')
+        if len(series) < 2:
+            alcance += (
+                '<br><br><b>Todavía no hay segunda línea</b>: no llegan a cinco las tandas '
+                'cerradas de la segunda vuelta en adelante, y cuatro dibujarían una escalera '
+                'de a 25 puntos con la misma tinta que la tendencia de cuarenta.')
     else:
         afuera = pr["base"] - pr["cubiertos"]
         alcance = (f'<br><br><b>Las líneas parten esta misma cohorte</b>: cubren '
@@ -386,7 +420,8 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
     selector = "".join(
         f'<span class="cur">{esc(t)}</span>' if c == corte
         else f'<a href="{link(corte=c)}">{esc(t)}</a>'
-        for c, t in [("total", "Todos"), ("cohorte", "Por cohorte"),
+        for c, t in [("total", "Todos"), ("sesion", "Por sesión"),
+                     ("cohorte", "Por cohorte"),
                      ("universidad", "Por universidad"), ("aparato", "Por aparato"),
                      ("horario", "Por horario")])
     cuerpo = (f"<div class='cortes'><span class='sub'>Desglose</span>{selector}</div>"
@@ -394,10 +429,16 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
 
     out.append(_section(
         2, "Profundidad",
-        _box("Cuántos siguen jugando en la derivada k", cuerpo,
+        # Cinco y no cuatro: las cuatro de la sentada más los retenidos, que
+        # miden la misma vuelta en semanas. Puestos al lado de «Vuelven a jugar»
+        # se lee que son dos preguntas distintas —sentadas contra semanas, los
+        # nuevos contra toda la base— y no dos versiones de la misma.
+        _fila_kpi(p["headline"]["profundidad"], "g5")
+        + _box("Cuántos siguen jugando en la derivada k", cuerpo,
              note=resumen + peor_txt + alcance
-                  + "<br><br>Una partida es la <b>primera tanda</b> de cada uno —lo que hizo "
-                    "hasta despegarse media hora— y entra recién cuando esa tanda ya no puede "
+                  + "<br><br>Una partida es una <b>tanda</b> —lo que alguien hizo hasta "
+                    "despegarse media hora— y, salvo en el desglose por sesión, la que se "
+                    "mide es la <b>primera</b> de cada uno. Entra recién cuando ya no puede "
                     "crecer: quien está jugando ahora todavía puede sumar derivadas, y "
                     "contarlo hundiría la cola por reloj y no por comportamiento. De esta "
                     f'cohorte quedaron afuera {num(pr["abiertos"])} partidas todavía abiertas.'
@@ -552,12 +593,19 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
                   t["reclutas"], t["xp"]] for t in rc["top"]]
     out.append(_section(
         5, "Reclutas",
-        # Dos titulares y no cuatro: el K de la última semana y el top
-        # reclutador estaban repitiendo, en formato de número grande, el último
-        # punto de la curva y la primera fila de la tabla que vienen justo
-        # abajo. Un titular que repite lo de al lado gasta el lugar donde
-        # debería estar lo que no se ve en ningún otro lado.
-        '<div class="grid g2">'
+        # Lo que aporta la gente que ya está, en las dos monedas que el juego
+        # acepta: gente nueva y cafecitos.
+        #
+        # OJO con el coeficiente: es el último punto de la curva que viene justo
+        # abajo, o sea el número repetido en formato grande — exactamente lo que
+        # se había sacado de acá cuando existía la sección de titulares. Se
+        # vuelve a poner porque al no haber titulares no tiene otro lugar donde
+        # vivir, pero si molesta, la salida es sacar la tarjeta y no la curva: la
+        # curva muestra la serie entera y la tarjeta solo su punta.
+        _fila_kpi(p["headline"]["reclutas"], "g3")
+        # Estas dos son de SIEMPRE y no de la semana, así que no llevan
+        # sparkline ni variación: no hay serie semanal que dibujarles.
+        + '<div class="grid g2">'
         + "".join(_kpi_chico(l, v, h, suffix=sfx, dec=0 if not sfx else 1)
                   for l, v, sfx, h in [
                       ("Reclutados", rc["total_reclutados"], "",
