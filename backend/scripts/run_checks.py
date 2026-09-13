@@ -57,6 +57,7 @@ CHECKS = [
     "check_concurrencia",
     "check_dashboard",
     "check_exercise_cycle_no_repeat",
+    "check_experimento_grupos",
     "check_game_api",
     "check_game_chat",
     "check_game_dashboard",
