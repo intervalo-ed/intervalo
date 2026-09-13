@@ -82,6 +82,7 @@ jobs:
           bun run check:latex
           bun run check:restante
           bun run check:salto
+          bun run check:cafecito
 
       - name: Build
         working-directory: web
