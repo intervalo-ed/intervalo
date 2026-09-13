@@ -15,6 +15,7 @@
 // explica acá, en serio, y después no se repite nunca.
 
 import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 import { KeyCap } from "./exercise-card"
 import { useTeclas, type Teclas } from "./teclas"
 
@@ -39,6 +40,48 @@ function Fuerte({ children }: { children: React.ReactNode }) {
 }
 
 export const INTRO_CLOSE = "¿Arrancamos?"
+
+// ── El brazo `derivada-primero` del experimento de la puerta ────────────────
+//
+// Hipótesis: entre aterrizar y ver una derivada hay tres peajes —la animación
+// del logo, estos cuatro párrafos y el pedido de apodo— y la persona no pidió
+// ninguno: hizo clic en un link de WhatsApp sin saber a qué se juega. La primera
+// derivada es `x` (generator.ONBOARDING la fija así, trivial a propósito), o sea
+// que el producto se explica solo. Medido: solo el 47,6% llega a verla, y en el
+// teléfono —que es el 83% del tráfico— baja al 45,2%.
+//
+// Lo que el brazo NO hace es borrar la explicación: la reparte. Sacarla del todo
+// arriesga cambiar gente que no entra por gente que entra y se va en la segunda
+// derivada, y eso sería ganar el número y perder el producto. Repartida, cada
+// pieza se paga cuando ya hay algo resuelto que la haga significar algo.
+
+/** Lo único que se dice antes de la primera derivada, en el brazo test. */
+export const INSTRUCCION_MINIMA = "Resolvé esta derivada."
+
+// Las piezas del tutorial y en qué acierto aparece cada una. Los números esquivan
+// los hitos que ya existen —perfil en la 3, registro en la 12 (hitos-del-juego.ts)—
+// para no encimar dos interrupciones en la misma derivada.
+//
+// El orden es el mismo de `IntroParagraphs` menos el primero, que en este brazo
+// lo reemplaza `INSTRUCCION_MINIMA`: primero cómo se gana (Elo), después qué se
+// puede hacer con eso (cafecitos), y al final la salida de emergencia (tabla).
+// Cada una nombra su cosa con el MISMO emoji del marcador, por el mismo motivo
+// que los párrafos largos.
+const TUTORIAL: { correctas: number; texto: string }[] = [
+  { correctas: 1, texto: "Tu puntaje Elo ♟︎ define la dificultad: sube cuando acertás." },
+  { correctas: 2, texto: "Un cafecito ☕ multiplica el XP tuyo y el de tu universidad." },
+  { correctas: 5, texto: "Si te trabás podés mirar la tabla 📖, pero esa derivada suma menos." },
+]
+
+/** La pieza que toca mostrar con `correctas` aciertos acumulados, o null.
+ *
+ *  Se cuenta con las correctas del SERVIDOR y no con un contador de la pestaña,
+ *  por el mismo motivo que los hitos: en el teléfono la pestaña se descarta al
+ *  salir a otra app y el contador local vuelve a cero (ver hitos-del-juego.ts).
+ */
+export function piezaDeTutorial(correctas: number): string | null {
+  return TUTORIAL.find((t) => t.correctas === correctas)?.texto ?? null
+}
 
 // Los párrafos numerados. El número NO va en el texto sino acá, sobre el
 // índice: son cosas que se cuentan una por vez, y si alguna vez se suma o se
@@ -125,7 +168,10 @@ const atajos = (t: Teclas): { keys: string; what: string }[] => [
 //
 // El historial lo pone la columna, que es la que sabe que va desenfocado hasta
 // que se empieza.
-export function IntroPanel() {
+// `minima` = brazo `derivada-primero`: solo la indicación y nada más. Los
+// atajos no se reparten después porque no hace falta — la card ya enseña Alt
+// con su propio tip, y el Enter lo dice el KeyCap del botón.
+export function IntroPanel({ minima = false }: { minima?: boolean } = {}) {
   const teclas = useTeclas()
   return (
       <div className="flex min-h-0 flex-1 flex-col rounded-lg border border-border bg-card p-6">
@@ -140,9 +186,13 @@ export function IntroPanel() {
             pantalla del juego este texto ES el contenido, y en `text-sm
             text-muted-foreground` se leía como una aclaración al pie. */}
         <div className="flex flex-col gap-3 leading-relaxed text-foreground/85">
-          <IntroParagraphs />
+          {minima ? (
+            <p className="font-semibold text-foreground">{INSTRUCCION_MINIMA}</p>
+          ) : (
+            <IntroParagraphs />
+          )}
         </div>
-        <div className="flex flex-col items-center gap-3">
+        <div className={cn("flex flex-col items-center gap-3", minima && "hidden")}>
           <p>{KEYBOARD_HINT}</p>
           <dl className="grid grid-cols-[1fr_auto] items-center gap-x-3 gap-y-2 text-sm text-muted-foreground">
             {atajos(teclas).map((s) => (
@@ -158,7 +208,7 @@ export function IntroPanel() {
         {/* El cierre va último de todo, pegado al botón: es la pregunta que el
             botón contesta. Arriba de los atajos quedaba cerrando la explicación
             y después seguía habiendo cosas para leer. */}
-        <p className="font-semibold text-foreground">{INTRO_CLOSE}</p>
+        {!minima && <p className="font-semibold text-foreground">{INTRO_CLOSE}</p>}
       </div>
       </div>
   )

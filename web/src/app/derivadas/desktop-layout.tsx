@@ -67,7 +67,8 @@ import { EloStatsPanel, StatsButton, TECLA_ESTADISTICAS } from "./elo-stats-pane
 import { GameIntroLogo, type GameIntro } from "./game-intro"
 import { GameRanking, type RankingSort } from "./game-ranking"
 import { AMBAR } from "./game-colors"
-import { IntroPanel, IntroStartButton } from "./intro-panel"
+import { IntroPanel, IntroStartButton, piezaDeTutorial } from "./intro-panel"
+import { brazoDelJuego } from "@/lib/experiments/UseGameVariant"
 import { SlideFlip } from "./slide-flip"
 import { puedeVerEstadisticas } from "./stats-gate"
 import { enCampoDeTexto, useTeclas } from "./teclas"
@@ -219,6 +220,8 @@ function ExerciseSkeleton() {
 
 export function DesktopLayout({ intro }: { intro: GameIntro }) {
   const { player, isFirstVisit, refetch: refetchPlayer } = useGamePlayer()
+  const brazo = brazoDelJuego()
+  const puertaMinima = brazo === "derivada-primero"
   const queryClient = useQueryClient()
   const next = useNextExercise()
   const answerMutation = useAnswerExercise()
@@ -495,7 +498,15 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   useEffect(() => {
     posthog.capture("game_start", {
       is_guest: player?.is_guest ?? true,
-      platform: "desktop",
+      // `layout` y no `platform`: son dos cosas distintas y llamarlas igual
+      // costó caro. `platform` ya viaja como super propiedad desde
+      // instrumentation-client.ts, con el valor que importa —ios | android |
+      // desktop—, y una propiedad del evento con el mismo nombre LA PISA. Con
+      // esto adentro, el embudo de dx en PostHog no se podía partir por iOS:
+      // todo decía "desktop" o "mobile", que es el layout que se eligió, no el
+      // aparato. Mientras tanto iOS estuvo la mitad de abajo que Android
+      // durante dieciséis días sin que se viera.
+      layout: "desktop",
     })
     warmupComputeEngine()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -583,14 +594,16 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   // Empezar de verdad: entra la primera derivada. Es lo que hace el botón y
   // también el Enter.
   const startFromIntro = useCallback(() => {
-    posthog.capture("game_intro_done", { platform: "desktop" })
+    posthog.capture("game_intro_done", { layout: "desktop", brazo })
     sfx.continue()
-    if (player?.is_guest && player.alias_is_generated && isFirstVisit) {
+    // Mismo criterio que en el teléfono: en el brazo test no se pide nada
+    // antes de jugar, el apodo va con el hito de perfil.
+    if (!puertaMinima && player?.is_guest && player.alias_is_generated && isFirstVisit) {
       setNavPanel("username")
       return
     }
     loadNext()
-  }, [loadNext, sfx, player, isFirstVisit])
+  }, [loadNext, sfx, player, isFirstVisit, brazo, puertaMinima])
 
   // La pantalla efectiva: lo último que se eligió a mano y, si no se eligió
   // nada, la intro. Siempre la intro: ya no se recuerda en localStorage si se
@@ -2032,7 +2045,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                   el historial, que ya no están adentro. */}
               <SlideFlip slide={panel} className="min-h-[26rem] flex-1">
                 {panel === "intro" ? (
-                  <IntroPanel />
+                  <IntroPanel minima={puertaMinima} />
                 ) : panel === "profile" ? (
                   <div className="flex min-h-0 flex-1 flex-col rounded-lg border border-border bg-card p-5">
                     <ProfileSlides
@@ -2225,6 +2238,11 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                             bare
                             className="flex-1"
                             streak={player?.combo ?? 0}
+                            tutorial={
+                              puertaMinima
+                                ? piezaDeTutorial(player?.exercises_correct ?? 0)
+                                : null
+                            }
                             attempted={player?.exercises_attempted ?? 0}
                             elo={player?.elo ?? null}
                             multiplier={boost?.multiplier ?? 1}

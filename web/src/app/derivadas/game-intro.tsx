@@ -145,13 +145,24 @@ export function useGameIntro({
   // presentación — sin notación no hay corchetes ni operador que encender, así
   // que la palabra termina de escribirse y el logo se va derecho a su lugar.
   notation = true,
-}: { notation?: boolean } = {}) {
+  // Saltear la presentación entera: el logo aparece quieto, en su lugar, sin
+  // escribirse. Lo usa el brazo `derivada-primero` del experimento de la puerta
+  // (lib/experiments/UseGameVariant.ts), donde lo que se está probando es
+  // justamente que nada se interponga entre aterrizar y la primera derivada.
+  //
+  // Arrancar en "done" y no cortar la animación a mitad de camino: es el mismo
+  // estado al que ya se llega cuando el logo no se puede medir, así que no
+  // estrena ningún camino — `natural` queda en null, `detached` en false y
+  // `target` en null, que es exactamente lo que `GameIntroLogo` espera para
+  // dibujarlo en su sitio.
+  saltar = false,
+}: { notation?: boolean; saltar?: boolean } = {}) {
   const reduceMotion = useReducedMotion()
   // El hueco que el logo ocupa en el layout; se mide para poder devolverlo
   // exactamente ahí y para que nada se corra mientras está afuera.
   const slotEl = useRef<HTMLDivElement | null>(null)
   const measuredRef = useRef(false)
-  const [phase, setPhase] = useState<Phase>("measuring")
+  const [phase, setPhase] = useState<Phase>(saltar ? "done" : "measuring")
   const [natural, setNatural] = useState<Natural | null>(null)
   const [word, setWord] = useState<Word | null>(null)
   const [typed, setTyped] = useState(0)

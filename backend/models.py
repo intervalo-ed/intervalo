@@ -831,6 +831,22 @@ class GamePlayer(Base):
     first_group_id = Column(String(20), nullable=True, index=True)
     first_utm_source = Column(String(20), nullable=True)
 
+    # En qué brazo del experimento en curso cayó este jugador, con la misma
+    # regla write-once que la atribución de arriba: quien entró en un brazo
+    # entró en ese brazo, y poder reasignarlo después sería poder mover gente
+    # entre brazos cuando ya se sabe cuál va ganando.
+    #
+    # **Por qué la columna existe si PostHog ya segmenta por flag.** PostHog
+    # segmenta EVENTOS, y el último escalón del embudo del juego no es un
+    # evento: el cafecito que efectivamente entró vive en `game_boosts`, y la
+    # profundidad en `game_attempts`. Sin esta columna el brazo se puede leer
+    # hasta el click y no hasta el resultado.
+    #
+    # Formato `<experimento>:<brazo>` en un solo campo y no dos columnas: el
+    # panel lo agrupa como texto y el día que el experimento cambie, la columna
+    # sigue diciendo a qué experimento pertenecía cada fila vieja.
+    variant = Column(String(48), nullable=True, index=True)
+
     # Quién lo trajo: el jugador cuyo @ venía en el `?r=` del link (ver
     # game/referrals.py). Se escribe UNA vez, al crear la fila, y no se toca más
     # — poder reasignarlo después sería poder elegirse un reclutador cuando ya

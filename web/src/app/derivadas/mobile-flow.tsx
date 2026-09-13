@@ -70,7 +70,10 @@ import {
   tocaRegistro,
 } from "./hitos-del-juego"
 import { GameIntroLogo, type GameIntro } from "./game-intro"
-import { INTRO_CLOSE, IntroParagraphs } from "./intro-panel"
+import {
+  INSTRUCCION_MINIMA, INTRO_CLOSE, IntroParagraphs, piezaDeTutorial,
+} from "./intro-panel"
+import { brazoDelJuego } from "@/lib/experiments/UseGameVariant"
 import { DerivativesTable, TableButton } from "./derivatives-table"
 import { PorQueButton, PorQuePanel, type PorQueGraph } from "./porque-panel"
 import { useExplainExercise } from "./UseGameExplain"
@@ -275,6 +278,10 @@ function GameHeader({
 
 export function MobileFlow({ intro }: { intro: GameIntro }) {
   const { player, isFirstVisit, refetch: refetchPlayer } = useGamePlayer()
+  // El brazo de la puerta. Sincrónico y estable: no cambia dentro de la
+  // pestaña, así que se lee una vez y se usa como cualquier constante.
+  const brazo = brazoDelJuego()
+  const puertaMinima = brazo === "derivada-primero"
   const queryClient = useQueryClient()
   const next = useNextExercise()
   const answerMutation = useAnswerExercise()
@@ -421,7 +428,10 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
   useGameIdentity(player)
 
   useEffect(() => {
-    posthog.capture("game_start", { is_guest: player?.is_guest ?? true, platform: "mobile" })
+    // `layout` y no `platform` — ver el comentario largo en desktop-layout.tsx:
+    // `platform` es super propiedad (ios | android | desktop) y una propiedad
+    // del evento con ese nombre la pisa.
+    posthog.capture("game_start", { is_guest: player?.is_guest ?? true, layout: "mobile" })
     warmupComputeEngine()
     // Solo al montar: el evento es de apertura, no de cambios de player.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -558,12 +568,20 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
   // que este dispositivo esté entrando por primera vez y el jugador siga con
   // el @ que le tocó al azar — ahí primero pasa por la slide de "elegí tu @".
   const startFromIntro = useCallback(() => {
-    if (player?.is_guest && player.alias_is_generated && isFirstVisit) {
+    // El mismo evento que emite escritorio, que faltaba justo acá. Es el que
+    // separa «se fue mirando la intro» de «la pasó y no llegó a la derivada», y
+    // sin él en mobile esa distinción no existía para el 83% del tráfico — que
+    // es exactamente donde está el problema (iOS 30,2% contra Android 53,4%
+    // llegando a la primera derivada).
+    posthog.capture("game_intro_done", { layout: "mobile", brazo })
+    // En el brazo test no se pide nada antes de jugar: el apodo se elige
+    // junto con carrera y universidad, en el hito de perfil (derivada 3).
+    if (!puertaMinima && player?.is_guest && player.alias_is_generated && isFirstVisit) {
       goTo({ kind: "username" })
       return
     }
     loadNext()
-  }, [player, isFirstVisit, loadNext, goTo])
+  }, [player, isFirstVisit, loadNext, goTo, brazo, puertaMinima])
 
   // Después de resolver (o del ranking/hito/cafecito), decide la próxima slide.
   const advanceAfterAnswer = useCallback(
@@ -1255,8 +1273,14 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   // lista.
                   className="mx-auto mt-10 flex max-w-xs flex-col gap-3 leading-relaxed text-foreground/85"
                 >
-                  <IntroParagraphs />
-                  <p className="font-semibold text-foreground">{INTRO_CLOSE}</p>
+                  {puertaMinima ? (
+                    <p className="font-semibold text-foreground">{INSTRUCCION_MINIMA}</p>
+                  ) : (
+                    <>
+                      <IntroParagraphs />
+                      <p className="font-semibold text-foreground">{INTRO_CLOSE}</p>
+                    </>
+                  )}
                 </div>
               </div>
               <div style={chromeStyle}>
@@ -1323,6 +1347,9 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   bare
                   className="flex-1"
                   streak={player?.combo ?? 0}
+                  tutorial={
+                    puertaMinima ? piezaDeTutorial(player?.exercises_correct ?? 0) : null
+                  }
                   attempted={player?.exercises_attempted ?? 0}
                   elo={player?.elo ?? null}
                   multiplier={boost?.multiplier ?? 1}

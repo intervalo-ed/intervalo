@@ -2170,6 +2170,8 @@ export interface components {
             utm_source?: string | null;
             /** Referrer Alias */
             referrer_alias?: string | null;
+            /** Variant */
+            variant?: string | null;
         };
         /** GamePlayerCreateResponse */
         GamePlayerCreateResponse: {

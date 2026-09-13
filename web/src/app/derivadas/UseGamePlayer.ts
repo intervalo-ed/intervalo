@@ -5,6 +5,7 @@ import { useAuth } from "@clerk/nextjs"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { readAttribution } from "@/lib/analytics/attribution"
 import { unwrap } from "@/lib/api/client"
+import { brazoDelJuego, etiquetaDeBrazo } from "@/lib/experiments/UseGameVariant"
 import { isStandalone } from "@/lib/platform/detect"
 import type { components } from "@/lib/api/schema"
 import {
@@ -119,6 +120,11 @@ export function useGamePlayer() {
           // llamada termina creando la fila: quien ya venía jugando no adopta
           // reclutador por abrir un `?r=` (ver backend/game/referrals.py).
           referrer_alias: attribution.referrer ?? null,
+          // El brazo del experimento, ya sorteado del lado del cliente antes de
+          // dibujar la primera pantalla. Va acá y no en un endpoint propio
+          // porque es un dato de primer contacto como los tres de arriba, y el
+          // server lo guarda con la misma regla write-once.
+          variant: etiquetaDeBrazo(brazoDelJuego()),
         },
       })
       return unwrap(result)

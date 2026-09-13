@@ -6,6 +6,7 @@
 
 import { useEffect, useRef } from "react"
 import dynamic from "next/dynamic"
+import { brazoDelJuego } from "@/lib/experiments/UseGameVariant"
 import { getPlatform, usePlatform } from "@/lib/platform/detect"
 import { GameIntroBackdrop, useGameIntro } from "./game-intro"
 import { useApplyDesiredAlias } from "./register-slides"
@@ -63,7 +64,15 @@ export function GameRoot() {
   // marca que el resto de la app. `platform` es null hasta montar, y en ese
   // render todavía no hay layout ni hueco que medir, así que la presentación no
   // arrancó: para cuando importa, el valor ya es el definitivo.
-  const intro = useGameIntro({ notation: platform !== "desktop" })
+  // En el brazo `derivada-primero` no hay presentación: el logo aparece quieto y
+  // debajo está la derivada. `brazoDelJuego()` es sincrónica a propósito —si
+  // hubiera que esperarla se vería un parpadeo del control antes de entrar al
+  // brazo, que es peor que no experimentar— y se la puede llamar en el render
+  // porque este componente no se dibuja en el servidor.
+  const intro = useGameIntro({
+    notation: platform !== "desktop",
+    saltar: brazoDelJuego() === "derivada-primero",
+  })
 
   // Retorno del OAuth: el bootstrap ya linkeó guest→user; acá se aplica el @
   // que la persona eligió antes de irse a Google, una sola vez.
