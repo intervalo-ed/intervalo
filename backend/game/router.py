@@ -113,6 +113,10 @@ AROUND_WINDOW = 15
 # no crear cohortes fantasma.
 _GROUP_ID_RE = re.compile(r"[a-z]{2,6}\d{1,5}")
 _UTM_RE = re.compile(r"[a-z]{2,20}")
+# `<experimento>:<brazo>`, los dos en kebab. Se valida acá y no se confía en el
+# cliente por el mismo motivo que las otras dos: el body lo manda cualquiera, y
+# una columna de brazo con basura adentro convierte el análisis en adivinanza.
+_VARIANT_RE = re.compile(r"[a-z0-9-]{2,24}:[a-z0-9-]{2,20}")
 
 _KNOWN_CAREERS = ("E", "S", "T", "M")
 
@@ -284,7 +288,9 @@ def _persist_attribution(
     La plataforma vive acá y no en un lugar propio porque tiene exactamente la
     misma regla que el grupo y la fuente: se escribe una vez y no se pisa. Quien
     empezó en el celular vino del celular, aunque después siga en la compu — lo
-    que hace después se lee en `game_exercises.platform`."""
+    que hace después se lee en `game_exercises.platform`.
+
+"""
     if player.first_group_id is None and group_id and _GROUP_ID_RE.fullmatch(group_id):
         player.first_group_id = group_id
     if player.first_utm_source is None and utm_source and _UTM_RE.fullmatch(utm_source):
@@ -293,11 +299,28 @@ def _persist_attribution(
         player.platform = platform
 
 
+def _anotar_variante(player: GamePlayer, variant: str | None) -> None:
+    """El brazo del experimento, y SOLO al crear la fila.
+
+    No va con la atribución de arriba aunque se le parezca, y la diferencia es
+    la que decide si el experimento sirve. El grupo y la fuente se pueden
+    completar en una visita posterior sin mentir —salen del link, y el link
+    dice de dónde vino esa persona—; el brazo no. Anotarle un brazo a alguien
+    que ya existía sería meterlo al experimento después de que ya vio la
+    pantalla del control, y contarlo como si hubiera visto la otra.
+
+    Es el mismo criterio que `referrals.anotar`: se mira al crear y en un
+    jugador que ya existe se ignora."""
+    if variant and _VARIANT_RE.fullmatch(variant):
+        player.variant = variant
+
+
 def _jugador_del_usuario(
     db: Session,
     user: User,
     x_game_token: str | None,
     referrer_alias: str | None = None,
+    variant: str | None = None,
 ) -> GamePlayer:
     """El jugador de un usuario registrado, fusionando el invitado si hay uno.
 
@@ -317,8 +340,11 @@ def _jugador_del_usuario(
     guest = player_for_guest_token(db, x_game_token)
     if guest is not None and guest.user_id is None:
         return link_guest_to_user(db, guest, user)
-    # Token ausente o de otro usuario: jugador propio nuevo.
-    return create_player_for_user(db, user)
+    # Token ausente o de otro usuario: jugador propio nuevo. Es el único brazo
+    # de esta función que CREA, así que es el único donde se anota la variante.
+    nuevo = create_player_for_user(db, user)
+    _anotar_variante(nuevo, variant)
+    return nuevo
 
 
 @router.post(
@@ -340,19 +366,22 @@ def create_player(
     el token/user, se devuelve ese."""
     user = _clerk_user(authorization, db)
     if user is not None:
-        player = _jugador_del_usuario(db, user, x_game_token, body.referrer_alias)
+        player = _jugador_del_usuario(db, user, x_game_token, body.referrer_alias,
+                                      body.variant)
         # El feed anuncia el REGISTRO, no el alta de invitado: un invitado se
         # crea en cada primera visita y anunciarlos sería anunciar el tráfico.
         # `on_signup` deduplica por jugador, así que este camino —que se recorre
         # en cada arranque de sesión— no lo repite.
         game_events.on_signup(db, player)
-        _persist_attribution(player, body.group_id, body.utm_source, _platform(x_game_platform))
+        _persist_attribution(player, body.group_id, body.utm_source,
+                             _platform(x_game_platform))
         db.commit()
         return GamePlayerCreateResponse(player=_player_out(db, player), guest_token=None)
 
     existing = player_for_guest_token(db, x_game_token)
     if existing is not None:
-        _persist_attribution(existing, body.group_id, body.utm_source, _platform(x_game_platform))
+        _persist_attribution(existing, body.group_id, body.utm_source,
+                             _platform(x_game_platform))
         db.commit()
         return GamePlayerCreateResponse(
             player=_player_out(db, existing), guest_token=existing.guest_token
@@ -361,7 +390,9 @@ def create_player(
     player = create_guest_player(db)
     # Recién creado: es el momento —y el único— en que se mira el `?r=`.
     referrals.anotar(db, player, body.referrer_alias)
-    _persist_attribution(player, body.group_id, body.utm_source, _platform(x_game_platform))
+    _anotar_variante(player, body.variant)
+    _persist_attribution(player, body.group_id, body.utm_source,
+                         _platform(x_game_platform))
     db.commit()
     return GamePlayerCreateResponse(player=_player_out(db, player), guest_token=player.guest_token)
 

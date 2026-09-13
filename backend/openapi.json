@@ -5438,6 +5438,18 @@
               }
             ],
             "title": "Referrer Alias"
+          },
+          "variant": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 48
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Variant"
           }
         },
         "type": "object",

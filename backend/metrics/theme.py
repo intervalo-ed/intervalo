@@ -35,6 +35,13 @@ BASE_CSS = """
   --ok:#22c55e; --warn:#f59e0b; --bad:#f97316;
 }
 *{box-sizing:border-box}
+/* El canal de la barra de scroll se reserva SIEMPRE, scrollee o no la
+   página. Sin esto, una pestaña corta —Experimentación es la única que
+   entra en una pantalla alta— no dibuja barra, el viewport queda 15 px más
+   ancho y el contenido centrado se corre 7 px a la derecha respecto de las
+   otras tres. Al cambiar de pestaña eso se ve como un salto lateral de
+   TODO el panel, que es exactamente lo que un tablero no puede hacer. */
+html{scrollbar-gutter:stable}
 body{margin:0;color:var(--fg);
   background-color:var(--bg);
   /* Papel cuadriculado: el mismo GRID_BG_STYLE del juego, traducido a CSS. */
@@ -115,11 +122,12 @@ section{display:flex;flex-direction:column;gap:12px}
 .g2{grid-template-columns:repeat(auto-fit,minmax(min(420px,100%),1fr))}
 .g3{grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr))}
 .g4{grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr))}
+.g5{grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr))}
 
 .kpi .label{color:var(--muted);font-size:12.5px}
 .kpi .row{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-top:2px}
 .kpi .val{font-size:31px;font-weight:750;letter-spacing:-.03em;
-  font-variant-numeric:tabular-nums;line-height:1.05}
+  font-variant-numeric:tabular-nums;line-height:1.05;white-space:nowrap}
 .kpi .hint{color:var(--muted);font-size:11.5px;margin-top:6px}
 .chip{font-size:11.5px;font-weight:650;padding:2px 8px;border-radius:6px;
   font-variant-numeric:tabular-nums;white-space:nowrap}

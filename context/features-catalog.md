@@ -48,6 +48,49 @@ Producto aparte, con identidad y economía propias pero la misma tabla de
 cafecitos. Lo único documentado acá es **cómo elige qué ejercicio servir**, que
 es la mecánica que gobierna la experiencia entera:
 
+### La puerta, y el experimento que la está probando
+
+Entre aterrizar y ver la primera derivada hay tres cosas: la presentación del
+logo (`game-intro.tsx`, corre en CADA carga), los cuatro párrafos de reglas
+(`intro-panel.tsx :: IntroParagraphs`) y —la primera vez en ese dispositivo— el
+pedido de apodo (`username-slide.tsx`).
+
+**Eso está bajo experimento desde el 13/09** (`dx-puerta-1`). Medido antes de
+empezar: de cada 100 personas que abren dx, 47,6 llegan a que se les muestre una
+derivada; en el teléfono, que es el 83% del tráfico, 45,2.
+
+- **`control`** — el flujo de arriba, sin tocar.
+- **`derivada-primero`** — el logo quieto, una sola línea (`INSTRUCCION_MINIMA`)
+  y la derivada. Sin presentación, sin párrafos y sin apodo: el apodo se pide
+  junto con carrera y universidad, en el hito de perfil. Las reglas no se borran,
+  **se reparten**: una pieza por vez después de resolver, en los aciertos 1, 2 y
+  5 (`piezaDeTutorial`), esquivando los hitos que ya existen. Borrarlas del todo
+  arriesgaba ganar la entrada y perder la profundidad.
+
+El brazo lo sortea el cliente (`lib/experiments/UseGameVariant.ts`) hasheando un
+id de dispositivo propio, y **no** el `guest_token`: en una primera visita el
+token todavía no existe —lo crea el POST del alta— y la primera visita es justo
+lo que el experimento mide. El sorteo es sincrónico a propósito: si hubiera que
+esperarlo se vería un parpadeo del control antes de entrar al otro brazo.
+
+Se guarda en `game_players.variant` como `<experimento>:<brazo>`, **solo al crear
+la fila** (`game/router.py :: _anotar_variante`). No es lo mismo que la
+atribución de primer contacto, que sí se puede completar en una visita
+posterior: anotarle un brazo a alguien que ya existía sería meterlo al
+experimento después de que vio la pantalla del control. La columna existe porque
+PostHog segmenta eventos y el final del embudo no es un evento — el cafecito
+está en `game_boosts` y la profundidad en `game_attempts`.
+
+Lo que fija `backend/scripts/check_game_variante.py`.
+
+El panel lo lee en su pestaña **Experimentos** (`/panel/<token>/dx?s=experimentos`),
+que tiene una particularidad: **se niega a contestar hasta tener la muestra que
+se prometió.** Mientras falte gente no calcula el p-valor ni dibuja un ganador,
+solo cuánto falta — mirar un A/B todos los días y parar en cuanto cruza 0,05 no
+es leerlo, es repetir el sorteo hasta que salga. Los guardarraíles (profundidad,
+vuelta otro día) sí se miran desde el primer día, porque sirven para frenar un
+brazo que hace daño y no para declararlo ganado.
+
 - **Cada 3 correctas, el festejo cuenta sobre la universidad.** La XP sigue
   siendo de la persona y le suma igual; lo que cambia es sobre qué fila trepa el
   número y adónde vuelan los orbes. Ver `vuelta-universitaria.ts` y
@@ -70,16 +113,25 @@ es la mecánica que gobierna la experiencia entera:
 - **Elo online, no niveles fijos.** Cada jugador tiene un θ y cada plantilla una
   β; el motor sirve lo que cae en la banda p̂ ∈ [0.70, 0.80], o sea lo que
   estima que va a acertar 3 de cada 4 veces. El θ se muestra en escala de
-  ajedrez (`rating = 1000 + 200·θ`) porque 1166 se lee y 0.83 no.
+  ajedrez (`rating = 821 + 200·θ`, `elo.RATING_BASE`) porque 1166 se lee y 0.83
+  no. La base bajó de 1000 a 821 al re-anclar la escala de β: sin compensarla,
+  el mismo jugador habría amanecido con 180 puntos más sin haber jugado.
 - **Rampa de arranque.** Los tres primeros ejercicios son fijos (x, x², 2x²) y
   hasta la quinta respuesta el tier disponible crece de a uno, para que el juego
   no abra con una exponencial por cómo haya caído el Elo.
 - **Antes de repetir, se afloja la dificultad.** No se sirve ninguna de las
   últimas 8 plantillas (`generator._RECENT_EXCLUDE`), y cuando esa exclusión
-  deja la banda vacía se ENSANCHA la banda —`_BANDAS`: [0.70, 0.80], después
-  [0.55, 0.92], después [0.35, 0.98]— y recién si ninguna tiene candidatas se
-  acorta la ventana, de 8 a 4 a 2 a 0. El criterio: una derivada un poco mal
-  calibrada se nota menos que la cuarta vez de la misma.
+  deja la banda objetivo vacía se sirve **lo más cercano a 0,75** entre lo no
+  vetado, con un desempate al azar entre lo que quede a menos de
+  `_CASI_EMPATE` = 0,02 de p̂. Recién si no queda nada se acorta la ventana, de
+  8 a 4 a 2 a 0 (`_VENTANAS`). El criterio: una derivada un poco mal calibrada
+  se nota menos que la cuarta vez de la misma.
+
+  Hubo una versión con tres bandas que se ensanchaban (`_BANDAS`: 0,70-0,80 →
+  0,55-0,92 → 0,35-0,98) y estuvo mal: la segunda banda era tan ancha que
+  agarraba a la vez plantillas difíciles y fáciles, y el sorteo uniforme entre
+  ellas diluía hacia lo fácil porque hay más plantillas de tier bajo. A un
+  jugador fuerte el motor le servía MÁS fácil a igual θ. Se borró.
 
   La ventana estuvo en 3 y fabricaba un ciclo de 4: la banda tiene entre 3 y 8
   plantillas, restarle 3 dejaba a menudo UNA sola candidata legal, y las tres
@@ -327,4 +379,4 @@ que miran tablas que el juego no tiene.
 - Tab bar / shell (`app-chrome.tsx`).
 - PWA: manifest, splash screens iOS generados por script.
 
-Última verificación: 2026-08-01
+Última verificación: 2026-09-13

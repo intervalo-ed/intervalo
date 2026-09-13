@@ -305,21 +305,38 @@ check("el largo de la partida se mide en primeros intentos",
       len(data["_firsts"]) == 25 and len(data["_firsts"]) == len(data["_answers"]),
       f'({len(data["_firsts"])} primeros intentos sobre {len(data["_answers"])} respuestas)')
 
-# ── 3 · Titulares ──────────────────────────────────────────────────────────
+# ── 3 · Los números de la semana ───────────────────────────────────────────
 print()
-print("— titulares —")
-h = {c["label"]: c for c in q.headline(data, weeks)}
+print("— numeros de la semana —")
+# `headline` devuelve un dict por sección, no una lista: los doce números viven
+# arriba del gráfico que los explica. Acá se aplanan porque lo que se fija en
+# este bloque son las DEFINICIONES, que no dependen de dónde se dibuje cada una.
+REPARTO = q.headline(data, weeks)
+h = {c["label"]: c for cards in REPARTO.values() for c in cards}
 # Los cuatro estudiantes de la semana, más nadie: el bot no cuenta y p3 respondió
 # recién el lunes siguiente, así que su respuesta cae en la semana de al lado.
 check("usuarios nuevos de la semana", h["Usuarios nuevos"]["value"] == 4,
       f'({h["Usuarios nuevos"]["value"]})')
-# Las VISITAS son tandas y no personas: p1 entra el día 0 y vuelve dos horas
-# después, así que aporta dos. Es la diferencia con «usuarios nuevos», que son
-# cuatro, y lo que hace que este número pueda subir sin que entre nadie nuevo.
-check("las visitas cuentan tandas y no personas",
-      h["Visitas totales"]["value"] > h["Usuarios nuevos"]["value"],
-      f'({h["Visitas totales"]["value"]} visitas contra '
-      f'{h["Usuarios nuevos"]["value"]} personas nuevas)')
+# Los ÚNICOS son personas, no tandas: p1 entra el día 0 y vuelve dos horas
+# después, y sigue siendo UNO. Es la diferencia con la métrica que estaba antes
+# —visitas, que contaba tandas— y el motivo del cambio: «cuántas personas
+# distintas abrieron el juego» es la pregunta de volumen que se quería contestar.
+check("los únicos cuentan personas y no tandas",
+      h["Usuarios únicos"]["value"] == 5,
+      f'({h["Usuarios únicos"]["value"]}, esperaba los 4 nuevos + p0)')
+# Y nunca puede haber menos únicos que nuevos: todo nuevo es, por definición,
+# alguien que se asomó esa semana.
+check("y nunca son menos que los nuevos",
+      h["Usuarios únicos"]["value"] >= h["Usuarios nuevos"]["value"])
+
+# La activación es el OMTM: de los nuevos, cuántos llegaron a responder. p1, p2 y
+# p4 respondieron en la semana; p3 recién el lunes siguiente, pero su alta es de
+# esta, así que la cohorte lo cuenta igual.
+check("la activación se mide sobre los nuevos de la semana",
+      h["Usuarios activados"]["value"] == 4,
+      f'({h["Usuarios activados"]["value"]} de {h["Usuarios nuevos"]["value"]})')
+check("y el porcentaje sale de esos dos",
+      h["Activación"]["value"] == 100.0, f'({h["Activación"]["value"]}%)')
 check("se registran", h["Se registran"]["value"] == 50.0,
       f'({h["Se registran"]["value"]}%)')
 # La instalación es la otra mitad de «a quién podemos alcanzar después». p1 abrió
@@ -334,12 +351,24 @@ check("los retenidos son de otra semana", h["Usuarios retenidos"]["value"] == 1,
 check("el titular de cafecitos no cuenta los grants a mano",
       h["Cafecitos"]["value"] == 3, f'({h["Cafecitos"]["value"]}, no 6)')
 check("los reclutas son los que entraron por el link de otro",
-      h["Reclutas"]["value"] == 1, f'({h["Reclutas"]["value"]})')
+      h["Reclutas nuevos"]["value"] == 1, f'({h["Reclutas nuevos"]["value"]})')
 # Un recluta sobre el único jugador que existía antes de la semana.
-check("la viralidad se divide por los que ya estaban",
-      h["Coeficiente de viralidad"]["value"] == 1.0,
-      f'({h["Coeficiente de viralidad"]["value"]})')
-check("y se muestra con dos decimales", h["Coeficiente de viralidad"]["dec"] == 2)
+check("la viralidad general se divide por TODOS los que ya estaban",
+      h["Viralidad general"]["value"] == 1.0,
+      f'({h["Viralidad general"]["value"]})')
+check("y se muestra con dos decimales", h["Viralidad general"]["dec"] == 2)
+
+# ── Las dos viralidades no son la misma cuenta ────────────────────────────
+# La general divide por todos los que ya estaban; la de activados, solo por los
+# que habían respondido algo. Que den distinto no es un detalle: es la razón de
+# que existan las dos. Un bucle viral se sostiene cuando cada unidad CAPAZ de
+# reproducirse produce otra capaz, y acá la unidad capaz es el activado —medido:
+# de los 24 jugadores que alguna vez reclutaron, los 24 tenían 3+ respuestas.
+check("los reclutas activados son un subconjunto de los reclutas",
+      h["Reclutas activados"]["value"] <= h["Reclutas nuevos"]["value"],
+      f'({h["Reclutas activados"]["value"]} de {h["Reclutas nuevos"]["value"]})')
+check("y la viralidad de activados usa otro denominador que la general",
+      h["Viralidad de activados"]["dec"] == 2)
 # La primera tanda de p1 son las 9 correctas del bloque del día 0 (la décima cae
 # más de media hora después); p2 3, p4 5. p3 no respondió en esta semana.
 # p1 respondió 12 veces el día 0, pero las últimas dos son dos horas después:
@@ -371,34 +400,64 @@ check("la duración de la 1ª sesión sale en minutos",
       and h["Duración 1ª sesión"]["value"] > 0,
       f'({h["Duración 1ª sesión"]["value"]} min)')
 
-check("son doce titulares, en tres filas de cuatro", len(q.headline(data, weeks)) == 12,
-      f"({len(q.headline(data, weeks))})")
+# El reparto es la parte que se puede romper sin que nadie lo note: una tarjeta
+# que se cae del dict desaparece de la página y ninguna consulta falla por eso.
+check("son dieciséis números", len(h) == 16, f"({len(h)})")
+check("repartidos de a cuatro en cuatro grupos",
+      {k: len(v) for k, v in REPARTO.items()}
+      == {"activacion": 4, "retencion": 4, "reclutas": 4, "jugabilidad": 4},
+      f"({ {k: len(v) for k, v in REPARTO.items()} })")
+# Cada uno va donde está el gráfico que lo explica, y la sección a la que apunta
+# tiene que existir como pestaña: una clave mal escrita acá es una fila de
+# números que no se dibuja en ningún lado.
+# `reclutas` es la excepción: no es una pestaña sino una sección adentro de
+# Activación, porque sus cuatro números hablan del mismo canal que la curva que
+# tienen justo abajo y leerlos en la cabecera obligaba a subir y bajar.
+check("y cada grupo apunta a una pestaña que existe, salvo reclutas",
+      set(REPARTO) - {"reclutas"} <= {c for c, _ in game_render.SECCIONES},
+      f"({sorted(REPARTO)})")
+# Las derivadas de la primera tanda y sus minutos tienen que quedar PEGADAS:
+# cinco derivadas en dos minutos y cinco en veinte son dos productos distintos,
+# y con dos tarjetas en el medio esa lectura no ocurre.
+etiquetas_prof = [c["label"] for c in REPARTO["jugabilidad"]]
+check("la duración va al lado de las derivadas de esa misma tanda",
+      abs(etiquetas_prof.index("1ª sesión")
+          - etiquetas_prof.index("Duración 1ª sesión")) == 1,
+      f"({etiquetas_prof})")
 
-# ── 4 · Embudo ───────────────────────────────────────────────────────────────
-print("\n— embudo —")
-f = q.funnel(data, WEEK)
-pasos = {p["label"]: p["n"] for p in f["steps"]}
-check("base = estudiantes de la cohorte", f["base"] == 4)
-check("todos vieron una derivada", pasos["Vio una derivada"] == 4)
-check("todos respondieron", pasos["Respondió"] == 4)
-# El paso lleva el número del hito de producto, no un redondo: se pide carrera
-# y universidad en la tercera, y el paso de al lado —«cargó universidad»— se lee
-# contra los que llegaron a que se lo preguntaran.
-check("el paso anterior a la universidad es el hito real",
-      pasos[f"Llegó a {q.PEDIDO_PERFIL}"] == 3,
-      f'({pasos[f"Llegó a {q.PEDIDO_PERFIL}"]})')
-check("llegó a 10", pasos["Llegó a 10"] == 1)
-check("volvió otro día", pasos["Volvió otro día"] == 1, f'({pasos["Volvió otro día"]})')
-# Los pasos que no están anidados no pueden mostrar «% del paso anterior»: era
-# de donde salía el «600% del paso anterior» que no quiere decir nada.
-por_label = {p["label"]: p for p in f["steps"]}
-check("los pasos anidados se leen contra el anterior",
-      por_label[f"Llegó a {q.PEDIDO_PERFIL}"]["pct_prev"] is not None)
-check("los que no lo están, no", por_label["Cargó universidad"]["pct_prev"] is None
-      and por_label["Se registró"]["pct_prev"] is None
-      and por_label["Volvió otro día"]["pct_prev"] is None)
-check("y la cadena no se corta por ellos: «llegó a 25» sigue midiendo contra «llegó a 10»",
-      por_label["Llegó a 25"]["pct_prev"] == 0.0)
+# ── 4 · Evolución semanal ────────────────────────────────────────────────────
+# El embudo de la partida se fue del panel: sus primeros pasos son los números
+# de la fila de activación (nuevos → activados), «llegó a k» es la curva de
+# profundidad y «se registró» y «volvió otro día» son Retención. Quedaba
+# diciendo tres veces lo mismo, así que se borró con su consulta.
+print()
+print("— evolución —")
+ev = q.evolucion(data, WEEK)
+check("arranca en la tasa de activación", ev["metrica"] == "activacion",
+      f'({ev["metrica"]})')
+check("una métrica que no existe cae en esa misma",
+      q.evolucion(data, WEEK, "inventada")["metrica"] == "activacion")
+# La serie va desde la primera semana del panel hasta la elegida, no las últimas
+# cuatro: con cuatro puntos una tendencia no se distingue de un rebote.
+semanas_esperadas = (WEEK - q.FIRST_WEEK).days // 7 + 1
+check("la serie cubre toda la historia hasta la semana elegida",
+      len(ev["filas"]) == semanas_esperadas,
+      f'({len(ev["filas"])} semanas, esperaba {semanas_esperadas})')
+check("y termina en la semana elegida",
+      ev["filas"][-1]["week"] == WEEK.isoformat())
+# Las cuatro curvas existen sobre las mismas filas: se elige cuál se dibuja, no
+# se recalcula nada.
+ultima = ev["filas"][-1]
+check("cada fila trae los cuatro números",
+      all(k in ultima for k in ("unicos", "nuevos", "activados", "activacion")))
+check("los activados nunca superan a los nuevos",
+      all(f["activados"] <= f["nuevos"] for f in ev["filas"]))
+check("y los únicos nunca son menos que los nuevos",
+      all(f["unicos"] >= f["nuevos"] for f in ev["filas"]))
+# El sufijo va con la métrica: sin esto el porcentaje se dibujaría sin el % y
+# los conteos con él.
+check("el porcentaje lleva su unidad y los conteos no",
+      ev["suffix"] == "%" and q.evolucion(data, WEEK, "nuevos")["suffix"] == "")
 
 # ── 5 · Profundidad ──────────────────────────────────────────────────────────
 print("\n— profundidad —")
@@ -474,6 +533,38 @@ try:
           [x["label"] for x in coh["series"]]
           == sorted(x["label"] for x in coh["series"]))
     check("y no son más de tres", len(coh["series"]) <= q.MAX_COHORTES)
+finally:
+    q.MIN_BASE_SERIE = 5
+
+# ── El corte por sesión ────────────────────────────────────────────────────
+# Es el único que cambia de UNIDAD entre sus dos líneas: la primera cuenta
+# personas y la segunda cuenta tandas. Si alguna vez se "arreglara" para que
+# sumen, el número dejaría de contestar la pregunta que motivó el corte.
+ses = q.profundidad(data, weeks, now=NOW, corte="sesion")
+check("la primera línea del corte por sesión ES la curva de «Todos»",
+      ses["series"][0]["curva"] == pr["curva"]
+      and ses["series"][0]["base"] == pr["base"],
+      f'({ses["series"][0]["base"]} vs {pr["base"]})')
+# Con el piso en cinco no hay segunda línea en este escenario: las tandas de la
+# segunda vuelta son dos. Que falte la segunda no puede llevarse puesta la
+# primera, que es la referencia contra la que se lee todo el gráfico.
+check("y sin base para la segunda, la primera sigue dibujándose",
+      len(ses["series"]) == 1, f'({[x["label"] for x in ses["series"]]})')
+
+q.MIN_BASE_SERIE = 1
+try:
+    ses = q.profundidad(data, weeks, now=NOW, corte="sesion")
+    check("con base, salen las dos líneas",
+          [x["label"] for x in ses["series"]] == ["1ª sesión", "2ª y siguientes"],
+          f'({[x["label"] for x in ses["series"]]})')
+    # p1 y p2 tienen una segunda tanda cada uno; p4 no. Son DOS tandas sobre
+    # tres personas cerradas, así que la segunda línea no puede valer tres: si
+    # valiera, estaría contando gente en vez de vueltas.
+    check("la segunda línea cuenta tandas y no personas",
+          ses["series"][1]["base"] == 2, f'({ses["series"][1]["base"]})')
+    check("y las dos líneas NO suman el total, porque no reparten nada",
+          sum(x["base"] for x in ses["series"]) != ses["base"],
+          f'({sum(x["base"] for x in ses["series"])} vs {ses["base"]})')
 finally:
     q.MIN_BASE_SERIE = 5
 
@@ -613,38 +704,166 @@ check("y el bot no está en el denominador", rc["total_jugadores"] == 5,
 top = {t["alias"]: t for t in rc["top"]}
 check("el reclutador aparece en el top", "cero" in top, f'({list(top)})')
 
-# Las dos vistas del gráfico de viralidad. Son los MISMOS números dibujados de
-# dos formas —la tasa y el volumen del que sale— así que la vista es
-# presentación pura: no toca el payload ni el caché, solo la URL.
-h_k = game_render.page(q.build(s, WEEK), token="tok", seccion="reclutas")
-h_vol = game_render.page(q.build(s, WEEK), token="tok", seccion="reclutas",
-                         viral="volumen")
-check("por defecto se dibuja el coeficiente",
-      '<span class="cur">Coeficiente</span>' in h_k)
-check("y la otra vista se ofrece como link", "&v=volumen" in h_k)
-check("la vista de volumen marca la suya",
-      '<span class="cur">Nuevos y reclutados</span>' in h_vol)
-check("y dibuja DOS líneas con leyenda",
-      ">Nuevos<" in h_vol and ">Reclutados<" in h_vol)
-check("cada una con su color", game_render.AZUL_NUEVOS in h_vol
-      and game_render.VERDE_RECLUTAS in h_vol)
-check("la tabla de viralidad ya no está",
-      "Base previa" not in h_k and "Base previa" not in h_vol)
+# El gráfico de viralidad dibuja UNA serie y ya no ofrece desglose. La vista de
+# volumen existía para poder auditar la división —un K que salta puede ser más
+# reclutas o menos base— y ese trabajo lo hacen ahora los cuatro números de
+# arriba de la sección, que traen los dos términos escritos.
+h_k = game_render.page(q.build(s, WEEK), token="tok", seccion="activacion")
+check("el gráfico de viralidad ya no tiene selector de vista",
+      '<span class="cur">Coeficiente</span>' not in h_k
+      and "Nuevos y reclutados" not in h_k)
+check("y ningún link arrastra la vista vieja", "&v=" not in h_k)
+check("la tabla de viralidad ya no está", "Base previa" not in h_k)
 check("y los dos titulares que repetían tampoco",
       '<div class="label">K de la última semana</div>' not in h_k
       and '<div class="label">Top reclutador</div>' not in h_k)
-check("pero la caja de top reclutadores sigue estando",
-      "<h3>Top reclutadores</h3>" in h_k)
-# Una vista inventada cae en la de siempre, igual que una pestaña que no existe.
-h_raro = game_render.page(q.build(s, WEEK), token="tok", seccion="reclutas",
-                          viral="inventada")
-check("una vista que no existe cae en el coeficiente",
-      '<span class="cur">Coeficiente</span>' in h_raro)
-# Y la vista viaja en los links de semana y de pestaña: cambiar de semana no
-# puede devolver al gráfico por defecto.
-check("la vista viaja en los demás links", h_vol.count("&v=volumen") >= 3,
-      f'({h_vol.count("&v=volumen")} links)')
+# Los cuatro números de reclutas viven DENTRO de su sección y no en la cabecera
+# de la pestaña: hablan del mismo canal que la curva que tienen abajo.
+for etiqueta in ("Reclutas nuevos", "Reclutas activados", "Viralidad general",
+                 "Viralidad de activados"):
+    check(f"«{etiqueta}» está en la sección de reclutas",
+          f'<div class="label">{etiqueta}</div>' in h_k)
+# El top de reclutadores se fue del panel junto con las dos tarjetas
+# acumuladas: es de SIEMPRE, así que no hay semana en que diga algo que no
+# dijera la anterior, y no hay decisión que dependa de quién encabeza.
+check("y el top de reclutadores tampoco está",
+      "<h3>Top reclutadores</h3>" not in h_k)
 check("con su cuenta de reclutas", top["cero"]["reclutas"] == 1 if top else False)
+
+# ── 6c · La pestaña de experimentos ────────────────────────────────────────
+print()
+print("— experimentos —")
+
+EXP = q.EXPERIMENTOS[0]
+MARCA = {c: f'{EXP["clave"]}:{c}' for c, _ in EXP["brazos"]}
+CONTROL, TEST = [c for c, _ in EXP["brazos"]]
+
+# El n comprometido se clava con su valor. No es un número decorativo: es lo que
+# decide cuándo el panel deja de negarse a contestar, y si alguien tocara `base`
+# o `mde` sin querer, el experimento pasaría a leerse antes o después sin que
+# nadie lo note.
+check("el n comprometido sale de los parámetros declarados",
+      q.n_comprometido(EXP) == 373, f"({q.n_comprometido(EXP)} por brazo)")
+# Y la propiedad que gobierna todo el programa de experimentos: el n va con el
+# inverso del CUADRADO del efecto, así que pedir la mitad cuesta cuatro veces.
+mitad = dict(EXP, mde=EXP["mde"] / 2)
+check("y pedir la mitad de efecto cuesta ~4 veces la muestra",
+      3.6 < q.n_comprometido(mitad) / q.n_comprometido(EXP) < 4.4,
+      f'({q.n_comprometido(mitad)} contra {q.n_comprometido(EXP)})')
+
+
+def escenario(n_por_brazo, servidas_control, servidas_test):
+    """Un `data` mínimo con dos brazos poblados a mano."""
+    players, exercises, firsts = [], [], []
+    pid = 0
+    for clave, servidas in ((CONTROL, servidas_control), (TEST, servidas_test)):
+        for i in range(n_por_brazo):
+            pid += 1
+            players.append({
+                "id": pid, "is_bot": False, "variant": MARCA[clave],
+                "platform": "android" if i % 2 else "ios",
+                "created_at": NOW, "user_id": None, "university": None,
+                "referred_by": None, "pwa_first_seen_at": None,
+            })
+            if i < servidas:
+                exercises.append({"player_id": pid, "created_at": NOW})
+                firsts.append({"player_id": pid, "created_at": NOW,
+                               "attempt_number": 1, "is_correct": True})
+    return {"players": players, "exercises": exercises, "_firsts": firsts}
+
+
+# ── La invariante central ──────────────────────────────────────────────────
+# Con la muestra a medio juntar NO se calcula el p-valor. Es lo único que esta
+# sección hace y ninguna otra del panel hace. Sin esto, alguien mira el panel
+# todos los días y para en cuanto cruza 0,05 — que no es leer el experimento
+# sino repetir el sorteo hasta que salga, y sube el error de tipo I muy por
+# encima del alfa declarado.
+flaco = q.experimentos(escenario(50, 25, 40))[0]
+check("con la muestra a medio juntar, no está listo", not flaco["listo"])
+check("y NO se calcula el p-valor todavía", flaco["lectura"] is None,
+      f'({flaco["lectura"]})')
+check("pero sí dice cuánto falta por brazo",
+      all(b["falta"] == 323 for b in flaco["brazos"]),
+      f'({[b["falta"] for b in flaco["brazos"]]})')
+# Los guardarraíles se calculan igual, y eso no es contradicción: sirven para
+# frenar un brazo que hace daño, no para declararlo ganado.
+check("y los guardarraíles se miran igual, desde el primer día",
+      all(b["pct_servida"] is not None for b in flaco["brazos"]))
+
+# ── Con la muestra completa ────────────────────────────────────────────────
+lleno = q.experimentos(escenario(400, 224, 264))[0]
+check("con la muestra completa, está listo", lleno["listo"])
+check("y ahí sí se calcula la lectura", lleno["lectura"] is not None)
+L = lleno["lectura"]
+check("el delta sale en puntos porcentuales", abs(L["delta_pp"] - 10.0) < 0.001,
+      f'({L["delta_pp"]})')
+check("un efecto de 10 puntos con el n comprometido se detecta",
+      L["rechaza"] and L["p_valor"] < 0.05,
+      f'(z={L["z"]}, p={L["p_valor"]:.4f})')
+# El intervalo NO usa la proporción combinada —esa vale bajo H0— y tiene que
+# contener al delta observado. Mezclar los dos errores estándar es el error
+# clásico de este cálculo y no se vería en la pantalla.
+check("y el intervalo contiene al delta observado",
+      L["ic_pp"][0] < L["delta_pp"] < L["ic_pp"][1], f'({L["ic_pp"]})')
+
+# Sin efecto, no rechaza. Es la otra mitad: un panel que siempre encuentra algo
+# no sirve para decidir.
+plano = q.experimentos(escenario(400, 224, 224))[0]
+check("y sin diferencia real no rechaza",
+      not plano["lectura"]["rechaza"] and plano["lectura"]["p_valor"] > 0.05,
+      f'(p={plano["lectura"]["p_valor"]:.3f})')
+
+# ── Quién entra al experimento ─────────────────────────────────────────────
+# Los que no tienen variante quedan afuera solos. Son los 1.102 que ya existían
+# cuando el experimento arrancó: contarlos sería meter en un brazo a gente que
+# vio la otra pantalla.
+con_viejos = escenario(50, 25, 40)
+con_viejos["players"].append({
+    "id": 9001, "is_bot": False, "variant": None, "platform": "android",
+    "created_at": NOW, "user_id": None, "university": None,
+    "referred_by": None, "pwa_first_seen_at": None,
+})
+check("quien no tiene variante no entra a ningún brazo",
+      sum(b["n"] for b in q.experimentos(con_viejos)[0]["brazos"]) == 100)
+
+# ── Y que la pantalla lo diga ──────────────────────────────────────────────
+html_exp = game_render.page(q.build(s, WEEK), token="tok", seccion="experimentacion")
+check("la pestaña avisa que todavía no se puede leer",
+      "Todavía no se puede leer" in html_exp or "Sin datos todavía" in html_exp)
+check("y no muestra un p-valor antes de tiempo",
+      "p-valor" not in html_exp.split("Hipótesis")[0] or "faltan" in html_exp)
+check("y escribe el n comprometido", str(q.n_comprometido(EXP)) in html_exp)
+# `_table` escapa toda celda que no EMPIECE con "<", así que una celda que mezcla
+# texto y marcado se dibuja con las etiquetas a la vista. Pasó con el desglose
+# por plataforma y no lo atrapaba nada: la página se armaba igual.
+check("y no se le escapa marcado a la vista",
+      '&lt;span' not in html_exp, f'({html_exp.count(chr(38) + "lt;span")} sueltos)')
+
+# El estado "ya se puede leer" tiene su propio render —el recuadro con el z, el
+# p-valor y el intervalo— y ese camino no lo ejercita ningún escenario del panel,
+# porque en el panel todavía no hay muestra. Se arma a mano: la primera vez que
+# se dibujó de verdad tenía un `num()` sobre la tupla entera del intervalo en vez
+# de sobre su primer elemento, y reventaba la página.
+def _pintar(exp_listo):
+    payload = dict(q.build(s, WEEK))
+    payload["experimentos"] = [exp_listo]
+    return game_render.page(payload, token="tok", seccion="experimentacion")
+
+
+for etiqueta, datos in (("gana", escenario(400, 224, 264)),
+                        ("plano", escenario(400, 224, 224)),
+                        ("pierde", escenario(400, 264, 224))):
+    e = q.experimentos(datos)[0]
+    html_l = _pintar(e)
+    check(f"el estado «{etiqueta}» se dibuja sin romperse", len(html_l) > 8000,
+          f"({len(html_l)} bytes)")
+    # Los dos extremos separados por " ; ", y sin rastro de una tupla de
+    # Python impresa: `num()` sobre la tupla entera es justo el bug que
+    # rompía esta pantalla, y su forma visible sería un "(3.3, 16.7)".
+    check(f"y «{etiqueta}» muestra el intervalo con sus dos extremos",
+          " ; " in html_l and ", " not in html_l.split(" ; ")[0][-14:])
+check("y con la muestra completa aparece el p-valor",
+      "p-valor" in _pintar(q.experimentos(escenario(400, 224, 264))[0]))
 
 # ── 7 · La página se arma ───────────────────────────────────────────────────
 print("\n— render —")
@@ -653,6 +872,12 @@ html = game_render.page(payload, token="tok")
 check("la página se arma entera", len(html) > 10000, f"({len(html)} bytes)")
 check("no quedó ningún None crudo en el HTML", "None" not in html)
 check("lleva el papel cuadriculado del juego", "background-size:40px 40px" in html)
+# El canal de la barra de scroll se reserva siempre. Sin esto, la pestaña que
+# entra en una pantalla alta —Experimentación— no dibuja barra, el viewport
+# queda 15 px más ancho y el contenido centrado se corre 7 px respecto de las
+# otras tres: al cambiar de pestaña se ve saltar TODO el panel de costado.
+check("reserva el canal de la barra de scroll",
+      "scrollbar-gutter:stable" in html)
 check("y el borde de las cajas del juego", "#38385a" in html)
 check("enlaza el panel de Intervalo", "/panel/tok</a>" in html or "/panel/tok'" in html)
 check("el data.json queda linkeado", "/panel/tok/dx/data.json" in html)
@@ -661,20 +886,33 @@ check("el data.json queda linkeado", "/panel/tok/dx/data.json" in html)
 vacio = q.build(s, WEEK + timedelta(weeks=8))
 html2 = game_render.page(vacio, token="tok")
 check("una semana vacía no rompe el panel", len(html2) > 5000)
+# Y el corte por sesión es el que más superficie tiene para romperse ahí: dibuja
+# la primera línea aunque no tenga base —es la referencia— así que pasa por
+# `ch.lines` con una curva entera de None en vez de caer en el «no hay partidas».
+vacio_ses = q.build(s, WEEK + timedelta(weeks=8), corte="sesion")
+html3 = game_render.page(vacio_ses, token="tok", seccion="jugabilidad")
+check("y tampoco rompe el corte por sesión", len(html3) > 5000, f"({len(html3)} bytes)")
+check("que además avisa por qué le falta la segunda línea",
+      "Todavía no hay segunda línea" in html3)
 
 # Cada pestaña se arma sola y trae SU sección y ninguna otra: es lo que hace que
 # el panel deje de ser un scroll.
-titulos = {"titulares": "Titulares", "embudo": "Embudo de la partida",
-           "profundidad": "Profundidad", "push": "Re-enganche · push",
-           "mails": "Re-enganche · mails", "reclutas": "Reclutas"}
+# Una marca por pestaña: un título que solo aparece en ELLA. Con cuatro
+# secciones por pestaña no alcanza con contar `<h2>`, hay que mirar cuál es.
+titulos = {"activacion": "Difusión: a cuánta gente se llegó",
+           "retencion": "Re-enganche · push",
+           "jugabilidad": "Calibración del motor",
+           "experimentacion": "Experimentos"}
 for clave, _ in game_render.SECCIONES:
     h = game_render.page(q.build(s, WEEK), token="tok", seccion=clave)
     otros = [t for k, t in titulos.items() if k != clave]
     check(f"la pestaña «{clave}» trae su sección",
           f'>{titulos[clave]}</h2>' in h or titulos[clave] in h)
-    check(f"y ninguna otra en «{clave}»",
-          not any(f'<h2><b>' in h and t in h.split('<h2>')[-1] for t in otros)
-          or h.count("<h2>") == 1,
+    # Ya no se cuenta: una pestaña tiene varias secciones. Lo que se fija es
+    # que no aparezca la marca de OTRA pestaña, que es lo que delataría que
+    # una pieza quedó pegada en el lugar equivocado.
+    check(f"y ninguna pieza ajena en «{clave}»",
+          not any(t in h for t in otros),
           f'({h.count(chr(60) + "h2>")} secciones)')
     # La etiqueta de la barra es la de SECCIONES, que es más corta que el
     # título de la sección: la pestaña dice «Push» y el encabezado
@@ -682,21 +920,46 @@ for clave, _ in game_render.SECCIONES:
     etiqueta = dict(game_render.SECCIONES)[clave]
     check(f"la pestaña «{clave}» queda marcada en la barra",
           f'<span class="cur">{etiqueta}</span>' in h)
+    # Y los números de la semana viajan con su sección. Es la forma callada de
+    # que el reparto se rompa: una tarjeta con la clave mal escrita se dibuja
+    # igual de linda, pero arriba del gráfico que no la explica — o no se dibuja
+    # en ninguna parte y nadie se entera, porque ninguna consulta falla por eso.
+    # `reclutas` se dibuja DENTRO de activación, así que para esa pestaña sus
+    # números son propios y no ajenos. Es la única excepción y conviene que
+    # esté escrita acá: si mañana se mueve a su propia pestaña, este check es
+    # el que lo va a pedir.
+    propios = {clave} | ({"reclutas"} if clave == "activacion" else set())
+    mios = [c["label"] for k in propios for c in REPARTO.get(k, [])]
+    ajenos = [c["label"] for k, cards in REPARTO.items() if k not in propios
+              for c in cards]
+    check(f"los numeros de «{clave}» estan en su pestaña",
+          all(f'<div class="label">{lab}</div>' in h for lab in mios),
+          f"({len(mios)} tarjetas)")
+    check(f"y ninguno ajeno en «{clave}»",
+          not any(f'<div class="label">{lab}</div>' in h for lab in ajenos))
 
 # Una pestaña inventada cae en la primera en vez de dar una página vacía.
 h = game_render.page(q.build(s, WEEK), token="tok", seccion="inventada")
-check("una pestaña que no existe cae en la primera", h.count("<h2>") == 1
-      and "Titulares" in h)
+check("una pestaña que no existe cae en la primera",
+      "Difusión: a cuánta gente se llegó" in h)
+# Y «titulares» es una pestaña inventada como cualquier otra: el panel la tuvo
+# durante meses, así que hay links pegados por ahí que la siguen pidiendo y
+# tienen que abrir el panel en vez de una página en blanco.
+h = game_render.page(q.build(s, WEEK), token="tok", seccion="titulares")
+check("un link viejo a «titulares» cae en la primera",
+      "Difusión: a cuánta gente se llegó" in h)
+check("y ya no queda ninguna seccion que se llame asi",
+      "titulares" not in {c for c, _ in game_render.SECCIONES})
 
 # Los cinco cortes tienen que armar la pestaña de profundidad, incluido el que
 # se queda sin series: ahí el gráfico no se dibuja y la caja se cae si nadie lo
 # previó.
 for c in q.CORTES:
-    h = game_render.page(q.build(s, WEEK, corte=c), token="tok", seccion="profundidad")
+    h = game_render.page(q.build(s, WEEK, corte=c), token="tok", seccion="jugabilidad")
     check(f"la página se arma con el corte «{c}»", len(h) > 8000, f"({len(h)} bytes)")
     # El corte activo se dibuja como texto marcado y no como link: los otros
     # tres siguen siendo links, y el activo no puede llevar a sí mismo.
-    activo = {"total": "Todos", "cohorte": "Por cohorte",
+    activo = {"total": "Todos", "sesion": "Por sesión", "cohorte": "Por cohorte",
               "universidad": "Por universidad", "aparato": "Por aparato",
               "horario": "Por horario"}[c]
     check(f"y el corte «{c}» queda marcado en la barra",
@@ -716,7 +979,7 @@ for c in q.CORTES:
         check(f"y el corte «{c}» viaja en los links de semana y pestaña",
               h.count(f"&corte={c}") >= 3, f'({h.count(f"&corte={c}")} links)')
     check(f"los links de la barra de cortes conservan la pestaña con «{c}»",
-          h.count("s=profundidad") >= 3, f'({h.count("s=profundidad")} links)')
+          h.count("s=jugabilidad") >= 3, f'({h.count("s=jugabilidad")} links)')
 
 s.close()
 

@@ -18,6 +18,7 @@ _MAX_LATEX = 2000
 _MAX_ALIAS = 40
 _MAX_UNIVERSIDAD = 120
 _MAX_ATRIBUCION = 32
+_MAX_VARIANTE = 48
 
 
 class GamePlayerCreateRequest(BaseModel):
@@ -29,6 +30,12 @@ class GamePlayerCreateRequest(BaseModel):
     # a partir de ahí una parte de su XP se le paga (ver game/referrals.py).
     # Solo se mira al CREAR la fila; en un jugador que ya existe se ignora.
     referrer_alias: Optional[str] = Field(default=None, max_length=_MAX_ALIAS)
+    # El brazo del experimento en curso, con formato `<experimento>:<brazo>`.
+    # Lo sortea el cliente (web/src/lib/experiments/UseGameVariant.ts) porque la
+    # decisión tiene que estar tomada en el primer render, antes de que exista
+    # fila y por lo tanto antes de que el server sepa de quién se trata. Acá se
+    # guarda write-once, igual que la atribución.
+    variant: Optional[str] = Field(default=None, max_length=_MAX_VARIANTE)
 
 
 class GamePlayerOut(BaseModel):
