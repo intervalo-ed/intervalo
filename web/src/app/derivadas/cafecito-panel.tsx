@@ -40,6 +40,12 @@ import {
   type CafecitoTrigger,
 } from "./cafecito-cta"
 import {
+  BOOST_HOURS_BASE,
+  SLIDER_MAX,
+  horasDe,
+  impactoDelCafecito,
+} from "./impacto-del-cafecito"
+import {
   CAFE_AMBAR_RGB as AMBAR_RGB,
   CAFE_DORADO_RGB as DORADO,
   colorDeCafe as colorPara,
@@ -51,6 +57,7 @@ import {
   useCafecitoIntent,
   useCafecitoStatus,
   useGameUniversityLeaderboard,
+  useMyBoost,
   type GameCafecitoStatus,
 } from "./UseGameLeaderboard"
 import { KeyCap } from "./exercise-card"
@@ -81,26 +88,10 @@ const CAFE_TINTA = BELT_HEX.brown.onDark
 const EN_DESARROLLO = process.env.NODE_ENV === "development"
 const COOLDOWN_S = EN_DESARROLLO ? 0 : 10
 
-// Espejo de backend/game/boosts.py. Se duplican para poder dibujar el slider sin
-// pedirle nada al servidor: el multiplicador de verdad lo calcula y lo aplica
-// él, esto es la calculadora que muestra a qué se está invitando.
-const CAFECITO_STEP = 0.1
-// Lo que puede aportar UNA donación: el techo del juego es ×3, pero al ×3 no se
-// llega solo. Por eso el slider corta en ×2 — es honesto sobre lo que esta
-// persona puede hacer por su cuenta, y deja el resto para el que colabore.
-const MAX_PER_DONATION = 2.0
-const SLIDER_MAX = 10
-
-// Espejo de `horas_de` en backend/game/boosts.py, que es donde está escrito el
-// porqué: una base fija más medio cafecito, redondeando para arriba, así que la
-// duración baja DE A PARES. El tope del slider compra seis horas y el cafecito
-// suelto, dos.
-const BOOST_HOURS_BASE = 1
+// La aritmética del cafecito vive en impacto-del-cafecito.ts, afuera de este
+// archivo, para que un chequeo la pueda importar sin arrastrar React — el mismo
+// patrón que xp-pasos.ts y salto-ranking.ts. Acá queda solo lo de dibujo.
 const BOOST_HOURS_MAX = BOOST_HOURS_BASE + Math.ceil(SLIDER_MAX / 2)
-
-const multiplierFor = (n: number) => Math.min(MAX_PER_DONATION, 1 + n * CAFECITO_STEP)
-const horasDe = (n: number) =>
-  BOOST_HOURS_BASE + Math.ceil(Math.min(Math.max(n, 0), SLIDER_MAX) / 2)
 
 /** "6 horas". Decía "un día"/"dos días" porque el número suelto obligaba a
  *  hacer la cuenta para entender que 24 h era un día entero; con duraciones de
@@ -725,7 +716,29 @@ export function CafecitoPanel({
   const listo = restante === 0
   const sfx = useSfx()
   const [n, setN] = useState(SLIDER_INICIAL)
-  const multiplier = multiplierFor(n)
+
+  // Lo que este cafecito hace DE VERDAD, que depende de lo que ya esté corriendo.
+  //
+  // El empuje no es una compra individual: los cafecitos vigentes se suman y el
+  // total se corta en ×3 (boosts.py :: MAX_MULTIPLIER). Así que con la
+  // universidad ya en el techo, una donación no sube el multiplicador ni un
+  // décimo — lo que hace es SOSTENERLO más tiempo, porque el empuje de la
+  // universidad vence con la última donación que siga viva.
+  //
+  // Las dos cosas valen; lo que no vale es prometer la primera y entregar la
+  // segunda sin decirlo. Por eso el titular cambia de número según cuál de las
+  // dos esté comprando.
+  const empuje = useMyBoost(university)
+  const actual = Math.max(1, empuje?.multiplier ?? 1)
+  const { destino, sube, segundosGanados } = impactoDelCafecito(
+    n,
+    actual,
+    empuje?.expires_in_seconds ?? 0,
+  )
+  // El número que gobierna el color y el brillo: el que la persona está
+  // eligiendo. Cuando sube es el multiplicador; cuando no, sigue siendo el
+  // aporte, para que la barra no se apague al llegar al techo.
+  const multiplier = sube ? destino : actual
   // Posición en la recta, 0 en el mínimo y 1 en el máximo. Es lo que gobierna
   // cuánto brilla el botón: la misma cuenta que usa la barra por dentro.
   const t = (n - 1) / (SLIDER_MAX - 1)
@@ -948,13 +961,35 @@ export function CafecitoPanel({
 
         {university ? (
           <>
-            {/* El multiplicador va DENTRO de la oración y en dorado: es el
-                número que la persona está eligiendo con la barra, así que tiene
-                que cambiar donde se lo está leyendo y no en un rincón. */}
+            {/* El número va DENTRO de la oración y en dorado: es el que la
+                persona está eligiendo con la barra, así que tiene que cambiar
+                donde se lo está leyendo y no en un rincón.
+
+                Y CUÁL número depende de lo que el cafecito compre. Con la
+                universidad en el techo la frase de subir sería mentira —el
+                multiplicador no se mueve— así que se cuenta lo otro, que es
+                verdad y también vale: el empuje dura más. */}
+            {!sube ? (
+              <p className="mt-4 text-sm leading-relaxed text-foreground/90">
+                La{" "}
+                <span className="font-semibold" style={{ color: tintaPara(t) }}>
+                  {university}
+                </span>{" "}
+                ya está en{" "}
+                <span className="font-semibold tabular-nums" style={{ color: tintaPara(t) }}>
+                  {fmtMultiplier(actual)}
+                </span>
+                , el techo del juego. Tu cafecito no lo sube: lo sostiene{" "}
+                <span className="font-semibold tabular-nums" style={{ color: tintaPara(t) }}>
+                  {restanteEnPalabras(segundosGanados).texto}
+                </span>{" "}
+                más.
+              </p>
+            ) : (
             <p className="mt-4 text-sm leading-relaxed text-foreground/90">
               Invitá un cafecito y multiplicá por{" "}
               <span className="font-semibold tabular-nums" style={{ color: tintaPara(t) }}>
-                {fmtMultiplier(multiplier)}
+                {fmtMultiplier(destino)}
               </span>{" "}
               el XP obtenido para toda la{" "}
               {/* La sigla suelta y no la tag del ranking: acá está adentro de una
@@ -978,6 +1013,7 @@ export function CafecitoPanel({
               </span>
               .
             </p>
+            )}
 
             {/* Solo en el teléfono: en escritorio esta misma idea la cuenta el
                 ranking de al lado, filtrado a la universidad propia (ver

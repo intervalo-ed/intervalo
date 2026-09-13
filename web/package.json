@@ -20,7 +20,8 @@
     "check:xp": "bun run scripts/check-xp-pasos.ts",
     "check:latex": "bun run scripts/check-latex-normalize.ts",
     "check:restante": "bun run scripts/check-restante.ts",
-    "check:salto": "bun run scripts/check-salto.ts"
+    "check:salto": "bun run scripts/check-salto.ts",
+    "check:cafecito": "bun run scripts/check-cafecito.ts"
   },
   "dependencies": {
     "@base-ui/react": "1.6.0",

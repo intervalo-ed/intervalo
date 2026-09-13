@@ -153,6 +153,39 @@ for nombre, valor in (
     m2 = re.search(rf"const {nombre} = (\d+) / (\d+)", ts)
     check(m2 is not None and int(m2.group(1)) / int(m2.group(2)) == valor,
           f"{nombre} coincide con el backend ({valor:.2f})")
+print("El espejo del cafecito")
+
+# El cartel del cafecito tenía su propia copia de estos números, y una de ellas
+# NO existía de este lado: un `MAX_PER_DONATION = 2.0` que se leía como "a esto
+# llega tu cafecito". El backend nunca prometió eso —lo que tiene es un tope de
+# diez cafecitos POR DONACIÓN sobre un total que se corta en ×3— así que con la
+# universidad ya en el techo el cartel anunciaba ×2,0 y el multiplicador no se
+# movía ni un décimo. Le pasó al mayor donante del juego, dos veces en un día, y
+# escribió preguntando si el límite era ×3.
+#
+# Lo que este espejo atrapa es justamente eso: un número del cartel que deja de
+# tener respaldo acá.
+from game import boosts as game_boosts  # noqa: E402
+
+cafe = (BACKEND.parent / "web/src/app/derivadas/impacto-del-cafecito.ts").read_text(
+    encoding="utf-8"
+)
+for nombre, valor in (
+    ("CAFECITO_STEP", game_boosts.CAFECITO_STEP),
+    ("MAX_MULTIPLIER", game_boosts.MAX_MULTIPLIER),
+    # Lo que aporta UNA donación no es una constante allá: es el tope de
+    # cafecitos por el paso. Se compara contra esa cuenta, que es la que el
+    # front tiene que espejar.
+    ("APORTE_MAX", game_boosts.MAX_CAFECITOS_PER_DONATION * game_boosts.CAFECITO_STEP),
+    ("SLIDER_MAX", float(game_boosts.MAX_CAFECITOS_PER_DONATION)),
+    ("BOOST_HOURS_BASE", float(game_boosts.BOOST_HOURS_BASE)),
+):
+    m3 = re.search(r"export const " + nombre + r" = ([\d.]+)", cafe)
+    check(
+        m3 is not None and abs(float(m3.group(1)) - valor) < 1e-9,
+        f"{nombre} del cartel coincide con el backend ({valor})",
+    )
+
 
 print(f"\n{len(FAILURES)} fallos" if FAILURES else "\ntodo ok")
 sys.exit(1 if FAILURES else 0)
