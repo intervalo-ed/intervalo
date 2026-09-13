@@ -41,7 +41,8 @@ sys.path.insert(0, str(BACKEND.parent))
 
 import database  # noqa: E402
 from models import (  # noqa: E402
-    Base, Course, GameAttempt, GameBoost, GameCtaEvent, GameEvent, GameExercise,
+    Base, Course, GameAttempt, GameBoost, GameBoostIntent, GameCtaEvent, GameEvent,
+    GameExercise,
     GameGroup,
     GameNotificationSend, GamePlayer, GamePushSubscription, User,
 )
@@ -75,9 +76,9 @@ WEEK = datetime(2026, 8, 17).date()
 q.FIRST_WEEK = WEEK - timedelta(weeks=8)
 
 
-def T(dia: int, hora: int = 15, minuto: int = 0) -> datetime:
-    """Lunes de la semana + `dia`, a las `hora`:`minuto` UTC."""
-    return datetime(2026, 8, 17, hora, minuto) + timedelta(days=dia)
+def T(dia: int, hora: int = 15, minuto: int = 0, seg: int = 0) -> datetime:
+    """Lunes de la semana + `dia`, a las `hora`:`minuto`:`seg` UTC."""
+    return datetime(2026, 8, 17, hora, minuto, seg) + timedelta(days=dia)
 
 
 # `now` fijo: la profundidad depende de qué partidas están cerradas, y con
@@ -304,6 +305,28 @@ s.query(User).filter(User.id == 2).update({"reclutas_email_sent_on": T(0, 15).da
 # titular de ingresos tiene que contar el primero y no el segundo.
 s.add(GameBoost(university="UBA", cafecitos=3, donor_name="Nico", source="cafecito",
                 created_at=T(0, 14), expires_at=T(0, 14, 30)))
+# ── El embudo del agradecimiento ─────────────────────────────────────────────
+# Cafecito no devuelve quién pagó, así que el juego cruza cada donación contra
+# los «voy a donar» consumidos en ±5 s. Se siembran los CUATRO desenlaces, que
+# es lo único que hace que el embudo se pueda probar: sin intenciones sembradas
+# las cuatro cuentas dan cero y cualquier implementación pasa.
+#
+# La de arriba (3 cafecitos, T(0,14)) es la que SÍ se agradece: p1 tocó el botón
+# y tiene cuenta.
+s.add(GameBoostIntent(player_id=1, university="UBA", consumed_at=T(0, 14)))
+# Dos personas distintas en la ventana: solo una pagó y no se sabe cuál.
+s.add(GameBoost(university="UBA", cafecitos=1, donor_name=None, source="cafecito",
+                created_at=T(1, 14), expires_at=T(1, 14, 30)))
+s.add(GameBoostIntent(player_id=2, university="UBA", consumed_at=T(1, 14)))
+s.add(GameBoostIntent(player_id=4, university="UTN", consumed_at=T(1, 14, 0, 3)))
+# Donante único, pero invitado: no hay a dónde mandarle el mail.
+s.add(GameBoost(university="UBA", cafecitos=1, donor_name=None, source="cafecito",
+                created_at=T(2, 14), expires_at=T(2, 14, 30)))
+s.add(GameBoostIntent(player_id=2, university="UBA", consumed_at=T(2, 14)))
+# Y una que nadie anunció: se pagó desde el link suelto.
+s.add(GameBoost(university="UBA", cafecitos=1, donor_name=None, source="cafecito",
+                created_at=T(3, 14), expires_at=T(3, 14, 30)))
+# El grant a mano NO entra en el embudo: no lo donó nadie.
 s.add(GameBoost(university="UTN", cafecitos=3, donor_name=None, source="manual",
                 created_at=T(0, 18), expires_at=T(0, 18, 30)))
 s.add(GameEvent(kind="boost", text="alguien invitó un cafecito", emoji="☕",
@@ -419,7 +442,7 @@ check("y no es la vuelta por sentadas de Jugabilidad",
       f'(días {h["Vuelven otro día"]["value"]}% contra '
       f'sentadas {h["Vuelven a jugar"]["value"]}%)')
 check("el titular de cafecitos no cuenta los grants a mano",
-      h["Cafecitos"]["value"] == 3, f'({h["Cafecitos"]["value"]}, no 6)')
+      h["Cafecitos"]["value"] == 6, f'({h["Cafecitos"]["value"]}, con el manual serían 9)')
 # ── El K de camada ────────────────────────────────────────────────────────
 # `cero` (p5) entró cuatro semanas antes y trajo a `dos` (p2), que respondió.
 # O sea: una camada de una persona que trajo una persona, y las dos jugaron.
@@ -993,18 +1016,24 @@ print("— monetización —")
 # cartel (milestone x2, record x2), 1 click desde milestone, 1 click desde
 # ajustes SIN impresión, y una donación de 3 cafecitos.
 check("los cafecitos son solo los donados de verdad",
-      h["Cafecitos"]["value"] == 3, f'({h["Cafecitos"]["value"]}, el manual no cuenta)')
+      h["Cafecitos"]["value"] == 6, f'({h["Cafecitos"]["value"]}, el manual no cuenta)')
 check("y las donaciones cuentan veces, no cafecitos",
-      h["Donaciones"]["value"] == 1, f'({h["Donaciones"]["value"]})')
+      h["Donaciones"]["value"] == 4, f'({h["Donaciones"]["value"]})')
 # 1 click sobre 4 impresiones. El click de ajustes NO entra: su lugar nunca
 # anota impresiones, así que sumarlo daría 50% con el mismo denominador de 4.
 # Es el bug que la tabla de abajo tiene que dejar a la vista.
 check("el CTR deja afuera los clicks sin denominador",
       h["Tocan el cartel"]["value"] == 25.0,
       f'({h["Tocan el cartel"]["value"]}%, con los dos clicks daría 50,0%)')
-check("y la última tasa cierra el embudo con la plata",
-      h["Del click a la plata"]["value"] == 100.0,
-      f'({h["Del click a la plata"]["value"]}%, 1 donación sobre 1 click medible)')
+# **Esta tasa PUEDE pasar el 100% y no es un bug.** Numerador y denominador no
+# están apareados por persona: se dona sin tocar el cartel —el link de Cafecito
+# circula suelto— y se toca desde lugares que no anotan impresión. Acá son 4
+# donaciones sobre 1 click medible. Si alguien alguna vez la ve arriba de 100 en
+# producción, el arreglo NO es recortarla: es que el embudo del cafecito no es
+# un embudo de una sola persona, y eso ya está escrito en el hint de la tarjeta.
+check("la última tasa cierra el embudo con la plata, y puede pasar el 100%",
+      h["Del click a la plata"]["value"] == 400.0,
+      f'({h["Del click a la plata"]["value"]}%, 4 donaciones sobre 1 click medible)')
 
 mo = q.monetizacion(data)
 lug = {l["lugar"]: l for l in mo["lugares"]}
@@ -1024,7 +1053,39 @@ check("y va al final, donde no ordena por un número que no tiene",
 check("el panel dice cuántos clicks quedaron sin denominador",
       mo["sin_denominador"] == 1, f'({mo["sin_denominador"]})')
 
+# ── A quién se le pudo agradecer ─────────────────────────────────────────
+# Cuatro donaciones sembradas, una por desenlace: p1 solo (tiene cuenta), p2 y
+# p4 juntos (ambigua), p2 solo (invitado), y una sin intención ninguna.
+gr = q.monetizacion(data)["gracias"]
+check("el embudo cuenta solo donaciones de verdad",
+      gr["donaciones"] == 4, f'({gr["donaciones"]}, el grant a mano no entra)')
+check("dos personas en la ventana dejan la donación ambigua",
+      gr["ambiguas"] == 1, f'({gr["ambiguas"]})')
+check("y una sola persona la vuelve atribuible",
+      gr["unico"] == 2, f'({gr["unico"]}, p1 y p2)')
+check("la que nadie anunció queda aparte de la ambigua",
+      gr["sin_boton"] == 1, f'({gr["sin_boton"]})')
+check("los cuatro desenlaces cubren todas las donaciones",
+      gr["unico"] + gr["ambiguas"] + gr["sin_boton"] == gr["donaciones"])
+# p1 tiene cuenta y p2 es invitado: identificar al donante no alcanza.
+check("identificar al donante no alcanza para agradecerle",
+      gr["con_cuenta"] == 1 and gr["agradecidos"] == 1,
+      f'({gr["con_cuenta"]} con cuenta de {gr["unico"]} identificados)')
+check("y el porcentaje sale sobre TODAS las donaciones",
+      gr["pct_agradecidos"] == 25.0, f'({gr["pct_agradecidos"]}%, 1 de 4)')
+# La ventana tiene que ser la MISMA que usa el mail: si se separan, el panel
+# dice que se agradeció a alguien a quien el mail no le llegó.
+check("la ventana es la del mail de agradecimiento",
+      q.VENTANA_DONANTE_SEG == 5, f"({q.VENTANA_DONANTE_SEG} s)")
+
 h_mon = game_render.page(q.build(s, WEEK), token="tok", seccion="monetizacion")
+check("el embudo se dibuja en Monetización",
+      "A quién se le pudo agradecer" in h_mon)
+check("con sus cuatro escalones", all(
+    f'<div class="label">{e}</div>' in h_mon
+    for e in ("Donaciones", "Sabemos quién", "Y tiene cuenta", "Se le agradeció")))
+check("y dice por qué se perdió cada una",
+      "quedaron ambiguas" in h_mon and "donaron sin cuenta" in h_mon)
 check("y lo avisa en la página", "clicks sin denominador" in h_mon)
 check("la tabla marca el lugar que no anota impresiones",
       "no las anota" in h_mon)

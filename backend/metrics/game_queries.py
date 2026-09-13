@@ -223,6 +223,19 @@ def load(db: DBSession) -> dict:
                    opened_at
             FROM game_notification_sends"""),
         "suscripciones": _rows(db, "SELECT player_id FROM game_push_subscriptions"),
+        # Las intenciones CONSUMIDAS del cafecito. Son la única pata que el
+        # juego tiene para saber quién pagó: Cafecito no devuelve al pagador
+        # —sus campos son todos opcionales y no se pueden marcar obligatorios—
+        # así que lo único que queda es el «voy a donar», que sí sabe quién lo
+        # tocó (ver `game/boosts.py:donante_unico`).
+        #
+        # NO se cortan por camada ni por la ventana visible, y es a propósito:
+        # lo que se pregunta acá es «cuántas personas distintas tocaron el botón
+        # alrededor de esta donación», y sacar a una de la lista convertiría una
+        # donación ambigua en una atribuida a la persona equivocada.
+        "intents": _rows(db, """
+            SELECT player_id, consumed_at FROM game_boost_intents
+            WHERE consumed_at IS NOT NULL"""),
         # De `users`, SOLO lo que el panel del juego necesita para los mails, y
         # solo de quienes tienen jugador. La tabla entera se había sacado de acá
         # a propósito —se cargaba completa y no la leía ninguna sección— así que
@@ -247,7 +260,8 @@ def load(db: DBSession) -> dict:
     # Fuera en UN lugar y no en cada bloque, por lo mismo que los bots: filtrar
     # en diez lugares es la forma segura de olvidarse en el undécimo. Se van los
     # bots y se va todo lo anterior a la primera camada oficial (ver FIRST_WEEK).
-    fuera = {p["id"] for p in data["players"]
+    crudos = data["players"]
+    fuera = {p["id"] for p in crudos
              if p["is_bot"] or (local_date(p["created_at"]) or date.max) < FIRST_WEEK}
     bots = {p["id"] for p in data["players"] if p["is_bot"]}
     data["players"] = [p for p in data["players"] if p["id"] not in fuera]
@@ -263,6 +277,11 @@ def load(db: DBSession) -> dict:
                       if (local_date(b["created_at"]) or date.min) >= FIRST_WEEK]
     data["_bots"] = len(bots)
     data["_previos"] = len(fuera) - len(bots)
+    # Quién tiene cuenta, de TODOS los jugadores y no solo de los que quedaron.
+    # Lo usa el embudo del agradecimiento: alguien de antes del corte puede
+    # haber donado después, y con el mapa recortado se lo contaría como «donó
+    # sin cuenta», que es una afirmación distinta y falsa.
+    data["_usuario_de"] = {p["id"]: p["user_id"] for p in crudos}
 
     # Respuestas de verdad: las que el parser entendió. Se ordenan una sola vez
     # porque la supervivencia, las sesiones y la escalera de θ recorren la misma
@@ -635,8 +654,9 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
             card("Del click a la plata", per_week(del_click_a_la_plata), "%",
                  "De los que lo tocaron, cuántos terminaron donando. No es persona a "
                  "persona —`game_boosts` no guarda quién donó— sino una razón entre "
-                 "dos agregados de la semana. Es igual el único número que cierra el "
-                 "embudo.", dec=1),
+                 "dos agregados de la semana, así que PUEDE pasar el 100%: se dona sin "
+                 "tocar el cartel porque el link de Cafecito circula suelto. Es igual "
+                 "el único número que cierra el embudo.", dec=1),
         ],
         # Jugabilidad · la sentada, que es la unidad real de este juego: se entra
         # por un link, se juega hasta cansarse, y volver es una decisión aparte.
@@ -1843,6 +1863,76 @@ def monetizacion(data: dict) -> dict:
     return {
         "lugares": filas,
         "sin_denominador": sum(f["clicks"] for f in filas if not f["impresiones"]),
+        "gracias": agradecimiento(data),
+    }
+
+
+# La ventana con la que una donación se cruza contra los «voy a donar». Es la
+# misma que usa `lifecycle_emails.py` para el mail de agradecimiento, y tiene
+# que seguir siéndolo: si las dos se separan, el panel dice que se agradeció a
+# alguien a quien el mail no le llegó.
+VENTANA_DONANTE_SEG = 5
+
+
+def agradecimiento(data: dict) -> dict:
+    """De cada donación, si se pudo saber quién la hizo.
+
+    **Es el embudo que dice cuánta plata entra sin que sepamos de quién.**
+    Cafecito no devuelve al pagador, así que la única pata es el «voy a donar»:
+    cuando alguien toca ese botón el juego sí sabe quién es, y la donación se
+    cruza contra las intenciones consumidas en ±5 segundos. Con una sola persona
+    distinta en esa ventana se puede afirmar quién pagó; con dos o más, no —solo
+    una pagó y las otras cobran el empuje igual, así que nombrar a cualquiera
+    sería afirmar algo que no sabemos (`game/boosts.py:donante_unico`).
+
+    Medido el 13/09 sobre las 13 donaciones desde la primera camada oficial: 8
+    con donante único, 5 ambiguas, y de los 8 uno donó sin cuenta. Se agradeció
+    a 7 de 13. **La pérdida es casi toda ambigüedad**, y eso tiene arreglo del
+    lado del producto —una ventana más angosta, o cruzar por monto— mientras que
+    «donó sin cuenta» no lo tiene.
+
+    Solo `source == cafecito`: los grants a mano y los del aforo no los donó
+    nadie, así que no hay a quién agradecerle y meterlos en el denominador
+    inventaría un problema que no existe. Pasó al medirlo la primera vez: con
+    los 7 grants adentro, 9 donaciones parecían «pagadas sin tocar el botón».
+    """
+    donaciones = [b for b in data["boosts"] if b["source"] == DONADO]
+    intents = [i for i in data["intents"] if i["consumed_at"] is not None]
+    usuario_de = data.get("_usuario_de", {})
+    desuscriptos = {u["id"] for u in data["usuarios"] if u["email_unsubscribed"]}
+
+    ventana = timedelta(seconds=VENTANA_DONANTE_SEG)
+    unico = ambiguas = sin_botón = con_cuenta = agradecidos = 0
+    for b in donaciones:
+        cuando = b["created_at"]
+        if cuando is None:
+            sin_botón += 1
+            continue
+        personas = {i["player_id"] for i in intents
+                    if i["consumed_at"] is not None
+                    and cuando - ventana <= i["consumed_at"] <= cuando + ventana}
+        if not personas:
+            sin_botón += 1
+        elif len(personas) > 1:
+            ambiguas += 1
+        else:
+            unico += 1
+            uid = usuario_de.get(personas.pop())
+            if uid is not None:
+                con_cuenta += 1
+                if uid not in desuscriptos:
+                    agradecidos += 1
+
+    n = len(donaciones)
+    return {
+        "donaciones": n,
+        "unico": unico,
+        "ambiguas": ambiguas,
+        "sin_boton": sin_botón,
+        "con_cuenta": con_cuenta,
+        "agradecidos": agradecidos,
+        "pct_unico": _pct(unico, n),
+        "pct_agradecidos": _pct(agradecidos, n),
     }
 
 
