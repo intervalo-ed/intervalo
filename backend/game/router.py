@@ -731,11 +731,15 @@ def cafecito_status(
     player: GamePlayer = Depends(get_current_player),
     db: Session = Depends(get_db),
 ):
-    """Qué pasó con el cafecito de quien acaba de volver de Cafecito.
+    """Qué pasó con el cafecito de esta persona, y qué lleva hecho su empuje.
 
-    Lo consulta la diapo cuando la pestaña vuelve a estar a la vista. Es de
-    lectura y barato —una intención y, si está cumplida, los empujes de ese
-    instante— así que no necesita nada especial.
+    Lo consulta la diapo del cafecito antes de decidir qué cara dibujar: a quien
+    donó le muestra el número en vez de volver a pedirle.
+
+    Sigue siendo de lectura, pero ya no es de tres filas: con la donación
+    resuelta agrega la suma de la XP del empuje en su ventana, en los dos
+    productos. La ventana es de horas y filtra por universidad, así que es una
+    cuenta chica — y la diapo sale cada veinte derivadas, no en cada respuesta.
     """
     e = boosts.estado_de_donacion(db, player)
     return GameCafecitoStatus(
@@ -744,6 +748,9 @@ def cafecito_status(
         cafecitos=e.cafecitos,
         multiplier=e.multiplier,
         expires_in_seconds=e.expires_in_seconds,
+        xp_extra=e.xp_extra,
+        estudiantes=e.estudiantes,
+        boost_id=e.boost_id,
     )
 
 
@@ -1013,8 +1020,10 @@ def _otorgar_xp(
     correct: bool,
     *,
     peeked: bool,
-) -> tuple[int, int, float]:
-    """Suma la XP de esta respuesta. Devuelve (XP, bonus de racha, multiplicador).
+) -> tuple[int, int, float, int]:
+    """Suma la XP de esta respuesta.
+
+    Devuelve (XP, bonus de racha, multiplicador, cuánto de esa XP puso el empuje).
 
     Se llama DESPUÉS de `_aplicar_elo` porque la XP escala con la racha, y la
     racha la acaba de mover esa función.
@@ -1044,16 +1053,22 @@ def _otorgar_xp(
     # aparte en la respuesta, y un "+15 de combo" adentro de un total multiplicado
     # se lee como un error de cuentas.
     multiplier = boosts.multiplier_for_player(db, player) if correct else 1.0
+    xp_from_boost = 0
     if multiplier > 1.0:
         sin_empuje = xp_awarded
         xp_awarded = round(xp_awarded * multiplier)
         combo_bonus = round(combo_bonus * multiplier)
         # Lo que el empuje agregó, anotado acá porque después no hay de dónde
         # sacarlo: lo único que queda guardado es el total de `xp`, y ahí lo
-        # base y lo extra ya están sumados. Es lo que muestra el panel de
-        # estadísticas. `multiplier > 1.0` implica `correct`, así que no hace
-        # falta preguntarlo de nuevo.
-        player.xp_from_boosts += xp_awarded - sin_empuje
+        # base y lo extra ya están sumados. `multiplier > 1.0` implica
+        # `correct`, así que no hace falta preguntarlo de nuevo.
+        xp_from_boost = xp_awarded - sin_empuje
+        # Dos destinos, y no son el mismo dato. El acumulado del jugador es "lo
+        # que los empujes me dieron a mí en toda mi vida" y lo muestra el panel
+        # de estadísticas; el que vuelve por el return se guarda EN EL INTENTO,
+        # con su fecha, que es lo único que permite preguntar después cuánto
+        # puso un empuje concreto en su ventana.
+        player.xp_from_boosts += xp_from_boost
 
     if correct:
         player.xp += xp_awarded
@@ -1062,7 +1077,7 @@ def _otorgar_xp(
         # número de arriba ya está cerrado y no se le descuenta nada — entrar
         # por el link de alguien no puede costar XP (ver game/referrals.py).
         referrals.acreditar(db, player, xp_awarded)
-    return xp_awarded, combo_bonus, multiplier
+    return xp_awarded, combo_bonus, multiplier, xp_from_boost
 
 
 def _repetir_ultima_respuesta(
@@ -1195,7 +1210,7 @@ def answer_exercise(
     level_before, theta_before, theta_after = _aplicar_elo(
         db, exercise, player, attempt_number, correct, peeked=body.peeked
     )
-    xp_awarded, combo_bonus, multiplier = _otorgar_xp(
+    xp_awarded, combo_bonus, multiplier, xp_from_boost = _otorgar_xp(
         db, exercise, player, attempt_number, correct, peeked=body.peeked
     )
 
@@ -1228,6 +1243,7 @@ def answer_exercise(
             is_correct=correct,
             response_ms=body.response_ms,
             xp_awarded=xp_awarded,
+            xp_from_boost=xp_from_boost,
             theta_before=theta_before,
             theta_after=theta_after,
             created_at=datetime.utcnow(),

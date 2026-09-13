@@ -384,6 +384,27 @@ check(
     f"y el panel lo muestra (dio {gen_a2['xp_from_boosts']})",
 )
 
+# Y el MISMO número, además, en el intento — que es el que tiene fecha.
+#
+# El acumulado del jugador contesta "cuánto me dieron los empujes en toda mi
+# vida"; este contesta "cuánto puso el empuje de la UBA entre las 14 y las 17",
+# que es de lo que sale el número que se le devuelve a quien donó
+# (game/boosts.py :: efecto_del_empuje). Si el INSERT se olvidara la columna,
+# los dos seguirían pareciendo bien por separado.
+ses = database.SessionLocal()
+ultimo = (
+    ses.query(GameAttempt)
+    .filter(GameAttempt.player_id == id_a)
+    .order_by(GameAttempt.id.desc())
+    .first()
+)
+en_el_intento = ultimo.xp_from_boost
+ses.close()
+check(
+    en_el_intento == extra,
+    f"el intento guarda el mismo extra que el acumulado ({en_el_intento} contra {extra})",
+)
+
 print()
 if FAILURES:
     print(f"{len(FAILURES)} chequeos fallaron:")

@@ -500,16 +500,116 @@ def grant(
 # que le digamos que no llegó en vez de no decirle nada.
 MEMORIA_INTENCION_HORAS = 6
 
+# Y hasta cuándo se puede cerrar el círculo: contarle, ya vencido el empuje,
+# cuánto terminó sumando.
+#
+# Es OTRA ventana y no la de arriba estirada, aunque la tentación sea obvia.
+# Aquella gobierna «todavía no llegó tu cafecito», una frase que a las seis
+# horas ya no se puede decir sin sonar a que algo se rompió. Esta gobierna «esto
+# es lo que hizo», que sigue siendo cierta y bienvenida al día siguiente.
+#
+# Cuarenta y ocho horas porque el empuje más largo dura seis: con esta ventana,
+# quien donó y no volvió a jugar ese día igual se entera cuando vuelve, y quien
+# no volvió en dos días ya lo leyó en el mail (lifecycle_emails.py).
+MEMORIA_CIERRE_HORAS = 48
+
 
 @dataclass(frozen=True)
 class EstadoDonacion:
-    """Lo que hay para contarle a quien volvió de Cafecito."""
+    """Lo que hay para contarle a quien donó."""
 
-    state: str  # "none" | "pending" | "credited"
+    # "none"     — no hay nada que contar
+    # "pending"  — volvió de Cafecito y la donación todavía no se pudo emparejar
+    # "credited" — llegó y el empuje está corriendo
+    # "closed"   — el empuje ya venció; este es el total final, y se muestra una
+    #              sola vez (eso lo anota el cliente, ver game-storage.ts)
+    state: str
     university: str | None = None
     cafecitos: int = 0
     multiplier: float = 1.0
     expires_in_seconds: int = 0
+    # Cuánta XP extra sumó esa universidad desde la donación, y entre cuántas
+    # personas. Cero cuando no hay empuje que reportar — y también cuando lo hay
+    # pero nadie jugó todavía, que NO es lo mismo y lo distingue quien lo lee
+    # (con `state` en "credited" y `xp_extra` en cero se muestra el
+    # multiplicador, nunca un cero).
+    xp_extra: int = 0
+    estudiantes: int = 0
+    # El empuje que se está reportando. Lo usa el cliente como llave para
+    # mostrar la cara de cierre UNA sola vez: sin un identificador, la única
+    # alternativa era adivinar por (universidad, cafecitos), que colisiona entre
+    # dos donaciones iguales del mismo lugar.
+    boost_id: int | None = None
+
+
+def efecto_del_empuje(
+    db: Session, *, university: str | None, desde: datetime, hasta: datetime
+) -> tuple[int, int]:
+    """Cuánta XP extra puso el empuje en esa ventana, y entre cuántas personas.
+
+    **Suma los dos productos.** Un cafecito invitado jugando a derivadas
+    multiplica también el XP de estudio de esa universidad (ver el encabezado de
+    este módulo y backend/xp_boost.py), así que contar uno solo sería contar la
+    mitad — y la mitad equivocada, porque la persona donó en el juego.
+
+    `Answer` y `Enrollment` se importan acá adentro y no arriba a propósito: son
+    el vocabulario del otro producto, y traerlos al encabezado de este módulo
+    haría parecer que `game/` depende de `backend/` para funcionar. Depende solo
+    para esta cuenta. Es el mismo import diferido que ya hacía
+    `lifecycle_emails._efecto_del_empuje`, que ahora llama acá.
+
+    **Cuenta PERSONAS, no filas.** La misma persona puede tener fila en los dos
+    productos: `game_players.user_id` es lo que unifica la identidad, y un
+    invitado que todavía no la tiene cuenta por su `player_id`. Sumar los dos
+    `COUNT(DISTINCT)` daría de más justo con la gente más comprometida, que es la
+    que usa los dos.
+
+    Lo que este número **no** es: la XP que causó UNA donación. Los cafecitos de
+    la ventana se suman y el empuje global se mezcla con el dirigido, así que el
+    multiplicador no es divisible entre donantes. Es lo que la universidad sumó
+    de más DESDE la donación, que es una frase distinta y cierta.
+    """
+    from models import Answer, Enrollment, GameAttempt
+
+    xp = 0
+    gente: set[tuple[str, int]] = set()
+
+    clasico = db.query(Answer.user_id, func.sum(Answer.xp_from_boost)).filter(
+        Answer.answered_at >= desde,
+        Answer.answered_at <= hasta,
+        Answer.xp_from_boost > 0,
+    )
+    if university:
+        clasico = clasico.filter(
+            Answer.user_id.in_(
+                db.query(Enrollment.user_id).filter(Enrollment.university == university)
+            )
+        )
+    for user_id, suma in clasico.group_by(Answer.user_id).all():
+        xp += int(suma or 0)
+        if user_id is not None:
+            gente.add(("u", user_id))
+
+    juego = (
+        db.query(
+            GamePlayer.id,
+            GamePlayer.user_id,
+            func.sum(GameAttempt.xp_from_boost),
+        )
+        .join(GameAttempt, GameAttempt.player_id == GamePlayer.id)
+        .filter(
+            GameAttempt.created_at >= desde,
+            GameAttempt.created_at <= hasta,
+            GameAttempt.xp_from_boost > 0,
+        )
+    )
+    if university:
+        juego = juego.filter(GamePlayer.university == university)
+    for player_id, user_id, suma in juego.group_by(GamePlayer.id, GamePlayer.user_id).all():
+        xp += int(suma or 0)
+        gente.add(("u", user_id) if user_id is not None else ("p", player_id))
+
+    return xp, len(gente)
 
 
 def estado_de_donacion(
@@ -527,19 +627,23 @@ def estado_de_donacion(
     esta persona tiene que ver es la suya.
     """
     now = now or _now()
+    # Se busca en la ventana LARGA y se filtra después. Las dos cosas que esta
+    # función contesta tienen vidas distintas: «todavía no llegó» caduca a las
+    # seis horas, «esto es lo que hizo» aguanta dos días (ver las constantes).
     intent = (
         db.query(GameBoostIntent)
         .filter(
             GameBoostIntent.player_id == player.id,
-            GameBoostIntent.created_at > now - timedelta(hours=MEMORIA_INTENCION_HORAS),
+            GameBoostIntent.created_at > now - timedelta(hours=MEMORIA_CIERRE_HORAS),
         )
         .order_by(GameBoostIntent.created_at.desc())
         .first()
     )
     if intent is None:
         return EstadoDonacion(state="none")
+    reciente = intent.created_at > now - timedelta(hours=MEMORIA_INTENCION_HORAS)
     if intent.consumed_at is None:
-        return EstadoDonacion(state="pending")
+        return EstadoDonacion(state="pending" if reciente else "none")
 
     # ¿Se puede afirmar que esta donación fue de ESTA persona?
     #
@@ -561,7 +665,7 @@ def estado_de_donacion(
         .count()
     )
     if hermanas > 1:
-        return EstadoDonacion(state="pending")
+        return EstadoDonacion(state="pending" if reciente else "none")
 
     # El empuje que nació con esa marca. `grant` y el consumo comparten el mismo
     # instante, pero se busca con un margen por si alguna vez dejan de hacerlo.
@@ -586,12 +690,23 @@ def estado_de_donacion(
         return EstadoDonacion(state="credited", multiplier=multiplier_for_player(db, player, now))
 
     restante = max(0, int((suyo.expires_at - now).total_seconds()))
+    # La ventana del número arranca en la donación —no en el pedido, que pudo
+    # ser media hora antes— y termina ahora o al vencer, lo que venga primero.
+    xp_extra, estudiantes = efecto_del_empuje(
+        db,
+        university=suyo.university,
+        desde=suyo.created_at,
+        hasta=min(now, suyo.expires_at),
+    )
     return EstadoDonacion(
-        state="credited" if restante > 0 else "none",
+        state="credited" if restante > 0 else "closed",
         university=suyo.university,
         cafecitos=suyo.cafecitos,
         multiplier=multiplier_for_player(db, player, now),
         expires_in_seconds=restante,
+        xp_extra=xp_extra,
+        estudiantes=estudiantes,
+        boost_id=suyo.id,
     )
 
 

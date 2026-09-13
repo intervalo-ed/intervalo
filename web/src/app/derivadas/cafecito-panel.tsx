@@ -63,6 +63,7 @@ import {
   type GameCafecitoStatus,
 } from "./UseGameLeaderboard"
 import { KeyCap } from "./exercise-card"
+import { marcarCierreMostrado, readCierreMostrado } from "./game-storage"
 import {
   CLASE_ACCION_EN_EL_PIE,
   claseDeSalida,
@@ -477,6 +478,165 @@ function PanelDeVuelta({
   )
 }
 
+/** Lo que el cafecito de esta persona lleva hecho.
+ *
+ * Es la cara que reemplaza a la oferta en las apariciones SIGUIENTES de la
+ * diapo: quien ya donó no tiene que volver a leer un pedido. Y no la decide una
+ * bandera local como `PanelDeVuelta` —que solo la ve quien vuelve de Cafecito
+ * con la diapo todavía montada— sino el servidor, así que sobrevive a cerrar la
+ * pestaña, a recargar y a cambiar de aparato.
+ *
+ * **Qué dice el número, exactamente.** Es lo que esa universidad sumó de más
+ * DESDE la donación, en los dos productos. No es «lo que tu cafecito causó»:
+ * los cafecitos de la ventana se suman y el empuje global se mezcla con el
+ * dirigido, así que el multiplicador no es divisible entre donantes y atribuir
+ * por donación es imposible por construcción (ver game/boosts.py). «Desde tu
+ * cafecito» es cierto igual, y es lo que se promete.
+ *
+ * **El cero no se muestra.** Si todavía no jugó nadie, el titular es el
+ * multiplicador y no un cero: «tu cafecito generó 0 XP» es peor que no decir
+ * nada, que es la misma regla que ya sigue el mail del vencimiento
+ * (lifecycle_emails.send_cafecito_efecto_email).
+ */
+function PanelDeImpacto({
+  estado,
+  keyboard,
+  slotSalida,
+  onContinue,
+}: {
+  estado: GameCafecitoStatus
+  keyboard: boolean
+  slotSalida?: HTMLElement | null
+  onContinue: () => void
+}) {
+  const sfx = useSfx()
+  const teclas = useTeclas()
+  const cerrado = estado.state === "closed"
+  const hayNumero = estado.xp_extra > 0
+  const donde = estado.university ? `la ${estado.university}` : "todo Intervalo"
+  const { texto: cuanto } = restanteEnPalabras(estado.expires_in_seconds)
+  // «estudiantes» y no «personas», que es como los llama el mail del vencimiento
+  // y el resto del producto. Uno solo lleva el verbo en singular: con el empuje
+  // recién encendido es el caso normal, no el raro.
+  const cuantos = `${estado.estudiantes} ${estado.estudiantes === 1 ? "estudiante" : "estudiantes"}`
+  const sumaron = estado.estudiantes === 1 ? "sumó" : "sumaron"
+  // De qué universidad son, solo si hay una. Con el empuje global la frase ya
+  // dijo «para todo Intervalo» dos renglones arriba.
+  const deDonde = estado.university ? ` de la ${estado.university}` : ""
+  // Y dónde lo sumaron: nombrar los dos productos es el punto —el cafecito se
+  // invitó jugando y también vale para estudiar— salvo cuando el empuje es
+  // global, donde «Intervalo» ya apareció en el titular.
+  const enLosDos = estado.university ? ", acá y en Intervalo" : ""
+
+  // Mismo Enter que la cara de vuelta, y por el mismo motivo: acá no hay nada
+  // que ofrecer, así que no hay una segunda tecla ni una espera que respetar.
+  useEffect(() => {
+    if (!keyboard) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Enter") return
+      if (enCampoDeTexto(e.target)) return
+      e.preventDefault()
+      onContinue()
+    }
+    document.addEventListener("keydown", onKey)
+    return () => document.removeEventListener("keydown", onKey)
+  }, [keyboard, onContinue])
+
+  return (
+    <div className="mx-auto w-full max-w-sm">
+      <div className="mx-auto w-fit">
+        <Coffee size={34} style={{ color: CAFE_TINTA }} />
+      </div>
+      <p className="mt-2 text-2xl font-medium">
+        {cerrado ? "Tu cafecito terminó de hacer efecto" : "Tu cafecito está haciendo efecto"}
+      </p>
+
+      {hayNumero ? (
+        <>
+          {/* El número es el titular, como el multiplicador en la cara de
+              vuelta: es lo que la plata hizo, y tiene que verse antes de leer
+              nada. En dos renglones y no en una oración larga porque con cuatro
+              cifras y el nombre de una universidad el renglón se parte solo, y
+              se parte donde quiere. */}
+          <p
+            className="mt-4 text-3xl font-semibold tabular-nums"
+            style={{ color: CAFE_TINTA }}
+          >
+            {fmtCount(estado.xp_extra)} XP extra
+          </p>
+          <p className="text-lg" style={{ color: CAFE_TINTA }}>
+            para {donde}
+          </p>
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+            {cerrado
+              ? `Repartidos entre ${cuantos}${enLosDos}.`
+              : `Desde que lo invitaste, ${cuantos}${deDonde} ${sumaron} eso de más${enLosDos}. Le quedan ${cuanto}.`}
+          </p>
+        </>
+      ) : (
+        <>
+          {/* Empuje vivo y todavía sin número: nadie jugó desde la donación. El
+              titular pasa a ser el multiplicador, que es lo que sí hay. */}
+          <p
+            className="mt-4 text-3xl font-semibold tabular-nums"
+            style={{ color: CAFE_TINTA }}
+          >
+            {estado.university
+              ? `La ${estado.university} está en ${fmtMultiplier(estado.multiplier)}`
+              : `Todo el juego está en ${fmtMultiplier(estado.multiplier)}`}
+          </p>
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+            Le quedan {cuanto}. Todo lo que se estudie en ese rato, acá y en
+            Intervalo, suma de más gracias a vos.
+          </p>
+        </>
+      )}
+
+      <Salida slot={slotSalida}>
+        <button
+          type="button"
+          onClick={() => {
+            sfx.select()
+            onContinue()
+          }}
+          className={cn(
+            "flex w-full items-center justify-center rounded-md bg-white text-base font-semibold text-black transition-colors hover:bg-white/90",
+            slotSalida ? "h-[var(--cta-h)]" : "mt-6 px-4 py-3",
+          )}
+        >
+          Continuar
+          {keyboard && <KeyCap>{teclas.enter}</KeyCap>}
+        </button>
+      </Salida>
+    </div>
+  )
+}
+
+/** La misma noticia, en un renglón, cuando la persona ABRIÓ el cafecito a
+ *  propósito.
+ *
+ *  Ahí la oferta no se reemplaza: ese es el camino que convierte —el botón de la
+ *  cabecera, la tecla `i`, configuración— y taparlo cambiaría «dejá de pedirle a
+ *  quien ya donó» por «no lo dejes donar de nuevo». El número va arriba, como
+ *  contexto de lo que está por decidir. */
+function TiraDeImpacto({ estado }: { estado: GameCafecitoStatus }) {
+  if (estado.xp_extra <= 0) return null
+  const donde = estado.university ? `la ${estado.university}` : "todo Intervalo"
+  return (
+    <p
+      className="mx-auto mb-4 w-full max-w-sm rounded-md px-3 py-2 text-sm"
+      style={{
+        color: CAFE_TINTA,
+        backgroundColor: `color-mix(in oklab, ${CAFE} 14%, transparent)`,
+      }}
+    >
+      Tu cafecito {estado.state === "closed" ? "le dio" : "lleva dadas"}{" "}
+      <span className="font-semibold tabular-nums">{fmtCount(estado.xp_extra)} XP</span>{" "}
+      extra a {donde}.
+    </p>
+  )
+}
+
 // Tu universidad y sus dos vecinas en el ranking de universidades, solo en el
 // teléfono (ver `fullBleed` más abajo). En escritorio esta misma idea la
 // cuenta el ranking de al lado, filtrado a la universidad propia con cada
@@ -794,7 +954,29 @@ export function CafecitoPanel({
   // pantalla a «todavía no llegó» sin haber salido todavía.
   const [seFue, setSeFue] = useState(false)
   const [volvio, setVolvio] = useState(false)
-  const estado = useCafecitoStatus(seFue)
+  // Siempre encendida, no solo después de tocar invitar. Antes alcanzaba con
+  // preguntar al volver de Cafecito; ahora la diapo tiene que saber si esta
+  // persona donó ANTES de decidir si pide o agradece, y eso puede haber pasado
+  // hace horas y en otro aparato. Es un GET por aparición de la diapo, o sea una
+  // cada veinte derivadas.
+  const { estado, listo: estadoListo } = useCafecitoStatus(true)
+
+  // El `boost_id` del último cierre que ya se mostró. Se lee UNA sola vez, al
+  // montar: leyéndolo en cada render, la marca que escribe el efecto de más
+  // abajo apagaría la cara mientras la persona la está leyendo.
+  const [cierreVisto] = useState(readCierreMostrado)
+
+  // Mientras no sepamos si donó, no se dibuja ninguna de las dos caras. Elegir
+  // mal y corregir medio segundo después se ve como un parpadeo, justo en la
+  // primera impresión de la pantalla. El pase de diapo dura ~280 ms y tapa el
+  // viaje; si a los 400 no contestó se sigue con la oferta, que es exactamente
+  // lo que había antes de todo esto.
+  const [tardo, setTardo] = useState(false)
+  useEffect(() => {
+    const id = setTimeout(() => setTardo(true), 400)
+    return () => clearTimeout(id)
+  }, [])
+  const decidido = estadoListo || tardo
 
   // ¿El cartel de vuelta está EN PANTALLA? Una sola definición, porque la usan
   // dos lugares que TIENEN que coincidir: qué se dibuja y quién se queda con el
@@ -811,6 +993,46 @@ export function CafecitoPanel({
   // —y muchas más veces— que tener algo que contarle.
   const cartelDeVuelta = volvio && estado !== null && estado.state !== "none"
 
+  // ¿Hay algo que devolverle a quien donó?
+  //
+  // Es OTRA cosa que `cartelDeVuelta`, y la diferencia es cuánto viven. Aquel es
+  // «acabás de volver de Cafecito» y se apaga al salir de la diapo, porque lo
+  // sostienen dos banderas locales. Este es «tu cafecito está haciendo efecto» y
+  // lo contesta el servidor, así que aparece en las apariciones siguientes,
+  // horas después, desde cualquier aparato.
+  //
+  // Con el empuje vivo alcanza `credited`, aunque el número sea cero: volver a
+  // pedirle plata a quien donó hace diez minutos es peor que mostrarle el
+  // multiplicador. Ya vencido hace falta que haya número Y que no se haya
+  // mostrado antes (el cierre se agradece una vez, no en cada aparición de las
+  // 48 h que el servidor lo recuerda).
+  const hayImpacto =
+    estado !== null &&
+    (estado.state === "credited" ||
+      (estado.state === "closed" &&
+        estado.xp_extra > 0 &&
+        estado.boost_id != null &&
+        estado.boost_id !== cierreVisto))
+
+  // Cuando la persona ABRIÓ el cafecito a propósito, el número no reemplaza a la
+  // oferta: va arriba, en un renglón. Ver TiraDeImpacto.
+  const impactoEnTira = hayImpacto && LO_PIDIO(trigger)
+  const cara: "vuelta" | "impacto" | "oferta" = cartelDeVuelta
+    ? "vuelta"
+    : hayImpacto && !impactoEnTira
+      ? "impacto"
+      : "oferta"
+
+  // El cierre se anota cuando se DIBUJÓ, no cuando se supo: anotándolo al
+  // recibir el estado, cerrar la pestaña antes de leerlo lo perdería para
+  // siempre.
+  useEffect(() => {
+    if (!decidido || estado === null) return
+    if (estado.state !== "closed" || estado.boost_id == null) return
+    if (cara !== "impacto" && !impactoEnTira) return
+    marcarCierreMostrado(estado.boost_id)
+  }, [decidido, estado, cara, impactoEnTira])
+
   // Avisa el multiplicador y el color de la barra en cada movimiento, para que
   // el ranking de al lado los muestre en vivo. Se apaga solo (`null`) con el
   // cartel de vuelta puesto —ahí ya no hay slider, así que no hay nada que
@@ -818,9 +1040,9 @@ export function CafecitoPanel({
   // un número de una oferta que ya no está.
   useEffect(() => {
     if (!onPreview) return
-    onPreview(cartelDeVuelta ? null : { multiplier, color: tintaPara(t) })
+    onPreview(cara === "oferta" ? { multiplier, color: tintaPara(t) } : null)
     return () => onPreview(null)
-  }, [onPreview, cartelDeVuelta, multiplier, t])
+  }, [onPreview, cara, multiplier, t])
 
   useEffect(() => {
     if (!seFue) return
@@ -898,7 +1120,7 @@ export function CafecitoPanel({
     // de la oferta siguen corriendo aunque su JSX ya no se dibuje —viven en el
     // cuerpo del componente— así que sin esta guarda los dos escuchan la misma
     // tecla y `onContinue` se dispara dos veces.
-    if (cartelDeVuelta) return
+    if (cara !== "oferta") return
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== "Enter") return
       // Escribiendo en el chat, un Enter es un Enter. Este listener vive en
@@ -916,7 +1138,7 @@ export function CafecitoPanel({
     }
     document.addEventListener("keydown", onKey)
     return () => document.removeEventListener("keydown", onKey)
-  }, [keyboard, listo, onContinue, university, cartelDeVuelta])
+  }, [keyboard, listo, onContinue, university, cara])
 
   return (
     <div
@@ -937,7 +1159,7 @@ export function CafecitoPanel({
             }
       }
     >
-      {cartelDeVuelta ? (
+      {!decidido ? null : cara === "vuelta" && estado !== null ? (
         <PanelDeVuelta
           estado={estado}
           pedidos={n}
@@ -945,8 +1167,16 @@ export function CafecitoPanel({
           slotSalida={slotSalida}
           onContinue={onContinue}
         />
+      ) : cara === "impacto" && estado !== null ? (
+        <PanelDeImpacto
+          estado={estado}
+          keyboard={keyboard}
+          slotSalida={slotSalida}
+          onContinue={onContinue}
+        />
       ) : (
       <div className="mx-auto w-full max-w-sm">
+        {impactoEnTira && estado !== null && <TiraDeImpacto estado={estado} />}
         {/* La taza y el título son UNA cosa —el encabezado— y la oración de
             abajo es otra: la que explica. Con el mismo aire entre los tres, los
             tres se leían como una lista de renglones sueltos. El título se pega a

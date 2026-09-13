@@ -181,7 +181,24 @@ lo que financia el proyecto.
 diferencia **no** es "el bonus por tu racha": es la suma de los dos
 multiplicadores. Lo que puso el cafecito se guarda aparte, en
 `Answer.xp_from_boost`, porque no se puede reconstruir después — solo sobrevive el
-total. El resumen de sesión devuelve las dos partes por separado
+total.
+
+**El minijuego guarda lo mismo desde el 14/09**, en `game_attempts.xp_from_boost`
+y con el mismo nombre a propósito. Antes solo existía el acumulado por jugador
+(`game_players.xp_from_boosts`), que contesta "cuánto me dieron los empujes en
+toda mi vida" pero no "cuánto puso el empuje de la UBA entre las 14 y las 17" —
+no tiene fecha ni universidad. Con la columna por intento, `efecto_del_empuje`
+(`game/boosts.py`) suma **los dos productos** y ese número alimenta dos cosas: el
+mail del vencimiento, que hasta entonces contaba solo el clásico y por lo tanto
+le mostraba a quien donó jugando todo menos lo que pasó en el juego, y la diapo
+del cafecito, que a quien ya donó deja de pedirle y le cuenta cuánto lleva
+sumado su universidad **desde** su donación.
+
+Ese "desde" no es un rodeo: los cafecitos de la ventana se suman y el empuje
+global se mezcla con el dirigido, así que el multiplicador no es divisible entre
+donantes y atribuir por donación es imposible por construcción. Lo que se
+promete es lo que la universidad ganó a partir de la donación, que es cierto
+aunque haya donado alguien más. El resumen de sesión devuelve las dos partes por separado
 (`streak.xp_bonus` y `xp_from_boost`), y las push de universidad descuentan el
 empuje de sus ventanas semanales: el ranking acumulado sí lo incluye, pero
 meterlo en una ventana temporal lo hace competir contra semanas que no lo tenían.
