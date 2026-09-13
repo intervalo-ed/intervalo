@@ -532,6 +532,74 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
         ]
         return _median(valores)
 
+    def unicos(w: date) -> int:
+        """Cuántas PERSONAS distintas se asomaron esa semana.
+
+        Es la métrica de volumen del panel, y es deliberadamente vanidosa: no
+        decide nada por sí sola —sube si se difunde más— pero sin ella no se
+        sabe si un porcentaje se calculó sobre treinta personas o sobre mil.
+
+        No confundir con visitas: la misma persona que entra el lunes y el
+        jueves es UNA acá y DOS allá. Y es un piso, no un número exacto: se arma
+        con toda huella fechada que deja una visita, así que quien vuelve a
+        abrir la página y no toca nada solo aparece si `last_seen_at` cayó en
+        esa semana.
+        """
+        return len(visto.get(w, ()))
+
+    def activados(w: date) -> int:
+        """De los nuevos de la semana, cuántos respondieron al menos una.
+
+        Es el OMTM del producto. La fila del jugador se crea al CARGAR la
+        página, así que «nuevo» incluye a quien se fue mirando la intro:
+        activado es el que llegó a hacer algo.
+        """
+        return sum(1 for p in nuevos(w) if por_jugador.get(p["id"]))
+
+    def pct_activacion(w: date) -> float | None:
+        return _pct(activados(w), len(nuevos(w)))
+
+    def reclutas_activados(w: date) -> int:
+        """Reclutas de la semana que además llegaron a responder algo.
+
+        Separado de los reclutas a secas porque son cosas muy distintas: el link
+        de un amigo trae gente que activa PEOR que la difusión —33,6% contra
+        41,0%, medido— así que contar reclutas sin mirar cuántos arrancaron
+        cuenta clics, no jugadores.
+        """
+        return sum(1 for p in nuevos(w) if p["referred_by"] and por_jugador.get(p["id"]))
+
+    def viralidad_activados(w: date) -> float | None:
+        """El K que de verdad dice si el bucle se sostiene.
+
+        **Por qué este y no el de al lado.** Un bucle viral se sostiene cuando
+        cada unidad capaz de reproducirse produce al menos una unidad capaz de
+        reproducirse. Acá la unidad capaz es el jugador ACTIVADO, y eso no es
+        una definición elegida: de los 24 jugadores que alguna vez reclutaron a
+        alguien, los 24 tenían 3 o más respuestas. Nadie sin activar reclutó
+        nunca — el cartel de compartir aparece jugando.
+
+        El K de al lado divide reclutas nuevos por TODOS los que ya estaban, o
+        sea que mete en el denominador a gente que estructuralmente no puede
+        producir nada, y en el numerador a gente que mayormente tampoco va a
+        producir. No es una tasa de reproducción: es una razón entre dos cosas
+        distintas.
+
+        Hoy los dos dan parecido, y es una coincidencia que conviene no
+        confundir con equivalencia: los reclutas activan 33,6% y la base activa
+        ~40%, así que las dos correcciones casi se cancelan. En cuanto cualquiera
+        de esas dos tasas se mueva —y moverlas es justo lo que el experimento de
+        la puerta intenta— se separan.
+
+        **Ojo con el tamaño.** Son 48 reclutas activados en toda la vida del
+        producto. Semana a semana esto es de un dígito y tiembla entero con una
+        persona: sirve para mirar la tendencia de varias semanas, no para
+        comparar una contra la anterior.
+        """
+        base = sum(1 for p in players
+                   if (alta_de.get(p["id"]) or date.max) < w and por_jugador.get(p["id"]))
+        return round(reclutas_activados(w) / base, 2) if base else None
+
     def card(label: str, series: list, suffix: str, hint: str, dec: int = 1) -> dict:
         value = series[-1]
         prev = series[-2] if len(series) > 1 else None
@@ -545,20 +613,22 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
         # cuánta gente se está jugando, no para decidir— y los dos últimos son
         # el canal que no depende de que difundamos nosotros.
         "activacion": [
-            card("Visitas totales", per_week(visitas), "",
-                 "Cuántas veces se sentó alguien a jugar. La misma persona que entra "
-                 "el lunes y el jueves cuenta dos. Incluye las visitas que no "
-                 "llegaron a ninguna derivada: para eso está el embudo de abajo."),
+            card("Usuarios únicos", per_week(unicos), "",
+                 "Cuántas personas distintas se asomaron al juego esa semana, nuevas "
+                 "y viejas. La misma persona que entra el lunes y el jueves cuenta "
+                 "UNA. Es un piso: quien vuelve a abrir y no toca nada solo deja "
+                 "rastro por `last_seen_at`."),
             card("Usuarios nuevos", per_week(altas), "",
                  "Abrieron el link por primera vez esa semana, y son la cohorte del "
                  "embudo de abajo. La fila se crea al CARGAR la página, así que "
                  "incluye a quien se fue en la pantalla de intro sin ver una "
                  "derivada — que hoy es más de la mitad."),
-            card("Reclutas", per_week(reclutas), "",
-                 "Nuevos que entraron por el link de otro jugador."),
-            card("Coeficiente de viralidad", per_week(viralidad), "",
-                 "Cuánta gente trajo cada uno de los que ya estaban. Uno es el juego "
-                 "creciendo solo.", dec=2),
+            card("Usuarios activados", per_week(activados), "",
+                 "De los nuevos de esa semana, cuántos llegaron a responder al menos "
+                 "una derivada."),
+            card("Activación", per_week(pct_activacion), "%",
+                 "Activados sobre nuevos. Es el OMTM del producto: de cada 100 que "
+                 "abren dx, cuántos hacen algo.", dec=1),
         ],
         # Retención · las cuatro cosas que alguien hace cuando el juego le
         # importó lo suficiente: volver otro día, instalarlo, registrarse y
@@ -579,6 +649,26 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
         ],
         # Jugabilidad · la sentada, que es la unidad real de este juego: se entra
         # por un link, se juega hasta cansarse, y volver es una decisión aparte.
+        # Reclutas · va adentro de su sección y no en la cabecera de la pestaña:
+        # los cuatro hablan del mismo canal y leerlos lejos de su curva obliga a
+        # subir y bajar.
+        "reclutas": [
+            card("Reclutas nuevos", per_week(reclutas), "",
+                 "Entraron por el link de otro jugador."),
+            card("Reclutas activados", per_week(reclutas_activados), "",
+                 "De esos, cuántos llegaron a responder una derivada. El link de un "
+                 "amigo trae gente que activa PEOR que la difusión —33,6% contra "
+                 "41,0%— así que los reclutas a secas cuentan clics, no jugadores."),
+            card("Viralidad general", per_week(viralidad), "",
+                 "Reclutas nuevos sobre todos los que ya estaban. Es la versión de "
+                 "tráfico, y está acá como auditoría de la de al lado: si esta sube y "
+                 "la otra no, llegó gente que no se reproduce.", dec=2),
+            card("Viralidad de activados", per_week(viralidad_activados), "",
+                 "Reclutas ACTIVADOS sobre los activados que ya estaban. Es el K que "
+                 "decide: los 24 jugadores que alguna vez reclutaron tenían todos 3+ "
+                 "respuestas, así que la unidad que se reproduce es el activado. Uno "
+                 "es el bucle sosteniéndose solo.", dec=2),
+        ],
         "jugabilidad": [
             card("1ª sesión", per_week(primera_sesion), "",
                  "Mediana de derivadas resueltas en la primera tanda, entre los que "

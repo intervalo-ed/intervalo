@@ -118,22 +118,22 @@ def _pct_txt(v) -> str:
     return "—" if v is None else num(v, "%")
 
 
-# Las dos formas de mirar lo mismo: la tasa y el volumen del que sale.
+# El gráfico de viralidad tuvo un selector con dos vistas —el coeficiente y el
+# volumen del que sale— porque una división sin sus dos términos a la vista no se
+# puede auditar: un K que salta de 0,02 a 0,12 puede ser mucha gente nueva
+# reclutada o poca gente vieja en el denominador.
 #
-# El coeficiente va primero porque es el número que decide —arriba de uno el
-# juego crece solo— pero es una división, y una división sin sus dos términos a
-# la vista no se puede auditar: un K que salta de 0,02 a 0,12 puede ser mucha
-# gente nueva reclutada o poca gente vieja en el denominador, y son dos
-# situaciones distintas. La segunda vista muestra justamente eso.
-VISTAS_VIRALIDAD: tuple[tuple[str, str], ...] = (
-    ("k", "Coeficiente"),
-    ("volumen", "Nuevos y reclutados"),
-)
-VISTA_VIRALIDAD_POR_DEFECTO = VISTAS_VIRALIDAD[0][0]
+# Se fue, y el argumento sigue siendo válido: lo que cambió es quién lo contesta.
+# Ahora los cuatro números de arriba de la sección traen los dos términos
+# —reclutas nuevos y reclutas activados— más las dos versiones del coeficiente,
+# así que el selector agregaba un clic para mostrar lo que ya está escrito unas
+# líneas más arriba. Lo único que la vista de volumen mostraba y los titulares no
+# es la BASE, el denominador; si algún día hace falta auditar un salto de K, es
+# eso lo que hay que traer de vuelta y no el selector entero.
 
-# Azul para los que entran y verde para los que entran POR ALGUIEN, que es el
-# mismo verde con el que el juego pinta reclutar (WhatsApp) en la app.
-AZUL_NUEVOS = "#4f7fe0"
+# El mismo verde con el que el juego pinta reclutar (WhatsApp) en la app. El azul
+# que lo acompañaba se fue con la vista de volumen: era el color de la serie de
+# «nuevos», y esa serie ya no se dibuja.
 VERDE_RECLUTAS = "#2fb673"
 
 
@@ -231,13 +231,10 @@ def week_of_today() -> date:
 
 # ── Página ───────────────────────────────────────────────────────────────────
 
-def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
-         viral: str = VISTA_VIRALIDAD_POR_DEFECTO) -> str:
+def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
     m = p["meta"]
     claves = [c for c, _ in SECCIONES]
     seccion = seccion if seccion in claves else SECCION_POR_DEFECTO
-    vistas = [v for v, _ in VISTAS_VIRALIDAD]
-    viral = viral if viral in vistas else VISTA_VIRALIDAD_POR_DEFECTO
     week = date.fromisoformat(m["week"])
     labels = m["labels"]
     semanas = [date.fromisoformat(w) for w in m["weeks"]]
@@ -278,23 +275,18 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
         f"<div class='weeknav'>{''.join(nav)}</div>"
         "</div></header>")
 
-    def link(*, s: str | None = None, corte: str | None = None,
-             v: str | None = None) -> str:
+    def link(*, s: str | None = None, corte: str | None = None) -> str:
         """La URL del panel cambiando UNA cosa y dejando el resto como está.
 
-        Es lo que hace que las barras convivan: elegir semana no pierde la
-        pestaña, elegir desglose no devuelve a la primera, y cambiar la vista
-        del gráfico de viralidad no pierde ninguna de las dos."""
+        Es lo que hace que las dos barras convivan: elegir semana no pierde la
+        pestaña, y elegir desglose no devuelve a la primera."""
         s = s if s is not None else seccion
         corte = corte if corte is not None else p["profundidad"]["corte"]
-        v = v if v is not None else viral
         q = f"?w={week.isoformat()}"
         if s != SECCION_POR_DEFECTO:
             q += f"&s={s}"
         if corte != "total":
             q += f"&corte={corte}"
-        if v != VISTA_VIRALIDAD_POR_DEFECTO:
-            q += f"&v={v}"
         return f"/panel/{esc(token)}/dx{q}"
 
     tabs = "".join(
@@ -594,37 +586,16 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
     out = []
     rc = p["reclutas"]
     etiquetas = [w["label"] for w in rc["semanas"]]
-    if viral == "volumen":
-        series_viral = [
-            {"label": "Nuevos", "color": AZUL_NUEVOS,
-             "values": [w["nuevos"] for w in rc["semanas"]],
-             "tips": [f'{w["label"]}: {w["nuevos"]} jugadores nuevos'
-                      for w in rc["semanas"]]},
-            {"label": "Reclutados", "color": VERDE_RECLUTAS,
-             "values": [w["reclutados"] for w in rc["semanas"]],
-             "tips": [f'{w["label"]}: {w["reclutados"]} entraron por un link '
-                      f'({_pct_txt(w["pct_reclutados"])} de los nuevos)'
-                      for w in rc["semanas"]]},
-        ]
-        sufijo_viral = ""
-    else:
-        series_viral = [
-            {"label": "K", "color": VERDE_RECLUTAS,
-             "values": [w["k"] for w in rc["semanas"]],
-             "tips": [f'{w["label"]}: {num(w["k"], dec=2)} — {w["reclutados"]} '
-                      f'reclutas sobre {w["base"]} que ya estaban'
-                      for w in rc["semanas"]]},
-        ]
-        sufijo_viral = ""
-
-    selector_viral = "".join(
-        f'<span class="cur">{esc(t)}</span>' if v == viral
-        else f'<a href="{link(v=v)}">{esc(t)}</a>'
-        for v, t in VISTAS_VIRALIDAD)
-    grafico_viral = (
-        f"<div class='cortes'><span class='sub'>Vista</span>{selector_viral}</div>"
-        + ch.lines(series_viral, etiquetas, suffix=sufijo_viral, height=240,
-                   legend=viral == "volumen"))
+    # Una sola serie y sin selector. El tooltip carga los dos términos de la
+    # división, que es lo que hacía falta para poder auditar un salto.
+    series_viral = [
+        {"label": "K", "color": VERDE_RECLUTAS,
+         "values": [w["k"] for w in rc["semanas"]],
+         "tips": [f'{w["label"]}: {num(w["k"], dec=2)} — {w["reclutados"]} '
+                  f'reclutas sobre {w["base"]} que ya estaban'
+                  for w in rc["semanas"]]},
+    ]
+    grafico_viral = ch.lines(series_viral, etiquetas, height=240, legend=False)
 
     filas_top = [[f'@{esc(t["alias"])}',
                   _uni_chip(t["university"]) if t["university"] else "—",
@@ -634,7 +605,8 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
         # Lo que aporta la gente que ya está, en las dos monedas que el juego
         # acepta: gente nueva y cafecitos.
         #
-        _box(
+        _fila_kpi(p["headline"]["reclutas"])
+        + _box(
             "Coeficiente de viralidad por semana",
             grafico_viral,
             note=(

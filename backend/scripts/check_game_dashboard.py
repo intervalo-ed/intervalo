@@ -317,13 +317,26 @@ h = {c["label"]: c for cards in REPARTO.values() for c in cards}
 # recién el lunes siguiente, así que su respuesta cae en la semana de al lado.
 check("usuarios nuevos de la semana", h["Usuarios nuevos"]["value"] == 4,
       f'({h["Usuarios nuevos"]["value"]})')
-# Las VISITAS son tandas y no personas: p1 entra el día 0 y vuelve dos horas
-# después, así que aporta dos. Es la diferencia con «usuarios nuevos», que son
-# cuatro, y lo que hace que este número pueda subir sin que entre nadie nuevo.
-check("las visitas cuentan tandas y no personas",
-      h["Visitas totales"]["value"] > h["Usuarios nuevos"]["value"],
-      f'({h["Visitas totales"]["value"]} visitas contra '
-      f'{h["Usuarios nuevos"]["value"]} personas nuevas)')
+# Los ÚNICOS son personas, no tandas: p1 entra el día 0 y vuelve dos horas
+# después, y sigue siendo UNO. Es la diferencia con la métrica que estaba antes
+# —visitas, que contaba tandas— y el motivo del cambio: «cuántas personas
+# distintas abrieron el juego» es la pregunta de volumen que se quería contestar.
+check("los únicos cuentan personas y no tandas",
+      h["Usuarios únicos"]["value"] == 5,
+      f'({h["Usuarios únicos"]["value"]}, esperaba los 4 nuevos + p0)')
+# Y nunca puede haber menos únicos que nuevos: todo nuevo es, por definición,
+# alguien que se asomó esa semana.
+check("y nunca son menos que los nuevos",
+      h["Usuarios únicos"]["value"] >= h["Usuarios nuevos"]["value"])
+
+# La activación es el OMTM: de los nuevos, cuántos llegaron a responder. p1, p2 y
+# p4 respondieron en la semana; p3 recién el lunes siguiente, pero su alta es de
+# esta, así que la cohorte lo cuenta igual.
+check("la activación se mide sobre los nuevos de la semana",
+      h["Usuarios activados"]["value"] == 4,
+      f'({h["Usuarios activados"]["value"]} de {h["Usuarios nuevos"]["value"]})')
+check("y el porcentaje sale de esos dos",
+      h["Activación"]["value"] == 100.0, f'({h["Activación"]["value"]}%)')
 check("se registran", h["Se registran"]["value"] == 50.0,
       f'({h["Se registran"]["value"]}%)')
 # La instalación es la otra mitad de «a quién podemos alcanzar después». p1 abrió
@@ -338,12 +351,24 @@ check("los retenidos son de otra semana", h["Usuarios retenidos"]["value"] == 1,
 check("el titular de cafecitos no cuenta los grants a mano",
       h["Cafecitos"]["value"] == 3, f'({h["Cafecitos"]["value"]}, no 6)')
 check("los reclutas son los que entraron por el link de otro",
-      h["Reclutas"]["value"] == 1, f'({h["Reclutas"]["value"]})')
+      h["Reclutas nuevos"]["value"] == 1, f'({h["Reclutas nuevos"]["value"]})')
 # Un recluta sobre el único jugador que existía antes de la semana.
-check("la viralidad se divide por los que ya estaban",
-      h["Coeficiente de viralidad"]["value"] == 1.0,
-      f'({h["Coeficiente de viralidad"]["value"]})')
-check("y se muestra con dos decimales", h["Coeficiente de viralidad"]["dec"] == 2)
+check("la viralidad general se divide por TODOS los que ya estaban",
+      h["Viralidad general"]["value"] == 1.0,
+      f'({h["Viralidad general"]["value"]})')
+check("y se muestra con dos decimales", h["Viralidad general"]["dec"] == 2)
+
+# ── Las dos viralidades no son la misma cuenta ────────────────────────────
+# La general divide por todos los que ya estaban; la de activados, solo por los
+# que habían respondido algo. Que den distinto no es un detalle: es la razón de
+# que existan las dos. Un bucle viral se sostiene cuando cada unidad CAPAZ de
+# reproducirse produce otra capaz, y acá la unidad capaz es el activado —medido:
+# de los 24 jugadores que alguna vez reclutaron, los 24 tenían 3+ respuestas.
+check("los reclutas activados son un subconjunto de los reclutas",
+      h["Reclutas activados"]["value"] <= h["Reclutas nuevos"]["value"],
+      f'({h["Reclutas activados"]["value"]} de {h["Reclutas nuevos"]["value"]})')
+check("y la viralidad de activados usa otro denominador que la general",
+      h["Viralidad de activados"]["dec"] == 2)
 # La primera tanda de p1 son las 9 correctas del bloque del día 0 (la décima cae
 # más de media hora después); p2 3, p4 5. p3 no respondió en esta semana.
 # p1 respondió 12 veces el día 0, pero las últimas dos son dos horas después:
@@ -377,16 +402,19 @@ check("la duración de la 1ª sesión sale en minutos",
 
 # El reparto es la parte que se puede romper sin que nadie lo note: una tarjeta
 # que se cae del dict desaparece de la página y ninguna consulta falla por eso.
-check("los doce números siguen estando", len(h) == 12, f"({len(h)})")
-check("repartidos de a cuatro entre las tres pestañas que los explican",
+check("son dieciséis números", len(h) == 16, f"({len(h)})")
+check("repartidos de a cuatro en cuatro grupos",
       {k: len(v) for k, v in REPARTO.items()}
-      == {"activacion": 4, "retencion": 4, "jugabilidad": 4},
+      == {"activacion": 4, "retencion": 4, "reclutas": 4, "jugabilidad": 4},
       f"({ {k: len(v) for k, v in REPARTO.items()} })")
 # Cada uno va donde está el gráfico que lo explica, y la sección a la que apunta
 # tiene que existir como pestaña: una clave mal escrita acá es una fila de
 # números que no se dibuja en ningún lado.
-check("y cada grupo apunta a una pestaña que existe",
-      set(REPARTO) <= {c for c, _ in game_render.SECCIONES},
+# `reclutas` es la excepción: no es una pestaña sino una sección adentro de
+# Activación, porque sus cuatro números hablan del mismo canal que la curva que
+# tienen justo abajo y leerlos en la cabecera obligaba a subir y bajar.
+check("y cada grupo apunta a una pestaña que existe, salvo reclutas",
+      set(REPARTO) - {"reclutas"} <= {c for c, _ in game_render.SECCIONES},
       f"({sorted(REPARTO)})")
 # Las derivadas de la primera tanda y sus minutos tienen que quedar PEGADAS:
 # cinco derivadas en dos minutos y cinco en veinte son dos productos distintos,
@@ -668,40 +696,30 @@ check("y el bot no está en el denominador", rc["total_jugadores"] == 5,
 top = {t["alias"]: t for t in rc["top"]}
 check("el reclutador aparece en el top", "cero" in top, f'({list(top)})')
 
-# Las dos vistas del gráfico de viralidad. Son los MISMOS números dibujados de
-# dos formas —la tasa y el volumen del que sale— así que la vista es
-# presentación pura: no toca el payload ni el caché, solo la URL.
+# El gráfico de viralidad dibuja UNA serie y ya no ofrece desglose. La vista de
+# volumen existía para poder auditar la división —un K que salta puede ser más
+# reclutas o menos base— y ese trabajo lo hacen ahora los cuatro números de
+# arriba de la sección, que traen los dos términos escritos.
 h_k = game_render.page(q.build(s, WEEK), token="tok", seccion="activacion")
-h_vol = game_render.page(q.build(s, WEEK), token="tok", seccion="activacion",
-                         viral="volumen")
-check("por defecto se dibuja el coeficiente",
-      '<span class="cur">Coeficiente</span>' in h_k)
-check("y la otra vista se ofrece como link", "&v=volumen" in h_k)
-check("la vista de volumen marca la suya",
-      '<span class="cur">Nuevos y reclutados</span>' in h_vol)
-check("y dibuja DOS líneas con leyenda",
-      ">Nuevos<" in h_vol and ">Reclutados<" in h_vol)
-check("cada una con su color", game_render.AZUL_NUEVOS in h_vol
-      and game_render.VERDE_RECLUTAS in h_vol)
-check("la tabla de viralidad ya no está",
-      "Base previa" not in h_k and "Base previa" not in h_vol)
+check("el gráfico de viralidad ya no tiene selector de vista",
+      '<span class="cur">Coeficiente</span>' not in h_k
+      and "Nuevos y reclutados" not in h_k)
+check("y ningún link arrastra la vista vieja", "&v=" not in h_k)
+check("la tabla de viralidad ya no está", "Base previa" not in h_k)
 check("y los dos titulares que repetían tampoco",
       '<div class="label">K de la última semana</div>' not in h_k
       and '<div class="label">Top reclutador</div>' not in h_k)
+# Los cuatro números de reclutas viven DENTRO de su sección y no en la cabecera
+# de la pestaña: hablan del mismo canal que la curva que tienen abajo.
+for etiqueta in ("Reclutas nuevos", "Reclutas activados", "Viralidad general",
+                 "Viralidad de activados"):
+    check(f"«{etiqueta}» está en la sección de reclutas",
+          f'<div class="label">{etiqueta}</div>' in h_k)
 # El top de reclutadores se fue del panel junto con las dos tarjetas
 # acumuladas: es de SIEMPRE, así que no hay semana en que diga algo que no
 # dijera la anterior, y no hay decisión que dependa de quién encabeza.
 check("y el top de reclutadores tampoco está",
       "<h3>Top reclutadores</h3>" not in h_k)
-# Una vista inventada cae en la de siempre, igual que una pestaña que no existe.
-h_raro = game_render.page(q.build(s, WEEK), token="tok", seccion="activacion",
-                          viral="inventada")
-check("una vista que no existe cae en el coeficiente",
-      '<span class="cur">Coeficiente</span>' in h_raro)
-# Y la vista viaja en los links de semana y de pestaña: cambiar de semana no
-# puede devolver al gráfico por defecto.
-check("la vista viaja en los demás links", h_vol.count("&v=volumen") >= 3,
-      f'({h_vol.count("&v=volumen")} links)')
 check("con su cuenta de reclutas", top["cero"]["reclutas"] == 1 if top else False)
 
 # ── 6c · La pestaña de experimentos ────────────────────────────────────────
@@ -892,8 +910,13 @@ for clave, _ in game_render.SECCIONES:
     # que el reparto se rompa: una tarjeta con la clave mal escrita se dibuja
     # igual de linda, pero arriba del gráfico que no la explica — o no se dibuja
     # en ninguna parte y nadie se entera, porque ninguna consulta falla por eso.
-    mios = [c["label"] for c in REPARTO.get(clave, [])]
-    ajenos = [c["label"] for k, cards in REPARTO.items() if k != clave
+    # `reclutas` se dibuja DENTRO de activación, así que para esa pestaña sus
+    # números son propios y no ajenos. Es la única excepción y conviene que
+    # esté escrita acá: si mañana se mueve a su propia pestaña, este check es
+    # el que lo va a pedir.
+    propios = {clave} | ({"reclutas"} if clave == "activacion" else set())
+    mios = [c["label"] for k in propios for c in REPARTO.get(k, [])]
+    ajenos = [c["label"] for k, cards in REPARTO.items() if k not in propios
               for c in cards]
     check(f"los numeros de «{clave}» estan en su pestaña",
           all(f'<div class="label">{lab}</div>' in h for lab in mios),

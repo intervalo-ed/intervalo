@@ -2524,18 +2524,14 @@ def _game_panel_week(w: str | None):
 
 
 @app.get("/panel/{token}/dx", response_class=HTMLResponse, include_in_schema=False)
-def game_panel_page(token: str, w: str | None = None, s: str = "titulares",
-                    corte: str = "total", v: str = "k",
-                    db: Session = Depends(get_db)):
+def game_panel_page(token: str, w: str | None = None, s: str = "activacion",
+                    corte: str = "total", db: Session = Depends(get_db)):
     from metrics.game_render import page as game_page
 
     _require_panel_token(token)
     week = _game_panel_week(w)
-    # `v` no entra al caché ni al payload: elige cuál de las dos curvas de
-    # viralidad se dibuja con los MISMOS números, así que es presentación pura.
     return HTMLResponse(
-        game_page(_game_panel_payload(week, db, corte), token=token, seccion=s,
-                  viral=v),
+        game_page(_game_panel_payload(week, db, corte), token=token, seccion=s),
         headers=_PANEL_HEADERS,
     )
 
