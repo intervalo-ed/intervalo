@@ -6,9 +6,14 @@
 // control dice las cuatro antes de jugar, en `IntroPanel`.
 //
 // La lista NO se escribe de nuevo. Es la misma de `IntroParagraphs`, cortada en
-// la segunda (`REGLAS_DESDE`) y conservando su numeración: la 1 ya se dio en la
-// puerta, en imperativo, y es la derivada que la persona acaba de resolver. Ver
-// el bloque del brazo en intro-panel.tsx.
+// la segunda (`REGLAS_DESDE`): la primera ya se dio en la puerta, en imperativo,
+// y es la derivada que la persona acaba de resolver. Ver el bloque del brazo en
+// intro-panel.tsx.
+//
+// Lo que sí se recalcula es la numeración (`renumera`): acá las tres se cuentan
+// 1, 2 y 3. Conservar la posición original —2, 3 y 4— obligaba a un renglón
+// arriba explicando dónde había quedado la 1, y una lista que arranca en 2 hace
+// buscar la que falta aunque el texto la nombre.
 //
 // Sale donde sale porque es lo único que la hace legible. Las tres reglas hablan
 // del Elo, del ranking y de la tabla; llegando acá, el Elo se acaba de mover, el
@@ -75,17 +80,17 @@ export function ReglasSlide({
 
   return (
     <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col justify-center gap-5">
-      {/* El renglón de arriba es lo que explica por qué la lista empieza en 2:
-          sin él, tres reglas numeradas de la 2 a la 4 se leen como si faltara
-          una. Con él, la que falta es la que la persona acaba de hacer. */}
-      <p className="text-center font-semibold text-foreground">
-        Listo, esa fue una. El resto es así:
-      </p>
-      {/* La misma tipografía que la intro del control y que la bienvenida del
+      {/* Sin renglón de presentación, y numeradas desde 1 (`renumera`). Antes
+          había un «Listo, esa fue una. El resto es así» arriba de una lista que
+          empezaba en 2, para justificar el hueco. Sobraban los dos: tres ítems
+          que arrancan en 2 hacen buscar el 1 aunque el texto diga dónde quedó, y
+          sin encabezado la pantalla entra antes.
+
+          La misma tipografía que la intro del control y que la bienvenida del
           onboarding: acá este texto ES el contenido de la pantalla, no una
           aclaración al pie. */}
       <div className="flex flex-col gap-3 leading-relaxed text-foreground/85">
-        <IntroParagraphs desde={REGLAS_DESDE} />
+        <IntroParagraphs desde={REGLAS_DESDE} renumera />
       </div>
       <Salida slot={slotSalida}>
         <Button size="lg" className={ctaCls} onClick={onContinue}>
