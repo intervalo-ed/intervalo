@@ -57,6 +57,7 @@ def check(nombre: str, cond: bool, detalle: str = "") -> None:
         fallos.append(nombre)
 
 
+import re as _re  # noqa: E402
 from metrics import game_queries as q  # noqa: E402
 from metrics import game_render  # noqa: E402
 
@@ -831,6 +832,15 @@ check("y la tabla las marca como sumando",
 # dibuja firme, una de las dos miente.
 check("y la curva las dibuja con el punto hueco",
       _huecos(_h_verde) > 0, f"({_huecos(_h_verde)} puntos huecos)")
+# El eje tiene que poder distinguir las cinco marcas. K vive en centesimas, y
+# con un decimal fijo la escala rotulaba «0,1 · 0,1 · 0,1 · 0 · 0»: tres
+# etiquetas repetidas y ninguna informacion. Es el mismo error que el sufijo de
+# porcentaje, por el otro lado del mismo rotulo.
+_ejes = [t for t in _re.findall(r">([0-9][0-9.,]*)<",
+                                h_k.split("Cuánta gente trae cada camada")[1]
+                                   .split("</svg>")[0])]
+check("las marcas del eje de K no se repiten",
+      len(set(_ejes)) >= 4, f"({_ejes})")
 
 # ── 6c · La pestaña de experimentos ────────────────────────────────────────
 print()

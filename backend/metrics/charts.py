@@ -410,6 +410,12 @@ def spark(values: list[float], *, width: int = 96, height: int = 26) -> str:
 # ── Auxiliares ───────────────────────────────────────────────────────────────
 
 def _grid(pad_l: int, pad_t: int, w: float, h: float, top: float, suffix: str) -> str:
+    # Los decimales de la escala salen de su magnitud y no de un 1 fijo. Un eje
+    # que llega a 0,12 —donde vive el coeficiente de viralidad por camada—
+    # rotulaba «0,1 · 0,1 · 0,1 · 0 · 0»: cinco marcas, tres etiquetas
+    # repetidas y ninguna información. La regla es que la marca más alta
+    # conserve dos cifras significativas.
+    dec = 1 if top >= 1 else (2 if top >= 0.1 else 3)
     out = []
     for i in range(5):
         y = pad_t + h * i / 4
@@ -417,7 +423,8 @@ def _grid(pad_l: int, pad_t: int, w: float, h: float, top: float, suffix: str) -
         out.append(f'<line x1="{pad_l}" y1="{y:.1f}" x2="{pad_l + w:.1f}" y2="{y:.1f}" '
                    f'stroke="var(--grid)" stroke-width="1"/>')
         out.append(f'<text x="{pad_l - 7}" y="{y + 3.5:.1f}" text-anchor="end" '
-                   f'fill="var(--muted)" font-size="10" {FONT}>{num(round(v, 1), suffix)}</text>')
+                   f'fill="var(--muted)" font-size="10" {FONT}>'
+                   f'{num(round(v, dec), suffix, dec=dec)}</text>')
     return "".join(out)
 
 
