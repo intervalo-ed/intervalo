@@ -443,9 +443,38 @@ def on_boost(
     cafecitos: int,
     multiplier: float,
     donor_name: str | None,
+    donor_alias: str | None = None,
+    donor_level: int | None = None,
 ) -> None:
-    """Alguien invitó cafecitos. `university=None` es el empuje global."""
-    quien = donor_name.strip() if donor_name and donor_name.strip() else "Alguien"
+    """Alguien invitó cafecitos. `university=None` es el empuje global.
+
+    Tres maneras de nombrar a quien donó, en orden:
+
+      1. **Lo que escribió en Cafecito** (`donor_name`). Es su elección de cómo
+         aparecer, así que gana siempre. Va sin nivel: quien dona no es
+         necesariamente un jugador, y el color de un nivel que no le corresponde
+         sería inventarle un rango.
+      2. **Su @ del juego** (`donor_alias`), cuando dejó el campo vacío en
+         Cafecito pero vino de tocar el botón, así que el juego sabe quién es.
+         Ese SÍ va con su nivel: es la misma persona que está en el ranking, y
+         pintarla igual que su fila es lo que ata las dos cosas.
+      3. **"Alguien"**, cuando no hay ninguna de las dos. Pasa cuando donaron
+         dos personas a la vez y no se puede afirmar cuál pagó, o cuando la
+         donación entró por el aviso de Mercado Pago —que trae el nombre legal
+         del pagador, no el que la persona eligió, y por eso se descarta (ver
+         cafecito_email.py).
+
+    El segundo escalón existe porque Cafecito manda el nombre VACÍO cada vez que
+    la persona no llena ese campo, que resultó ser lo más común: nueve de doce
+    donaciones. Seis de esas nueve tenían una sola persona detrás y se estaban
+    anunciando como anónimas teniendo el dato a mano.
+    """
+    quien = donor_name.strip() if donor_name and donor_name.strip() else None
+    nivel = None
+    if quien is None and donor_alias:
+        quien, nivel = f"@{donor_alias}", donor_level
+    if quien is None:
+        quien = "Alguien"
     cuantos = "un cafecito" if cafecitos == 1 else f"{cafecitos} cafecitos"
     mult = f"×{multiplier:.1f}".replace(".", ",")
     if university is None:
@@ -456,6 +485,7 @@ def on_boost(
             "boost",
             f"{{a}} invitó {cuantos} para TODOS: {mult} para todo el juego.",
             actor_alias=quien,
+            actor_level=nivel,
         )
         return
     art = article_for(university)
@@ -463,10 +493,11 @@ def on_boost(
         db,
         "boost",
         f"{{a}} invitó {cuantos} para {art} {{u0}}: {mult} para toda la universidad.",
-        # Sin nivel a propósito: quien dona escribe su nombre en Cafecito y no es
-        # necesariamente un jugador, así que el nombre va destacado pero sin el
-        # color de un nivel que no le corresponde.
         actor_alias=quien,
+        # Con nivel SOLO cuando el nombre es el @ del juego (ver arriba): el
+        # texto libre de Cafecito no es necesariamente un jugador, y pintarlo con
+        # un nivel sería inventarle un rango.
+        actor_level=nivel,
         university=university,
     )
 
