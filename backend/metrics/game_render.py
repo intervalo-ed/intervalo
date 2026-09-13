@@ -43,6 +43,7 @@ from . import theme
 from .charts import esc, num
 from .game_queries import (
     FIRST_WEEK, PEDIDO_CAFECITO, PEDIDO_PERFIL, PEDIDO_REGISTRO,
+    PLATFORM_LABEL,
 )
 
 # El grueso del CSS es el mismo que Intervalo (ver metrics/theme.py) — es la
@@ -72,6 +73,34 @@ _kpi = theme.kpi
 _table = theme.table
 _box = theme.box
 _section = theme.section
+
+
+# Los cuatro estados en que puede estar un experimento, con su color. El estado
+# va arriba de todo y en grande porque es lo único que la sección existe para
+# decir: cuando todavía no se puede leer, los números de abajo son ruido con
+# forma de resultado, y a un número con forma de resultado se le cree.
+_ESTADOS = {
+    "espera": ("#8a8aa8", "#23233a"),
+    "listo": ("#4f7fe0", "#1a2540"),
+    "gana": ("#2fb673", "#12301f"),
+    "pierde": ("#d4604a", "#341a15"),
+    "plano": ("#8a8aa8", "#23233a"),
+}
+
+
+def _caja_estado(titulo: str, cuerpo: str, tono: str) -> str:
+    borde, fondo = _ESTADOS.get(tono, _ESTADOS["espera"])
+    return (f'<div style="border:1px solid {borde};background:{fondo};border-radius:8px;'
+            f'padding:12px 14px;margin-bottom:12px">'
+            f'<div style="color:{borde};font-weight:700;font-size:13.5px">{esc(titulo)}</div>'
+            f'<div class="hint" style="margin-top:4px">{cuerpo}</div></div>')
+
+
+def _p_txt(p: float) -> str:
+    """El p-valor, con un piso: por debajo de 0,001 el número exacto no dice nada
+    que «< 0,001» no diga, y escribirlo con seis decimales invita a leerlo como
+    una medida de cuán grande es el efecto, que es justo lo que no es."""
+    return "&lt; 0,001" if p < 0.001 else num(p, dec=3)
 
 
 def _pct_txt(v) -> str:
@@ -175,6 +204,7 @@ SECCIONES: tuple[tuple[str, str], ...] = (
     ("push", "Push"),
     ("mails", "Mails"),
     ("reclutas", "Reclutas"),
+    ("experimentos", "Experimentos"),
 )
 SECCION_POR_DEFECTO = SECCIONES[0][0]
 
@@ -636,6 +666,109 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
         sub="El único canal de crecimiento que no depende de que difundamos nosotros.",
         anchor="reclutas"))
     paneles["reclutas"] = "".join(out)
+
+    # ── 6 · Experimentos ─────────────────────────────────────────────────────
+    out = []
+    bloques = []
+    for e in p["experimentos"]:
+        brazos = e["brazos"]
+        total = sum(b["n"] for b in brazos)
+        falta = max((b["falta"] for b in brazos), default=0)
+
+        # El estado va PRIMERO y en grande, antes que cualquier número por brazo.
+        # Es lo único que la sección existe para decir: si todavía no se puede
+        # leer, todo lo de abajo es ruido con forma de resultado.
+        if e["sin_arrancar"]:
+            estado = _caja_estado(
+                "Sin datos todavía",
+                f'Ningún jugador entró al experimento. La variante se escribe al crear la '
+                f'fila, así que los que ya existían no cuentan: el reloj arranca con el '
+                f'primer jugador nuevo después del despliegue.', "espera")
+        elif falta > 0:
+            estado = _caja_estado(
+                f'Todavía no se puede leer — faltan {num(falta)} por brazo',
+                f'Van {num(total)} de los {num(2 * e["n_pedido"])} comprometidos '
+                f'({num(e["n_pedido"])} por brazo). El p-valor y el ganador no se calculan '
+                f'hasta llegar: mirar todos los días y parar en cuanto cruza '
+                f'{num(e["alpha"], dec=2)} no es leer el experimento, es repetir el sorteo '
+                f'hasta que salga.', "espera")
+        else:
+            L = e["lectura"]
+            if L is None:
+                estado = _caja_estado("Listo para leer", "Ya hay muestra suficiente.", "listo")
+            elif L["rechaza"]:
+                signo = "a favor" if L["delta_pp"] > 0 else "EN CONTRA"
+                estado = _caja_estado(
+                    f'Diferencia significativa {signo}: {num(L["delta_pp"], " pp")}',
+                    f'z = {num(L["z"], dec=2)}, p-valor {_p_txt(L["p_valor"])}. '
+                    f'Intervalo del 95% para la diferencia: '
+                    f'[{num(L["ic_pp"][0])} ; {num(L["ic_pp"][1])}] pp. '
+                    f'Antes de implementar, mirar los tres guardarraíles de la tabla.',
+                    "gana" if L["delta_pp"] > 0 else "pierde")
+            else:
+                estado = _caja_estado(
+                    f'Sin diferencia detectable: {num(L["delta_pp"], " pp")}',
+                    f'z = {num(L["z"], dec=2)}, p-valor {_p_txt(L["p_valor"])}. El intervalo '
+                    f'del 95% —[{num(L["ic_pp"][0])} ; {num(L["ic_pp"][1])}] pp— contiene al '
+                    f'cero. No es «son iguales»: es que un efecto de '
+                    f'{num(e["mde_pp"], " pp", dec=0)} o más habría aparecido, y uno más '
+                    f'chico este diseño no lo puede ver.', "plano")
+
+        filas = [[
+            f'<b>{esc(b["label"])}</b>', num(b["n"]),
+            _pct_txt(b["pct_servida"]), _pct_txt(b["pct_activado"]),
+            num(b["mediana"]), _pct_txt(b["pct_vuelven"]),
+        ] for b in brazos]
+
+        filas_plat = []
+        for plat in ("android", "ios", "desktop"):
+            celdas = []
+            for b in brazos:
+                d = b["plataformas"].get(plat)
+                # Envuelto en un span porque `_table` solo deja pasar HTML en las
+                # celdas que EMPIEZAN con "<": el resto las escapa, y sin esto el
+                # marcado se veía escrito en la pantalla.
+                celdas.append("—" if not d else
+                              f'<span>{_pct_txt(d["pct"])} '
+                              f'<span class="sub2">n={d["n"]}</span></span>')
+            if any(c != "—" for c in celdas):
+                filas_plat.append([f'<b>{esc(PLATFORM_LABEL[plat])}</b>'] + celdas)
+
+        bloques.append(
+            _box(esc(e["titulo"]), estado
+                 + _table(["Brazo", "Jugadores", "Llegó a la 1ª", "Respondió una",
+                           "Mediana 1ª tanda", "Volvió otro día"], filas,
+                          empty="todavía nadie")
+                 + '<p class="note"><b>Las tres últimas columnas son guardarraíles, no '
+                   'objetivos.</b> Sirven para VETAR un resultado bueno, nunca para rescatar '
+                   'uno malo: si la variante gana la entrada pero hunde la mediana de la '
+                   'primera tanda, entró gente que no entendió y se fue en la segunda '
+                   'derivada. Se miran siempre, incluso antes del n — un brazo que hace daño '
+                   'se apaga sin esperar.</p>'
+                 + _table(["Plataforma"] + [b["label"] for b in brazos], filas_plat,
+                          empty="sin plataforma cargada")
+                 + f'<p class="note"><b>El desglose por plataforma se declaró ANTES</b>, y es '
+                   f'el único: «{esc(e["prediccion"])}» Cortar por universidad, por horario o '
+                   f'por lo que sea hasta que algo dé significativo infla el error de tipo I — '
+                   f'con veinte cortes y alfa {num(e["alpha"], dec=2)}, uno significativo es '
+                   f'lo ESPERADO aunque no haya ningún efecto.</p>',
+                 note=f'<b>Hipótesis:</b> {esc(e["hipotesis"])}'
+                      f'<br><br>Declarado el {e["desde"].strftime("%d/%m")}: efecto mínimo '
+                      f'{num(e["mde_pp"], " pp", dec=0)} sobre una base de referencia, '
+                      f'alfa {num(e["alpha"], dec=2)}, potencia '
+                      f'{num(100 * e["potencia"], "%", dec=0)} → '
+                      f'<b>{num(e["n_pedido"])} por brazo</b>. El n va con el inverso del '
+                      f'CUADRADO del efecto, así que pedir la mitad de efecto cuesta cuatro '
+                      f'veces la muestra: es lo que obliga a que los experimentos sean audaces '
+                      f'y no sutiles.'))
+
+    out.append(_section(
+        6, "Experimentos",
+        "".join(bloques) or '<p class="empty">no hay experimentos declarados</p>',
+        sub="Lo que esta sección hace y ninguna otra hace: negarse a contestar hasta tener "
+            "la muestra que se prometió.",
+        anchor="experimentos"))
+    paneles["experimentos"] = "".join(out)
 
     out = [cabecera, paneles[seccion]]
     out.append(

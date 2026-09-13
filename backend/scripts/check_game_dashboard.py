@@ -701,6 +701,141 @@ check("la vista viaja en los demás links", h_vol.count("&v=volumen") >= 3,
       f'({h_vol.count("&v=volumen")} links)')
 check("con su cuenta de reclutas", top["cero"]["reclutas"] == 1 if top else False)
 
+# ── 6c · La pestaña de experimentos ────────────────────────────────────────
+print()
+print("— experimentos —")
+
+EXP = q.EXPERIMENTOS[0]
+MARCA = {c: f'{EXP["clave"]}:{c}' for c, _ in EXP["brazos"]}
+CONTROL, TEST = [c for c, _ in EXP["brazos"]]
+
+# El n comprometido se clava con su valor. No es un número decorativo: es lo que
+# decide cuándo el panel deja de negarse a contestar, y si alguien tocara `base`
+# o `mde` sin querer, el experimento pasaría a leerse antes o después sin que
+# nadie lo note.
+check("el n comprometido sale de los parámetros declarados",
+      q.n_comprometido(EXP) == 373, f"({q.n_comprometido(EXP)} por brazo)")
+# Y la propiedad que gobierna todo el programa de experimentos: el n va con el
+# inverso del CUADRADO del efecto, así que pedir la mitad cuesta cuatro veces.
+mitad = dict(EXP, mde=EXP["mde"] / 2)
+check("y pedir la mitad de efecto cuesta ~4 veces la muestra",
+      3.6 < q.n_comprometido(mitad) / q.n_comprometido(EXP) < 4.4,
+      f'({q.n_comprometido(mitad)} contra {q.n_comprometido(EXP)})')
+
+
+def escenario(n_por_brazo, servidas_control, servidas_test):
+    """Un `data` mínimo con dos brazos poblados a mano."""
+    players, exercises, firsts = [], [], []
+    pid = 0
+    for clave, servidas in ((CONTROL, servidas_control), (TEST, servidas_test)):
+        for i in range(n_por_brazo):
+            pid += 1
+            players.append({
+                "id": pid, "is_bot": False, "variant": MARCA[clave],
+                "platform": "android" if i % 2 else "ios",
+                "created_at": NOW, "user_id": None, "university": None,
+                "referred_by": None, "pwa_first_seen_at": None,
+            })
+            if i < servidas:
+                exercises.append({"player_id": pid, "created_at": NOW})
+                firsts.append({"player_id": pid, "created_at": NOW,
+                               "attempt_number": 1, "is_correct": True})
+    return {"players": players, "exercises": exercises, "_firsts": firsts}
+
+
+# ── La invariante central ──────────────────────────────────────────────────
+# Con la muestra a medio juntar NO se calcula el p-valor. Es lo único que esta
+# sección hace y ninguna otra del panel hace. Sin esto, alguien mira el panel
+# todos los días y para en cuanto cruza 0,05 — que no es leer el experimento
+# sino repetir el sorteo hasta que salga, y sube el error de tipo I muy por
+# encima del alfa declarado.
+flaco = q.experimentos(escenario(50, 25, 40))[0]
+check("con la muestra a medio juntar, no está listo", not flaco["listo"])
+check("y NO se calcula el p-valor todavía", flaco["lectura"] is None,
+      f'({flaco["lectura"]})')
+check("pero sí dice cuánto falta por brazo",
+      all(b["falta"] == 323 for b in flaco["brazos"]),
+      f'({[b["falta"] for b in flaco["brazos"]]})')
+# Los guardarraíles se calculan igual, y eso no es contradicción: sirven para
+# frenar un brazo que hace daño, no para declararlo ganado.
+check("y los guardarraíles se miran igual, desde el primer día",
+      all(b["pct_servida"] is not None for b in flaco["brazos"]))
+
+# ── Con la muestra completa ────────────────────────────────────────────────
+lleno = q.experimentos(escenario(400, 224, 264))[0]
+check("con la muestra completa, está listo", lleno["listo"])
+check("y ahí sí se calcula la lectura", lleno["lectura"] is not None)
+L = lleno["lectura"]
+check("el delta sale en puntos porcentuales", abs(L["delta_pp"] - 10.0) < 0.001,
+      f'({L["delta_pp"]})')
+check("un efecto de 10 puntos con el n comprometido se detecta",
+      L["rechaza"] and L["p_valor"] < 0.05,
+      f'(z={L["z"]}, p={L["p_valor"]:.4f})')
+# El intervalo NO usa la proporción combinada —esa vale bajo H0— y tiene que
+# contener al delta observado. Mezclar los dos errores estándar es el error
+# clásico de este cálculo y no se vería en la pantalla.
+check("y el intervalo contiene al delta observado",
+      L["ic_pp"][0] < L["delta_pp"] < L["ic_pp"][1], f'({L["ic_pp"]})')
+
+# Sin efecto, no rechaza. Es la otra mitad: un panel que siempre encuentra algo
+# no sirve para decidir.
+plano = q.experimentos(escenario(400, 224, 224))[0]
+check("y sin diferencia real no rechaza",
+      not plano["lectura"]["rechaza"] and plano["lectura"]["p_valor"] > 0.05,
+      f'(p={plano["lectura"]["p_valor"]:.3f})')
+
+# ── Quién entra al experimento ─────────────────────────────────────────────
+# Los que no tienen variante quedan afuera solos. Son los 1.102 que ya existían
+# cuando el experimento arrancó: contarlos sería meter en un brazo a gente que
+# vio la otra pantalla.
+con_viejos = escenario(50, 25, 40)
+con_viejos["players"].append({
+    "id": 9001, "is_bot": False, "variant": None, "platform": "android",
+    "created_at": NOW, "user_id": None, "university": None,
+    "referred_by": None, "pwa_first_seen_at": None,
+})
+check("quien no tiene variante no entra a ningún brazo",
+      sum(b["n"] for b in q.experimentos(con_viejos)[0]["brazos"]) == 100)
+
+# ── Y que la pantalla lo diga ──────────────────────────────────────────────
+html_exp = game_render.page(q.build(s, WEEK), token="tok", seccion="experimentos")
+check("la pestaña avisa que todavía no se puede leer",
+      "Todavía no se puede leer" in html_exp or "Sin datos todavía" in html_exp)
+check("y no muestra un p-valor antes de tiempo",
+      "p-valor" not in html_exp.split("Hipótesis")[0] or "faltan" in html_exp)
+check("y escribe el n comprometido", str(q.n_comprometido(EXP)) in html_exp)
+# `_table` escapa toda celda que no EMPIECE con "<", así que una celda que mezcla
+# texto y marcado se dibuja con las etiquetas a la vista. Pasó con el desglose
+# por plataforma y no lo atrapaba nada: la página se armaba igual.
+check("y no se le escapa marcado a la vista",
+      '&lt;span' not in html_exp, f'({html_exp.count(chr(38) + "lt;span")} sueltos)')
+
+# El estado "ya se puede leer" tiene su propio render —el recuadro con el z, el
+# p-valor y el intervalo— y ese camino no lo ejercita ningún escenario del panel,
+# porque en el panel todavía no hay muestra. Se arma a mano: la primera vez que
+# se dibujó de verdad tenía un `num()` sobre la tupla entera del intervalo en vez
+# de sobre su primer elemento, y reventaba la página.
+def _pintar(exp_listo):
+    payload = dict(q.build(s, WEEK))
+    payload["experimentos"] = [exp_listo]
+    return game_render.page(payload, token="tok", seccion="experimentos")
+
+
+for etiqueta, datos in (("gana", escenario(400, 224, 264)),
+                        ("plano", escenario(400, 224, 224)),
+                        ("pierde", escenario(400, 264, 224))):
+    e = q.experimentos(datos)[0]
+    html_l = _pintar(e)
+    check(f"el estado «{etiqueta}» se dibuja sin romperse", len(html_l) > 8000,
+          f"({len(html_l)} bytes)")
+    # Los dos extremos separados por " ; ", y sin rastro de una tupla de
+    # Python impresa: `num()` sobre la tupla entera es justo el bug que
+    # rompía esta pantalla, y su forma visible sería un "(3.3, 16.7)".
+    check(f"y «{etiqueta}» muestra el intervalo con sus dos extremos",
+          " ; " in html_l and ", " not in html_l.split(" ; ")[0][-14:])
+check("y con la muestra completa aparece el p-valor",
+      "p-valor" in _pintar(q.experimentos(escenario(400, 224, 264))[0]))
+
 # ── 7 · La página se arma ───────────────────────────────────────────────────
 print("\n— render —")
 payload = q.build(s, WEEK)
@@ -729,7 +864,8 @@ check("que además avisa por qué le falta la segunda línea",
 # el panel deje de ser un scroll.
 titulos = {"embudo": "Embudo de la partida",
            "profundidad": "Profundidad", "push": "Re-enganche · push",
-           "mails": "Re-enganche · mails", "reclutas": "Reclutas"}
+           "mails": "Re-enganche · mails", "reclutas": "Reclutas",
+           "experimentos": "Experimentos"}
 for clave, _ in game_render.SECCIONES:
     h = game_render.page(q.build(s, WEEK), token="tok", seccion=clave)
     otros = [t for k, t in titulos.items() if k != clave]

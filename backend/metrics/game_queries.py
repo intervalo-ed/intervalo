@@ -39,6 +39,7 @@ domingo.
 """
 from __future__ import annotations
 
+import math
 import statistics
 from collections import Counter, defaultdict
 from datetime import date, datetime, timedelta
@@ -178,7 +179,7 @@ def load(db: DBSession) -> dict:
         "players": _rows(db, """
             SELECT id, user_id, alias, university, referred_by, referral_xp_given,
                    platform, is_bot, notify_enabled, winback_email_sent_at,
-                   pwa_first_seen_at, created_at, last_seen_at
+                   pwa_first_seen_at, created_at, last_seen_at, variant
             FROM game_players"""),
         "exercises": _rows(db, "SELECT id, player_id, created_at FROM game_exercises"),
         "attempts": _rows(db, """
@@ -1068,6 +1069,196 @@ def reclutas(data: dict, weeks: list[date]) -> dict:
     return _reclutas_de_intervalo({"game_players": data["players"]}, weeks)
 
 
+# ── 6 · Experimentos ─────────────────────────────────────────────────────────
+
+# Los experimentos que el panel sabe leer. Viven acá y no en un JSON aparte
+# porque lo que hace falta para leerlos —el efecto mínimo declarado y la base
+# esperada— es lo que fija el n, y ese n tiene que estar escrito ANTES de ver los
+# datos. Puesto en el código, cambiarlo deja rastro en el `git log`; puesto en
+# una tabla de configuración, se puede correr el arco a mitad del partido y nadie
+# se entera.
+#
+# `base` y `mde` son los que se declararon al arrancar, no los que se observaron.
+# Si mañana la base real resulta otra, el n comprometido NO se recalcula: se
+# terminó de juntar el que se prometió y recién ahí se lee.
+EXPERIMENTOS: tuple[dict, ...] = (
+    {
+        "clave": "dx-puerta-1",
+        "titulo": "La puerta",
+        "hipotesis": (
+            "Entre aterrizar y ver una derivada hay tres peajes —la presentación del "
+            "logo, cuatro párrafos de reglas y el pedido de apodo— y nadie los pidió. "
+            "Si el producto se explica solo, sacarlos sube la entrada."
+        ),
+        "desde": date(2026, 9, 13),
+        "brazos": (("control", "Control"), ("derivada-primero", "Derivada primero")),
+        "base": 0.56,
+        "mde": 0.10,
+        "alpha": 0.05,
+        "potencia": 0.80,
+        # La predicción, escrita antes de ver el resultado. El panel la muestra al
+        # lado del desglose por plataforma para que no se pueda inventar después.
+        "prediccion": (
+            "Mobile debería moverse más que escritorio: escritorio ya está en 64% y "
+            "tiene poco recorrido."
+        ),
+    },
+)
+
+
+def _phi(z: float) -> float:
+    """Normal estándar acumulada. Sin scipy, que no está en el backend."""
+    return 0.5 * (1.0 + math.erf(z / math.sqrt(2.0)))
+
+
+def _z_de(p: float) -> float:
+    """El cuantil de la normal estándar, por bisección.
+
+    Se usa tres veces por carga del panel y el rango es fijo, así que doscientas
+    iteraciones de bisección son más baratas —y mucho más fáciles de leer— que
+    traerse una aproximación racional de tablas.
+    """
+    lo, hi = -10.0, 10.0
+    for _ in range(200):
+        m = (lo + hi) / 2
+        if _phi(m) < p:
+            lo = m
+        else:
+            hi = m
+    return (lo + hi) / 2
+
+
+def n_comprometido(exp: dict) -> int:
+    """Cuántos por brazo hacen falta para poder leer el experimento.
+
+    Es la fórmula de dos proporciones con proporción combinada bajo H0. El n va
+    con el INVERSO DEL CUADRADO del efecto, y de ahí sale la restricción que
+    gobierna todo el programa: pasar de detectar 10 puntos a detectar 5 no
+    duplica la muestra, la cuadruplica.
+    """
+    pc = exp["base"]
+    pt = pc + exp["mde"]
+    pb = (pc + pt) / 2
+    za = _z_de(1 - exp["alpha"] / 2)
+    zb = _z_de(exp["potencia"])
+    t1 = za * math.sqrt(2 * pb * (1 - pb))
+    t2 = zb * math.sqrt(pc * (1 - pc) + pt * (1 - pt))
+    return int((t1 + t2) ** 2 / exp["mde"] ** 2) + 1
+
+
+def experimentos(data: dict) -> list[dict]:
+    """Un bloque por experimento: los brazos, sus números y si YA SE PUEDE LEER.
+
+    **Lo que esta sección hace y ninguna otra del panel hace: negarse a
+    contestar.** Mientras falte gente para el n comprometido no se calcula el
+    p-valor ni se dibuja un ganador — solo cuánto falta. Mirar un A/B todos los
+    días y parar en cuanto cruza 0,05 no es leer el experimento: es repetir el
+    sorteo hasta que salga, y sube el error de tipo I muy por encima del alfa que
+    se declaró.
+
+    Los guardarraíles se calculan SIEMPRE, incluso antes de tiempo, y eso no es
+    una contradicción: sirven para frenar un experimento que está haciendo daño,
+    no para declararlo ganado. Un brazo que hunde la profundidad se apaga sin
+    esperar al n.
+    """
+    por_jugador: dict[int, list[dict]] = defaultdict(list)
+    for a in data["_firsts"]:
+        por_jugador[a["player_id"]].append(a)
+    con_ejercicio = {e["player_id"] for e in data["exercises"]}
+    con_intento = set(por_jugador)
+
+    salida = []
+    for exp in EXPERIMENTOS:
+        n_pedido = n_comprometido(exp)
+        etiquetas = {f'{exp["clave"]}:{c}': nombre for c, nombre in exp["brazos"]}
+        # Los jugadores del experimento, y solo ellos: la variante se escribe al
+        # crear la fila, así que quien entró antes de empezar no tiene ninguna y
+        # queda afuera solo.
+        inscriptos = [p for p in data["players"]
+                      if not p["is_bot"] and p.get("variant") in etiquetas]
+
+        brazos = []
+        for clave, nombre in exp["brazos"]:
+            marca = f'{exp["clave"]}:{clave}'
+            gente = [p for p in inscriptos if p["variant"] == marca]
+            ids = {p["id"] for p in gente}
+            n = len(gente)
+            servida = sum(1 for i in ids if i in con_ejercicio)
+            activado = sum(1 for i in ids if i in con_intento)
+            largos = [float(len(_primera_sesion(por_jugador[i])))
+                      for i in ids if i in por_jugador]
+            vuelven = sum(
+                1 for i in ids
+                if len({local_date(a["created_at"]) for a in por_jugador.get(i, ())}) >= 2)
+            # El desglose declarado de antemano, y el único: cortar por lo que
+            # sea hasta que algo dé significativo es la otra forma de inflar el
+            # error de tipo I (ver la nota de la sección en game_render.py).
+            plataformas = {}
+            for plat in PLATFORM_ORDER:
+                de_esa = [p for p in gente if p["platform"] == plat]
+                if de_esa:
+                    plataformas[plat] = {
+                        "n": len(de_esa),
+                        "pct": _pct(sum(1 for p in de_esa if p["id"] in con_ejercicio),
+                                    len(de_esa)),
+                    }
+            brazos.append({
+                "clave": clave,
+                "label": nombre,
+                "n": n,
+                "servida": servida,
+                "pct_servida": _pct(servida, n),
+                "activado": activado,
+                "pct_activado": _pct(activado, n),
+                "mediana": _median(largos),
+                "pct_vuelven": _pct(vuelven, len(ids & con_intento)),
+                "plataformas": plataformas,
+                "falta": max(0, n_pedido - n),
+            })
+
+        listo = all(b["n"] >= n_pedido for b in brazos)
+        lectura = None
+        if listo and len(brazos) == 2:
+            control, test = brazos[0], brazos[1]
+            nc, nt = control["n"], test["n"]
+            xc, xt = control["servida"], test["servida"]
+            pc, pt = xc / nc, xt / nt
+            pool = (xc + xt) / (nc + nt)
+            se0 = math.sqrt(pool * (1 - pool) * (1 / nc + 1 / nt))
+            z = (pt - pc) / se0 if se0 else 0.0
+            # El error estándar del INTERVALO no usa la proporción combinada: esa
+            # vale bajo H0, que es el mundo donde las dos proporciones son
+            # iguales, y el intervalo no supone eso. Son dos cuentas distintas a
+            # propósito y mezclarlas es el error clásico de este cálculo.
+            se = math.sqrt(pc * (1 - pc) / nc + pt * (1 - pt) / nt)
+            za = _z_de(1 - exp["alpha"] / 2)
+            lectura = {
+                "delta_pp": round(100 * (pt - pc), 1),
+                "z": round(z, 2),
+                "p_valor": 2 * (1 - _phi(abs(z))),
+                "ic_pp": (round(100 * (pt - pc - za * se), 1),
+                          round(100 * (pt - pc + za * se), 1)),
+                "rechaza": abs(z) > za,
+            }
+
+        salida.append({
+            "clave": exp["clave"],
+            "titulo": exp["titulo"],
+            "hipotesis": exp["hipotesis"],
+            "prediccion": exp["prediccion"],
+            "desde": exp["desde"],
+            "mde_pp": round(100 * exp["mde"], 0),
+            "alpha": exp["alpha"],
+            "potencia": exp["potencia"],
+            "n_pedido": n_pedido,
+            "brazos": brazos,
+            "listo": listo,
+            "lectura": lectura,
+            "sin_arrancar": sum(b["n"] for b in brazos) == 0,
+        })
+    return salida
+
+
 # ── Entrada ──────────────────────────────────────────────────────────────────
 
 def build(db: DBSession, week: date, weeks_shown: int = 4,
@@ -1093,4 +1284,5 @@ def build(db: DBSession, week: date, weeks_shown: int = 4,
         "push": push(data, weeks),
         "mails": mails(data, weeks),
         "reclutas": reclutas(data, weeks),
+        "experimentos": experimentos(data),
     }

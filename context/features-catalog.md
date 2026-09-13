@@ -83,6 +83,14 @@ está en `game_boosts` y la profundidad en `game_attempts`.
 
 Lo que fija `backend/scripts/check_game_variante.py`.
 
+El panel lo lee en su pestaña **Experimentos** (`/panel/<token>/dx?s=experimentos`),
+que tiene una particularidad: **se niega a contestar hasta tener la muestra que
+se prometió.** Mientras falte gente no calcula el p-valor ni dibuja un ganador,
+solo cuánto falta — mirar un A/B todos los días y parar en cuanto cruza 0,05 no
+es leerlo, es repetir el sorteo hasta que salga. Los guardarraíles (profundidad,
+vuelta otro día) sí se miran desde el primer día, porque sirven para frenar un
+brazo que hace daño y no para declararlo ganado.
+
 - **Cada 3 correctas, el festejo cuenta sobre la universidad.** La XP sigue
   siendo de la persona y le suma igual; lo que cambia es sobre qué fila trepa el
   número y adónde vuelan los orbes. Ver `vuelta-universitaria.ts` y
