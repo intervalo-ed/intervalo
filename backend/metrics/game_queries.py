@@ -213,7 +213,7 @@ def load(db: DBSession) -> dict:
         # el denominador del clickrate y lo único que no sale de esta base.
         "grupos": _rows(db, """
             SELECT id, universidad, cluster, materia, miembros, ultimo_envio,
-                   ultima_campana, producto, synced_at
+                   ultima_campana, producto, cluster_dx, synced_at
             FROM game_groups"""),
         # Los avisos push del juego y los navegadores suscriptos. Las dos tablas
         # son chicas por construcción —una fila por envío y una por navegador—
@@ -287,6 +287,24 @@ def _weeks_back(week: date, n: int) -> list[date]:
 def _in_week(dt: datetime | None, week: date) -> bool:
     d = local_date(dt)
     return d is not None and week <= d <= week + timedelta(days=6)
+
+
+def _fecha_de(v) -> date | None:
+    """Una columna DATE, venga como venga del driver.
+
+    Postgres devuelve `date` y SQLite devuelve el string ISO, porque `_rows`
+    ejecuta SQL crudo y no pasa por el tipado del modelo. Comparar sin
+    normalizar rompe en local y anda en producción, que es la forma más cara de
+    tener un bug.
+    """
+    if v is None or isinstance(v, date) and not isinstance(v, datetime):
+        return v
+    if isinstance(v, datetime):
+        return v.date()
+    try:
+        return date.fromisoformat(str(v)[:10])
+    except ValueError:
+        return None
 
 
 def _semanas_hasta(week: date) -> list[date]:
@@ -1560,11 +1578,32 @@ def difusion(data: dict) -> dict:
         return {"grupos": len(claves), "miembros": miembros, "jugadores": gente,
                 "pct": _pct(gente, miembros)}
 
-    # Solo los grupos que YA recibieron dx: a los otros nunca se les mandó nada,
-    # y meterlos al denominador diluiría el clickrate con gente que no tuvo
-    # oportunidad de convertir.
+    # Los grupos que recibieron dx **dentro de la ventana del panel**, y no
+    # todos los que alguna vez lo recibieron.
+    #
+    # El `producto == "dx"` solo no alcanza desde que el panel arranca en la
+    # primera camada oficial (ver FIRST_WEEK): un grupo al que se le mandó en
+    # agosto sigue marcado como dx y sigue aportando sus miembros al
+    # denominador, pero sus jugadores son todos anteriores al corte y ya no se
+    # cargan. Son miembros sin ninguna posibilidad de tener numerador, y hunden
+    # el clickrate por un motivo que no tiene nada que ver con la difusión.
     tocados = [g for g, d in grupos.items()
-               if d["producto"] == "dx" and (d["miembros"] or 0) > 0]
+               if d["producto"] == "dx" and (d["miembros"] or 0) > 0
+               and (_fecha_de(d["ultimo_envio"]) or date.min) >= FIRST_WEEK]
+
+    # Las dos copias con las que salió la ola: los grupos donde las derivadas
+    # están en el temario y los demás. La etiqueta la escribe el sync desde los
+    # planes de hermes y no se infiere acá — ver `GameGroup.cluster_dx`, que
+    # tiene medido por qué adivinarla por la materia no alcanza.
+    #
+    # Los que no la tienen NO se reparten a ojo ni se esconden: van a su propia
+    # fila. Son sobre todo los de las primeras tandas, mandados antes de que la
+    # ola se partiera en dos, y decir «no sabemos con cuál» es información —
+    # meterlos en cualquiera de los dos cubos sería inventarla.
+    def copia(clave: str) -> dict:
+        return tasa([g for g in tocados if grupos[g]["cluster_dx"] == clave])
+
+    sin_copia = tasa([g for g in tocados if not grupos[g]["cluster_dx"]])
 
     def agrupar(campo: str) -> list[dict]:
         cubos: dict[str, list[str]] = defaultdict(list)
@@ -1592,6 +1631,10 @@ def difusion(data: dict) -> dict:
                  default=None)
     return {
         "global": tasa(tocados),
+        "analisis": copia("analisis"),
+        "generico": copia("generico"),
+        "sin_copia": sin_copia,
+        "desde": FIRST_WEEK,
         "por_universidad": agrupar("universidad"),
         "por_campana": agrupar("ultima_campana"),
         "top": detalle[:8],

@@ -814,17 +814,48 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
             '<code>scripts/diag/sync_grupos.py</code></p>')
     else:
         g = di["global"]
+
+        # Intercalados y no agrupados: audiencia y clickrate de la misma copia,
+        # pegados. Es la única forma de que se lean como una división —el de la
+        # izquierda es el denominador del de la derecha— y de que comparar las
+        # dos copias sea mirar dos pares y no cruzar cuatro casillas.
+        def _par(clave, etiqueta):
+            d = di[clave]
+            return [
+                (f"Audiencia · {etiqueta}", d["miembros"], "",
+                 f'en {num(d["grupos"])} grupos', 0),
+                (f"Clickrate · {etiqueta}", d["pct"], "%",
+                 f'{num(d["jugadores"])} jugadores', 1),
+            ]
+
         cuerpo_dif = (
             '<div class="grid g4">'
-            + "".join(_kpi_chico(l, v, h, suffix=sfx, dec=d) for l, v, sfx, h, d in [
-                ("Clickrate", g["pct"], "%",
-                 f'{num(g["jugadores"])} de {num(g["miembros"])} alcanzados', 1),
-                ("Gente alcanzada", g["miembros"], "",
-                 f'en {num(g["grupos"])} grupos con dx', 0),
-                ("Jugadores que trajo", g["jugadores"], "", "atribuidos por el link", 0),
-                ("Cobertura del cruce", di["pct_cobertura"], "%",
-                 f'{num(di["cubiertos"])} de {num(di["atribuidos"])} atribuidos', 1)])
+            + "".join(_kpi_chico(l, v, h, suffix=sfx, dec=d) for l, v, sfx, h, d in
+                      _par("analisis", "análisis") + _par("generico", "genérico"))
             + "</div>"
+            + '<p class="note">'
+            + (f'<b>La ola salió con dos copias y no con una.</b> A los grupos donde '
+               f'las derivadas están en el temario se les habló de derivadas; a los '
+               f'demás, del juego. Las dos audiencias son parecidas en tamaño '
+               f'—{num(di["analisis"]["miembros"])} contra '
+               f'{num(di["generico"]["miembros"])} personas— así que los dos '
+               f'clickrates se comparan directo.'
+               if di["analisis"]["miembros"] and di["generico"]["miembros"] else
+               '<b>Todavía no están las dos copias.</b> La etiqueta la escribe '
+               '<code>scripts/diag/sync_grupos.py --cluster</code> desde los planes '
+               'de la campaña; sin ella la ola no se puede partir.')
+            + (f'<br><br>Quedan afuera {num(di["sin_copia"]["miembros"])} personas en '
+               f'{num(di["sin_copia"]["grupos"])} grupos sin copia anotada, que '
+               f'trajeron {num(di["sin_copia"]["jugadores"])} jugadores. Son de las '
+               f'primeras tandas, mandadas antes de que la ola se partiera en dos. No '
+               f'se reparten a ojo: «no sabemos con cuál» es información.'
+               if di["sin_copia"]["grupos"] else "")
+            + f'<br><br>El conjunto da <b>{_pct_txt(g["pct"])}</b> sobre '
+              f'{num(g["miembros"])} personas en {num(g["grupos"])} grupos, '
+              f'{num(g["jugadores"])} jugadores. La cobertura del cruce es '
+              f'{_pct_txt(di["pct_cobertura"])} ({num(di["cubiertos"])} de '
+              f'{num(di["atribuidos"])} atribuidos).'
+            + "</p>"
             + _box("Por universidad",
                    _table(["Universidad", "Grupos", "Alcanzados", "Jugadores", "Clickrate"],
                           [[f'<b>{esc(f["clave"])}</b>', num(f["grupos"]), num(f["miembros"]),
@@ -875,7 +906,10 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         1, "Difusión: a cuánta gente se llegó",
         cuerpo_dif + "".join(f'<p class="note">{a}</p>' for a in aviso),
         sub="Lo único del panel que necesita un dato de afuera: cuánta gente hay en cada "
-            "grupo vive en el tracker y llega por una copia.",
+            "grupo vive en el tracker y llega por una copia. Cuenta solo los grupos a los "
+            "que se les mandó dx DESDE la primera camada oficial: uno de agosto aporta sus "
+            "miembros al denominador y ningún jugador al numerador, porque los suyos "
+            "quedaron del otro lado del corte.",
         anchor="difusion"))
     pieza_difusion = "".join(out)
 

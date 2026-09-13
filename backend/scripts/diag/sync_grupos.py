@@ -103,6 +103,16 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--csv", action="append", required=True,
                     help="URL o archivo del export. Repetible (Grupos y Comunidades).")
+    # Con qué copia de dx se le habló a cada grupo. No sale del tracker: todos
+    # los planes de dx comparten `id: juego-lanzamiento`, así que la columna
+    # «Última campaña» dice lo mismo para los dos clusters. Sale de los nombres
+    # de los planes de hermes, que están fuera del repo, y por eso entra como un
+    # archivo aparte en vez de inferirse acá.
+    #
+    # Cuando el que no viene en el archivo ya tenía etiqueta, se la deja: un
+    # mapeo parcial no puede borrar lo que sabíamos, igual que un export parcial
+    # no puede vaciar la tabla.
+    ap.add_argument("--cluster", help="CSV id,cluster_dx (analisis|generico)")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
@@ -115,6 +125,15 @@ def main() -> int:
             print(f"  ERROR: no encuentro la columna ID. Encabezados: {list(leidas[0])[:8]}")
             return 1
         filas.extend((fuente, f) for f in leidas)
+
+    cluster_dx: dict[str, str] = {}
+    if args.cluster:
+        for f in _leer(args.cluster):
+            gid = (f.get("id") or "").strip().lower()
+            c = (f.get("cluster_dx") or "").strip().lower()
+            if gid and c in ("analisis", "generico"):
+                cluster_dx[gid] = c
+        print(f"clusters de dx: {len(cluster_dx)} grupos etiquetados")
 
     ahora = datetime.utcnow()
     vistos: dict[str, dict] = {}
@@ -139,6 +158,8 @@ def main() -> int:
             "fuente": fuente,
             "synced_at": ahora,
         }
+        if gid in cluster_dx:
+            vistos[gid]["cluster_dx"] = cluster_dx[gid]
 
     con_miembros = sum(1 for v in vistos.values() if v["miembros"])
     con_dx = sum(1 for v in vistos.values() if v["producto"] == "dx")

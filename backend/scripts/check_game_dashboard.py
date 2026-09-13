@@ -42,6 +42,7 @@ sys.path.insert(0, str(BACKEND.parent))
 import database  # noqa: E402
 from models import (  # noqa: E402
     Base, Course, GameAttempt, GameBoost, GameCtaEvent, GameEvent, GameExercise,
+    GameGroup,
     GameNotificationSend, GamePlayer, GamePushSubscription, User,
 )
 
@@ -241,6 +242,25 @@ s.add(GameCtaEvent(player_id=1, cta="share", action="impression", created_at=T(0
 s.add(GameCtaEvent(player_id=1, cta="share", action="click", created_at=T(0, 15, 2)))
 # Un CTA del bot, que tampoco puede contar.
 s.add(GameCtaEvent(player_id=9, cta="cafecito", action="click", created_at=T(0, 15)))
+
+# ── Difusión ─────────────────────────────────────────────────────────────────
+# Cuatro grupos del tracker, y el cuarto es el que importa: recibió dx pero ANTES
+# del piso del panel, así que sus mil miembros no pueden entrar al denominador.
+# Sus jugadores quedaron del otro lado del corte y nunca se cargan, así que
+# contarlo sería dividir por gente sin ninguna posibilidad de tener numerador.
+for gid, cl, miembros, envio in [
+    ("uba001", "analisis", 100, WEEK),
+    ("uba002", "generico", 200, WEEK),
+    ("uba003", None, 50, WEEK),
+    ("uba004", "analisis", 1000, q.FIRST_WEEK - timedelta(days=1)),
+]:
+    s.add(GameGroup(id=gid, universidad="UBA", cluster="Ingeniería", materia="AM II",
+                    miembros=miembros, ultimo_envio=envio, ultima_campana="juego",
+                    producto="dx", cluster_dx=cl, fuente="Grupos"))
+# Quién vino de dónde: dos por el de análisis, uno por el genérico, uno por el
+# que no tiene copia anotada.
+for pid, gid in [(1, "uba001"), (2, "uba001"), (3, "uba002"), (4, "uba003")]:
+    s.query(GamePlayer).filter(GamePlayer.id == pid).update({"first_group_id": gid})
 
 # ── Re-enganche ──────────────────────────────────────────────────────────────
 # p1 registrado: su preferencia vive en `users` (es el titular del cupo).
@@ -878,6 +898,56 @@ _ejes = [t for t in _re.findall(r">([0-9][0-9.,]*)<",
                                    .split("</svg>")[0])]
 check("las marcas del eje de K no se repiten",
       len(set(_ejes)) >= 4, f"({_ejes})")
+
+# ── 6a-ter · Difusión ──────────────────────────────────────────────────────
+print()
+print("— difusión —")
+
+di = q.difusion(data)
+# El corte, que es el defecto que este bloque existe para que no vuelva: desde
+# que el panel arranca en la primera camada oficial, un grupo al que se le mandó
+# dx en agosto sigue marcado como dx y sigue teniendo miembros, pero sus
+# jugadores ya no se cargan. Contarlo hunde el clickrate por un motivo que no
+# tiene nada que ver con la difusión.
+check("el grupo mandado antes del piso no entra al denominador",
+      di["global"]["miembros"] == 350,
+      f'({di["global"]["miembros"]}, con el de agosto serían 1.350)')
+check("y tampoco cuenta como grupo", di["global"]["grupos"] == 3,
+      f'({di["global"]["grupos"]})')
+
+# Las dos copias de la ola. La etiqueta no se infiere de la materia —los cuatro
+# grupos tienen la misma— sino que viene escrita en la fila.
+check("la copia de análisis se mide sola",
+      di["analisis"]["miembros"] == 100 and di["analisis"]["jugadores"] == 2
+      and di["analisis"]["pct"] == 2.0, f'({di["analisis"]})')
+check("la genérica también, y da distinto",
+      di["generico"]["miembros"] == 200 and di["generico"]["jugadores"] == 1
+      and di["generico"]["pct"] == 0.5, f'({di["generico"]})')
+# Los cuatro grupos comparten materia «AM II»: si la etiqueta se estuviera
+# adivinando por ahí, los tres caerían en el mismo cubo.
+check("y no sale de la materia, que es la misma en los cuatro",
+      di["analisis"]["grupos"] == 1 and di["generico"]["grupos"] == 1)
+# El que no tiene copia anotada no se reparte a ojo ni desaparece.
+check("el grupo sin copia va a su propia fila",
+      di["sin_copia"]["grupos"] == 1 and di["sin_copia"]["miembros"] == 50
+      and di["sin_copia"]["jugadores"] == 1, f'({di["sin_copia"]})')
+check("y los tres cubos suman el global",
+      di["analisis"]["miembros"] + di["generico"]["miembros"]
+      + di["sin_copia"]["miembros"] == di["global"]["miembros"])
+
+h_dif = game_render.page(q.build(s, WEEK), token="tok", seccion="activacion")
+check("los cuatro números salen intercalados, audiencia y su clickrate",
+      [e for e in ("Audiencia · análisis", "Clickrate · análisis",
+                   "Audiencia · genérico", "Clickrate · genérico")
+       if f'<div class="label">{e}</div>' in h_dif]
+      == ["Audiencia · análisis", "Clickrate · análisis",
+          "Audiencia · genérico", "Clickrate · genérico"])
+check("y el global pasa a la nota, que es donde no compite con ellos",
+      '<div class="label">Gente alcanzada</div>' not in h_dif
+      and "El conjunto da" in h_dif)
+check("la nota dice cuántos quedaron sin copia anotada",
+      "sin copia anotada" in h_dif)
+
 
 # ── 6b-bis · Monetización ──────────────────────────────────────────────────
 print()
