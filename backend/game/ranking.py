@@ -85,6 +85,27 @@ def puesto(db: Session, player: GamePlayer, scope: list | None = None) -> int:
     return ahead + 1
 
 
+def en_puesto(db: Session, n: int, scope: list | None = None) -> GamePlayer | None:
+    """Quién ocupa el puesto `n`, en el mismo orden en el que cuenta `puesto`.
+
+    La inversa de `puesto`, y existe por un solo llamador: cuando alguien toma
+    el número 1, quien está SEGUNDO es exactamente a quien se lo sacó —una
+    respuesta mueve a una persona sola, así que el que quedó atrás es el que
+    estaba adelante— y el feed lo nombra. Sin esto, la noticia más grande del
+    juego se cuenta sin decir a quién se le ganó.
+
+    Devuelve None cuando el puesto no existe, que en un juego chico pasa.
+    """
+    return (
+        db.query(GamePlayer)
+        .filter(*(scope or []), RESOLVIO_ACA)
+        .order_by(*ORDEN_XP)
+        .offset(max(0, n - 1))
+        .limit(1)
+        .first()
+    )
+
+
 def cuantos_compiten(db: Session, scope: list | None = None) -> int:
     """Cuánta gente hay en el ranking, con el mismo filtro que `puesto`.
 

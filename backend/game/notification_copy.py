@@ -199,8 +199,11 @@ def _ranking_generico(ctx: dict) -> tuple[str, str]:
 # ── Universidades ────────────────────────────────────────────────────────────
 
 def _uni_paso(ctx: dict) -> tuple[str, str]:
+    # «Le pasó a» no: en rioplatense «a la UNSAM le pasó» se lee como que a la
+    # UNSAM le OCURRIÓ algo. Pasar a alguien es transitivo y va sin dativo. El
+    # mismo arreglo está del lado del feed (game/events_copy.py).
     return TITULO, (
-        f"La {ctx['universidad']} le pasó a la {ctx['rival_universidad']} en XP "
+        f"La {ctx['universidad']} pasó a la {ctx['rival_universidad']} en XP "
         f"esta semana 🏛️"
     )
 

@@ -170,7 +170,7 @@ está puesto en que no sea ruido. Nueve tipos:
 | `uni_top` 🏆 | ser el número 1, o entrar al top 3, de la propia universidad |
 | `lead` 👑 | llegar al puesto 1 del juego entero |
 | `streak` 🔥 | rachas de 10, 25, 50, 100 y 250 sin errar |
-| `level` ⚡ | desbloquear derivadas más difíciles |
+| `level` ⚡ | desbloquear la familia siguiente (la regla del producto, la del cociente) |
 | `signup` 🎓 / `referral` 🪖 | un registro, o el registro de alguien que trajo otro |
 | `boost` ☕ | una donación de cafecitos, o el aforo del día de una universidad |
 | `uni_pass` 🏛️ / `uni_close` 👀 | una universidad que pasa a otra en experiencia, o que se le viene encima |
@@ -268,7 +268,7 @@ oscila.
 
 Las dos noticias son **transiciones** y no estados:
 
-- **«le pasó a»** sale cuando cambia el líder CONFIRMADO de un par, y confirmado
+- **«pasó a»** sale cuando cambia el líder CONFIRMADO de un par, y confirmado
   quiere decir adelante por más de `UNI_PASS_MARGEN` (2%). Guardar el líder por
   PAR es lo que hace que el sobrepaso exista: detectándolo por el orden, un cruce
   ajustado no se anunciaba tarde sino nunca, porque en el barrido del cruce el
@@ -288,6 +288,52 @@ La foto anterior vive en `game_sim_state.uni_order_json` y guarda el orden, el
 líder de cada par y los pares pegados. Un par que aparece por primera vez se
 anota sin anunciar; con la foto en el formato viejo tampoco se anuncia nada, para
 que un deploy no dispare una ráfaga de sobrepasos que nunca ocurrieron.
+
+#### Cómo está escrita cada línea (`game/events_copy.py`)
+
+El ruido no es la única forma de que un feed se deje de leer. Medido después de
+que los frenos de arriba bajaran el volumen a la mitad: **74 líneas en 48 horas,
+escritas con DIEZ frases**. La de subir de nivel salió idéntica dieciocho veces
+—«@fulano desbloqueó derivadas más difíciles»— y las trece de racha se
+diferenciaban en un número. Un feed que se repite así se vuelve papel pintado.
+
+Cada noticia tiene un **pool de frases** (88 en total) y la variante la elige una
+semilla, que es la clave del hecho. Determinístico y no `random`, por tres
+motivos y el tercero es el que importa: el mismo hecho re-emitido no puede salir
+redactado de dos maneras; el check queda reproducible; y `random` repite la
+variante anterior una de cada N veces, cuando lo que se busca no es azar sino que
+dos líneas SEGUIDAS no se parezcan.
+
+Las frases dicen además lo que la versión de una sola no decía, y en los tres
+casos el dato ya estaba a mano:
+
+- **`level` dice CUÁL familia se desbloqueó** —la regla de la suma, la del
+  producto, la del cociente— en vez de «derivadas más difíciles». Es la línea más
+  frecuente del feed (110 de 122 en una semana son al nivel 1). Cuál corresponde
+  a cuál nivel NO está tabulado: sale de `elo.tier_objetivo`, que lo deriva de
+  los cortes de nivel y de las semillas de dificultad, así que el día que alguno
+  se mueva la frase se mueve con él en vez de quedar mintiendo.
+- **`top` dice de qué puesto venía** («entró al top 50 desde el puesto 84»). El
+  router ya lo calculó para armar la respuesta del endpoint.
+- **`lead` dice a quién se le sacó el 1.** Quien está segundo ahora es
+  exactamente quien lo tenía —una respuesta mueve a una persona sola—, y se
+  nombra solo si es alguien de verdad: los sembrados no se nombran nunca.
+- **`uni_close` dice cuánta XP falta** («la UNC está a 1.247 XP de la UBA») en
+  vez de «están cerca», que es lo único accionable que ese aviso puede decir.
+- **`boost` dice cuánto dura** además de cuánto multiplica. Con la universidad ya
+  en el techo el multiplicador no se mueve y lo que la donación compró fue
+  tiempo: es el mismo agujero que el cartel del cafecito dejó de tener.
+
+Dos reglas de redacción, y ninguna es de gusto. **Los artículos se piden
+armados** (`Articulos`: «la UBA», «del ITBA», «al ITBA»), porque «pasó a el
+ITBA» es un error que no se ve probando con universidades que llevan «la» —solo
+el día que un instituto entra en la tabla—. Y **nada de adjetivos ni pronombres
+que concuerden**, ni con la universidad (los institutos van en masculino) ni con
+la persona (un alias no dice el género de nadie).
+
+«La UBA **le pasó** a la UNSAM» estuvo en producción y es el testigo de
+`check_game_events_copy.py`: en rioplatense «a la UNSAM le pasó» se lee como que
+a la UNSAM le OCURRIÓ algo. Pasar a alguien es transitivo y va sin dativo.
 
 ### El chat (`game/chat.py`, `chat-panel.tsx`)
 

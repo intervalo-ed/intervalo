@@ -187,7 +187,7 @@ COPY_REACTIVO = {
     "ranking": ("Alguien lo pasó en el ranking",
                 "@{alias} te pasó en el ranking. ¿Lo dejás así? 🤼"),
     "universidad": ("Su universidad pasó o está por ser pasada",
-                    "La {uni} le pasó a la {rival} en el ranking 🏛️"),
+                    "La {uni} pasó a la {rival} en el ranking 🏛️"),
 }
 
 

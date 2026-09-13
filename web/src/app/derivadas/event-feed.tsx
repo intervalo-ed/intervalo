@@ -75,9 +75,14 @@ function EventText({ event }: { event: GameEvent }) {
           )
         }
         if (chunk === "{b}") {
-          // Sin color de nivel a propósito, como las siglas de universidad:
-          // acá el protagonista es {a} (quien reclutó), y a este segundo
-          // nombre le alcanza con destacarse, no con anunciar su rango.
+          // El segundo nombre de la oración: a quien reclutaron, o a quien le
+          // sacaron el número 1. Sin color de nivel a propósito, como las siglas
+          // de universidad — el protagonista es {a}, y a este le alcanza con
+          // destacarse sin anunciar su rango.
+          //
+          // Puede venir con el evento y no estar en el texto: el servidor elige
+          // entre varias redacciones y algunas no nombran al segundo (ver
+          // backend/game/events_copy.py). Que mande el marcador es lo correcto.
           return event.actor_b_alias ? (
             <span key={i} className="font-semibold text-foreground/90">
               {event.actor_b_alias}
@@ -87,7 +92,7 @@ function EventText({ event }: { event: GameEvent }) {
         if (chunk === "{u0}" || chunk === "{u1}") {
           const uni = event.universities?.[chunk === "{u0}" ? 0 : 1]
           // Sigla en texto, no la <UniTag>: el feed es una oración corrida —"la
-          // UNSAM le pasó a la UNL"— y meterle dos chips de color adentro la
+          // UNSAM pasó a la UNL"— y meterle dos chips de color adentro la
           // partía en pedazos en vez de dejarla leer. El artículo ("la"/"el") ya
           // viene en el texto del servidor, que es el único que sabe cuáles son
           // institutos.

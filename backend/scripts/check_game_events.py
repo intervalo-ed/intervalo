@@ -6,6 +6,14 @@ línea de más es un mensaje que se pierde. Casi todo lo que se chequea son los
 frenos — umbrales, deduplicación, el presupuesto por persona, y la regla de que
 los jugadores sembrados no aparecen con nombre y apellido.
 
+**Ojo con fijar el texto exacto de una línea.** Cada noticia se escribe con
+un pool de frases y la variante la elige una semilla (game/events_copy.py), así
+que `text == "..."` acá es una afirmación sobre cuál salió sorteada, no sobre la
+regla. Lo que se verifica de una línea es lo que tiene que ser cierto de
+CUALQUIERA de sus variantes: que nombre lo que tiene que nombrar, que lleve los
+marcadores, que diga el número. Cómo están escritas se verifica en
+`check_game_events_copy.py`, que las recorre todas.
+
 **Ojo con el enfriamiento por persona al escribir un chequeo nuevo.** Dos líneas
 seguidas del mismo jugador ya no salen las dos, así que un chequeo que quiera
 medir OTRA cosa —la deduplicación, por ejemplo— tiene que sacarlo antes del
@@ -107,7 +115,7 @@ check(
 events.on_answer(db, ana, rank_before=60, rank_after=48, level_before=0, level_after=0)
 db.commit()
 top = db.query(GameEvent).filter(GameEvent.kind == "top").first()
-check(top is not None and top.text == "{a} entró al top 50.",
+check(top is not None and "{a}" in top.text and "top 50" in top.text,
       f"entrar al top 50 sí: {top.text if top else '—'}")
 check(top is not None and top.emoji == "🚀", "y viene con su emoji")
 
@@ -228,7 +236,7 @@ check(boost is not None and "{a}" in boost.text and "{u0}" in boost.text,
       f"el texto queda con marcadores: {boost.text if boost else '—'}")
 check(boost is not None and boost.actor_alias == "Nico" and "×1,4" in boost.text,
       "y dice quién y cuánto")
-check(boost is not None and "para la {u0}" in boost.text,
+check(boost is not None and ("la {u0}" in boost.text or "a la {u0}" in boost.text),
       f"la universidad va con artículo: {boost.text if boost else '—'}")
 check(boost is not None and boost.university == "UBA", "y queda atado a la universidad, para resaltarla")
 check(boost is not None and boost.actor_level is None,
@@ -307,8 +315,14 @@ check(foto()["v"] == 2, f"pero la foto queda guardada, en el formato nuevo (v{fo
 fijar("CHICA", 5000)
 barrer()
 passed = db.query(GameEvent).filter(GameEvent.kind == "uni_pass").first()
-check(passed is not None and passed.text.startswith("La {u0} le pasó a la {u1}"),
-      f"con artículo y en mayúscula al abrir: {passed.text if passed else '—'}")
+check(passed is not None and "{u0}" in passed.text and "{u1}" in passed.text,
+      f"la línea nombra a las dos: {passed.text if passed else '—'}")
+check(passed is not None and passed.text[:1].isupper(),
+      f"y abre en mayúscula, con el artículo ya puesto: {passed.text if passed else '—'}")
+# El dativo que estuvo en producción. Acá se verifica la línea que SALIÓ; que
+# ninguna de las cinco variantes lo use lo verifica check_game_events_copy.py.
+check(passed is not None and "le pasó" not in passed.text,
+      f"y sin dativo: pasar a alguien es transitivo ({passed.text if passed else '—'})")
 check(passed is not None and passed.text.endswith("."), "y termina con punto")
 check(passed is not None and "esta semana" not in passed.text,
       "sin 'esta semana': la carrera es la de la experiencia que muestra la tabla")
@@ -448,7 +462,7 @@ print("7i. una disputa que se resuelve ES un sobrepaso")
 # EL TESTIGO, y este salió de producción con el código ya desplegado. La UNSAM y
 # la UNC venían pingponeando dentro de la banda justo cuando se guardó la primera
 # foto, así que el par quedó SIN líder anotado. Después la UNC se fue de 76.116 a
-# 106.136 y le pasó a la UNSAM por 22% — y el feed no dijo nada, porque
+# 106.136 y pasó a la UNSAM por 22% — y el feed no dijo nada, porque
 # `previo is None` significaba las dos cosas a la vez: "par nuevo, no anuncies" y
 # "par empatado, todavía no sé quién va".
 #
@@ -554,7 +568,8 @@ events.on_answer(db, petisa, rank_before=None, rank_after=None, level_before=0,
                  level_after=0, uni_rank_before=5, uni_rank_after=1)
 db.commit()
 podio = db.query(GameEvent).filter(GameEvent.kind == "uni_top").first()
-check(podio is not None and podio.text == "{a} es el número 1 de la {u0}.",
+check(podio is not None and "{a}" in podio.text and "{u0}" in podio.text
+      and "número 1" in podio.text,
       f"con diez sí: {podio.text if podio else '—'}")
 check(podio is not None and podio.university == "UNSAM" and podio.emoji == "🏆",
       "con la sigla aparte y su emoji propio")
@@ -570,7 +585,8 @@ events.on_answer(db, tecno, rank_before=None, rank_after=None, level_before=0,
 db.commit()
 instituto = (db.query(GameEvent).filter(GameEvent.kind == "uni_top")
              .order_by(GameEvent.id.desc()).first())
-check(instituto is not None and instituto.text == "{a} entró al top 3 del {u0}.",
+check(instituto is not None and "del {u0}" in instituto.text
+      and "de el" not in instituto.text,
       f"la contracción sale bien: {instituto.text if instituto else '—'}")
 
 # Y sin universidad no hay podio al que entrar, por más que los puestos lleguen.
@@ -626,7 +642,7 @@ events.on_signup(db, recluta)
 db.commit()
 referral = db.query(GameEvent).filter(GameEvent.kind == "referral").first()
 check(
-    referral is not None and referral.text == "{a} reclutó a {b}.",
+    referral is not None and "{a}" in referral.text and "{b}" in referral.text,
     f"el texto trae los dos marcadores: {referral.text if referral else '—'}",
 )
 check(
@@ -728,7 +744,7 @@ check(len(salieron) == 2,
 check([e.kind for e in salieron] == ["top", "streak"],
       f"y son la ENTRADA y el REMATE, no dos escalones del medio: "
       f"{[e.kind for e in salieron]}")
-check(salieron and "100 seguidas" in salieron[-1].text,
+check(salieron and "100" in salieron[-1].text,
       f"el remate es el escalón más alto que llegó a tiempo: "
       f"{salieron[-1].text if salieron else '—'}")
 
