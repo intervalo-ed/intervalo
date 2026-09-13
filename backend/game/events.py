@@ -34,7 +34,7 @@ import json
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 
-from sqlalchemy import func
+from sqlalchemy import func, or_
 from sqlalchemy.orm import Session
 
 from models import GameEvent, GamePlayer, GameSimState
@@ -208,6 +208,25 @@ SALTO_PARA_MEJORAR = 25
 # una paleta porque lo que cambia a la vista es el COLOR del nombre —el feed lo
 # pinta con `actor_level`, igual que el ranking—, así que el ícono dice lo que la
 # frase ya no tiene que decir.
+# Las noticias que solo ve la universidad de la que hablan.
+#
+# El podio interno es la tabla que más se disputa —el número 1 global lo pelean
+# siempre los mismos, el de una universidad se lo pelea gente que cursa junta—
+# pero es exactamente por eso que a los de afuera no les dice nada: «@fulano
+# destronó a @mengano en el ranking de la UNC» es una escena para doce personas
+# y una línea de ruido para las otras doscientas. Medido: 21 en una semana.
+#
+# Se decide por `kind` y no con una columna nueva porque acá la audiencia ES el
+# tipo de noticia: no hay un podio de universidad que además sea público. El día
+# que lo haya, esto se convierte en una columna y no antes.
+#
+# El filtro vive en el SQL de `recent` y no en un `if` después de traer las
+# filas, y no es un detalle de eficiencia: el cliente pagina con `before_id` y
+# una página más corta que el `limit` pedido significa «no hay más atrás» (ver
+# el docstring del endpoint). Filtrando en Python, una tanda de podios internos
+# le cortaría el scroll a quien no es de esa universidad.
+KINDS_INTERNOS = ("uni_top",)
+
 EMOJI = {
     "boost": "☕",
     "signup": "🎓",
@@ -316,8 +335,15 @@ def recent(
     after_id: int = 0,
     limit: int = FEED_LIMIT,
     before_id: int = 0,
+    universidad_del_lector: str | None = None,
 ) -> list[EventView]:
-    """Los últimos eventos, del más nuevo al más viejo.
+    """Los últimos eventos QUE ESTE LECTOR PUEDE VER, del más nuevo al más viejo.
+
+    `universidad_del_lector` es de quién es el feed, y lo único que cambia es si
+    entran las noticias de `KINDS_INTERNOS` —el podio de adentro de una casa de
+    estudios—. En `None` (un invitado, o alguien que todavía no cargó dónde
+    estudia) no entra ninguna, que es lo correcto: no hay universidad de la que
+    sea de puertas adentro.
 
     Con `after_id` devuelve solo lo que el cliente todavía no vio, que es lo que
     hace que el sondeo cueste casi nada cuando no pasa nada.
@@ -333,6 +359,18 @@ def recent(
     """
     now = _now()
     q = db.query(GameEvent)
+    # Adentro del SQL, por lo que dice el comentario de `KINDS_INTERNOS`: si esto
+    # se filtrara después, una página corta le diría al cliente que llegó al
+    # final del historial cuando solo se topó con noticias ajenas.
+    if universidad_del_lector:
+        q = q.filter(
+            or_(
+                GameEvent.kind.notin_(KINDS_INTERNOS),
+                GameEvent.university == universidad_del_lector,
+            )
+        )
+    else:
+        q = q.filter(GameEvent.kind.notin_(KINDS_INTERNOS))
     if before_id:
         q = q.filter(GameEvent.id < before_id)
     elif after_id:
@@ -717,16 +755,27 @@ def _entrada_al_podio(
             continue
         if ranking.cuantos_compiten(db, scope) < MIN_JUGADORES_UNI:
             return None
+        # A quién se le sacó el número 1 de la casa de estudios. El mismo
+        # razonamiento que arriba con el puntero del juego entero: quien queda
+        # segundo es quien lo tenía, porque una respuesta mueve a una persona
+        # sola. Y solo si es alguien de verdad — los sembrados no se nombran.
+        desplazado = None
+        if corte == 1:
+            segundo = ranking.en_puesto(db, 2, scope)
+            if segundo is not None and segundo.id != player.id and _real(segundo):
+                desplazado = f"@{segundo.alias}"
         texto = events_copy.uni_top(
             f"unitop:{player.id}:{uni}:{corte}",
             corte=corte,
             arts=events_copy.articulos_de(uni),
+            desplazado=desplazado is not None,
         )
         return _Candidato(
             fuerza=FUERZA_UNI_TOP[corte],
             kind="uni_top",
             text=texto,
             actor_level=elo.level_of(player.theta),
+            actor_b_alias=desplazado,
             university=uni,
             # La sigla entra en la clave: quien se cambia de universidad entra a
             # un podio nuevo, y ese sí es un hecho nuevo.

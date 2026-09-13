@@ -569,12 +569,19 @@ events.on_answer(db, petisa, rank_before=None, rank_after=None, level_before=0,
                  level_after=0, uni_rank_before=5, uni_rank_after=1)
 db.commit()
 podio = db.query(GameEvent).filter(GameEvent.kind == "uni_top").first()
-check(podio is not None and "{a}" in podio.text and "{u0}" in podio.text
-      and "número 1" in podio.text,
+check(podio is not None and "{a}" in podio.text and "{u0}" in podio.text,
       f"con diez sí: {podio.text if podio else '—'}")
 check(podio is not None and podio.university == "UNSAM"
       and podio.emoji == events.EMOJI["uni_top"],
       "con la sigla aparte y su emoji propio")
+# Y nombra a quien tenía el número 1, que es quien quedó segundo: una respuesta
+# mueve a una persona sola. Es la misma escena que el puntero del juego entero,
+# un piso más abajo, y la que más tracción tiene — el 1 global lo pelean siempre
+# los mismos, el de una universidad se lo disputa gente que cursa junta.
+check(podio is not None and podio.actor_b_alias is not None
+      and "{b}" in podio.text,
+      f"y a quién se lo sacó: {podio.actor_b_alias if podio else '—'} "
+      f"({podio.text if podio else '—'})")
 
 # El artículo lo decide el nombre completo, no la sigla: «del ITBA», no «de el».
 for i in range(10):
@@ -599,6 +606,34 @@ events.on_answer(db, beto, rank_before=None, rank_after=None, level_before=0,
 db.commit()
 check(db.query(GameEvent).filter(GameEvent.kind == "uni_top").count() == 0,
       "sin universidad cargada no se anuncia ningún podio")
+
+print("8a-bis. el podio de una universidad es de puertas adentro")
+# El podio interno es una escena para doce personas y ruido para las otras
+# doscientas, así que solo lo ve la casa de estudios de la que habla. El filtro
+# vive en el SQL de `recent` y no en un `if` posterior: el cliente pagina con
+# `before_id` y una página más corta que el `limit` pedido significa "no hay más
+# atrás", así que filtrar después le cortaría el scroll a quien no es de esa
+# universidad.
+db.query(GameEvent).delete()
+db.commit()
+events.emit(db, "uni_top", "{a} es el número 1 de la {u0}.", university="UNSAM")
+events.emit(db, "lead", "{a} es el nuevo número 1.")
+db.commit()
+check("uni_top" in events.KINDS_INTERNOS,
+      f"el podio de universidad está declarado interno: {events.KINDS_INTERNOS}")
+de_la_unsam = [e.kind for e in events.recent(db, universidad_del_lector="UNSAM")]
+check(sorted(de_la_unsam) == ["lead", "uni_top"],
+      f"quien es de la UNSAM ve las dos: {de_la_unsam}")
+de_la_uba = [e.kind for e in events.recent(db, universidad_del_lector="UBA")]
+check(de_la_uba == ["lead"],
+      f"quien es de la UBA ve solo la pública: {de_la_uba}")
+un_invitado = [e.kind for e in events.recent(db)]
+check(un_invitado == ["lead"],
+      f"y quien no cargó universidad, tampoco: {un_invitado}")
+# El corte de a dos, que es lo que prueba que el filtro está en la consulta: si
+# estuviera después, pedir una traería cero para quien no es de la UNSAM.
+check(len(events.recent(db, universidad_del_lector="UBA", limit=1)) == 1,
+      "pedir una línea devuelve una, no cero")
 
 print("8b. las piezas para pintar")
 db.query(GameEvent).delete()

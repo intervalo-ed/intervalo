@@ -248,6 +248,18 @@ _UNI_1 = [
     "{a} lidera $art_u {u0}.",
 ]
 
+# Cuando se sabe a quién se le sacó. Es la misma escena que el puntero del juego
+# entero, un piso más abajo, y es la que más tracción tiene: el número 1 global
+# lo pelean siempre los mismos, pero el de una universidad se lo disputa gente
+# que se conoce de cursada. Por eso además estas líneas son INTERNAS — ver
+# `KINDS_INTERNOS` en events.py.
+_UNI_1_CON_DESPLAZADO = [
+    "{a} destronó a {b} en el ranking $de_u {u0}.",
+    "{a} le sacó el número 1 $de_u {u0} a {b}.",
+    "{a} desbancó a {b} en $art_u {u0}.",
+    "{a} le ganó el número 1 $de_u {u0} a {b}.",
+]
+
 _UNI_3 = [
     "{a} entró al top 3 $de_u {u0}.",
     "{a} se metió en el podio $de_u {u0}.",
@@ -255,8 +267,13 @@ _UNI_3 = [
 ]
 
 
-def uni_top(semilla: str, *, corte: int, arts: Articulos) -> str:
-    pool = _UNI_1 if corte == 1 else _UNI_3
+def uni_top(
+    semilla: str, *, corte: int, arts: Articulos, desplazado: bool = False
+) -> str:
+    if corte != 1:
+        pool = _UNI_3
+    else:
+        pool = _UNI_1_CON_DESPLAZADO if desplazado else _UNI_1
     return _armar(semilla, pool, n=corte, **_campos("u", arts))
 
 

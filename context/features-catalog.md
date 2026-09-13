@@ -167,7 +167,7 @@ está puesto en que no sea ruido. Nueve tipos:
 | tipo | qué anuncia |
 |---|---|
 | `top` 🪜 | entrar al top 3, 10, 25 o 50 del ranking general |
-| `uni_top` 🏆 | ser el número 1, o entrar al top 3, de la propia universidad |
+| `uni_top` 🏆 | ser el número 1, o entrar al top 3, de la propia universidad — **solo lo ve esa universidad** |
 | `lead` 👑 | llegar al puesto 1 del juego entero |
 | `streak` 🔥 | rachas de 10, 25, 50, 100 y 250 sin errar |
 | `level` 🎨 | desbloquear la familia siguiente (los productos, los cocientes) |
@@ -246,6 +246,34 @@ ninguna veía a la otra (cinco líneas en un día por una disputa entre dos). Ah
 la clave es del HECHO —una sola, global, con tres horas de ventana— y además se
 pide que el puntero nuevo no sea el mismo de la vez pasada: anunciarlo dos veces
 seguidas es decir dos veces lo mismo.
+
+#### Lo que solo ve una universidad (`KINDS_INTERNOS`)
+
+El podio de adentro de una casa de estudios es la tabla que más se disputa —el
+número 1 global lo pelean siempre los mismos, el de una universidad se lo pelea
+gente que cursa junta— y es exactamente por eso que a los de afuera no les dice
+nada. «@fulano destronó a @mengano en el ranking de la UNC» es una escena para
+doce personas y una línea de ruido para las otras doscientas; fueron 21 en una
+semana.
+
+Así que `uni_top` es la primera noticia con audiencia: la ve quien estudia ahí y
+nadie más. Quien no cargó universidad —un invitado— no ve ninguna, que es lo
+correcto: no hay casa de estudios de la que le sea de puertas adentro.
+
+Se decide por `kind` y no con una columna nueva porque acá la audiencia ES el
+tipo de noticia: no existe un podio de universidad que además sea público. El día
+que exista, esto se convierte en una columna y no antes.
+
+**El filtro vive en el SQL de `recent` y no en un `if` posterior**, y eso no es
+una optimización. El cliente pagina hacia atrás con `before_id`, y una página más
+corta que el `limit` pedido significa «no hay más atrás» (el endpoint no manda un
+`has_more` a propósito). Filtrando después de traer las filas, una tanda de
+podios internos le cortaría el scroll a quien no es de esa universidad.
+
+Y como la escena tiene dos personas, la línea nombra a las dos: quien queda
+SEGUNDO en la universidad es exactamente quien tenía el número 1, porque una
+respuesta mueve a una persona sola. El mismo razonamiento que `lead`, un piso
+más abajo, y con la misma salvedad — solo se nombra si es alguien de verdad.
 
 #### La carrera entre universidades
 
