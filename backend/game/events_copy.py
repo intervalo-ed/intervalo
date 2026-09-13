@@ -34,14 +34,36 @@ esos marcadores creyendo que son campos suyos. Una variante puede no usar `{b}`
 aunque quien llama tenga con qué — el cliente ignora lo que no está en el texto,
 así que eso sale gratis.
 
-**Tres reglas de redacción, y ninguna es de gusto:**
+── LA FORMA ──────────────────────────────────────────────────────────────────
 
-  · **Los artículos de universidad se piden armados** (ver `Articulos`). «Pasó a
-    el ITBA» y «de el ITBA» no existen en castellano, y son el error que no se
-    ve hasta el día que un instituto entra en la tabla.
+**Toda línea es sujeto — verbo — objeto, y se termina ahí.** Quién lo hizo, qué
+hizo, a quién o a qué. Una sola oración, sin remate, sin comentario, sin una
+segunda frase que opine sobre la primera.
+
+No es una preferencia de estilo: es lo que hace que la columna se pueda barrer
+con el ojo. Diez tipos de noticia intercalados con el chat, todos con la misma
+estructura, se leen sin leerse. Un «Alguien avise si respira» detrás de la racha
+obliga a procesar la línea entera para descubrir que no dice nada nuevo, y son
+treinta y siete líneas por día.
+
+De ahí salen tres consecuencias, y las tres las verifica el check:
+
+  · **Nada de frases dadas vuelta.** «Puntero nuevo: {a}», «Se picó: 1.200 XP
+    entre A y B», «Llegó {a}». Todas dicen lo mismo que su versión derecha y
+    ninguna se lee más rápido.
+  · **La variedad va en el VERBO, no en la estructura.** Superó, dejó atrás, le
+    serruchó el piso. Es donde la variedad no cuesta legibilidad.
+  · **Ni un punto en el medio.** Lo que no entra antes del punto final no entra.
+
+── EL CASTELLANO ─────────────────────────────────────────────────────────────
+
+  · **Los artículos se piden armados** (ver `Articulos`). «Superó a el ITBA» y
+    «de el ITBA» no existen, y son el error que no se ve hasta el día que un
+    instituto entra en la tabla.
   · **Nada de adjetivos ni pronombres que concuerden con la universidad.** «El
-    ITBA venía tranquila» y «la pasó» se rompen solos, por lo mismo. Las
-    universidades se nombran, no se pronominalizan.
+    ITBA venía tranquila» y «la superó» se rompen solos, por lo mismo. Las
+    universidades se nombran, no se pronominalizan. El «le» de «le serruchó el
+    piso» sí va: es objeto indirecto y es invariable en género.
   · **Nada de adjetivos que concuerden con la PERSONA.** Un alias no dice el
     género de nadie. «{a} quedó primero» está mal escrito para media tabla;
     «{a} es el número 1» concuerda con «número» y sirve para todo el mundo.
@@ -57,34 +79,35 @@ from universities import article_for
 
 from . import elo
 
-# Qué dificultad le empieza a servir el juego en cada tier, con el nombre que le
-# da la materia. Es lo único de este archivo que puede MENTIR —el resto son
-# maneras de decir un hecho que ya viene decidido—, y por eso el tier no se
-# tabula contra el nivel: sale de `elo.tier_objetivo`, que lo deriva de los
-# cortes de nivel y de las semillas de dificultad. Si mañana los cortes se
-# mueven, la frase se mueve con ellos en vez de quedar mintiendo.
+# Qué dificultad le empieza a servir el juego en cada tier, con dos nombres: el
+# corto y el de la regla. Los dos son ciertos y los dos se usan — son la única
+# variedad que la línea del nivel se puede permitir sin romper la forma, porque
+# el verbo ahí es siempre «desbloqueó».
 #
-# En plural y corto —«los productos», no «la regla del producto»— porque la
-# línea entera es «{a} desbloqueó los productos» y lo que se busca ahí es que
-# entre de un vistazo. El ícono 🎨 y el nombre ya pintado del color nuevo cuentan
-# la otra mitad.
+# Es lo único de este archivo que puede MENTIR (el resto son maneras de decir un
+# hecho que ya viene decidido), y por eso el tier no se tabula contra el nivel:
+# sale de `elo.tier_objetivo`, que lo deriva de los cortes de nivel y de las
+# semillas de dificultad. Si mañana los cortes se mueven, la frase se mueve con
+# ellos en vez de quedar mintiendo.
 #
 # `check_game_events_copy.py` verifica que todos los tiers que existen en
 # `templates.py` tengan nombre acá.
-FAMILIA_POR_TIER: dict[int, str] = {
-    0: "las constantes",
-    1: "las potencias",
-    2: "las sumas",
-    3: "la tabla de derivadas",
-    4: "los productos",
-    5: "los cocientes",
+FAMILIA_POR_TIER: dict[int, tuple[str, str]] = {
+    0: ("las constantes", "la derivada de una constante"),
+    1: ("las potencias", "la regla de la potencia"),
+    2: ("las sumas", "la regla de la suma"),
+    3: ("la tabla", "la tabla de derivadas"),
+    4: ("los productos", "la regla del producto"),
+    5: ("los cocientes", "la regla del cociente"),
 }
 
+_FAMILIA_DESCONOCIDA = ("las difíciles", "las derivadas difíciles")
 
-def familia_de_nivel(nivel: int) -> str:
-    """Qué se le abre a alguien que acaba de entrar al nivel `nivel`."""
+
+def familia_de_nivel(nivel: int) -> tuple[str, str]:
+    """Qué se le abre a alguien que entra al nivel `nivel`: (corto, la regla)."""
     tier = elo.tier_objetivo(elo.theta_de_nivel(nivel))
-    return FAMILIA_POR_TIER.get(tier, "las difíciles")
+    return FAMILIA_POR_TIER.get(tier, _FAMILIA_DESCONOCIDA)
 
 
 # ── Los artículos, armados ───────────────────────────────────────────────────
@@ -170,17 +193,17 @@ def _reloj(horas: int) -> str:
 
 _LEAD = [
     "{a} es el nuevo número 1.",
-    "Puntero nuevo: {a}.",
-    "{a} se quedó con el número 1 del juego.",
-    "Hay número 1 nuevo, y es {a}.",
+    "{a} se quedó con el número 1.",
+    "{a} tomó el número 1 del juego.",
+    "{a} encabeza el ranking.",
 ]
 
 _LEAD_CON_DESPLAZADO = [
     "{a} le sacó el número 1 a {b}.",
-    "{b} tenía el número 1. Ahora lo tiene {a}.",
     "{a} destronó a {b}.",
-    "Cambio de mando: {a} le ganó el número 1 a {b}.",
-    "{a} le sacó el número 1 a {b}. Ahí quedó picando.",
+    "{a} le ganó el número 1 a {b}.",
+    "{a} desbancó a {b}.",
+    "{a} le serruchó el piso a {b}.",
 ]
 
 
@@ -197,37 +220,19 @@ def lead(semilla: str, *, desplazado: bool) -> str:
 _TOP = [
     "{a} entró al top $n.",
     "{a} se metió en el top $n.",
+    "{a} llegó al top $n.",
 ]
 
 _TOP_DESDE = [
     "{a} entró al top $n desde el puesto $desde.",
-    "{a} se metió en el top $n. Venía ${desde}º.",
     "{a} saltó del puesto $desde al top $n.",
+    "{a} subió del puesto $desde al top $n.",
+    "{a} escaló del puesto $desde al top $n.",
 ]
-
-_TOP_3 = [
-    "{a} entró al top 3 del juego.",
-    "{a} se metió en el top 3. Arriba queda poco lugar.",
-    "{a} está en el top 3 del juego entero.",
-]
-
-_TOP_3_DESDE = [
-    "{a} entró al top 3 desde el puesto $desde.",
-    "{a} saltó del puesto $desde al top 3 del juego.",
-    "{a} se metió en el top 3. Venía ${desde}º.",
-]
-
-# El corte que se cuenta distinto: entrar al top 3 del juego entero no es un
-# escalón más de la misma escalera.
-CORTE_GRANDE = 3
 
 
 def top(semilla: str, *, corte: int, desde: int | None) -> str:
-    if corte <= CORTE_GRANDE:
-        pool = _TOP_3_DESDE if desde else _TOP_3
-    else:
-        pool = _TOP_DESDE if desde else _TOP
-    return _armar(semilla, pool, n=corte, desde=desde)
+    return _armar(semilla, _TOP_DESDE if desde else _TOP, n=corte, desde=desde)
 
 
 # ── Podio de la universidad ──────────────────────────────────────────────────
@@ -235,14 +240,14 @@ def top(semilla: str, *, corte: int, desde: int | None) -> str:
 _UNI_1 = [
     "{a} es el número 1 $de_u {u0}.",
     "{a} se quedó con el número 1 $de_u {u0}.",
-    "En $art_u {u0} ahora manda {a}.",
     "{a} encabeza $art_u {u0}.",
+    "{a} lidera $art_u {u0}.",
 ]
 
 _UNI_3 = [
     "{a} entró al top 3 $de_u {u0}.",
     "{a} se metió en el podio $de_u {u0}.",
-    "{a} está en el podio $de_u {u0}.",
+    "{a} llegó al podio $de_u {u0}.",
 ]
 
 
@@ -252,112 +257,75 @@ def uni_top(semilla: str, *, corte: int, arts: Articulos) -> str:
 
 
 # ── Racha ────────────────────────────────────────────────────────────────────
-# El pool cambia con el hito, y eso ES la personalización: diez seguidas y
-# doscientas cincuenta seguidas no son la misma noticia dicha con otro número.
+# Un pool solo, con el número adentro: diez seguidas y doscientas cincuenta
+# seguidas son la misma oración, y lo que las distingue es el número, que ya
+# está ahí. Los pools por hito existieron mientras cada uno tenía su remate
+# —«Cien.», «Alguien avise si respira.»—; sin remate eran la misma frase seis
+# veces.
 #
 # «Pifiar» y «errar» se alternan a propósito: son la misma idea con dos
-# registros, y tener los dos es media docena de frases más sin agregar ninguna.
-# «Al hilo» no se usa.
-
-_RACHA: dict[int, list[str]] = {
-    10: [
-        "{a} lleva 10 seguidas sin errar.",
-        "{a} encadenó 10 sin pifiar.",
-        "{a} lleva 10 seguidas sin pifiar.",
-        "10 seguidas de {a}, sin errar una.",
-    ],
-    25: [
-        "{a} lleva 25 seguidas sin pifiar.",
-        "{a} encadenó 25 sin errar. Y sigue.",
-        "25 seguidas de {a}, sin pifiar una.",
-        "{a} lleva 25 sin errar y no afloja.",
-    ],
-    50: [
-        "{a} lleva 50 seguidas sin pifiar.",
-        "{a} encadenó 50 sin errar. No está fallando una.",
-        "50 seguidas de {a}. Cincuenta, sin pifiar una.",
-    ],
-    100: [
-        "{a} lleva 100 seguidas sin pifiar. Cien.",
-        "{a} encadenó 100 sin errar.",
-        "{a} lleva 100 sin pifiar. Alguien avise si respira.",
-    ],
-    250: [
-        "{a} lleva 250 seguidas sin errar.",
-        "{a} encadenó 250 sin pifiar. Doscientas cincuenta.",
-        "{a} lleva 250 sin errar. Alguien fíjese si está bien.",
-    ],
-}
-
-# Para un hito que se agregue a `STREAK_MILESTONES` y todavía no tenga pool. Sin
-# esto, agregar un número allá revienta con KeyError en el camino caliente.
-_RACHA_GENERICA = [
+# registros, y tener los dos es el doble de frases sin agregar ninguna. «Al
+# hilo» no se usa.
+_RACHA = [
     "{a} lleva $n seguidas sin errar.",
-    "{a} encadenó $n sin pifiar.",
     "{a} lleva $n seguidas sin pifiar.",
+    "{a} encadenó $n sin pifiar.",
+    "{a} clavó $n seguidas sin errar.",
+    "{a} enganchó $n sin pifiar.",
+    "{a} acumuló $n seguidas sin errar.",
 ]
 
 
 def streak(semilla: str, *, seguidas: int) -> str:
-    return _armar(semilla, _RACHA.get(seguidas, _RACHA_GENERICA), n=seguidas)
+    return _armar(semilla, _RACHA, n=seguidas)
 
 
 # ── Subir de nivel ───────────────────────────────────────────────────────────
 # La línea más frecuente del feed —110 de 122 en una semana fueron al nivel 1— y
 # la que menos decía: «desbloqueó derivadas más difíciles», idéntica para los
-# tres niveles. Ahora dice CUÁLES, que es el único dato que la persona todavía no
-# tenía, y en cuatro palabras.
+# tres niveles. Ahora dice CUÁLES, que es el único dato que la persona todavía
+# no tenía, y en tres palabras.
 #
-# El verbo es SIEMPRE «desbloqueó», y la variedad va en el remate. Es la única
-# categoría donde el pool no cambia la oración entera: acá lo que se busca es una
-# línea corta que se lea de reojo, y para eso conviene que el verbo sea el mismo
-# siempre — la cabeza deja de leerlo y va derecho a qué se desbloqueó. Los
-# remates no llevan ningún adjetivo que concuerde con la persona, por lo mismo
-# que el resto del archivo: un alias no dice el género de nadie.
+# El verbo es siempre «desbloqueó» y la variedad está en cómo se nombra lo
+# desbloqueado: el nombre corto o el de la regla. Es la categoría donde menos
+# margen hay, y está bien que así sea — el ícono 🎨 y el nombre ya pintado del
+# color nuevo cuentan la otra mitad de la noticia.
 _NIVEL = [
     "{a} desbloqueó $fam.",
-    "{a} desbloqueó $fam. Ahora se complica.",
-    "{a} desbloqueó $fam. Se pone bueno.",
-    "{a} desbloqueó $fam. Suerte con eso.",
-]
-
-_NIVEL_TOPE = [
-    "{a} desbloqueó $fam, lo más difícil que hay acá.",
-    "{a} desbloqueó $fam. El último escalón.",
-    "{a} desbloqueó $fam. De acá no se sube más.",
+    "{a} desbloqueó $regla.",
 ]
 
 
 def level(semilla: str, *, nivel: int) -> str:
-    pool = _NIVEL_TOPE if nivel >= elo.NIVEL_MAX else _NIVEL
-    return _armar(semilla, pool, fam=familia_de_nivel(nivel))
+    corta, regla = familia_de_nivel(nivel)
+    return _armar(semilla, _NIVEL, fam=corta, regla=regla)
 
 
 # ── Llegadas ─────────────────────────────────────────────────────────────────
 
 _SIGNUP = [
     "{a} se sumó al juego.",
-    "Llegó {a}.",
     "{a} entró a derivar.",
+    "{a} llegó al juego.",
 ]
 
 _SIGNUP_CON_UNI = [
-    "{a} se sumó al juego y deriva para $art_u {u0}.",
-    "{a} se sumó. Juega para $art_u {u0}.",
-    "$Art_u {u0} tiene un jugador más: {a}.",
+    "{a} se sumó $a_u {u0}.",
     "{a} entró a derivar para $art_u {u0}.",
+    "{a} se sumó al juego por $art_u {u0}.",
+    "{a} empezó a derivar para $art_u {u0}.",
 ]
 
 _RECLUTA = [
     "{a} reclutó a {b}.",
     "{a} trajo a {b} al juego.",
-    "{b} llegó por {a}.",
+    "{a} sumó a {b} al juego.",
 ]
 
 _RECLUTA_CON_UNI = [
     "{a} reclutó a {b} para $art_u {u0}.",
-    "{a} trajo a {b}. Los dos derivan para $art_u {u0}.",
     "{a} sumó a {b} $a_u {u0}.",
+    "{a} trajo a {b} $a_u {u0}.",
 ]
 
 
@@ -374,32 +342,33 @@ def referral(semilla: str, *, arts: Articulos | None) -> str:
 
 
 # ── Cafecito ─────────────────────────────────────────────────────────────────
-# Las horas son nuevas, y son el mismo arreglo que el cartel del cafecito acaba
-# de hacer del otro lado (ver web/.../impacto-del-cafecito.ts): un multiplicador
-# suelto no dice nada cuando la universidad ya está en el techo, porque ahí lo
-# que la donación compra es TIEMPO. El feed ahora dice las dos cosas.
+# Las horas son el mismo arreglo que el cartel del cafecito hizo del otro lado
+# (ver web/.../impacto-del-cafecito.ts): un multiplicador suelto no dice nada
+# cuando la universidad ya está en el techo, porque ahí lo que la donación
+# compra es TIEMPO. Van después de los dos puntos, que son la carga de la
+# noticia y no un comentario sobre ella.
 
 _BOOST = [
     "{a} invitó $c para $art_u {u0}: $m por $reloj.",
     "{a} bancó $a_u {u0} con $c: $m por $reloj.",
-    "{a} puso $c para $art_u {u0}. $m por $reloj.",
     "{a} dejó $c para $art_u {u0}: $m por $reloj.",
+    "{a} le puso $c $a_u {u0}: $m por $reloj.",
 ]
 
 # Sin horas: lo que sale cuando quien llama no las sabe.
 _BOOST_SIN_RELOJ = [
-    "{a} invitó $c para $art_u {u0}: $m para toda la universidad.",
-    "{a} bancó $a_u {u0} con $c: $m para toda la universidad.",
+    "{a} invitó $c para $art_u {u0}: $m.",
+    "{a} bancó $a_u {u0} con $c: $m.",
 ]
 
 _BOOST_GLOBAL = [
-    "{a} invitó $c para TODOS: $m para todo el juego.",
-    "{a} invitó $c y lo cobra todo el mundo: $m para todo el juego.",
+    "{a} invitó $c para todo el juego: $m por $reloj.",
+    "{a} regaló $c a todo el juego: $m por $reloj.",
 ]
 
 _AFORO = [
-    "$Art_u {u0} llegó a $personas personas nuevas hoy: $m por $reloj. 🎉",
-    "$Art_u {u0} sumó $personas personas nuevas hoy y se ganó $m por $reloj. 🎉",
+    "$Art_u {u0} llegó a $personas personas nuevas hoy: $m por $reloj.",
+    "$Art_u {u0} sumó $personas personas nuevas hoy: $m por $reloj.",
 ]
 
 
@@ -446,26 +415,20 @@ def aforo(
 # ── Universidades ────────────────────────────────────────────────────────────
 # «Le pasó a» era el bug que abrió todo esto: en castellano rioplatense «a la
 # UNSAM le pasó» se lee como que a la UNSAM le OCURRIÓ algo. Pero «pasó a» a
-# secas tampoco alcanza —es el verbo más pálido que había para el hecho más
-# grande que la tabla tiene—, así que el pool usa verbos que dicen algo:
-# superar, dejar atrás, serrucharle el piso.
-#
-# El dativo de «le serruchó el piso a la UNSAM» sí es correcto: ahí «le» es el
-# objeto indirecto del modismo y además es invariable en género, así que
-# funciona igual con un instituto. El que estaba mal era el de «pasar».
+# secas tampoco alcanza —el verbo más pálido que hay para el hecho más grande de
+# la tabla—, así que el pool usa verbos que dicen algo.
 #
 # Sufijos: `g` gana y `p` pierde el sobrepaso; `a` persigue y `r` va arriba en la
-# disputa. Y ni una contracción escrita a mano: «superó $a_p {u1}» sale «superó
-# a la UNSAM» o «superó al ITBA» según corresponda, que es lo que `Articulos`
+# disputa. Y ni una contracción escrita a mano: «superó $a_p {u1}» sale «superó a
+# la UNSAM» o «superó al ITBA» según corresponda, que es lo que `Articulos`
 # existe para garantizar.
 
 _UNI_PASS = [
     "$Art_g {u0} superó $a_p {u1} en experiencia.",
     "$Art_g {u0} le serruchó el piso $a_p {u1}.",
-    "$Art_g {u0} se puso arriba $de_p {u1}.",
-    "$Art_p {u1} perdió el puesto: ahora va arriba $art_g {u0}.",
-    "Cambio de orden: $art_g {u0} superó $a_p {u1} en experiencia.",
     "$Art_g {u0} dejó atrás $a_p {u1}.",
+    "$Art_g {u0} desplazó $a_p {u1}.",
+    "$Art_g {u0} se puso arriba $de_p {u1}.",
 ]
 
 # Cuando no estuvo cerca. Un sobrepaso recién confirmado pasa el margen por
@@ -477,10 +440,10 @@ _UNI_PASS = [
 # de diferencia es exactamente la clase de frase que hace que el feed deje de
 # creerse, que es lo que este módulo entero trata de evitar.
 _UNI_PASS_PALIZA = [
-    "$Art_g {u0} barrió $a_p {u1}: le saca $n XP.",
-    "$Art_g {u0} pasó por arriba $de_p {u1}. $n XP de diferencia.",
-    "$Art_g {u0} le serruchó el piso $a_p {u1} y le saca $n XP.",
-    "$Art_g {u0} superó $a_p {u1} por $n XP. No estuvo cerca.",
+    "$Art_g {u0} barrió $a_p {u1} por $n XP.",
+    "$Art_g {u0} pasó por arriba $de_p {u1} por $n XP.",
+    "$Art_g {u0} le sacó $n XP $a_p {u1}.",
+    "$Art_g {u0} superó $a_p {u1} por $n XP.",
 ]
 
 # A partir de cuánta ventaja el sobrepaso se cuenta como paliza. No es un umbral
@@ -490,13 +453,13 @@ MARGEN_DE_PALIZA = 0.10
 
 _UNI_CLOSE = [
     "$Art_a {u0} está a $n XP $de_r {u1}.",
-    "$Art_a {u0} le respira en la nuca $a_r {u1}: $n XP.",
-    "Se picó: $n XP entre $art_a {u0} y $art_r {u1}.",
-    "$Art_r {u1} le lleva $n XP $a_a {u0}. Nada más.",
+    "$Art_a {u0} persigue $a_r {u1} a $n XP.",
+    "$Art_r {u1} le lleva $n XP $a_a {u0}.",
+    "$Art_a {u0} le respira en la nuca $a_r {u1}.",
 ]
 
 _UNI_CLOSE_SIN_NUMERO = [
-    "$Art_a {u0} está a nada de pasar $a_r {u1} en experiencia.",
+    "$Art_a {u0} está a nada de superar $a_r {u1}.",
     "$Art_a {u0} le respira en la nuca $a_r {u1}.",
 ]
 

@@ -297,60 +297,78 @@ escritas con DIEZ frases**. La de subir de nivel salió idéntica dieciocho vece
 —«@fulano desbloqueó derivadas más difíciles»— y las trece de racha se
 diferenciaban en un número. Un feed que se repite así se vuelve papel pintado.
 
-Cada noticia tiene un **pool de frases** (88 en total) y la variante la elige una
+Cada noticia tiene un **pool de frases** (69 en total) y la variante la elige una
 semilla, que es la clave del hecho. Determinístico y no `random`, por tres
 motivos y el tercero es el que importa: el mismo hecho re-emitido no puede salir
 redactado de dos maneras; el check queda reproducible; y `random` repite la
 variante anterior una de cada N veces, cuando lo que se busca no es azar sino que
 dos líneas SEGUIDAS no se parezcan.
 
-Las frases dicen además lo que la versión de una sola no decía, y en los tres
-casos el dato ya estaba a mano:
+**La forma es fija: sujeto — verbo — objeto, una sola oración, sin remate.**
+Quién lo hizo, qué hizo, a quién o a qué. No es preferencia de estilo: es lo que
+hace que la columna se pueda barrer con el ojo, y son treinta y siete líneas por
+día intercaladas con el chat. De ahí salen tres reglas, las tres con chequeo:
+
+- **Nada de frases dadas vuelta** («Puntero nuevo: {a}», «Se picó: 1.200 XP entre
+  A y B», «Llegó {a}»): dicen lo mismo que su versión derecha y no se leen más
+  rápido. El check exige que cada frase abra con su sujeto — el marcador del
+  protagonista, o el artículo de la universidad en mayúscula.
+- **Ni un punto en el medio.** Lo que no entra antes del punto final no entra. Lo
+  que se cayó por esto fueron los remates que opinaban sobre el hecho recién
+  contado: «Alguien avise si respira», «Ahora se complica», «No estuvo cerca».
+- **La variedad va en el VERBO**, que es donde no cuesta legibilidad: superó,
+  dejó atrás, le serruchó el piso; encadenó, clavó, enganchó.
+
+Ninguna línea pasa los 80 caracteres medida con el alias más largo que hay en
+producción.
+
+Y las frases dicen lo que la versión de una sola no decía, en los cinco casos con
+datos que ya estaban a mano:
 
 - **`level` dice CUÁL familia se desbloqueó** —las sumas, los productos, los
   cocientes— en vez de «derivadas más difíciles». Es la línea más frecuente del
-  feed (110 de 122 en una semana son al nivel 1) y ahora entra de un vistazo:
+  feed (110 de 122 en una semana son al nivel 1) y ahora son tres palabras:
   «@fulano desbloqueó los productos». Es la única categoría donde el verbo NO
-  varía, y es a propósito — con el verbo fijo la cabeza deja de leerlo y va
-  derecho a qué se desbloqueó; la variedad va en el remate. El ícono 🎨 y el
-  nombre ya pintado del color nuevo cuentan la otra mitad. Cuál familia
-  corresponde a cuál nivel NO está tabulado: sale de `elo.tier_objetivo`, que lo
-  deriva de los cortes de nivel y de las semillas de dificultad, así que el día
-  que alguno se mueva la frase se mueve con él en vez de quedar mintiendo.
-- **`top` dice de qué puesto venía** («entró al top 50 desde el puesto 84»). El
-  router ya lo calculó para armar la respuesta del endpoint.
+  varía, a propósito — con el verbo fijo la cabeza deja de leerlo y va derecho a
+  qué se desbloqueó; la variedad está en si se nombra corto o por la regla. El
+  ícono 🎨 y el nombre ya pintado del color nuevo cuentan la otra mitad. Cuál
+  familia corresponde a cuál nivel NO está tabulado: sale de `elo.tier_objetivo`,
+  que lo deriva de los cortes de nivel y de las semillas de dificultad, así que
+  el día que alguno se mueva la frase se mueve con él en vez de quedar mintiendo.
 - **`lead` dice a quién se le sacó el 1.** Quien está segundo ahora es
   exactamente quien lo tenía —una respuesta mueve a una persona sola—, y se
   nombra solo si es alguien de verdad: los sembrados no se nombran nunca.
-- **`uni_close` dice cuánta XP falta** («la UNC está a 1.247 XP de la UBA») en
-  vez de «están cerca», que es lo único accionable que ese aviso puede decir.
+- **`top` dice de qué puesto venía** («entró al top 50 desde el puesto 84»). El
+  router ya lo había calculado para armar la respuesta del endpoint.
+- **`uni_close` dice cuánta XP falta** en vez de «están cerca», que es lo único
+  accionable que ese aviso puede decir.
 - **`boost` dice cuánto dura** además de cuánto multiplica. Con la universidad ya
   en el techo el multiplicador no se mueve y lo que la donación compró fue
   tiempo: es el mismo agujero que el cartel del cafecito dejó de tener.
 
-Dos reglas de redacción, y ninguna es de gusto. **Los artículos se piden
-armados** (`Articulos`: «la UBA», «del ITBA», «al ITBA»), porque «pasó a el
+Dos reglas de castellano, y ninguna es de gusto. **Los artículos se piden
+armados** (`Articulos`: «la UBA», «del ITBA», «al ITBA»), porque «superó a el
 ITBA» es un error que no se ve probando con universidades que llevan «la» —solo
 el día que un instituto entra en la tabla—. Y **nada de adjetivos ni pronombres
 que concuerden**, ni con la universidad (los institutos van en masculino) ni con
-la persona (un alias no dice el género de nadie).
+la persona (un alias no dice el género de nadie). El «le» de «le serruchó el
+piso» sí va: es objeto indirecto y es invariable en género.
 
 «La UBA **le pasó** a la UNSAM» estuvo en producción y es el testigo de
 `check_game_events_copy.py`: en rioplatense «a la UNSAM le pasó» se lee como que
 a la UNSAM le OCURRIÓ algo. Pero «pasó a» a secas tampoco alcanzaba —el verbo más
 pálido que había para el hecho más grande de la tabla—, así que el sobrepaso usa
-verbos que dicen algo: **superó**, **dejó atrás**, **le serruchó el piso**. Y hay
-un pool aparte para cuando no estuvo cerca («barrió», «pasó por arriba»), que
-solo sale con más de 10% de ventaja: un sobrepaso recién confirmado pasa el
+**superó**, **dejó atrás**, **desplazó** y **le serruchó el piso**. Y hay un pool
+aparte para cuando no estuvo cerca («barrió», «pasó por arriba», con el número),
+que solo sale con más de 10% de ventaja: un sobrepaso recién confirmado pasa el
 margen por poco, y decir «barrió» sobre un 2% es la clase de afirmación que hace
 que el feed deje de creerse.
 
 Dos decisiones de vocabulario más, las dos con chequeo propio para que no vuelvan
 solas: las rachas **alternan «errar» y «pifiar»** —la misma idea con dos
-registros, media docena de frases más sin agregar ninguna— y **no se cuentan «al
-hilo»**.
+registros, el doble de frases sin agregar ninguna— y **no se cuentan «al hilo»**.
 
-### El chat (`game/chat.py`, `chat-panel.tsx`)
+## El chat (`game/chat.py`, `chat-panel.tsx`)
 
 Una sola columna donde se intercalan las novedades del sistema y lo que escribe
 la gente, ordenadas por cuándo pasó cada cosa. No son dos widgets apilados a
