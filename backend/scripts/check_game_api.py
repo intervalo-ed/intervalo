@@ -927,6 +927,72 @@ repetida = game_boosts.resolve_donation(db, cafecitos=9, external_ref="mp-123")
 db.commit()
 check(repetida == [] and db.query(GameBoost).count() == n_antes + 1,
       "un mail reenviado no regala el empuje dos veces")
+
+# f) sin nombre en Cafecito, el feed nombra a quien tocó el botón
+#
+# EL TESTIGO, y salió de producción. Cafecito manda el nombre VACÍO cada vez que
+# la persona no llena ese campo —sus campos son todos opcionales y no se pueden
+# marcar obligatorios— y resultó ser lo más común: nueve de doce donaciones
+# salieron como "Alguien". Seis de esas nueve tenían UNA SOLA persona detrás, que
+# el juego ya conocía porque venía de tocar el botón.
+db.query(GameBoost).delete(); db.query(GameBoostIntent).delete(); db.commit()
+from models import GameEvent  # noqa: E402
+
+db.query(GameEvent).delete(); db.commit()
+p_solo = GamePlayer(alias="emerson", university="UBA", theta=1.4,
+                    n_updates=game_elo.RAMP_UPDATES)
+db.add(p_solo); db.commit()
+# Tocó el botón TRES veces antes de pagar, que es lo que hacía la gente de verdad.
+# Contando filas eso parecía ambiguo; contando personas no lo es.
+for _ in range(3):
+    game_boosts.record_intent(db, p_solo)
+db.commit()
+game_boosts.resolve_donation(db, cafecitos=10, donor_name="")
+db.commit()
+ev = db.query(GameEvent).filter(GameEvent.kind == "boost").first()
+check(ev is not None and ev.actor_alias == "@emerson",
+      f"tres intenciones de la MISMA persona no son ambiguas: "
+      f"{ev.actor_alias if ev else '—'}")
+check(ev is not None and ev.actor_level == game_elo.level_of(p_solo.theta),
+      "y va con su nivel, porque es la misma persona que está en el ranking")
+
+# g) con dos personas distintas no se puede afirmar quién pagó
+db.query(GameBoost).delete(); db.query(GameBoostIntent).delete()
+db.query(GameEvent).delete(); db.commit()
+p_a = GamePlayer(alias="dona_a", university="UBA")
+p_b = GamePlayer(alias="dona_b", university="UTN")
+db.add_all([p_a, p_b]); db.commit()
+game_boosts.record_intent(db, p_a)
+game_boosts.record_intent(db, p_b)
+db.commit()
+game_boosts.resolve_donation(db, cafecitos=2, donor_name=None)
+db.commit()
+nombres = {e.actor_alias for e in db.query(GameEvent).filter(GameEvent.kind == "boost").all()}
+check(nombres == {"Alguien"},
+      f"solo una de las dos pagó, así que no se nombra a ninguna ({nombres})")
+
+# h) lo que la persona escribió en Cafecito gana siempre
+db.query(GameBoost).delete(); db.query(GameBoostIntent).delete()
+db.query(GameEvent).delete(); db.commit()
+game_boosts.record_intent(db, p_solo)
+db.commit()
+game_boosts.resolve_donation(db, cafecitos=1, donor_name="Eme")
+db.commit()
+ev = db.query(GameEvent).filter(GameEvent.kind == "boost").first()
+check(ev is not None and ev.actor_alias == "Eme",
+      f"su elección de cómo aparecer le gana al @ del juego ({ev.actor_alias if ev else '—'})")
+check(ev is not None and ev.actor_level is None,
+      "y esa va sin nivel: el texto de Cafecito no es necesariamente un jugador")
+
+# i) el empuje sigue sin colgar de una persona
+# `player_id` en NULL es lo que deja a los cafecitos fuera del presupuesto por
+# persona del feed (game/events.py :: _fuerza_reciente): nombrar a quien donó no
+# puede convertir su donación en una de sus dos líneas de la ventana.
+check(
+    all(e.player_id is None for e in db.query(GameEvent).filter(GameEvent.kind == "boost").all()),
+    "nombrar al donante no le cuelga el evento encima",
+)
+
 db.close()
 
 print("11. la fuerza del café: techo x3 y hay que colaborar")

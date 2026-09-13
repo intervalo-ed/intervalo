@@ -779,9 +779,10 @@ def due_cafecito_efecto_emails(db: DBSession) -> list[tuple[User, dict]]:
     `boosts.estado_de_donacion` y acá se aplica el mismo: sin donante seguro, no
     se manda nada. Es preferible no agradecer que agradecerle al que no fue.
     """
-    from models import GameBoost, GameBoostIntent, GamePlayer
+    from models import GameBoost, GameBoostIntent, GamePlayer  # noqa: F401
 
     from game.aforo import SOURCE as AFORO
+    from game.boosts import donante_unico
 
     ahora = datetime.utcnow()
     # Los de aforo quedan fuera de raíz: no los donó nadie, así que no hay a
@@ -813,10 +814,16 @@ def due_cafecito_efecto_emails(db: DBSession) -> list[tuple[User, dict]]:
             )
             .all()
         )
-        if len(hermanas) != 1:
+        # Por PERSONAS distintas y no por cantidad de filas. Pedía una sola
+        # intención, y tocar el botón dos veces antes de pagar deja dos: el
+        # donante más grande que tuvo el juego tocó dos y tres veces en sus
+        # últimas tres donaciones, así que las tres se descartaron por
+        # "ambiguas" y nunca se le agradeció. La regla vive en game/boosts.py,
+        # compartida con la que decide a quién nombrar en el feed.
+        jugador = donante_unico(db, hermanas)
+        if jugador is None:
             continue  # ambiguo: no se puede afirmar quién donó
-        jugador = db.get(GamePlayer, hermanas[0].player_id)
-        if jugador is None or jugador.user_id is None:
+        if jugador.user_id is None:
             continue  # donó sin cuenta: no hay a dónde mandarle el mail
         user = db.get(User, jugador.user_id)
         if user is None or user.email_unsubscribed:

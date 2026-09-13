@@ -30,6 +30,7 @@ import re
 import time
 from dataclasses import dataclass
 from datetime import datetime, timedelta
+from typing import Sequence
 
 from sqlalchemy import case, func, or_
 from sqlalchemy.orm import Session
@@ -37,7 +38,7 @@ from sqlalchemy.orm import Session
 from models import GameBoost, GameBoostIntent, GamePlayer
 from universities import UNIVERSITIES, canonical_university
 
-from . import events, simulation
+from . import elo, events, simulation
 
 # La duración de una donación es una base fija más medio cafecito, redondeando
 # para arriba: `1 + ceil(cafecitos / 2)`. O sea que baja DE A PARES —10 y 9 dan
@@ -403,8 +404,16 @@ def grant(
     minutes: int | None = None,
     now: datetime | None = None,
     anunciar: bool = True,
+    donante: GamePlayer | None = None,
 ) -> GameBoost | None:
     """Registra un empuje. Devuelve None si `external_ref` ya se usó.
+
+    `donante` es a quién nombrar en el feed cuando Cafecito NO mandó nombre —lo
+    manda vacío cada vez que la persona no llena ese campo, que es lo más común—
+    y el juego igual sabe quién fue porque vino de tocar el botón. No se guarda
+    en la fila: `donor_name` sigue siendo el texto libre que la persona escribió,
+    y mezclar las dos cosas en una columna haría imposible volver a distinguirlas.
+    Quién lo resuelve es `resolve_donation`, que es la que tiene las intenciones.
 
     `anunciar=False` inserta la fila y mueve el pulso, pero no emite el evento
     de "invitó cafecitos" al feed. Lo usa el empuje por aforo (game/aforo.py),
@@ -464,6 +473,10 @@ def grant(
             cafecitos=cafecitos,
             multiplier=multiplier_for(db, uni, now=now),
             donor_name=donor_name,
+            donor_alias=donante.alias if donante is not None else None,
+            donor_level=(
+                elo.level_of(donante.theta) if donante is not None else None
+            ),
         )
     # El ranking va a moverse distinto a partir de ahora: que el pulso avise.
     simulation.bump_version(db)
@@ -611,6 +624,31 @@ def _intents_abiertas(db: Session, now: datetime) -> list[GameBoostIntent]:
     )
 
 
+def donante_unico(db: Session, intents: Sequence[GameBoostIntent]) -> GamePlayer | None:
+    """De un puñado de intenciones, la persona que se puede AFIRMAR que donó.
+
+    Cafecito no puede devolver quién pagó —sus campos son todos opcionales y no
+    se pueden marcar obligatorios— así que la única pata que el juego tiene es el
+    "voy a donar": cuando alguien toca el botón ya sabemos quién es. Esto convierte
+    esas intenciones en una persona, o en `None` cuando no alcanza.
+
+    **Se cuentan PERSONAS distintas, no intenciones**, y esa es toda la gracia.
+    Tocar el botón, volver, y tocarlo de nuevo deja tres filas de la MISMA
+    persona; contando filas eso parecía ambiguo y no lo es. Medido en producción:
+    de nueve donaciones que salieron como "Alguien", seis tenían una sola persona
+    detrás, y tres de ellas eran del mismo donante que había tocado el botón dos
+    o tres veces antes de pagar. Contando filas se perdían las seis.
+
+    Con dos personas distintas sí es ambiguo, y ahí devuelve `None`: solo una
+    pagó y las otras cobran el empuje de arriba (ver `resolve_donation`), así que
+    nombrar a cualquiera de las dos es afirmar algo que no sabemos.
+    """
+    ids = {i.player_id for i in intents}
+    if len(ids) != 1:
+        return None
+    return db.get(GamePlayer, ids.pop())
+
+
 def pending_intents(db: Session, now: datetime | None = None) -> list[GameBoostIntent]:
     """Las que sirven para elegir DESTINO: solo las que tienen universidad.
 
@@ -740,6 +778,11 @@ def resolve_donation(
     for i in abiertas:
         i.consumed_at = now
 
+    # Y de esas mismas intenciones sale a quién nombrar si Cafecito no mandó
+    # nombre. Es la misma regla con la que el mail de agradecimiento decide a
+    # quién escribirle (lifecycle_emails.py), y por eso vive en un solo lugar.
+    donante = donante_unico(db, abiertas) if not (donor_name or "").strip() else None
+
     # `external_ref` es UNIQUE, así que con varios destinos solo el primero puede
     # llevarlo. Alcanza: es la fila que hace que un mail repetido no entre dos
     # veces, y las demás se crean o no junto con ella en la misma transacción.
@@ -750,6 +793,7 @@ def resolve_donation(
             university=destino,
             cafecitos=cafecitos,
             donor_name=donor_name,
+            donante=donante,
             source="cafecito" if external_ref else "manual",
             external_ref=external_ref if n == 0 else None,
             minutes=minutes,
