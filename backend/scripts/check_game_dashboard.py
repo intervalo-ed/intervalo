@@ -57,6 +57,7 @@ def check(nombre: str, cond: bool, detalle: str = "") -> None:
         fallos.append(nombre)
 
 
+import re as _re  # noqa: E402
 from metrics import game_queries as q  # noqa: E402
 from metrics import game_render  # noqa: E402
 
@@ -103,6 +104,11 @@ s.flush()
 #     viralidad—. Cuatro semanas y no una para que quede afuera de la ventana
 #     visible: acá se lo quiere solo como "el de antes", no como parte de las
 #     cohortes que miden profundidad, difusión y aparato.
+# p6  entra y se va sin responder nada: el rebote, que es más de la mitad del
+#     tráfico real. Existe para que `activados` y `nuevos` NO sean el mismo
+#     número: con los cuatro de arriba activando al 100%, un porcentaje medido
+#     sobre altas y uno medido sobre activados daban idéntico, y ningún check
+#     podía distinguirlos. Los tres de retención se miden sobre activados.
 # p9  BOT: no tiene que aparecer en ninguna métrica
 PLAYERS = [
     dict(id=1, user_id=1, alias="uno", university="UBA", career="E", is_bot=False,
@@ -120,6 +126,9 @@ PLAYERS = [
     dict(id=5, user_id=None, alias="cero", university=None, career=None,
          is_bot=False, platform=None,
          created_at=T(-28, 14), last_seen_at=T(0, 15)),
+    dict(id=6, user_id=None, alias="seis", university="UBA", career="E",
+         is_bot=False, platform="android",
+         created_at=T(3, 14), last_seen_at=T(3, 14, 2)),
     dict(id=9, user_id=None, alias="bot", university="UBA", career="E", is_bot=True,
          platform="desktop",
          created_at=T(0, 10), last_seen_at=T(0, 11)),
@@ -222,6 +231,12 @@ for pid, cuando, trig in [(1, T(0, 15), "milestone"), (1, T(0, 15, 30), "milesto
                        placement=trig, solved=10, university="UBA", created_at=cuando))
 s.add(GameCtaEvent(player_id=1, cta="cafecito", action="click", placement="milestone",
                    solved=10, university="UBA", created_at=T(0, 15, 1)))
+# El click sin impresión, que es un bug real de `settings-panel.tsx`: ahí el
+# botón dispara el click sin montar nunca el contador de impresiones. Se siembra
+# para probar que el panel lo trata como lo que es —un numerador sin
+# denominador— y no lo suma a un CTR que quedaría inflado.
+s.add(GameCtaEvent(player_id=2, cta="cafecito", action="click", placement="settings",
+                   created_at=T(1, 16)))
 s.add(GameCtaEvent(player_id=1, cta="share", action="impression", created_at=T(0, 15)))
 s.add(GameCtaEvent(player_id=1, cta="share", action="click", created_at=T(0, 15, 2)))
 # Un CTA del bot, que tampoco puede contar.
@@ -282,7 +297,7 @@ weeks = q._weeks_back(WEEK, 4)
 
 # ── 1 · Los bots no existen ──────────────────────────────────────────────────
 print("\n— bots —")
-check("los estudiantes sembrados se excluyen", len(data["players"]) == 5,
+check("los estudiantes sembrados se excluyen", len(data["players"]) == 6,
       f'({len(data["players"])} estudiantes)')
 check("sus ejercicios también", all(e["player_id"] != 9 for e in data["exercises"]))
 check("sus respuestas también", all(a["player_id"] != 9 for a in data["attempts"]))
@@ -315,15 +330,15 @@ REPARTO = q.headline(data, weeks)
 h = {c["label"]: c for cards in REPARTO.values() for c in cards}
 # Los cuatro estudiantes de la semana, más nadie: el bot no cuenta y p3 respondió
 # recién el lunes siguiente, así que su respuesta cae en la semana de al lado.
-check("usuarios nuevos de la semana", h["Usuarios nuevos"]["value"] == 4,
-      f'({h["Usuarios nuevos"]["value"]})')
+check("usuarios nuevos de la semana", h["Usuarios nuevos"]["value"] == 5,
+      f'({h["Usuarios nuevos"]["value"]}, los cuatro que jugaron + el que rebotó)')
 # Los ÚNICOS son personas, no tandas: p1 entra el día 0 y vuelve dos horas
 # después, y sigue siendo UNO. Es la diferencia con la métrica que estaba antes
 # —visitas, que contaba tandas— y el motivo del cambio: «cuántas personas
 # distintas abrieron el juego» es la pregunta de volumen que se quería contestar.
 check("los únicos cuentan personas y no tandas",
-      h["Usuarios únicos"]["value"] == 5,
-      f'({h["Usuarios únicos"]["value"]}, esperaba los 4 nuevos + p0)')
+      h["Usuarios únicos"]["value"] == 6,
+      f'({h["Usuarios únicos"]["value"]}, esperaba los 5 nuevos + p0)')
 # Y nunca puede haber menos únicos que nuevos: todo nuevo es, por definición,
 # alguien que se asomó esa semana.
 check("y nunca son menos que los nuevos",
@@ -336,39 +351,101 @@ check("la activación se mide sobre los nuevos de la semana",
       h["Usuarios activados"]["value"] == 4,
       f'({h["Usuarios activados"]["value"]} de {h["Usuarios nuevos"]["value"]})')
 check("y el porcentaje sale de esos dos",
-      h["Activación"]["value"] == 100.0, f'({h["Activación"]["value"]}%)')
+      h["Activación"]["value"] == 80.0,
+      f'({h["Activación"]["value"]}%, 4 de 5)')
+# ── Retención, toda sobre los ACTIVADOS de la camada ──────────────────────
+# La camada de la semana son cinco altas y cuatro activados. Los tres
+# porcentajes de abajo se dividen por CUATRO: quien nunca respondió no puede
+# volver, ni registrarse, ni instalar nada, y meterlo en el denominador mide
+# activación disfrazada de retención.
+check("el denominador de retención son los activados, no las altas",
+      h["Activados de la camada"]["value"] == 4
+      and h["Usuarios nuevos"]["value"] == 5,
+      f'({h["Activados de la camada"]["value"]} de {h["Usuarios nuevos"]["value"]})')
+# p1 y p4 tienen cuenta; p2 y p3 siguen de invitados. Sobre los cuatro
+# activados da 50%; sobre las cinco altas daría 40%, que es el número que este
+# check existe para NO dejar pasar.
 check("se registran", h["Se registran"]["value"] == 50.0,
-      f'({h["Se registran"]["value"]}%)')
+      f'({h["Se registran"]["value"]}%, sobre altas daría 40,0%)')
 # La instalación es la otra mitad de «a quién podemos alcanzar después». p1 abrió
 # la app instalada; los otros tres no.
+# Solo p1 abrió la app instalada: 1 de los 4 activados.
 check("las instalaciones salen de quien abrió la app instalada",
       h["Instalan la app"]["value"] == 25.0,
-      f'({h["Instalan la app"]["value"]}%, esperaba 1 de 4)')
-# p0 es de una semana anterior y jugó en esta; los cuatro nuevos no cuentan acá
-# por más que hayan jugado, porque su alta es de esta misma semana.
-check("los retenidos son de otra semana", h["Usuarios retenidos"]["value"] == 1,
-      f'({h["Usuarios retenidos"]["value"]})')
+      f'({h["Instalan la app"]["value"]}%, esperaba 1 de 4 activados)')
+# La vuelta se mide en DÍAS distintos con respuesta, no en sentadas: p1
+# responde el día 0 y otra vez el día 4, así que vuelve; p2 y p4 juegan un solo
+# día; p3 tiene una sola respuesta. Uno de cuatro.
+check("vuelve quien respondió en un segundo día distinto",
+      h["Vuelven otro día"]["value"] == 25.0,
+      f'({h["Vuelven otro día"]["value"]}%, esperaba p1 de cuatro)')
+# Y no es la misma cuenta que la de Jugabilidad, que mira SENTADAS: ahí p1 y p2
+# vuelven —p2 tiene dos tandas el mismo día— y acá p2 no.
+check("y no es la vuelta por sentadas de Jugabilidad",
+      h["Vuelven otro día"]["value"] != h["Vuelven a jugar"]["value"],
+      f'(días {h["Vuelven otro día"]["value"]}% contra '
+      f'sentadas {h["Vuelven a jugar"]["value"]}%)')
 check("el titular de cafecitos no cuenta los grants a mano",
       h["Cafecitos"]["value"] == 3, f'({h["Cafecitos"]["value"]}, no 6)')
-check("los reclutas son los que entraron por el link de otro",
-      h["Reclutas nuevos"]["value"] == 1, f'({h["Reclutas nuevos"]["value"]})')
-# Un recluta sobre el único jugador que existía antes de la semana.
-check("la viralidad general se divide por TODOS los que ya estaban",
-      h["Viralidad general"]["value"] == 1.0,
-      f'({h["Viralidad general"]["value"]})')
-check("y se muestra con dos decimales", h["Viralidad general"]["dec"] == 2)
+# ── El K de camada ────────────────────────────────────────────────────────
+# `cero` (p5) entró cuatro semanas antes y trajo a `dos` (p2), que respondió.
+# O sea: una camada de una persona que trajo una persona, y las dos jugaron.
+# Es el caso mínimo donde K vale exactamente 1 por los dos caminos, y sirve
+# justamente porque los dos numeradores y los dos denominadores son el mismo
+# número: si alguna de las cuatro cuentas se cruzara, daría distinto de 1.
+CAM = {c["week"]: c for c in q.camadas(data, WEEK)["filas"]}
+c_cero = CAM[(WEEK - timedelta(weeks=4)).isoformat()]
+check("el recluta se le cuenta a la camada de SU RECLUTADOR",
+      c_cero["reclutas"] == 1 and c_cero["n"] == 1,
+      f'({c_cero["reclutas"]} reclutas sobre una camada de {c_cero["n"]})')
+check("y el K de la camada es esa división",
+      c_cero["k"] == 1.0, f'({c_cero["k"]})')
+check("el de activados exige que las dos puntas hayan jugado",
+      c_cero["reclutas_act"] == 1 and c_cero["n_act"] == 1,
+      f'({c_cero["reclutas_act"]} de {c_cero["n_act"]})')
+check("y da su propia división", c_cero["k_act"] == 1.0, f'({c_cero["k_act"]})')
 
-# ── Las dos viralidades no son la misma cuenta ────────────────────────────
-# La general divide por todos los que ya estaban; la de activados, solo por los
-# que habían respondido algo. Que den distinto no es un detalle: es la razón de
-# que existan las dos. Un bucle viral se sostiene cuando cada unidad CAPAZ de
-# reproducirse produce otra capaz, y acá la unidad capaz es el activado —medido:
-# de los 24 jugadores que alguna vez reclutaron, los 24 tenían 3+ respuestas.
-check("los reclutas activados son un subconjunto de los reclutas",
-      h["Reclutas activados"]["value"] <= h["Reclutas nuevos"]["value"],
-      f'({h["Reclutas activados"]["value"]} de {h["Reclutas nuevos"]["value"]})')
-check("y la viralidad de activados usa otro denominador que la general",
-      h["Viralidad de activados"]["dec"] == 2)
+# La camada de la semana de referencia no reclutó a nadie: sus cuatro miembros
+# entraron por difusión. Cero y no None — la división existe y vale cero, que
+# es una afirmación distinta de «no se puede calcular».
+c_hoy = CAM[WEEK.isoformat()]
+check("una camada que no reclutó a nadie da cero, no vacío",
+      c_hoy["k"] == 0.0 and c_hoy["n"] == 5,
+      f'(k={c_hoy["k"]} sobre {c_hoy["n"]})')
+# Y una semana sin nadie no puede dar cero: dividir por cero no es cero.
+vacias = [c for c in q.camadas(data, WEEK)["filas"] if c["n"] == 0]
+check("y una camada vacía da vacío, no cero",
+      bool(vacias) and all(c["k"] is None and c["k_act"] is None for c in vacias),
+      f"({len(vacias)} camadas sin nadie)")
+
+# ── La maduración, que es lo que evita leer una camada a medio terminar ────
+# Medido en producción: el último de los 144 reclutas llegó 3,6 días después
+# del alta de quien lo trajo. Una camada cierra el domingo y a los cuatro días
+# ya no le entra nada. La regla se prueba contra HOY y no contra la semana del
+# panel, porque lo que limita a una camada es el tiempo real que pasó.
+_hoy = q.week_start(q.local_date(datetime.utcnow()))
+check("la camada en curso nunca está madura",
+      q._camadas(data, [_hoy])[_hoy]["madura"] is False)
+_vieja = _hoy - timedelta(weeks=2)
+check("y una de hace dos semanas siempre lo está",
+      q._camadas(data, [_vieja])[_vieja]["madura"] is True)
+
+# ── Los cuatro números de la fila salen de esa misma función ──────────────
+# No de cuatro cuentas escritas aparte: dos definiciones de K dan dos números
+# distintos para la misma pregunta, que es exactamente lo que pasó con el K
+# semanal que esto reemplaza.
+check("la fila de reclutas lee la camada de la semana",
+      h["Reclutas traídos"]["value"] == c_hoy["reclutas"]
+      and h["De esos, arrancaron"]["value"] == c_hoy["reclutas_act"]
+      and h["K de la camada"]["value"] == c_hoy["k"]
+      and h["K de activados"]["value"] == c_hoy["k_act"])
+check("y los dos K se muestran con dos decimales",
+      h["K de la camada"]["dec"] == 2 and h["K de activados"]["dec"] == 2)
+# El K viejo dividía por la base previa, así que la difusión le movía el
+# denominador. Que no quede ninguno de los dos suelto alimentando un número.
+check("el K semanal no quedó colgado en ningún lado",
+      not hasattr(q, "viralidad_activados")
+      and "Viralidad general" not in h and "Viralidad de activados" not in h)
 # La primera tanda de p1 son las 9 correctas del bloque del día 0 (la décima cae
 # más de media hora después); p2 3, p4 5. p3 no respondió en esta semana.
 # p1 respondió 12 veces el día 0, pero las últimas dos son dos horas después:
@@ -402,11 +479,20 @@ check("la duración de la 1ª sesión sale en minutos",
 
 # El reparto es la parte que se puede romper sin que nadie lo note: una tarjeta
 # que se cae del dict desaparece de la página y ninguna consulta falla por eso.
-check("son dieciséis números", len(h) == 16, f"({len(h)})")
-check("repartidos de a cuatro en cuatro grupos",
+check("son veinte números", len(h) == 20, f"({len(h)})")
+check("repartidos de a cuatro en cinco grupos",
       {k: len(v) for k, v in REPARTO.items()}
-      == {"activacion": 4, "retencion": 4, "reclutas": 4, "jugabilidad": 4},
+      == {"activacion": 4, "retencion": 4, "monetizacion": 4, "reclutas": 4,
+          "jugabilidad": 4},
       f"({ {k: len(v) for k, v in REPARTO.items()} })")
+# El cafecito se mudó a Monetización y no quedó en los dos lados. Y el primero
+# de la fila es el denominador de los otros tres, que es lo que hace que la
+# fila se lea como una sola cuenta.
+check("retención arranca por su denominador y no tiene el cafecito",
+      [c["label"] for c in REPARTO["retencion"]]
+      == ["Activados de la camada", "Vuelven otro día", "Se registran",
+          "Instalan la app"],
+      f'({[c["label"] for c in REPARTO["retencion"]]})')
 # Cada uno va donde está el gráfico que lo explica, y la sección a la que apunta
 # tiene que existir como pestaña: una clave mal escrita acá es una fila de
 # números que no se dibuja en ningún lado.
@@ -699,10 +785,23 @@ rc = q.reclutas(data, weeks)
 # p2 entró por el link de p5: es el único reclutado del escenario.
 check("cuenta a quien entró por un link", rc["total_reclutados"] == 1,
       f'({rc["total_reclutados"]})')
-check("y el bot no está en el denominador", rc["total_jugadores"] == 5,
+check("y el bot no está en el denominador", rc["total_jugadores"] == 6,
       f'({rc["total_jugadores"]})')
 top = {t["alias"]: t for t in rc["top"]}
 check("el reclutador aparece en el top", "cero" in top, f'({list(top)})')
+# «Arrancaron» es lo que separa reclutar de repartir un link. En el escenario
+# el recluta de `cero` respondió, así que su columna vale 1: si valiera 0 con
+# un recluta que jugó, la tabla estaría contando otra cosa.
+check("y la tabla dice cuántos de sus reclutas arrancaron",
+      top["cero"]["activados"] == 1 if top else False,
+      f'({top["cero"]["activados"] if top else "?"})')
+# El eje de K no lleva %: es una razón —cuánta gente trae cada uno— y
+# `ch.lines` rotula en porcentaje por defecto. Con el sufijo puesto mal, un
+# K de 0,68 se dibujaba como «0,68%», cien veces menos.
+h_via = game_render.page(q.build(s, WEEK), token="tok", seccion="activacion")
+eje = h_via.split("Cuánta gente trae cada camada")[1][:3000]
+check("el eje del coeficiente no se rotula en porcentaje",
+      "%<" not in eje and "%'" not in eje)
 
 # El gráfico de viralidad dibuja UNA serie y ya no ofrece desglose. La vista de
 # volumen existía para poder auditar la división —un K que salta puede ser más
@@ -719,8 +818,8 @@ check("y los dos titulares que repetían tampoco",
       and '<div class="label">Top reclutador</div>' not in h_k)
 # Los cuatro números de reclutas viven DENTRO de su sección y no en la cabecera
 # de la pestaña: hablan del mismo canal que la curva que tienen abajo.
-for etiqueta in ("Reclutas nuevos", "Reclutas activados", "Viralidad general",
-                 "Viralidad de activados"):
+for etiqueta in ("Reclutas traídos", "De esos, arrancaron", "K de la camada",
+                 "K de activados"):
     check(f"«{etiqueta}» está en la sección de reclutas",
           f'<div class="label">{etiqueta}</div>' in h_k)
 # El top de reclutadores se fue del panel junto con las dos tarjetas
@@ -729,6 +828,185 @@ for etiqueta in ("Reclutas nuevos", "Reclutas activados", "Viralidad general",
 check("y el top de reclutadores tampoco está",
       "<h3>Top reclutadores</h3>" not in h_k)
 check("con su cuenta de reclutas", top["cero"]["reclutas"] == 1 if top else False)
+# La tabla de camadas es la auditoría de los dos K: sin los cuatro términos
+# escritos, el número de arriba hay que creerlo.
+check("la tabla de camadas trae los dos numeradores y los dos denominadores",
+      all(f"<th>{c}</th>" in h_k for c in
+          ("Camada", "Entraron", "Activados", "Reclutas", "Reclutas activados",
+           "K", "K de activados")))
+# Una camada a medio terminar tiene que decirlo EN la tabla y EN la curva: su
+# K está incompleto y leerlo como caída es el error fácil. Las camadas del
+# escenario son todas de agosto, o sea que están cerradas hace rato, así que
+# comparar «¿aparece la marca?» contra «¿hay alguna sin cerrar?» daría falso
+# contra falso y pasaría con el marcado roto. Se fuerza el otro lado moviendo
+# la ventana de maduración, que es el único parámetro de la regla.
+_cm = q.build(s, WEEK)["camadas"]["filas"]
+check("con el escenario de agosto están todas cerradas",
+      all(c["madura"] for c in _cm), f"({len(_cm)} camadas)")
+def _huecos(pagina: str) -> int:
+    """Cuántos puntos de la curva de camadas salen huecos.
+
+    Se cuenta sobre el circulo y no sobre la linea punteada: con pocas camadas
+    la curva son puntos sueltos —entre dos con dato hay semanas sin nadie, y un
+    hueco corta la linea— asi que no hay tramo que puntear. El circulo hueco es
+    el marcado que `weak` garantiza siempre.
+    """
+    trozo = pagina.split("Cuánta gente trae cada camada")[1].split("</div>")[0]
+    return trozo.count('fill="var(--surface)" stroke=')
+
+
+check("y entonces ni la tabla ni la curva marcan nada",
+      '<span class="sub2">sumando</span>' not in h_k and _huecos(h_k) == 0,
+      f"({_huecos(h_k)} puntos huecos)")
+
+_md = q.MADURACION_DIAS
+try:
+    # Una ventana de maduración absurda deja a TODAS sin cerrar, sin tocar
+    # ningún dato: es exactamente el estado que se quiere ver dibujado.
+    q.MADURACION_DIAS = 10_000
+    _h_verde = game_render.page(q.build(s, WEEK), token="tok", seccion="activacion")
+    _cm2 = q.build(s, WEEK)["camadas"]["filas"]
+finally:
+    q.MADURACION_DIAS = _md
+check("moviendo la ventana, ninguna queda cerrada",
+      not any(c["madura"] for c in _cm2), f"({len(_cm2)} camadas)")
+check("y la tabla las marca como sumando",
+      '<span class="sub2">sumando</span>' in _h_verde)
+# El marcado del gráfico es el mismo hecho por otro camino: `weak` dibuja el
+# punto hueco y el tramo punteado. Si la tabla dice «sumando» y la curva lo
+# dibuja firme, una de las dos miente.
+check("y la curva las dibuja con el punto hueco",
+      _huecos(_h_verde) > 0, f"({_huecos(_h_verde)} puntos huecos)")
+# El eje tiene que poder distinguir las cinco marcas. K vive en centesimas, y
+# con un decimal fijo la escala rotulaba «0,1 · 0,1 · 0,1 · 0 · 0»: tres
+# etiquetas repetidas y ninguna informacion. Es el mismo error que el sufijo de
+# porcentaje, por el otro lado del mismo rotulo.
+_ejes = [t for t in _re.findall(r">([0-9][0-9.,]*)<",
+                                h_k.split("Cuánta gente trae cada camada")[1]
+                                   .split("</svg>")[0])]
+check("las marcas del eje de K no se repiten",
+      len(set(_ejes)) >= 4, f"({_ejes})")
+
+# ── 6a-bis · La curva de retención ─────────────────────────────────────────
+print()
+print("— curva de retención —")
+
+rt = q.retencion(data, WEEK)
+check("arranca en la vuelta y no en el volumen", rt["metrica"] == "vuelven",
+      f'({rt["metrica"]})')
+check("una métrica que no existe cae en esa misma",
+      q.retencion(data, WEEK, "inventada")["metrica"] == "vuelven")
+check("la serie cubre toda la historia hasta la camada elegida",
+      len(rt["filas"]) == 9, f'({len(rt["filas"])} semanas)')
+check("y termina en la camada elegida", rt["filas"][-1]["week"] == WEEK.isoformat())
+# Los dos términos de cada tasa viajan en la fila: una tasa sin su numerador y
+# su denominador no se puede auditar, y estas viven abajo del 15%.
+f_hoy = rt["filas"][-1]
+check("cada fila trae los numeradores además de las tasas",
+      f_hoy["n_vuelven"] == 1 and f_hoy["n_registran"] == 2
+      and f_hoy["n_instalan"] == 1 and f_hoy["activados"] == 4,
+      f"({f_hoy})")
+check("y ningún numerador puede superar al denominador",
+      all(f["n_vuelven"] <= f["activados"] and f["n_registran"] <= f["activados"]
+          and f["n_instalan"] <= f["activados"] for f in rt["filas"]))
+# Una camada sin activados da vacío y no cero: dividir por cero no es cero.
+vacias_r = [f for f in rt["filas"] if f["activados"] == 0]
+check("una camada sin activados da vacío, no cero",
+      bool(vacias_r) and all(f["vuelven"] is None and f["registran"] is None
+                             and f["instalan"] is None for f in vacias_r),
+      f"({len(vacias_r)} camadas sin nadie que jugara)")
+# La ventana de maduración es propia de cada métrica: instalar tiene una cola
+# mucho más larga que registrarse, así que una camada puede estar cerrada para
+# una y todavía abierta para la otra. Se prueba contra HOY, que es lo que la
+# limita.
+_hoy_r = q.week_start(q.local_date(datetime.utcnow()))
+_madura_hoy = q._camadas_retencion(data, [_hoy_r])[_hoy_r]["madura"]
+check("la camada en curso no está madura para ninguna métrica",
+      not any(_madura_hoy.values()), f"({_madura_hoy})")
+# Una de hace dos semanas ya cerró para volver (ventana 8 días) pero todavía no
+# para instalar (14). Si las dos ventanas fueran una sola, esto daría igual.
+_dos = _hoy_r - timedelta(weeks=2)
+_madura_dos = q._camadas_retencion(data, [_dos])[_dos]["madura"]
+check("y a las dos semanas cerró la vuelta pero no la instalación",
+      _madura_dos["vuelven"] and not _madura_dos["instalan"],
+      f"({_madura_dos})")
+
+h_ret = game_render.page(q.build(s, WEEK), token="tok", seccion="retencion")
+check("la curva arranca marcada en la vuelta",
+      '<span class="cur">Vuelven otro día</span>' in h_ret)
+check("y las otras tres se ofrecen como link",
+      all(f"&mr={k}" in h_ret for k in ("activados", "registran", "instalan")))
+# El parámetro es propio y no el de la curva de activación: con uno compartido,
+# pasar por la otra pestaña pisaba la elección de esta.
+check("la curva de activación no comparte parámetro con esta",
+      "&m=" not in h_ret.replace("&mr=", ""))
+h_ret2 = game_render.page(q.build(s, WEEK, metrica_ret="instalan"),
+                          token="tok", seccion="retencion")
+check("elegir otra curva la marca a ella",
+      '<span class="cur">Instalan la app</span>' in h_ret2)
+check("y esa elección viaja en los demás links",
+      h_ret2.count("&mr=instalan") >= 3, f'({h_ret2.count("&mr=instalan")} links)')
+
+
+# ── 6b-bis · Monetización ──────────────────────────────────────────────────
+print()
+print("— monetización —")
+
+# La plata y las dos tasas que la explican. El escenario: 4 impresiones del
+# cartel (milestone x2, record x2), 1 click desde milestone, 1 click desde
+# ajustes SIN impresión, y una donación de 3 cafecitos.
+check("los cafecitos son solo los donados de verdad",
+      h["Cafecitos"]["value"] == 3, f'({h["Cafecitos"]["value"]}, el manual no cuenta)')
+check("y las donaciones cuentan veces, no cafecitos",
+      h["Donaciones"]["value"] == 1, f'({h["Donaciones"]["value"]})')
+# 1 click sobre 4 impresiones. El click de ajustes NO entra: su lugar nunca
+# anota impresiones, así que sumarlo daría 50% con el mismo denominador de 4.
+# Es el bug que la tabla de abajo tiene que dejar a la vista.
+check("el CTR deja afuera los clicks sin denominador",
+      h["Tocan el cartel"]["value"] == 25.0,
+      f'({h["Tocan el cartel"]["value"]}%, con los dos clicks daría 50,0%)')
+check("y la última tasa cierra el embudo con la plata",
+      h["Del click a la plata"]["value"] == 100.0,
+      f'({h["Del click a la plata"]["value"]}%, 1 donación sobre 1 click medible)')
+
+mo = q.monetizacion(data)
+lug = {l["lugar"]: l for l in mo["lugares"]}
+check("la tabla abre el cartel por dónde sale",
+      set(lug) == {"milestone", "record", "settings"}, f"({sorted(lug)})")
+check("y cada lugar trae su propio CTR",
+      lug["milestone"]["ctr"] == 50.0 and lug["record"]["ctr"] == 0.0,
+      f'(milestone {lug["milestone"]["ctr"]}, record {lug["record"]["ctr"]})')
+# El lugar sin impresiones se lista igual y con el CTR VACÍO, no con un cero:
+# un 0% es «nadie lo tocó» y acá lo que pasa es que no se puede calcular.
+check("el lugar sin impresiones se lista con el CTR vacío",
+      lug["settings"]["clicks"] == 1 and lug["settings"]["impresiones"] == 0
+      and lug["settings"]["ctr"] is None,
+      f'({lug["settings"]})')
+check("y va al final, donde no ordena por un número que no tiene",
+      mo["lugares"][-1]["lugar"] == "settings")
+check("el panel dice cuántos clicks quedaron sin denominador",
+      mo["sin_denominador"] == 1, f'({mo["sin_denominador"]})')
+
+h_mon = game_render.page(q.build(s, WEEK), token="tok", seccion="monetizacion")
+check("y lo avisa en la página", "clicks sin denominador" in h_mon)
+check("la tabla marca el lugar que no anota impresiones",
+      "no las anota" in h_mon)
+# Los tres carteles que se fueron de acá, cada uno por su motivo. `share` pide
+# una persona y no plata; `boost_offer` dividía una acción de nicho por un
+# denominador global y daba 1,2% sin significar nada; `register` nunca existió.
+check("compartir no está en monetización",
+      "Reclutar: compartir el link" not in h_mon)
+check("y la oferta de multiplicador tampoco",
+      "Oferta de multiplicador" not in h_mon and "boost_offer" not in h_mon)
+check("el cartel que nunca existió salió del mapa",
+      "register" not in q.CARTELES, f"({sorted(q.CARTELES)})")
+# `share` aterrizó en Reclutas, que es donde está la curva que explica.
+h_act = game_render.page(q.build(s, WEEK), token="tok", seccion="activacion")
+check("compartir vive ahora al lado del K que gobierna",
+      "<h3>El cartel de compartir</h3>" in h_act)
+check("con sus tres números", all(
+    f'<div class="label">{e}</div>' in h_act for e in ("Lo vieron", "Lo tocaron", "CTR")))
+
 
 # ── 6c · La pestaña de experimentos ────────────────────────────────────────
 print()
@@ -902,6 +1180,7 @@ check("que además avisa por qué le falta la segunda línea",
 titulos = {"activacion": "Difusión: a cuánta gente se llegó",
            "retencion": "Re-enganche · push",
            "jugabilidad": "Calibración del motor",
+           "monetizacion": "Dónde se pide el cafecito",
            "experimentacion": "Experimentos"}
 for clave, _ in game_render.SECCIONES:
     h = game_render.page(q.build(s, WEEK), token="tok", seccion=clave)

@@ -201,12 +201,7 @@ def load(db: DBSession) -> dict:
             SELECT player_id, exercise_id, attempt_number, parse_ok, is_correct,
                    created_at
             FROM game_attempts"""),
-        # `donor_name` y `university` son para la tabla de donadores. Vienen
-        # de la plataforma de cafecito, así que el nombre puede estar vacío —
-        # y de hecho lo está en la mayoría.
-        "boosts": _rows(db, """
-            SELECT cafecitos, source, created_at, donor_name, university
-            FROM game_boosts"""),
+        "boosts": _rows(db, "SELECT cafecitos, source, created_at FROM game_boosts"),
         # El tracker de difusión, copiado por scripts/diag/sync_grupos.py. Es
         # el denominador del clickrate y lo único que no sale de esta base.
         "grupos": _rows(db, """
@@ -274,6 +269,21 @@ def _weeks_back(week: date, n: int) -> list[date]:
 def _in_week(dt: datetime | None, week: date) -> bool:
     d = local_date(dt)
     return d is not None and week <= d <= week + timedelta(days=6)
+
+
+def _semanas_hasta(week: date) -> list[date]:
+    """Todas las semanas del panel hasta la elegida, no las últimas cuatro.
+
+    Lo piden las tres curvas que miran camadas —activación, retención,
+    viralidad— y siempre por el mismo motivo: con cuatro puntos una tendencia no
+    se distingue de un rebote, y las tres tienen numeradores chicos.
+    """
+    semanas: list[date] = []
+    w = FIRST_WEEK
+    while w <= week:
+        semanas.append(w)
+        w += timedelta(weeks=1)
+    return semanas or [week]
 
 
 # ── 0 · Titulares ──────────────────────────────────────────────────────────
@@ -348,7 +358,6 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
     """
     players = data["players"]
     answers = data["_answers"]
-    alta_de = {p["id"]: local_date(p["created_at"]) for p in players}
 
     # ── Quién estuvo cada semana ────────────────────────────────────────
     # No hay tabla de visitas: el juego no registra un pageview, registra lo que
@@ -361,18 +370,11 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
     # `last_seen_at` es un solo instante y se lo lleva la segunda. Los pageviews
     # de verdad los tiene PostHog; acá el número es un piso, nunca un techo.
     visto: dict[date, set[int]] = defaultdict(set)
-    # Y la misma huella, guardada por jugador y con su instante: es lo que
-    # permite contar VISITAS —cuántas veces se sentó alguien a jugar— y no solo
-    # cuántas personas distintas hubo. Una persona que entra tres veces en la
-    # semana son tres visitas y un ingreso.
-    huellas: dict[int, list[dict]] = defaultdict(list)
 
     def marcar(pid: int, cuando) -> None:
         w = _week_of(cuando)
         if w is not None:
             visto[w].add(pid)
-        if cuando is not None:
-            huellas[pid].append({"created_at": cuando})
 
     for p in players:
         marcar(p["id"], p["created_at"])
@@ -388,92 +390,82 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
     for a in answers:
         por_jugador[a["player_id"]].append(a)
 
-    # Las tandas de cada jugador, sobre TODA huella y no solo sobre respuestas:
-    # quien abre el juego, mira y se va también visitó. Se ordenan una vez.
-    tandas_de: dict[int, list[list[dict]]] = {
-        pid: _sesiones(sorted(hs, key=lambda h: h["created_at"]))
-        for pid, hs in huellas.items()
-    }
-
     def nuevos(w: date) -> list[dict]:
         return [p for p in players if _in_week(p["created_at"], w)]
+
+    # Las camadas salen de `_camadas` y no de cuatro cuentas escritas acá
+    # adentro: el gráfico y la tabla de la sección de reclutas leen la MISMA
+    # función, y dos definiciones de K terminan dando dos números distintos
+    # para la misma pregunta. Ya pasó con el K semanal.
+    cam = _camadas(data, weeks)
+    ret = _camadas_retencion(data, weeks)
 
     def per_week(fn) -> list:
         return [fn(w) for w in weeks]
 
-    def visitas(w: date) -> int:
-        """Cuántas veces se sentó alguien a jugar esa semana.
-
-        Una tanda es una visita: la misma persona que entra el lunes y el jueves
-        cuenta dos. Es la diferencia con «usuarios nuevos», que cuenta personas,
-        y es lo que dice si la gente vuelve DENTRO de la semana.
-
-        No hay tabla de pageviews —el juego registra lo que la persona HACE— así
-        que la tanda se arma con toda huella fechada: el alta, un ejercicio
-        servido, una respuesta, un cartel visto, y `last_seen_at`, que es lo
-        único que deja quien volvió y no tocó nada. Es un piso, nunca un techo.
-        """
-        return sum(
-            1 for tandas in tandas_de.values() for t in tandas
-            if t and _in_week(t[0]["created_at"], w)
-        )
-
     def altas(w: date) -> int:
         return len(nuevos(w))
-
-    def registrados(w: date) -> float | None:
-        ns = nuevos(w)
-        return _pct(sum(1 for p in ns if p["user_id"]), len(ns))
-
-    def instalaciones(w: date) -> float | None:
-        """De los nuevos de la semana, cuántos abrieron la app YA INSTALADA.
-
-        Es la única medida de si la diapo de la pantalla de inicio sirve. Se
-        cuenta sobre los nuevos y no sobre todos por lo mismo que el registro:
-        una cohorte se compara con otra, y el acumulado sube solo con el tiempo.
-
-        Ojo con leerlo antes de tiempo: la señal llega cuando la persona ABRE la
-        app instalada, que puede ser al día siguiente de haberla agregado. Una
-        cohorte de esta semana todavía está sumando.
-        """
-        ns = nuevos(w)
-        return _pct(sum(1 for p in ns if p["pwa_first_seen_at"]), len(ns))
-
-    def retenidos(w: date) -> int:
-        """Gente de OTRA semana que volvió a jugar en esta.
-
-        Se mide por respuesta y no por visita: volver a abrir la página sin hacer
-        nada no es retención, es un rebote con más pasos.
-        """
-        return len({
-            a["player_id"] for a in answers
-            if _in_week(a["created_at"], w)
-            and (alta_de.get(a["player_id"]) or date.max) < w
-        })
 
     def cafecitos(w: date) -> int:
         return sum(b["cafecitos"] for b in data["boosts"]
                    if _in_week(b["created_at"], w) and b["source"] == DONADO)
 
-    def reclutas(w: date) -> int:
-        return sum(1 for p in nuevos(w) if p["referred_by"])
+    def donaciones(w: date) -> int:
+        """Cuántas VECES alguien puso plata, no cuántos cafecitos entraron.
 
-    def viralidad(w: date) -> float | None:
-        """Cuánta gente nueva trajo, en promedio, cada uno de los que ya estaban.
-
-        El denominador son los que EXISTÍAN al empezar la semana, que son los
-        únicos que podían repartir su `?r=`. Uno significa que el juego se sostiene
-        solo; abajo de uno, cada camada trae menos que la anterior y el
-        crecimiento sigue dependiendo de que difundamos.
+        Va al lado del total porque los dos juntos dicen algo que ninguno solo:
+        139 cafecitos en 20 donaciones —lo medido hasta el 13/09— es un producto
+        con unos pocos mecenas, y los mismos 139 en 139 donaciones sería otro
+        producto. Con este volumen, esa diferencia decide qué se puede esperar
+        de la ola siguiente.
         """
-        base = sum(1 for p in players if (alta_de.get(p["id"]) or date.max) < w)
-        return round(reclutas(w) / base, 2) if base else None
+        return sum(1 for b in data["boosts"]
+                   if _in_week(b["created_at"], w) and b["source"] == DONADO)
+
+    # Los lugares del cartel del cafecito que anotan CLICK y nunca IMPRESIÓN.
+    # `settings-panel.tsx` dispara los dos de ajustes sin montar el contador de
+    # impresiones, así que esos clicks —21 de 365 en toda la vida del producto—
+    # existen y son reales pero no tienen denominador. Quedan FUERA de las dos
+    # tasas de acá abajo, porque un numerador sin su denominador las infla, y
+    # entran igual en la tabla de la sección con el CTR vacío: ahí la ausencia
+    # es justamente lo que hay que ver.
+    _lugares_medibles = {
+        e["placement"] for e in data["cta"]
+        if e["cta"] == "cafecito" and e["action"] == "impression"
+    }
+
+    def _pedido(w: date, action: str) -> int:
+        return sum(1 for e in data["cta"]
+                   if e["cta"] == "cafecito" and e["action"] == action
+                   and e["placement"] in _lugares_medibles
+                   and _in_week(e["created_at"], w))
+
+    def tocan_el_cartel(w: date) -> float | None:
+        """De los que vieron el pedido de cafecito, cuántos lo tocaron."""
+        return _pct(_pedido(w, "click"), _pedido(w, "impression"))
+
+    def del_click_a_la_plata(w: date) -> float | None:
+        """De los que tocaron el pedido, cuántos terminaron donando.
+
+        **No es una conversión persona a persona y no puede serlo:**
+        `game_boosts` no guarda `player_id` —la donación llega por el oyente del
+        stream de Cafecito, que solo trae nombre, universidad y monto— así que
+        esto es una razón entre dos agregados de la misma semana. Alguien puede
+        donar sin haber tocado el cartel (el link circula suelto) y alguien
+        puede tocarlo el domingo y pagar el lunes.
+
+        Sirve igual, y es el único número que cierra el embudo: si el cartel se
+        toca mucho y no entra plata, el problema está del otro lado del click y
+        no en el copy.
+        """
+        return _pct(donaciones(w), _pedido(w, "click"))
 
     def _tandas_jugadas(p: dict) -> list[list[dict]]:
         """Las tandas de RESPUESTAS de un jugador, que son las que se miden.
 
-        Distintas de `tandas_de`, que incluye huellas sin actividad: para «cuánto
-        aguanta una sentada» solo cuentan las que tuvieron respuestas.
+        Sobre RESPUESTAS y no sobre toda huella: para «cuánto aguanta una
+        sentada» solo cuentan las que tuvieron actividad, porque abrir la página
+        y mirar no es jugar.
         """
         return _sesiones(por_jugador.get(p["id"], []))
 
@@ -564,47 +556,6 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
     def pct_activacion(w: date) -> float | None:
         return _pct(activados(w), len(nuevos(w)))
 
-    def reclutas_activados(w: date) -> int:
-        """Reclutas de la semana que además llegaron a responder algo.
-
-        Separado de los reclutas a secas porque son cosas muy distintas: el link
-        de un amigo trae gente que activa PEOR que la difusión —33,6% contra
-        41,0%, medido— así que contar reclutas sin mirar cuántos arrancaron
-        cuenta clics, no jugadores.
-        """
-        return sum(1 for p in nuevos(w) if p["referred_by"] and por_jugador.get(p["id"]))
-
-    def viralidad_activados(w: date) -> float | None:
-        """El K que de verdad dice si el bucle se sostiene.
-
-        **Por qué este y no el de al lado.** Un bucle viral se sostiene cuando
-        cada unidad capaz de reproducirse produce al menos una unidad capaz de
-        reproducirse. Acá la unidad capaz es el jugador ACTIVADO, y eso no es
-        una definición elegida: de los 24 jugadores que alguna vez reclutaron a
-        alguien, los 24 tenían 3 o más respuestas. Nadie sin activar reclutó
-        nunca — el cartel de compartir aparece jugando.
-
-        El K de al lado divide reclutas nuevos por TODOS los que ya estaban, o
-        sea que mete en el denominador a gente que estructuralmente no puede
-        producir nada, y en el numerador a gente que mayormente tampoco va a
-        producir. No es una tasa de reproducción: es una razón entre dos cosas
-        distintas.
-
-        Hoy los dos dan parecido, y es una coincidencia que conviene no
-        confundir con equivalencia: los reclutas activan 33,6% y la base activa
-        ~40%, así que las dos correcciones casi se cancelan. En cuanto cualquiera
-        de esas dos tasas se mueva —y moverlas es justo lo que el experimento de
-        la puerta intenta— se separan.
-
-        **Ojo con el tamaño.** Son 48 reclutas activados en toda la vida del
-        producto. Semana a semana esto es de un dígito y tiembla entero con una
-        persona: sirve para mirar la tendencia de varias semanas, no para
-        comparar una contra la anterior.
-        """
-        base = sum(1 for p in players
-                   if (alta_de.get(p["id"]) or date.max) < w and por_jugador.get(p["id"]))
-        return round(reclutas_activados(w) / base, 2) if base else None
-
     def card(label: str, series: list, suffix: str, hint: str, dec: int = 1) -> dict:
         value = series[-1]
         prev = series[-2] if len(series) > 1 else None
@@ -639,40 +590,87 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
         # importó lo suficiente: volver otro día, instalarlo, registrarse y
         # poner plata. Ninguna es gratis para quien la hace, y por eso las
         # cuatro son señal.
+        # Retención · los cuatro sobre los ACTIVADOS de la camada, que es el
+        # cambio que los vuelve legibles. Medidos sobre las altas, los tres
+        # porcentajes se caían con cada ola de difusión sin que nadie hubiera
+        # retenido peor: una ola trae mucha gente que no llega a jugar, y
+        # alguien que nunca jugó no puede volver, ni registrarse, ni instalar
+        # nada. Eso es activación, y ya tiene su pestaña.
         "retencion": [
-            card("Usuarios retenidos", per_week(retenidos), "",
-                 "Gente de otra semana que volvió a jugar en esta. Es la definición "
-                 "de retención del panel: dos días distintos, no dos sentadas."),
-            card("Instalan la app", per_week(instalaciones), "%",
-                 "De los nuevos de la semana, cuántos la abrieron ya instalada. Ojo "
-                 "con leerlo como tendencia: son 16 en toda la vida del producto, así "
-                 "que la serie se mueve entera con una persona."),
-            card("Se registran", per_week(registrados), "%",
-                 "De los nuevos de la semana, cuántos dejaron de ser invitados."),
+            card("Activados de la camada", per_week(lambda w: ret[w]["activados"]), "",
+                 "Los de la camada de esa semana que llegaron a responder al menos "
+                 "una derivada. Es el denominador de los otros tres: acá solo "
+                 "entra gente que ya jugó."),
+            card("Vuelven otro día", per_week(lambda w: ret[w]["vuelven"]), "%",
+                 "De esos, cuántos respondieron algo en un segundo día distinto. "
+                 "Días y no sentadas —eso está en Jugabilidad— y por respuesta y "
+                 "no por visita: volver a abrir la página sin tocar nada es un "
+                 "rebote con más pasos.", dec=1),
+            card("Se registran", per_week(lambda w: ret[w]["registran"]), "%",
+                 "De los activados, cuántos dejaron de ser invitados.", dec=1),
+            card("Instalan la app", per_week(lambda w: ret[w]["instalan"]), "%",
+                 "De los activados, cuántos la abrieron ya instalada. Es la única "
+                 "medida de si la diapo de la pantalla de inicio sirve. Ojo con "
+                 "leerlo como tendencia: son 16 en toda la vida del producto, así "
+                 "que la serie se mueve entera con una persona.", dec=1),
+        ],
+        # Monetización · el pedido de cafecito de punta a punta, en el orden en
+        # que ocurre al revés: primero la plata que entró y después las dos
+        # tasas que la explican. Tres es lo que quedó en Retención y no es un
+        # descuido: «volver, instalar, registrarse» son las tres cosas que
+        # alguien hace cuando el juego le importó, y el cafecito es una cuarta
+        # de otra naturaleza —cuesta plata, no tiempo— que además tiene su
+        # propio embudo para mirar al lado.
+        "monetizacion": [
             card("Cafecitos", per_week(cafecitos), "",
-                 "Solo los donados de verdad: los grants a mano y los de aforo no cuentan."),
+                 "Solo los donados de verdad: los grants a mano y los de aforo no "
+                 "cuentan. Es el número de volumen de la pestaña — dice cuánto "
+                 "entró, no si el pedido funciona."),
+            card("Donaciones", per_week(donaciones), "",
+                 "Cuántas veces alguien puso plata. Al lado del total dice algo que "
+                 "ninguno de los dos solo: 139 cafecitos en 20 donaciones es un "
+                 "producto con mecenas, y en 139 donaciones sería otro."),
+            card("Tocan el cartel", per_week(tocan_el_cartel), "%",
+                 "De los que vieron el pedido de cafecito, cuántos lo tocaron. La "
+                 "impresión se cuenta UNA por partida y no por render, así que el "
+                 "denominador es «tuvo el cafecito adelante».", dec=1),
+            card("Del click a la plata", per_week(del_click_a_la_plata), "%",
+                 "De los que lo tocaron, cuántos terminaron donando. No es persona a "
+                 "persona —`game_boosts` no guarda quién donó— sino una razón entre "
+                 "dos agregados de la semana. Es igual el único número que cierra el "
+                 "embudo.", dec=1),
         ],
         # Jugabilidad · la sentada, que es la unidad real de este juego: se entra
         # por un link, se juega hasta cansarse, y volver es una decisión aparte.
         # Reclutas · va adentro de su sección y no en la cabecera de la pestaña:
         # los cuatro hablan del mismo canal y leerlos lejos de su curva obliga a
         # subir y bajar.
+        # Reclutas · los cuatro son de la CAMADA de esa semana: cuánta gente
+        # trajo la gente que entró, no cuánta gente entró por un link. Los dos
+        # últimos son exactamente los dos primeros divididos por el tamaño de
+        # la camada, y esa es toda la definición de K — por eso van juntos y
+        # en este orden.
         "reclutas": [
-            card("Reclutas nuevos", per_week(reclutas), "",
-                 "Entraron por el link de otro jugador."),
-            card("Reclutas activados", per_week(reclutas_activados), "",
-                 "De esos, cuántos llegaron a responder una derivada. El link de un "
-                 "amigo trae gente que activa PEOR que la difusión —33,6% contra "
-                 "41,0%— así que los reclutas a secas cuentan clics, no jugadores."),
-            card("Viralidad general", per_week(viralidad), "",
-                 "Reclutas nuevos sobre todos los que ya estaban. Es la versión de "
-                 "tráfico, y está acá como auditoría de la de al lado: si esta sube y "
-                 "la otra no, llegó gente que no se reproduce.", dec=2),
-            card("Viralidad de activados", per_week(viralidad_activados), "",
-                 "Reclutas ACTIVADOS sobre los activados que ya estaban. Es el K que "
-                 "decide: los 24 jugadores que alguna vez reclutaron tenían todos 3+ "
-                 "respuestas, así que la unidad que se reproduce es el activado. Uno "
-                 "es el bucle sosteniéndose solo.", dec=2),
+            card("Reclutas traídos", per_week(lambda w: cam[w]["reclutas"]), "",
+                 "Cuánta gente trajo por su link la camada que entró esa semana, a "
+                 "lo largo de toda su vida. Un recluta tarda 4,5 h en llegar en "
+                 "mediana y ninguno de los 144 medidos tardó más de 3,6 días, así "
+                 "que la cuenta se cierra sola a los pocos días."),
+            card("De esos, arrancaron", per_week(lambda w: cam[w]["reclutas_act"]), "",
+                 "Cuántos de esos reclutas llegaron a responder una derivada. El "
+                 "link de un amigo trae gente que activa PEOR que la difusión "
+                 "—33,6% contra 41,0%—, así que los reclutas a secas cuentan clics "
+                 "y no jugadores."),
+            card("K de la camada", per_week(lambda w: cam[w]["k"]), "",
+                 "Los reclutas traídos, divididos por el tamaño de la camada. "
+                 "Cuánta gente trae cada persona que entra. Es la cuenta completa: "
+                 "arriba el numerador, acá la división.", dec=2),
+            card("K de activados", per_week(lambda w: cam[w]["k_act"]), "",
+                 "Reclutas que arrancaron, divididos por los de la camada que "
+                 "arrancaron. Es el que decide si el bucle se sostiene, porque la "
+                 "unidad que se produce —un jugador activado— es la misma que "
+                 "produce. Uno significa que cada activado deja otro activado "
+                 "atrás.", dec=2),
         ],
         "jugabilidad": [
             card("1ª sesión", per_week(primera_sesion), "",
@@ -1122,110 +1120,262 @@ def mails(data: dict, weeks: list[date]) -> dict:
 
 # ── 5 · Reclutas ──────────────────────────────────────────────────
 
-def reclutas(data: dict, weeks: list[date], week: date | None = None) -> dict:
+def reclutas(data: dict, weeks: list[date]) -> dict:
     """Quién trae gente nueva por su link, y cuánto rinde.
 
-    Delega la parte común en la del panel de Intervalo en vez de reescribirla:
-    es la MISMA cuenta sobre las MISMAS filas, y dos copias de una definición de
-    K terminarían dando dos números distintos para la misma pregunta.
+    Delega en la del panel de Intervalo en vez de reescribirla: es la MISMA
+    cuenta sobre las MISMAS filas, y dos copias de una definición terminarían
+    dando dos números distintos para la misma pregunta.
 
-    Lo que se agrega acá y allá no puede estar es **la serie de K de
-    activados**. Necesita saber quién respondió algo, y la del panel de
-    Intervalo solo recibe `game_players`. Es también la que se dibuja: el K
-    general quedó como número en la fila de arriba, para poder auditar, pero la
-    curva muestra la que decide (ver `viralidad_activados` en `headline`).
-
-    **La serie va desde la primera semana del panel hasta la elegida**, no las
-    últimas cuatro. Con cuatro puntos una tendencia no se distingue de un
-    rebote, y esta es justamente la métrica que hay que leer a lo largo de
-    varias semanas porque su numerador es de un dígito.
+    Lo único que se agrega —y que allá no puede estar, porque esa función solo
+    recibe `game_players`— es **cuántos de los reclutas de cada uno llegaron a
+    jugar**. La tasa de reproducción vive aparte, en `camadas`.
     """
     from .queries import reclutas as _reclutas_de_intervalo
 
     base = _reclutas_de_intervalo({"game_players": data["players"]}, weeks)
 
-    # La historia completa hasta la semana elegida.
-    fin = week or weeks[-1]
-    todas: list[date] = []
-    w = FIRST_WEEK
-    while w <= fin:
-        todas.append(w)
-        w += timedelta(weeks=1)
-    if not todas:
-        todas = [fin]
-
+    # El top de reclutadores, con una columna que el del panel de Intervalo no
+    # puede tener: cuántos de sus reclutas llegaron a jugar. Traer diez personas
+    # y que ninguna arranque no es reclutar, es repartir un link — y sin esta
+    # columna las dos cosas se ven igual.
     activos = {a["player_id"] for a in data["_answers"]}
-    jugadores = data["players"]
-    por_semana: dict[date, list[dict]] = defaultdict(list)
-    for p in jugadores:
-        sem = _week_of(p["created_at"])
-        if sem is not None:
-            por_semana[sem].append(p)
-
-    serie = []
-    # La base arranca con los activados anteriores a la primera semana, que es
-    # cero por construcción: antes de FIRST_WEEK no había producto.
-    base_act = sum(1 for p in jugadores
-                   if (_week_of(p["created_at"]) or date.max) < todas[0]
-                   and p["id"] in activos)
-    for w in todas:
-        nuevos = por_semana.get(w, [])
-        rec_act = sum(1 for p in nuevos
-                      if p["referred_by"] is not None and p["id"] in activos)
-        serie.append({
-            "label": w.strftime("%d/%m"),
-            "week": w.isoformat(),
-            "k_act": round(rec_act / base_act, 2) if base_act else None,
-            "reclutas_act": rec_act,
-            "base_act": base_act,
-        })
-        base_act += sum(1 for p in nuevos if p["id"] in activos)
-
-    base["serie_activados"] = serie
-    base["donadores"] = _donadores(data)
+    act_por_reclutador: dict[int, int] = defaultdict(int)
+    for p in data["players"]:
+        if p["referred_by"] is not None and p["id"] in activos:
+            act_por_reclutador[p["referred_by"]] += 1
+    por_alias = {p["alias"]: p["id"] for p in data["players"]}
+    for fila in base["top"]:
+        rid = por_alias.get(fila["alias"])
+        fila["activados"] = act_por_reclutador.get(rid, 0)
     return base
 
+# ── 5-bis · Camadas: el K que sí es una tasa de reproducción ────────────────
 
-def _donadores(data: dict) -> dict:
-    """Quién puso plata, de siempre.
+# Cuánto tarda una camada en terminar de reclutar. Medido en producción el
+# 13/09 sobre los 144 reclutas con reclutador conocido, contando desde el alta
+# de quien los trajo: mediana 4,5 h · el 78,5% dentro del día · el 97,2% dentro
+# de los tres días · y el ÚLTIMO de los 144 a las 87,5 h, o sea 3,6 días.
+# Ninguno tardó más de una semana.
+#
+# Eso es lo que hace legible a esta métrica: una camada cierra el domingo y
+# cuatro días después ya no le entra nada, así que no hay que esperar meses para
+# saber cuánto se reprodujo. El número redondea 3,6 para arriba.
+#
+# Si el juego alguna vez empuja a compartir MÁS TARDE —un cartel en la derivada
+# 50, un mail a la semana— este número deja de valer y hay que volver a medirlo:
+# marcaría camadas como maduras cuando todavía les falta.
+MADURACION_DIAS = 4
 
-    **Los anónimos NO compiten por el primer puesto.** `donor_name` viene vacío
-    en la mayoría de las donaciones, y agruparlos a todos bajo «Anónimo» pondría
-    esa fila arriba de todo con la suma de mucha gente distinta — que es
-    exactamente la lectura falsa que la tabla invitaría a hacer. Van aparte, como
-    un total, y la tabla lista solo a los que dejaron nombre.
 
-    Solo `source == cafecito`: los grants a mano y los del aforo no son plata de
-    nadie, y mezclarlos convertiría a quien administra el juego en el mayor
-    donante de su propio juego.
+def _camadas(data: dict, semanas: list[date]) -> dict[date, dict]:
+    """Cuánta gente trajo cada camada a lo largo de su vida.
+
+    **Esta es una tasa de reproducción y la que estaba antes no lo era.** El K
+    semanal dividía los reclutas que LLEGARON esa semana por toda la base que
+    ya existía, y ese denominador lo mueve la difusión: una ola lo multiplica de
+    golpe, así que con la misma gente compartiendo igual el número se desploma
+    la semana siguiente. Servía para «reclutas por persona-semana», que es una
+    medida de tráfico, no de reproducción.
+
+    Acá el numerador y el denominador son la MISMA gente: los reclutas que trajo
+    una camada, sobre el tamaño de esa camada. Es indiferente a cuánto se
+    difunda, porque cada camada se mide contra sí misma. Uno significa que una
+    camada se reemplaza entera; abajo de uno, el link ayuda pero no alcanza como
+    único canal y el crecimiento sigue dependiendo de que difundamos.
+
+    **El recluta se le cuenta a la camada de su reclutador, no a la suya.** Si
+    alguien entra un sábado y trae a un amigo el martes, ese amigo suma para la
+    camada del sábado aunque su propia alta caiga en la semana siguiente. Es la
+    diferencia con «reclutas nuevos», que contaba altas.
+
+    Dos K y no uno, porque son preguntas distintas:
+
+    - `k` = reclutas traídos ÷ tamaño de la camada. Cuánta gente trae cada
+      persona que entra, active o no.
+    - `k_act` = reclutas ACTIVADOS traídos por los ACTIVADOS de la camada ÷
+      activados de la camada. Es el que decide si el bucle se sostiene: un
+      proceso de ramificación crece cuando la unidad que se produce es la misma
+      que produce, y acá esa unidad es el activado. No es una definición
+      elegida a gusto —de los 24 jugadores que alguna vez reclutaron a alguien,
+      los 24 tenían 3 o más respuestas: nadie sin activar reclutó nunca, porque
+      el cartel de compartir aparece jugando.
+
+    Exigir que el reclutador también esté activado hoy no saca a nadie, por lo
+    de arriba. Se escribe igual: es lo que hace que el número siga significando
+    lo mismo el día que el juego empiece a ofrecer el link antes de jugar.
     """
-    donados = [b for b in data["boosts"] if b["source"] == DONADO]
-    con_nombre: dict[str, dict] = defaultdict(
-        lambda: {"cafecitos": 0, "veces": 0, "universidad": None, "ultima": None})
-    anon_cafecitos = anon_veces = 0
-    for b in donados:
-        nombre = (b.get("donor_name") or "").strip()
-        if not nombre:
-            anon_cafecitos += b["cafecitos"] or 0
-            anon_veces += 1
-            continue
-        d = con_nombre[nombre]
-        d["cafecitos"] += b["cafecitos"] or 0
-        d["veces"] += 1
-        d["universidad"] = d["universidad"] or b["university"]
-        cuando = local_date(b["created_at"])
-        if cuando and (d["ultima"] is None or cuando > d["ultima"]):
-            d["ultima"] = cuando
-    filas = sorted(
-        ({"nombre": n, **d} for n, d in con_nombre.items()),
-        key=lambda f: -f["cafecitos"])
+    activos = {a["player_id"] for a in data["_answers"]}
+    jugadores = data["players"]
+    alta_de = {p["id"]: _week_of(p["created_at"]) for p in jugadores}
+
+    traidos_por: dict[int, list[dict]] = defaultdict(list)
+    for p in jugadores:
+        if p["referred_by"] is not None:
+            traidos_por[p["referred_by"]].append(p)
+
+    por_camada: dict[date, list[dict]] = defaultdict(list)
+    for p in jugadores:
+        w = alta_de.get(p["id"])
+        if w is not None:
+            por_camada[w].append(p)
+
+    # La madurez se mide contra HOY y no contra la semana elegida en el panel:
+    # lo que limita a una camada es cuánto tiempo real pasó desde que entró, no
+    # qué semana se esté mirando.
+    hoy = local_date(datetime.utcnow())
+    filas: dict[date, dict] = {}
+    for w in semanas:
+        miembros = por_camada.get(w, [])
+        activados = [p for p in miembros if p["id"] in activos]
+        reclutas = sum(len(traidos_por.get(p["id"], ())) for p in miembros)
+        reclutas_act = sum(
+            1 for p in activados for r in traidos_por.get(p["id"], ())
+            if r["id"] in activos)
+        filas[w] = {
+            "label": w.strftime("%d/%m"),
+            "week": w.isoformat(),
+            "n": len(miembros),
+            "n_act": len(activados),
+            "reclutas": reclutas,
+            "reclutas_act": reclutas_act,
+            "k": round(reclutas / len(miembros), 2) if miembros else None,
+            "k_act": round(reclutas_act / len(activados), 2) if activados else None,
+            # La camada cierra siete días después de abrirse, y a partir de ahí
+            # le quedan `MADURACION_DIAS` para terminar de reclutar.
+            "madura": hoy >= w + timedelta(days=7 + MADURACION_DIAS),
+        }
+    return filas
+
+
+def camadas(data: dict, week: date) -> dict:
+    """Las camadas desde la primera del panel hasta la elegida.
+
+    Todas y no las últimas cuatro, por lo mismo que la curva de activación: con
+    cuatro puntos una tendencia no se distingue de un rebote, y el numerador de
+    esto es de un dígito por camada.
+    """
+    semanas = _semanas_hasta(week)
+    filas = _camadas(data, semanas)
     return {
-        "top": filas[:8],
-        "anon_cafecitos": anon_cafecitos,
-        "anon_veces": anon_veces,
-        "total": sum(b["cafecitos"] or 0 for b in donados),
-        "donaciones": len(donados),
+        "filas": [filas[w] for w in semanas],
+        "maduracion_dias": MADURACION_DIAS,
     }
+
+
+# ── 5-ter · Retención por camada ─────────────────────────────────────────────
+
+# Cuánto tarda una camada en terminar de retener, y no es lo mismo para las
+# tres cosas que se miden. Medido en producción el 13/09, contando desde el alta
+# de cada persona:
+#
+#   · volver otro día (n=50) — el 76% vuelve al día siguiente, el 94% dentro de
+#     dos días, y la vuelta más tardía de las cincuenta cayó a los 8 días.
+#   · registrarse (n=60) — mediana 15 minutos, el 86,7% dentro del día, la más
+#     tardía a los 7,8 días.
+#   · instalar la app (n=16) — mediana 10 horas, pero la cola es larga: la más
+#     tardía cayó a los 13,4 días.
+#
+# **La cola está censurada por la edad del producto.** dx tiene 16 días, así que
+# nadie PUDO volver a los treinta: estos techos son un piso del techo real y hay
+# que volver a medirlos cuando haya camadas de dos meses. Mientras tanto sirven
+# para lo único que se usan acá, que es marcar qué punto de la curva todavía
+# está sumando y no se puede leer como una caída.
+METRICAS_RETENCION: tuple[tuple[str, str, str, int], ...] = (
+    ("activados", "Activados de la camada", "", 1),
+    ("vuelven", "Vuelven otro día", "%", 8),
+    ("registran", "Se registran", "%", 8),
+    ("instalan", "Instalan la app", "%", 14),
+)
+# La vuelta y no el volumen: es la única de las cuatro que no se mueve sola con
+# cuánto se difunda, y es la pregunta que la pestaña existe para contestar.
+METRICA_RETENCION_POR_DEFECTO = "vuelven"
+
+
+def _camadas_retencion(data: dict, semanas: list[date]) -> dict[date, dict]:
+    """Qué hizo cada camada después de arrancar, sobre los que arrancaron.
+
+    **El denominador son los ACTIVADOS de la camada y no sus altas.** Ese es
+    todo el cambio respecto de lo que había antes, y es el que vuelve legibles a
+    los tres porcentajes: medidos sobre las altas se caían con cada ola de
+    difusión sin que nadie hubiera retenido peor. Una ola trae mucha gente que
+    no llega a jugar, y quien nunca jugó no puede volver, ni registrarse, ni
+    instalar nada — eso es activación, que ya tiene su propia pestaña y su
+    propia curva.
+
+    Con el denominador corregido, las dos preguntas quedan separadas: cuánta
+    gente llega a jugar se mira en Activación, y qué hace la que jugó se mira
+    acá.
+
+    **Vuelve otro día = dos DÍAS distintos con respuesta.** Días y no sentadas
+    —esa es la de Jugabilidad, que mide la vuelta dentro del mismo rato— y por
+    respuesta y no por visita, porque volver a abrir la página sin tocar nada es
+    un rebote con más pasos.
+
+    Las tres se le cuentan a la camada de la persona, así que un registro del
+    martes suma para la camada del sábado anterior. Son cohortes: cada una se
+    mide contra sí misma, y por eso se pueden comparar entre semanas.
+    """
+    activos = {a["player_id"] for a in data["_answers"]}
+
+    # Los días distintos con respuesta de cada jugador. Se arma una vez: es lo
+    # único caro de esta función y lo piden todas las camadas.
+    dias_de: dict[int, set[date]] = defaultdict(set)
+    for a in data["_answers"]:
+        d = local_date(a["created_at"])
+        if d is not None:
+            dias_de[a["player_id"]].add(d)
+
+    por_camada: dict[date, list[dict]] = defaultdict(list)
+    for p in data["players"]:
+        w = _week_of(p["created_at"])
+        if w is not None and p["id"] in activos:
+            por_camada[w].append(p)
+
+    hoy = local_date(datetime.utcnow())
+    filas: dict[date, dict] = {}
+    for w in semanas:
+        act = por_camada.get(w, [])
+        n = len(act)
+        vuelven = sum(1 for p in act if len(dias_de.get(p["id"], ())) > 1)
+        registran = sum(1 for p in act if p["user_id"])
+        instalan = sum(1 for p in act if p["pwa_first_seen_at"])
+        filas[w] = {
+            "label": w.strftime("%d/%m"),
+            "week": w.isoformat(),
+            "activados": n,
+            "n_vuelven": vuelven,
+            "n_registran": registran,
+            "n_instalan": instalan,
+            "vuelven": _pct(vuelven, n),
+            "registran": _pct(registran, n),
+            "instalan": _pct(instalan, n),
+            # Una ventana por métrica y no una sola: instalar tiene una cola
+            # mucho más larga que registrarse, y una camada puede estar cerrada
+            # para una cosa y todavía sumando para la otra.
+            "madura": {clave: hoy >= w + timedelta(days=7 + dias)
+                       for clave, _, _, dias in METRICAS_RETENCION},
+        }
+    return filas
+
+
+def retencion(data: dict, week: date,
+              metrica: str = METRICA_RETENCION_POR_DEFECTO) -> dict:
+    """Los cuatro números de retención, camada por camada, desde el principio.
+
+    Una por vez y no las cuatro juntas, por lo mismo que la curva de activación:
+    tres son porcentajes que viven abajo del 15% y la cuarta es un conteo que
+    llega a los cientos. En el mismo eje las tres primeras quedarían pegadas al
+    piso, que es justo donde hay que poder verlas moverse.
+    """
+    claves = {m for m, _, _, _ in METRICAS_RETENCION}
+    metrica = metrica if metrica in claves else METRICA_RETENCION_POR_DEFECTO
+    semanas = _semanas_hasta(week)
+    filas = _camadas_retencion(data, semanas)
+    etiqueta, sufijo = next((e, s) for m, e, s, _ in METRICAS_RETENCION if m == metrica)
+    return {"metrica": metrica, "etiqueta": etiqueta, "suffix": sufijo,
+            "filas": [filas[w] for w in semanas]}
+
 
 # ── 6 · Experimentos ─────────────────────────────────────────────────────────
 
@@ -1512,11 +1662,15 @@ def difusion(data: dict) -> dict:
 # ── 8 · Carteles ─────────────────────────────────────────────────────────────
 
 # Qué es cada cartel, para que la tabla se lea sin abrir el código.
+# Los tres carteles que el juego SÍ emite. Hubo un cuarto, `register`, que el
+# panel prometía en su tabla y nunca existió: cero eventos en toda la vida del
+# producto (`game-telemetry.ts` lo tiene en el tipo, pero nadie lo dispara). Una
+# fila que no puede aparecer nunca se lee como «acá no pasó nada» y no como «esto
+# no está instrumentado», que son cosas muy distintas.
 CARTELES = {
     "share": "Reclutar: compartir el link",
     "cafecito": "Invitar un cafecito",
     "boost_offer": "Oferta de multiplicador",
-    "register": "Registrarse para elegir el @",
 }
 
 
@@ -1550,6 +1704,75 @@ def carteles(data: dict) -> list[dict]:
         "mediana_solved": _median(momento.get(k, [])),
     } for k, v in conteo.items()]
     return sorted(salida, key=lambda f: -f["impresiones"])
+
+
+# ── 8-bis · Monetización ─────────────────────────────────────────────────────
+
+# Dónde sale el cartel del cafecito, con el nombre que manda el front como clave.
+# El orden de este diccionario no importa: la tabla ordena por impresiones.
+LUGARES_CAFECITO = {
+    "header_mobile": "La barra, en el teléfono",
+    "header_desktop": "La barra, en escritorio",
+    "milestone": "Un hito, cada tantas derivadas",
+    "pedido": "Cuando lo piden",
+    "record": "Al batir un récord",
+    "big_climb": "Después de una subida grande",
+    "clasico_config": "Armando un clásico",
+    "settings": "Ajustes",
+    "settings_reclamo": "Ajustes · reclamar un cafecito",
+}
+
+
+def monetizacion(data: dict) -> dict:
+    """El cartel del cafecito, abierto por dónde sale.
+
+    **Es lo que reemplaza a la tabla de carteles, y el motivo es que aquella
+    tapaba justo lo que había que ver.** El cafecito salía como UNA fila con un
+    CTR de 16,8%, y ese promedio junta un botón que vive permanentemente en la
+    barra con una interrupción que aparece al cruzar un hito. Medido el 13/09:
+    la barra en escritorio convierte 41,5% y el hito 8,4% — cinco veces, dentro
+    de la misma fila.
+
+    Lo que se mostraba al lado tampoco servía:
+
+    - **`boost_offer` daba 1,2% y no significaba nada.** Su impresión es «se
+      mostró la diapo del cafecito» (954 veces) y su click es «alguien tocó
+      *Elegir mi universidad*» (11), que es un botón que solo aparece si todavía
+      no elegiste una. Dividir uno por otro no es un CTR: es una acción de nicho
+      sobre un denominador global, y el 1,2% se leía como un desastre cuando lo
+      único que dice es que casi todos ya tienen universidad.
+    - **`share` es reclutamiento y no plata**, así que se fue a su sección, con
+      la curva de K que explica.
+    - **`register` nunca existió** (ver `CARTELES`).
+
+    Los lugares que anotan click y nunca impresión se listan igual, con el CTR
+    vacío: son 21 clicks reales sin denominador —`settings-panel.tsx` dispara el
+    click sin montar el contador— y esconderlos haría que el bug siguiera sin
+    verse otro mes.
+    """
+    conteo: dict[str, dict[str, int]] = defaultdict(lambda: {"imp": 0, "clk": 0})
+    for e in data["cta"]:
+        if e["cta"] != "cafecito":
+            continue
+        c = conteo[e["placement"] or "—"]
+        if e["action"] == "impression":
+            c["imp"] += 1
+        elif e["action"] == "click":
+            c["clk"] += 1
+    filas = [{
+        "lugar": k,
+        "desc": LUGARES_CAFECITO.get(k, k),
+        "impresiones": v["imp"],
+        "clicks": v["clk"],
+        "ctr": _pct(v["clk"], v["imp"]),
+    } for k, v in conteo.items()]
+    # Los que no tienen impresiones van al final: su CTR es vacío, así que
+    # ordenarlos entre los demás los pondría en un lugar que no significa nada.
+    filas.sort(key=lambda f: (f["impresiones"] == 0, -f["impresiones"]))
+    return {
+        "lugares": filas,
+        "sin_denominador": sum(f["clicks"] for f in filas if not f["impresiones"]),
+    }
 
 
 # ── 9 · Calibración del motor ────────────────────────────────────────────────
@@ -1706,13 +1929,7 @@ def evolucion(data: dict, week: date, metrica: str = METRICA_POR_DEFECTO) -> dic
         if w is not None:
             por_semana[w].append(p)
 
-    semanas: list[date] = []
-    w = FIRST_WEEK
-    while w <= week:
-        semanas.append(w)
-        w += timedelta(weeks=1)
-    if not semanas:
-        semanas = [week]
+    semanas = _semanas_hasta(week)
 
     filas = []
     for w in semanas:
@@ -1734,7 +1951,8 @@ def evolucion(data: dict, week: date, metrica: str = METRICA_POR_DEFECTO) -> dic
 # ── Entrada ──────────────────────────────────────────────────────────────────
 
 def build(db: DBSession, week: date, weeks_shown: int = 4,
-          corte: str = "total", metrica: str = METRICA_POR_DEFECTO) -> dict:
+          corte: str = "total", metrica: str = METRICA_POR_DEFECTO,
+          metrica_ret: str = METRICA_RETENCION_POR_DEFECTO) -> dict:
     """Payload completo del panel del juego para la semana `week` (su lunes)."""
     data = load(db)
     weeks = _weeks_back(week, weeks_shown)
@@ -1754,11 +1972,14 @@ def build(db: DBSession, week: date, weeks_shown: int = 4,
         "profundidad": profundidad(data, weeks, corte=corte),
         "push": push(data, weeks),
         "mails": mails(data, weeks),
-        "reclutas": reclutas(data, weeks, week),
+        "reclutas": reclutas(data, weeks),
+        "camadas": camadas(data, week),
         "experimentos": experimentos(data),
         "evolucion": evolucion(data, week, metrica),
+        "retencion": retencion(data, week, metrica_ret),
         "difusion": difusion(data),
         "carteles": carteles(data),
+        "monetizacion": monetizacion(data),
         "calibracion": calibracion(data),
         "friccion": friccion(data),
     }

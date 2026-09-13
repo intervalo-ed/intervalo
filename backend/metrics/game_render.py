@@ -42,7 +42,8 @@ from . import charts as ch
 from . import theme
 from .charts import esc, num
 from .game_queries import (
-    FIRST_WEEK, METRICAS, METRICA_POR_DEFECTO, PEDIDO_CAFECITO, PLATFORM_LABEL,
+    FIRST_WEEK, METRICAS, METRICAS_RETENCION, METRICA_POR_DEFECTO,
+    METRICA_RETENCION_POR_DEFECTO, PEDIDO_CAFECITO, PLATFORM_LABEL,
 )
 
 # El grueso del CSS es el mismo que Intervalo (ver metrics/theme.py) — es la
@@ -208,16 +209,22 @@ COPY_REACTIVO = {
 # No hay pestaña de titulares y por eso la primera es el embudo: los números de
 # la semana se repartieron entre las secciones que los explican. Un `?s=titulares`
 # viejo cae acá solo, como cualquier pestaña que no existe.
-# Cuatro, y cada una contesta UNA pregunta: quién llega, quién se queda, cómo se
-# juega, y qué estamos probando. Antes eran seis y estaban organizadas por
-# feature —el embudo, la profundidad, los avisos, los reclutas— que es el orden
-# en que se construyó el producto y no el orden en que se toman decisiones. Con
-# ese reparto, «reclutas» y «embudo» contestaban la misma pregunta desde dos
-# pestañas distintas, y la retención no estaba en ninguna.
+# Cinco, y cada una contesta UNA pregunta: quién llega, quién se queda, cómo se
+# juega, quién paga, y qué estamos probando. Antes eran seis y estaban
+# organizadas por feature —el embudo, la profundidad, los avisos, los reclutas—
+# que es el orden en que se construyó el producto y no el orden en que se toman
+# decisiones. Con ese reparto, «reclutas» y «embudo» contestaban la misma
+# pregunta desde dos pestañas distintas, y la retención no estaba en ninguna.
+#
+# Monetización se separó de Retención porque son dos preguntas y no una. Poner
+# plata cuesta plata y volver a jugar cuesta tiempo, y el cafecito además tiene
+# un embudo propio —se muestra, se toca, se paga— que adentro de Retención era
+# un número suelto sin nada contra qué leerlo.
 SECCIONES: tuple[tuple[str, str], ...] = (
     ("activacion", "Activación"),
     ("retencion", "Retención"),
     ("jugabilidad", "Jugabilidad"),
+    ("monetizacion", "Monetización"),
     ("experimentacion", "Experimentación"),
 )
 SECCION_POR_DEFECTO = SECCIONES[0][0]
@@ -275,15 +282,22 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         "</div></header>")
 
     def link(*, s: str | None = None, corte: str | None = None,
-             m: str | None = None) -> str:
+             m: str | None = None, mr: str | None = None) -> str:
         """La URL del panel cambiando UNA cosa y dejando el resto como está.
 
-        Es lo que hace que las tres barras convivan: elegir semana no pierde la
+        Es lo que hace que las barras convivan: elegir semana no pierde la
         pestaña, elegir desglose no devuelve a la primera, y elegir qué curva
-        mirar no pierde ninguna de las dos."""
+        mirar no pierde ninguna de las otras.
+
+        Las dos curvas llevan parámetros distintos —`m` la de activación, `mr`
+        la de retención— y no uno compartido a propósito: con uno solo, pasar
+        por la otra pestaña pisaba la elección de la primera, porque cada curva
+        valida contra su propia lista y cae en su default cuando no reconoce el
+        valor."""
         s = s if s is not None else seccion
         corte = corte if corte is not None else p["profundidad"]["corte"]
         m = m if m is not None else p["evolucion"]["metrica"]
+        mr = mr if mr is not None else p["retencion"]["metrica"]
         q = f"?w={week.isoformat()}"
         if s != SECCION_POR_DEFECTO:
             q += f"&s={s}"
@@ -291,6 +305,8 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
             q += f"&corte={corte}"
         if m != METRICA_POR_DEFECTO:
             q += f"&m={m}"
+        if mr != METRICA_RETENCION_POR_DEFECTO:
+            q += f"&mr={mr}"
         return f"/panel/{esc(token)}/dx{q}"
 
     tabs = "".join(
@@ -556,23 +572,46 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
     # produce— y por lo tanto la única cuya distancia a 1 significa algo. La
     # general se queda como número en la fila de arriba, para poder auditar.
     #
-    # Y va desde la primera semana del panel hasta la elegida, no las últimas
+    # Y va desde la primera camada del panel hasta la elegida, no las últimas
     # cuatro: con cuatro puntos una tendencia no se distingue de un rebote, y
     # esta métrica tiene el numerador en un dígito.
-    sa = rc["serie_activados"]
-    etiquetas_viral = [w["label"] for w in sa]
+    cm = p["camadas"]["filas"]
+    etiquetas_viral = [c["label"] for c in cm]
     series_viral = [
         {"label": "K de activados", "color": VERDE_RECLUTAS,
-         "values": [w["k_act"] for w in sa],
-         "tips": [f'{w["label"]}: {num(w["k_act"], dec=2)} — {w["reclutas_act"]} '
-                  f'reclutas activados sobre {w["base_act"]} activados que ya estaban'
-                  for w in sa]},
+         "values": [c["k_act"] for c in cm],
+         # `weak` dibuja el punto hueco y el tramo punteado. Es exactamente lo
+         # que hace falta para una camada que todavía puede sumar reclutas: el
+         # dato EXISTE —por eso no es un None, que cortaría la línea— pero está
+         # incompleto, y dibujarlo igual de firme que el resto hace leer como
+         # caída lo que es una camada a medio terminar. Sin esto, el último
+         # punto siempre baja y siempre miente.
+         "weak": [not c["madura"] for c in cm],
+         "tips": [f'{c["label"]}: {num(c["k_act"], dec=2)} — {c["reclutas_act"]} '
+                  f'reclutas activados sobre los {c["n_act"]} de la camada que '
+                  f'arrancaron'
+                  + ("" if c["madura"] else " · todavía sumando")
+                  for c in cm]},
     ]
-    grafico_viral = ch.lines(series_viral, etiquetas_viral, height=240, legend=False)
+    # `suffix=""` explícito: `ch.lines` rotula en % por defecto y K NO es un
+    # porcentaje sino una razón —cuánta gente trae cada uno—. Sin esto el eje
+    # dice «0,6%» donde el número vale 0,6, que es cien veces menos.
+    grafico_viral = ch.lines(series_viral, etiquetas_viral, suffix="",
+                             height=240, legend=False)
 
-    filas_top = [[f'@{esc(t["alias"])}',
-                  _uni_chip(t["university"]) if t["university"] else "—",
-                  t["reclutas"], t["xp"]] for t in rc["top"]]
+    # El cartel de compartir, que es el primer escalón del canal. Puede no
+    # existir si todavía no se mostró ninguno.
+    sh = next((c for c in p["carteles"] if c["cta"] == "share"), None)
+
+    # Al revés que el gráfico: la camada más nueva primero. En la curva se lee
+    # una tendencia y el tiempo tiene que correr para la derecha; en la tabla se
+    # busca un número, y el que se busca es casi siempre el último.
+    filas_camadas = [[
+        (f'{esc(c["label"])}' if c["madura"] else
+         f'<span>{esc(c["label"])} <span class="sub2">sumando</span></span>'),
+        num(c["n"]), num(c["n_act"]), num(c["reclutas"]), num(c["reclutas_act"]),
+        num(c["k"], dec=2), f'<b>{num(c["k_act"], dec=2)}</b>',
+    ] for c in reversed(cm)]
     out.append(_section(
         3, "Reclutas",
         # Lo que aporta la gente que ya está, en las dos monedas que el juego
@@ -580,46 +619,96 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         #
         _fila_kpi(p["headline"]["reclutas"])
         + _box(
-            "Coeficiente de viralidad por semana",
+            "Cuánta gente trae cada camada",
             grafico_viral,
             note=(
-                "<b>K de activados</b> = reclutas de la semana que llegaron a responder algo, "
-                "sobre los jugadores activados que YA EXISTÍAN antes de esa semana. Es la que "
-                "se dibuja porque es la única de las dos que es una tasa de reproducción: la "
+                "Una <b>camada</b> es la gente que entró al juego en una misma semana, y se "
+                "la sigue toda su vida: si alguien entra el sábado y trae a un amigo el "
+                "martes, ese amigo suma para la camada del sábado aunque su propia alta caiga "
+                "en la semana siguiente."
+                "<br><br><b>K de activados</b> = los reclutas de la camada que llegaron a "
+                "responder algo, divididos por los de la camada que llegaron a responder "
+                "algo. Es el que se dibuja porque es una tasa de reproducción de verdad: la "
                 "unidad que se produce —un jugador activado— es la misma que produce. De los "
                 "24 jugadores que alguna vez reclutaron a alguien, los 24 tenían 3 o más "
-                "respuestas; nadie sin activar reclutó nunca."
-                "<br><br><b>K &gt; 1 es crecimiento que se sostiene solo</b>; por debajo, el "
-                "link ayuda pero no alcanza como único canal. No es la fórmula completa "
-                "—invitaciones × conversión—: no sabemos cuántos links se mandaron, solo "
-                "cuántos prendieron."
-                "<br><br>El numerador es de un dígito por semana, así que la curva tiembla "
-                "entera con una persona. Por eso se dibuja la historia completa y no las "
-                "últimas cuatro: lo que se lee acá es la tendencia, nunca un punto."))
+                "respuestas; nadie sin activar reclutó nunca, porque el cartel de compartir "
+                "aparece jugando. El <b>K general</b> hace la misma división sin exigir que "
+                "ninguna de las dos puntas haya jugado, y está en la tabla para poder "
+                "auditar: si sube y el otro no, llegó gente que no se reproduce."
+                "<br><br><b>K &gt; 1 es crecimiento que se sostiene solo</b> —cada camada deja "
+                "una más grande atrás—; por debajo, el link ayuda pero no alcanza como único "
+                "canal. No es la fórmula completa —invitaciones × conversión—: no sabemos "
+                "cuántos links se mandaron, solo cuántos prendieron."
+                "<br><br><b>Por qué la camada y no la semana.</b> El K semanal que estaba acá "
+                "antes dividía los reclutas que LLEGARON en la semana por toda la base que ya "
+                "existía, y ese denominador lo mueve la difusión: una ola lo multiplica de "
+                "golpe, así que con la misma gente compartiendo exactamente igual el número se "
+                "desplomaba la semana siguiente. Medía reclutas por persona-semana, que es "
+                "tráfico. Acá cada camada se mide contra sí misma, así que difundir más no "
+                "mueve el número — y eso es justamente lo que se le pide a un K."
+                "<br><br><b>Las camadas punteadas todavía están sumando.</b> Una camada cierra "
+                "el domingo y le quedan unos días de reclutar: medido sobre los 144 reclutas "
+                "con reclutador conocido, la mediana tarda 4,5 h, el 78,5% llega dentro del "
+                "día y el último de los 144 tardó 3,6 días. Por eso una camada se da por "
+                "cerrada a los cuatro días de terminar la semana, y hasta entonces su punto va "
+                "hueco: leerlo como una caída es el error fácil."
+                "<br><br>El numerador es de un dígito por camada, así que la curva tiembla "
+                "entera con una persona. Lo que se lee acá es la tendencia, nunca un punto."))
         + _box(
-            "Quién puso plata",
-            _table(["Donante", "Universidad", "Cafecitos", "Veces", "Última"],
-                   [[f'<b>{esc(d["nombre"])}</b>',
-                     _uni_chip(d["universidad"]) if d["universidad"] else "—",
-                     num(d["cafecitos"]), num(d["veces"]),
-                     d["ultima"].strftime("%d/%m") if d["ultima"] else "—"]
-                    for d in rc["donadores"]["top"]],
-                   empty="todavía nadie dejó su nombre"),
+            "La cuenta, camada por camada",
+            _table(["Camada", "Entraron", "Activados", "Reclutas",
+                    "Reclutas activados", "K", "K de activados"],
+                   filas_camadas, empty="todavía no hay camadas"),
             note=(
-                f'De siempre, y solo donaciones de verdad: los grants a mano y los del aforo '
-                f'no son plata de nadie. Van <b>{num(rc["donadores"]["total"])} cafecitos</b> '
-                f'en {num(rc["donadores"]["donaciones"])} donaciones.'
-                + (f'<br><br><b>{num(rc["donadores"]["anon_cafecitos"])} de esos cafecitos '
-                   f'llegaron sin nombre</b>, en {num(rc["donadores"]["anon_veces"])} '
-                   f'donaciones, y por eso no están en la tabla. Agruparlos bajo «Anónimo» '
-                   f'los pondría primeros con la suma de mucha gente distinta, que es '
-                   f'justamente la lectura falsa que la tabla invitaría a hacer.'
-                   if rc["donadores"]["anon_cafecitos"] else "")),
+                "Los dos numeradores y los dos denominadores, escritos. <b>K</b> = Reclutas ÷ "
+                "Entraron. <b>K de activados</b> = Reclutas activados ÷ Activados. Están para "
+                "que ninguno de los dos números de arriba haya que creerlo: si uno llama la "
+                "atención, acá se ve de qué división salió."
+                "<br><br>«Reclutas» son los que trajo ESA camada, no los que entraron esa "
+                "semana por un link — son parecidos pero no iguales, y la diferencia son los "
+                "reclutas que llegan cruzando el domingo."))
+        + _box(
+            "El cartel de compartir",
+            '<div class="grid g3">'
+            + "".join(
+                _kpi_chico(l, v, h, suffix=sfx) for l, v, sfx, h in [
+                    ("Lo vieron", (sh or {}).get("impresiones"), "",
+                     "una impresión por partida, no por render"),
+                    ("Lo tocaron", (sh or {}).get("clicks"), "", "clicks sobre el botón"),
+                    ("CTR", (sh or {}).get("ctr"), "%", "de siempre, no de la semana"),
+                ])
+            + "</div>",
+            note=(
+                "La puerta del canal de arriba: nadie recluta sin tocar esto primero, así "
+                "que un CTR que se cae explica un K que baja sin necesidad de mirar nada "
+                "más. Está acá y no en la tabla de carteles que había en Retención porque "
+                "compartir no es monetizar — lo que pide es una persona, no plata."
+                "<br><br><b>Le falta el momento.</b> Los otros carteles anotan en qué "
+                "derivada salen y este no —`solved` viene vacío en las 2.056 impresiones—, "
+                "así que un CTR bajo puede ser el copy o puede ser que salga demasiado "
+                "temprano, y las dos explicaciones siguen siendo igual de plausibles."),
+        )
+        + _box(
+            "Los diez que más trajeron",
+            _table(["Reclutador", "Universidad", "Reclutas", "Arrancaron", "XP ganada"],
+                   [[f'@{esc(t["alias"])}',
+                     _uni_chip(t["university"]) if t["university"] else "—",
+                     num(t["reclutas"]), num(t["activados"]), num(t["xp"])]
+                    for t in rc["top"]],
+                   empty="todavía nadie reclutó"),
+            note=(
+                "De SIEMPRE y no de la ventana visible, como el ranking del juego: no tendría "
+                "sentido resetear a quien lleva meses trayendo gente solo porque esta semana "
+                "no reclutó a nadie."
+                "<br><br><b>«Arrancaron» es la columna que hace útil a esta tabla.</b> Traer "
+                "diez personas de las que ninguna llega a responder una derivada no es "
+                "reclutar, es repartir un link, y sin esa columna las dos cosas se ven igual. "
+                "Es también el numerador del K de activados de arriba, abierto por persona."
+                "<br><br>Un solo nivel: los reclutas de tus reclutas no suman acá (ver "
+                "<code>game/referrals.py</code>). <b>XP ganada</b> es la suma de lo que cada "
+                "recluta le generó, que es el 10% de lo que ese recluta hizo."),
         ),
-        sub="El único canal de crecimiento que no depende de que difundamos nosotros. "
-            "El acumulado de siempre —cuántos reclutas hubo en total y qué porción del "
-            "padrón son— salió del panel: solo puede subir, así que no hay semana en que "
-            "diga algo que no dijera la anterior.",
+        sub="El único canal de crecimiento que no depende de que difundamos nosotros. Se mide por camada —la gente que entró una misma semana, seguida toda su vida— y no por semana calendario, que es lo único que lo vuelve independiente de cuánto difundamos.",
         anchor="reclutas"))
     pieza_reclutas = "".join(out)
 
@@ -759,6 +848,71 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
             "activación porque es la única que no se mueve sola con el volumen.",
         anchor="evolucion")
 
+    # ── Retención semana a semana, sobre los activados de cada camada ────────
+    rt = p["retencion"]
+    selector_ret = "".join(
+        f'<span class="cur">{esc(et)}</span>' if k == rt["metrica"]
+        else f'<a href="{link(mr=k)}">{esc(et)}</a>'
+        for k, et, _, _ in METRICAS_RETENCION)
+    # El numerador de cada porcentaje, para el tooltip: una tasa sin sus dos
+    # términos no se puede auditar, y estas viven abajo del 15% con
+    # denominadores que cambian diez veces entre camadas.
+    _numerador = {"vuelven": "n_vuelven", "registran": "n_registran",
+                  "instalan": "n_instalan"}
+
+    def _tip_ret(f):
+        base = f'{f["label"]}: {num(f[rt["metrica"]], rt["suffix"])}'
+        clave = _numerador.get(rt["metrica"])
+        if clave:
+            base += f' — {f[clave]} de los {f["activados"]} que arrancaron'
+        if not f["madura"][rt["metrica"]]:
+            base += " · todavía sumando"
+        return base
+
+    serie_ret = [{
+        "label": rt["etiqueta"],
+        "color": VERDE_RECLUTAS,
+        "values": [f[rt["metrica"]] for f in rt["filas"]],
+        # Igual que en la curva de camadas: el punto hueco es «esto todavía
+        # puede subir», que es distinto de «esto bajó». La ventana es propia de
+        # cada métrica —instalar tiene una cola mucho más larga que
+        # registrarse— así que una misma camada puede estar cerrada para una y
+        # abierta para la otra.
+        "weak": [not f["madura"][rt["metrica"]] for f in rt["filas"]],
+        "tips": [_tip_ret(f) for f in rt["filas"]],
+    }]
+    pieza_retencion = _section(
+        1, "Semana a semana",
+        _box("", f"<div class='cortes'><span class='sub'>Curva</span>"
+                 f"{selector_ret}</div>"
+             + ch.lines(serie_ret, [f["label"] for f in rt["filas"]],
+                        suffix=rt["suffix"], height=240, legend=False),
+             note=(
+                 "<b>Los tres porcentajes se miden sobre los ACTIVADOS de la camada, no "
+                 "sobre sus altas.</b> Es lo que los vuelve comparables entre semanas: "
+                 "medidos sobre las altas se caían con cada ola de difusión sin que nadie "
+                 "hubiera retenido peor, porque una ola trae mucha gente que no llega a "
+                 "jugar — y quien nunca jugó no puede volver, ni registrarse, ni instalar "
+                 "nada. Eso es activación, y tiene su propia pestaña."
+                 "<br><br>Una curva por vez y no las cuatro juntas: tres son porcentajes "
+                 "que viven abajo del 15% y la cuarta es un conteo que llega a los "
+                 "cientos. En el mismo eje las tres primeras quedarían pegadas al piso, "
+                 "que es justo donde hay que poder verlas moverse."
+                 "<br><br><b>Los puntos huecos todavía están sumando</b>, y cada métrica "
+                 "tiene su propia ventana porque no tardan lo mismo. Medido el 13/09 "
+                 "desde el alta de cada persona: la vuelta llega al día siguiente en el "
+                 "76% de los casos y la más tardía de las 50 tardó 8 días; el registro "
+                 "tiene mediana de 15 minutos y la cola llega a 7,8 días; instalar la app "
+                 "tiene mediana de 10 horas pero la más tardía cayó a los 13,4. "
+                 "<b>Esas colas están censuradas por la edad del producto</b> —dx tiene "
+                 "16 días, así que nadie PUDO volver a los treinta— así que son un piso "
+                 "del techo real y hay que volver a medirlas con camadas de dos meses."
+                 "<br><br>Va desde la primera camada del panel hasta la elegida: con "
+                 "cuatro puntos una tendencia no se distingue de un rebote.")),
+        sub="Los cuatro números de arriba, camada por camada. Arranca en la vuelta porque "
+            "es la única que no se mueve sola con cuánto difundamos.",
+        anchor="retencion")
+
     # ── Difusión: el clickrate ───────────────────────────────────────────────
     out = []
     di = p["difusion"]
@@ -833,17 +987,39 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         anchor="difusion"))
     pieza_difusion = "".join(out)
 
-    # ── Carteles ─────────────────────────────────────────────────────────────
-    def pieza_carteles(cuales, numero, titulo, subtitulo, nota):
-        filas = [[f'<b>{esc(c["cta"])}</b><br><span class="sub2">{esc(c["desc"])}</span>',
-                  num(c["impresiones"]), num(c["clicks"]), _pct_txt(c["ctr"]),
-                  num(c["mediana_solved"])]
-                 for c in p["carteles"] if c["cta"] in cuales]
-        return _section(
-            numero, titulo,
-            _box("", _table(["Cartel", "Impresiones", "Clicks", "CTR", "Sale en la derivada"],
-                            filas, empty="todavía no se mostró ninguno"), note=nota),
-            sub=subtitulo, anchor=f"carteles-{numero}")
+    # ── Monetización: dónde se pide el cafecito ──────────────────────────────
+    mo = p["monetizacion"]
+    filas_lugares = [[
+        f'<b>{esc(l["desc"])}</b><br><span class="sub2">{esc(l["lugar"])}</span>',
+        num(l["impresiones"]) if l["impresiones"] else
+        '<span class="sub2">no las anota</span>',
+        num(l["clicks"]), _pct_txt(l["ctr"]),
+    ] for l in mo["lugares"]]
+    pieza_monetizacion = _section(
+        1, "Dónde se pide el cafecito",
+        _box("", _table(["Lugar", "Impresiones", "Clicks", "CTR"], filas_lugares,
+                        empty="todavía no se mostró ninguno"),
+             note=(
+                 "<b>El mismo pedido convierte cinco veces distinto según dónde salga</b>, "
+                 "y en una sola fila eso no se ve: el cartel del cafecito daba 16,8% de CTR "
+                 "junto, juntando un botón que vive permanentemente en la barra con una "
+                 "interrupción que aparece al cruzar un hito. Es la decisión que esta tabla "
+                 "existe para tomar — dónde poner el pedido, no cómo escribirlo."
+                 "<br><br>La impresión de la barra se cuenta <b>una por partida y no por "
+                 "render</b>, así que su denominador es «tuvo el cafecito adelante» y no "
+                 "«se dibujó el botón». Ojo igual al comparar contra los contextuales: la "
+                 "barra está siempre a la vista y el hito interrumpe, así que un CTR más "
+                 "alto ahí no es solo mejor copy."
+                 + (f'<br><br><b>Hay {num(mo["sin_denominador"])} clicks sin denominador.</b> '
+                    f'Los lugares marcados «no las anota» disparan el click sin montar el '
+                    f'contador de impresiones (<code>settings-panel.tsx</code>), así que su '
+                    f'CTR no se puede calcular. Están listados igual y quedan fuera de las '
+                    f'dos tasas de arriba: esconderlos haría que el agujero siguiera sin '
+                    f'verse otro mes.' if mo["sin_denominador"] else "")),
+             ),
+        sub="El cafecito no se pide en un lugar: se pide en nueve. Esto es cuál de los "
+            "nueve trae la plata.",
+        anchor="monetizacion")
 
     # ── Calibración ──────────────────────────────────────────────────────────
     ca = p["calibracion"]
@@ -903,17 +1079,11 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         "activacion": (_fila_kpi(p["headline"]["activacion"])
                        + pieza_evolucion + pieza_difusion + pieza_reclutas),
         "retencion": (_fila_kpi(p["headline"]["retencion"])
-                      + pieza_carteles(
-                          ("share", "cafecito", "boost_offer", "register"), 1,
-                          "Los carteles que piden algo",
-                          "Compartir el link, registrarse, invitar un cafecito, aceptar el "
-                          "multiplicador.",
-                          "Un CTR bajo puede ser el copy o puede ser el momento: la última "
-                          "columna dice en qué derivada sale, en mediana. Sin ella las dos "
-                          "explicaciones son igual de plausibles.")
-                      + pieza_push + pieza_mails),
+                      + pieza_retencion + pieza_push + pieza_mails),
         "jugabilidad": (_fila_kpi(p["headline"]["jugabilidad"])
                         + pieza_profundidad + pieza_calibracion + pieza_friccion),
+        "monetizacion": (_fila_kpi(p["headline"]["monetizacion"])
+                         + pieza_monetizacion),
         "experimentacion": pieza_experimentos,
     }
 
