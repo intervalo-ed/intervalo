@@ -70,13 +70,34 @@ export const INTRO_CLOSE = "¿Arrancamos?"
 // arriba del enunciado no se lee como una regla del juego: se lee como un pie
 // de página del ejercicio que está abajo.
 
-/** Lo único que se dice antes de la primera derivada, en el brazo test.
+/** El saludo, y lo único que se explica antes de la primera derivada.
  *
- *  Es la regla 1 de `IntroParagraphs` dicha en imperativo: aquella explica qué
- *  es un ejercicio, esta pide que se resuelva. Por eso la diapo de reglas
- *  arranca en la 2 y NO renumera — no es que falte la primera, es que ya se
- *  dio. */
-export const INSTRUCCION_MINIMA = "Resolvé la siguiente derivada para comenzar."
+ *  La instrucción es la regla 1 de `IntroParagraphs` dicha en imperativo:
+ *  aquella explica qué es un ejercicio, esta pide que se resuelva. Por eso la
+ *  diapo de reglas arranca en la 2 y NO renumera — no es que falte la primera,
+ *  es que ya se dio. */
+export const BIENVENIDA_MINIMA = "¡Bienvenido!"
+export const INSTRUCCION_MINIMA =
+  "Resolvé la siguiente derivada para comenzar a jugar."
+
+/** La puerta del brazo test, entera.
+ *
+ *  Componente y no dos constantes sueltas en cada layout por el mismo motivo
+ *  que `IntroParagraphs`: son dos pantallas —teléfono y escritorio— y la
+ *  separación entre el saludo y la instrucción es parte del texto, no del
+ *  layout. Con el markup duplicado, dentro de un mes una de las dos tiene el
+ *  renglón pegado y la otra no.
+ *
+ *  `gap-6` es el doble del `gap-3` con el que los dos layouts separan párrafos:
+ *  un renglón en blanco entre el saludo y lo que hay que hacer. */
+export function PuertaMinima() {
+  return (
+    <div className="flex flex-col gap-6">
+      <p className="font-semibold text-foreground">{BIENVENIDA_MINIMA}</p>
+      <p className="font-semibold text-foreground">{INSTRUCCION_MINIMA}</p>
+    </div>
+  )
+}
 
 // Los párrafos numerados. El número NO va en el texto sino acá, sobre el
 // índice: son cosas que se cuentan una por vez, y si alguna vez se suma o se
@@ -195,11 +216,7 @@ export function IntroPanel({ minima = false }: { minima?: boolean } = {}) {
             pantalla del juego este texto ES el contenido, y en `text-sm
             text-muted-foreground` se leía como una aclaración al pie. */}
         <div className="flex flex-col gap-3 leading-relaxed text-foreground/85">
-          {minima ? (
-            <p className="font-semibold text-foreground">{INSTRUCCION_MINIMA}</p>
-          ) : (
-            <IntroParagraphs />
-          )}
+          {minima ? <PuertaMinima /> : <IntroParagraphs />}
         </div>
         <div className={cn("flex flex-col items-center gap-3", minima && "hidden")}>
           <p>{KEYBOARD_HINT}</p>

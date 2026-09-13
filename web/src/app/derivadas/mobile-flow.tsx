@@ -72,7 +72,7 @@ import {
   tocaRegistro,
 } from "./hitos-del-juego"
 import { GameIntroLogo, type GameIntro } from "./game-intro"
-import { INSTRUCCION_MINIMA, INTRO_CLOSE, IntroParagraphs } from "./intro-panel"
+import { INTRO_CLOSE, IntroParagraphs, PuertaMinima } from "./intro-panel"
 import { ReglasSlide } from "./reglas-slide"
 import { marcarReglasMostradas, tocaReglas } from "./reglas-trigger"
 import { brazoDelJuego } from "@/lib/experiments/UseGameVariant"
@@ -1356,7 +1356,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   className="mx-auto mt-10 flex max-w-xs flex-col gap-3 leading-relaxed text-foreground/85"
                 >
                   {puertaMinima ? (
-                    <p className="font-semibold text-foreground">{INSTRUCCION_MINIMA}</p>
+                    <PuertaMinima />
                   ) : (
                     <>
                       <IntroParagraphs />
