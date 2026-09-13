@@ -60,12 +60,36 @@ empezar: de cada 100 personas que abren dx, 47,6 llegan a que se les muestre una
 derivada; en el teléfono, que es el 83% del tráfico, 45,2.
 
 - **`control`** — el flujo de arriba, sin tocar.
-- **`derivada-primero`** — el logo quieto, una sola línea (`INSTRUCCION_MINIMA`)
-  y la derivada. Sin presentación, sin párrafos y sin apodo: el apodo se pide
-  junto con carrera y universidad, en el hito de perfil. Las reglas no se borran,
-  **se reparten**: una pieza por vez después de resolver, en los aciertos 1, 2 y
-  5 (`piezaDeTutorial`), esquivando los hitos que ya existen. Borrarlas del todo
-  arriesgaba ganar la entrada y perder la profundidad.
+- **`derivada-primero`** — nada entre aterrizar y la derivada: el logo quieto,
+  sin presentación, una sola línea (`INSTRUCCION_MINIMA`) y el botón.
+
+  Las reglas y el apodo no se borran, **se corren detrás de la primera derivada
+  resuelta**, en este orden: **@ → ranking → reglas**.
+
+  1. **El @** (`username-slide.tsx`) va entre la respuesta y el festejo, y ese
+     orden es el punto: la pantalla siguiente es la fila propia subiendo con la
+     XP recién ganada, y tiene que llevar el nombre que la persona acaba de
+     elegir. Al revés, el primer puesto que ve dice un @ generado que no
+     reconoce. No se gatilla con "primera vez en este aparato" como en el
+     control sino con `alias_is_generated`, o sea "todavía no elegiste".
+  2. **El ranking**, igual que siempre.
+  3. **Las reglas 2, 3 y 4** juntas (`reglas-slide.tsx`), una sola vez por
+     dispositivo (`reglas-trigger.ts`). Son las MISMAS de `IntroParagraphs`,
+     cortadas en la segunda y sin renumerar: la 1 la dijo la puerta, en
+     imperativo, y es la derivada que se acaba de resolver. Llegan cuando el Elo
+     se acaba de mover y el puesto se acaba de ver, que es de lo que hablan.
+
+  En escritorio el orden es el mismo con una diferencia que no se puede evitar:
+  el ranking es la columna de al lado y la XP vuela hacia ella en el instante de
+  responder, así que el @ se elige con el festejo ya ocurrido y lo que se ve es
+  la fila cambiando de nombre. Congelar el festejo para copiar el orden del
+  teléfono sería romper lo que funciona.
+
+  Hasta el 13/09 el brazo repartía las tres reglas de a una en los aciertos 1, 2
+  y 5, metidas arriba del enunciado. Se fue por dos motivos: tres
+  interrupciones donde hay una sola cosa que contar, y un renglón sobre la
+  fórmula no se lee como una regla del juego sino como un pie de página del
+  ejercicio que tiene abajo.
 
 El brazo lo sortea el cliente (`lib/experiments/UseGameVariant.ts`) hasheando un
 id de dispositivo propio, y **no** el `guest_token`: en una primera visita el

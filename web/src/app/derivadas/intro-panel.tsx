@@ -50,38 +50,33 @@ export const INTRO_CLOSE = "¿Arrancamos?"
 // que el producto se explica solo. Medido: solo el 47,6% llega a verla, y en el
 // teléfono —que es el 83% del tráfico— baja al 45,2%.
 //
-// Lo que el brazo NO hace es borrar la explicación: la reparte. Sacarla del todo
+// Lo que el brazo NO hace es borrar la explicación: la CORRE. Sacarla del todo
 // arriesga cambiar gente que no entra por gente que entra y se va en la segunda
-// derivada, y eso sería ganar el número y perder el producto. Repartida, cada
-// pieza se paga cuando ya hay algo resuelto que la haga significar algo.
-
-/** Lo único que se dice antes de la primera derivada, en el brazo test. */
-export const INSTRUCCION_MINIMA = "Resolvé esta derivada."
-
-// Las piezas del tutorial y en qué acierto aparece cada una. Los números esquivan
-// los hitos que ya existen —perfil en la 3, registro en la 12 (hitos-del-juego.ts)—
-// para no encimar dos interrupciones en la misma derivada.
+// derivada, y eso sería ganar el número y perder el producto.
 //
-// El orden es el mismo de `IntroParagraphs` menos el primero, que en este brazo
-// lo reemplaza `INSTRUCCION_MINIMA`: primero cómo se gana (Elo), después qué se
-// puede hacer con eso (cafecitos), y al final la salida de emergencia (tabla).
-// Cada una nombra su cosa con el MISMO emoji del marcador, por el mismo motivo
-// que los párrafos largos.
-const TUTORIAL: { correctas: number; texto: string }[] = [
-  { correctas: 1, texto: "Tu puntaje Elo ♟︎ define la dificultad: sube cuando acertás." },
-  { correctas: 2, texto: "Un cafecito ☕ multiplica el XP tuyo y el de tu universidad." },
-  { correctas: 5, texto: "Si te trabás podés mirar la tabla 📖, pero esa derivada suma menos." },
-]
+// Corrida, se paga cuando ya hay con qué pagarla. El orden del brazo es:
+//
+//   logo quieto + `INSTRUCCION_MINIMA` → la derivada → «elegí tu @» → el
+//   ranking, con la XP entrando ya con ese @ → las reglas 2, 3 y 4
+//   (reglas-slide.tsx) → el resto del juego.
+//
+// Cada pieza llega cuando significa algo: el @ se pide cuando hay un puesto que
+// ponerle el nombre, y las tres reglas se leen con el Elo recién movido y el
+// ranking recién visto, que es de lo que hablan. La 1 la dice la puerta.
+//
+// Antes de esto las tres reglas venían de a una, en los aciertos 1, 2 y 5, y
+// metidas en el marcador de la card (`piezaDeTutorial`). Se fue porque repartía
+// tres interrupciones donde hay una sola cosa para contar, y porque un renglón
+// arriba del enunciado no se lee como una regla del juego: se lee como un pie
+// de página del ejercicio que está abajo.
 
-/** La pieza que toca mostrar con `correctas` aciertos acumulados, o null.
+/** Lo único que se dice antes de la primera derivada, en el brazo test.
  *
- *  Se cuenta con las correctas del SERVIDOR y no con un contador de la pestaña,
- *  por el mismo motivo que los hitos: en el teléfono la pestaña se descarta al
- *  salir a otra app y el contador local vuelve a cero (ver hitos-del-juego.ts).
- */
-export function piezaDeTutorial(correctas: number): string | null {
-  return TUTORIAL.find((t) => t.correctas === correctas)?.texto ?? null
-}
+ *  Es la regla 1 de `IntroParagraphs` dicha en imperativo: aquella explica qué
+ *  es un ejercicio, esta pide que se resuelva. Por eso la diapo de reglas
+ *  arranca en la 2 y NO renumera — no es que falte la primera, es que ya se
+ *  dio. */
+export const INSTRUCCION_MINIMA = "Resolvé la siguiente derivada para comenzar."
 
 // Los párrafos numerados. El número NO va en el texto sino acá, sobre el
 // índice: son cosas que se cuentan una por vez, y si alguna vez se suma o se
@@ -91,7 +86,20 @@ export function piezaDeTutorial(correctas: number): string | null {
 // escritorio— y lo único que cambia entre ellos es el cuerpo de letra, que
 // entra por `className`. Duplicar el map era la forma segura de que dentro de
 // un mes uno tuviera números y el otro no.
-export function IntroParagraphs({ className }: { className?: string }) {
+export function IntroParagraphs({
+  className,
+  // Desde qué regla arrancar, contando desde cero.
+  //
+  // La numeración NO se recalcula: el brazo `derivada-primero` muestra de la 2 a
+  // la 4 y tienen que seguir diciendo 2, 3 y 4, porque la 1 ya se dio en la
+  // puerta (INSTRUCCION_MINIMA) y renumerar sería negar que existió.
+  //
+  // Y por eso la diapo de reglas pide un CORTE y no tiene lista propia: el día
+  // que se agregue una quinta regla acá, aparece sola del otro lado. Con dos
+  // listas separadas, ese día una de las dos se queda vieja — que es justo lo
+  // que le pasó al tutorial repartido que esto reemplaza.
+  desde = 0,
+}: { className?: string; desde?: number }) {
   // Los párrafos se arman ACÁ y no en una constante del módulo. Cuando eran
   // JSX de nivel de módulo, los elementos quedaban creados una sola vez al
   // evaluarse el archivo, y Fast Refresh no puede reconciliar eso: al editar el
@@ -127,11 +135,12 @@ export function IntroParagraphs({ className }: { className?: string }) {
   ]
   return (
     <>
-      {parrafos.map((p, i) => (
+      {parrafos.slice(desde).map((p, i) => (
         // La lista es fija y su orden también, así que el índice alcanza como
         // clave.
-        <p key={i} className={className}>
-          <span className="font-semibold text-foreground">{i + 1}.</span> {p}
+        <p key={desde + i} className={className}>
+          <span className="font-semibold text-foreground">{desde + i + 1}.</span>{" "}
+          {p}
         </p>
       ))}
     </>
@@ -220,9 +229,20 @@ export function IntroPanel({ minima = false }: { minima?: boolean } = {}) {
 export function IntroStartButton({
   onStart,
   disabled,
+  minima = false,
 }: {
   onStart: () => void
   disabled?: boolean
+  // Brazo `derivada-primero`. "Empezar" anuncia que algo va a arrancar, y eso
+  // es exactamente lo que esta puerta no quiere decir: del otro lado no hay una
+  // partida inaugurándose, hay una derivada. "Continuar" es además la palabra
+  // que va a ocupar este mismo lugar durante todo el resto del juego, así que
+  // el primer botón deja de ser el único distinto.
+  //
+  // Solo el brazo test: cambiarlo también en el control sería mover el control
+  // en medio del experimento. El teléfono ya dice "Continuar" en los dos
+  // (mobile-flow.tsx), y esa diferencia entre plataformas es anterior a esto.
+  minima?: boolean
 }) {
   const teclas = useTeclas()
   return (
@@ -232,7 +252,7 @@ export function IntroStartButton({
       onClick={onStart}
       className="h-[var(--cta-h)] w-full shrink-0 rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
     >
-      Empezar
+      {minima ? "Continuar" : "Empezar"}
       <KeyCap>{teclas.enter}</KeyCap>
     </Button>
   )

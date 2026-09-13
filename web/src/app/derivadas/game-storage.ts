@@ -8,6 +8,7 @@ const REGISTRO_OFRECIDO_KEY = "intervalo:game:registro-ofrecido"
 const INSTALAR_KEY = "intervalo:game:instalar"
 const NOTIF_KEY = "intervalo:game:notificaciones"
 const OPINION_KEY = "intervalo:game:opinion"
+const REGLAS_KEY = "intervalo:game:reglas"
 const PWA_DESDE_KEY = "intervalo:game:pwa-desde"
 
 // El token del invitado se lee además como STORE REACTIVO (`subscribeGameToken`
@@ -90,6 +91,7 @@ export function clearGameIdentity() {
     window.localStorage.removeItem(INSTALAR_KEY)
     window.localStorage.removeItem(NOTIF_KEY)
     window.localStorage.removeItem(OPINION_KEY)
+    window.localStorage.removeItem(REGLAS_KEY)
     window.localStorage.removeItem(PWA_DESDE_KEY)
     window.localStorage.removeItem(CHAT_SENDS_KEY)
   } catch {
@@ -247,6 +249,11 @@ export const PEDIDO_NOTIFICACIONES = NOTIF_KEY
 /** Y la encuesta de dificultad, que se repite con su propia cuenta por lo
  *  mismo: es otro pedido y no un escalón de aquellos dos. */
 export const PEDIDO_OPINION = OPINION_KEY
+/** Las reglas del brazo `derivada-primero`, que NO se repiten: usan la misma
+ *  caja porque lo único que necesitan guardar es «ya salió», y una caja con dos
+ *  números de la que se usa uno es más barata que una tercera forma de guardar
+ *  un booleano. `vistas` llega a 1 y se queda ahí (reglas-trigger.ts). */
+export const PEDIDO_REGLAS = REGLAS_KEY
 
 const SIN_PEDIR: PedidoRepetido = { vistas: 0, ultima: -Infinity }
 
