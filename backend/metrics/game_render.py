@@ -556,17 +556,26 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
     # produce— y por lo tanto la única cuya distancia a 1 significa algo. La
     # general se queda como número en la fila de arriba, para poder auditar.
     #
-    # Y va desde la primera semana del panel hasta la elegida, no las últimas
+    # Y va desde la primera camada del panel hasta la elegida, no las últimas
     # cuatro: con cuatro puntos una tendencia no se distingue de un rebote, y
     # esta métrica tiene el numerador en un dígito.
-    sa = rc["serie_activados"]
-    etiquetas_viral = [w["label"] for w in sa]
+    cm = p["camadas"]["filas"]
+    etiquetas_viral = [c["label"] for c in cm]
     series_viral = [
         {"label": "K de activados", "color": VERDE_RECLUTAS,
-         "values": [w["k_act"] for w in sa],
-         "tips": [f'{w["label"]}: {num(w["k_act"], dec=2)} — {w["reclutas_act"]} '
-                  f'reclutas activados sobre {w["base_act"]} activados que ya estaban'
-                  for w in sa]},
+         "values": [c["k_act"] for c in cm],
+         # `weak` dibuja el punto hueco y el tramo punteado. Es exactamente lo
+         # que hace falta para una camada que todavía puede sumar reclutas: el
+         # dato EXISTE —por eso no es un None, que cortaría la línea— pero está
+         # incompleto, y dibujarlo igual de firme que el resto hace leer como
+         # caída lo que es una camada a medio terminar. Sin esto, el último
+         # punto siempre baja y siempre miente.
+         "weak": [not c["madura"] for c in cm],
+         "tips": [f'{c["label"]}: {num(c["k_act"], dec=2)} — {c["reclutas_act"]} '
+                  f'reclutas activados sobre los {c["n_act"]} de la camada que '
+                  f'arrancaron'
+                  + ("" if c["madura"] else " · todavía sumando")
+                  for c in cm]},
     ]
     # `suffix=""` explícito: `ch.lines` rotula en % por defecto y K NO es un
     # porcentaje sino una razón —cuánta gente trae cada uno—. Sin esto el eje
@@ -574,9 +583,15 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
     grafico_viral = ch.lines(series_viral, etiquetas_viral, suffix="",
                              height=240, legend=False)
 
-    filas_top = [[f'@{esc(t["alias"])}',
-                  _uni_chip(t["university"]) if t["university"] else "—",
-                  t["reclutas"], t["xp"]] for t in rc["top"]]
+    # Al revés que el gráfico: la camada más nueva primero. En la curva se lee
+    # una tendencia y el tiempo tiene que correr para la derecha; en la tabla se
+    # busca un número, y el que se busca es casi siempre el último.
+    filas_camadas = [[
+        (f'{esc(c["label"])}' if c["madura"] else
+         f'<span>{esc(c["label"])} <span class="sub2">sumando</span></span>'),
+        num(c["n"]), num(c["n_act"]), num(c["reclutas"]), num(c["reclutas_act"]),
+        num(c["k"], dec=2), f'<b>{num(c["k_act"], dec=2)}</b>',
+    ] for c in reversed(cm)]
     out.append(_section(
         3, "Reclutas",
         # Lo que aporta la gente que ya está, en las dos monedas que el juego
@@ -584,32 +599,54 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         #
         _fila_kpi(p["headline"]["reclutas"])
         + _box(
-            "Coeficiente de viralidad por semana",
+            "Cuánta gente trae cada camada",
             grafico_viral,
             note=(
-                "<b>K de activados</b> = reclutas de la semana que llegaron a responder algo, "
-                "sobre los jugadores activados que YA EXISTÍAN antes de esa semana. Es la que "
-                "se dibuja porque es la única de las dos que es una tasa de reproducción: la "
+                "Una <b>camada</b> es la gente que entró al juego en una misma semana, y se "
+                "la sigue toda su vida: si alguien entra el sábado y trae a un amigo el "
+                "martes, ese amigo suma para la camada del sábado aunque su propia alta caiga "
+                "en la semana siguiente."
+                "<br><br><b>K de activados</b> = los reclutas de la camada que llegaron a "
+                "responder algo, divididos por los de la camada que llegaron a responder "
+                "algo. Es el que se dibuja porque es una tasa de reproducción de verdad: la "
                 "unidad que se produce —un jugador activado— es la misma que produce. De los "
                 "24 jugadores que alguna vez reclutaron a alguien, los 24 tenían 3 o más "
-                "respuestas; nadie sin activar reclutó nunca."
-                "<br><br><b>K &gt; 1 es crecimiento que se sostiene solo</b>; por debajo, el "
-                "link ayuda pero no alcanza como único canal. No es la fórmula completa "
-                "—invitaciones × conversión—: no sabemos cuántos links se mandaron, solo "
-                "cuántos prendieron."
-                "<br><br>El numerador es de un dígito por semana, así que la curva tiembla "
-                "entera con una persona. Por eso se dibuja la historia completa y no las "
-                "últimas cuatro: lo que se lee acá es la tendencia, nunca un punto."
-                "<br><br><b>Y la trampa grande, que conviene tener presente antes de "
-                "festejar un K alto:</b> el denominador es la base que había ANTES de la "
-                "semana, así que una ola de difusión lo multiplica de golpe. Con el producto "
-                "recién nacido la base es chica y K sale alto; la semana siguiente, con la "
-                "misma gente compartiendo igual, K se desploma solo porque el denominador "
-                "creció. <b>Esta K mide reclutas por persona-semana, no la tasa de "
-                "reproducción de una camada</b>, y no son lo mismo mientras la difusión siga "
-                "moviendo la base. La versión honesta —reclutas que genera una cohorte a lo "
-                "largo de su vida, sobre el tamaño de esa cohorte— necesita seguir a cada "
-                "camada por separado y todavía no está."))
+                "respuestas; nadie sin activar reclutó nunca, porque el cartel de compartir "
+                "aparece jugando. El <b>K general</b> hace la misma división sin exigir que "
+                "ninguna de las dos puntas haya jugado, y está en la tabla para poder "
+                "auditar: si sube y el otro no, llegó gente que no se reproduce."
+                "<br><br><b>K &gt; 1 es crecimiento que se sostiene solo</b> —cada camada deja "
+                "una más grande atrás—; por debajo, el link ayuda pero no alcanza como único "
+                "canal. No es la fórmula completa —invitaciones × conversión—: no sabemos "
+                "cuántos links se mandaron, solo cuántos prendieron."
+                "<br><br><b>Por qué la camada y no la semana.</b> El K semanal que estaba acá "
+                "antes dividía los reclutas que LLEGARON en la semana por toda la base que ya "
+                "existía, y ese denominador lo mueve la difusión: una ola lo multiplica de "
+                "golpe, así que con la misma gente compartiendo exactamente igual el número se "
+                "desplomaba la semana siguiente. Medía reclutas por persona-semana, que es "
+                "tráfico. Acá cada camada se mide contra sí misma, así que difundir más no "
+                "mueve el número — y eso es justamente lo que se le pide a un K."
+                "<br><br><b>Las camadas punteadas todavía están sumando.</b> Una camada cierra "
+                "el domingo y le quedan unos días de reclutar: medido sobre los 144 reclutas "
+                "con reclutador conocido, la mediana tarda 4,5 h, el 78,5% llega dentro del "
+                "día y el último de los 144 tardó 3,6 días. Por eso una camada se da por "
+                "cerrada a los cuatro días de terminar la semana, y hasta entonces su punto va "
+                "hueco: leerlo como una caída es el error fácil."
+                "<br><br>El numerador es de un dígito por camada, así que la curva tiembla "
+                "entera con una persona. Lo que se lee acá es la tendencia, nunca un punto."))
+        + _box(
+            "La cuenta, camada por camada",
+            _table(["Camada", "Entraron", "Activados", "Reclutas",
+                    "Reclutas activados", "K", "K de activados"],
+                   filas_camadas, empty="todavía no hay camadas"),
+            note=(
+                "Los dos numeradores y los dos denominadores, escritos. <b>K</b> = Reclutas ÷ "
+                "Entraron. <b>K de activados</b> = Reclutas activados ÷ Activados. Están para "
+                "que ninguno de los dos números de arriba haya que creerlo: si uno llama la "
+                "atención, acá se ve de qué división salió."
+                "<br><br>«Reclutas» son los que trajo ESA camada, no los que entraron esa "
+                "semana por un link — son parecidos pero no iguales, y la diferencia son los "
+                "reclutas que llegan cruzando el domingo."))
         + _box(
             "Los diez que más trajeron",
             _table(["Reclutador", "Universidad", "Reclutas", "Arrancaron", "XP ganada"],
@@ -630,10 +667,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                 "<code>game/referrals.py</code>). <b>XP ganada</b> es la suma de lo que cada "
                 "recluta le generó, que es el 10% de lo que ese recluta hizo."),
         ),
-        sub="El único canal de crecimiento que no depende de que difundamos nosotros. "
-            "El acumulado de siempre —cuántos reclutas hubo en total y qué porción del "
-            "padrón son— salió del panel: solo puede subir, así que no hay semana en que "
-            "diga algo que no dijera la anterior.",
+        sub="El único canal de crecimiento que no depende de que difundamos nosotros. Se mide por camada —la gente que entró una misma semana, seguida toda su vida— y no por semana calendario, que es lo único que lo vuelve independiente de cuánto difundamos.",
         anchor="reclutas"))
     pieza_reclutas = "".join(out)
 

@@ -350,25 +350,65 @@ check("los retenidos son de otra semana", h["Usuarios retenidos"]["value"] == 1,
       f'({h["Usuarios retenidos"]["value"]})')
 check("el titular de cafecitos no cuenta los grants a mano",
       h["Cafecitos"]["value"] == 3, f'({h["Cafecitos"]["value"]}, no 6)')
-check("los reclutas son los que entraron por el link de otro",
-      h["Reclutas nuevos"]["value"] == 1, f'({h["Reclutas nuevos"]["value"]})')
-# Un recluta sobre el único jugador que existía antes de la semana.
-check("la viralidad general se divide por TODOS los que ya estaban",
-      h["Viralidad general"]["value"] == 1.0,
-      f'({h["Viralidad general"]["value"]})')
-check("y se muestra con dos decimales", h["Viralidad general"]["dec"] == 2)
+# ── El K de camada ────────────────────────────────────────────────────────
+# `cero` (p5) entró cuatro semanas antes y trajo a `dos` (p2), que respondió.
+# O sea: una camada de una persona que trajo una persona, y las dos jugaron.
+# Es el caso mínimo donde K vale exactamente 1 por los dos caminos, y sirve
+# justamente porque los dos numeradores y los dos denominadores son el mismo
+# número: si alguna de las cuatro cuentas se cruzara, daría distinto de 1.
+CAM = {c["week"]: c for c in q.camadas(data, WEEK)["filas"]}
+c_cero = CAM[(WEEK - timedelta(weeks=4)).isoformat()]
+check("el recluta se le cuenta a la camada de SU RECLUTADOR",
+      c_cero["reclutas"] == 1 and c_cero["n"] == 1,
+      f'({c_cero["reclutas"]} reclutas sobre una camada de {c_cero["n"]})')
+check("y el K de la camada es esa división",
+      c_cero["k"] == 1.0, f'({c_cero["k"]})')
+check("el de activados exige que las dos puntas hayan jugado",
+      c_cero["reclutas_act"] == 1 and c_cero["n_act"] == 1,
+      f'({c_cero["reclutas_act"]} de {c_cero["n_act"]})')
+check("y da su propia división", c_cero["k_act"] == 1.0, f'({c_cero["k_act"]})')
 
-# ── Las dos viralidades no son la misma cuenta ────────────────────────────
-# La general divide por todos los que ya estaban; la de activados, solo por los
-# que habían respondido algo. Que den distinto no es un detalle: es la razón de
-# que existan las dos. Un bucle viral se sostiene cuando cada unidad CAPAZ de
-# reproducirse produce otra capaz, y acá la unidad capaz es el activado —medido:
-# de los 24 jugadores que alguna vez reclutaron, los 24 tenían 3+ respuestas.
-check("los reclutas activados son un subconjunto de los reclutas",
-      h["Reclutas activados"]["value"] <= h["Reclutas nuevos"]["value"],
-      f'({h["Reclutas activados"]["value"]} de {h["Reclutas nuevos"]["value"]})')
-check("y la viralidad de activados usa otro denominador que la general",
-      h["Viralidad de activados"]["dec"] == 2)
+# La camada de la semana de referencia no reclutó a nadie: sus cuatro miembros
+# entraron por difusión. Cero y no None — la división existe y vale cero, que
+# es una afirmación distinta de «no se puede calcular».
+c_hoy = CAM[WEEK.isoformat()]
+check("una camada que no reclutó a nadie da cero, no vacío",
+      c_hoy["k"] == 0.0 and c_hoy["n"] == 4,
+      f'(k={c_hoy["k"]} sobre {c_hoy["n"]})')
+# Y una semana sin nadie no puede dar cero: dividir por cero no es cero.
+vacias = [c for c in q.camadas(data, WEEK)["filas"] if c["n"] == 0]
+check("y una camada vacía da vacío, no cero",
+      bool(vacias) and all(c["k"] is None and c["k_act"] is None for c in vacias),
+      f"({len(vacias)} camadas sin nadie)")
+
+# ── La maduración, que es lo que evita leer una camada a medio terminar ────
+# Medido en producción: el último de los 144 reclutas llegó 3,6 días después
+# del alta de quien lo trajo. Una camada cierra el domingo y a los cuatro días
+# ya no le entra nada. La regla se prueba contra HOY y no contra la semana del
+# panel, porque lo que limita a una camada es el tiempo real que pasó.
+_hoy = q.week_start(q.local_date(datetime.utcnow()))
+check("la camada en curso nunca está madura",
+      q._camadas(data, [_hoy])[_hoy]["madura"] is False)
+_vieja = _hoy - timedelta(weeks=2)
+check("y una de hace dos semanas siempre lo está",
+      q._camadas(data, [_vieja])[_vieja]["madura"] is True)
+
+# ── Los cuatro números de la fila salen de esa misma función ──────────────
+# No de cuatro cuentas escritas aparte: dos definiciones de K dan dos números
+# distintos para la misma pregunta, que es exactamente lo que pasó con el K
+# semanal que esto reemplaza.
+check("la fila de reclutas lee la camada de la semana",
+      h["Reclutas traídos"]["value"] == c_hoy["reclutas"]
+      and h["De esos, arrancaron"]["value"] == c_hoy["reclutas_act"]
+      and h["K de la camada"]["value"] == c_hoy["k"]
+      and h["K de activados"]["value"] == c_hoy["k_act"])
+check("y los dos K se muestran con dos decimales",
+      h["K de la camada"]["dec"] == 2 and h["K de activados"]["dec"] == 2)
+# El K viejo dividía por la base previa, así que la difusión le movía el
+# denominador. Que no quede ninguno de los dos suelto alimentando un número.
+check("el K semanal no quedó colgado en ningún lado",
+      not hasattr(q, "viralidad_activados")
+      and "Viralidad general" not in h and "Viralidad de activados" not in h)
 # La primera tanda de p1 son las 9 correctas del bloque del día 0 (la décima cae
 # más de media hora después); p2 3, p4 5. p3 no respondió en esta semana.
 # p1 respondió 12 veces el día 0, pero las últimas dos son dos horas después:
@@ -713,7 +753,7 @@ check("y la tabla dice cuántos de sus reclutas arrancaron",
 # `ch.lines` rotula en porcentaje por defecto. Con el sufijo puesto mal, un
 # K de 0,68 se dibujaba como «0,68%», cien veces menos.
 h_via = game_render.page(q.build(s, WEEK), token="tok", seccion="activacion")
-eje = h_via.split("Coeficiente de viralidad por semana")[1][:3000]
+eje = h_via.split("Cuánta gente trae cada camada")[1][:3000]
 check("el eje del coeficiente no se rotula en porcentaje",
       "%<" not in eje and "%'" not in eje)
 
@@ -732,8 +772,8 @@ check("y los dos titulares que repetían tampoco",
       and '<div class="label">Top reclutador</div>' not in h_k)
 # Los cuatro números de reclutas viven DENTRO de su sección y no en la cabecera
 # de la pestaña: hablan del mismo canal que la curva que tienen abajo.
-for etiqueta in ("Reclutas nuevos", "Reclutas activados", "Viralidad general",
-                 "Viralidad de activados"):
+for etiqueta in ("Reclutas traídos", "De esos, arrancaron", "K de la camada",
+                 "K de activados"):
     check(f"«{etiqueta}» está en la sección de reclutas",
           f'<div class="label">{etiqueta}</div>' in h_k)
 # El top de reclutadores se fue del panel junto con las dos tarjetas
@@ -742,6 +782,55 @@ for etiqueta in ("Reclutas nuevos", "Reclutas activados", "Viralidad general",
 check("y el top de reclutadores tampoco está",
       "<h3>Top reclutadores</h3>" not in h_k)
 check("con su cuenta de reclutas", top["cero"]["reclutas"] == 1 if top else False)
+# La tabla de camadas es la auditoría de los dos K: sin los cuatro términos
+# escritos, el número de arriba hay que creerlo.
+check("la tabla de camadas trae los dos numeradores y los dos denominadores",
+      all(f"<th>{c}</th>" in h_k for c in
+          ("Camada", "Entraron", "Activados", "Reclutas", "Reclutas activados",
+           "K", "K de activados")))
+# Una camada a medio terminar tiene que decirlo EN la tabla y EN la curva: su
+# K está incompleto y leerlo como caída es el error fácil. Las camadas del
+# escenario son todas de agosto, o sea que están cerradas hace rato, así que
+# comparar «¿aparece la marca?» contra «¿hay alguna sin cerrar?» daría falso
+# contra falso y pasaría con el marcado roto. Se fuerza el otro lado moviendo
+# la ventana de maduración, que es el único parámetro de la regla.
+_cm = q.build(s, WEEK)["camadas"]["filas"]
+check("con el escenario de agosto están todas cerradas",
+      all(c["madura"] for c in _cm), f"({len(_cm)} camadas)")
+def _huecos(pagina: str) -> int:
+    """Cuántos puntos de la curva de camadas salen huecos.
+
+    Se cuenta sobre el circulo y no sobre la linea punteada: con pocas camadas
+    la curva son puntos sueltos —entre dos con dato hay semanas sin nadie, y un
+    hueco corta la linea— asi que no hay tramo que puntear. El circulo hueco es
+    el marcado que `weak` garantiza siempre.
+    """
+    trozo = pagina.split("Cuánta gente trae cada camada")[1].split("</div>")[0]
+    return trozo.count('fill="var(--surface)" stroke=')
+
+
+check("y entonces ni la tabla ni la curva marcan nada",
+      '<span class="sub2">sumando</span>' not in h_k and _huecos(h_k) == 0,
+      f"({_huecos(h_k)} puntos huecos)")
+
+_md = q.MADURACION_DIAS
+try:
+    # Una ventana de maduración absurda deja a TODAS sin cerrar, sin tocar
+    # ningún dato: es exactamente el estado que se quiere ver dibujado.
+    q.MADURACION_DIAS = 10_000
+    _h_verde = game_render.page(q.build(s, WEEK), token="tok", seccion="activacion")
+    _cm2 = q.build(s, WEEK)["camadas"]["filas"]
+finally:
+    q.MADURACION_DIAS = _md
+check("moviendo la ventana, ninguna queda cerrada",
+      not any(c["madura"] for c in _cm2), f"({len(_cm2)} camadas)")
+check("y la tabla las marca como sumando",
+      '<span class="sub2">sumando</span>' in _h_verde)
+# El marcado del gráfico es el mismo hecho por otro camino: `weak` dibuja el
+# punto hueco y el tramo punteado. Si la tabla dice «sumando» y la curva lo
+# dibuja firme, una de las dos miente.
+check("y la curva las dibuja con el punto hueco",
+      _huecos(_h_verde) > 0, f"({_huecos(_h_verde)} puntos huecos)")
 
 # ── 6c · La pestaña de experimentos ────────────────────────────────────────
 print()

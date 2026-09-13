@@ -393,6 +393,12 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
     def nuevos(w: date) -> list[dict]:
         return [p for p in players if _in_week(p["created_at"], w)]
 
+    # Las camadas salen de `_camadas` y no de cuatro cuentas escritas acá
+    # adentro: el gráfico y la tabla de la sección de reclutas leen la MISMA
+    # función, y dos definiciones de K terminan dando dos números distintos
+    # para la misma pregunta. Ya pasó con el K semanal.
+    cam = _camadas(data, weeks)
+
     def per_week(fn) -> list:
         return [fn(w) for w in weeks]
 
@@ -449,20 +455,6 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
     def cafecitos(w: date) -> int:
         return sum(b["cafecitos"] for b in data["boosts"]
                    if _in_week(b["created_at"], w) and b["source"] == DONADO)
-
-    def reclutas(w: date) -> int:
-        return sum(1 for p in nuevos(w) if p["referred_by"])
-
-    def viralidad(w: date) -> float | None:
-        """Cuánta gente nueva trajo, en promedio, cada uno de los que ya estaban.
-
-        El denominador son los que EXISTÍAN al empezar la semana, que son los
-        únicos que podían repartir su `?r=`. Uno significa que el juego se sostiene
-        solo; abajo de uno, cada camada trae menos que la anterior y el
-        crecimiento sigue dependiendo de que difundamos.
-        """
-        base = sum(1 for p in players if (alta_de.get(p["id"]) or date.max) < w)
-        return round(reclutas(w) / base, 2) if base else None
 
     def _tandas_jugadas(p: dict) -> list[list[dict]]:
         """Las tandas de RESPUESTAS de un jugador, que son las que se miden.
@@ -559,47 +551,6 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
     def pct_activacion(w: date) -> float | None:
         return _pct(activados(w), len(nuevos(w)))
 
-    def reclutas_activados(w: date) -> int:
-        """Reclutas de la semana que además llegaron a responder algo.
-
-        Separado de los reclutas a secas porque son cosas muy distintas: el link
-        de un amigo trae gente que activa PEOR que la difusión —33,6% contra
-        41,0%, medido— así que contar reclutas sin mirar cuántos arrancaron
-        cuenta clics, no jugadores.
-        """
-        return sum(1 for p in nuevos(w) if p["referred_by"] and por_jugador.get(p["id"]))
-
-    def viralidad_activados(w: date) -> float | None:
-        """El K que de verdad dice si el bucle se sostiene.
-
-        **Por qué este y no el de al lado.** Un bucle viral se sostiene cuando
-        cada unidad capaz de reproducirse produce al menos una unidad capaz de
-        reproducirse. Acá la unidad capaz es el jugador ACTIVADO, y eso no es
-        una definición elegida: de los 24 jugadores que alguna vez reclutaron a
-        alguien, los 24 tenían 3 o más respuestas. Nadie sin activar reclutó
-        nunca — el cartel de compartir aparece jugando.
-
-        El K de al lado divide reclutas nuevos por TODOS los que ya estaban, o
-        sea que mete en el denominador a gente que estructuralmente no puede
-        producir nada, y en el numerador a gente que mayormente tampoco va a
-        producir. No es una tasa de reproducción: es una razón entre dos cosas
-        distintas.
-
-        Hoy los dos dan parecido, y es una coincidencia que conviene no
-        confundir con equivalencia: los reclutas activan 33,6% y la base activa
-        ~40%, así que las dos correcciones casi se cancelan. En cuanto cualquiera
-        de esas dos tasas se mueva —y moverlas es justo lo que el experimento de
-        la puerta intenta— se separan.
-
-        **Ojo con el tamaño.** Son 48 reclutas activados en toda la vida del
-        producto. Semana a semana esto es de un dígito y tiembla entero con una
-        persona: sirve para mirar la tendencia de varias semanas, no para
-        comparar una contra la anterior.
-        """
-        base = sum(1 for p in players
-                   if (alta_de.get(p["id"]) or date.max) < w and por_jugador.get(p["id"]))
-        return round(reclutas_activados(w) / base, 2) if base else None
-
     def card(label: str, series: list, suffix: str, hint: str, dec: int = 1) -> dict:
         value = series[-1]
         prev = series[-2] if len(series) > 1 else None
@@ -652,22 +603,32 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
         # Reclutas · va adentro de su sección y no en la cabecera de la pestaña:
         # los cuatro hablan del mismo canal y leerlos lejos de su curva obliga a
         # subir y bajar.
+        # Reclutas · los cuatro son de la CAMADA de esa semana: cuánta gente
+        # trajo la gente que entró, no cuánta gente entró por un link. Los dos
+        # últimos son exactamente los dos primeros divididos por el tamaño de
+        # la camada, y esa es toda la definición de K — por eso van juntos y
+        # en este orden.
         "reclutas": [
-            card("Reclutas nuevos", per_week(reclutas), "",
-                 "Entraron por el link de otro jugador."),
-            card("Reclutas activados", per_week(reclutas_activados), "",
-                 "De esos, cuántos llegaron a responder una derivada. El link de un "
-                 "amigo trae gente que activa PEOR que la difusión —33,6% contra "
-                 "41,0%— así que los reclutas a secas cuentan clics, no jugadores."),
-            card("Viralidad general", per_week(viralidad), "",
-                 "Reclutas nuevos sobre todos los que ya estaban. Es la versión de "
-                 "tráfico, y está acá como auditoría de la de al lado: si esta sube y "
-                 "la otra no, llegó gente que no se reproduce.", dec=2),
-            card("Viralidad de activados", per_week(viralidad_activados), "",
-                 "Reclutas ACTIVADOS sobre los activados que ya estaban. Es el K que "
-                 "decide: los 24 jugadores que alguna vez reclutaron tenían todos 3+ "
-                 "respuestas, así que la unidad que se reproduce es el activado. Uno "
-                 "es el bucle sosteniéndose solo.", dec=2),
+            card("Reclutas traídos", per_week(lambda w: cam[w]["reclutas"]), "",
+                 "Cuánta gente trajo por su link la camada que entró esa semana, a "
+                 "lo largo de toda su vida. Un recluta tarda 4,5 h en llegar en "
+                 "mediana y ninguno de los 144 medidos tardó más de 3,6 días, así "
+                 "que la cuenta se cierra sola a los pocos días."),
+            card("De esos, arrancaron", per_week(lambda w: cam[w]["reclutas_act"]), "",
+                 "Cuántos de esos reclutas llegaron a responder una derivada. El "
+                 "link de un amigo trae gente que activa PEOR que la difusión "
+                 "—33,6% contra 41,0%—, así que los reclutas a secas cuentan clics "
+                 "y no jugadores."),
+            card("K de la camada", per_week(lambda w: cam[w]["k"]), "",
+                 "Los reclutas traídos, divididos por el tamaño de la camada. "
+                 "Cuánta gente trae cada persona que entra. Es la cuenta completa: "
+                 "arriba el numerador, acá la división.", dec=2),
+            card("K de activados", per_week(lambda w: cam[w]["k_act"]), "",
+                 "Reclutas que arrancaron, divididos por los de la camada que "
+                 "arrancaron. Es el que decide si el bucle se sostiene, porque la "
+                 "unidad que se produce —un jugador activado— es la misma que "
+                 "produce. Uno significa que cada activado deja otro activado "
+                 "atrás.", dec=2),
         ],
         "jugabilidad": [
             card("1ª sesión", per_week(primera_sesion), "",
@@ -1117,66 +1078,20 @@ def mails(data: dict, weeks: list[date]) -> dict:
 
 # ── 5 · Reclutas ──────────────────────────────────────────────────
 
-def reclutas(data: dict, weeks: list[date], week: date | None = None) -> dict:
+def reclutas(data: dict, weeks: list[date]) -> dict:
     """Quién trae gente nueva por su link, y cuánto rinde.
 
-    Delega la parte común en la del panel de Intervalo en vez de reescribirla:
-    es la MISMA cuenta sobre las MISMAS filas, y dos copias de una definición de
-    K terminarían dando dos números distintos para la misma pregunta.
+    Delega en la del panel de Intervalo en vez de reescribirla: es la MISMA
+    cuenta sobre las MISMAS filas, y dos copias de una definición terminarían
+    dando dos números distintos para la misma pregunta.
 
-    Lo que se agrega acá y allá no puede estar es **la serie de K de
-    activados**. Necesita saber quién respondió algo, y la del panel de
-    Intervalo solo recibe `game_players`. Es también la que se dibuja: el K
-    general quedó como número en la fila de arriba, para poder auditar, pero la
-    curva muestra la que decide (ver `viralidad_activados` en `headline`).
-
-    **La serie va desde la primera semana del panel hasta la elegida**, no las
-    últimas cuatro. Con cuatro puntos una tendencia no se distingue de un
-    rebote, y esta es justamente la métrica que hay que leer a lo largo de
-    varias semanas porque su numerador es de un dígito.
+    Lo único que se agrega —y que allá no puede estar, porque esa función solo
+    recibe `game_players`— es **cuántos de los reclutas de cada uno llegaron a
+    jugar**. La tasa de reproducción vive aparte, en `camadas`.
     """
     from .queries import reclutas as _reclutas_de_intervalo
 
     base = _reclutas_de_intervalo({"game_players": data["players"]}, weeks)
-
-    # La historia completa hasta la semana elegida.
-    fin = week or weeks[-1]
-    todas: list[date] = []
-    w = FIRST_WEEK
-    while w <= fin:
-        todas.append(w)
-        w += timedelta(weeks=1)
-    if not todas:
-        todas = [fin]
-
-    activos = {a["player_id"] for a in data["_answers"]}
-    jugadores = data["players"]
-    por_semana: dict[date, list[dict]] = defaultdict(list)
-    for p in jugadores:
-        sem = _week_of(p["created_at"])
-        if sem is not None:
-            por_semana[sem].append(p)
-
-    serie = []
-    # La base arranca con los activados anteriores a la primera semana, que es
-    # cero por construcción: antes de FIRST_WEEK no había producto.
-    base_act = sum(1 for p in jugadores
-                   if (_week_of(p["created_at"]) or date.max) < todas[0]
-                   and p["id"] in activos)
-    for w in todas:
-        nuevos = por_semana.get(w, [])
-        rec_act = sum(1 for p in nuevos
-                      if p["referred_by"] is not None and p["id"] in activos)
-        serie.append({
-            "label": w.strftime("%d/%m"),
-            "week": w.isoformat(),
-            "k_act": round(rec_act / base_act, 2) if base_act else None,
-            "reclutas_act": rec_act,
-            "base_act": base_act,
-        })
-        base_act += sum(1 for p in nuevos if p["id"] in activos)
-
-    base["serie_activados"] = serie
 
     # El top de reclutadores, con una columna que el del panel de Intervalo no
     # puede tener: cuántos de sus reclutas llegaron a jugar. Traer diez personas
@@ -1192,6 +1107,124 @@ def reclutas(data: dict, weeks: list[date], week: date | None = None) -> dict:
         rid = por_alias.get(fila["alias"])
         fila["activados"] = act_por_reclutador.get(rid, 0)
     return base
+
+# ── 5-bis · Camadas: el K que sí es una tasa de reproducción ────────────────
+
+# Cuánto tarda una camada en terminar de reclutar. Medido en producción el
+# 13/09 sobre los 144 reclutas con reclutador conocido, contando desde el alta
+# de quien los trajo: mediana 4,5 h · el 78,5% dentro del día · el 97,2% dentro
+# de los tres días · y el ÚLTIMO de los 144 a las 87,5 h, o sea 3,6 días.
+# Ninguno tardó más de una semana.
+#
+# Eso es lo que hace legible a esta métrica: una camada cierra el domingo y
+# cuatro días después ya no le entra nada, así que no hay que esperar meses para
+# saber cuánto se reprodujo. El número redondea 3,6 para arriba.
+#
+# Si el juego alguna vez empuja a compartir MÁS TARDE —un cartel en la derivada
+# 50, un mail a la semana— este número deja de valer y hay que volver a medirlo:
+# marcaría camadas como maduras cuando todavía les falta.
+MADURACION_DIAS = 4
+
+
+def _camadas(data: dict, semanas: list[date]) -> dict[date, dict]:
+    """Cuánta gente trajo cada camada a lo largo de su vida.
+
+    **Esta es una tasa de reproducción y la que estaba antes no lo era.** El K
+    semanal dividía los reclutas que LLEGARON esa semana por toda la base que
+    ya existía, y ese denominador lo mueve la difusión: una ola lo multiplica de
+    golpe, así que con la misma gente compartiendo igual el número se desploma
+    la semana siguiente. Servía para «reclutas por persona-semana», que es una
+    medida de tráfico, no de reproducción.
+
+    Acá el numerador y el denominador son la MISMA gente: los reclutas que trajo
+    una camada, sobre el tamaño de esa camada. Es indiferente a cuánto se
+    difunda, porque cada camada se mide contra sí misma. Uno significa que una
+    camada se reemplaza entera; abajo de uno, el link ayuda pero no alcanza como
+    único canal y el crecimiento sigue dependiendo de que difundamos.
+
+    **El recluta se le cuenta a la camada de su reclutador, no a la suya.** Si
+    alguien entra un sábado y trae a un amigo el martes, ese amigo suma para la
+    camada del sábado aunque su propia alta caiga en la semana siguiente. Es la
+    diferencia con «reclutas nuevos», que contaba altas.
+
+    Dos K y no uno, porque son preguntas distintas:
+
+    - `k` = reclutas traídos ÷ tamaño de la camada. Cuánta gente trae cada
+      persona que entra, active o no.
+    - `k_act` = reclutas ACTIVADOS traídos por los ACTIVADOS de la camada ÷
+      activados de la camada. Es el que decide si el bucle se sostiene: un
+      proceso de ramificación crece cuando la unidad que se produce es la misma
+      que produce, y acá esa unidad es el activado. No es una definición
+      elegida a gusto —de los 24 jugadores que alguna vez reclutaron a alguien,
+      los 24 tenían 3 o más respuestas: nadie sin activar reclutó nunca, porque
+      el cartel de compartir aparece jugando.
+
+    Exigir que el reclutador también esté activado hoy no saca a nadie, por lo
+    de arriba. Se escribe igual: es lo que hace que el número siga significando
+    lo mismo el día que el juego empiece a ofrecer el link antes de jugar.
+    """
+    activos = {a["player_id"] for a in data["_answers"]}
+    jugadores = data["players"]
+    alta_de = {p["id"]: _week_of(p["created_at"]) for p in jugadores}
+
+    traidos_por: dict[int, list[dict]] = defaultdict(list)
+    for p in jugadores:
+        if p["referred_by"] is not None:
+            traidos_por[p["referred_by"]].append(p)
+
+    por_camada: dict[date, list[dict]] = defaultdict(list)
+    for p in jugadores:
+        w = alta_de.get(p["id"])
+        if w is not None:
+            por_camada[w].append(p)
+
+    # La madurez se mide contra HOY y no contra la semana elegida en el panel:
+    # lo que limita a una camada es cuánto tiempo real pasó desde que entró, no
+    # qué semana se esté mirando.
+    hoy = local_date(datetime.utcnow())
+    filas: dict[date, dict] = {}
+    for w in semanas:
+        miembros = por_camada.get(w, [])
+        activados = [p for p in miembros if p["id"] in activos]
+        reclutas = sum(len(traidos_por.get(p["id"], ())) for p in miembros)
+        reclutas_act = sum(
+            1 for p in activados for r in traidos_por.get(p["id"], ())
+            if r["id"] in activos)
+        filas[w] = {
+            "label": w.strftime("%d/%m"),
+            "week": w.isoformat(),
+            "n": len(miembros),
+            "n_act": len(activados),
+            "reclutas": reclutas,
+            "reclutas_act": reclutas_act,
+            "k": round(reclutas / len(miembros), 2) if miembros else None,
+            "k_act": round(reclutas_act / len(activados), 2) if activados else None,
+            # La camada cierra siete días después de abrirse, y a partir de ahí
+            # le quedan `MADURACION_DIAS` para terminar de reclutar.
+            "madura": hoy >= w + timedelta(days=7 + MADURACION_DIAS),
+        }
+    return filas
+
+
+def camadas(data: dict, week: date) -> dict:
+    """Las camadas desde la primera del panel hasta la elegida.
+
+    Todas y no las últimas cuatro, por lo mismo que la curva de activación: con
+    cuatro puntos una tendencia no se distingue de un rebote, y el numerador de
+    esto es de un dígito por camada.
+    """
+    semanas: list[date] = []
+    w = FIRST_WEEK
+    while w <= week:
+        semanas.append(w)
+        w += timedelta(weeks=1)
+    if not semanas:
+        semanas = [week]
+    filas = _camadas(data, semanas)
+    return {
+        "filas": [filas[w] for w in semanas],
+        "maduracion_dias": MADURACION_DIAS,
+    }
 
 
 # ── 6 · Experimentos ─────────────────────────────────────────────────────────
@@ -1721,7 +1754,8 @@ def build(db: DBSession, week: date, weeks_shown: int = 4,
         "profundidad": profundidad(data, weeks, corte=corte),
         "push": push(data, weeks),
         "mails": mails(data, weeks),
-        "reclutas": reclutas(data, weeks, week),
+        "reclutas": reclutas(data, weeks),
+        "camadas": camadas(data, week),
         "experimentos": experimentos(data),
         "evolucion": evolucion(data, week, metrica),
         "difusion": difusion(data),

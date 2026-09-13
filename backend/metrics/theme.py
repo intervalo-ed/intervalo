@@ -152,6 +152,10 @@ th{color:var(--muted);font-weight:600;font-size:11px;letter-spacing:.04em;
   text-transform:uppercase}
 tbody tr:last-child td{border-bottom:0}
 td.dim{color:var(--muted)}
+/* La aclaracion chica adentro de una celda: el n de un porcentaje, el estado
+   de una camada. Estaba en uso sin estar definida, asi que se veia del mismo
+   cuerpo y color que el dato al que acompania. */
+td .sub2{color:var(--muted);font-size:11.5px;font-weight:400}
 
 /* Chip de universidad: el mismo del ranking del juego
    (web/src/components/university-tag.tsx). */
