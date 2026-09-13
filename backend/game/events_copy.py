@@ -223,8 +223,12 @@ _TOP = [
     "{a} llegó al top $n.",
 ]
 
+# La primera va SIN el puesto de origen aunque lo tenga a mano: «entró al top 50
+# desde el puesto 84» arranca con un verbo de llegada y lo termina con uno de
+# partida, y se traba. Las otras tres nacen del verbo correcto para eso —saltó,
+# subió, escaló— y ahí el puesto entra solo.
 _TOP_DESDE = [
-    "{a} entró al top $n desde el puesto $desde.",
+    "{a} entró al top $n.",
     "{a} saltó del puesto $desde al top $n.",
     "{a} subió del puesto $desde al top $n.",
     "{a} escaló del puesto $desde al top $n.",
