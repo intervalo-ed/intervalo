@@ -42,6 +42,7 @@ sys.path.insert(0, str(BACKEND.parent))
 import database  # noqa: E402
 from models import (  # noqa: E402
     Base, Course, GameAttempt, GameBoost, GameCtaEvent, GameEvent, GameExercise,
+    GameGroup,
     GameNotificationSend, GamePlayer, GamePushSubscription, User,
 )
 
@@ -242,6 +243,25 @@ s.add(GameCtaEvent(player_id=1, cta="share", action="click", created_at=T(0, 15,
 # Un CTA del bot, que tampoco puede contar.
 s.add(GameCtaEvent(player_id=9, cta="cafecito", action="click", created_at=T(0, 15)))
 
+# ── Difusión ─────────────────────────────────────────────────────────────────
+# Cuatro grupos del tracker, y el cuarto es el que importa: recibió dx pero ANTES
+# del piso del panel, así que sus mil miembros no pueden entrar al denominador.
+# Sus jugadores quedaron del otro lado del corte y nunca se cargan, así que
+# contarlo sería dividir por gente sin ninguna posibilidad de tener numerador.
+for gid, cl, miembros, envio in [
+    ("uba001", "analisis", 100, WEEK),
+    ("uba002", "generico", 200, WEEK),
+    ("uba003", None, 50, WEEK),
+    ("uba004", "analisis", 1000, q.FIRST_WEEK - timedelta(days=1)),
+]:
+    s.add(GameGroup(id=gid, universidad="UBA", cluster="Ingeniería", materia="AM II",
+                    miembros=miembros, ultimo_envio=envio, ultima_campana="juego",
+                    producto="dx", cluster_dx=cl, fuente="Grupos"))
+# Quién vino de dónde: dos por el de análisis, uno por el genérico, uno por el
+# que no tiene copia anotada.
+for pid, gid in [(1, "uba001"), (2, "uba001"), (3, "uba002"), (4, "uba003")]:
+    s.query(GamePlayer).filter(GamePlayer.id == pid).update({"first_group_id": gid})
+
 # ── Re-enganche ──────────────────────────────────────────────────────────────
 # p1 registrado: su preferencia vive en `users` (es el titular del cupo).
 # p2 invitado: la suya vive en su propia fila.
@@ -302,6 +322,24 @@ check("los estudiantes sembrados se excluyen", len(data["players"]) == 6,
 check("sus ejercicios también", all(e["player_id"] != 9 for e in data["exercises"]))
 check("sus respuestas también", all(a["player_id"] != 9 for a in data["attempts"]))
 check("sus CTA también", all(c["player_id"] != 9 for c in data["cta"]))
+# ── El corte de la primera camada oficial ─────────────────────────────────
+# `FIRST_WEEK` dejó de ser solo el piso de lo que el panel OFRECE y pasó a ser
+# el piso de lo que `load` TRAE: las camadas de prueba de humo no entran en
+# ningún número, ni siquiera en los acumulados «de siempre» como el top de
+# reclutadores o el embudo del cafecito. El escenario baja el piso ocho semanas
+# (arriba de todo), así que p5 —de cuatro semanas antes— sigue adentro; lo que
+# se prueba acá es que el corte EXISTE y por dónde pasa.
+_previo = q.FIRST_WEEK - timedelta(weeks=1)
+check("lo anterior a la primera camada oficial no se carga",
+      all(q.local_date(p["created_at"]) >= q.FIRST_WEEK for p in data["players"]),
+      f'(piso {q.FIRST_WEEK}, el más viejo '
+      f'{min(q.local_date(p["created_at"]) for p in data["players"])})')
+check("y se informa cuántos quedaron afuera", "_previos" in data)
+# Los cafecitos no tienen jugador, así que se cortan por fecha y no por camada.
+check("los cafecitos también se cortan",
+      all(q.local_date(b["created_at"]) >= q.FIRST_WEEK for b in data["boosts"]),
+      f'({len(data["boosts"])} boosts)')
+
 check("se informa cuántos se sacaron", data["_bots"] == 1)
 
 # ── 2 · Qué es una respuesta ─────────────────────────────────────────────────
@@ -332,17 +370,12 @@ h = {c["label"]: c for cards in REPARTO.values() for c in cards}
 # recién el lunes siguiente, así que su respuesta cae en la semana de al lado.
 check("usuarios nuevos de la semana", h["Usuarios nuevos"]["value"] == 5,
       f'({h["Usuarios nuevos"]["value"]}, los cuatro que jugaron + el que rebotó)')
-# Los ÚNICOS son personas, no tandas: p1 entra el día 0 y vuelve dos horas
-# después, y sigue siendo UNO. Es la diferencia con la métrica que estaba antes
-# —visitas, que contaba tandas— y el motivo del cambio: «cuántas personas
-# distintas abrieron el juego» es la pregunta de volumen que se quería contestar.
-check("los únicos cuentan personas y no tandas",
-      h["Usuarios únicos"]["value"] == 6,
-      f'({h["Usuarios únicos"]["value"]}, esperaba los 5 nuevos + p0)')
-# Y nunca puede haber menos únicos que nuevos: todo nuevo es, por definición,
-# alguien que se asomó esa semana.
-check("y nunca son menos que los nuevos",
-      h["Usuarios únicos"]["value"] >= h["Usuarios nuevos"]["value"])
+# «Usuarios únicos» —personas distintas que se asomaron, nuevas y viejas— salió
+# del panel: contra el corte de la primera camada oficial casi no le queda gente
+# vieja que agregar, así que daba 977 contra 968 nuevos. Nueve personas de
+# diferencia y una tarjeta entera para decirlas.
+check("«usuarios únicos» ya no está", "Usuarios únicos" not in h,
+      f"({sorted(h)[:4]}…)")
 
 # La activación es el OMTM: de los nuevos, cuántos llegaron a responder. p1, p2 y
 # p4 respondieron en la semana; p3 recién el lunes siguiente, pero su alta es de
@@ -479,10 +512,12 @@ check("la duración de la 1ª sesión sale en minutos",
 
 # El reparto es la parte que se puede romper sin que nadie lo note: una tarjeta
 # que se cae del dict desaparece de la página y ninguna consulta falla por eso.
-check("son veinte números", len(h) == 20, f"({len(h)})")
-check("repartidos de a cuatro en cinco grupos",
+check("son diecinueve números", len(h) == 19, f"({len(h)})")
+# Activación queda en tres por lo mismo que Retención quedó en cuatro y no en
+# cinco: la grilla se llena con los números que hacen falta, no al revés.
+check("repartidos de a cuatro salvo activación, que tiene tres",
       {k: len(v) for k, v in REPARTO.items()}
-      == {"activacion": 4, "retencion": 4, "monetizacion": 4, "reclutas": 4,
+      == {"activacion": 3, "retencion": 4, "monetizacion": 4, "reclutas": 4,
           "jugabilidad": 4},
       f"({ {k: len(v) for k, v in REPARTO.items()} })")
 # El cafecito se mudó a Monetización y no quedó en los dos lados. Y el primero
@@ -510,40 +545,6 @@ check("la duración va al lado de las derivadas de esa misma tanda",
       abs(etiquetas_prof.index("1ª sesión")
           - etiquetas_prof.index("Duración 1ª sesión")) == 1,
       f"({etiquetas_prof})")
-
-# ── 4 · Evolución semanal ────────────────────────────────────────────────────
-# El embudo de la partida se fue del panel: sus primeros pasos son los números
-# de la fila de activación (nuevos → activados), «llegó a k» es la curva de
-# profundidad y «se registró» y «volvió otro día» son Retención. Quedaba
-# diciendo tres veces lo mismo, así que se borró con su consulta.
-print()
-print("— evolución —")
-ev = q.evolucion(data, WEEK)
-check("arranca en la tasa de activación", ev["metrica"] == "activacion",
-      f'({ev["metrica"]})')
-check("una métrica que no existe cae en esa misma",
-      q.evolucion(data, WEEK, "inventada")["metrica"] == "activacion")
-# La serie va desde la primera semana del panel hasta la elegida, no las últimas
-# cuatro: con cuatro puntos una tendencia no se distingue de un rebote.
-semanas_esperadas = (WEEK - q.FIRST_WEEK).days // 7 + 1
-check("la serie cubre toda la historia hasta la semana elegida",
-      len(ev["filas"]) == semanas_esperadas,
-      f'({len(ev["filas"])} semanas, esperaba {semanas_esperadas})')
-check("y termina en la semana elegida",
-      ev["filas"][-1]["week"] == WEEK.isoformat())
-# Las cuatro curvas existen sobre las mismas filas: se elige cuál se dibuja, no
-# se recalcula nada.
-ultima = ev["filas"][-1]
-check("cada fila trae los cuatro números",
-      all(k in ultima for k in ("unicos", "nuevos", "activados", "activacion")))
-check("los activados nunca superan a los nuevos",
-      all(f["activados"] <= f["nuevos"] for f in ev["filas"]))
-check("y los únicos nunca son menos que los nuevos",
-      all(f["unicos"] >= f["nuevos"] for f in ev["filas"]))
-# El sufijo va con la métrica: sin esto el porcentaje se dibujaría sin el % y
-# los conteos con él.
-check("el porcentaje lleva su unidad y los conteos no",
-      ev["suffix"] == "%" and q.evolucion(data, WEEK, "nuevos")["suffix"] == "")
 
 # ── 5 · Profundidad ──────────────────────────────────────────────────────────
 print("\n— profundidad —")
@@ -841,6 +842,17 @@ check("la tabla de camadas trae los dos numeradores y los dos denominadores",
 # contra falso y pasaría con el marcado roto. Se fuerza el otro lado moviendo
 # la ventana de maduración, que es el único parámetro de la regla.
 _cm = q.build(s, WEEK)["camadas"]["filas"]
+# Con una camada sola no se dibuja curva: sería un punto suelto para un número
+# que la tabla ya trae entero. El escenario tiene nueve, así que acá se prueba
+# el lado que sí dibuja, y abajo el que no.
+_una = q.build(s, q.FIRST_WEEK)
+_h_una = game_render.page(_una, token="tok", seccion="activacion")
+check("una camada sola no dibuja curva de K",
+      len(_una["camadas"]["filas"]) == 1
+      and "una camada sola no hace una curva" in _h_una,
+      f'({len(_una["camadas"]["filas"])} camadas)')
+check("pero la tabla la trae igual", "La cuenta, camada por camada" in _h_una)
+
 check("con el escenario de agosto están todas cerradas",
       all(c["madura"] for c in _cm), f"({len(_cm)} camadas)")
 def _huecos(pagina: str) -> int:
@@ -887,65 +899,54 @@ _ejes = [t for t in _re.findall(r">([0-9][0-9.,]*)<",
 check("las marcas del eje de K no se repiten",
       len(set(_ejes)) >= 4, f"({_ejes})")
 
-# ── 6a-bis · La curva de retención ─────────────────────────────────────────
+# ── 6a-ter · Difusión ──────────────────────────────────────────────────────
 print()
-print("— curva de retención —")
+print("— difusión —")
 
-rt = q.retencion(data, WEEK)
-check("arranca en la vuelta y no en el volumen", rt["metrica"] == "vuelven",
-      f'({rt["metrica"]})')
-check("una métrica que no existe cae en esa misma",
-      q.retencion(data, WEEK, "inventada")["metrica"] == "vuelven")
-check("la serie cubre toda la historia hasta la camada elegida",
-      len(rt["filas"]) == 9, f'({len(rt["filas"])} semanas)')
-check("y termina en la camada elegida", rt["filas"][-1]["week"] == WEEK.isoformat())
-# Los dos términos de cada tasa viajan en la fila: una tasa sin su numerador y
-# su denominador no se puede auditar, y estas viven abajo del 15%.
-f_hoy = rt["filas"][-1]
-check("cada fila trae los numeradores además de las tasas",
-      f_hoy["n_vuelven"] == 1 and f_hoy["n_registran"] == 2
-      and f_hoy["n_instalan"] == 1 and f_hoy["activados"] == 4,
-      f"({f_hoy})")
-check("y ningún numerador puede superar al denominador",
-      all(f["n_vuelven"] <= f["activados"] and f["n_registran"] <= f["activados"]
-          and f["n_instalan"] <= f["activados"] for f in rt["filas"]))
-# Una camada sin activados da vacío y no cero: dividir por cero no es cero.
-vacias_r = [f for f in rt["filas"] if f["activados"] == 0]
-check("una camada sin activados da vacío, no cero",
-      bool(vacias_r) and all(f["vuelven"] is None and f["registran"] is None
-                             and f["instalan"] is None for f in vacias_r),
-      f"({len(vacias_r)} camadas sin nadie que jugara)")
-# La ventana de maduración es propia de cada métrica: instalar tiene una cola
-# mucho más larga que registrarse, así que una camada puede estar cerrada para
-# una y todavía abierta para la otra. Se prueba contra HOY, que es lo que la
-# limita.
-_hoy_r = q.week_start(q.local_date(datetime.utcnow()))
-_madura_hoy = q._camadas_retencion(data, [_hoy_r])[_hoy_r]["madura"]
-check("la camada en curso no está madura para ninguna métrica",
-      not any(_madura_hoy.values()), f"({_madura_hoy})")
-# Una de hace dos semanas ya cerró para volver (ventana 8 días) pero todavía no
-# para instalar (14). Si las dos ventanas fueran una sola, esto daría igual.
-_dos = _hoy_r - timedelta(weeks=2)
-_madura_dos = q._camadas_retencion(data, [_dos])[_dos]["madura"]
-check("y a las dos semanas cerró la vuelta pero no la instalación",
-      _madura_dos["vuelven"] and not _madura_dos["instalan"],
-      f"({_madura_dos})")
+di = q.difusion(data)
+# El corte, que es el defecto que este bloque existe para que no vuelva: desde
+# que el panel arranca en la primera camada oficial, un grupo al que se le mandó
+# dx en agosto sigue marcado como dx y sigue teniendo miembros, pero sus
+# jugadores ya no se cargan. Contarlo hunde el clickrate por un motivo que no
+# tiene nada que ver con la difusión.
+check("el grupo mandado antes del piso no entra al denominador",
+      di["global"]["miembros"] == 350,
+      f'({di["global"]["miembros"]}, con el de agosto serían 1.350)')
+check("y tampoco cuenta como grupo", di["global"]["grupos"] == 3,
+      f'({di["global"]["grupos"]})')
 
-h_ret = game_render.page(q.build(s, WEEK), token="tok", seccion="retencion")
-check("la curva arranca marcada en la vuelta",
-      '<span class="cur">Vuelven otro día</span>' in h_ret)
-check("y las otras tres se ofrecen como link",
-      all(f"&mr={k}" in h_ret for k in ("activados", "registran", "instalan")))
-# El parámetro es propio y no el de la curva de activación: con uno compartido,
-# pasar por la otra pestaña pisaba la elección de esta.
-check("la curva de activación no comparte parámetro con esta",
-      "&m=" not in h_ret.replace("&mr=", ""))
-h_ret2 = game_render.page(q.build(s, WEEK, metrica_ret="instalan"),
-                          token="tok", seccion="retencion")
-check("elegir otra curva la marca a ella",
-      '<span class="cur">Instalan la app</span>' in h_ret2)
-check("y esa elección viaja en los demás links",
-      h_ret2.count("&mr=instalan") >= 3, f'({h_ret2.count("&mr=instalan")} links)')
+# Las dos copias de la ola. La etiqueta no se infiere de la materia —los cuatro
+# grupos tienen la misma— sino que viene escrita en la fila.
+check("la copia de análisis se mide sola",
+      di["analisis"]["miembros"] == 100 and di["analisis"]["jugadores"] == 2
+      and di["analisis"]["pct"] == 2.0, f'({di["analisis"]})')
+check("la genérica también, y da distinto",
+      di["generico"]["miembros"] == 200 and di["generico"]["jugadores"] == 1
+      and di["generico"]["pct"] == 0.5, f'({di["generico"]})')
+# Los cuatro grupos comparten materia «AM II»: si la etiqueta se estuviera
+# adivinando por ahí, los tres caerían en el mismo cubo.
+check("y no sale de la materia, que es la misma en los cuatro",
+      di["analisis"]["grupos"] == 1 and di["generico"]["grupos"] == 1)
+# El que no tiene copia anotada no se reparte a ojo ni desaparece.
+check("el grupo sin copia va a su propia fila",
+      di["sin_copia"]["grupos"] == 1 and di["sin_copia"]["miembros"] == 50
+      and di["sin_copia"]["jugadores"] == 1, f'({di["sin_copia"]})')
+check("y los tres cubos suman el global",
+      di["analisis"]["miembros"] + di["generico"]["miembros"]
+      + di["sin_copia"]["miembros"] == di["global"]["miembros"])
+
+h_dif = game_render.page(q.build(s, WEEK), token="tok", seccion="activacion")
+check("los cuatro números salen intercalados, audiencia y su clickrate",
+      [e for e in ("Audiencia · análisis", "Clickrate · análisis",
+                   "Audiencia · genérico", "Clickrate · genérico")
+       if f'<div class="label">{e}</div>' in h_dif]
+      == ["Audiencia · análisis", "Clickrate · análisis",
+          "Audiencia · genérico", "Clickrate · genérico"])
+check("y el global pasa a la nota, que es donde no compite con ellos",
+      '<div class="label">Gente alcanzada</div>' not in h_dif
+      and "El conjunto da" in h_dif)
+check("la nota dice cuántos quedaron sin copia anotada",
+      "sin copia anotada" in h_dif)
 
 
 # ── 6b-bis · Monetización ──────────────────────────────────────────────────
@@ -1178,7 +1179,7 @@ check("que además avisa por qué le falta la segunda línea",
 # Una marca por pestaña: un título que solo aparece en ELLA. Con cuatro
 # secciones por pestaña no alcanza con contar `<h2>`, hay que mirar cuál es.
 titulos = {"activacion": "Difusión: a cuánta gente se llegó",
-           "retencion": "Re-enganche · push",
+           "retencion": "Re-enganche · mails de ciclo de vida",
            "jugabilidad": "Calibración del motor",
            "monetizacion": "Dónde se pide el cafecito",
            "experimentacion": "Experimentos"}

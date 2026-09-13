@@ -2480,20 +2480,17 @@ def panel_page(token: str, w: str | None = None, db: Session = Depends(get_db)):
 _game_panel_cache: dict[str, tuple[float, dict]] = {}
 
 
-def _game_panel_payload(week, db: Session, corte: str = "total",
-                        metrica: str = "activacion",
-                        metrica_ret: str = "vuelven") -> dict:
+def _game_panel_payload(week, db: Session, corte: str = "total") -> dict:
     from metrics import game_queries
 
     # La clave lleva el corte: el desglose cambia el payload, y sin esto pasar
     # de «por universidad» a «por aparato» devolvía el gráfico anterior durante
     # dos minutos.
-    key = f"{week.isoformat()}:{corte}:{metrica}:{metrica_ret}"
+    key = f"{week.isoformat()}:{corte}"
     hit = _game_panel_cache.get(key)
     if hit and time.time() - hit[0] < _PANEL_TTL_SECONDS:
         return hit[1]
-    payload = game_queries.build(db, week, corte=corte, metrica=metrica,
-                                 metrica_ret=metrica_ret)
+    payload = game_queries.build(db, week, corte=corte)
     # Se guardan los últimos cuatro y no uno solo: los cuatro cortes son links
     # de la misma barra y se recorren de a uno, así que con una sola ranura cada
     # click volvía a recorrer todas las tablas.
@@ -2528,15 +2525,13 @@ def _game_panel_week(w: str | None):
 
 @app.get("/panel/{token}/dx", response_class=HTMLResponse, include_in_schema=False)
 def game_panel_page(token: str, w: str | None = None, s: str = "activacion",
-                    corte: str = "total", m: str = "activacion",
-                    mr: str = "vuelven", db: Session = Depends(get_db)):
+                    corte: str = "total", db: Session = Depends(get_db)):
     from metrics.game_render import page as game_page
 
     _require_panel_token(token)
     week = _game_panel_week(w)
     return HTMLResponse(
-        game_page(_game_panel_payload(week, db, corte, m, mr),
-                  token=token, seccion=s),
+        game_page(_game_panel_payload(week, db, corte), token=token, seccion=s),
         headers=_PANEL_HEADERS,
     )
 

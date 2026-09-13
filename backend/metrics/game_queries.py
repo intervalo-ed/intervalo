@@ -129,19 +129,26 @@ def _franja(dt: datetime) -> str:
 # cafecitos eran grants a mano.
 DONADO = "cafecito"
 
-# Primera semana que el panel del juego muestra: la de la difusión.
+# Primera camada oficial de dx: la semana del 07/09/2026.
 #
-# Antes de esto el juego existía pero no lo había abierto nadie, así que todas
-# las cohortes anteriores son ceros estructurales. Ceros que igual se dibujan:
-# el sparkline arrancaba con tres semanas planas, cada titular decía «+72 vs.
-# semana anterior» comparando contra una semana en la que el producto no estaba
-# difundido, y las métricas de tasa quedaban en «sin base». Nada de eso es
-# información — es la ausencia de producto con formato de tendencia.
+# Las dos anteriores —24/08 y 31/08, 136 jugadores entre las dos— fueron pruebas
+# de humo: se mandó a un puñado de grupos para ver si el juego aguantaba, con el
+# producto todavía cambiando abajo. Mezclarlas con la primera camada de verdad
+# no es conservador, es peor: son 136 personas contra 968, con un producto
+# distinto, y arrastran todos los promedios sin aportar una sola decisión.
 #
-# El piso es del PANEL, no de los datos: si alguna vez hay filas anteriores, las
-# consultas las cuentan igual. Lo único que se corta es ofrecer esas semanas
-# como si fueran comparables. Mismo criterio que FIRST_WEEK en metrics/queries.py.
-FIRST_WEEK = date(2026, 8, 24)
+# **Y acá el piso NO es solo del panel: es de los datos.** Antes cortaba qué
+# semanas se ofrecían y las consultas contaban igual las filas viejas, así que
+# los acumulados «de siempre» —el top de reclutadores, los carteles, el embudo
+# del cafecito— seguían mezclando la prueba de humo con el lanzamiento. Ahora
+# `load` no las trae: el corte se aplica una vez, en un solo lugar, como el de
+# los bots.
+#
+# El corte es limpio, medido antes de aplicarlo: de los 142 reclutas de la
+# camada oficial, CERO fueron traídos por alguien anterior al corte, así que no
+# queda ningún `referred_by` colgando. Y solo 5 jugadores viejos respondieron
+# algo después del corte.
+FIRST_WEEK = date(2026, 9, 7)
 
 
 def clamp_week(w: date) -> date:
@@ -206,7 +213,7 @@ def load(db: DBSession) -> dict:
         # el denominador del clickrate y lo único que no sale de esta base.
         "grupos": _rows(db, """
             SELECT id, universidad, cluster, materia, miembros, ultimo_envio,
-                   ultima_campana, producto, synced_at
+                   ultima_campana, producto, cluster_dx, synced_at
             FROM game_groups"""),
         # Los avisos push del juego y los navegadores suscriptos. Las dos tablas
         # son chicas por construcción —una fila por envío y una por navegador—
@@ -237,14 +244,25 @@ def load(db: DBSession) -> dict:
 
     # Los bots se sacan UNA vez, acá, y no en cada bloque: filtrar en diez
     # lugares es la forma segura de olvidarse en el undécimo.
+    # Fuera en UN lugar y no en cada bloque, por lo mismo que los bots: filtrar
+    # en diez lugares es la forma segura de olvidarse en el undécimo. Se van los
+    # bots y se va todo lo anterior a la primera camada oficial (ver FIRST_WEEK).
+    fuera = {p["id"] for p in data["players"]
+             if p["is_bot"] or (local_date(p["created_at"]) or date.max) < FIRST_WEEK}
     bots = {p["id"] for p in data["players"] if p["is_bot"]}
-    data["players"] = [p for p in data["players"] if not p["is_bot"]]
-    data["exercises"] = [e for e in data["exercises"] if e["player_id"] not in bots]
-    data["attempts"] = [a for a in data["attempts"] if a["player_id"] not in bots]
-    data["cta"] = [c for c in data["cta"] if c["player_id"] not in bots]
-    data["avisos"] = [a for a in data["avisos"] if a["player_id"] not in bots]
-    data["suscripciones"] = [x for x in data["suscripciones"] if x["player_id"] not in bots]
+    data["players"] = [p for p in data["players"] if p["id"] not in fuera]
+    data["exercises"] = [e for e in data["exercises"] if e["player_id"] not in fuera]
+    data["attempts"] = [a for a in data["attempts"] if a["player_id"] not in fuera]
+    data["cta"] = [c for c in data["cta"] if c["player_id"] not in fuera]
+    data["avisos"] = [a for a in data["avisos"] if a["player_id"] not in fuera]
+    data["suscripciones"] = [x for x in data["suscripciones"] if x["player_id"] not in fuera]
+    # Los cafecitos no tienen jugador —`game_boosts` guarda nombre, universidad y
+    # monto, y nada más— así que se cortan por fecha. Es el mismo corte: la plata
+    # que entró durante la prueba de humo no es plata del lanzamiento.
+    data["boosts"] = [b for b in data["boosts"]
+                      if (local_date(b["created_at"]) or date.min) >= FIRST_WEEK]
     data["_bots"] = len(bots)
+    data["_previos"] = len(fuera) - len(bots)
 
     # Respuestas de verdad: las que el parser entendió. Se ordenan una sola vez
     # porque la supervivencia, las sesiones y la escalera de θ recorren la misma
@@ -260,8 +278,8 @@ def load(db: DBSession) -> dict:
 def _weeks_back(week: date, n: int) -> list[date]:
     """La semana elegida y las n-1 anteriores, de más vieja a más nueva.
 
-    Corta en `FIRST_WEEK`: antes de la difusión el juego no tenía a nadie, y esas
-    semanas vacías no son una caída sino la ausencia de producto."""
+    Corta en `FIRST_WEEK`: antes de la primera camada oficial el juego estaba en
+    prueba de humo, y esas semanas no son una caída sino otro producto."""
     ws = [week - timedelta(weeks=i) for i in range(n - 1, -1, -1)]
     return [w for w in ws if w >= FIRST_WEEK] or [week]
 
@@ -269,6 +287,24 @@ def _weeks_back(week: date, n: int) -> list[date]:
 def _in_week(dt: datetime | None, week: date) -> bool:
     d = local_date(dt)
     return d is not None and week <= d <= week + timedelta(days=6)
+
+
+def _fecha_de(v) -> date | None:
+    """Una columna DATE, venga como venga del driver.
+
+    Postgres devuelve `date` y SQLite devuelve el string ISO, porque `_rows`
+    ejecuta SQL crudo y no pasa por el tipado del modelo. Comparar sin
+    normalizar rompe en local y anda en producción, que es la forma más cara de
+    tener un bug.
+    """
+    if v is None or isinstance(v, date) and not isinstance(v, datetime):
+        return v
+    if isinstance(v, datetime):
+        return v.date()
+    try:
+        return date.fromisoformat(str(v)[:10])
+    except ValueError:
+        return None
 
 
 def _semanas_hasta(week: date) -> list[date]:
@@ -358,33 +394,6 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
     """
     players = data["players"]
     answers = data["_answers"]
-
-    # ── Quién estuvo cada semana ────────────────────────────────────────
-    # No hay tabla de visitas: el juego no registra un pageview, registra lo que
-    # la persona HACE. Así que "ingresó" se arma con toda huella fechada que deja
-    # una visita —el alta, un ejercicio servido, una respuesta, un cartel visto—
-    # más `last_seen_at`, que es lo único que deja quien volvió y no tocó nada.
-    #
-    # Lo que esto NO ve: alguien que ya existía, vuelve a abrir la página, no hace
-    # nada, y otra semana vuelve y sí juega. Su primera vuelta se pierde, porque
-    # `last_seen_at` es un solo instante y se lo lleva la segunda. Los pageviews
-    # de verdad los tiene PostHog; acá el número es un piso, nunca un techo.
-    visto: dict[date, set[int]] = defaultdict(set)
-
-    def marcar(pid: int, cuando) -> None:
-        w = _week_of(cuando)
-        if w is not None:
-            visto[w].add(pid)
-
-    for p in players:
-        marcar(p["id"], p["created_at"])
-        marcar(p["id"], p["last_seen_at"])
-    for e in data["exercises"]:
-        marcar(e["player_id"], e["created_at"])
-    for a in data["attempts"]:
-        marcar(a["player_id"], a["created_at"])
-    for c in data["cta"]:
-        marcar(c["player_id"], c["created_at"])
 
     por_jugador: dict[int, list[dict]] = defaultdict(list)
     for a in answers:
@@ -529,21 +538,6 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
         ]
         return _median(valores)
 
-    def unicos(w: date) -> int:
-        """Cuántas PERSONAS distintas se asomaron esa semana.
-
-        Es la métrica de volumen del panel, y es deliberadamente vanidosa: no
-        decide nada por sí sola —sube si se difunde más— pero sin ella no se
-        sabe si un porcentaje se calculó sobre treinta personas o sobre mil.
-
-        No confundir con visitas: la misma persona que entra el lunes y el
-        jueves es UNA acá y DOS allá. Y es un piso, no un número exacto: se arma
-        con toda huella fechada que deja una visita, así que quien vuelve a
-        abrir la página y no toca nada solo aparece si `last_seen_at` cayó en
-        esa semana.
-        """
-        return len(visto.get(w, ()))
-
     def activados(w: date) -> int:
         """De los nuevos de la semana, cuántos respondieron al menos una.
 
@@ -564,16 +558,15 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
                 "delta": delta, "hint": hint, "dec": dec}
 
     return {
-        # Activación · quién llega y quién trae gente. Los dos primeros son
-        # métricas de volumen —vanidosas y a propósito: sirven para saber con
-        # cuánta gente se está jugando, no para decidir— y los dos últimos son
-        # el canal que no depende de que difundamos nosotros.
+        # Activación · quién llega y qué fracción arranca. Tres y no cuatro:
+        # «usuarios únicos» —personas distintas que se asomaron, nuevas y
+        # viejas— salió del panel. Contra el corte de la primera camada
+        # oficial casi no tiene gente vieja que agregar, así que daba 977
+        # contra 968 nuevos: nueve personas de diferencia y una tarjeta entera
+        # para decirlas. El primero es volumen, deliberadamente vanidoso —no
+        # decide nada solo, pero sin él no se sabe si un porcentaje salió de
+        # treinta personas o de mil— y el último es el OMTM.
         "activacion": [
-            card("Usuarios únicos", per_week(unicos), "",
-                 "Cuántas personas distintas se asomaron al juego esa semana, nuevas "
-                 "y viejas. La misma persona que entra el lunes y el jueves cuenta "
-                 "UNA. Es un piso: quien vuelve a abrir y no toca nada solo deja "
-                 "rastro por `last_seen_at`."),
             card("Usuarios nuevos", per_week(altas), "",
                  "Abrieron el link por primera vez esa semana, y son la cohorte del "
                  "embudo de abajo. La fila se crea al CARGAR la página, así que "
@@ -605,14 +598,19 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
                  "De esos, cuántos respondieron algo en un segundo día distinto. "
                  "Días y no sentadas —eso está en Jugabilidad— y por respuesta y "
                  "no por visita: volver a abrir la página sin tocar nada es un "
-                 "rebote con más pasos.", dec=1),
+                 "rebote con más pasos. La camada en curso lo tiene incompleto: "
+                 "el 76% de las vueltas llega al día siguiente, pero la más "
+                 "tardía de las 50 medidas tardó 8 días.", dec=1),
             card("Se registran", per_week(lambda w: ret[w]["registran"]), "%",
-                 "De los activados, cuántos dejaron de ser invitados.", dec=1),
+                 "De los activados, cuántos dejaron de ser invitados. Casi todos "
+                 "al toque —mediana 15 minutos— pero la cola llega a 7,8 días, "
+                 "así que la camada en curso todavía suma.", dec=1),
             card("Instalan la app", per_week(lambda w: ret[w]["instalan"]), "%",
                  "De los activados, cuántos la abrieron ya instalada. Es la única "
-                 "medida de si la diapo de la pantalla de inicio sirve. Ojo con "
-                 "leerlo como tendencia: son 16 en toda la vida del producto, así "
-                 "que la serie se mueve entera con una persona.", dec=1),
+                 "medida de si la diapo de la pantalla de inicio sirve. La más "
+                 "lenta de las tres en cerrar: mediana 10 horas pero cola de 13,4 "
+                 "días. Y son 16 instalaciones en toda la vida del producto, así "
+                 "que una persona mueve el número entero.", dec=1),
         ],
         # Monetización · el pedido de cafecito de punta a punta, en el orden en
         # que ocurre al revés: primero la plata que entró y después las dos
@@ -1281,17 +1279,6 @@ def camadas(data: dict, week: date) -> dict:
 # que volver a medirlos cuando haya camadas de dos meses. Mientras tanto sirven
 # para lo único que se usan acá, que es marcar qué punto de la curva todavía
 # está sumando y no se puede leer como una caída.
-METRICAS_RETENCION: tuple[tuple[str, str, str, int], ...] = (
-    ("activados", "Activados de la camada", "", 1),
-    ("vuelven", "Vuelven otro día", "%", 8),
-    ("registran", "Se registran", "%", 8),
-    ("instalan", "Instalan la app", "%", 14),
-)
-# La vuelta y no el volumen: es la única de las cuatro que no se mueve sola con
-# cuánto se difunda, y es la pregunta que la pestaña existe para contestar.
-METRICA_RETENCION_POR_DEFECTO = "vuelven"
-
-
 def _camadas_retencion(data: dict, semanas: list[date]) -> dict[date, dict]:
     """Qué hizo cada camada después de arrancar, sobre los que arrancaron.
 
@@ -1332,7 +1319,6 @@ def _camadas_retencion(data: dict, semanas: list[date]) -> dict[date, dict]:
         if w is not None and p["id"] in activos:
             por_camada[w].append(p)
 
-    hoy = local_date(datetime.utcnow())
     filas: dict[date, dict] = {}
     for w in semanas:
         act = por_camada.get(w, [])
@@ -1350,31 +1336,9 @@ def _camadas_retencion(data: dict, semanas: list[date]) -> dict[date, dict]:
             "vuelven": _pct(vuelven, n),
             "registran": _pct(registran, n),
             "instalan": _pct(instalan, n),
-            # Una ventana por métrica y no una sola: instalar tiene una cola
-            # mucho más larga que registrarse, y una camada puede estar cerrada
-            # para una cosa y todavía sumando para la otra.
-            "madura": {clave: hoy >= w + timedelta(days=7 + dias)
-                       for clave, _, _, dias in METRICAS_RETENCION},
         }
     return filas
 
-
-def retencion(data: dict, week: date,
-              metrica: str = METRICA_RETENCION_POR_DEFECTO) -> dict:
-    """Los cuatro números de retención, camada por camada, desde el principio.
-
-    Una por vez y no las cuatro juntas, por lo mismo que la curva de activación:
-    tres son porcentajes que viven abajo del 15% y la cuarta es un conteo que
-    llega a los cientos. En el mismo eje las tres primeras quedarían pegadas al
-    piso, que es justo donde hay que poder verlas moverse.
-    """
-    claves = {m for m, _, _, _ in METRICAS_RETENCION}
-    metrica = metrica if metrica in claves else METRICA_RETENCION_POR_DEFECTO
-    semanas = _semanas_hasta(week)
-    filas = _camadas_retencion(data, semanas)
-    etiqueta, sufijo = next((e, s) for m, e, s, _ in METRICAS_RETENCION if m == metrica)
-    return {"metrica": metrica, "etiqueta": etiqueta, "suffix": sufijo,
-            "filas": [filas[w] for w in semanas]}
 
 
 # ── 6 · Experimentos ─────────────────────────────────────────────────────────
@@ -1614,11 +1578,32 @@ def difusion(data: dict) -> dict:
         return {"grupos": len(claves), "miembros": miembros, "jugadores": gente,
                 "pct": _pct(gente, miembros)}
 
-    # Solo los grupos que YA recibieron dx: a los otros nunca se les mandó nada,
-    # y meterlos al denominador diluiría el clickrate con gente que no tuvo
-    # oportunidad de convertir.
+    # Los grupos que recibieron dx **dentro de la ventana del panel**, y no
+    # todos los que alguna vez lo recibieron.
+    #
+    # El `producto == "dx"` solo no alcanza desde que el panel arranca en la
+    # primera camada oficial (ver FIRST_WEEK): un grupo al que se le mandó en
+    # agosto sigue marcado como dx y sigue aportando sus miembros al
+    # denominador, pero sus jugadores son todos anteriores al corte y ya no se
+    # cargan. Son miembros sin ninguna posibilidad de tener numerador, y hunden
+    # el clickrate por un motivo que no tiene nada que ver con la difusión.
     tocados = [g for g, d in grupos.items()
-               if d["producto"] == "dx" and (d["miembros"] or 0) > 0]
+               if d["producto"] == "dx" and (d["miembros"] or 0) > 0
+               and (_fecha_de(d["ultimo_envio"]) or date.min) >= FIRST_WEEK]
+
+    # Las dos copias con las que salió la ola: los grupos donde las derivadas
+    # están en el temario y los demás. La etiqueta la escribe el sync desde los
+    # planes de hermes y no se infiere acá — ver `GameGroup.cluster_dx`, que
+    # tiene medido por qué adivinarla por la materia no alcanza.
+    #
+    # Los que no la tienen NO se reparten a ojo ni se esconden: van a su propia
+    # fila. Son sobre todo los de las primeras tandas, mandados antes de que la
+    # ola se partiera en dos, y decir «no sabemos con cuál» es información —
+    # meterlos en cualquiera de los dos cubos sería inventarla.
+    def copia(clave: str) -> dict:
+        return tasa([g for g in tocados if grupos[g]["cluster_dx"] == clave])
+
+    sin_copia = tasa([g for g in tocados if not grupos[g]["cluster_dx"]])
 
     def agrupar(campo: str) -> list[dict]:
         cubos: dict[str, list[str]] = defaultdict(list)
@@ -1646,6 +1631,10 @@ def difusion(data: dict) -> dict:
                  default=None)
     return {
         "global": tasa(tocados),
+        "analisis": copia("analisis"),
+        "generico": copia("generico"),
+        "sin_copia": sin_copia,
+        "desde": FIRST_WEEK,
         "por_universidad": agrupar("universidad"),
         "por_campana": agrupar("ultima_campana"),
         "top": detalle[:8],
@@ -1861,98 +1850,11 @@ def friccion(data: dict) -> dict:
     }
 
 
-# ── 11 · Evolución semanal de los números de activación ──────────────────────
-
-# Las cuatro curvas que se pueden mirar, con su etiqueta y su unidad. El orden es
-# el de la fila de arriba, y el que viene marcado es el último: los tres primeros
-# son volumen —suben si se difunde más— y el cuarto es el único que dice si el
-# producto mejoró.
-METRICAS: tuple[tuple[str, str, str], ...] = (
-    ("unicos", "Usuarios únicos", ""),
-    ("nuevos", "Usuarios nuevos", ""),
-    ("activados", "Usuarios activados", ""),
-    ("activacion", "Activación", "%"),
-)
-METRICA_POR_DEFECTO = "activacion"
-
-
-def _vistos_por_semana(data: dict) -> dict:
-    """Qué jugadores dejaron alguna huella en cada semana.
-
-    Se arma con toda huella fechada —el alta, `last_seen_at`, un ejercicio, una
-    respuesta, un cartel— porque el juego no registra pageviews: registra lo que
-    la persona HACE. Es un piso, nunca un techo.
-
-    Vive acá afuera porque lo usan dos lugares —los titulares y la curva— y dos
-    copias de esta definición darían dos números distintos para «cuánta gente
-    distinta se asomó».
-    """
-    visto: dict[date, set[int]] = defaultdict(set)
-
-    def marcar(pid, cuando) -> None:
-        w = _week_of(cuando)
-        if w is not None:
-            visto[w].add(pid)
-
-    for p in data["players"]:
-        marcar(p["id"], p["created_at"])
-        marcar(p["id"], p["last_seen_at"])
-    for e in data["exercises"]:
-        marcar(e["player_id"], e["created_at"])
-    for a in data["attempts"]:
-        marcar(a["player_id"], a["created_at"])
-    for c in data["cta"]:
-        marcar(c["player_id"], c["created_at"])
-    return visto
-
-
-def evolucion(data: dict, week: date, metrica: str = METRICA_POR_DEFECTO) -> dict:
-    """Los cuatro números de activación, semana a semana, desde el principio.
-
-    **Desde la primera semana del panel hasta la elegida, no las últimas
-    cuatro.** Es la misma razón que la curva de viralidad: con cuatro puntos una
-    tendencia no se distingue de un rebote, y la pregunta que esta sección
-    contesta —«¿esto está mejorando?»— no se puede contestar con cuatro.
-
-    Se dibuja una por vez y no las cuatro juntas: tres son conteos que llegan a
-    los cientos y la cuarta es un porcentaje. En el mismo eje, el porcentaje
-    quedaría pegado al piso y no se vería moverse — que es justamente el único
-    de los cuatro que dice si el producto mejoró.
-    """
-    metrica = metrica if metrica in {m for m, _, _ in METRICAS} else METRICA_POR_DEFECTO
-    visto = _vistos_por_semana(data)
-    activos = {a["player_id"] for a in data["_answers"]}
-
-    por_semana: dict[date, list[dict]] = defaultdict(list)
-    for p in data["players"]:
-        w = _week_of(p["created_at"])
-        if w is not None:
-            por_semana[w].append(p)
-
-    semanas = _semanas_hasta(week)
-
-    filas = []
-    for w in semanas:
-        nuevos = por_semana.get(w, [])
-        act = sum(1 for p in nuevos if p["id"] in activos)
-        filas.append({
-            "label": w.strftime("%d/%m"),
-            "week": w.isoformat(),
-            "unicos": len(visto.get(w, ())),
-            "nuevos": len(nuevos),
-            "activados": act,
-            "activacion": _pct(act, len(nuevos)),
-        })
-    etiqueta, sufijo = next((e, s) for m, e, s in METRICAS if m == metrica)
-    return {"metrica": metrica, "etiqueta": etiqueta, "suffix": sufijo,
-            "filas": filas}
-
 
 # ── Entrada ──────────────────────────────────────────────────────────────────
 
 def build(db: DBSession, week: date, weeks_shown: int = 4,
-          corte: str = "total", metrica: str = METRICA_POR_DEFECTO,
-          metrica_ret: str = METRICA_RETENCION_POR_DEFECTO) -> dict:
+          corte: str = "total") -> dict:
     """Payload completo del panel del juego para la semana `week` (su lunes)."""
     data = load(db)
     weeks = _weeks_back(week, weeks_shown)
@@ -1975,8 +1877,6 @@ def build(db: DBSession, week: date, weeks_shown: int = 4,
         "reclutas": reclutas(data, weeks),
         "camadas": camadas(data, week),
         "experimentos": experimentos(data),
-        "evolucion": evolucion(data, week, metrica),
-        "retencion": retencion(data, week, metrica_ret),
         "difusion": difusion(data),
         "carteles": carteles(data),
         "monetizacion": monetizacion(data),

@@ -1519,6 +1519,14 @@ class GameGroup(Base):
     ultimo_envio = Column(Date, nullable=True, index=True)
     ultima_campana = Column(String(120), nullable=True, index=True)
     producto = Column(String(40), nullable=True, index=True)
+    # Con qué copia de dx se le habló: `analisis` (las derivadas están en el
+    # temario) o `generico` (no lo están). La ola se mandó partida en dos y esa
+    # división vive solo en los planes de hermes, porque todos comparten
+    # `id: juego-lanzamiento` y el tracker no la distingue. Adivinarla por la
+    # materia reproduce 47 de 66 y manda «Cálculo financiero» al lado de
+    # Análisis, así que se guarda en vez de inferirse. NULL = no recibió dx, o
+    # no sabemos con qué copia — el panel cuenta esos aparte.
+    cluster_dx = Column(String(20), nullable=True, index=True)
     # De qué pestaña salió: `Grupos` o `Comunidades`. Las dos se mandan igual
     # pero tienen claves de identidad distintas —código de invitación contra id
     # de tracker— y esa diferencia ya hizo parecer huérfano a un grupo que no lo
