@@ -201,23 +201,68 @@ check(
 )
 
 print("4. nivel y registro")
+# El nivel 1 NO se cuenta, y es el chequeo que sostiene el arreglo del feed.
+#
+# Medido el 14/09 sobre 24 h: 57 de los 74 eventos eran `level` y los 57 eran de
+# nivel 1 — tres de cada cuatro líneas decían que alguien había desbloqueado las
+# sumas, que es lo que le pasa a cualquiera en sus primeras derivadas. Sin este
+# chequeo, subir `NIVEL_MINIMO_PARA_CONTAR` de vuelta a 1 no rompe nada: el feed
+# vuelve a inundarse y se nota semanas después.
+enfriar(beto)
+events.on_answer(db, beto, rank_before=None, rank_after=None, level_before=0, level_after=1)
+db.commit()
+check(
+    db.query(GameEvent).filter(GameEvent.kind == "level").count() == 0,
+    "desbloquear las sumas (nivel 1) no es noticia",
+)
 # Beto viene de hacer un hito de racha en la sección anterior, y subir de nivel
 # pesa menos que eso: sin sacarlo del enfriamiento la línea no sale, y lo que
 # este chequeo mediría es el presupuesto por persona en vez de la clave.
 enfriar(beto)
-events.on_answer(db, beto, rank_before=None, rank_after=None, level_before=0, level_after=1)
+events.on_answer(db, beto, rank_before=None, rank_after=None, level_before=1, level_after=2)
 db.commit()
 check(db.query(GameEvent).filter(GameEvent.kind == "level").count() == 1, "subir de nivel sale")
 # Y la segunda vez TAMBIÉN fuera del enfriamiento, para que lo único que la
 # pueda frenar sea la clave.
 enfriar(beto)
-events.on_answer(db, beto, rank_before=None, rank_after=None, level_before=0, level_after=1)
+events.on_answer(db, beto, rank_before=None, rank_after=None, level_before=1, level_after=2)
 db.commit()
 check(db.query(GameEvent).filter(GameEvent.kind == "level").count() == 1, "subir de nivel se cuenta una vez")
 events.on_signup(db, beto)
 events.on_signup(db, beto)
 db.commit()
 check(db.query(GameEvent).filter(GameEvent.kind == "signup").count() == 1, "el registro también")
+
+print("4b. el saludo a quien recién llega")
+# Reemplaza al desbloqueo de nivel 1 como la línea frecuente del feed, y por eso
+# tiene que salir UNA vez: es la más repetida, así que un error acá se multiplica
+# por ochenta al día.
+nueva = fresh_player(db, "recienllegada", resueltas=1)
+events.on_answer(db, nueva, rank_before=None, rank_after=None, level_before=0, level_after=0)
+db.commit()
+check(
+    db.query(GameEvent).filter(GameEvent.kind == "welcome").count() == 1,
+    "la primera derivada resuelta saluda",
+)
+# La segunda respuesta ya no. `exercises_correct` avanzó, y además la clave está
+# gastada: dos frenos para la línea que más veces se evalúa.
+nueva.exercises_correct = 2
+enfriar(nueva)
+events.on_answer(db, nueva, rank_before=None, rank_after=None, level_before=0, level_after=0)
+db.commit()
+check(
+    db.query(GameEvent).filter(GameEvent.kind == "welcome").count() == 1,
+    "y no vuelve a saludar en la segunda",
+)
+# A quien ya venía jugando no se lo saluda: el saludo es para quien llega, no
+# para cualquiera que responda después del deploy.
+veterana = fresh_player(db, "veterana", resueltas=40)
+events.on_answer(db, veterana, rank_before=None, rank_after=None, level_before=0, level_after=0)
+db.commit()
+check(
+    db.query(GameEvent).filter(GameEvent.kind == "welcome").count() == 1,
+    "a quien ya llevaba 40 resueltas no",
+)
 
 print("5. los sembrados no aparecen con nombre propio")
 bot = fresh_player(db, "bot1", is_bot=True, combo=10)

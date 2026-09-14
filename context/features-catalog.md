@@ -223,10 +223,29 @@ está puesto en que no sea ruido. Nueve tipos:
 | `uni_top` 🏆 | ser el número 1, o entrar al top 3, de la propia universidad — **solo lo ve esa universidad** |
 | `lead` 👑 | llegar al puesto 1 del juego entero |
 | `streak` 🔥 | rachas de 10, 25, 50, 100 y 250 sin errar |
-| `level` 🎨 | desbloquear la familia siguiente (los productos, los cocientes) |
+| `level` 🎨 | desbloquear la familia siguiente, **de nivel 2 para arriba** (los productos, los cocientes) |
+| `welcome` 👋 | alguien nuevo resolvió su primera derivada |
 | `signup` 🎓 / `referral` 🪖 | un registro, o el registro de alguien que trajo otro |
 | `boost` ☕ | una donación de cafecitos, o el aforo del día de una universidad |
 | `uni_pass` 🏛️ / `uni_close` 👀 | una universidad que pasa a otra en experiencia, o que se le viene encima |
+
+**`welcome` reemplazó al desbloqueo de nivel 1**, y es la segunda vez que el feed
+se inunda por lo mismo. Medido el 14/09 sobre 24 h de producción: **57 de 74
+eventos eran `level`, y los 57 eran de nivel 1** — tres de cada cuatro líneas
+decían que alguien había desbloqueado las sumas, que es lo que le pasa a
+cualquiera en sus primeras derivadas. De nivel 2 no hubo ninguno.
+
+No era la primera advertencia: el comentario de `events_copy._NIVEL` ya anotaba
+«110 de 122 en una semana fueron al nivel 1». Aquella vez se arregló lo que la
+línea DECÍA —antes los tres niveles compartían la misma frase— y no cuántas
+eran. El evento sobrevive porque desbloquear los productos o los cocientes sigue
+siendo noticia, y con los tiers 6-8 va a haber más para contar.
+
+En su lugar el feed **saluda a quien llega**, con la primera derivada resuelta y
+no al entrar: hasta ahí el alias es el generado al azar, y de 149 altas por día
+solo 80 resuelven una. Es la línea más frecuente (80/día, ~82% del feed) y por
+eso la más débil de todas (`FUERZA_WELCOME`): si le ganara a algo, taparía
+justamente lo que el feed existe para contar.
 
 **`top` y `uni_top` reemplazaron a la escalada por puestos** («@fulano pasó a 17
 personas de una»), que era **el 83% del feed**: 609 de 731 eventos en un día de

@@ -71,6 +71,7 @@ POOLS: dict[str, list[str]] = {
     "persona: podio de la universidad": events_copy._UNI_3,
     "persona: racha": events_copy._RACHA,
     "persona: nivel": events_copy._NIVEL,
+    "persona: bienvenida": events_copy._BIENVENIDA,
     "persona: signup": events_copy._SIGNUP,
     "persona: signup con universidad": events_copy._SIGNUP_CON_UNI,
     "persona: recluta": events_copy._RECLUTA,
@@ -373,7 +374,7 @@ print("\n8. cada emisor de events.py tiene su pool")
 # Que un `kind` nuevo se agregue allá y su frase quede escrita a mano acá al lado
 # es exactamente lo que este archivo existe para impedir.
 kinds_con_copy = {
-    "lead", "top", "uni_top", "streak", "level",
+    "lead", "top", "uni_top", "streak", "level", "welcome",
     "signup", "referral", "boost", "uni_pass", "uni_close",
 }
 check(

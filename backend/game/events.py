@@ -161,6 +161,10 @@ DEDUPE_TOP_MINUTES = PRUNE_DAYS * 24 * 60
 # sesión de la tarde, que sí es otra noticia.
 COOLDOWN_PERSONA_MINUTES = 20
 
+# Desde qué nivel un desbloqueo es noticia. Ver el comentario largo en
+# `on_answer`, donde se usa.
+NIVEL_MINIMO_PARA_CONTAR = 2
+
 # Cuánto pesa cada noticia. Es lo que decide cuál de las cinco cosas que puede
 # disparar una misma respuesta es LA línea.
 #
@@ -178,6 +182,10 @@ FUERZA_TOP = {3: 90, 10: 80, 25: 60, 50: 50}
 FUERZA_UNI_TOP = {1: 70, 3: 55}
 FUERZA_STREAK = {10: 30, 25: 45, 50: 58, 100: 75, 250: 85}
 FUERZA_LEVEL = 40
+# El saludo es lo más débil que el feed publica, y tiene que serlo: pasa 80 veces
+# por día, o sea más que todo el resto junto. Si le ganara a algo, taparía
+# justamente lo que el feed existe para contar.
+FUERZA_WELCOME = 20
 
 # Lo que es noticia pase lo que pase: el puntero nuevo, la entrada al top 3 y la
 # racha de 250. Las tres son raras —cinco, dos y cero por día en producción— y
@@ -236,6 +244,7 @@ EMOJI = {
     "streak": "🔥",
     "lead": "👑",
     "level": "🎨",
+    "welcome": "👋",
     "uni_pass": "🏛️",
     "uni_close": "👀",
 }
@@ -906,7 +915,47 @@ def on_answer(
             )
         )
 
-    if level_after > level_before:
+    # El saludo a quien recién llega.
+    #
+    # Con la PRIMERA correcta y no al entrar. `_otorgar_xp` ya incrementó el
+    # contador cuando esto corre, así que «uno» es exactamente «la que acaba de
+    # resolver». Al entrar no sirve: el alias todavía es el generado al azar, y
+    # de 149 altas por día solo 80 resuelven una — saludaríamos a setenta
+    # personas que no llegaron a estar.
+    #
+    # Es la línea más débil del feed (`FUERZA_WELCOME`) porque es la más
+    # frecuente. Nada más compite en ese instante: la racha pide diez seguidas,
+    # el top 50 no lo alcanza alguien con una sola resuelta, y el desbloqueo de
+    # nivel 1 —que antes sí ganaba acá— dejó de ser candidato dos bloques más
+    # abajo.
+    if player.exercises_correct == 1:
+        candidatos.append(
+            _Candidato(
+                fuerza=FUERZA_WELCOME,
+                kind="welcome",
+                text=events_copy.bienvenida(f"welcome:{player.id}"),
+                actor_level=nivel,
+                university=player.university,
+                dedupe_key=f"welcome:{player.id}",
+            )
+        )
+
+    # De nivel 2 para arriba, y ahí está el arreglo.
+    #
+    # Medido el 14/09 sobre 24 h de producción: 57 de los 74 eventos del feed
+    # eran `level`, y los 57 eran de nivel 1. Tres de cada cuatro líneas decían
+    # que alguien había desbloqueado las sumas, que es lo que le pasa a
+    # cualquiera en sus primeras derivadas.
+    #
+    # No es la primera vez que esta línea inunda el feed: el comentario de
+    # `events_copy._NIVEL` ya anotaba «110 de 122 en una semana fueron al nivel
+    # 1». Aquella vez se arregló lo que la línea DECÍA —antes eran tres niveles
+    # con la misma frase— y no cuántas eran. Esto es lo segundo.
+    #
+    # El evento no se borra: desbloquear los productos o los cocientes sigue
+    # siendo noticia, y con los tiers 6-8 de la regla de la cadena va a haber más
+    # para contar. Hoy son cero por día, y está bien que un evento raro sea raro.
+    if level_after > level_before and level_after >= NIVEL_MINIMO_PARA_CONTAR:
         candidatos.append(
             _Candidato(
                 fuerza=FUERZA_LEVEL,
