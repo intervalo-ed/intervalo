@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import posthog from "posthog-js"
 import { useQueryClient } from "@tanstack/react-query"
 import { Button } from "@/components/ui/button"
@@ -49,9 +49,25 @@ export function UsernameSlide({
   const teclas = useTeclas()
   const queryClient = useQueryClient()
   const [alias, setAlias] = useState("")
+  const campoRef = useRef<HTMLInputElement>(null)
   const [submitError, setSubmitError] = useState<string | null>(null)
   const savingRef = useRef(false)
   const error = alias.length > 0 ? validateUsername(alias) : null
+
+  // El campo toma el foco al entrar, pero con `preventScroll` y no con el
+  // atributo `autoFocus`, que no admite la opción.
+  //
+  // Es lo que hacía que esta diapo entrara DE GOLPE mientras el resto se
+  // desliza: el foco se pide en el primer commit, o sea con la diapo todavía en
+  // `x: 100%`, y un foco común le pide al navegador que traiga el elemento a la
+  // vista. El navegador sube hasta el ancestro scrolleable —la raíz de
+  // mobile-flow.tsx, que aunque sea `overflow-hidden` se scrollea por programa—
+  // y le escribe el scroll, con lo que el deslizamiento se colapsa a su estado
+  // final. Exactamente el mismo bug que ya tenía la diapo del cafecito, y que
+  // está contado con todas las letras en cafecito-panel.tsx.
+  useEffect(() => {
+    campoRef.current?.focus({ preventScroll: true })
+  }, [])
   const puedeContinuar = alias.length > 0 && !error
 
   const finish = async () => {
@@ -91,8 +107,8 @@ export function UsernameSlide({
       <div className="flex w-full max-w-xs items-center gap-1 rounded-md border border-[#7e80f7] bg-white/5 px-3">
         <span className="text-lg text-muted-foreground">@</span>
         <input
+          ref={campoRef}
           type="text"
-          autoFocus
           value={alias}
           onChange={(e) => {
             setAlias(normalizeUsername(e.target.value))

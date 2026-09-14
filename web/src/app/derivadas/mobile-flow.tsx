@@ -1395,8 +1395,22 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
           )}
 
           {slide.kind === "reglas" && (
-            <div className="mx-auto flex w-full max-w-md flex-1 flex-col px-5 pb-[var(--cta-pb)]">
-              <ReglasSlide onContinue={() => advanceAfterAnswer("reglas")} />
+            <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col px-5 pb-[var(--cta-pb)] pt-4">
+              {/* Con `ConSalidaAbajo`, igual que la encuesta y las diapos de
+                  pedido. Sin él, el Continuar se dibujaba ADENTRO del bloque
+                  centrado y quedaba flotando a media pantalla, pegado al último
+                  renglón de las reglas y con media pantalla vacía debajo. Acá el
+                  cuerpo se queda con el alto que sobra y el botón va último y
+                  sin encoger, así que aterriza en el mismo píxel que el
+                  Continuar del ranking y el Volver de la tabla. */}
+              <ConSalidaAbajo>
+                {({ salida }) => (
+                  <ReglasSlide
+                    slotSalida={salida}
+                    onContinue={() => advanceAfterAnswer("reglas")}
+                  />
+                )}
+              </ConSalidaAbajo>
             </div>
           )}
 
