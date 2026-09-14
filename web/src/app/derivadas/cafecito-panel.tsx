@@ -620,7 +620,16 @@ function PanelDeImpacto({
  *  quien ya donó» por «no lo dejes donar de nuevo». El número va arriba, como
  *  contexto de lo que está por decidir. */
 function TiraDeImpacto({ estado }: { estado: GameCafecitoStatus }) {
-  if (estado.xp_extra <= 0) return null
+  // `!(x > 0)` y no `x <= 0`, que es la misma cuenta salvo en el caso que
+  // importa: con `xp_extra` AUSENTE, `undefined <= 0` es false y la tira se
+  // dibujaba llamando a `fmtCount(undefined)`, que revienta.
+  //
+  // El campo puede faltar de verdad, y no hace falta un bug para eso: en cada
+  // deploy el front llega antes que el backend, así que durante unos minutos el
+  // servidor viejo contesta el estado sin los campos nuevos. Las otras dos
+  // guardas de este archivo ya usan `> 0` y por eso caen del lado bueno solas;
+  // esta era la única que no.
+  if (!(estado.xp_extra > 0)) return null
   const donde = estado.university ? `la ${estado.university}` : "todo Intervalo"
   return (
     <p
