@@ -20,6 +20,16 @@ Uso, contra producción:
 
 Imprime UN JSON por stdout y nada más, para poder capturarlo del lado de
 afuera sin parsear texto de bitácora.
+
+**Sin DATABASE_URL en el entorno, este script CORTA.** No hay fallback
+silencioso a una base local — lo tenía antes (mismo patrón que
+handle_collisions.py) y el 14/9 eso mandó la imagen de campaña con los
+números de `backend/intervalo.db` (una base de prueba vieja) en vez de los
+de producción: nadie lo notó hasta que la imagen ya estaba armada, porque el
+script no avisó nada, solo imprimió un JSON con forma correcta y números
+inventados. Automatizarlo sobre una imagen que se manda a grupos reales es
+peor que frenar. Para probar de verdad contra la base local a propósito, hay
+que pasar `--permitir-local` explícito.
 """
 import argparse
 import json
@@ -33,10 +43,21 @@ BACKEND = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(BACKEND))
 sys.path.insert(0, str(BACKEND.parent))
 
-# Igual que handle_collisions.py: en producción DATABASE_URL viene del
-# entorno; en local evita que el default relativo de database.py abra una
-# base vacía según desde dónde se corra.
+# Se mira `sys.argv` a mano y no con argparse (que corre recién en `main()`)
+# porque esto tiene que decidirse ANTES del `import database`, que ya lee
+# DATABASE_URL al cargarse.
 if not os.getenv("DATABASE_URL"):
+    if "--permitir-local" not in sys.argv:
+        print(
+            "ERROR: falta DATABASE_URL. Este script es de solo lectura pero "
+            "alimenta la imagen que se manda a grupos reales — no arranca sin "
+            "saber contra qué base está corriendo.\n"
+            "  · Contra producción: railway ssh --service backend -- python "
+            "backend/scripts/diag/ranking_campana.py\n"
+            "  · Contra la base local, a propósito: agregá --permitir-local",
+            file=sys.stderr,
+        )
+        raise SystemExit(1)
     os.environ["DATABASE_URL"] = "sqlite:///" + str(
         BACKEND / "intervalo.db"
     ).replace("\\", "/")
@@ -51,6 +72,10 @@ from models import GamePlayer  # noqa: E402
 def main() -> int:
     p = argparse.ArgumentParser()
     p.add_argument("--top", type=int, default=5, help="cuántas universidades (default 5)")
+    # Ya se miró a mano, ANTES del import de database.py (ver más arriba) —
+    # se vuelve a declarar acá solo para que argparse no la rechace.
+    p.add_argument("--permitir-local", action="store_true",
+                    help="corre contra backend/intervalo.db si no hay DATABASE_URL")
     args = p.parse_args()
 
     db = SessionLocal()
