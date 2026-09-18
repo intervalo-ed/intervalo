@@ -198,6 +198,30 @@ destinos = cs.aplicar({"name": "Nico", "count": 5, "message": "vamos"})
 check(destinos == [], f"el socket no otorga nada ({destinos})")
 check(len(empujes()) == antes, f"la cantidad de empujes no cambia ({len(empujes())})")
 
+print("10b. EL TESTIGO: el mail que llegó 279 segundos después del socket")
+# Pasó en producción el 17/09. El socket entró 14:03:08 y el mail del mismo pago
+# 14:07:47; la ventana era de 180 s, así que los 5 cafecitos se cobraron dos
+# veces. La segunda, además, salió como empuje GLOBAL y a nombre de «Alguien»:
+# la primera ya había consumido la intención, y el mail de Mercado Pago no trae
+# nombre a propósito, así que no quedaba de dónde sacar al donante.
+#
+# Los 279 segundos van escritos como número y no como una fracción de la
+# constante: son el hecho medido, y si mañana alguien la vuelve a bajar esto
+# tiene que fallar.
+limpiar()
+ahora = datetime.utcnow()
+intencion("UTN", hace_minutos=1)
+cs.aplicar({"name": "", "count": 5, "message": ""}, ahora=ahora - timedelta(seconds=279))
+check(len(empujes()) == 1 and empujes()[0].university == "UTN",
+      f"el socket acredita a la UTN ({[ (b.university, b.cafecitos) for b in empujes() ]})")
+destinos = ce.aplicar(aviso(operacion="176089085048"), ahora=ahora)
+check(destinos == [], f"y el mail de 4 min 39 s después no acredita nada ({destinos})")
+check(len(empujes()) == 1, f"no hay un segundo empuje ({len(empujes())})")
+check(
+    not any(b.university is None for b in empujes()),
+    "y sobre todo no hay un empuje GLOBAL, que es la forma que tomó el error",
+)
+
 print("11. dos donaciones iguales separadas en el tiempo cuentan las dos")
 limpiar()
 ahora = datetime.utcnow()

@@ -99,11 +99,22 @@ FUENTE_MAIL = "mp:"
 # operación de Mercado Pago. Lo único que tienen en común es cuánto y cuándo, así
 # que eso es lo que se compara (ver `aviso_repetido`).
 #
-# Tres minutos es holgado para la diferencia entre los dos avisos y corto para lo
-# otro que puede pasar: que dos personas donen la misma cantidad casi juntas. Si
-# eso ocurre, la segunda no se aplica — y por eso el que descarta lo grita en el
-# log, que es lo que permite repararlo después con grant_game_boost.py.
-VENTANA_MISMO_PAGO_S = 180
+# Eran tres minutos, y el comentario de acá decía que eso era «holgado para la
+# diferencia entre los dos avisos». El 17/09 no alcanzó: el socket entró 14:03:08
+# y el mail de Mercado Pago del MISMO pago 14:07:47, **279 segundos** después. Le
+# faltaron 99 a la ventana. Los 5 cafecitos de esa donación se acreditaron dos
+# veces —una a la UTN y otra, ya sin intención abierta que la ate a nadie, como
+# empuje global anónimo— y el feed la anunció dos veces, la segunda a nombre de
+# «Alguien». Quien pagó lo vio y preguntó qué había pasado.
+#
+# Quince minutos, entonces. El costo de agrandarla es el del otro lado: dos
+# personas que donen la MISMA cantidad dentro de la ventana se cuentan como una
+# sola, y la segunda no cobra. Con veinte donaciones en toda la vida del producto
+# ese choque es mucho menos probable que el duplicado, y además se ve: el que
+# descarta lo grita en el log, y de ahí se repara con grant_game_boost.py. El
+# duplicado, en cambio, no se veía en ningún lado hasta que alguien lo leyó en el
+# feed.
+VENTANA_MISMO_PAGO_S = 15 * 60
 
 # El `source` de los empujes por aforo. Está escrito acá y no importado de
 # game/aforo.py porque aforo importa boosts: traerlo al revés cierra el ciclo.

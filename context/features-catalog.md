@@ -224,7 +224,7 @@ está puesto en que no sea ruido. Nueve tipos:
 | `lead` 👑 | llegar al puesto 1 del juego entero |
 | `streak` 🔥 | rachas de 10, 25, 50, 100 y 250 sin errar |
 | `level` 🎨 | desbloquear la familia siguiente, **de nivel 2 para arriba** (los productos, los cocientes) |
-| `welcome` 👋 | alguien nuevo resolvió su primera derivada |
+| `welcome` 👋 | alguien nuevo cargó su universidad, y la línea la nombra |
 | `signup` 🎓 / `referral` 🪖 | un registro, o el registro de alguien que trajo otro |
 | `boost` ☕ | una donación de cafecitos, o el aforo del día de una universidad |
 | `uni_pass` 🏛️ / `uni_close` 👀 | una universidad que pasa a otra en experiencia, o que se le viene encima |
@@ -241,11 +241,30 @@ línea DECÍA —antes los tres niveles compartían la misma frase— y no cuán
 eran. El evento sobrevive porque desbloquear los productos o los cocientes sigue
 siendo noticia, y con los tiers 6-8 va a haber más para contar.
 
-En su lugar el feed **saluda a quien llega**, con la primera derivada resuelta y
-no al entrar: hasta ahí el alias es el generado al azar, y de 149 altas por día
-solo 80 resuelven una. Es la línea más frecuente (80/día, ~82% del feed) y por
-eso la más débil de todas (`FUERZA_WELCOME`): si le ganara a algo, taparía
-justamente lo que el feed existe para contar.
+En su lugar el feed **saluda a quien llega**. Ese saludo ya se movió una vez y
+conviene leer las dos posiciones juntas, porque la segunda arregla lo que la
+primera no había visto.
+
+Primero salió con la **primera derivada resuelta** y no al entrar: hasta ahí el
+alias es el generado al azar, y de 149 altas por día solo 80 resuelven una. Eso
+arreglaba a quién se saludaba, pero dejaba la línea sin nada que decir: la
+universidad se pregunta recién en la tercera derivada (`HITO_PERFIL`), así que
+cuando el saludo salía todavía no había ninguna. **Medido sobre 314 saludos de
+una semana: 5 nombraban una universidad.** Las otras 309 eran «@fulano arrancó a
+derivar» y ahí se terminaban, entre 45 y 116 por día.
+
+Desde el 17/09 sale cuando la persona **carga su universidad** (`on_universidad`,
+llamado desde el PATCH del perfil) y la línea la nombra: «@fulano se sumó a las
+filas de la UTN». El corte de volumen es chico —**56 por día contra 73**, porque
+casi todo el que resuelve una termina cargando universidad— y no es el punto: el
+punto es que ahora cada línea suma a alguien a un bando, que es de lo que el
+resto del feed habla.
+
+Sigue siendo la línea más frecuente y por eso la más débil de todas
+(`FUERZA_WELCOME`). Dentro de su emisor no compite con nada —es el único
+candidato— pero pierde contra cualquier cosa que la persona haya hecho en los
+últimos `COOLDOWN_PERSONA_MINUTES`: quien carga la universidad justo después de
+entrar al top 50 ya tuvo su línea, y esa es la que vale.
 
 **`top` y `uni_top` reemplazaron a la escalada por puestos** («@fulano pasó a 17
 personas de una»), que era **el 83% del feed**: 609 de 731 eventos en un día de

@@ -165,7 +165,7 @@ COOLDOWN_PERSONA_MINUTES = 20
 # `on_answer`, donde se usa.
 NIVEL_MINIMO_PARA_CONTAR = 2
 
-# Cuánto pesa cada noticia. Es lo que decide cuál de las cinco cosas que puede
+# Cuánto pesa cada noticia. Es lo que decide cuál de las cuatro cosas que puede
 # disparar una misma respuesta es LA línea.
 #
 # Números y no un orden por `kind`, porque la fuerza depende del CORTE: entrar al
@@ -182,9 +182,10 @@ FUERZA_TOP = {3: 90, 10: 80, 25: 60, 50: 50}
 FUERZA_UNI_TOP = {1: 70, 3: 55}
 FUERZA_STREAK = {10: 30, 25: 45, 50: 58, 100: 75, 250: 85}
 FUERZA_LEVEL = 40
-# El saludo es lo más débil que el feed publica, y tiene que serlo: pasa 80 veces
-# por día, o sea más que todo el resto junto. Si le ganara a algo, taparía
-# justamente lo que el feed existe para contar.
+# El saludo es lo más débil que el feed publica, y tiene que serlo: 56 veces por
+# día, más que todo el resto junto. No compite con nada dentro de su propio
+# emisor —es el único candidato de `on_universidad`— pero sí contra lo que la
+# persona haya hecho en los últimos minutos, y ahí tiene que perder siempre.
 FUERZA_WELCOME = 20
 
 # Lo que es noticia pase lo que pase: el puntero nuevo, la entrada al top 3 y la
@@ -474,6 +475,54 @@ def on_signup(db: Session, player: GamePlayer) -> None:
         # idempotente y se puede volver a llamar.
         dedupe_key=f"signup:{player.id}",
         strength=FUERZA_SIGNUP,
+    )
+
+
+def on_universidad(db: Session, player: GamePlayer) -> None:
+    """Alguien eligió universidad. Es el saludo a quien recién llega.
+
+    Colgaba de la primera derivada resuelta y se mudó acá, que es tres derivadas
+    más tarde (`HITO_PERFIL` del front). El motivo no es el volumen —baja de 73 a
+    56 por día, casi nada— sino lo que la línea puede decir: con la primera
+    resuelta la universidad todavía no existía, y de 314 saludos de una semana
+    solo 5 llegaron a nombrar una. Las otras 309 decían «@fulano arrancó a
+    derivar» y ahí se terminaban.
+
+    **No pasa por `on_answer`** y por eso es su propio emisor: el hecho que lo
+    dispara es un PATCH del perfil, no una respuesta, así que no hay con qué
+    competir. Igual publica por `_publicar` y no por `emit` derecho —como sí hace
+    `on_signup`— porque el enfriamiento por persona sigue haciendo falta: quien
+    carga la universidad justo después de entrar al top 50 ya tuvo su línea.
+
+    Se pide `exercises_correct >= 1` aunque el hito del front lo garantice. La
+    frase afirma que la persona está derivando para su universidad, y esa
+    afirmación tiene que ser cierta también si mañana alguien carga el perfil por
+    otro camino —el enlace de invitado a usuario copia la universidad sin pasar
+    por acá (game/deps.py), y es exactamente la clase de puerta que aparece sola—.
+    """
+    if not _real(player) or not player.university:
+        return
+    if player.exercises_correct < 1:
+        return
+    _publicar(
+        db,
+        player,
+        [
+            _Candidato(
+                fuerza=FUERZA_WELCOME,
+                kind="welcome",
+                text=events_copy.bienvenida(
+                    f"welcome:{player.id}",
+                    arts=events_copy.articulos_de(player.university),
+                ),
+                actor_level=elo.level_of(player.theta),
+                university=player.university,
+                # Una sola vez por persona, para siempre: mudarse de universidad
+                # no vuelve a saludar a nadie.
+                dedupe_key=f"welcome:{player.id}",
+            )
+        ],
+        _now(),
     )
 
 
@@ -912,31 +961,6 @@ def on_answer(
                 actor_level=nivel,
                 university=player.university,
                 dedupe_key=f"streak:{player.id}:{player.current_combo}",
-            )
-        )
-
-    # El saludo a quien recién llega.
-    #
-    # Con la PRIMERA correcta y no al entrar. `_otorgar_xp` ya incrementó el
-    # contador cuando esto corre, así que «uno» es exactamente «la que acaba de
-    # resolver». Al entrar no sirve: el alias todavía es el generado al azar, y
-    # de 149 altas por día solo 80 resuelven una — saludaríamos a setenta
-    # personas que no llegaron a estar.
-    #
-    # Es la línea más débil del feed (`FUERZA_WELCOME`) porque es la más
-    # frecuente. Nada más compite en ese instante: la racha pide diez seguidas,
-    # el top 50 no lo alcanza alguien con una sola resuelta, y el desbloqueo de
-    # nivel 1 —que antes sí ganaba acá— dejó de ser candidato dos bloques más
-    # abajo.
-    if player.exercises_correct == 1:
-        candidatos.append(
-            _Candidato(
-                fuerza=FUERZA_WELCOME,
-                kind="welcome",
-                text=events_copy.bienvenida(f"welcome:{player.id}"),
-                actor_level=nivel,
-                university=player.university,
-                dedupe_key=f"welcome:{player.id}",
             )
         )
 

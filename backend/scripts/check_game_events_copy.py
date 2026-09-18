@@ -172,6 +172,9 @@ DATOS_DE_PRUEBA = {
     "persona: top desde": lambda s: events_copy.top(s, corte=50, desde=84),
     "persona: top": lambda s: events_copy.top(s, corte=50, desde=None),
     "persona: racha": lambda s: events_copy.streak(s, seguidas=25),
+    "persona: bienvenida": lambda s: events_copy.bienvenida(
+        s, arts=events_copy.articulos_de("UBA")
+    ),
     "persona: nivel": lambda s: events_copy.level(s, nivel=1),
 }
 for nombre, fabricar in DATOS_DE_PRUEBA.items():
@@ -190,6 +193,21 @@ check(
     repetidas <= len(seguidas) // 3,
     f"cuarenta rachas seguidas de gente distinta repiten frase {repetidas} veces, "
     f"no cuarenta",
+)
+
+
+# El saludo y el registro nombran los dos una universidad desde el 17/09, y son
+# dos hechos distintos: uno es haber elegido de qué lado se juega (56 por día)
+# y el otro es haberse registrado con Google (5). Si terminan diciendo lo mismo,
+# el feed cuenta dos veces la misma llegada, que es de lo que se venía.
+solapadas = set(events_copy._BIENVENIDA) & set(events_copy._SIGNUP_CON_UNI)
+check(not solapadas, f"el saludo y el registro no comparten frase: {solapadas}")
+VERBOS_DE_LLEGADA = ("se sumó al juego", "entró a derivar", "empezó a derivar")
+pisadas = [f for f in events_copy._BIENVENIDA if any(v in f for v in VERBOS_DE_LLEGADA)]
+check(
+    not pisadas,
+    f"ni el verbo: llegar al juego es del registro, y el saludo dice de qué "
+    f"lado se juega ({pisadas})",
 )
 
 

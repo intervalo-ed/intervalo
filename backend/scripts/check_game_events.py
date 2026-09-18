@@ -233,36 +233,87 @@ events.on_signup(db, beto)
 db.commit()
 check(db.query(GameEvent).filter(GameEvent.kind == "signup").count() == 1, "el registro también")
 
-print("4b. el saludo a quien recién llega")
-# Reemplaza al desbloqueo de nivel 1 como la línea frecuente del feed, y por eso
-# tiene que salir UNA vez: es la más repetida, así que un error acá se multiplica
-# por ochenta al día.
+print("4b. el saludo sale cuando la persona carga su universidad")
+# Colgaba de la primera derivada resuelta y se mudó al PATCH del perfil. El
+# motivo está medido: de 314 saludos de una semana, 5 nombraban una universidad,
+# porque el front la pregunta recién en la tercera derivada (`HITO_PERFIL`).
+# Las otras 309 decían «@fulano arrancó a derivar» y nada más.
 nueva = fresh_player(db, "recienllegada", resueltas=1)
 events.on_answer(db, nueva, rank_before=None, rank_after=None, level_before=0, level_after=0)
 db.commit()
 check(
-    db.query(GameEvent).filter(GameEvent.kind == "welcome").count() == 1,
-    "la primera derivada resuelta saluda",
+    db.query(GameEvent).filter(GameEvent.kind == "welcome").count() == 0,
+    "resolver la primera derivada ya NO saluda a nadie",
 )
-# La segunda respuesta ya no. `exercises_correct` avanzó, y además la clave está
-# gastada: dos frenos para la línea que más veces se evalúa.
-nueva.exercises_correct = 2
+nueva.university = "UTN"
+db.commit()
+events.on_universidad(db, nueva)
+db.commit()
+saludo = db.query(GameEvent).filter(GameEvent.kind == "welcome").one_or_none()
+check(saludo is not None, "cargar la universidad sí")
+# El texto guarda el MARCADOR y la fila la sigla: el cliente los junta (ver
+# `EventView.universities`). Se chequean los dos, porque una línea con `{u0}` y
+# sin universidad en la fila sale con el marcador crudo a la pantalla.
+check(
+    saludo is not None and "{u0}" in saludo.text and saludo.university == "UTN",
+    f"y la línea nombra la universidad, que es todo el punto del cambio: "
+    f"{saludo.text if saludo else None} / {saludo.university if saludo else None}",
+)
+# Una sola vez por persona, para siempre: el PATCH del perfil es idempotente y
+# mudarse de universidad no vuelve a saludar.
 enfriar(nueva)
-events.on_answer(db, nueva, rank_before=None, rank_after=None, level_before=0, level_after=0)
+nueva.university = "UBA"
+db.commit()
+events.on_universidad(db, nueva)
 db.commit()
 check(
     db.query(GameEvent).filter(GameEvent.kind == "welcome").count() == 1,
-    "y no vuelve a saludar en la segunda",
+    "y no vuelve a saludar ni cargándola de nuevo ni mudándose",
 )
-# A quien ya venía jugando no se lo saluda: el saludo es para quien llega, no
-# para cualquiera que responda después del deploy.
-veterana = fresh_player(db, "veterana", resueltas=40)
-events.on_answer(db, veterana, rank_before=None, rank_after=None, level_before=0, level_after=0)
+# Sin universidad no hay saludo: es la condición entera del cambio, y sin este
+# chequeo volver a llamar al emisor desde cualquier lado la saltearía.
+sinuni = fresh_player(db, "sinuniversidad", resueltas=5)
+events.on_universidad(db, sinuni)
 db.commit()
 check(
     db.query(GameEvent).filter(GameEvent.kind == "welcome").count() == 1,
-    "a quien ya llevaba 40 resueltas no",
+    "a quien no cargó universidad no se lo saluda",
 )
+# Ni a quien la cargó sin haber derivado: la frase afirma que está derivando
+# para su universidad, y tiene que ser cierta.
+mirona = fresh_player(db, "mirona", university="UBA", resueltas=0)
+events.on_universidad(db, mirona)
+db.commit()
+check(
+    db.query(GameEvent).filter(GameEvent.kind == "welcome").count() == 1,
+    "ni a quien la cargó con cero derivadas resueltas",
+)
+# Y pierde contra lo que la persona acaba de hacer: es la línea más débil del
+# feed y el enfriamiento por persona la tiene que tapar.
+recien = fresh_player(db, "recienentop", resueltas=1)
+events.on_answer(db, recien, rank_before=90, rank_after=40, level_before=0, level_after=0)
+db.commit()
+check(
+    db.query(GameEvent).filter(GameEvent.kind == "top", GameEvent.player_id == recien.id).count() == 1,
+    "entrar al top 50 se anuncia",
+)
+recien.university = "UNSAM"
+db.commit()
+events.on_universidad(db, recien)
+db.commit()
+check(
+    db.query(GameEvent).filter(GameEvent.kind == "welcome").count() == 1,
+    "y cargar la universidad enseguida después no agrega una segunda línea",
+)
+# Y se limpia lo que esta sección sembró. El 7b cuenta exactamente nueve
+# jugadores en la UNSAM: uno de más lo rompe doscientas líneas más abajo, y el
+# mensaje de error no dice nada de acá.
+for sobrante in (sinuni, mirona, recien):
+    db.query(GameEvent).filter(GameEvent.player_id == sobrante.id).delete()
+    db.delete(sobrante)
+nueva.university = None
+db.commit()
+
 
 print("5. los sembrados no aparecen con nombre propio")
 bot = fresh_player(db, "bot1", is_bot=True, combo=10)
