@@ -409,7 +409,12 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
             'por WhatsApp en tandas, así que la hora de arranque es en buena parte la hora a la '
             'que salió el mensaje: el corte se parece más a «por qué difusión llegaste» que a '
             '«cuándo rendís mejor». Medido sobre las tres cohortes que hay, la mañana aguanta '
-            'más en dos y menos en la tercera.')
+            'más en dos y menos en la tercera.'
+            '<br><br>Eso dejó de ser una sospecha: la curva de la hora de la PRIMERA sesión '
+            'correlaciona a r = 0,82 con el cronograma de envío de la camada, y la de las '
+            'vueltas a r = 0,17. Está medido en <a href="#reloj">El reloj del día</a>, en '
+            'Activación — que además es dónde mirar si lo que se busca es a qué hora la '
+            'gente elige jugar.')
 
     if not series:
         grafico = '<p class="empty">todavía no hay partidas cerradas en esta ventana</p>'
@@ -1021,6 +1026,87 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         anchor="difusion"))
     pieza_difusion = "".join(out)
 
+    # ── 3 · El reloj del día ─────────────────────────────────────────────────
+    out = []
+    ho = p["horarios"]
+    pri, pos = ho["perfil_primera"], ho["perfil_posterior"]
+    grupo, recluta = ho["por_origen"]["grupo"], ho["por_origen"]["recluta"]
+
+    # Normalizadas al total de cada una y no en crudo: son 606 sesiones contra
+    # 304, así que en absoluto la curva de las vueltas queda aplastada contra el
+    # piso y lo único que se leería es la primera. Lo que se compara son formas.
+    series_reloj = [
+        {"label": f'Primer uso · {num(pri["n"])} sesiones', "values": pri["pct"],
+         "tips": [f'{ho["bins"][i]} · {num(n)} '
+                  f'{"primera sesión" if n == 1 else "primeras sesiones"}'
+                  for n in ho["primera"]]},
+        {"label": f'Uso posterior · {num(pos["n"])} sesiones', "values": pos["pct"],
+         "tips": [f'{ho["bins"][i]} · {num(n)} {"vuelta" if n == 1 else "vueltas"}'
+                  for i, n in enumerate(ho["posterior"])]},
+    ]
+
+    out.append(_section(
+        3, "El reloj del día",
+        '<div class="grid g4">'
+        + "".join(_kpi_chico(l, v, h, suffix="%", dec=1) for l, v, h in [
+            ("Primer uso · 6 h más cargadas", pri["top3"],
+             f'pico en {pri["pico"] or "—"}'),
+            ("Uso posterior · 6 h más cargadas", pos["top3"],
+             f'pico en {pos["pico"] or "—"}'),
+            ("Primer uso · de noche", pri["noche"], "de 20 a 6"),
+            ("Uso posterior · de noche", pos["noche"], "de 20 a 6")])
+        + "</div>"
+        + _box(
+            "Cuándo arranca cada uso",
+            ch.lines(series_reloj, ho["bins"], suffix="%", height=280),
+            note=(
+                "<b>La curva del primer uso no es una preferencia: es nuestro cronograma "
+                "de envío.</b> Medida el 14/09 contra los checkpoints de Hermes de esta "
+                "camada —33 grupos a las 9, 30 a las 10, 42 a las 11, 25 a las 15— la "
+                "correlación hora por hora da <b>r = 0,82</b>, y hasta el rebote de la "
+                "tarde es la tanda de las 15. La misma cuenta sobre el uso posterior da "
+                "<b>r = 0,17</b>: de las dos curvas, esa es la única que mide cuándo la "
+                "gente elige jugar."
+                f'<br><br><b>El control está adentro de la base y no hace falta creerme.</b> '
+                f'Partido por cómo se invitó a cada uno, el primer uso de quien llegó por un '
+                f'grupo de WhatsApp ({num(grupo["n"])} sesiones) pica en '
+                f'{esc(grupo["pico"] or "—")} y tiene {_pct_txt(grupo["noche"])} de noche; '
+                f'el de quien lo trajo un recluta ({num(recluta["n"])}) pica en '
+                f'{esc(recluta["pico"] or "—")} y tiene {_pct_txt(recluta["noche"])}. Los dos '
+                f'son primeras veces: lo único distinto es quién los convocó. Si el pico de '
+                f'la mañana fuera «el que recién llega prefiere la mañana», las dos curvas '
+                f'tendrían la misma forma.'
+                f'<br><br><b>La unidad es la sesión, no la persona.</b> Quien jugó cinco '
+                f'veces aporta una primera y cuatro vueltas, que es lo que se quiere contar. '
+                f'De las {num(pos["n"])} vueltas, {num(ho["n_mismo_dia"])} son del mismo día '
+                f'en que esa persona entró —todavía arrastre de la campaña— y '
+                f'{num(ho["n_otro_dia"])} son de otro día; esas últimas son las más '
+                f'nocturnas de todo el panel, {_pct_txt(ho["perfil_otro_dia"]["noche"])} '
+                f'entre las 20 y las 6.'))
+        + _box(
+            "Qué fracción de cada franja es gente nueva",
+            ch.stackbars(ho["bins"],
+                         [{"label": "Primer uso", "values": ho["primera"]},
+                          {"label": "Uso posterior", "values": ho["posterior"]}],
+                         min_n=ho["min_base"]),
+            note=(
+                f'Las columnas miden todas igual a propósito: acá no se pregunta cuánto '
+                f'tráfico hay a cada hora —eso es el gráfico de arriba— sino de qué está '
+                f'hecho. Es la tira que decide a qué hora mandar la próxima tanda: donde el '
+                f'bloque de arriba es gordo, la hora ya la estamos usando; donde es flaco, '
+                f'esa franja es de los que vuelven solos y todavía no le mandamos a nadie.'
+                f'<br><br>Las franjas con menos de {num(ho["min_base"])} sesiones salen como '
+                f'un marco vacío en vez de como un reparto: a esa base una sola persona '
+                f'mueve la barra casi siete puntos, y un porcentaje dibujado firme sobre '
+                f'tres sesiones se lee igual que uno sobre doscientas.')),
+        sub=f'Cuándo alguien entra por primera vez y cuándo vuelve. Son dos preguntas '
+            f'distintas y el panel las venía contestando juntas. Acumulado desde la '
+            f'primera camada ({ho["desde"].strftime("%d/%m")}) y no por semana: la hora '
+            f'del día es un hecho estructural, y partido en semanas el brazo de las '
+            f'vueltas se queda sin base para dibujarse.',
+        anchor="reloj"))
+    pieza_horarios = "".join(out)
+
     # ── Monetización: dónde se pide el cafecito ──────────────────────────────
     mo = p["monetizacion"]
     filas_lugares = [[
@@ -1227,7 +1313,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
     # algo llama la atención.
     paneles = {
         "activacion": (_fila_kpi(p["headline"]["activacion"])
-                       + pieza_difusion + pieza_reclutas),
+                       + pieza_difusion + pieza_reclutas + pieza_horarios),
         "retencion": (_fila_kpi(p["headline"]["retencion"])
                       + pieza_push + pieza_mails),
         "jugabilidad": (_fila_kpi(p["headline"]["jugabilidad"])

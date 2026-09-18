@@ -381,6 +381,74 @@ def stack(segments: list[dict], *, width: int = 760, height: int = 62,
     return _svg(width, height, "".join(out))
 
 
+# ── Barras apiladas al 100%, una por bin ─────────────────────────────────────
+
+def stackbars(groups: list[str], series: list[dict], *, width: int = 760,
+              height: int = 104, min_n: int = 0, colors: list[str] | None = None,
+              legend: bool = True) -> str:
+    """Una columna por grupo, cada una repartida al 100% entre las series.
+
+    `series` = [{"label": ..., "values": [...]}], un valor por grupo. Es la
+    hermana de `stack()` para cuando la distribución se repite a lo largo de un
+    eje: `stack` contesta «cómo se reparte el total», esto contesta «cómo cambia
+    ese reparto de un bin al siguiente».
+
+    Deliberadamente NO muestra el volumen: todas las columnas miden igual. Esa
+    es la mitad del valor —la proporción se lee sin que el tamaño la tape— y
+    también su trampa, porque un bin de tres sesiones se dibuja tan ancho como
+    uno de doscientas. Por eso `min_n`: abajo de esa base la columna sale como
+    un marco vacío en vez de como un reparto. Un hueco declarado se lee como
+    «acá no hay con qué»; una barra de tres personas se lee como un dato.
+    """
+    if not groups or not series:
+        return _empty()
+    pal = colors or SERIES
+    pad_l, pad_t = 4, 8
+    bar_h = height - 46
+    plot_w = width - pad_l * 2
+    gw = plot_w / len(groups)
+    bw = gw - 5
+    out = []
+    for gi, g in enumerate(groups):
+        x = pad_l + gi * gw
+        total = sum((s["values"][gi] or 0) for s in series)
+        if total < max(min_n, 1):
+            out.append(
+                f'<rect x="{x:.1f}" y="{pad_t}" width="{bw:.1f}" height="{bar_h}" '
+                f'rx="3" fill="none" stroke="var(--grid)" stroke-width="1" '
+                f'stroke-dasharray="3 3"/>'
+                f'<title>{esc(g)}: {total} '
+                f'{"sesión" if total == 1 else "sesiones"} — base insuficiente</title>')
+        else:
+            y = pad_t
+            for si, s in enumerate(series):
+                v = s["values"][gi] or 0
+                h = bar_h * v / total
+                pct = 100 * v / total
+                out.append(
+                    f'<rect x="{x:.1f}" y="{y:.1f}" width="{bw:.1f}" '
+                    f'height="{h:.1f}" fill="{pal[si % len(pal)]}"/>'
+                    f'<title>{esc(g)} · {esc(s["label"])}: {num(v)} '
+                    f'({pct:.0f}%)</title>')
+                # El número va adentro del primer segmento y solo si entra: es
+                # el que se lee como «cuánto de esta hora es gente nueva», y el
+                # de abajo es su complemento a 100 — escribir los dos es
+                # escribir el mismo dato dos veces.
+                if si == 0 and h >= 17:
+                    out.append(
+                        f'<text x="{x + bw / 2:.1f}" y="{y + h / 2 + 4:.1f}" '
+                        f'text-anchor="middle" fill="#fff" font-size="11" '
+                        f'font-weight="600" {FONT}>{pct:.0f}%</text>')
+                y += h
+        out.append(
+            f'<text x="{x + bw / 2:.1f}" y="{pad_t + bar_h + 15}" '
+            f'text-anchor="middle" fill="var(--fg)" font-size="10.5" {FONT}>'
+            f'{esc(g)}</text>')
+    if legend:
+        out.append(_legend([s["label"] for s in series], pad_l, height - 6))
+    return _svg(width, height, "".join(out))
+
+
 # ── Sparkline ────────────────────────────────────────────────────────────────
 
 def spark(values: list[float], *, width: int = 96, height: int = 26) -> str:

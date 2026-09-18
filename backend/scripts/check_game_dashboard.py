@@ -729,6 +729,93 @@ check("las franjas están declaradas en el orden del día",
 check("y las tres tienen etiqueta",
       all(k in q.FRANJA_LABEL for k in q.FRANJA_ORDER))
 
+# ── 6c · El reloj: primer uso contra uso posterior ──────────────────────────
+print()
+print("— el reloj —")
+
+# Los bins son la definición del gráfico: doce de dos horas que ARRANCAN A LAS 6,
+# para que la madrugada caiga al final del eje y no partida entre las dos puntas.
+check("el reloj tiene doce bins de dos horas", len(q.BIN_LABEL) == 12,
+      f"({len(q.BIN_LABEL)})")
+check("y el día arranca a las 6",
+      q.BIN_LABEL[0] == "06–08" and q.BIN_LABEL[-1] == "04–06",
+      f"({q.BIN_LABEL[0]} … {q.BIN_LABEL[-1]})")
+# El borde de la noche no se escribe dos veces: sale de FRANJA_DESDE. Si alguien
+# corriera la franja y no el bin, los dos números de «de noche» del panel
+# medirían cosas distintas con el mismo nombre.
+check("y «de noche» usa el mismo borde que la franja",
+      [q.BIN_LABEL[i] for i in q.BINS_NOCHE]
+      == ["20–22", "22–00", "00–02", "02–04", "04–06"],
+      f"({[q.BIN_LABEL[i] for i in q.BINS_NOCHE]})")
+
+for hora, esperado in [(6, "06–08"), (11, "10–12"), (13, "12–14"), (19, "18–20"),
+                       (20, "20–22"), (23, "22–00"), (0, "00–02"), (5, "04–06")]:
+    check(f"las {hora:02d} de Argentina caen en «{esperado}»",
+          q.BIN_LABEL[q._bin_de(AR(hora))] == esperado,
+          f"(dio {q.BIN_LABEL[q._bin_de(AR(hora))]})")
+
+rel = q.horarios(data)
+
+# El escenario, a mano. Las tandas arrancan 14:00 UTC, que son las 11 acá: si el
+# huso se perdiera caerían en «14–16» y el gráfico diría que el juego se juega a
+# la tarde. Es el mismo error que ya vigila el corte por franja, y hay que
+# vigilarlo dos veces porque son dos lecturas distintas de la misma columna.
+check("p1, p2 y p4 arrancan en la franja de las 11 argentinas",
+      rel["primera"][2] == 3, f'({rel["primera"][2]}, bin {rel["bins"][2]})')
+check("y las cinco primeras sesiones están repartidas donde corresponde",
+      rel["primera"] == [0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0], f'({rel["primera"]})')
+
+# La unidad es la SESIÓN y no la persona: p1 tiene dos tandas el mismo día y
+# aporta una a cada serie. Contando personas, su vuelta desaparecería.
+check("la segunda tanda de p1 cuenta como uso posterior",
+      rel["posterior"] == [0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0], f'({rel["posterior"]})')
+check("y las dos series juntas son todas las tandas del escenario",
+      sum(rel["primera"]) + sum(rel["posterior"])
+      == sum(len(q._sesiones([a for a in data["_answers"] if a["player_id"] == pid]))
+             for pid in {a["player_id"] for a in data["_answers"]}),
+      f'({sum(rel["primera"]) + sum(rel["posterior"])})')
+
+# «Mismo día» se mide contra el día en que a esa persona la invitamos, no contra
+# la tanda anterior: p1 vuelve el mismo día (arrastre) y p2 tres días después
+# (vuelta de verdad). Es la división que separa la campaña del hábito.
+check("la vuelta de p1 es del mismo día y la de p2 de otro",
+      (rel["n_mismo_dia"], rel["n_otro_dia"]) == (1, 1),
+      f'({rel["n_mismo_dia"]} y {rel["n_otro_dia"]})')
+check("y las dos suman exactamente los usos posteriores",
+      rel["n_mismo_dia"] + rel["n_otro_dia"] == sum(rel["posterior"]))
+
+# El bot tiene 50 respuestas a las 12 UTC (9 de la mañana acá). Si entrara,
+# «09–10» sería el pico del panel entero.
+check("el bot no aporta ni una sesión al reloj",
+      sum(rel["primera"]) + sum(rel["posterior"]) == 7,
+      f'({sum(rel["primera"]) + sum(rel["posterior"])})')
+
+# Quien tiene grupo Y reclutador cuenta como grupo: `first_group_id` es el link
+# que esa persona efectivamente tocó. p2 tiene los dos, y sin una precedencia
+# escrita se contaría dos veces y los tres orígenes sumarían más que el total.
+check("los tres orígenes reparten las primeras sesiones sin duplicar",
+      sum(rel["por_origen"][k]["n"] for k in ("grupo", "recluta", "directo"))
+      == sum(rel["primera"]),
+      f'({[(k, rel["por_origen"][k]["n"]) for k in ("grupo", "recluta", "directo")]})')
+check("y p2, que tiene grupo y reclutador, cuenta como grupo",
+      rel["por_origen"]["grupo"]["n"] == 4, f'({rel["por_origen"]["grupo"]["n"]})')
+
+# Los porcentajes son sobre el total de CADA serie y no sobre el total general:
+# es lo único que deja comparar 606 sesiones contra 304 sin que la chica quede
+# aplastada contra el piso.
+check("cada perfil se normaliza a su propio total",
+      abs(sum(rel["perfil_primera"]["pct"]) - 100) < 0.5
+      and abs(sum(rel["perfil_posterior"]["pct"]) - 100) < 0.5,
+      f'({sum(rel["perfil_primera"]["pct"])} y {sum(rel["perfil_posterior"]["pct"])})')
+check("y el pico sale con su etiqueta, no con su índice",
+      rel["perfil_primera"]["pico"] == "10–12", f'({rel["perfil_primera"]["pico"]})')
+
+# Una serie vacía no puede romper la página: el escenario no tiene reclutas con
+# sesión, y la sección igual tiene que dibujarse.
+check("un origen sin sesiones no explota, devuelve vacío",
+      rel["por_origen"]["recluta"]["n"] == 0
+      and rel["por_origen"]["recluta"]["pico"] is None)
+
 # La cohorte es la de la SEMANA ELEGIDA y no la ventana visible entera. Sin el
 # corte por arriba, pedir una semana vieja devolvía una curva con gente que esa
 # semana todavía no existía: p5 es de cuatro semanas antes y su cohorte es él
@@ -1007,6 +1094,43 @@ check("y el global pasa a la nota, que es donde no compite con ellos",
       and "El conjunto da" in h_dif)
 check("la nota dice cuántos quedaron sin copia anotada",
       "sin copia anotada" in h_dif)
+
+# ── El reloj, dibujado ──────────────────────────────────────────────────────
+# La sección vive en Activación y en ninguna otra: es parte del reparto, y una
+# pieza que se cuela en dos pestañas es la forma en que el panel deja de tener
+# un lugar por pregunta.
+check("el reloj se dibuja en la pestaña de activación",
+      'id="reloj"' in h_dif and "El reloj del día" in h_dif)
+for sec in ("retencion", "jugabilidad", "monetizacion", "experimentacion"):
+    otra = game_render.page(q.build(s, WEEK), token="tok", seccion=sec)
+    check(f"y no aparece en «{sec}»", 'id="reloj"' not in otra)
+
+check("los cuatro números del reloj comparan lo mismo entre las dos curvas",
+      all(f'<div class="label">{e}</div>' in h_dif for e in
+          ("Primer uso · 6 h más cargadas", "Uso posterior · 6 h más cargadas",
+           "Primer uso · de noche", "Uso posterior · de noche")))
+# La correlación con el cronograma de envío es el argumento entero de la
+# sección, y es un dato MEDIDO AFUERA (los checkpoints de hermes, que no están
+# en la base). Va con su fecha y su fuente o es una afirmación sin respaldo.
+check("la nota deja escrito contra qué se midió la causa",
+      "r = 0,82" in h_dif and "r = 0,17" in h_dif and "checkpoints de Hermes" in h_dif)
+check("y el control por origen sale de la base, con sus n",
+      "grupo de WhatsApp" in h_dif and "lo trajo un recluta" in h_dif)
+check("la tira de reparto avisa cuál es su piso de base",
+      f'menos de {q.MIN_BASE_BIN} sesiones' in h_dif)
+# El alcance NO es la semana visible, y decirlo es parte del gráfico: alguien
+# que lo lea como semanal va a creer que la forma cambió cuando lo que cambió
+# fue el acumulado.
+check("y la sección declara que es acumulado, no semanal",
+      "Acumulado desde la primera camada" in h_dif)
+
+# El corte por horario de Profundidad tiene que mandar acá en vez de repetir la
+# advertencia con otras palabras: son la misma lectura y una de las dos copias
+# envejecería sola.
+_h_hor = game_render.page(q.build(s, WEEK, corte="horario"), token="tok",
+                          seccion="jugabilidad")
+check("el corte por horario manda al reloj en vez de repetir la advertencia",
+      'href="#reloj"' in _h_hor and "r = 0,82" in _h_hor)
 
 
 # ── 6b-bis · Monetización ──────────────────────────────────────────────────

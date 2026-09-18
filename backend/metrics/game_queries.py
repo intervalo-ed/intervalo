@@ -123,6 +123,51 @@ def _franja(dt: datetime) -> str:
     return "noche"
 
 
+# ── El reloj del día ─────────────────────────────────────────────────────────
+#
+# Los bins del gráfico de horarios. Dos decisiones, las dos medidas:
+#
+#   · **Bins de dos horas y no de una.** Las sesiones que NO son la primera son
+#     unas trescientas en toda la vida del producto: repartidas en 24 canastas
+#     quedan a doce por hora y la curva tiembla con una persona. A doce bins la
+#     forma se lee y el ruido no.
+#   · **El día arranca a las 6, no a las 0.** Así la madrugada cae al final del
+#     eje, pegada a la noche, en vez de partirse entre las dos puntas. Es el
+#     mismo argumento que ya gobierna `FRANJA_DESDE`: quien deriva a la una de
+#     la mañana está terminando su noche, no empezando su día, y un eje que lo
+#     manda al extremo izquierdo lo dibuja como si madrugara.
+BIN_HORAS = 2
+BIN_DESDE = 6
+_N_BINS = 24 // BIN_HORAS
+
+
+def _hora_del_bin(i: int) -> int:
+    return (BIN_DESDE + i * BIN_HORAS) % 24
+
+
+BIN_LABEL: tuple[str, ...] = tuple(
+    f"{_hora_del_bin(i):02d}–{(_hora_del_bin(i) + BIN_HORAS) % 24:02d}"
+    for i in range(_N_BINS))
+
+# Los bins que caen en la noche, con el MISMO borde que la franja (20 a 6). Se
+# calculan y no se escriben a mano: si `BIN_HORAS` cambiara, una lista fija
+# seguiría apuntando a los índices viejos y el porcentaje de noche pasaría a
+# medir otra cosa sin avisar.
+BINS_NOCHE: tuple[int, ...] = tuple(
+    i for i in range(_N_BINS)
+    if _hora_del_bin(i) >= FRANJA_DESDE["noche"] or _hora_del_bin(i) < FRANJA_DESDE["manana"])
+
+# Base mínima para que una columna del reparto se dibuje. A 15 sesiones una
+# persona mueve la barra 6,7 puntos; abajo de eso el reparto es la anécdota de
+# quien estaba despierto.
+MIN_BASE_BIN = 15
+
+
+def _bin_de(dt: datetime) -> int:
+    """En qué bin del reloj cae un instante UTC, leído en hora de Argentina."""
+    return (((dt + AR_OFFSET).hour - BIN_DESDE) % 24) // BIN_HORAS
+
+
 # El origen de un empuje que cuenta como ingreso: `cafecito` es el que entró por
 # el oyente del stream (game/cafecito_stream.py). Los otros dos —`manual`, que
 # insertamos nosotros para probar, y `aforo`, que regala el propio juego— no son
@@ -1760,6 +1805,116 @@ def difusion(data: dict) -> dict:
     }
 
 
+# ── 7-bis · El reloj: cuándo se entra y cuándo se vuelve ─────────────────────
+
+def horarios(data: dict) -> dict:
+    """A qué hora del día arranca el PRIMER uso y a qué hora los siguientes.
+
+    **Qué contesta.** El primer uso lo empuja el link que salió por WhatsApp; el
+    segundo y los que siguen no los empuja nadie. Separarlos convierte una sola
+    pregunta —«a qué hora juega la gente»— en las dos que de verdad hay:
+
+      - **primer uso** = a qué hora llega alguien a quien acabamos de invitar.
+        Medido el 14/09 contra los checkpoints de Hermes de esta camada, la
+        curva calca el cronograma de envío: r = 0,82 hora por hora, incluido el
+        rebote de las 15-16, que es la tanda de las 15. O sea que NO es una
+        preferencia de nadie — es nuestra agenda dibujada.
+      - **uso posterior** = a qué hora alguien decide volver solo. Contra el
+        mismo cronograma da r = 0,17: es lo único de las dos curvas que mide
+        una preferencia.
+
+    **La unidad es la SESIÓN, no la persona.** Alguien que jugó cinco veces
+    aporta una primera y cuatro posteriores, que es exactamente lo que se quiere
+    contar: la pregunta es cuándo ocurren los usos, no cuándo existen las
+    personas. Las tandas salen de `_sesiones()`, el único lugar donde este panel
+    decide dónde termina una sesión.
+
+    **Acumulado desde la primera camada, no por semana.** La hora del día es un
+    hecho estructural y no un indicador semanal; partido en semanas, el brazo de
+    las vueltas se queda con veinte sesiones repartidas en doce bins y deja de
+    leerse. Mismo alcance que la sección de difusión, que está al lado.
+
+    **El control interno.** Partir el primer uso por cómo se invitó a esa
+    persona es lo que cierra el argumento sin salir de la base: al de grupo lo
+    trae una tanda de WhatsApp y al recluta lo trae una persona. Si el pico de
+    la mañana fuera «los que recién llegan prefieren la mañana», los dos
+    tendrían la misma forma. No la tienen.
+    """
+    por_jugador: dict[int, list[dict]] = defaultdict(list)
+    for a in data["_answers"]:
+        por_jugador[a["player_id"]].append(a)
+
+    # `directo` es quien no trae ni grupo ni reclutador: entró por el link
+    # pelado. No es una tercera vía de difusión, es la ausencia de atribución.
+    origen = {p["id"]: ("grupo" if p["first_group_id"] else
+                        "recluta" if p["referred_by"] else "directo")
+              for p in data["players"]}
+
+    primera = [0] * _N_BINS
+    posterior = [0] * _N_BINS
+    mismo_dia = [0] * _N_BINS
+    otro_dia = [0] * _N_BINS
+    por_origen = {k: [0] * _N_BINS for k in ("grupo", "recluta", "directo")}
+
+    for pid, eventos in por_jugador.items():
+        tandas = _sesiones(eventos)
+        if not tandas:
+            continue
+        arranque = tandas[0][0]["created_at"]
+        b0 = _bin_de(arranque)
+        primera[b0] += 1
+        por_origen[origen.get(pid, "directo")][b0] += 1
+        # «Mismo día» se mide contra el día de la PRIMERA sesión y no contra la
+        # anterior: lo que separa el arrastre de la vuelta es el día en que a
+        # esa persona la invitamos, no cuándo jugó por última vez.
+        dia_cero = local_date(arranque)
+        for tanda in tandas[1:]:
+            t = tanda[0]["created_at"]
+            b = _bin_de(t)
+            posterior[b] += 1
+            if local_date(t) == dia_cero:
+                mismo_dia[b] += 1
+            else:
+                otro_dia[b] += 1
+
+    def perfil(cuenta: list[int]) -> dict:
+        """El reparto de una serie por bin, más las dos cifras que la resumen."""
+        n = sum(cuenta)
+        if not n:
+            return {"n": 0, "pct": [None] * _N_BINS, "pico": None,
+                    "pct_pico": None, "top3": None, "noche": None}
+        pct = [round(100 * c / n, 1) for c in cuenta]
+        i_pico = max(range(_N_BINS), key=lambda i: cuenta[i])
+        top3 = sum(sorted(cuenta, reverse=True)[:3])
+        return {
+            "n": n,
+            "pct": pct,
+            "pico": BIN_LABEL[i_pico],
+            "pct_pico": pct[i_pico],
+            # Los tres bins más cargados: seis horas del día. Es la medida de
+            # concentración que se lee sin explicar —«en seis horas entra tanto
+            # por ciento»— y la que separa un pico de una meseta.
+            "top3": round(100 * top3 / n, 1),
+            "noche": round(100 * sum(cuenta[i] for i in BINS_NOCHE) / n, 1),
+        }
+
+    return {
+        "bins": list(BIN_LABEL),
+        "primera": primera,
+        "posterior": posterior,
+        "mismo_dia": mismo_dia,
+        "otro_dia": otro_dia,
+        "n_mismo_dia": sum(mismo_dia),
+        "n_otro_dia": sum(otro_dia),
+        "perfil_primera": perfil(primera),
+        "perfil_posterior": perfil(posterior),
+        "perfil_otro_dia": perfil(otro_dia),
+        "por_origen": {k: perfil(v) for k, v in por_origen.items()},
+        "min_base": MIN_BASE_BIN,
+        "desde": FIRST_WEEK,
+    }
+
+
 # ── 7b · Experimentos por GRUPO (no por jugador) ─────────────────────────────
 #
 # `experimentos()` de arriba compara proporciones entre JUGADORES —cada uno cae
@@ -2401,6 +2556,7 @@ def build(db: DBSession, week: date, weeks_shown: int = 4,
         "experimentos": experimentos(data),
         "experimentos_grupos": experimento_grupos(data),
         "difusion": difusion(data),
+        "horarios": horarios(data),
         "carteles": carteles(data),
         "monetizacion": monetizacion(data),
         "calibracion": calibracion(data),
