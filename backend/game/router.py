@@ -524,7 +524,14 @@ def patch_me(
     # Después del commit, por lo mismo que en el alta de clásico (main.py): la
     # persona tiene que estar contada antes de preguntar si fue la décima, y un
     # problema del premio no puede voltear el PATCH que ya se guardó.
+    #
+    # El saludo va PRIMERO y el aforo después, y el orden es el del feed: los dos
+    # quedan en la misma pantalla, y la noticia grande —que la universidad llegó
+    # a diez personas nuevas— tiene que ser la de arriba.
     if reviso_aforo:
+        game_events.on_universidad(db, player)
+        db.commit()
+
         from . import aforo
 
         if aforo.revisar(db, player.university) is not None:

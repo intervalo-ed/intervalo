@@ -147,6 +147,24 @@ se junta».
 universidad impulsada después de que arrancó el empuje no lo cobra. Sin él, cada
 empuje se llenaría de gente que se muda por un rato.
 
+**Una donación llega por dos vías y tiene que valer una sola vez.** El socket de
+alertas de Cafecito (`game/cafecito_stream.py`) y el mail de Mercado Pago
+reenviado (`game/cafecito_email.py`) son independientes a propósito —cada uno
+tapa el agujero del otro— y **no comparten ningún identificador**: el socket trae
+el nombre que la persona escribió, el mail trae un número de operación. Lo único
+en común es cuánto y cuándo, así que `aviso_repetido` compara eso dentro de
+`VENTANA_MISMO_PAGO_S`.
+
+Esa ventana eran tres minutos y desde el 17/09 son **quince**. El 17/09 el socket
+entró 14:03:08 y el mail del mismo pago 14:07:47: **279 segundos**, 99 más que la
+ventana. Los 5 cafecitos se acreditaron dos veces —una a la UTN y otra, ya sin
+intención abierta que la atara a nadie, como empuje **global** y a nombre de
+«Alguien»— y el feed anunció la misma donación dos veces. El costo de agrandarla
+es el simétrico: dos personas que donen la misma cantidad dentro de la ventana
+se cuentan como una. Con veinte donaciones en toda la vida del producto, ese
+choque es mucho menos probable — y además se ve, porque el que descarta lo grita
+en el log y de ahí se repara con `grant_game_boost.py`.
+
 ### Empuje por aforo: 10 personas nuevas en un día (`game/aforo.py`)
 
 El segundo modo de encender un empuje, y el único que no cuesta plata. Cuando

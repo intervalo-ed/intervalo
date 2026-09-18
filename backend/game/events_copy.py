@@ -322,29 +322,37 @@ def level(semilla: str, *, nivel: int) -> str:
     return _armar(semilla, _NIVEL, fam=corta, regla=regla)
 
 
-# ── El saludo a quien recién llega ───────────────────────────────────────────
-# Sale con la PRIMERA derivada resuelta, no al entrar: hasta ahí el alias es el
-# generado al azar y siete de cada quince se van sin resolver una sola, así que
-# saludaríamos a gente que no llegó a estar.
+# ── El saludo a quien eligió universidad ─────────────────────────────────────
+# Sale cuando la persona CARGA su universidad —la tercera derivada, `HITO_PERFIL`
+# del front— y no con la primera resuelta, que es donde salía antes.
 #
-# Es a propósito un saludo y no un logro. Resolver la primera no es una hazaña
-# —la primera derivada es `x`, fijada trivial por el generador— y anunciarla como
-# tal es de donde venía el problema que esto reemplaza. Lo que se cuenta es que
-# hay alguien nuevo.
+# El motivo es que así la línea dice algo. Con la primera resuelta no había
+# universidad que nombrar: medido sobre 314 saludos de una semana, 5 tenían una.
+# El resto eran «@fulano arrancó a derivar» y nada más, entre 45 y 116 por día,
+# y el feed entero pasaba a ser eso —ver el bloque de `_NIVEL`, que es la tercera
+# vez que la línea más barata del juego se lo come—.
 #
-# Ojo con la cercanía a `_SIGNUP`, acá abajo: aquel anuncia el REGISTRO, que es
-# otra cosa y sale 5 veces por día contra 80 de este. Por eso estas tres hablan
-# de EMPEZAR a jugar y aquellas de sumarse al juego — si alguna vez se tocan,
-# conviene moverlas juntas y no que terminen diciendo lo mismo.
+# También cambia a QUIÉN se saluda, y es el punto: no a cualquiera que tocó una
+# derivada sino a quien llegó lo bastante lejos como para decir dónde estudia.
+# Son 56 por día contra 73, así que el corte de volumen es chico; lo que cambia
+# es que cada línea suma a alguien a una universidad, igual que las de recluta.
+#
+# Ojo con la cercanía a `_SIGNUP_CON_UNI`, acá abajo: aquel anuncia el REGISTRO,
+# que es otra cosa y sale 5 veces por día contra 56 de este. Ahora que las dos
+# nombran universidad, la separación la sostiene el VERBO: aquellas dicen
+# «entró / se sumó / empezó a derivar», que es llegar al juego, y estas dicen
+# ponerse de un lado. Si alguna vez se tocan, conviene moverlas juntas.
 _BIENVENIDA = [
-    "{a} arrancó a derivar.",
-    "{a} empezó a jugar.",
-    "{a} acaba de llegar.",
+    "{a} se sumó a las filas $de_u {u0}.",
+    "{a} ahora deriva para $art_u {u0}.",
+    "{a} se puso la camiseta $de_u {u0}.",
 ]
 
 
-def bienvenida(semilla: str) -> str:
-    return _armar(semilla, _BIENVENIDA)
+def bienvenida(semilla: str, *, arts: Articulos) -> str:
+    """Sin universidad no hay saludo, así que `arts` no es opcional: el emisor
+    ni siquiera llega a llamar acá (ver `events.on_universidad`)."""
+    return _armar(semilla, _BIENVENIDA, **_campos("u", arts))
 
 
 # ── Llegadas ─────────────────────────────────────────────────────────────────

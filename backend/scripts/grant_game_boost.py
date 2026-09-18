@@ -11,6 +11,7 @@ Uso:
     python backend/scripts/grant_game_boost.py --list          # empujes vigentes
     python backend/scripts/grant_game_boost.py --expire UBA    # cortarlo ya
     python backend/scripts/grant_game_boost.py --expire TODOS  # cortar el GLOBAL
+    python backend/scripts/grant_game_boost.py --duplicado mp:178493419315
 
 La sigla se canonicaliza sola, así que `uba`, `UBA` y "Universidad de Buenos
 Aires" son lo mismo.
@@ -44,6 +45,12 @@ from database import SessionLocal  # noqa: E402
 from models import GameBoost, GamePlayer  # noqa: E402
 from universities import canonical_university  # noqa: E402
 from game import boosts  # noqa: E402
+
+# El `source` de un empuje que cobró dos veces el mismo pago. No es ni
+# "cafecito" ni "aforo" a propósito: el panel reconoce solo esos dos, así que
+# cualquier otro valor cae afuera de las dos cuentas, que es justo lo que se
+# busca (ver --duplicado).
+_SOURCE_DUPLICADO = "duplicado"
 
 
 def restante(segundos: int) -> str:
@@ -96,12 +103,53 @@ def main() -> int:
     ap.add_argument("--expire", metavar="UNIVERSIDAD",
                     help="vence ya los empujes de esa universidad; TODOS o "
                          "global vence el empuje GLOBAL")
+    ap.add_argument("--duplicado", metavar="EXTERNAL_REF",
+                    help="marca ese empuje como duplicado: deja de contar como "
+                         "plata en el panel, sin tocar la XP que ya repartió")
     args = ap.parse_args()
 
     db = SessionLocal()
     try:
         if args.list:
             mostrar(db)
+            return 0
+
+        if args.duplicado:
+            # Una donación que entró por los DOS canales y que la ventana de
+            # `boosts.aviso_repetido` no llegó a emparejar. Pasó el 17/09: el
+            # socket a las 14:03:08 y el mail de Mercado Pago del mismo pago 279
+            # segundos después, con la ventana en 180. Hoy son 900, así que esto
+            # debería ser raro; raro no es nunca.
+            #
+            # **No se borra la fila ni se vence el empuje.** La XP que la gente
+            # sumó con él ya está en sus cuentas, y quitársela es peor que el
+            # regalo de más. Lo único que se corrige es la contabilidad: el panel
+            # cuenta ingresos por `source == "cafecito"` (metrics/game_queries.py
+            # :: DONADO), así que con otro valor la donación fantasma deja de
+            # sumar plata que nadie pagó. Y "duplicado" tampoco es "aforo", o sea
+            # que no se cuela por el otro lado.
+            fila = (
+                db.query(GameBoost)
+                .filter(GameBoost.external_ref == args.duplicado)
+                .one_or_none()
+            )
+            if fila is None:
+                print(f"no hay ningún empuje con external_ref '{args.duplicado}'",
+                      file=sys.stderr)
+                return 1
+            if fila.source == _SOURCE_DUPLICADO:
+                print(f"el empuje {fila.id} ya estaba marcado como duplicado")
+                return 0
+            antes = fila.source
+            fila.source = _SOURCE_DUPLICADO
+            db.commit()
+            destino = fila.university or "TODOS (empuje global)"
+            print(
+                f"empuje {fila.id} ({destino}, {fila.cafecitos} cafecitos, "
+                f"{fila.created_at.strftime('%d/%m %H:%M')} UTC): "
+                f"source '{antes}' → '{_SOURCE_DUPLICADO}'. "
+                f"El multiplicador y la XP ya repartida no se tocan."
+            )
             return 0
 
         if args.expire:
