@@ -1387,11 +1387,11 @@ def email_unsubscribe_page(token: str):
     de la query: así nada de lo que venga en la URL llega al HTML."""
     import lifecycle_emails
 
-    user_id = lifecycle_emails.verify_unsubscribe_token(token)
-    if user_id is None:
+    quien = lifecycle_emails.verify_unsubscribe_token(token)
+    if quien is None:
         return _unsub_page(_UNSUB_INVALID, status_code=400)
 
-    safe_token = lifecycle_emails.unsubscribe_token(user_id)
+    safe_token = lifecycle_emails.token_de_baja(*quien)
     return _unsub_page(
         "<img src='/email/logo.png' width='163' height='61' alt='intervalo' style='display:block;margin:0 auto 24px;'>"
         "<p style='margin:0 0 24px;'>¿Querés dejar de recibir estos emails?</p>"
@@ -1411,13 +1411,22 @@ def email_unsubscribe_confirm(token: str, db: Session = Depends(get_db)):
     son una acción deliberada de la persona, así que acá sí se escribe."""
     import lifecycle_emails
 
-    user_id = lifecycle_emails.verify_unsubscribe_token(token)
-    if user_id is None:
+    quien = lifecycle_emails.verify_unsubscribe_token(token)
+    if quien is None:
         return _unsub_page(_UNSUB_INVALID, status_code=400)
 
-    user = db.query(User).filter(User.id == user_id).first()
-    if user is not None:
-        user.email_unsubscribed = True
+    # Dos tablas, porque son dos identidades: quien tiene cuenta se da de baja
+    # como usuario, y quien donó sin registrarse solo existe como jugador (ver
+    # lifecycle_emails.verify_unsubscribe_token).
+    destino, id_ = quien
+    if destino == lifecycle_emails.DESTINO_JUGADOR:
+        from models import GamePlayer
+
+        fila = db.query(GamePlayer).filter(GamePlayer.id == id_).first()
+    else:
+        fila = db.query(User).filter(User.id == id_).first()
+    if fila is not None:
+        fila.email_unsubscribed = True
         db.commit()
 
     return _unsub_page(_UNSUB_DONE)

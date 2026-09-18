@@ -238,6 +238,14 @@ for pid, cuando, trig in [(1, T(0, 15), "milestone"), (1, T(0, 15, 30), "milesto
 for pid, cuando in [(4, T(1, 15, 10)), (6, T(3, 15, 50))]:
     s.add(GameCtaEvent(player_id=pid, cta="cafecito", action="impression",
                        placement="record", solved=10, university="UBA", created_at=cuando))
+# Treinta impresiones más del hito, para que UN lugar pase el piso de
+# `MIN_IMPRESIONES_CTR` y se pueda probar que el porcentaje se dibuja cuando hay
+# base y se calla cuando no. Todas de p1, que ya estaba contado: el embudo por
+# persona no se mueve.
+for i in range(30):
+    s.add(GameCtaEvent(player_id=1, cta="cafecito", action="impression",
+                       placement="milestone", solved=10, university="UBA",
+                       created_at=T(0, 15, 0, i)))
 s.add(GameCtaEvent(player_id=1, cta="cafecito", action="click", placement="milestone",
                    solved=10, university="UBA", created_at=T(0, 15, 1)))
 # El click sin impresión, que es un bug real de `settings-panel.tsx`: ahí el
@@ -1170,10 +1178,10 @@ check("y las donaciones cuentan PAGOS, no filas ni cafecitos",
 # 1 click sobre 4 impresiones. El click de ajustes NO entra: su lugar nunca
 # anota impresiones, así que sumarlo daría 50% con el mismo denominador de 4.
 # Es el bug que la tabla de abajo tiene que dejar a la vista.
-# (6 impresiones: 2 de p1 en milestone, 2 de p2 y 2 más de p4 y p6 en record.)
+# (36 impresiones: 32 de p1 en milestone y 4 en record, de p2, p4 y p6.)
 check("el CTR deja afuera los clicks sin denominador",
-      h["Tocan el cartel"]["value"] == 16.7,
-      f'({h["Tocan el cartel"]["value"]}%, 1 click medible sobre 6 impresiones)')
+      h["Tocan el cartel"]["value"] == 2.8,
+      f'({h["Tocan el cartel"]["value"]}%, 1 click medible sobre 36 impresiones)')
 # **Esta tasa PUEDE pasar el 100% y no es un bug.** Numerador y denominador no
 # están apareados por persona: se dona sin tocar el cartel —el link de Cafecito
 # circula suelto— y se toca desde lugares que no anotan impresión. Acá son 4
@@ -1188,9 +1196,19 @@ mo = q.monetizacion(data)
 lug = {l["lugar"]: l for l in mo["lugares"]}
 check("la tabla abre el cartel por dónde sale",
       set(lug) == {"milestone", "record", "settings"}, f"({sorted(lug)})")
-check("y cada lugar trae su propio CTR",
-      lug["milestone"]["ctr"] == 50.0 and lug["record"]["ctr"] == 0.0,
-      f'(milestone {lug["milestone"]["ctr"]}, record {lug["record"]["ctr"]})')
+check("el lugar con base trae su propio CTR",
+      lug["milestone"]["ctr"] is not None, f'(milestone {lug["milestone"]["ctr"]})')
+# El piso existe porque un 10% que sale de una persona sobre diez es ruido con
+# forma de dato. Con 4 impresiones no se dibuja porcentaje ninguno.
+check("y el que no llega al piso se calla en vez de inventar uno",
+      lug["record"]["ctr"] is None and lug["record"]["impresiones"] == 4,
+      f'(record {lug["record"]["impresiones"]} impresiones, ctr {lug["record"]["ctr"]})')
+# Las dos tablas son dos escalones distintos: el botón que abre el pedido y el
+# pedido. Juntos, la columna de la derecha significaba dos cosas según la fila.
+check("los lugares se parten en los dos escalones",
+      {f["lugar"] for f in mo["abren"]} == {"settings"}
+      and {f["lugar"] for f in mo["piden"]} == {"milestone", "record"},
+      f'(abren {[f["lugar"] for f in mo["abren"]]}, piden {[f["lugar"] for f in mo["piden"]]})')
 # El lugar sin impresiones se lista igual y con el CTR VACÍO, no con un cero:
 # un 0% es «nadie lo tocó» y acá lo que pasa es que no se puede calcular.
 check("el lugar sin impresiones se lista con el CTR vacío",
