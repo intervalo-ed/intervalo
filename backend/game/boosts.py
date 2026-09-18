@@ -58,6 +58,16 @@ from . import elo, events, simulation
 # multiplicador. Dos premios que crecen a la vez se leen peor que uno solo.
 BOOST_HOURS_BASE = 1
 
+# Lo que sale un cafecito, en pesos.
+#
+# Vive acá y no en cada canal porque dejó de ser una copia y pasó a ser una
+# decisión nuestra: mientras se cobraba por Cafecito, este número era un reflejo
+# del precio que fijaba otro y el riesgo era que envejeciera; ahora es el precio
+# que se le cobra a la gente (game/mercadopago.py lo usa para armar el monto) y
+# el que decide si un aviso de pago es una donación (game/cafecito_email.py lo
+# usa como divisor). Dos copias de un precio son dos precios esperando diferir.
+PRECIO_CAFECITO = 100
+
 # Cada cafecito suma un décimo al multiplicador.
 CAFECITO_STEP = 0.1
 
@@ -452,6 +462,11 @@ def grant(
         university=uni,
         cafecitos=cafecitos,
         donor_name=(donor_name or None),
+        # Se guarda cuando lo sabemos, que con Checkout Pro es siempre y por los
+        # otros caminos es nunca. `donante` ya llegaba acá para nombrar en el
+        # feed a quien no escribió su nombre; lo que cambia es que ahora además
+        # queda escrito, en vez de usarse y olvidarse.
+        player_id=donante.id if donante is not None else None,
         source=source,
         external_ref=external_ref,
         created_at=now,
@@ -739,6 +754,81 @@ def aviso_repetido(
         .first()
         is not None
     )
+
+
+def acreditar_pago(
+    db: Session,
+    player: GamePlayer,
+    cafecitos: int,
+    payment_id: str | int,
+    now: datetime | None = None,
+) -> GameBoost | None:
+    """Un pago de Checkout Pro: mismo empuje, sin adivinar nada.
+
+    Es el primo exacto de `resolve_donation`, y la diferencia es toda la gracia
+    de haber migrado a Mercado Pago: allá hay una escalera de tres escalones que
+    existe porque Cafecito no dice quién donó —siglas en el mensaje, intenciones
+    abiertas, y si no, empuje global— y acá no hay escalera porque el pago vino
+    con el jugador adentro (`mercadopago.referencia`).
+
+    Lo que eso elimina, en concreto:
+
+    - **El reparto entre varios.** `resolve_donation` marca TODAS las intenciones
+      abiertas y reparte el empuje entre sus universidades, porque no puede saber
+      cuál de ellas pagó. Acá se sabe: cobra una universidad, la de quien pagó.
+    - **El «todavía no llegó» a quien sí pagó.** Pasó 4 veces de 27
+      (docs/reports/2026-09-17-cafecito-embudo.md): con dos intenciones abiertas
+      al mismo tiempo, `estado_de_donacion` prefiere callarse antes que arriesgar
+      una frase falsa. Con una sola intención marcada, esa ambigüedad no existe.
+
+    Idempotente por el id del pago, que es una clave de verdad y no un hash del
+    contenido: `grant` devuelve None si esa referencia ya entró. Y la referencia
+    lleva el MISMO prefijo que el canal del mail (`FUENTE_MAIL`), porque el
+    «N.° de operación» de ese aviso ES este id — verificado contra la cuenta real
+    sobre tres pagos del 28/08, 13/09 y 17/09. Mientras las dos vías convivan, el
+    UNIQUE de `external_ref` las deduplica sin ventanas ni comparaciones de
+    monto.
+    """
+    now = now or _now()
+    boost = grant(
+        db,
+        university=player.university,
+        cafecitos=cafecitos,
+        # Sin `donor_name`: el pagador no eligió cómo aparecer en ningún
+        # formulario nuestro, y poner su nombre legal —lo único que Mercado Pago
+        # sabe— sería publicar un dato que no dio para eso. El feed lo nombra por
+        # su alias del juego, que es el nombre que sí eligió.
+        donante=player,
+        # El mismo `source` que las donaciones que ya entraban por los otros dos
+        # canales: para el panel esto es plata que entró, igual que antes, y un
+        # origen nuevo lo dejaría fuera del titular de ingresos sin que nadie se
+        # entere (metrics/game_queries.py :: DONADO).
+        source="cafecito",
+        external_ref=f"{FUENTE_MAIL}{payment_id}",
+        now=now,
+    )
+    if boost is None:
+        return None
+
+    # La intención de esta persona, marcada como cumplida: es lo que hace que al
+    # volver a la pestaña vea «llegó tu cafecito» en vez de la misma pantalla que
+    # había dejado (ver `estado_de_donacion`). Solo la suya — el reparto a todas
+    # las abiertas era una consecuencia de no saber quién pagó.
+    suya = (
+        db.query(GameBoostIntent)
+        .filter(
+            GameBoostIntent.player_id == player.id,
+            GameBoostIntent.consumed_at.is_(None),
+            GameBoostIntent.created_at > now - timedelta(hours=MEMORIA_INTENCION_HORAS),
+        )
+        .order_by(GameBoostIntent.created_at.desc())
+        .first()
+    )
+    if suya is not None:
+        # El mismo instante que el empuje, que es lo que `estado_de_donacion`
+        # usa para encontrarlo (busca con ±5 s de margen).
+        suya.consumed_at = boost.created_at
+    return boost
 
 
 def resolve_donation(

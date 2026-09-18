@@ -355,6 +355,31 @@ class GameBoostOut(BaseModel):
     expires_in_seconds: int
 
 
+class GameCafecitoCheckoutRequest(BaseModel):
+    """Cuántos cafecitos eligió el slider antes de salir a pagar."""
+
+    # Se valida contra el tope del slider en el endpoint, no acá: el tope es una
+    # regla del dominio (boosts.MAX_CAFECITOS_PER_DONATION) y no un detalle del
+    # transporte.
+    cafecitos: int = 1
+
+
+class GameCafecitoCheckout(BaseModel):
+    """A dónde mandar a la persona para que pague.
+
+    `checkout_url` es el `init_point` de una preferencia de Checkout Pro cuando
+    hay con qué cobrar, y `null` cuando no (sin `MP_ACCESS_TOKEN`, o si Mercado
+    Pago no contestó). El front no decide nada con eso más que a dónde apuntar el
+    enlace: con `null` cae al link de siempre, que sigue funcionando.
+
+    La intención queda anotada en los dos casos — es lo único que atribuye una
+    donación que entre por el canal del mail, así que se escribe antes de saber
+    si el checkout se pudo crear.
+    """
+
+    checkout_url: Optional[str] = None
+
+
 class GameCafecitoStatus(BaseModel):
     """Qué pasó con la donación de quien acaba de volver de Cafecito.
 

@@ -78,7 +78,13 @@ def log(mensaje: str) -> None:
 # Lo que sale un cafecito, en pesos. Es el divisor que convierte el total del
 # pago en cantidad y, de paso, el filtro: un cobro que no es múltiplo exacto de
 # esto no es una compra de cafecitos y no se toca.
-PRECIO_CAFECITO = 100
+#
+# Importado y no escrito de nuevo: desde que cobramos por Checkout Pro este
+# número también decide cuánto se le cobra a la gente (game/mercadopago.py), y
+# un precio que se escribe en dos lados es un precio que en algún momento va a
+# decir dos cosas distintas. Se reexporta con el mismo nombre para no tocar a
+# quien ya lo importaba de acá.
+PRECIO_CAFECITO = boosts.PRECIO_CAFECITO
 
 # Techo de sanidad. Nadie dona diez mil cafecitos; un número así es un monto mal
 # leído, y aplicarlo dejaría el juego en el multiplicador máximo por SEIS HORAS

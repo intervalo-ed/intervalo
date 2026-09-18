@@ -56,6 +56,7 @@ import {
 } from "./game-colors"
 import {
   porExperiencia,
+  useCafecitoCheckout,
   useCafecitoIntent,
   useCafecitoStatus,
   useGameUniversityLeaderboard,
@@ -89,6 +90,12 @@ const CAFE_TINTA = BELT_HEX.brown.onDark
 // vez.
 const EN_DESARROLLO = process.env.NODE_ENV === "development"
 const COOLDOWN_S = EN_DESARROLLO ? 0 : 10
+
+// Cuánto se espera a que el slider se quede quieto antes de pedirle a Mercado
+// Pago el checkout de esa cantidad. Arrastrar el slider pasa por diez valores;
+// sin esta espera serían diez preferencias y diez llamadas por cada persona que
+// juega con la barra.
+const ESPERA_SLIDER_MS = 400
 
 // La aritmética del cafecito vive en impacto-del-cafecito.ts, afuera de este
 // archivo, para que un chequeo la pueda importar sin arrastrar React — el mismo
@@ -786,6 +793,47 @@ export function CafecitoPanel({
   }, [])
 
   const intent = useCafecitoIntent()
+
+  // A dónde lleva el botón: al checkout de Mercado Pago por el monto elegido.
+  //
+  // Se pide ACÁ y no en el onClick porque el botón es un `<a>` de verdad —ver el
+  // comentario largo de más abajo sobre la PWA— y el `href` de un anchor tiene
+  // que estar resuelto antes del click. Por eso el pedido viaja cuando el slider
+  // se queda quieto, no cuando la persona decide.
+  //
+  // El destino guarda PARA QUÉ CANTIDAD sirve. Sin eso, mover el slider de 10 a
+  // 3 dejaría el enlace del checkout anterior y alguien terminaría pagando mil
+  // pesos cuando eligió trescientos, que es peor que cualquier cosa que este
+  // cambio vino a arreglar.
+  //
+  // Mientras no hay destino para la cantidad actual —los primeros ~400 ms
+  // después de soltar el slider, o si Mercado Pago no contesta— el enlace cae al
+  // de siempre. Es una degradación y no una falla: ahí se dona como se donaba
+  // hasta ayer. **Deja de ser aceptable el día que Cafecito se apague**, y ese
+  // día esto tiene que pasar a deshabilitar el botón en vez de mandar a un
+  // enlace muerto.
+  const checkout = useCafecitoCheckout()
+  const pedirCheckout = checkout.mutateAsync
+  const [pago, setPago] = useState<{ n: number; url: string } | null>(null)
+  useEffect(() => {
+    let vivo = true
+    const t = setTimeout(() => {
+      pedirCheckout(n)
+        .then((url) => {
+          if (vivo && url) setPago({ n, url })
+        })
+        // Sin manejo: es el camino de salida de alguien que quiere donar, y un
+        // error de red no puede romperle la pantalla. Se queda con el enlace de
+        // siempre, que funciona.
+        .catch(() => {})
+    }, ESPERA_SLIDER_MS)
+    return () => {
+      vivo = false
+      clearTimeout(t)
+    }
+  }, [n, pedirCheckout])
+  const urlDePago = pago?.n === n ? pago.url : CAFECITO_URL
+
   // Se fue a Cafecito, y volvió al menos una vez desde entonces.
   //
   // Son dos banderas y no una: el estado se empieza a consultar apenas se va
@@ -1040,7 +1088,7 @@ export function CafecitoPanel({
             <Salida slot={slotAccion}>
               <motion.a
                 ref={botonRef}
-                href={CAFECITO_URL}
+                href={urlDePago}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={registrarInvitacion}

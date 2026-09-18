@@ -1303,6 +1303,23 @@ class GameBoost(Base):
     cafecitos = Column(Integer, nullable=False)
     # Lo que escribió quien donó; se muestra en el cartel. Puede faltar.
     donor_name = Column(String(80), nullable=True)
+    # A quién se le atribuye. Con Checkout Pro es EXACTO: la preferencia viaja
+    # con `external_reference = dx:<jugador>` y el pago vuelve con ella, así que
+    # se lee. Por los otros dos caminos se escribe solo cuando había una única
+    # intención abierta (`boosts.donante_unico`), que es el mismo estándar con el
+    # que el feed ya nombra en público a quien no escribió su nombre — si alcanza
+    # para decirlo delante de todos, alcanza para guardarlo.
+    #
+    # NULL es "no sabemos", no "no hay nadie": las 57 filas anteriores, y todo lo
+    # que entre con varias intenciones compitiendo. Por eso es nullable y no
+    # tiene default.
+    #
+    # Distinta de `donor_name`, que es el texto que la persona ELIGIÓ escribir.
+    # Mezclarlas en una columna haría imposible volver a distinguirlas: una es
+    # identidad y la otra es cómo quiso aparecer.
+    player_id = Column(
+        Integer, ForeignKey("game_players.id"), nullable=True, index=True
+    )
     source = Column(String(20), nullable=False, default="manual", server_default="manual")
     # Identificador de la donación en el origen. UNIQUE desde el día uno aunque
     # hoy el disparo sea manual: es lo que va a impedir que un mail de Cafecito

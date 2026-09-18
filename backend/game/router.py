@@ -36,6 +36,7 @@ from usernames import normalize_username, validate_username
 from . import boosts
 from . import chat as game_chat
 from . import limits
+from . import mercadopago as mp
 from . import opinion as game_opinion
 from . import ranking
 from . import elo
@@ -67,6 +68,8 @@ from .schemas import (
     GameAnswerRequest,
     GameAnswerResponse,
     GameBoostOut,
+    GameCafecitoCheckout,
+    GameCafecitoCheckoutRequest,
     GameCafecitoStatus,
     GameCtaRequest,
     GameEventOut,
@@ -715,15 +718,77 @@ def cafecito_intent(
 
     Se canoniza porque `Enrollment.university` es texto libre del onboarding y
     los empujes se buscan por sigla; el jugador ya la tiene canonizada.
+
+    **Sigue siendo el que anota, y el único.** Con Checkout Pro la persona sale a
+    pagar a una preferencia que se creó antes (`/cafecito-checkout`), pero la
+    intención se escribe acá, al tocar el botón, y en ningún otro lado: es lo que
+    hace que «intención» siga queriendo decir lo mismo que el 28/08 —alguien
+    tocó «Invitar»— y que el embudo medido se pueda seguir leyendo.
     """
+    _anotar_intencion(db, player)
+    db.commit()
+    return Response(status_code=204)
+
+
+def _anotar_intencion(db: Session, player: GamePlayer):
+    """La intención, con la universidad que corresponda. Ver `cafecito_intent`."""
     university = player.university
     if not university and player.user_id is not None:
         fila = xp_boost.enrollment_de_referencia(db, player.user_id)
         if fila is not None:
             university = canonical_university(fila.university) or None
-    boosts.record_intent(db, player, university=university)
-    db.commit()
-    return Response(status_code=204)
+    return boosts.record_intent(db, player, university=university)
+
+
+@router.post("/cafecito-checkout", response_model=GameCafecitoCheckout)
+def cafecito_checkout(
+    body: GameCafecitoCheckoutRequest,
+    player: GamePlayer = Depends(get_current_player),
+    db: Session = Depends(get_db),
+):
+    """A dónde mandar a la persona a pagar los cafecitos que eligió.
+
+    Crea la preferencia de Checkout Pro con el monto del slider. Es el arreglo
+    del hallazgo más concreto del embudo medido: el botón decía «Invitar 10
+    cafecitos» y la página que abría decía «Invitame 1 Cafecito · ARS $100».
+
+    **No anota la intención, y eso es deliberado.** El enlace de salida es un
+    `<a>` de verdad —por la PWA, ver el comentario largo en cafecito-panel.tsx—
+    así que su `href` tiene que estar listo ANTES del click, o sea mientras la
+    persona todavía está moviendo el slider. Si este endpoint anotara, mover el
+    slider fabricaría intenciones: la tabla se llenaría de gente que nunca tocó
+    «Invitar» y el embudo —que es con lo que se decide si el juego se sostiene—
+    pasaría a medir otra cosa. La intención la sigue escribiendo
+    `/cafecito-intent`, al tocar el botón, como desde el primer día.
+
+    Consecuencia asumida: se crean preferencias que nadie usa, una por cada
+    posición del slider en la que la persona se detuvo. No cuestan nada y vencen
+    solas en una hora (`mp.VENCE_EN_HORAS`).
+
+    Devolver `checkout_url: null` no es un error: es «pagá por donde se pagaba
+    antes». Pasa sin `MP_ACCESS_TOKEN` —el interruptor del módulo— y pasa si
+    Mercado Pago no contesta a tiempo. El front cae al link de siempre.
+    """
+    # El tope no es del transporte sino del dominio: más de esto no mueve el
+    # multiplicador (boosts.MAX_CAFECITOS_PER_DONATION) y cobrarlo sería vender
+    # algo que no se entrega. El piso es uno, por lo obvio.
+    cafecitos = max(1, min(int(body.cafecitos or 1), boosts.MAX_CAFECITOS_PER_DONATION))
+
+    # La misma escalera que usa la intención para saber de qué universidad es
+    # quien está por pagar — sin escribir nada. Viaja al título del checkout
+    # («10 cafecitos para la UBA») y a la metadata del pago.
+    university = player.university
+    if not university and player.user_id is not None:
+        fila = xp_boost.enrollment_de_referencia(db, player.user_id)
+        if fila is not None:
+            university = canonical_university(fila.university) or None
+
+    url = mp.crear_preferencia(
+        player_id=player.id,
+        cafecitos=cafecitos,
+        university=university,
+    )
+    return GameCafecitoCheckout(checkout_url=url)
 
 
 @router.get("/cafecito-status", response_model=GameCafecitoStatus)

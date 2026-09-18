@@ -133,8 +133,55 @@ export interface paths {
          *
          *     Se canoniza porque `Enrollment.university` es texto libre del onboarding y
          *     los empujes se buscan por sigla; el jugador ya la tiene canonizada.
+         *
+         *     **Sigue siendo el que anota, y el único.** Con Checkout Pro la persona sale a
+         *     pagar a una preferencia que se creó antes (`/cafecito-checkout`), pero la
+         *     intención se escribe acá, al tocar el botón, y en ningún otro lado: es lo que
+         *     hace que «intención» siga queriendo decir lo mismo que el 28/08 —alguien
+         *     tocó «Invitar»— y que el embudo medido se pueda seguir leyendo.
          */
         post: operations["cafecito_intent_game_derivemos_cafecito_intent_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/game/derivemos/cafecito-checkout": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Cafecito Checkout
+         * @description A dónde mandar a la persona a pagar los cafecitos que eligió.
+         *
+         *     Crea la preferencia de Checkout Pro con el monto del slider. Es el arreglo
+         *     del hallazgo más concreto del embudo medido: el botón decía «Invitar 10
+         *     cafecitos» y la página que abría decía «Invitame 1 Cafecito · ARS $100».
+         *
+         *     **No anota la intención, y eso es deliberado.** El enlace de salida es un
+         *     `<a>` de verdad —por la PWA, ver el comentario largo en cafecito-panel.tsx—
+         *     así que su `href` tiene que estar listo ANTES del click, o sea mientras la
+         *     persona todavía está moviendo el slider. Si este endpoint anotara, mover el
+         *     slider fabricaría intenciones: la tabla se llenaría de gente que nunca tocó
+         *     «Invitar» y el embudo —que es con lo que se decide si el juego se sostiene—
+         *     pasaría a medir otra cosa. La intención la sigue escribiendo
+         *     `/cafecito-intent`, al tocar el botón, como desde el primer día.
+         *
+         *     Consecuencia asumida: se crean preferencias que nadie usa, una por cada
+         *     posición del slider en la que la persona se detuvo. No cuestan nada y vencen
+         *     solas en una hora (`mp.VENCE_EN_HORAS`).
+         *
+         *     Devolver `checkout_url: null` no es un error: es «pagá por donde se pagaba
+         *     antes». Pasa sin `MP_ACCESS_TOKEN` —el interruptor del módulo— y pasa si
+         *     Mercado Pago no contesta a tiempo. El front cae al link de siempre.
+         */
+        post: operations["cafecito_checkout_game_derivemos_cafecito_checkout_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1248,6 +1295,48 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/webhooks/mercadopago": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Mercadopago Webhook
+         * @description El aviso de Mercado Pago cuando entra un pago de Checkout Pro.
+         *
+         *     Es la vía principal de acreditación desde que cobramos directo: reemplaza al
+         *     oyente del socket de Cafecito, que el 28/08 se comió cinco cafecitos sin
+         *     avisar (ver game/cafecito_stream.py), y no depende de la cadena Gmail →
+         *     filtro → Resend que sostenía la vía de respaldo.
+         *
+         *     Tres guardas, en orden, y ninguna sobra:
+         *
+         *     1. **La firma.** Sin verificar HMAC esto sería un botón público para
+         *        fabricarse empujes: basta postear el id de un pago ajeno. Misma postura
+         *        que el webhook de Resend de acá arriba.
+         *     2. **`live_mode`.** Las pruebas de sandbox pueden llegar a esta misma URL
+         *        —es la única que está configurada— y un pago de prueba no puede fabricar
+         *        un empuje real en producción. Se acusa recibo y se ignora.
+         *     3. **El pago, consultado a la API.** Nada de lo que viene en el cuerpo se
+         *        cree: el monto, el estado y de quién es se leen de Mercado Pago con
+         *        nuestro token.
+         *
+         *     Los códigos de respuesta son parte del contrato y están elegidos: 401 si la
+         *     firma no valida, 200 para todo lo que no es nuestro o ya entró (no hay nada
+         *     que reintentar), y 500 solo si algo se rompió de este lado —ahí sí queremos
+         *     que Mercado Pago reintente, que es justo lo que el socket no sabía hacer.
+         */
+        post: operations["mercadopago_webhook_webhooks_mercadopago_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/leaderboard": {
         parameters: {
             query?: never;
@@ -1916,6 +2005,34 @@ export interface components {
             donor_name?: string | null;
             /** Expires In Seconds */
             expires_in_seconds: number;
+        };
+        /**
+         * GameCafecitoCheckout
+         * @description A dónde mandar a la persona para que pague.
+         *
+         *     `checkout_url` es el `init_point` de una preferencia de Checkout Pro cuando
+         *     hay con qué cobrar, y `null` cuando no (sin `MP_ACCESS_TOKEN`, o si Mercado
+         *     Pago no contestó). El front no decide nada con eso más que a dónde apuntar el
+         *     enlace: con `null` cae al link de siempre, que sigue funcionando.
+         *
+         *     La intención queda anotada en los dos casos — es lo único que atribuye una
+         *     donación que entre por el canal del mail, así que se escribe antes de saber
+         *     si el checkout se pudo crear.
+         */
+        GameCafecitoCheckout: {
+            /** Checkout Url */
+            checkout_url?: string | null;
+        };
+        /**
+         * GameCafecitoCheckoutRequest
+         * @description Cuántos cafecitos eligió el slider antes de salir a pagar.
+         */
+        GameCafecitoCheckoutRequest: {
+            /**
+             * Cafecitos
+             * @default 1
+             */
+            cafecitos: number;
         };
         /**
          * GameCafecitoStatus
@@ -3321,6 +3438,42 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    cafecito_checkout_game_derivemos_cafecito_checkout_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+                "x-game-token"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["GameCafecitoCheckoutRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GameCafecitoCheckout"];
+                };
             };
             /** @description Validation Error */
             422: {
@@ -5038,6 +5191,26 @@ export interface operations {
         };
     };
     resend_inbound_webhook_webhooks_resend_inbound_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+        };
+    };
+    mercadopago_webhook_webhooks_mercadopago_post: {
         parameters: {
             query?: never;
             header?: never;
