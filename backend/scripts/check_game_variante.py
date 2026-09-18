@@ -26,6 +26,7 @@ Sale con código 1 si algo falla.
 """
 
 import os
+import re
 import sys
 import tempfile
 from pathlib import Path
@@ -52,8 +53,31 @@ client = TestClient(main.app, raise_server_exceptions=True)
 FAILURES: list[str] = []
 
 API = "/game/derivemos"
-BRAZO_A = "dx-puerta-1:control"
-BRAZO_B = "dx-puerta-1:derivada-primero"
+# El experimento y sus brazos se LEEN del front, no se copian acá.
+#
+# Copiados, este chequeo seguía en verde el día que allá cambiaban de nombre: las
+# tres primeras secciones probaban que el backend guarda «dx-puerta-1:control»
+# mientras la producción guardaba otra cosa, que es exactamente el modo de falla
+# que la sección 1 existe para descartar. Pasó de hecho al pasar de `dx-puerta-1`
+# a `dx-puerta-2`.
+#
+# Se parsea con expresiones regulares y no se importa: es TypeScript, y traer un
+# runtime de JS a un chequeo de Python para leer dos constantes es mucho más caro
+# que estas cuatro líneas.
+_VARIANTE_TS = (Path(__file__).resolve().parents[2]
+                / "web/src/lib/experiments/UseGameVariant.ts").read_text(encoding="utf-8")
+
+_m = re.search(r'export const EXPERIMENTO = "([^"]+)"', _VARIANTE_TS)
+assert _m, "no se encontró EXPERIMENTO en UseGameVariant.ts"
+EXPERIMENTO = _m.group(1)
+
+_m = re.search(r"export const BRAZOS = \[([^\]]+)\]", _VARIANTE_TS)
+assert _m, "no se encontró BRAZOS en UseGameVariant.ts"
+BRAZOS = re.findall(r'"([^"]+)"', _m.group(1))
+assert len(BRAZOS) == 2, f"se esperaban dos brazos y hay {BRAZOS}"
+
+BRAZO_A = f"{EXPERIMENTO}:{BRAZOS[0]}"
+BRAZO_B = f"{EXPERIMENTO}:{BRAZOS[1]}"
 
 
 def check(condition: bool, label: str, detalle: str = "") -> None:
@@ -111,8 +135,8 @@ check(variante_de(p2["player_id"]) is None,
 
 print("3. La basura se descarta sin romper el alta")
 
-for malo in ["control", "dx-puerta-1", "dx puerta:control", "DX:CONTROL",
-             "dx-puerta-1:control:extra", "'; drop table game_players; --", ""]:
+for malo in [BRAZOS[0], EXPERIMENTO, "dx puerta:control", "DX:CONTROL",
+             f"{BRAZO_A}:extra", "'; drop table game_players; --", ""]:
     _t, px = alta(variant=malo)
     check(variante_de(px["player_id"]) is None,
           f"se descarta {malo[:28]!r}", f"({variante_de(px['player_id'])})")
@@ -150,9 +174,6 @@ def hash_fnv1a(texto: str) -> int:
     h ^= h >> 16
     return h & 0xFFFFFFFF
 
-
-EXPERIMENTO = "dx-puerta-1"
-BRAZOS = ["control", "derivada-primero"]
 
 import uuid  # noqa: E402
 

@@ -251,10 +251,12 @@ export const PEDIDO_NOTIFICACIONES = NOTIF_KEY
 /** Y la encuesta de dificultad, que se repite con su propia cuenta por lo
  *  mismo: es otro pedido y no un escalón de aquellos dos. */
 export const PEDIDO_OPINION = OPINION_KEY
-/** Las reglas del brazo `derivada-primero`, que NO se repiten: usan la misma
- *  caja porque lo único que necesitan guardar es «ya salió», y una caja con dos
- *  números de la que se usa uno es más barata que una tercera forma de guardar
- *  un booleano. `vistas` llega a 1 y se queda ahí (reglas-trigger.ts). */
+/** Las reglas del juego, que NO se repiten: usan la misma caja porque lo único
+ *  que necesitan guardar es cuántas ya se dijeron, y una caja con dos números es
+ *  más barata que una tercera forma de guardar lo mismo. `vistas` cuenta de 0 a
+ *  3 —las tres de un saque en el brazo `control`, de a una en `sin-peaje`— y
+ *  `ultima` es la correcta en la que salió la última, que es lo que las mantiene
+ *  espaciadas (reglas-trigger.ts). */
 export const PEDIDO_REGLAS = REGLAS_KEY
 
 const SIN_PEDIR: PedidoRepetido = { vistas: 0, ultima: -Infinity }

@@ -431,15 +431,28 @@ check("usuarios nuevos de la semana", h["Usuarios nuevos"]["value"] == 5,
 check("«usuarios únicos» ya no está", "Usuarios únicos" not in h,
       f"({sorted(h)[:4]}…)")
 
-# La activación es el OMTM: de los nuevos, cuántos llegaron a responder. p1, p2 y
-# p4 respondieron en la semana; p3 recién el lunes siguiente, pero su alta es de
-# esta, así que la cohorte lo cuenta igual.
-check("la activación se mide sobre los nuevos de la semana",
-      h["Usuarios activados"]["value"] == 4,
-      f'({h["Usuarios activados"]["value"]} de {h["Usuarios nuevos"]["value"]})')
-check("y el porcentaje sale de esos dos",
-      h["Activación"]["value"] == 80.0,
-      f'({h["Activación"]["value"]}%, 4 de 5)')
+# Responder una ya no es el OMTM, pero se sigue mostrando: p1, p2 y p4
+# respondieron en la semana; p3 recién el lunes siguiente, pero su alta es de
+# esta, así que la cohorte lo cuenta igual. Cuatro de cinco.
+check("«responden una» se mide sobre los nuevos de la semana",
+      h["Responden una"]["value"] == 4,
+      f'({h["Responden una"]["value"]} de {h["Usuarios nuevos"]["value"]})')
+check("y el nombre viejo ya no está",
+      "Usuarios activados" not in h, f"({sorted(h)[:4]}…)")
+# El OMTM es llegar a `ENGANCHE` correctas en la PRIMERA TANDA, y ahí la cuenta
+# cambia: las primeras tandas son p1 9, p4 5, p2 2 y p3 1, así que llegan dos de
+# los cinco de la camada. Este es el check que separa las dos definiciones — con
+# la vieja daba 80% y con esta 40%, y la diferencia son justo p2 y p3: uno tipeó
+# tres veces y el otro una, y ninguno de los dos vio de qué se trata el juego.
+check("la activación son 3 correctas en la primera tanda",
+      h["Activación"]["value"] == 40.0,
+      f'({h["Activación"]["value"]}%, 2 de 5 — con la vara vieja daban 80,0%)')
+# Y sobre la PRIMERA TANDA, no sobre el acumulado: p2 tiene 2 correctas en su
+# primera tanda y una más el día 3. Sumadas darían 3 y entraría; contadas como
+# corresponde, no. Lo que se mide es si la primera visita alcanzó.
+check("y no sobre el acumulado de todas las tandas",
+      q._correctas_de_la_primera_sesion(
+          [a for a in data["_answers"] if a["player_id"] == 2]) == 2)
 # ── Retención, toda sobre los ACTIVADOS de la camada ──────────────────────
 # La camada de la semana son cinco altas y cuatro activados. Los tres
 # porcentajes de abajo se dividen por CUATRO: quien nunca respondió no puede

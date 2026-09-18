@@ -48,49 +48,116 @@ Producto aparte, con identidad y economía propias pero la misma tabla de
 cafecitos. Lo único documentado acá es **cómo elige qué ejercicio servir**, que
 es la mecánica que gobierna la experiencia entera:
 
-### La puerta, y el experimento que la está probando
+### La puerta, y los dos experimentos que la corrieron
 
-Entre aterrizar y ver la primera derivada hay tres cosas: la presentación del
-logo (`game-intro.tsx`, corre en CADA carga), los cuatro párrafos de reglas
+Entre aterrizar y ver la primera derivada no hay nada: el logo quieto, el saludo,
+una línea (`PuertaMinima`) y el botón. Eso es el resultado de un experimento, no
+una decisión de diseño, así que conviene leerlo con el experimento al lado.
+
+#### Lo que había, y lo que `dx-puerta-1` probó (13/09 – 18/09)
+
+Hasta el 18/09 la puerta tenía tres peajes: la presentación animada del logo
+(`game-intro.tsx`, corría en CADA carga), los cuatro párrafos de reglas
 (`intro-panel.tsx :: IntroParagraphs`) y —la primera vez en ese dispositivo— el
-pedido de apodo (`username-slide.tsx`).
+pedido de apodo (`username-slide.tsx`). El brazo test, `derivada-primero`, los
+sacaba todos y corría las reglas y el @ a después de la primera correcta.
 
-**Eso está bajo experimento desde el 13/09** (`dx-puerta-1`). Medido antes de
-empezar: de cada 100 personas que abren dx, 47,6 llegan a que se les muestre una
-derivada; en el teléfono, que es el 83% del tráfico, 45,2.
+**Ganó, y por mucho.** Con 527 por brazo contra los 373 comprometidos:
 
-- **`control`** — el flujo de arriba, sin tocar.
-- **`derivada-primero`** — nada entre aterrizar y la derivada: el logo quieto
-  —`useGameIntro({ saltar })`, sin presentación ni cortina—, el saludo, una
-  línea (`PuertaMinima`) y el botón.
+| | control | derivada primero |
+|---|---|---|
+| Se le muestra una derivada | 55,6% | **80,6%** |
+| Del aterrizaje al primer intento (mediana) | 39,4 s | **14,2 s** |
 
-  Las reglas y el apodo no se borran, **se corren detrás de la primera derivada
-  resuelta**, en este orden: **@ → ranking → reglas**.
++25,0 puntos, IC95 [19,6 · 30,5], p prácticamente cero: dos veces y media el
+efecto mínimo que se había declarado. Los 25 segundos que se ahorran son la
+puerta entera, porque una vez que la derivada está en pantalla los dos brazos
+tardan lo mismo en contestar (11,9 s contra 10,6 s).
 
-  1. **El @** (`username-slide.tsx`) va entre la respuesta y el festejo, y ese
-     orden es el punto: la pantalla siguiente es la fila propia subiendo con la
-     XP recién ganada, y tiene que llevar el nombre que la persona acaba de
-     elegir. Al revés, el primer puesto que ve dice un @ generado que no
-     reconoce. No se gatilla con "primera vez en este aparato" como en el
-     control sino con `alias_is_generated`, o sea "todavía no elegiste".
-  2. **El ranking**, igual que siempre.
-  3. **Las reglas 2, 3 y 4** juntas (`reglas-slide.tsx`), una sola vez por
-     dispositivo (`reglas-trigger.ts`). Son las MISMAS de `IntroParagraphs`,
-     cortadas en la segunda y sin renumerar: la 1 la dijo la puerta, en
-     imperativo, y es la derivada que se acaba de resolver. Llegan cuando el Elo
-     se acaba de mover y el puesto se acaba de ver, que es de lo que hablan.
+#### Lo que ese experimento también dejó, y es de lo que se ocupa el segundo
 
-  En escritorio el orden es el mismo con una diferencia que no se puede evitar:
-  el ranking es la columna de al lado y la XP vuela hacia ella en el instante de
-  responder, así que el @ se elige con el festejo ya ocurrido y lo que se ve es
-  la fila cambiando de nombre. Congelar el festejo para copiar el orden del
-  teléfono sería romper lo que funciona.
+Las 132 personas de más que el brazo ganador metía por cada 527 **duraban una
+sola derivada**. Contadas en absoluto, sobre las mismas 527:
 
-  Hasta el 13/09 el brazo repartía las tres reglas de a una en los aciertos 1, 2
-  y 5, metidas arriba del enunciado. Se fue por dos motivos: tres
-  interrupciones donde hay una sola cosa que contar, y un renglón sobre la
-  fórmula no se lee como una regla del juego sino como un pie de página del
-  ejercicio que tiene abajo.
+| llega a | control | derivada primero |
+|---|---|---|
+| 1 correcta | 245 | 310 |
+| 2 | 224 | 229 |
+| 3 | 216 | 218 |
+| 5 | 193 | 181 |
+| 20 | 63 | 52 |
+
+Para la tercera están empatados y de la quinta en adelante gana el control. El
+brazo ganador produjo 3.995 derivadas resueltas en primeras tandas contra 4.663
+del control, con la misma cantidad de gente.
+
+**La causa está en el código y no en la composición.** Entre la primera correcta
+y la segunda derivada, el brazo test pone tres pantallas seguidas —el @, el
+ranking y las reglas— y ahí se va el **26,1%**, contra el **8,6%** del control,
+donde el @ y las reglas ya estaban pagos en la puerta. El porcentaje es el mismo
+en las tres plataformas (26,8 / 24,7 / 26,5), así que no es «entró gente peor»:
+la composición no se reparte pareja. El peaje no se sacó, se mudó — y cobrado
+sobre alguien que acaba de acertar sale tres veces más caro.
+
+El corte por plataforma, que era el único desglose declarado, dice además dónde
+estuvo la ganancia. Llegando a 3 correctas, cada 100 que aterrizan:
+
+| | control | derivada primero |
+|---|---|---|
+| Android | 47,5 | 42,1 |
+| iOS | 26,4 | **38,6** |
+| Escritorio | 50,0 | 44,0 |
+
+iOS venía en 34,5% de gente que veía una derivada contra 65,3% de Android: ahí la
+puerta no era un peaje, era una puerta rota. Android, que la pasaba bien, solo
+recibió el peaje mudado y quedó peor. **La suma da empate**, y por eso el flujo
+se implementó igual: nadie está peor en agregado y un tercio del tráfico está
+mucho mejor.
+
+**Consecuencia sobre el panel:** el OMTM dejó de ser «respondió una derivada» y
+pasó a ser **«resolvió 3 en su primera tanda»** (`game_queries.py :: ENGANCHE`).
+La medida vieja subió 13,8 puntos en este experimento sin que cambiara nada más;
+una vara que se mueve así no es un objetivo, es un contador de clics.
+
+#### `dx-puerta-2`, en curso desde el 18/09
+
+Los dos brazos tienen la misma puerta. Lo que cambia es dónde se cobra lo que la
+puerta no cobró.
+
+- **`control`** — el flujo que ganó, tal cual: después de la primera correcta,
+  **@ → ranking → reglas 2, 3 y 4 juntas** (`reglas-slide.tsx`, una sola vez por
+  dispositivo).
+- **`sin-peaje`** — entre la primera correcta y la segunda derivada no hay nada
+  salvo el ranking. Las dos piezas se corren:
+  - **el @** va a la tercera correcta, donde ya se pregunta carrera y
+    universidad (`HITO_PERFIL`). Sigue yendo antes del ranking, que es lo que
+    hace que la fila estrene el nombre elegido; lo único que cambia es el
+    acierto. La atrición manda: 20,4% en la primera contra 6,2% en la tercera.
+  - **las reglas** se reparten de a una, cada una donde tiene referente
+    (`reglas-trigger.ts :: CALENDARIO`): el **Elo en la 5**, cuando la dificultad
+    ya se movió; la **tabla en la 8**, cuando los ejercicios empezaron a costar y
+    la regla es una salida y no un dato; los **cafecitos en la 15**, cinco antes
+    de que la diapo del cafecito aparezca por primera vez, para que esa diapo no
+    sea la primera noticia.
+
+  Ninguna cae antes de la tercera correcta, y eso no es prolijidad: la métrica
+  primaria es llegar a tres, así que una regla que saliera antes estaría adentro
+  de lo que se está midiendo.
+
+**Esto no es el tutorial repartido que ya se sacó una vez.** Hasta el 13/09 las
+tres reglas venían de a una en los aciertos 1, 2 y 5, metidas ARRIBA DEL
+ENUNCIADO. Se fueron porque un renglón sobre la fórmula se lee como pie de página
+del ejercicio que tiene abajo, y porque caían donde la persona todavía no había
+decidido quedarse. El calendario de ahora son pantallas enteras y empiezan
+después de que esa decisión ya está tomada.
+
+La métrica primaria es **llegar a 3 correctas en la primera tanda**, base 0,414 y
+efecto mínimo 8 puntos → **606 por brazo**. La predicción declarada: Android es
+la que más se mueve, porque es donde `dx-puerta-1` perdió terreno y donde el
+desbarranco se lleva más gente en absoluto (149 → 109); iOS debería moverse
+menos, porque su ganancia vino de la puerta y no del peaje.
+
+#### Cómo se sortea y dónde queda
 
 El brazo lo sortea el cliente (`lib/experiments/UseGameVariant.ts`) hasheando un
 id de dispositivo propio, y **no** el `guest_token`: en una primera visita el
@@ -106,15 +173,21 @@ experimento después de que vio la pantalla del control. La columna existe porqu
 PostHog segmenta eventos y el final del embudo no es un evento — el cafecito
 está en `game_boosts` y la profundidad en `game_attempts`.
 
-Lo que fija `backend/scripts/check_game_variante.py`.
+Lo que fija `backend/scripts/check_game_variante.py`, que lee el nombre del
+experimento del propio archivo del front para que no se pueda desincronizar.
 
-El panel lo lee en su pestaña **Experimentos** (`/panel/<token>/dx?s=experimentos`),
-que tiene una particularidad: **se niega a contestar hasta tener la muestra que
-se prometió.** Mientras falte gente no calcula el p-valor ni dibuja un ganador,
-solo cuánto falta — mirar un A/B todos los días y parar en cuanto cruza 0,05 no
-es leerlo, es repetir el sorteo hasta que salga. Los guardarraíles (profundidad,
-vuelta otro día) sí se miran desde el primer día, porque sirven para frenar un
-brazo que hace daño y no para declararlo ganado.
+El panel lo lee en su pestaña **Experimentos**
+(`/panel/<token>/dx?s=experimentos`), que tiene una particularidad: **se niega a
+contestar hasta tener la muestra que se prometió.** Mientras falte gente no
+calcula el p-valor ni dibuja un ganador, solo cuánto falta — mirar un A/B todos
+los días y parar en cuanto cruza 0,05 no es leerlo, es repetir el sorteo hasta
+que salga. Los guardarraíles (profundidad, vuelta otro día) sí se miran desde el
+primer día, porque sirven para frenar un brazo que hace daño y no para declararlo
+ganado.
+
+Cada experimento declara además **cuál columna decide** (`metrica`), y la tabla
+la marca con ▸. Era implícita —siempre «llegó a la 1ª»— hasta que `dx-puerta-1`
+mostró por qué tenía que ser explícita.
 
 - **Cada 3 correctas, el festejo cuenta sobre la universidad.** La XP sigue
   siendo de la persona y le suma igual; lo que cambia es sobre qué fila trepa el
