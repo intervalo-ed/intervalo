@@ -842,6 +842,38 @@ class GamePlayer(Base):
     # game_exercises.platform.
     platform = Column(String(8), nullable=True, index=True)
 
+    # Desde qué huso horario apareció por primera vez: "America/Montevideo",
+    # "America/Argentina/Cordoba", "Europe/Madrid". Lo manda el cliente leyendo
+    # `Intl.DateTimeFormat().resolvedOptions().timeZone`, que es gratis, no pasa
+    # por la IP y está disponible antes de que la persona toque nada.
+    #
+    # **Se guarda crudo y el país se deduce en código** (`boosts.pais_de`), que
+    # es la misma decisión que ya se tomó con `first_group_id`: ahí se guarda el
+    # id entero y la universidad sale de su prefijo. Guardar "UY" sería tirar la
+    # diferencia entre alguien de Montevideo y alguien de Madrid, y sumar un país
+    # al día de mañana sería una migración en vez de una línea.
+    #
+    # Para qué se usa hoy: lo que sale un cafecito. Cien pesos argentinos son
+    # siete centavos de dólar, y para alguien que mira desde afuera ese número no
+    # significa nada — ver `boosts.PRECIO_POR_PAIS`.
+    #
+    # Es de primer contacto y no se pisa, igual que la plataforma: sirve para
+    # saber de dónde vino la gente, no dónde está parada ahora. Un argentino de
+    # vacaciones en Punta del Este queda anotado como argentino, que es lo que
+    # es.
+    #
+    # **No confundir con `notify_timezone`, más abajo en esta misma tabla.** Son
+    # dos husos con dos trabajos opuestos y por eso son dos columnas:
+    #
+    #   · `notify_timezone` es DÓNDE ESTÁ la persona, y tiene que poder cambiar:
+    #     decide a qué hora real le llega el recordatorio diario. Se escribe solo
+    #     si prende las notificaciones, o sea casi nunca.
+    #   · esta es DE DÓNDE VINO, y tiene que quedarse quieta: decide cuánto le
+    #     sale un cafecito, y un precio que se mueve porque alguien cruzó el
+    #     charco un fin de semana es un precio roto. Se escribe para todos, en la
+    #     primera visita.
+    timezone = Column(String(64), nullable=True, index=True)
+
     # Atribución de primer contacto, espejo de users.first_group_id (mismas
     # regex al persistir, solo si están en NULL).
     first_group_id = Column(String(20), nullable=True, index=True)

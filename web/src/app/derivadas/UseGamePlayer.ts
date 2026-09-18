@@ -99,6 +99,15 @@ let bootstrapStarted = false
 // primera instancia corre este efecto.
 let firstVisitAtBootstrap: boolean | null = null
 
+/** El huso horario del navegador, o null si no se puede leer. */
+function husoHorario(): string | null {
+  try {
+    return Intl.DateTimeFormat().resolvedOptions().timeZone || null
+  } catch {
+    return null
+  }
+}
+
 // Alta/bootstrap del jugador. POST /player es idempotente: sin credenciales
 // crea un guest (y guardamos el token), con token devuelve el existente, y con
 // sesión de Clerk crea/devuelve el jugador del usuario — linkeando al guest si
@@ -125,6 +134,18 @@ export function useGamePlayer() {
           // porque es un dato de primer contacto como los tres de arriba, y el
           // server lo guarda con la misma regla write-once.
           variant: etiquetaDeBrazo(brazoDelJuego()),
+          // Desde dónde mira esta persona, que es lo que decide cuánto le sale
+          // un cafecito (ver backend/game/boosts.py :: PRECIO_POR_PAIS). Cien
+          // pesos argentinos son siete centavos de dólar: para quien mira desde
+          // acá el número es un gesto entendible, y para quien mira desde afuera
+          // no significa nada.
+          //
+          // El huso y no la IP: es gratis, no pide permiso, no viaja ningún dato
+          // de red y ya está resuelto en el primer render. `resolvedOptions()`
+          // existe en todo lo que corra este juego, pero el try está igual
+          // porque esto corre en el arranque y una excepción acá se lleva puesta
+          // el alta del jugador — que es bastante más importante que el precio.
+          timezone: husoHorario(),
         },
       })
       return unwrap(result)

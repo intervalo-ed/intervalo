@@ -125,6 +125,13 @@ _UTM_RE = re.compile(r"[a-z]{2,20}")
 # una columna de brazo con basura adentro convierte el análisis en adivinanza.
 _VARIANT_RE = re.compile(r"[a-z0-9-]{2,24}:[a-z0-9-]{2,20}")
 
+# El huso horario que reporta el navegador: "America/Montevideo",
+# "Europe/Madrid", "UTC". Se valida la FORMA y no contra una lista de husos
+# conocidos: la lista IANA cambia sola un par de veces por año y quedar viejos
+# significaría tirar el dato de alguien real. Lo que no matchea acá no entra a
+# la base, y lo que entra y no conocemos simplemente paga el precio argentino.
+_TZ_RE = re.compile(r"[A-Za-z][A-Za-z0-9_+-]{0,20}(?:/[A-Za-z0-9_+-]{1,20}){0,2}")
+
 _KNOWN_CAREERS = ("E", "S", "T", "M")
 
 # Las noventa siglas del catálogo, para reconocer lo que ya está en la lista.
@@ -281,6 +288,11 @@ def _player_out(db: Session, player: GamePlayer, with_rank: bool = True) -> Game
         alias_is_generated=player.alias_is_generated,
         level=elo.level_of(player.theta),
         elo=elo.rating_of(player.theta),
+        # Lo que le sale a ESTA persona un cafecito. Viaja con el jugador y no
+        # con el checkout porque la diapo lo escribe mucho antes de que exista
+        # una preferencia: dice «1 cafecito = $150» apenas se abre, y la
+        # preferencia recién se pide cuando el slider se queda quieto.
+        precio_cafecito=boosts.precio_de(boosts.pais_de(player.timezone)),
     )
 
 
@@ -289,6 +301,7 @@ def _persist_attribution(
     group_id: str | None,
     utm_source: str | None,
     platform: str | None = None,
+    timezone: str | None = None,
 ) -> None:
     """Todo lo de PRIMER contacto, y solo si está vacío.
 
@@ -304,6 +317,16 @@ def _persist_attribution(
         player.first_utm_source = utm_source
     if player.platform is None and platform:
         player.platform = platform
+    # Desde dónde mira. Misma regla que los tres de arriba y por el mismo motivo:
+    # de dónde vino la persona no cambia porque después se vaya de viaje. Lo que
+    # gobierna es el precio del cafecito (ver boosts.PRECIO_POR_PAIS), y ahí lo
+    # que importa es en qué economía vive quien dona, no dónde está el martes.
+    if (
+        player.timezone is None
+        and timezone
+        and _TZ_RE.fullmatch(timezone)
+    ):
+        player.timezone = timezone
 
 
 def _anotar_variante(player: GamePlayer, variant: str | None) -> None:
@@ -381,14 +404,14 @@ def create_player(
         # en cada arranque de sesión— no lo repite.
         game_events.on_signup(db, player)
         _persist_attribution(player, body.group_id, body.utm_source,
-                             _platform(x_game_platform))
+                             _platform(x_game_platform), body.timezone)
         db.commit()
         return GamePlayerCreateResponse(player=_player_out(db, player), guest_token=None)
 
     existing = player_for_guest_token(db, x_game_token)
     if existing is not None:
         _persist_attribution(existing, body.group_id, body.utm_source,
-                             _platform(x_game_platform))
+                             _platform(x_game_platform), body.timezone)
         db.commit()
         return GamePlayerCreateResponse(
             player=_player_out(db, existing), guest_token=existing.guest_token
@@ -399,7 +422,7 @@ def create_player(
     referrals.anotar(db, player, body.referrer_alias)
     _anotar_variante(player, body.variant)
     _persist_attribution(player, body.group_id, body.utm_source,
-                         _platform(x_game_platform))
+                         _platform(x_game_platform), body.timezone)
     db.commit()
     return GamePlayerCreateResponse(player=_player_out(db, player), guest_token=player.guest_token)
 
@@ -790,10 +813,17 @@ def cafecito_checkout(
         if fila is not None:
             university = canonical_university(fila.university) or None
 
+    # Desde dónde mira quien está por pagar, que es lo que decide el precio y si
+    # el título del checkout lleva la moneda pegada (ver mercadopago._titulo).
+    # Sale de la columna del jugador y NO de este pedido: el precio no puede
+    # depender de un campo que viaja en cada llamada.
+    pais = boosts.pais_de(player.timezone)
+
     url = mp.crear_preferencia(
         player_id=player.id,
         cafecitos=cafecitos,
         university=university,
+        pais=pais,
     )
     return GameCafecitoCheckout(checkout_url=url)
 

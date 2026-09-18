@@ -41,6 +41,7 @@ import {
   fmtMultiplier,
   type CafecitoTrigger,
 } from "./cafecito-cta"
+import { useCachedPlayer } from "./UseGamePlayer"
 import {
   BOOST_HOURS_BASE,
   SLIDER_MAX,
@@ -895,6 +896,17 @@ export function CafecitoPanel({
   const sfx = useSfx()
   const [n, setN] = useState(SLIDER_INICIAL)
 
+  // Lo que le sale un cafecito a QUIEN ESTÁ MIRANDO. Lo decide el servidor a
+  // partir del huso horario con el que apareció (backend/game/boosts.py ::
+  // PRECIO_POR_PAIS) y viaja en el jugador, así que el número de esta pantalla y
+  // el del checkout son el mismo por construcción y no por acordarse.
+  //
+  // `useCachedPlayer` y no una query: esta diapo también se monta fuera del
+  // juego (components/cafecito-sheet.tsx, la configuración de Intervalo clásico)
+  // y ahí no hay jugador. Sin él vale el precio argentino, que es el default del
+  // esquema y el que pagan todos los que ya estaban.
+  const precioCafecito = useCachedPlayer()?.precio_cafecito ?? PRECIO_CAFECITO
+
   // Lo que este cafecito hace DE VERDAD, que depende de lo que ya esté corriendo.
   //
   // El empuje no es una compra individual: los cafecitos vigentes se suman y el
@@ -1413,10 +1425,10 @@ export function CafecitoPanel({
             diez.
 
             Debajo de la acción y encima de la salida, que es donde se mira
-            justo antes de decidir. El número sale de `PRECIO_CAFECITO`, que es
-            una copia de lo que dice Cafecito — ver su comentario. */}
+            justo antes de decidir. El número lo manda el servidor con el
+            jugador, porque depende de desde dónde mira — ver `precioCafecito`. */}
         <p className="mt-3 text-center text-xs text-muted-foreground/70">
-          1 cafecito = ${PRECIO_CAFECITO}
+          1 cafecito = ${precioCafecito}
         </p>
 
         {/* La salida. Con recuadro y no como texto suelto: es un botón de

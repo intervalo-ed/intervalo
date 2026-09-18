@@ -220,6 +220,12 @@ export const UNIVERSITY_TAGS: UniversityTag[] = [
   { key: "UNVIME", fullName: "Universidad Nacional de Villa Mercedes", color: "#53B8AF", font: TAG_FONT, tagFontSize: TAG_FONT_SIZE },
   { key: "UNPILAR", fullName: "Universidad Nacional de Pilar", color: "#356CB8", font: TAG_FONT, tagFontSize: TAG_FONT_SIZE },
   { key: "UNAU", fullName: "Universidad Nacional del Alto Uruguay", color: "#6F9E47", font: TAG_FONT, tagFontSize: TAG_FONT_SIZE },
+  // Uruguay. Espejo de backend/universities.py, que explica por qué la
+  // Universidad de Montevideo no está (su sigla choca con la de Morón).
+  { key: "UdelaR", fullName: "Universidad de la República", color: "#2B6CA3", font: TAG_FONT, tagFontSize: TAG_FONT_SIZE },
+  { key: "UTEC", fullName: "Universidad Tecnológica del Uruguay", color: "#00A3A0", font: TAG_FONT, tagFontSize: TAG_FONT_SIZE },
+  { key: "ORT", fullName: "Universidad ORT Uruguay", color: "#C8102E", font: TAG_FONT, tagFontSize: TAG_FONT_SIZE },
+  { key: "UCU", fullName: "Universidad Católica del Uruguay", color: "#7B2D8E", font: TAG_FONT, tagFontSize: TAG_FONT_SIZE },
 ]
 
 export const UNIVERSITY_TAG_BY_KEY: Record<string, UniversityTag> = Object.fromEntries(
