@@ -321,7 +321,7 @@
           "game"
         ],
         "summary": "Cafecito Intent",
-        "description": "\"Me voy a Cafecito\": se anota qui\u00e9n y de qu\u00e9 universidad.\n\nEs la \u00fanica pata de la atribuci\u00f3n que no le pide NADA a quien dona. Los tres\ncampos del formulario de Cafecito son opcionales y no se pueden marcar\nobligatorios, as\u00ed que exigir la sigla ah\u00ed ser\u00eda poner fricci\u00f3n justo en el\npeor lugar del embudo. Ac\u00e1, en cambio, el juego ya sabe todo.\n\nDevuelve 204: el cliente dispara esto y se va sin esperar nada.\n\nLa universidad sale del jugador, salvo que no tenga: desde que la\nconfiguraci\u00f3n de Intervalo cl\u00e1sico abre esta misma diapo (profile-content.tsx),\nac\u00e1 llegan personas cuyo `GamePlayer` se cre\u00f3 al vuelo para servir este\npedido (`deps.create_player_for_user`) y nunca pas\u00f3 por la pantalla que\nelige universidad. Su fila de Intervalo s\u00ed la sabe.\n\nSin este respaldo la intenci\u00f3n se anota con `university=None`: alcanza para\ndecirle a la persona que su cafecito lleg\u00f3, pero NO para dirigir el empuje\n(`pending_intents` descarta las que no tienen universidad), as\u00ed que la\ndonaci\u00f3n de alguien que nunca jug\u00f3 terminaba en el reparto global en vez de\nir a su universidad. Es la misma atribuci\u00f3n que se pierde por donar sin\nanotar la intenci\u00f3n, un escal\u00f3n m\u00e1s adelante.\n\nSe canoniza porque `Enrollment.university` es texto libre del onboarding y\nlos empujes se buscan por sigla; el jugador ya la tiene canonizada.",
+        "description": "\"Me voy a Cafecito\": se anota qui\u00e9n y de qu\u00e9 universidad.\n\nEs la \u00fanica pata de la atribuci\u00f3n que no le pide NADA a quien dona. Los tres\ncampos del formulario de Cafecito son opcionales y no se pueden marcar\nobligatorios, as\u00ed que exigir la sigla ah\u00ed ser\u00eda poner fricci\u00f3n justo en el\npeor lugar del embudo. Ac\u00e1, en cambio, el juego ya sabe todo.\n\nDevuelve 204: el cliente dispara esto y se va sin esperar nada.\n\nLa universidad sale del jugador, salvo que no tenga: desde que la\nconfiguraci\u00f3n de Intervalo cl\u00e1sico abre esta misma diapo (profile-content.tsx),\nac\u00e1 llegan personas cuyo `GamePlayer` se cre\u00f3 al vuelo para servir este\npedido (`deps.create_player_for_user`) y nunca pas\u00f3 por la pantalla que\nelige universidad. Su fila de Intervalo s\u00ed la sabe.\n\nSin este respaldo la intenci\u00f3n se anota con `university=None`: alcanza para\ndecirle a la persona que su cafecito lleg\u00f3, pero NO para dirigir el empuje\n(`pending_intents` descarta las que no tienen universidad), as\u00ed que la\ndonaci\u00f3n de alguien que nunca jug\u00f3 terminaba en el reparto global en vez de\nir a su universidad. Es la misma atribuci\u00f3n que se pierde por donar sin\nanotar la intenci\u00f3n, un escal\u00f3n m\u00e1s adelante.\n\nSe canoniza porque `Enrollment.university` es texto libre del onboarding y\nlos empujes se buscan por sigla; el jugador ya la tiene canonizada.\n\n**Sigue siendo el que anota, y el \u00fanico.** Con Checkout Pro la persona sale a\npagar a una preferencia que se cre\u00f3 antes (`/cafecito-checkout`), pero la\nintenci\u00f3n se escribe ac\u00e1, al tocar el bot\u00f3n, y en ning\u00fan otro lado: es lo que\nhace que \u00abintenci\u00f3n\u00bb siga queriendo decir lo mismo que el 28/08 \u2014alguien\ntoc\u00f3 \u00abInvitar\u00bb\u2014 y que el embudo medido se pueda seguir leyendo.",
         "operationId": "cafecito_intent_game_derivemos_cafecito_intent_post",
         "parameters": [
           {
@@ -346,6 +346,68 @@
         "responses": {
           "204": {
             "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/game/derivemos/cafecito-checkout": {
+      "post": {
+        "tags": [
+          "game"
+        ],
+        "summary": "Cafecito Checkout",
+        "description": "A d\u00f3nde mandar a la persona a pagar los cafecitos que eligi\u00f3.\n\nCrea la preferencia de Checkout Pro con el monto del slider. Es el arreglo\ndel hallazgo m\u00e1s concreto del embudo medido: el bot\u00f3n dec\u00eda \u00abInvitar 10\ncafecitos\u00bb y la p\u00e1gina que abr\u00eda dec\u00eda \u00abInvitame 1 Cafecito \u00b7 ARS $100\u00bb.\n\n**No anota la intenci\u00f3n, y eso es deliberado.** El enlace de salida es un\n`<a>` de verdad \u2014por la PWA, ver el comentario largo en cafecito-panel.tsx\u2014\nas\u00ed que su `href` tiene que estar listo ANTES del click, o sea mientras la\npersona todav\u00eda est\u00e1 moviendo el slider. Si este endpoint anotara, mover el\nslider fabricar\u00eda intenciones: la tabla se llenar\u00eda de gente que nunca toc\u00f3\n\u00abInvitar\u00bb y el embudo \u2014que es con lo que se decide si el juego se sostiene\u2014\npasar\u00eda a medir otra cosa. La intenci\u00f3n la sigue escribiendo\n`/cafecito-intent`, al tocar el bot\u00f3n, como desde el primer d\u00eda.\n\nConsecuencia asumida: se crean preferencias que nadie usa, una por cada\nposici\u00f3n del slider en la que la persona se detuvo. No cuestan nada y vencen\nsolas en una hora (`mp.VENCE_EN_HORAS`).\n\nDevolver `checkout_url: null` no es un error: es \u00abpag\u00e1 por donde se pagaba\nantes\u00bb. Pasa sin `MP_ACCESS_TOKEN` \u2014el interruptor del m\u00f3dulo\u2014 y pasa si\nMercado Pago no contesta a tiempo. El front cae al link de siempre.",
+        "operationId": "cafecito_checkout_game_derivemos_cafecito_checkout_post",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          },
+          {
+            "name": "x-game-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "X-Game-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GameCafecitoCheckoutRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameCafecitoCheckout"
+                }
+              }
+            }
           },
           "422": {
             "description": "Validation Error",
@@ -3284,6 +3346,23 @@
         }
       }
     },
+    "/webhooks/mercadopago": {
+      "post": {
+        "summary": "Mercadopago Webhook",
+        "description": "El aviso de Mercado Pago cuando entra un pago de Checkout Pro.\n\nEs la v\u00eda principal de acreditaci\u00f3n desde que cobramos directo: reemplaza al\noyente del socket de Cafecito, que el 28/08 se comi\u00f3 cinco cafecitos sin\navisar (ver game/cafecito_stream.py), y no depende de la cadena Gmail \u2192\nfiltro \u2192 Resend que sosten\u00eda la v\u00eda de respaldo.\n\nTres guardas, en orden, y ninguna sobra:\n\n1. **La firma.** Sin verificar HMAC esto ser\u00eda un bot\u00f3n p\u00fablico para\n   fabricarse empujes: basta postear el id de un pago ajeno. Misma postura\n   que el webhook de Resend de ac\u00e1 arriba.\n2. **`live_mode`.** Las pruebas de sandbox pueden llegar a esta misma URL\n   \u2014es la \u00fanica que est\u00e1 configurada\u2014 y un pago de prueba no puede fabricar\n   un empuje real en producci\u00f3n. Se acusa recibo y se ignora.\n3. **El pago, consultado a la API.** Nada de lo que viene en el cuerpo se\n   cree: el monto, el estado y de qui\u00e9n es se leen de Mercado Pago con\n   nuestro token.\n\nLos c\u00f3digos de respuesta son parte del contrato y est\u00e1n elegidos: 401 si la\nfirma no valida, 200 para todo lo que no es nuestro o ya entr\u00f3 (no hay nada\nque reintentar), y 500 solo si algo se rompi\u00f3 de este lado \u2014ah\u00ed s\u00ed queremos\nque Mercado Pago reintente, que es justo lo que el socket no sab\u00eda hacer.",
+        "operationId": "mercadopago_webhook_webhooks_mercadopago_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
     "/leaderboard": {
       "get": {
         "summary": "Get Leaderboard",
@@ -4836,6 +4915,36 @@
         ],
         "title": "GameBoostOut",
         "description": "Un empuje de XP vigente, agregado por universidad (ver game/boosts.py)."
+      },
+      "GameCafecitoCheckout": {
+        "properties": {
+          "checkout_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Checkout Url"
+          }
+        },
+        "type": "object",
+        "title": "GameCafecitoCheckout",
+        "description": "A d\u00f3nde mandar a la persona para que pague.\n\n`checkout_url` es el `init_point` de una preferencia de Checkout Pro cuando\nhay con qu\u00e9 cobrar, y `null` cuando no (sin `MP_ACCESS_TOKEN`, o si Mercado\nPago no contest\u00f3). El front no decide nada con eso m\u00e1s que a d\u00f3nde apuntar el\nenlace: con `null` cae al link de siempre, que sigue funcionando.\n\nLa intenci\u00f3n queda anotada en los dos casos \u2014 es lo \u00fanico que atribuye una\ndonaci\u00f3n que entre por el canal del mail, as\u00ed que se escribe antes de saber\nsi el checkout se pudo crear."
+      },
+      "GameCafecitoCheckoutRequest": {
+        "properties": {
+          "cafecitos": {
+            "type": "integer",
+            "title": "Cafecitos",
+            "default": 1
+          }
+        },
+        "type": "object",
+        "title": "GameCafecitoCheckoutRequest",
+        "description": "Cu\u00e1ntos cafecitos eligi\u00f3 el slider antes de salir a pagar."
       },
       "GameCafecitoStatus": {
         "properties": {

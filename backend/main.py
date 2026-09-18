@@ -33,6 +33,7 @@ import emoji_tree
 import xp_boost
 from game import boosts as game_boosts
 from game import cafecito_stream as game_cafecito
+from game import mercadopago as game_mercadopago
 from session_store import get_user_progress_db
 from database import SessionLocal
 from auth import (
@@ -178,7 +179,24 @@ async def lifespan(app: FastAPI):
     hilo_cafecito.start()
     app.state.cafecito_stop = parar_cafecito
 
+    # La red de abajo del cobro directo: cada diez minutos le pregunta a Mercado
+    # Pago si entró algún pago que el webhook no trajo (game/mercadopago.py).
+    #
+    # Mismo molde que el hilo de arriba y en el mismo lugar a propósito: es su
+    # reemplazo. Aquel escuchaba un socket que no reproduce lo perdido; éste
+    # consulta la fuente de verdad, así que un corte nuestro se recupera solo.
+    # Sin MP_ACCESS_TOKEN se apaga solo y no hace una sola consulta.
+    parar_mp = threading.Event()
+    threading.Thread(
+        target=game_mercadopago.vigilar,
+        args=(parar_mp,),
+        name="mercadopago-reconciliacion",
+        daemon=True,
+    ).start()
+    app.state.mercadopago_stop = parar_mp
+
     yield
+    parar_mp.set()
     parar_cafecito.set()
     task.cancel()
 
@@ -1441,6 +1459,82 @@ async def resend_inbound_webhook(request: Request):
         return {"ok": True}
 
     await run_in_threadpool(forward_received_email, email_id)
+    return {"ok": True}
+
+
+@app.post("/webhooks/mercadopago")
+async def mercadopago_webhook(request: Request):
+    """El aviso de Mercado Pago cuando entra un pago de Checkout Pro.
+
+    Es la vía principal de acreditación desde que cobramos directo: reemplaza al
+    oyente del socket de Cafecito, que el 28/08 se comió cinco cafecitos sin
+    avisar (ver game/cafecito_stream.py), y no depende de la cadena Gmail →
+    filtro → Resend que sostenía la vía de respaldo.
+
+    Tres guardas, en orden, y ninguna sobra:
+
+    1. **La firma.** Sin verificar HMAC esto sería un botón público para
+       fabricarse empujes: basta postear el id de un pago ajeno. Misma postura
+       que el webhook de Resend de acá arriba.
+    2. **`live_mode`.** Las pruebas de sandbox pueden llegar a esta misma URL
+       —es la única que está configurada— y un pago de prueba no puede fabricar
+       un empuje real en producción. Se acusa recibo y se ignora.
+    3. **El pago, consultado a la API.** Nada de lo que viene en el cuerpo se
+       cree: el monto, el estado y de quién es se leen de Mercado Pago con
+       nuestro token.
+
+    Los códigos de respuesta son parte del contrato y están elegidos: 401 si la
+    firma no valida, 200 para todo lo que no es nuestro o ya entró (no hay nada
+    que reintentar), y 500 solo si algo se rompió de este lado —ahí sí queremos
+    que Mercado Pago reintente, que es justo lo que el socket no sabía hacer.
+    """
+    from fastapi.concurrency import run_in_threadpool
+
+    from database import SessionLocal
+    from game import mercadopago as mp
+
+    # `data.id` viaja en el query string y es lo que entra en el molde de la
+    # firma; el cuerpo trae lo mismo, pero el que se firma es este.
+    data_id = request.query_params.get("data.id") or request.query_params.get("id")
+    if not mp.firma_valida(
+        request.headers.get("x-signature"),
+        request.headers.get("x-request-id"),
+        data_id,
+    ):
+        raise HTTPException(status_code=401, detail="Invalid webhook signature")
+
+    cuerpo = {}
+    try:
+        cuerpo = await request.json()
+    except Exception:  # noqa: BLE001 — un cuerpo ilegible no es nuestro problema
+        pass
+    if (cuerpo.get("type") or request.query_params.get("type")) != "payment":
+        return {"ok": True}
+    if cuerpo.get("live_mode") is False:
+        mp.log(f"pago de prueba {data_id}, ignorado en producción")
+        return {"ok": True}
+
+    pago_id = (cuerpo.get("data") or {}).get("id") or data_id
+    pago = await run_in_threadpool(mp.leer_pago, pago_id)
+    if pago is None:
+        # No se pudo leer: puede ser un corte de red de nuestro lado. Que lo
+        # reintenten — cada 15 minutos hasta que contestemos, que es justo lo
+        # que el socket de Cafecito no sabía hacer.
+        raise HTTPException(status_code=500, detail="no se pudo leer el pago")
+
+    def acreditar() -> str:
+        # Todo lo que sigue —de quién es, cuántos cafecitos son, si ya entró—
+        # lo decide `mp.aplicar`, que es el mismo camino que usa la
+        # reconciliación. Dos vías, una sola regla.
+        db = SessionLocal()
+        try:
+            resultado = mp.aplicar(db, pago)
+            db.commit()
+            return resultado
+        finally:
+            db.close()
+
+    mp.log(await run_in_threadpool(acreditar))
     return {"ok": True}
 
 

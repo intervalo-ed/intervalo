@@ -255,6 +255,29 @@ export function useCafecitoIntent() {
   })
 }
 
+/** Dónde pagar los `cafecitos` que eligió el slider.
+ *
+ * Devuelve el `init_point` de una preferencia de Checkout Pro, o `null` si no
+ * hay con qué cobrar — ahí el enlace cae al link de siempre.
+ *
+ * **No anota la intención**: eso lo sigue haciendo `useCafecitoIntent` al tocar
+ * el botón. La separación no es un detalle de implementación, es lo que
+ * mantiene sano el embudo: esto se llama cada vez que el slider se detiene, y
+ * si anotara, mover el slider fabricaría intenciones de gente que nunca tocó
+ * "Invitar" (ver router.cafecito_checkout).
+ */
+export function useCafecitoCheckout() {
+  const api = useGameApi()
+  return useMutation({
+    mutationFn: async (cafecitos: number) => {
+      const r = await api.POST("/game/derivemos/cafecito-checkout", {
+        body: { cafecitos },
+      })
+      return r.data?.checkout_url ?? null
+    },
+  })
+}
+
 // Cada cuánto se pide el historial. Más lento que el pulso: los eventos son
 // para leer, no para reaccionar, y a 8 s ya se siente vivo.
 const EVENTS_INTERVAL_MS = 8_000
