@@ -63,6 +63,10 @@ from datetime import datetime
 from database import SessionLocal
 
 from . import boosts
+# Solo para preguntarle si el camino del webhook está encendido: mientras lo
+# esté, este canal le cede los montos que no puede desambiguar (ver `leer`).
+# No hay ciclo — mercadopago no sabe que este archivo existe.
+from . import mercadopago
 
 
 def log(mensaje: str) -> None:
@@ -180,6 +184,33 @@ def leer(email: dict) -> dict | None:
     if centavos % paso:
         # Un cobro que no es múltiplo del precio del cafecito no es una donación.
         log(f"pago de ${centavos / 100:.2f} que no es multiplo de {PRECIO_CAFECITO}, ignorado")
+        return None
+
+    # Un monto que también es múltiplo de un precio extranjero no se puede leer
+    # desde acá, y adivinarlo acreditaría de más.
+    #
+    # El aviso de pago trae el total y nada más: no dice desde dónde miraba quien
+    # pagó, así que $1.500 son diez cafecitos uruguayos o quince argentinos y este
+    # texto no alcanza para saber cuál. El pago en la API de Mercado Pago sí lo
+    # dice —lleva la metadata que escribimos al crear la preferencia—, y ese es el
+    # camino que lo resuelve bien.
+    #
+    # Así que este canal se corre. No se pierde la donación: el `external_ref` es
+    # `mp:<id de pago>` en las dos vías, el webhook la acredita en segundos y la
+    # reconciliación barre un día para atrás por si el webhook no llegó. Lo único
+    # que se pierde es que la acredite el mail, que es el camino de respaldo.
+    #
+    # **Y solo se corre si ese otro camino existe.** Sin `MP_ACCESS_TOKEN` no hay
+    # webhook ni reconciliación, este canal vuelve a ser el único, y callarse
+    # sería tirar la donación en vez de acreditarla con el único precio que en
+    # ese mundo puede haber. Es la diferencia entre ceder el trabajo y abandonarlo.
+    if mercadopago.habilitado() and any(
+        centavos % (p * 100) == 0 for p in boosts.PRECIO_POR_PAIS.values()
+    ):
+        log(
+            f"pago de ${centavos / 100:.2f}: ambiguo entre precios de distintos "
+            "paises, lo acredita el webhook con la metadata del pago"
+        )
         return None
 
     cafecitos = centavos // paso

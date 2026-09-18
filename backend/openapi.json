@@ -5705,6 +5705,18 @@
               }
             ],
             "title": "Variant"
+          },
+          "timezone": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Timezone"
           }
         },
         "type": "object",
@@ -5810,6 +5822,11 @@
           "is_guest": {
             "type": "boolean",
             "title": "Is Guest"
+          },
+          "precio_cafecito": {
+            "type": "integer",
+            "title": "Precio Cafecito",
+            "default": 100
           },
           "alias_is_generated": {
             "type": "boolean",

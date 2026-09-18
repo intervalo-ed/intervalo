@@ -58,7 +58,7 @@ from . import elo, events, simulation
 # multiplicador. Dos premios que crecen a la vez se leen peor que uno solo.
 BOOST_HOURS_BASE = 1
 
-# Lo que sale un cafecito, en pesos.
+# Lo que sale un cafecito, en pesos ARGENTINOS.
 #
 # Vive acá y no en cada canal porque dejó de ser una copia y pasó a ser una
 # decisión nuestra: mientras se cobraba por Cafecito, este número era un reflejo
@@ -67,6 +67,63 @@ BOOST_HOURS_BASE = 1
 # el que decide si un aviso de pago es una donación (game/cafecito_email.py lo
 # usa como divisor). Dos copias de un precio son dos precios esperando diferir.
 PRECIO_CAFECITO = 100
+
+# Y lo que sale para quien mira desde otro país, también en pesos argentinos:
+# la cuenta es de Mercado Pago Argentina y no puede cobrar en otra moneda (la
+# API rechaza `currency_id: "UYU"` de plano), así que lo único que se mueve es
+# el número.
+#
+# Por qué se mueve. Cien pesos argentinos son **siete centavos de dólar** (tipo
+# de cambio del propio checkout de Mercado Pago el 18/09/2026: US$1 = $1.514,50).
+# Acá eso funciona porque el gesto se entiende; para alguien de afuera el número
+# no dice nada. Ciento cincuenta pesos por cafecito dejan la donación entera —los
+# diez del tope— en alrededor de un dólar, que es lo que un cafecito debería
+# costar cuando el que lo invita no vive con esta inflación.
+#
+# Uruguay y no cualquier país porque es el único al que se le escribió el copy
+# (web/src/app/derivadas/cafecito-panel.tsx). El resto del mundo paga el precio
+# argentino: cobrarle distinto a alguien cuyo cartel no revisamos sería cobrarle
+# distinto sin avisarle.
+#
+# **Envejece con el tipo de cambio y no hay nada que lo avise.** El día que mil
+# quinientos pesos dejen de ser un dólar, este número miente. Es el mismo trato
+# que PRECIO_CAFECITO, que también es una decisión y no una fórmula.
+PRECIO_POR_PAIS: dict[str, int] = {"UY": 150}
+
+# De qué país es un huso horario, para los países a los que les cobramos
+# distinto. Es a propósito un diccionario corto y no una tabla IANA completa:
+# lo único que hay que poder distinguir es a quién se le cambia el precio, y
+# todo lo que no esté acá cae en el precio argentino, que es el default sano.
+#
+# `America/Buenos_Aires` es el alias viejo, sin el tramo `Argentina/`. La imagen
+# de Railway no lo trae (ver el incidente de tzdata), pero un navegador viejo
+# todavía lo puede reportar y acá es solo una cadena que se compara.
+_PAIS_POR_HUSO: dict[str, str] = {
+    "America/Montevideo": "UY",
+}
+
+
+def pais_de(timezone: str | None) -> str | None:
+    """El país desde el que mira un jugador, deducido de su huso horario.
+
+    `None` es «no sabemos» y «Argentina» a la vez, y eso está bien: son los 1.102
+    jugadores que ya existían cuando se agregó la columna, y vinieron todos de
+    grupos de WhatsApp de materias argentinas.
+
+    Es una pista y no un documento. Un argentino veraneando en Punta del Este da
+    "UY" y paga ciento cincuenta; alguien en Montevideo con la computadora mal
+    configurada da "AR" y paga cien. A estos montos el peor caso son cincuenta
+    pesos, así que no se blinda: blindarlo costaría la IP de la persona, que es
+    un dato bastante más caro que la diferencia.
+    """
+    if not timezone:
+        return None
+    return _PAIS_POR_HUSO.get(timezone.strip())
+
+
+def precio_de(pais: str | None) -> int:
+    """Lo que sale UN cafecito para quien mira desde `pais`, en pesos argentinos."""
+    return PRECIO_POR_PAIS.get(pais or "", PRECIO_CAFECITO)
 
 # Cada cafecito suma un décimo al multiplicador.
 CAFECITO_STEP = 0.1

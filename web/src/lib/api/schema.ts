@@ -2377,6 +2377,8 @@ export interface components {
             referrer_alias?: string | null;
             /** Variant */
             variant?: string | null;
+            /** Timezone */
+            timezone?: string | null;
         };
         /** GamePlayerCreateResponse */
         GamePlayerCreateResponse: {
@@ -2410,6 +2412,11 @@ export interface components {
             career?: string | null;
             /** Is Guest */
             is_guest: boolean;
+            /**
+             * Precio Cafecito
+             * @default 100
+             */
+            precio_cafecito: number;
             /**
              * Alias Is Generated
              * @default true
