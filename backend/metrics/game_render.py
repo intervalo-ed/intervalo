@@ -42,7 +42,7 @@ from . import charts as ch
 from . import theme
 from .charts import esc, num
 from .game_queries import (
-    FIRST_WEEK, PEDIDO_CAFECITO, PLATFORM_LABEL,
+    FIRST_WEEK, MIN_IMPRESIONES_CTR, PEDIDO_CAFECITO, PLATFORM_LABEL,
 )
 
 # El grueso del CSS es el mismo que Intervalo (ver metrics/theme.py) — es la
@@ -1109,12 +1109,13 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
 
     # ── Monetización: dónde se pide el cafecito ──────────────────────────────
     mo = p["monetizacion"]
-    filas_lugares = [[
-        f'<b>{esc(l["desc"])}</b><br><span class="sub2">{esc(l["lugar"])}</span>',
-        num(l["impresiones"]) if l["impresiones"] else
-        '<span class="sub2">no las anota</span>',
-        num(l["clicks"]), _pct_txt(l["ctr"]),
-    ] for l in mo["lugares"]]
+    def _filas_de(lugares):
+        return [[
+            f'<b>{esc(l["desc"])}</b><br><span class="sub2">{esc(l["lugar"])}</span>',
+            num(l["impresiones"]) if l["impresiones"] else
+            '<span class="sub2">no las anota</span>',
+            num(l["clicks"]), _pct_txt(l["ctr"]),
+        ] for l in lugares]
     # ── El embudo de la plata ────────────────────────────────────────────────
     em = mo["embudo"]
     pieza_embudo = _section(
@@ -1158,28 +1159,44 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
 
     pieza_monetizacion = _section(
         1, "Dónde se pide el cafecito",
-        _box("", _table(["Lugar", "Impresiones", "Clicks", "CTR"], filas_lugares,
-                        empty="todavía no se mostró ninguno"),
+        _box("El botón que abre el pedido",
+             _table(["Lugar", "Impresiones", "Clicks", "Abren la diapo"],
+                    _filas_de(mo["abren"]),
+                    empty="todavía no se mostró ninguno"),
              note=(
-                 "<b>El mismo pedido convierte cinco veces distinto según dónde salga</b>, "
-                 "y en una sola fila eso no se ve: el cartel del cafecito daba 16,8% de CTR "
-                 "junto, juntando un botón que vive permanentemente en la barra con una "
-                 "interrupción que aparece al cruzar un hito. Es la decisión que esta tabla "
-                 "existe para tomar — dónde poner el pedido, no cómo escribirlo."
+                 "La taza de la barra y sus equivalentes. Su click <b>no dona nada</b>: "
+                 "abre la diapo. Por eso la última columna no es una tasa de donación sino "
+                 "de apertura."
+                 "<br><br><b>En escritorio convierte casi cinco veces más que en el "
+                 "teléfono</b>, con el mismo botón. La diferencia más probable es que en "
+                 "escritorio lleva la palabra «cafecito» escrita al lado y su atajo de "
+                 "teclado, y en el teléfono es solo un ícono — el <code>sm:</code> de "
+                 "<code>cafecito-cta.tsx</code> esconde la palabra en pantallas chicas."
                  "<br><br>La impresión de la barra se cuenta <b>una por partida y no por "
                  "render</b>, así que su denominador es «tuvo el cafecito adelante» y no "
-                 "«se dibujó el botón». Ojo igual al comparar contra los contextuales: la "
-                 "barra está siempre a la vista y el hito interrumpe, así que un CTR más "
-                 "alto ahí no es solo mejor copy."
-                 + (f'<br><br><b>Hay {num(mo["sin_denominador"])} clicks sin denominador.</b> '
-                    f'Los lugares marcados «no las anota» disparan el click sin montar el '
-                    f'contador de impresiones (<code>settings-panel.tsx</code>), así que su '
-                    f'CTR no se puede calcular. Están listados igual y quedan fuera de las '
-                    f'dos tasas de arriba: esconderlos haría que el agujero siguiera sin '
-                    f'verse otro mes.' if mo["sin_denominador"] else "")),
-             ),
-        sub="El cafecito no se pide en un lugar: se pide en nueve. Esto es cuál de los "
-            "nueve trae la plata.",
+                 "«se dibujó el botón»."))
+        + _box("El pedido",
+               _table(["Lugar", "Impresiones", "Clicks", "Se van a pagar"],
+                      _filas_de(mo["piden"]),
+                      empty="todavía no se mostró ninguno"),
+               note=(
+                   "La diapo entera, con el slider y el precio. Acá el click <b>sí</b> es "
+                   "la intención de pagar: manda a Mercado Pago y anota la intención."
+                   "<br><br><b>Estas dos tablas no se suman</b>, y esa es la razón de que "
+                   "sean dos. Quien toca la taza genera un click arriba <i>y</i> una "
+                   "impresión de <code>pedido</code> acá abajo: es el mismo acto contado en "
+                   "los dos escalones. Antes estaban en una sola tabla y la columna de la "
+                   "derecha significaba dos cosas distintas según la fila."
+                   f"<br><br>Sin {num(MIN_IMPRESIONES_CTR)} impresiones no se dibuja "
+                   f"porcentaje: un 10% que sale de una persona sobre diez es ruido con "
+                   f"forma de dato."
+                   + (f'<br><br><b>Hay {num(mo["sin_denominador"])} clicks sin '
+                      f'denominador.</b> Los lugares marcados «no las anota» disparan el '
+                      f'click sin montar el contador de impresiones '
+                      f'(<code>settings-panel.tsx</code>), así que su tasa no se puede '
+                      f'calcular. Están listados igual: esconderlos haría que el agujero '
+                      f'siguiera sin verse otro mes.' if mo["sin_denominador"] else ""))),
+        sub="Son dos escalones y no uno: el botón que abre el pedido, y el pedido.",
         anchor="monetizacion") + pieza_embudo
 
     # ── Calibración ──────────────────────────────────────────────────────────

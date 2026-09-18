@@ -2260,6 +2260,23 @@ def carteles(data: dict) -> list[dict]:
 
 # Dónde sale el cartel del cafecito, con el nombre que manda el front como clave.
 # El orden de este diccionario no importa: la tabla ordena por impresiones.
+# Los dos escalones, y por qué no van en la misma tabla.
+#
+# Un `header_*` es la taza de la barra: su impresión es «el botón estuvo en
+# pantalla» y su click NO dona nada — abre la diapo. Un `milestone` es la diapo
+# entera, con el slider y el precio: su impresión es «se le mostró el pedido» y
+# su click SÍ es la intención de pagar.
+#
+# Juntos en una sola tabla, la columna CTR decía dos cosas distintas según la
+# fila, y encima se contaban dos veces: quien toca la taza genera un click de
+# `header_*` Y una impresión de `pedido`, que es el mismo acto. Comparar 6,4% de
+# la barra con 7,1% del hito no era comparar nada.
+ABRE_EL_PEDIDO = ("header_mobile", "header_desktop", "settings", "clasico_config")
+
+# Debajo de esta base no se dibuja un CTR: un 10% que sale de una persona sobre
+# diez es ruido con forma de dato.
+MIN_IMPRESIONES_CTR = 30
+
 LUGARES_CAFECITO = {
     "header_mobile": "La barra, en el teléfono",
     "header_desktop": "La barra, en escritorio",
@@ -2314,13 +2331,20 @@ def monetizacion(data: dict) -> dict:
         "desc": LUGARES_CAFECITO.get(k, k),
         "impresiones": v["imp"],
         "clicks": v["clk"],
-        "ctr": _pct(v["clk"], v["imp"]),
+        # Vacío y no cero cuando no hay base: un 0% es «nadie lo tocó» y acá lo
+        # que pasa es que no se puede afirmar nada. Mismo criterio que el lugar
+        # sin impresiones.
+        "ctr": (_pct(v["clk"], v["imp"])
+                if v["imp"] >= MIN_IMPRESIONES_CTR else None),
+        "abre": k in ABRE_EL_PEDIDO,
     } for k, v in conteo.items()]
     # Los que no tienen impresiones van al final: su CTR es vacío, así que
     # ordenarlos entre los demás los pondría en un lugar que no significa nada.
     filas.sort(key=lambda f: (f["impresiones"] == 0, -f["impresiones"]))
     return {
         "lugares": filas,
+        "abren": [f for f in filas if f["abre"]],
+        "piden": [f for f in filas if not f["abre"]],
         "sin_denominador": sum(f["clicks"] for f in filas if not f["impresiones"]),
         "embudo": embudo_de_la_plata(data),
     }
