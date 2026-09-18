@@ -426,6 +426,7 @@ def grant(
     now: datetime | None = None,
     anunciar: bool = True,
     donante: GamePlayer | None = None,
+    donor_email: str | None = None,
 ) -> GameBoost | None:
     """Registra un empuje. Devuelve None si `external_ref` ya se usó.
 
@@ -478,6 +479,7 @@ def grant(
         # feed a quien no escribió su nombre; lo que cambia es que ahora además
         # queda escrito, en vez de usarse y olvidarse.
         player_id=donante.id if donante is not None else None,
+        donor_email=donor_email,
         source=source,
         external_ref=external_ref,
         created_at=now,
@@ -888,6 +890,7 @@ def acreditar_pago(
     cafecitos: int,
     payment_id: str | int,
     now: datetime | None = None,
+    donor_email: str | None = None,
 ) -> GameBoost | None:
     """Un pago de Checkout Pro: mismo empuje, sin adivinar nada.
 
@@ -925,6 +928,7 @@ def acreditar_pago(
         # sabe— sería publicar un dato que no dio para eso. El feed lo nombra por
         # su alias del juego, que es el nombre que sí eligió.
         donante=player,
+        donor_email=donor_email,
         # El mismo `source` que las donaciones que ya entraban por los otros dos
         # canales: para el panel esto es plata que entró, igual que antes, y un
         # origen nuevo lo dejaría fuera del titular de ingresos sin que nadie se

@@ -779,7 +779,7 @@ def due_cafecito_efecto_emails(db: DBSession) -> list[tuple[User, dict]]:
     `boosts.estado_de_donacion` y acá se aplica el mismo: sin donante seguro, no
     se manda nada. Es preferible no agradecer que agradecerle al que no fue.
     """
-    from models import GameBoost, GameBoostIntent, GamePlayer  # noqa: F401
+    from models import GameBoost, GameBoostIntent, GamePlayer
 
     from game.aforo import SOURCE as AFORO
     from game.boosts import donante_unico
@@ -805,22 +805,38 @@ def due_cafecito_efecto_emails(db: DBSession) -> list[tuple[User, dict]]:
         # identificable se re-examina en cada corrida para siempre.
         boost.email_sent_at = ahora
 
-        hermanas = (
-            db.query(GameBoostIntent)
-            .filter(
-                GameBoostIntent.consumed_at.isnot(None),
-                GameBoostIntent.consumed_at >= boost.created_at - timedelta(seconds=5),
-                GameBoostIntent.consumed_at <= boost.created_at + timedelta(seconds=5),
+        # Quién donó, con la escalera de dos escalones.
+        #
+        # 1. `player_id`, que es exacto: la preferencia de Checkout Pro viaja con
+        #    `external_reference = dx:<jugador>` y el pago vuelve con él. No hay
+        #    nada que adivinar.
+        # 2. Si no lo tiene —lo de antes del cobro directo, y lo que siga
+        #    entrando por el socket o por el mail— la regla vieja: la única
+        #    persona con una intención consumida en ±5 s.
+        #
+        # El escalón 2 se borra el día que se apaguen los canales viejos. El 1
+        # es la razón por la que ya no se pierden donaciones acá: de 27 pagos
+        # medidos hasta el 17/09, cuatro quedaron ambiguos y nunca se agradecieron.
+        jugador = None
+        if boost.player_id is not None:
+            jugador = db.get(GamePlayer, boost.player_id)
+        if jugador is None:
+            hermanas = (
+                db.query(GameBoostIntent)
+                .filter(
+                    GameBoostIntent.consumed_at.isnot(None),
+                    GameBoostIntent.consumed_at >= boost.created_at - timedelta(seconds=5),
+                    GameBoostIntent.consumed_at <= boost.created_at + timedelta(seconds=5),
+                )
+                .all()
             )
-            .all()
-        )
-        # Por PERSONAS distintas y no por cantidad de filas. Pedía una sola
-        # intención, y tocar el botón dos veces antes de pagar deja dos: el
-        # donante más grande que tuvo el juego tocó dos y tres veces en sus
-        # últimas tres donaciones, así que las tres se descartaron por
-        # "ambiguas" y nunca se le agradeció. La regla vive en game/boosts.py,
-        # compartida con la que decide a quién nombrar en el feed.
-        jugador = donante_unico(db, hermanas)
+            # Por PERSONAS distintas y no por cantidad de filas. Pedía una sola
+            # intención, y tocar el botón dos veces antes de pagar deja dos: el
+            # donante más grande que tuvo el juego tocó dos y tres veces en sus
+            # últimas tres donaciones, así que las tres se descartaron por
+            # "ambiguas" y nunca se le agradeció. La regla vive en game/boosts.py,
+            # compartida con la que decide a quién nombrar en el feed.
+            jugador = donante_unico(db, hermanas)
         if jugador is None:
             continue  # ambiguo: no se puede afirmar quién donó
         if jugador.user_id is None:
