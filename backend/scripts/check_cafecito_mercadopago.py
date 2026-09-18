@@ -94,11 +94,13 @@ tipos = {t["id"] for t in cuerpo["payment_methods"]["excluded_payment_types"]}
 ok("ticket" in tipos, "el efectivo está excluido")
 ok(cuerpo["payment_methods"]["installments"] == 1, "no se ofrecen cuotas")
 ok(len(cuerpo["statement_descriptor"]) <= 13, "el descriptor entra en el resumen")
-ok(
-    all(u.startswith("https://") for u in cuerpo["back_urls"].values()),
-    "las tres URLs de vuelta son https",
-)
 ok("notification_url" not in cuerpo, "el webhook se configura en un solo lugar")
+# Las dos que NO van, y el check existe porque ya rompieron una vez: el botón
+# abre Mercado Pago en otra pestaña, así que una URL de retorno redirige esa y
+# no la del juego — la persona terminaba con una partida nueva mientras la
+# original la esperaba con la diapo abierta.
+ok("back_urls" not in cuerpo, "sin URL de retorno: vuelve a la pestaña que ya estaba")
+ok("auto_return" not in cuerpo, "y sin auto_return, que la necesita")
 ok(cuerpo["expires"] is True, "la preferencia vence")
 vence = datetime.fromisoformat(cuerpo["expiration_date_to"].replace("Z", "+00:00"))
 ok(vence > datetime.now(timezone.utc), "y vence en el futuro, no en el pasado")
