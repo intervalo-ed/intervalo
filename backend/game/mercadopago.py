@@ -117,10 +117,6 @@ def _headers() -> dict[str, str]:
     }
 
 
-def _app_base() -> str:
-    return (os.environ.get("APP_BASE_URL") or "https://www.intervalo.xyz").rstrip("/")
-
-
 def cuerpo_de_preferencia(
     *,
     player_id: int,
@@ -162,14 +158,18 @@ def cuerpo_de_preferencia(
             "cafecitos": cafecitos,
             "university": university,
         },
-        "back_urls": {
-            # HTTPS obligatorio: la API descarta las URLs con http pelado y la
-            # persona se queda en Mercado Pago sin forma de volver.
-            "success": f"{_app_base()}/derivadas?pago=ok",
-            "pending": f"{_app_base()}/derivadas?pago=pendiente",
-            "failure": f"{_app_base()}/derivadas?pago=no",
-        },
-        "auto_return": "approved",
+        # SIN `back_urls` ni `auto_return`, y esto costó una prueba real
+        # descubrirlo. El botón abre Mercado Pago en otra pestaña —a propósito,
+        # por la PWA: ver el comentario largo en cafecito-panel.tsx— así que una
+        # URL de retorno redirige ESA pestaña, no la del juego. El resultado era
+        # una segunda partida recién arrancada mientras la original seguía
+        # esperando con la diapo abierta, en la PWA y en escritorio.
+        #
+        # La pestaña original ya sabe hacer esto bien: escucha `focus` y
+        # `visibilitychange`, pregunta por `/cafecito-status` y muestra el cartel
+        # de «tu cafecito llegó». Es el mismo camino que funcionaba con Cafecito,
+        # que tampoco tenía URL de retorno. Sin estos dos campos, Mercado Pago se
+        # queda en su pantalla de aprobado y la persona vuelve a donde estaba.
         "statement_descriptor": DESCRIPTOR,
         "payment_methods": {
             # Sin efectivo. Rapipago y Pago Fácil acreditan en horas o días: la
