@@ -337,7 +337,11 @@ def aplicar(db, pago: dict) -> str:
     if player is None:
         return f"pago {pago_id} de un jugador que no existe ({player_id})"
 
-    boost = boosts.acreditar_pago(db, player, cafecitos, pago_id)
+    # El mail con el que pagó. Es lo único que permite agradecerle a quien donó
+    # sin cuenta, que es la mitad de los donantes — ver el comentario de la
+    # columna en models.py sobre para qué SÍ y para qué NO se puede usar.
+    correo = ((pago.get("payer") or {}).get("email") or "").strip() or None
+    boost = boosts.acreditar_pago(db, player, cafecitos, pago_id, donor_email=correo)
     if boost is None:
         return f"pago {pago_id} ya estaba aplicado"
     return (

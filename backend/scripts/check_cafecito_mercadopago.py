@@ -169,6 +169,7 @@ ok(
 )
 ok(boost.donor_name is None, "no se publica el nombre legal de quien pagó")
 
+
 db.refresh(i_paga)
 db.refresh(i_otro)
 ok(i_paga.consumed_at is not None, "se marca la intención de quien pagó")
@@ -194,6 +195,16 @@ ok(
     game_boosts.estado_de_donacion(db, otro).state == "pending",
     "y al que no, se le sigue diciendo que espera",
 )
+# El mail del pagador, que es lo único que permite agradecerle a quien donó sin
+# cuenta —la mitad de los donantes—. Se guarda aparte de `users.email` a
+# propósito: ese mail nos lo dieron para escribirnos, éste se lo dieron a
+# Mercado Pago para pagar.
+con_mail = game_boosts.acreditar_pago(
+    db, otro, 3, "178598424646", donor_email="quien.pago@example.com")
+db.commit()
+ok(con_mail is not None and con_mail.donor_email == "quien.pago@example.com",
+   "se guarda el mail con el que pagó")
+ok(boost.donor_email is None, "y queda vacío cuando el pago no lo trajo")
 
 
 print("— la reconciliación, que es la red de abajo —")
@@ -257,6 +268,7 @@ mp.leer_pago = lambda pid: {  # type: ignore[assignment]
     "status": "approved",
     "transaction_amount": 500,
     "external_reference": mp.referencia(paga.id),
+    "payer": {"email": "  donante@example.com  "},
 }
 try:
     r = cliente.post(
@@ -273,6 +285,8 @@ try:
     ok(nuevo is not None, "y queda su empuje")
     ok(nuevo is not None and nuevo.cafecitos == 5, "$500 son cinco cafecitos")
     ok(nuevo is not None and nuevo.player_id == paga.id, "con el dueño que dice la referencia")
+    ok(nuevo is not None and nuevo.donor_email == "donante@example.com",
+       "y con el mail del pagador, sin los espacios que manda Mercado Pago")
 
     # Un monto que no es múltiplo del precio no es una compra de cafecitos.
     mp.leer_pago = lambda pid: {  # type: ignore[assignment]

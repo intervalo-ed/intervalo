@@ -1316,6 +1316,21 @@ class GameBoost(Base):
     cafecitos = Column(Integer, nullable=False)
     # Lo que escribió quien donó; se muestra en el cartel. Puede faltar.
     donor_name = Column(String(80), nullable=True)
+    # El mail con el que pagó, tal como lo devuelve Mercado Pago.
+    #
+    # Existe por un agujero concreto: la mitad de los donantes son invitados sin
+    # cuenta, y hasta ahora no había forma de agradecerles ni de volver a
+    # encontrarlos nunca más. Con esto, el mail de agradecimiento les llega.
+    #
+    # **Se usa SOLO para eso.** Esa persona le dio el mail a Mercado Pago para
+    # pagar, no a nosotros para escribirle: agradecer una donación está dentro
+    # de lo que espera, y cualquier otra cosa —sumarlo a una lista, mandarle
+    # novedades— no. Por eso vive acá y no en `users.email`, que es el mail que
+    # alguien SÍ nos dio para que le escribamos, y no se mezcla con él.
+    #
+    # Nunca se muestra en público. El feed nombra por alias o por `donor_name`,
+    # que es el texto que la persona eligió escribir.
+    donor_email = Column(String(255), nullable=True)
     # A quién se le atribuye. Con Checkout Pro es EXACTO: la preferencia viaja
     # con `external_reference = dx:<jugador>` y el pago vuelve con ella, así que
     # se lee. Por los otros dos caminos se escribe solo cuando había una única
