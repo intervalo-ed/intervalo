@@ -16,9 +16,11 @@
 
 import {
   PEDIDO_REGLAS,
+  PEDIDO_REGLAS_V1,
   clearGameIdentity,
   readPedidoState,
   readUltimoPedidoAt,
+  savePedidoState,
   saveUltimoPedidoAt,
 } from "../src/app/derivadas/game-storage"
 import { HITO_PERFIL, HITO_REGISTRO } from "../src/app/derivadas/hitos-del-juego"
@@ -243,6 +245,46 @@ check(
   "y la suelta también, que es lo que el ref del layout tapa",
 )
 store.setItem = setItem
+
+console.log("15. quien ya vio las tres con el esquema viejo no las vuelve a ver")
+// La caja vieja guardaba `vistas: 1` queriendo decir «las tres salieron», porque
+// salían juntas. Leído con el idioma nuevo ese 1 dice «salió una», y a quien
+// volviera le saldrían de nuevo la tabla en la 8 y los cafecitos en la 15 — dos
+// pantallas que ya vio, y justo en el brazo que existe para sacar pantallas del
+// medio. Es la clase de error que no se ve jugando: hay que volver con un
+// localStorage de la semana pasada para encontrarlo.
+limpio()
+savePedidoState(PEDIDO_REGLAS_V1, { vistas: 1, ultima: 1 })
+check(reglasDichas() === 3, `la marca vieja vale por las tres (${reglasDichas()})`)
+check(!tocaReglas(1), "así que el control no las repite")
+check(
+  proximaRegla(CALENDARIO[CALENDARIO.length - 1].tras, reglasDichas()) === null,
+  "y sin-peaje tampoco, en ninguna de sus tres paradas",
+)
+
+console.log("16. pero la caja nueva manda sobre la vieja")
+// Un aparato puede tener las dos: la vieja de cuando las reglas salían juntas y
+// la nueva de después. La que cuenta es la nueva, o la traducción pisaría el
+// progreso real de alguien que está en la mitad del calendario.
+limpio()
+savePedidoState(PEDIDO_REGLAS_V1, { vistas: 1, ultima: 1 })
+savePedidoState(PEDIDO_REGLAS, { vistas: 1, ultima: CALENDARIO[0].tras })
+check(reglasDichas() === 1, `va una dicha, no tres (${reglasDichas()})`)
+check(
+  proximaRegla(CALENDARIO[1].tras, reglasDichas()) === CALENDARIO[1].regla,
+  "y la próxima es la segunda del calendario",
+)
+
+console.log("17. cerrar sesión borra las dos cajas")
+// Si quedara la vieja, el segundo invitado de este navegador arrancaría con «las
+// tres ya salieron» y no se enteraría nunca de cómo funciona el juego. Es el
+// mismo motivo de la sección 13, sobre la clave que ya no se escribe.
+limpio()
+savePedidoState(PEDIDO_REGLAS_V1, { vistas: 1, ultima: 1 })
+savePedidoState(PEDIDO_REGLAS, { vistas: 3, ultima: 15 })
+clearGameIdentity()
+check(reglasDichas() === 0, `no queda rastro de ninguna (${reglasDichas()})`)
+check(tocaReglas(1), "y el próximo jugador de este aparato las recibe")
 
 console.log(fallos === 0 ? "\ntodos los chequeos pasaron" : `\n${fallos} fallos`)
 process.exit(fallos === 0 ? 0 : 1)

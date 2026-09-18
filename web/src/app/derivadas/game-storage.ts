@@ -8,7 +8,16 @@ const REGISTRO_OFRECIDO_KEY = "intervalo:game:registro-ofrecido"
 const INSTALAR_KEY = "intervalo:game:instalar"
 const NOTIF_KEY = "intervalo:game:notificaciones"
 const OPINION_KEY = "intervalo:game:opinion"
-const REGLAS_KEY = "intervalo:game:reglas"
+// La caja vieja de las reglas guardaba `vistas: 1` con UN solo significado:
+// «las tres ya salieron», porque salían juntas. La nueva cuenta de 0 a 3, así
+// que ese mismo 1 pasó a querer decir «salió una». Son dos idiomas distintos en
+// la misma clave, y no se pueden distinguir mirando el valor.
+//
+// Por eso la caja nueva es otra clave, y la vieja queda de solo lectura para
+// traducirla una vez (reglas-trigger.ts :: reglasDichas). Reutilizarla habría
+// hecho que quien ya vio las tres se comiera dos de nuevo, en la 8 y en la 15.
+const REGLAS_V1_KEY = "intervalo:game:reglas"
+const REGLAS_KEY = "intervalo:game:reglas-2"
 const CIERRE_KEY = "intervalo:game:cafecito-cierre"
 const PWA_DESDE_KEY = "intervalo:game:pwa-desde"
 
@@ -93,6 +102,7 @@ export function clearGameIdentity() {
     window.localStorage.removeItem(NOTIF_KEY)
     window.localStorage.removeItem(OPINION_KEY)
     window.localStorage.removeItem(REGLAS_KEY)
+    window.localStorage.removeItem(REGLAS_V1_KEY)
     window.localStorage.removeItem(CIERRE_KEY)
     window.localStorage.removeItem(PWA_DESDE_KEY)
     window.localStorage.removeItem(CHAT_SENDS_KEY)
@@ -258,6 +268,8 @@ export const PEDIDO_OPINION = OPINION_KEY
  *  `ultima` es la correcta en la que salió la última, que es lo que las mantiene
  *  espaciadas (reglas-trigger.ts). */
 export const PEDIDO_REGLAS = REGLAS_KEY
+/** La caja vieja, de solo lectura y solo para traducirla. Ver arriba. */
+export const PEDIDO_REGLAS_V1 = REGLAS_V1_KEY
 
 const SIN_PEDIR: PedidoRepetido = { vistas: 0, ultima: -Infinity }
 

@@ -25,7 +25,12 @@
 // equivocarse no se ve jugando sino después, en el embudo. Ver
 // web/scripts/check-puerta.ts.
 
-import { PEDIDO_REGLAS, readPedidoState, savePedidoState } from "./game-storage"
+import {
+  PEDIDO_REGLAS,
+  PEDIDO_REGLAS_V1,
+  readPedidoState,
+  savePedidoState,
+} from "./game-storage"
 
 /** Las reglas que la puerta se guarda, por su índice en la lista de
  *  `IntroParagraphs`. La 0 es la que dice la puerta.
@@ -81,9 +86,20 @@ export const ESPACIO_MINIMO = 3
 
 /** Cuántas de las tres ya se dijeron. Vive en localStorage y por eso vale para
  *  todo el aparato: esto no es un pedido que vuelve, es una explicación que se
- *  da una vez. */
+ *  da una vez.
+ *
+ *  **Y traduce la caja vieja.** Hasta el 18/09 las tres salían juntas y se
+ *  anotaban con un `vistas: 1` que quería decir «las tres». Leído con el idioma
+ *  nuevo ese 1 dice «salió una», así que a quien volviera le saldrían de nuevo
+ *  la tabla en la 8 y los cafecitos en la 15 — dos pantallas que ya vio, y
+ *  justo en el brazo que existe para sacar pantallas del medio. La caja vieja no
+ *  se escribe nunca más: solo se lee, y cualquier marca en ella significa las
+ *  tres. */
 export function reglasDichas(): number {
-  return readPedidoState(PEDIDO_REGLAS).vistas
+  const estado = readPedidoState(PEDIDO_REGLAS)
+  if (estado.vistas > 0) return estado.vistas
+  if (readPedidoState(PEDIDO_REGLAS_V1).vistas > 0) return REGLAS_DE_LA_DIAPO.length
+  return 0
 }
 
 /** Brazo `control`: ¿toca la diapo de las tres?
