@@ -42,7 +42,7 @@ from . import charts as ch
 from . import theme
 from .charts import esc, num
 from .game_queries import (
-    FIRST_WEEK, PEDIDO_CAFECITO, PLATFORM_LABEL, VENTANA_DONANTE_SEG,
+    FIRST_WEEK, PEDIDO_CAFECITO, PLATFORM_LABEL,
 )
 
 # El grueso del CSS es el mismo que Intervalo (ver metrics/theme.py) — es la
@@ -409,7 +409,12 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
             'por WhatsApp en tandas, así que la hora de arranque es en buena parte la hora a la '
             'que salió el mensaje: el corte se parece más a «por qué difusión llegaste» que a '
             '«cuándo rendís mejor». Medido sobre las tres cohortes que hay, la mañana aguanta '
-            'más en dos y menos en la tercera.')
+            'más en dos y menos en la tercera.'
+            '<br><br>Eso dejó de ser una sospecha: la curva de la hora de la PRIMERA sesión '
+            'correlaciona a r = 0,82 con el cronograma de envío de la camada, y la de las '
+            'vueltas a r = 0,17. Está medido en <a href="#reloj">El reloj del día</a>, en '
+            'Activación — que además es dónde mirar si lo que se busca es a qué hora la '
+            'gente elige jugar.')
 
     if not series:
         grafico = '<p class="empty">todavía no hay partidas cerradas en esta ventana</p>'
@@ -1021,6 +1026,87 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         anchor="difusion"))
     pieza_difusion = "".join(out)
 
+    # ── 3 · El reloj del día ─────────────────────────────────────────────────
+    out = []
+    ho = p["horarios"]
+    pri, pos = ho["perfil_primera"], ho["perfil_posterior"]
+    grupo, recluta = ho["por_origen"]["grupo"], ho["por_origen"]["recluta"]
+
+    # Normalizadas al total de cada una y no en crudo: son 606 sesiones contra
+    # 304, así que en absoluto la curva de las vueltas queda aplastada contra el
+    # piso y lo único que se leería es la primera. Lo que se compara son formas.
+    series_reloj = [
+        {"label": f'Primer uso · {num(pri["n"])} sesiones', "values": pri["pct"],
+         "tips": [f'{ho["bins"][i]} · {num(n)} '
+                  f'{"primera sesión" if n == 1 else "primeras sesiones"}'
+                  for n in ho["primera"]]},
+        {"label": f'Uso posterior · {num(pos["n"])} sesiones', "values": pos["pct"],
+         "tips": [f'{ho["bins"][i]} · {num(n)} {"vuelta" if n == 1 else "vueltas"}'
+                  for i, n in enumerate(ho["posterior"])]},
+    ]
+
+    out.append(_section(
+        3, "El reloj del día",
+        '<div class="grid g4">'
+        + "".join(_kpi_chico(l, v, h, suffix="%", dec=1) for l, v, h in [
+            ("Primer uso · 6 h más cargadas", pri["top3"],
+             f'pico en {pri["pico"] or "—"}'),
+            ("Uso posterior · 6 h más cargadas", pos["top3"],
+             f'pico en {pos["pico"] or "—"}'),
+            ("Primer uso · de noche", pri["noche"], "de 20 a 6"),
+            ("Uso posterior · de noche", pos["noche"], "de 20 a 6")])
+        + "</div>"
+        + _box(
+            "Cuándo arranca cada uso",
+            ch.lines(series_reloj, ho["bins"], suffix="%", height=280),
+            note=(
+                "<b>La curva del primer uso no es una preferencia: es nuestro cronograma "
+                "de envío.</b> Medida el 14/09 contra los checkpoints de Hermes de esta "
+                "camada —33 grupos a las 9, 30 a las 10, 42 a las 11, 25 a las 15— la "
+                "correlación hora por hora da <b>r = 0,82</b>, y hasta el rebote de la "
+                "tarde es la tanda de las 15. La misma cuenta sobre el uso posterior da "
+                "<b>r = 0,17</b>: de las dos curvas, esa es la única que mide cuándo la "
+                "gente elige jugar."
+                f'<br><br><b>El control está adentro de la base y no hace falta creerme.</b> '
+                f'Partido por cómo se invitó a cada uno, el primer uso de quien llegó por un '
+                f'grupo de WhatsApp ({num(grupo["n"])} sesiones) pica en '
+                f'{esc(grupo["pico"] or "—")} y tiene {_pct_txt(grupo["noche"])} de noche; '
+                f'el de quien lo trajo un recluta ({num(recluta["n"])}) pica en '
+                f'{esc(recluta["pico"] or "—")} y tiene {_pct_txt(recluta["noche"])}. Los dos '
+                f'son primeras veces: lo único distinto es quién los convocó. Si el pico de '
+                f'la mañana fuera «el que recién llega prefiere la mañana», las dos curvas '
+                f'tendrían la misma forma.'
+                f'<br><br><b>La unidad es la sesión, no la persona.</b> Quien jugó cinco '
+                f'veces aporta una primera y cuatro vueltas, que es lo que se quiere contar. '
+                f'De las {num(pos["n"])} vueltas, {num(ho["n_mismo_dia"])} son del mismo día '
+                f'en que esa persona entró —todavía arrastre de la campaña— y '
+                f'{num(ho["n_otro_dia"])} son de otro día; esas últimas son las más '
+                f'nocturnas de todo el panel, {_pct_txt(ho["perfil_otro_dia"]["noche"])} '
+                f'entre las 20 y las 6.'))
+        + _box(
+            "Qué fracción de cada franja es gente nueva",
+            ch.stackbars(ho["bins"],
+                         [{"label": "Primer uso", "values": ho["primera"]},
+                          {"label": "Uso posterior", "values": ho["posterior"]}],
+                         min_n=ho["min_base"]),
+            note=(
+                f'Las columnas miden todas igual a propósito: acá no se pregunta cuánto '
+                f'tráfico hay a cada hora —eso es el gráfico de arriba— sino de qué está '
+                f'hecho. Es la tira que decide a qué hora mandar la próxima tanda: donde el '
+                f'bloque de arriba es gordo, la hora ya la estamos usando; donde es flaco, '
+                f'esa franja es de los que vuelven solos y todavía no le mandamos a nadie.'
+                f'<br><br>Las franjas con menos de {num(ho["min_base"])} sesiones salen como '
+                f'un marco vacío en vez de como un reparto: a esa base una sola persona '
+                f'mueve la barra casi siete puntos, y un porcentaje dibujado firme sobre '
+                f'tres sesiones se lee igual que uno sobre doscientas.')),
+        sub=f'Cuándo alguien entra por primera vez y cuándo vuelve. Son dos preguntas '
+            f'distintas y el panel las venía contestando juntas. Acumulado desde la '
+            f'primera camada ({ho["desde"].strftime("%d/%m")}) y no por semana: la hora '
+            f'del día es un hecho estructural, y partido en semanas el brazo de las '
+            f'vueltas se queda sin base para dibujarse.',
+        anchor="reloj"))
+    pieza_horarios = "".join(out)
+
     # ── Monetización: dónde se pide el cafecito ──────────────────────────────
     mo = p["monetizacion"]
     filas_lugares = [[
@@ -1029,39 +1115,46 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         '<span class="sub2">no las anota</span>',
         num(l["clicks"]), _pct_txt(l["ctr"]),
     ] for l in mo["lugares"]]
-    # ── A quién se le pudo agradecer ─────────────────────────────────────────
-    gr = mo["gracias"]
-    pieza_gracias = _section(
-        2, "A quién se le pudo agradecer",
-        '<div class="grid g4">'
-        + "".join(_kpi_chico(l, v, h) for l, v, h in [
-            ("Donaciones", gr["donaciones"], "en la ventana del panel"),
-            ("Sabemos quién", gr["unico"],
-             f'{num(gr["ambiguas"])} quedaron ambiguas'
-             + (f' · {num(gr["sin_boton"])} sin tocar el botón'
-                if gr["sin_boton"] else "")),
-            ("Y tiene cuenta", gr["con_cuenta"],
-             f'{num(gr["unico"] - gr["con_cuenta"])} donaron sin cuenta'),
-            ("Se le agradeció", gr["agradecidos"],
-             f'{_pct_txt(gr["pct_agradecidos"])} de las donaciones'),
+    # ── El embudo de la plata ────────────────────────────────────────────────
+    em = mo["embudo"]
+    pieza_embudo = _section(
+        2, "De los que ven el pedido, quiénes pagan",
+        ch.hbars([
+            {"label": "Vieron el pedido", "value": em["vieron"], "note": ""},
+            {"label": "Tocaron «Invitar»", "value": em["tocaron"],
+             "note": f'{_pct_txt(em["pct_tocaron"])} de los que vieron'},
+            {"label": "Pagaron", "value": em["pagaron"],
+             "note": f'{_pct_txt(em["pct_pagaron"])} de los que tocaron'},
+        ], label_w=150)
+        + '<div class="grid g3">'
+        + "".join(_kpi_chico(l, v, h, suffix=sfx) for l, v, h, sfx in [
+            ("Del pedido al botón", em["pct_tocaron"] or 0,
+             "para un pedido de plata, es altísimo", "%"),
+            ("Del botón a la plata", em["pct_pagaron"] or 0,
+             f'{num(em["tocaron"] - em["pagaron"])} tocaron y no pagaron', "%"),
+            ("Donaron sin cuenta", em["invitados"],
+             f'de {num(em["pagaron"])} donantes', ""),
         ])
         + "</div>"
-        + f'<p class="note"><b>Cafecito no devuelve quién pagó.</b> Sus campos son todos '
-          f'opcionales y no se pueden marcar obligatorios, así que la única pata del juego '
-          f'es el «voy a donar»: cuando alguien toca ESE botón sí sabemos quién es, y la '
-          f'donación se cruza contra las intenciones consumidas en ±'
-          f'{num(VENTANA_DONANTE_SEG)} segundos.'
-          f'<br><br><b>Con dos personas distintas en esa ventana no se puede afirmar nada.</b> '
-          f'Solo una pagó y las otras cobran el empuje igual, así que nombrar a cualquiera '
-          f'sería inventar. Ahí se pierde casi todo lo que se pierde, y es la parte que tiene '
-          f'arreglo del lado del producto —una ventana más angosta, o cruzar por monto—; '
-          f'«donó sin cuenta» no lo tiene.'
-          f'<br><br>Solo donaciones de verdad: los grants a mano y los del aforo no los donó '
-          f'nadie. Meterlos en el denominador inventaría un problema que no existe, y pasó al '
-          f'medir esto la primera vez.</p>',
-        sub="Cuánta plata entra sin que sepamos de quién. Es también el denominador del mail "
-            "de agradecimiento, que sale solo cuando las cuatro columnas dan.",
-        anchor="gracias")
+        + f'<p class="note"><b>Esto no se podía medir hasta el cobro directo.</b> Con '
+          f'Cafecito la donación llegaba anónima y acá se cruzaban agregados —donaciones '
+          f'de la semana contra clicks de la semana— con la advertencia de que no era una '
+          f'conversión persona a persona y no podía serlo. Ahora la preferencia de Mercado '
+          f'Pago viaja con el jugador adentro y el pago vuelve con él.'
+          f'<br><br><b>El escalón que importa es el segundo.</b> Del pedido al botón la '
+          f'conversión es altísima: el cartel no tiene problema. Lo que se pierde se pierde '
+          f'después del click, del otro lado del salto, y ahí el panel no ve —esa parte '
+          f'está medida en <a href="https://github.com/intervalo-ed/intervalo">el reporte '
+          f'del 17/09</a> por el tiempo que tardan en volver al juego: 28 segundos de '
+          f'mediana los que no pagan, 202 los que sí.'
+          f'<br><br><b>El piso está subestimado mientras convivan los canales viejos.</b> '
+          f'Una donación que entra por el socket de Cafecito o por el mail de Mercado Pago '
+          f'no trae jugador, así que suma en el total y no en «pagaron»: hoy '
+          f'{num(em["con_dueno"])} de {num(em["donaciones"])} donaciones '
+          f'({_pct_txt(em["pct_con_dueno"])}) tienen dueño conocido. Ese número tiene que '
+          f'irse a 100% cuando se apaguen.</p>',
+        sub="El embudo persona por persona, que hasta el cobro directo era imposible.",
+        anchor="embudo")
 
     pieza_monetizacion = _section(
         1, "Dónde se pide el cafecito",
@@ -1087,7 +1180,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
              ),
         sub="El cafecito no se pide en un lugar: se pide en nueve. Esto es cuál de los "
             "nueve trae la plata.",
-        anchor="monetizacion") + pieza_gracias
+        anchor="monetizacion") + pieza_embudo
 
     # ── Calibración ──────────────────────────────────────────────────────────
     ca = p["calibracion"]
@@ -1227,7 +1320,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
     # algo llama la atención.
     paneles = {
         "activacion": (_fila_kpi(p["headline"]["activacion"])
-                       + pieza_difusion + pieza_reclutas),
+                       + pieza_difusion + pieza_reclutas + pieza_horarios),
         "retencion": (_fila_kpi(p["headline"]["retencion"])
                       + pieza_push + pieza_mails),
         "jugabilidad": (_fila_kpi(p["headline"]["jugabilidad"])
