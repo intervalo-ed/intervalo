@@ -13,8 +13,28 @@
 /** Cuántas correctas antes de preguntar carrera y universidad. */
 export const HITO_PERFIL = 3
 
-/** Cuántas correctas antes de ofrecerle registrarse a un invitado. */
-export const HITO_REGISTRO = 12
+/** Cuántas correctas antes de ofrecerle registrarse a un invitado.
+ *
+ *  Diez y no doce desde el 18/09, el mismo día que la primera oferta de
+ *  cafecito se adelantó a la 14 (`CAFECITO_PRIMERA`). El orden entre los dos es
+ *  lo que se está cuidando: pedir la cuenta primero y la plata después, porque
+ *  una donación de alguien que sigue siendo invitado no tiene a quién
+ *  agradecerle —el mail del agradecimiento sale de la cuenta— y porque el @
+ *  propio es el gancho del registro y el cafecito no lo necesita. */
+export const HITO_REGISTRO = 10
+
+/** Y cada cuántas se vuelve a ofrecer, a quien dijo que no y siguió jugando.
+ *
+ *  Doce, que es lo que valía el hito entero antes del 18/09. Cuando la primera
+ *  oferta se adelantó a la 10, la separación se vino con ella y las siguientes
+ *  pasaron a caer en la 20, la 30, la 40 — o sea, en lockstep con los múltiplos
+ *  del cafecito (`CAFECITO_EVERY`). El pedido de cuenta y el de plata
+ *  compartiendo respuesta, y no una vez: siempre.
+ *
+ *  Separarlos en dos constantes es además lo honesto, porque son dos preguntas
+ *  distintas: cuándo se ofrece por primera vez, y cuánto se espera después de un
+ *  no. */
+export const REGISTRO_REPITE = 12
 
 // Los dos hitos se cuentan con las correctas ACUMULADAS del jugador —las que
 // manda el servidor— y no con un contador de la pestaña.
@@ -31,7 +51,7 @@ export const HITO_REGISTRO = 12
 // Con el contador del servidor aparece el problema espejo: la condición ya está
 // cumplida, así que recargar volvería a ofrecer el registro en la primera
 // respuesta, y otra vez en la siguiente recarga. Por eso la oferta se anota
-// (localStorage) y se espacia otras `HITO_REGISTRO` correctas: se ofrece de
+// (localStorage) y se espacia otras `REGISTRO_REPITE` correctas: se ofrece de
 // nuevo a quien siguió jugando un buen rato, no a quien acaba de decir que no.
 //
 // La pregunta de carrera y universidad NO necesita nada de esto: su condición
@@ -44,7 +64,7 @@ import { marcarRegistroOfrecido, readRegistroOfrecidoAt } from "./game-storage"
 export function tocaRegistro(totalCorrectas: number): boolean {
   return (
     totalCorrectas >= HITO_REGISTRO &&
-    totalCorrectas - readRegistroOfrecidoAt() >= HITO_REGISTRO
+    totalCorrectas - readRegistroOfrecidoAt() >= REGISTRO_REPITE
   )
 }
 

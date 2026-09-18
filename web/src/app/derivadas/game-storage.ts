@@ -134,6 +134,23 @@ export function readUltimoPedidoAt(): number {
   }
 }
 
+/** Cuándo interrumpió el juego por última vez, contando TAMBIÉN la pantalla de
+ *  instalar.
+ *
+ *  Distinta de `readUltimoPedidoAt`, que es el cooldown compartido y que
+ *  instalar no consume a propósito (ver INSTALAR_SEPARACION). Esa excepción
+ *  resuelve una mitad —que instalar no corra al café ni al reclutamiento— y deja
+ *  la otra abierta: nada impedía que el café cayera pegado a instalar. Con la
+ *  ventana compartida en diez nunca se veía, porque diez derivadas de silencio
+ *  tapaban cualquier cosa; con la ventana más corta aparece enseguida, y la
+ *  forma que toma es un récord justo después de la pantalla de instalar.
+ *
+ *  Devuelve -Infinity si todavía no interrumpió nada, igual que las dos que
+ *  compara. */
+export function readUltimaInterrupcion(): number {
+  return Math.max(readUltimoPedidoAt(), readPedidoState(INSTALAR_KEY).ultima)
+}
+
 export function saveUltimoPedidoAt(solvedCount: number) {
   try {
     window.localStorage.setItem(CAFECITO_LAST_KEY, String(solvedCount))

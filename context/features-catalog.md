@@ -134,15 +134,17 @@ puerta no cobró.
     hace que la fila estrene el nombre elegido; lo único que cambia es el
     acierto. La atrición manda: 20,4% en la primera contra 6,2% en la tercera.
   - **las reglas** se reparten de a una, cada una donde tiene referente
-    (`reglas-trigger.ts :: CALENDARIO`): el **Elo en la 5**, cuando la dificultad
-    ya se movió; la **tabla en la 8**, cuando los ejercicios empezaron a costar y
-    la regla es una salida y no un dato; los **cafecitos en la 15**, cinco antes
-    de que la diapo del cafecito aparezca por primera vez, para que esa diapo no
-    sea la primera noticia.
+    (`reglas-trigger.ts :: CALENDARIO`): el **Elo en la 7**, cuando la dificultad
+    ya se movió; los **cafecitos en la 12**, dos antes de que la diapo del
+    cafecito aparezca por primera vez, para que esa diapo no sea la primera
+    noticia; la **tabla en la 18**, cuando los ejercicios empezaron a costar de
+    verdad y la regla es una salida y no un dato.
 
   Ninguna cae antes de la tercera correcta, y eso no es prolijidad: la métrica
   primaria es llegar a tres, así que una regla que saliera antes estaría adentro
-  de lo que se está midiendo.
+  de lo que se está midiendo. Y ninguna comparte respuesta con otra pantalla:
+  las tres esquivan las derivadas donde el juego ya interrumpe (ver el mapa de
+  abajo).
 
 **Esto no es el tutorial repartido que ya se sacó una vez.** Hasta el 13/09 las
 tres reglas venían de a una en los aciertos 1, 2 y 5, metidas ARRIBA DEL
@@ -156,6 +158,51 @@ efecto mínimo 8 puntos → **606 por brazo**. La predicción declarada: Android
 la que más se mueve, porque es donde `dx-puerta-1` perdió terreno y donde el
 desbarranco se lleva más gente en absoluto (149 → 109); iOS debería moverse
 menos, porque su ganancia vino de la puerta y no del peaje.
+
+#### El mapa de interrupciones
+
+Seis sistemas independientes deciden cuándo el juego deja de servir derivadas y
+pide algo, cada uno con su propia cadencia. El **18/09 se adelantaron dos** —el
+registro de la 12 a la 10 y la primera oferta de cafecito de la 20 a la 14— y
+eso obligó a mover un tercero, porque los números no viven solos:
+
+| derivada | qué sale |
+|---|---|
+| 3 | carrera y universidad (`HITO_PERFIL`); en `sin-peaje`, el @ va pegado antes |
+| 5 | instalar la app (`INSTALAR_PRIMERA`) |
+| 7 | *(sin-peaje)* la regla del Elo |
+| 9 | invitar a un amigo (`RECLUTAS_RESTO`) |
+| 10 | registrarse (`HITO_REGISTRO`), y se vuelve a ofrecer cada 12 |
+| 12 | *(sin-peaje)* la regla de los cafecitos |
+| 13 | la encuesta de dificultad (`OPINION_PRIMERA`, corrida por su separación) |
+| 14 | el cafecito, por primera vez (`CAFECITO_PRIMERA`) |
+| 18 | *(sin-peaje)* la regla de la tabla |
+| 20 | el cafecito otra vez, y de ahí cada 20 |
+
+**Lo que hace que el mapa se sostenga son dos reglas, no la aritmética.** La
+primera es el **cooldown compartido** (`readUltimoPedidoAt`): el cafecito y el
+reclutamiento se miden contra el último pedido de cualquier tipo, no contra el
+último propio. La segunda es que **instalar y la encuesta no lo consumen** a
+propósito —si lo consumieran, el pedido de instalar de la 5 correría al
+reclutamiento de la 9—, y que desde el 18/09 el cafecito y el reclutamiento sí
+mantienen distancia de la pantalla de instalar (`readUltimaInterrupcion`). La
+excepción resolvía una mitad y dejaba la otra abierta: nada impedía que un
+récord cayera pegado a esa pantalla, y con la ventana compartida más corta eso
+pasa en la derivada 46, un acierto después de la instalación de la 45. La
+encuesta sigue afuera de la guarda, así que puede caer en la derivada anterior a
+otro pedido —la 13 antes del cafecito de la 14— pero nunca en la misma.
+
+Por qué se movió el reclutamiento de la 10 a la 9: en la 10 compartía respuesta
+con el registro —el registro sale primero y al cerrarlo el ladder vuelve a
+entrar con el disparador todavía en pie— y además escribía el cooldown
+compartido, lo que le dejaba al cafecito de la 14 solo cuatro derivadas de aire
+y la oferta directamente no salía. Nueve es el primer número que deja cuatro
+desde la pantalla de instalar y cinco hasta el cafecito.
+
+Y por qué el registro se vuelve a ofrecer cada 12 y no cada 10: con 10 y 10 las
+re-ofertas caían en la 20, la 30 y la 40, o sea en lockstep con los múltiplos
+del cafecito. El pedido de cuenta y el de plata compartiendo respuesta, y no una
+vez sino siempre.
 
 #### Cómo se sortea y dónde queda
 
@@ -638,7 +685,11 @@ copy sale de tablas que el juego no toca.
 
 ### La diapo del cafecito, y sus cuatro caras
 
-Sale cada 20 derivadas (`cafecito-cta.tsx`) y desde el 14/09 no siempre pide.
+**La primera sale en la derivada 14 y las siguientes cada 20**
+(`cafecito-cta.tsx :: CAFECITO_PRIMERA` y `CAFECITO_EVERY`). Son dos números
+desde el 18/09 porque son dos preguntas distintas —cuándo se presenta el
+cafecito, y cada cuánto se insiste— y con uno solo la presentación estaba a
+veinte derivadas de la puerta. Desde el 14/09, además, no siempre pide.
 Cuál cara dibuja lo contesta el servidor (`GET /cafecito-status`), no una bandera
 local, así que sobrevive a cerrar la pestaña y a cambiar de aparato:
 

@@ -60,20 +60,28 @@ export const REGLAS_DE_LA_DIAPO = [ELO, CAFECITOS, TABLA]
  *
  *  Por qué cada una donde está:
  *
- *    - **El Elo en la 5.** Con cinco resueltas la dificultad ya se movió: la
+ *    - **El Elo en la 7.** Con siete resueltas la dificultad ya se movió: la
  *      frase describe algo que acaba de pasar en vez de anunciar algo que va a
- *      pasar.
- *    - **La tabla en la 8.** Es la única de las tres que es una herramienta, y
- *      llega cuando los ejercicios empezaron a costar. Antes es un dato; acá es
- *      una salida.
- *    - **Los cafecitos en la 15**, cinco antes de que la diapo del cafecito
- *      aparezca por primera vez. Llega como aviso y no como pedido, que es la
- *      única forma de que la diapo de la 20 no sea la primera noticia.
+ *      pasar. Es además el único hueco que queda temprano — la 5 la ocupa el
+ *      pedido de instalar la app (`INSTALAR_PRIMERA`) y la 9 el reclutamiento.
+ *    - **Los cafecitos en la 12**, dos antes de que la diapo del cafecito
+ *      aparezca por primera vez (`CAFECITO_PRIMERA`). Llega como aviso y no
+ *      como pedido, que es la única forma de que esa diapo no sea la primera
+ *      noticia.
+ *    - **La tabla en la 18.** Es la única de las tres que es una herramienta, y
+ *      llega cuando los ejercicios empezaron a costar de verdad. Antes es un
+ *      dato; acá es una salida. Va última porque es la que menos urge: la card
+ *      ya enseña el gesto con su propio tip.
+ *
+ *  Las tres esquivan las respuestas donde el juego ya interrumpe: la 3 (perfil),
+ *  la 5 (instalar), la 9 (reclutar), la 10 (registro) y la 14 y la 20 (café).
+ *  Compartir respuesta es la única colisión que importa — es la pila que este
+ *  brazo existe para no tener.
  */
 export const CALENDARIO: { tras: number; regla: number }[] = [
-  { tras: 5, regla: ELO },
-  { tras: 8, regla: TABLA },
-  { tras: 15, regla: CAFECITOS },
+  { tras: 7, regla: ELO },
+  { tras: 12, regla: CAFECITOS },
+  { tras: 18, regla: TABLA },
 ]
 
 /** Correctas mínimas entre una regla y la siguiente.

@@ -64,16 +64,22 @@ SESSION_GAP_MINUTES = 30
 # cambien.
 #
 #   - carrera y universidad a las 3   (web/src/app/derivadas/hitos-del-juego.ts :: HITO_PERFIL)
-#   - registro a las 12               (idem :: HITO_REGISTRO)
-#   - cafecito cada 20                (web/src/app/derivadas/cafecito-cta.tsx :: CAFECITO_EVERY)
+#   - registro a las 10               (idem :: HITO_REGISTRO)
+#   - el primer cafecito a las 14     (web/src/app/derivadas/cafecito-cta.tsx :: CAFECITO_PRIMERA)
 #
 # El panel los marca para poder ver si el escalón de abandono cae JUSTO ahí, que
 # sería el producto pinchando su propia partida. Por eso importa que estén al
 # día: con la universidad marcada en la 5 cuando en realidad se pide en la 3, el
 # escalón que se estaba buscando quedaba dos derivadas corrido.
+#
+# El del cafecito es el de la PRIMERA oferta y no el del ritmo (que sigue siendo
+# cada 20, `CAFECITO_EVERY`). Son dos números desde el 18/09, y el que importa
+# para la curva es el primero: es la única aparición que le toca a todo el mundo
+# en el mismo lugar, mientras que las de después dependen de récords y saltos de
+# puesto y por lo tanto caen en derivadas distintas para cada persona.
 PEDIDO_PERFIL = 3
-PEDIDO_REGISTRO = 12
-PEDIDO_CAFECITO = 20
+PEDIDO_REGISTRO = 10
+PEDIDO_CAFECITO = 14
 
 # Cuántas correctas seguidas en la primera tanda cuentan como «entró al juego».
 #

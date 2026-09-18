@@ -23,7 +23,10 @@ import {
   savePedidoState,
   saveUltimoPedidoAt,
 } from "../src/app/derivadas/game-storage"
+import { CAFECITO_PRIMERA } from "../src/app/derivadas/cafecito-cta"
+import { INSTALAR_PRIMERA } from "../src/app/derivadas/instalacion-trigger"
 import { HITO_PERFIL, HITO_REGISTRO } from "../src/app/derivadas/hitos-del-juego"
+import { RECLUTAS_CADA, RECLUTAS_RESTO } from "../src/app/derivadas/reclutas-trigger"
 import {
   CALENDARIO,
   ESPACIO_MINIMO,
@@ -149,9 +152,18 @@ check(
 )
 
 console.log("8. sin-peaje: no le pisa el turno a ningún otro hito")
-// Perfil en la 3, registro en la 12, cafecito cada 20. Dos pantallas en el mismo
-// acierto es exactamente la pila que este brazo existe para no tener.
-const ocupados = [HITO_PERFIL, HITO_REGISTRO, 20]
+// Dos pantallas en el mismo acierto es exactamente la pila que este brazo existe
+// para no tener, así que las paradas del calendario se comparan contra todas las
+// respuestas donde el juego ya interrumpe. Los números salen de sus módulos y no
+// escritos a mano: el 20 del cafecito estaba clavado acá y se movió a la 14 sin
+// que este chequeo se enterara.
+const ocupados = [
+  HITO_PERFIL,
+  HITO_REGISTRO,
+  CAFECITO_PRIMERA,
+  INSTALAR_PRIMERA,
+  ...[0, 1, 2].map((k) => k * RECLUTAS_CADA + RECLUTAS_RESTO),
+]
 for (const paso of CALENDARIO) {
   check(
     !ocupados.includes(paso.tras),
