@@ -92,7 +92,26 @@ VENCE_EN_HORAS = 1
 # Lo que la persona ve en el resumen de su tarjeta. Trece caracteres es el tope
 # que fija Mercado Pago. Importa más de lo que parece: un cargo que no se
 # reconoce en el resumen es un contracargo esperando pasar.
+#
+# Pisa al `soft_descriptor` de la cuenta, que hoy dice "NICOLASVRANC" — ver el
+# comentario de MARCA acá abajo, que es el mismo problema en la otra pantalla.
 DESCRIPTOR = "INTERVALO"
+
+# La marca, adelante del título del ítem. En minúsculas y con el nombre entero
+# porque acá no hay límite de trece caracteres: son dos lugares distintos.
+#
+# Por qué está. El checkout dibuja arriba de todo el nombre del vendedor, y en
+# una cuenta personal ese nombre es el del titular: hoy dice «Nicolás
+# Vrancovich». No se puede cambiar sin convertir la cuenta en una empresa con
+# CUIT propio (`company.brand_name` existe pero está atado a la identidad de la
+# cuenta), así que la única pantalla que controlamos es esta línea.
+#
+# Y la persona llega acá desde un botón con el ícono de Mercado Pago adentro de
+# un juego que se llama Intervalo. Que lo primero que lea sea el nombre de un
+# desconocido es exactamente la desconfianza que este módulo vino a sacar del
+# camino. Que la marca aparezca en la misma pantalla no borra el nombre, pero lo
+# explica.
+MARCA = "Intervalo"
 
 
 def log(mensaje: str) -> None:
@@ -140,14 +159,17 @@ def _titulo(cafecitos: int, university: str | None, monto: int, pais: str | None
     diferencia de que allá se perdía el monto y acá se pierde la unidad.
 
     El título es lo ÚNICO que controlamos de esa pantalla: no hay forma de
-    cambiarle la moneda, ni el formato, ni el símbolo. Así que la aclaración va
-    donde se puede poner, que es acá.
+    cambiarle la moneda, ni el formato, ni el símbolo, ni el nombre del vendedor
+    que va arriba de todo. Así que todo lo que hay para decir va acá: la marca
+    primero —porque es lo que la persona reconoce y lo que el nombre del titular
+    no le dice—, después qué compra, y al final la moneda si hace falta.
     """
     destino = f" para la {university}" if university else ""
     cuantos = f"{cafecitos} cafecitos" if cafecitos != 1 else "1 cafecito"
-    if pais is None:
-        return f"{cuantos}{destino}"
-    return f"{cuantos}{destino} · {MONEDA} {monto:,}".replace(",", ".")
+    partes = [MARCA, f"{cuantos}{destino}"]
+    if pais is not None:
+        partes.append(f"{MONEDA} {monto:,}".replace(",", "."))
+    return " · ".join(partes)
 
 
 def cuerpo_de_preferencia(
