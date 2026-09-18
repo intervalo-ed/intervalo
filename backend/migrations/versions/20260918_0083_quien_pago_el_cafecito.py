@@ -17,8 +17,8 @@ de Cafecito o por el mail de Mercado Pago tampoco, porque esos avisos traen un
 nombre libre o el nombre legal del pagador, y ninguno de los dos es un jugador.
 NULL acá quiere decir «no sabemos», que es distinto de «no hay nadie».
 
-Revision ID: 20260918_0082
-Revises: 20260913_0081
+Revision ID: 20260918_0083
+Revises: 20260914_0082
 Create Date: 2026-09-18
 """
 from typing import Sequence, Union
@@ -26,8 +26,8 @@ from typing import Sequence, Union
 import sqlalchemy as sa
 from alembic import op
 
-revision: str = "20260918_0082"
-down_revision: Union[str, Sequence[str], None] = "20260913_0081"
+revision: str = "20260918_0083"
+down_revision: Union[str, Sequence[str], None] = "20260914_0082"
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
