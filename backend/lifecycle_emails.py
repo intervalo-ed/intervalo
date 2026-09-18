@@ -40,6 +40,7 @@ import logging
 import os
 import sys
 import uuid
+from dataclasses import dataclass
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import NamedTuple
@@ -338,21 +339,62 @@ def _unsub_secret() -> str:
     return secret
 
 
+# Los dos tipos de destinatario que puede tener un mail nuestro.
+#
+# "user" es el de siempre: alguien con cuenta, que se da de baja en
+# `users.email_unsubscribed`. "jugador" apareció con el cobro directo — quien
+# dona sin registrarse deja su mail en el pago y el agradecimiento le llega ahí,
+# así que también necesita poder darse de baja, y su bandera vive en
+# `game_players.email_unsubscribed`.
+#
+# El prefijo va ADENTRO de lo que se firma y no solo del texto: sin eso, el
+# token del usuario 7 y el del jugador 7 tendrían el mismo HMAC y uno serviría
+# para dar de baja al otro.
+DESTINO_USUARIO = "user"
+DESTINO_JUGADOR = "jugador"
+_PREFIJO_JUGADOR = "p"
+
+
+def _firmar(cuerpo: str) -> str:
+    mac = hmac.new(_unsub_secret().encode(), cuerpo.encode(), hashlib.sha256)
+    return f"{cuerpo}.{mac.hexdigest()}"
+
+
 def unsubscribe_token(user_id: int) -> str:
-    mac = hmac.new(_unsub_secret().encode(), str(user_id).encode(), hashlib.sha256)
-    return f"{user_id}.{mac.hexdigest()}"
+    """El de siempre, `<user_id>.<hmac>`. No cambia de forma: hay links vivos en
+    mails ya enviados y tienen que seguir funcionando."""
+    return _firmar(str(user_id))
 
 
-def verify_unsubscribe_token(token: str) -> int | None:
+def unsubscribe_token_de_jugador(player_id: int) -> str:
+    """El de quien no tiene cuenta, `p<player_id>.<hmac>`."""
+    return _firmar(f"{_PREFIJO_JUGADOR}{player_id}")
+
+
+def verify_unsubscribe_token(token: str) -> tuple[str, int] | None:
+    """`(destino, id)` o None. El destino dice en qué tabla se escribe la baja."""
     try:
-        user_id_str, mac_hex = token.split(".", 1)
-        user_id = int(user_id_str)
+        cuerpo, mac_hex = token.split(".", 1)
     except (ValueError, AttributeError):
         return None
-    expected = hmac.new(_unsub_secret().encode(), user_id_str.encode(), hashlib.sha256)
+    expected = hmac.new(_unsub_secret().encode(), cuerpo.encode(), hashlib.sha256)
     if not hmac.compare_digest(mac_hex, expected.hexdigest()):
         return None
-    return user_id
+    destino = DESTINO_USUARIO
+    crudo = cuerpo
+    if cuerpo.startswith(_PREFIJO_JUGADOR):
+        destino, crudo = DESTINO_JUGADOR, cuerpo[len(_PREFIJO_JUGADOR):]
+    try:
+        return destino, int(crudo)
+    except ValueError:
+        return None
+
+
+def token_de_baja(destino: str, id_: int) -> str:
+    """El token que corresponde a un destino. Lo usa el endpoint para regenerarlo
+    sin reflejar nada de lo que vino en la URL."""
+    return (unsubscribe_token_de_jugador(id_) if destino == DESTINO_JUGADOR
+            else unsubscribe_token(id_))
 
 
 # ── Plantilla HTML ────────────────────────────────────────────────────────────
@@ -618,9 +660,26 @@ def send_winback_dx_email(db: DBSession, user: User, jugador: GamePlayer) -> boo
     return sent
 
 
+@dataclass(frozen=True)
+class DonanteACelebrar:
+    """A quién se le agradece un cafecito. Puede no tener cuenta.
+
+    Existe porque este es el único mail del proyecto cuyo destinatario no
+    siempre es un `User`: la mitad de los donantes son invitados, y su dirección
+    sale del pago (`game_boosts.donor_email`) y no de una cuenta.
+
+    `token` ya viene resuelto para el destino correcto —usuario o jugador— así
+    que quien manda el mail no tiene que saber cuál de los dos es.
+    """
+
+    email: str
+    nombre: str
+    token: str
+
+
 def send_cafecito_efecto_email(
     db: DBSession,
-    user: User,
+    donante: DonanteACelebrar,
     *,
     university: str | None,
     xp_extra: int,
@@ -644,8 +703,8 @@ def send_cafecito_efecto_email(
     if xp_extra <= 0:
         return False
 
-    name = greeting_name(user)
-    unsubscribe_url = f"{_api_base_url()}/email/unsubscribe?token={unsubscribe_token(user.id)}"
+    name = donante.nombre
+    unsubscribe_url = f"{_api_base_url()}/email/unsubscribe?token={donante.token}"
     donde = f"la {university}" if university else "todo Intervalo"
     greeting = f"{name}, tu cafecito ya terminó de hacer efecto."
     highlight = (
@@ -661,7 +720,7 @@ def send_cafecito_efecto_email(
         preview=greeting,
     )
     asunto = f"Tu cafecito le dio {xp_extra} XP a {donde} ☕"
-    return _send(user.email, asunto, html, unsubscribe_url, text=f"{greeting} {highlight}")
+    return _send(donante.email, asunto, html, unsubscribe_url, text=f"{greeting} {highlight}")
 
 
 def send_reclutas_semanal_email(
@@ -767,7 +826,7 @@ def send_report_thanks_email(db: DBSession, user: User, feedback_ids: list[int])
     return sent
 
 
-def due_cafecito_efecto_emails(db: DBSession) -> list[tuple[User, dict]]:
+def due_cafecito_efecto_emails(db: DBSession) -> list[tuple["DonanteACelebrar", dict]]:
     """Los empujes que vencieron y a cuyo donante se le puede contar qué hizo.
 
     Se mira al VENCER y no al acreditar porque recién ahí el número está cerrado.
@@ -839,15 +898,33 @@ def due_cafecito_efecto_emails(db: DBSession) -> list[tuple[User, dict]]:
             jugador = donante_unico(db, hermanas)
         if jugador is None:
             continue  # ambiguo: no se puede afirmar quién donó
-        if jugador.user_id is None:
-            continue  # donó sin cuenta: no hay a dónde mandarle el mail
-        user = db.get(User, jugador.user_id)
-        if user is None or user.email_unsubscribed:
-            continue
+        # Con cuenta se le escribe como a cualquiera. Sin cuenta —la mitad de
+        # los donantes— se usa el mail con el que pagó, que Mercado Pago
+        # devuelve y `acreditar_pago` guarda. Antes acá se cortaba y esa gente
+        # no recibía nada.
+        if jugador.user_id is not None:
+            user = db.get(User, jugador.user_id)
+            if user is None or user.email_unsubscribed:
+                continue
+            donante = DonanteACelebrar(
+                email=user.email,
+                nombre=greeting_name(user),
+                token=unsubscribe_token(user.id),
+            )
+        else:
+            if not boost.donor_email or jugador.email_unsubscribed:
+                continue
+            donante = DonanteACelebrar(
+                email=boost.donor_email,
+                # El alias es el nombre que la persona SÍ eligió. El legal que
+                # manda Mercado Pago no se usa ni acá ni en el feed.
+                nombre=jugador.alias,
+                token=unsubscribe_token_de_jugador(jugador.id),
+            )
 
         extra, estudiantes = _efecto_del_empuje(db, boost)
         salida.append(
-            (user, {"university": boost.university, "xp_extra": extra, "estudiantes": estudiantes})
+            (donante, {"university": boost.university, "xp_extra": extra, "estudiantes": estudiantes})
         )
     db.commit()
     return salida
@@ -995,8 +1072,8 @@ def run_lifecycle_emails(db: DBSession) -> dict:
             streak_tier_sent += 1
 
     cafecito_efecto_sent = 0
-    for user, datos in due_cafecito_efecto_emails(db):
-        if send_cafecito_efecto_email(db, user, **datos):
+    for donante, datos in due_cafecito_efecto_emails(db):
+        if send_cafecito_efecto_email(db, donante, **datos):
             cafecito_efecto_sent += 1
 
     reclutas_sent = 0

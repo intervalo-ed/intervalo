@@ -782,6 +782,22 @@ class GamePlayer(Base):
     university_set_at = Column(DateTime, nullable=True)
     career = Column(String(1), nullable=True)
 
+    # Se dio de baja de los mails.
+    #
+    # Existe porque un jugador puede recibir un mail sin tener cuenta: quien
+    # dona sin registrarse deja su dirección en el pago (`game_boosts.donor_email`)
+    # y el agradecimiento le llega ahí. Ese mail lleva su link de baja como
+    # cualquier otro —los headers List-Unsubscribe no son opcionales: Gmail y
+    # Yahoo cuentan su ausencia como señal negativa de reputación para TODO el
+    # correo saliente— y la baja tiene que poder escribirse en algún lado.
+    #
+    # El gemelo es `users.email_unsubscribed`. Son dos y no uno porque son dos
+    # identidades distintas: un jugador con cuenta se da de baja como usuario, y
+    # uno sin cuenta solo existe acá.
+    email_unsubscribed = Column(
+        Boolean, nullable=False, default=False, server_default="false"
+    )
+
     # Elo del jugador (ver game/elo.py). n_updates = respuestas de primer
     # intento que ya lo ajustaron; también gobierna la rampa inicial.
     theta = Column(Float, nullable=False, default=0.0, server_default="0")

@@ -67,13 +67,20 @@ db.add(User(id=1, clerk_user_id="c1", email="a@a.com", name="Ana Gómez"))
 db.commit()
 u = db.get(User, 1)
 
+def _dest(user):
+    """El destinatario que corresponde a un usuario con cuenta."""
+    return le.DonanteACelebrar(
+        email=user.email, nombre=le.greeting_name(user),
+        token=le.unsubscribe_token(user.id))
+
+
 print("1. el mail del cafecito no se manda si no hubo efecto")
 check("con 0 XP extra no se manda",
-      not le.send_cafecito_efecto_email(db, u, university="UBA", xp_extra=0, estudiantes=0))
+      not le.send_cafecito_efecto_email(db, _dest(u), university="UBA", xp_extra=0, estudiantes=0))
 check("y no salió nada", len(enviados) == 0)
 
 print("2. con efecto real sí, y dice lo que puede afirmar")
-ok = le.send_cafecito_efecto_email(db, u, university="UBA", xp_extra=340, estudiantes=12)
+ok = le.send_cafecito_efecto_email(db, _dest(u), university="UBA", xp_extra=340, estudiantes=12)
 check("se manda", ok and len(enviados) == 1)
 mail = enviados[-1]
 check("el asunto lleva el número y la universidad",
@@ -83,7 +90,7 @@ check("el cuerpo habla del empuje de la universidad, NO de 'tu cafecito generó'
 check("y dice entre cuántos se repartió", "12 estudiantes" in mail["html"])
 
 print("3. el empuje global se nombra distinto")
-le.send_cafecito_efecto_email(db, u, university=None, xp_extra=90, estudiantes=5)
+le.send_cafecito_efecto_email(db, _dest(u), university=None, xp_extra=90, estudiantes=5)
 mail = enviados[-1]
 check("sin universidad dice 'todo Intervalo'", "todo Intervalo" in mail["subject"])
 
@@ -264,6 +271,36 @@ db.commit()
 db.close()
 
 print()
+print("9. el agradecimiento le llega también a quien donó sin cuenta")
+# La mitad de los donantes son invitados. Su dirección sale del pago y su link
+# de baja no puede salir de `users`, porque no tienen fila ahí.
+invitado = le.DonanteACelebrar(
+    email="pago@example.com", nombre="ivi",
+    token=le.unsubscribe_token_de_jugador(2024))
+antes = len(enviados)
+le.send_cafecito_efecto_email(db, invitado, university="UNLP", xp_extra=120, estudiantes=4)
+check("se manda al mail con el que pagó", len(enviados) == antes + 1
+      and enviados[-1]["to"] == "pago@example.com")
+check("y lo saluda por su alias, no por el nombre legal del pagador",
+      "ivi," in enviados[-1]["html"])
+check("con su propio link de baja, que no es el de ningún usuario",
+      le.unsubscribe_token_de_jugador(2024) in enviados[-1]["html"])
+print("10. los dos tipos de baja no se pisan")
+# Sin el prefijo adentro de lo firmado, el token del usuario 7 y el del jugador
+# 7 tendrían el mismo HMAC y uno daría de baja al otro.
+t_u = le.unsubscribe_token(7)
+t_j = le.unsubscribe_token_de_jugador(7)
+check("el mismo número da tokens distintos", t_u != t_j)
+check("y cada uno dice a qué tabla va",
+      le.verify_unsubscribe_token(t_u) == (le.DESTINO_USUARIO, 7)
+      and le.verify_unsubscribe_token(t_j) == (le.DESTINO_JUGADOR, 7))
+check("un token inventado no vale",
+      le.verify_unsubscribe_token("7.deadbeef") is None
+      and le.verify_unsubscribe_token("cualquiera") is None)
+check("y el del usuario no sirve disfrazado de jugador",
+      le.verify_unsubscribe_token("p" + t_u) is None)
+
+
 if fallos:
     print(f"{len(fallos)} chequeos fallaron:")
     for f in fallos:
