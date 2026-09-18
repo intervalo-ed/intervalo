@@ -73,9 +73,14 @@ ok(
     mp.cuerpo_de_preferencia(player_id=1, cafecitos=1, university=None)["items"][0][
         "title"
     ]
-    == "1 cafecito",
+    == "Intervalo · 1 cafecito",
     "uno solo se dice en singular y sin universidad",
 )
+# El checkout dibuja arriba el nombre del titular de la cuenta —«Nicolás
+# Vrancovich»— y eso no se puede cambiar sin convertirla en empresa. La marca en
+# el título es la única forma de que quien paga vea, en esa misma pantalla, el
+# nombre que sí reconoce.
+ok(item["title"].startswith(mp.MARCA), "la marca va primero, antes de todo lo demas")
 for n in (1, 3, 5, 10):
     c = mp.cuerpo_de_preferencia(player_id=1, cafecitos=n, university=None)
     ok(
@@ -135,7 +140,7 @@ ok("ARS" in uy["items"][0]["title"], "el titulo aclara la moneda a quien mira de
 ok("1.500" in uy["items"][0]["title"], "y dice el monto, que es lo que se lee mal")
 ar = mp.cuerpo_de_preferencia(player_id=1, cafecitos=10, university="UBA", pais=None)
 ok("ARS" not in ar["items"][0]["title"], "y no se la mete al que ya sabe en que moneda vive")
-ok(ar["items"][0]["title"] == "10 cafecitos para la UBA", "el titulo de siempre queda igual")
+ok(ar["items"][0]["title"] == "Intervalo · 10 cafecitos para la UBA", "el titulo argentino no lleva moneda")
 
 
 print("— cuantos cafecitos se acreditan —")
