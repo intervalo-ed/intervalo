@@ -615,6 +615,37 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/game/derivemos/encuesta": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Record Encuesta
+         * @description La única pregunta del juego que no tiene opciones.
+         *
+         *     Guarda y nada más: no ajusta θ, no da XP, no desbloquea nada. Es deliberado
+         *     y está escrito en `context/writing-voice.md` — agradecer una encuesta con
+         *     una recompensa la convierte en un trámite pago y arruina el dato.
+         *
+         *     **Nunca falla por contenido**, igual que `/opinion` y `/cta`: esto aparece en
+         *     la mitad de una partida y un error acá le rompería el juego a alguien por un
+         *     dato que es opcional. Un texto vacío se guarda como lo que es, un salto.
+         *
+         *     El texto se guarda **como lo escribieron**, sin allowlist de caracteres: ver
+         *     `encuesta.limpiar` para la diferencia con el chat.
+         */
+        post: operations["record_encuesta_game_derivemos_encuesta_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/game/derivemos/push/subscribe": {
         parameters: {
             query?: never;
@@ -2099,6 +2130,40 @@ export interface components {
             placement?: string | null;
             /** Solved */
             solved?: number | null;
+        };
+        /**
+         * GameEncuestaOut
+         * @description Si la respuesta quedó guardada.
+         *
+         *     Un solo booleano y ningún agradecimiento: el texto de la pantalla es
+         *     problema del front, y devolverlo desde acá sería poner copy en el contrato.
+         */
+        GameEncuestaOut: {
+            /** Guardado */
+            guardado: boolean;
+        };
+        /**
+         * GameEncuestaRequest
+         * @description La pregunta abierta, en los mismos dos pasos que la de dificultad.
+         *
+         *     `pregunta` viaja desde el cliente para que la respuesta quede atada a lo que
+         *     la persona realmente leyó: si el enunciado se cambia mientras alguien tiene
+         *     la diapo abierta, su respuesta es a la pregunta vieja. Si no llega o no se
+         *     reconoce, se usa la que está activa hoy.
+         *
+         *     El tope de `texto` es más grande que `encuesta.MAX_LARGO` a propósito: acá
+         *     solo frena un pegado absurdo, y el recorte de verdad lo hace el módulo de
+         *     dominio, que es donde está escrito el porqué del número.
+         */
+        GameEncuestaRequest: {
+            /** Accion */
+            accion: string;
+            /** Pregunta */
+            pregunta?: string | null;
+            /** Texto */
+            texto?: string | null;
+            /** Platform */
+            platform?: string | null;
         };
         /**
          * GameEventOut
@@ -4018,6 +4083,42 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["GameOpinionOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    record_encuesta_game_derivemos_encuesta_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+                "x-game-token"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["GameEncuestaRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GameEncuestaOut"];
                 };
             };
             /** @description Validation Error */

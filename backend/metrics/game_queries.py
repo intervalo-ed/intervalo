@@ -316,6 +316,13 @@ def load(db: DBSession) -> dict:
             SELECT player_id, voto, shown_at, answered_at, theta_at_vote,
                    ventana, aciertos, p_hat_medio, delta_theta
             FROM game_difficulty_votes"""),
+        # La pregunta abierta. Se trae el texto entero y sin muestreo: son
+        # decenas de filas por semana, no millones, y la única lectura posible
+        # de una respuesta abierta es leerla.
+        "encuestas": _rows(db, """
+            SELECT player_id, pregunta, texto, shown_at, answered_at,
+                   correctas_al_mostrar, platform
+            FROM game_survey_answers"""),
     }
 
     # Los bots se sacan UNA vez, acá, y no en cada bloque: filtrar en diez
@@ -2605,6 +2612,74 @@ def friccion(data: dict) -> dict:
 
 
 
+# ── 12 · Lo que escribieron ───────────────────────────────────
+
+# Debajo de esto, lo que escribieron es «no quiero contestar». Gemela de
+# `game.encuesta.LARGO_MINIMO` y no importada de allá porque el módulo de
+# métricas no importa del router; que no diverjan lo cuida el check.
+ENCUESTA_LARGO_MINIMO = 3
+
+
+def encuestas(data: dict) -> dict:
+    """La única fuente del panel que puede decir algo que no preguntamos.
+
+    Todo lo demás de este archivo cuenta cosas que elegimos contar. Esta sección
+    casi no agrega: **lista**. Una respuesta abierta resumida en un histograma es
+    una respuesta abierta tirada a la basura, así que lo único que se calcula acá
+    son los tres estados de la pregunta y el resto es el texto tal cual, con el @
+    de quien lo escribió al lado para poder ir a buscar a esa persona.
+
+    **Los tres estados importan más que el promedio de ninguna cosa.** La diapo
+    no tiene botón de saltar: la única salida es escribir algo, y eso sube mucho
+    cuánta gente contesta. Por eso hay que vigilar lo que cuesta, que es
+    `pct_abandono`: gente que vio la pregunta y cerró la pestaña. Si esa fila se
+    dispara, la pregunta se saca — y ese es el único número de esta sección que
+    se mira sin leer nada.
+    """
+    filas = data["encuestas"]
+    por_jugador = {p["id"]: p for p in data["players"]}
+    # Los bots y las camadas anteriores al piso del panel ya salieron de
+    # `players`; acá se filtra contra eso y no de nuevo contra `is_bot`.
+    filas = [f for f in filas if f["player_id"] in por_jugador]
+
+    mostradas = len(filas)
+    contestadas = [f for f in filas if f["answered_at"] is not None]
+    saltos = [f for f in contestadas
+              if len((f["texto"] or "").strip()) < ENCUESTA_LARGO_MINIMO]
+    claves_salto = {id(f) for f in saltos}
+    con_texto = [f for f in contestadas if id(f) not in claves_salto]
+
+    respuestas = []
+    for f in sorted(con_texto, key=lambda x: x["answered_at"], reverse=True):
+        jugador = por_jugador[f["player_id"]]
+        respuestas.append({
+            "texto": f["texto"],
+            "alias": jugador["alias"],
+            "universidad": jugador["university"],
+            "plataforma": f["platform"] or jugador["platform"],
+            "correctas": f["correctas_al_mostrar"],
+            "cuando": f["answered_at"].isoformat(timespec="minutes"),
+        })
+
+    # Cuántas preguntas distintas hay en la bolsa. Con una sola no dice nada; el
+    # día que haya dos, que la tabla no las mezcle es lo primero a mirar.
+    preguntas = sorted({f["pregunta"] for f in filas})
+
+    return {
+        "mostradas": mostradas,
+        "contestadas": len(contestadas),
+        "saltos": len(saltos),
+        "con_texto": len(con_texto),
+        "pct_respuesta": _pct(len(con_texto), mostradas),
+        "pct_salto": _pct(len(saltos), mostradas),
+        "pct_abandono": _pct(mostradas - len(contestadas), mostradas),
+        "largo_medio": (round(sum(len(f["texto"] or "") for f in con_texto)
+                              / len(con_texto)) if con_texto else None),
+        "preguntas": preguntas,
+        "respuestas": respuestas,
+    }
+
+
 # ── Entrada ──────────────────────────────────────────────────────────────────
 
 def build(db: DBSession, week: date, weeks_shown: int = 4,
@@ -2639,5 +2714,6 @@ def build(db: DBSession, week: date, weeks_shown: int = 4,
         "monetizacion": monetizacion(data),
         "calibracion": calibracion(data),
         "opinion": opinion(data),
+        "encuestas": encuestas(data),
         "friccion": friccion(data),
     }

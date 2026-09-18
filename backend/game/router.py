@@ -25,6 +25,7 @@ from models import (
     GameDifficultyVote,
     GameExercise,
     GamePlayer,
+    GameSurveyAnswer,
     GameTemplateStat,
     User,
 )
@@ -37,6 +38,7 @@ from . import boosts
 from . import chat as game_chat
 from . import limits
 from . import mercadopago as mp
+from . import encuesta as game_encuesta
 from . import opinion as game_opinion
 from . import ranking
 from . import elo
@@ -83,6 +85,8 @@ from .schemas import (
     GameLeaderboardSummary,
     GameMessageIn,
     GameMessageOut,
+    GameEncuestaOut,
+    GameEncuestaRequest,
     GameOpinionOut,
     GameOpinionRequest,
     GamePulse,
@@ -2233,6 +2237,96 @@ def record_opinion(
         level_before=level_before,
         level_after=elo.level_of(player.theta),
     )
+
+
+
+# ── La pregunta abierta ────────────────────────────────────────
+
+# Las mismas dos acciones que la encuesta de dificultad, y por el mismo motivo:
+# la diferencia entre mostrada y contestada ES el dato.
+_ENCUESTA_ACCIONES = ("impression", "answer")
+
+# Cuánto hacia atrás se busca la impresión que esta respuesta contesta. Gemela
+# de `_OPINION_VENTANA_IMPRESION`, y generosa a propósito: escribir una
+# respuesta abierta lleva minutos y no segundos, y a alguien que deja la pestaña
+# abierta mientras piensa no hay que perderle la respuesta cuando por fin la
+# manda.
+_ENCUESTA_VENTANA_IMPRESION = timedelta(hours=6)
+
+
+@router.post(
+    "/encuesta",
+    response_model=GameEncuestaOut,
+    dependencies=[Depends(limits.por_jugador(10, "encuesta"))],
+)
+def record_encuesta(
+    body: GameEncuestaRequest,
+    player: GamePlayer = Depends(get_current_player),
+    db: Session = Depends(get_db),
+):
+    """La única pregunta del juego que no tiene opciones.
+
+    Guarda y nada más: no ajusta θ, no da XP, no desbloquea nada. Es deliberado
+    y está escrito en `context/writing-voice.md` — agradecer una encuesta con
+    una recompensa la convierte en un trámite pago y arruina el dato.
+
+    **Nunca falla por contenido**, igual que `/opinion` y `/cta`: esto aparece en
+    la mitad de una partida y un error acá le rompería el juego a alguien por un
+    dato que es opcional. Un texto vacío se guarda como lo que es, un salto.
+
+    El texto se guarda **como lo escribieron**, sin allowlist de caracteres: ver
+    `encuesta.limpiar` para la diferencia con el chat.
+    """
+    if body.accion not in _ENCUESTA_ACCIONES:
+        raise HTTPException(status_code=422, detail="acción desconocida")
+
+    pregunta = body.pregunta or game_encuesta.ACTUAL
+    if pregunta not in game_encuesta.PREGUNTAS:
+        pregunta = game_encuesta.ACTUAL
+    ahora = datetime.utcnow()
+
+    if body.accion == "impression":
+        db.add(
+            GameSurveyAnswer(
+                player_id=player.id,
+                pregunta=pregunta,
+                shown_at=ahora,
+                correctas_al_mostrar=player.exercises_correct or 0,
+                platform=(body.platform or player.platform),
+            )
+        )
+        db.commit()
+        return GameEncuestaOut(guardado=False)
+
+    # La impresión que esta respuesta contesta, si la hay. La más reciente sin
+    # responder: si quedaron varias colgadas —la persona cerró la pestaña con la
+    # pregunta abierta más de una vez— las viejas se quedan como lo que fueron,
+    # preguntas ignoradas.
+    fila = (
+        db.query(GameSurveyAnswer)
+        .filter(
+            GameSurveyAnswer.player_id == player.id,
+            GameSurveyAnswer.pregunta == pregunta,
+            GameSurveyAnswer.answered_at.is_(None),
+            GameSurveyAnswer.shown_at >= ahora - _ENCUESTA_VENTANA_IMPRESION,
+        )
+        .order_by(GameSurveyAnswer.shown_at.desc())
+        .first()
+    )
+    if fila is None:
+        fila = GameSurveyAnswer(
+            player_id=player.id,
+            pregunta=pregunta,
+            shown_at=ahora,
+            correctas_al_mostrar=player.exercises_correct or 0,
+            platform=(body.platform or player.platform),
+        )
+        db.add(fila)
+
+    fila.texto = game_encuesta.limpiar(body.texto or "")
+    fila.answered_at = ahora
+    db.commit()
+    return GameEncuestaOut(guardado=True)
 
 
 # ── Avisos push ──────────────────────────────────────────────────────────────

@@ -43,6 +43,7 @@ import database  # noqa: E402
 from models import (  # noqa: E402
     Base, Course, GameAttempt, GameBoost, GameBoostIntent, GameCtaEvent,
     GameDifficultyVote, GameEvent,
+    GameSurveyAnswer,
     GameExercise,
     GameGroup,
     GameNotificationSend, GamePlayer, GamePushSubscription, User,
@@ -63,6 +64,7 @@ def check(nombre: str, cond: bool, detalle: str = "") -> None:
 import re as _re  # noqa: E402
 from metrics import game_queries as q  # noqa: E402
 from metrics import game_render  # noqa: E402
+from game import encuesta as game_encuesta  # noqa: E402
 
 # ── Escenario ────────────────────────────────────────────────────────────────
 # La semana de referencia arranca el lunes 2026-08-17 (hora Argentina). Todo se
@@ -1516,11 +1518,73 @@ check("el titular dice la distancia contra la banda del motor",
 check("y nombra la constante que habría que mover",
       "elo.TARGET_LOW/HIGH" in h_con)
 
+print("— la pregunta abierta —")
+# Lo que se prueba acá son los TRES estados, y no el promedio de nada. La diapo
+# no tiene botón de saltar, así que un "." es alguien diciendo que no y tiene
+# que contarse aparte de alguien que cerró la pestaña: en la misma bolsa, el
+# panel no podría distinguir «la pregunta no interesa» de «la pregunta
+# espanta», que piden cosas opuestas.
+#
+# Los jugadores son los mismos que usa la sección de arriba —1, 2, 3 y el bot
+# 9— para no inventar un escenario nuevo por cuatro filas.
+for pid, texto, contestada in [
+    (1, "me gustaría que haya integrales", True),
+    (2, ".", True),
+    (3, None, False),
+    (9, "soy un bot y opino", True),
+]:
+    s.add(GameSurveyAnswer(
+        player_id=pid,
+        pregunta=game_encuesta.ACTUAL,
+        texto=texto,
+        shown_at=T(0, 12),
+        answered_at=T(0, 12) if contestada else None,
+        correctas_al_mostrar=18,
+        platform="android",
+    ))
+s.flush()
+
+en = q.build(s, WEEK)["encuestas"]
+check("el bot no cuenta, ni en el numerador ni en el denominador",
+      en["mostradas"] == 3, f'(dio {en["mostradas"]}, esperaba 3)')
+check("una respuesta de verdad es una respuesta de verdad",
+      en["con_texto"] == 1 and en["pct_respuesta"] == 33.3,
+      f'({en["con_texto"]} con texto, {en["pct_respuesta"]}%)')
+check("un punto es «no quiero» y cuenta aparte",
+      en["saltos"] == 1 and en["contestadas"] == 2,
+      f'({en["saltos"]} saltos de {en["contestadas"]} contestadas)')
+check("y quien se fue sin contestar es el número que decide si se saca",
+      en["pct_abandono"] == 33.3, f'(dio {en["pct_abandono"]})')
+check("el texto viaja entero y con el @ de quien lo escribió",
+      len(en["respuestas"]) == 1
+      and "integrales" in en["respuestas"][0]["texto"]
+      and en["respuestas"][0]["alias"],
+      f'({en["respuestas"]})')
+check("y el salto NO aparece en la lista para leer",
+      all(r["texto"].strip() != "." for r in en["respuestas"]))
+
+# El corte del salto vive en dos lugares y tienen que decir lo mismo: el
+# dominio guarda siempre y el panel clasifica al leer. Si divergen, el panel
+# cuenta como respuesta algo que el dominio llama salto.
+check("el corte del salto es el mismo en el dominio y en el panel",
+      game_encuesta.LARGO_MINIMO == q.ENCUESTA_LARGO_MINIMO,
+      f'({game_encuesta.LARGO_MINIMO} vs {q.ENCUESTA_LARGO_MINIMO})')
+check("y la pregunta activa está declarada",
+      game_encuesta.ACTUAL in game_encuesta.PREGUNTAS)
+
+h_voces = game_render.page(q.build(s, WEEK), token="tok", seccion="voces")
+check("la pestaña muestra el texto para leerlo, no un resumen",
+      "integrales" in h_voces)
+check("y nombra los tres estados", all(
+    t in h_voces for t in ("Contestaron", "Dijeron que no", "Se fueron sin contestar")))
+
+
 titulos = {"activacion": "Difusión: a cuánta gente se llegó",
            "retencion": "Re-enganche · mails de ciclo de vida",
            "jugabilidad": "Calibración del motor",
            "monetizacion": "Dónde se pide el cafecito",
-           "experimentacion": "Experimentos"}
+           "experimentacion": "Experimentos",
+           "voces": "Lo que escribieron"}
 for clave, _ in game_render.SECCIONES:
     h = game_render.page(q.build(s, WEEK), token="tok", seccion=clave)
     otros = [t for k, t in titulos.items() if k != clave]

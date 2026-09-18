@@ -228,6 +228,10 @@ SECCIONES: tuple[tuple[str, str], ...] = (
     ("jugabilidad", "Jugabilidad"),
     ("monetizacion", "Monetización"),
     ("experimentacion", "Experimentación"),
+    # Voces va última y es la única pestaña del panel que no tiene un número
+    # arriba: lo que hay adentro es texto que escribió gente, y ponerle un KPI
+    # de sombrero sería invitar a mirar el resumen en vez de leer.
+    ("voces", "Voces"),
 )
 SECCION_POR_DEFECTO = SECCIONES[0][0]
 
@@ -1330,8 +1334,61 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         sub="Dónde la persona pelea con el juego en vez de con la derivada.",
         anchor="friccion")
 
-    # ── Las cuatro pestañas ──────────────────────────────────────────────────
-    # Cada una es un scroll vertical: primero sus cuatro números de la semana,
+
+    # ── 12 · Voces ───────────────────────────────────────
+    en = p["encuestas"]
+    filas_en = [
+        # Crudos y sin `esc`: `theme.table` escapa cada celda salvo que
+        # empiece con «<», y escapar dos veces deja «&amp;» en la pantalla.
+        [_recortar(r["texto"] or "", 400),
+         r["alias"] or "—",
+         r["universidad"] or "—",
+         num(r["correctas"]),
+         r["plataforma"] or "—",
+         r["cuando"].replace("T", " ")]
+        for r in en["respuestas"]
+    ]
+    pieza_voces = _section(
+        1, "Lo que escribieron",
+        '<div class="grid g4">'
+        + "".join(_kpi_chico(l, v, h, suffix=sfx, dec=d) for l, v, sfx, h, d in [
+            ("Contestaron", en["pct_respuesta"], "%",
+             f'{num(en["con_texto"])} de {num(en["mostradas"])} preguntas', 1),
+            ("Dijeron que no", en["pct_salto"], "%",
+             f'{num(en["saltos"])} escribieron un punto o una raya', 1),
+            ("Se fueron sin contestar", en["pct_abandono"], "%",
+             "vieron la pregunta y cerraron la pestaña", 1),
+            ("Largo medio", en["largo_medio"], "",
+             "caracteres de las respuestas de verdad", 0),
+        ])
+        + "</div>"
+        + _box("Las respuestas, la última primero",
+               _table(["Respuesta", "@", "Universidad", "Derivadas", "Aparato",
+                       "Cuándo"], filas_en,
+                      empty="todavía no contestó nadie"),
+               note='La pregunta sale una sola vez en la vida, en la derivada 18, y '
+                    'la diapo <b>no tiene botón de saltar</b>: la única salida es '
+                    'escribir algo. Eso es lo que sostiene el primer número, y por '
+                    'eso hay que mirar el tercero — si «se fueron sin contestar» se '
+                    'dispara, la pregunta está costando más de lo que devuelve y se '
+                    'saca. Un punto o una raya <b>también es una respuesta</b> y por '
+                    'eso se guarda: es alguien diciendo que no, que no es lo mismo '
+                    'que alguien que se fue.<br><br>'
+                    'Las filas se listan y no se resumen a propósito. Un histograma '
+                    'de respuestas abiertas es una respuesta abierta tirada a la '
+                    'basura.')
+        + (_box("Preguntas en la bolsa",
+                "<p>" + ", ".join(f"<code>{esc(q)}</code>" for q in en["preguntas"])
+                + "</p>",
+                note='Cada respuesta queda atada a la clave de la pregunta que la '
+                     'persona leyó (<code>game_survey_answers.pregunta</code>), así '
+                     'que cambiar el enunciado no mezcla dos tandas.')
+           if len(en["preguntas"]) > 1 else ""),
+        sub="La única cosa que el juego sabe y no midió.",
+        anchor="voces")
+
+    # ── Las pestañas ──────────────────────────────────────────────────
+    # Cada una es un scroll vertical: primero sus números de la semana,
     # después las secciones que los explican. El orden adentro de cada pestaña
     # va de lo más agregado a lo más fino, que es el orden en que se mira cuando
     # algo llama la atención.
@@ -1346,6 +1403,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         "monetizacion": (_fila_kpi(p["headline"]["monetizacion"])
                          + pieza_monetizacion),
         "experimentacion": pieza_experimentos + pieza_experimentos_grupos,
+        "voces": pieza_voces,
     }
 
     out = [cabecera, paneles[seccion]]
