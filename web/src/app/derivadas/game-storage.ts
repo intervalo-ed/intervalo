@@ -8,6 +8,7 @@ const REGISTRO_OFRECIDO_KEY = "intervalo:game:registro-ofrecido"
 const INSTALAR_KEY = "intervalo:game:instalar"
 const NOTIF_KEY = "intervalo:game:notificaciones"
 const OPINION_KEY = "intervalo:game:opinion"
+const ENCUESTA_KEY = "intervalo:game:encuesta"
 const REGLAS_KEY = "intervalo:game:reglas"
 const CIERRE_KEY = "intervalo:game:cafecito-cierre"
 const PWA_DESDE_KEY = "intervalo:game:pwa-desde"
@@ -92,6 +93,7 @@ export function clearGameIdentity() {
     window.localStorage.removeItem(INSTALAR_KEY)
     window.localStorage.removeItem(NOTIF_KEY)
     window.localStorage.removeItem(OPINION_KEY)
+    window.localStorage.removeItem(ENCUESTA_KEY)
     window.localStorage.removeItem(REGLAS_KEY)
     window.localStorage.removeItem(CIERRE_KEY)
     window.localStorage.removeItem(PWA_DESDE_KEY)
@@ -255,6 +257,11 @@ export const PEDIDO_OPINION = OPINION_KEY
  *  caja porque lo único que necesitan guardar es «ya salió», y una caja con dos
  *  números de la que se usa uno es más barata que una tercera forma de guardar
  *  un booleano. `vistas` llega a 1 y se queda ahí (reglas-trigger.ts). */
+/** Y la pregunta abierta, que NO se repite: `vistas` llega a 1 y se queda
+ *  ahí, como las reglas. Caja propia y no la de la encuesta de dificultad
+ *  porque son dos preguntas distintas y quien contestó una tiene que poder
+ *  recibir la otra. */
+export const PEDIDO_ENCUESTA = ENCUESTA_KEY
 export const PEDIDO_REGLAS = REGLAS_KEY
 
 const SIN_PEDIR: PedidoRepetido = { vistas: 0, ultima: -Infinity }

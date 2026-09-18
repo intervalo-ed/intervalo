@@ -589,6 +589,35 @@ class GameOpinionOut(BaseModel):
     level_before: int
     level_after: int
 
+class GameEncuestaRequest(BaseModel):
+    """La pregunta abierta, en los mismos dos pasos que la de dificultad.
+
+    `pregunta` viaja desde el cliente para que la respuesta quede atada a lo que
+    la persona realmente leyó: si el enunciado se cambia mientras alguien tiene
+    la diapo abierta, su respuesta es a la pregunta vieja. Si no llega o no se
+    reconoce, se usa la que está activa hoy.
+
+    El tope de `texto` es más grande que `encuesta.MAX_LARGO` a propósito: acá
+    solo frena un pegado absurdo, y el recorte de verdad lo hace el módulo de
+    dominio, que es donde está escrito el porqué del número.
+    """
+
+    accion: str = Field(max_length=12)
+    pregunta: Optional[str] = Field(default=None, max_length=32)
+    texto: Optional[str] = Field(default=None, max_length=2000)
+    platform: Optional[str] = Field(default=None, max_length=8)
+
+
+class GameEncuestaOut(BaseModel):
+    """Si la respuesta quedó guardada.
+
+    Un solo booleano y ningún agradecimiento: el texto de la pantalla es
+    problema del front, y devolverlo desde acá sería poner copy en el contrato.
+    """
+
+    guardado: bool
+
+
 # ── Avisos push ──────────────────────────────────────────────────────────────
 # Espejo de los de Intervalo (main.py), y no importados de allá porque el router
 # del juego no puede importar main sin cerrar un ciclo. La forma es la misma

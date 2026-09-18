@@ -1634,6 +1634,67 @@ class GameMessage(Base):
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow, index=True)
 
 
+class GameSurveyAnswer(Base):
+    """Lo que alguien escribió cuando el juego le preguntó algo abierto.
+
+    `GameDifficultyVote` es la otra pregunta del juego y son cosas distintas:
+    allá hay tres respuestas posibles y las tres las elegimos nosotros, así que
+    lo que se guarda es cuál eligió y qué creía el motor en ese momento. Acá no
+    hay opciones. Es la única fila del sistema que puede decir algo que no se nos
+    ocurrió preguntar.
+
+    **`pregunta` existe desde el día uno.** Esta es de las que se cambian cada
+    par de meses, y sin esa columna la segunda pregunta llegaría como una
+    migración o, peor, como respuestas de dos preguntas distintas mezcladas sin
+    manera de separarlas. El valor es una clave corta y estable
+    (`encuesta.VARITA`), no el enunciado: el enunciado se retoca sin que eso
+    quiera decir que la pregunta cambió.
+
+    **Tres estados, no dos.** La diapo no tiene botón de saltar —la única salida
+    es escribir algo— así que hay que poder distinguir:
+
+    · `answered_at IS NULL`: la vio y se fue. Es el costo real de la pregunta, y
+      es lo que habría que mirar para bajarla si se dispara.
+    · un texto de uno o dos caracteres (un "." o un "-"): la vio y decidió no
+      contestar. **Eso también es una respuesta** y por eso se guarda en vez de
+      descartarse; `encuesta.es_salto` es quien lo clasifica, al leer y no al
+      escribir, para poder cambiar de opinión sobre dónde está el corte sin
+      haber perdido el dato.
+    · cualquier otra cosa: lo que vinimos a buscar.
+
+    **El texto se guarda como lo escribieron**, sin allowlist de caracteres. La
+    de `chat.py` existe porque allá el texto se vuelve contenido público del
+    juego para todos los demás; esto no lo lee nadie más que el panel. Lo único
+    que se aplica es un tope de largo y un recorte de espacios.
+
+    `correctas_al_mostrar` se congela igual que los agregados de
+    `GameDifficultyVote` y por el mismo motivo: `exercises_correct` sigue
+    subiendo, y dentro de un mes «cuántas llevaba cuando contestó» leído desde el
+    jugador daría otro número.
+    """
+
+    __tablename__ = "game_survey_answers"
+
+    id = Column(Integer, primary_key=True, index=True)
+    player_id = Column(Integer, ForeignKey("game_players.id"), nullable=False, index=True)
+
+    # Qué pregunta es esta. Ver arriba: la clave, no el enunciado.
+    pregunta = Column(String(32), nullable=False)
+
+    # Lo que escribió. NULL mientras no haya contestado.
+    texto = Column(Text, nullable=True)
+
+    shown_at = Column(DateTime, nullable=False, default=datetime.utcnow, index=True)
+    answered_at = Column(DateTime, nullable=True)
+
+    correctas_al_mostrar = Column(Integer, nullable=False, default=0, server_default="0")
+    platform = Column(String(8), nullable=True)
+
+    __table_args__ = (
+        Index("idx_game_survey_pregunta_shown", "pregunta", "shown_at"),
+    )
+
+
 class GameGroup(Base):
     """Un grupo de WhatsApp del tracker de difusión, copiado a la base.
 

@@ -1461,6 +1461,68 @@
         }
       }
     },
+    "/game/derivemos/encuesta": {
+      "post": {
+        "tags": [
+          "game"
+        ],
+        "summary": "Record Encuesta",
+        "description": "La \u00fanica pregunta del juego que no tiene opciones.\n\nGuarda y nada m\u00e1s: no ajusta \u03b8, no da XP, no desbloquea nada. Es deliberado\ny est\u00e1 escrito en `context/writing-voice.md` \u2014 agradecer una encuesta con\nuna recompensa la convierte en un tr\u00e1mite pago y arruina el dato.\n\n**Nunca falla por contenido**, igual que `/opinion` y `/cta`: esto aparece en\nla mitad de una partida y un error ac\u00e1 le romper\u00eda el juego a alguien por un\ndato que es opcional. Un texto vac\u00edo se guarda como lo que es, un salto.\n\nEl texto se guarda **como lo escribieron**, sin allowlist de caracteres: ver\n`encuesta.limpiar` para la diferencia con el chat.",
+        "operationId": "record_encuesta_game_derivemos_encuesta_post",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          },
+          {
+            "name": "x-game-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "X-Game-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GameEncuestaRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameEncuestaOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/game/derivemos/push/subscribe": {
       "post": {
         "tags": [
@@ -5052,6 +5114,71 @@
         ],
         "title": "GameCtaRequest",
         "description": "Telemetr\u00eda de un llamado a la acci\u00f3n. Todo opcional salvo qu\u00e9 y qu\u00e9 pas\u00f3:\nel cliente manda lo que sabe y el server no discute."
+      },
+      "GameEncuestaOut": {
+        "properties": {
+          "guardado": {
+            "type": "boolean",
+            "title": "Guardado"
+          }
+        },
+        "type": "object",
+        "required": [
+          "guardado"
+        ],
+        "title": "GameEncuestaOut",
+        "description": "Si la respuesta qued\u00f3 guardada.\n\nUn solo booleano y ning\u00fan agradecimiento: el texto de la pantalla es\nproblema del front, y devolverlo desde ac\u00e1 ser\u00eda poner copy en el contrato."
+      },
+      "GameEncuestaRequest": {
+        "properties": {
+          "accion": {
+            "type": "string",
+            "maxLength": 12,
+            "title": "Accion"
+          },
+          "pregunta": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 32
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pregunta"
+          },
+          "texto": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Texto"
+          },
+          "platform": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 8
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Platform"
+          }
+        },
+        "type": "object",
+        "required": [
+          "accion"
+        ],
+        "title": "GameEncuestaRequest",
+        "description": "La pregunta abierta, en los mismos dos pasos que la de dificultad.\n\n`pregunta` viaja desde el cliente para que la respuesta quede atada a lo que\nla persona realmente ley\u00f3: si el enunciado se cambia mientras alguien tiene\nla diapo abierta, su respuesta es a la pregunta vieja. Si no llega o no se\nreconoce, se usa la que est\u00e1 activa hoy.\n\nEl tope de `texto` es m\u00e1s grande que `encuesta.MAX_LARGO` a prop\u00f3sito: ac\u00e1\nsolo frena un pegado absurdo, y el recorte de verdad lo hace el m\u00f3dulo de\ndominio, que es donde est\u00e1 escrito el porqu\u00e9 del n\u00famero."
       },
       "GameEventOut": {
         "properties": {

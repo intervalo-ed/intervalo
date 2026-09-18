@@ -518,6 +518,54 @@ hay.
 El chat se puede apagar entero desde el server (`GAME_CHAT_ENABLED`, opt-in): eso
 frena escribir, nunca leer.
 
+### La pregunta abierta (`encuesta-slide.tsx`, `game/encuesta.py`)
+
+Una diapo en la **derivada 18**, una sola vez en la vida, con un campo de texto y
+nada más:
+
+> Si tuvieras una varita mágica, ¿qué le cambiarías o le agregarías al juego?
+
+Existe porque es lo único que el juego no puede medir. θ y β salen de los
+aciertos, el embudo sale de las derivadas resueltas, y la encuesta de dificultad
+tiene tres respuestas y las tres las elegimos nosotros. Ninguna de esas fuentes
+puede devolver algo que no se nos haya ocurrido preguntar.
+
+**No hay botón de saltar, y el campo no valida nada.** Las dos mitades son la
+misma decisión: sin botón, salir cuesta un acto deliberado y eso sube mucho
+cuánta gente contesta de verdad; sin validación, ese acto sale barato (un punto
+alcanza) y la pantalla no se convierte en un peaje. Agregarle un largo mínimo
+cierra la salida y la vuelve la puerta que `dx-puerta-1` midió en 668 respuestas
+perdidas. El «.» se guarda como cualquier otra respuesta y se clasifica **al
+leer**: son tres estados y no dos —se fue sin contestar, dijo que no, contestó— y
+el primero es el que decide si la pregunta se saca.
+
+**Por qué la 18 y no la 20**, que era el número pedido. Se simuló el ladder
+entero con las constantes reales (18/09):
+
+| casillero | quién lo ocupa | gente que llega |
+|---|---|---|
+| 10 | reclutas | 451 |
+| 12 | registro | — |
+| 14 | encuesta de dificultad | 321 |
+| **18** | **libre** | **277** |
+| 20 | cafecito | 258 |
+
+La 20 es el hito del cafecito, y su disparador es `% CAFECITO_EVERY === 0`:
+ganarle el turno no lo corre a la 24 sino a la 40, porque entre medio no hay
+múltiplo. Correr el cafecito a la 14 para liberar la 20 obliga a correr reclutas
+—que escribe el cooldown compartido desde la 10— y con reclutas movido la grilla
+se desfasa: en 60 derivadas pasa de salir 3 veces a salir 1. La 18 está vacía,
+deja el calendario intacto y **llega a más gente que la 20**.
+
+Por el mismo motivo **no consume el cooldown compartido**, solo lo respeta (con
+la separación de 4 de instalar y opinión). Consumiéndolo, el cafecito de la 20
+quedaría tapado hasta la 40. Una pregunta que se hace una vez en la vida no puede
+costar una oferta de tres; el check `check:encuesta` clava esa propiedad.
+
+El texto se guarda **como lo escribieron**, sin la allowlist de caracteres del
+chat: aquella existe porque allá el texto se vuelve público, y esto lo lee solo el
+panel (pestaña **Voces**), donde las respuestas se listan sin resumir.
+
 ### Los dos pedidos de la pantalla de inicio (`pedido-instalar.tsx`, `pedido-notificaciones.tsx`)
 
 Dos diapos que interrumpen la partida, en ese orden y no en otro: en iOS el push

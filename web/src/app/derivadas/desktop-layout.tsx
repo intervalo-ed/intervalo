@@ -36,6 +36,8 @@ import {
 } from "./cafecito-cta"
 import { CafecitoPanel } from "./cafecito-panel"
 import { ReclutasPanel, type ReclutasTrigger } from "./reclutas-panel"
+import { marcarEncuestaMostrada, tocaEncuesta } from "./encuesta-trigger"
+import { EncuestaSlide } from "./encuesta-slide"
 import { marcarOpinionMostrada, tocaOpinion } from "./opinion-trigger"
 import { OpinionSlide } from "./opinion-slide"
 import { marcarReclutasMostrado, tocaReclutar } from "./reclutas-trigger"
@@ -126,6 +128,8 @@ type Panel =
   | "cafecito"
   | "reclutas"
   | "opinion"
+  // La pregunta abierta (encuesta-slide.tsx), una sola vez en la vida.
+  | "encuesta"
   // Las tres reglas del brazo `derivada-primero` (reglas-slide.tsx), una sola
   // vez, en el primer Continuar después de la primera derivada resuelta.
   | "reglas"
@@ -310,6 +314,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   // La encuesta de dificultad, agendada igual que reclutas: se decide al
   // responder y entra al tocar Continuar, en el lugar del ejercicio.
   const opinionPendienteRef = useRef(false)
+  const encuestaPendienteRef = useRef(false)
   // La tabla está a la vista ahora mismo.
   const [tableOpen, setTableOpen] = useState(false)
   // Las estadísticas personales están a la vista (tecla `j`, ver el efecto de
@@ -914,6 +919,13 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
             // `else` es lo que lo vuelve imposible en vez de improbable.
             marcarReclutasMostrado(totalCorrectas)
             reclutasPendienteRef.current = true
+          } else if (tocaEncuesta(totalCorrectas)) {
+            // La pregunta abierta, antes que la de dificultad y después de todo
+            // lo que convierte. Entra a la misma cadena de `else if` que las
+            // otras tres porque ocupa el mismo turno; el porqué de la derivada
+            // 18 y de no consumir el cooldown está en encuesta-trigger.ts.
+            marcarEncuestaMostrada(totalCorrectas)
+            encuestaPendienteRef.current = true
           } else if (tocaOpinion(totalCorrectas)) {
             // Última del ladder por lo mismo que en el teléfono: no convierte a
             // nadie, así que no puede quedarse con el turno de algo que sí. El
@@ -1139,7 +1151,12 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
       setNavPanel("reclutas")
       return
     }
-    // Y la encuesta, por el mismo lugar.
+    // Y las dos encuestas, por el mismo lugar.
+    if (encuestaPendienteRef.current) {
+      encuestaPendienteRef.current = false
+      setNavPanel("encuesta")
+      return
+    }
     if (opinionPendienteRef.current) {
       opinionPendienteRef.current = false
       setNavPanel("opinion")
@@ -1512,6 +1529,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
         panel === "cafecito" ||
         panel === "reclutas" ||
         panel === "opinion" ||
+        panel === "encuesta" ||
         panel === "reglas"
       )
         return
@@ -1885,7 +1903,10 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   // dos es la FORMA —el botón de seguir abajo, por portal, donde estaba
   // Revisar— y no el motivo.
   const esDiapoDePedido =
-    panel === "cafecito" || panel === "reclutas" || panel === "opinion"
+    panel === "cafecito" ||
+    panel === "reclutas" ||
+    panel === "opinion" ||
+    panel === "encuesta"
   // Elegir carrera o universidad usa el MISMO pie que las diapos de pedido —
   // el botón vive abajo, por portal— porque se abre desde la configuración,
   // que sigue a la vista del otro lado: es una pausa adentro del ejercicio,
@@ -2231,6 +2252,14 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                       if (volverA === "settings") setSettingsOpen(true)
                       else if (!exercise) loadNext()
                     }}
+                  />
+                ) : panel === "encuesta" ? (
+                  <EncuestaSlide
+                    keyboard
+                    slotSalida={slotSalida}
+                    // Siempre llega por hito, así que lo que sigue es la
+                    // derivada siguiente.
+                    onContinue={() => loadNext()}
                   />
                 ) : panel === "opinion" ? (
                   <OpinionSlide

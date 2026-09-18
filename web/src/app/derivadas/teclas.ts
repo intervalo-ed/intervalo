@@ -23,6 +23,11 @@ export type Teclas = {
   alt: string
   altEnter: string
   shiftEnter: string
+  /** El gesto de «mandar» de cualquier caja de texto de varias líneas. Se
+   *  nombra por la tecla de cada teclado y no por «mod», que no está impreso en
+   *  ninguno. Lo usa la diapo de la pregunta abierta, donde Enter solo tiene que
+   *  seguir siendo un salto de línea. */
+  modEnter: string
 }
 
 const PC: Teclas = {
@@ -30,6 +35,7 @@ const PC: Teclas = {
   alt: "alt",
   altEnter: "alt + enter",
   shiftEnter: "shift + enter",
+  modEnter: "ctrl + enter",
 }
 
 const MAC: Teclas = {
@@ -37,6 +43,7 @@ const MAC: Teclas = {
   alt: "option",
   altEnter: "option + return",
   shiftEnter: "shift + return",
+  modEnter: "cmd + return",
 }
 
 /** ¿El teclado de esta máquina es el de una Mac?
