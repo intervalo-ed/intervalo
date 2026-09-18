@@ -134,11 +134,12 @@ puerta no cobró.
     hace que la fila estrene el nombre elegido; lo único que cambia es el
     acierto. La atrición manda: 20,4% en la primera contra 6,2% en la tercera.
   - **las reglas** se reparten de a una, cada una donde tiene referente
-    (`reglas-trigger.ts :: CALENDARIO`): el **Elo en la 7**, cuando la dificultad
-    ya se movió; los **cafecitos en la 12**, dos antes de que la diapo del
-    cafecito aparezca por primera vez, para que esa diapo no sea la primera
-    noticia; la **tabla en la 18**, cuando los ejercicios empezaron a costar de
-    verdad y la regla es una salida y no un dato.
+    (`reglas-trigger.ts :: CALENDARIO`): el **Elo en la 5**, cuando la dificultad
+    ya se movió y en el punto más calmo del tramo temprano; los **cafecitos en
+    la 12**, dos antes de que la diapo del cafecito aparezca por primera vez,
+    para que esa diapo no sea la primera noticia; la **tabla en la 17**, cuando
+    los ejercicios empezaron a costar de verdad y la regla es una salida y no un
+    dato.
 
   Ninguna cae antes de la tercera correcta, y eso no es prolijidad: la métrica
   primaria es llegar a tres, así que una regla que saliera antes estaría adentro
@@ -169,15 +170,18 @@ eso obligó a mover un tercero, porque los números no viven solos:
 | derivada | qué sale |
 |---|---|
 | 3 | carrera y universidad (`HITO_PERFIL`); en `sin-peaje`, el @ va pegado antes |
-| 5 | instalar la app (`INSTALAR_PRIMERA`) |
-| 7 | *(sin-peaje)* la regla del Elo |
+| 5 | *(sin-peaje)* la regla del Elo |
 | 9 | invitar a un amigo (`RECLUTAS_RESTO`) |
 | 10 | registrarse (`HITO_REGISTRO`), y se vuelve a ofrecer cada 12 |
 | 12 | *(sin-peaje)* la regla de los cafecitos |
-| 13 | la encuesta de dificultad (`OPINION_PRIMERA`, corrida por su separación) |
 | 14 | el cafecito, por primera vez (`CAFECITO_PRIMERA`) |
-| 18 | *(sin-peaje)* la regla de la tabla |
+| 17 | *(sin-peaje)* la regla de la tabla |
+| 18 | la encuesta de dificultad (`OPINION_PRIMERA`, corrida por su separación) |
 | 20 | el cafecito otra vez, y de ahí cada 20 |
+| 24 | instalar la app, y después cada 12: 36, 48, 60, 73, 85 |
+
+Simulado hasta la derivada 95 con las funciones reales: **ninguna pantalla
+comparte respuesta con otra**, y no hay tres derivadas seguidas con pantalla.
 
 **Lo que hace que el mapa se sostenga son dos reglas, no la aritmética.** La
 primera es el **cooldown compartido** (`readUltimoPedidoAt`): el cafecito y el
@@ -196,8 +200,26 @@ Por qué se movió el reclutamiento de la 10 a la 9: en la 10 compartía respues
 con el registro —el registro sale primero y al cerrarlo el ladder vuelve a
 entrar con el disparador todavía en pie— y además escribía el cooldown
 compartido, lo que le dejaba al cafecito de la 14 solo cuatro derivadas de aire
-y la oferta directamente no salía. Nueve es el primer número que deja cuatro
-desde la pantalla de instalar y cinco hasta el cafecito.
+y la oferta directamente no salía.
+
+**Y por qué instalar se fue de la 5 a la 21.** Era el pedido más temprano y el
+más barato —abandono 7,6% en esa derivada, contra 14,7% en la 10— pero también
+ocupaba la única respuesta libre del tramo inicial. Ahora sale en la 24 y vuelve
+cada 12 hasta seis veces (24, 36, 48, 60, 73, 85) en vez de tres. El precio está
+medido y es alto: con la primera en la 5 el cartel le llegaba al **66,3%** de
+los que resuelven una derivada, y desde la 21 le llega al **15,9%**. Repetir no
+lo compensa, porque quien no llega a la 21 tampoco llega a la 36 — no es más
+exposición, es otra: menos gente, más comprometida, y varias veces. El número
+que justificaba el 5 (una curva de 52 jugadores donde la 15 retenía el 10%) dejó
+de ser cierto: medida sobre 578, la 15 retiene 26,6% y la 30 todavía 11,2%.
+
+**Ese cartel ahora se mide.** No estaba en la tabla de carteles del panel —solo
+mandaba dos eventos a PostHog— así que las 16 instalaciones de toda la vida del
+producto no se podían atribuir a ninguna posición. Su impresión entra ahora en
+`game_cta_events` con la derivada en la que salió. El CTR se muestra como «—» y
+no como 0%: la diapo explica cómo agregar la app y se cierra, no tiene botón que
+lleve a ningún lado (`SIN_CLICK` en `game_queries.py`). Su conversión es la
+tarjeta «Instalan la app» del titular.
 
 Y por qué el registro se vuelve a ofrecer cada 12 y no cada 10: con 10 y 10 las
 re-ofertas caían en la 20, la 30 y la 40, o sea en lockstep con los múltiplos
@@ -644,12 +666,18 @@ Dos diapos que interrumpen la partida, en ese orden y no en otro: en iOS el push
 web **no existe** fuera de la app instalada, así que instalar es el
 prerrequisito de notificar.
 
-- **Instalar** sale en la derivada 5 y vuelve en la 25 y en la 45, tres veces
-  como máximo. El número sale de la curva de supervivencia real: en la 5 sigue el
-  46% de la cohorte y en la 15 el 10%, y la 5 es además el punto más calmo del
-  tramo (8,3% de abandono contra 25% en la 3). Es el único pedido que **no**
+- **Instalar** sale en la derivada 24 y vuelve cada 12 hasta seis veces (36, 48,
+  60, 73, 85). Estuvo en la 5 con tope de tres hasta el 18/09: el cinco se había
+  elegido contra una curva de 52 jugadores donde la 15 retenía el 10%, y esa
+  curva dejó de ser cierta — medida sobre 578, la 15 retiene 26,6% y la 30
+  todavía 11,2%. El precio del cambio está medido: desde la 5 el cartel llegaba
+  al 66,3% de los que resuelven una derivada y desde la 21 llega al 15,9%, y
+  repetir no lo compensa. Lo que se compra es el tramo temprano, que era donde
+  este pedido ocupaba la única respuesta libre. Es el único pedido que **no**
   consume el cooldown compartido, porque es el único que no le pide nada a la
-  persona; si eso cambia, entra al cooldown como los otros.
+  persona; si eso cambia, entra al cooldown como los otros. Desde el 18/09 su
+  impresión se registra en `game_cta_events`, así que el panel puede decir a
+  cuánta gente le llegó y en qué derivada.
 - **Recordatorios** sale solo dentro de la app instalada, a las 3 derivadas
   hechas desde que se instaló —no desde el total: quien instaló en la 30 no puede
   esperar hasta la 50— y vuelve cada 20, tres veces. Sí consume el cooldown, y

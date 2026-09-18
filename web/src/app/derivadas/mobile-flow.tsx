@@ -2073,6 +2073,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                 {({ salida }) => (
                   <PedidoInstalar
                     slotSalida={salida}
+                    solved={player?.exercises_correct ?? 0}
                     onContinue={() => advanceAfterAnswer("instalar")}
                     fullBleed
                     className="flex-none"

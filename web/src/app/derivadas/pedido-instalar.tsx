@@ -25,6 +25,7 @@ import { cn } from "@/lib/utils"
 import { getPlatform, isStandalone, usePlatform } from "@/lib/platform/detect"
 
 import { claseDeSalida, Salida } from "./slide-salida"
+import { useCta } from "./game-telemetry"
 
 /** El nombre con el que el juego queda en la pantalla de inicio.
  *
@@ -54,20 +55,30 @@ export function puedeOfrecerInstalar(): boolean {
 export function PedidoInstalar({
   onContinue,
   slotSalida,
+  solved,
   fullBleed = false,
   className,
 }: {
   onContinue: () => void
   slotSalida?: HTMLElement | null
+  /** Cuántas derivadas llevaba resueltas. Va al registro de la impresión: es lo
+   *  que permite cortar por momento de la partida, y es la mitad del motivo por
+   *  el que este cartel se instrumentó (game-telemetry.ts). */
+  solved?: number
   /** Gemelo del de cafecito-panel.tsx: solo lo manda el teléfono, donde el
    *  fondo lo pinta la pantalla entera. En escritorio sigue siendo la card. */
   fullBleed?: boolean
   className?: string
 }) {
   const platform = usePlatform()
+  const cta = useCta()
 
   useEffect(() => {
-    posthog.capture("game_install_hint_shown", { platform })
+    // Por `useCta` y no con un `capture` suelto: así la impresión queda también
+    // en la base y el panel la puede leer. El evento de PostHog pasa a llamarse
+    // `game_instalar_impression`; el `game_install_hint_shown` de antes queda en
+    // el historial con su nombre viejo y no se sigue emitiendo.
+    cta("instalar", "impression", { solved, props: { platform } })
     // Una sola vez por aparición: `platform` se resuelve en el primer efecto y
     // no vuelve a cambiar mientras la diapo está montada.
     // eslint-disable-next-line react-hooks/exhaustive-deps

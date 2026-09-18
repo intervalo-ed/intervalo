@@ -2321,7 +2321,19 @@ CARTELES = {
     "share": "Reclutar: compartir el link",
     "cafecito": "Invitar un cafecito",
     "boost_offer": "Oferta de multiplicador",
+    "instalar": "Agregar a la pantalla de inicio",
 }
+
+# Los carteles que NO tienen click porque no tienen a dónde llevar.
+#
+# La diapo de instalar explica cómo agregar la app y se cierra con «Entendido»;
+# no hay botón que vaya a ningún lado, así que un CTR de 0,0% diría que nadie
+# toca algo que no existe. Se muestra «—» y se lee lo que sí significa: cuántas
+# impresiones hubo y en qué derivada, que es exactamente lo que no se sabía —las
+# 16 instalaciones de toda la vida del producto no se podían atribuir a ninguna
+# posición—. La conversión de este cartel no es un click: es la tarjeta «Instalan
+# la app» del titular.
+SIN_CLICK = {"instalar"}
 
 
 def carteles(data: dict) -> list[dict]:
@@ -2347,7 +2359,7 @@ def carteles(data: dict) -> list[dict]:
         "desc": CARTELES.get(k, k),
         "impresiones": v["imp"],
         "clicks": v["clk"],
-        "ctr": _pct(v["clk"], v["imp"]),
+        "ctr": None if k in SIN_CLICK else _pct(v["clk"], v["imp"]),
         # En qué derivada se muestra, en mediana. Un cartel con CTR bajo puede
         # estar mal escrito o puede estar saliendo demasiado temprano, y sin
         # este número las dos explicaciones son igual de plausibles.

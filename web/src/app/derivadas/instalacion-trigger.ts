@@ -19,21 +19,28 @@ import {
 
 // En qué derivada sale la primera vez, y cada cuántas vuelve si no instaló.
 //
-// El cinco no es redondo, es lo que dice la curva de supervivencia de la cohorte
-// más grande medida en producción (52 jugadores): en la derivada 3 sigue el 77%,
-// en la 5 el 46%, en la 8 el 33%, en la 10 el 19%, en la 15 el 10% y en la 20 el
-// 6%. O sea que cualquier pedido de la 15 para arriba le habla a una de cada
-// diez personas y no existe.
+// **Tarde y muchas veces, desde el 18/09.** Antes era temprano y pocas: en la 5,
+// después cada 20, tres veces (5, 25, 45). El cinco estaba elegido contra una
+// curva de supervivencia de 52 jugadores que decía que de la 15 para arriba se
+// le habla a una de cada diez personas. Esa curva ya no es la del producto —
+// medida sobre 578 en la semana del 14/09, la 15 retiene 26,6%, la 20 retiene
+// 20,6% y la 30 todavía 11,2%— así que el tramo profundo dejó de estar vacío.
 //
-// Dentro de ese tramo, la 5 es además el punto más CALMO: el abandono en la 3 es
-// del 25% y en la 8 del 29%, contra 8,3% en la 5. Se pide justo donde la gente
-// no se está yendo.
+// Ahora sale en 24, 36, 50, 64, 76 y 88. El precio está medido y es alto: con la
+// primera en la 5 el cartel le llegaba al 66,3% de los que resuelven una
+// derivada, y desde la 21 le llega al 15,9%. Repetir no lo compensa —quien no
+// llega a la 21 tampoco llega a la 36— así que esto no es «más exposición», es
+// OTRA exposición: menos gente, más comprometida, y varias veces.
 //
-// Vuelve cada 20 —5, 25, 45— y tres veces como máximo. El tope es la mitad del
-// asunto: sin él, a quien no quiere instalar se le pregunta para siempre.
-export const INSTALAR_PRIMERA = 5
-export const INSTALAR_CADA = 20
-export const INSTALAR_MAX = 3
+// Lo que se compra a cambio es el tramo temprano. La 5 era el punto más calmo de
+// las primeras diez (abandono 7,6%) pero era también la única respuesta libre
+// que quedaba ahí, y ahora la ocupa la primera regla del brazo `sin-peaje`.
+//
+// El tope de seis es la mitad del asunto: sin él, a quien no quiere instalar se
+// le pregunta para siempre.
+export const INSTALAR_PRIMERA = 21
+export const INSTALAR_CADA = 12
+export const INSTALAR_MAX = 6
 
 // Separación mínima respecto del último pedido del juego (café o reclutas).
 //

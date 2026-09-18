@@ -134,21 +134,33 @@ export function readUltimoPedidoAt(): number {
   }
 }
 
-/** Cuándo interrumpió el juego por última vez, contando TAMBIÉN la pantalla de
- *  instalar.
+/** Cuándo interrumpió el juego por última vez, contando TAMBIÉN las pantallas
+ *  que no consumen el cooldown compartido: instalar y el registro.
  *
- *  Distinta de `readUltimoPedidoAt`, que es el cooldown compartido y que
- *  instalar no consume a propósito (ver INSTALAR_SEPARACION). Esa excepción
- *  resuelve una mitad —que instalar no corra al café ni al reclutamiento— y deja
- *  la otra abierta: nada impedía que el café cayera pegado a instalar. Con la
- *  ventana compartida en diez nunca se veía, porque diez derivadas de silencio
- *  tapaban cualquier cosa; con la ventana más corta aparece enseguida, y la
- *  forma que toma es un récord justo después de la pantalla de instalar.
+ *  Distinta de `readUltimoPedidoAt`, que es el cooldown compartido. Instalar no
+ *  lo consume a propósito (ver INSTALAR_SEPARACION) y el registro nunca estuvo
+ *  adentro. Esa excepción resuelve una mitad —que ninguna de las dos corra al
+ *  café ni al reclutamiento— y deja la otra abierta: nada impedía que el café
+ *  cayera pegado a ellas.
  *
- *  Devuelve -Infinity si todavía no interrumpió nada, igual que las dos que
+ *  Con la ventana compartida en diez no se veía, porque diez derivadas de
+ *  silencio tapaban cualquier cosa. Con la ventana más corta aparecen las dos
+ *  formas: un récord justo después de la pantalla de instalar (derivada 46, un
+ *  acierto después de la instalación de la 45), y la re-oferta de registro
+ *  compartiendo respuesta con un récord del café.
+ *
+ *  La encuesta de dificultad queda AFUERA y es a propósito: meterla correría el
+ *  primer cafecito de la 14 a la 20, y la encuesta es la única de las tres que
+ *  no pide nada que el juego quiera.
+ *
+ *  Devuelve -Infinity si todavía no interrumpió nada, igual que las que
  *  compara. */
 export function readUltimaInterrupcion(): number {
-  return Math.max(readUltimoPedidoAt(), readPedidoState(INSTALAR_KEY).ultima)
+  return Math.max(
+    readUltimoPedidoAt(),
+    readPedidoState(INSTALAR_KEY).ultima,
+    readRegistroOfrecidoAt(),
+  )
 }
 
 export function saveUltimoPedidoAt(solvedCount: number) {

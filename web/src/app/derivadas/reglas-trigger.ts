@@ -60,28 +60,33 @@ export const REGLAS_DE_LA_DIAPO = [ELO, CAFECITOS, TABLA]
  *
  *  Por qué cada una donde está:
  *
- *    - **El Elo en la 7.** Con siete resueltas la dificultad ya se movió: la
+ *    - **El Elo en la 5.** Con cinco resueltas la dificultad ya se movió: la
  *      frase describe algo que acaba de pasar en vez de anunciar algo que va a
- *      pasar. Es además el único hueco que queda temprano — la 5 la ocupa el
- *      pedido de instalar la app (`INSTALAR_PRIMERA`) y la 9 el reclutamiento.
+ *      pasar. Y la 5 es el punto más calmo de las primeras diez —abandono 7,6%,
+ *      contra 14,7% en la 10— así que es donde una pantalla cuesta menos. Estuvo
+ *      en la 7 mientras el pedido de instalar ocupaba la 5; cuando ese se fue a
+ *      la 21, la 5 volvió a quedar libre.
  *    - **Los cafecitos en la 12**, dos antes de que la diapo del cafecito
  *      aparezca por primera vez (`CAFECITO_PRIMERA`). Llega como aviso y no
  *      como pedido, que es la única forma de que esa diapo no sea la primera
  *      noticia.
- *    - **La tabla en la 18.** Es la única de las tres que es una herramienta, y
+ *    - **La tabla en la 17.** Es la única de las tres que es una herramienta, y
  *      llega cuando los ejercicios empezaron a costar de verdad. Antes es un
  *      dato; acá es una salida. Va última porque es la que menos urge: la card
- *      ya enseña el gesto con su propio tip.
+ *      ya enseña el gesto con su propio tip. Diecisiete y no dieciocho porque
+ *      ahí cae la encuesta de dificultad, que con el registro ya adentro de la
+ *      guarda se corrió de la 13 a la 18.
  *
  *  Las tres esquivan las respuestas donde el juego ya interrumpe: la 3 (perfil),
- *  la 5 (instalar), la 9 (reclutar), la 10 (registro) y la 14 y la 20 (café).
+ *  la 9 (reclutar), la 10 (registro), la 14 y la 20 (café), la 18 (encuesta) y
+ *  la 24 (instalar).
  *  Compartir respuesta es la única colisión que importa — es la pila que este
  *  brazo existe para no tener.
  */
 export const CALENDARIO: { tras: number; regla: number }[] = [
-  { tras: 7, regla: ELO },
+  { tras: 5, regla: ELO },
   { tras: 12, regla: CAFECITOS },
-  { tras: 18, regla: TABLA },
+  { tras: 17, regla: TABLA },
 ]
 
 /** Correctas mínimas entre una regla y la siguiente.
