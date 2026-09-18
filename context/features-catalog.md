@@ -223,10 +223,29 @@ está puesto en que no sea ruido. Nueve tipos:
 | `uni_top` 🏆 | ser el número 1, o entrar al top 3, de la propia universidad — **solo lo ve esa universidad** |
 | `lead` 👑 | llegar al puesto 1 del juego entero |
 | `streak` 🔥 | rachas de 10, 25, 50, 100 y 250 sin errar |
-| `level` 🎨 | desbloquear la familia siguiente (los productos, los cocientes) |
+| `level` 🎨 | desbloquear la familia siguiente, **de nivel 2 para arriba** (los productos, los cocientes) |
+| `welcome` 👋 | alguien nuevo resolvió su primera derivada |
 | `signup` 🎓 / `referral` 🪖 | un registro, o el registro de alguien que trajo otro |
 | `boost` ☕ | una donación de cafecitos, o el aforo del día de una universidad |
 | `uni_pass` 🏛️ / `uni_close` 👀 | una universidad que pasa a otra en experiencia, o que se le viene encima |
+
+**`welcome` reemplazó al desbloqueo de nivel 1**, y es la segunda vez que el feed
+se inunda por lo mismo. Medido el 14/09 sobre 24 h de producción: **57 de 74
+eventos eran `level`, y los 57 eran de nivel 1** — tres de cada cuatro líneas
+decían que alguien había desbloqueado las sumas, que es lo que le pasa a
+cualquiera en sus primeras derivadas. De nivel 2 no hubo ninguno.
+
+No era la primera advertencia: el comentario de `events_copy._NIVEL` ya anotaba
+«110 de 122 en una semana fueron al nivel 1». Aquella vez se arregló lo que la
+línea DECÍA —antes los tres niveles compartían la misma frase— y no cuántas
+eran. El evento sobrevive porque desbloquear los productos o los cocientes sigue
+siendo noticia, y con los tiers 6-8 va a haber más para contar.
+
+En su lugar el feed **saluda a quien llega**, con la primera derivada resuelta y
+no al entrar: hasta ahí el alias es el generado al azar, y de 149 altas por día
+solo 80 resuelven una. Es la línea más frecuente (80/día, ~82% del feed) y por
+eso la más débil de todas (`FUERZA_WELCOME`): si le ganara a algo, taparía
+justamente lo que el feed existe para contar.
 
 **`top` y `uni_top` reemplazaron a la escalada por puestos** («@fulano pasó a 17
 personas de una»), que era **el 83% del feed**: 609 de 731 eventos en un día de
@@ -524,6 +543,34 @@ copy sale de tablas que el juego no toca.
 - **Qué se mide con qué.** El ranking de personas va por XP y el de universidades
   por Elo promedio (que es lo que impide que un cafecito compre puesto), así que
   ningún aviso puede prometer XP para escalar la tabla de universidades.
+
+### La diapo del cafecito, y sus cuatro caras
+
+Sale cada 20 derivadas (`cafecito-cta.tsx`) y desde el 14/09 no siempre pide.
+Cuál cara dibuja lo contesta el servidor (`GET /cafecito-status`), no una bandera
+local, así que sobrevive a cerrar la pestaña y a cambiar de aparato:
+
+| cara | cuándo |
+|---|---|
+| **oferta** | lo de siempre: la barra, el multiplicador que se compra, el precio |
+| **vuelta** | acabás de volver de Cafecito, en esta misma visita (`PanelDeVuelta`) |
+| **impacto** | donaste y el empuje está corriendo: **«1.240 XP extra para la UBA»**, y cuánta gente lo sumó |
+| **cierre** | el empuje venció: el total final, **una sola vez** en las 48 h que el servidor lo recuerda |
+
+Con el empuje vivo pero sin número —nadie jugó todavía— el titular es el
+multiplicador y **nunca un cero**: es la misma regla que ya seguía el mail del
+vencimiento, donde «tu cafecito generó 0 XP» es peor que no decir nada.
+
+**Donde NO reemplaza a la oferta** es cuando la persona abre el cafecito a
+propósito (botón de cabecera, tecla `i`, configuración): ahí el número va arriba
+en un renglón y la oferta queda. Ese es el camino que convierte, y taparlo sería
+cambiar «dejá de pedirle a quien ya donó» por «no lo dejes donar de nuevo».
+
+En el teléfono la diapo va a pantalla completa con el tinte café y conserva las
+tres cajas de universidades vecinas; en escritorio va en su card, con Enter, y el
+ranking de al lado hace ese trabajo. Lo que se apaga en la cara de impacto es
+`Shift+Enter` (no hay dónde ir) y la previsualización del ranking (no hay barra
+que previsualizar).
 
 **Mails** (solo para quien tiene cuenta: `users.email` viene de Clerk, así que al
 invitado solo se lo alcanza por push). Se reusan los dos que ya eran conscientes

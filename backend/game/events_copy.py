@@ -322,6 +322,31 @@ def level(semilla: str, *, nivel: int) -> str:
     return _armar(semilla, _NIVEL, fam=corta, regla=regla)
 
 
+# ── El saludo a quien recién llega ───────────────────────────────────────────
+# Sale con la PRIMERA derivada resuelta, no al entrar: hasta ahí el alias es el
+# generado al azar y siete de cada quince se van sin resolver una sola, así que
+# saludaríamos a gente que no llegó a estar.
+#
+# Es a propósito un saludo y no un logro. Resolver la primera no es una hazaña
+# —la primera derivada es `x`, fijada trivial por el generador— y anunciarla como
+# tal es de donde venía el problema que esto reemplaza. Lo que se cuenta es que
+# hay alguien nuevo.
+#
+# Ojo con la cercanía a `_SIGNUP`, acá abajo: aquel anuncia el REGISTRO, que es
+# otra cosa y sale 5 veces por día contra 80 de este. Por eso estas tres hablan
+# de EMPEZAR a jugar y aquellas de sumarse al juego — si alguna vez se tocan,
+# conviene moverlas juntas y no que terminen diciendo lo mismo.
+_BIENVENIDA = [
+    "{a} arrancó a derivar.",
+    "{a} empezó a jugar.",
+    "{a} acaba de llegar.",
+]
+
+
+def bienvenida(semilla: str) -> str:
+    return _armar(semilla, _BIENVENIDA)
+
+
 # ── Llegadas ─────────────────────────────────────────────────────────────────
 
 _SIGNUP = [

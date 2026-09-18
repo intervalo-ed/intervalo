@@ -2234,6 +2234,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                   />
                 ) : panel === "opinion" ? (
                   <OpinionSlide
+                    keyboard
                     slotSalida={slotSalida}
                     // Siempre llega por hito —no hay botón que la abra— así que
                     // lo que sigue es la derivada siguiente.

@@ -226,7 +226,7 @@ export type GameCafecitoStatus = components["schemas"]["GameCafecitoStatus"]
  * escribir. Cuando ya llegó, se deja de preguntar. */
 export function useCafecitoStatus(activo: boolean) {
   const api = useGameApi()
-  const { data } = useQuery({
+  const { data, isPending, isError } = useQuery({
     queryKey: gameKeys.cafecitoStatus,
     queryFn: async () => unwrap(await api.GET("/game/derivemos/cafecito-status")),
     enabled: activo,
@@ -238,7 +238,12 @@ export function useCafecitoStatus(activo: boolean) {
     staleTime: 0,
     ...SIN_SEÑAL,
   })
-  return data ?? null
+  // `listo` y no solo el dato: la diapo tiene que decidir entre pedir y agradecer
+  // ANTES de dibujar, y dibujar la oferta para corregirla medio segundo después
+  // se ve como un parpadeo justo en la primera impresión. Un error cuenta como
+  // listo — ahí no hay nada que esperar y se sigue con la oferta, que es lo que
+  // había antes de todo esto.
+  return { estado: data ?? null, listo: !activo || !isPending || isError }
 }
 
 export function useCafecitoIntent() {
