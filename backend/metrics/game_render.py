@@ -42,7 +42,7 @@ from . import charts as ch
 from . import theme
 from .charts import esc, num
 from .game_queries import (
-    FIRST_WEEK, PEDIDO_CAFECITO, PLATFORM_LABEL, VENTANA_DONANTE_SEG,
+    FIRST_WEEK, PEDIDO_CAFECITO, PLATFORM_LABEL,
 )
 
 # El grueso del CSS es el mismo que Intervalo (ver metrics/theme.py) — es la
@@ -1115,39 +1115,46 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         '<span class="sub2">no las anota</span>',
         num(l["clicks"]), _pct_txt(l["ctr"]),
     ] for l in mo["lugares"]]
-    # ── A quién se le pudo agradecer ─────────────────────────────────────────
-    gr = mo["gracias"]
-    pieza_gracias = _section(
-        2, "A quién se le pudo agradecer",
-        '<div class="grid g4">'
-        + "".join(_kpi_chico(l, v, h) for l, v, h in [
-            ("Donaciones", gr["donaciones"], "en la ventana del panel"),
-            ("Sabemos quién", gr["unico"],
-             f'{num(gr["ambiguas"])} quedaron ambiguas'
-             + (f' · {num(gr["sin_boton"])} sin tocar el botón'
-                if gr["sin_boton"] else "")),
-            ("Y tiene cuenta", gr["con_cuenta"],
-             f'{num(gr["unico"] - gr["con_cuenta"])} donaron sin cuenta'),
-            ("Se le agradeció", gr["agradecidos"],
-             f'{_pct_txt(gr["pct_agradecidos"])} de las donaciones'),
+    # ── El embudo de la plata ────────────────────────────────────────────────
+    em = mo["embudo"]
+    pieza_embudo = _section(
+        2, "De los que ven el pedido, quiénes pagan",
+        ch.hbars([
+            {"label": "Vieron el pedido", "value": em["vieron"], "note": ""},
+            {"label": "Tocaron «Invitar»", "value": em["tocaron"],
+             "note": f'{_pct_txt(em["pct_tocaron"])} de los que vieron'},
+            {"label": "Pagaron", "value": em["pagaron"],
+             "note": f'{_pct_txt(em["pct_pagaron"])} de los que tocaron'},
+        ], label_w=150)
+        + '<div class="grid g3">'
+        + "".join(_kpi_chico(l, v, h, suffix=sfx) for l, v, h, sfx in [
+            ("Del pedido al botón", em["pct_tocaron"] or 0,
+             "para un pedido de plata, es altísimo", "%"),
+            ("Del botón a la plata", em["pct_pagaron"] or 0,
+             f'{num(em["tocaron"] - em["pagaron"])} tocaron y no pagaron', "%"),
+            ("Donaron sin cuenta", em["invitados"],
+             f'de {num(em["pagaron"])} donantes', ""),
         ])
         + "</div>"
-        + f'<p class="note"><b>Cafecito no devuelve quién pagó.</b> Sus campos son todos '
-          f'opcionales y no se pueden marcar obligatorios, así que la única pata del juego '
-          f'es el «voy a donar»: cuando alguien toca ESE botón sí sabemos quién es, y la '
-          f'donación se cruza contra las intenciones consumidas en ±'
-          f'{num(VENTANA_DONANTE_SEG)} segundos.'
-          f'<br><br><b>Con dos personas distintas en esa ventana no se puede afirmar nada.</b> '
-          f'Solo una pagó y las otras cobran el empuje igual, así que nombrar a cualquiera '
-          f'sería inventar. Ahí se pierde casi todo lo que se pierde, y es la parte que tiene '
-          f'arreglo del lado del producto —una ventana más angosta, o cruzar por monto—; '
-          f'«donó sin cuenta» no lo tiene.'
-          f'<br><br>Solo donaciones de verdad: los grants a mano y los del aforo no los donó '
-          f'nadie. Meterlos en el denominador inventaría un problema que no existe, y pasó al '
-          f'medir esto la primera vez.</p>',
-        sub="Cuánta plata entra sin que sepamos de quién. Es también el denominador del mail "
-            "de agradecimiento, que sale solo cuando las cuatro columnas dan.",
-        anchor="gracias")
+        + f'<p class="note"><b>Esto no se podía medir hasta el cobro directo.</b> Con '
+          f'Cafecito la donación llegaba anónima y acá se cruzaban agregados —donaciones '
+          f'de la semana contra clicks de la semana— con la advertencia de que no era una '
+          f'conversión persona a persona y no podía serlo. Ahora la preferencia de Mercado '
+          f'Pago viaja con el jugador adentro y el pago vuelve con él.'
+          f'<br><br><b>El escalón que importa es el segundo.</b> Del pedido al botón la '
+          f'conversión es altísima: el cartel no tiene problema. Lo que se pierde se pierde '
+          f'después del click, del otro lado del salto, y ahí el panel no ve —esa parte '
+          f'está medida en <a href="https://github.com/intervalo-ed/intervalo">el reporte '
+          f'del 17/09</a> por el tiempo que tardan en volver al juego: 28 segundos de '
+          f'mediana los que no pagan, 202 los que sí.'
+          f'<br><br><b>El piso está subestimado mientras convivan los canales viejos.</b> '
+          f'Una donación que entra por el socket de Cafecito o por el mail de Mercado Pago '
+          f'no trae jugador, así que suma en el total y no en «pagaron»: hoy '
+          f'{num(em["con_dueno"])} de {num(em["donaciones"])} donaciones '
+          f'({_pct_txt(em["pct_con_dueno"])}) tienen dueño conocido. Ese número tiene que '
+          f'irse a 100% cuando se apaguen.</p>',
+        sub="El embudo persona por persona, que hasta el cobro directo era imposible.",
+        anchor="embudo")
 
     pieza_monetizacion = _section(
         1, "Dónde se pide el cafecito",
@@ -1173,7 +1180,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
              ),
         sub="El cafecito no se pide en un lugar: se pide en nueve. Esto es cuál de los "
             "nueve trae la plata.",
-        anchor="monetizacion") + pieza_gracias
+        anchor="monetizacion") + pieza_embudo
 
     # ── Calibración ──────────────────────────────────────────────────────────
     ca = p["calibracion"]

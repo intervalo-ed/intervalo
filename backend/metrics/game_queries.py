@@ -254,7 +254,13 @@ def load(db: DBSession) -> dict:
             SELECT player_id, exercise_id, attempt_number, parse_ok, is_correct,
                    created_at
             FROM game_attempts"""),
-        "boosts": _rows(db, "SELECT cafecitos, source, created_at FROM game_boosts"),
+        # `external_ref` y `player_id` no son adorno: el primero distingue un
+        # PAGO de una fila (una donación repartida entre dos universidades
+        # escribe dos filas y solo la primera lleva referencia), y el segundo es
+        # lo que Checkout Pro trajo — de quién fue, sin adivinar.
+        "boosts": _rows(db, """
+            SELECT cafecitos, source, created_at, external_ref, player_id
+            FROM game_boosts"""),
         # El tracker de difusión, copiado por scripts/diag/sync_grupos.py. Es
         # el denominador del clickrate y lo único que no sale de esta base.
         "grupos": _rows(db, """
@@ -279,9 +285,12 @@ def load(db: DBSession) -> dict:
         # lo que se pregunta acá es «cuántas personas distintas tocaron el botón
         # alrededor de esta donación», y sacar a una de la lista convertiría una
         # donación ambigua en una atribuida a la persona equivocada.
+        # TODAS las intenciones, no solo las consumidas. Las que no llegaron a
+        # nada son la mitad interesante: son las personas que tocaron «Invitar»,
+        # se fueron a pagar y no volvieron con plata, que es donde se pierde
+        # cuatro de cada cinco (docs/reports/2026-09-17-cafecito-embudo.md).
         "intents": _rows(db, """
-            SELECT player_id, consumed_at FROM game_boost_intents
-            WHERE consumed_at IS NOT NULL"""),
+            SELECT player_id, created_at, consumed_at FROM game_boost_intents"""),
         # De `users`, SOLO lo que el panel del juego necesita para los mails, y
         # solo de quienes tienen jugador. La tabla entera se había sacado de acá
         # a propósito —se cargaba completa y no la leía ninguna sección— así que
@@ -322,6 +331,7 @@ def load(db: DBSession) -> dict:
     data["exercises"] = [e for e in data["exercises"] if e["player_id"] not in fuera]
     data["attempts"] = [a for a in data["attempts"] if a["player_id"] not in fuera]
     data["cta"] = [c for c in data["cta"] if c["player_id"] not in fuera]
+    data["intents"] = [i for i in data["intents"] if i["player_id"] not in fuera]
     data["votes"] = [v for v in data["votes"] if v["player_id"] not in fuera]
     data["avisos"] = [a for a in data["avisos"] if a["player_id"] not in fuera]
     data["suscripciones"] = [x for x in data["suscripciones"] if x["player_id"] not in fuera]
@@ -489,9 +499,32 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
     def altas(w: date) -> int:
         return len(nuevos(w))
 
+    def _pagos(w: date) -> list[dict]:
+        """Las filas que son UN PAGO, no todas las que son un empuje.
+
+        La diferencia costó plata inventada. Una donación que se reparte entre
+        dos universidades escribe DOS filas —`resolve_donation` crea una por
+        destino— y las dos llevan `source='cafecito'`, pero solo la primera
+        lleva `external_ref`. Contando filas, el panel decía 30 donaciones y 215
+        cafecitos cuando habían entrado 27 y 199: un 11% y un 8% de más, medido
+        contra el historial público de Cafecito el 17/09.
+
+        > **Lo que esto NO arregla**, y hay que saberlo hasta que se apague:
+        > mientras convivan los avisos del socket de Cafecito y del mail de
+        > Mercado Pago, un mismo pago puede entrar por los dos con referencias
+        > distintas (`cafecito:<huella>:<ts>` y `mp:<id>`) y contarse dos veces.
+        > Pasó dos veces, las dos con 5 cafecitos. `aviso_repetido` lo intenta
+        > con una ventana de 180 s y se le escapa cuando el mail tarda más. No
+        > tiene arreglo del lado del panel: desaparece cuando queden solo los
+        > pagos de Checkout Pro, donde el id del pago ES la clave y el UNIQUE no
+        > deja entrar el mismo dos veces.
+        """
+        return [b for b in data["boosts"]
+                if _in_week(b["created_at"], w)
+                and b["source"] == DONADO and b["external_ref"]]
+
     def cafecitos(w: date) -> int:
-        return sum(b["cafecitos"] for b in data["boosts"]
-                   if _in_week(b["created_at"], w) and b["source"] == DONADO)
+        return sum(b["cafecitos"] for b in _pagos(w))
 
     def donaciones(w: date) -> int:
         """Cuántas VECES alguien puso plata, no cuántos cafecitos entraron.
@@ -502,8 +535,7 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
         producto. Con este volumen, esa diferencia decide qué se puede esperar
         de la ola siguiente.
         """
-        return sum(1 for b in data["boosts"]
-                   if _in_week(b["created_at"], w) and b["source"] == DONADO)
+        return len(_pagos(w))
 
     # Los lugares del cartel del cafecito que anotan CLICK y nunca IMPRESIÓN.
     # `settings-panel.tsx` dispara los dos de ajustes sin montar el contador de
@@ -2290,7 +2322,7 @@ def monetizacion(data: dict) -> dict:
     return {
         "lugares": filas,
         "sin_denominador": sum(f["clicks"] for f in filas if not f["impresiones"]),
-        "gracias": agradecimiento(data),
+        "embudo": embudo_de_la_plata(data),
     }
 
 
@@ -2301,66 +2333,88 @@ def monetizacion(data: dict) -> dict:
 VENTANA_DONANTE_SEG = 5
 
 
-def agradecimiento(data: dict) -> dict:
-    """De cada donación, si se pudo saber quién la hizo.
+def embudo_de_la_plata(data: dict) -> dict:
+    """De los que vieron el pedido, quiénes terminaron pagando — por persona.
 
-    **Es el embudo que dice cuánta plata entra sin que sepamos de quién.**
-    Cafecito no devuelve al pagador, así que la única pata es el «voy a donar»:
-    cuando alguien toca ese botón el juego sí sabe quién es, y la donación se
-    cruza contra las intenciones consumidas en ±5 segundos. Con una sola persona
-    distinta en esa ventana se puede afirmar quién pagó; con dos o más, no —solo
-    una pagó y las otras cobran el empuje igual, así que nombrar a cualquiera
-    sería afirmar algo que no sabemos (`game/boosts.py:donante_unico`).
+    **Esto no se podía medir hasta el cobro directo.** Con Cafecito la donación
+    llegaba anónima y el panel cruzaba agregados: donaciones de la semana contra
+    clicks de la semana, con la advertencia de que «no es una conversión persona
+    a persona y no puede serlo». Ahora `game_boosts.player_id` dice de quién fue
+    cada pago, porque la preferencia viaja con `external_reference = dx:<jugador>`
+    y el pago vuelve con ella.
 
-    Medido el 13/09 sobre las 13 donaciones desde la primera camada oficial: 8
-    con donante único, 5 ambiguas, y de los 8 uno donó sin cuenta. Se agradeció
-    a 7 de 13. **La pérdida es casi toda ambigüedad**, y eso tiene arreglo del
-    lado del producto —una ventana más angosta, o cruzar por monto— mientras que
-    «donó sin cuenta» no lo tiene.
+    El embudo que reemplaza al viejo de «¿supimos quién donó?». Esa pregunta se
+    murió: con Checkout Pro la respuesta es siempre que sí, y la sección que la
+    contestaba eran cuatro números y tres párrafos explicando una limitación que
+    ya no existe.
 
-    Solo `source == cafecito`: los grants a mano y los del aforo no los donó
-    nadie, así que no hay a quién agradecerle y meterlos en el denominador
-    inventaría un problema que no existe. Pasó al medirlo la primera vez: con
-    los 7 grants adentro, 9 donaciones parecían «pagadas sin tocar el botón».
+    Lo medido hasta el 17/09, sobre toda la vida del producto: 299 personas
+    vieron el pedido completo, 98 tocaron «Invitar» (32,8%) y 19 pagaron (19,4%
+    de las que tocaron). **Más de cuatro de cada cinco intenciones no llegan a
+    nada**, y ese es el escalón que hay que mirar.
+
+    `invitados` es el que decide si se le puede volver a hablar a alguien: la
+    mitad de los donantes no tiene cuenta, así que hasta hoy no había forma de
+    encontrarlos nunca más.
+
+    > **El piso está subestimado mientras convivan los canales viejos.** Una
+    > donación que entra por el socket de Cafecito o por el mail de Mercado Pago
+    > no trae jugador, así que suma en `donaciones` y no en `pagaron`. Por eso
+    > van los dos números al lado: `con_dueno / donaciones` dice qué fracción del
+    > embudo es medible, y tiene que ir a 100% cuando se apaguen.
     """
-    donaciones = [b for b in data["boosts"] if b["source"] == DONADO]
-    intents = [i for i in data["intents"] if i["consumed_at"] is not None]
-    usuario_de = data.get("_usuario_de", {})
-    desuscriptos = {u["id"] for u in data["usuarios"] if u["email_unsubscribed"]}
+    # La diapo entera, que es donde se lee el pedido de verdad. El botón de la
+    # barra no cuenta como «vio el pedido»: es un ícono presente, no un texto
+    # leído, y meterlo multiplicaría el denominador por tres.
+    solo_boton = ("header_mobile", "header_desktop")
+    vieron = {e["player_id"] for e in data["cta"]
+              if e["cta"] == "cafecito" and e["action"] == "impression"
+              and e["placement"] not in solo_boton}
+    tocaron = {i["player_id"] for i in data["intents"]}
 
-    ventana = timedelta(seconds=VENTANA_DONANTE_SEG)
-    unico = ambiguas = sin_botón = con_cuenta = agradecidos = 0
-    for b in donaciones:
-        cuando = b["created_at"]
-        if cuando is None:
-            sin_botón += 1
+    pagos = [b for b in data["boosts"] if b["source"] == DONADO and b["external_ref"]]
+    con_dueno = [b for b in pagos if b["player_id"] is not None]
+
+    # A quién se le atribuye cada pago, con la escalera completa:
+    #
+    #   1. `player_id`, que es exacto y viene de Checkout Pro.
+    #   2. Si no lo tiene —las donaciones de antes del cobro directo, y las que
+    #      sigan entrando por el socket o por el mail— la regla vieja: la única
+    #      intención consumida en ±5 s. Con dos personas en esa ventana no se
+    #      puede afirmar nada y no se cuenta a nadie.
+    #
+    # **El escalón 2 es transitorio y se borra con los canales viejos.** Está
+    # porque sin él este embudo mentiría al revés: hoy solo 2 de 23 donaciones
+    # traen jugador, así que el paso final daría 2% —como si la conversión se
+    # hubiera desplomado— cuando lo único que cambió es cómo se mide.
+    consumidas = [i for i in data["intents"] if i["consumed_at"] is not None]
+    pagaron = set()
+    for b in pagos:
+        if b["player_id"] is not None:
+            pagaron.add(b["player_id"])
             continue
-        personas = {i["player_id"] for i in intents
-                    if i["consumed_at"] is not None
-                    and cuando - ventana <= i["consumed_at"] <= cuando + ventana}
-        if not personas:
-            sin_botón += 1
-        elif len(personas) > 1:
-            ambiguas += 1
-        else:
-            unico += 1
-            uid = usuario_de.get(personas.pop())
-            if uid is not None:
-                con_cuenta += 1
-                if uid not in desuscriptos:
-                    agradecidos += 1
+        personas = {i["player_id"] for i in consumidas
+                    if abs((i["consumed_at"] - b["created_at"]).total_seconds())
+                    <= VENTANA_DONANTE_SEG}
+        if len(personas) == 1:
+            pagaron |= personas
 
-    n = len(donaciones)
+    usuario_de = data.get("_usuario_de", {})
+    invitados = {p for p in pagaron if usuario_de.get(p) is None}
+
     return {
-        "donaciones": n,
-        "unico": unico,
-        "ambiguas": ambiguas,
-        "sin_boton": sin_botón,
-        "con_cuenta": con_cuenta,
-        "agradecidos": agradecidos,
-        "pct_unico": _pct(unico, n),
-        "pct_agradecidos": _pct(agradecidos, n),
+        "vieron": len(vieron),
+        "tocaron": len(tocaron),
+        "pagaron": len(pagaron),
+        "pct_tocaron": _pct(len(tocaron), len(vieron)),
+        "pct_pagaron": _pct(len(pagaron), len(tocaron)),
+        "donaciones": len(pagos),
+        "con_dueno": len(con_dueno),
+        "pct_con_dueno": _pct(len(con_dueno), len(pagos)),
+        "invitados": len(invitados),
+        "cafecitos": sum(b["cafecitos"] for b in pagos),
     }
+
 
 
 # ── 9 · Calibración del motor ────────────────────────────────────────────────
