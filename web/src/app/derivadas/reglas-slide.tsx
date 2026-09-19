@@ -1,25 +1,24 @@
 "use client"
 
-// Las tres reglas que la puerta mínima no dijo, después del primer festejo.
+// Las reglas que la puerta no dijo, después de un festejo.
 //
-// Solo el brazo `derivada-primero` del experimento de la puerta llega acá: el
-// control dice las cuatro antes de jugar, en `IntroPanel`.
+// La misma pantalla sirve a los dos brazos de `dx-puerta-2`, y la diferencia es
+// cuántas reglas trae:
 //
-// La lista NO se escribe de nuevo. Es la misma de `IntroParagraphs`, cortada en
-// la segunda (`REGLAS_DESDE`): la primera ya se dio en la puerta, en imperativo,
-// y es la derivada que la persona acaba de resolver. Ver el bloque del brazo en
-// intro-panel.tsx.
+//   - `control`   las tres juntas, una sola vez, después del primer ranking.
+//   - `sin-peaje` de a una, en la 5, la 8 y la 15 (reglas-trigger.ts).
 //
-// Lo que sí se recalcula es la numeración (`renumera`): acá las tres se cuentan
-// 1, 2 y 3. Conservar la posición original —2, 3 y 4— obligaba a un renglón
-// arriba explicando dónde había quedado la 1, y una lista que arranca en 2 hace
-// buscar la que falta aunque el texto la nombre.
+// La lista NO se escribe de nuevo: es la de `IntroParagraphs`, y acá solo se
+// eligen índices. La regla 1 nunca entra — ya se dio en la puerta, en
+// imperativo, y es la derivada que la persona acaba de resolver.
 //
-// Sale donde sale porque es lo único que la hace legible. Las tres reglas hablan
-// del Elo, del ranking y de la tabla; llegando acá, el Elo se acaba de mover, el
-// puesto se acaba de ver subir y el @ recién elegido es el que está en esa fila.
-// Las mismas tres frases treinta segundos antes son la lista del control, que es
-// justamente lo que este brazo saca del camino.
+// Con tres van numeradas 1, 2 y 3. Con una no lleva número: un «1.» arriba de un
+// renglón único promete una lista que no viene.
+//
+// Sale después del ranking y no antes porque es lo único que la hace legible.
+// Las reglas hablan del Elo, del ranking y de la tabla; llegando acá, el Elo se
+// acaba de mover y el puesto se acaba de ver subir. Las mismas frases en la
+// puerta son la pantalla que `dx-puerta-1` sacó del camino.
 
 import { useEffect, useRef } from "react"
 import posthog from "posthog-js"
@@ -28,7 +27,6 @@ import { Button } from "@/components/ui/button"
 
 import { KeyCap } from "./exercise-card"
 import { IntroParagraphs } from "./intro-panel"
-import { REGLAS_DESDE } from "./reglas-trigger"
 import { Salida } from "./slide-salida"
 import { enCampoDeTexto, useTeclas } from "./teclas"
 
@@ -39,10 +37,13 @@ const ctaCls =
   "h-[var(--cta-h)] w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
 
 export function ReglasSlide({
+  cuales,
   onContinue,
   slotSalida,
   keyboard = false,
 }: {
+  /** Índices de la lista de `IntroParagraphs`. Uno o tres, según el brazo. */
+  cuales: number[]
   onContinue: () => void
   /** Dónde dibujar el Continuar: el pie de la columna, AFUERA de la caja —
    *  mismo trato que «Elegí tu @» y el hito de perfil (slide-salida.tsx). Solo
@@ -60,8 +61,11 @@ export function ReglasSlide({
   const seguidoRef = useRef(false)
 
   useEffect(() => {
-    posthog.capture("game_reglas_shown")
-  }, [])
+    // Con `cuales` adentro: en `sin-peaje` esta pantalla sale tres veces y sin
+    // el dato los tres eventos son indistinguibles, que es justo lo que hay que
+    // poder mirar — si una de las tres se lleva gente, cuál.
+    posthog.capture("game_reglas_shown", { reglas: cuales })
+  }, [cuales])
 
   useEffect(() => {
     if (!keyboard) return
@@ -80,17 +84,17 @@ export function ReglasSlide({
 
   return (
     <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col justify-center gap-5">
-      {/* Sin renglón de presentación, y numeradas desde 1 (`renumera`). Antes
-          había un «Listo, esa fue una. El resto es así» arriba de una lista que
-          empezaba en 2, para justificar el hueco. Sobraban los dos: tres ítems
-          que arrancan en 2 hacen buscar el 1 aunque el texto diga dónde quedó, y
-          sin encabezado la pantalla entra antes.
+      {/* Sin renglón de presentación. Antes había un «Listo, esa fue una. El
+          resto es así» arriba de una lista que empezaba en 2, para justificar el
+          hueco. Sobraban los dos: tres ítems que arrancan en 2 hacen buscar el 1
+          aunque el texto diga dónde quedó, y sin encabezado la pantalla entra
+          antes.
 
-          La misma tipografía que la intro del control y que la bienvenida del
-          onboarding: acá este texto ES el contenido de la pantalla, no una
-          aclaración al pie. */}
+          La misma tipografía que la puerta y que la bienvenida del onboarding:
+          acá este texto ES el contenido de la pantalla, no una aclaración al
+          pie. */}
       <div className="flex flex-col gap-3 leading-relaxed text-foreground/85">
-        <IntroParagraphs desde={REGLAS_DESDE} renumera />
+        <IntroParagraphs cuales={cuales} numera={cuales.length > 1} />
       </div>
       <Salida slot={slotSalida}>
         <Button size="lg" className={ctaCls} onClick={onContinue}>

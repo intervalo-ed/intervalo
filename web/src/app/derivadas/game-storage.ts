@@ -9,7 +9,16 @@ const INSTALAR_KEY = "intervalo:game:instalar"
 const NOTIF_KEY = "intervalo:game:notificaciones"
 const OPINION_KEY = "intervalo:game:opinion"
 const ENCUESTA_KEY = "intervalo:game:encuesta"
-const REGLAS_KEY = "intervalo:game:reglas"
+// La caja vieja de las reglas guardaba `vistas: 1` con UN solo significado:
+// «las tres ya salieron», porque salían juntas. La nueva cuenta de 0 a 3, así
+// que ese mismo 1 pasó a querer decir «salió una». Son dos idiomas distintos en
+// la misma clave, y no se pueden distinguir mirando el valor.
+//
+// Por eso la caja nueva es otra clave, y la vieja queda de solo lectura para
+// traducirla una vez (reglas-trigger.ts :: reglasDichas). Reutilizarla habría
+// hecho que quien ya vio las tres se comiera dos de nuevo, en la 8 y en la 15.
+const REGLAS_V1_KEY = "intervalo:game:reglas"
+const REGLAS_KEY = "intervalo:game:reglas-2"
 const CIERRE_KEY = "intervalo:game:cafecito-cierre"
 const PWA_DESDE_KEY = "intervalo:game:pwa-desde"
 
@@ -95,6 +104,7 @@ export function clearGameIdentity() {
     window.localStorage.removeItem(OPINION_KEY)
     window.localStorage.removeItem(ENCUESTA_KEY)
     window.localStorage.removeItem(REGLAS_KEY)
+    window.localStorage.removeItem(REGLAS_V1_KEY)
     window.localStorage.removeItem(CIERRE_KEY)
     window.localStorage.removeItem(PWA_DESDE_KEY)
     window.localStorage.removeItem(CHAT_SENDS_KEY)
@@ -124,6 +134,52 @@ export function readUltimoPedidoAt(): number {
   } catch {
     return -Infinity
   }
+}
+
+/** Cuándo interrumpió el juego por última vez, contando TAMBIÉN las pantallas
+ *  que no consumen el cooldown compartido: instalar y el registro.
+ *
+ *  Distinta de `readUltimoPedidoAt`, que es el cooldown compartido. Instalar no
+ *  lo consume a propósito (ver INSTALAR_SEPARACION) y el registro nunca estuvo
+ *  adentro. Esa excepción resuelve una mitad —que ninguna de las dos corra al
+ *  café ni al reclutamiento— y deja la otra abierta: nada impedía que el café
+ *  cayera pegado a ellas.
+ *
+ *  Con la ventana compartida en diez no se veía, porque diez derivadas de
+ *  silencio tapaban cualquier cosa. Con la ventana más corta aparecen las dos
+ *  formas: un récord justo después de la pantalla de instalar (derivada 46, un
+ *  acierto después de la instalación de la 45), y la re-oferta de registro
+ *  compartiendo respuesta con un récord del café.
+ *
+ *  La encuesta de dificultad queda AFUERA y es a propósito: meterla correría el
+ *  primer cafecito de la 14 a la 20, y la encuesta es la única de las tres que
+ *  no pide nada que el juego quiera.
+ *
+ *  Devuelve -Infinity si todavía no interrumpió nada, igual que las que
+ *  compara. */
+export function readUltimaInterrupcion(): number {
+  return Math.max(readUltimoPedidoAt(), readPedidoState(INSTALAR_KEY).ultima)
+}
+
+/** La última respuesta en la que YA salió una pantalla, sea cual sea.
+ *
+ *  Sirve para UNA sola cosa y por eso es otra función: que dos pantallas no
+ *  compartan respuesta. No es una distancia, es una igualdad — el ladder vuelve
+ *  a entrar después de cada diapo con otro `consumed`, así que sin esto dos
+ *  disparadores que apuntan al mismo número se dibujan uno atrás del otro sobre
+ *  la misma derivada, que es la pila que el mapa de hitos existe para no tener.
+ *
+ *  Separada de `readUltimaInterrupcion` porque las dos reglas son distintas y
+ *  mezclarlas sale caro: con una sola lectura y una distancia de cuatro, la
+ *  pregunta de la varita de la 18 empujaba el segundo cafecito de la 20 a la 40.
+ *  Estar a dos derivadas de distancia está bien; compartir la respuesta, no. */
+export function readUltimaPantalla(): number {
+  return Math.max(
+    readUltimaInterrupcion(),
+    readRegistroOfrecidoAt(),
+    readPedidoState(ENCUESTA_KEY).ultima,
+    readPedidoState(OPINION_KEY).ultima,
+  )
 }
 
 export function saveUltimoPedidoAt(solvedCount: number) {
@@ -253,16 +309,19 @@ export const PEDIDO_NOTIFICACIONES = NOTIF_KEY
 /** Y la encuesta de dificultad, que se repite con su propia cuenta por lo
  *  mismo: es otro pedido y no un escalón de aquellos dos. */
 export const PEDIDO_OPINION = OPINION_KEY
-/** Las reglas del brazo `derivada-primero`, que NO se repiten: usan la misma
- *  caja porque lo único que necesitan guardar es «ya salió», y una caja con dos
- *  números de la que se usa uno es más barata que una tercera forma de guardar
- *  un booleano. `vistas` llega a 1 y se queda ahí (reglas-trigger.ts). */
-/** Y la pregunta abierta, que NO se repite: `vistas` llega a 1 y se queda
- *  ahí, como las reglas. Caja propia y no la de la encuesta de dificultad
- *  porque son dos preguntas distintas y quien contestó una tiene que poder
- *  recibir la otra. */
+/** La pregunta abierta, que NO se repite: `vistas` llega a 1 y se queda ahí.
+ *  Caja propia y no la de la encuesta de dificultad porque son dos preguntas
+ *  distintas y quien contestó una tiene que poder recibir la otra. */
 export const PEDIDO_ENCUESTA = ENCUESTA_KEY
+/** Las reglas del juego, que NO se repiten: usan la misma caja porque lo único
+ *  que necesitan guardar es cuántas ya se dijeron, y una caja con dos números es
+ *  más barata que una tercera forma de guardar lo mismo. `vistas` cuenta de 0 a
+ *  3 —las tres de un saque en el brazo `control`, de a una en `sin-peaje`— y
+ *  `ultima` es la correcta en la que salió la última, que es lo que las mantiene
+ *  espaciadas (reglas-trigger.ts). */
 export const PEDIDO_REGLAS = REGLAS_KEY
+/** La caja vieja, de solo lectura y solo para traducirla. Ver arriba. */
+export const PEDIDO_REGLAS_V1 = REGLAS_V1_KEY
 
 const SIN_PEDIR: PedidoRepetido = { vistas: 0, ultima: -Infinity }
 

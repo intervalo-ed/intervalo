@@ -2056,7 +2056,7 @@ def post_message(
 
 # Vocabulario cerrado a propósito: sin esto la tabla se llena de variantes con
 # typo y las series del panel se parten en dos sin que nadie se entere.
-_CTA_KINDS = ("cafecito", "share", "boost_offer", "register")
+_CTA_KINDS = ("cafecito", "share", "boost_offer", "register", "instalar")
 _CTA_ACTIONS = ("impression", "click")
 
 

@@ -777,11 +777,22 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                     f'{num(e["mde_pp"], " pp", dec=0)} o más habría aparecido, y uno más '
                     f'chico este diseño no lo puede ver.', "plano")
 
-        filas = [[
-            f'<b>{esc(b["label"])}</b>', num(b["n"]),
-            _pct_txt(b["pct_servida"]), _pct_txt(b["pct_activado"]),
-            num(b["mediana"]), _pct_txt(b["pct_vuelven"]),
-        ] for b in brazos]
+        # Las tres medidas de entrada se muestran SIEMPRE las tres, y la que
+        # decide lleva el rótulo. Mostrar solo la declarada escondería justo el
+        # hallazgo de `dx-puerta-1` —que las tres se mueven distinto, y que ganar
+        # la primera no implica nada sobre la tercera— y dejaría al que lee sin
+        # forma de darse cuenta de que le pasó de nuevo.
+        medidas = [("servida", "Llegó a la 1ª"), ("activado", "Respondió una"),
+                   ("engancha", "Llegó a 3")]
+        filas = [
+            [f'<b>{esc(b["label"])}</b>', num(b["n"])]
+            + [_pct_txt(b[f"pct_{k}"]) for k, _ in medidas]
+            + [num(b["mediana"]), _pct_txt(b["pct_vuelven"])]
+            for b in brazos
+        ]
+        cabeceras = ["Brazo", "Jugadores"] + [
+            f"{t} ▸" if k == e["metrica"] else t for k, t in medidas
+        ] + ["Mediana 1ª tanda", "Volvió otro día"]
 
         filas_plat = []
         for plat in ("android", "ios", "desktop"):
@@ -799,15 +810,16 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
 
         bloques.append(
             _box(esc(e["titulo"]), estado
-                 + _table(["Brazo", "Jugadores", "Llegó a la 1ª", "Respondió una",
-                           "Mediana 1ª tanda", "Volvió otro día"], filas,
-                          empty="todavía nadie")
-                 + '<p class="note"><b>Las tres últimas columnas son guardarraíles, no '
-                   'objetivos.</b> Sirven para VETAR un resultado bueno, nunca para rescatar '
-                   'uno malo: si la variante gana la entrada pero hunde la mediana de la '
-                   'primera tanda, entró gente que no entendió y se fue en la segunda '
-                   'derivada. Se miran siempre, incluso antes del n — un brazo que hace daño '
-                   'se apaga sin esperar.</p>'
+                 + _table(cabeceras, filas, empty="todavía nadie")
+                 + '<p class="note"><b>La columna con ▸ es la que decide, y se '
+                   'declaró antes de ver un solo dato.</b> Las otras son guardarraíles: '
+                   'sirven para VETAR un resultado bueno, nunca para rescatar uno malo. Se '
+                   'miran siempre, incluso antes del n — un brazo que hace daño se apaga '
+                   'sin esperar.<br><br>Que estén las tres juntas es la lección de '
+                   '<code>dx-puerta-1</code>: ganó «llegó a la 1ª» por 25 puntos, empató '
+                   'en «llegó a 3» y perdió de la quinta en adelante. Una variante que '
+                   'sube la primera columna y deja la tercera quieta no ganó nada: movió '
+                   'el lugar donde la gente se va.</p>'
                  + _table(["Plataforma"] + [b["label"] for b in brazos], filas_plat,
                           empty="sin plataforma cargada")
                  + f'<p class="note"><b>El desglose por plataforma se declaró ANTES</b>, y es '

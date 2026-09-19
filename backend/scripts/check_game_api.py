@@ -706,6 +706,21 @@ check(
     "atada al jugador que la vio",
 )
 
+# El vocabulario entero, y no solo el cafecito: lo que el server no reconoce lo
+# descarta EN SILENCIO, asi que un nombre que no esta en `_CTA_KINDS` se ve
+# exactamente igual que un cartel que nadie mira. Paso al sumar "instalar".
+from game.router import _CTA_KINDS  # noqa: E402
+
+for kind in _CTA_KINDS:
+    n0 = db.query(GameCtaEvent).count()
+    client.post(
+        "/game/derivemos/cta",
+        json={"cta": kind, "action": "impression", "solved": 3},
+        headers=H,
+    )
+    check(db.query(GameCtaEvent).count() == n0 + 1, f'"{kind}" se guarda')
+
+antes_basura = db.query(GameCtaEvent).count()
 r = client.post(
     "/game/derivemos/cta",
     json={"cta": "no_existe", "action": "impression"},
@@ -713,7 +728,7 @@ r = client.post(
 )
 check(r.status_code == 204, "un vocabulario desconocido tampoco falla")
 check(
-    db.query(GameCtaEvent).count() == antes + 1,
+    db.query(GameCtaEvent).count() == antes_basura,
     "pero no escribe nada: la telemetría no puede inventar categorías",
 )
 

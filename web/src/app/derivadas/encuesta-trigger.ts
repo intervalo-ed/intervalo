@@ -5,7 +5,13 @@
 // localStorage, y equivocarse en la cadencia no se ve jugando sino semanas
 // después. Ver web/scripts/check-encuesta-trigger.ts.
 
-import { PEDIDO_ENCUESTA, readPedidoState, readUltimoPedidoAt, savePedidoState } from "./game-storage"
+import {
+  PEDIDO_ENCUESTA,
+  readPedidoState,
+  readUltimaPantalla,
+  readUltimoPedidoAt,
+  savePedidoState,
+} from "./game-storage"
 
 // En qué derivada sale. Una sola vez en la vida, y no hay segunda.
 //
@@ -40,7 +46,15 @@ export const ENCUESTA_SEPARACION = 4
 export function tocaEncuesta(totalCorrectas: number): boolean {
   if (totalCorrectas < ENCUESTA_EN) return false
   if (readPedidoState(PEDIDO_ENCUESTA).vistas > 0) return false
-  return totalCorrectas - readUltimoPedidoAt() >= ENCUESTA_SEPARACION
+  // Contra `readUltimaInterrupcion` y no contra el cooldown compartido a secas:
+  // el registro, el pedido de instalar y la encuesta de dificultad tampoco lo
+  // consumen, así que sin esto esta pregunta podía caer sobre la misma respuesta
+  // que cualquiera de las tres. La de dificultad, de hecho, también cae en la
+  // 18: ésta va antes en el ladder y se la queda, y aquella se corre sola.
+  return (
+    totalCorrectas - readUltimoPedidoAt() >= ENCUESTA_SEPARACION &&
+    totalCorrectas !== readUltimaPantalla()
+  )
 }
 
 /** Anota que se mostró.

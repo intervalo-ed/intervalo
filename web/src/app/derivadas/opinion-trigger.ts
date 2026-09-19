@@ -12,6 +12,7 @@
 import {
   PEDIDO_OPINION,
   readPedidoState,
+  readUltimaPantalla,
   readUltimoPedidoAt,
   savePedidoState,
 } from "./game-storage"
@@ -77,7 +78,14 @@ export function tocaOpinion(totalCorrectas: number): boolean {
   const { vistas, ultima } = readPedidoState(PEDIDO_OPINION)
   if (vistas >= OPINION_MAX) return false
   if (vistas > 0 && totalCorrectas - ultima < OPINION_CADA) return false
-  return totalCorrectas - readUltimoPedidoAt() >= OPINION_SEPARACION
+  // Contra `readUltimaInterrupcion` y no contra el cooldown compartido a secas:
+  // el registro y el pedido de instalar tampoco lo consumen, y esta pantalla es
+  // la que menos derecho tiene a caer pegada a otra —va última del ladder
+  // justamente porque no convierte a nadie—. Sin esto la encuesta salía en la
+  // 13, entre la regla de los cafecitos de la 12 y el primer cafecito de la 14:
+  // tres pantallas en tres derivadas seguidas, que es lo que el mapa de hitos
+  // existe para no tener. Con esto sale en la 18.
+  return totalCorrectas - readUltimaPantalla() >= OPINION_SEPARACION
 }
 
 /** Anota que se mostró. No toca el cooldown compartido: ver OPINION_SEPARACION.

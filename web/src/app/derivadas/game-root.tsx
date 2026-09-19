@@ -6,7 +6,6 @@
 
 import { useEffect, useRef } from "react"
 import dynamic from "next/dynamic"
-import { brazoDelJuego } from "@/lib/experiments/UseGameVariant"
 import { getPlatform, usePlatform } from "@/lib/platform/detect"
 import { GameIntroBackdrop, useGameIntro } from "./game-intro"
 import { useApplyDesiredAlias } from "./register-slides"
@@ -64,14 +63,15 @@ export function GameRoot() {
   // marca que el resto de la app. `platform` es null hasta montar, y en ese
   // render todavía no hay layout ni hueco que medir, así que la presentación no
   // arrancó: para cuando importa, el valor ya es el definitivo.
-  // En el brazo `derivada-primero` no hay presentación: el logo aparece quieto y
-  // debajo está la derivada. `brazoDelJuego()` es sincrónica a propósito —si
-  // hubiera que esperarla se vería un parpadeo del control antes de entrar al
-  // brazo, que es peor que no experimentar— y se la puede llamar en el render
-  // porque este componente no se dibuja en el servidor.
+  // Y no hay presentación: el logo aparece quieto y debajo está la derivada.
+  // Hasta el 18/09 esto dependía del brazo de `dx-puerta-1` —el control la
+  // corría, el test la salteaba— y ganó saltearla por 25 puntos de entrada, así
+  // que quedó fija. La animación de `useGameIntro` sigue existiendo y ya no la
+  // alcanza nadie desde acá: sacarla es su propio cambio, porque el hook además
+  // devuelve el estado con el que se dibuja el logo.
   const intro = useGameIntro({
     notation: platform !== "desktop",
-    saltar: brazoDelJuego() === "derivada-primero",
+    saltar: true,
   })
 
   // Retorno del OAuth: el bootstrap ya linkeó guest→user; acá se aplica el @

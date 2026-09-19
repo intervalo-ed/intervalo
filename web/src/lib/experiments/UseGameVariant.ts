@@ -37,12 +37,22 @@ const DEVICE_KEY = "intervalo:game:device"
 
 /** El experimento en curso. Cambiarlo re-sortea a todo el mundo: el id de
  *  dispositivo se mantiene, pero el hash lleva el nombre adentro, así que los
- *  brazos de dos experimentos distintos no quedan correlacionados. */
-export const EXPERIMENTO = "dx-puerta-1"
+ *  brazos de dos experimentos distintos no quedan correlacionados.
+ *
+ *  `dx-puerta-1` terminó el 18/09 con 527 por brazo. Ganó `derivada-primero`
+ *  —de 55,6% a 80,6% de gente a la que se le muestra una derivada, IC95
+ *  [19,6 · 30,5]— y ES el flujo de hoy, así que dejó de ser un brazo: los dos
+ *  brazos de acá abajo lo tienen puesto. Lo que ese experimento también dejó,
+ *  y es de lo que este se ocupa, está en el catálogo de features. */
+export const EXPERIMENTO = "dx-puerta-2"
 
 /** Los brazos, en orden. El índice ES el bucket, así que agregar uno al final
- *  no remueve a nadie de los que ya estaban. */
-export const BRAZOS = ["control", "derivada-primero"] as const
+ *  no remueve a nadie de los que ya estaban.
+ *
+ *  `sin-peaje` saca lo que `dx-puerta-1` dejó apilado justo después de la
+ *  primera correcta —el @, y las tres reglas— y lo corre a después de la
+ *  tercera. Ver reglas-trigger.ts. */
+export const BRAZOS = ["control", "sin-peaje"] as const
 export type Brazo = (typeof BRAZOS)[number]
 
 /** Lo que se manda al backend y se guarda en `game_players.variant`. */
@@ -101,7 +111,7 @@ function hash(texto: string): number {
   return h >>> 0
 }
 
-/** Atajo de desarrollo: `?brazo=derivada-primero`. En producción no existe, así
+/** Atajo de desarrollo: `?brazo=sin-peaje`. En producción no existe, así
  *  que nadie puede forzarse un brazo y ensuciar los datos. */
 function brazoForzado(): Brazo | null {
   if (process.env.NODE_ENV === "production" || typeof window === "undefined") return null

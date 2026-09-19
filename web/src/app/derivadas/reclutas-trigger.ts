@@ -5,7 +5,13 @@
 // cooldown no se ve jugando —hay que resolver diez derivadas para enterarse—
 // sino semanas después, en el embudo. Ver web/scripts/check-reclutas-trigger.ts.
 
-import { readUltimoPedidoAt, saveUltimoPedidoAt } from "./game-storage"
+import {
+  readUltimaInterrupcion,
+  readUltimaPantalla,
+  readUltimoPedidoAt,
+  saveUltimoPedidoAt,
+} from "./game-storage"
+import { INSTALAR_SEPARACION } from "./instalacion-trigger"
 
 // Cada cuántas resueltas se ofrece reclutar, y en qué resto de esa cuenta.
 //
@@ -26,8 +32,29 @@ import { readUltimoPedidoAt, saveUltimoPedidoAt } from "./game-storage"
 // sacó: interrumpía probando cualquier otra cosa del juego. Para trabajar en
 // reclutas/cafecito, bajar estos números a mano (sin commitearlo).
 export const RECLUTAS_CADA = 20
-export const RECLUTAS_RESTO = 10
-export const RECLUTAS_COOLDOWN = 10
+// Nueve y no diez desde el 18/09, y se movió por dos choques que el diez creaba
+// al adelantar los otros dos hitos:
+//
+//   - **El registro pasó a la 10.** Los dos en la misma derivada no son dos
+//     pedidos: el registro sale primero, y al cerrarlo el ladder vuelve a entrar
+//     y encuentra a este disparador todavía en pie. Dos pantallas seguidas sobre
+//     la misma respuesta.
+//   - **La primera oferta de cafecito pasó a la 14.** Este disparador escribe el
+//     cooldown compartido, así que en la 10 le dejaba al café solo cuatro
+//     derivadas de aire y la oferta no salía.
+//
+// Nueve y no menos porque la pantalla de instalar sale en la 5
+// (`INSTALAR_PRIMERA`) y entre dos interrupciones tienen que quedar al menos
+// `INSTALAR_SEPARACION`: 9 − 5 = 4, justo. Y nueve y no más porque después viene
+// el café en la 14, que necesita sus cinco.
+//
+// Sigue llegando antes que el café, que es el orden que importa: se invita a un
+// amigo antes de que se pida plata.
+export const RECLUTAS_RESTO = 9
+// Mismo número que CAFECITO_COOLDOWN y por el mismo motivo: los dos miden contra
+// el último pedido de cualquier tipo, así que el más chico de los dos es el que
+// manda y tenerlos distintos solo esconde cuál es.
+export const RECLUTAS_COOLDOWN = 5
 
 /** ¿Toca ofrecer reclutar después de esta respuesta?
  *
@@ -38,7 +65,14 @@ export const RECLUTAS_COOLDOWN = 10
 export function tocaReclutar(totalCorrectas: number): boolean {
   if (totalCorrectas <= 0) return false
   if (totalCorrectas % RECLUTAS_CADA !== RECLUTAS_RESTO) return false
-  return totalCorrectas - readUltimoPedidoAt() >= RECLUTAS_COOLDOWN
+  // Las dos distancias, por lo mismo que en el café: el cooldown compartido, y
+  // la pantalla de instalar —que no lo consume pero interrumpe— (game-storage.ts
+  // :: readUltimaInterrupcion).
+  return (
+    totalCorrectas - readUltimoPedidoAt() >= RECLUTAS_COOLDOWN &&
+    totalCorrectas - readUltimaInterrupcion() >= INSTALAR_SEPARACION &&
+    totalCorrectas !== readUltimaPantalla()
+  )
 }
 
 /** Anota que se pidió algo, para que el café no salga pegado a esto. */

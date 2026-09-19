@@ -3,21 +3,25 @@
 // La primera pantalla del juego en escritorio, en CADA carga de la página.
 //
 // Se mostraba una sola vez por navegador y se recordaba en localStorage. Volvió
-// a salir siempre por dos razones: la presentación del logo también corre en
-// cada carga y terminaba entregando la pantalla a un ejercicio a medio empezar,
-// y esta es la única pantalla del juego donde se nombra el cafecito con todas
-// las letras — esconderla a quien vuelve era esconderla justo a quien más juega.
+// a salir siempre porque la presentación del logo también corría en cada carga y
+// terminaba entregando la pantalla a un ejercicio a medio empezar. Hoy esa
+// presentación ya no existe (ver abajo) y la pantalla igual sale siempre: es una
+// línea, y esconderle una línea a quien vuelve no ahorra nada.
 //
-// Existe porque la card del ejercicio dejó de preguntar "¿cuál es la derivada de
-// la siguiente función?". Esa pregunta era idéntica en los 26 tipos de ejercicio
-// y en el renglón más visible de la pantalla: leerla una vez alcanza, y a partir
-// de ahí ocupaba el lugar donde ahora van los marcadores. El trato es este —se
-// explica acá, en serio, y después no se repite nunca.
+// Acá viven las dos cosas: la puerta que se muestra, y la lista de las cuatro
+// reglas —que la puerta ya NO dice, pero que se escriben acá porque son el texto
+// del juego y no pueden decir una cosa en el teléfono y otra en escritorio—.
+// Quien las muestra es `reglas-slide.tsx`, cuando corresponde.
+//
+// La lista existe porque la card del ejercicio dejó de preguntar "¿cuál es la
+// derivada de la siguiente función?". Esa pregunta era idéntica en los 26 tipos
+// de ejercicio y en el renglón más visible de la pantalla: leerla una vez
+// alcanza, y a partir de ahí ocupaba el lugar donde ahora van los marcadores. El
+// trato es este —se explica en serio, y después no se repite nunca.
 
 import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
 import { KeyCap } from "./exercise-card"
-import { useTeclas, type Teclas } from "./teclas"
+import { useTeclas } from "./teclas"
 
 // El texto de la intro, uno solo para las dos versiones: es lo único que se
 // explica en todo el juego y no puede decir una cosa en el teléfono y otra en
@@ -39,47 +43,39 @@ function Fuerte({ children }: { children: React.ReactNode }) {
   return <strong className="font-semibold text-foreground">{children}</strong>
 }
 
-export const INTRO_CLOSE = "¿Arrancamos?"
-
-// ── El brazo `derivada-primero` del experimento de la puerta ────────────────
+// ── La puerta ───────────────────────────────────────────────────────────────
 //
-// Hipótesis: entre aterrizar y ver una derivada hay tres peajes —la animación
-// del logo, estos cuatro párrafos y el pedido de apodo— y la persona no pidió
-// ninguno: hizo clic en un link de WhatsApp sin saber a qué se juega. La primera
-// derivada es `x` (generator.ONBOARDING la fija así, trivial a propósito), o sea
-// que el producto se explica solo. Medido: solo el 47,6% llega a verla, y en el
-// teléfono —que es el 83% del tráfico— baja al 45,2%.
+// Entre aterrizar y ver una derivada no hay nada: el logo quieto, el saludo, una
+// línea y el botón. No fue siempre así. Hasta el 18/09 acá había una animación
+// de logo, los cuatro párrafos de abajo y el pedido de apodo, y eso estuvo bajo
+// experimento (`dx-puerta-1`) contra esta puerta.
 //
-// Lo que el brazo NO hace es borrar la explicación: la CORRE. Sacarla del todo
-// arriesga cambiar gente que no entra por gente que entra y se va en la segunda
-// derivada, y eso sería ganar el número y perder el producto.
+// Lo ganó esta, y no por poco: de 55,6% a 80,6% de gente a la que se le llega a
+// mostrar una derivada, +25,0 puntos con IC95 [19,6 · 30,5] sobre 527 por brazo.
+// Del aterrizaje al primer intento se pasó de 39,4 s a 14,2 s.
 //
-// Corrida, se paga cuando ya hay con qué pagarla. El orden del brazo es:
+// Lo que el experimento NO consiguió, y por eso hay un `dx-puerta-2`: esas 132
+// personas de más por cada 527 duraban una sola derivada. Para la tercera
+// correcta los dos brazos empataban, y de la quinta en adelante el que ganaba
+// era el otro. La explicación no se había borrado, se había CORRIDO a después
+// de la primera correcta — y ahí, apilada con el @ y el ranking, se llevaba al
+// 26,1% de los que acababan de acertar contra el 8,6% del control.
 //
-//   logo quieto + `INSTRUCCION_MINIMA` → la derivada → «elegí tu @» → el
-//   ranking, con la XP entrando ya con ese @ → las reglas 2, 3 y 4
-//   (reglas-slide.tsx) → el resto del juego.
-//
-// Cada pieza llega cuando significa algo: el @ se pide cuando hay un puesto que
-// ponerle el nombre, y las tres reglas se leen con el Elo recién movido y el
-// ranking recién visto, que es de lo que hablan. La 1 la dice la puerta.
-//
-// Antes de esto las tres reglas venían de a una, en los aciertos 1, 2 y 5, y
-// metidas en el marcador de la card (`piezaDeTutorial`). Se fue porque repartía
-// tres interrupciones donde hay una sola cosa para contar, y porque un renglón
-// arriba del enunciado no se lee como una regla del juego: se lee como un pie
-// de página del ejercicio que está abajo.
+// O sea que la puerta no era un peaje que se sacó: era un peaje que se mudó, y
+// al mudarlo se lo puso en el momento más caro. De eso se ocupa el brazo
+// `sin-peaje` (reglas-trigger.ts), que las reparte de a una y más adelante.
 
 /** El saludo, y lo único que se explica antes de la primera derivada.
  *
  *  La instrucción es la regla 1 de `IntroParagraphs` dicha en imperativo:
- *  aquella explica qué es un ejercicio, esta pide que se resuelva. Por eso la
- *  diapo de reglas la saltea (`REGLAS_DESDE`) — ya se dio acá, en la puerta. */
+ *  aquella explica qué es un ejercicio, esta pide que se resuelva. Por eso
+ *  ninguna de las dos formas de decir las reglas la incluye — ya se dio acá
+ *  (reglas-trigger.ts :: REGLAS_DE_LA_DIAPO y CALENDARIO). */
 export const BIENVENIDA_MINIMA = "¡Bienvenido!"
 export const INSTRUCCION_MINIMA =
   "Resolvé la siguiente derivada para comenzar a jugar."
 
-/** La puerta del brazo test, entera.
+/** La puerta, entera.
  *
  *  Componente y no dos constantes sueltas en cada layout por el mismo motivo
  *  que `IntroParagraphs`: son dos pantallas —teléfono y escritorio— y la
@@ -108,22 +104,26 @@ export function PuertaMinima() {
 // un mes uno tuviera números y el otro no.
 export function IntroParagraphs({
   className,
-  // Desde qué regla arrancar, contando desde cero.
+  // Cuáles, y en qué orden. Índices de la lista de abajo.
   //
-  // La diapo de reglas pide un CORTE y no tiene lista propia: el día que se
-  // agregue una quinta regla acá, aparece sola del otro lado. Con dos listas
+  // Quien las muestra pide una SELECCIÓN y no tiene lista propia: el día que se
+  // agregue una quinta regla acá, está disponible del otro lado. Con dos listas
   // separadas, ese día una de las dos se queda vieja — que es justo lo que le
-  // pasó al tutorial repartido que esto reemplaza.
-  desde = 0,
-  // Numerar desde 1 en vez de conservar la posición en la lista completa.
+  // pasó al tutorial repartido que esto reemplazó una vez.
   //
-  // El brazo `derivada-primero` corta en la segunda regla, y durante un rato
-  // las mostró como 2, 3 y 4 con un renglón arriba explicando cuál faltaba. Se
-  // lee peor de lo que suena: tres ítems que empiezan en 2 hacen buscar el 1
-  // aunque el texto diga dónde quedó. Numeradas desde 1 y sin ese renglón, son
-  // simplemente tres reglas.
-  renumera = false,
-}: { className?: string; desde?: number; renumera?: boolean }) {
+  // Y es una lista y no un corte porque `sin-peaje` las reparte en un orden que
+  // no es el de acá: el Elo, la tabla y recién después los cafecitos, cada una
+  // donde tiene referente (reglas-trigger.ts :: CALENDARIO).
+  cuales,
+  // Numerarlas. La numeración es sobre `cuales` y arranca en 1 siempre: durante
+  // un rato las tres de la diapo salieron como 2, 3 y 4, con un renglón arriba
+  // explicando cuál faltaba, y se lee peor de lo que suena — tres ítems que
+  // empiezan en 2 hacen buscar el 1 aunque el texto diga dónde quedó.
+  //
+  // Una sola regla va sin número: un «1.» arriba de un renglón único promete
+  // una lista que no viene.
+  numera = true,
+}: { className?: string; cuales: number[]; numera?: boolean }) {
   // Los párrafos se arman ACÁ y no en una constante del módulo. Cuando eran
   // JSX de nivel de módulo, los elementos quedaban creados una sola vez al
   // evaluarse el archivo, y Fast Refresh no puede reconciliar eso: al editar el
@@ -159,41 +159,20 @@ export function IntroParagraphs({
   ]
   return (
     <>
-      {parrafos.slice(desde).map((p, i) => (
-        // La lista es fija y su orden también, así que el índice alcanza como
-        // clave.
-        <p key={desde + i} className={className}>
-          <span className="font-semibold text-foreground">
-            {(renumera ? i : desde + i) + 1}.
-          </span>{" "}
-          {p}
+      {cuales.map((idx, i) => (
+        // La lista es fija, así que el índice en ella alcanza como clave.
+        <p key={idx} className={className}>
+          {numera && (
+            <>
+              <span className="font-semibold text-foreground">{i + 1}.</span>{" "}
+            </>
+          )}
+          {parrafos[idx]}
         </p>
       ))}
     </>
   )
 }
-
-// Los tres atajos, con el nombre de la tecla como lo escribe una terminal. Van
-// acá y no en la card porque son justo lo que no se descubre solo.
-//
-// El renglón de arriba los presenta como una recomendación y no como una lista
-// de datos: el juego se puede jugar entero con el mouse, pero quien lo hace
-// pierde contra el reloj en cada respuesta. Decirlo antes de la lista es lo que
-// convierte tres atajos sueltos en un consejo.
-const KEYBOARD_HINT = "Te conviene jugar con el teclado."
-
-// Verbo y complemento: "Revisar" a secas no decía qué se revisa, y en una lista
-// de tres renglones cortos entra la palabra que lo aclara. El nombre de la tecla
-// sale de `useTeclas` porque en una Mac son otras (teclas.ts).
-const atajos = (t: Teclas): { keys: string; what: string }[] => [
-  { keys: t.enter, what: "Revisar solución" },
-  { keys: t.altEnter, what: "Saltear ejercicio" },
-  // Alt es un gesto SOSTENIDO —la tabla se cierra al soltar, y tarda un instante
-  // en abrir a propósito (ver PEEK_OPEN_MS en desktop-layout.tsx)—, cosa que el
-  // rótulo no dice. Lo enseña el tip de la card, que aparece jugando y ahí sí lo
-  // explica entero ("Mantené {k} para ver la tabla de derivadas").
-  { keys: t.alt, what: "Ver tabla" },
-]
 
 // La card y el botón son DOS componentes y no uno que devuelve los dos, aunque
 // siempre aparezcan juntos. El motivo es el volteo: lo que gira al empezar es la
@@ -203,11 +182,10 @@ const atajos = (t: Teclas): { keys: string; what: string }[] => [
 //
 // El historial lo pone la columna, que es la que sabe que va desenfocado hasta
 // que se empieza.
-// `minima` = brazo `derivada-primero`: solo la indicación y nada más. Los
-// atajos no se reparten después porque no hace falta — la card ya enseña Alt
-// con su propio tip, y el Enter lo dice el KeyCap del botón.
-export function IntroPanel({ minima = false }: { minima?: boolean } = {}) {
-  const teclas = useTeclas()
+// Solo la indicación y nada más. Los atajos de teclado que esta pantalla listaba
+// no se reparten después porque no hace falta: la card enseña Alt con su propio
+// tip y el Enter lo dice el KeyCap del botón.
+export function IntroPanel() {
   return (
       <div className="flex min-h-0 flex-1 flex-col rounded-lg border border-border bg-card p-6">
       <div className="mx-auto flex min-h-0 w-full max-w-sm flex-1 flex-col items-center justify-center gap-6 text-center">
@@ -221,25 +199,8 @@ export function IntroPanel({ minima = false }: { minima?: boolean } = {}) {
             pantalla del juego este texto ES el contenido, y en `text-sm
             text-muted-foreground` se leía como una aclaración al pie. */}
         <div className="flex flex-col gap-3 leading-relaxed text-foreground/85">
-          {minima ? <PuertaMinima /> : <IntroParagraphs />}
+          <PuertaMinima />
         </div>
-        <div className={cn("flex flex-col items-center gap-3", minima && "hidden")}>
-          <p>{KEYBOARD_HINT}</p>
-          <dl className="grid grid-cols-[1fr_auto] items-center gap-x-3 gap-y-2 text-sm text-muted-foreground">
-            {atajos(teclas).map((s) => (
-              <div key={s.keys} className="contents">
-                <dt className="text-right">{s.what}</dt>
-                <dd className="text-left">
-                  <KeyCap className="ml-0">{s.keys}</KeyCap>
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-        {/* El cierre va último de todo, pegado al botón: es la pregunta que el
-            botón contesta. Arriba de los atajos quedaba cerrando la explicación
-            y después seguía habiendo cosas para leer. */}
-        {!minima && <p className="font-semibold text-foreground">{INTRO_CLOSE}</p>}
       </div>
       </div>
   )
@@ -248,23 +209,18 @@ export function IntroPanel({ minima = false }: { minima?: boolean } = {}) {
 // El botón de la intro. Vive en el mismo renglón que el "Revisar" del ejercicio
 // —mismo alto, mismo lugar— para que al empezar no se mueva nada abajo mientras
 // la card de arriba gira.
+//
+// "Empezar" anuncia que algo va a arrancar, y eso es exactamente lo que esta
+// puerta no quiere decir: del otro lado no hay una partida inaugurándose, hay
+// una derivada. "Continuar" es además la palabra que ocupa este mismo lugar
+// durante todo el resto del juego, así que el primer botón deja de ser el único
+// distinto. El teléfono ya decía "Continuar" desde antes.
 export function IntroStartButton({
   onStart,
   disabled,
-  minima = false,
 }: {
   onStart: () => void
   disabled?: boolean
-  // Brazo `derivada-primero`. "Empezar" anuncia que algo va a arrancar, y eso
-  // es exactamente lo que esta puerta no quiere decir: del otro lado no hay una
-  // partida inaugurándose, hay una derivada. "Continuar" es además la palabra
-  // que va a ocupar este mismo lugar durante todo el resto del juego, así que
-  // el primer botón deja de ser el único distinto.
-  //
-  // Solo el brazo test: cambiarlo también en el control sería mover el control
-  // en medio del experimento. El teléfono ya dice "Continuar" en los dos
-  // (mobile-flow.tsx), y esa diferencia entre plataformas es anterior a esto.
-  minima?: boolean
 }) {
   const teclas = useTeclas()
   return (
@@ -274,7 +230,7 @@ export function IntroStartButton({
       onClick={onStart}
       className="h-[var(--cta-h)] w-full shrink-0 rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
     >
-      {minima ? "Continuar" : "Empezar"}
+      Continuar
       <KeyCap>{teclas.enter}</KeyCap>
     </Button>
   )

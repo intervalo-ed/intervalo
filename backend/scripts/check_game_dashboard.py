@@ -433,15 +433,28 @@ check("usuarios nuevos de la semana", h["Usuarios nuevos"]["value"] == 5,
 check("«usuarios únicos» ya no está", "Usuarios únicos" not in h,
       f"({sorted(h)[:4]}…)")
 
-# La activación es el OMTM: de los nuevos, cuántos llegaron a responder. p1, p2 y
-# p4 respondieron en la semana; p3 recién el lunes siguiente, pero su alta es de
-# esta, así que la cohorte lo cuenta igual.
-check("la activación se mide sobre los nuevos de la semana",
-      h["Usuarios activados"]["value"] == 4,
-      f'({h["Usuarios activados"]["value"]} de {h["Usuarios nuevos"]["value"]})')
-check("y el porcentaje sale de esos dos",
-      h["Activación"]["value"] == 80.0,
-      f'({h["Activación"]["value"]}%, 4 de 5)')
+# Responder una ya no es el OMTM, pero se sigue mostrando: p1, p2 y p4
+# respondieron en la semana; p3 recién el lunes siguiente, pero su alta es de
+# esta, así que la cohorte lo cuenta igual. Cuatro de cinco.
+check("«responden una» se mide sobre los nuevos de la semana",
+      h["Responden una"]["value"] == 4,
+      f'({h["Responden una"]["value"]} de {h["Usuarios nuevos"]["value"]})')
+check("y el nombre viejo ya no está",
+      "Usuarios activados" not in h, f"({sorted(h)[:4]}…)")
+# El OMTM es llegar a `ENGANCHE` correctas en la PRIMERA TANDA, y ahí la cuenta
+# cambia: las primeras tandas son p1 9, p4 5, p2 2 y p3 1, así que llegan dos de
+# los cinco de la camada. Este es el check que separa las dos definiciones — con
+# la vieja daba 80% y con esta 40%, y la diferencia son justo p2 y p3: uno tipeó
+# tres veces y el otro una, y ninguno de los dos vio de qué se trata el juego.
+check("la activación son 3 correctas en la primera tanda",
+      h["Activación"]["value"] == 40.0,
+      f'({h["Activación"]["value"]}%, 2 de 5 — con la vara vieja daban 80,0%)')
+# Y sobre la PRIMERA TANDA, no sobre el acumulado: p2 tiene 2 correctas en su
+# primera tanda y una más el día 3. Sumadas darían 3 y entraría; contadas como
+# corresponde, no. Lo que se mide es si la primera visita alcanzó.
+check("y no sobre el acumulado de todas las tandas",
+      q._correctas_de_la_primera_sesion(
+          [a for a in data["_answers"] if a["player_id"] == 2]) == 2)
 # ── Retención, toda sobre los ACTIVADOS de la camada ──────────────────────
 # La camada de la semana son cinco altas y cuatro activados. Los tres
 # porcentajes de abajo se dividen por CUATRO: quien nunca respondió no puede
@@ -1293,12 +1306,25 @@ EXP = q.EXPERIMENTOS[0]
 MARCA = {c: f'{EXP["clave"]}:{c}' for c, _ in EXP["brazos"]}
 CONTROL, TEST = [c for c, _ in EXP["brazos"]]
 
-# El n comprometido se clava con su valor. No es un número decorativo: es lo que
-# decide cuándo el panel deja de negarse a contestar, y si alguien tocara `base`
-# o `mde` sin querer, el experimento pasaría a leerse antes o después sin que
-# nadie lo note.
-check("el n comprometido sale de los parámetros declarados",
-      q.n_comprometido(EXP) == 373, f"({q.n_comprometido(EXP)} por brazo)")
+# El n comprometido se clava con su valor, y el de TODOS los declarados. No es un
+# número decorativo: es lo que decide cuándo el panel deja de negarse a
+# contestar, y si alguien tocara `base` o `mde` sin querer, el experimento pasaría
+# a leerse antes o después sin que nadie lo note. Clavarlo solo para el primero
+# dejaba sin red justo al que está corriendo, porque el primero ya está cerrado.
+N_COMPROMETIDO = {"dx-puerta-1": 373, "dx-puerta-2": 606}
+check("están declarados los experimentos que se esperan",
+      {e["clave"] for e in q.EXPERIMENTOS} == set(N_COMPROMETIDO),
+      f'({sorted(e["clave"] for e in q.EXPERIMENTOS)})')
+for _e in q.EXPERIMENTOS:
+    check(f'el n de «{_e["clave"]}» sale de sus parámetros declarados',
+          q.n_comprometido(_e) == N_COMPROMETIDO[_e["clave"]],
+          f'({q.n_comprometido(_e)} por brazo, esperaba {N_COMPROMETIDO[_e["clave"]]})')
+# Y cada uno declara con qué columna se decide. Heredar la métrica del anterior
+# es cómo `dx-puerta-1` habría «ganado» un experimento que no tocaba la puerta.
+MEDIDAS = {"servida", "activado", "engancha"}
+for _e in q.EXPERIMENTOS:
+    check(f'y «{_e["clave"]}» declara cuál columna decide',
+          _e.get("metrica") in MEDIDAS, f'({_e.get("metrica")})')
 # Y la propiedad que gobierna todo el programa de experimentos: el n va con el
 # inverso del CUADRADO del efecto, así que pedir la mitad cuesta cuatro veces.
 mitad = dict(EXP, mde=EXP["mde"] / 2)
@@ -1388,6 +1414,15 @@ check("la pestaña avisa que todavía no se puede leer",
 check("y no muestra un p-valor antes de tiempo",
       "p-valor" not in html_exp.split("Hipótesis")[0] or "faltan" in html_exp)
 check("y escribe el n comprometido", str(q.n_comprometido(EXP)) in html_exp)
+# Un experimento recién declarado tiene los dos brazos en cero, y esa es la forma
+# en la que se estrena SIEMPRE: si la tabla vacía reventara, el panel se rompería
+# justo el día del despliegue y no un mes después.
+for _e in q.EXPERIMENTOS:
+    check(f'«{_e["titulo"]}» aparece en la pantalla', _e["titulo"] in html_exp)
+check("la columna que decide está marcada", html_exp.count("\u25b8") >= len(q.EXPERIMENTOS),
+      f'({html_exp.count(chr(0x25b8))} marcas para {len(q.EXPERIMENTOS)} experimentos)')
+check("y las tres medidas de entrada están las tres",
+      all(t in html_exp for t in ("Llegó a la 1ª", "Respondió una", "Llegó a 3")))
 # `_table` escapa toda celda que no EMPIECE con "<", así que una celda que mezcla
 # texto y marcado se dibuja con las etiquetas a la vista. Pasó con el desglose
 # por plataforma y no lo atrapaba nada: la página se armaba igual.

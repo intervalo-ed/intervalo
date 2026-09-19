@@ -22,7 +22,16 @@ import { useGameApi } from "./UseGameApi"
 // Vocabulario cerrado, espejo de _CTA_KINDS/_CTA_ACTIONS en game/router.py. Lo
 // que el server no reconoce lo descarta en silencio, así que un typo acá se
 // vería como un cartel que nadie mira nunca.
-export type CtaKind = "cafecito" | "share" | "boost_offer" | "register"
+export type CtaKind =
+  | "cafecito"
+  | "share"
+  | "boost_offer"
+  | "register"
+  // Sin click: la diapo explica cómo agregar la app y se cierra, no lleva a
+  // ningún lado. Se registra igual porque la impresión es el dato que
+  // faltaba — a cuánta gente le llega y en qué derivada (ver CARTELES y
+  // SIN_CLICK en metrics/game_queries.py).
+  | "instalar"
 export type CtaAction = "impression" | "click"
 
 export type CtaOptions = {

@@ -7,12 +7,11 @@
 
 import type { GamePlayer } from "./UseGamePlayer"
 
-// A partir de cuántas derivadas RESUELTAS se desbloquea el panel. Mismo
-// número que RECLUTAS_RESTO (reclutas-trigger.ts): "a las diez derivadas" es
-// el momento en que el juego empieza a hablarte de otra cosa. Es una
-// constante PROPIA y no un import cruzado porque allá 10 es el resto de un
-// contador periódico (10, 30, 50…) y acá es un piso de una sola vez ("a
-// partir de") — comparten el número, no el mecanismo. Tiene que ser el MISMO
+// A partir de cuántas derivadas RESUELTAS se desbloquea el panel. Diez, que es
+// el momento en que el juego empieza a hablarte de otra cosa. Compartió número
+// con RECLUTAS_RESTO hasta el 18/09, cuando aquel se movió a la 7 para no
+// chocar con el registro; la coincidencia era eso, una coincidencia, y este
+// piso no tiene por qué seguirla. Tiene que ser el MISMO
 // valor que game/stats.py :: UMBRAL_ESTADISTICAS: el server repite este gate
 // (no confía en que el cliente lo haya respetado), así que un número
 // distinto acá solo lograría un atajo que aparece y después responde 403.

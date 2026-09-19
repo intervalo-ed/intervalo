@@ -64,16 +64,38 @@ SESSION_GAP_MINUTES = 30
 # cambien.
 #
 #   - carrera y universidad a las 3   (web/src/app/derivadas/hitos-del-juego.ts :: HITO_PERFIL)
-#   - registro a las 12               (idem :: HITO_REGISTRO)
-#   - cafecito cada 20                (web/src/app/derivadas/cafecito-cta.tsx :: CAFECITO_EVERY)
+#   - registro a las 10               (idem :: HITO_REGISTRO)
+#   - el primer cafecito a las 14     (web/src/app/derivadas/cafecito-cta.tsx :: CAFECITO_PRIMERA)
 #
 # El panel los marca para poder ver si el escalón de abandono cae JUSTO ahí, que
 # sería el producto pinchando su propia partida. Por eso importa que estén al
 # día: con la universidad marcada en la 5 cuando en realidad se pide en la 3, el
 # escalón que se estaba buscando quedaba dos derivadas corrido.
+#
+# El del cafecito es el de la PRIMERA oferta y no el del ritmo (que sigue siendo
+# cada 20, `CAFECITO_EVERY`). Son dos números desde el 18/09, y el que importa
+# para la curva es el primero: es la única aparición que le toca a todo el mundo
+# en el mismo lugar, mientras que las de después dependen de récords y saltos de
+# puesto y por lo tanto caen en derivadas distintas para cada persona.
 PEDIDO_PERFIL = 3
-PEDIDO_REGISTRO = 12
-PEDIDO_CAFECITO = 20
+PEDIDO_REGISTRO = 10
+PEDIDO_CAFECITO = 14
+
+# Cuántas correctas seguidas en la primera tanda cuentan como «entró al juego».
+#
+# Es el OMTM del producto desde el 18/09, y antes lo era responder una sola vez.
+# El cambio no es cosmético: `dx-puerta-1` subió esa medida vieja 13,8 puntos
+# —de 48,8% a 62,6%— y no compró NADA. Medido sobre los dos brazos, 527 personas
+# cada uno: en la primera correcta el brazo ganador iba 310 a 245, en la segunda
+# 229 a 224, en la tercera 218 a 216, y de la quinta en adelante iba perdiendo.
+# Las 65 personas de más duraban una derivada.
+#
+# Una medida que se puede mover 14 puntos sin que cambie ninguna otra cosa del
+# producto no es un objetivo, es un contador de clics. Tres correctas es el
+# primer punto donde los dos brazos empataban, o sea el primero que no se deja
+# mover por la puerta — y es además donde el juego hace su primera pregunta
+# (`PEDIDO_PERFIL`), así que quien llega ahí ya vio de qué se trata.
+ENGANCHE = 3
 
 # Hasta dónde se dibuja la curva de supervivencia por ejercicio.
 DEPTH_MAX = 40
@@ -651,17 +673,31 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
         ]
         return _median(valores)
 
-    def activados(w: date) -> int:
+    def respondieron(w: date) -> int:
         """De los nuevos de la semana, cuántos respondieron al menos una.
 
-        Es el OMTM del producto. La fila del jugador se crea al CARGAR la
-        página, así que «nuevo» incluye a quien se fue mirando la intro:
-        activado es el que llegó a hacer algo.
+        Fue el OMTM hasta el 18/09 y hoy es contexto: se lee contra el de abajo,
+        y la distancia entre los dos es la gente que tipeó una derivada y se fue.
+        La fila del jugador se crea al CARGAR la página, así que «nuevo» incluye
+        también a quien se fue mirando la intro.
         """
         return sum(1 for p in nuevos(w) if por_jugador.get(p["id"]))
 
-    def pct_activacion(w: date) -> float | None:
-        return _pct(activados(w), len(nuevos(w)))
+    def enganchados(w: date) -> int:
+        """De los nuevos de la semana, cuántos llegaron a `ENGANCHE` correctas.
+
+        El OMTM. Se cuenta sobre la PRIMERA TANDA y no sobre el acumulado: lo
+        que mide es si la primera visita alcanzó para entender a qué se juega, y
+        sumarle lo que hizo el que volvió tres días después es contestar otra
+        pregunta con el mismo número.
+        """
+        return sum(
+            1 for p in nuevos(w)
+            if _correctas_de_la_primera_sesion(por_jugador.get(p["id"], [])) >= ENGANCHE
+        )
+
+    def pct_enganche(w: date) -> float | None:
+        return _pct(enganchados(w), len(nuevos(w)))
 
     def card(label: str, series: list, suffix: str, hint: str, dec: int = 1) -> dict:
         value = series[-1]
@@ -684,13 +720,19 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
                  "Abrieron el link por primera vez esa semana, y son la cohorte del "
                  "embudo de abajo. La fila se crea al CARGAR la página, así que "
                  "incluye a quien se fue en la pantalla de intro sin ver una "
-                 "derivada — que hoy es más de la mitad."),
-            card("Usuarios activados", per_week(activados), "",
-                 "De los nuevos de esa semana, cuántos llegaron a responder al menos "
-                 "una derivada."),
-            card("Activación", per_week(pct_activacion), "%",
-                 "Activados sobre nuevos. Es el OMTM del producto: de cada 100 que "
-                 "abren dx, cuántos hacen algo.", dec=1),
+                 "derivada."),
+            card("Responden una", per_week(respondieron), "",
+                 "De los nuevos de esa semana, cuántos llegaron a tipear al menos una "
+                 "derivada. Fue el OMTM hasta el 18/09 y ahora es el contexto del de "
+                 "al lado: la distancia entre los dos es la gente que probó una y se "
+                 "fue sin llegar a jugar."),
+            card("Activación", per_week(pct_enganche), "%",
+                 f"De cada 100 que abren dx, cuántos resuelven {ENGANCHE} derivadas en "
+                 f"su primera tanda. Es el OMTM del producto, y la vara se subió el "
+                 f"18/09: era «respondió una», y `dx-puerta-1` demostró que esa se "
+                 f"puede mover 14 puntos sin que cambie nada más — las personas que "
+                 f"sumaba duraban una derivada. Ver ENGANCHE en game_queries.py.",
+                 dec=1),
         ],
         # Retención · las cuatro cosas que alguien hace cuando el juego le
         # importó lo suficiente: volver otro día, instalarlo, registrarse y
@@ -1549,6 +1591,15 @@ def _camadas_retencion(data: dict, semanas: list[date]) -> dict[date, dict]:
 # `base` y `mde` son los que se declararon al arrancar, no los que se observaron.
 # Si mañana la base real resulta otra, el n comprometido NO se recalcula: se
 # terminó de juntar el que se prometió y recién ahí se lee.
+#
+# `metrica` es cuál de las columnas decide, y también se declara antes. Era
+# implícita —siempre `servida`— hasta que `dx-puerta-1` mostró por qué tenía que
+# ser explícita: ganó esa métrica por 25 puntos y no movió ninguna de las otras.
+# Un experimento que elige su vara después de ver los números no prueba nada, y
+# uno que hereda la vara de otro prueba lo que le convenga al anterior.
+#
+#   - `servida`  llegó a que se le mostrara una derivada.
+#   - `engancha` resolvió `ENGANCHE` en su primera tanda. Es el OMTM de hoy.
 EXPERIMENTOS: tuple[dict, ...] = (
     {
         "clave": "dx-puerta-1",
@@ -1560,6 +1611,7 @@ EXPERIMENTOS: tuple[dict, ...] = (
         ),
         "desde": date(2026, 9, 13),
         "brazos": (("control", "Control"), ("derivada-primero", "Derivada primero")),
+        "metrica": "servida",
         "base": 0.56,
         "mde": 0.10,
         "alpha": 0.05,
@@ -1569,6 +1621,40 @@ EXPERIMENTOS: tuple[dict, ...] = (
         "prediccion": (
             "Mobile debería moverse más que escritorio: escritorio ya está en 64% y "
             "tiene poco recorrido."
+        ),
+    },
+    {
+        "clave": "dx-puerta-2",
+        "titulo": "El segundo ejercicio",
+        "hipotesis": (
+            "El peaje de la puerta no desapareció, se mudó. En el flujo de hoy, "
+            "entre la primera correcta y la segunda derivada hay tres pantallas "
+            "seguidas —el apodo, el ranking y las reglas— y ahí se va el 26,1% de "
+            "los que acaban de acertar, contra el 8,6% de cuando esas pantallas ya "
+            "estaban pagas en la puerta. Cobrado sobre alguien que acaba de tener "
+            "éxito, el mismo peaje sale tres veces más caro. Corrido a después de "
+            "la tercera, se recupera a la gente que `dx-puerta-1` perdió sin "
+            "devolver la puerta."
+        ),
+        "desde": date(2026, 9, 18),
+        "brazos": (("control", "Control"), ("sin-peaje", "Sin peaje")),
+        # No `servida`: esa la acaba de ganar el flujo que hoy es el control, por
+        # 25 puntos, sin mover nada de lo que viene después. Este experimento no
+        # toca la puerta —los dos brazos la tienen igual— así que medirla sería
+        # medir el ruido de una diferencia que no existe.
+        "metrica": "engancha",
+        # 218 de 527, que es lo que el brazo ganador de `dx-puerta-1` dejó. Y 8
+        # puntos porque es lo que hay para ganar: si el desbarranco de la primera
+        # a la segunda vuelve al 8,6% del control, son ~54 personas por cada 527.
+        "base": 0.41,
+        "mde": 0.08,
+        "alpha": 0.05,
+        "potencia": 0.80,
+        "prediccion": (
+            "Android es la que más se mueve. Es donde dx-puerta-1 perdió terreno "
+            "—de 43,6% a 33,9% llegando a cinco correctas— y donde el desbarranco "
+            "se lleva más gente en absoluto: 149 a 109. iOS debería moverse menos, "
+            "porque su ganancia vino de la puerta y no del peaje."
         ),
     },
 )
@@ -1634,6 +1720,10 @@ def experimentos(data: dict) -> list[dict]:
         por_jugador[a["player_id"]].append(a)
     con_ejercicio = {e["player_id"] for e in data["exercises"]}
     con_intento = set(por_jugador)
+    enganchados = {
+        i for i, intentos in por_jugador.items()
+        if _correctas_de_la_primera_sesion(intentos) >= ENGANCHE
+    }
 
     salida = []
     for exp in EXPERIMENTOS:
@@ -1653,6 +1743,7 @@ def experimentos(data: dict) -> list[dict]:
             n = len(gente)
             servida = sum(1 for i in ids if i in con_ejercicio)
             activado = sum(1 for i in ids if i in con_intento)
+            engancha = sum(1 for i in ids if i in enganchados)
             largos = [float(len(_primera_sesion(por_jugador[i])))
                       for i in ids if i in por_jugador]
             vuelven = sum(
@@ -1661,13 +1752,19 @@ def experimentos(data: dict) -> list[dict]:
             # El desglose declarado de antemano, y el único: cortar por lo que
             # sea hasta que algo dé significativo es la otra forma de inflar el
             # error de tipo I (ver la nota de la sección en game_render.py).
+            #
+            # El porcentaje que muestra es el de la MÉTRICA DECLARADA y no
+            # siempre el mismo: si el desglose midiera otra cosa que el titular,
+            # las dos mitades de la misma pantalla estarían contestando
+            # preguntas distintas con el mismo aspecto.
+            decide = con_ejercicio if exp["metrica"] == "servida" else enganchados
             plataformas = {}
             for plat in PLATFORM_ORDER:
                 de_esa = [p for p in gente if p["platform"] == plat]
                 if de_esa:
                     plataformas[plat] = {
                         "n": len(de_esa),
-                        "pct": _pct(sum(1 for p in de_esa if p["id"] in con_ejercicio),
+                        "pct": _pct(sum(1 for p in de_esa if p["id"] in decide),
                                     len(de_esa)),
                     }
             brazos.append({
@@ -1678,6 +1775,8 @@ def experimentos(data: dict) -> list[dict]:
                 "pct_servida": _pct(servida, n),
                 "activado": activado,
                 "pct_activado": _pct(activado, n),
+                "engancha": engancha,
+                "pct_engancha": _pct(engancha, n),
                 "mediana": _median(largos),
                 "pct_vuelven": _pct(vuelven, len(ids & con_intento)),
                 "plataformas": plataformas,
@@ -1689,7 +1788,7 @@ def experimentos(data: dict) -> list[dict]:
         if listo and len(brazos) == 2:
             control, test = brazos[0], brazos[1]
             nc, nt = control["n"], test["n"]
-            xc, xt = control["servida"], test["servida"]
+            xc, xt = control[exp["metrica"]], test[exp["metrica"]]
             pc, pt = xc / nc, xt / nt
             pool = (xc + xt) / (nc + nt)
             se0 = math.sqrt(pool * (1 - pool) * (1 / nc + 1 / nt))
@@ -1719,6 +1818,7 @@ def experimentos(data: dict) -> list[dict]:
             "alpha": exp["alpha"],
             "potencia": exp["potencia"],
             "n_pedido": n_pedido,
+            "metrica": exp["metrica"],
             "brazos": brazos,
             "listo": listo,
             "lectura": lectura,
@@ -2228,7 +2328,19 @@ CARTELES = {
     "share": "Reclutar: compartir el link",
     "cafecito": "Invitar un cafecito",
     "boost_offer": "Oferta de multiplicador",
+    "instalar": "Agregar a la pantalla de inicio",
 }
+
+# Los carteles que NO tienen click porque no tienen a dónde llevar.
+#
+# La diapo de instalar explica cómo agregar la app y se cierra con «Entendido»;
+# no hay botón que vaya a ningún lado, así que un CTR de 0,0% diría que nadie
+# toca algo que no existe. Se muestra «—» y se lee lo que sí significa: cuántas
+# impresiones hubo y en qué derivada, que es exactamente lo que no se sabía —las
+# 16 instalaciones de toda la vida del producto no se podían atribuir a ninguna
+# posición—. La conversión de este cartel no es un click: es la tarjeta «Instalan
+# la app» del titular.
+SIN_CLICK = {"instalar"}
 
 
 def carteles(data: dict) -> list[dict]:
@@ -2254,7 +2366,7 @@ def carteles(data: dict) -> list[dict]:
         "desc": CARTELES.get(k, k),
         "impresiones": v["imp"],
         "clicks": v["clk"],
-        "ctr": _pct(v["clk"], v["imp"]),
+        "ctr": None if k in SIN_CLICK else _pct(v["clk"], v["imp"]),
         # En qué derivada se muestra, en mediana. Un cartel con CTR bajo puede
         # estar mal escrito o puede estar saliendo demasiado temprano, y sin
         # este número las dos explicaciones son igual de plausibles.

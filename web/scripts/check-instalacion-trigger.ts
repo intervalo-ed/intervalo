@@ -35,7 +35,14 @@ import {
   marcarReclutasMostrado,
   tocaReclutar,
 } from "../src/app/derivadas/reclutas-trigger"
-import { CAFECITO_COOLDOWN, CAFECITO_EVERY } from "../src/app/derivadas/cafecito-cta"
+import {
+  CAFECITO_COOLDOWN,
+  CAFECITO_EVERY,
+  CAFECITO_PRIMERA,
+  elegirTriggerDeCafecito,
+  markCafecitoShown,
+  shouldShowCafecito,
+} from "../src/app/derivadas/cafecito-cta"
 
 // `game-storage` habla con localStorage y esto corre en bun, sin navegador.
 const guardado = new Map<string, string>()
@@ -59,18 +66,25 @@ function limpio() {
   guardado.clear()
 }
 
-// El café con los mismos valores que usa el juego, para poder simular el ladder
-// entero y no solo la parte que toca este archivo.
+// El café con las funciones REALES del juego y no una copia de su regla, para
+// poder simular el ladder entero y no solo la parte que toca este archivo.
+//
+// Era una copia hasta el 18/09, y el día que `shouldShowCafecito` sumó una
+// condición —mantener distancia también de la pantalla de instalar, que no
+// consume el cooldown compartido— la copia siguió contestando lo de antes y este
+// chequeo siguió en verde midiendo un ladder que ya no era el del producto. Una
+// simulación que no llama al código que simula no prueba nada sobre él.
 function tocaCafecito(total: number, esRecord = false): boolean {
-  const porHito = total > 0 && total % CAFECITO_EVERY === 0
-  if (!porHito && !esRecord) return false
-  return total - readUltimoPedidoAt() >= CAFECITO_COOLDOWN
+  return shouldShowCafecito(
+    total,
+    elegirTriggerDeCafecito({ isRecord: esRecord, delta: 0, totalCorrectas: total }),
+  )
 }
 
 console.log(
   `valores: instalar en ${INSTALAR_PRIMERA} y cada ${INSTALAR_CADA} ` +
     `(máximo ${INSTALAR_MAX}, separación ${INSTALAR_SEPARACION}), ` +
-    `reclutas cada ${RECLUTAS_CADA} resto ${RECLUTAS_RESTO}, café cada ${CAFECITO_EVERY}`,
+    `reclutas cada ${RECLUTAS_CADA} resto ${RECLUTAS_RESTO}, café primera en ${CAFECITO_PRIMERA} y después cada ${CAFECITO_EVERY}`,
 )
 
 console.log("1. cae en los números elegidos y deja de insistir")
@@ -115,7 +129,7 @@ for (let n = 1; n <= 200; n++) {
     continue
   }
   if (tocaCafecito(n, esRecord)) {
-    saveUltimoPedidoAt(n)
+    markCafecitoShown(n)
     pedidos.push({ n, que: "cafecito" })
     continue
   }

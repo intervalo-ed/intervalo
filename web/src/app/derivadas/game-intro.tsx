@@ -146,9 +146,11 @@ export function useGameIntro({
   // que la palabra termina de escribirse y el logo se va derecho a su lugar.
   notation = true,
   // Saltear la presentación entera: el logo aparece quieto, en su lugar, sin
-  // escribirse. Lo usa el brazo `derivada-primero` del experimento de la puerta
-  // (lib/experiments/UseGameVariant.ts), donde lo que se está probando es
-  // justamente que nada se interponga entre aterrizar y la primera derivada.
+  // escribirse. Desde el 18/09 viene en `true` fijo desde game-root.tsx, porque
+  // eso fue lo que ganó `dx-puerta-1`: nada entre aterrizar y la primera
+  // derivada. O sea que el camino largo de acá abajo ya no lo pide nadie —
+  // sacarlo es su propio cambio, porque el hook además devuelve el estado con
+  // el que se dibuja el logo.
   //
   // Arrancar en "done" y no cortar la animación a mitad de camino: es el mismo
   // estado al que ya se llega cuando el logo no se puede medir, así que no

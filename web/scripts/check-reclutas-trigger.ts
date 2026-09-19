@@ -16,7 +16,14 @@ import {
   marcarReclutasMostrado,
   tocaReclutar,
 } from "../src/app/derivadas/reclutas-trigger"
-import { CAFECITO_COOLDOWN, CAFECITO_EVERY } from "../src/app/derivadas/cafecito-cta"
+import {
+  CAFECITO_COOLDOWN,
+  CAFECITO_EVERY,
+  CAFECITO_PRIMERA,
+  elegirTriggerDeCafecito,
+  markCafecitoShown,
+  shouldShowCafecito,
+} from "../src/app/derivadas/cafecito-cta"
 import {
   CARACTERES_VALIDOS,
   LARGO_MAXIMO,
@@ -48,15 +55,23 @@ function limpio() {
 
 // El café con los mismos valores que usa el juego, para poder simular el ladder
 // entero y no solo la mitad que estoy tocando.
+// El café con las funciones REALES del juego y no una copia de su regla, para
+// poder simular el ladder entero y no solo la parte que toca este archivo.
+//
+// Era una copia hasta el 18/09, y el día que `shouldShowCafecito` sumó una
+// condición —mantener distancia también de la pantalla de instalar, que no
+// consume el cooldown compartido— la copia siguió contestando lo de antes. Una
+// simulación que no llama al código que simula no prueba nada sobre él.
 function tocaCafecito(total: number, esRecord = false): boolean {
-  const porHito = total > 0 && total % CAFECITO_EVERY === 0
-  if (!porHito && !esRecord) return false
-  return total - readUltimoPedidoAt() >= CAFECITO_COOLDOWN
+  return shouldShowCafecito(
+    total,
+    elegirTriggerDeCafecito({ isRecord: esRecord, delta: 0, totalCorrectas: total }),
+  )
 }
 
 console.log(
   `valores: reclutas cada ${RECLUTAS_CADA} resto ${RECLUTAS_RESTO} ` +
-    `(cooldown ${RECLUTAS_COOLDOWN}), café cada ${CAFECITO_EVERY} (cooldown ${CAFECITO_COOLDOWN})`,
+    `(cooldown ${RECLUTAS_COOLDOWN}), café primera en ${CAFECITO_PRIMERA}, después cada ${CAFECITO_EVERY} (cooldown ${CAFECITO_COOLDOWN})`,
 )
 
 console.log("1. cae en los números que le tocan")
@@ -88,7 +103,7 @@ for (let n = 1; n <= 200; n++) {
   const esRecord = n % 23 === 0
   if (tocaCafecito(n, esRecord)) {
     pedidos.push({ n, que: "café" })
-    saveUltimoPedidoAt(n)
+    markCafecitoShown(n)
   } else if (tocaReclutar(n)) {
     pedidos.push({ n, que: "reclutas" })
     marcarReclutasMostrado(n)

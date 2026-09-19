@@ -73,7 +73,14 @@ import { GameRanking, type RankingSort } from "./game-ranking"
 import { AMBAR } from "./game-colors"
 import { IntroPanel, IntroStartButton } from "./intro-panel"
 import { ReglasSlide } from "./reglas-slide"
-import { marcarReglasMostradas, tocaReglas } from "./reglas-trigger"
+import {
+  REGLAS_DE_LA_DIAPO,
+  marcarReglaDicha,
+  marcarReglasMostradas,
+  proximaRegla,
+  reglasDichas,
+  tocaReglas,
+} from "./reglas-trigger"
 import { brazoDelJuego } from "@/lib/experiments/UseGameVariant"
 import { SlideFlip } from "./slide-flip"
 import { puedeVerEstadisticas } from "./stats-gate"
@@ -130,8 +137,9 @@ type Panel =
   | "opinion"
   // La pregunta abierta (encuesta-slide.tsx), una sola vez en la vida.
   | "encuesta"
-  // Las tres reglas del brazo `derivada-primero` (reglas-slide.tsx), una sola
-  // vez, en el primer Continuar después de la primera derivada resuelta.
+  // Las reglas que la puerta no dijo (reglas-slide.tsx), en el Continuar de
+  // después de un acierto. Las tres juntas una sola vez en `control`, de a una
+  // en `sin-peaje` (reglas-trigger.ts).
   | "reglas"
 
 // Los hitos que interrumpen el ejercicio son un subconjunto: la intro no se
@@ -231,9 +239,9 @@ function ExerciseSkeleton() {
 }
 
 export function DesktopLayout({ intro }: { intro: GameIntro }) {
-  const { player, isFirstVisit, refetch: refetchPlayer } = useGamePlayer()
+  const { player, refetch: refetchPlayer } = useGamePlayer()
   const brazo = brazoDelJuego()
-  const puertaMinima = brazo === "derivada-primero"
+  const sinPeaje = brazo === "sin-peaje"
   const queryClient = useQueryClient()
   const next = useNextExercise()
   const answerMutation = useAnswerExercise()
@@ -437,15 +445,24 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   const pendingMilestoneRef = useRef<Milestone | null>(null)
   const askedProfileRef = useRef(false)
   const askedRegisterRef = useRef(false)
-  // Brazo `derivada-primero`: el @ y las reglas, agendados al responder y
-  // mostrados en el Continuar, como el resto de las pantallas que interrumpen
-  // acá. La condición de fondo del @ la pone el servidor
-  // (`alias_is_generated`); la de las reglas, localStorage (reglas-trigger.ts).
-  // Los dos refs son los que cubren el rato entre agendar y mostrar.
+  // El @ y las reglas, agendados al responder y mostrados en el Continuar, como
+  // el resto de las pantallas que interrumpen acá. La condición de fondo del @
+  // la pone el servidor (`alias_is_generated`); la de las reglas, localStorage
+  // (reglas-trigger.ts). Los refs son los que cubren el rato entre agendar y
+  // mostrar.
   const usernamePendienteRef = useRef(false)
   const askedUsernameRef = useRef(false)
-  const reglasPendienteRef = useRef(false)
+  // Qué reglas están agendadas y cuántas había dichas cuando se agendaron.
+  // `dichas: null` es el brazo `control`, que las da todas de un saque; un
+  // número es `sin-peaje`, y es el índice de la que se está por mostrar.
+  const reglasPendienteRef = useRef<{ cuales: number[]; dichas: number | null } | null>(
+    null,
+  )
   const reglasMostradasRef = useRef(false)
+  const reglasDichasRef = useRef(0)
+  // Cuáles dibujar. Estado y no ref porque lo lee el render, y `navPanel` es un
+  // string sin lugar donde llevarlas.
+  const [reglasCuales, setReglasCuales] = useState<number[]>([])
   const inputRef = useRef<MathInputHandle | null>(null)
   // Ref de CALLBACK y no el objeto pelado: durante un cambio de PANEL las dos
   // caras conviven un rato (slide-flip.tsx), y la que se va publica `null` al
@@ -621,14 +638,11 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   const startFromIntro = useCallback(() => {
     posthog.capture("game_intro_done", { layout: "desktop", brazo })
     sfx.continue()
-    // Mismo criterio que en el teléfono: en el brazo test no se pide nada
-    // antes de jugar, el apodo va con el hito de perfil.
-    if (!puertaMinima && player?.is_guest && player.alias_is_generated && isFirstVisit) {
-      setNavPanel("username")
-      return
-    }
+    // Y nada más: antes de jugar no se pide nada. Hasta el 18/09 acá había una
+    // bifurcación por brazo —el control pedía el apodo en la puerta— y se fue
+    // con `dx-puerta-1`.
     loadNext()
-  }, [loadNext, sfx, player, isFirstVisit, brazo, puertaMinima])
+  }, [loadNext, sfx, brazo])
 
   // La pantalla efectiva: lo último que se eligió a mano y, si no se eligió
   // nada, la intro. Siempre la intro: ya no se recuerda en localStorage si se
@@ -934,7 +948,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
             marcarOpinionMostrada(totalCorrectas)
             opinionPendienteRef.current = true
           }
-          // ── Brazo `derivada-primero` ──────────────────────────────────
+          // ── El @ y las reglas ─────────────────────────────────────────
           //
           // El @ primero y las reglas después, que es el orden del teléfono
           // (mobile-flow.tsx) menos una cosa que acá no se puede dar: allá el @
@@ -947,9 +961,11 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
           // orden.
           //
           // Sin `isFirstVisit`, igual que en el teléfono: la pregunta no es
-          // «primera vez en este aparato» sino «todavía no elegiste».
+          // «primera vez en este aparato» sino «todavía no elegiste». Y en
+          // `sin-peaje`, corrido a la tercera correcta — ver el comentario largo
+          // de mobile-flow.tsx, que es el mismo motivo y la misma cuenta.
           if (
-            puertaMinima &&
+            (!sinPeaje || totalCorrectas >= HITO_PERFIL) &&
             !askedUsernameRef.current &&
             player !== null &&
             player.is_guest &&
@@ -958,12 +974,18 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
             askedUsernameRef.current = true
             usernamePendienteRef.current = true
           }
-          if (
-            puertaMinima &&
-            !reglasMostradasRef.current &&
-            tocaReglas(totalCorrectas)
-          ) {
-            reglasPendienteRef.current = true
+          if (!sinPeaje && !reglasMostradasRef.current && tocaReglas(totalCorrectas)) {
+            reglasPendienteRef.current = { cuales: REGLAS_DE_LA_DIAPO, dichas: null }
+          }
+          if (sinPeaje && reglasPendienteRef.current === null) {
+            // El máximo con el ref es por si localStorage está bloqueado: ahí
+            // `reglasDichas()` contesta siempre cero y la misma regla volvería
+            // en cada correcta de la 5 en adelante.
+            const dichas = Math.max(reglasDichasRef.current, reglasDichas())
+            const regla = proximaRegla(totalCorrectas, dichas)
+            if (regla !== null) {
+              reglasPendienteRef.current = { cuales: [regla], dichas }
+            }
           }
           // Los dos con `totalCorrectas` —las acumuladas del servidor— y no con
           // el contador de la pestaña, que vuelve a cero en cada carga. Ver
@@ -1020,7 +1042,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
     loadNext,
     adelantar,
     descartarAdelanto,
-    puertaMinima,
+    sinPeaje,
   ])
 
   // El botón existe cuando ya hay algo para explicar: se acertó, o se erró al
@@ -1086,13 +1108,22 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   // antes de que el servidor confirme.
   const cerradoVisual = closed || tonoLocal === "correct"
 
-  // Las reglas del brazo test, puestas en pantalla. Suelta porque entran por
-  // dos puertas —el Continuar del ejercicio y el final de «Elegí tu @»— y las
-  // dos tienen que anotar lo mismo.
+  // Las reglas, puestas en pantalla. Suelta porque entran por dos puertas —el
+  // Continuar del ejercicio y el final de «Elegí tu @»— y las dos tienen que
+  // anotar lo mismo.
   const mostrarReglas = useCallback(() => {
-    reglasPendienteRef.current = false
-    reglasMostradasRef.current = true
-    marcarReglasMostradas(player?.exercises_correct ?? 0)
+    const pendiente = reglasPendienteRef.current
+    if (pendiente === null) return
+    reglasPendienteRef.current = null
+    const correctas = player?.exercises_correct ?? 0
+    if (pendiente.dichas === null) {
+      reglasMostradasRef.current = true
+      marcarReglasMostradas(correctas)
+    } else {
+      reglasDichasRef.current = pendiente.dichas + 1
+      marcarReglaDicha(pendiente.dichas, correctas)
+    }
+    setReglasCuales(pendiente.cuales)
     setNavPanel("reglas")
   }, [player])
 
@@ -1110,17 +1141,15 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
     // card —salen de ella en el primer frame y cruzan por encima de todo, en una
     // capa `fixed`— así que la derivada siguiente puede entrar debajo de ellos
     // sin molestar a nadie. Enter no se bloquea nunca más.
-    // El brazo `derivada-primero` va primero de todo: es la explicación del
-    // juego llegando tarde a propósito, y cualquier otra cosa que se meta en el
-    // medio la deja hablando de algo que ya pasó hace tres derivadas. Con una
-    // sola correcta encima ninguno de los hitos de abajo dispara, así que en la
-    // práctica no le saca el turno a nada.
+    // El @ y las reglas van primero de todo: son la explicación del juego
+    // llegando tarde a propósito, y cualquier otra cosa que se meta en el medio
+    // las deja hablando de algo que ya pasó hace tres derivadas.
     if (usernamePendienteRef.current) {
       usernamePendienteRef.current = false
       setNavPanel("username")
       return
     }
-    if (reglasPendienteRef.current) {
+    if (reglasPendienteRef.current !== null) {
       mostrarReglas()
       return
     }
@@ -2173,7 +2202,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                   el historial, que ya no están adentro. */}
               <SlideFlip slide={panel} className="min-h-[26rem] flex-1">
                 {panel === "intro" ? (
-                  <IntroPanel minima={puertaMinima} />
+                  <IntroPanel />
                 ) : panel === "profile" ? (
                   <div className="flex min-h-0 flex-1 flex-col rounded-lg border border-border bg-card p-5">
                     <ProfileSlides
@@ -2272,6 +2301,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                 ) : panel === "reglas" ? (
                   <div className="flex min-h-0 flex-1 flex-col rounded-lg border border-border bg-card p-5">
                     <ReglasSlide
+                      cuales={reglasCuales}
                       keyboard
                       slotSalida={slotSalida}
                       // Siempre llega por hito, así que lo que sigue es la
@@ -2283,11 +2313,12 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                   <div className="flex min-h-0 flex-1 flex-col rounded-lg border border-border bg-card p-5">
                     <UsernameSlide
                       player={player}
-                      // En el control se llega desde la intro y lo que sigue es
-                      // la primera derivada. En el brazo test se llega desde el
-                      // primer acierto, y ahí faltan las reglas.
+                      // Siempre se llega desde un acierto, así que lo que
+                      // sigue es el resto del ladder: las reglas si estaban
+                      // agendadas para este mismo acierto, y si no la derivada
+                      // siguiente.
                       onDone={() => {
-                        if (reglasPendienteRef.current) mostrarReglas()
+                        if (reglasPendienteRef.current !== null) mostrarReglas()
                         else loadNext()
                       }}
                       slotSalida={slotSalida}
@@ -2553,7 +2584,6 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                       <IntroStartButton
                         onStart={startFromIntro}
                         disabled={player === null || next.isPending}
-                        minima={puertaMinima}
                       />
                     ) : esDiapoDePedido ||
                       esDiapoDeCampo ||

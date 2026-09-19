@@ -13,8 +13,11 @@ import {
   bumpCafecitosVistos,
   readCafecitosVistos,
   readUltimoPedidoAt,
+  readUltimaInterrupcion,
+  readUltimaPantalla,
   saveUltimoPedidoAt,
 } from "./game-storage"
+import { INSTALAR_SEPARACION } from "./instalacion-trigger"
 import { useCta } from "./game-telemetry"
 
 // Perfil propio del juego, separado del de Intervalo. Ojo con este valor: ya
@@ -32,28 +35,40 @@ export const CAFECITO_URL = "https://cafecito.app/intervalo"
 // correcto es sacar la línea y no dejarla envejecer.
 export const PRECIO_CAFECITO = 100
 
-// Hitos: cada cuántas resueltas se considera mostrar la diapo, y cuántas
-// resueltas tienen que pasar entre dos (cooldown).
+// Hitos: en cuál sale la PRIMERA, cada cuántas se considera mostrarla después,
+// y cuántas resueltas tienen que pasar entre dos (cooldown).
 //
-// Veinte y no veinticinco: la diapo dejó de ser un cartel al costado y ahora
-// detiene el juego, así que el pedido tiene que llegar cuando la partida
-// todavía está viva. Veinte derivadas son unos pocos minutos de juego y ya
-// alcanzan para que se entienda de qué se trata.
+// **La primera y el ritmo son dos números distintos desde el 18/09.** Antes
+// había uno solo, veinte, y eso ponía la primera invitación a donar a veinte
+// derivadas de la puerta. Catorce la adelanta sin cambiar el resto: quien
+// sigue jugando ve la segunda en la 20 y de ahí en más cada veinte, igual que
+// siempre. Tener dos números vale la pena porque las dos preguntas son
+// distintas — cuándo se presenta el cafecito, y cada cuánto se insiste.
 //
-// CAFECITO_EVERY también es el PISO antes del cual ninguno de los tres
-// disparadores cuenta —"milestone" (los múltiplos de este número) ya lo tenía
-// gratis, pero "récord" y "big_climb" no, y un invitado nuevo bate su propio
-// récord o pasa a varias cuentas en cero (el ranking está lleno de ellas) en
-// casi cualquiera de sus primeras derivadas. Ver el `trigger` de
-// desktop-layout.tsx/mobile-flow.tsx.
+// La diapo dejó de ser un cartel al costado y ahora detiene el juego, así que
+// el pedido tiene que llegar cuando la partida todavía está viva.
+//
+// Los dos son además el PISO antes del cual ninguno de los tres disparadores
+// cuenta —"milestone" ya lo tenía gratis por el módulo, pero "récord" y
+// "big_climb" no, y un invitado nuevo bate su propio récord o pasa a varias
+// cuentas en cero (el ranking está lleno de ellas) en casi cualquiera de sus
+// primeras derivadas. Ver el `trigger` de desktop-layout.tsx/mobile-flow.tsx.
 //
 // Antes salía cada dos aciertos en desarrollo, para no tener que jugar veinte
 // derivadas de verdad para ver la diapo una vez. Se sacó: interrumpía
 // probando CUALQUIER otra cosa del juego, que es más seguido de lo que se
 // prueba esta diapo puntual. Para trabajar en cafecito/reclutas, bajar estos
 // números a mano (sin commitearlo).
+export const CAFECITO_PRIMERA = 14
 export const CAFECITO_EVERY = 20
-export const CAFECITO_COOLDOWN = 10
+
+// Cinco y no diez, y el número no es libre: sale de las dos distancias que tiene
+// que dejar pasar. De la primera oferta a la segunda hay 6 (20 − 14) y del
+// reclutamiento a la primera oferta hay 5 (14 − 9), así que cualquier valor por
+// encima de cinco apaga uno de los dos. Con el diez de antes, adelantar la
+// primera a la 14 dejaba la 20 adentro de la ventana y la segunda se iba a la
+// 40: adelantar la primera retrasaba todo lo demás.
+export const CAFECITO_COOLDOWN = 5
 
 // Por qué apareció la diapo. Los tres primeros los decide el juego después de
 // una respuesta; `pedido` es cuando la persona la abrió ella misma con el botón
@@ -116,21 +131,24 @@ export function elegirTriggerDeCafecito({
   delta: number
   totalCorrectas: number
 }): CafecitoTrigger | null {
-  // Piso para los TRES, no solo para `milestone` (que ya lo tenía gratis por el
-  // módulo). Antes de esta cantidad ninguno cuenta como para interrumpir.
+  // La primera tiene su propio hito y es el único que necesita: `CAFECITO_PRIMERA`
+  // ES el motivo. No espera un récord ni un múltiplo, porque presentarle el
+  // cafecito a alguien que nunca lo vio no es insistir — es contarle que existe,
+  // y eso pasa una sola vez. Hasta el 18/09 la primera dependía de los mismos
+  // tres disparadores que el resto y por eso llegaba recién en la 20.
+  if (readCafecitosVistos() === 0) {
+    return totalCorrectas >= CAFECITO_PRIMERA ? "milestone" : null
+  }
+  // De la segunda en adelante, el ritmo de siempre. El piso vale para los TRES
+  // y no solo para `milestone`, que ya lo tenía gratis por el módulo.
   if (totalCorrectas < CAFECITO_EVERY) return null
-  const motivo: CafecitoTrigger | null = isRecord
+  return isRecord
     ? "record"
     : delta >= SALTO_GRANDE
       ? "big_climb"
       : totalCorrectas % CAFECITO_EVERY === 0
         ? "milestone"
         : null
-  // La primera solo cambia la COPY, no CUÁNDO sale: si no había motivo, sigue
-  // sin haberlo. Al revés, la primera aparición se adelantaría a la primera
-  // derivada que cumpla el piso y se comería el hito.
-  if (motivo === null) return null
-  return readCafecitosVistos() === 0 ? "milestone" : motivo
 }
 
 export function shouldShowCafecito(
@@ -141,7 +159,17 @@ export function shouldShowCafecito(
   // Contra el último pedido de CUALQUIER tipo, no solo contra el último café:
   // el reclutamiento también interrumpe, y dos interrupciones seguidas no son
   // dos pedidos sino un peaje (ver readUltimoPedidoAt).
-  return solvedCount - readUltimoPedidoAt() >= CAFECITO_COOLDOWN
+  //
+  // Y contra la pantalla de instalar, que NO consume el cooldown compartido
+  // —para no correr a nadie— pero interrumpe igual. Sin esta segunda condición,
+  // un récord en la derivada siguiente a un pedido de instalar sale pegado a él:
+  // pasa en la 46, un acierto después de la instalación de la 45. Lo encuentra
+  // `check:instalacion`, que mide el hueco más chico de toda la partida.
+  return (
+    solvedCount - readUltimoPedidoAt() >= CAFECITO_COOLDOWN &&
+    solvedCount - readUltimaInterrupcion() >= INSTALAR_SEPARACION &&
+    solvedCount !== readUltimaPantalla()
+  )
 }
 
 /** Anota el cooldown y suma una aparición (lo que hace que la SEGUNDA en
