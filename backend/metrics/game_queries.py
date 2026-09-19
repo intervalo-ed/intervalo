@@ -1881,74 +1881,91 @@ EXPERIMENTO_MOTOR: dict = {
     "alpha": 0.05,
     "potencia": 0.80,
     "prediccion": (
-        "65 por brazo y hay ~70, así que lo que falta no es gente sino "
-        "calendario: se lee el 03/10. La base de 2,70 está medida sobre la "
-        "quincena PREVIA de la misma cohorte, que es una ventana donde todos "
-        "estaban activos por construcción; si el desgaste natural la baja, el "
-        "MDE de un día pesa todavía más en términos relativos. No se usó la "
-        "quincena anterior como covariable porque está vacía (0,13 días): para "
-        "esta gente el producto tiene doce días de vida."
+        "El hash reparte a los 139 elegibles de hoy 80/59, no 70/70 — con 139 "
+        "sorteos eso entra en lo normal, y no hay forma de estratificar sin "
+        "persistir el brazo. El control llega a los 65 el 03/10; `rapido` "
+        "necesita 6 personas más y las va a sacar de los 46 que hoy están entre "
+        "30 y 42 respuestas, así que se lee unas dos semanas después. La base de "
+        "2,70 está medida sobre la quincena PREVIA de la misma cohorte, que es "
+        "una ventana donde todos estaban activos por construcción; si el "
+        "desgaste natural la baja, el MDE de un día pesa todavía más en "
+        "términos relativos. No se usó la quincena anterior como covariable "
+        "porque está vacía (0,13 días): para esta gente el producto tiene doce "
+        "días de vida."
     ),
 }
+
+
+def _inscripcion(n_updates: int, firsts: list[dict], desde: date,
+                 umbral: int) -> date | None:
+    """Cuándo entró al experimento este jugador, o None si todavía no entró.
+
+    **La inscripción es RODANTE y no una foto del día del despliegue**, y esa es
+    la diferencia entre un experimento que se puede leer y uno que no. Con la
+    cohorte congelada al 19/09 el pool eran 139 personas repartidas 80/59 por el
+    hash, o sea que el brazo chico se quedaba en 59 contra los 65 comprometidos
+    **para siempre**: ninguna espera lo arreglaba, porque los que cruzaran el
+    umbral después no entraban. Un experimento así no da un resultado malo, da un
+    panel que dice «faltan 6» hasta el fin de los tiempos.
+
+    Con inscripción rodante, quien cruza las `umbral` respuestas entra ese día y
+    su ventana corre desde ahí. Los 46 que hoy están entre 30 y 42 llegan solos,
+    y el desbalance del sorteo se lava con ellos.
+
+    El que ya estaba arriba cuando el experimento arrancó entra el día del
+    arranque: es cuando empezó a vivir el tratamiento, no cuando cruzó el umbral
+    meses antes.
+
+    Se reconstruye del historial y no de una columna nueva: `n_updates` de hoy
+    menos las respuestas posteriores a una fecha da el contador en esa fecha.
+    Las respuestas con la tabla abierta no suman a `n_updates`, así que la cuenta
+    puede atrasar la inscripción de alguien un par de días — atrasarla es el lado
+    seguro del error, porque lo que cuenta es haber vivido el tratamiento.
+    """
+    posteriores = [a for a in firsts if local_date(a["created_at"]) >= desde]
+    n_al_arranque = n_updates - len(posteriores)
+    if n_al_arranque >= umbral:
+        return desde
+    faltan = umbral - n_al_arranque
+    if faltan > len(posteriores):
+        return None
+    return local_date(posteriores[faltan - 1]["created_at"])
 
 
 def experimento_motor(data: dict) -> dict:
     """El bloque de `dx-elo-1`: días activos por brazo, y si ya se puede leer.
 
-    Se niega a contestar por partida doble —hasta que pasen los 14 días Y haya
-    n suficiente— por el mismo motivo que la sección de arriba: mirar todos los
-    días y parar cuando cruza 0,05 no es leer un experimento, es repetir el
-    sorteo hasta que salga.
+    **Un jugador cuenta recién cuando su ventana de 14 días CERRÓ.** Es la única
+    negativa a contestar que hace falta —reemplaza a la doble de antes— y es más
+    fuerte: con ventanas rodantes no hay una fecha global que esperar, así que
+    mirar el n ya garantiza que nadie entre con los días a medio contar. Sumar
+    una ventana abierta a la media sería comparar a alguien medido 14 días con
+    alguien medido 3.
     """
     exp = EXPERIMENTO_MOTOR
     n_pedido = _n_medias(exp["sd"], exp["mde"], exp["alpha"], exp["potencia"])
-    desde, hasta = exp["desde"], exp["desde"] + timedelta(days=exp["ventana_dias"])
+    desde, ventana = exp["desde"], exp["ventana_dias"]
+    umbral = sorteo.UMBRAL_N
     hoy = local_date(datetime.utcnow())
 
-    # Cuántas respuestas de primer intento puso cada uno DESPUÉS del arranque.
-    # Es lo que hay que restarle al contador de hoy para saber si ya estaba
-    # arriba del umbral cuando el experimento empezó — que es el único criterio
-    # de inscripción honesto: quien cruzó las 43 el martes vivió el tratamiento
-    # media ventana, y meterlo con los que lo vivieron entero ensucia las dos
-    # medias por igual sin que nadie lo vea.
-    despues: dict[int, int] = defaultdict(int)
+    firsts_de: dict[int, list[dict]] = defaultdict(list)
     for a in data["_firsts"]:
-        d = local_date(a["created_at"])
-        if d is not None and d >= desde:
-            despues[a["player_id"]] += 1
+        firsts_de[a["player_id"]].append(a)
+    for lista in firsts_de.values():
+        lista.sort(key=lambda a: a["created_at"])
 
-    dias: dict[int, set] = defaultdict(set)
-    servidas: dict[int, int] = defaultdict(int)
-    salteadas: dict[int, int] = defaultdict(int)
-    phat: dict[int, float] = {}
+    ejercicios_de: dict[int, list[dict]] = defaultdict(list)
     for e in data["exercises"]:
-        d = local_date(e["created_at"])
-        if d is None or not (desde <= d < hasta):
-            continue
-        dias[e["player_id"]].add(d)
-        servidas[e["player_id"]] += 1
-        if e["status"] == "skipped":
-            salteadas[e["player_id"]] += 1
-        elif not e["peeked"]:
-            phat[e["id"]] = e["p_hat"]
+        ejercicios_de[e["player_id"]].append(e)
 
-    # Guardarraíl de calibración, por jugador y no por brazo: si el piso hace que
-    # θ se pase de largo, el motor le va a prometer a esa persona un p̂ que no
-    # cumple. Se mide sobre primeros intentos sin la tabla abierta, que son los
-    # únicos que el motor cuenta como observación.
-    acierto: dict[int, list[float]] = defaultdict(list)
-    prometido: dict[int, list[float]] = defaultdict(list)
-    for a in data["_firsts"]:
-        p = phat.get(a["exercise_id"])
-        if p is None:
-            continue
-        acierto[a["player_id"]].append(1.0 if a["is_correct"] else 0.0)
-        prometido[a["player_id"]].append(p)
+    # El p̂ prometido de cada ejercicio que el motor sí contó como observación.
+    phat = {e["id"]: e["p_hat"] for e in data["exercises"]
+            if e["status"] == "answered" and not e["peeked"]}
 
     brazos = []
     for clave, nombre in exp["brazos"]:
         muestra: list[float] = []
-        n_serv = n_salt = 0
+        abiertas = n_serv = n_salt = 0
         aciertos: list[float] = []
         promesas: list[float] = []
         thetas: list[float] = []
@@ -1956,14 +1973,37 @@ def experimento_motor(data: dict) -> dict:
             pid = p["id"]
             if p["is_bot"] or sorteo.brazo_de(pid) != clave:
                 continue
-            if (p["n_updates"] or 0) - despues[pid] < sorteo.UMBRAL_N:
+            alta = _inscripcion(p["n_updates"] or 0, firsts_de[pid], desde, umbral)
+            if alta is None:
                 continue
-            muestra.append(float(len(dias[pid])))
-            n_serv += servidas[pid]
-            n_salt += salteadas[pid]
-            aciertos.extend(acierto[pid])
-            promesas.extend(prometido[pid])
+            cierra = alta + timedelta(days=ventana)
+            dias = set()
+            for e in ejercicios_de[pid]:
+                d = local_date(e["created_at"])
+                if d is None or not (alta <= d < cierra):
+                    continue
+                dias.add(d)
+                n_serv += 1
+                if e["status"] == "skipped":
+                    n_salt += 1
+            # Los guardarraíles se miran SIEMPRE, también sobre ventanas
+            # abiertas: existen para frenar un brazo que hace daño, y esperar
+            # catorce días para ver que la calibración se hundió sería usarlos
+            # para declarar un ganador, que es justo lo que no son.
+            for a in firsts_de[pid]:
+                d = local_date(a["created_at"])
+                if d is None or not (alta <= d < cierra):
+                    continue
+                pr = phat.get(a["exercise_id"])
+                if pr is None:
+                    continue
+                aciertos.append(1.0 if a["is_correct"] else 0.0)
+                promesas.append(pr)
             thetas.append(float(p["theta"] or 0.0))
+            if hoy >= cierra:
+                muestra.append(float(len(dias)))
+            else:
+                abiertas += 1
         n = len(muestra)
         media = statistics.fmean(muestra) if n else 0.0
         var = statistics.variance(muestra) if n > 1 else 0.0
@@ -1971,6 +2011,7 @@ def experimento_motor(data: dict) -> dict:
             "clave": clave,
             "label": nombre,
             "n": n,
+            "en_curso": abiertas,
             "media": round(media, 2),
             "sd": round(math.sqrt(var), 2),
             "_var": var,
@@ -1986,8 +2027,7 @@ def experimento_motor(data: dict) -> dict:
             "falta": max(0, n_pedido - n),
         })
 
-    faltan_dias = max(0, (hasta - hoy).days)
-    listo = faltan_dias == 0 and all(b["n"] >= n_pedido for b in brazos)
+    listo = all(b["n"] >= n_pedido for b in brazos)
     lectura = None
     if listo and len(brazos) == 2:
         control, test = brazos
@@ -2017,10 +2057,8 @@ def experimento_motor(data: dict) -> dict:
         "hipotesis": exp["hipotesis"],
         "prediccion": exp["prediccion"],
         "desde": exp["desde"],
-        "hasta": hasta,
-        "faltan_dias": faltan_dias,
         "ventana_dias": exp["ventana_dias"],
-        "umbral_n": sorteo.UMBRAL_N,
+        "umbral_n": umbral,
         "base": exp["base"],
         "mde": exp["mde"],
         "alpha": exp["alpha"],
@@ -2029,9 +2067,8 @@ def experimento_motor(data: dict) -> dict:
         "brazos": brazos,
         "listo": listo,
         "lectura": lectura,
-        "sin_arrancar": sum(b["n"] for b in brazos) == 0,
+        "sin_arrancar": sum(b["n"] + b["en_curso"] for b in brazos) == 0,
     }
-
 
 # ── 7 · Difusión: a cuánta gente se llegó y cuánta entró ─────────────────────
 

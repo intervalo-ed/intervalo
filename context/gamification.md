@@ -135,7 +135,11 @@ Tres cosas de ese experimento que no se parecen a los demás:
   mismo tiempo que `dx-puerta-2`, que mide las tres primeras correctas.
 
 La métrica es continua —días activos en 14 días, base medida 2,70 ± 2,02— porque
-con 139 elegibles ninguna proporción alcanza: pedirían ~600 por brazo y hay ~70.
+con 139 elegibles ninguna proporción alcanza: pedirían ~600 por brazo. La
+inscripción es **rodante**: cada uno entra el día que llega a las 43 respuestas y
+su ventana corre desde ahí. Congelarla el día del despliegue dejaba al brazo
+chico en 59 contra 65 comprometidos para siempre, porque el hash reparte esos 139
+80/59 y los que cruzaran después no entraban.
 
 Lo que el piso también compra, y conviene tenerlo escrito porque no es obvio: el
 **ruido**. θ alrededor de la habilidad real tiene desvío estacionario `0,783·√lr`,

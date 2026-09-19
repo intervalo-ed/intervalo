@@ -440,10 +440,26 @@ que hacen que esto se pueda correr y leer:
 **La métrica es continua y eso no es una preferencia, es la única salida.** Con
 139 elegibles, cualquier proporción pediría ~600 por brazo y no se podría leer
 nunca. Se mide **días activos en 14 días**, base medida 2,70 ± 2,02 sobre los
-propios elegibles, efecto mínimo **1 día** → **65 por brazo**, y ya hay ~70: lo
-que falta no es gente sino calendario. No se usó la quincena anterior como
-covariable porque está vacía (0,13 días) — para esta gente el producto tiene doce
-días de vida.
+propios elegibles, efecto mínimo **1 día** → **65 por brazo**. No se usó la
+quincena anterior como covariable porque está vacía (0,13 días) — para esta
+gente el producto tiene doce días de vida.
+
+**La inscripción es rodante, y ahí se jugó que esto se pueda leer o no.** La
+primera versión congelaba la cohorte el día del despliegue: los 139 que ya
+estaban arriba del umbral, y nadie más. El hash los reparte **80/59**, así que
+el brazo chico se quedaba en 59 contra 65 **para siempre** — ninguna espera lo
+arreglaba, porque los que cruzaran después no entraban. Un experimento así no da
+un resultado malo; da un panel que dice «faltan 6» hasta el fin de los tiempos.
+Con inscripción rodante cada uno entra el día que llega a las 43 y su ventana
+corre desde ahí, así que los 46 que hoy están entre 30 y 42 respuestas llegan
+solos y el desbalance se lava con ellos. El control se lee el 03/10; `rapido`,
+unas dos semanas después.
+
+El costo de la cohorte rodante, dicho en voz alta: la base de 2,70 se midió sobre
+gente que ya estaba bien arriba del umbral, y los que entren de acá en más entran
+justo al cruzarlo. Si un recién llegado a las 43 respuestas juega distinto que
+alguien con 300, las dos medias se mueven — pero se mueven **en los dos brazos
+por igual**, porque el sorteo es independiente de cuándo entró cada uno.
 
 Un día entero sobre una base de 2,70 es un +37%, y es mucho. Se declara igual
 porque es **lo que se puede ver**: pedirle medio día serían 257 por brazo. Si el

@@ -853,6 +853,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
     e = p["experimento_motor"]
     brazos = e["brazos"]
     total = sum(b["n"] for b in brazos)
+    en_curso = sum(b["en_curso"] for b in brazos)
     falta = max((b["falta"] for b in brazos), default=0)
 
     if e["sin_arrancar"]:
@@ -861,19 +862,15 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
             f'Nadie llegó a las {num(e["umbral_n"])} respuestas de primer intento, que es '
             f'donde el piso empieza a cambiar algo. Abajo de ese número los dos brazos son '
             f'el mismo motor.', "espera")
-    elif e["faltan_dias"] > 0:
-        estado = _caja_estado(
-            f'La ventana sigue abierta — faltan {num(e["faltan_dias"])} días',
-            f'La métrica son los días activos dentro de una ventana de '
-            f'{num(e["ventana_dias"])} días que cierra el {e["hasta"].strftime("%d/%m")}. '
-            f'Leerla antes sería comparar dos medias truncadas por el calendario y no por '
-            f'el juego: el brazo que hoy vaya arriba va a ir arriba igual mañana, porque '
-            f'a los dos les falta el mismo pedazo de ventana.', "espera")
     elif falta > 0:
         estado = _caja_estado(
             f'Todavía no se puede leer — faltan {num(falta)} por brazo',
-            f'Van {num(total)} de los {num(2 * e["n_pedido"])} comprometidos '
-            f'({num(e["n_pedido"])} por brazo).', "espera")
+            f'Van {num(total)} ventanas cerradas de las {num(2 * e["n_pedido"])} '
+            f'comprometidas ({num(e["n_pedido"])} por brazo), y hay {num(en_curso)} '
+            f'personas con la ventana todavía abierta. Un jugador cuenta recién cuando '
+            f'pasaron sus {num(e["ventana_dias"])} días: sumar una ventana a medio contar '
+            f'sería comparar a alguien medido dos semanas con alguien medido tres días.',
+            "espera")
     else:
         L = e["lectura"]
         if L is None:
@@ -896,7 +893,8 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                 f'este diseño no lo puede ver.', "plano")
 
     filas_motor = [
-        [f'<b>{esc(b["label"])}</b>', num(b["n"]),
+        [f'<b>{esc(b["label"])}</b>',
+         f'<span>{num(b["n"])} <span class="sub2">+{num(b["en_curso"])} en curso</span></span>',
          f'<span>{num(b["media"], dec=2)} <span class="sub2">± {num(b["sd"], dec=2)}</span></span>',
          num(b["rating"]), num(b["servidas"]), _pct_txt(b["pct_salteo"]),
          "—" if b["sesgo_pp"] is None else num(b["sesgo_pp"], " pp", dec=1)]
@@ -921,14 +919,20 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                f'p̂ que el motor prometió: si el brazo con piso se pasa de largo, ese número '
                f'se va a negativo y hay que apagarlo, porque significa que le está sirviendo '
                f'a la gente cosas más difíciles de lo que cree.</p>'
-             + f'<p class="note"><b>Quién entra:</b> los que ya tenían '
-               f'{num(e["umbral_n"])} respuestas de primer intento el '
-               f'{e["desde"].strftime("%d/%m")}. No es un recorte arbitrario: es exactamente '
-               f'donde el piso de 0,20 empieza a diferir del motor de hoy, y sale calculado '
-               f'de los hiperparámetros (<code>elo.n_donde_muerde</code>), no escrito a '
-               f'mano. Los que cruzan el umbral después NO entran: vivirían media ventana y '
-               f'ensuciarían las dos medias por igual, que es la peor clase de error porque '
-               f'no se ve.<br><br><b>El brazo no está guardado en ninguna columna</b>: sale '
+             + f'<p class="note"><b>Quién entra:</b> cualquiera que llegue a '
+               f'{num(e["umbral_n"])} respuestas de primer intento, el día que llega — y su '
+               f'ventana de {num(e["ventana_dias"])} días corre desde ahí. No es un recorte '
+               f'arbitrario: es exactamente donde el piso de 0,20 empieza a diferir del '
+               f'motor de hoy, y sale calculado de los hiperparámetros '
+               f'(<code>elo.n_donde_muerde</code>), no escrito a mano.<br><br>'
+               f'<b>La inscripción es rodante y no una foto del arranque</b>, y ahí se jugó '
+               f'que esto se pueda leer o no. Con la cohorte congelada al '
+               f'{e["desde"].strftime("%d/%m")} eran 139 personas que el hash repartía 80/59: '
+               f'el brazo chico se quedaba en 59 contra los {num(e["n_pedido"])} '
+               f'comprometidos <b>para siempre</b>, porque ninguna espera lo arreglaba. Así '
+               f'entran también los 46 que hoy están entre 30 y 42 respuestas, y el '
+               f'desbalance se lava con ellos.<br><br>'
+               f'<b>El brazo no está guardado en ninguna columna</b>: sale '
                f'de un hash del id del jugador (<code>game/sorteo.py</code>). Tuvo que ser '
                f'así porque <code>game_players.variant</code> se escribe al crear la fila y '
                f'todos los elegibles existen desde hace semanas — con el sorteo de siempre, '

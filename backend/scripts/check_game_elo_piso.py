@@ -223,8 +223,13 @@ check(q.n_comprometido_medias(q.EXPERIMENTOS_GRUPOS[0]) == 88,
 print("\nA quién inscribe")
 
 DESDE = EXP["desde"]
-DENTRO = datetime.combine(DESDE + timedelta(days=1), datetime.min.time())
-ANTES = datetime.combine(DESDE - timedelta(days=3), datetime.min.time())
+# Mediodía UTC y no medianoche: los `created_at` de la base son UTC ingenuo y el
+# panel los pasa a fecha ARGENTINA (`local_date`, −3 h), así que medianoche del
+# día siguiente cae el día anterior y el fixture estaría probando otra cosa.
+DENTRO = datetime.combine(DESDE + timedelta(days=1), datetime.min.time(),
+                          ) + timedelta(hours=12)
+ANTES = datetime.combine(DESDE - timedelta(days=3), datetime.min.time(),
+                         ) + timedelta(hours=12)
 
 
 def jugador(pid, n_updates, is_bot=False):
@@ -232,9 +237,9 @@ def jugador(pid, n_updates, is_bot=False):
             "platform": "android", "variant": None}
 
 
-# Tres jugadores que importan:
-#   1 → veterano de verdad, entra.
-#   2 → cruzó el umbral DESPUÉS de arrancar (43 hoy, pero 40 el día 0): no entra.
+# Cuatro jugadores que importan:
+#   1 → ya estaba arriba del umbral cuando arrancó: entra el día del arranque.
+#   2 → lo cruza DESPUÉS de arrancar (41 el día 0, 46 hoy): entra el día que cruza.
 #   3 → nunca llegó: no entra.  4 → bot: no entra.
 players = [jugador(1, 300), jugador(2, UMBRAL + 3), jugador(3, 10),
            jugador(4, 900, is_bot=True)]
@@ -251,13 +256,36 @@ exercises = [
 bloque = q.experimento_motor(
     {"players": players, "exercises": exercises, "_firsts": firsts})
 
-inscriptos = sum(b["n"] for b in bloque["brazos"])
-check(inscriptos == 1,
-      f"solo entra el que ya estaba arriba del umbral el día 0 (entraron {inscriptos})")
+inscriptos = sum(b["n"] + b["en_curso"] for b in bloque["brazos"])
+check(inscriptos == 2,
+      f"entran los dos que pasaron el umbral, y solo ellos (entraron {inscriptos})")
+
+# **El check que paga este archivo entero.** Con la cohorte congelada al día del
+# arranque, el jugador 2 no entraba nunca — y como el hash repartía los 139
+# elegibles reales 80/59, el brazo chico se quedaba en 59 contra 65 comprometidos
+# PARA SIEMPRE. Un experimento así no da un resultado malo: da un panel que dice
+# «faltan 6» hasta el fin de los tiempos, y nadie se entera hasta que alguien
+# suma las dos columnas a mano.
+check(q._inscripcion(UMBRAL + 3, firsts[:5], DESDE, UMBRAL) is not None,
+      "el que cruza el umbral DESPUÉS del arranque también se inscribe "
+      "(la cohorte es rodante, no una foto)")
+check(q._inscripcion(300, [], DESDE, UMBRAL) == DESDE,
+      "y el que ya estaba arriba entra el día del arranque, no antes")
+check(q._inscripcion(10, [], DESDE, UMBRAL) is None,
+      "el que no llegó al umbral no entra")
+
+# Su ventana arranca cuando cruza, no cuando arrancó el experimento: si no, se
+# le contarían días en los que el piso todavía no le hacía nada.
+alta_2 = q._inscripcion(UMBRAL + 3, firsts[:5], DESDE, UMBRAL)
+check(alta_2 > DESDE,
+      "la ventana del que cruza después arranca el día que cruza")
+
 check(bloque["umbral_n"] == UMBRAL,
       "el panel usa el umbral calculado y no uno propio")
-check(bloque["listo"] is False,
-      "no se puede leer mientras la ventana de 14 días siga abierta")
+check(bloque["listo"] is False and all(b["n"] == 0 for b in bloque["brazos"]),
+      "nadie cuenta mientras su ventana de 14 días siga abierta")
+check(sum(b["en_curso"] for b in bloque["brazos"]) == 2,
+      "pero se los muestra como «en curso», para que no parezca que no hay nadie")
 check(bloque["n_pedido"] == N_COMPROMETIDO_MOTOR,
       "y publica el n comprometido")
 
