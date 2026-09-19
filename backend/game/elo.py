@@ -266,10 +266,16 @@ def difficulty_stars(p_hat: float) -> int:
 # cuando θ − 1,343 > 2,3, o sea θ > 3,643; 3,7 es el mínimo redondo que lo
 # cumple, y cada décima de más es gente de más que baja.
 #
-# El costo, medido contra el histograma de θ del reporte del 14/09: de los 48
-# marrones quedan ~9 y los otros ~39 pasan a violeta. La caída es silenciosa
-# —`events.py` solo publica `level_after > level_before`, así que el feed no
-# anuncia bajadas— pero el color del nombre cambia a la vista de todos.
+# El costo, **contado en producción el 19/09 y no estimado**: de los 89
+# marrones quedan 19, o sea que **70 personas pasan a violeta**. (La primera
+# cuenta, hecha contra el histograma del reporte del 14/09, decía ~39 sobre 48;
+# la población casi se duplicó entre una fecha y la otra.) La caída es
+# silenciosa —`events.py` solo publica `level_after > level_before`, así que el
+# feed no anuncia bajadas— pero el color del nombre cambia a la vista de todos.
+#
+# Del otro lado de la balanza, medido el mismo día: los que no recibían NADA en
+# banda pasaron de 66 a 2 sobre 1.058 jugadores con historial. Setenta
+# cinturones por sesenta y cuatro personas que vuelven a tener juego.
 #
 # Los otros dos cortes NO se tocan: θ=0,3 sigue siendo «las sumas ya salen
 # cómodas» (T2) y θ=1,6 «los productos» (T4). Con el tercero en 3,7 los tres
