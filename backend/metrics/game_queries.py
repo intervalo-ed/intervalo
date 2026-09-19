@@ -50,6 +50,10 @@ from sqlalchemy.orm import Session as DBSession
 # el motor promete, y una copia vieja acá convertiría a la calibración en la
 # medición que miente sobre justo lo que existe para vigilar.
 from game import elo
+# El brazo se DERIVA del id, así que el panel calcula exactamente la misma
+# función que el motor. Importarla es lo que impide que las dos mitades del
+# experimento —quién lo vive y quién lo lee— se desincronicen.
+from game import sorteo
 
 from .queries import (A_ORDER, AR_OFFSET, P1_BAND, _pct, _rows, local_date,
                       week_start)
@@ -260,7 +264,7 @@ def load(db: DBSession) -> dict:
             SELECT id, user_id, alias, university, referred_by, referral_xp_given,
                    platform, is_bot, notify_enabled, winback_email_sent_at,
                    pwa_first_seen_at, created_at, last_seen_at, variant,
-                   first_group_id
+                   first_group_id, n_updates, theta
             FROM game_players"""),
         # `p_hat` y `status` son para la calibración y la fricción; `peeked`
         # separa «resolvió» de «copió», que mezclados arruinan la tasa de
@@ -1827,6 +1831,245 @@ def experimentos(data: dict) -> list[dict]:
     return salida
 
 
+# ── 6-bis · El experimento del MOTOR (no de las pantallas) ───────────────────
+#
+# `experimentos()` compara proporciones del embudo de entrada entre jugadores
+# sorteados en el navegador. Éste mide otra cosa, sobre otra gente y con otra
+# aritmética, y por eso es una función aparte en vez de un `if` adentro de
+# aquélla:
+#
+#   * **Otra gente.** `dx-elo-1` solo le cambia algo a quien ya pasó las 43
+#     respuestas de primer intento (ver game/sorteo.py). Son 139 personas: el 6%
+#     de los jugadores y el 65% de las derivadas servidas.
+#   * **Otro sorteo.** El brazo sale de un hash del `player.id` calculado en el
+#     servidor, no de `game_players.variant` — que se escribe al crear la fila y
+#     por lo tanto dejaría a este experimento con cero inscriptos para siempre,
+#     porque todos los elegibles existen desde hace semanas.
+#   * **Otra aritmética.** Con ~70 personas por brazo NINGUNA proporción es
+#     legible: las de arriba piden ~600. La métrica tiene que ser continua, el n
+#     sale de la fórmula de dos medias y el contraste es un t de Welch.
+
+EXPERIMENTO_MOTOR: dict = {
+    "clave": sorteo.EXPERIMENTO,
+    "titulo": "La varianza del Elo",
+    "hipotesis": (
+        "El paso de aprendizaje de θ decae sin piso, así que el rating deja de "
+        "moverse justo para los que más juegan. Medido el 19/09 sobre los 7 días "
+        "previos: el mismo ejercicio vale 4,92 puntos de rating con menos de 25 "
+        "respuestas y 0,71 con más de 400. La brecha entre lo que alguien sabe y "
+        "lo que el motor cree se cierra con constante 1/(0,153·lr), o sea 19 "
+        "respuestas para un novato y 408 para un veterano. Si el número vuelve a "
+        "moverse, la gente vuelve más días."
+    ),
+    "desde": date(2026, 9, 19),
+    # La ventana de medición. No es un adorno del texto: hasta que no pasan los
+    # 14 días, `listo` es False aunque sobre gente — leer a los 6 días sería
+    # comparar dos medias truncadas por el calendario y no por el juego.
+    "ventana_dias": 14,
+    "brazos": (("control", "Control"), ("rapido", "Piso de 0,20")),
+    "metrica": "dias_activos",
+    # **Medidos el 19/09 sobre los 139 elegibles, no estimados**: días distintos
+    # con al menos un ejercicio servido en los 14 días previos.
+    "base": 2.70,
+    "sd": 2.02,
+    # Un día entero de diferencia, que sobre una base de 2,70 es un +37%. Es
+    # mucho, y se declara igual porque es LO QUE SE PUEDE VER con esta
+    # población: pedirle al panel medio día serían 259 personas por brazo y no
+    # hay tantas. Si el efecto real es de medio día, este experimento lo va a
+    # dejar pasar, y eso hay que saberlo de antemano y no descubrirlo después.
+    "mde": 1.00,
+    "alpha": 0.05,
+    "potencia": 0.80,
+    "prediccion": (
+        "El hash reparte a los 139 elegibles de hoy 80/59, no 70/70 — con 139 "
+        "sorteos eso entra en lo normal, y no hay forma de estratificar sin "
+        "persistir el brazo. El control llega a los 65 el 03/10; `rapido` "
+        "necesita 6 personas más y las va a sacar de los 46 que hoy están entre "
+        "30 y 42 respuestas, así que se lee unas dos semanas después. La base de "
+        "2,70 está medida sobre la quincena PREVIA de la misma cohorte, que es "
+        "una ventana donde todos estaban activos por construcción; si el "
+        "desgaste natural la baja, el MDE de un día pesa todavía más en "
+        "términos relativos. No se usó la quincena anterior como covariable "
+        "porque está vacía (0,13 días): para esta gente el producto tiene doce "
+        "días de vida."
+    ),
+}
+
+
+def _inscripcion(n_updates: int, firsts: list[dict], desde: date,
+                 umbral: int) -> date | None:
+    """Cuándo entró al experimento este jugador, o None si todavía no entró.
+
+    **La inscripción es RODANTE y no una foto del día del despliegue**, y esa es
+    la diferencia entre un experimento que se puede leer y uno que no. Con la
+    cohorte congelada al 19/09 el pool eran 139 personas repartidas 80/59 por el
+    hash, o sea que el brazo chico se quedaba en 59 contra los 65 comprometidos
+    **para siempre**: ninguna espera lo arreglaba, porque los que cruzaran el
+    umbral después no entraban. Un experimento así no da un resultado malo, da un
+    panel que dice «faltan 6» hasta el fin de los tiempos.
+
+    Con inscripción rodante, quien cruza las `umbral` respuestas entra ese día y
+    su ventana corre desde ahí. Los 46 que hoy están entre 30 y 42 llegan solos,
+    y el desbalance del sorteo se lava con ellos.
+
+    El que ya estaba arriba cuando el experimento arrancó entra el día del
+    arranque: es cuando empezó a vivir el tratamiento, no cuando cruzó el umbral
+    meses antes.
+
+    Se reconstruye del historial y no de una columna nueva: `n_updates` de hoy
+    menos las respuestas posteriores a una fecha da el contador en esa fecha.
+    Las respuestas con la tabla abierta no suman a `n_updates`, así que la cuenta
+    puede atrasar la inscripción de alguien un par de días — atrasarla es el lado
+    seguro del error, porque lo que cuenta es haber vivido el tratamiento.
+    """
+    posteriores = [a for a in firsts if local_date(a["created_at"]) >= desde]
+    n_al_arranque = n_updates - len(posteriores)
+    if n_al_arranque >= umbral:
+        return desde
+    faltan = umbral - n_al_arranque
+    if faltan > len(posteriores):
+        return None
+    return local_date(posteriores[faltan - 1]["created_at"])
+
+
+def experimento_motor(data: dict) -> dict:
+    """El bloque de `dx-elo-1`: días activos por brazo, y si ya se puede leer.
+
+    **Un jugador cuenta recién cuando su ventana de 14 días CERRÓ.** Es la única
+    negativa a contestar que hace falta —reemplaza a la doble de antes— y es más
+    fuerte: con ventanas rodantes no hay una fecha global que esperar, así que
+    mirar el n ya garantiza que nadie entre con los días a medio contar. Sumar
+    una ventana abierta a la media sería comparar a alguien medido 14 días con
+    alguien medido 3.
+    """
+    exp = EXPERIMENTO_MOTOR
+    n_pedido = _n_medias(exp["sd"], exp["mde"], exp["alpha"], exp["potencia"])
+    desde, ventana = exp["desde"], exp["ventana_dias"]
+    umbral = sorteo.UMBRAL_N
+    hoy = local_date(datetime.utcnow())
+
+    firsts_de: dict[int, list[dict]] = defaultdict(list)
+    for a in data["_firsts"]:
+        firsts_de[a["player_id"]].append(a)
+    for lista in firsts_de.values():
+        lista.sort(key=lambda a: a["created_at"])
+
+    ejercicios_de: dict[int, list[dict]] = defaultdict(list)
+    for e in data["exercises"]:
+        ejercicios_de[e["player_id"]].append(e)
+
+    # El p̂ prometido de cada ejercicio que el motor sí contó como observación.
+    phat = {e["id"]: e["p_hat"] for e in data["exercises"]
+            if e["status"] == "answered" and not e["peeked"]}
+
+    brazos = []
+    for clave, nombre in exp["brazos"]:
+        muestra: list[float] = []
+        abiertas = n_serv = n_salt = 0
+        aciertos: list[float] = []
+        promesas: list[float] = []
+        thetas: list[float] = []
+        for p in data["players"]:
+            pid = p["id"]
+            if p["is_bot"] or sorteo.brazo_de(pid) != clave:
+                continue
+            alta = _inscripcion(p["n_updates"] or 0, firsts_de[pid], desde, umbral)
+            if alta is None:
+                continue
+            cierra = alta + timedelta(days=ventana)
+            dias = set()
+            for e in ejercicios_de[pid]:
+                d = local_date(e["created_at"])
+                if d is None or not (alta <= d < cierra):
+                    continue
+                dias.add(d)
+                n_serv += 1
+                if e["status"] == "skipped":
+                    n_salt += 1
+            # Los guardarraíles se miran SIEMPRE, también sobre ventanas
+            # abiertas: existen para frenar un brazo que hace daño, y esperar
+            # catorce días para ver que la calibración se hundió sería usarlos
+            # para declarar un ganador, que es justo lo que no son.
+            for a in firsts_de[pid]:
+                d = local_date(a["created_at"])
+                if d is None or not (alta <= d < cierra):
+                    continue
+                pr = phat.get(a["exercise_id"])
+                if pr is None:
+                    continue
+                aciertos.append(1.0 if a["is_correct"] else 0.0)
+                promesas.append(pr)
+            thetas.append(float(p["theta"] or 0.0))
+            if hoy >= cierra:
+                muestra.append(float(len(dias)))
+            else:
+                abiertas += 1
+        n = len(muestra)
+        media = statistics.fmean(muestra) if n else 0.0
+        var = statistics.variance(muestra) if n > 1 else 0.0
+        brazos.append({
+            "clave": clave,
+            "label": nombre,
+            "n": n,
+            "en_curso": abiertas,
+            "media": round(media, 2),
+            "sd": round(math.sqrt(var), 2),
+            "_var": var,
+            "mediana_theta": _median(thetas),
+            "rating": elo.rating_of(_median(thetas) or 0.0),
+            "servidas": n_serv,
+            "pct_salteo": _pct(n_salt, n_serv),
+            # El sesgo de calibración en puntos: positivo = la gente acierta más
+            # de lo prometido (el motor la subestima), negativo = se pasó.
+            "sesgo_pp": (round(100 * (statistics.fmean(aciertos)
+                                      - statistics.fmean(promesas)), 1)
+                         if aciertos else None),
+            "falta": max(0, n_pedido - n),
+        })
+
+    listo = all(b["n"] >= n_pedido for b in brazos)
+    lectura = None
+    if listo and len(brazos) == 2:
+        control, test = brazos
+        delta = test["media"] - control["media"]
+        # Welch: los dos brazos pueden tener desvíos distintos, y de hecho se
+        # espera que los tengan —subir el paso de aprendizaje sube la varianza
+        # del rating, que es medio punto de la hipótesis—. La versión de varianza
+        # combinada supondría justo lo que el experimento está probando.
+        se = math.sqrt(control["_var"] / control["n"] + test["_var"] / test["n"])
+        z = delta / se if se else 0.0
+        za = _z_de(1 - exp["alpha"] / 2)
+        # Normal y no t de Welch: con ~70 por brazo los grados de libertad pasan
+        # de 130 y el cuantil difiere menos del 1% (1,978 contra 1,960). Traer
+        # una inversa de t al panel para corregir ese 1% sería más código del que
+        # vale, y queda dicho acá para que no se lea como un descuido.
+        lectura = {
+            "delta": round(delta, 2),
+            "z": round(z, 2),
+            "p_valor": 2 * (1 - _phi(abs(z))),
+            "ic": (round(delta - za * se, 2), round(delta + za * se, 2)),
+            "rechaza": abs(z) > za,
+        }
+
+    return {
+        "clave": exp["clave"],
+        "titulo": exp["titulo"],
+        "hipotesis": exp["hipotesis"],
+        "prediccion": exp["prediccion"],
+        "desde": exp["desde"],
+        "ventana_dias": exp["ventana_dias"],
+        "umbral_n": umbral,
+        "base": exp["base"],
+        "mde": exp["mde"],
+        "alpha": exp["alpha"],
+        "potencia": exp["potencia"],
+        "n_pedido": n_pedido,
+        "brazos": brazos,
+        "listo": listo,
+        "lectura": lectura,
+        "sin_arrancar": sum(b["n"] + b["en_curso"] for b in brazos) == 0,
+    }
+
 # ── 7 · Difusión: a cuánta gente se llegó y cuánta entró ─────────────────────
 
 # Piso para que un grupo, una universidad o una campaña merezcan su propia fila.
@@ -2104,15 +2347,26 @@ EXPERIMENTOS_GRUPOS: tuple[dict, ...] = (
 )
 
 
+def _n_medias(sigma: float, mde: float, alpha: float, potencia: float) -> int:
+    """n por brazo para leer una diferencia de MEDIAS: n ≥ 2·((z_{1-α/2}+z_{1-β})·σ/mde)².
+
+    Sin unidades a propósito. La usan dos experimentos que miden cosas distintas
+    —puntos porcentuales de clickrate por grupo, días activos por jugador— y
+    darle a la función un nombre de parámetro con unidad adentro (`sigma_pp`)
+    obligaría al segundo a mentir en la clave para reusar la cuenta.
+    """
+    za = _z_de(1 - alpha / 2)
+    zb = _z_de(potencia)
+    return int(2 * ((za + zb) * sigma / mde) ** 2) + 1
+
+
 def n_comprometido_medias(exp: dict) -> int:
     """Grupos por brazo para poder leer una diferencia de MEDIAS.
 
     Misma lógica que `n_comprometido` (dos proporciones) pero escrita para la
-    fórmula de dos medias del documento, sección 5: n ≥ 2·((z_{1-α/2}+z_{1-β})·σ/mde)².
+    fórmula de dos medias del documento, sección 5.
     """
-    za = _z_de(1 - exp["alpha"] / 2)
-    zb = _z_de(exp["potencia"])
-    return int(2 * ((za + zb) * exp["sigma_pp"] / exp["mde_pp"]) ** 2) + 1
+    return _n_medias(exp["sigma_pp"], exp["mde_pp"], exp["alpha"], exp["potencia"])
 
 
 def _sigma_corregido(residuos: list[float], n_total_bloque: int, n_universidades: int) -> float | None:
@@ -2819,6 +3073,7 @@ def build(db: DBSession, week: date, weeks_shown: int = 4,
         "camadas": camadas(data, week),
         "reclutas_uni": reclutas_por_universidad(data),
         "experimentos": experimentos(data),
+        "experimento_motor": experimento_motor(data),
         "experimentos_grupos": experimento_grupos(data),
         "difusion": difusion(data),
         "horarios": horarios(data),

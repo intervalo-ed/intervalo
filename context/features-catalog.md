@@ -258,6 +258,14 @@ está en `game_boosts` y la profundidad en `game_attempts`.
 Lo que fija `backend/scripts/check_game_variante.py`, que lee el nombre del
 experimento del propio archivo del front para que no se pueda desincronizar.
 
+**Desde `dx-elo-1` (19/09) éste no es el único sorteo, y la diferencia importa.**
+Aquél corre del lado del servidor y deriva el brazo de un hash del `player.id`
+sin guardarlo en ninguna columna (`game/sorteo.py`). El write-once de acá arriba
+sigue siendo lo correcto para un experimento de PANTALLAS, y es justamente lo que
+lo vuelve inservible para uno del MOTOR: un parámetro que rige de la inscripción
+en adelante no tiene nada de «ya visto» que contaminar, y todos sus elegibles
+existen desde hace semanas.
+
 El panel lo lee en su pestaña **Experimentos**
 (`/panel/<token>/dx?s=experimentos`), que tiene una particularidad: **se niega a
 contestar hasta tener la muestra que se prometió.** Mientras falte gente no
@@ -388,6 +396,91 @@ mostró por qué tenía que ser explícita.
   color pero no el ejercicio si no hay ejercicio más difícil. Cuando esto se
   escribió la β creída más alta era 0,654 y el techo caía en θ ≈ 2,35; con la
   regla de la cadena adentro (ver más abajo) el techo pasó a θ ≈ 4,25.
+
+### `dx-elo-1`: la velocidad del Elo (desde el 19/09)
+
+**El primer experimento del juego que no toca una pantalla.** Los dos brazos ven
+exactamente lo mismo; lo único distinto es a qué velocidad se mueve un número.
+
+El paso con el que cada respuesta corrige θ decae con la experiencia y no tiene
+piso, así que el rating deja de moverse justo para los que más juegan. Medido el
+19/09 sobre los 7 días previos, leyendo el `theta_at_serve` de cada ejercicio
+servido:
+
+| experiencia | gente | ej. en 7d | Δrating | **rating por ejercicio** | paso |
+|---|---|---|---|---|---|
+| < 25 respuestas | 52 | 24 | +118 | **4,92** | 0,348 |
+| 25-99 | 101 | 52 | +239 | **4,57** | 0,203 |
+| 100-399 | 38 | 163 | +449 | **2,75** | 0,070 |
+| 400+ | 14 | 724 | +511 | **0,71** | 0,016 |
+
+Siete veces menos por el mismo trabajo. Y el grupo congelado no es un rincón: 68
+personas, el 3% de los jugadores, que ponen el **65% de las derivadas servidas**.
+
+El brazo `rapido` le pone un **piso de 0,20** al paso. Tres decisiones de diseño
+que hacen que esto se pueda correr y leer:
+
+- **Muerde recién en la respuesta 43**, que es donde el paso natural cae hasta
+  0,20. El número se calcula con `elo.n_donde_muerde`, no se escribe. Abajo de
+  ahí los dos brazos son **bit a bit el mismo motor**, y por eso esto puede
+  correr al mismo tiempo que `dx-puerta-2`, que mide las tres primeras
+  correctas. Bajar `_B_USER` —el otro camino al mismo efecto— habría acelerado
+  desde la respuesta 1 y contaminado el experimento que ya estaba en la calle.
+- **El sorteo es del lado del servidor y no se guarda**: sale de un hash del
+  `player.id` (`game/sorteo.py`). `game_players.variant` se escribe al crear la
+  fila, y todos los elegibles existen desde hace semanas, así que con el sorteo
+  de siempre este experimento habría medido a cero personas para siempre. El
+  motivo de aquella regla —no meter a alguien que ya vio la pantalla del
+  control— no aplica acá: no hay pantalla, y el resultado se mide hacia adelante.
+- **El piso va solo del lado del jugador.** `game_template_stats` es una sola
+  tabla para los dos brazos, así que tocar el paso de la β haría que el brazo
+  test le moviera la dificultad al control. θ vive en la fila del jugador y es lo
+  único que se puede repartir.
+
+**La métrica es continua y eso no es una preferencia, es la única salida.** Con
+139 elegibles, cualquier proporción pediría ~600 por brazo y no se podría leer
+nunca. Se mide **días activos en 14 días**, base medida 2,70 ± 2,02 sobre los
+propios elegibles, efecto mínimo **1 día** → **65 por brazo**. No se usó la
+quincena anterior como covariable porque está vacía (0,13 días) — para esta
+gente el producto tiene doce días de vida.
+
+**La inscripción es rodante, y ahí se jugó que esto se pueda leer o no.** La
+primera versión congelaba la cohorte el día del despliegue: los 139 que ya
+estaban arriba del umbral, y nadie más. El hash los reparte **80/59**, así que
+el brazo chico se quedaba en 59 contra 65 **para siempre** — ninguna espera lo
+arreglaba, porque los que cruzaran después no entraban. Un experimento así no da
+un resultado malo; da un panel que dice «faltan 6» hasta el fin de los tiempos.
+Con inscripción rodante cada uno entra el día que llega a las 43 y su ventana
+corre desde ahí, así que los 46 que hoy están entre 30 y 42 respuestas llegan
+solos y el desbalance se lava con ellos. El control se lee el 03/10; `rapido`,
+unas dos semanas después.
+
+El costo de la cohorte rodante, dicho en voz alta: la base de 2,70 se midió sobre
+gente que ya estaba bien arriba del umbral, y los que entren de acá en más entran
+justo al cruzarlo. Si un recién llegado a las 43 respuestas juega distinto que
+alguien con 300, las dos medias se mueven — pero se mueven **en los dos brazos
+por igual**, porque el sorteo es independiente de cuándo entró cada uno.
+
+Un día entero sobre una base de 2,70 es un +37%, y es mucho. Se declara igual
+porque es **lo que se puede ver**: pedirle medio día serían 257 por brazo. Si el
+efecto real es de medio día, este experimento lo va a dejar pasar, y eso está
+escrito de antemano en vez de descubierto después.
+
+Los guardarraíles, que se miran desde el primer día:
+
+- **% de salteo.** Se espera que SUBA, y eso es parte de la hipótesis: el castigo
+  por saltear es plano (0,15 θ), así que medido en aciertos el botón cuesta 1,7
+  respuestas correctas para un novato y 37,5 para un veterano — el uso sigue al
+  precio casi perfecto (10,9% abajo, 0,25% arriba). Con el piso, al veterano le
+  vuelve a costar ~3. Lo que importa es que no se dispare.
+- **Calibración** (acierto real menos el p̂ prometido). Si el brazo con piso se
+  pasa de largo, ese número se va a negativo: significa que le está sirviendo a
+  la gente cosas más difíciles de lo que el motor cree.
+
+El riesgo conocido: el desvío estacionario de θ es `0,783·√paso`, o sea 20 puntos
+de rating hoy y 70 con el piso. Ese temblor ES el efecto buscado, pero a quien
+esté parado justo en un corte de nivel se le va a prender y apagar el color — y
+el corte de 3,7 acaba de dejar a 70 personas ahí cerca.
 
 ### El feed de eventos (`game/events.py`)
 

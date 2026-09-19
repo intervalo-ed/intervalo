@@ -845,6 +845,110 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         anchor="experimentos"))
     pieza_experimentos = "".join(out)
 
+    # ── 6-bis · El experimento del MOTOR ─────────────────────────────────────
+    # Mismo trato que la de arriba —estado primero, guardarraíles siempre,
+    # lectura recién con el n— pero lo que se compara son dos MEDIAS y no dos
+    # proporciones, y la población son los veteranos. Ver
+    # game_queries.py :: experimento_motor.
+    e = p["experimento_motor"]
+    brazos = e["brazos"]
+    total = sum(b["n"] for b in brazos)
+    en_curso = sum(b["en_curso"] for b in brazos)
+    falta = max((b["falta"] for b in brazos), default=0)
+
+    if e["sin_arrancar"]:
+        estado = _caja_estado(
+            "Sin datos todavía",
+            f'Nadie llegó a las {num(e["umbral_n"])} respuestas de primer intento, que es '
+            f'donde el piso empieza a cambiar algo. Abajo de ese número los dos brazos son '
+            f'el mismo motor.', "espera")
+    elif falta > 0:
+        estado = _caja_estado(
+            f'Todavía no se puede leer — faltan {num(falta)} por brazo',
+            f'Van {num(total)} ventanas cerradas de las {num(2 * e["n_pedido"])} '
+            f'comprometidas ({num(e["n_pedido"])} por brazo), y hay {num(en_curso)} '
+            f'personas con la ventana todavía abierta. Un jugador cuenta recién cuando '
+            f'pasaron sus {num(e["ventana_dias"])} días: sumar una ventana a medio contar '
+            f'sería comparar a alguien medido dos semanas con alguien medido tres días.',
+            "espera")
+    else:
+        L = e["lectura"]
+        if L is None:
+            estado = _caja_estado("Listo para leer", "Ya hay muestra suficiente.", "listo")
+        elif L["rechaza"]:
+            signo = "a favor" if L["delta"] > 0 else "EN CONTRA"
+            estado = _caja_estado(
+                f'Diferencia significativa {signo}: {num(L["delta"], " días", dec=2)}',
+                f'z = {num(L["z"], dec=2)}, p-valor {_p_txt(L["p_valor"])}. Intervalo del '
+                f'95%: [{num(L["ic"][0], dec=2)} ; {num(L["ic"][1], dec=2)}] días. Antes de '
+                f'dejarlo puesto, mirar el salteo y la calibración de la tabla.',
+                "gana" if L["delta"] > 0 else "pierde")
+        else:
+            estado = _caja_estado(
+                f'Sin diferencia detectable: {num(L["delta"], " días", dec=2)}',
+                f'z = {num(L["z"], dec=2)}, p-valor {_p_txt(L["p_valor"])}. El intervalo del '
+                f'95% —[{num(L["ic"][0], dec=2)} ; {num(L["ic"][1], dec=2)}] días— contiene '
+                f'al cero. No es «son iguales»: es que un efecto de '
+                f'{num(e["mde"], " día", dec=2)} o más habría aparecido, y uno más chico '
+                f'este diseño no lo puede ver.', "plano")
+
+    filas_motor = [
+        [f'<b>{esc(b["label"])}</b>',
+         f'<span>{num(b["n"])} <span class="sub2">+{num(b["en_curso"])} en curso</span></span>',
+         f'<span>{num(b["media"], dec=2)} <span class="sub2">± {num(b["sd"], dec=2)}</span></span>',
+         num(b["rating"]), num(b["servidas"]), _pct_txt(b["pct_salteo"]),
+         "—" if b["sesgo_pp"] is None else num(b["sesgo_pp"], " pp", dec=1)]
+        for b in brazos
+    ]
+
+    out = [_section(
+        1, "El motor: la varianza del Elo",
+        _box(esc(e["titulo"]), estado
+             + _table(["Brazo", "Jugadores", "Días activos ▸", "Rating mediano",
+                       "Derivadas", "% salteo", "Calibración"],
+                      filas_motor, empty="todavía nadie")
+             + f'<p class="note"><b>Días activos es la columna que decide</b>, declarada '
+               f'antes de ver un dato: días distintos con al menos una derivada servida, '
+               f'dentro de los {num(e["ventana_dias"])} desde el arranque. Es continua a '
+               f'propósito — con {num(e["n_pedido"])} por brazo, cualquier proporción '
+               f'pediría diez veces esta gente y no se podría leer nunca.<br><br>'
+               f'Las otras tres son guardarraíles y se miran desde el primer día. '
+               f'<b>% salteo</b>: el piso le baja el precio al botón de saltear (de 37 '
+               f'aciertos a 2,4 para un veterano), así que se espera que suba — lo que '
+               f'importa es que no se dispare. <b>Calibración</b> es acierto real menos el '
+               f'p̂ que el motor prometió: si el brazo con piso se pasa de largo, ese número '
+               f'se va a negativo y hay que apagarlo, porque significa que le está sirviendo '
+               f'a la gente cosas más difíciles de lo que cree.</p>'
+             + f'<p class="note"><b>Quién entra:</b> cualquiera que llegue a '
+               f'{num(e["umbral_n"])} respuestas de primer intento, el día que llega — y su '
+               f'ventana de {num(e["ventana_dias"])} días corre desde ahí. No es un recorte '
+               f'arbitrario: es exactamente donde el piso de 0,20 empieza a diferir del '
+               f'motor de hoy, y sale calculado de los hiperparámetros '
+               f'(<code>elo.n_donde_muerde</code>), no escrito a mano.<br><br>'
+               f'<b>La inscripción es rodante y no una foto del arranque</b>, y ahí se jugó '
+               f'que esto se pueda leer o no. Con la cohorte congelada al '
+               f'{e["desde"].strftime("%d/%m")} eran 139 personas que el hash repartía 80/59: '
+               f'el brazo chico se quedaba en 59 contra los {num(e["n_pedido"])} '
+               f'comprometidos <b>para siempre</b>, porque ninguna espera lo arreglaba. Así '
+               f'entran también los 46 que hoy están entre 30 y 42 respuestas, y el '
+               f'desbalance se lava con ellos.<br><br>'
+               f'<b>El brazo no está guardado en ninguna columna</b>: sale '
+               f'de un hash del id del jugador (<code>game/sorteo.py</code>). Tuvo que ser '
+               f'así porque <code>game_players.variant</code> se escribe al crear la fila y '
+               f'todos los elegibles existen desde hace semanas — con el sorteo de siempre, '
+               f'este experimento habría medido a cero personas para siempre.</p>',
+             note=f'<b>Hipótesis:</b> {esc(e["hipotesis"])}'
+                  f'<br><br>Declarado el {e["desde"].strftime("%d/%m")}: efecto mínimo '
+                  f'{num(e["mde"], " día", dec=2)} sobre una base medida de '
+                  f'{num(e["base"], " días", dec=2)}, alfa {num(e["alpha"], dec=2)}, '
+                  f'potencia {num(100 * e["potencia"], "%", dec=0)} → '
+                  f'<b>{num(e["n_pedido"])} por brazo</b>.'
+                  f'<br><br><b>Predicción, escrita antes:</b> {esc(e["prediccion"])}'),
+        sub="El único experimento que no toca una pantalla: cambia el paso con el que se "
+            "mueve el Elo, y solo para los que ya llevan un rato jugando.",
+        anchor="experimento-motor")]
+    pieza_experimento_motor = "".join(out)
+
     # ── 6b · Experimentos por grupo de WhatsApp ──────────────────────────────
     # Mismo trato que la sección de arriba —estado primero, guardarraíles
     # siempre, lectura solo con el n comprometido— pero la unidad es el GRUPO,
@@ -1414,7 +1518,8 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                         + pieza_friccion),
         "monetizacion": (_fila_kpi(p["headline"]["monetizacion"])
                          + pieza_monetizacion),
-        "experimentacion": pieza_experimentos + pieza_experimentos_grupos,
+        "experimentacion": (pieza_experimentos + pieza_experimento_motor
+                            + pieza_experimentos_grupos),
         "voces": pieza_voces,
     }
 

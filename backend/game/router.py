@@ -47,6 +47,7 @@ from . import explain as game_explain
 from . import keyboard as game_keyboard
 from . import referrals
 from . import simulation
+from . import sorteo
 from . import stats as game_stats
 from . import xp as game_xp
 from .aliases import alias_taken, retire_alias
@@ -1074,6 +1075,12 @@ def _aplicar_elo(
 
     El nivel de antes se lee con θ todavía sin tocar: es contra eso que el feed
     decide si hubo un salto de dificultad (ver events.on_answer).
+
+    **Desde `dx-elo-1` esto no hace lo mismo para todo el mundo.** La mitad de
+    los jugadores tiene un piso en el paso de aprendizaje y la otra mitad no, y
+    el sorteo sale del id. Abajo de la respuesta 43 los dos brazos son idénticos
+    —el piso no muerde— así que la diferencia existe solo para quien ya lleva un
+    rato jugando, que es de quien se trata el experimento.
     """
     level_before = elo.level_of(player.theta)
     # La consulta se persiste en el EJERCICIO y no en el intento: es una
@@ -1097,6 +1104,11 @@ def _aplicar_elo(
         theta_after, beta_after = elo.update(
             player.theta, player.n_updates, stat.beta, stat.n_observations, correct,
             tier=stat.tier, n_players=stat.n_players,
+            # El brazo de `dx-elo-1` (ver game/sorteo.py). Es una función pura del
+            # id, así que se pregunta en cada respuesta en vez de guardarse: no
+            # hay nada que pueda quedar viejo. Para el control devuelve 0,0, que
+            # es no tener piso, que es el motor de siempre.
+            lr_min=sorteo.piso_de(player.id),
         )
         player.theta = theta_after
         player.n_updates += 1
