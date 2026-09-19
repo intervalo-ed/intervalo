@@ -227,36 +227,55 @@ check(menor >= 9, "la plantilla mas flaca de T4-T5 tiene %d variantes" % menor)
 
 print("5. La banda vacia no diluye hacia lo facil")
 
-db = database.SessionLocal()
-fresco = GamePlayer(
-    guest_token="fresco", alias="fresco", theta=3.0, n_updates=elo.RAMP_UPDATES + 50
-)
-db.add(fresco)
-db.commit()
-rng = random.Random(11)
-primeras_tiers = []
-for _ in range(5):
-    plantilla, stat, p_hat = generator.pick_template(db, fresco, rng=rng)
-    primeras_tiers.append(plantilla.tier)
-    db.add(
-        GameExercise(
-            player_id=fresco.id,
-            template_key=plantilla.key,
-            prompt_latex="x",
-            expected_derivative="1",
-            theta_at_serve=fresco.theta,
-            beta_at_serve=stat.beta,
-            p_hat=p_hat,
-            status="expired",
-        )
-    )
-    db.commit()
-db.close()
 
+def primeros_tiers(theta, etiqueta, n=5):
+    db = database.SessionLocal()
+    jugador = GamePlayer(
+        guest_token="fresco-" + etiqueta, alias="fresco" + etiqueta,
+        theta=theta, n_updates=elo.RAMP_UPDATES + 50,
+    )
+    db.add(jugador)
+    db.commit()
+    rng = random.Random(11)
+    tiers = []
+    for _ in range(n):
+        plantilla, stat, p_hat = generator.pick_template(db, jugador, rng=rng)
+        tiers.append(plantilla.tier)
+        db.add(
+            GameExercise(
+                player_id=jugador.id,
+                template_key=plantilla.key,
+                prompt_latex="x",
+                expected_derivative="1",
+                theta_at_serve=jugador.theta,
+                beta_at_serve=stat.beta,
+                p_hat=p_hat,
+                status="expired",
+            )
+        )
+        db.commit()
+    db.close()
+    return tiers
+
+
+# theta=3.0 YA NO es un jugador sin banda: con la regla de la cadena adentro
+# del catalogo, T6 (semilla 1,4) le da p-hat 0,79 y le cae justo adentro. Que
+# reciba 6 y no 8 es el selector funcionando —elige en banda, no lo mas dificil
+# que hay— y es todo el punto de haber escrito los tiers nuevos.
+tiers_3 = primeros_tiers(3.0, "t3")
 check(
-    primeras_tiers == [5] * 5,
-    "las primeras 5 tiradas de un theta=3.0 recien llegado son todas de tier 5 (dio %s)"
-    % primeras_tiers,
+    tiers_3 == [6] * 5,
+    "a theta=3.0 la cadena le cae en banda: 5 tiradas de tier 6 (dio %s)" % tiers_3,
+)
+
+# Y el invariante original sigue vivo, solo que ahora hace falta pasarse del
+# techo NUEVO para provocarlo. A theta=5.0 no hay nada en banda (lo mas duro,
+# T8 con semilla 2,6, da p-hat 0,88) y el motor tiene que servir eso igual en
+# vez de diluir hacia lo facil, que es lo que hacia antes de 2026-09.
+tiers_5 = primeros_tiers(5.0, "t5")
+check(
+    tiers_5 == [8] * 5,
+    "pasado el techo, sigue sirviendo lo mas dificil y no diluye (dio %s)" % tiers_5,
 )
 
 print("\n%d fallos" % len(FAILURES) if FAILURES else "\ntodo ok")

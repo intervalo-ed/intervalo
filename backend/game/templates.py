@@ -4,10 +4,30 @@ Cada plantilla produce un f(x) aleatorio dentro de su familia, junto con los
 errores predecibles de esa familia (derivadas erróneas típicas + feedback).
 La derivada esperada NO vive acá: la computa sympy.diff en el generador.
 
-v1 no incluye regla de la cadena ni anidamientos: los argumentos de las
-funciones son siempre `x` pelada. La cadena entra en v2 como tiers 6-8
-agregando entradas a TEMPLATES — sin tocar esquema ni migraciones (las filas
-de game_template_stats se crean lazy con beta seed por tier).
+Los tiers 0-5 no tienen cadena: ahi los argumentos son siempre `x` pelada.
+Los tiers 6-8 SI la tienen, y entraron como estaba previsto — agregando
+entradas a TEMPLATES, sin tocar esquema ni migraciones (las filas de
+game_template_stats se crean lazy con beta seed por tier).
+
+Por que la cadena y por que ahora: el banco se habia quedado sin techo. La
+plantilla mas dura era `sen(x)/x` con beta creida +0,80, o sea que a partir de
+theta = 2,50 no habia NADA que cayera en la banda objetivo. Medido sobre 21.059
+derivadas servidas (reporte del motor, 14/09): 35 personas de 678 estaban en esa
+zona y generaban el 55% de todo lo que el juego servia. El motor no fallaba
+estimando, fallaba por falta de inventario, y eso no se arregla con estadistica
+sino escribiendo derivadas.
+
+Los tres tiers nuevos comparten UNA regla. Lo que cambia entre ellos es que tan
+dificil es el interior, no que hay que saber:
+
+  · T6 — interior lineal:      f(ax + b)
+  · T7 — interior polinomico:  f(a x^2 + b), (x^n + k)^m
+  · T8 — anidada y combinada:  f(g(x)) con g trascendente, y la cadena metida
+                               adentro de un producto o un cociente
+
+`a` NUNCA vale 1 en los interiores lineales. Con `x + b` la derivada de adentro
+es 1 y la respuesta sale identica a no haber aplicado la regla: la plantilla
+dejaria de ensenar lo unico que vino a ensenar.
 
 Los coeficientes NO son decoración. Ocho de estas plantillas eran una sola
 expresión —`sen(x)/x` se sirvió 626 veces y era siempre literalmente la misma—,
@@ -102,6 +122,34 @@ _FB_SQRT_NO_HALF = "Al bajar el exponente $1/2$, ese número queda multiplicando
 _FB_TAN_NO_SQUARE = "Te falta elevar al cuadrado: la derivada de $\\tan x$ es $1/\\cos^{2}x$."
 _FB_TAN_SIGN = "La derivada de $\\tan x$ no lleva signo negativo."
 
+
+def _chain_errors(f: sympy.Expr, u: sympy.Expr) -> tuple[tuple[sympy.Expr, str], ...]:
+    """Los dos errores de la regla de la cadena, deducidos de f y del interior.
+
+    Se calculan dividiendo la derivada correcta por `u'` en vez de recibir la
+    funcion externa como parametro: `f'(u) = diff(f) / diff(u)` y sympy cancela
+    solo, asi que las quince plantillas comparten estas cuatro lineas. Por eso
+    tres tiers cuestan poco mas que uno.
+
+    Las dos degeneraciones hay que esquivarlas o el error propuesto ES la
+    respuesta correcta, y `check_game_generator.py` frena el commit:
+
+      · `u' = 1` (interior `x + b`): olvidarse la derivada de adentro no cambia
+        nada. Por eso ninguna plantilla usa `a = 1`, pero el guarda queda igual.
+      · `u' = u` (interior `e^x`): multiplicar por lo de adentro en vez de por
+        su derivada tampoco cambia nada.
+    """
+    du = sympy.diff(u, x)
+    fuera = sympy.diff(f, x) / du
+    errores: list[tuple[sympy.Expr, str]] = []
+    if du != 1:
+        errores.append((fuera, _FB_CHAIN_NO_INNER))
+    if du != u:
+        errores.append((fuera * u, _FB_CHAIN_INNER_NOT_DERIV))
+    return tuple(errores)
+
+_FB_CHAIN_NO_INNER = "Te falta la derivada de adentro: en $f(u)$ hay que multiplicar por $u'$."
+_FB_CHAIN_INNER_NOT_DERIV = "Multiplicaste por lo de adentro en vez de por su derivada: la regla es $f'(u)\\,u'$."
 
 def _product_errors(u: sympy.Expr, v: sympy.Expr) -> tuple[tuple[sympy.Expr, str], ...]:
     du, dv = sympy.diff(u, x), sympy.diff(v, x)
@@ -408,6 +456,151 @@ def _t5_linear_over_linear(rng: CyclingRandom) -> Generated:
     return Generated(f=u / v, common_errors=_quotient_errors(u, v))
 
 
+# ── Tier 6: la cadena con interior lineal ────────────────────────────────────
+#
+# El primer escalon de la regla. El interior es `ax + b` con `a` de 2 a 9, asi
+# que la derivada de adentro es un entero visible y el unico paso nuevo es
+# acordarse de multiplicarlo.
+
+def _t6_sin_lineal(rng: CyclingRandom) -> Generated:
+    a = rng.randint("a", 2, 9)
+    b = rng.randint("b", 1, 9)
+    u = Integer(a) * x + Integer(b)
+    f = sin(u)
+    return Generated(f=f, common_errors=_chain_errors(f, u))
+
+
+def _t6_cos_lineal(rng: CyclingRandom) -> Generated:
+    a = rng.randint("a", 2, 9)
+    b = rng.randint("b", 1, 9)
+    u = Integer(a) * x + Integer(b)
+    f = cos(u)
+    return Generated(f=f, common_errors=_chain_errors(f, u))
+
+
+def _t6_exp_lineal(rng: CyclingRandom) -> Generated:
+    a = rng.randint("a", 2, 9)
+    b = rng.randint("b", 1, 9)
+    u = Integer(a) * x + Integer(b)
+    f = exp(u)
+    return Generated(f=f, common_errors=_chain_errors(f, u))
+
+
+def _t6_ln_lineal(rng: CyclingRandom) -> Generated:
+    a = rng.randint("a", 2, 9)
+    b = rng.randint("b", 1, 9)
+    u = Integer(a) * x + Integer(b)
+    f = log(u)
+    return Generated(f=f, common_errors=_chain_errors(f, u))
+
+
+def _t6_pow_lineal(rng: CyclingRandom) -> Generated:
+    a = rng.randint("a", 2, 9)
+    b = rng.randint("b", 1, 9)
+    n = rng.randint("n", 2, 5)
+    u = Integer(a) * x + Integer(b)
+    f = u**n
+    return Generated(f=f, common_errors=_chain_errors(f, u))
+
+
+# ── Tier 7: la cadena con interior polinomico ────────────────────────────────
+#
+# Ahora la derivada de adentro tambien hay que calcularla, y el resultado deja
+# de ser un numero: es lo que separa «me acorde de la regla» de «se aplicarla».
+
+def _t7_pow_poly(rng: CyclingRandom) -> Generated:
+    n = rng.randint("n", 2, 3)
+    k = rng.randint("k", 1, 9)
+    m = rng.randint("m", 2, 4)
+    u = x**n + Integer(k)
+    f = u**m
+    return Generated(f=f, common_errors=_chain_errors(f, u))
+
+
+def _t7_sqrt_poly(rng: CyclingRandom) -> Generated:
+    a = rng.randint("a", 1, 9)
+    b = rng.randint("b", 1, 9)
+    u = Integer(a) * x**2 + Integer(b)
+    f = sqrt(u)
+    return Generated(f=f, common_errors=_chain_errors(f, u))
+
+
+def _t7_exp_poly(rng: CyclingRandom) -> Generated:
+    a = rng.randint("a", 1, 5)
+    b = rng.randint("b", 1, 9)
+    u = Integer(a) * x**2 + Integer(b) * x
+    f = exp(u)
+    return Generated(f=f, common_errors=_chain_errors(f, u))
+
+
+def _t7_ln_poly(rng: CyclingRandom) -> Generated:
+    a = rng.randint("a", 1, 9)
+    b = rng.randint("b", 1, 9)
+    u = Integer(a) * x**2 + Integer(b)
+    f = log(u)
+    return Generated(f=f, common_errors=_chain_errors(f, u))
+
+
+def _t7_pow_trig(rng: CyclingRandom) -> Generated:
+    # sen^n(x): la cadena al reves, con la potencia AFUERA y la trigonometrica
+    # adentro. Es la forma que mas se confunde con `sen(x^n)`.
+    k = rng.choice("k", [1, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+    n = rng.randint("n", 2, 5)
+    u = sin(x)
+    f = Integer(k) * u**n
+    return Generated(f=f, common_errors=_chain_errors(f, u))
+
+
+# ── Tier 8: anidada, y adentro de un producto o un cociente ──────────────────
+#
+# Las tres primeras son dos funciones trascendentes una adentro de la otra. Las
+# dos ultimas meten la cadena adentro de una regla que el juego ya pedia por
+# separado, que es la forma en la que esto aparece en un parcial.
+
+def _t8_exp_sin(rng: CyclingRandom) -> Generated:
+    c = rng.choice("c", [1, 1, 2, 3, 4, 5])
+    k = rng.randint("k", 2, 5)
+    u = Integer(k) * sin(x)
+    f = Integer(c) * exp(u)
+    return Generated(f=f, common_errors=_chain_errors(f, u))
+
+
+def _t8_cos_ln(rng: CyclingRandom) -> Generated:
+    c = rng.choice("c", [1, 1, 2, 3, 4, 5])
+    k = rng.randint("k", 2, 5)
+    u = Integer(k) * log(x)
+    f = Integer(c) * cos(u)
+    return Generated(f=f, common_errors=_chain_errors(f, u))
+
+
+def _t8_pow_ln(rng: CyclingRandom) -> Generated:
+    c = rng.choice("c", [1, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+    n = rng.randint("n", 2, 4)
+    u = log(x)
+    f = Integer(c) * u**n
+    return Generated(f=f, common_errors=_chain_errors(f, u))
+
+
+def _t8_prod_cadena(rng: CyclingRandom) -> Generated:
+    # Producto POR FUERA y cadena adentro del segundo factor. La forma la
+    # declara FORMA_POR_PLANTILLA como "producto": la explicacion arranca por el
+    # rectangulo y la cadena aparece cuando le toca a la pieza que la necesita.
+    n = rng.randint("n", 2, 4)
+    a = rng.randint("a", 2, 9)
+    u, v = x**n, exp(Integer(a) * x)
+    return Generated(f=u * v, common_errors=_product_errors(u, v))
+
+
+def _t8_quot_cadena(rng: CyclingRandom) -> Generated:
+    a = rng.randint("a", 2, 9)
+    n = rng.randint("n", 1, 3)
+    u, v = sin(Integer(a) * x), x**n
+    return Generated(f=u / v, common_errors=_quotient_errors(u, v))
+
+
+_FB_CADENA = "Revisa la regla de la cadena: $\\left(f(u)\\right)' = f'(u)\\,u'$."
+
+
 TEMPLATES: tuple[GameTemplate, ...] = (
     GameTemplate("t0_const", 0, _t0_const),
     GameTemplate("t0_x", 0, _t0_x),
@@ -441,6 +634,24 @@ TEMPLATES: tuple[GameTemplate, ...] = (
     GameTemplate("t1_recip", 1, _t1_recip),
     GameTemplate("t1_sqrt", 1, _t1_sqrt),
     GameTemplate("t3_tan", 3, _t3_tan, min_rating=PISO_TRIGONOMETRICAS),
+    # ── La regla de la cadena ────────────────────────────────────────────────
+    # Tambien al final, por el mismo motivo que las tres de arriba: el indice
+    # posicional que referencia check_game_explain.py no se puede correr.
+    GameTemplate("t6_sin_lineal", 6, _t6_sin_lineal, _FB_CADENA, min_rating=PISO_TRIGONOMETRICAS),
+    GameTemplate("t6_cos_lineal", 6, _t6_cos_lineal, _FB_CADENA, min_rating=PISO_TRIGONOMETRICAS),
+    GameTemplate("t6_exp_lineal", 6, _t6_exp_lineal, _FB_CADENA),
+    GameTemplate("t6_ln_lineal", 6, _t6_ln_lineal, _FB_CADENA),
+    GameTemplate("t6_pow_lineal", 6, _t6_pow_lineal, _FB_CADENA),
+    GameTemplate("t7_pow_poly", 7, _t7_pow_poly, _FB_CADENA),
+    GameTemplate("t7_sqrt_poly", 7, _t7_sqrt_poly, _FB_CADENA),
+    GameTemplate("t7_exp_poly", 7, _t7_exp_poly, _FB_CADENA),
+    GameTemplate("t7_ln_poly", 7, _t7_ln_poly, _FB_CADENA),
+    GameTemplate("t7_pow_trig", 7, _t7_pow_trig, _FB_CADENA, min_rating=PISO_TRIGONOMETRICAS),
+    GameTemplate("t8_exp_sin", 8, _t8_exp_sin, _FB_CADENA, min_rating=PISO_TRIGONOMETRICAS),
+    GameTemplate("t8_cos_ln", 8, _t8_cos_ln, _FB_CADENA, min_rating=PISO_TRIGONOMETRICAS),
+    GameTemplate("t8_pow_ln", 8, _t8_pow_ln, _FB_CADENA),
+    GameTemplate("t8_prod_cadena", 8, _t8_prod_cadena, "Revisa la regla del producto, y ojo con la derivada de adentro del segundo factor."),
+    GameTemplate("t8_quot_cadena", 8, _t8_quot_cadena, "Revisa la regla del cociente, y ojo con la derivada de adentro del numerador.", min_rating=PISO_TRIGONOMETRICAS),
 )
 
 TEMPLATE_BY_KEY: dict[str, GameTemplate] = {t.key: t for t in TEMPLATES}

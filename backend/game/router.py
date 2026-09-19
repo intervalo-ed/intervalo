@@ -666,6 +666,7 @@ def _exercise_out(exercise: GameExercise, player: GamePlayer) -> GameExerciseOut
         combo=player.current_combo,
         keys=game_keyboard.parse_unlocked_ordered(unlocked),
         new_keys=fresh,
+        tabla_slugs=game_stats.slugs_del_ejercicio(exercise),
     )
 
 

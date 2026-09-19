@@ -17,6 +17,7 @@
     "check:instalacion": "bun run scripts/check-instalacion-trigger.ts",
     "check:opinion": "bun run scripts/check-opinion-trigger.ts",
     "check:encuesta": "bun run scripts/check-encuesta-trigger.ts",
+    "check:tabla": "bun run scripts/check-tabla-orden.ts",
     "check:puerta": "bun run scripts/check-puerta.ts",
     "check:universitario": "bun run scripts/check-ranking-universitario.ts",
     "check:filtros": "bun run scripts/check-filtros-ranking.ts",

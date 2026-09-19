@@ -5335,6 +5335,14 @@
             "type": "array",
             "title": "New Keys",
             "default": []
+          },
+          "tabla_slugs": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Tabla Slugs",
+            "default": []
           }
         },
         "type": "object",

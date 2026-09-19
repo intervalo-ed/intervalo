@@ -327,6 +327,30 @@ mostró por qué tenía que ser explícita.
   PERSONAS distintas y no en respuestas. Sin ese ancla un motor adaptativo se
   autoengaña: lo difícil solo se le sirve a quien va bien, así que lo difícil
   solo recibe evidencia de quien va bien y termina pareciendo fácil.
+- **La regla de la cadena son los tiers 6, 7 y 8** (`templates.py`, 15
+  plantillas, semillas 1,4 / 2,0 / 2,6). Estaban reservados desde v1 y se
+  cobraron en 2026-09 porque el banco se había quedado sin techo: con
+  `sen(x)/x` (β creída +0,80) como lo más duro, desde θ = 2,50 no había NADA en
+  banda, y las 35 personas que estaban ahí arriba generaban el **55% de las
+  21.059 derivadas servidas**. El motor no fallaba estimando: fallaba por falta
+  de inventario, que se arregla escribiendo derivadas y no tocando el
+  estimador.
+
+  Los tres tiers comparten UNA regla; lo que cambia es el interior. T6 es
+  `f(ax+b)` con `a ≥ 2` —con `a = 1` la derivada de adentro es 1 y la plantilla
+  deja de enseñar lo único que vino a enseñar—, T7 mete un polinomio adentro, y
+  T8 anida dos trascendentes (`e^{k·sen x}`) o mete la cadena adentro de un
+  producto o un cociente. El techo nuevo es **θ ≤ 4,25** contra un máximo
+  observado de 4,56, y `check_game_techo.py` lo fija en vez de dejar que se
+  redescubra leyendo un PDF.
+
+- **El último cinturón subió de θ 2,2 a 3,7** (`elo._LEVEL_CUTS`) en el mismo
+  cambio, y **esta vez bajó gente**: de los 48 marrones quedaron ~9 y el resto
+  pasó a violeta. El cinturón de arriba significa «llegaste a lo más difícil
+  que el juego tiene», y con los tiers nuevos eso dejaba de ser cierto a 2,2.
+  La caída es silenciosa —el feed solo publica subidas de nivel— pero el color
+  del nombre cambia a la vista de todos. Los otros dos cortes no se tocaron.
+
 - **Piso de Elo por plantilla** (`templates.PISO_TRIGONOMETRICAS`, hoy 1200).
   Es el único criterio de la lista que NO es adaptativo, y por eso existe: el
   ancla frena que una β se desboque pero no la revierte, y las trigonométricas
@@ -358,11 +382,10 @@ mostró por qué tenía que ser explícita.
   el motor promete 0,87 y la gente entrega 0,92, o sea 0,66 de θ — un tier
   entero de subvaluación.
 
-  Lo que el ajuste NO puede arreglar es el techo del catálogo: la β creída más
-  alta es 0,654, así que arriba de θ ≈ 2,35 la banda objetivo ya no existe y
-  subir θ mueve el color pero no el ejercicio. Simulado sobre el historial real,
-  3 de 220 disparos caen ahí — la pregunta sale temprano y a esa altura casi
-  nadie llegó. El arreglo de verdad son los tiers 6-8 con regla de la cadena.
+  Lo que el ajuste NO puede arreglar es el techo del catálogo: subir θ mueve el
+  color pero no el ejercicio si no hay ejercicio más difícil. Cuando esto se
+  escribió la β creída más alta era 0,654 y el techo caía en θ ≈ 2,35; con la
+  regla de la cadena adentro (ver más abajo) el techo pasó a θ ≈ 4,25.
 
 ### El feed de eventos (`game/events.py`)
 
@@ -394,7 +417,7 @@ No era la primera advertencia: el comentario de `events_copy._NIVEL` ya anotaba
 «110 de 122 en una semana fueron al nivel 1». Aquella vez se arregló lo que la
 línea DECÍA —antes los tres niveles compartían la misma frase— y no cuántas
 eran. El evento sobrevive porque desbloquear los productos o los cocientes sigue
-siendo noticia, y con los tiers 6-8 va a haber más para contar.
+siendo noticia, y con los tiers 6-8 ya hay más para contar.
 
 En su lugar el feed **saluda a quien llega**. Ese saludo ya se movió una vez y
 conviene leer las dos posiciones juntas, porque la segunda arregla lo que la

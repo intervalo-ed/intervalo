@@ -88,7 +88,7 @@ class Regla:
     formula: str | None = None
 
 
-# Las trece imágenes. Este es el archivo que se edita cuando se quiere cambiar
+# Las catorce imágenes. Este es el archivo que se edita cuando se quiere cambiar
 # cómo suena el juego al explicar; nada de acá abajo depende de la plantilla que
 # se sirvió.
 REGLAS: dict[str, Regla] = {
@@ -164,6 +164,13 @@ REGLAS: dict[str, Regla] = {
         "signo menos del segundo término y el $v^{2}$ de abajo.",
         r"\left(\frac{u}{v}\right)' = \frac{u'v - uv'}{v^{2}}",
     ),
+    "cadena": Regla(
+        "Una función adentro de otra son dos engranajes encadenados: movés $x$ "
+        "un poquito, eso mueve lo de adentro, y recién eso mueve el resultado.\n\n"
+        "Las dos velocidades se multiplican. Por eso no alcanza con derivar la "
+        "de afuera: hay que preguntarle también a la de adentro cuánto se movió.",
+        r"\left(f(u)\right)' = f'(u)\,u'",
+    ),
     "tan": Regla(
         "$\\tan x$ es el cociente entre el seno y el coseno del mismo punto que "
         "gira. Los dos cambian a la vez, y al repartir ese cambio con la regla "
@@ -207,6 +214,38 @@ FORMA_POR_PLANTILLA: dict[str, str] = {
     "t1_recip": "termino",
     "t1_sqrt": "termino",
     "t3_tan": "tan",
+    "t6_sin_lineal": "cadena",
+    "t6_cos_lineal": "cadena",
+    "t6_exp_lineal": "cadena",
+    "t6_ln_lineal": "cadena",
+    "t6_pow_lineal": "cadena",
+    "t7_pow_poly": "cadena",
+    "t7_sqrt_poly": "cadena",
+    "t7_exp_poly": "cadena",
+    "t7_ln_poly": "cadena",
+    "t7_pow_trig": "cadena",
+    "t8_exp_sin": "cadena",
+    "t8_cos_ln": "cadena",
+    "t8_pow_ln": "cadena",
+    # Estas dos NO son "cadena": la forma de arriba es la que manda la
+    # explicación, y acá arriba hay un producto y un cociente. La cadena de
+    # adentro la encuentra `_reglas_de` sola cuando `build` recorre las piezas,
+    # que es exactamente para lo que se le agregó la rama.
+    "t8_prod_cadena": "producto",
+    "t8_quot_cadena": "cociente",
+}
+
+
+# Las cinco funciones de una sola variable que el catálogo usa, con la regla
+# que las explica. Es un dict y no cinco `if` porque la rama de la cadena tiene
+# que preguntar «¿esto es una función de las nuestras?» antes de mirar su
+# argumento, y con `if` encadenados eso eran cinco preguntas repetidas.
+_UNARIAS: dict[type, str] = {
+    sympy.exp: "exp",
+    sympy.log: "ln",
+    sympy.sin: "sen",
+    sympy.cos: "cos",
+    sympy.tan: "tan",
 }
 
 
@@ -235,21 +274,64 @@ def _reglas_de(expr: sympy.Expr) -> tuple[str, ...]:
             return ("potencia",)
         if exponente == x and base.is_Number:
             return ("ax",)
-    if expr.func is sympy.exp:
-        return ("exp",)
-    if expr.func is sympy.log:
-        return ("ln",)
-    if expr.func is sympy.sin:
-        return ("sen",)
-    if expr.func is sympy.cos:
-        return ("cos",)
-    if expr.func is sympy.tan:
-        return ("tan",)
+        if exponente.is_Number:
+            # Una potencia de algo que no es `x`: la potencia queda afuera y
+            # adentro hay una cadena. `sqrt` entra por acá, con exponente 1/2.
+            return ("cadena", "potencia") + _reglas_de(base)
+    regla = _UNARIAS.get(expr.func)
+    if regla is not None:
+        (argumento,) = expr.args
+        if argumento == x:
+            return (regla,)
+        # El caso que este archivo no sabía ver hasta que entró la cadena: una
+        # función cuyo argumento no es `x` pelada. Antes devolvía solo la regla
+        # de afuera, así que un `sen(3x+2)` mostraba el círculo unitario y
+        # después un 3 que aparecía de la nada.
+        return ("cadena", regla) + _reglas_de(argumento)
     # Una forma que este catálogo no conoce. Devolver vacío deja la explicación
     # con la cuenta y sin imagen: feo, pero cierto. Inventar la imagen
     # equivocada sería peor, y el check recorre las 29 plantillas justamente
     # para que esto no llegue a producción.
     return ()
+
+
+def _partes_de_producto(f: sympy.Expr) -> tuple[sympy.Expr, sympy.Expr, sympy.Expr]:
+    r"""Devuelve (coeficiente, `u`, `v`) de un producto.
+
+    **El coeficiente sale ANTES de partir, y ese es todo el punto.** Con
+    `as_ordered_factors()` a secas, `6x^2\operatorname{sen}x` se partía en
+    `u = 6` y `v = x^2\operatorname{sen}x`, o sea que la explicación mostraba
+    `u' = 0` —un renglón que no dice nada— y del otro lado una `v'` que ya era
+    el ejercicio entero resuelto, sin haber aplicado la regla del producto a
+    los dos factores que de verdad hay. De paso se perdían las imágenes de la
+    potencia y del seno, contra lo que promete el punto 2 del docstring de
+    arriba. Le pasaba a las cinco plantillas de T4 las ocho de cada nueve veces
+    en que el coeficiente no era 1.
+
+    El cociente no lo necesita: ahí `as_numer_denom()` deja el coeficiente
+    adentro de `u`, que es donde corresponde.
+    """
+    coef, nucleo = f.as_coeff_Mul()
+    factores = nucleo.as_ordered_factors()
+    return coef, factores[0], sympy.Mul(*factores[1:])
+
+
+def _partes_de_cadena(f: sympy.Expr) -> tuple[sympy.Expr, sympy.Expr]:
+    r"""Devuelve (`afuera_en_x`, `u`) de una composición.
+
+    `afuera_en_x` es la función de afuera aplicada a una `x` pelada —`sen(x)`,
+    `x^5`— y existe para poder pedirle su imagen a `_reglas_de` sin sustituir
+    nada adentro de la expresión real, que es frágil. `u` es el interior.
+
+    El coeficiente de adelante se descarta acá: `2\,\ln^2 x` y `\ln^2 x` se
+    componen igual, y la constante multiplicativa ya tiene su propia imagen.
+    """
+    _, nucleo = f.as_coeff_Mul()
+    if nucleo.is_Pow:
+        base, exponente = nucleo.as_base_exp()
+        return x**exponente, base
+    (argumento,) = nucleo.args
+    return nucleo.func(x), argumento
 
 
 def _display(latex: str) -> str:
@@ -389,14 +471,16 @@ def build(exercise) -> Explanation:
             imagen(clave)
 
     if forma in ("producto", "cociente"):
+        coef = sympy.Integer(1)
         if forma == "producto":
-            factores = f.as_ordered_factors()
-            u, v = factores[0], sympy.Mul(*factores[1:])
+            coef, u, v = _partes_de_producto(f)
         else:
             u, v = f.as_numer_denom()
         du, dv = sympy.diff(u, x), sympy.diff(v, x)
 
         imagen(forma)
+        if coef != 1:
+            imagen("constante_por")
         trozos.append("Acá las dos piezas son:")
         trozos.append(
             _display(
@@ -420,7 +504,7 @@ def build(exercise) -> Explanation:
         # comprueba numéricamente contra `expected_derivative`— pero solo una
         # es la que cierra el paso a paso que se acaba de leer.
         if forma == "producto":
-            resultado = du * v + u * dv
+            resultado = coef * (du * v + u * dv)
         else:
             resultado = (du * v - u * dv) / v**2
             # El cociente lleva un renglón de más, con las piezas puestas en la
@@ -434,6 +518,36 @@ def build(exercise) -> Explanation:
                 rf" - \left({latex_es(u)}\right)\left({latex_es(dv)}\right)}}"
                 rf"{{\left({latex_es(v)}\right)^{{2}}}}"
             )
+
+    elif forma == "cadena":
+        afuera_en_x, u = _partes_de_cadena(f)
+        du = sympy.diff(u, x)
+
+        imagen("cadena")
+        trozos.append("Acá lo de adentro es:")
+        trozos.append(
+            _display(
+                r"\begin{aligned} "
+                + _renglon("u", latex_es(u))
+                + " & "
+                + _renglon("u'", latex_es(du))
+                + r" \end{aligned}"
+            )
+        )
+        imagenes(afuera_en_x)
+        imagenes(u)
+        # `f'(u)` sale de dividir la derivada por la de adentro en vez de
+        # derivar la función de afuera y sustituir: sympy cancela solo y así no
+        # hay que reconstruir la composición a mano. Mismo truco que
+        # templates.py :: _chain_errors.
+        resultado = sympy.diff(f, x)
+        # El renglón de más, por el mismo motivo que en el cociente: sympy ya
+        # simplificó el resultado y el salto desde «u, u'» hasta ahí es
+        # justamente el que la persona no pudo dar sola.
+        sustitucion = (
+            rf"\left({latex_es(resultado / du)}\right)"
+            rf"\cdot\left({latex_es(du)}\right)"
+        )
 
     elif forma == "suma":
         terminos = f.as_ordered_terms()
@@ -499,6 +613,39 @@ def build(exercise) -> Explanation:
         graph_fn2_latex=latex_es(fprime),
         graph_view=_auto_view(f, fprime),
     )
+
+
+def reglas_del_ejercicio(exercise) -> tuple[str, ...]:
+    """Qué reglas hacen falta para esta derivada, sin armar el texto.
+
+    Es lo mismo que decide `build`, pero devuelto como datos: lo usa
+    `game/stats.py` para saber qué FILAS de la tabla de derivadas le
+    corresponden a un ejercicio, y de ahí sale el `tabla_slugs` que el front
+    necesita para acomodar la tabla.
+
+    Vive acá y no en stats.py para que la tabla y la explicación no puedan
+    decir cosas distintas sobre el mismo ejercicio. `check_game_explain.py`
+    verifica que cada regla que esto nombra tenga su imagen en el texto.
+    """
+    f = _f_de(exercise)
+    forma = FORMA_POR_PLANTILLA.get(exercise.template_key) or "termino"
+    if forma == "producto":
+        coef, u, v = _partes_de_producto(f)
+        constante = ("constante_por",) if coef != 1 else ()
+        return ("producto",) + constante + _reglas_de(u) + _reglas_de(v)
+    if forma == "cociente":
+        u, v = f.as_numer_denom()
+        return ("cociente",) + _reglas_de(u) + _reglas_de(v)
+    if forma == "cadena":
+        afuera_en_x, u = _partes_de_cadena(f)
+        return ("cadena",) + _reglas_de(afuera_en_x) + _reglas_de(u)
+    if forma == "suma":
+        return ("suma",) + tuple(
+            regla for t in f.as_ordered_terms() for regla in _reglas_de(t)
+        )
+    if forma in ("loga", "tan"):
+        return (forma,)
+    return _reglas_de(f)
 
 
 def plantillas_sin_forma() -> list[str]:

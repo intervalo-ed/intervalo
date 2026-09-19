@@ -109,6 +109,13 @@ class GameExerciseOut(BaseModel):
     # Las que se desbloquean con ESTE ejercicio, subconjunto de `keys`. El front
     # las usa para festejar solo lo nuevo en vez de animar la fila entera.
     new_keys: list[str] = []
+    # Las FILAS de la tabla de derivadas que esta derivada necesita, en el orden
+    # de la tabla (game/stats.py :: slugs_del_ejercicio). En escritorio la tabla
+    # las sube arriba cuando no entra entera; en el teléfono no se usa.
+    #
+    # Viajan los slugs de fila y no la `template_key` a propósito: es lo que la
+    # tabla precisa, y no delata más de lo que ya delatan `tier` y `keys`.
+    tabla_slugs: list[str] = []
 
 
 class GameSkipRequest(BaseModel):

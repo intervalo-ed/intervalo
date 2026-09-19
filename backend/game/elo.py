@@ -30,9 +30,19 @@ EXPLORE_HIGH = 0.85
 # así el juego arranca en y=k, y=x aunque el θ inicial sea 0.
 RAMP_UPDATES = 5
 
-# Dificultad seed por tier (v1 sin cadena). Con θ=0: T0 → p̂≈0.86, T5 → p̂≈0.32.
-# Al sumar cadena en v2, reservar {6: 1.4, 7: 2.0, 8: 2.6}.
-BETA_SEED: dict[int, float] = {0: -2.2, 1: -1.6, 2: -1.0, 3: -0.4, 4: 0.3, 5: 0.9}
+# Dificultad seed por tier. Con θ=0: T0 → p̂≈0.86, T5 → p̂≈0.32, T8 → p̂≈0.10.
+#
+# Los tres últimos son la regla de la cadena, y son exactamente los valores que
+# este comentario venía reservando desde v1. Se cobraron porque el catálogo se
+# había quedado sin techo: con `sen(x)/x` (β creída +0,80) como lo más duro,
+# a partir de θ = 2,50 no había nada en banda, y las 35 personas que estaban ahí
+# generaban el 55% de las derivadas servidas. Ahora el techo es θ ≤ 4,30, que
+# cubre 673 de los 678 jugadores con historial.
+#
+# `check_game_techo.py` deja esa cuenta escrita en vez de que se redescubra
+# dentro de tres meses leyendo un PDF.
+BETA_SEED: dict[int, float] = {0: -2.2, 1: -1.6, 2: -1.0, 3: -0.4, 4: 0.3, 5: 0.9,
+                               6: 1.4, 7: 2.0, 8: 2.6}
 
 # Cuántos ESTUDIANTES DISTINTOS "vale" la semilla del tier. Ver `effective_beta`.
 #
@@ -245,18 +255,27 @@ def difficulty_stars(p_hat: float) -> int:
 # θ ≈ β + logit(0.75)/SCALE = β + 1.34. O sea que θ=0.3 es "las sumas ya salen
 # cómodas" (T2), θ=1.6 "los productos" (T4) y θ=2.2 "los cocientes" (T5). Un
 # jugador nuevo arranca en θ=0 y por lo tanto en blanco, como corresponde.
-# Volvieron a (0.3, 1.6, 2.2) al recalcular el historial con las reglas nuevas
-# (`scripts/diag/backfill_elo.py`). Habían estado corridos +1,738 unas horas,
-# mientras el θ de la gente venía del motor viejo y solo se lo había re-expresado
-# en la coordenada nueva; el backfill lo recalcula de cero contra β anclada a las
-# semillas, así que los cortes recuperan exactamente su sentido original: θ=0,3
-# es «las sumas ya salen cómodas» (T2), θ=1,6 «los productos» (T4) y θ=2,2 «los
-# cocientes» (T5).
+# **El último corte se movió de 2,2 a 3,7 al entrar la regla de la cadena, y
+# esta vez SÍ baja gente.** Hay que decirlo con todas las letras porque es lo
+# contrario de lo que pasó la vez anterior: cuando los cortes volvieron a
+# (0.3, 1.6, 2.2) subían 145 personas y no bajaba ninguna.
 #
-# Medido antes de aplicarlo: con estos cortes 145 personas suben de cinturón y
-# NINGUNA baja. Conservar la distribución de hoy a fuerza de percentiles habría
-# degradado a 23.
-_LEVEL_CUTS = (0.3, 1.6, 2.2)
+# El motivo es que el último cinturón dice «llegaste a lo más difícil que el
+# juego tiene», y con los tiers 6-8 arriba eso dejó de ser cierto a θ=2,2: el
+# marrón se había quedado a mitad de camino. `tier_objetivo` elige T8 recién
+# cuando θ − 1,343 > 2,3, o sea θ > 3,643; 3,7 es el mínimo redondo que lo
+# cumple, y cada décima de más es gente de más que baja.
+#
+# El costo, medido contra el histograma de θ del reporte del 14/09: de los 48
+# marrones quedan ~9 y los otros ~39 pasan a violeta. La caída es silenciosa
+# —`events.py` solo publica `level_after > level_before`, así que el feed no
+# anuncia bajadas— pero el color del nombre cambia a la vista de todos.
+#
+# Los otros dos cortes NO se tocan: θ=0,3 sigue siendo «las sumas ya salen
+# cómodas» (T2) y θ=1,6 «los productos» (T4). Con el tercero en 3,7 los tres
+# niveles desbloquean T2 / T4 / T8, que es lo que `check_game_events_copy.py`
+# verifica sin que haya que aflojarle nada.
+_LEVEL_CUTS = (0.3, 1.6, 3.7)
 
 
 def level_of(theta: float) -> int:

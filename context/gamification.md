@@ -35,15 +35,23 @@ Economía aparte de la de arriba: escribe `game_players.xp` y nunca
 `users.total_xp`. **La base sale del `tier` de la plantilla** —lo escrito a mano
 en `templates.py`, que es la dificultad que la persona ve— con esta tabla:
 
-| tier | 0 | 1 | 2 | 3 | 4 | 5 |
-|---|---|---|---|---|---|---|
-| XP | 8 | 12 | 15 | 20 | 26 | 34 |
+| tier | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+|---|---|---|---|---|---|---|---|---|---|
+| XP | 8 | 12 | 15 | 20 | 26 | 34 | 42 | 50 | 58 |
 
 El segundo intento paga `8/25` de esa base, el tercero en adelante `5/25`, y el
 bonus cada 5 correctas limpias seguidas es `15/25`. **Todo fracción y nada
 plano**, o la inversión vuelve por la ventana: un +15 fijo es +71% sobre una
 respuesta de 21 y +188% sobre una de 8, así que la derivada fácil con combo le
-pasaría a la difícil sin él. Copiar de la tabla (5) y acertar tras leer el
+pasaría a la difícil sin él.
+
+**Los tres tiers de la cadena (6-8) se aplanan a propósito.** Siguiendo la
+progresión de ×1,3 habrían pagado 44/57/74; pagan 42/50/58. El motivo es de
+reparto y no de justicia: esos tiers los ve casi solo la treintena de jugadores
+más pesados, que ya genera el 55% de las derivadas servidas y cuya XP alimenta
+el empuje de su universidad. Con 74 por derivada esa carrera se decidiría por
+dónde estudian cinco personas. Con 58 la dificultad sigue mandando —el tope
+queda en 1,7× el T5, y el orden es monótono— sin inclinar la economía así. Copiar de la tabla (5) y acertar tras leer el
 «¿Por qué?» (3) pagan plano y son la única excepción — esa dificultad la
 resolvió la ayuda.
 
@@ -60,6 +68,26 @@ a propósito para que le gane al ×3 del cafecito — `check_game_xp.py` lo fija
 La β aprendida (`game_template_stats.beta`) **no** paga: se mueve sola con cada
 respuesta, así que la misma derivada pagaría distinto cada semana. La β elige,
 el tier paga.
+
+### Los cuatro colores del nombre (dx)
+
+El juego no tiene cinturones propios: el color del @ sale de `elo.level_of(θ)`
+con los cortes `_LEVEL_CUTS`, y se gana **resolviendo más difícil**, no
+acumulando XP. Son cuatro niveles porque el catálogo de Intervalo tiene cuatro
+colores (blanco, azul, violeta, marrón).
+
+Los cortes están en **0,3 · 1,6 · 3,7**, y cada uno es el θ en el que una
+familia de derivadas «empieza a salir cómoda»: las sumas, los productos y —desde
+que existe la regla de la cadena— las anidadas. La frase que el feed publica al
+subir de nivel no está tabulada: sale de `elo.tier_objetivo`, que la deriva de
+los cortes y de las semillas, así que el día que alguno se mueva la frase se
+mueve con él en vez de quedar mintiendo.
+
+**El último corte pasó de 2,2 a 3,7 en 2026-09** al entrar los tiers 6-8, y bajó
+a unas 39 de las 48 personas que estaban en marrón. Es el único cambio de cortes
+que degradó a alguien; el anterior subía a 145 y no bajaba a nadie. Se hizo
+igual porque el cinturón de arriba afirma «llegaste al techo» y con la cadena
+adentro eso era falso a 2,2.
 ### La dificultad que la persona pide (dx)
 
 A las 10 derivadas resueltas —después cada 30, y tres veces como mucho— el juego

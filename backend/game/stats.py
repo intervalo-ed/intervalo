@@ -22,6 +22,7 @@ from sqlalchemy.orm import Session as DBSession
 from models import GameAttempt, GameExercise, GamePlayer, GameTemplateStat
 
 from . import elo
+from .explain import reglas_del_ejercicio
 from .templates import TEMPLATE_BY_KEY
 
 # A partir de cuántas derivadas RESUELTAS se desbloquea el panel. Mismo número
@@ -77,7 +78,7 @@ def _unlock_theta(beta: float, tier: int, n_players: int) -> float:
     return elo.effective_beta(beta, tier, n_players) + _UNLOCK_THETA_OFFSET
 
 
-# Mapeo EXACTO a las 14 filas de DerivativesTable (derivatives-table.tsx ::
+# Mapeo EXACTO a las 15 filas de DerivativesTable (derivatives-table.tsx ::
 # FILAS), mismo orden.
 #
 # Las tres filas que faltaban —1/x, √x y tan x— eran ciertas hasta el
@@ -103,6 +104,15 @@ ROW_TEMPLATES: dict[str, tuple[str, ...]] = {
     "prod": ("t4_pow_sin", "t4_pow_exp", "t4_exp_cos", "t4_pow_ln", "t4_exp_sin"),
     "quot": ("t5_sin_over_x", "t5_pow_over_linear", "t5_exp_over_pow",
              "t5_ln_over_x", "t5_linear_over_linear"),
+    # Las quince de la cadena caen todas acá, incluidas las dos cuya FORMA es
+    # producto o cociente (`t8_prod_cadena`, `t8_quot_cadena`). La fila mide
+    # «cómo te va con la regla de la cadena», que es lo nuevo que esas dos
+    # piden; `prod` y `quot` conservan lo que siempre midieron, que es el
+    # producto y el cociente pelados.
+    "chain": ("t6_sin_lineal", "t6_cos_lineal", "t6_exp_lineal", "t6_ln_lineal",
+              "t6_pow_lineal", "t7_pow_poly", "t7_sqrt_poly", "t7_exp_poly",
+              "t7_ln_poly", "t7_pow_trig", "t8_exp_sin", "t8_cos_ln",
+              "t8_pow_ln", "t8_prod_cadena", "t8_quot_cadena"),
 }
 
 # El reverso: de qué plantilla a qué fila visible. Las plantillas que NO
@@ -113,6 +123,58 @@ ROW_TEMPLATES: dict[str, tuple[str, ...]] = {
 _TEMPLATE_TO_SLUG: dict[str, str] = {
     key: slug for slug, keys in ROW_TEMPLATES.items() for key in keys
 }
+
+
+# De la regla que explica una derivada a la FILA de la tabla que la dice.
+#
+# `suma` y `constante_por` no están, y no es un olvido: no tienen fila. La
+# tabla no lista «la regla de la suma» porque es la combinación de lo que ya
+# está arriba, y el mismo criterio se aplica acá — ver el comentario de
+# ROW_TEMPLATES y el de derivatives-table.tsx.
+_REGLA_A_SLUG: dict[str, str] = {
+    "constante": "a",
+    "x": "x",
+    "potencia": "x_n",
+    "exp": "e_x",
+    "ax": "a_x",
+    "ln": "ln_x",
+    "loga": "log_a_x",
+    "sen": "sin_x",
+    "cos": "cos_x",
+    "tan": "tan_x",
+    "producto": "prod",
+    "cociente": "quot",
+    "cadena": "chain",
+}
+
+# El orden canónico de la tabla, que es el orden de FILAS. Los slugs viajan
+# ordenados así y no por orden de aparición en la expresión: del otro lado el
+# front los usa para subir filas, y subirlas desordenadas sería reordenar la
+# tabla dos veces.
+_ORDEN_DE_FILA = {slug: i for i, slug in enumerate(ROW_TEMPLATES)}
+
+
+def slugs_del_ejercicio(exercise) -> list[str]:
+    """Qué filas de la tabla de derivadas hacen falta para ESTE ejercicio.
+
+    Es lo que `GameExerciseOut.tabla_slugs` le manda al front para que la tabla
+    de escritorio suba arriba las filas que la persona vino a buscar. Sale de
+    `explain.reglas_del_ejercicio`, o sea de la misma cuenta que arma el
+    «¿Por qué?»: la tabla y la explicación no pueden decir cosas distintas
+    sobre el mismo ejercicio porque leen lo mismo.
+
+    Para `x³·e^(2x)` devuelve `["x_n", "e_x", "prod", "chain"]` — cuatro filas
+    repartidas por toda la tabla, que es justo el caso que hace falta resolver.
+
+    Nunca falla por contenido: una forma que este catálogo no conozca devuelve
+    menos filas, y menos filas es una tabla sin acomodar, no un ejercicio roto.
+    """
+    try:
+        reglas = reglas_del_ejercicio(exercise)
+    except Exception:
+        return []
+    slugs = {_REGLA_A_SLUG[r] for r in reglas if r in _REGLA_A_SLUG}
+    return sorted(slugs, key=lambda s: _ORDEN_DE_FILA.get(s, len(_ORDEN_DE_FILA)))
 
 
 @dataclass

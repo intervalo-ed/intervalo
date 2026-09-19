@@ -20,9 +20,11 @@
 // constante multiplicativa k·u): son combinaciones de lo que ya está arriba,
 // y separarlas costaba una fila más para descartar con la vista.
 //
-// Las dos reglas del final no son decoración: los tiers 4 y 5 son productos y
-// cocientes, y sin ellas la tabla no sirve justo donde más se la necesita.
+// Las tres reglas del final no son decoración: los tiers 4 y 5 son productos y
+// cocientes, los 6 a 8 son la cadena, y sin ellas la tabla no sirve justo donde
+// más se la necesita.
 
+import { useEffect, useMemo, useRef, useState } from "react"
 import { Table2 as TableIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import MathText from "@/components/math-text"
@@ -50,12 +52,12 @@ const mate = (latex: string) => `$\\displaystyle ${latex}$`
 // misma clave que usa game/stats.py :: ROW_TEMPLATES, así que una fila de acá
 // y una del payload de /stats se encuentran por `slug`, nunca por posición
 // (un array reordenado del lado del server no tendría por qué romper esto).
-type Fila = { f: string; d: string; slug: string }
+export type Fila = { f: string; d: string; slug: string }
 
-// Una sola tabla de dos columnas. Las dos reglas —producto y cociente— entran
-// como dos filas más y no en una tabla aparte: son lo mismo que el resto
-// (algo y su derivada) y separarlas obligaba a una segunda cabecera que repetía
-// las mismas dos palabras.
+// Una sola tabla de dos columnas. Las tres reglas —producto, cociente y
+// cadena— entran como tres filas más y no en una tabla aparte: son lo mismo
+// que el resto (algo y su derivada) y separarlas obligaba a una segunda
+// cabecera que repetía las mismas dos palabras.
 // Las fracciones SIMPLES —las que tienen un 1 arriba y un factor abajo— van
 // escritas en una sola línea. Apiladas, cada una de esas filas medía 65 px
 // contra los 41 de un renglón normal, y seis de ellas eran 150 px que la tabla
@@ -63,14 +65,14 @@ type Fila = { f: string; d: string; slug: string }
 // las reglas, que son justo las que más se consultan.
 //
 // TODAS, incluida la del cociente: con los paréntesis puestos —(u'v − uv')/v²—
-// no queda ambigüedad, y a cambio los catorce renglones miden lo mismo. Una
+// no queda ambigüedad, y a cambio los quince renglones miden lo mismo. Una
 // tabla de renglones parejos se recorre con la vista de un tirón; una con seis
 // filas al doble de alto obliga a saltar.
 //
 // Se pierde algo: `1/x^2` en línea admite leerse mal como `(1/x)^2`. Es un
 // precio aceptable en una tabla que se consulta contrarreloj y que ya se está
 // mirando con las dos columnas al lado.
-const FILAS: Fila[] = [
+export const FILAS: Fila[] = [
   { slug: "a", f: "a", d: "0" },
   { slug: "x", f: "x", d: "1" },
   { slug: "x_n", f: "x^n", d: "n\\,x^{n-1}" },
@@ -85,6 +87,7 @@ const FILAS: Fila[] = [
   { slug: "tan_x", f: "\\tan x", d: "1/\\cos^{2} x" },
   { slug: "prod", f: "u \\cdot v", d: "u'v + uv'" },
   { slug: "quot", f: "u/v", d: "\\left(u'v - uv'\\right)/v^{2}" },
+  { slug: "chain", f: "f(u)", d: "f'(u)\\,u'" },
 ]
 
 // El renglón no tiene alto fijo: mide lo que mide su fórmula más un aire
@@ -94,7 +97,25 @@ const FILAS: Fila[] = [
 // el bloque llena la columna sin huecos y cada fórmula respira lo suyo.
 const CELDA = "flex items-center justify-center px-3 py-2 text-center leading-none"
 
-function Renglon({ fila }: { fila: Fila }) {
+// El tinte de la fila que hace falta. Es el MISMO que usa el ranking para
+// marcar tu propia línea (game-ranking.tsx :: MINE_ROW_CLASS), y eso es a
+// propósito: en las dos pantallas quiere decir «esta es la tuya».
+const FILA_PEDIDA = "bg-primary/10"
+
+// La costura entre las filas que subieron y el resto de la tabla. Un borde más
+// grueso alcanza: sin él, alguien que conoce el orden de memoria cree que la
+// tabla se rompió en vez de entender que se acomodó.
+const COSTURA = "border-t-2 border-white/25"
+
+function Renglon({
+  fila,
+  pedida = false,
+  costura = false,
+}: {
+  fila: Fila
+  pedida?: boolean
+  costura?: boolean
+}) {
   return (
     // `grow shrink-0 basis-auto` —o sea `flex: 1 0 auto`—, y ese cero del medio
     // es un arreglo, no un detalle.
@@ -113,7 +134,14 @@ function Renglon({ fila }: { fila: Fila }) {
     //
     // Con shrink en cero el contenido desborda de verdad y el `overflow-y-auto`
     // de arriba hace lo que dice que hace.
-    <div className="grid shrink-0 grow basis-auto grid-cols-2 border-t border-white/10">
+    <div
+      data-current={pedida ? "true" : undefined}
+      className={cn(
+        "grid shrink-0 grow basis-auto grid-cols-2 border-t border-white/10",
+        pedida && FILA_PEDIDA,
+        costura && COSTURA,
+      )}
+    >
       <div className={cn(CELDA, "border-r border-white/10")}>
         <MathText text={mate(fila.f)} />
       </div>
@@ -124,11 +152,112 @@ function Renglon({ fila }: { fila: Fila }) {
   )
 }
 
-export function DerivativesTable() {
+/** En qué orden van las filas, y cuántas subieron.
+ *
+ *  Pura y exportada para poder chequearla sin montar nada: es
+ *  `bun run check:tabla` (web/scripts/check-tabla-orden.ts). Perder o duplicar
+ *  una fila acá sería un agujero en la tabla de derivadas en la mitad de una
+ *  partida, y eso no se ve leyendo seis líneas de `filter`.
+ *
+ *  `clave` son los slugs pedidos separados por coma —el formato viene de que
+ *  `destacar` cambia de identidad en cada render y hay que memoizar contra
+ *  algo estable—. `subidas` es cuántas filas se movieron DE VERDAD, que no es
+ *  lo mismo que cuántos slugs mandó el server: si nombra una fila que este
+ *  front todavía no tiene, esa no se mueve, y de ese número depende dónde va
+ *  la costura. */
+export function acomodar(
+  clave: string,
+  desborda: boolean,
+): { filas: Fila[]; subidas: number; pedidas: Set<string> } {
+  const pedidas = new Set(clave === "" ? [] : clave.split(","))
+  const arriba = FILAS.filter((f) => pedidas.has(f.slug))
+  // Subir todas las filas, o ninguna, es no ordenar nada.
+  if (!desborda || arriba.length === 0 || arriba.length === FILAS.length) {
+    return { filas: FILAS, subidas: 0, pedidas }
+  }
+  return {
+    filas: [...arriba, ...FILAS.filter((f) => !pedidas.has(f.slug))],
+    subidas: arriba.length,
+    pedidas,
+  }
+}
+
+/** ¿Desborda su caja lo que hay adentro de `ref`?
+ *
+ *  Un solo booleano, y es todo lo que hace falta para decidir si la tabla se
+ *  reacomoda: ver `DerivativesTable`. Mira el scroller Y su contenido porque
+ *  el alto cambia por los dos lados —la ventana achica la caja, una fuente que
+ *  carga tarde estira los renglones— y un `ResizeObserver` solo sobre el
+ *  scroller se pierde la segunda mitad.
+ *
+ *  **No se puede verificar desde el navegador del panel.** Su emulación de
+ *  viewport cambia `innerHeight` sin despachar `resize` ni notificar a ningún
+ *  `ResizeObserver` —comprobado con un observer propio: cero disparos yendo de
+ *  579 a 695 px de alto—, así que el reacomodo en vivo hay que mirarlo en un
+ *  navegador de verdad. Lo que sí se verificó ahí es el montaje: a 600 px la
+ *  tabla sube las filas y pinta la costura, a 900 px queda en orden canónico. */
+function useDesborda(ref: React.RefObject<HTMLDivElement | null>, activo: boolean) {
+  const [desborda, setDesborda] = useState(false)
+  useEffect(() => {
+    const el = ref.current
+    if (!el || !activo) {
+      setDesborda(false)
+      return
+    }
+    // El +1 es por el redondeo subpíxel: con zoom del navegador o en pantallas
+    // fraccionarias, scrollHeight puede dar un píxel más que clientHeight sin
+    // que haya nada que scrollear, y sin el margen la tabla se reordenaría
+    // sola en ventanas donde entra perfecta.
+    const medir = () => setDesborda(el.scrollHeight > el.clientHeight + 1)
+    medir()
+    const ro = new ResizeObserver(medir)
+    ro.observe(el)
+    if (el.firstElementChild) ro.observe(el.firstElementChild)
+    return () => ro.disconnect()
+  }, [ref, activo])
+  return desborda
+}
+
+/** La tabla de derivadas.
+ *
+ *  `destacar` son los slugs de las filas que ESTE ejercicio necesita, que los
+ *  manda el server en `GameExerciseOut.tabla_slugs` (backend/game/stats.py ::
+ *  slugs_del_ejercicio). Sin la prop la tabla se comporta exactamente como
+ *  siempre, y por eso el teléfono no cambió ni una línea: allá se la llama
+ *  pelada.
+ *
+ *  **Solo se reordena cuando la tabla no entra.** Con quince renglones a
+ *  `flex: 1 0 auto` (ver `Renglon`), si sobra alto se reparten el sobrante y
+ *  están todos a la vista: mover algo ahí sería romper la memoria muscular a
+ *  cambio de nada — es el mismo argumento con el que backend/game/keyboard.py
+ *  congela el orden de las teclas. Cuando NO entra, las filas pedidas suben
+ *  arriba de todo y el resto queda abajo, en los dos casos conservando el
+ *  orden canónico entre sí.
+ *
+ *  Vale decir qué es esto: una ayuda más fuerte que la de antes. Se puede
+ *  porque el juego ya cobra por abrir la tabla —el Elo no se actualiza si se
+ *  miró y la XP cae a XP_PEEKED— así que esto no regala nada nuevo, hace
+ *  usable algo que ya se pagó. */
+export function DerivativesTable({ destacar }: { destacar?: string[] } = {}) {
+  const scroller = useRef<HTMLDivElement>(null)
+  // La clave de texto y no el array: `destacar` llega de una query y cambia de
+  // identidad en cada render, así que memoizar contra el array sería no
+  // memoizar.
+  const clave = destacar?.join(",") ?? ""
+  const desborda = useDesborda(scroller, clave !== "")
+
+  const { filas, subidas, pedidas } = useMemo(
+    () => acomodar(clave, desborda),
+    [desborda, clave],
+  )
+
   return (
     // Scrollea adentro: en una ventana baja la tabla no tiene que empujar el
     // panel ni salirse por abajo.
-    <div className="no-scrollbar flex min-h-0 flex-1 flex-col overflow-y-auto text-[0.95rem]">
+    <div
+      ref={scroller}
+      className="no-scrollbar flex min-h-0 flex-1 flex-col overflow-y-auto text-[0.95rem]"
+    >
       {/* `min-h-full`: cuando sobra alto, la tabla se estira hasta el fondo del
           contenedor y son los renglones los que se lo reparten (ver `Renglon`).
           Cuando falta, no encoge — scrollea, que es lo que corresponde.
@@ -144,8 +273,18 @@ export function DerivativesTable() {
           <div className="border-r border-white/10 py-1">función</div>
           <div className="py-1">derivada</div>
         </div>
-        {FILAS.map((fila) => (
-          <Renglon key={fila.slug} fila={fila} />
+        {/* El tinte va SIEMPRE que se sepa qué filas hacen falta, aunque no se
+            haya reordenado nada: marcar no mueve a nadie de lugar, así que no
+            tiene el costo que tiene reacomodar. Cuando la tabla entra entera,
+            eso alcanza — la fila está a la vista y ahora además se distingue.
+            La costura, en cambio, solo tiene sentido si algo subió. */}
+        {filas.map((fila, i) => (
+          <Renglon
+            key={fila.slug}
+            fila={fila}
+            pedida={pedidas.has(fila.slug)}
+            costura={subidas > 0 && i === subidas}
+          />
         ))}
       </div>
     </div>

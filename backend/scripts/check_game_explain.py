@@ -86,8 +86,8 @@ SEMILLAS = range(20)
 FORMULA_DISPLAY = re.compile(r"\$\$.*?\$\$", re.S)
 
 print("\ncatálogo")
-check(game_explain.plantillas_sin_forma() == [], "las 29 plantillas tienen forma asignada")
-check(len(game_explain.REGLAS) == 14, f"hay 14 reglas ({len(game_explain.REGLAS)})")
+check(game_explain.plantillas_sin_forma() == [], "las 44 plantillas tienen forma asignada")
+check(len(game_explain.REGLAS) == 15, f"hay 15 reglas ({len(game_explain.REGLAS)})")
 check(
     all(r.imagen.strip() for r in game_explain.REGLAS.values()),
     "ninguna regla quedó sin imagen escrita",
