@@ -342,11 +342,13 @@ mostró por qué tenía que ser explícita.
   T8 anida dos trascendentes (`e^{k·sen x}`) o mete la cadena adentro de un
   producto o un cociente. El techo nuevo es **θ ≤ 4,25** contra un máximo
   observado de 4,56, y `check_game_techo.py` lo fija en vez de dejar que se
-  redescubra leyendo un PDF.
+  redescubra leyendo un PDF. Medido el día del deploy: los jugadores sin nada
+  en banda pasaron de **66 a 2**.
 
 - **El último cinturón subió de θ 2,2 a 3,7** (`elo._LEVEL_CUTS`) en el mismo
-  cambio, y **esta vez bajó gente**: de los 48 marrones quedaron ~9 y el resto
-  pasó a violeta. El cinturón de arriba significa «llegaste a lo más difícil
+  cambio, y **esta vez bajó gente**: contado en producción el 19/09, de los 89
+  marrones quedaron 19, o sea **70 personas pasaron a violeta**. A cambio, los
+  que no recibían nada en banda pasaron de 66 a 2 sobre 1.058 con historial. El cinturón de arriba significa «llegaste a lo más difícil
   que el juego tiene», y con los tiers nuevos eso dejaba de ser cierto a 2,2.
   La caída es silenciosa —el feed solo publica subidas de nivel— pero el color
   del nombre cambia a la vista de todos. Los otros dos cortes no se tocaron.

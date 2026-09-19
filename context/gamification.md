@@ -83,11 +83,13 @@ subir de nivel no está tabulada: sale de `elo.tier_objetivo`, que la deriva de
 los cortes y de las semillas, así que el día que alguno se mueva la frase se
 mueve con él en vez de quedar mintiendo.
 
-**El último corte pasó de 2,2 a 3,7 en 2026-09** al entrar los tiers 6-8, y bajó
-a unas 39 de las 48 personas que estaban en marrón. Es el único cambio de cortes
-que degradó a alguien; el anterior subía a 145 y no bajaba a nadie. Se hizo
-igual porque el cinturón de arriba afirma «llegaste al techo» y con la cadena
-adentro eso era falso a 2,2.
+**El último corte pasó de 2,2 a 3,7 en 2026-09** al entrar los tiers 6-8, y
+bajó a **70 de las 89 personas** que estaban en marrón (contado en producción el
+19/09; la estimación previa, hecha sobre una foto del 14/09, decía ~39 sobre 48).
+Es el único cambio de cortes que degradó a alguien: el anterior subía a 145 y no
+bajaba a nadie. Se hizo igual porque el cinturón de arriba afirma «llegaste al
+techo» y con la cadena adentro eso era falso a 2,2 — y porque del otro lado el
+mismo cambio le devolvió juego a 64 personas que no recibían nada en banda.
 ### La dificultad que la persona pide (dx)
 
 A las 10 derivadas resueltas —después cada 30, y tres veces como mucho— el juego
