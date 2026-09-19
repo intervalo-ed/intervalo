@@ -90,6 +90,59 @@ Es el único cambio de cortes que degradó a alguien: el anterior subía a 145 y
 bajaba a nadie. Se hizo igual porque el cinturón de arriba afirma «llegaste al
 techo» y con la cadena adentro eso era falso a 2,2 — y porque del otro lado el
 mismo cambio le devolvió juego a 64 personas que no recibían nada en banda.
+
+### A qué velocidad se mueve el Elo (dx)
+
+El paso con el que cada respuesta corrige θ es `_A_USER / (1 + _B_USER·n)`, o sea
+que **decae con la experiencia y no tiene piso**. La consecuencia no es el tamaño
+del paso sino el tiempo de reacción: la brecha entre lo que alguien sabe y lo que
+el motor cree se cierra exponencialmente con constante `1/(0,153·lr)` respuestas.
+
+| respuestas acumuladas | paso | para enterarse de una mejora |
+|---|---|---|
+| 20 | 0,348 | 19 respuestas |
+| 168 | 0,070 | 93 |
+| 1.043 | 0,016 | **408** |
+
+**Medido el 19/09 leyendo el `theta_at_serve` de cada ejercicio de los 7 días
+previos**: el mismo ejercicio vale 4,92 puntos de rating para alguien con menos
+de 25 respuestas y 0,71 para alguien con más de 400. Siete veces menos por el
+mismo trabajo, y ese grupo —68 personas, el 3%— pone el **65% de las derivadas
+servidas**.
+
+El mismo decaimiento le rompió el precio al botón de saltear. El castigo es plano
+(0,15 θ) justamente porque el paso decae, pero medido en aciertos el botón cuesta
+**1,7 respuestas correctas para un novato y 37,5 para un veterano**, y el uso
+sigue al precio casi perfecto: 10,9% de salteos abajo, 0,25% arriba. El botón que
+existe para que lo difícil no trabe a nadie está tarifado de forma prohibitiva
+justo para quienes más juegan.
+
+**`dx-elo-1` (desde 2026-09-19) prueba ponerle un piso de 0,20.** Es el K-factor
+floor del ajedrez y el piso de RD de Glicko: un paso que decae a cero significa
+que el sistema dejó de creer que alguien puede cambiar, y la habilidad sí cambia.
+
+Tres cosas de ese experimento que no se parecen a los demás:
+
+- **No toca ninguna pantalla.** Los dos brazos ven exactamente el mismo juego;
+  lo único distinto es a qué velocidad se mueve un número.
+- **El brazo no está guardado en ninguna columna.** Sale de un hash del
+  `player.id` (`game/sorteo.py`), porque `game_players.variant` se escribe al
+  crear la fila y todos los elegibles existen desde hace semanas — con el sorteo
+  de siempre, este experimento habría medido a cero personas para siempre.
+- **El piso muerde recién en la respuesta 43**, que es donde el paso natural cae
+  hasta 0,20 (se calcula con `elo.n_donde_muerde`, no se escribe). Abajo de ahí
+  los dos brazos son bit a bit el mismo motor, y por eso esto puede correr al
+  mismo tiempo que `dx-puerta-2`, que mide las tres primeras correctas.
+
+La métrica es continua —días activos en 14 días, base medida 2,70 ± 2,02— porque
+con 139 elegibles ninguna proporción alcanza: pedirían ~600 por brazo y hay ~70.
+
+Lo que el piso también compra, y conviene tenerlo escrito porque no es obvio: el
+**ruido**. θ alrededor de la habilidad real tiene desvío estacionario `0,783·√lr`,
+o sea 20 puntos de rating con el paso de hoy y 70 con el piso. Ese temblor ES el
+efecto buscado —que el número se mueva— y a la vez el riesgo: a quien esté parado
+justo en un corte de nivel se le va a prender y apagar el color.
+
 ### La dificultad que la persona pide (dx)
 
 A las 10 derivadas resueltas —después cada 30, y tres veces como mucho— el juego

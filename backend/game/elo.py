@@ -103,6 +103,84 @@ _B_USER = 0.07
 _A_TEMPLATE = 0.8
 _B_TEMPLATE = 0.10
 
+# ── El piso del paso de aprendizaje ──────────────────────────────────────────
+#
+# `_A_USER / (1 + _B_USER·n)` decae SIN PISO, y eso no es un detalle de
+# afinación: decide cuánto tarda el número en enterarse de que alguien mejoró.
+# La brecha entre la habilidad real y la creída se cierra exponencialmente con
+# constante `τ = 1/(SCALE·p(1−p)·lr) ≈ 1/(0,153·lr)` respuestas:
+#
+#     lr 0,348 (a las 20 respuestas)   → τ =  19 respuestas
+#     lr 0,070 (a las 168)             → τ =  93
+#     lr 0,016 (a las 1043)            → τ = 408
+#
+# **Medido en producción el 19/09, sobre los 7 días previos y leyendo el
+# `theta_at_serve` de cada ejercicio servido**: el mismo ejercicio vale 4,92
+# puntos de rating para alguien con menos de 25 respuestas y 0,71 para alguien
+# con más de 400. Siete veces menos por el mismo trabajo. Y no es un rincón: esos
+# 68 jugadores son el 3% de la gente y ponen el 65% de las derivadas servidas.
+#
+# El mismo decaimiento le rompió el precio al botón de saltear. `SKIP_THETA_
+# PENALTY` es plano (0,15 θ) justamente porque el lr decae, pero medido en
+# aciertos el botón cuesta 1,7 respuestas correctas para un novato y 37,5 para un
+# veterano — y el uso sigue al precio casi perfecto: 10,9% de salteos abajo,
+# 0,25% arriba. El botón que existe para que lo difícil no trabe a nadie está
+# tarifado de forma prohibitiva justo para los que más juegan.
+#
+# Un piso es el K-factor floor del ajedrez y el piso de RD de Glicko, y los dos
+# existen por la misma razón: un paso que decae a cero significa que el sistema
+# dejó de creer que alguien puede cambiar, y la habilidad sí cambia.
+#
+# **El piso no hace NADA al principio, y eso es deliberado.** Muerde recién en la
+# respuesta `n_donde_muerde(LR_MIN_RAPIDO)` = 43, o sea muchísimo después de las
+# tres primeras correctas que mide `dx-puerta-2`, que está en la calle desde
+# anoche. Los dos experimentos pueden correr a la vez sin tocarse. Bajar
+# `_B_USER` —el otro camino para el mismo efecto— habría acelerado desde la
+# respuesta 1 y contaminado el que ya está corriendo.
+#
+# Qué le cambia a cada grupo, con los lr medios medidos ese mismo día:
+#
+#     n ≈ 71   (53 personas)  lr 0,1340 → ×1,5
+#     n ≈ 130  (40 personas)  lr 0,0792 → ×2,5
+#     n ≈ 279  (13 personas)  lr 0,0390 → ×5,1
+#     n ≈ 1006 (15 personas)  lr 0,0112 → ×17,9
+LR_MIN_CONTROL = 0.0
+LR_MIN_RAPIDO = 0.20
+
+# Lo que el piso también compra, y conviene tenerlo escrito porque no es obvio:
+# el ruido. θ alrededor de la habilidad real es un AR(1) con reversión
+# `0,153·lr` por respuesta y ruido `0,433·lr`, así que su desvío estacionario es
+# `0,783·√lr` — 20 puntos de rating con lr 0,016 y 70 con lr 0,20. Ese temblor ES
+# el efecto buscado (que el número se mueva) y a la vez el riesgo: a quien esté
+# parado justo en un corte de nivel se le va a prender y apagar el color.
+_RUIDO_POR_LR = 0.783
+
+
+def lr_de_usuario(n_updates: int, lr_min: float = LR_MIN_CONTROL) -> float:
+    """El paso con el que esta respuesta va a mover θ."""
+    return max(_A_USER / (1.0 + _B_USER * n_updates), lr_min)
+
+
+def n_donde_muerde(lr_min: float) -> int | None:
+    """Desde qué respuesta el piso cambia algo. `None` si no cambia nunca.
+
+    Se calcula y no se tabula, por el mismo motivo que `tier_objetivo`: el 43 sale
+    de `_A_USER` y `_B_USER`, y el día que alguno se mueva este número se mueve
+    con él en vez de quedar mintiendo en un comentario. El panel lo usa para
+    saber a quién inscribir, así que si se desincronizara, el experimento estaría
+    midiendo a gente a la que no le pasó nada.
+    """
+    if lr_min >= _A_USER:
+        return 0
+    if lr_min <= 0.0:
+        return None
+    return math.ceil((_A_USER / lr_min - 1.0) / _B_USER)
+
+
+def ruido_de_rating(lr: float) -> int:
+    """Cuánto tiembla el rating de alguien ya calibrado, en puntos. Ver arriba."""
+    return round(RATING_PER_THETA * _RUIDO_POR_LR * math.sqrt(max(lr, 0.0)))
+
 
 def effective_beta(beta: float, tier: int, n_players: int) -> float:
     """La β que el motor CREE, que no es la que tiene guardada.
@@ -216,6 +294,7 @@ def predict(theta: float, beta: float) -> float:
 def update(
     theta: float, n_user: int, beta: float, n_template: int, correct: bool,
     tier: int | None = None, n_players: int = 0,
+    lr_min: float = LR_MIN_CONTROL,
 ) -> tuple[float, float]:
     """Devuelve (theta', beta') tras el resultado del PRIMER intento.
 
@@ -228,6 +307,12 @@ def update(
     verdad, y β contra la cruda, que es su propio estadístico. Sin `tier` se
     comporta como antes — las dos contra la cruda.
 
+    `lr_min` es el piso del paso, y va SOLO del lado del jugador. No es una
+    omisión: `game_template_stats` es una sola tabla para los dos brazos de
+    cualquier experimento, así que tocar el paso de β haría que el brazo test le
+    moviera la dificultad al control. θ vive en la fila del jugador y por eso es
+    lo único que se puede repartir.
+
     Que θ se mueva contra la β encogida no es un efecto colateral: es la mitad
     del arreglo. La sorpresa de un acierto tiene que ir a algún lado, y si el
     ancla impide que se la coma la plantilla, se la lleva la persona. Es el
@@ -237,7 +322,7 @@ def update(
     """
     hit = 1.0 if correct else 0.0
     beta_creida = beta if tier is None else effective_beta(beta, tier, n_players)
-    theta_next = theta + _A_USER / (1.0 + _B_USER * n_user) * (hit - predict(theta, beta_creida))
+    theta_next = theta + lr_de_usuario(n_user, lr_min) * (hit - predict(theta, beta_creida))
     beta_next = beta - _A_TEMPLATE / (1.0 + _B_TEMPLATE * n_template) * (hit - predict(theta, beta))
     return theta_next, beta_next
 
