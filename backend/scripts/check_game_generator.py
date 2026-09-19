@@ -424,8 +424,13 @@ from game.templates import PISO_TRIGONOMETRICAS  # noqa: E402
 
 CON_PISO = {t.key for t in TEMPLATES if t.min_rating is not None}
 check(CON_PISO == {"t3_sin", "t3_cos", "t3_tan", "t3_trig_sum",
-                   "t4_pow_sin", "t4_exp_cos", "t4_exp_sin", "t5_sin_over_x"},
-      f"el piso cubre las 8 plantillas con seno, coseno o tangente (dio {sorted(CON_PISO)})")
+                   "t4_pow_sin", "t4_exp_cos", "t4_exp_sin", "t5_sin_over_x",
+                   # Las seis de la cadena que también llevan seno o coseno. El
+                   # criterio no cambió: si la fila trigonométrica todavía no
+                   # está abierta, tampoco se sirve una cadena que la use.
+                   "t6_sin_lineal", "t6_cos_lineal", "t7_pow_trig",
+                   "t8_exp_sin", "t8_cos_ln", "t8_quot_cadena"},
+      f"el piso cubre las 14 plantillas con seno, coseno o tangente (dio {sorted(CON_PISO)})")
 
 # El θ justo debajo y justo encima de la barrera. rating_of redondea, así que se
 # toma un paso de un punto entero de rating para no depender del redondeo.
@@ -444,7 +449,7 @@ check(not (CON_PISO & {t.key for t in desbloqueadas(gate)}),
       "debajo del piso no hay ninguna trigonométrica desbloqueada")
 gate.theta = JUSTO
 check(CON_PISO <= {t.key for t in desbloqueadas(gate)},
-      "al tocar la barrera se desbloquean las ocho de una")
+      "al tocar la barrera se desbloquean las catorce de una")
 
 # Lo que importa no es la función pura sino que NINGÚN camino de pick_template
 # la esquive: ni la rampa, ni el tope del salteo, ni los fallbacks que se

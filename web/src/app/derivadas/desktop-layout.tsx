@@ -2832,7 +2832,13 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                     </div>
                   ) : backKind === "table" ? (
                     <div className="flex min-h-0 flex-1 flex-col rounded-lg border border-border bg-card p-3">
-                      <DerivativesTable />
+                      {/* Las filas que ESTA derivada necesita. Solo en
+                          escritorio: acá la tabla vive en una columna de 420px
+                          que en una ventana baja no entra entera, y el
+                          ejercicio está al lado mientras se la consulta. En el
+                          teléfono la tabla es una pantalla propia y se llama
+                          sin la prop, así que no se reordena. */}
+                      <DerivativesTable destacar={exercise?.tabla_slugs} />
                     </div>
                   ) : backKind === "stats" ? (
                     <div className="flex min-h-0 flex-1 flex-col rounded-lg border border-border bg-card p-3">

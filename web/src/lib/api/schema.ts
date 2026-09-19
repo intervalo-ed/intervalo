@@ -2242,6 +2242,11 @@ export interface components {
              * @default []
              */
             new_keys: string[];
+            /**
+             * Tabla Slugs
+             * @default []
+             */
+            tabla_slugs: string[];
         };
         /**
          * GameExplainOut

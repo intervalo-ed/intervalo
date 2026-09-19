@@ -4,7 +4,7 @@ contra un escenario armado a mano.
 Cubre las partes que un test superficial no agarra:
   - el Elo de desbloqueo de una fila con VARIAS plantillas se promedia en
     espacio θ, no promediando ratings ya redondeados;
-  - las 14 filas de la tabla tienen plantilla y ninguna plantilla propia se
+  - las 15 filas de la tabla tienen plantilla y ninguna plantilla propia se
     queda sin fila (lo que se rompió cuando entraron 1/x, √x y tan x);
   - el piso de Elo de una fila le gana a la β aprendida: si el seno se
     desplomó hasta parecer cómodo en 870, el panel igual dice 1200, que es
@@ -194,7 +194,7 @@ huerfanas = sorted(set(_TBK) - mapeadas - _COMBINACIONES)
 check(not huerfanas, f"ninguna plantilla propia sin fila (huérfanas: {huerfanas})")
 
 unlock = game_stats._unlock_ratings(db)
-check(all(v is not None for v in unlock.values()), "las 14 filas tienen un Elo de desbloqueo")
+check(all(v is not None for v in unlock.values()), "las 15 filas tienen un Elo de desbloqueo")
 
 # Seno con la β de producción (−3.05 con 12 personas): la cuenta de comodidad
 # la daría por abierta en ~870, y en 870 el generador no la sirve. Sin el piso
@@ -277,7 +277,7 @@ db.commit()
 r2 = client.get("/game/derivemos/stats", headers={"X-Game-Token": "tok-foco"})
 check(r2.status_code == 200, f"jugador con 42 correctas: /stats da 200 (dio {r2.status_code})")
 body = r2.json()
-check(len(body["rows"]) == 14, f"14 filas en la respuesta (dio {len(body['rows'])})")
+check(len(body["rows"]) == 15, f"15 filas en la respuesta (dio {len(body['rows'])})")
 check(body["general"]["exercises_correct"] == 42, "general.exercises_correct viaja bien")
 fila_e_x = next(f for f in body["rows"] if f["slug"] == "e_x")
 check(fila_e_x["accuracy"] == 50, f"la fila e_x del endpoint también da 50% (dio {fila_e_x['accuracy']})")

@@ -17,9 +17,9 @@
 
 // Espejo de XP_POR_TIER. El porqué de estos números vive en el backend; acá
 // solo tienen que ser LOS MISMOS. `check_game_xp.py` compara las dos tablas.
-const XP_POR_TIER: Record<number, number> = { 0: 8, 1: 12, 2: 15, 3: 20, 4: 26, 5: 34 }
+const XP_POR_TIER: Record<number, number> = { 0: 8, 1: 12, 2: 15, 3: 20, 4: 26, 5: 34, 6: 42, 7: 50, 8: 58 }
 const TIER_MIN = 0
-const TIER_MAX = 5
+const TIER_MAX = 8
 
 const XP_PEEKED = 5
 const COMBO_INTERVAL = 5

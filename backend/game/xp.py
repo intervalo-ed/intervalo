@@ -45,7 +45,15 @@ from __future__ import annotations
 # la vida de cada jugador (los tres del arranque son t0_x, t1_pow y t1_kpow, ver
 # generator.ONBOARDING) y a partir de la banda normal, T3, el número ya es el de
 # antes. Quien juega hondo cobra MÁS que antes, no menos.
-XP_POR_TIER = {0: 8, 1: 12, 2: 15, 3: 20, 4: 26, 5: 34}
+#
+# Los tres de la cadena se APLANAN a propósito en vez de seguir la progresión de
+# ×1,3 (que habría dado 44/57/74). El motivo es de reparto y no de justicia: los
+# tiers 6-8 los va a ver casi solo la treintena de jugadores más pesados, que ya
+# genera el 55% de las derivadas servidas, y su XP alimenta el empuje de su
+# universidad. Con 74 por derivada esa carrera se decide por dónde estudian
+# cinco personas. Con 58 la dificultad sigue mandando —el tope queda en 1,7×
+# el T5 y el orden se mantiene monótono— sin que la economía se incline así.
+XP_POR_TIER = {0: 8, 1: 12, 2: 15, 3: 20, 4: 26, 5: 34, 6: 42, 7: 50, 8: 58}
 
 _TIER_MIN = min(XP_POR_TIER)
 _TIER_MAX = max(XP_POR_TIER)
@@ -83,10 +91,10 @@ def xp_base_de(tier: int) -> int:
     """La XP de un acierto limpio al primer intento, por tier.
 
     El tier se acota en vez de tener un default: una plantilla nueva que caiga
-    fuera de la tabla es más difícil que las de acá (los tiers 6-8 están
-    reservados para la regla de la cadena, ver elo.BETA_SEED), y subpagar lo
-    difícil es justo el error que esto viene a arreglar. `check_game_xp.py`
-    comprueba que ninguna plantilla del catálogo necesite el clamp.
+    fuera de la tabla es más difícil que las de acá, y subpagar lo difícil es
+    justo el error que esto viene a arreglar. Hoy el clamp no se usa nunca —la
+    tabla llega hasta T8, que es el tier más alto que existe— y
+    `check_game_xp.py` comprueba que siga siendo así.
     """
     return XP_POR_TIER[min(max(tier, _TIER_MIN), _TIER_MAX)]
 

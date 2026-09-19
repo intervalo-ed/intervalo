@@ -99,6 +99,9 @@ FAMILIA_POR_TIER: dict[int, tuple[str, str]] = {
     3: ("la tabla", "la tabla de derivadas"),
     4: ("los productos", "la regla del producto"),
     5: ("los cocientes", "la regla del cociente"),
+    6: ("la cadena", "la regla de la cadena"),
+    7: ("las compuestas", "la cadena con interior polinómico"),
+    8: ("las anidadas", "la cadena adentro de otra regla"),
 }
 
 _FAMILIA_DESCONOCIDA = ("las difíciles", "las derivadas difíciles")
