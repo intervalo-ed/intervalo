@@ -73,7 +73,15 @@ TIMEOUT_S = 8.0
 # Lo que sale un cafecito, en pesos. Se importa de boosts para que haya UN solo
 # número: hasta ahora era una copia del precio que fijaba Cafecito, y ahora es el
 # precio que fijamos nosotros — el que se le cobra de verdad a la gente.
-from .boosts import PRECIO_CAFECITO  # noqa: E402
+# `precio_de` es el mismo número mirado por país (ver boosts.PRECIO_POR_PAIS).
+from .boosts import PRECIO_CAFECITO, precio_de  # noqa: E402
+
+# La moneda, y la única que esta cuenta puede cobrar. No es una decisión nuestra:
+# la cuenta es `site_id: MLA` y la API rechaza cualquier otra con
+# `{"message": "currency_id invalid", "error": "invalid_items"}` — probado contra
+# producción el 18/09/2026. Cobrar en pesos uruguayos necesitaría una cuenta MLU,
+# que a su vez necesita cédula y banco uruguayos.
+MONEDA = "ARS"
 
 # Cuánto vive una preferencia. Una hora es mucho más de lo que tarda cualquiera
 # en pagar (la mediana de los que pagan es 202 segundos) y a la vez evita que un
@@ -84,7 +92,26 @@ VENCE_EN_HORAS = 1
 # Lo que la persona ve en el resumen de su tarjeta. Trece caracteres es el tope
 # que fija Mercado Pago. Importa más de lo que parece: un cargo que no se
 # reconoce en el resumen es un contracargo esperando pasar.
+#
+# Pisa al `soft_descriptor` de la cuenta, que hoy dice "NICOLASVRANC" — ver el
+# comentario de MARCA acá abajo, que es el mismo problema en la otra pantalla.
 DESCRIPTOR = "INTERVALO"
+
+# La marca, adelante del título del ítem. En minúsculas y con el nombre entero
+# porque acá no hay límite de trece caracteres: son dos lugares distintos.
+#
+# Por qué está. El checkout dibuja arriba de todo el nombre del vendedor, y en
+# una cuenta personal ese nombre es el del titular: hoy dice «Nicolás
+# Vrancovich». No se puede cambiar sin convertir la cuenta en una empresa con
+# CUIT propio (`company.brand_name` existe pero está atado a la identidad de la
+# cuenta), así que la única pantalla que controlamos es esta línea.
+#
+# Y la persona llega acá desde un botón con el ícono de Mercado Pago adentro de
+# un juego que se llama Intervalo. Que lo primero que lea sea el nombre de un
+# desconocido es exactamente la desconfianza que este módulo vino a sacar del
+# camino. Que la marca aparezca en la misma pantalla no borra el nombre, pero lo
+# explica.
+MARCA = "Intervalo"
 
 
 def log(mensaje: str) -> None:
@@ -117,11 +144,40 @@ def _headers() -> dict[str, str]:
     }
 
 
+def _titulo(cafecitos: int, university: str | None, monto: int, pais: str | None) -> str:
+    """Lo que se lee arriba del monto, en el checkout y en el mail del pago.
+
+    Para quien mira desde Argentina es la línea de siempre: «10 cafecitos para la
+    UTN». Para quien mira desde afuera lleva pegada la moneda, y eso **no es
+    adorno, es el arreglo de un error de lectura medido**.
+
+    Mercado Pago dibuja el monto como `$ 1.514` y en ninguna parte de esa pantalla
+    aparece la palabra «ARS» — lo verifiqué contra un checkout real. El signo `$`
+    también es el peso uruguayo, así que alguien en Montevideo lee mil quinientos
+    pesos uruguayos, o sea unos treinta y siete dólares, cuando le están pidiendo
+    uno. Es el mismo error que hacía fracasar el salto a Cafecito, con la
+    diferencia de que allá se perdía el monto y acá se pierde la unidad.
+
+    El título es lo ÚNICO que controlamos de esa pantalla: no hay forma de
+    cambiarle la moneda, ni el formato, ni el símbolo, ni el nombre del vendedor
+    que va arriba de todo. Así que todo lo que hay para decir va acá: la marca
+    primero —porque es lo que la persona reconoce y lo que el nombre del titular
+    no le dice—, después qué compra, y al final la moneda si hace falta.
+    """
+    destino = f" para la {university}" if university else ""
+    cuantos = f"{cafecitos} cafecitos" if cafecitos != 1 else "1 cafecito"
+    partes = [MARCA, f"{cuantos}{destino}"]
+    if pais is not None:
+        partes.append(f"{MONEDA} {monto:,}".replace(",", "."))
+    return " · ".join(partes)
+
+
 def cuerpo_de_preferencia(
     *,
     player_id: int,
     cafecitos: int,
     university: str | None,
+    pais: str | None = None,
     ahora: datetime | None = None,
 ) -> dict:
     """Lo que se le manda a Mercado Pago. Separado para poder revisarlo sin red.
@@ -133,7 +189,8 @@ def cuerpo_de_preferencia(
     necesita red no corre.
     """
     vence = (ahora or datetime.now(timezone.utc)) + timedelta(hours=VENCE_EN_HORAS)
-    destino = f" para la {university}" if university else ""
+    unitario = precio_de(pais)
+    monto = cafecitos * unitario
     return {
         "items": [
             {
@@ -142,21 +199,28 @@ def cuerpo_de_preferencia(
                 # actividad de quien pagó. Que diga la universidad no es adorno:
                 # es lo único que le recuerda, tres pantallas después, qué es lo
                 # que está comprando.
-                "title": (
-                    f"{cafecitos} cafecitos{destino}"
-                    if cafecitos != 1
-                    else f"1 cafecito{destino}"
-                ),
+                "title": _titulo(cafecitos, university, monto, pais),
                 "quantity": 1,
-                "unit_price": cafecitos * PRECIO_CAFECITO,
-                "currency_id": "ARS",
+                "unit_price": monto,
+                "currency_id": MONEDA,
             }
         ],
         "external_reference": referencia(player_id),
+        # Lo que se cobró, escrito en el pago mismo.
+        #
+        # `cafecitos` está acá desde el primer día, pero hasta ahora era
+        # decorativo: quien acreditaba lo deducía dividiendo el monto por el
+        # precio. Eso funcionaba mientras hubiera UN precio y dejó de funcionar
+        # el día que hay uno por país — una donación uruguaya de $1.500 se habría
+        # acreditado como quince cafecitos en vez de diez, en silencio y sin
+        # error. Ahora `aplicar` lee este número y `precio_unitario` es con lo
+        # que lo verifica, así que el precio puede moverse sin que se rompa nada.
         "metadata": {
             "player_id": player_id,
             "cafecitos": cafecitos,
             "university": university,
+            "precio_unitario": unitario,
+            "pais": pais,
         },
         # SIN `back_urls` ni `auto_return`, y esto costó una prueba real
         # descubrirlo. El botón abre Mercado Pago en otra pestaña —a propósito,
@@ -198,6 +262,7 @@ def crear_preferencia(
     player_id: int,
     cafecitos: int,
     university: str | None,
+    pais: str | None = None,
 ) -> str | None:
     """La preferencia del pago. Devuelve el `init_point`, o None si no se pudo.
 
@@ -220,7 +285,7 @@ def crear_preferencia(
     if not habilitado():
         return None
     cuerpo = cuerpo_de_preferencia(
-        player_id=player_id, cafecitos=cafecitos, university=university
+        player_id=player_id, cafecitos=cafecitos, university=university, pais=pais
     )
     try:
         r = httpx.post(
@@ -301,6 +366,66 @@ def leer_pago(payment_id: str | int) -> dict | None:
         return None
 
 
+def _cuantos_cafecitos(pago: dict) -> int | None:
+    """Cuántos cafecitos son. None si el monto no cierra con ningún precio.
+
+    **Se leen de la metadata y se verifican contra el monto**, en ese orden, y el
+    orden es el arreglo. Antes se hacía solo la cuenta —monto dividido cien— y
+    eso alcanzaba mientras un cafecito valiera lo mismo para todo el mundo. Desde
+    que el precio depende del país (boosts.PRECIO_POR_PAIS), la división acredita
+    mal sin quejarse: los diez cafecitos de un uruguayo son $1.500, y $1.500
+    dividido cien son quince.
+
+    La metadata es confiable porque es NUESTRA: la escribimos al crear la
+    preferencia y Mercado Pago nos la devuelve tal cual. No la manda quien paga y
+    no se puede tocar desde afuera. Aun así se verifica contra el monto, porque
+    metadata y plata que no coinciden significan que algo se cobró distinto de lo
+    que se prometió, y eso hay que mirarlo antes que acreditarlo.
+
+    El camino viejo sigue vivo abajo, y no por nostalgia: los pagos que entraron
+    antes de este cambio no tienen `precio_unitario`, y la reconciliación mira un
+    día para atrás.
+    """
+    centavos = round(float(pago.get("transaction_amount") or 0) * 100)
+    if centavos <= 0:
+        return None
+
+    from . import boosts
+
+    meta = pago.get("metadata") or {}
+    if "precio_unitario" in meta:
+        # Pago creado DESPUÉS del precio por país. Acá la metadata manda, y si no
+        # cierra no se acredita nada: caer al camino de abajo sería volver a
+        # dividir por el precio argentino, que es exactamente el error que esta
+        # función viene a evitar. Un pago nuestro que no se entiende es algo para
+        # mirar, no para adivinar.
+        declarados = meta.get("cafecitos")
+        unitario = meta.get("precio_unitario")
+        if (
+            _entero(declarados)
+            and _entero(unitario)
+            and 1 <= declarados <= boosts.MAX_CAFECITOS_PER_DONATION
+            and unitario > 0
+            and centavos == declarados * unitario * 100
+        ):
+            return declarados
+        return None
+
+    # Sin `precio_unitario`: es un pago anterior a este cambio —la reconciliación
+    # mira un día para atrás— y de esos sabemos que se cobraron al precio
+    # argentino. La cuenta de siempre.
+    paso = PRECIO_CAFECITO * 100
+    if centavos % paso:
+        return None
+    return int(centavos // paso)
+
+
+def _entero(v) -> bool:
+    """int de verdad. `isinstance(True, int)` es True en Python, y un booleano
+    donde va una cantidad es un dato roto, no una cantidad de uno."""
+    return isinstance(v, int) and not isinstance(v, bool)
+
+
 def aplicar(db, pago: dict) -> str:
     """Un pago de Mercado Pago convertido en empuje. Devuelve qué pasó, para el log.
 
@@ -327,11 +452,10 @@ def aplicar(db, pago: dict) -> str:
         # normal, no la excepción: conviven los cobros de otras cosas.
         return f"pago {pago_id} ajeno al juego, ignorado"
 
-    centavos = round(float(pago.get("transaction_amount") or 0) * 100)
-    paso = PRECIO_CAFECITO * 100
-    if centavos <= 0 or centavos % paso:
-        return f"pago {pago_id} de ${centavos / 100:.2f}, que no es múltiplo del precio"
-    cafecitos = int(centavos // paso)
+    cafecitos = _cuantos_cafecitos(pago)
+    if cafecitos is None:
+        monto = float(pago.get("transaction_amount") or 0)
+        return f"pago {pago_id} de ${monto:.2f}, que no cierra con ningún precio"
 
     player = db.query(GamePlayer).filter(GamePlayer.id == player_id).first()
     if player is None:

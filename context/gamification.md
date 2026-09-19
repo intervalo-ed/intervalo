@@ -165,6 +165,46 @@ se cuentan como una. Con veinte donaciones en toda la vida del producto, ese
 choque es mucho menos probable — y además se ve, porque el que descarta lo grita
 en el log y de ahí se repara con `grant_game_boost.py`.
 
+### Qué sale un cafecito, y por qué no es el mismo número para todos
+
+**Cien pesos argentinos, y ciento cincuenta para quien mira desde Uruguay**
+(`game/boosts.py :: PRECIO_CAFECITO`, `PRECIO_POR_PAIS`). Los dos precios son en
+pesos **argentinos**: la cuenta es de Mercado Pago Argentina y la API rechaza
+cualquier otra moneda de plano, así que lo único que se mueve es el número.
+
+Por qué se mueve: cien pesos argentinos son **siete centavos de dólar** (tipo de
+cambio del propio checkout, 18/09/2026: US$1 = $1.514,50). Acá eso alcanza porque
+el gesto se entiende; para alguien de afuera el número no dice nada. Ciento
+cincuenta dejan la donación entera —los diez del tope— en alrededor de un dólar.
+
+**De dónde sale el país**: del huso horario que reporta el navegador
+(`game_players.timezone`, escrito write-once en la primera visita). No de la IP:
+el huso es gratis, no pide permiso y ya está resuelto en el primer render. Es una
+pista y no un documento — un argentino de vacaciones en Punta del Este paga ciento
+cincuenta — y a esta escala el error vale cincuenta pesos, así que no se blinda.
+
+**El número que se muestra y el que se cobra son el mismo por construcción**: el
+precio viaja con el jugador (`GamePlayerOut.precio_cafecito`) y la diapo lo
+dibuja de ahí, en vez de tener su propia copia.
+
+**Lo que no se puede arreglar desde acá**: el checkout de Mercado Pago dibuja
+`$ 1.500` y en ninguna parte de esa pantalla aparece la palabra «ARS». El signo
+`$` también es el peso uruguayo, así que sin aclaración un uruguayo lee unos
+treinta y siete dólares. El título del ítem es lo único nuestro en esa pantalla,
+y por eso para quien mira de afuera lleva la moneda pegada: «10 cafecitos para la
+UdelaR · ARS 1.500».
+
+**Cuántos cafecitos son se LEE, no se deduce.** Hasta el 18/09 se dividía el monto
+por cien, y con dos precios eso acredita mal sin quejarse: $1.500 son diez
+cafecitos uruguayos o quince argentinos. Ahora la cantidad viaja explícita en la
+metadata del pago y el monto la verifica (`mercadopago._cuantos_cafecitos`). Un
+pago nuestro que no cierra no se acredita: se mira.
+
+Consecuencia en el canal del mail (`game/cafecito_email.py`): un aviso trae el
+total y nada más, así que un monto que dos precios explican —los múltiplos de
+$300— lo cede al webhook, que sí tiene la metadata. Solo se corre mientras el
+webhook exista; sin `MP_ACCESS_TOKEN` vuelve a ser el único canal y acredita.
+
 ### Empuje por aforo: 10 personas nuevas en un día (`game/aforo.py`)
 
 El segundo modo de encender un empuje, y el único que no cuesta plata. Cuando

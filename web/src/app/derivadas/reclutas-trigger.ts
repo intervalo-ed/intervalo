@@ -7,6 +7,7 @@
 
 import {
   readUltimaInterrupcion,
+  readUltimaPantalla,
   readUltimoPedidoAt,
   saveUltimoPedidoAt,
 } from "./game-storage"
@@ -69,7 +70,8 @@ export function tocaReclutar(totalCorrectas: number): boolean {
   // :: readUltimaInterrupcion).
   return (
     totalCorrectas - readUltimoPedidoAt() >= RECLUTAS_COOLDOWN &&
-    totalCorrectas - readUltimaInterrupcion() >= INSTALAR_SEPARACION
+    totalCorrectas - readUltimaInterrupcion() >= INSTALAR_SEPARACION &&
+    totalCorrectas !== readUltimaPantalla()
   )
 }
 

@@ -14,6 +14,7 @@ import {
   readCafecitosVistos,
   readUltimoPedidoAt,
   readUltimaInterrupcion,
+  readUltimaPantalla,
   saveUltimoPedidoAt,
 } from "./game-storage"
 import { INSTALAR_SEPARACION } from "./instalacion-trigger"
@@ -166,7 +167,8 @@ export function shouldShowCafecito(
   // `check:instalacion`, que mide el hueco más chico de toda la partida.
   return (
     solvedCount - readUltimoPedidoAt() >= CAFECITO_COOLDOWN &&
-    solvedCount - readUltimaInterrupcion() >= INSTALAR_SEPARACION
+    solvedCount - readUltimaInterrupcion() >= INSTALAR_SEPARACION &&
+    solvedCount !== readUltimaPantalla()
   )
 }
 

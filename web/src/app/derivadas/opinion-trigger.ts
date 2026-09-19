@@ -12,7 +12,7 @@
 import {
   PEDIDO_OPINION,
   readPedidoState,
-  readUltimaInterrupcion,
+  readUltimaPantalla,
   readUltimoPedidoAt,
   savePedidoState,
 } from "./game-storage"
@@ -85,7 +85,7 @@ export function tocaOpinion(totalCorrectas: number): boolean {
   // 13, entre la regla de los cafecitos de la 12 y el primer cafecito de la 14:
   // tres pantallas en tres derivadas seguidas, que es lo que el mapa de hitos
   // existe para no tener. Con esto sale en la 18.
-  return totalCorrectas - readUltimaInterrupcion() >= OPINION_SEPARACION
+  return totalCorrectas - readUltimaPantalla() >= OPINION_SEPARACION
 }
 
 /** Anota que se mostró. No toca el cooldown compartido: ver OPINION_SEPARACION.

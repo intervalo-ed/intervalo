@@ -19,6 +19,8 @@ _MAX_ALIAS = 40
 _MAX_UNIVERSIDAD = 120
 _MAX_ATRIBUCION = 32
 _MAX_VARIANTE = 48
+# El tope de la columna game_players.timezone.
+_MAX_HUSO = 64
 
 
 class GamePlayerCreateRequest(BaseModel):
@@ -36,6 +38,14 @@ class GamePlayerCreateRequest(BaseModel):
     # fila y por lo tanto antes de que el server sepa de quién se trata. Acá se
     # guarda write-once, igual que la atribución.
     variant: Optional[str] = Field(default=None, max_length=_MAX_VARIANTE)
+    # El huso horario del navegador ("America/Montevideo"), que es la señal
+    # más barata de desde dónde mira la persona: no toca la IP, no pide
+    # permiso y está disponible en el primer render, antes de que exista
+    # fila. Gobierna lo que sale un cafecito —cien pesos argentinos son siete
+    # centavos de dólar, y para alguien de afuera ese número no significa
+    # nada— y si el checkout aclara en qué moneda está hablando. Write-once,
+    # igual que la atribución de arriba.
+    timezone: Optional[str] = Field(default=None, max_length=_MAX_HUSO)
 
 
 class GamePlayerOut(BaseModel):
@@ -51,6 +61,12 @@ class GamePlayerOut(BaseModel):
     university: Optional[str] = None
     career: Optional[str] = None
     is_guest: bool
+    # Lo que le sale UN cafecito a esta persona, en pesos argentinos. Depende
+    # de desde dónde mira (backend/game/boosts.py :: PRECIO_POR_PAIS) y por eso
+    # viaja con el jugador en vez de estar escrito en el front: el número que
+    # se cobra y el número que se muestra tienen que ser el mismo, y el que se
+    # cobra lo decide el server. El default es el precio argentino.
+    precio_cafecito: int = 100
     # Si sigue en True, este @ todavía no pasó por la edición gratis de la
     # slide de "elegí tu @" (ver GamePlayer.alias_is_generated).
     alias_is_generated: bool = True
@@ -572,6 +588,35 @@ class GameOpinionOut(BaseModel):
     delta_theta: float
     level_before: int
     level_after: int
+
+class GameEncuestaRequest(BaseModel):
+    """La pregunta abierta, en los mismos dos pasos que la de dificultad.
+
+    `pregunta` viaja desde el cliente para que la respuesta quede atada a lo que
+    la persona realmente leyó: si el enunciado se cambia mientras alguien tiene
+    la diapo abierta, su respuesta es a la pregunta vieja. Si no llega o no se
+    reconoce, se usa la que está activa hoy.
+
+    El tope de `texto` es más grande que `encuesta.MAX_LARGO` a propósito: acá
+    solo frena un pegado absurdo, y el recorte de verdad lo hace el módulo de
+    dominio, que es donde está escrito el porqué del número.
+    """
+
+    accion: str = Field(max_length=12)
+    pregunta: Optional[str] = Field(default=None, max_length=32)
+    texto: Optional[str] = Field(default=None, max_length=2000)
+    platform: Optional[str] = Field(default=None, max_length=8)
+
+
+class GameEncuestaOut(BaseModel):
+    """Si la respuesta quedó guardada.
+
+    Un solo booleano y ningún agradecimiento: el texto de la pantalla es
+    problema del front, y devolverlo desde acá sería poner copy en el contrato.
+    """
+
+    guardado: bool
+
 
 # ── Avisos push ──────────────────────────────────────────────────────────────
 # Espejo de los de Intervalo (main.py), y no importados de allá porque el router

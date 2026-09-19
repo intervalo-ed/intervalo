@@ -63,6 +63,8 @@ import { PedidoInstalar, puedeOfrecerInstalar } from "./pedido-instalar"
 import { PedidoNotificaciones } from "./pedido-notificaciones"
 import { puedeOfrecerNotificaciones } from "./UseAvisosDelJuego"
 import { marcarPwaDesde } from "./game-storage"
+import { marcarEncuestaMostrada, tocaEncuesta } from "./encuesta-trigger"
+import { EncuestaSlide } from "./encuesta-slide"
 import { marcarOpinionMostrada, tocaOpinion } from "./opinion-trigger"
 import { OpinionSlide } from "./opinion-slide"
 import { marcarReclutasMostrado, tocaReclutar } from "./reclutas-trigger"
@@ -189,6 +191,9 @@ type Slide =
   // «¿Cómo te vienen resultando?». Sin `back` ni `trigger` por lo mismo que la
   // de instalar: no se puede abrir a mano, siempre llega después de responder.
   | { kind: "opinion" }
+  // La pregunta abierta, una sola vez en la vida. Sin `back` ni `trigger` por
+  // lo mismo que las otras dos: no se puede abrir a mano.
+  | { kind: "encuesta" }
 
 // El tinte de fondo de café/reclutas, de pantalla completa (ver el `motion.div`
 // debajo de la grilla, más abajo). Antes vivía adentro de la caja de la propia
@@ -624,6 +629,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
         | "instalar"
         | "notificaciones"
         | "opinion"
+        | "encuesta"
         | "username"
         | "reglas"
         | null,
@@ -880,7 +886,16 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
         goTo({ kind: "reclutas", trigger: "hito" })
         return
       }
-      // La encuesta va ÚLTIMA del ladder y es deliberado: no convierte a nadie,
+      // La pregunta abierta va antes que la de dificultad y después de todo lo
+      // que convierte. Sale UNA vez en la vida (derivada 18) y no consume el
+      // cooldown compartido, así que no le corre el turno al cafecito de la 20:
+      // el porqué de las dos cosas está medido en encuesta-trigger.ts.
+      if (consumed !== "encuesta" && tocaEncuesta(totalCorrectas)) {
+        marcarEncuestaMostrada(totalCorrectas)
+        goTo({ kind: "encuesta" })
+        return
+      }
+      // La encuesta de dificultad va ÚLTIMA del ladder y es deliberado: no convierte a nadie,
       // así que no puede quedarse con el turno de algo que sí. Igual sale, y
       // temprano — los otros escalones piden en hitos puntuales y la mayoría de
       // las respuestas no los dispara, así que el turno libre aparece enseguida.
@@ -2075,6 +2090,21 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                     slotSalida={salida}
                     solved={player?.exercises_correct ?? 0}
                     onContinue={() => advanceAfterAnswer("instalar")}
+                    fullBleed
+                    className="flex-none"
+                  />
+                )}
+              </ConSalidaAbajo>
+            </div>
+          )}
+
+          {slide.kind === "encuesta" && (
+            <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col px-5 pb-[var(--cta-pb)] pt-4">
+              <ConSalidaAbajo>
+                {({ salida }) => (
+                  <EncuestaSlide
+                    slotSalida={salida}
+                    onContinue={() => advanceAfterAnswer("encuesta")}
                     fullBleed
                     className="flex-none"
                   />

@@ -116,6 +116,20 @@ UNIVERSITIES: list[tuple[str, str]] = [
     ("UNVIME", "Universidad Nacional de Villa Mercedes"),
     ("UNPILAR", "Universidad Nacional de Pilar"),
     ("UNAU", "Universidad Nacional del Alto Uruguay"),
+    # Uruguay. Están acá porque el cafecito ya sabe cobrarle distinto a quien
+    # mira desde allá (boosts.PRECIO_POR_PAIS) y el título del checkout nombra la
+    # universidad: sin estas filas, un uruguayo no tiene a cuál sumarse y el
+    # cartel le habla de un ranking del que no puede participar.
+    #
+    # La Universidad de Montevideo NO está, y es a propósito: su sigla es "UM" y
+    # "UM" ya es la Universidad de Morón, doce filas más arriba. Dos siglas
+    # iguales colapsan en `_BY_NORM` y una de las dos se come a la otra en el
+    # ranking. Agregarla pide desambiguar por país, que es una decisión más
+    # grande que una fila.
+    ("UdelaR", "Universidad de la República"),
+    ("UTEC", "Universidad Tecnológica del Uruguay"),
+    ("ORT", "Universidad ORT Uruguay"),
+    ("UCU", "Universidad Católica del Uruguay"),
 ]
 
 

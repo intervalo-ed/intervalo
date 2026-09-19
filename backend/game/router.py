@@ -25,6 +25,7 @@ from models import (
     GameDifficultyVote,
     GameExercise,
     GamePlayer,
+    GameSurveyAnswer,
     GameTemplateStat,
     User,
 )
@@ -37,6 +38,7 @@ from . import boosts
 from . import chat as game_chat
 from . import limits
 from . import mercadopago as mp
+from . import encuesta as game_encuesta
 from . import opinion as game_opinion
 from . import ranking
 from . import elo
@@ -83,6 +85,8 @@ from .schemas import (
     GameLeaderboardSummary,
     GameMessageIn,
     GameMessageOut,
+    GameEncuestaOut,
+    GameEncuestaRequest,
     GameOpinionOut,
     GameOpinionRequest,
     GamePulse,
@@ -124,6 +128,13 @@ _UTM_RE = re.compile(r"[a-z]{2,20}")
 # cliente por el mismo motivo que las otras dos: el body lo manda cualquiera, y
 # una columna de brazo con basura adentro convierte el análisis en adivinanza.
 _VARIANT_RE = re.compile(r"[a-z0-9-]{2,24}:[a-z0-9-]{2,20}")
+
+# El huso horario que reporta el navegador: "America/Montevideo",
+# "Europe/Madrid", "UTC". Se valida la FORMA y no contra una lista de husos
+# conocidos: la lista IANA cambia sola un par de veces por año y quedar viejos
+# significaría tirar el dato de alguien real. Lo que no matchea acá no entra a
+# la base, y lo que entra y no conocemos simplemente paga el precio argentino.
+_TZ_RE = re.compile(r"[A-Za-z][A-Za-z0-9_+-]{0,20}(?:/[A-Za-z0-9_+-]{1,20}){0,2}")
 
 _KNOWN_CAREERS = ("E", "S", "T", "M")
 
@@ -281,6 +292,11 @@ def _player_out(db: Session, player: GamePlayer, with_rank: bool = True) -> Game
         alias_is_generated=player.alias_is_generated,
         level=elo.level_of(player.theta),
         elo=elo.rating_of(player.theta),
+        # Lo que le sale a ESTA persona un cafecito. Viaja con el jugador y no
+        # con el checkout porque la diapo lo escribe mucho antes de que exista
+        # una preferencia: dice «1 cafecito = $150» apenas se abre, y la
+        # preferencia recién se pide cuando el slider se queda quieto.
+        precio_cafecito=boosts.precio_de(boosts.pais_de(player.timezone)),
     )
 
 
@@ -289,6 +305,7 @@ def _persist_attribution(
     group_id: str | None,
     utm_source: str | None,
     platform: str | None = None,
+    timezone: str | None = None,
 ) -> None:
     """Todo lo de PRIMER contacto, y solo si está vacío.
 
@@ -304,6 +321,16 @@ def _persist_attribution(
         player.first_utm_source = utm_source
     if player.platform is None and platform:
         player.platform = platform
+    # Desde dónde mira. Misma regla que los tres de arriba y por el mismo motivo:
+    # de dónde vino la persona no cambia porque después se vaya de viaje. Lo que
+    # gobierna es el precio del cafecito (ver boosts.PRECIO_POR_PAIS), y ahí lo
+    # que importa es en qué economía vive quien dona, no dónde está el martes.
+    if (
+        player.timezone is None
+        and timezone
+        and _TZ_RE.fullmatch(timezone)
+    ):
+        player.timezone = timezone
 
 
 def _anotar_variante(player: GamePlayer, variant: str | None) -> None:
@@ -381,14 +408,14 @@ def create_player(
         # en cada arranque de sesión— no lo repite.
         game_events.on_signup(db, player)
         _persist_attribution(player, body.group_id, body.utm_source,
-                             _platform(x_game_platform))
+                             _platform(x_game_platform), body.timezone)
         db.commit()
         return GamePlayerCreateResponse(player=_player_out(db, player), guest_token=None)
 
     existing = player_for_guest_token(db, x_game_token)
     if existing is not None:
         _persist_attribution(existing, body.group_id, body.utm_source,
-                             _platform(x_game_platform))
+                             _platform(x_game_platform), body.timezone)
         db.commit()
         return GamePlayerCreateResponse(
             player=_player_out(db, existing), guest_token=existing.guest_token
@@ -399,7 +426,7 @@ def create_player(
     referrals.anotar(db, player, body.referrer_alias)
     _anotar_variante(player, body.variant)
     _persist_attribution(player, body.group_id, body.utm_source,
-                         _platform(x_game_platform))
+                         _platform(x_game_platform), body.timezone)
     db.commit()
     return GamePlayerCreateResponse(player=_player_out(db, player), guest_token=player.guest_token)
 
@@ -790,10 +817,17 @@ def cafecito_checkout(
         if fila is not None:
             university = canonical_university(fila.university) or None
 
+    # Desde dónde mira quien está por pagar, que es lo que decide el precio y si
+    # el título del checkout lleva la moneda pegada (ver mercadopago._titulo).
+    # Sale de la columna del jugador y NO de este pedido: el precio no puede
+    # depender de un campo que viaja en cada llamada.
+    pais = boosts.pais_de(player.timezone)
+
     url = mp.crear_preferencia(
         player_id=player.id,
         cafecitos=cafecitos,
         university=university,
+        pais=pais,
     )
     return GameCafecitoCheckout(checkout_url=url)
 
@@ -2203,6 +2237,96 @@ def record_opinion(
         level_before=level_before,
         level_after=elo.level_of(player.theta),
     )
+
+
+
+# ── La pregunta abierta ────────────────────────────────────────
+
+# Las mismas dos acciones que la encuesta de dificultad, y por el mismo motivo:
+# la diferencia entre mostrada y contestada ES el dato.
+_ENCUESTA_ACCIONES = ("impression", "answer")
+
+# Cuánto hacia atrás se busca la impresión que esta respuesta contesta. Gemela
+# de `_OPINION_VENTANA_IMPRESION`, y generosa a propósito: escribir una
+# respuesta abierta lleva minutos y no segundos, y a alguien que deja la pestaña
+# abierta mientras piensa no hay que perderle la respuesta cuando por fin la
+# manda.
+_ENCUESTA_VENTANA_IMPRESION = timedelta(hours=6)
+
+
+@router.post(
+    "/encuesta",
+    response_model=GameEncuestaOut,
+    dependencies=[Depends(limits.por_jugador(10, "encuesta"))],
+)
+def record_encuesta(
+    body: GameEncuestaRequest,
+    player: GamePlayer = Depends(get_current_player),
+    db: Session = Depends(get_db),
+):
+    """La única pregunta del juego que no tiene opciones.
+
+    Guarda y nada más: no ajusta θ, no da XP, no desbloquea nada. Es deliberado
+    y está escrito en `context/writing-voice.md` — agradecer una encuesta con
+    una recompensa la convierte en un trámite pago y arruina el dato.
+
+    **Nunca falla por contenido**, igual que `/opinion` y `/cta`: esto aparece en
+    la mitad de una partida y un error acá le rompería el juego a alguien por un
+    dato que es opcional. Un texto vacío se guarda como lo que es, un salto.
+
+    El texto se guarda **como lo escribieron**, sin allowlist de caracteres: ver
+    `encuesta.limpiar` para la diferencia con el chat.
+    """
+    if body.accion not in _ENCUESTA_ACCIONES:
+        raise HTTPException(status_code=422, detail="acción desconocida")
+
+    pregunta = body.pregunta or game_encuesta.ACTUAL
+    if pregunta not in game_encuesta.PREGUNTAS:
+        pregunta = game_encuesta.ACTUAL
+    ahora = datetime.utcnow()
+
+    if body.accion == "impression":
+        db.add(
+            GameSurveyAnswer(
+                player_id=player.id,
+                pregunta=pregunta,
+                shown_at=ahora,
+                correctas_al_mostrar=player.exercises_correct or 0,
+                platform=(body.platform or player.platform),
+            )
+        )
+        db.commit()
+        return GameEncuestaOut(guardado=False)
+
+    # La impresión que esta respuesta contesta, si la hay. La más reciente sin
+    # responder: si quedaron varias colgadas —la persona cerró la pestaña con la
+    # pregunta abierta más de una vez— las viejas se quedan como lo que fueron,
+    # preguntas ignoradas.
+    fila = (
+        db.query(GameSurveyAnswer)
+        .filter(
+            GameSurveyAnswer.player_id == player.id,
+            GameSurveyAnswer.pregunta == pregunta,
+            GameSurveyAnswer.answered_at.is_(None),
+            GameSurveyAnswer.shown_at >= ahora - _ENCUESTA_VENTANA_IMPRESION,
+        )
+        .order_by(GameSurveyAnswer.shown_at.desc())
+        .first()
+    )
+    if fila is None:
+        fila = GameSurveyAnswer(
+            player_id=player.id,
+            pregunta=pregunta,
+            shown_at=ahora,
+            correctas_al_mostrar=player.exercises_correct or 0,
+            platform=(body.platform or player.platform),
+        )
+        db.add(fila)
+
+    fila.texto = game_encuesta.limpiar(body.texto or "")
+    fila.answered_at = ahora
+    db.commit()
+    return GameEncuestaOut(guardado=True)
 
 
 # ── Avisos push ──────────────────────────────────────────────────────────────

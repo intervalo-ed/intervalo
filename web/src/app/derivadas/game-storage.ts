@@ -8,6 +8,7 @@ const REGISTRO_OFRECIDO_KEY = "intervalo:game:registro-ofrecido"
 const INSTALAR_KEY = "intervalo:game:instalar"
 const NOTIF_KEY = "intervalo:game:notificaciones"
 const OPINION_KEY = "intervalo:game:opinion"
+const ENCUESTA_KEY = "intervalo:game:encuesta"
 // La caja vieja de las reglas guardaba `vistas: 1` con UN solo significado:
 // «las tres ya salieron», porque salían juntas. La nueva cuenta de 0 a 3, así
 // que ese mismo 1 pasó a querer decir «salió una». Son dos idiomas distintos en
@@ -101,6 +102,7 @@ export function clearGameIdentity() {
     window.localStorage.removeItem(INSTALAR_KEY)
     window.localStorage.removeItem(NOTIF_KEY)
     window.localStorage.removeItem(OPINION_KEY)
+    window.localStorage.removeItem(ENCUESTA_KEY)
     window.localStorage.removeItem(REGLAS_KEY)
     window.localStorage.removeItem(REGLAS_V1_KEY)
     window.localStorage.removeItem(CIERRE_KEY)
@@ -156,10 +158,27 @@ export function readUltimoPedidoAt(): number {
  *  Devuelve -Infinity si todavía no interrumpió nada, igual que las que
  *  compara. */
 export function readUltimaInterrupcion(): number {
+  return Math.max(readUltimoPedidoAt(), readPedidoState(INSTALAR_KEY).ultima)
+}
+
+/** La última respuesta en la que YA salió una pantalla, sea cual sea.
+ *
+ *  Sirve para UNA sola cosa y por eso es otra función: que dos pantallas no
+ *  compartan respuesta. No es una distancia, es una igualdad — el ladder vuelve
+ *  a entrar después de cada diapo con otro `consumed`, así que sin esto dos
+ *  disparadores que apuntan al mismo número se dibujan uno atrás del otro sobre
+ *  la misma derivada, que es la pila que el mapa de hitos existe para no tener.
+ *
+ *  Separada de `readUltimaInterrupcion` porque las dos reglas son distintas y
+ *  mezclarlas sale caro: con una sola lectura y una distancia de cuatro, la
+ *  pregunta de la varita de la 18 empujaba el segundo cafecito de la 20 a la 40.
+ *  Estar a dos derivadas de distancia está bien; compartir la respuesta, no. */
+export function readUltimaPantalla(): number {
   return Math.max(
-    readUltimoPedidoAt(),
-    readPedidoState(INSTALAR_KEY).ultima,
+    readUltimaInterrupcion(),
     readRegistroOfrecidoAt(),
+    readPedidoState(ENCUESTA_KEY).ultima,
+    readPedidoState(OPINION_KEY).ultima,
   )
 }
 
@@ -290,6 +309,10 @@ export const PEDIDO_NOTIFICACIONES = NOTIF_KEY
 /** Y la encuesta de dificultad, que se repite con su propia cuenta por lo
  *  mismo: es otro pedido y no un escalón de aquellos dos. */
 export const PEDIDO_OPINION = OPINION_KEY
+/** La pregunta abierta, que NO se repite: `vistas` llega a 1 y se queda ahí.
+ *  Caja propia y no la de la encuesta de dificultad porque son dos preguntas
+ *  distintas y quien contestó una tiene que poder recibir la otra. */
+export const PEDIDO_ENCUESTA = ENCUESTA_KEY
 /** Las reglas del juego, que NO se repiten: usan la misma caja porque lo único
  *  que necesitan guardar es cuántas ya se dijeron, y una caja con dos números es
  *  más barata que una tercera forma de guardar lo mismo. `vistas` cuenta de 0 a

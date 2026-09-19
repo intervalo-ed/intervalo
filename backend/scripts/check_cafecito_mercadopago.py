@@ -73,9 +73,14 @@ ok(
     mp.cuerpo_de_preferencia(player_id=1, cafecitos=1, university=None)["items"][0][
         "title"
     ]
-    == "1 cafecito",
+    == "Intervalo · 1 cafecito",
     "uno solo se dice en singular y sin universidad",
 )
+# El checkout dibuja arriba el nombre del titular de la cuenta —«Nicolás
+# Vrancovich»— y eso no se puede cambiar sin convertirla en empresa. La marca en
+# el título es la única forma de que quien paga vea, en esa misma pantalla, el
+# nombre que sí reconoce.
+ok(item["title"].startswith(mp.MARCA), "la marca va primero, antes de todo lo demas")
 for n in (1, 3, 5, 10):
     c = mp.cuerpo_de_preferencia(player_id=1, cafecitos=n, university=None)
     ok(
@@ -104,6 +109,101 @@ ok("auto_return" not in cuerpo, "y sin auto_return, que la necesita")
 ok(cuerpo["expires"] is True, "la preferencia vence")
 vence = datetime.fromisoformat(cuerpo["expiration_date_to"].replace("Z", "+00:00"))
 ok(vence > datetime.now(timezone.utc), "y vence en el futuro, no en el pasado")
+
+
+print("— el precio segun de donde mire la persona —")
+
+# Cien pesos argentinos son siete centavos de dólar. El precio por país es lo que
+# hace que el cartel signifique algo para alguien de afuera, y estos chequeos son
+# los que evitan que esa misma flexibilidad acredite de más.
+
+ok(game_boosts.pais_de("America/Montevideo") == "UY", "Montevideo es Uruguay")
+ok(game_boosts.pais_de("America/Argentina/Cordoba") is None, "Cordoba paga el precio de casa")
+ok(game_boosts.pais_de("Europe/Madrid") is None, "un pais sin copy propio paga el de casa")
+ok(game_boosts.pais_de(None) is None, "sin huso no explota")
+ok(game_boosts.pais_de("") is None, "con huso vacio tampoco")
+ok(game_boosts.precio_de("UY") == 150, "en Uruguay un cafecito sale 150")
+ok(game_boosts.precio_de(None) == game_boosts.PRECIO_CAFECITO, "sin pais, el precio argentino")
+ok(game_boosts.precio_de("XX") == game_boosts.PRECIO_CAFECITO, "un pais desconocido, idem")
+
+uy = mp.cuerpo_de_preferencia(player_id=1, cafecitos=10, university="UdelaR", pais="UY")
+ok(uy["items"][0]["unit_price"] == 1500, "diez cafecitos uruguayos son $1.500")
+ok(uy["metadata"]["precio_unitario"] == 150, "y el pago dice a que precio se cobraron")
+ok(uy["metadata"]["cafecitos"] == 10, "y cuantos son, que es lo que se acredita")
+ok(uy["metadata"]["pais"] == "UY", "y desde donde miraba quien pago")
+ok(uy["items"][0]["currency_id"] == mp.MONEDA == "ARS", "la moneda sigue siendo la unica que la cuenta cobra")
+
+# El título es lo ÚNICO que controlamos de la pantalla de Mercado Pago, que
+# dibuja `$ 1.500` sin decir nunca la palabra ARS. El signo `$` también es el
+# peso uruguayo: sin esta aclaración, un uruguayo lee treinta y siete dólares.
+ok("ARS" in uy["items"][0]["title"], "el titulo aclara la moneda a quien mira de afuera")
+ok("1.500" in uy["items"][0]["title"], "y dice el monto, que es lo que se lee mal")
+ar = mp.cuerpo_de_preferencia(player_id=1, cafecitos=10, university="UBA", pais=None)
+ok("ARS" not in ar["items"][0]["title"], "y no se la mete al que ya sabe en que moneda vive")
+ok(ar["items"][0]["title"] == "Intervalo · 10 cafecitos para la UBA", "el titulo argentino no lleva moneda")
+
+
+print("— cuantos cafecitos se acreditan —")
+
+# El bug que este bloque previene: hasta hoy la cantidad se deducia dividiendo el
+# monto por cien. Con un precio por país, los diez cafecitos de un uruguayo
+# ($1.500) se habrían acreditado como quince, sin error y sin que nadie se entere.
+
+
+def pago(monto, meta=None):
+    p = {"transaction_amount": monto}
+    if meta is not None:
+        p["metadata"] = meta
+    return p
+
+
+ok(mp._cuantos_cafecitos(pago(1500, {"cafecitos": 10, "precio_unitario": 150})) == 10,
+   "los diez de un uruguayo son diez y no quince")
+ok(mp._cuantos_cafecitos(pago(1000, {"cafecitos": 10, "precio_unitario": 100})) == 10,
+   "los diez de un argentino siguen siendo diez")
+ok(mp._cuantos_cafecitos(pago(500, {"cafecitos": 5, "precio_unitario": 100})) == 5,
+   "y cinco son cinco")
+ok(mp._cuantos_cafecitos(pago(1500, {"cafecitos": 10, "precio_unitario": 100})) is None,
+   "metadata que no cierra con el monto no se acredita")
+ok(mp._cuantos_cafecitos(pago(1500, {"cafecitos": 99, "precio_unitario": 150})) is None,
+   "ni una cantidad arriba del tope por donacion")
+ok(mp._cuantos_cafecitos(pago(1500, {"cafecitos": 0, "precio_unitario": 150})) is None,
+   "ni cero")
+ok(mp._cuantos_cafecitos(pago(1500, {"cafecitos": "10", "precio_unitario": 150})) is None,
+   "ni un texto donde va un numero")
+ok(mp._cuantos_cafecitos(pago(1500, {"cafecitos": True, "precio_unitario": 1500})) is None,
+   "ni un booleano, que en Python pasa por int")
+# La trampa que casi se cuela: con metadata rota, caer a dividir por cien
+# acreditaria quince donde hay diez. Un pago nuestro que no se entiende no se
+# adivina.
+ok(mp._cuantos_cafecitos(pago(1500, {"cafecitos": None, "precio_unitario": 150})) is None,
+   "metadata rota NO cae al camino viejo")
+# Los pagos que entraron ANTES de este cambio no tienen `precio_unitario`, y la
+# reconciliación mira un día para atrás: el camino viejo tiene que seguir vivo.
+ok(mp._cuantos_cafecitos(pago(1000, {"cafecitos": 10})) == 10,
+   "un pago viejo, sin precio en la metadata, se sigue acreditando por el monto")
+ok(mp._cuantos_cafecitos(pago(1000)) == 10, "y uno sin metadata ninguna, tambien")
+ok(mp._cuantos_cafecitos(pago(350)) is None, "un monto que no es multiplo no se acredita")
+ok(mp._cuantos_cafecitos(pago(0)) is None, "ni cero pesos")
+ok(mp._cuantos_cafecitos(pago(-100)) is None, "ni un monto negativo")
+
+
+print("— el canal del mail no adivina montos ambiguos —")
+
+# $1.500 son diez cafecitos uruguayos o quince argentinos, y el aviso de pago por
+# mail no trae con qué distinguirlos: solo el total. El pago en la API sí (lleva
+# la metadata), así que el mail se corre y lo acredita el webhook.
+from game import cafecito_email  # noqa: E402
+
+def mail(total):
+    # `_plano` aplasta los espacios, así que el aviso entra en una línea.
+    return {"text": f"Operación: 179711509890 Total de la operación $ {total}"}
+
+leido = cafecito_email.leer(mail("1.500,00"))
+ok(leido is None, "el mail no acredita un monto que dos precios explican")
+leido = cafecito_email.leer(mail("1.000,00"))
+ok(leido is not None and leido["cafecitos"] == 10,
+   "pero un monto que solo el precio argentino explica sigue entrando")
 
 
 print("— la firma del webhook —")

@@ -176,25 +176,38 @@ eso obligó a mover un tercero, porque los números no viven solos:
 | 12 | *(sin-peaje)* la regla de los cafecitos |
 | 14 | el cafecito, por primera vez (`CAFECITO_PRIMERA`) |
 | 17 | *(sin-peaje)* la regla de la tabla |
-| 18 | la encuesta de dificultad (`OPINION_PRIMERA`, corrida por su separación) |
+| 18 | la pregunta de la varita (`ENCUESTA_EN`), una sola vez en la vida |
 | 20 | el cafecito otra vez, y de ahí cada 20 |
 | 24 | instalar la app, y después cada 12: 36, 48, 60, 73, 85 |
+| 28 | la encuesta de dificultad (`OPINION_PRIMERA`, corrida por su separación) |
 
 Simulado hasta la derivada 95 con las funciones reales: **ninguna pantalla
 comparte respuesta con otra**, y no hay tres derivadas seguidas con pantalla.
 
-**Lo que hace que el mapa se sostenga son dos reglas, no la aritmética.** La
-primera es el **cooldown compartido** (`readUltimoPedidoAt`): el cafecito y el
-reclutamiento se miden contra el último pedido de cualquier tipo, no contra el
-último propio. La segunda es que **instalar y la encuesta no lo consumen** a
-propósito —si lo consumieran, el pedido de instalar de la 5 correría al
-reclutamiento de la 9—, y que desde el 18/09 el cafecito y el reclutamiento sí
-mantienen distancia de la pantalla de instalar (`readUltimaInterrupcion`). La
-excepción resolvía una mitad y dejaba la otra abierta: nada impedía que un
-récord cayera pegado a esa pantalla, y con la ventana compartida más corta eso
-pasa en la derivada 46, un acierto después de la instalación de la 45. La
-encuesta sigue afuera de la guarda, así que puede caer en la derivada anterior a
-otro pedido —la 13 antes del cafecito de la 14— pero nunca en la misma.
+**Lo que hace que el mapa se sostenga son tres reglas, no la aritmética.**
+
+1. **El cooldown compartido** (`readUltimoPedidoAt`): el cafecito y el
+   reclutamiento se miden contra el último pedido de cualquier tipo, no contra
+   el último propio. Son los dos que piden algo caro, y dos de ésos seguidos no
+   son dos pedidos sino un peaje.
+2. **La distancia con la pantalla de instalar** (`readUltimaInterrupcion`). Esa
+   pantalla no consume el cooldown a propósito —si lo consumiera, correría a los
+   otros dos— y eso resolvía una mitad dejando la otra abierta: nada impedía que
+   un récord cayera pegado a ella. Con la ventana compartida más corta eso pasa
+   en la derivada 46, un acierto después de la instalación de la 45.
+3. **Que dos pantallas no compartan respuesta** (`readUltimaPantalla`). No es
+   una distancia sino una igualdad, y cubre a TODAS —incluidas las que no piden
+   nada: el registro, la varita y la encuesta de dificultad—. El ladder vuelve a
+   entrar después de cada diapo con otro `consumed`, así que sin esto dos
+   disparadores que apuntan al mismo número se dibujan uno atrás del otro sobre
+   la misma derivada.
+
+**Las reglas 2 y 3 son distintas a propósito y mezclarlas sale caro.** Con una
+sola lectura y una distancia de cuatro, la pregunta de la varita de la 18
+empujaba el segundo cafecito de la 20 a la 40: estar a dos derivadas de
+distancia está bien, compartir la respuesta no. La encuesta de dificultad es la
+única que usa la regla 3 como distancia y no como igualdad, y es coherente con
+su lugar: va última del ladder justamente porque no convierte a nadie.
 
 Por qué se movió el reclutamiento de la 10 a la 9: en la 10 compartía respuesta
 con el registro —el registro sale primero y al cerrarlo el ladder vuelve a
@@ -659,6 +672,54 @@ hay.
 
 El chat se puede apagar entero desde el server (`GAME_CHAT_ENABLED`, opt-in): eso
 frena escribir, nunca leer.
+
+### La pregunta abierta (`encuesta-slide.tsx`, `game/encuesta.py`)
+
+Una diapo en la **derivada 18**, una sola vez en la vida, con un campo de texto y
+nada más:
+
+> Si tuvieras una varita mágica, ¿qué le cambiarías o le agregarías al juego?
+
+Existe porque es lo único que el juego no puede medir. θ y β salen de los
+aciertos, el embudo sale de las derivadas resueltas, y la encuesta de dificultad
+tiene tres respuestas y las tres las elegimos nosotros. Ninguna de esas fuentes
+puede devolver algo que no se nos haya ocurrido preguntar.
+
+**No hay botón de saltar, y el campo no valida nada.** Las dos mitades son la
+misma decisión: sin botón, salir cuesta un acto deliberado y eso sube mucho
+cuánta gente contesta de verdad; sin validación, ese acto sale barato (un punto
+alcanza) y la pantalla no se convierte en un peaje. Agregarle un largo mínimo
+cierra la salida y la vuelve la puerta que `dx-puerta-1` midió en 668 respuestas
+perdidas. El «.» se guarda como cualquier otra respuesta y se clasifica **al
+leer**: son tres estados y no dos —se fue sin contestar, dijo que no, contestó— y
+el primero es el que decide si la pregunta se saca.
+
+**Por qué la 18 y no la 20**, que era el número pedido. Se simuló el ladder
+entero con las constantes reales (18/09):
+
+| casillero | quién lo ocupa | gente que llega |
+|---|---|---|
+| 10 | reclutas | 451 |
+| 12 | registro | — |
+| 14 | encuesta de dificultad | 321 |
+| **18** | **libre** | **277** |
+| 20 | cafecito | 258 |
+
+La 20 es el hito del cafecito, y su disparador es `% CAFECITO_EVERY === 0`:
+ganarle el turno no lo corre a la 24 sino a la 40, porque entre medio no hay
+múltiplo. Correr el cafecito a la 14 para liberar la 20 obliga a correr reclutas
+—que escribe el cooldown compartido desde la 10— y con reclutas movido la grilla
+se desfasa: en 60 derivadas pasa de salir 3 veces a salir 1. La 18 está vacía,
+deja el calendario intacto y **llega a más gente que la 20**.
+
+Por el mismo motivo **no consume el cooldown compartido**, solo lo respeta (con
+la separación de 4 de instalar y opinión). Consumiéndolo, el cafecito de la 20
+quedaría tapado hasta la 40. Una pregunta que se hace una vez en la vida no puede
+costar una oferta de tres; el check `check:encuesta` clava esa propiedad.
+
+El texto se guarda **como lo escribieron**, sin la allowlist de caracteres del
+chat: aquella existe porque allá el texto se vuelve público, y esto lo lee solo el
+panel (pestaña **Voces**), donde las respuestas se listan sin resumir.
 
 ### Los dos pedidos de la pantalla de inicio (`pedido-instalar.tsx`, `pedido-notificaciones.tsx`)
 
