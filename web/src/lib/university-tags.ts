@@ -220,12 +220,22 @@ export const UNIVERSITY_TAGS: UniversityTag[] = [
   { key: "UNVIME", fullName: "Universidad Nacional de Villa Mercedes", color: "#53B8AF", font: TAG_FONT, tagFontSize: TAG_FONT_SIZE },
   { key: "UNPILAR", fullName: "Universidad Nacional de Pilar", color: "#356CB8", font: TAG_FONT, tagFontSize: TAG_FONT_SIZE },
   { key: "UNAU", fullName: "Universidad Nacional del Alto Uruguay", color: "#6F9E47", font: TAG_FONT, tagFontSize: TAG_FONT_SIZE },
-  // Uruguay. Espejo de backend/universities.py, que explica por qué la
-  // Universidad de Montevideo no está (su sigla choca con la de Morón).
-  { key: "UdelaR", fullName: "Universidad de la República", color: "#2B6CA3", font: TAG_FONT, tagFontSize: TAG_FONT_SIZE },
-  { key: "UTEC", fullName: "Universidad Tecnológica del Uruguay", color: "#00A3A0", font: TAG_FONT, tagFontSize: TAG_FONT_SIZE },
-  { key: "ORT", fullName: "Universidad ORT Uruguay", color: "#C8102E", font: TAG_FONT, tagFontSize: TAG_FONT_SIZE },
-  { key: "UCU", fullName: "Universidad Católica del Uruguay", color: "#7B2D8E", font: TAG_FONT, tagFontSize: TAG_FONT_SIZE },
+  // Uruguay. El tono sale del sitio oficial de la facultad de
+  // ingeniería/económicas de cada una, investigado 2026-09-19, pero AJUSTADO a
+  // más brillo/saturación que el original institucional: el color real de
+  // marca de estas 5 es oscuro (navy, bordó), y a 9px de texto sobre un fondo
+  // al 20% se leía apagado al lado del resto de las tags — la fórmula de
+  // `estilosDeTag` pide un color que funcione como texto, no como superficie.
+  // UTEC no se tocó: su marca ya es un cian brillante.
+  // "UMontevideo" y no "UM" porque esa sigla ya la usa Universidad de Morón
+  // arriba — la Universidad de Montevideo se abrevia UM en Uruguay, pero acá
+  // hubiera chocado.
+  { key: "UdelaR", fullName: "Universidad de la República", color: "#4C63D6", font: TAG_FONT, tagFontSize: TAG_FONT_SIZE },
+  { key: "UTEC", fullName: "Universidad Tecnológica del Uruguay", color: "#00C7FF", font: TAG_FONT, tagFontSize: TAG_FONT_SIZE },
+  { key: "ORT", fullName: "Universidad ORT Uruguay", color: "#C4415E", font: TAG_FONT, tagFontSize: TAG_FONT_SIZE },
+  { key: "UCU", fullName: "Universidad Católica del Uruguay", color: "#8F6FC9", font: TAG_FONT, tagFontSize: TAG_FONT_SIZE },
+  { key: "UMontevideo", fullName: "Universidad de Montevideo", color: "#2E86DE", font: TAG_FONT, tagFontSize: TAG_FONT_SIZE },
+  { key: "UDE", fullName: "Universidad de la Empresa", color: "#14A9C7", font: TAG_FONT, tagFontSize: TAG_FONT_SIZE },
 ]
 
 export const UNIVERSITY_TAG_BY_KEY: Record<string, UniversityTag> = Object.fromEntries(
