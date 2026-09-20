@@ -121,15 +121,16 @@ UNIVERSITIES: list[tuple[str, str]] = [
     # universidad: sin estas filas, un uruguayo no tiene a cuál sumarse y el
     # cartel le habla de un ranking del que no puede participar.
     #
-    # La Universidad de Montevideo NO está, y es a propósito: su sigla es "UM" y
-    # "UM" ya es la Universidad de Morón, doce filas más arriba. Dos siglas
-    # iguales colapsan en `_BY_NORM` y una de las dos se come a la otra en el
-    # ranking. Agregarla pide desambiguar por país, que es una decisión más
-    # grande que una fila.
+    # La Universidad de Montevideo entra como "UMontevideo" y no como su sigla
+    # real, "UM": esa ya es la Universidad de Morón, doce filas más arriba, y
+    # dos siglas iguales colapsan en `_BY_NORM` (una se come a la otra en el
+    # ranking).
     ("UdelaR", "Universidad de la República"),
     ("UTEC", "Universidad Tecnológica del Uruguay"),
     ("ORT", "Universidad ORT Uruguay"),
     ("UCU", "Universidad Católica del Uruguay"),
+    ("UMontevideo", "Universidad de Montevideo"),
+    ("UDE", "Universidad de la Empresa"),
 ]
 
 
