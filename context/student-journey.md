@@ -13,6 +13,13 @@ Durante el onboarding ve una secuencia animada con los colores de cada belt del 
 
 ## 2. Home / Dashboard
 
+La primera vez que abre la app ya enrolado —y solo hasta que termine su primera
+sesión— la pantalla arranca con la bienvenida animada: la palabra "intervalo"
+escribiéndose con los colores de los cinturones, la misma secuencia que vio en el
+onboarding. Desde la segunda sesión en adelante eso no vuelve a salir: la
+presentación de la marca se hace una vez, y a partir de ahí lo que hay entre
+abrir la app y repasar es el home cargando.
+
 Acá vive todo el tiempo entre sesiones. El estudiante ve:
 - Su **XP total**.
 - Su **racha** de días de actividad y el multiplicador de XP que le da (ej. "×1.4, te faltan 3 días para ×1.6").

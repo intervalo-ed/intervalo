@@ -736,12 +736,19 @@ def get_user_status(
     what their Clerk `onboarded` metadata says. The frontend uses this to
     decide whether to run onboarding or send the user straight to the dashboard.
 
-    Ninguno de los dos chequeos filtra por curso: antes miraban solo
+    Ninguno de los tres chequeos filtra por curso: antes miraban solo
     course_id=1 y perdían a usuarios enrolados/con progreso únicamente en
     otro curso (ej. álgebra), a quienes se les volvía a pedir universidad/
     carrera pese a tenerlas cargadas.
+
+    El tercero, `has_finished_session`, no decide rutas sino la bienvenida
+    animada del shell: se la queremos mostrar a quien recién llega y a nadie
+    más. Va acá y no en `/user/progress` porque es la misma pregunta que ya
+    contesta este endpoint —nuevo o de vuelta—, solo que un escalón más
+    adelante en el camino.
     """
     from models import Enrollment, UnitState
+    from session_store import termino_alguna_sesion
 
     enrolled = db.query(Enrollment.id).filter(
         Enrollment.user_id == current_user.id,
@@ -751,7 +758,11 @@ def get_user_status(
         UnitState.user_id == current_user.id,
     ).first() is not None
 
-    return UserStatusResponse(enrolled=enrolled, has_progress=has_progress)
+    return UserStatusResponse(
+        enrolled=enrolled,
+        has_progress=has_progress,
+        has_finished_session=termino_alguna_sesion(current_user.id, db),
+    )
 
 
 @app.get("/user/progress", response_model=UserProgressResponse)

@@ -34,6 +34,14 @@ class UserStatusResponse(BaseModel):
     # finished onboarding; `has_progress` means they have any learning state.
     enrolled: bool
     has_progress: bool
+    # ¿Terminó alguna sesión de verdad? Es lo que decide si la bienvenida
+    # animada del shell le sigue saliendo o no (ver session_store ::
+    # termino_alguna_sesion y web/src/lib/nav/bienvenida.ts). NO es lo mismo que
+    # `has_progress`: el ejercicio de prueba del alta ya deja estado de
+    # aprendizaje, así que quien recién terminó el onboarding tiene progreso y
+    # todavía no hizo ninguna sesión — justo la persona a la que la bienvenida
+    # le está destinada.
+    has_finished_session: bool
 
 
 # ── Progress ──────────────────────────────────────────────────────────────────

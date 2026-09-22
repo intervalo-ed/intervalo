@@ -44,6 +44,7 @@ import {
   pendingUnitCount,
 } from "@/lib/catalog/stats"
 import { useSplash } from "@/app/splash-context"
+import { marcarSesionHecha } from "@/lib/nav/bienvenida"
 import { CourseSwitcher } from "@/components/course-switcher"
 import {
   AlertDialog,
@@ -124,14 +125,24 @@ export default function DashboardEntry() {
   // catch deja pasar al dashboard si ese fetch falla, así que un usuario sin
   // enrollment puede aterrizar acá igual (pasó: users 137 y 172). Este
   // re-chequeo corre en el cliente y lo manda a completar el perfil.
+  //
+  // La misma respuesta trae `has_finished_session`, y el home es el lugar
+  // natural para anotarlo: es la pantalla a la que se vuelve al terminar una
+  // sesión, así que la primera vez que esto dice `true` es minutos después de
+  // la primera sesión de esa persona. De ahí en adelante la bienvenida ya no
+  // sale (ver lib/nav/bienvenida.ts).
+  const [hizoSesion, setHizoSesion] = useState(false)
   useEffect(() => {
     let cancelled = false
     api
       .GET("/user/status")
       .then(({ data }) => {
-        if (!cancelled && data && !data.enrolled) {
+        if (cancelled || !data) return
+        if (!data.enrolled) {
           router.replace("/onboarding/complete")
+          return
         }
+        setHizoSesion(data.has_finished_session)
       })
       .catch(() => {})
     return () => {
@@ -139,6 +150,15 @@ export default function DashboardEntry() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  // En dos pasos y no adentro del `.then` de arriba porque las dos mitades no
+  // llegan en orden garantizado: el id de Clerk aparece cuando el provider
+  // hidrata, que puede ser después de que conteste el backend. Adentro del
+  // `.then` el `user` sería el de la primera renderización —null— y la marca se
+  // perdería hasta la carga siguiente.
+  useEffect(() => {
+    if (hizoSesion && user?.id) marcarSesionHecha(user.id)
+  }, [hizoSesion, user?.id])
 
   // Prefetch de los 3 cursos: React Query cachea por queryKey y los hooks se
   // resuelven en paralelo. Cambiar de curso solo alterna qué `data` se lee.

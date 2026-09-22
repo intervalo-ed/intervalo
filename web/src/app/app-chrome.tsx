@@ -28,9 +28,20 @@ const GAME_ROUTE_PREFIX = "/derivadas"
 
 export default function AppChrome({
   children,
+  signedIn,
   splash,
 }: {
   children: React.ReactNode
+  /** Hay sesión de Clerk. Es lo que decide si existe el shell de la app: la tab
+   *  bar y los puntitos de novedad son de quien tiene cuenta. */
+  signedIn: boolean
+  /** Además, a esta persona le toca la bienvenida animada: todavía no terminó
+   *  su primera sesión (ver lib/nav/bienvenida.ts). Siempre implica `signedIn`.
+   *
+   *  Hasta el 21/09 esto era un solo prop llamado `splash` que en realidad
+   *  significaba "está logueado" y gobernaba las tres cosas. Separarlos no es
+   *  cosmético: sin esta división, esconderle la bienvenida a quien vuelve le
+   *  apagaba también la tab bar. */
   splash: boolean
 }) {
   const pathname = usePathname()
@@ -59,7 +70,7 @@ export default function AppChrome({
   return (
     <div className="app-shell flex h-dvh flex-col">
       <SmartBarGate />
-      {splash && <NewsController />}
+      {signedIn && <NewsController />}
       <div className="relative min-h-0 flex-1">
         {children}
         {/* Tapa el contenido de la tab actual con el skeleton de la tab de
@@ -71,7 +82,7 @@ export default function AppChrome({
           </div>
         )}
       </div>
-      {splash && onTabRoute && (
+      {signedIn && onTabRoute && (
         <BottomNav
           className={cn(
             "transition-opacity duration-200",
