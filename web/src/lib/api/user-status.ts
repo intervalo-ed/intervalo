@@ -7,7 +7,14 @@ import { createApiClient } from "./client"
  */
 const GATE_TIMEOUT_MS = 2_000
 
-export type UserStatus = { enrolled: boolean; has_progress: boolean }
+export type UserStatus = {
+  enrolled: boolean
+  has_progress: boolean
+  /** Terminó al menos una sesión de verdad. Los gates del servidor no lo miran
+   *  —solo deciden onboarding sí/no—; lo usa el home para apagar la bienvenida
+   *  animada (ver lib/nav/bienvenida.ts). */
+  has_finished_session: boolean
+}
 
 /**
  * Estado de inscripción para los gates de navegación del servidor.

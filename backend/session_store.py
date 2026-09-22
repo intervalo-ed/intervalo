@@ -303,6 +303,33 @@ def _has_pending_items(user_id: int, course_id: int, db: DBSession) -> bool:
     ).first() is not None
 
 
+def termino_alguna_sesion(user_id: int, db: DBSession) -> bool:
+    """¿Terminó alguna sesión de verdad, en cualquier curso?
+
+    Es la línea entre «recién llega» y «ya vino»: lo usa `/user/status` para que
+    la bienvenida animada del shell se apague en cuanto esto da True (ver
+    web/src/lib/nav/bienvenida.ts).
+
+    Qué cuenta como sesión NO se decide acá: se toma prestada la definición del
+    panel (`metrics.queries.REAL_MODES`), y a propósito. Las sesiones de
+    `onboarding` son el ejercicio de prueba del alta —sintéticas, con
+    `finished_at` puesto en el mismo insert (ver `seed_intro_item`)— y las de
+    `test` son QA; contarlas ya infló el embudo una vez. Con dos definiciones
+    distintas, el día que alguien agregue un modo, el panel diría que esta
+    persona no hizo ninguna sesión y la app le habría sacado la bienvenida.
+
+    Terminada es `finished_at IS NOT NULL`, igual que en el panel: una sesión
+    abandonada no es una sesión hecha.
+    """
+    from metrics.queries import REAL_MODES
+
+    return db.query(SessionModel.id).filter(
+        SessionModel.user_id == user_id,
+        SessionModel.mode.in_(REAL_MODES),
+        SessionModel.finished_at.isnot(None),
+    ).first() is not None
+
+
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
 def _current_exercise_types(

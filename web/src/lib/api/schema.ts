@@ -784,10 +784,16 @@ export interface paths {
          *     what their Clerk `onboarded` metadata says. The frontend uses this to
          *     decide whether to run onboarding or send the user straight to the dashboard.
          *
-         *     Ninguno de los dos chequeos filtra por curso: antes miraban solo
+         *     Ninguno de los tres chequeos filtra por curso: antes miraban solo
          *     course_id=1 y perdían a usuarios enrolados/con progreso únicamente en
          *     otro curso (ej. álgebra), a quienes se les volvía a pedir universidad/
          *     carrera pese a tenerlas cargadas.
+         *
+         *     El tercero, `has_finished_session`, no decide rutas sino la bienvenida
+         *     animada del shell: se la queremos mostrar a quien recién llega y a nadie
+         *     más. Va acá y no en `/user/progress` porque es la misma pregunta que ya
+         *     contesta este endpoint —nuevo o de vuelta—, solo que un escalón más
+         *     adelante en el camino.
          */
         get: operations["get_user_status_user_status_get"];
         put?: never;
@@ -3318,6 +3324,8 @@ export interface components {
             enrolled: boolean;
             /** Has Progress */
             has_progress: boolean;
+            /** Has Finished Session */
+            has_finished_session: boolean;
         };
         /** ValidationError */
         ValidationError: {

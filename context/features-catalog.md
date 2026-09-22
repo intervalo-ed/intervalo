@@ -933,7 +933,24 @@ que miran tablas que el juego no tiene.
 ## Misceláneo
 
 - Splash animado con colores de belt al cargar (`splash-context.tsx`/`splash-gate.tsx`).
-- Tab bar / shell (`app-chrome.tsx`).
+  **Se apaga para siempre en cuanto la persona termina su primera sesión**
+  (desde el 21/09). Son ~2,6 s de piso en cada carga fría, y
+  una carga fría es lo normal en una PWA que se abre desde el ícono: la primera
+  vez es la marca presentándose, la número veinte es un peaje. Quien ya vino
+  cae directo en el skeleton del home, que era lo que el splash tapaba.
+  - Quién ya vino lo dice la base, no el dispositivo: `/user/status` devuelve
+    `has_finished_session` (`session_store.termino_alguna_sesion`, modos
+    `main`/`practice` con `finished_at`; la sesión sintética del onboarding
+    **no** cuenta) y el home lo anota en una cookie con el id de Clerk adentro
+    (`lib/nav/bienvenida.ts`).
+  - La cookie existe porque la decisión se toma en el layout raíz, que corre en
+    el servidor: desde `localStorage` habría que leerla después de hidratar, o
+    sea con el splash ya pintado. Y guarda el id de la persona, no un `1`, para
+    que en un teléfono prestado el que se acaba de registrar vea la bienvenida
+    igual. Cambiar de dispositivo cuesta una bienvenida de más y ninguna otra.
+- Tab bar / shell (`app-chrome.tsx`). `signedIn` (hay cuenta: tab bar y puntitos
+  de novedad) y `splash` (además le toca la bienvenida) son dos props distintos:
+  hasta el 21/09 eran uno solo, y apagar la bienvenida habría apagado la tab bar.
 - PWA: manifest, splash screens iOS generados por script.
 
 Última verificación: 2026-09-13

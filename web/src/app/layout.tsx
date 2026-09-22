@@ -1,6 +1,8 @@
 import Providers from "@/app/providers"
 import AppChrome from "@/app/app-chrome"
 import { auth } from "@clerk/nextjs/server"
+import { cookies } from "next/headers"
+import { COOKIE_BIENVENIDA, yaHizoSesion } from "@/lib/nav/bienvenida"
 import type { Metadata, Viewport } from "next"
 import { DM_Sans, Noto_Sans_Mono, Noto_Serif, Outfit } from "next/font/google"
 import "./globals.css"
@@ -60,7 +62,24 @@ export default async function RootLayout({
   // excluye (assets inexistentes como /apple-touch-icon.png o /foo.js). Ahí
   // clerkMiddleware nunca corrió y auth() tira, convirtiendo ese 404 en un 500;
   // para decidir el splash alcanza con tratarlo como deslogueado.
-  const { userId } = await auth().catch(() => ({ userId: null }))
+  //
+  // Y de los logueados, solo los que todavía no terminaron su primera sesión:
+  // la bienvenida es una presentación, no un peaje diario (ver
+  // lib/nav/bienvenida.ts). La cookie se lee acá, en el servidor, para que la
+  // decisión esté tomada antes del primer pintado — con el dato del lado del
+  // cliente lo único que se ahorraría es el final de la animación.
+  //
+  // Es una lectura de cookie y no un fetch a propósito: este layout envuelve
+  // TODAS las rutas, así que cualquier `await` que meta acá se lo come también
+  // quien entra al minijuego o a la landing, y ningún loading.tsx lo puede
+  // tapar (está por debajo del layout en el árbol). Ese es exactamente el
+  // problema que el gate de enrollment resolvió con su propio Suspense en
+  // (app)/layout.tsx.
+  const [{ userId }, jar] = await Promise.all([
+    auth().catch(() => ({ userId: null })),
+    cookies(),
+  ])
+  const yaVino = yaHizoSesion(jar.get(COOKIE_BIENVENIDA)?.value, userId)
 
   return (
     <html
@@ -79,7 +98,9 @@ export default async function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <Providers>
-          <AppChrome splash={!!userId}>{children}</AppChrome>
+          <AppChrome signedIn={!!userId} splash={!!userId && !yaVino}>
+            {children}
+          </AppChrome>
         </Providers>
       </body>
     </html>
