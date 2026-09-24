@@ -2,7 +2,14 @@ fastapi
 uvicorn
 python-dotenv
 psycopg2-binary
-sqlalchemy
+# SQLAlchemy queda por debajo de 2.1 A PROPÓSITO. En 2.1 el DBAPI por defecto de
+# `postgresql://` pasó de psycopg2 a psycopg (v3), que no está instalado, así que
+# el primer build que la agarró tiró la producción abajo con
+# `ModuleNotFoundError: No module named 'psycopg'` antes de correr las
+# migraciones. El pin es la mitad barata del arreglo; la otra —mudar el driver a
+# psycopg 3— es un cambio de verdad y se hace con la suite delante, no con el
+# backend caído.
+sqlalchemy<2.1
 alembic
 pyjwt[crypto]
 httpx
