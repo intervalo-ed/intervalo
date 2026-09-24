@@ -46,7 +46,7 @@ from . import theme
 from .charts import esc, num
 from .game_queries import (
     DEPTH_MAX, DEPTH_MIN, DEPTH_TOPE, FIRST_WEEK, MIN_IMPRESIONES_CTR,
-    PEDIDO_CAFECITO, PLATFORM_LABEL,
+    MIN_IMPRESIONES_SEMANA, PEDIDO_CAFECITO, PLATFORM_LABEL,
 )
 
 # El grueso del CSS es el mismo que Intervalo (ver metrics/theme.py) — es la
@@ -54,6 +54,11 @@ from .game_queries import (
 # tienen sentido fuera del juego: hoy, la pestaña de Voces, que es la única del
 # panel que no es una tabla ni un gráfico.
 CSS_DX = """
+/* Un segundo título adentro de una caja: el primero lo pone `theme.box` y
+   viene sin margen de arriba porque abre la caja; este abre una sección más
+   abajo y necesita el aire que el otro no. */
+h3.dentro{margin:18px 0 10px}
+
 /* ── El largo de la curva de profundidad ────────────────────────── */
 /* Vive en la misma fila que los desgloses y pegado al borde derecho: gobierna
    el gráfico de abajo y nada más, así que lejos de él habría que acordarse de
@@ -965,9 +970,64 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         if len(cm) > 1 else
         '<p class="empty">una camada sola no hace una curva — vuelve cuando haya dos</p>')
 
-    # El cartel de compartir, que es el primer escalón del canal. Puede no
-    # existir si todavía no se mostró ninguno.
+    # El cartel de compartir, que es el primer escalón del canal y por eso abre
+    # la sección: nadie recluta sin tocarlo, así que todo lo que viene después
+    # —el K, la tabla por universidad, los diez que más trajeron— pasa por acá.
+    # Puede no existir si todavía no se mostró ninguno.
     sh = next((c for c in p["carteles"] if c["cta"] == "share"), None)
+    cs = p["cartel_share"]
+
+    # El acumulado dice cuánto vale el canal; la curva dice si se está moviendo.
+    # Comparten el eje con la curva de camadas de abajo a propósito: lo que se
+    # viene a mirar es si las dos se mueven juntas, porque un K que cae con el
+    # CTR quieto y uno que cae con el CTR desplomado piden cosas opuestas.
+    serie_ctr = [{
+        "label": "CTR del cartel", "color": VERDE_RECLUTAS,
+        "values": [c["ctr"] for c in cs],
+        # Punto hueco y tramo punteado donde la semana no llega al piso de
+        # impresiones: el dato existe —cortar la línea haría creer que el
+        # cartel no salió— pero un click lo mueve cinco puntos.
+        "weak": [c["flojo"] for c in cs],
+        "tips": [f'{c["label"]}: {_pct_txt(c["ctr"])} — {num(c["clicks"])} clicks '
+                 f'sobre {num(c["impresiones"])} impresiones'
+                 + ("" if not c["flojo"] else " · base flojita")
+                 for c in cs],
+    }]
+    grafico_ctr = (
+        ch.lines(serie_ctr, [c["label"] for c in cs], suffix="%", height=240,
+                 legend=False)
+        if sum(c["impresiones"] for c in cs) else
+        '<p class="empty">el cartel todavía no se mostró en ninguna semana</p>')
+
+    caja_cartel = _box(
+        "El cartel de compartir",
+        '<div class="grid g3">'
+        + "".join(
+            _kpi_chico(l, v, h, suffix=sfx) for l, v, sfx, h in [
+                ("Lo vieron", (sh or {}).get("impresiones"), "",
+                 "una impresión por partida, no por render"),
+                ("Lo tocaron", (sh or {}).get("clicks"), "", "clicks sobre el botón"),
+                ("CTR", (sh or {}).get("ctr"), "%", "de siempre, no de la semana"),
+            ])
+        + "</div>"
+        + f'<h3 class="dentro">Semana a semana</h3>{grafico_ctr}',
+        note=(
+            "La puerta del canal: nadie recluta sin tocar esto primero, así que un CTR "
+            "que se cae explica un K que baja sin necesidad de mirar nada más. Por eso "
+            "abre la sección, y por eso los tres números de arriba son de SIEMPRE "
+            "mientras la curva es por semana — el primero dice cuánto vale el canal y "
+            "la segunda si se está moviendo."
+            "<br><br><b>Las semanas flojitas van punteadas</b>: debajo de "
+            f'{MIN_IMPRESIONES_SEMANA} impresiones un solo click mueve el punto varios '
+            "puntos enteros, así que ahí se lee la altura y no la forma. Y el "
+            "denominador es la difusión: una semana sin ola tiene menos gente viendo el "
+            "cartel, así que un CTR que sube con las impresiones cayendo puede ser "
+            "simplemente que quedó la gente más enganchada."
+            "<br><br><b>Le falta el momento.</b> Los otros carteles anotan en qué "
+            "derivada salen y este no —`solved` viene vacío en las 2.056 impresiones—, "
+            "así que un CTR bajo puede ser el copy o puede ser que salga demasiado "
+            "temprano, y las dos explicaciones siguen siendo igual de plausibles."),
+    )
 
     # El reclutamiento abierto por universidad. Ordenado por reclutas y no por
     # K: la pregunta que la tabla contesta primero es de dónde sale la gente que
@@ -990,6 +1050,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         # acepta: gente nueva y cafecitos.
         #
         _fila_kpi(p["headline"]["reclutas"])
+        + caja_cartel
         + _box(
             "Cuánta gente trae cada camada",
             grafico_viral,
@@ -1047,27 +1108,6 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                 "Un K alto puede ser una cultura o puede ser una persona, y sin esta columna "
                 "las dos se ven igual. Antes de mandar la próxima ola a la universidad que "
                 "encabeza, mirar de cuántas manos salió."))
-        + _box(
-            "El cartel de compartir",
-            '<div class="grid g3">'
-            + "".join(
-                _kpi_chico(l, v, h, suffix=sfx) for l, v, sfx, h in [
-                    ("Lo vieron", (sh or {}).get("impresiones"), "",
-                     "una impresión por partida, no por render"),
-                    ("Lo tocaron", (sh or {}).get("clicks"), "", "clicks sobre el botón"),
-                    ("CTR", (sh or {}).get("ctr"), "%", "de siempre, no de la semana"),
-                ])
-            + "</div>",
-            note=(
-                "La puerta del canal de arriba: nadie recluta sin tocar esto primero, así "
-                "que un CTR que se cae explica un K que baja sin necesidad de mirar nada "
-                "más. Está acá y no en la tabla de carteles que había en Retención porque "
-                "compartir no es monetizar — lo que pide es una persona, no plata."
-                "<br><br><b>Le falta el momento.</b> Los otros carteles anotan en qué "
-                "derivada salen y este no —`solved` viene vacío en las 2.056 impresiones—, "
-                "así que un CTR bajo puede ser el copy o puede ser que salga demasiado "
-                "temprano, y las dos explicaciones siguen siendo igual de plausibles."),
-        )
         + _box(
             "Los diez que más trajeron",
             _table(["Reclutador", "Universidad", "Reclutas", "Arrancaron", "XP ganada"],
