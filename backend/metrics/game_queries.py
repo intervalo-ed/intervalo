@@ -260,11 +260,17 @@ def load(db: DBSession) -> dict:
     por armado del panel a cambio de nada.
     """
     data = {
+        # `career`, `xp`, `exercises_correct` y `best_combo` son para las
+        # tarjetas de Voces: al lado de una respuesta abierta, quién la escribió
+        # es la mitad del dato, y sin estas cuatro columnas la única forma de
+        # saber si habla alguien que jugó tres derivadas o doscientas es ir a
+        # buscar a mano a esa persona a la base.
         "players": _rows(db, """
-            SELECT id, user_id, alias, university, referred_by, referral_xp_given,
-                   platform, is_bot, notify_enabled, winback_email_sent_at,
-                   pwa_first_seen_at, created_at, last_seen_at, variant,
-                   first_group_id, n_updates, theta
+            SELECT id, user_id, alias, university, career, referred_by,
+                   referral_xp_given, platform, is_bot, notify_enabled,
+                   winback_email_sent_at, pwa_first_seen_at, created_at,
+                   last_seen_at, variant, first_group_id, n_updates, theta,
+                   xp, exercises_correct, best_combo
             FROM game_players"""),
         # `p_hat` y `status` son para la calibración y la fricción; `peeked`
         # separa «resolvió» de «copió», que mezclados arruinan la tasa de
@@ -2992,8 +2998,9 @@ def encuestas(data: dict) -> dict:
     Todo lo demás de este archivo cuenta cosas que elegimos contar. Esta sección
     casi no agrega: **lista**. Una respuesta abierta resumida en un histograma es
     una respuesta abierta tirada a la basura, así que lo único que se calcula acá
-    son los tres estados de la pregunta y el resto es el texto tal cual, con el @
-    de quien lo escribió al lado para poder ir a buscar a esa persona.
+    son los tres estados de la pregunta y el resto es el texto tal cual, con
+    quien lo escribió al lado —el @, la universidad, cuánto jugó, de dónde
+    entró— para no tener que ir a buscar a esa persona a mano a la base.
 
     **Los tres estados importan más que el promedio de ninguna cosa.** La diapo
     no tiene botón de saltar: la única salida es escribir algo, y eso sube mucho
@@ -3015,16 +3022,45 @@ def encuestas(data: dict) -> dict:
     claves_salto = {id(f) for f in saltos}
     con_texto = [f for f in contestadas if id(f) not in claves_salto]
 
+    # Con quién estamos hablando. La respuesta se lee de a una y en su tarjeta,
+    # así que al lado del texto va la persona entera: cuánto jugó, de dónde
+    # entró y quién la trajo. Nada de esto se agrega ni se promedia — es el
+    # contexto sin el cual «le pondría integrales» y «le pondría integrales»
+    # dichos por alguien de tres derivadas y por alguien de doscientas se leen
+    # igual.
+    por_grupo = {g["id"]: g for g in data["grupos"]}
+    reclutas_de = Counter(p["referred_by"] for p in data["players"]
+                          if p["referred_by"])
+
     respuestas = []
     for f in sorted(con_texto, key=lambda x: x["answered_at"], reverse=True):
         jugador = por_jugador[f["player_id"]]
+        reclutador = por_jugador.get(jugador["referred_by"] or 0)
+        grupo = por_grupo.get(jugador["first_group_id"] or 0)
         respuestas.append({
             "texto": f["texto"],
             "alias": jugador["alias"],
             "universidad": jugador["university"],
+            "carrera": jugador["career"],
             "plataforma": f["platform"] or jugador["platform"],
+            # Las dos medidas de «cuánto jugó» dicen cosas distintas y por eso
+            # van las dos: `correctas` es cuántas llevaba CUANDO contestó —casi
+            # siempre 18, que es donde sale la pregunta— y `derivadas` es
+            # cuántas lleva hoy, que es lo que separa a quien pasó de largo de
+            # quien se quedó.
             "correctas": f["correctas_al_mostrar"],
+            "derivadas": jugador["exercises_correct"],
+            "xp": jugador["xp"],
+            "mejor_combo": jugador["best_combo"],
+            "registrado": jugador["user_id"] is not None,
             "cuando": f["answered_at"].isoformat(timespec="minutes"),
+            # Cuánto tardó entre que vio la pregunta y la mandó. Es lo más
+            # parecido a «cuánto le importó» que esta tabla puede dar.
+            "segundos": int((f["answered_at"] - f["shown_at"]).total_seconds()),
+            "reclutador": reclutador["alias"] if reclutador else None,
+            "grupo": ({"universidad": grupo["universidad"],
+                       "materia": grupo["materia"]} if grupo else None),
+            "reclutas": reclutas_de.get(jugador["id"], 0),
         })
 
     # Cuántas preguntas distintas hay en la bolsa. Con una sola no dice nada; el

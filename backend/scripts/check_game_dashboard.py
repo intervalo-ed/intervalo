@@ -1607,11 +1607,37 @@ check("el corte del salto es el mismo en el dominio y en el panel",
 check("y la pregunta activa está declarada",
       game_encuesta.ACTUAL in game_encuesta.PREGUNTAS)
 
+check("y la respuesta trae a la persona entera, no solo el @",
+      all(en["respuestas"][0][k] is not None for k in
+          ("derivadas", "xp", "registrado", "segundos")),
+      f'({en["respuestas"][0]})')
+
 h_voces = game_render.page(q.build(s, WEEK), token="tok", seccion="voces")
 check("la pestaña muestra el texto para leerlo, no un resumen",
       "integrales" in h_voces)
-check("y nombra los tres estados", all(
-    t in h_voces for t in ("Contestaron", "Dijeron que no", "Se fueron sin contestar")))
+# Una tarjeta por respuesta y UN número arriba. Los otros tres que había
+# —salto, abandono, largo medio— se sacaron de la pantalla a propósito: a esta
+# pestaña se viene a leer, y cuatro tarjetas antes de la primera respuesta son
+# cuatro tarjetas de distancia.
+check("arriba queda un solo número, y es el que se mira",
+      "Contestaron" in h_voces and h_voces.count('class="box kpi') == 1,
+      f'({h_voces.count(chr(34) + "box kpi")} tarjetas de KPI)')
+check("cada respuesta es una tarjeta con quien la escribió",
+      '<article class="voz"' in h_voces
+      and "derivadas" in h_voces and "XP" in h_voces)
+# El estado que decide si la pregunta se saca no puede desaparecer solo porque
+# dejó de tener tarjeta propia: sigue contado y ahora se lee en la nota.
+check("y el abandono sigue escrito aunque ya no tenga tarjeta",
+      "cerró la pestaña" in h_voces and en["pct_abandono"] == 33.3,
+      f'({en["pct_abandono"]}%)')
+check("el buscador arma sus atajos con lo que la gente escribió",
+      game_render._voces_atajos(
+          [{"texto": "integrales y mas integrales"}, {"texto": "mas integrales"},
+           {"texto": "quiero integrales"}, {"texto": "nada"}],
+          minimo=3) == [("integrales", 3)])
+check("y la palabra que ES el producto no entra de atajo",
+      game_render._voces_atajos(
+          [{"texto": "mas derivadas"}] * 5, minimo=1) == [])
 
 
 titulos = {"activacion": "Difusión: a cuánta gente se llegó",

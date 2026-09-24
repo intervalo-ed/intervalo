@@ -36,6 +36,9 @@ nadie lee (`git log` las tiene si hacen falta de nuevo).
 """
 from __future__ import annotations
 
+import re
+import unicodedata
+from collections import Counter
 from datetime import date, datetime, timedelta
 
 from . import charts as ch
@@ -47,9 +50,76 @@ from .game_queries import (
 
 # El grueso del CSS es el mismo que Intervalo (ver metrics/theme.py) — es la
 # piel de la que se copió en primer lugar. Acá solo quedan las reglas que no
-# tienen sentido fuera del juego: la celda monoespaciada de `template_key` y
-# el tamaño del MathML de los ejemplos.
-CSS = theme.BASE_CSS
+# tienen sentido fuera del juego: hoy, la pestaña de Voces, que es la única del
+# panel que no es una tabla ni un gráfico.
+CSS_DX = """
+/* ── Voces: una tarjeta por respuesta ───────────────────────────── */
+
+/* El único número de la sección, de ancho completo: es el encabezado de lo que
+   viene abajo, no una tarjeta más de una fila de cuatro. El cuerpo de letra es
+   el de cualquier KPI del panel — lo que hace grande a esta caja es el ancho y
+   el aire, no el tamaño de la letra. */
+.kpi-ancho{display:flex;align-items:flex-end;justify-content:space-between;
+  gap:16px;flex-wrap:wrap;padding:18px 22px;min-height:96px}
+.kpi-ancho .izq{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+.kpi-ancho .label{font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;
+  font-weight:650}
+.kpi-ancho .val{font-size:29px}
+.kpi-ancho .hint{margin:0 0 6px;font-size:12.5px}
+
+/* Tres columnas fijas, dos en una tablet y una en el teléfono.
+   `align-items:start` es lo que deja que cada tarjeta mida lo que mide: con el
+   estiramiento por defecto, una respuesta de 400 caracteres infla a sus dos
+   vecinas de la fila hasta su alto, y la mediana son 21 caracteres. */
+.voces{display:grid;gap:12px;align-items:start;
+  grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:880px){.voces{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.voces{grid-template-columns:1fr}}
+.voz{border:1px solid var(--border);background:var(--card);border-radius:8px;
+  padding:14px 15px 12px;display:flex;flex-direction:column;gap:10px}
+.voz[hidden]{display:none}
+
+/* La respuesta es el contenido: lo único a cuerpo de lectura y en el color del
+   texto. Todo lo demás de la tarjeta es aparato y va en gris. */
+.dice{margin:0;font-size:14.5px;line-height:1.5;color:var(--fg);
+  overflow-wrap:anywhere}
+.dice::before{content:"\\201C";color:var(--muted);margin-right:1px}
+.dice::after{content:"\\201D";color:var(--muted);margin-left:1px}
+
+.quien{border-top:1px solid var(--border);padding-top:9px;
+  display:flex;flex-direction:column;gap:3px}
+.quien-top{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.quien .alias{font-weight:650;font-size:13px}
+.quien .carrera{font-size:12.5px;line-height:1}
+.quien .meta{color:var(--muted);font-size:11.5px;font-variant-numeric:tabular-nums}
+.quien .meta.dim{color:#7f8da1}
+.quien .origen{color:#7f8da1;font-size:11.5px;margin-top:2px}
+.quien .origen b{color:var(--muted);font-weight:600}
+.quien .origen::before{content:"\\21B3 ";color:var(--border)}
+
+/* El buscador. Mismo trato que los cortes de un gráfico: mismo alto, mismo
+   borde, mismo redondeo, y el atajo elegido se PINTA. */
+.buscador{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.buscador input{flex:1 1 260px;max-width:360px;background:var(--card);
+  color:var(--fg);border:1px solid var(--border);border-radius:6px;
+  padding:7px 11px;font:inherit;font-size:13px}
+.buscador input::placeholder{color:var(--muted)}
+.buscador input:focus{outline:none;border-color:var(--indigo-soft)}
+.atajos{display:flex;gap:6px;flex-wrap:wrap;font-size:12px}
+.atajos button{border:1px solid var(--border);border-radius:6px;padding:3px 9px;
+  color:var(--muted);background:var(--card);font:inherit;font-size:12px;
+  cursor:pointer;line-height:1.5}
+.atajos button:hover{color:var(--fg);border-color:var(--indigo)}
+.atajos button b{font-variant-numeric:tabular-nums;font-weight:600;opacity:.65;
+  margin-left:4px}
+.atajos button.cur{background:var(--indigo);color:#fff;border-color:var(--indigo);
+  font-weight:600}
+.atajos button.cur b{opacity:.8}
+.conteo{margin-left:auto;color:var(--muted);font-size:12px;
+  font-variant-numeric:tabular-nums}
+mark{background:rgba(84,87,229,.34);color:var(--fg);border-radius:3px;padding:0 1px}
+"""
+CSS = theme.BASE_CSS + CSS_DX
 
 # Los colores de marca de cada universidad, reusados del panel de Intervalo en
 # vez de copiar la lista: backend/universities.py ya advierte de las tres copias
@@ -57,7 +127,7 @@ CSS = theme.BASE_CSS
 # Son los mismos del chip que el jugador ve en su ranking, que es lo que hace
 # que una línea del desglose se reconozca sin leer la leyenda.
 from .render import (  # noqa: E402
-    SURVEY_EMOJI_A, SURVEY_TEXT, UNIVERSITY_COLOR, _uni_chip,
+    CAREER_LABEL, SURVEY_EMOJI_A, SURVEY_TEXT, UNIVERSITY_COLOR, _uni_chip,
 )
 
 # Los pesos del sorteo se LEEN de donde se deciden, no se copian: la columna
@@ -163,6 +233,229 @@ def _kpi_chico(label: str, valor, hint: str = "", suffix: str = "", dec: int = 1
             f'<div class="val">{num(valor, suffix, dec)}</div>'
             + (f'<div class="hint">{esc(hint)}</div>' if hint else "")
             + "</div>")
+
+
+# ── Voces: la tarjeta, el buscador y sus atajos ──────────────────────────────
+#
+# Es la única pieza del panel que no es una tabla ni un gráfico, y es a
+# propósito: acá se viene a LEER de a una respuesta, no a comparar filas. La
+# tabla que había antes ponía el texto en la primera celda y a la persona en
+# cinco columnas de al lado, así que la respuesta se leía sin saber quién la
+# escribió y la persona se leía sin poder mirarla entera.
+
+
+def _sin_tildes(s: str) -> str:
+    """Minúsculas y sin diacríticos, para que buscar «analisis» encuentre
+    «Análisis». Es la misma normalización que hace el buscador en el navegador
+    —ver VOCES_JS—, y tiene que seguir siendo la misma: acá se cuentan los
+    atajos y allá se filtra con ellos."""
+    return "".join(c for c in unicodedata.normalize("NFD", (s or "").lower())
+                   if unicodedata.category(c) != "Mn")
+
+
+# Palabras que no distinguen una respuesta de otra, en tres grupos:
+#
+# · relleno del castellano;
+# · las que SON el producto — «derivadas» aparece en 36 de 190 respuestas y por
+#   eso mismo no sirve de atajo: un filtro que deja casi todo no filtra;
+# · los verbos de sugerencia y los adjetivos de elogio, que están en todas
+#   porque la pregunta PIDE una sugerencia («le pondría», «agregaría»,
+#   «buenísimo»). Son la forma de la respuesta, no su tema.
+_VOCES_STOP = set("""
+algo algun alguna alguno ante antes aqui aunque bien cada como con contra cual
+cuando decir desde donde ella ellas ellos entre era eran esta estan este esto
+estos fuera gran hace hacer hasta lugar mientras mucha mucho nada otra otro
+para pero poco poder porque pues puede pueden quiza quizas seria siempre sino
+sobre solo tambien tanto tener tiene todo todos vez veces
+ahora capaz forma manera mayor mejor menos mismo momento nose parte tipo
+app cosa cosas derivada derivadas ejercicio ejercicios juego jugar
+agregar agregaria agregarle cambiar cambiaria deberia estaria gustaria haria
+mejorar poner pondria ponerle quitar sacar sumar sumaria
+bueno buena buenos buenas buenisimo buenisima copado genial increible lindo
+piola perfecto
+""".split())
+
+
+def _voces_atajos(respuestas: list[dict], tope: int = 8, minimo: int = 3
+                  ) -> list[tuple[str, int]]:
+    """Las palabras más repetidas de estas mismas respuestas, con en cuántas
+    aparece cada una.
+
+    No es una lista de temas que suponemos: se cuenta sobre lo que la gente
+    escribió, así que el día que el tema cambie los atajos cambian solos. Se
+    cuenta por RESPUESTA y no por aparición — quien escribe «integrales» tres
+    veces en un renglón es una persona pidiendo integrales, no tres.
+    """
+    cuenta: Counter = Counter()
+    for r in respuestas:
+        palabras = {w for w in re.findall(r"[a-zñ]{4,}", _sin_tildes(r["texto"]))
+                    if w not in _VOCES_STOP}
+        cuenta.update(palabras)
+    return [(w, n) for w, n in cuenta.most_common(tope) if n >= minimo]
+
+
+def _buscador(respuestas: list[dict]) -> str:
+    atajos = "".join(
+        f'<button type="button" data-q="{esc(w)}">{esc(w)}<b>{n}</b></button>'
+        for w, n in _voces_atajos(respuestas))
+    return ('<div class="buscador">'
+            '<input id="voces-q" type="search" autocomplete="off" '
+            'placeholder="Buscar una palabra…">'
+            f'<div class="atajos">{atajos}</div>'
+            f'<span class="conteo" id="voces-conteo">{num(len(respuestas))} '
+            'respuestas</span></div>')
+
+
+def _voz(r: dict) -> str:
+    """Una respuesta y, debajo de una línea fina, quién la escribió."""
+    top = [f'<span class="alias">@{esc(r["alias"] or "—")}</span>',
+           _uni_chip(r["universidad"]) if r["universidad"]
+           else '<span class="tag tag-plain">sin universidad</span>']
+    carrera = CAREER_LABEL.get(r["carrera"] or "")
+    if carrera:
+        top.append(f'<span class="carrera" title="{esc(carrera[1])}">'
+                   f'{carrera[0]}</span>')
+    if not r["registrado"]:
+        top.append('<span class="pill">invitado</span>')
+
+    # Cuánto jugó, en las dos monedas que el juego tiene. El combo solo si
+    # existe: un 0 ocupa lo mismo que un 20 y no dice nada.
+    meta = [f'{num(r["derivadas"])} derivadas', f'{num(r["xp"])} XP']
+    if r["mejor_combo"]:
+        meta.append(f'mejor combo {num(r["mejor_combo"])}')
+    if r["correctas"] != 18:
+        # 18 es donde sale la pregunta, así que decirlo en las 9 de cada 10
+        # tarjetas donde vale 18 es ruido; las otras son gente que ya tenía
+        # más cuando la pregunta se estrenó, y eso sí se mira.
+        meta.append(f'iba por la {num(r["correctas"])}')
+
+    seg = r["segundos"]
+    # Día y hora, sin el año: el panel siempre se mira sobre una semana, así que
+    # «2026-» en 190 tarjetas es la misma columna repetida 190 veces.
+    cuando = [PLATFORM_LABEL.get(r["plataforma"], r["plataforma"] or "Sin dato"),
+              datetime.fromisoformat(r["cuando"]).strftime("%d/%m %H:%M"),
+              f"tardó {seg} s en escribirlo" if seg < 90
+              else f"tardó {seg // 60} min en escribirlo"]
+
+    # De dónde salió esta persona. Es lo que convierte una opinión suelta en
+    # «esto lo dice el grupo tal», que es como se decide a quién escribirle.
+    origen = []
+    if r["reclutador"]:
+        origen.append(f'entró por <b>@{esc(r["reclutador"])}</b>')
+    if r["grupo"]:
+        g = esc(r["grupo"]["universidad"] or "—")
+        if r["grupo"]["materia"]:
+            g += " — " + esc(_recortar(r["grupo"]["materia"], 34))
+        origen.append(("del grupo " if origen else "entró por el grupo ") + g)
+    if r["reclutas"]:
+        origen.append(f'trajo {num(r["reclutas"])} recluta'
+                      + ("s" if r["reclutas"] > 1 else ""))
+
+    # El buscador mira el texto Y esto, así que «UTN», «@fulano» o «invitado»
+    # son búsquedas válidas sin necesidad de una fila de filtros aparte.
+    quien = " ".join(str(x) for x in [
+        "@" + (r["alias"] or ""), r["universidad"] or "",
+        carrera[1] if carrera else "",
+        PLATFORM_LABEL.get(r["plataforma"], ""),
+        (r["grupo"] or {}).get("universidad") or "",
+        (r["grupo"] or {}).get("materia") or "",
+        ("@" + r["reclutador"]) if r["reclutador"] else "",
+        "registrado" if r["registrado"] else "invitado"] if x)
+
+    return (f'<article class="voz" data-quien="{esc(_sin_tildes(quien))}">'
+            f'<p class="dice">{esc(r["texto"] or "")}</p>'
+            f'<div class="quien"><div class="quien-top">{"".join(top)}</div>'
+            f'<div class="meta">{" · ".join(meta)}</div>'
+            f'<div class="meta dim">{" · ".join(cuando)}</div>'
+            + (f'<div class="origen">{" · ".join(origen)}</div>' if origen else "")
+            + "</div></article>")
+
+
+# El único JavaScript del panel, y vive acá abajo porque solo viaja cuando la
+# pestaña abierta es esta. Las respuestas ya están todas en la página —son
+# decenas, no millones— así que filtrar es esconder tarjetas y no volver al
+# servidor: sin recarga, sin estado en la URL y sin endpoint nuevo que
+# mantener.
+VOCES_JS = """
+(function(){
+  var cont = document.getElementById('voces-lista');
+  if (!cont) return;
+  var input = document.getElementById('voces-q');
+  var conteo = document.getElementById('voces-conteo');
+  var vacio = document.getElementById('voces-vacio');
+  var cajas = [].slice.call(cont.querySelectorAll('.voz'));
+  var total = cajas.length;
+
+  // Normalizar SIN perder el alineamiento con el texto original: «á» se vuelve
+  // «a» —una unidad donde el original tiene dos— así que el resaltado
+  // terminaría marcando la letra de al lado. Por eso se guarda el mapa de
+  // vuelta, de índice normalizado a índice original.
+  function prep(s){
+    var chars = Array.from(s), hay = '', map = [];
+    chars.forEach(function(c, i){
+      var n = c.normalize('NFD').replace(/[\\u0300-\\u036f]/g, '').toLowerCase();
+      if (n === '') n = '\\u0000';
+      for (var k = 0; k < n.length; k++){ hay += n[k]; map.push(i); }
+    });
+    return {chars: chars, hay: hay, map: map};
+  }
+  function norm(s){
+    return s.normalize('NFD').replace(/[\\u0300-\\u036f]/g, '').toLowerCase();
+  }
+
+  var datos = cajas.map(function(voz){
+    var p = voz.querySelector('.dice');
+    return {voz: voz, p: p, texto: p.textContent, idx: prep(p.textContent),
+            quien: voz.getAttribute('data-quien') || ''};
+  });
+
+  function pintar(d, q){
+    if (!q){ d.p.textContent = d.texto; return; }
+    var chars = d.idx.chars, hay = d.idx.hay, map = d.idx.map;
+    var frag = document.createDocumentFragment(), desde = 0, cursor = 0, i;
+    while ((i = hay.indexOf(q, desde)) !== -1){
+      var a = map[i], b = map[i + q.length - 1] + 1;
+      if (a > cursor) frag.appendChild(
+        document.createTextNode(chars.slice(cursor, a).join('')));
+      var m = document.createElement('mark');
+      m.textContent = chars.slice(a, b).join('');
+      frag.appendChild(m);
+      cursor = b; desde = i + q.length;
+    }
+    if (cursor < chars.length) frag.appendChild(
+      document.createTextNode(chars.slice(cursor).join('')));
+    d.p.innerHTML = '';
+    d.p.appendChild(frag);
+  }
+
+  function filtrar(){
+    var crudo = input.value.trim(), q = norm(crudo), n = 0;
+    datos.forEach(function(d){
+      var enTexto = d.idx.hay.indexOf(q) !== -1;
+      var hit = !q || enTexto || d.quien.indexOf(q) !== -1;
+      d.voz.hidden = !hit;
+      if (hit){ n++; pintar(d, enTexto ? q : ''); }
+    });
+    conteo.textContent = q ? n + ' de ' + total : total + ' respuestas';
+    vacio.hidden = n > 0;
+    vacio.textContent = 'Ninguna respuesta dice «' + crudo + '».';
+    [].forEach.call(document.querySelectorAll('.atajos button'), function(b){
+      b.className = b.getAttribute('data-q') === q ? 'cur' : '';
+    });
+  }
+
+  input.addEventListener('input', filtrar);
+  input.addEventListener('keydown', function(e){
+    if (e.key === 'Escape'){ input.value = ''; filtrar(); }
+  });
+  [].forEach.call(document.querySelectorAll('.atajos button'), function(b){
+    b.addEventListener('click', function(){
+      input.value = b.className === 'cur' ? '' : b.getAttribute('data-q');
+      filtrar(); input.focus();
+    });
+  });
+})();
+"""
 
 
 # Qué dice cada copy, para que la tabla de push se pueda leer sin abrir el
@@ -1453,46 +1746,41 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
 
     # ── 12 · Voces ───────────────────────────────────────
     en = p["encuestas"]
-    filas_en = [
-        # Crudos y sin `esc`: `theme.table` escapa cada celda salvo que
-        # empiece con «<», y escapar dos veces deja «&amp;» en la pantalla.
-        [_recortar(r["texto"] or "", 400),
-         r["alias"] or "—",
-         r["universidad"] or "—",
-         num(r["correctas"]),
-         r["plataforma"] or "—",
-         r["cuando"].replace("T", " ")]
-        for r in en["respuestas"]
-    ]
+    nota_voces = (
+        'La pregunta sale una sola vez en la vida, en la derivada 18, y '
+        'la diapo <b>no tiene botón de saltar</b>: la única salida es '
+        'escribir algo. Eso es lo que sostiene el número de arriba. Los otros '
+        f'dos estados de la pregunta no se dibujan pero se siguen contando y '
+        f'viajan en el data.json: {num(en["pct_salto"], "%")} dijo que no con un '
+        f'punto o una raya, y {num(en["pct_abandono"], "%")} vio la pregunta y '
+        'cerró la pestaña — <b>ese es el que decide si la pregunta se saca</b>, '
+        'porque es lo que cuesta.<br><br>'
+        'Las respuestas se listan enteras y no se resumen a propósito: un '
+        'histograma de respuestas abiertas es una respuesta abierta tirada a la '
+        'basura. Las <b>derivadas</b> y el <b>XP</b> de cada tarjeta son los de '
+        'hoy, no los del momento en que contestó; «iba por la N» sí es de '
+        'entonces.')
+    cuerpo_voces = (
+        '<p class="empty">todavía no contestó nadie</p>' if not en["respuestas"]
+        else (_buscador(en["respuestas"])
+              + '<p class="empty" id="voces-vacio" hidden></p>'
+              + '<div class="voces" id="voces-lista">'
+              + "".join(_voz(r) for r in en["respuestas"])
+              + "</div>"
+              + f"<script>{VOCES_JS}</script>"))
     pieza_voces = _section(
         1, "Lo que escribieron",
-        '<div class="grid g4">'
-        + "".join(_kpi_chico(l, v, h, suffix=sfx, dec=d) for l, v, sfx, h, d in [
-            ("Contestaron", en["pct_respuesta"], "%",
-             f'{num(en["con_texto"])} de {num(en["mostradas"])} preguntas', 1),
-            ("Dijeron que no", en["pct_salto"], "%",
-             f'{num(en["saltos"])} escribieron un punto o una raya', 1),
-            ("Se fueron sin contestar", en["pct_abandono"], "%",
-             "vieron la pregunta y cerraron la pestaña", 1),
-            ("Largo medio", en["largo_medio"], "",
-             "caracteres de las respuestas de verdad", 0),
-        ])
-        + "</div>"
-        + _box("Las respuestas, la última primero",
-               _table(["Respuesta", "@", "Universidad", "Derivadas", "Aparato",
-                       "Cuándo"], filas_en,
-                      empty="todavía no contestó nadie"),
-               note='La pregunta sale una sola vez en la vida, en la derivada 18, y '
-                    'la diapo <b>no tiene botón de saltar</b>: la única salida es '
-                    'escribir algo. Eso es lo que sostiene el primer número, y por '
-                    'eso hay que mirar el tercero — si «se fueron sin contestar» se '
-                    'dispara, la pregunta está costando más de lo que devuelve y se '
-                    'saca. Un punto o una raya <b>también es una respuesta</b> y por '
-                    'eso se guarda: es alguien diciendo que no, que no es lo mismo '
-                    'que alguien que se fue.<br><br>'
-                    'Las filas se listan y no se resumen a propósito. Un histograma '
-                    'de respuestas abiertas es una respuesta abierta tirada a la '
-                    'basura.')
+        # Un solo número y de ancho completo. Los otros tres que había acá
+        # —salto, abandono, largo medio— no se leían nunca: lo que se viene a
+        # hacer a esta pestaña es LEER, y cuatro tarjetas antes de la primera
+        # respuesta son cuatro tarjetas de distancia.
+        '<div class="box kpi kpi-ancho">'
+        '<div class="izq"><span class="label">Contestaron</span>'
+        f'<span class="val">{num(en["pct_respuesta"], "%")}</span></div>'
+        f'<div class="hint">{num(en["con_texto"])} de {num(en["mostradas"])} '
+        'preguntas que salieron</div></div>'
+        + cuerpo_voces
+        + f'<p class="note">{nota_voces}</p>'
         + (_box("Preguntas en la bolsa",
                 "<p>" + ", ".join(f"<code>{esc(q)}</code>" for q in en["preguntas"])
                 + "</p>",
