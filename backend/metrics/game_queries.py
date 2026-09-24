@@ -2544,6 +2544,51 @@ def carteles(data: dict) -> list[dict]:
     return sorted(salida, key=lambda f: -f["impresiones"])
 
 
+# Debajo de esta base, el CTR semanal de un cartel es ruido con forma de dato:
+# con veinte impresiones, un click mueve el punto cinco puntos enteros. No se
+# esconde la semana —cortar la línea haría creer que el cartel no salió— sino
+# que se dibuja floja, igual que las camadas que todavía suman.
+MIN_IMPRESIONES_SEMANA = 40
+
+
+def cartel_share_semanal(data: dict, week: date, cta: str = "share") -> list[dict]:
+    """El CTR del cartel de compartir, semana a semana.
+
+    `carteles()` da el acumulado de siempre, que es el que dice cuánto vale el
+    canal; este dice si se está MOVIENDO, que es otra pregunta y la que importa
+    cuando el K de arriba cambia. Sin esto, un K que cae no se puede separar en
+    sus dos causas —menos gente viendo el cartel, o la misma gente tocándolo
+    menos— y las dos piden cosas opuestas.
+
+    Va desde la primera semana del panel hasta la elegida, como la curva de
+    camadas de al lado y por el mismo motivo: con cuatro puntos una tendencia no
+    se distingue de un rebote. Y comparte el eje con ella a propósito, porque lo
+    que se lee acá es justamente si las dos se mueven juntas.
+    """
+    semanas = _semanas_hasta(week)
+    por_semana = {w: {"imp": 0, "clk": 0} for w in semanas}
+    for e in data["cta"]:
+        if e["cta"] != cta:
+            continue
+        d = local_date(e["created_at"])
+        if d is None:
+            continue
+        w = week_start(d)
+        # Explícito y no «lo que no es impresión es click»: la tabla puede
+        # sumar otra acción mañana y el CTR se inflaría solo.
+        clave = {"impression": "imp", "click": "clk"}.get(e["action"])
+        if clave and w in por_semana:
+            por_semana[w][clave] += 1
+    return [{
+        "week": w.isoformat(),
+        "label": w.strftime("%d/%m"),
+        "impresiones": por_semana[w]["imp"],
+        "clicks": por_semana[w]["clk"],
+        "ctr": _pct(por_semana[w]["clk"], por_semana[w]["imp"]),
+        "flojo": por_semana[w]["imp"] < MIN_IMPRESIONES_SEMANA,
+    } for w in semanas]
+
+
 # ── 8-bis · Monetización ─────────────────────────────────────────────────────
 
 # Dónde sale el cartel del cafecito, con el nombre que manda el front como clave.
@@ -3022,6 +3067,7 @@ def build(db: DBSession, week: date, weeks_shown: int = 4,
         "experimentos_grupos": experimento_grupos(data),
         "difusion": difusion(data),
         "carteles": carteles(data),
+        "cartel_share": cartel_share_semanal(data, week),
         "monetizacion": monetizacion(data),
         "calibracion": calibracion(data),
         "opinion": opinion(data),

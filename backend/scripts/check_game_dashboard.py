@@ -1270,6 +1270,38 @@ check("compartir vive ahora al lado del K que gobierna",
       "<h3>El cartel de compartir</h3>" in h_act)
 check("con sus tres números", all(
     f'<div class="label">{e}</div>' in h_act for e in ("Lo vieron", "Lo tocaron", "CTR")))
+# Y ABRE la sección: es la puerta del canal —nadie recluta sin tocarlo— así que
+# todo lo que viene después pasa por ahí. Se mide por posición y no por
+# presencia: estar en la página no alcanza si quedó tercero.
+check("y abre la sección, antes que la curva de camadas",
+      h_act.index("<h3>El cartel de compartir</h3>")
+      < h_act.index("<h3>Cuánta gente trae cada camada</h3>"))
+check("con la curva semanal abajo de sus tres números",
+      "<h3 class=\"dentro\">Semana a semana</h3>" in h_act
+      and h_act.index('<div class="label">CTR</div>')
+      < h_act.index('<h3 class="dentro">Semana a semana</h3>'))
+
+# La curva semanal: el escenario tiene UNA impresión y UN click de `share`, los
+# dos en la semana de referencia. O sea 100% de CTR sobre una base de una, que
+# es exactamente el caso que la línea tiene que dibujar flojo en vez de firme.
+cs = q.build(s, WEEK)["cartel_share"]
+hoy = next(c for c in cs if c["week"] == WEEK.isoformat())
+check("el CTR semanal cuenta impresiones y clicks de la semana",
+      (hoy["impresiones"], hoy["clicks"], hoy["ctr"]) == (1, 1, 100.0),
+      f'({hoy})')
+check("y una semana con base flojita se marca como tal",
+      hoy["flojo"] and all(c["flojo"] for c in cs),
+      f'({[c["impresiones"] for c in cs]} impresiones)')
+# Va desde la primera semana del panel hasta la elegida, como la curva de
+# camadas: comparten el eje para poder leer si las dos se mueven juntas.
+check("la curva arranca en la primera semana del panel, no cuatro atrás",
+      [c["week"] for c in cs] == [w.isoformat() for w in q._semanas_hasta(WEEK)],
+      f'({len(cs)} semanas)')
+# El bot no toca carteles en el escenario, pero el click de `cafecito` sí es
+# suyo: que no se cuele en la curva de `share` es lo que prueba que filtra por
+# cartel y no por cualquier evento de la tabla.
+check("y solo mira el cartel de compartir",
+      sum(c["clicks"] for c in cs) == 1, f'({sum(c["clicks"] for c in cs)})')
 
 
 # ── 6c · La pestaña de experimentos ────────────────────────────────────────
