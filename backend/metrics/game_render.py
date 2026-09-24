@@ -45,7 +45,8 @@ from . import charts as ch
 from . import theme
 from .charts import esc, num
 from .game_queries import (
-    FIRST_WEEK, MIN_IMPRESIONES_CTR, PEDIDO_CAFECITO, PLATFORM_LABEL,
+    DEPTH_MAX, DEPTH_MIN, DEPTH_TOPE, FIRST_WEEK, MIN_IMPRESIONES_CTR,
+    PEDIDO_CAFECITO, PLATFORM_LABEL,
 )
 
 # El grueso del CSS es el mismo que Intervalo (ver metrics/theme.py) — es la
@@ -53,6 +54,29 @@ from .game_queries import (
 # tienen sentido fuera del juego: hoy, la pestaña de Voces, que es la única del
 # panel que no es una tabla ni un gráfico.
 CSS_DX = """
+/* ── El largo de la curva de profundidad ────────────────────────── */
+/* Vive en la misma fila que los desgloses y pegado al borde derecho: gobierna
+   el gráfico de abajo y nada más, así que lejos de él habría que acordarse de
+   que existe. */
+.kctrl{margin-left:auto;display:flex;align-items:center;gap:8px;
+  color:var(--muted);font-size:12px}
+.kctrl label{white-space:nowrap}
+.kctrl b{color:var(--fg);font-variant-numeric:tabular-nums;min-width:2ch;
+  text-align:right}
+.kctrl input[type=range]{-webkit-appearance:none;appearance:none;width:132px;
+  height:14px;background:transparent;cursor:pointer}
+.kctrl input[type=range]::-webkit-slider-runnable-track{height:3px;
+  border-radius:2px;background:var(--border)}
+.kctrl input[type=range]::-moz-range-track{height:3px;border-radius:2px;
+  background:var(--border)}
+.kctrl input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;
+  appearance:none;width:13px;height:13px;margin-top:-5px;border-radius:50%;
+  background:var(--indigo);border:2px solid var(--card)}
+.kctrl input[type=range]::-moz-range-thumb{width:13px;height:13px;
+  border-radius:50%;background:var(--indigo);border:2px solid var(--card)}
+.kctrl input[type=range]:focus-visible{outline:2px solid var(--indigo-soft);
+  outline-offset:3px;border-radius:6px}
+
 /* ── Voces: una tarjeta por respuesta ───────────────────────────── */
 
 /* El único número de la sección, de ancho completo: es el encabezado de lo que
@@ -233,6 +257,25 @@ def _kpi_chico(label: str, valor, hint: str = "", suffix: str = "", dec: int = 1
             f'<div class="val">{num(valor, suffix, dec)}</div>'
             + (f'<div class="hint">{esc(hint)}</div>' if hint else "")
             + "</div>")
+
+
+# El control del largo de la curva. `change` y no `input`: la barra dispara un
+# evento por píxel arrastrado, y cada uno acá es una página entera. El número de
+# al lado sí se mueve con `input`, que es lo que hace que el arrastre tenga
+# adónde mirar mientras tanto.
+DEPTH_JS = """
+(function(){
+  var r = document.getElementById('kmax');
+  if (!r) return;
+  var out = document.getElementById('kval');
+  r.addEventListener('input', function(){ out.textContent = r.value; });
+  r.addEventListener('change', function(){
+    var u = new URL(window.location.href);
+    u.searchParams.set('k', r.value);
+    window.location.href = u.toString();
+  });
+})();
+"""
 
 
 # ── Voces: la tarjeta, el buscador y sus atajos ──────────────────────────────
@@ -580,18 +623,23 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         f"<div class='weeknav'>{''.join(nav)}</div>"
         "</div></header>")
 
-    def link(*, s: str | None = None, corte: str | None = None) -> str:
+    def link(*, s: str | None = None, corte: str | None = None,
+             k: int | None = None) -> str:
         """La URL del panel cambiando UNA cosa y dejando el resto como está.
 
         Es lo que hace que las dos barras convivan: elegir semana no pierde la
-        pestaña, y elegir desglose no devuelve a la primera."""
+        pestaña, elegir desglose no devuelve a la primera, y ninguna de las dos
+        pierde hasta dónde se estaba mirando la curva."""
         s = s if s is not None else seccion
         corte = corte if corte is not None else p["profundidad"]["corte"]
+        k = k if k is not None else p["profundidad"]["k_max"]
         q = f"?w={week.isoformat()}"
         if s != SECCION_POR_DEFECTO:
             q += f"&s={s}"
         if corte != "total":
             q += f"&corte={corte}"
+        if k != DEPTH_MAX:
+            q += f"&k={k}"
         return f"/panel/{esc(token)}/dx{q}"
 
     tabs = "".join(
@@ -709,9 +757,9 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
             'más en dos y menos en la tercera.'
             '<br><br>Eso dejó de ser una sospecha: la curva de la hora de la PRIMERA sesión '
             'correlaciona a r = 0,82 con el cronograma de envío de la camada, y la de las '
-            'vueltas a r = 0,17. Está medido en <a href="#reloj">El reloj del día</a>, en '
-            'Activación — que además es dónde mirar si lo que se busca es a qué hora la '
-            'gente elige jugar.')
+            'vueltas a r = 0,17, medido sobre los checkpoints de Hermes de la camada del '
+            '14/09. El panel tenía una sección entera dibujando eso —«El reloj del día»— y '
+            'salió: lo que decía se lee acá, que es donde se está mirando la curva.')
 
     if not series:
         grafico = '<p class="empty">todavía no hay partidas cerradas en esta ventana</p>'
@@ -724,15 +772,36 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
     # existe. Son links y no un `<select>` porque el panel no tiene JavaScript —
     # y de yapa cada corte queda con URL propia, así que se puede compartir o
     # abrir dos en dos pestañas para compararlos al mismo tiempo.
+    #
+    # «Por universidad» no está en la barra: partía la cohorte en doce líneas
+    # de las que tres tenían base y el resto era el ruido de cuatro personas
+    # dibujado con la misma tinta. Quién estudia dónde se mira en Reclutas y en
+    # Difusión, que es donde la universidad decide algo. El corte sigue vivo en
+    # `game_queries.CORTES` para el data.json.
     selector = "".join(
         f'<span class="cur">{esc(t)}</span>' if c == corte
         else f'<a href="{link(corte=c)}">{esc(t)}</a>'
         for c, t in [("total", "Todos"), ("sesion", "Por sesión"),
-                     ("cohorte", "Por cohorte"),
-                     ("universidad", "Por universidad"), ("aparato", "Por aparato"),
+                     ("cohorte", "Por cohorte"), ("aparato", "Por aparato"),
                      ("horario", "Por horario")])
-    cuerpo = (f"<div class='cortes'><span class='sub'>Desglose</span>{selector}</div>"
-              + grafico)
+
+    # Hasta qué derivada se dibuja. Va arriba a la derecha del gráfico —pegado a
+    # lo único que gobierna— y es el primer control del panel que no es un link:
+    # una barra de 12 a 64 que recarga recién al soltarla, así que arrastrarla
+    # no dispara cuarenta consultas. El número se actualiza mientras se mueve
+    # para que el arrastre tenga adónde mirar. Sin JavaScript la barra no hace
+    # nada y el resto de la sección sigue entera.
+    control = (
+        '<span class="kctrl">'
+        f'<label for="kmax">hasta la derivada</label>'
+        f'<input id="kmax" type="range" min="{DEPTH_MIN}" max="{DEPTH_TOPE}" '
+        f'step="1" value="{pr["k_max"]}" aria-label="Hasta qué derivada se dibuja">'
+        f'<b id="kval">{num(pr["k_max"])}</b></span>')
+
+    cuerpo = (f"<div class='cortes'><span class='sub'>Desglose</span>{selector}"
+              f"{control}</div>"
+              + grafico
+              + f"<script>{DEPTH_JS}</script>")
 
     out.append(_section(
         1, "Profundidad",
@@ -1439,87 +1508,6 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         anchor="difusion"))
     pieza_difusion = "".join(out)
 
-    # ── 3 · El reloj del día ─────────────────────────────────────────────────
-    out = []
-    ho = p["horarios"]
-    pri, pos = ho["perfil_primera"], ho["perfil_posterior"]
-    grupo, recluta = ho["por_origen"]["grupo"], ho["por_origen"]["recluta"]
-
-    # Normalizadas al total de cada una y no en crudo: son 606 sesiones contra
-    # 304, así que en absoluto la curva de las vueltas queda aplastada contra el
-    # piso y lo único que se leería es la primera. Lo que se compara son formas.
-    series_reloj = [
-        {"label": f'Primer uso · {num(pri["n"])} sesiones', "values": pri["pct"],
-         "tips": [f'{ho["bins"][i]} · {num(n)} '
-                  f'{"primera sesión" if n == 1 else "primeras sesiones"}'
-                  for n in ho["primera"]]},
-        {"label": f'Uso posterior · {num(pos["n"])} sesiones', "values": pos["pct"],
-         "tips": [f'{ho["bins"][i]} · {num(n)} {"vuelta" if n == 1 else "vueltas"}'
-                  for i, n in enumerate(ho["posterior"])]},
-    ]
-
-    out.append(_section(
-        3, "El reloj del día",
-        '<div class="grid g4">'
-        + "".join(_kpi_chico(l, v, h, suffix="%", dec=1) for l, v, h in [
-            ("Primer uso · 6 h más cargadas", pri["top3"],
-             f'pico en {pri["pico"] or "—"}'),
-            ("Uso posterior · 6 h más cargadas", pos["top3"],
-             f'pico en {pos["pico"] or "—"}'),
-            ("Primer uso · de noche", pri["noche"], "de 20 a 6"),
-            ("Uso posterior · de noche", pos["noche"], "de 20 a 6")])
-        + "</div>"
-        + _box(
-            "Cuándo arranca cada uso",
-            ch.lines(series_reloj, ho["bins"], suffix="%", height=280),
-            note=(
-                "<b>La curva del primer uso no es una preferencia: es nuestro cronograma "
-                "de envío.</b> Medida el 14/09 contra los checkpoints de Hermes de esta "
-                "camada —33 grupos a las 9, 30 a las 10, 42 a las 11, 25 a las 15— la "
-                "correlación hora por hora da <b>r = 0,82</b>, y hasta el rebote de la "
-                "tarde es la tanda de las 15. La misma cuenta sobre el uso posterior da "
-                "<b>r = 0,17</b>: de las dos curvas, esa es la única que mide cuándo la "
-                "gente elige jugar."
-                f'<br><br><b>El control está adentro de la base y no hace falta creerme.</b> '
-                f'Partido por cómo se invitó a cada uno, el primer uso de quien llegó por un '
-                f'grupo de WhatsApp ({num(grupo["n"])} sesiones) pica en '
-                f'{esc(grupo["pico"] or "—")} y tiene {_pct_txt(grupo["noche"])} de noche; '
-                f'el de quien lo trajo un recluta ({num(recluta["n"])}) pica en '
-                f'{esc(recluta["pico"] or "—")} y tiene {_pct_txt(recluta["noche"])}. Los dos '
-                f'son primeras veces: lo único distinto es quién los convocó. Si el pico de '
-                f'la mañana fuera «el que recién llega prefiere la mañana», las dos curvas '
-                f'tendrían la misma forma.'
-                f'<br><br><b>La unidad es la sesión, no la persona.</b> Quien jugó cinco '
-                f'veces aporta una primera y cuatro vueltas, que es lo que se quiere contar. '
-                f'De las {num(pos["n"])} vueltas, {num(ho["n_mismo_dia"])} son del mismo día '
-                f'en que esa persona entró —todavía arrastre de la campaña— y '
-                f'{num(ho["n_otro_dia"])} son de otro día; esas últimas son las más '
-                f'nocturnas de todo el panel, {_pct_txt(ho["perfil_otro_dia"]["noche"])} '
-                f'entre las 20 y las 6.'))
-        + _box(
-            "Qué fracción de cada franja es gente nueva",
-            ch.stackbars(ho["bins"],
-                         [{"label": "Primer uso", "values": ho["primera"]},
-                          {"label": "Uso posterior", "values": ho["posterior"]}],
-                         min_n=ho["min_base"]),
-            note=(
-                f'Las columnas miden todas igual a propósito: acá no se pregunta cuánto '
-                f'tráfico hay a cada hora —eso es el gráfico de arriba— sino de qué está '
-                f'hecho. Es la tira que decide a qué hora mandar la próxima tanda: donde el '
-                f'bloque de arriba es gordo, la hora ya la estamos usando; donde es flaco, '
-                f'esa franja es de los que vuelven solos y todavía no le mandamos a nadie.'
-                f'<br><br>Las franjas con menos de {num(ho["min_base"])} sesiones salen como '
-                f'un marco vacío en vez de como un reparto: a esa base una sola persona '
-                f'mueve la barra casi siete puntos, y un porcentaje dibujado firme sobre '
-                f'tres sesiones se lee igual que uno sobre doscientas.')),
-        sub=f'Cuándo alguien entra por primera vez y cuándo vuelve. Son dos preguntas '
-            f'distintas y el panel las venía contestando juntas. Acumulado desde la '
-            f'primera camada ({ho["desde"].strftime("%d/%m")}) y no por semana: la hora '
-            f'del día es un hecho estructural, y partido en semanas el brazo de las '
-            f'vueltas se queda sin base para dibujarse.',
-        anchor="reloj"))
-    pieza_horarios = "".join(out)
-
     # ── Monetización: dónde se pide el cafecito ──────────────────────────────
     mo = p["monetizacion"]
     def _filas_de(lugares):
@@ -1798,7 +1786,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
     # algo llama la atención.
     paneles = {
         "activacion": (_fila_kpi(p["headline"]["activacion"])
-                       + pieza_difusion + pieza_reclutas + pieza_horarios),
+                       + pieza_difusion + pieza_reclutas),
         "retencion": (_fila_kpi(p["headline"]["retencion"])
                       + pieza_push + pieza_mails),
         "jugabilidad": (_fila_kpi(p["headline"]["jugabilidad"])
