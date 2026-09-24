@@ -307,8 +307,14 @@ def lines(series: list[dict], x_labels: list[str], *, suffix: str = "%",
         out.extend(dots)
         out.append('</g>')
 
+    # Una de cada `paso`, para que nunca haya más de veinte marcas en el eje.
+    # Era «una de cada dos si son más de diez», que alcanzaba mientras el eje
+    # tenía cuarenta puntos fijos; con la curva de profundidad hasta 64 eso
+    # dibuja 32 números pegados. Con diez o menos no cambia nada.
+    n_lab = len(x_labels)
+    paso = 1 if n_lab <= 10 else max(2, -(-n_lab // 20))
     for i, lab in enumerate(x_labels):
-        if len(x_labels) > 10 and i % 2:
+        if i % paso:
             continue
         out.append(f'<text x="{pad_l + i * step:.1f}" y="{height - pad_b + 16}" '
                    f'text-anchor="middle" fill="var(--fg)" font-size="11" {FONT}>{esc(lab)}</text>')

@@ -101,8 +101,27 @@ PEDIDO_CAFECITO = 14
 # (`PEDIDO_PERFIL`), así que quien llega ahí ya vio de qué se trata.
 ENGANCHE = 3
 
-# Hasta dónde se dibuja la curva de supervivencia por ejercicio.
+# Hasta dónde se dibuja la curva de supervivencia por ejercicio. `DEPTH_MAX` es
+# lo que se dibuja si nadie pide otra cosa; el panel tiene un control para
+# moverlo entre `DEPTH_MIN` y `DEPTH_TOPE`, y por eso son tres constantes y no
+# un número suelto.
+#
+# Los dos bordes no son redondeos: abajo, 12 es el tramo donde vive el producto
+# —el enganche está en 3 y la pregunta del perfil en 18—, y menos que eso no
+# alcanza para ver un escalón. Arriba, 64 es donde la cola ya es una línea
+# plana de una persona: la mediana de la primera tanda son 9 derivadas.
 DEPTH_MAX = 40
+DEPTH_MIN = 12
+DEPTH_TOPE = 64
+
+
+def clamp_depth(k) -> int:
+    """`?k=` viene de la URL, así que puede ser cualquier cosa. Se acota en vez
+    de rechazarse: es un panel, no una API."""
+    try:
+        return max(DEPTH_MIN, min(DEPTH_TOPE, int(k)))
+    except (TypeError, ValueError):
+        return DEPTH_MAX
 
 # El teléfono y la compu son dos juegos distintos: en uno hay un flujo infinito
 # de slides y un teclado matemático apoyado sobre uno táctil; en el otro está
@@ -655,20 +674,6 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
         ]
         return _median(valores)
 
-    def vuelven(w: date) -> float | None:
-        """De los que jugaron su primera tanda, cuántos tuvieron una segunda.
-
-        El número que gobierna el juego. La retención de la fila de arriba mira
-        semanas; esta mira sentadas, que es la unidad real de este producto: se
-        entra por un link, se juega hasta cansarse, y volver es una decisión
-        aparte que la mayoría no toma.
-        """
-        con_tanda = [p for p in nuevos(w) if por_jugador.get(p["id"])]
-        return _pct(
-            sum(1 for p in con_tanda if len(_tandas_jugadas(p)) > 1),
-            len(con_tanda),
-        )
-
     def duracion_primera(w: date) -> float | None:
         """Cuántos minutos dura la primera sentada, en mediana.
 
@@ -683,15 +688,19 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
         ]
         return _median(valores)
 
-    def respondieron(w: date) -> int:
-        """De los nuevos de la semana, cuántos respondieron al menos una.
+    def duracion_siguientes(w: date) -> float | None:
+        """Cuántos minutos dura una vuelta, de la segunda en adelante.
 
-        Fue el OMTM hasta el 18/09 y hoy es contexto: se lee contra el de abajo,
-        y la distancia entre los dos es la gente que tipeó una derivada y se fue.
-        La fila del jugador se crea al CARGAR la página, así que «nuevo» incluye
-        también a quien se fue mirando la intro.
+        La gemela de `duracion_primera`, y va al lado de las derivadas de esas
+        mismas tandas por el mismo motivo: cinco derivadas en dos minutos y
+        cinco en veinte son dos productos distintos. Una fila por TANDA, igual
+        que `sesiones_siguientes` — quien vuelve cuatro veces aporta cuatro
+        duraciones, porque lo que se pregunta es cuánto aguanta una vuelta.
         """
-        return sum(1 for p in nuevos(w) if por_jugador.get(p["id"]))
+        valores = [_minutos(tanda)
+                   for p in nuevos(w)
+                   for tanda in _tandas_jugadas(p)[1:]]
+        return _median(valores)
 
     def enganchados(w: date) -> int:
         """De los nuevos de la semana, cuántos llegaron a `ENGANCHE` correctas.
@@ -731,11 +740,15 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
                  "embudo de abajo. La fila se crea al CARGAR la página, así que "
                  "incluye a quien se fue en la pantalla de intro sin ver una "
                  "derivada."),
-            card("Responden una", per_week(respondieron), "",
-                 "De los nuevos de esa semana, cuántos llegaron a tipear al menos una "
-                 "derivada. Fue el OMTM hasta el 18/09 y ahora es el contexto del de "
-                 "al lado: la distancia entre los dos es la gente que probó una y se "
-                 "fue sin llegar a jugar."),
+            # El numerador del de al lado, y por eso van pegados: un 53% no
+            # dice si salió de treinta personas o de mil. Acá estaba «Responden
+            # una», que era el OMTM viejo —la vara subió a ENGANCHE el 18/09— y
+            # desde entonces contaba una activación que el panel ya no usa.
+            card("Activados", per_week(enganchados), "",
+                 f"De los nuevos de esa semana, cuántos resolvieron {ENGANCHE} "
+                 f"derivadas en su primera tanda. Es el numerador del porcentaje "
+                 f"de al lado, que es el OMTM: los dos cuentan lo mismo, uno en "
+                 f"personas y el otro contra los que abrieron."),
             card("Activación", per_week(pct_enganche), "%",
                  f"De cada 100 que abren dx, cuántos resuelven {ENGANCHE} derivadas en "
                  f"su primera tanda. Es el OMTM del producto, y la vara se subió el "
@@ -809,11 +822,15 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
         # Reclutas · va adentro de su sección y no en la cabecera de la pestaña:
         # los cuatro hablan del mismo canal y leerlos lejos de su curva obliga a
         # subir y bajar.
-        # Reclutas · los cuatro son de la CAMADA de esa semana: cuánta gente
-        # trajo la gente que entró, no cuánta gente entró por un link. Los dos
-        # últimos son exactamente los dos primeros divididos por el tamaño de
-        # la camada, y esa es toda la definición de K — por eso van juntos y
-        # en este orden.
+        # Reclutas · los tres son de la CAMADA de esa semana: cuánta gente
+        # trajo la gente que entró, no cuánta gente entró por un link. El último
+        # es exactamente el segundo dividido por los activados de la camada, y
+        # esa es toda la definición de K — por eso va pegado a su numerador.
+        #
+        # Eran cuatro: «K de la camada» —reclutas sobre TODA la camada— salió
+        # porque las dos K se leían como dos respuestas a la misma pregunta y la
+        # que decide si el bucle se sostiene es la de activados, donde lo que se
+        # produce y lo que produce son la misma unidad.
         "reclutas": [
             card("Reclutas traídos", per_week(lambda w: cam[w]["reclutas"]), "",
                  "Cuánta gente trajo por su link la camada que entró esa semana, a "
@@ -825,10 +842,6 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
                  "link de un amigo trae gente que activa PEOR que la difusión "
                  "—33,6% contra 41,0%—, así que los reclutas a secas cuentan clics "
                  "y no jugadores."),
-            card("K de la camada", per_week(lambda w: cam[w]["k"]), "",
-                 "Los reclutas traídos, divididos por el tamaño de la camada. "
-                 "Cuánta gente trae cada persona que entra. Es la cuenta completa: "
-                 "arriba el numerador, acá la división.", dec=2),
             card("K de activados", per_week(lambda w: cam[w]["k_act"]), "",
                  "Reclutas que arrancaron, divididos por los de la camada que "
                  "arrancaron. Es el que decide si el bucle se sostiene, porque la "
@@ -847,9 +860,14 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
                  "Mediana por TANDA, no por persona: quien vuelve cuatro veces aporta "
                  "cuatro números. Más corta que la 1ª significa que engancha y no "
                  "retiene."),
-            card("Vuelven a jugar", per_week(vuelven), "%",
-                 "De los que jugaron su primera tanda, cuántos tuvieron una segunda. "
-                 "Sentadas, no semanas — la retención por semanas está en su pestaña."),
+            # Los cuatro son la misma pregunta partida en dos ejes: cuánto se
+            # juega y cuánto dura, en la primera tanda y en las que siguen. Acá
+            # estaba «Vuelven a jugar», que es una tasa de vuelta y no una
+            # medida de la sentada: se lee en Retención, que es su pestaña.
+            card("Duración 2ª y siguientes", per_week(duracion_siguientes), " min",
+                 "Mediana, una fila por tanda igual que la de al lado. Cierra el "
+                 "cuadro: las dos tandas medidas con las dos mismas varas, "
+                 "derivadas y minutos."),
         ],
     }
 
@@ -887,11 +905,11 @@ MAX_UNIVERSIDADES = 5
 MIN_BASE_SERIE = 5
 
 
-def _curva_de(largos: list[int]) -> list[dict]:
+def _curva_de(largos: list[int], k_max: int = DEPTH_MAX) -> list[dict]:
     """La curva de supervivencia de una lista de largos de partida."""
     base = len(largos)
     out = []
-    for k in range(1, DEPTH_MAX + 1):
+    for k in range(1, k_max + 1):
         vivos = sum(1 for n in largos if n >= k)
         siguen = sum(1 for n in largos if n >= k + 1)
         out.append({
@@ -907,7 +925,7 @@ def _curva_de(largos: list[int]) -> list[dict]:
 
 
 def profundidad(data: dict, weeks: list[date], now: datetime | None = None,
-                corte: str = "total") -> dict:
+                corte: str = "total", k_max: int = DEPTH_MAX) -> dict:
     """Cuántas derivadas aguanta la gente, y dónde exactamente se va.
 
     Es LA métrica del juego. El Elo, el ranking y el cafecito existen para mover
@@ -1008,7 +1026,7 @@ def profundidad(data: dict, weeks: list[date], now: datetime | None = None,
                    if _in_week(p["created_at"], semana) and p["id"] in primera_de
                    and primera_de[p["id"]][1] >= corte_reloj)
     base = len(largos)
-    curva = _curva_de(largos)
+    curva = _curva_de(largos, k_max)
 
     # El escalón más grande de los primeros 20, que es el tramo donde el
     # producto interviene. Se pide una base mínima: un abandono del 100% sobre 2
@@ -1020,7 +1038,7 @@ def profundidad(data: dict, weeks: list[date], now: datetime | None = None,
 
     def serie(label: str, clave: str | None, valores: list[int]) -> dict:
         return {"label": label, "clave": clave, "base": len(valores),
-                "curva": _curva_de(valores),
+                "curva": _curva_de(valores, k_max),
                 "mediana": _median([float(n) for n in valores])}
 
     if corte == "total":
@@ -1090,6 +1108,7 @@ def profundidad(data: dict, weeks: list[date], now: datetime | None = None,
 
     return {
         "corte": corte,
+        "k_max": k_max,
         "semana": semana,
         "base": base,
         "abiertos": abiertos,
@@ -2193,116 +2212,6 @@ def difusion(data: dict) -> dict:
     }
 
 
-# ── 7-bis · El reloj: cuándo se entra y cuándo se vuelve ─────────────────────
-
-def horarios(data: dict) -> dict:
-    """A qué hora del día arranca el PRIMER uso y a qué hora los siguientes.
-
-    **Qué contesta.** El primer uso lo empuja el link que salió por WhatsApp; el
-    segundo y los que siguen no los empuja nadie. Separarlos convierte una sola
-    pregunta —«a qué hora juega la gente»— en las dos que de verdad hay:
-
-      - **primer uso** = a qué hora llega alguien a quien acabamos de invitar.
-        Medido el 14/09 contra los checkpoints de Hermes de esta camada, la
-        curva calca el cronograma de envío: r = 0,82 hora por hora, incluido el
-        rebote de las 15-16, que es la tanda de las 15. O sea que NO es una
-        preferencia de nadie — es nuestra agenda dibujada.
-      - **uso posterior** = a qué hora alguien decide volver solo. Contra el
-        mismo cronograma da r = 0,17: es lo único de las dos curvas que mide
-        una preferencia.
-
-    **La unidad es la SESIÓN, no la persona.** Alguien que jugó cinco veces
-    aporta una primera y cuatro posteriores, que es exactamente lo que se quiere
-    contar: la pregunta es cuándo ocurren los usos, no cuándo existen las
-    personas. Las tandas salen de `_sesiones()`, el único lugar donde este panel
-    decide dónde termina una sesión.
-
-    **Acumulado desde la primera camada, no por semana.** La hora del día es un
-    hecho estructural y no un indicador semanal; partido en semanas, el brazo de
-    las vueltas se queda con veinte sesiones repartidas en doce bins y deja de
-    leerse. Mismo alcance que la sección de difusión, que está al lado.
-
-    **El control interno.** Partir el primer uso por cómo se invitó a esa
-    persona es lo que cierra el argumento sin salir de la base: al de grupo lo
-    trae una tanda de WhatsApp y al recluta lo trae una persona. Si el pico de
-    la mañana fuera «los que recién llegan prefieren la mañana», los dos
-    tendrían la misma forma. No la tienen.
-    """
-    por_jugador: dict[int, list[dict]] = defaultdict(list)
-    for a in data["_answers"]:
-        por_jugador[a["player_id"]].append(a)
-
-    # `directo` es quien no trae ni grupo ni reclutador: entró por el link
-    # pelado. No es una tercera vía de difusión, es la ausencia de atribución.
-    origen = {p["id"]: ("grupo" if p["first_group_id"] else
-                        "recluta" if p["referred_by"] else "directo")
-              for p in data["players"]}
-
-    primera = [0] * _N_BINS
-    posterior = [0] * _N_BINS
-    mismo_dia = [0] * _N_BINS
-    otro_dia = [0] * _N_BINS
-    por_origen = {k: [0] * _N_BINS for k in ("grupo", "recluta", "directo")}
-
-    for pid, eventos in por_jugador.items():
-        tandas = _sesiones(eventos)
-        if not tandas:
-            continue
-        arranque = tandas[0][0]["created_at"]
-        b0 = _bin_de(arranque)
-        primera[b0] += 1
-        por_origen[origen.get(pid, "directo")][b0] += 1
-        # «Mismo día» se mide contra el día de la PRIMERA sesión y no contra la
-        # anterior: lo que separa el arrastre de la vuelta es el día en que a
-        # esa persona la invitamos, no cuándo jugó por última vez.
-        dia_cero = local_date(arranque)
-        for tanda in tandas[1:]:
-            t = tanda[0]["created_at"]
-            b = _bin_de(t)
-            posterior[b] += 1
-            if local_date(t) == dia_cero:
-                mismo_dia[b] += 1
-            else:
-                otro_dia[b] += 1
-
-    def perfil(cuenta: list[int]) -> dict:
-        """El reparto de una serie por bin, más las dos cifras que la resumen."""
-        n = sum(cuenta)
-        if not n:
-            return {"n": 0, "pct": [None] * _N_BINS, "pico": None,
-                    "pct_pico": None, "top3": None, "noche": None}
-        pct = [round(100 * c / n, 1) for c in cuenta]
-        i_pico = max(range(_N_BINS), key=lambda i: cuenta[i])
-        top3 = sum(sorted(cuenta, reverse=True)[:3])
-        return {
-            "n": n,
-            "pct": pct,
-            "pico": BIN_LABEL[i_pico],
-            "pct_pico": pct[i_pico],
-            # Los tres bins más cargados: seis horas del día. Es la medida de
-            # concentración que se lee sin explicar —«en seis horas entra tanto
-            # por ciento»— y la que separa un pico de una meseta.
-            "top3": round(100 * top3 / n, 1),
-            "noche": round(100 * sum(cuenta[i] for i in BINS_NOCHE) / n, 1),
-        }
-
-    return {
-        "bins": list(BIN_LABEL),
-        "primera": primera,
-        "posterior": posterior,
-        "mismo_dia": mismo_dia,
-        "otro_dia": otro_dia,
-        "n_mismo_dia": sum(mismo_dia),
-        "n_otro_dia": sum(otro_dia),
-        "perfil_primera": perfil(primera),
-        "perfil_posterior": perfil(posterior),
-        "perfil_otro_dia": perfil(otro_dia),
-        "por_origen": {k: perfil(v) for k, v in por_origen.items()},
-        "min_base": MIN_BASE_BIN,
-        "desde": FIRST_WEEK,
-    }
-
-
 # ── 7b · Experimentos por GRUPO (no por jugador) ─────────────────────────────
 #
 # `experimentos()` de arriba compara proporciones entre JUGADORES —cada uno cae
@@ -3085,7 +2994,7 @@ def encuestas(data: dict) -> dict:
 # ── Entrada ──────────────────────────────────────────────────────────────────
 
 def build(db: DBSession, week: date, weeks_shown: int = 4,
-          corte: str = "total") -> dict:
+          corte: str = "total", k_max: int = DEPTH_MAX) -> dict:
     """Payload completo del panel del juego para la semana `week` (su lunes)."""
     data = load(db)
     weeks = _weeks_back(week, weeks_shown)
@@ -3102,7 +3011,7 @@ def build(db: DBSession, week: date, weeks_shown: int = 4,
             "bots_excluidos": data["_bots"],
         },
         "headline": headline(data, weeks),
-        "profundidad": profundidad(data, weeks, corte=corte),
+        "profundidad": profundidad(data, weeks, corte=corte, k_max=k_max),
         "push": push(data, weeks),
         "mails": mails(data, weeks),
         "reclutas": reclutas(data, weeks),
@@ -3112,7 +3021,6 @@ def build(db: DBSession, week: date, weeks_shown: int = 4,
         "experimento_motor": experimento_motor(data),
         "experimentos_grupos": experimento_grupos(data),
         "difusion": difusion(data),
-        "horarios": horarios(data),
         "carteles": carteles(data),
         "monetizacion": monetizacion(data),
         "calibracion": calibracion(data),

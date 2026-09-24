@@ -433,14 +433,21 @@ check("usuarios nuevos de la semana", h["Usuarios nuevos"]["value"] == 5,
 check("«usuarios únicos» ya no está", "Usuarios únicos" not in h,
       f"({sorted(h)[:4]}…)")
 
-# Responder una ya no es el OMTM, pero se sigue mostrando: p1, p2 y p4
-# respondieron en la semana; p3 recién el lunes siguiente, pero su alta es de
-# esta, así que la cohorte lo cuenta igual. Cuatro de cinco.
-check("«responden una» se mide sobre los nuevos de la semana",
-      h["Responden una"]["value"] == 4,
-      f'({h["Responden una"]["value"]} de {h["Usuarios nuevos"]["value"]})')
-check("y el nombre viejo ya no está",
-      "Usuarios activados" not in h, f"({sorted(h)[:4]}…)")
+# La tarjeta de al lado del OMTM es su NUMERADOR: las primeras tandas son p1 9,
+# p4 5, p2 2 y p3 1, así que llegan a ENGANCHE dos de los cinco de la camada.
+# Los dos números tienen que salir de la misma cuenta o la fila miente.
+check("«activados» es el numerador del porcentaje de al lado",
+      h["Activados"]["value"] == 2
+      and h["Activación"]["value"] == round(
+          100 * h["Activados"]["value"] / h["Usuarios nuevos"]["value"], 1),
+      f'({h["Activados"]["value"]} de {h["Usuarios nuevos"]["value"]} '
+      f'contra {h["Activación"]["value"]}%)')
+# «Responden una» era el OMTM hasta el 18/09 y se quedó como contexto; salió
+# cuando la vara subió a ENGANCHE, porque contaba una activación que el panel
+# ya no usa para nada.
+check("y las dos varas viejas ya no están",
+      "Responden una" not in h and "Usuarios activados" not in h,
+      f"({sorted(h)[:4]}…)")
 # El OMTM es llegar a `ENGANCHE` correctas en la PRIMERA TANDA, y ahí la cuenta
 # cambia: las primeras tandas son p1 9, p4 5, p2 2 y p3 1, así que llegan dos de
 # los cinco de la camada. Este es el check que separa las dos definiciones — con
@@ -481,12 +488,12 @@ check("las instalaciones salen de quien abrió la app instalada",
 check("vuelve quien respondió en un segundo día distinto",
       h["Vuelven otro día"]["value"] == 25.0,
       f'({h["Vuelven otro día"]["value"]}%, esperaba p1 de cuatro)')
-# Y no es la misma cuenta que la de Jugabilidad, que mira SENTADAS: ahí p1 y p2
-# vuelven —p2 tiene dos tandas el mismo día— y acá p2 no.
-check("y no es la vuelta por sentadas de Jugabilidad",
-      h["Vuelven otro día"]["value"] != h["Vuelven a jugar"]["value"],
-      f'(días {h["Vuelven otro día"]["value"]}% contra '
-      f'sentadas {h["Vuelven a jugar"]["value"]}%)')
+# La vuelta por SENTADAS se fue de Jugabilidad: era una tasa de vuelta en la
+# pestaña de la sentada, y dos maneras de contar lo mismo en dos pestañas es
+# como el panel deja de tener un lugar por pregunta. Queda esta, la de días.
+check("la vuelta se cuenta en un solo lugar y es por días",
+      "Vuelven a jugar" not in h and h["Vuelven otro día"]["value"] == 25.0,
+      f'({h["Vuelven otro día"]["value"]}%)')
 check("el titular de cafecitos no cuenta los grants a mano",
       h["Cafecitos"]["value"] == 16, f'({h["Cafecitos"]["value"]}, con el manual serían 19)')
 # ── El K de camada ────────────────────────────────────────────────────────
@@ -500,6 +507,9 @@ c_cero = CAM[(WEEK - timedelta(weeks=4)).isoformat()]
 check("el recluta se le cuenta a la camada de SU RECLUTADOR",
       c_cero["reclutas"] == 1 and c_cero["n"] == 1,
       f'({c_cero["reclutas"]} reclutas sobre una camada de {c_cero["n"]})')
+# La camada sigue calculando las dos K —el data.json las lleva y la tabla de
+# camadas las audita—; lo que salió es la TARJETA, porque dos K en la misma
+# fila se leían como dos respuestas a la misma pregunta.
 check("y el K de la camada es esa división",
       c_cero["k"] == 1.0, f'({c_cero["k"]})')
 check("el de activados exige que las dos puntas hayan jugado",
@@ -539,10 +549,10 @@ check("y una de hace dos semanas siempre lo está",
 check("la fila de reclutas lee la camada de la semana",
       h["Reclutas traídos"]["value"] == c_hoy["reclutas"]
       and h["De esos, arrancaron"]["value"] == c_hoy["reclutas_act"]
-      and h["K de la camada"]["value"] == c_hoy["k"]
       and h["K de activados"]["value"] == c_hoy["k_act"])
-check("y los dos K se muestran con dos decimales",
-      h["K de la camada"]["dec"] == 2 and h["K de activados"]["dec"] == 2)
+check("el K que quedó es el de activados, con dos decimales",
+      "K de la camada" not in h and h["K de activados"]["dec"] == 2,
+      f"({sorted(k for k in h if k.startswith('K'))})")
 # El K viejo dividía por la base previa, así que la difusión le movía el
 # denominador. Que no quede ninguno de los dos suelto alimentando un número.
 check("el K semanal no quedó colgado en ningún lado",
@@ -563,11 +573,18 @@ check("y la mediana es sobre los nuevos que llegaron a responder",
       h["1ª sesión"]["value"] == 3.5, f'({h["1ª sesión"]["value"]})')
 
 # ── La fila de sesiones ─────────────────────────────────────────────────────
-# p1 tiene una segunda tanda (las de las 16, dos horas después) y p2 tiene la
-# suya del día 3. Los dos de cuatro que respondieron: 50%.
-check("«vuelven a jugar» mira sentadas, no semanas",
-      h["Vuelven a jugar"]["value"] == 50.0,
-      f'({h["Vuelven a jugar"]["value"]}%, esperaba p1 y p2 de cuatro)')
+# Las cuatro miden la SENTADA con dos varas, derivadas y minutos, en la primera
+# tanda y en las que siguen. p1 tiene una segunda tanda (las de las 16, dos
+# horas después) y p2 tiene la suya del día 3.
+check("la fila mide las dos tandas con las dos mismas varas",
+      [c["label"] for c in REPARTO["jugabilidad"]]
+      == ["1ª sesión", "Duración 1ª sesión", "2ª y siguientes",
+          "Duración 2ª y siguientes"],
+      f'({[c["label"] for c in REPARTO["jugabilidad"]]})')
+check("y la duración de la 2ª sale en minutos, por tanda",
+      h["Duración 2ª y siguientes"]["value"] is not None
+      and h["Duración 2ª y siguientes"]["suffix"] == " min",
+      f'({h["Duración 2ª y siguientes"]["value"]})')
 # La segunda tanda se mide POR TANDA: p1 aporta la suya y p2 la suya, así que
 # son dos números y no dos personas promediadas.
 check("la 2ª y siguientes se miden por tanda",
@@ -581,12 +598,12 @@ check("la duración de la 1ª sesión sale en minutos",
 
 # El reparto es la parte que se puede romper sin que nadie lo note: una tarjeta
 # que se cae del dict desaparece de la página y ninguna consulta falla por eso.
-check("son diecinueve números", len(h) == 19, f"({len(h)})")
+check("son dieciocho números", len(h) == 18, f"({len(h)})")
 # Activación queda en tres por lo mismo que Retención quedó en cuatro y no en
 # cinco: la grilla se llena con los números que hacen falta, no al revés.
-check("repartidos de a cuatro salvo activación, que tiene tres",
+check("repartidos de a cuatro salvo activación y reclutas, que tienen tres",
       {k: len(v) for k, v in REPARTO.items()}
-      == {"activacion": 3, "retencion": 4, "monetizacion": 4, "reclutas": 4,
+      == {"activacion": 3, "retencion": 4, "monetizacion": 4, "reclutas": 3,
           "jugabilidad": 4},
       f"({ {k: len(v) for k, v in REPARTO.items()} })")
 # El cafecito se mudó a Monetización y no quedó en los dos lados. Y el primero
@@ -727,6 +744,37 @@ finally:
 check("un corte que no existe cae en el total",
       q.profundidad(data, weeks, now=NOW, corte="inventado")["corte"] == "total")
 
+# ── Hasta qué derivada se dibuja ───────────────────────────────────────────
+# El largo de la curva es lo único del panel que se elige con un control y no
+# con un link, así que hay dos cosas que probar: que el número llegue hasta la
+# curva, y que un `?k=` cualquiera no pueda romper la página.
+check("el largo de la curva es el que se pidió",
+      len(q.profundidad(data, weeks, now=NOW, k_max=q.DEPTH_MIN)["curva"])
+      == q.DEPTH_MIN
+      and len(q.profundidad(data, weeks, now=NOW, k_max=q.DEPTH_TOPE)["curva"])
+      == q.DEPTH_TOPE)
+check("y también en las líneas del desglose, no solo en la de todos",
+      all(len(x["curva"]) == q.DEPTH_MIN for x in
+          q.profundidad(data, weeks, now=NOW, corte="aparato",
+                        k_max=q.DEPTH_MIN)["series"]))
+# `?k=` viene de la URL: un panel acota en vez de tirar 422.
+check("un k de la URL se acota en vez de romper",
+      (q.clamp_depth(1), q.clamp_depth(999), q.clamp_depth("ocho"),
+       q.clamp_depth(None), q.clamp_depth("40"))
+      == (q.DEPTH_MIN, q.DEPTH_TOPE, q.DEPTH_MAX, q.DEPTH_MAX, 40))
+_h_k = game_render.page(q.build(s, WEEK, k_max=64), token="tok",
+                        seccion="jugabilidad")
+check("el control sale con sus dos topes y el valor elegido",
+      f'min="{q.DEPTH_MIN}"' in _h_k and f'max="{q.DEPTH_TOPE}"' in _h_k
+      and 'id="kmax"' in _h_k and 'value="64"' in _h_k)
+# Y viaja en los links, por lo mismo que el corte: cambiar de semana o de
+# pestaña no puede devolver la curva a su largo de fábrica.
+check("y el largo elegido viaja en los links de semana y pestaña",
+      _h_k.count("&k=64") >= 3, f'({_h_k.count("&k=64")} links)')
+check("pero el largo de fábrica no ensucia ninguna URL",
+      "&k=" not in game_render.page(q.build(s, WEEK), token="tok",
+                                    seccion="jugabilidad"))
+
 # ── 6b · Las franjas horarias ──────────────────────────────────────────────
 print()
 print("— horarios —")
@@ -799,67 +847,9 @@ for hora, esperado in [(6, "06–08"), (11, "10–12"), (13, "12–14"), (19, "1
           q.BIN_LABEL[q._bin_de(AR(hora))] == esperado,
           f"(dio {q.BIN_LABEL[q._bin_de(AR(hora))]})")
 
-rel = q.horarios(data)
-
-# El escenario, a mano. Las tandas arrancan 14:00 UTC, que son las 11 acá: si el
-# huso se perdiera caerían en «14–16» y el gráfico diría que el juego se juega a
-# la tarde. Es el mismo error que ya vigila el corte por franja, y hay que
-# vigilarlo dos veces porque son dos lecturas distintas de la misma columna.
-check("p1, p2 y p4 arrancan en la franja de las 11 argentinas",
-      rel["primera"][2] == 3, f'({rel["primera"][2]}, bin {rel["bins"][2]})')
-check("y las cinco primeras sesiones están repartidas donde corresponde",
-      rel["primera"] == [0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0], f'({rel["primera"]})')
-
-# La unidad es la SESIÓN y no la persona: p1 tiene dos tandas el mismo día y
-# aporta una a cada serie. Contando personas, su vuelta desaparecería.
-check("la segunda tanda de p1 cuenta como uso posterior",
-      rel["posterior"] == [0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0], f'({rel["posterior"]})')
-check("y las dos series juntas son todas las tandas del escenario",
-      sum(rel["primera"]) + sum(rel["posterior"])
-      == sum(len(q._sesiones([a for a in data["_answers"] if a["player_id"] == pid]))
-             for pid in {a["player_id"] for a in data["_answers"]}),
-      f'({sum(rel["primera"]) + sum(rel["posterior"])})')
-
-# «Mismo día» se mide contra el día en que a esa persona la invitamos, no contra
-# la tanda anterior: p1 vuelve el mismo día (arrastre) y p2 tres días después
-# (vuelta de verdad). Es la división que separa la campaña del hábito.
-check("la vuelta de p1 es del mismo día y la de p2 de otro",
-      (rel["n_mismo_dia"], rel["n_otro_dia"]) == (1, 1),
-      f'({rel["n_mismo_dia"]} y {rel["n_otro_dia"]})')
-check("y las dos suman exactamente los usos posteriores",
-      rel["n_mismo_dia"] + rel["n_otro_dia"] == sum(rel["posterior"]))
-
-# El bot tiene 50 respuestas a las 12 UTC (9 de la mañana acá). Si entrara,
-# «09–10» sería el pico del panel entero.
-check("el bot no aporta ni una sesión al reloj",
-      sum(rel["primera"]) + sum(rel["posterior"]) == 7,
-      f'({sum(rel["primera"]) + sum(rel["posterior"])})')
-
-# Quien tiene grupo Y reclutador cuenta como grupo: `first_group_id` es el link
-# que esa persona efectivamente tocó. p2 tiene los dos, y sin una precedencia
-# escrita se contaría dos veces y los tres orígenes sumarían más que el total.
-check("los tres orígenes reparten las primeras sesiones sin duplicar",
-      sum(rel["por_origen"][k]["n"] for k in ("grupo", "recluta", "directo"))
-      == sum(rel["primera"]),
-      f'({[(k, rel["por_origen"][k]["n"]) for k in ("grupo", "recluta", "directo")]})')
-check("y p2, que tiene grupo y reclutador, cuenta como grupo",
-      rel["por_origen"]["grupo"]["n"] == 4, f'({rel["por_origen"]["grupo"]["n"]})')
-
-# Los porcentajes son sobre el total de CADA serie y no sobre el total general:
-# es lo único que deja comparar 606 sesiones contra 304 sin que la chica quede
-# aplastada contra el piso.
-check("cada perfil se normaliza a su propio total",
-      abs(sum(rel["perfil_primera"]["pct"]) - 100) < 0.5
-      and abs(sum(rel["perfil_posterior"]["pct"]) - 100) < 0.5,
-      f'({sum(rel["perfil_primera"]["pct"])} y {sum(rel["perfil_posterior"]["pct"])})')
-check("y el pico sale con su etiqueta, no con su índice",
-      rel["perfil_primera"]["pico"] == "10–12", f'({rel["perfil_primera"]["pico"]})')
-
-# Una serie vacía no puede romper la página: el escenario no tiene reclutas con
-# sesión, y la sección igual tiene que dibujarse.
-check("un origen sin sesiones no explota, devuelve vacío",
-      rel["por_origen"]["recluta"]["n"] == 0
-      and rel["por_origen"]["recluta"]["pico"] is None)
+# `q.horarios` ya no existe: la sección «El reloj del día» salió del panel y
+# con ella la consulta que la alimentaba. Lo que queda arriba son los bordes
+# de las franjas, que siguen siendo la definición del corte por horario.
 
 # La cohorte es la de la SEMANA ELEGIDA y no la ventana visible entera. Sin el
 # corte por arriba, pedir una semana vieja devolvía una curva con gente que esa
@@ -973,10 +963,9 @@ check("la tabla de viralidad ya no está", "Base previa" not in h_k)
 check("y los dos titulares que repetían tampoco",
       '<div class="label">K de la última semana</div>' not in h_k
       and '<div class="label">Top reclutador</div>' not in h_k)
-# Los cuatro números de reclutas viven DENTRO de su sección y no en la cabecera
-# de la pestaña: hablan del mismo canal que la curva que tienen abajo.
-for etiqueta in ("Reclutas traídos", "De esos, arrancaron", "K de la camada",
-                 "K de activados"):
+# Los números de reclutas viven DENTRO de su sección y no en la cabecera de la
+# pestaña: hablan del mismo canal que la curva que tienen abajo.
+for etiqueta in ("Reclutas traídos", "De esos, arrancaron", "K de activados"):
     check(f"«{etiqueta}» está en la sección de reclutas",
           f'<div class="label">{etiqueta}</div>' in h_k)
 # El top de reclutadores se fue del panel junto con las dos tarjetas
@@ -1140,42 +1129,27 @@ check("y el global pasa a la nota, que es donde no compite con ellos",
 check("la nota dice cuántos quedaron sin copia anotada",
       "sin copia anotada" in h_dif)
 
-# ── El reloj, dibujado ──────────────────────────────────────────────────────
-# La sección vive en Activación y en ninguna otra: es parte del reparto, y una
-# pieza que se cuela en dos pestañas es la forma en que el panel deja de tener
-# un lugar por pregunta.
-check("el reloj se dibuja en la pestaña de activación",
-      'id="reloj"' in h_dif and "El reloj del día" in h_dif)
-for sec in ("retencion", "jugabilidad", "monetizacion", "experimentacion"):
+# ── El reloj, que ya no se dibuja ───────────────────────────────────────────
+# La sección «El reloj del día» salió del panel entera. Lo que queda es el
+# corte por horario de Profundidad, que decía lo mismo sobre la misma columna:
+# a qué hora arranca una partida. Que no vuelva a aparecer media —una pieza sin
+# su consulta, o un link a un ancla que no existe— es lo que se prueba acá.
+for sec, _ in game_render.SECCIONES:
     otra = game_render.page(q.build(s, WEEK), token="tok", seccion=sec)
-    check(f"y no aparece en «{sec}»", 'id="reloj"' not in otra)
+    check(f"el reloj no está en «{sec}»",
+          'id="reloj"' not in otra and "El reloj del día" not in otra
+          and 'href="#reloj"' not in otra)
 
-check("los cuatro números del reloj comparan lo mismo entre las dos curvas",
-      all(f'<div class="label">{e}</div>' in h_dif for e in
-          ("Primer uso · 6 h más cargadas", "Uso posterior · 6 h más cargadas",
-           "Primer uso · de noche", "Uso posterior · de noche")))
-# La correlación con el cronograma de envío es el argumento entero de la
-# sección, y es un dato MEDIDO AFUERA (los checkpoints de hermes, que no están
-# en la base). Va con su fecha y su fuente o es una afirmación sin respaldo.
-check("la nota deja escrito contra qué se midió la causa",
-      "r = 0,82" in h_dif and "r = 0,17" in h_dif and "checkpoints de Hermes" in h_dif)
-check("y el control por origen sale de la base, con sus n",
-      "grupo de WhatsApp" in h_dif and "lo trajo un recluta" in h_dif)
-check("la tira de reparto avisa cuál es su piso de base",
-      f'menos de {q.MIN_BASE_BIN} sesiones' in h_dif)
-# El alcance NO es la semana visible, y decirlo es parte del gráfico: alguien
-# que lo lea como semanal va a creer que la forma cambió cuando lo que cambió
-# fue el acumulado.
-check("y la sección declara que es acumulado, no semanal",
-      "Acumulado desde la primera camada" in h_dif)
-
-# El corte por horario de Profundidad tiene que mandar acá en vez de repetir la
-# advertencia con otras palabras: son la misma lectura y una de las dos copias
-# envejecería sola.
+# La correlación con el cronograma de envío es lo único de aquella sección que
+# había que salvar, porque es la advertencia que evita leer el corte por
+# horario como una preferencia. Se mudó a la nota del corte, con su fuente:
+# es un dato medido AFUERA (los checkpoints de Hermes, que no están en la base).
 _h_hor = game_render.page(q.build(s, WEEK, corte="horario"), token="tok",
                           seccion="jugabilidad")
-check("el corte por horario manda al reloj en vez de repetir la advertencia",
-      'href="#reloj"' in _h_hor and "r = 0,82" in _h_hor)
+check("y su advertencia quedó adentro del corte por horario, con su fuente",
+      "r = 0,82" in _h_hor and "r = 0,17" in _h_hor
+      and "checkpoints de Hermes" in _h_hor)
+
 
 
 # ── 6b-bis · Monetización ──────────────────────────────────────────────────
@@ -1701,12 +1675,17 @@ for c in q.CORTES:
     h = game_render.page(q.build(s, WEEK, corte=c), token="tok", seccion="jugabilidad")
     check(f"la página se arma con el corte «{c}»", len(h) > 8000, f"({len(h)} bytes)")
     # El corte activo se dibuja como texto marcado y no como link: los otros
-    # tres siguen siendo links, y el activo no puede llevar a sí mismo.
+    # siguen siendo links, y el activo no puede llevar a sí mismo.
+    #
+    # «Por universidad» no tiene botón: partía la cohorte en doce líneas de las
+    # que tres tenían base. El corte sigue vivo —el data.json lo acepta y la
+    # página se arma— pero no se ofrece, y eso último también se prueba.
     activo = {"total": "Todos", "sesion": "Por sesión", "cohorte": "Por cohorte",
-              "universidad": "Por universidad", "aparato": "Por aparato",
-              "horario": "Por horario"}[c]
-    check(f"y el corte «{c}» queda marcado en la barra",
-          f'<span class="cur">{activo}</span>' in h)
+              "aparato": "Por aparato", "horario": "Por horario"}.get(c)
+    check(f"y el corte «{c}» queda marcado en la barra" if activo
+          else "y «por universidad» no se ofrece en la barra",
+          f'<span class="cur">{activo}</span>' in h if activo
+          else "Por universidad" not in h)
     # El corte por horario es el único que además explica qué NO es: la hora de
     # arranque es en buena parte la hora en que salió el mensaje de difusión, y
     # sin decirlo el gráfico se lee como «a esta hora la gente rinde mejor».
