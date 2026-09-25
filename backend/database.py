@@ -10,6 +10,24 @@ DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./intervalo.db")
 if DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
+# Y el driver EXPLÍCITO, que no es cosmético: `postgresql://` a secas deja que
+# SQLAlchemy elija el DBAPI, y cuál elige depende de su versión. El 24/09 salió
+# SQLAlchemy 2.1, que cambió ese default de psycopg2 a psycopg (v3), y como el
+# instalado es `psycopg2-binary` el backend murió acá mismo, en `create_engine`,
+# con `ModuleNotFoundError: No module named 'psycopg'`. Producción estuvo caída
+# sin un solo log de aplicación: ni llegó a correr las migraciones.
+#
+# El pin de requirements.txt evita ESE salto; esto evita la clase entera, porque
+# con el driver en la URL la elección ya no depende de lo que resuelva pip.
+#
+# Se aplica sobre `postgresql://` y no sobre `postgres://` para que valga también
+# cuando la variable ya venga con el esquema moderno, y deja en paz a una URL que
+# traiga su propio driver: el día que se migre a psycopg 3, `postgresql+psycopg://`
+# pasa por acá sin que nadie lo pise.
+if DATABASE_URL.startswith("postgresql://"):
+    DATABASE_URL = DATABASE_URL.replace(
+        "postgresql://", "postgresql+psycopg2://", 1)
+
 # Configure engine based on database type
 if DATABASE_URL.startswith("sqlite"):
     # SQLite en dev: NullPool → una conexión por request. StaticPool comparte
