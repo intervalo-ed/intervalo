@@ -262,15 +262,25 @@ s.add(GameCtaEvent(player_id=1, cta="share", action="click", created_at=T(0, 15,
 s.add(GameCtaEvent(player_id=9, cta="cafecito", action="click", created_at=T(0, 15)))
 
 # ── Difusión ─────────────────────────────────────────────────────────────────
-# Cuatro grupos del tracker, y el cuarto es el que importa: recibió dx pero ANTES
-# del piso del panel, así que sus mil miembros no pueden entrar al denominador.
-# Sus jugadores quedaron del otro lado del corte y nunca se cargan, así que
-# contarlo sería dividir por gente sin ninguna posibilidad de tener numerador.
+# Seis grupos del tracker, en tres tandas, y cada tanda prueba algo distinto.
+#
+# `uba004` es el que más importa: recibió dx pero ANTES del piso del panel, así
+# que sus mil miembros no pueden entrar al denominador. Sus jugadores quedaron
+# del otro lado del corte y nunca se cargan, así que contarlo sería dividir por
+# gente sin ninguna posibilidad de tener numerador.
+#
+# `uba005` y `uba006` son la ola de la semana anterior, sin un solo jugador: son
+# los que le dan al panel una ola CONTRA la cual comparar. Sin ellos la camada
+# actual no tiene previa, los cuatro deltas salen «sin base» y la curva semanal
+# es un punto solo, que es justamente el estado en el que no se puede ver si el
+# reparto por ola anda.
 for gid, cl, miembros, envio in [
     ("uba001", "analisis", 100, WEEK),
     ("uba002", "generico", 200, WEEK),
     ("uba003", None, 50, WEEK),
     ("uba004", "analisis", 1000, q.FIRST_WEEK - timedelta(days=1)),
+    ("uba005", "analisis", 80, WEEK - timedelta(days=7)),
+    ("uba006", "generico", 120, WEEK - timedelta(days=7)),
 ]:
     s.add(GameGroup(id=gid, universidad="UBA", cluster="Ingeniería", materia="AM II",
                     miembros=miembros, ultimo_envio=envio, ultima_campana="juego",
@@ -1084,30 +1094,30 @@ check("las marcas del eje de K no se repiten",
 print()
 print("— difusión —")
 
-di = q.difusion(data)
+di = q.difusion(data, WEEK)
 # El corte, que es el defecto que este bloque existe para que no vuelva: desde
 # que el panel arranca en la primera camada oficial, un grupo al que se le mandó
 # dx en agosto sigue marcado como dx y sigue teniendo miembros, pero sus
 # jugadores ya no se cargan. Contarlo hunde el clickrate por un motivo que no
 # tiene nada que ver con la difusión.
 check("el grupo mandado antes del piso no entra al denominador",
-      di["global"]["miembros"] == 350,
-      f'({di["global"]["miembros"]}, con el de agosto serían 1.350)')
-check("y tampoco cuenta como grupo", di["global"]["grupos"] == 3,
+      di["global"]["miembros"] == 550,
+      f'({di["global"]["miembros"]}, con el de agosto serían 1.550)')
+check("y tampoco cuenta como grupo", di["global"]["grupos"] == 5,
       f'({di["global"]["grupos"]})')
 
 # Las dos copias de la ola. La etiqueta no se infiere de la materia —los cuatro
 # grupos tienen la misma— sino que viene escrita en la fila.
 check("la copia de análisis se mide sola",
-      di["analisis"]["miembros"] == 100 and di["analisis"]["jugadores"] == 2
-      and di["analisis"]["pct"] == 2.0, f'({di["analisis"]})')
+      di["analisis"]["miembros"] == 180 and di["analisis"]["jugadores"] == 2
+      and di["analisis"]["pct"] == 1.1, f'({di["analisis"]})')
 check("la genérica también, y da distinto",
-      di["generico"]["miembros"] == 200 and di["generico"]["jugadores"] == 1
-      and di["generico"]["pct"] == 0.5, f'({di["generico"]})')
-# Los cuatro grupos comparten materia «AM II»: si la etiqueta se estuviera
-# adivinando por ahí, los tres caerían en el mismo cubo.
-check("y no sale de la materia, que es la misma en los cuatro",
-      di["analisis"]["grupos"] == 1 and di["generico"]["grupos"] == 1)
+      di["generico"]["miembros"] == 320 and di["generico"]["jugadores"] == 1
+      and di["generico"]["pct"] == 0.3, f'({di["generico"]})')
+# Los seis grupos comparten materia «AM II»: si la etiqueta se estuviera
+# adivinando por ahí, todos caerían en el mismo cubo.
+check("y no sale de la materia, que es la misma en los seis",
+      di["analisis"]["grupos"] == 2 and di["generico"]["grupos"] == 2)
 # El que no tiene copia anotada no se reparte a ojo ni desaparece.
 check("el grupo sin copia va a su propia fila",
       di["sin_copia"]["grupos"] == 1 and di["sin_copia"]["miembros"] == 50
@@ -1115,6 +1125,37 @@ check("el grupo sin copia va a su propia fila",
 check("y los tres cubos suman el global",
       di["analisis"]["miembros"] + di["generico"]["miembros"]
       + di["sin_copia"]["miembros"] == di["global"]["miembros"])
+
+# ── La apertura por ola ──────────────────────────────────────────────────────
+# El acumulado promedia todas las olas, así que una ola nueva que rinde la mitad
+# casi no lo mueve: lo que el titular necesita es la última ola sola y la
+# anterior al lado. Un grupo pertenece a la semana en que se le MANDÓ, y sus
+# jugadores se le cuentan a esa semana aunque entren días después.
+_con = [f for f in di["semanal"] if f["envios"]]
+check("la curva trae una fila por semana del panel, con envíos o sin ellos",
+      len(di["semanal"]) == len(q._semanas_hasta(WEEK)) and len(_con) == 2,
+      f'({len(di["semanal"])} filas, {len(_con)} con envíos)')
+check("las semanas sin envío quedan sin clickrate, no en cero",
+      all(f["analisis"]["pct"] is None and f["generico"]["pct"] is None
+          for f in di["semanal"] if not f["envios"]))
+check("la camada es la última ola que salió, no la última semana",
+      di["camada"]["week"] == WEEK.isoformat()
+      and di["previa"]["week"] == (WEEK - timedelta(days=7)).isoformat(),
+      f'({di["camada"]["week"]} vs {di["previa"]["week"]})')
+check("y parte esa ola en sus dos copias",
+      di["camada"]["analisis"]["miembros"] == 100
+      and di["camada"]["analisis"]["pct"] == 2.0
+      and di["camada"]["generico"]["miembros"] == 200
+      and di["camada"]["generico"]["pct"] == 0.5, f'({di["camada"]})')
+# El grupo de agosto tampoco puede colarse acá: su semana es anterior al piso,
+# así que `_semanas_hasta` ni la ofrece.
+check("el grupo previo al piso no abre una ola propia",
+      all(f["envios"] == 0 or f["week"] >= q.FIRST_WEEK.isoformat()
+          for f in di["semanal"])
+      and sum(f["global"]["miembros"] for f in di["semanal"])
+      == di["global"]["miembros"])
+check("la ola vieja está madura y por eso su punto va firme",
+      all(f["madura"] for f in _con))
 
 h_dif = game_render.page(q.build(s, WEEK), token="tok", seccion="activacion")
 check("los cuatro números salen intercalados, audiencia y su clickrate",
@@ -1125,9 +1166,35 @@ check("los cuatro números salen intercalados, audiencia y su clickrate",
           "Audiencia · genérico", "Clickrate · genérico"])
 check("y el global pasa a la nota, que es donde no compite con ellos",
       '<div class="label">Gente alcanzada</div>' not in h_dif
-      and "El conjunto da" in h_dif)
+      and "Sumando todas las olas da" in h_dif)
 check("la nota dice cuántos quedaron sin copia anotada",
       "sin copia anotada" in h_dif)
+# Los cuatro son de la ÚLTIMA ola, no del acumulado, y el chip dice contra qué
+# se compara. Si el chip dijera «vs. semana anterior» estaría mintiendo cada vez
+# que entre dos olas pasó una semana muerta.
+check("los cuatro números son de la ola y no del acumulado",
+      "Los cuatro números son de la última ola" in h_dif
+      and '<div class="val">100</div>' in h_dif
+      and '<div class="val">180</div>' not in h_dif)
+check("y el chip dice contra qué ola se compara, con su fecha",
+      f'vs. la ola del {(WEEK - timedelta(days=7)).strftime("%d/%m")}' in h_dif)
+check("la audiencia subió 20 y el clickrate 2 pp contra la ola anterior",
+      '<span class="chip up">+20</span>' in h_dif
+      and '<span class="chip up">+2 pp</span>' in h_dif)
+# La curva y su tooltip: el `<title>` es lo único que explica de cuánta gente
+# salió cada punto, y sin eso dos olas de tamaños muy distintos se leen igual.
+check("la curva semanal dibuja las dos copias",
+      "Cómo se movió el clickrate de cada copia" in h_dif
+      and ">análisis</text>" in h_dif and ">genérico</text>" in h_dif)
+check("y cada punto explica al pasar el mouse de dónde salió",
+      f'<title>Semana del {WEEK.strftime("%d/%m")} · análisis\n'
+      f'2 jugadores de 100 alcanzados en 1 grupos = 2%\n'
+      f'La ola entera de esa semana: 3 grupos, 350 alcanzados</title>' in h_dif)
+# Una semana sin envío no dibuja punto, así que tampoco puede colgar un tooltip:
+# lo que NO puede pasar es que dibuje un cero, que se leería como una ola que
+# salió y no le hizo clic nadie.
+check("las semanas sin envío no dibujan un cero",
+      h_dif.count("<title>Semana del") == 4)
 
 # ── El reloj, que ya no se dibuja ───────────────────────────────────────────
 # La sección «El reloj del día» salió del panel entera. Lo que queda es el

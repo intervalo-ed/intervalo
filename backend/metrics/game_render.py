@@ -265,6 +265,24 @@ def _kpi_chico(label: str, valor, hint: str = "", suffix: str = "", dec: int = 1
             + "</div>")
 
 
+def _kpi_camada(label: str, valor, delta, contra: str, hint: str = "",
+                suffix: str = "", dec: int = 1) -> str:
+    """Un número de la última ola, con cuánto se movió contra la anterior.
+
+    Ni `_kpi_chico` —que no tiene contra qué compararse— ni `theme.kpi`, que
+    pide una serie para el sparkline y rotula el chip como «vs. semana
+    anterior». Acá la comparación NO es contra la semana anterior sino contra
+    la última ola que salió, que puede ser de hace dos o tres semanas, así que
+    el rótulo lo escribe quien llama y dice de qué fecha está hablando.
+    """
+    return (f'<div class="box kpi"><div class="label">{esc(label)}</div>'
+            f'<div class="val">{num(valor, suffix, dec)}</div>'
+            f'<div class="row" style="margin-top:8px">{_chip(delta, suffix, dec)}'
+            f'<span class="hint">{esc(contra)}</span></div>'
+            + (f'<div class="hint">{esc(hint)}</div>' if hint else "")
+            + "</div>")
+
+
 # El control del largo de la curva. `change` y no `input`: la barra dispara un
 # evento por píxel arrastrado, y cada uno acá es una página entera. El número de
 # al lado sí se mueve con `input`, que es lo que hace que el arrastre tenga
@@ -1448,50 +1466,132 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
             '<code>scripts/diag/sync_grupos.py</code></p>')
     else:
         g = di["global"]
+        ca, pv = di["camada"], di["previa"]
+        contra = f'vs. la ola del {pv["label"]}' if pv else "sin ola anterior"
 
         # Intercalados y no agrupados: audiencia y clickrate de la misma copia,
         # pegados. Es la única forma de que se lean como una división —el de la
         # izquierda es el denominador del de la derecha— y de que comparar las
         # dos copias sea mirar dos pares y no cruzar cuatro casillas.
+        #
+        # Y son de la ÚLTIMA OLA, no del acumulado. El acumulado promedia todo
+        # lo que se mandó desde el principio: la ola del 14/09 rindió casi la
+        # mitad que la del 07/09 y el titular acumulado casi no se movió, porque
+        # la vieja pesa el doble en su propio promedio. Un número que tarda un
+        # mes en enterarse de una caída a la mitad no sirve de titular.
         def _par(clave, etiqueta):
-            d = di[clave]
+            d = ca[clave]
+            p = pv[clave] if pv else None
+
+            def _delta(campo):
+                if p is None or d[campo] is None or p[campo] is None:
+                    return None
+                return round(d[campo] - p[campo], 2)
+
             return [
-                (f"Audiencia · {etiqueta}", d["miembros"], "",
+                (f"Audiencia · {etiqueta}", d["miembros"], _delta("miembros"), "",
                  f'en {num(d["grupos"])} grupos', 0),
-                (f"Clickrate · {etiqueta}", d["pct"], "%",
+                (f"Clickrate · {etiqueta}", d["pct"], _delta("pct"), "%",
                  f'{num(d["jugadores"])} jugadores', 1),
             ]
 
+        # Las dos líneas de la curva: una copia cada una, una ola cada punto. El
+        # «sin copia» no dibuja una tercera —son grupos de los que no sabemos
+        # qué mensaje recibieron, así que su línea no significaría nada— pero el
+        # tamaño de la ola ENTERA sí entra en cada tooltip: es lo que deja ver
+        # que una copia cubrió media ola, que si no se lee como si hubiera
+        # cubierto toda.
+        #
+        # El tooltip solo existe donde hay punto —`ch.lines` lo cuelga del
+        # círculo— así que una semana sin envío no puede explicarse a sí misma y
+        # lo explica la nota de abajo. Un tip para un punto que no se dibuja es
+        # texto que nadie va a ver nunca.
+        def _serie(clave, etiqueta):
+            tips = []
+            for fila in di["semanal"]:
+                d = fila[clave]
+                if not d["grupos"]:
+                    tips.append(None)
+                    continue
+                t = (f'Semana del {fila["label"]} · {etiqueta}\n'
+                     f'{num(d["jugadores"])} jugadores de {num(d["miembros"])} '
+                     f'alcanzados en {num(d["grupos"])} grupos = {_pct_txt(d["pct"])}\n'
+                     f'La ola entera de esa semana: {num(fila["global"]["grupos"])} '
+                     f'grupos, {num(fila["global"]["miembros"])} alcanzados')
+                if not fila["madura"]:
+                    t += (f'\nTodavía suma clics: el último envío fue el '
+                          f'{fila["ultimo_envio"].strftime("%d/%m")}')
+                tips.append(t)
+            return {
+                "label": etiqueta,
+                "values": [f[clave]["pct"] if f[clave]["grupos"] else None
+                           for f in di["semanal"]],
+                "weak": [not f["madura"] for f in di["semanal"]],
+                "tips": tips,
+            }
+
         cuerpo_dif = (
-            '<div class="grid g4">'
-            + "".join(_kpi_chico(l, v, h, suffix=sfx, dec=d) for l, v, sfx, h, d in
-                      _par("analisis", "análisis") + _par("generico", "genérico"))
-            + "</div>"
+            ('<div class="grid g4">'
+             + "".join(_kpi_camada(l, v, dl, contra, h, suffix=sfx, dec=dc)
+                       for l, v, dl, sfx, h, dc in
+                       _par("analisis", "análisis") + _par("generico", "genérico"))
+             + "</div>"
+             if ca else
+             '<p class="empty">ningún grupo de la copia recibió dx dentro de la '
+             'ventana del panel</p>')
             + '<p class="note">'
-            + (f'<b>La ola salió con dos copias y no con una.</b> A los grupos donde '
-               f'las derivadas están en el temario se les habló de derivadas; a los '
-               f'demás, del juego. Los dos clickrates se comparan directo —son tasas '
-               f'por miembro, así que el tamaño de cada audiencia no los mueve— pero '
-               f'no se leen con la misma precisión: son '
-               f'{num(di["analisis"]["miembros"])} personas de un lado y '
-               f'{num(di["generico"]["miembros"])} del otro, y la más chica tiene el '
+            + (f'<b>Los cuatro números son de la última ola</b> —la del '
+               f'{ca["label"]}, {num(ca["envios"])} grupos— y no del acumulado. A '
+               f'los grupos donde las derivadas están en el temario se les habló de '
+               f'derivadas; a los demás, del juego. Los dos clickrates se comparan '
+               f'directo —son tasas por miembro, así que el tamaño de cada audiencia '
+               f'no los mueve— pero no se leen con la misma precisión: son '
+               f'{num(ca["analisis"]["miembros"])} personas de un lado y '
+               f'{num(ca["generico"]["miembros"])} del otro, y la más chica tiene el '
                f'intervalo más ancho.'
-               if di["analisis"]["miembros"] and di["generico"]["miembros"] else
-               '<b>Todavía no están las dos copias.</b> La etiqueta la escribe '
-               '<code>scripts/diag/sync_grupos.py --cluster</code> desde los planes '
-               'de la campaña; sin ella la ola no se puede partir.')
-            + (f'<br><br>Quedan afuera {num(di["sin_copia"]["miembros"])} personas en '
+               if ca and ca["analisis"]["miembros"] and ca["generico"]["miembros"] else
+               f'<b>La ola del {ca["label"]} no salió con las dos copias.</b> La '
+               f'etiqueta la escribe <code>scripts/diag/sync_grupos.py --cluster</code> '
+               f'desde los planes de la campaña; sin ella la ola no se puede partir.'
+               if ca else
+               '<b>Todavía no hay ninguna ola dentro de la ventana.</b>')
+            + ("" if not ca or ca["madura"] else
+               f'<br><br><b>Esa ola todavía no terminó de llegar.</b> Su último envío '
+               f'fue el {ca["ultimo_envio"].strftime("%d/%m")} y el clic tarda: el '
+               f'79% entra el mismo día, pero recién a los {di["maduracion_dias"]} '
+               f'días está el 96%. Los dos clickrates de arriba son un piso, y el '
+               f'delta contra la ola anterior se va a achicar solo.')
+            + (f'<br><br>Quedan afuera de las dos copias '
+               f'{num(di["sin_copia"]["miembros"])} personas en '
                f'{num(di["sin_copia"]["grupos"])} grupos sin copia anotada, que '
-               f'trajeron {num(di["sin_copia"]["jugadores"])} jugadores. Son de las '
-               f'primeras tandas, mandadas antes de que la ola se partiera en dos. No '
-               f'se reparten a ojo: «no sabemos con cuál» es información.'
+               f'trajeron {num(di["sin_copia"]["jugadores"])} jugadores. La etiqueta '
+               f'la escribe <code>scripts/diag/sync_grupos.py --cluster</code> desde '
+               f'los planes de la campaña, así que una campaña cuyos planes no la '
+               f'declaran deja a todos sus grupos afuera de las dos líneas. No se '
+               f'reparten a ojo: «no sabemos con cuál» es información.'
                if di["sin_copia"]["grupos"] else "")
-            + f'<br><br>El conjunto da <b>{_pct_txt(g["pct"])}</b> sobre '
+            + f'<br><br>Sumando todas las olas da <b>{_pct_txt(g["pct"])}</b> sobre '
               f'{num(g["miembros"])} personas en {num(g["grupos"])} grupos, '
-              f'{num(g["jugadores"])} jugadores. La cobertura del cruce es '
+              f'{num(g["jugadores"])} jugadores — y es el número que miden las tres '
+              f'tablas de abajo, que son acumuladas. La cobertura del cruce es '
               f'{_pct_txt(di["pct_cobertura"])} ({num(di["cubiertos"])} de '
               f'{num(di["atribuidos"])} atribuidos).'
             + "</p>"
+            + _box("Cómo se movió el clickrate de cada copia",
+                   ch.lines([_serie("analisis", "análisis"),
+                             _serie("generico", "genérico")],
+                            [f["label"] for f in di["semanal"]],
+                            suffix="%", height=240),
+                   note="Cada punto es una OLA y no una semana de calendario: los "
+                        "jugadores se le cuentan a la semana en que se posteó en su "
+                        "grupo, aunque entren tres días después. Las semanas sin "
+                        "envío no tienen punto y la línea se corta ahí: bajar a cero "
+                        "sería dibujar una ola que no salió. Las que "
+                        "todavía suman clics van con el punto hueco y la línea "
+                        "punteada. <b>Pasando el mouse por encima de un punto sale de "
+                        "cuántos grupos y de cuánta gente salió ese porcentaje</b>, "
+                        "que es lo que decide si la diferencia entre dos olas es una "
+                        "señal o dos grupos chicos.")
             + _box("Por universidad",
                    _table(["Universidad", "Grupos", "Alcanzados", "Jugadores", "Clickrate"],
                           [[f'<b>{esc(f["clave"])}</b>', num(f["grupos"]), num(f["miembros"]),
