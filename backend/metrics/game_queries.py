@@ -2110,8 +2110,22 @@ def experimento_motor(data: dict) -> dict:
 # señal, es una persona.
 MIN_MIEMBROS_FILA = 40
 
+# Cuánto tarda una ola en terminar de traer clics. Medido en producción el
+# 25/09 sobre los 1.713 jugadores con grupo conocido de las dos olas de
+# septiembre, contando desde el día en que se posteó en su grupo: el 79,4% entra
+# el MISMO día, el 86,7% dentro del siguiente y el 96,1% dentro de la semana.
+# Las dos olas dan lo mismo por separado —95% y 97% al sexto día— así que no es
+# el promedio de dos comportamientos distintos.
+#
+# Una semana se da por madura siete días después de su último envío, y hasta
+# entonces su punto de la curva sale marcado como flojo. El 4% que falta no
+# mueve un clickrate; lo que lo mueve es dibujar igual de firme una ola posteada
+# anteayer, porque entonces la curva termina en una caída que es nada más la ola
+# a medio llegar.
+MADURACION_CLICS_DIAS = 7
 
-def difusion(data: dict) -> dict:
+
+def difusion(data: dict, week: date) -> dict:
     """El clickrate de la difusión: de cuánta gente alcanzada, cuánta entró.
 
     **Es la única métrica del panel que necesita un dato de afuera.** El
@@ -2130,6 +2144,14 @@ def difusion(data: dict) -> dict:
     La cobertura se reporta siempre. Un jugador cuyo grupo no está en la copia
     del tracker no se puede dividir, y si esos son un tercio, un clickrate
     global que los ignore está midiendo otra cosa.
+
+    **Sale partido por ola además de acumulado.** El acumulado promedia todo lo
+    que se mandó desde el principio, así que una ola nueva que rinde la mitad
+    casi no lo mueve y la caída se ve recién cuando ya pasó. `semanal` tiene una
+    fila por semana del panel con las dos copias adentro, y `camada`/`previa`
+    son las dos últimas que efectivamente salieron —no las dos últimas del
+    calendario— porque entre dos olas hay semanas sin un solo envío y comparar
+    contra una de esas es comparar contra nada.
     """
     grupos = {g["id"]: g for g in data["grupos"]}
     jugadores: dict[str, int] = defaultdict(int)
@@ -2198,10 +2220,54 @@ def difusion(data: dict) -> dict:
                             "materia": d["materia"] or d["cluster"], **t})
     detalle.sort(key=lambda f: -(f["pct"] or 0))
 
+    # La ola de cada semana. **Un grupo pertenece a la semana en que se le
+    # mandó, y sus jugadores se le cuentan a esa semana aunque lleguen días
+    # después** — es la misma convención que `_camadas` usa con los reclutas y
+    # por el mismo motivo: lo que se mide es qué rindió un envío, no qué pasó un
+    # lunes. Repartir a los jugadores por su propia fecha de alta partiría el
+    # rendimiento de una sola ola entre dos puntos de la curva.
+    por_semana: dict[date, list[str]] = defaultdict(list)
+    for g in tocados:
+        envio = _fecha_de(grupos[g]["ultimo_envio"])
+        if envio is not None:
+            por_semana[week_start(envio)].append(g)
+
+    # La madurez se mide contra HOY y no contra la semana elegida en el panel,
+    # igual que en `_camadas`: lo que le falta a una ola es tiempo real desde el
+    # envío, no qué semana se esté mirando.
+    hoy = local_date(datetime.utcnow())
+    semanal = []
+    for w in _semanas_hasta(week):
+        gs = por_semana.get(w, [])
+        ultimo = max((_fecha_de(grupos[g]["ultimo_envio"]) for g in gs),
+                     default=None)
+        semanal.append({
+            "week": w.isoformat(),
+            "label": w.strftime("%d/%m"),
+            "envios": len(gs),
+            "ultimo_envio": ultimo,
+            "madura": ultimo is not None
+                      and hoy >= ultimo + timedelta(days=MADURACION_CLICS_DIAS),
+            "analisis": tasa([g for g in gs if grupos[g]["cluster_dx"] == "analisis"]),
+            "generico": tasa([g for g in gs if grupos[g]["cluster_dx"] == "generico"]),
+            "sin_copia": tasa([g for g in gs if not grupos[g]["cluster_dx"]]),
+            "global": tasa(gs),
+        })
+
+    # Las dos olas comparables, que no son las dos últimas semanas: la difusión
+    # va por tandas y entre una y otra hay semanas enteras sin un envío. Con la
+    # semana del calendario, el panel de un martes tranquilo muestra cuatro
+    # guiones y un delta contra la nada.
+    con_envios = [f for f in semanal if f["envios"]]
+
     sincro = max((g["synced_at"] for g in data["grupos"] if g["synced_at"]),
                  default=None)
     return {
         "global": tasa(tocados),
+        "semanal": semanal,
+        "camada": con_envios[-1] if con_envios else None,
+        "previa": con_envios[-2] if len(con_envios) > 1 else None,
+        "maduracion_dias": MADURACION_CLICS_DIAS,
         "analisis": copia("analisis"),
         "generico": copia("generico"),
         "sin_copia": sin_copia,
@@ -3173,7 +3239,7 @@ def build(db: DBSession, week: date, weeks_shown: int = 4,
         "experimentos": experimentos(data),
         "experimento_motor": experimento_motor(data),
         "experimentos_grupos": experimento_grupos(data),
-        "difusion": difusion(data),
+        "difusion": difusion(data, week),
         "carteles": carteles(data),
         "cartel_share": cartel_share_semanal(data, week),
         "monetizacion": monetizacion(data),
