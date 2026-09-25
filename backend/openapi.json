@@ -1405,7 +1405,7 @@
           "game"
         ],
         "summary": "Record Opinion",
-        "description": "\u00ab\u00bfC\u00f3mo te vienen resultando?\u00bb \u2014 el \u00fanico dato de opini\u00f3n que el juego pide.\n\nHace dos cosas con la misma respuesta y conviene no confundirlas. **Guarda**\nel voto junto a lo que el motor cre\u00eda en ese momento, que es lo que vuelve la\nopini\u00f3n una medici\u00f3n y no una an\u00e9cdota (el panel de Jugabilidad la lee as\u00ed).\nY **ajusta \u03b8** cuando el registro de la persona respalda lo que dijo.\n\nEl gate se repite ac\u00e1 y no se conf\u00eda en el cliente, igual que en `/stats`:\ncon menos de `opinion.MIN_RESPUESTAS` primeros intentos el voto se guarda\nigual pero no mueve nada, porque antes de eso el registro habla de por d\u00f3nde\nel juego hizo entrar a la persona y no de la persona.\n\nNo falla por contenido \u2014un voto desconocido se ignora\u2014 por lo mismo que\n`/cta`: esto aparece en la mitad de una partida, y un error ac\u00e1 le romper\u00eda\nel juego a alguien por un dato que es opcional.",
+        "description": "\u00ab\u00bfC\u00f3mo te vienen resultando?\u00bb \u2014 el \u00fanico dato de opini\u00f3n que el juego pide.\n\nHace dos cosas con la misma respuesta y conviene no confundirlas. **Guarda**\nel voto junto a lo que el motor cre\u00eda en ese momento, que es lo que vuelve la\nopini\u00f3n una medici\u00f3n y no una an\u00e9cdota (el panel de Jugabilidad la lee as\u00ed).\nY **ajusta \u03b8** cuando el registro de la persona respalda lo que dijo.\n\nEl gate se repite ac\u00e1 y no se conf\u00eda en el cliente, igual que en `/stats`:\ncon menos de `opinion.MIN_RESPUESTAS` primeros intentos el voto se guarda\nigual pero no mueve nada, porque antes de eso el registro habla de por d\u00f3nde\nel juego hizo entrar a la persona y no de la persona.\n\n**Y la ventana arranca en el \u00faltimo voto que cobr\u00f3**, no en la \u00faltima\nrespuesta (`_corte_cobrado`). Es lo que permite que la pregunta vuelva cada\ndiez sin que nadie cobre dos veces la misma sorpresa, y de paso el \u00fanico\nfreno que este endpoint tiene del lado del servidor: votar de nuevo sin\nhaber resuelto nada da ventana vac\u00eda y \u0394\u03b8 cero.\n\nNo falla por contenido \u2014un voto desconocido se ignora\u2014 por lo mismo que\n`/cta`: esto aparece en la mitad de una partida, y un error ac\u00e1 le romper\u00eda\nel juego a alguien por un dato que es opcional.",
         "operationId": "record_opinion_game_derivemos_opinion_post",
         "parameters": [
           {
@@ -1444,6 +1444,68 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/GameOpinionOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/game/derivemos/repetitividad": {
+      "post": {
+        "tags": [
+          "game"
+        ],
+        "summary": "Record Repetitividad",
+        "description": "\u00ab\u00bfTe est\u00e1n saliendo repetidas?\u00bb \u2014 la segunda opini\u00f3n que el juego pide.\n\nMismo protocolo de dos pasos que `/opinion` y por el mismo motivo: una\npregunta mostrada y no contestada es informaci\u00f3n sobre la pregunta, y sin\nregistrar la impresi\u00f3n no hay manera de saber cu\u00e1nta gente la ignora.\n\n**Guarda y no ajusta**, que es toda la diferencia con la de dificultad. El\nporqu\u00e9 est\u00e1 en `game/repetitividad.py`: la ventana de exclusi\u00f3n del selector\nes una constante global y no una preferencia por persona, as\u00ed que no hay nada\nque mover con este voto todav\u00eda. Lo que s\u00ed hace es congelar los contadores\nobjetivos del momento \u2014cu\u00e1ntas plantillas y cu\u00e1ntos enunciados distintos\nven\u00eda viendo\u2014 porque el voto solo, sin eso al lado, no se puede distinguir de\nuna opini\u00f3n sobre la dificultad.\n\nNo falla por contenido, igual que `/opinion` y `/cta`: esto aparece en la\nmitad de una partida.",
+        "operationId": "record_repetitividad_game_derivemos_repetitividad_post",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          },
+          {
+            "name": "x-game-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "X-Game-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GameRepetitividadRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameRepetitividadOut"
                 }
               }
             }
@@ -6190,6 +6252,59 @@
           "share_percent"
         ],
         "title": "GameRecruitsResponse"
+      },
+      "GameRepetitividadOut": {
+        "properties": {
+          "guardado": {
+            "type": "boolean",
+            "title": "Guardado"
+          }
+        },
+        "type": "object",
+        "required": [
+          "guardado"
+        ],
+        "title": "GameRepetitividadOut",
+        "description": "Si la respuesta qued\u00f3 guardada.\n\nUn booleano, como `GameEncuestaOut` y al rev\u00e9s que `GameOpinionOut`: este voto\nno mueve \u03b8, as\u00ed que no hay ning\u00fan n\u00famero que devolverle al front. El d\u00eda que\nmueva algo, esto gana campos."
+      },
+      "GameRepetitividadRequest": {
+        "properties": {
+          "accion": {
+            "type": "string",
+            "maxLength": 12,
+            "title": "Accion"
+          },
+          "voto": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 12
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Voto"
+          },
+          "platform": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 8
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Platform"
+          }
+        },
+        "type": "object",
+        "required": [
+          "accion"
+        ],
+        "title": "GameRepetitividadRequest",
+        "description": "\u00ab\u00bfTe est\u00e1n saliendo repetidas?\u00bb, en los mismos dos pasos que las otras dos.\n\nLos tres valores (`variado` / `justo` / `repetitivo`) no viajan validados por\nel schema sino por `repetitividad.VOTOS` en el handler, igual que en\n`GameOpinionRequest`: un voto desconocido no puede romperle la partida a\nnadie, as\u00ed que se ignora en vez de devolver 422.\n\nNo hay campo para los contadores objetivos y eso es a prop\u00f3sito: los calcula\nel servidor sobre el historial, porque son la mitad del dato que hace\ncomparable al voto y el cliente no tiene por qu\u00e9 poder inventarlos."
       },
       "GameSkipRequest": {
         "properties": {

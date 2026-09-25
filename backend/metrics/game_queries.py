@@ -367,6 +367,12 @@ def load(db: DBSession) -> dict:
             SELECT player_id, voto, shown_at, answered_at, theta_at_vote,
                    ventana, aciertos, p_hat_medio, delta_theta
             FROM game_difficulty_votes"""),
+        # La otra encuesta. Sin θ y sin aciertos: lo que congela son los dos
+        # contadores de variedad, que es contra lo que hay que leer el voto.
+        "rep_votes": _rows(db, """
+            SELECT player_id, voto, shown_at, answered_at,
+                   ventana, plantillas_distintas, enunciados_distintos
+            FROM game_repetition_votes"""),
         # La pregunta abierta. Se trae el texto entero y sin muestreo: son
         # decenas de filas por semana, no millones, y la única lectura posible
         # de una respuesta abierta es leerla.
@@ -391,6 +397,7 @@ def load(db: DBSession) -> dict:
     data["cta"] = [c for c in data["cta"] if c["player_id"] not in fuera]
     data["intents"] = [i for i in data["intents"] if i["player_id"] not in fuera]
     data["votes"] = [v for v in data["votes"] if v["player_id"] not in fuera]
+    data["rep_votes"] = [v for v in data["rep_votes"] if v["player_id"] not in fuera]
     data["avisos"] = [a for a in data["avisos"] if a["player_id"] not in fuera]
     data["suscripciones"] = [x for x in data["suscripciones"] if x["player_id"] not in fuera]
     # Los cafecitos no tienen jugador —`game_boosts` guarda nombre, universidad y
@@ -2827,7 +2834,7 @@ def calibracion(data: dict) -> dict:
 
 # ── 10 · La opinión de la gente ──────────────────────────────────────────────
 
-def opinion(data: dict) -> dict:
+def opinion(data: dict, weeks: list[date]) -> dict:
     """Lo que el motor prometía contra lo que dijo la persona.
 
     La sección anterior —`calibracion`— compara la promesa del motor con el
@@ -2844,6 +2851,14 @@ def opinion(data: dict) -> dict:
     Todo se lee de la fila del voto y no se recalcula desde `game_exercises`: la
     fila congeló lo que el motor creía en ese momento, y β y θ se mueven todo el
     tiempo (ver el docstring de `models.GameDifficultyVote`).
+
+    **El titular es de siempre y `por_semana` es la serie**, y hasta el 24/09 solo
+    existía lo primero. Eso alcanzaba mientras el juego no cambiaba: el 19/09
+    salieron los tiers 6-8 y el promedio histórico siguió mostrando el número de
+    un catálogo que ya no existía, mezclando seis días de antes con tres de
+    después. Con una pregunta que ahora vuelve cada diez respuestas, un promedio
+    de toda la vida tarda meses en moverse — o sea que sin la serie no hay manera
+    de leer el efecto de nada.
     """
     votos = data["votes"]
     mostradas = len(votos)
@@ -2885,8 +2900,28 @@ def opinion(data: dict) -> dict:
     justo = next((f for f in filas if f["voto"] == "justo"), None)
     movido_total = sum(v["delta_theta"] for v in contestadas)
 
+    # La serie por semana. Solo dos números por semana y no la tabla entera: lo
+    # que hay que poder ver de un vistazo es si la gente dejó de decir que está
+    # fácil, y a qué tasa de acierto dice que está justa. El resto se lee en el
+    # acumulado, que tiene el n para sostenerlo.
+    por_semana = []
+    for w in weeks:
+        suyos = [v for v in contestadas if _in_week(v["shown_at"], w)]
+        con_v = [v for v in suyos if (v["ventana"] or 0) > 0 and v["voto"] == "justo"]
+        n_resp = sum(v["ventana"] for v in con_v)
+        por_semana.append({
+            "semana": w,
+            "label": w.strftime("%d/%m"),
+            "n": len(suyos),
+            "pct_muy_facil": _pct(sum(1 for v in suyos if v["voto"] == "muy_facil"),
+                                  len(suyos)),
+            "comodo_en": (round(100 * sum(v["aciertos"] for v in con_v) / n_resp, 1)
+                          if n_resp else None),
+        })
+
     return {
         "filas": filas,
+        "por_semana": por_semana,
         "mostradas": mostradas,
         "contestadas": len(contestadas),
         "pct_respuesta": _pct(len(contestadas), mostradas),
@@ -2901,6 +2936,79 @@ def opinion(data: dict) -> dict:
         "theta_movido": round(movido_total, 1),
         "jugadores": len({v["player_id"] for v in contestadas}),
     }
+
+def repetitividad(data: dict, weeks: list[date]) -> dict:
+    """Si le salen repetidas, contra cuántas repetidas le salieron de verdad.
+
+    Hermana de `opinion` y la misma forma de leerla: el voto de la persona al lado
+    del dato objetivo del mismo momento. Lo que cambia es qué es el dato objetivo
+    —acá son las plantillas y los enunciados distintos que venía viendo, no lo que
+    el motor prometía— y que **este voto no mueve nada**, así que no hay ninguna
+    columna de Δ que mirar.
+
+    **El número que hay que mirar es la fila de «repetitivo»**: cuántos enunciados
+    distintos venía viendo quien dice que se repiten. El selector excluye las
+    últimas `generator._RECENT_EXCLUDE` plantillas, así que si esa fila da cerca de
+    la ventana entera, el problema no es que repita: es que el banco es chico y la
+    misma plantilla vuelve con otro número. Si da bajo, la exclusión se está
+    quedando corta.
+
+    Las filas con `ventana < repetitividad.MIN_VISTOS` guardan los contadores en
+    cero a propósito, así que se cuentan para la tasa de respuesta pero se dejan
+    afuera de los promedios: un cero que significa «no sabemos» arrastraría la
+    media hacia abajo justo en la fila de la gente nueva.
+    """
+    from game import repetitividad as dominio
+    from game.generator import _RECENT_EXCLUDE
+
+    votos = data["rep_votes"]
+    mostradas = len(votos)
+    contestadas = [v for v in votos if v["answered_at"] is not None and v["voto"]]
+
+    filas = []
+    for valor in dominio.VOTOS:
+        suyos = [v for v in contestadas if v["voto"] == valor]
+        if not suyos:
+            continue
+        con_datos = [v for v in suyos if (v["ventana"] or 0) >= dominio.MIN_VISTOS]
+        filas.append({
+            "voto": valor,
+            "n": len(suyos),
+            "plantillas": (round(sum(v["plantillas_distintas"] for v in con_datos)
+                                 / len(con_datos), 1) if con_datos else None),
+            "enunciados": (round(sum(v["enunciados_distintos"] for v in con_datos)
+                                 / len(con_datos), 1) if con_datos else None),
+            "con_datos": len(con_datos),
+        })
+
+    por_semana = []
+    for w in weeks:
+        suyos = [v for v in contestadas if _in_week(v["shown_at"], w)]
+        por_semana.append({
+            "semana": w,
+            "label": w.strftime("%d/%m"),
+            "n": len(suyos),
+            "pct_repetitivo": _pct(sum(1 for v in suyos if v["voto"] == "repetitivo"),
+                                   len(suyos)),
+        })
+
+    quejosos = next((f for f in filas if f["voto"] == "repetitivo"), None)
+    return {
+        "filas": filas,
+        "por_semana": por_semana,
+        "mostradas": mostradas,
+        "contestadas": len(contestadas),
+        "pct_respuesta": _pct(len(contestadas), mostradas),
+        "jugadores": len({v["player_id"] for v in contestadas}),
+        # La ventana con la que se midió, para poder leer los promedios de arriba:
+        # «14 enunciados distintos» no dice nada sin saber sobre cuántos.
+        "ventana": dominio.VENTANA,
+        "enunciados_del_quejoso": quejosos["enunciados"] if quejosos else None,
+        # Cuántas plantillas excluye el selector. Es el número con el que hay que
+        # comparar la fila de «repetitivo» para saber de qué lado está el problema.
+        "excluidas": _RECENT_EXCLUDE,
+    }
+
 
 # ── 11 · Fricción ────────────────────────────────────────────────────────────
 
@@ -3070,7 +3178,8 @@ def build(db: DBSession, week: date, weeks_shown: int = 4,
         "cartel_share": cartel_share_semanal(data, week),
         "monetizacion": monetizacion(data),
         "calibracion": calibracion(data),
-        "opinion": opinion(data),
+        "opinion": opinion(data, weeks),
+        "repetitividad": repetitividad(data, weeks),
         "encuestas": encuestas(data),
         "friccion": friccion(data),
     }

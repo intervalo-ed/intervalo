@@ -1507,9 +1507,12 @@ class GameCtaEvent(Base):
 class GameDifficultyVote(Base):
     """Qué le pareció la dificultad a la persona, y qué hizo el motor con eso.
 
-    Es la única opinión que el juego recoge. El motor decide todo con lo que mide
-    —`p̂ = σ((θ − β)·SCALE)`— y acá entra lo otro: cómo se siente quien juega. La
-    fórmula del ajuste y sus constantes viven en `game/opinion.py`.
+    Es una de las dos opiniones que el juego recoge —la otra es
+    `GameRepetitionVote`, y comparten la escalera de turnos del front
+    (`opinion-trigger.ts`)—, y la única de las dos que mueve algo. El motor decide
+    todo con lo que mide —`p̂ = σ((θ − β)·SCALE)`— y acá entra lo otro: cómo se
+    siente quien juega. La fórmula del ajuste y sus constantes viven en
+    `game/opinion.py`.
 
     **Se guardan los agregados de la ventana y no solo el voto**, y eso no es
     redundancia con `game_exercises`: β se mueve con cada respuesta y
@@ -1555,6 +1558,22 @@ class GameDifficultyVote(Base):
     # solo mueve cuando la evidencia va para el mismo lado.
     delta_theta = Column(Float, nullable=False, default=0.0)
 
+    # El `game_exercises.id` más nuevo que este ajuste ya cobró, y el piso de la
+    # ventana del voto siguiente (`router._corte_cobrado`).
+    #
+    # Existe porque la encuesta dejó de volver cada 30: la escalera arranca con
+    # huecos de 10 y la ventana mira hasta 20, así que sin un corte explícito el
+    # segundo voto volvería a cobrar media tanda que el primero ya había cobrado.
+    # Antes el invariante era aritmético —30 > 20— y vivía escrito en un
+    # comentario que nada verificaba.
+    #
+    # **NULL cuando el voto no movió nada**, que es el caso más común: un «justo»
+    # o un voto que la evidencia no respaldó no cobró, así que sus respuestas
+    # siguen disponibles. Las filas anteriores al 24/09 lo tienen en NULL y eso es
+    # correcto y no una laguna: para el corte solo importa el ajuste más reciente,
+    # y el primero que se aplique después del deploy lo escribe.
+    corte_ejercicio_id = Column(Integer, nullable=True)
+
     platform = Column(String(8), nullable=True)
 
     __table_args__ = (
@@ -1563,6 +1582,81 @@ class GameDifficultyVote(Base):
         CheckConstraint(
             "voto IS NULL OR voto IN ('muy_facil','justo','muy_dificil')",
             name="ck_game_votes_voto",
+        ),
+    )
+
+
+class GameRepetitionVote(Base):
+    """¿Le están saliendo repetidas?, y cuántas repetidas le salieron de verdad.
+
+    La segunda pregunta del juego, hermana de `GameDifficultyVote`: mismo
+    protocolo de dos pasos, misma escalera de turnos en el front, y la misma idea
+    de guardar la opinión **al lado del dato objetivo del mismo momento**.
+
+    **Por qué existe.** Cinco de las 109 respuestas a la pregunta abierta hablan
+    de repetición sin que nadie se lo preguntara, y las cinco son de jugadores
+    pesados (76, 325, 356, 374 y 583 derivadas). Antes de eso, el arreglo del
+    10/09 salió del reporte de una sola persona —«conté 4 veces la misma en 10
+    oportunidades consecutivas»— y al medirlo la repetición de enunciado era del
+    77,5% del ejercicio 51 en adelante. El tema es real, es tardío, y hasta ahora
+    el producto se enteraba por casualidad.
+
+    **Tabla aparte y no un canal más de `game_difficulty_votes`**, aunque la
+    forma sea la misma. Lo que se congela es otro: allá son θ, aciertos y p̂
+    —cuánto le prometió el motor y cuánto entregó la persona—; acá son cuántas
+    plantillas y cuántos enunciados distintos vio. Compartiendo tabla, cada fila
+    dejaría en NULL la mitad de las columnas de la otra pregunta, y el
+    `CheckConstraint` del voto tendría que aflojarse para aceptar dos
+    vocabularios.
+
+    **Este voto no mueve nada, y es a propósito.** No hay acá un equivalente de
+    «el voto elige el signo, la evidencia elige el tamaño»: la ventana de
+    exclusión del selector (`generator._RECENT_EXCLUDE`) es una constante global
+    y no una preferencia por persona, y volverla personal es un diseño propio que
+    conviene hacer DESPUÉS de tener estos números. Mientras tanto es dato para
+    decidir, como el canal D del clásico.
+    """
+
+    __tablename__ = "game_repetition_votes"
+
+    id = Column(Integer, primary_key=True, index=True)
+    player_id = Column(Integer, ForeignKey("game_players.id"), nullable=False, index=True)
+
+    # "variado" | "justo" | "repetitivo", NULL mientras no haya respondido.
+    #
+    # `justo` es literalmente la misma palabra que en las otras dos encuestas y
+    # eso es deliberado —los tres canales se pueden cruzar sin tabla de
+    # traducción— pero significa otra cosa: acá es «ni variadas ni repetidas».
+    # Cualquier consulta que agrupe por valor sin filtrar por canal las mezcla.
+    voto = Column(String(12), nullable=True)
+
+    shown_at = Column(DateTime, nullable=False, default=datetime.utcnow, index=True)
+    answered_at = Column(DateTime, nullable=True)
+
+    # Dónde estaba la persona cuando se preguntó. Sin θ: lo que se está midiendo
+    # no es su habilidad, y guardarlo invitaría a cruces que no significan nada.
+    n_updates_at_vote = Column(Integer, nullable=False)
+
+    # Y qué venía viendo. Son el equivalente de `ventana`/`aciertos`/`p_hat_medio`
+    # de la otra tabla y están por el mismo motivo: la opinión sola no dice nada
+    # si no está contra lo que estaba pasando en ese mismo momento, y esto no se
+    # puede recalcular la semana que viene porque el historial sigue creciendo.
+    #
+    # Dos contadores y no uno porque miden cosas distintas: `plantillas` responde
+    # «¿cuántas reglas distintas?» y `enunciados` responde «¿cuántas derivadas
+    # literalmente distintas?». El arreglo del 10/09 fue sobre el segundo y el
+    # pedido de «más variedad» suele ser sobre el primero.
+    ventana = Column(Integer, nullable=False, default=0)
+    plantillas_distintas = Column(Integer, nullable=False, default=0)
+    enunciados_distintos = Column(Integer, nullable=False, default=0)
+
+    platform = Column(String(8), nullable=True)
+
+    __table_args__ = (
+        Index("idx_game_rep_player_shown", "player_id", "shown_at"),
+        CheckConstraint(
+            "voto IS NULL OR voto IN ('variado','justo','repetitivo')",
+            name="ck_game_rep_voto",
         ),
     )
 

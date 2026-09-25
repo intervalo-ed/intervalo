@@ -156,7 +156,8 @@ CSS = theme.BASE_CSS + CSS_DX
 # Son los mismos del chip que el jugador ve en su ranking, que es lo que hace
 # que una línea del desglose se reconozca sin leer la leyenda.
 from .render import (  # noqa: E402
-    CAREER_LABEL, SURVEY_EMOJI_A, SURVEY_TEXT, UNIVERSITY_COLOR, _uni_chip,
+    CAREER_LABEL, SURVEY_EMOJI_A, SURVEY_EMOJI_R, SURVEY_TEXT,
+    UNIVERSITY_COLOR, _uni_chip,
 )
 
 # Los pesos del sorteo se LEEN de donde se deciden, no se copian: la columna
@@ -1745,15 +1746,80 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                     'El tope de un ajuste es un tier '
                     f'(<code>opinion.TOPE</code> = {num(OPINION_TOPE, dec=2)}), que '
                     'es lo que hace que un voto pueda subir de color pero nunca '
-                    'saltear un nivel.'),
+                    'saltear un nivel.')
+        + _box("Semana a semana",
+               _table(["Semana", "Votos", "Muy fáciles", "Se sienten cómodos en"],
+                      [[esc(f["label"]), num(f["n"]),
+                        num(f["pct_muy_facil"], "%"), num(f["comodo_en"], "%")]
+                       for f in op["por_semana"]],
+                      empty="todavía no hay votos"),
+               note='La tabla de arriba es de toda la historia y esta es la serie, y '
+                    'hace falta tener las dos: el 19/09 salieron los tiers 6-8 y el '
+                    'acumulado siguió mostrando el número de un catálogo que ya no '
+                    'existía. <b>La columna que hay que mirar es «muy fáciles»</b> — si '
+                    'la regla de la cadena hizo lo que tenía que hacer, baja.'),
         sub="El motor decide la dificultad con lo que mide. Esto es lo único que "
             "mide preguntando.",
         anchor="opinion")
 
+    # ── La otra pregunta: si le salen repetidas ───────────────────────────────
+    rp = p["repetitividad"]
+    _rot_r = lambda v: f'{SURVEY_EMOJI_R.get(v, "")} {SURVEY_TEXT.get(v, v)}'.strip()
+
+    if rp["enunciados_del_quejoso"] is None:
+        titular_r = ("Todavía no hay suficientes votos para decir de qué lado está "
+                     "el problema.")
+    else:
+        titular_r = (
+            f'Quien dice que se repiten venía viendo '
+            f'<b>{num(rp["enunciados_del_quejoso"], dec=1)} enunciados distintos</b> '
+            f'en sus últimas {num(rp["ventana"])} derivadas. El selector ya excluye '
+            f'las {num(rp["excluidas"])} plantillas más recientes, así que un número '
+            f'alto acá quiere decir que el banco es chico y la misma plantilla vuelve '
+            f'con otros números; uno bajo, que la exclusión se está quedando corta.'
+        )
+
+    pieza_repetitividad = _section(
+        4, "Si le salen repetidas",
+        '<div class="grid g4">'
+        + "".join(_kpi_chico(l, v, h, suffix=sfx, dec=d) for l, v, sfx, h, d in [
+            ("Contestaron", rp["pct_respuesta"], "%",
+             f'{num(rp["contestadas"])} de {num(rp["mostradas"])} preguntas', 1),
+            ("Personas", rp["jugadores"], "", "que votaron al menos una vez", 0),
+            ("Ventana", rp["ventana"], "", "sobre cuántas derivadas se mide", 0),
+            ("Plantillas excluidas", rp["excluidas"], "",
+             "las que el selector no puede repetir", 0)])
+        + "</div>"
+        + _box("Cuántos dijeron cada cosa",
+               ch.stack([{"label": _rot_r(f["voto"]), "n": f["n"]} for f in rp["filas"]])
+               if rp["filas"] else '<p class="empty">todavía nadie votó</p>')
+        + _box("Lo que decían contra lo que venían viendo",
+               _table(["Voto", "Votos", "Plantillas distintas", "Enunciados distintos",
+                       "Con datos"],
+                      [[f'<b>{esc(_rot_r(f["voto"]))}</b>', num(f["n"]),
+                        num(f["plantillas"], dec=1), num(f["enunciados"], dec=1),
+                        num(f["con_datos"])]
+                       for f in rp["filas"]],
+                      empty="todavía no hay votos"),
+               note=titular_r + ' Los dos contadores son promedios sobre la ventana y '
+                    'se cuentan aparte porque miden cosas distintas: ocho plantillas '
+                    'pueden ser ocho veces el mismo enunciado, que es exactamente el '
+                    'bug que se arregló el 10/09. «Con datos» son los votos de gente '
+                    'que ya había visto lo suficiente para que el promedio signifique '
+                    'algo; el resto cuenta para la tasa de respuesta y no para las '
+                    'dos columnas de la izquierda.')
+        + _box("Semana a semana",
+               _table(["Semana", "Votos", "Muy repetidas"],
+                      [[esc(f["label"]), num(f["n"]), num(f["pct_repetitivo"], "%")]
+                       for f in rp["por_semana"]],
+                      empty="todavía no hay votos")),
+        sub="Este voto no mueve nada: es dato para decidir cuánto ampliar el banco.",
+        anchor="repetitividad")
+
     # ── Fricción ─────────────────────────────────────────────────────────────
     fr = p["friccion"]
     pieza_friccion = _section(
-        4, "Fricción",
+        5, "Fricción",
         '<div class="grid g4">'
         + "".join(_kpi_chico(l, v, h, suffix=sfx, dec=d) for l, v, sfx, h, d in [
             ("Salteadas", fr["pct_salteados"], "%", "«esta no la sé»", 1),
@@ -1831,7 +1897,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                       + pieza_push + pieza_mails),
         "jugabilidad": (_fila_kpi(p["headline"]["jugabilidad"])
                         + pieza_profundidad + pieza_calibracion + pieza_opinion
-                        + pieza_friccion),
+                        + pieza_repetitividad + pieza_friccion),
         "monetizacion": (_fila_kpi(p["headline"]["monetizacion"])
                          + pieza_monetizacion),
         "experimentacion": (pieza_experimentos + pieza_experimento_motor

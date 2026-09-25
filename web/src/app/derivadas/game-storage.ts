@@ -102,6 +102,7 @@ export function clearGameIdentity() {
     window.localStorage.removeItem(INSTALAR_KEY)
     window.localStorage.removeItem(NOTIF_KEY)
     window.localStorage.removeItem(OPINION_KEY)
+    window.localStorage.removeItem(OPINION_SALTOS_KEY)
     window.localStorage.removeItem(ENCUESTA_KEY)
     window.localStorage.removeItem(REGLAS_KEY)
     window.localStorage.removeItem(REGLAS_V1_KEY)
@@ -343,6 +344,42 @@ export function readPedidoState(clave: string): PedidoRepetido {
 export function savePedidoState(clave: string, estado: PedidoRepetido) {
   try {
     window.localStorage.setItem(clave, JSON.stringify(estado))
+  } catch {}
+}
+
+// Cuántas veces seguidas se cerró una encuesta sin contestarla.
+//
+// Es el freno que reemplazó al tope de tres apariciones que tenía la encuesta de
+// dificultad. La diferencia importa: el tope contaba lo que el juego preguntaba y
+// cortaba también a quien contestaba siempre, que es justo la persona que hay que
+// seguir escuchando. Esto cuenta lo que la persona IGNORA, así que corta solo
+// donde molesta. Con 91,8% de respuesta medido, son muy pocos.
+//
+// Es la misma idea que `feedback_survey.SKIP_STREAK_LEN` en el clásico.
+//
+// **Clave propia y no un tercer campo de `PedidoRepetido`.** Ese tipo lo
+// comparten cinco cajas y `readPedidoState` devuelve un objeto reconstruido campo
+// por campo, así que un campo nuevo se descartaría en silencio al leer; y las
+// otras cuatro cajas no tienen nada que hacer con una racha de salteos.
+//
+// Un número pelado y no JSON porque es un número pelado. Ilegible cuenta como
+// cero, o sea «no viene salteando»: el lado hacia el que conviene errar es
+// preguntar una vez de más, no dejar de escuchar a alguien por un dato perdido.
+const OPINION_SALTOS_KEY = "intervalo:game:opinion-saltos"
+
+export function readOpinionSaltos(): number {
+  if (typeof window === "undefined") return 0
+  try {
+    const n = Number(window.localStorage.getItem(OPINION_SALTOS_KEY))
+    return Number.isFinite(n) && n > 0 ? n : 0
+  } catch {
+    return 0
+  }
+}
+
+export function saveOpinionSaltos(n: number) {
+  try {
+    window.localStorage.setItem(OPINION_SALTOS_KEY, String(n))
   } catch {}
 }
 

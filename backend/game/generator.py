@@ -150,20 +150,54 @@ def beta_of(stat: GameTemplateStat) -> float:
     return elo.effective_beta(stat.beta, stat.tier, stat.n_players)
 
 
-def _recent_template_keys(db: Session, player: GamePlayer) -> list[str]:
+def _recent_template_keys(
+    db: Session, player: GamePlayer, n: int = _RECENT_EXCLUDE
+) -> list[str]:
     """Las últimas plantillas servidas, de la más reciente a la más vieja.
 
     Lista y no conjunto: la escalera de `pick_template` acorta la ventana cuando
     se queda sin candidatas, y para acortarla hay que saber cuál es la más vieja.
+
+    `n` por defecto es la ventana de exclusión porque el selector es el único que
+    la usaba. Quedó parametrizada para `ultimos_vistos`, que mira más atrás.
     """
     rows = (
         db.query(GameExercise.template_key)
         .filter(GameExercise.player_id == player.id)
         .order_by(GameExercise.id.desc())
-        .limit(_RECENT_EXCLUDE)
+        .limit(n)
         .all()
     )
     return [key for (key,) in rows]
+
+
+def ultimos_vistos(
+    db: Session, player: GamePlayer, n: int
+) -> list[tuple[str, str]]:
+    """Los últimos `n` ejercicios servidos: `(template_key, prompt_latex)`.
+
+    Es el insumo de `repetitividad.resumen`, y vive acá y no en el router por lo
+    mismo que `_recent_template_keys`: quien decide qué se sirve es este módulo,
+    así que medir cuánto se repitió lo que sirvió también le toca.
+
+    **Sin filtrar por estado ni por intento**, al revés que `router._tanda_reciente`.
+    Lo que se está contando es lo que la persona VIO, y una derivada salteada se
+    vio igual —de hecho saltearla es la reacción más probable a la cuarta vez de
+    la misma—. El porqué largo está en el docstring de `repetitividad.py`.
+
+    Trae el enunciado y no solo la clave porque son dos preguntas distintas:
+    ocho plantillas distintas pueden ser ocho veces el mismo enunciado si las
+    ranuras de números no ciclan, que es exactamente el bug que se arregló el
+    10/09 (`_VENTANAS`, y las ranuras `k` ensanchadas a 9 valores).
+    """
+    rows = (
+        db.query(GameExercise.template_key, GameExercise.prompt_latex)
+        .filter(GameExercise.player_id == player.id)
+        .order_by(GameExercise.id.desc())
+        .limit(n)
+        .all()
+    )
+    return [(clave, enunciado) for clave, enunciado in rows]
 
 
 def desbloqueadas(player: GamePlayer) -> list[GameTemplate]:

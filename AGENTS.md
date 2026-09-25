@@ -1,6 +1,6 @@
 ## Antes de dar por terminado un cambio
 
-**Correr la suite:** `python backend/scripts/run_checks.py` (49 checks, ~90 s).
+**Correr la suite:** `python backend/scripts/run_checks.py` (50 checks, ~90 s).
 Un check nuevo se agrega a la lista de `CHECKS` en ese script — la lista es
 explícita a propósito: `backend/scripts/diag/` tiene scripts que se conectan a la
 base REAL y uno de ellos renombra gente, así que un glob no sirve.
