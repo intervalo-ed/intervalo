@@ -23,6 +23,7 @@ from models import (
     GameAttempt,
     GameCtaEvent,
     GameDifficultyVote,
+    GameRepetitionVote,
     GameExercise,
     GamePlayer,
     GameSurveyAnswer,
@@ -41,6 +42,7 @@ from . import mercadopago as mp
 from . import encuesta as game_encuesta
 from . import opinion as game_opinion
 from . import ranking
+from . import repetitividad as game_repetitividad
 from . import elo
 from . import events as game_events
 from . import explain as game_explain
@@ -61,7 +63,12 @@ from .deps import (
     player_for_guest_token,
     _clerk_user,
 )
-from .generator import get_or_create_stat, serve_exercise, template_for
+from .generator import (
+    get_or_create_stat,
+    serve_exercise,
+    template_for,
+    ultimos_vistos,
+)
 from .mathjson import MathJsonError, to_sympy
 from .schemas import (
     GameNotificationSettings,
@@ -90,6 +97,8 @@ from .schemas import (
     GameEncuestaRequest,
     GameOpinionOut,
     GameOpinionRequest,
+    GameRepetitividadOut,
+    GameRepetitividadRequest,
     GamePulse,
     GamePlayerCreateRequest,
     GamePlayerCreateResponse,
@@ -2127,15 +2136,54 @@ _OPINION_ACCIONES = ("impression", "answer")
 _OPINION_VENTANA_IMPRESION = timedelta(hours=6)
 
 
-def _tanda_reciente(db: Session, player: GamePlayer) -> list[tuple[float, bool]]:
-    """Los últimos primeros intentos sin tabla, del más nuevo al más viejo.
+def _corte_cobrado(db: Session, player: GamePlayer) -> int | None:
+    """Hasta dónde llegó el último ajuste que SÍ cobró, o None si nunca hubo uno.
 
-    Las dos restricciones son las mismas que usa `metrics.game_queries.
-    calibracion` y por el mismo motivo: un acierto al tercer intento no es lo
-    que p̂ predice, y uno copiado de la tabla tampoco.
+    Es el piso de la ventana, y lo que hace que la cadencia de la encuesta pueda
+    ser cualquiera. Antes el único freno era aritmético —la pregunta volvía cada
+    30 y la ventana miraba 20, así que no se pisaban— y vivía escrito en prosa en
+    `opinion.VENTANA` sin que nada lo verificara. Con la escalera creciente el
+    hueco arranca en 10, o sea la mitad de la ventana: sin este corte, el segundo
+    voto volvería a cobrar una sorpresa que el primero ya cobró.
+
+    **Solo cuentan los votos que movieron θ**, y no todos. Lo que no se puede
+    cobrar dos veces es lo ya cobrado: un «justo», o un voto que la evidencia no
+    respaldó, no tocó nada, así que sus respuestas siguen estando disponibles
+    para el voto siguiente.
     """
-    filas = (
-        db.query(GameExercise.p_hat, GameAttempt.is_correct)
+    return (
+        db.query(func.max(GameDifficultyVote.corte_ejercicio_id))
+        .filter(
+            GameDifficultyVote.player_id == player.id,
+            GameDifficultyVote.delta_theta != 0,
+        )
+        .scalar()
+    )
+
+
+def _tanda_reciente(
+    db: Session, player: GamePlayer
+) -> tuple[list[tuple[float, bool]], int | None]:
+    """Los primeros intentos sin tabla desde el último ajuste, del más nuevo al
+    más viejo, y el id del ejercicio más nuevo que entró.
+
+    Las dos restricciones del filtro son las mismas que usa
+    `metrics.game_queries.calibracion` y por el mismo motivo: un acierto al
+    tercer intento no es lo que p̂ predice, y uno copiado de la tabla tampoco.
+
+    El id vuelve junto a la tanda para que el handler lo pueda congelar en la
+    fila (ver `_corte_cobrado`). Se devuelve el de la tanda y no `max(id)` de la
+    persona a propósito: lo que hay que recordar es hasta dónde miró ESTE ajuste,
+    no qué había en la base cuando se guardó.
+
+    `game_opinion.VENTANA` pasa a ser un TOPE y no el tamaño de la tanda: con el
+    corte puesto, lo normal es que entren menos. Eso está bien y se corrige solo
+    —`opinion.ajuste_de_theta` no ajusta nada por debajo de `MIN_RESPUESTAS`, y
+    el encogimiento de `I0_PRIOR` hace que una tanda más corta compre una
+    corrección más chica sin ninguna constante nueva.
+    """
+    q = (
+        db.query(GameExercise.id, GameExercise.p_hat, GameAttempt.is_correct)
         .join(GameAttempt, GameAttempt.exercise_id == GameExercise.id)
         .filter(
             GameExercise.player_id == player.id,
@@ -2144,11 +2192,14 @@ def _tanda_reciente(db: Session, player: GamePlayer) -> list[tuple[float, bool]]
             GameExercise.peeked.is_(False),
             GameExercise.p_hat.isnot(None),
         )
-        .order_by(GameExercise.id.desc())
-        .limit(game_opinion.VENTANA)
-        .all()
     )
-    return [(float(p), bool(ok)) for p, ok in filas]
+    corte = _corte_cobrado(db, player)
+    if corte is not None:
+        q = q.filter(GameExercise.id > corte)
+    filas = q.order_by(GameExercise.id.desc()).limit(game_opinion.VENTANA).all()
+    if not filas:
+        return [], None
+    return [(float(p), bool(ok)) for _, p, ok in filas], int(filas[0][0])
 
 
 @router.post(
@@ -2172,6 +2223,12 @@ def record_opinion(
     con menos de `opinion.MIN_RESPUESTAS` primeros intentos el voto se guarda
     igual pero no mueve nada, porque antes de eso el registro habla de por dónde
     el juego hizo entrar a la persona y no de la persona.
+
+    **Y la ventana arranca en el último voto que cobró**, no en la última
+    respuesta (`_corte_cobrado`). Es lo que permite que la pregunta vuelva cada
+    diez sin que nadie cobre dos veces la misma sorpresa, y de paso el único
+    freno que este endpoint tiene del lado del servidor: votar de nuevo sin
+    haber resuelto nada da ventana vacía y Δθ cero.
 
     No falla por contenido —un voto desconocido se ignora— por lo mismo que
     `/cta`: esto aparece en la mitad de una partida, y un error acá le rompería
@@ -2203,7 +2260,8 @@ def record_opinion(
             delta_theta=0.0, level_before=level_before, level_after=level_before
         )
 
-    ajuste = game_opinion.ajuste_de_theta(body.voto, _tanda_reciente(db, player))
+    tanda, ultimo_id = _tanda_reciente(db, player)
+    ajuste = game_opinion.ajuste_de_theta(body.voto, tanda)
 
     # La impresión que este voto contesta, si el cliente la mandó. Se busca la
     # más reciente sin responder: si quedaron varias colgadas —la persona cerró
@@ -2241,8 +2299,13 @@ def record_opinion(
     # la rampa inicial y quién entra al ranking— y un voto no es una respuesta.
     # Inflarlo haría además que el paso de aprendizaje del motor decayera por un
     # dato que no salió de resolver nada.
+    #
+    # Y el corte se escribe en el mismo `if`: marca hasta dónde llegó lo que este
+    # ajuste cobró, así que solo tiene sentido cuando cobró algo (ver
+    # `_corte_cobrado`). Un voto que no movió nada deja sus respuestas libres.
     if ajuste.delta:
         player.theta = player.theta + ajuste.delta
+        fila.corte_ejercicio_id = ultimo_id
     db.commit()
 
     return GameOpinionOut(
@@ -2250,6 +2313,94 @@ def record_opinion(
         level_before=level_before,
         level_after=elo.level_of(player.theta),
     )
+
+
+# ── La otra pregunta: si le salen repetidas ──────────────────────────────────
+
+
+@router.post(
+    "/repetitividad",
+    response_model=GameRepetitividadOut,
+    dependencies=[Depends(limits.por_jugador(30, "repetitividad"))],
+)
+def record_repetitividad(
+    body: GameRepetitividadRequest,
+    player: GamePlayer = Depends(get_current_player),
+    db: Session = Depends(get_db),
+):
+    """«¿Te están saliendo repetidas?» — la segunda opinión que el juego pide.
+
+    Mismo protocolo de dos pasos que `/opinion` y por el mismo motivo: una
+    pregunta mostrada y no contestada es información sobre la pregunta, y sin
+    registrar la impresión no hay manera de saber cuánta gente la ignora.
+
+    **Guarda y no ajusta**, que es toda la diferencia con la de dificultad. El
+    porqué está en `game/repetitividad.py`: la ventana de exclusión del selector
+    es una constante global y no una preferencia por persona, así que no hay nada
+    que mover con este voto todavía. Lo que sí hace es congelar los contadores
+    objetivos del momento —cuántas plantillas y cuántos enunciados distintos
+    venía viendo— porque el voto solo, sin eso al lado, no se puede distinguir de
+    una opinión sobre la dificultad.
+
+    No falla por contenido, igual que `/opinion` y `/cta`: esto aparece en la
+    mitad de una partida.
+    """
+    if body.accion not in _OPINION_ACCIONES:
+        raise HTTPException(status_code=422, detail="acción desconocida")
+
+    ahora = datetime.utcnow()
+
+    if body.accion == "impression":
+        db.add(
+            GameRepetitionVote(
+                player_id=player.id,
+                shown_at=ahora,
+                n_updates_at_vote=player.n_updates,
+                platform=(body.platform or player.platform),
+            )
+        )
+        db.commit()
+        return GameRepetitividadOut(guardado=True)
+
+    if body.voto not in game_repetitividad.VOTOS:
+        return GameRepetitividadOut(guardado=False)
+
+    vistos = ultimos_vistos(db, player, game_repetitividad.VENTANA)
+    resumen = game_repetitividad.resumen(vistos)
+
+    fila = (
+        db.query(GameRepetitionVote)
+        .filter(
+            GameRepetitionVote.player_id == player.id,
+            GameRepetitionVote.answered_at.is_(None),
+            GameRepetitionVote.shown_at >= ahora - _OPINION_VENTANA_IMPRESION,
+        )
+        .order_by(GameRepetitionVote.shown_at.desc())
+        .first()
+    )
+    if fila is None:
+        fila = GameRepetitionVote(
+            player_id=player.id,
+            shown_at=ahora,
+            n_updates_at_vote=player.n_updates,
+        )
+        db.add(fila)
+
+    fila.voto = body.voto
+    fila.answered_at = ahora
+    # Los contadores solo si la tanda alcanza. Con menos de `MIN_VISTOS`, «vio 5
+    # plantillas distintas» no dice si el juego es variado o si recién empezó, y
+    # un cero es más honesto que un número que el panel promediaría como si
+    # significara algo. El voto se guarda igual: el voto es el voto.
+    fila.ventana = resumen.ventana
+    if resumen.suficiente:
+        fila.plantillas_distintas = resumen.plantillas_distintas
+        fila.enunciados_distintos = resumen.enunciados_distintos
+    if body.platform:
+        fila.platform = body.platform
+
+    db.commit()
+    return GameRepetitividadOut(guardado=True)
 
 
 

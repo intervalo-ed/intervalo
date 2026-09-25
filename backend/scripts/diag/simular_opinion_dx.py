@@ -14,7 +14,7 @@ que ya pasó. Es el mismo procedimiento con el que se eligieron `_A_USER` y
 
 Recorre la línea de tiempo de cada jugador por `game_exercises.id`, que es el
 orden en que los vio, y dispara la encuesta en los mismos hitos que el front
-(`HITO_OPINION`, después cada `OPINION_CADA`, tope `OPINION_MAX`). En cada
+(`HITO`, después la escalera de `CADENCIAS`, sin tope). En cada
 disparo calcula el Δθ que habría salido **para cada uno de los tres votos**,
 porque cómo habría votado la gente no se puede saber: lo que sí se puede saber es
 de qué tamaño es la palanca que se le estaría dando.
@@ -54,11 +54,19 @@ from sqlalchemy.orm import Session  # noqa: E402
 from game import elo, opinion  # noqa: E402
 
 # Los mismos hitos que el front. Se repiten acá en vez de importarse porque el
-# front es TypeScript; si allá cambian, este número queda mintiendo y por eso
-# está a la vista y no escondido en una función.
+# front es TypeScript; si allá cambian, estos números quedan mintiendo y por eso
+# están a la vista y no escondidos en una función.
+#
+# `CADENCIAS` reemplazó al viejo `CADA = 30` fijo y a `MAX_VECES = 3` el 24/09:
+# la pregunta arranca con huecos de diez y los va agrandando, y no se termina
+# nunca (opinion-trigger.ts :: OPINION_CADENCIAS). El último valor se repite.
+#
+# Ojo que acá salen TODOS los turnos como si fueran de dificultad. En el juego
+# la escalera alterna con la pregunta de repetitividad desde el cuarto turno,
+# así que los ajustes reales son menos que los que cuenta esta simulación —cosa
+# que conviene para elegir constantes: el peor caso es el que hay que acotar.
 HITO = 10
-CADA = 30
-MAX_VECES = 3
+CADENCIAS = (10, 10, 20, 30, 50, 80)
 
 # A partir de acá el catálogo no tiene con qué: es la β creída más alta que
 # existe más el ancho de la banda. Se calcula y no se tabula para que el día que
@@ -104,16 +112,14 @@ def disparos(respuestas: list[tuple[float, bool, float]]) -> list[int]:
     al segundo intento y las copiadas de la tabla, y acá esas no están. O sea que
     la simulación dispara un poco más tarde que el juego real, nunca antes.
     """
-    puntos, correctas, vistas = [], 0, 0
+    puntos, correctas, vistas, proximo = [], 0, 0, HITO
     for i, (_p, ok, _t) in enumerate(respuestas):
         if ok:
             correctas += 1
-        if vistas >= MAX_VECES:
-            break
-        toca = correctas >= HITO + CADA * vistas
-        if toca:
+        if correctas >= proximo:
             puntos.append(i)
             vistas += 1
+            proximo = correctas + CADENCIAS[min(vistas - 1, len(CADENCIAS) - 1)]
     return puntos
 
 
@@ -130,14 +136,27 @@ def simular(datos: dict, *, ventana: int, i0: float, tope: float, techo: float) 
            for v in opinion.VOTOS}
     total, arriba_del_techo, jugadores = 0, 0, set()
     for pid, resp in datos.items():
+        anterior: int | None = None
         for i in disparos(resp):
             total += 1
             jugadores.add(pid)
             theta = resp[i][2]
             if theta >= techo:
                 arriba_del_techo += 1
-            # De la más nueva a la más vieja, que es como la espera la fórmula.
-            tanda = [(p, ok) for p, ok, _t in reversed(resp[max(0, i - ventana + 1):i + 1])]
+            # De la más nueva a la más vieja, que es como la espera la fórmula, y
+            # **cortada en el disparo anterior**, como hace el servidor desde el
+            # 24/09 (`router._corte_cobrado`). Sin el corte, con huecos de diez
+            # esta simulación reproduciría el solapamiento en vez de avisarlo: los
+            # ajustes saldrían más grandes de lo que el juego aplica, y las
+            # constantes se elegirían con números inflados.
+            #
+            # Corta en el disparo anterior y no en el último que COBRÓ —que es lo
+            # que hace el servidor— porque acá se prueban los tres votos sobre el
+            # mismo disparo y no hay uno solo que haya cobrado. Es el corte más
+            # conservador de los dos.
+            piso = max(0, i - ventana + 1,
+                       (anterior + 1) if anterior is not None else 0)
+            tanda = [(p, ok) for p, ok, _t in reversed(resp[piso:i + 1])]
             for voto in opinion.VOTOS:
                 a = opinion.ajuste_de_theta(voto, tanda)
                 if a.delta == 0.0:
@@ -152,6 +171,7 @@ def simular(datos: dict, *, ventana: int, i0: float, tope: float, techo: float) 
                     d["sube_nivel"] += 1
                 elif despues < antes:
                     d["baja_nivel"] += 1
+            anterior = i
     return {"total": total, "jugadores": len(jugadores),
             "arriba_del_techo": arriba_del_techo, "votos": out}
 
@@ -175,7 +195,7 @@ def main() -> int:
     respuestas = sum(len(v) for v in datos.values())
     print(f"jugadores con historial: {len(datos)}   respuestas de primer intento: {respuestas}")
     print(f"techo del catálogo: θ ≥ {techo:.2f}")
-    print(f"hitos: a las {HITO}, después cada {CADA}, tope {MAX_VECES}\n")
+    print(f"hitos: a las {HITO}, después {CADENCIAS} (el último se repite), sin tope\n")
 
     for ventana in [int(x) for x in args.ventana.split(",")]:
         for i0 in [float(x) for x in args.i0.split(",")]:

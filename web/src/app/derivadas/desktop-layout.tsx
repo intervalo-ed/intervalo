@@ -38,8 +38,13 @@ import { CafecitoPanel } from "./cafecito-panel"
 import { ReclutasPanel, type ReclutasTrigger } from "./reclutas-panel"
 import { marcarEncuestaMostrada, tocaEncuesta } from "./encuesta-trigger"
 import { EncuestaSlide } from "./encuesta-slide"
-import { marcarOpinionMostrada, tocaOpinion } from "./opinion-trigger"
+import {
+  anotarRespuesta,
+  marcarPreguntaMostrada,
+  tocaPreguntar,
+} from "./opinion-trigger"
 import { OpinionSlide } from "./opinion-slide"
+import { RepetitividadSlide } from "./repetitividad-slide"
 import { marcarReclutasMostrado, tocaReclutar } from "./reclutas-trigger"
 import {
   HITO_PERFIL,
@@ -135,6 +140,8 @@ type Panel =
   | "cafecito"
   | "reclutas"
   | "opinion"
+  // La otra mitad de la misma escalera de turnos (repetitividad-slide.tsx).
+  | "repetitividad"
   // La pregunta abierta (encuesta-slide.tsx), una sola vez en la vida.
   | "encuesta"
   // Las reglas que la puerta no dijo (reglas-slide.tsx), en el Continuar de
@@ -319,9 +326,12 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   // diapo tiene que entrar con el mismo volteo con el que entraría la derivada
   // siguiente, y no al costado mientras todavía se mira el resultado.
   const reclutasPendienteRef = useRef(false)
-  // La encuesta de dificultad, agendada igual que reclutas: se decide al
-  // responder y entra al tocar Continuar, en el lugar del ejercicio.
+  // Las dos encuestas de la escalera, agendadas igual que reclutas: se deciden
+  // al responder y entran al tocar Continuar, en el lugar del ejercicio. Son dos
+  // refs y no una con el nombre de la pregunta porque el despacho de abajo las
+  // mira en orden y nunca hay dos agendadas: la escalera da un turno por vez.
   const opinionPendienteRef = useRef(false)
+  const repetitividadPendienteRef = useRef(false)
   const encuestaPendienteRef = useRef(false)
   // La tabla está a la vista ahora mismo.
   const [tableOpen, setTableOpen] = useState(false)
@@ -940,13 +950,22 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
             // 18 y de no consumir el cooldown está en encuesta-trigger.ts.
             marcarEncuestaMostrada(totalCorrectas)
             encuestaPendienteRef.current = true
-          } else if (tocaOpinion(totalCorrectas)) {
-            // Última del ladder por lo mismo que en el teléfono: no convierte a
-            // nadie, así que no puede quedarse con el turno de algo que sí. El
-            // `else if` la mete en la misma cadena y no en una condición aparte
-            // porque las tres ocupan el mismo turno.
-            marcarOpinionMostrada(totalCorrectas)
-            opinionPendienteRef.current = true
+          } else if (tocaPreguntar(totalCorrectas) !== null) {
+            // Últimas del ladder por lo mismo que en el teléfono: no convierten a
+            // nadie, así que no pueden quedarse con el turno de algo que sí. El
+            // `else if` las mete en la misma cadena y no en una condición aparte
+            // porque todas ocupan el mismo turno.
+            //
+            // Las dos comparten una escalera y el ocupante alterna, así que acá se
+            // agenda la que la escalera diga (opinion-trigger.ts). Se la vuelve a
+            // preguntar en vez de reusar el valor del `else if` porque la condición
+            // de la cadena tiene que ser una expresión sola; es una lectura de
+            // localStorage y dos cuentas, y todavía no se anotó nada, así que la
+            // segunda llamada devuelve lo mismo que la primera.
+            const pregunta = tocaPreguntar(totalCorrectas)
+            marcarPreguntaMostrada(totalCorrectas)
+            if (pregunta === "dificultad") opinionPendienteRef.current = true
+            else repetitividadPendienteRef.current = true
           }
           // ── El @ y las reglas ─────────────────────────────────────────
           //
@@ -1189,6 +1208,11 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
     if (opinionPendienteRef.current) {
       opinionPendienteRef.current = false
       setNavPanel("opinion")
+      return
+    }
+    if (repetitividadPendienteRef.current) {
+      repetitividadPendienteRef.current = false
+      setNavPanel("repetitividad")
       return
     }
     loadNext()
@@ -1558,6 +1582,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
         panel === "cafecito" ||
         panel === "reclutas" ||
         panel === "opinion" ||
+        panel === "repetitividad" ||
         panel === "encuesta" ||
         panel === "reglas"
       )
@@ -1935,6 +1960,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
     panel === "cafecito" ||
     panel === "reclutas" ||
     panel === "opinion" ||
+    panel === "repetitividad" ||
     panel === "encuesta"
   // Elegir carrera o universidad usa el MISMO pie que las diapos de pedido —
   // el botón vive abajo, por portal— porque se abre desde la configuración,
@@ -2296,7 +2322,19 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                     slotSalida={slotSalida}
                     // Siempre llega por hito —no hay botón que la abra— así que
                     // lo que sigue es la derivada siguiente.
-                    onContinue={() => loadNext()}
+                    onContinue={(contesto) => {
+                      anotarRespuesta(contesto)
+                      loadNext()
+                    }}
+                  />
+                ) : panel === "repetitividad" ? (
+                  <RepetitividadSlide
+                    keyboard
+                    slotSalida={slotSalida}
+                    onContinue={(contesto) => {
+                      anotarRespuesta(contesto)
+                      loadNext()
+                    }}
                   />
                 ) : panel === "reglas" ? (
                   <div className="flex min-h-0 flex-1 flex-col rounded-lg border border-border bg-card p-5">
