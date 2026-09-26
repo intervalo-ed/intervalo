@@ -3358,9 +3358,16 @@ def teclado(data: dict) -> dict:
     forma concreta de escribir que el parser rechaza, con cuánta gente la
     intentó al lado — y casi todas son notación legítima que se podría aceptar.
     """
-    jugadores = {p["id"] for p in data["players"]}
-    intentos = [a for a in data["attempts"] if a["player_id"] in jugadores]
+    cargados = {p["id"] for p in data["players"]}
+    intentos = [a for a in data["attempts"] if a["player_id"] in cargados]
     rechazos = [a for a in intentos if not a["parse_ok"]]
+    # **El denominador es quien ESCRIBIÓ algo, no quien abrió el juego.** Quien
+    # nunca mandó un intento no pudo haber sido rechazado, así que meterlo abajo
+    # diluye el número con gente que no corrió el riesgo. Medido en producción
+    # el 26/09, la diferencia no es cosmética: sobre los 3.093 jugadores
+    # cargados da 11,2% y sobre los 1.606 que escribieron algo da 21,6%, y el
+    # primero se mueve solo con que entre una ola de gente que rebota sin jugar.
+    jugadores = {a["player_id"] for a in intentos}
 
     # Las peleas se arman por EJERCICIO: dos envíos seguidos sobre derivadas
     # distintas no son la misma pelea aunque los separen tres segundos.
@@ -3399,6 +3406,7 @@ def teclado(data: dict) -> dict:
         "rechazos": len(rechazos),
         "pct_rechazo": _pct(len(rechazos), len(intentos)),
         "jugadores": len(jugadores),
+        "cargados": len(cargados),
         "con_rechazo": len(con_rechazo),
         # El titular: por persona y no por intento. Ver el docstring.
         "pct_con_rechazo": _pct(len(con_rechazo), len(jugadores)),
