@@ -2062,7 +2062,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         '<div class="grid g4">'
         + "".join(_kpi_chico(l, v, h, suffix=sfx, dec=d) for l, v, sfx, h, d in [
             ("Se toparon un rechazo", te["pct_con_rechazo"], "%",
-             f'{num(te["con_rechazo"])} de {num(te["jugadores"])} personas', 1),
+             f'{num(te["con_rechazo"])} de {num(te["jugadores"])} que escribieron', 1),
             ("Peleas con la notación", te["peleas"], "",
              f'en {num(te["peleadores"])} personas', 0),
             ("De esas, las ganaron", te["pct_ganadas"], "%",
@@ -2074,9 +2074,14 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         + f'<p class="note"><b>El número de la izquierda y el de la derecha son la '
           f'misma cosa contada de dos maneras, y dan muy distinto.</b> Por intento, el '
           f'parser rechaza el {_pct_txt(te["pct_rechazo"])} — parece que no pasa nada. '
-          f'Por persona, <b>{_pct_txt(te["pct_con_rechazo"])} se topó alguna vez con '
-          f'«lo sabía y el juego me dijo que no»</b>. La segunda es la que importa: es '
-          f'la única parte del juego donde el que pierde no es el estudiante.'
+          f'Por persona, <b>{_pct_txt(te["pct_con_rechazo"])} de quienes escribieron '
+          f'algo se topó alguna vez con «lo sabía y el juego me dijo que no»</b>. La '
+          f'segunda es la que importa: es la única parte del juego donde el que pierde '
+          f'no es el estudiante.'
+          f'<br><br>El denominador son los {num(te["jugadores"])} que mandaron al menos '
+          f'un intento, y no los {num(te["cargados"])} que abrieron el juego: quien '
+          f'nunca escribió nada no pudo ser rechazado, y contarlo abajo haría que este '
+          f'número bajara solo con que entre una ola de gente que rebota sin jugar.'
           f'<br><br>Una <b>pelea</b> es un envío rechazado seguido de otro sobre la '
           f'misma derivada en menos de {num(te["segundos"])} segundos. Que '
           f'{_pct_txt(te["pct_ganadas"])} terminen en acierto es el dato: esa gente '

@@ -1701,6 +1701,18 @@ check("una pelea que termina en acierto es una pelea GANADA",
 check("el titular es por persona y no por intento",
       te["pct_con_rechazo"] > te["pct_rechazo"],
       f'({te["pct_con_rechazo"]}% de la gente contra {te["pct_rechazo"]}% de los envíos)')
+# El defecto que se coló hasta producción: dividir por TODOS los jugadores
+# cargados en vez de por los que escribieron algo. Quien nunca mandó un intento
+# no pudo ser rechazado, así que abajo solo diluye — y el número se movía solo
+# con que entrara una ola de gente que rebota sin jugar. p5 abrió el juego y
+# nunca respondió: tiene que estar en `cargados` y NO en `jugadores`.
+check("el denominador son los que escribieron, no los que abrieron",
+      te["jugadores"] < te["cargados"],
+      f'({te["jugadores"]} escribieron de {te["cargados"]} cargados)')
+check("y ninguno de los que no escribieron entra al denominador",
+      te["jugadores"] == len({a["player_id"] for a in data["attempts"]
+                              if a["player_id"] in {p["id"] for p in data["players"]}}),
+      f'({te["jugadores"]})')
 check("y el ranking agrupa por lo que se escribió",
       te["ranking"][0]["texto"] == r"3x^2.e^{x}" and te["ranking"][0]["n"] == 2
       and te["ranking"][0]["personas"] == 1, f'({te["ranking"][:1]})')
