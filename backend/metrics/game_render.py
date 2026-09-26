@@ -234,37 +234,50 @@ def _caja_por_orden(po: dict, valores, rotulo, mirar: str, pregunta: str) -> str
     cómodos»— y la balanceada la corrige contando solo a quien llegó a `k`
     votos, que es la misma gente en todos los puntos.
     """
-    def tabla(filas):
-        return _table(["", "Votos", "Personas"] + [rotulo(v) for v in valores],
-                      [[f'<b>{esc(f["etiqueta"])}</b>', num(f["votos"]),
-                        num(f["personas"])]
-                       + [_pct_txt(f[f"pct_{v}"]) for v in valores]
-                       for f in filas],
-                      empty="todavía no hay votos")
-
     bal = po["balanceado"]
-    cuerpo = tabla(po["filas"])
     if bal:
-        cuerpo += (
-            f'<p class="note" style="margin:10px 0 4px"><b>Y la misma serie con '
-            f'la misma gente en todos los puntos</b> — solo las '
-            f'{num(bal["personas"])} personas que llegaron a {bal["k"]} '
-            f'respuestas, así que un movimiento acá no puede venir de que cambió '
-            f'quién contesta.</p>' + tabla(bal["filas"]))
+        # La curva dibuja la serie BALANCEADA y no la cruda. Unir los puntos de
+        # la cruda sería unir tres poblaciones distintas con una línea: el punto
+        # de la 3ª vez tiene la cuarta parte de la gente que el de la 1ª, así
+        # que la pendiente mezclaría «cambió la respuesta» con «cambió quién
+        # contesta». Con población fija la línea significa una sola cosa.
+        curva = ch.lines(
+            [{"label": rotulo(v), "color": ch.SERIES[i % len(ch.SERIES)],
+              "values": [f[f"pct_{v}"] for f in bal["filas"]],
+              "tips": [f'{f["etiqueta"]} · {rotulo(v)}\n{_pct_txt(f[f"pct_{v}"])} '
+                       f'de {num(f["votos"])} votos' for f in bal["filas"]]}
+             for i, v in enumerate(valores)],
+            [f["etiqueta"] for f in bal["filas"]], suffix="%", height=260)
+        cuerpo = (curva
+                  + f'<p class="note"><b>La misma gente en todos los puntos</b> — las '
+                    f'{num(bal["personas"])} personas que llegaron a {bal["k"]} '
+                    f'respuestas. Un movimiento acá no puede venir de que cambió '
+                    f'quién contesta, que es lo único que la tabla de abajo no '
+                    f'puede descartar.</p>')
+    else:
+        cuerpo = (f'<p class="empty">todavía no hay {num(po["min_panel"])} personas '
+                  f'con dos respuestas, así que no se puede dibujar la curva con '
+                  f'población fija</p>')
+
+    cuerpo += _table(["", "Votos", "Personas"] + [rotulo(v) for v in valores],
+                     [[f'<b>{esc(f["etiqueta"])}</b>', num(f["votos"]),
+                       num(f["personas"])]
+                      + [_pct_txt(f[f"pct_{v}"]) for v in valores]
+                      for f in po["filas"]],
+                     empty="todavía no hay votos")
     return _box(pregunta, cuerpo,
-                note=f'<b>La columna que hay que mirar es «{esc(mirar)}».</b> Si la '
+                note=f'<b>La serie que hay que mirar es «{esc(mirar)}».</b> Si la '
                      f'experiencia mejora a medida que la persona se mete más en el '
-                     f'producto, esa columna baja de una fila a la siguiente.'
-                     + ('' if bal else
-                        f' Todavía no hay {num(po["min_panel"])} personas con dos '
-                        f'respuestas, así que no se puede armar la versión con '
-                        f'población fija y la de arriba es lo único que hay.')
-                     + '<br><br><b>La tabla de arriba está confundida por quién '
-                       'sobrevive.</b> A la cuarta pregunta solo llega quien siguió '
-                       'jugando, o sea gente distinta de la que contestó una sola vez: '
-                       'una mejora ahí puede ser que la experiencia mejoró, o que '
-                       'quedaron los que ya estaban cómodos. Las dos cosas se ven '
-                       'igual, y por eso la de abajo fija la población.')
+                     f'producto, esa línea baja de un punto al siguiente.'
+                     + '<br><br><b>La tabla llega más lejos que la curva, y por eso '
+                       'está confundida por quién sobrevive.</b> A la cuarta pregunta '
+                       'solo llega quien siguió jugando, o sea gente distinta de la '
+                       'que contestó una sola vez: una mejora ahí puede ser que la '
+                       'experiencia mejoró, o que quedaron los que ya estaban '
+                       'cómodos. Las dos cosas se ven igual. La curva de arriba no '
+                       'tiene ese problema pero llega hasta donde hay base; la tabla '
+                       'muestra el resto con su número de personas al lado, para '
+                       'poder leerlo sabiendo sobre cuánta gente se apoya.')
 
 
 # El gráfico de viralidad tuvo un selector con dos vistas —el coeficiente y el
@@ -1945,23 +1958,10 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
              f'el motor apunta al {num(op["objetivo"], "%")} — se lee en Motor', 1),
         ])
         + "</div>"
-        + _box("Cuántos dijeron cada cosa",
-               ch.stack([{"label": _rot(f["voto"]), "n": f["n"]} for f in op["filas"]])
-               if op["filas"] else '<p class="empty">todavía nadie votó</p>')
         + _caja_por_orden(
             op["por_orden"], A_ORDER, _rot, "muy fácil",
             "Cómo cambia la respuesta según cuántas veces se preguntó")
-        + _box("Semana a semana",
-               _table(["Semana", "Votos", "Muy fáciles", "Se sienten cómodos en"],
-                      [[esc(f["label"]), num(f["n"]),
-                        num(f["pct_muy_facil"], "%"), num(f["comodo_en"], "%")]
-                       for f in op["por_semana"]],
-                      empty="todavía no hay votos"),
-               note='La tabla de arriba es de toda la historia y esta es la serie, y '
-                    'hace falta tener las dos: el 19/09 salieron los tiers 6-8 y el '
-                    'acumulado siguió mostrando el número de un catálogo que ya no '
-                    'existía. <b>La columna que hay que mirar es «muy fáciles»</b> — si '
-                    'la regla de la cadena hizo lo que tenía que hacer, baja.'),
+,
         sub="Lo único que el juego sabe preguntando en vez de midiendo. Acá está el "
             "voto y cómo evoluciona; qué hace el motor con él se lee en Motor.",
         anchor="opinion")
@@ -2047,9 +2047,6 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
             ("Plantillas excluidas", rp["excluidas"], "",
              "las que el selector no puede repetir", 0)])
         + "</div>"
-        + _box("Cuántos dijeron cada cosa",
-               ch.stack([{"label": _rot_r(f["voto"]), "n": f["n"]} for f in rp["filas"]])
-               if rp["filas"] else '<p class="empty">todavía nadie votó</p>')
         + _caja_por_orden(
             rp["por_orden"], REP_ORDER, _rot_r, "muy repetidas",
             "Cómo cambia la respuesta según cuántas veces se preguntó")
@@ -2068,11 +2065,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                     'que ya había visto lo suficiente para que el promedio signifique '
                     'algo; el resto cuenta para la tasa de respuesta y no para las '
                     'dos columnas de la izquierda.')
-        + _box("Semana a semana",
-               _table(["Semana", "Votos", "Muy repetidas"],
-                      [[esc(f["label"]), num(f["n"]), num(f["pct_repetitivo"], "%")]
-                       for f in rp["por_semana"]],
-                      empty="todavía no hay votos")),
+,
         sub="Este voto no mueve nada: es dato para decidir cuánto ampliar el banco.",
         anchor="repetitividad")
 

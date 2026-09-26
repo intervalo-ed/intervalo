@@ -64,7 +64,6 @@ def check(nombre: str, cond: bool, detalle: str = "") -> None:
 import re as _re  # noqa: E402
 from metrics import game_queries as q  # noqa: E402
 from metrics import game_render  # noqa: E402
-from metrics import charts  # noqa: E402
 from metrics import theme  # noqa: E402
 from game import encuesta as game_encuesta  # noqa: E402
 from game import repetitividad as q_rep  # noqa: E402
@@ -1607,7 +1606,11 @@ MARCA_OPINION_MOTOR = "El voto contra el comportamiento"
 h_jug = game_render.page(q.build(s, WEEK), token="tok", seccion="jugabilidad")
 h_mot = game_render.page(q.build(s, WEEK), token="tok", seccion="motor")
 check("el voto y su evolución viven en Jugabilidad",
-      MARCA_OPINION in h_jug and "Semana a semana" in h_jug)
+      MARCA_OPINION in h_jug
+      and "Cómo cambia la respuesta según cuántas veces se preguntó" in h_jug)
+check("y la serie semanal ya no se dibuja, aunque siga en el payload",
+      "Semana a semana" not in h_jug
+      and q.build(s, WEEK)["opinion"]["por_semana"])
 check("y van después de Profundidad y antes de Fricción",
       h_jug.index("Profundidad") < h_jug.index(MARCA_OPINION) < h_jug.index(">Fricción<"))
 check("el cruce contra el comportamiento vive en Motor",
@@ -1627,7 +1630,8 @@ for clave, _ in game_render.SECCIONES:
 # Sin un solo voto la sección se dibuja igual y dice que no hay datos, en vez de
 # afirmar un cero. Es el estado en el que va a estar el día del deploy.
 check("sin votos, la sección no miente con ceros",
-      "todavía nadie votó" in h_jug and "0,0%" not in h_jug.split(MARCA_OPINION)[1][:2000])
+      "todavía no hay votos" in h_jug
+      and "0,0%" not in h_jug.split(MARCA_OPINION)[1][:2000])
 
 # Y con votos: quien dice «justo» viene acertando el 90% contra el 75% al que
 # apunta el motor, que es exactamente el hallazgo que esta sección existe para
@@ -1701,6 +1705,36 @@ check("sin base para población fija, el balanceado no se inventa",
       po["balanceado"] is None and po["min_panel"] == q.MIN_PANEL)
 # La otra encuesta tiene la misma lectura, con sus propios valores.
 _pr = q.build(s, WEEK)["repetitividad"]["por_orden"]
+# La curva con población fija es lo que la sección existe para mostrar, y con el
+# piso real (MIN_PANEL) no se dibuja acá: el escenario tiene dos votantes. Se
+# baja el piso un momento —como se baja FIRST_WEEK arriba— para poder probarla,
+# porque si no lo único verificado sería el caso en que NO aparece.
+_piso = q.MIN_PANEL
+_h_sin_curva = game_render.page(q.build(s, WEEK), token="tok", seccion="jugabilidad")
+q.MIN_PANEL = 2
+try:
+    _po2 = q.build(s, WEEK)["opinion"]["por_orden"]
+    _h2 = game_render.page(q.build(s, WEEK), token="tok", seccion="jugabilidad")
+finally:
+    q.MIN_PANEL = _piso
+check("con base suficiente, el balanceado corta donde todos están presentes",
+      _po2["balanceado"] is not None
+      and _po2["balanceado"]["k"] == 5
+      and [f["nro"] for f in _po2["balanceado"]["filas"]] == [1, 2, 3, 4, 5],
+      f'({_po2["balanceado"] and _po2["balanceado"]["k"]})')
+check("y la misma gente aparece en todos los puntos de la curva",
+      len({f["personas"] for f in _po2["balanceado"]["filas"]}) == 1,
+      f'({[f["personas"] for f in _po2["balanceado"]["filas"]]})')
+# Una línea por valor del voto, cada una con su punto en cada posición: con
+# tres valores y las cinco posiciones del escenario son quince puntos, y cada
+# uno lleva su tooltip con la base. Se cuenta sobre la página porque el defecto
+# que importa no es que `lines` funcione sino que la curva llegue a la sección.
+check("la curva se dibuja, con una línea por valor del voto",
+      _h2.count("<svg") > _h_sin_curva.count("<svg")
+      and _h2.count("misma gente en todos los puntos") >= 1
+      and _h2.count("<title>1ª vez · ") == len(q.A_ORDER),
+      f'(+{_h2.count(chr(60) + "svg") - _h_sin_curva.count(chr(60) + "svg")} svg)')
+
 # Y que la tabla llegue a la página: la consulta puede estar perfecta y el
 # `_box` quedar enganchado en la sección equivocada, que es lo que pasó con la
 # mitad del voto que se fue a Motor.
@@ -1797,23 +1831,6 @@ _vacia = q.build(s, WEEK, camada=q.FIRST_WEEK - timedelta(weeks=52))
 check("una camada sin nadie da vacío y no el total",
       _vacia["meta"]["jugadores_camada"] == 0
       and _vacia["teclado"]["rechazos"] == 0)
-
-# ── La leyenda del apilado ──────────────────────────────────────────────────
-# Estaba pegada a su propio segmento, así que una categoría chica dejaba sitio
-# para dos caracteres y el resto se metía encima de la siguiente: en el panel se
-# llegó a leer «Bien v·ia·ad·sto», dos etiquetas superpuestas. Apilada, el ancho
-# de cada fila no depende del tamaño de su categoría.
-_st = charts.stack([{"label": "Bien variadas", "n": 2}, {"label": "Justo", "n": 6},
-                    {"label": "Muy repetidas", "n": 16}])
-_ys = [float(y) for y in _re.findall(r'<text x="13" y="([\d.]+)"', _st)]
-check("cada categoría del apilado tiene su propia fila",
-      len(_ys) == 3 and len(set(_ys)) == 3, f"({_ys})")
-check("y todas arrancan en la misma sangría, no en su segmento",
-      _st.count('<text x="13"') == 3)
-# La categoría del 8% no entra en su franja, así que si la leyenda no dijera el
-# porcentaje esa fila se quedaría sin número — que es lo que pasaba.
-check("la categoría que no entra en la barra igual muestra su porcentaje",
-      "8,3%" in _st and "25%" in _st)
 
 print("— la pregunta abierta —")
 # Lo que se prueba acá son los TRES estados, y no el promedio de nada. La diapo
