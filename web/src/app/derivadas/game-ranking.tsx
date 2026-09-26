@@ -33,7 +33,7 @@ import { Spinner } from "@/components/ui/spinner"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { UniTag } from "@/components/university-tag"
 import { XpDots } from "@/components/xp-dots"
-import { badgeWithCrown, CAREER_EMOJI } from "@/lib/career-emoji"
+import { CAREER_EMOJI } from "@/lib/career-emoji"
 import { cn } from "@/lib/utils"
 import { Hueco } from "@/components/skeleton-barra"
 import {
@@ -1507,11 +1507,7 @@ const Row = memo(function Row({
   previewMultiplier?: { value: number; color: string } | null
 }) {
   const mine = entry.is_current_player
-  const emoji = badgeWithCrown({
-    username: entry.alias,
-    resolved: entry.career ? CAREER_EMOJI[entry.career] : undefined,
-    career: entry.career,
-  })
+  const emoji = entry.career ? CAREER_EMOJI[entry.career] : undefined
   return (
     <motion.li
       layout

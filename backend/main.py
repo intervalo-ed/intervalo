@@ -463,7 +463,8 @@ def favicon():
 
 @app.get("/auth/me", response_model=UserResponse)
 def get_current_user_info(
-    current_user: User = Depends(get_current_user)
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
 ):
     """Get current authenticated user info."""
     return UserResponse(
@@ -473,6 +474,7 @@ def get_current_user_info(
         username=current_user.username,
         display_name=current_user.display_name,
         clerk_user_id=current_user.clerk_user_id,
+        crowned=_coronado_id(db) == current_user.id,
     )
 
 
@@ -1625,6 +1627,24 @@ def _mi_universidad(db: Session, user_id: int) -> str | None:
 VISIBLE_EN_RANKING = User.total_xp > User.referral_xp_earned
 
 
+def _coronado_id(db: Session) -> int | None:
+    """El `user_id` del primero del ranking general de clásico, o None.
+
+    La corona 👑 es de quien encabeza el ranking GENERAL: sin filtro de
+    universidad ni de carrera, así que filtrar la tabla no se la pasa al primero
+    de la vista. Mismo universo (`VISIBLE_EN_RANKING`) y mismo orden canónico
+    (total_xp desc, id asc) que `get_leaderboard`, o la corona podría caerle a
+    alguien que no es el #1 que la tabla muestra.
+    """
+    return (
+        db.query(User.id)
+        .filter(VISIBLE_EN_RANKING)
+        .order_by(User.total_xp.desc(), User.id.asc())
+        .limit(1)
+        .scalar()
+    )
+
+
 def _first_enrollment_subq():
     """Subquery user_id → (university, career, enrolled_at) del enrollment MÁS
     ANTIGUO de cada usuario (sus respuestas originales de onboarding), sin
@@ -1812,6 +1832,7 @@ def get_leaderboard(
         else {}
     )
     max_belt_by_user = _max_belt_by_user(db, page_ids)
+    coronado = _coronado_id(db)
 
     entries = [
         LeaderboardEntry(
@@ -1826,6 +1847,7 @@ def get_leaderboard(
             university=row_university,
             emoji=emoji_tree.emoji_for(user.emoji_worn),
             belt=max_belt_by_user.get(user.id, "white"),
+            crowned=user.id == coronado,
         )
         for index, (user, row_university, row_career) in enumerate(page)
     ]
@@ -1977,6 +1999,7 @@ def get_recruits(
         .one()
     )
     belts = _max_belt_by_user(db, [u.id for (u, _uni, _car) in filas])
+    coronado = _coronado_id(db)
     return RecruitsResponse(
         entries=[
             RecruitEntry(
@@ -1986,6 +2009,7 @@ def get_recruits(
                 career=car,
                 xp_given=u.referral_xp_given,
                 belt=belts.get(u.id, "white"),
+                crowned=u.id == coronado,
             )
             for i, (u, uni, car) in enumerate(filas)
         ],

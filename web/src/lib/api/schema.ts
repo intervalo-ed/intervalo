@@ -2834,6 +2834,11 @@ export interface components {
              * @default white
              */
             belt: string;
+            /**
+             * Crowned
+             * @default false
+             */
+            crowned: boolean;
         };
         /** LeaderboardMe */
         LeaderboardMe: {
@@ -2985,6 +2990,11 @@ export interface components {
              * @default white
              */
             belt: string;
+            /**
+             * Crowned
+             * @default false
+             */
+            crowned: boolean;
         };
         /** RecruitsResponse */
         RecruitsResponse: {
@@ -3391,6 +3401,11 @@ export interface components {
             display_name?: string | null;
             /** Clerk User Id */
             clerk_user_id?: string | null;
+            /**
+             * Crowned
+             * @default false
+             */
+            crowned: boolean;
         };
         /** UserStatusResponse */
         UserStatusResponse: {
