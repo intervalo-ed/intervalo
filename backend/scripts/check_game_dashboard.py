@@ -67,6 +67,7 @@ from metrics import game_render  # noqa: E402
 from metrics import charts  # noqa: E402
 from metrics import theme  # noqa: E402
 from game import encuesta as game_encuesta  # noqa: E402
+from game import repetitividad as q_rep  # noqa: E402
 
 # ── Escenario ────────────────────────────────────────────────────────────────
 # La semana de referencia arranca el lunes 2026-08-17 (hora Argentina). Todo se
@@ -1670,23 +1671,48 @@ check("la mostrada y no contestada sí cuenta en el denominador",
       op["mostradas"] == 14 and op["pct_respuesta"] == 92.9,
       f'({op["contestadas"]}/{op["mostradas"]} = {op["pct_respuesta"]}%)')
 
-# ── El primer voto contra los siguientes ────────────────────────────────────
-# Pareado y solo con quien votó dos veces. p1 votó ocho veces «justo» (no se
-# mueve) y p2 cuatro «muy fácil» y después una «muy difícil», así que su media
-# posterior es −0,5 contra un primer voto de −1: se desplaza +0,5. El promedio
-# de los dos es +0,25.
-pa = op["pareado"]
-check("el pareado solo toma a quien votó dos veces o más",
-      pa["personas"] == 2, f'({pa["personas"]}, esperaba p1 y p2)')
-check("y mide el desplazamiento contra el PROPIO primer voto",
-      pa["desplazamiento"] == 0.25, f'(dio {pa["desplazamiento"]}, esperaba 0,25)')
-check("con el signo para el lado correcto",
-      pa["mas_dificil"] == 1 and pa["igual"] == 1 and pa["mas_facil"] == 0,
-      f'({pa["mas_facil"]} más fácil · {pa["igual"]} igual · {pa["mas_dificil"]} más difícil)')
-# El bot votó y no puede aparecer ni siquiera acá, que es la parte del panel que
-# más fácil se olvida de filtrarlo porque agrupa por jugador.
-check("y el bot tampoco se cuela en el pareado",
-      pa["votos_siguientes"] == 11, f'({pa["votos_siguientes"]}, esperaba 7+4)')
+# ── La serie por número de vez que se preguntó ──────────────────────────────
+# Es la pregunta de si la experiencia mejora a medida que la persona se mete más
+# en el producto. p1 votó ocho veces «justo» y p2 cuatro «muy fácil» y después
+# una «muy difícil», así que las primeras cuatro posiciones tienen un voto de
+# cada uno y el último cubo —«5ª vez o más»— junta las cuatro restantes de p1
+# más la quinta de p2.
+po = op["por_orden"]
+check("la serie se abre por número de pregunta, no por fecha",
+      [f["nro"] for f in po["filas"]] == [1, 2, 3, 4, 5],
+      f'({[f["nro"] for f in po["filas"]]})')
+_f1 = po["filas"][0]
+check("la 1ª vez junta el primer voto de cada persona",
+      _f1["votos"] == 2 and _f1["personas"] == 2
+      and _f1["pct_justo"] == 50.0 and _f1["pct_muy_facil"] == 50.0, f'({_f1})')
+# El último cubo es «esa vez o más» y no «esa vez»: con la base desplomándose
+# —304 votos en la 1ª y 19 en la 4ª en producción— abrir una columna por número
+# es dibujar ruido con forma de tendencia.
+_f5 = po["filas"][-1]
+check("el último cubo acumula de ahí en adelante",
+      "o más" in _f5["etiqueta"] and _f5["votos"] == 5 and _f5["personas"] == 2,
+      f'({_f5["etiqueta"]}, {_f5["votos"]} votos)')
+check("y ningún voto se pierde ni se cuenta dos veces",
+      sum(f["votos"] for f in po["filas"]) == op["contestadas"],
+      f'({sum(f["votos"] for f in po["filas"])} contra {op["contestadas"]})')
+# El panel balanceado existe solo si hay base: con dos personas no la hay, y lo
+# correcto es no dibujarlo en vez de dibujarlo con dos.
+check("sin base para población fija, el balanceado no se inventa",
+      po["balanceado"] is None and po["min_panel"] == q.MIN_PANEL)
+# La otra encuesta tiene la misma lectura, con sus propios valores.
+_pr = q.build(s, WEEK)["repetitividad"]["por_orden"]
+# Y que la tabla llegue a la página: la consulta puede estar perfecta y el
+# `_box` quedar enganchado en la sección equivocada, que es lo que pasó con la
+# mitad del voto que se fue a Motor.
+_h_po = game_render.page(q.build(s, WEEK), token="tok", seccion="jugabilidad")
+check("la tabla por número de pregunta se dibuja en Jugabilidad",
+      _h_po.count("Cómo cambia la respuesta según cuántas veces se preguntó") == 2
+      and "1ª vez" in _h_po and "5ª vez o más" in _h_po,
+      "(una caja por encuesta)")
+check("la otra encuesta trae la misma serie con sus propios valores",
+      "por_orden" in q.build(s, WEEK)["repetitividad"]
+      and all(f"pct_{v}" in (_pr["filas"][0] if _pr["filas"] else {f"pct_{v}": 0})
+              for v in q_rep.VOTOS))
 
 # ── El teclado ──────────────────────────────────────────────────────────────
 # El defecto que esta sección existe para no repetir: medir el parseo POR

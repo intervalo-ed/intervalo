@@ -3056,60 +3056,80 @@ def motor(data: dict, weeks: list[date]) -> dict:
 
 # ── 10 · La opinión de la gente ──────────────────────────────────────────────
 
-# El voto en una escala ordinal, para poder promediar un cambio. Más alto es
-# «me parece más difícil», así que un desplazamiento NEGATIVO significa que con
-# el tiempo el juego les fue pareciendo más fácil.
-ESCALA_VOTO = {"muy_facil": -1.0, "justo": 0.0, "muy_dificil": 1.0}
+# Hasta qué número de pregunta se abre la serie. El último cubo es «esa vez o
+# más»: medido en producción el 26/09, la dificultad tiene 304 votos en la 1ª
+# vez, 126 en la 2ª, 85 en la 3ª y solo 19 en la 4ª, así que abrir más columnas
+# es dibujar ruido con forma de tendencia.
+TOPE_ORDEN = 5
+
+# Cuánta gente hace falta para ofrecer el panel balanceado. Por debajo de esto
+# la versión «misma gente en todos los puntos» tiene menos base que el problema
+# que viene a arreglar.
+MIN_PANEL = 25
 
 
-def _voto_pareado(contestadas: list[dict]) -> dict:
-    """El primer voto de cada persona contra los que dio después.
+def _por_orden(contestadas: list[dict], valores: tuple | list,
+               tope: int = TOPE_ORDEN) -> dict:
+    """Cómo cambia la respuesta según CUÁNTAS VECES se le preguntó a esa persona.
 
-    **Solo entra la gente que votó al menos dos veces, y se compara contra sí
-    misma.** Comparar «todos los primeros votos» contra «todos los votos
-    siguientes» sin parear parece la misma cuenta y no lo es: quien llega a un
-    segundo voto es quien siguió jugando, así que el grupo de los siguientes
-    está seleccionado por la misma disposición que se quiere medir. Medido en
-    producción, esa versión sin parear da una diferencia que en buena parte es
-    composición — es la misma trampa que la curva de continuidad de la §9 del
-    reporte del motor.
+    Es la pregunta de si la experiencia mejora a medida que alguien se mete más
+    en el producto, y sirve igual para las dos encuestas: la única diferencia es
+    qué valores puede tomar el voto.
 
-    `desplazamiento` es el promedio, por persona, de (media de sus votos
-    posteriores − su primer voto) en la escala ordinal. Negativo significa que
-    a medida que juegan les va pareciendo más fácil, que es lo que el motor
-    tendría que estar impidiendo.
+    **La serie cruda está confundida por supervivencia y por eso viene
+    acompañada.** Quien llega a que le pregunten una cuarta vez es quien siguió
+    jugando, o sea gente distinta de la que contestó una sola: la columna de la
+    4ª vez mezcla «la experiencia mejoró» con «quedaron los que ya estaban
+    cómodos». Medido, la dificultad pasa de 304 personas en la 1ª a 19 en la 4ª,
+    así que no es un detalle.
+
+    `balanceado` es la defensa: la misma serie pero contando SOLO a quien llegó
+    a `k` votos, con `k` elegido como la profundidad más grande que todavía
+    tiene `MIN_PANEL` personas. Ahí la población es la misma en todos los
+    puntos, así que un movimiento no puede venir de que cambió quién contesta.
+    Es el mismo argumento que el efecto fijo de la §9 del reporte del motor,
+    aplicado a una serie en vez de a dos cubos.
     """
     por_jugador: dict[int, list[dict]] = defaultdict(list)
     for v in contestadas:
         if v["shown_at"] is not None:
             por_jugador[v["player_id"]].append(v)
-
-    primeros, siguientes, desplazamientos = [], [], []
     for votos in por_jugador.values():
-        if len(votos) < 2:
-            continue
         votos.sort(key=lambda v: v["shown_at"])
-        primero, resto = votos[0], votos[1:]
-        primeros.append(primero["voto"])
-        siguientes.extend(v["voto"] for v in resto)
-        medio = sum(ESCALA_VOTO.get(v["voto"], 0.0) for v in resto) / len(resto)
-        desplazamientos.append(medio - ESCALA_VOTO.get(primero["voto"], 0.0))
 
-    def pct(votos: list[str], cual: str) -> float | None:
-        return _pct(sum(1 for v in votos if v == cual), len(votos))
+    def serie(minimo: int, hasta: int) -> list[dict]:
+        cubos: dict[int, list[dict]] = defaultdict(list)
+        for votos in por_jugador.values():
+            if len(votos) < minimo:
+                continue
+            for i, v in enumerate(votos):
+                cubos[min(i + 1, tope)].append(v)
+        filas = []
+        for nro in range(1, min(hasta, tope) + 1):
+            suyos = cubos.get(nro, [])
+            if not suyos:
+                continue
+            filas.append({
+                "nro": nro,
+                "etiqueta": f"{nro}ª vez" + (" o más" if nro == tope else ""),
+                "votos": len(suyos),
+                "personas": len({v["player_id"] for v in suyos}),
+                **{f"pct_{val}": _pct(sum(1 for v in suyos if v["voto"] == val),
+                                      len(suyos)) for val in valores},
+            })
+        return filas
 
+    def cuantos(k: int) -> int:
+        return sum(1 for vs in por_jugador.values() if len(vs) >= k)
+
+    profundo = max((k for k in range(2, tope + 1) if cuantos(k) >= MIN_PANEL),
+                   default=None)
     return {
-        "personas": len(desplazamientos),
-        "votos_siguientes": len(siguientes),
-        "pct_muy_facil_primero": pct(primeros, "muy_facil"),
-        "pct_muy_facil_siguientes": pct(siguientes, "muy_facil"),
-        "pct_justo_primero": pct(primeros, "justo"),
-        "pct_justo_siguientes": pct(siguientes, "justo"),
-        "desplazamiento": (round(sum(desplazamientos) / len(desplazamientos), 3)
-                           if desplazamientos else None),
-        "mas_facil": sum(1 for d in desplazamientos if d < 0),
-        "igual": sum(1 for d in desplazamientos if d == 0),
-        "mas_dificil": sum(1 for d in desplazamientos if d > 0),
+        "filas": serie(1, tope),
+        "balanceado": ({"k": profundo, "personas": cuantos(profundo),
+                        "filas": serie(profundo, profundo)} if profundo else None),
+        "min_panel": MIN_PANEL,
+        "tope": tope,
     }
 
 def opinion(data: dict, weeks: list[date]) -> dict:
@@ -3200,7 +3220,7 @@ def opinion(data: dict, weeks: list[date]) -> dict:
     return {
         "filas": filas,
         "por_semana": por_semana,
-        "pareado": _voto_pareado(contestadas),
+        "por_orden": _por_orden(contestadas, A_ORDER),
         "mostradas": mostradas,
         "contestadas": len(contestadas),
         "pct_respuesta": _pct(len(contestadas), mostradas),
@@ -3275,6 +3295,8 @@ def repetitividad(data: dict, weeks: list[date]) -> dict:
     return {
         "filas": filas,
         "por_semana": por_semana,
+        # La misma lectura que en `opinion`, con los valores de esta encuesta.
+        "por_orden": _por_orden(contestadas, dominio.VOTOS),
         "mostradas": mostradas,
         "contestadas": len(contestadas),
         "pct_respuesta": _pct(len(contestadas), mostradas),
