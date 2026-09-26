@@ -2230,7 +2230,15 @@ EXPERIMENTO_MURO: dict = {
         "centavos de dólar el mes, no hay precio— sino si un estudiante "
         "atraviesa un checkout de Mercado Pago para seguir jugando."
     ),
-    "desde": date(2026, 9, 26),
+    # **El día siguiente al despliegue y no el mismo, y eso no es un redondeo.**
+    # El interruptor se encendió el 26/09 a media tarde, así que ese día hubo
+    # gente que ya llevaba 40 o 50 resueltas cuando el tope apareció: su
+    # «tratamiento» fue medio día, y la del brazo de control de ese mismo día no
+    # tuvo ningún contrafáctico comparable. Inscribir esa camada sería meter en
+    # la primera fila del experimento a las únicas personas que lo vivieron a
+    # medias. Con el 27 todos los inscriptos tienen el día completo desde su
+    # primera derivada.
+    "desde": date(2026, 9, 27),
     # La ventana de medición, igual que en el motor: nadie cuenta hasta que la
     # suya cerró. Sumar una ventana abierta sería comparar a alguien medido 14
     # días con alguien medido 3.
@@ -2297,12 +2305,19 @@ def _alta_en_el_muro(dias: dict[date, int], desde: date, tope: int) -> date | No
     los dos brazos se inscriben por el mismo hecho, «llegó al tope», que en el
     control es exactamente el contrafáctico: el día que habría chocado.
 
-    Quien ya venía llegando al tope antes del arranque entra el día del
-    arranque, no el día en que lo cruzó por primera vez hace un mes: lo que
-    cuenta es cuándo empezó a vivir el tratamiento.
+    **Y no hay inscripción retroactiva**, que es lo contrario de lo que hace
+    `dx-elo-1`. Allá el tratamiento es un parámetro del motor que rige para todo
+    el que pasó el umbral, juegue o no, así que anotar al que ya estaba arriba
+    el día del arranque es correcto. Acá el tope **solo se vive resolviendo 30
+    en un día**: alguien que llegó a 30 una vez en septiembre y no volvió nunca
+    más no chocó ningún muro, y meterlo igual sumaría cientos de personas con
+    cero días activos a los dos brazos. No sesgaría el resultado —la regla es la
+    misma de los dos lados— pero diluiría las dos medias hacia cero e inflaría
+    el n hasta dar por «listo» un experimento que no midió a nadie.
+
+    Así, todos los inscriptos son gente que llegó al tope con el experimento
+    corriendo, en una fecha conocida.
     """
-    if any(n >= tope for d, n in dias.items() if d < desde):
-        return desde
     candidatos = sorted(d for d, n in dias.items() if d >= desde and n >= tope)
     return candidatos[0] if candidatos else None
 
