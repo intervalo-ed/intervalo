@@ -155,6 +155,7 @@ CSS = theme.BASE_CSS + CSS_DX
 # que hay dando vueltas, y una cuarta sería la que se olvida de actualizarse.
 # Son los mismos del chip que el jugador ve en su ranking, que es lo que hace
 # que una línea del desglose se reconozca sin leer la leyenda.
+from .queries import A_ORDER  # noqa: E402
 from .render import (  # noqa: E402
     CAREER_LABEL, SURVEY_EMOJI_A, SURVEY_EMOJI_R, SURVEY_TEXT,
     UNIVERSITY_COLOR, _uni_chip,
@@ -166,6 +167,7 @@ from .render import (  # noqa: E402
 # columna en la que miente.
 from game.notification_copy import PESOS as PESOS_DEL_COPY  # noqa: E402
 from game.opinion import TOPE as OPINION_TOPE  # noqa: E402
+from game.repetitividad import VOTOS as REP_ORDER  # noqa: E402
 
 # Helpers de presentación compartidos con el panel de Intervalo — ver
 # metrics/theme.py. Los alias locales evitan reescribir las llamadas ya
@@ -218,6 +220,51 @@ def _recortar(txt: str, n: int) -> str:
 
 def _pct_txt(v) -> str:
     return "—" if v is None else num(v, "%")
+
+
+def _caja_por_orden(po: dict, valores, rotulo, mirar: str, pregunta: str) -> str:
+    """Cómo cambia el voto según CUÁNTAS VECES se le preguntó a esa persona.
+
+    La misma caja para las dos encuestas: lo único que cambia son los valores
+    que puede tomar el voto y cuál es la columna que hay que mirar.
+
+    Van las dos lecturas y no una. La cruda contesta la pregunta directo pero
+    está confundida por supervivencia —a la 4ª vez solo llega quien siguió
+    jugando, así que la columna mezcla «mejoró» con «quedaron los que ya estaban
+    cómodos»— y la balanceada la corrige contando solo a quien llegó a `k`
+    votos, que es la misma gente en todos los puntos.
+    """
+    def tabla(filas):
+        return _table(["", "Votos", "Personas"] + [rotulo(v) for v in valores],
+                      [[f'<b>{esc(f["etiqueta"])}</b>', num(f["votos"]),
+                        num(f["personas"])]
+                       + [_pct_txt(f[f"pct_{v}"]) for v in valores]
+                       for f in filas],
+                      empty="todavía no hay votos")
+
+    bal = po["balanceado"]
+    cuerpo = tabla(po["filas"])
+    if bal:
+        cuerpo += (
+            f'<p class="note" style="margin:10px 0 4px"><b>Y la misma serie con '
+            f'la misma gente en todos los puntos</b> — solo las '
+            f'{num(bal["personas"])} personas que llegaron a {bal["k"]} '
+            f'respuestas, así que un movimiento acá no puede venir de que cambió '
+            f'quién contesta.</p>' + tabla(bal["filas"]))
+    return _box(pregunta, cuerpo,
+                note=f'<b>La columna que hay que mirar es «{esc(mirar)}».</b> Si la '
+                     f'experiencia mejora a medida que la persona se mete más en el '
+                     f'producto, esa columna baja de una fila a la siguiente.'
+                     + ('' if bal else
+                        f' Todavía no hay {num(po["min_panel"])} personas con dos '
+                        f'respuestas, así que no se puede armar la versión con '
+                        f'población fija y la de arriba es lo único que hay.')
+                     + '<br><br><b>La tabla de arriba está confundida por quién '
+                       'sobrevive.</b> A la cuarta pregunta solo llega quien siguió '
+                       'jugando, o sea gente distinta de la que contestó una sola vez: '
+                       'una mejora ahí puede ser que la experiencia mejoró, o que '
+                       'quedaron los que ya estaban cómodos. Las dos cosas se ven '
+                       'igual, y por eso la de abajo fija la población.')
 
 
 # El gráfico de viralidad tuvo un selector con dos vistas —el coeficiente y el
@@ -1859,7 +1906,6 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
     # `opinion_camada` y no `opinion`: esta sección vive en Jugabilidad, que se
     # filtra. La de Motor lee la sin filtrar, que es la que valida la banda.
     op = p["opinion_camada"]
-    pa = op["pareado"]
     _rot = lambda v: f'{SURVEY_EMOJI_A.get(v, "")} {SURVEY_TEXT.get(v, v)}'.strip()
 
     filas_op = [[f'<b>{esc(_rot(f["voto"]))}</b>', num(f["n"]),
@@ -1902,35 +1948,9 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         + _box("Cuántos dijeron cada cosa",
                ch.stack([{"label": _rot(f["voto"]), "n": f["n"]} for f in op["filas"]])
                if op["filas"] else '<p class="empty">todavía nadie votó</p>')
-        + _box("El primer voto contra los siguientes, de la misma gente",
-               _table(["", "Personas", "«Muy fácil»", "«Justo»"],
-                      [["<b>su primer voto</b>", num(pa["personas"]),
-                        _pct_txt(pa["pct_muy_facil_primero"]),
-                        _pct_txt(pa["pct_justo_primero"])],
-                       ["<b>los que dieron después</b>",
-                        f'{num(pa["votos_siguientes"])} votos',
-                        _pct_txt(pa["pct_muy_facil_siguientes"]),
-                        _pct_txt(pa["pct_justo_siguientes"])]],
-                      empty="todavía nadie votó dos veces")
-               + (f'<p class="note">En personas: <b>{num(pa["mas_facil"])}</b> pasaron a '
-                  f'verlo más fácil, <b>{num(pa["igual"])}</b> no se movieron y '
-                  f'<b>{num(pa["mas_dificil"])}</b> a verlo más difícil. El '
-                  f'desplazamiento medio es <b>{num(pa["desplazamiento"], dec=2)}</b> '
-                  f'en una escala donde muy fácil es −1 y muy difícil es +1, así que '
-                  f'un número negativo significa que con el tiempo les fue pareciendo '
-                  f'más fácil.</p>' if pa["personas"] else "")
-               + ("" if not pa["personas"] else
-                  '<p class="note"><b>Solo entra la gente que votó al menos dos veces, '
-                  'y se compara contra sí misma.</b> Contar «todos los primeros votos» '
-                  'contra «todos los siguientes» parece la misma cuenta y no lo es: '
-                  'quien llega a un segundo voto es quien siguió jugando, así que ese '
-                  'grupo está elegido por la misma disposición que se quiere medir. '
-                  'Pareado, cada persona es su propio control y eso se cancela solo.</p>'),
-               note="Es la pregunta que la tabla de arriba no puede contestar: no si "
-                    "la gente dice que está fácil, sino si <i>la misma persona</i> "
-                    "empieza a decirlo más a medida que juega. Si el motor sube la "
-                    "dificultad al ritmo al que la gente mejora, esto no debería "
-                    "moverse.")
+        + _caja_por_orden(
+            op["por_orden"], A_ORDER, _rot, "muy fácil",
+            "Cómo cambia la respuesta según cuántas veces se preguntó")
         + _box("Semana a semana",
                _table(["Semana", "Votos", "Muy fáciles", "Se sienten cómodos en"],
                       [[esc(f["label"]), num(f["n"]),
@@ -2030,6 +2050,9 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         + _box("Cuántos dijeron cada cosa",
                ch.stack([{"label": _rot_r(f["voto"]), "n": f["n"]} for f in rp["filas"]])
                if rp["filas"] else '<p class="empty">todavía nadie votó</p>')
+        + _caja_por_orden(
+            rp["por_orden"], REP_ORDER, _rot_r, "muy repetidas",
+            "Cómo cambia la respuesta según cuántas veces se preguntó")
         + _box("Lo que decían contra lo que venían viendo",
                _table(["Voto", "Votos", "Plantillas distintas", "Enunciados distintos",
                        "Con datos"],
@@ -2062,7 +2085,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         '<div class="grid g4">'
         + "".join(_kpi_chico(l, v, h, suffix=sfx, dec=d) for l, v, sfx, h, d in [
             ("Se toparon un rechazo", te["pct_con_rechazo"], "%",
-             f'{num(te["con_rechazo"])} de {num(te["jugadores"])} personas', 1),
+             f'{num(te["con_rechazo"])} de {num(te["jugadores"])} que escribieron', 1),
             ("Peleas con la notación", te["peleas"], "",
              f'en {num(te["peleadores"])} personas', 0),
             ("De esas, las ganaron", te["pct_ganadas"], "%",
@@ -2074,9 +2097,14 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         + f'<p class="note"><b>El número de la izquierda y el de la derecha son la '
           f'misma cosa contada de dos maneras, y dan muy distinto.</b> Por intento, el '
           f'parser rechaza el {_pct_txt(te["pct_rechazo"])} — parece que no pasa nada. '
-          f'Por persona, <b>{_pct_txt(te["pct_con_rechazo"])} se topó alguna vez con '
-          f'«lo sabía y el juego me dijo que no»</b>. La segunda es la que importa: es '
-          f'la única parte del juego donde el que pierde no es el estudiante.'
+          f'Por persona, <b>{_pct_txt(te["pct_con_rechazo"])} de quienes escribieron '
+          f'algo se topó alguna vez con «lo sabía y el juego me dijo que no»</b>. La '
+          f'segunda es la que importa: es la única parte del juego donde el que pierde '
+          f'no es el estudiante.'
+          f'<br><br>El denominador son los {num(te["jugadores"])} que mandaron al menos '
+          f'un intento, y no los {num(te["cargados"])} que abrieron el juego: quien '
+          f'nunca escribió nada no pudo ser rechazado, y contarlo abajo haría que este '
+          f'número bajara solo con que entre una ola de gente que rebota sin jugar.'
           f'<br><br>Una <b>pelea</b> es un envío rechazado seguido de otro sobre la '
           f'misma derivada en menos de {num(te["segundos"])} segundos. Que '
           f'{_pct_txt(te["pct_ganadas"])} terminen en acierto es el dato: esa gente '
