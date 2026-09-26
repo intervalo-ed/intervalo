@@ -900,7 +900,7 @@ costar una oferta de tres; el check `check:encuesta` clava esa propiedad.
 
 El texto se guarda **como lo escribieron**, sin la allowlist de caracteres del
 chat: aquella existe porque allá el texto se vuelve público, y esto lo lee solo el
-panel (pestaña **Voces**), donde las respuestas se listan sin resumir.
+panel (pestaña **Feedback**), donde las respuestas se listan sin resumir.
 
 ### Los dos pedidos de la pantalla de inicio (`pedido-instalar.tsx`, `pedido-notificaciones.tsx`)
 
