@@ -1725,15 +1725,24 @@ check("con base suficiente, el balanceado corta donde todos están presentes",
 check("y la misma gente aparece en todos los puntos de la curva",
       len({f["personas"] for f in _po2["balanceado"]["filas"]}) == 1,
       f'({[f["personas"] for f in _po2["balanceado"]["filas"]]})')
-# Una línea por valor del voto, cada una con su punto en cada posición: con
-# tres valores y las cinco posiciones del escenario son quince puntos, y cada
-# uno lleva su tooltip con la base. Se cuenta sobre la página porque el defecto
-# que importa no es que `lines` funcione sino que la curva llegue a la sección.
+# Una línea por valor del voto, cada una con su punto en cada posición, y cada
+# punto con su tooltip. Se cuenta sobre la página porque el defecto que importa
+# no es que `lines` funcione sino que la curva llegue a la sección.
 check("la curva se dibuja, con una línea por valor del voto",
-      _h2.count("<svg") > _h_sin_curva.count("<svg")
-      and _h2.count("misma gente en todos los puntos") >= 1
-      and _h2.count("<title>1ª vez · ") == len(q.A_ORDER),
-      f'(+{_h2.count(chr(60) + "svg") - _h_sin_curva.count(chr(60) + "svg")} svg)')
+      _h2.count("<title>1ª vez · ") == len(q.A_ORDER)
+      and "misma gente en todos los puntos" in _h2)
+# La curva se dibuja SIEMPRE, y lo que cambia es si sus puntos salen firmes o
+# huecos. Un cartel diciendo «no hay base» deja la sección sin nada que mirar
+# hasta que la haya; una curva marcada como floja se lee sabiendo lo que es.
+def _huecos_op(pagina):
+    trozo = pagina.split("Cómo cambia la respuesta")[1].split("</section>")[0]
+    return trozo.count('fill="var(--surface)" stroke=')
+
+check("sin base para población fija la curva igual se dibuja, pero floja",
+      _huecos_op(_h_sin_curva) > 0 and "cada punto es gente distinta" in _h_sin_curva,
+      f'({_huecos_op(_h_sin_curva)} puntos huecos)')
+check("y con población fija sale firme",
+      _huecos_op(_h2) == 0, f'({_huecos_op(_h2)} puntos huecos)')
 
 # Y que la tabla llegue a la página: la consulta puede estar perfecta y el
 # `_box` quedar enganchado en la sección equivocada, que es lo que pasó con la

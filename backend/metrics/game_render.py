@@ -234,30 +234,39 @@ def _caja_por_orden(po: dict, valores, rotulo, mirar: str, pregunta: str) -> str
     cómodos»— y la balanceada la corrige contando solo a quien llegó a `k`
     votos, que es la misma gente en todos los puntos.
     """
+    # **La curva prefiere la serie BALANCEADA y cae a la cruda cuando no hay
+    # base para armarla.** Con población fija la pendiente significa una sola
+    # cosa; con la cruda son poblaciones distintas unidas por una línea —el
+    # punto de la 3ª vez tiene la cuarta parte de la gente que el de la 1ª— y la
+    # pendiente mezcla «cambió la respuesta» con «cambió quién contesta».
+    #
+    # Se dibuja igual en ese caso, con los puntos flojos huecos y la línea
+    # punteada, que es la misma convención que usa la difusión con las olas que
+    # todavía suman clics. Un cartel diciendo «no hay base» deja la sección sin
+    # nada que mirar hasta que la haya; una curva marcada como floja se lee
+    # sabiendo lo que es, y se endurece sola cuando llega la gente.
     bal = po["balanceado"]
-    if bal:
-        # La curva dibuja la serie BALANCEADA y no la cruda. Unir los puntos de
-        # la cruda sería unir tres poblaciones distintas con una línea: el punto
-        # de la 3ª vez tiene la cuarta parte de la gente que el de la 1ª, así
-        # que la pendiente mezclaría «cambió la respuesta» con «cambió quién
-        # contesta». Con población fija la línea significa una sola cosa.
-        curva = ch.lines(
-            [{"label": rotulo(v), "color": ch.SERIES[i % len(ch.SERIES)],
-              "values": [f[f"pct_{v}"] for f in bal["filas"]],
-              "tips": [f'{f["etiqueta"]} · {rotulo(v)}\n{_pct_txt(f[f"pct_{v}"])} '
-                       f'de {num(f["votos"])} votos' for f in bal["filas"]]}
-             for i, v in enumerate(valores)],
-            [f["etiqueta"] for f in bal["filas"]], suffix="%", height=260)
-        cuerpo = (curva
-                  + f'<p class="note"><b>La misma gente en todos los puntos</b> — las '
-                    f'{num(bal["personas"])} personas que llegaron a {bal["k"]} '
-                    f'respuestas. Un movimiento acá no puede venir de que cambió '
-                    f'quién contesta, que es lo único que la tabla de abajo no '
-                    f'puede descartar.</p>')
-    else:
-        cuerpo = (f'<p class="empty">todavía no hay {num(po["min_panel"])} personas '
-                  f'con dos respuestas, así que no se puede dibujar la curva con '
-                  f'población fija</p>')
+    serie = bal["filas"] if bal else po["filas"]
+    flojos = [f["personas"] < po["min_panel"] for f in serie]
+    curva = ch.lines(
+        [{"label": rotulo(v), "color": ch.SERIES[i % len(ch.SERIES)],
+          "values": [f[f"pct_{v}"] for f in serie], "weak": flojos,
+          "tips": [f'{f["etiqueta"]} · {rotulo(v)}\n{_pct_txt(f[f"pct_{v}"])} de '
+                   f'{num(f["votos"])} votos ({num(f["personas"])} personas)'
+                   for f in serie]}
+         for i, v in enumerate(valores)],
+        [f["etiqueta"] for f in serie], suffix="%", height=260)
+    cuerpo = curva + (
+        f'<p class="note"><b>La misma gente en todos los puntos</b> — las '
+        f'{num(bal["personas"])} personas que llegaron a {bal["k"]} respuestas. Un '
+        f'movimiento acá no puede venir de que cambió quién contesta, que es lo '
+        f'único que la tabla de abajo no puede descartar.</p>' if bal else
+        f'<p class="note"><b>Ojo: acá cada punto es gente distinta.</b> Todavía no '
+        f'hay {num(po["min_panel"])} personas con dos respuestas, así que no se '
+        f'puede fijar la población y la curva dibuja la serie cruda — los puntos '
+        f'huecos y la línea punteada marcan eso. Una pendiente acá puede ser que '
+        f'la experiencia cambió o que cambió quién contesta, y no se pueden '
+        f'separar hasta que haya base.</p>')
 
     cuerpo += _table(["", "Votos", "Personas"] + [rotulo(v) for v in valores],
                      [[f'<b>{esc(f["etiqueta"])}</b>', num(f["votos"]),
