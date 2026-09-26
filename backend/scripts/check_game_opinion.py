@@ -147,9 +147,14 @@ _peor = max(
     + [0.0, 1.0, 2.0, 3.0]
 )
 check(_peor <= 1, f"y arrancando desde cualquier borde sube a lo sumo un nivel (dio {_peor})")
-check(opinion.VENTANA < 30,
-      "la ventana es más chica que la cadencia, así que dos votos seguidos no "
-      "se calculan sobre las mismas respuestas")
+# Acá vivía `check(opinion.VENTANA < 30, ...)`, con el 30 —la cadencia de la
+# encuesta— clavado a mano. Era el único guardián de «dos votos seguidos no se
+# calculan sobre las mismas respuestas», y era un guardián de mentira: comparaba
+# dos constantes y nunca tocaba la consulta que arma la ventana. El día que la
+# cadencia pasó a ser una escalera que arranca en 10, la comparación seguía dando
+# verde y el invariante ya estaba roto.
+#
+# Ahora eso lo prueba la sección 8, contra el endpoint y la base.
 
 
 # ── 4 · Los tres votos son los del clásico ───────────────────────────────────
@@ -256,6 +261,75 @@ r_raro = client.post(f"{API}/opinion", json={"accion": "answer", "voto": "barbar
                      headers={"X-Game-Token": "tok-dospasos"})
 check(r_raro.status_code == 200 and r_raro.json()["delta_theta"] == 0.0,
       "un voto desconocido no rompe nada ni mueve nada")
+
+
+# ── 8 · El corte: nadie cobra dos veces la misma sorpresa ────────────────────
+print("8. la ventana arranca en el último voto que cobró")
+
+# Esta sección es la que reemplaza al `VENTANA < 30` de la 3, y la diferencia es
+# que prueba el comportamiento en vez de comparar dos números. `tok-dospasos`
+# acaba de votar «muy fácil» sobre 20 de 20 y se llevó un ajuste.
+primer_delta = j["delta_theta"]
+# El endpoint escribe desde SU sesión y esta es otra: la fila que la sección 7 ya
+# había leído sigue en el identity map de acá con los valores de antes del voto.
+# Sin esto, `corte_ejercicio_id` se lee como None y el chequeo falla por un
+# detalle de la herramienta y no por el código.
+db.expire_all()
+cobrado = db.query(GameDifficultyVote).filter(
+    GameDifficultyVote.player_id == otro.id,
+    GameDifficultyVote.delta_theta != 0,
+).one()
+check(cobrado.corte_ejercicio_id is not None,
+      "el voto que cobró dejó anotado hasta dónde llegó")
+
+# Votar otra vez sin haber resuelto nada: la ventana queda vacía y no hay nada
+# que cobrar. Antes del corte, este voto volvía a cobrar las mismas 20.
+theta_antes_2 = otro.theta
+r2 = client.post(f"{API}/opinion", json={"accion": "answer", "voto": "muy_facil"},
+                 headers={"X-Game-Token": "tok-dospasos"})
+db.refresh(otro)
+check(r2.json()["delta_theta"] == 0.0,
+      f"votar de nuevo sin resolver nada no mueve nada (dio {r2.json()['delta_theta']})")
+check(abs(otro.theta - theta_antes_2) < 1e-9, "así que θ quedó donde estaba")
+vacia = db.query(GameDifficultyVote).filter_by(player_id=otro.id).order_by(
+    GameDifficultyVote.id.desc()).first()
+check(vacia.ventana == 0 and vacia.voto == "muy_facil",
+      f"y el voto se guardó igual, con ventana en cero (dio {vacia.ventana})")
+
+# Y con respuestas nuevas, solo entran LAS NUEVAS. Diez y no veinte, que es el
+# hueco más corto de la escalera del front (OPINION_CADENCIAS[0]).
+for _ in range(10):
+    sembrar(0.85, True)
+r3 = client.post(f"{API}/opinion", json={"accion": "answer", "voto": "muy_facil"},
+                 headers={"X-Game-Token": "tok-dospasos"})
+tercero = db.query(GameDifficultyVote).filter_by(player_id=otro.id).order_by(
+    GameDifficultyVote.id.desc()).first()
+check(tercero.ventana == 10,
+      f"con 10 respuestas nuevas la ventana tiene 10 y no {opinion.VENTANA} "
+      f"(dio {tercero.ventana})")
+check(tercero.aciertos == 10, f"y las 10 son las nuevas (dio {tercero.aciertos})")
+segundo_delta = r3.json()["delta_theta"]
+check(segundo_delta > 0, f"un voto respaldado sigue moviendo (dio {segundo_delta:+.3f})")
+# El encogimiento por I0_PRIOR es lo que hace que media ventana compre menos de
+# medio ajuste, sin ninguna constante nueva. Es el argumento que justifica que la
+# cadencia pueda bajar a 10 sin tocar el TOPE.
+check(segundo_delta < primer_delta,
+      f"pero menos que con la ventana entera ({segundo_delta:+.3f} contra "
+      f"{primer_delta:+.3f})")
+
+# Un voto que NO cobra no corre el corte: sus respuestas siguen disponibles. Si
+# lo corriera, «justo» se convertiría en una forma de tirar evidencia a la basura.
+antes_del_justo = cobrado.corte_ejercicio_id
+corte_del_tercero = tercero.corte_ejercicio_id
+client.post(f"{API}/opinion", json={"accion": "answer", "voto": "justo"},
+            headers={"X-Game-Token": "tok-dospasos"})
+justo = db.query(GameDifficultyVote).filter_by(player_id=otro.id).order_by(
+    GameDifficultyVote.id.desc()).first()
+check(justo.voto == "justo" and justo.delta_theta == 0.0, "«justo» no mueve nada")
+check(justo.corte_ejercicio_id is None,
+      "y no corre el corte, así que sus respuestas quedan para el voto siguiente")
+check(corte_del_tercero is not None and corte_del_tercero > antes_del_justo,
+      "el corte avanzó solo con los votos que cobraron")
 
 
 print()

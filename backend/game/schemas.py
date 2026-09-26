@@ -625,6 +625,35 @@ class GameEncuestaOut(BaseModel):
     guardado: bool
 
 
+class GameRepetitividadRequest(BaseModel):
+    """«¿Te están saliendo repetidas?», en los mismos dos pasos que las otras dos.
+
+    Los tres valores (`variado` / `justo` / `repetitivo`) no viajan validados por
+    el schema sino por `repetitividad.VOTOS` en el handler, igual que en
+    `GameOpinionRequest`: un voto desconocido no puede romperle la partida a
+    nadie, así que se ignora en vez de devolver 422.
+
+    No hay campo para los contadores objetivos y eso es a propósito: los calcula
+    el servidor sobre el historial, porque son la mitad del dato que hace
+    comparable al voto y el cliente no tiene por qué poder inventarlos.
+    """
+
+    accion: str = Field(max_length=12)
+    voto: Optional[str] = Field(default=None, max_length=12)
+    platform: Optional[str] = Field(default=None, max_length=8)
+
+
+class GameRepetitividadOut(BaseModel):
+    """Si la respuesta quedó guardada.
+
+    Un booleano, como `GameEncuestaOut` y al revés que `GameOpinionOut`: este voto
+    no mueve θ, así que no hay ningún número que devolverle al front. El día que
+    mueva algo, esto gana campos.
+    """
+
+    guardado: bool
+
+
 # ── Avisos push ──────────────────────────────────────────────────────────────
 # Espejo de los de Intervalo (main.py), y no importados de allá porque el router
 # del juego no puede importar main sin cerrar un ciclo. La forma es la misma

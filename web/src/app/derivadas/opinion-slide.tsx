@@ -2,8 +2,10 @@
 
 // La diapo que pregunta cómo viene resultando el juego.
 //
-// Es la única vez que el juego pregunta algo en vez de medirlo. Todo lo demás
-// que sabe sale de los aciertos —θ y β— y los aciertos no saben si alguien se
+// Una de las dos veces que el juego pregunta algo en vez de medirlo —la otra es
+// repetitividad-slide.tsx, y comparten la escalera de turnos de
+// opinion-trigger.ts—, y la única de las dos que mueve algo. Todo lo demás que el
+// juego sabe sale de los aciertos —θ y β— y los aciertos no saben si alguien se
 // está aburriendo.
 //
 // Como la de instalar, no pide nada: un toque, se sale sin contestar, y lo que
@@ -63,7 +65,12 @@ export function OpinionSlide({
   fullBleed = false,
   className,
 }: {
-  onContinue: () => void
+  /** `contesto` dice si se votó o si se salió sin contestar. Lo usa el flow para
+   *  llevar la racha de salteos, que es lo que hace que el juego deje de
+   *  preguntarle a quien nunca contesta (opinion-trigger.ts ::
+   *  OPINION_SALTOS_PARA_CORTAR). Antes no hacía falta porque un tope de tres
+   *  apariciones cortaba a todos por igual. */
+  onContinue: (contesto: boolean) => void
   slotSalida?: HTMLElement | null
   /** Escritorio. Enciende los chips de tecla y el listener que los cumple: 1, 2
    *  y 3 votan, Enter sigue. El Enter global del juego no llega hasta acá
@@ -119,6 +126,14 @@ export function OpinionSlide({
   useEffect(() => {
     votarRef.current = votar
   })
+  // Y lo mismo con «¿votó?», por el mismo motivo: el listener de Enter se arma
+  // con `[keyboard, onContinue]` en las dependencias, así que leer `votado`
+  // directo desde ahí daría el valor que tenía cuando se armó —siempre `null`—
+  // y todo Continuar por teclado contaría como salteo.
+  const contestoRef = useRef(false)
+  useEffect(() => {
+    contestoRef.current = votado !== null
+  })
   // Un solo Continuar por aparición: un teclado que repite mandaría dos, y el
   // segundo caería sobre la derivada siguiente.
   const seguidoRef = useRef(false)
@@ -134,7 +149,7 @@ export function OpinionSlide({
         e.preventDefault()
         if (seguidoRef.current) return
         seguidoRef.current = true
-        onContinue()
+        onContinue(contestoRef.current)
         return
       }
       const i = TECLAS.indexOf(e.key)
@@ -241,7 +256,7 @@ export function OpinionSlide({
             bajarle el volumen. Mismo botón que la cara de vuelta del cafecito. */}
         <button
           type="button"
-          onClick={onContinue}
+          onClick={() => onContinue(votado !== null)}
           className={cn(
             "flex w-full items-center justify-center rounded-md bg-white text-base font-semibold text-black transition-colors hover:bg-white/90",
             slotSalida ? "h-[var(--cta-h)]" : "mt-3 px-4 py-3",

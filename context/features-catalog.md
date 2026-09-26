@@ -179,10 +179,22 @@ eso obligó a mover un tercero, porque los números no viven solos:
 | 18 | la pregunta de la varita (`ENCUESTA_EN`), una sola vez en la vida |
 | 20 | el cafecito otra vez, y de ahí cada 20 |
 | 24 | instalar la app, y después cada 12: 36, 48, 60, 73, 85 |
-| 28 | la encuesta de dificultad (`OPINION_PRIMERA`, corrida por su separación) |
+| 28 | la primera encuesta de la escalera (`OPINION_PRIMERA`, corrida por su separación), y de ahí vuelve para siempre |
 
-Simulado hasta la derivada 95 con las funciones reales: **ninguna pantalla
-comparte respuesta con otra**, y no hay tres derivadas seguidas con pantalla.
+**La escalera de encuestas es el único escalón que no se termina nunca.** Las dos
+preguntas del juego —dificultad y repetitividad— comparten un solo turno y
+alternan: los huecos nominales son 10, 10, 20, 30, 50 y 80 (el último se repite),
+y la regla de separación los estira cuando caen encima de otra pantalla. En las
+primeras 200 derivadas los turnos reales son **28, 44, 54 y 113** para dificultad
+y **77 y 164** para repetitividad.
+
+Simulado hasta la derivada 200 con las funciones reales —`bun run check:opinion`,
+sección 6, que recorre el ladder entero escalón por escalón para un invitado en un
+teléfono, que es el caso con más pantallas—: **ninguna pantalla comparte respuesta
+con otra**, y no hay tres derivadas seguidas con pantalla. Hasta el 24/09 esa
+simulación vivía en un scratchpad y el chequeo solo miraba café y reclutas; ahora
+está en el check, que es lo que hace que la afirmación siga siendo verdad cuando
+alguien mueva un número.
 
 **Lo que hace que el mapa se sostenga son tres reglas, no la aritmética.**
 
@@ -197,7 +209,7 @@ comparte respuesta con otra**, y no hay tres derivadas seguidas con pantalla.
    en la derivada 46, un acierto después de la instalación de la 45.
 3. **Que dos pantallas no compartan respuesta** (`readUltimaPantalla`). No es
    una distancia sino una igualdad, y cubre a TODAS —incluidas las que no piden
-   nada: el registro, la varita y la encuesta de dificultad—. El ladder vuelve a
+   nada: el registro, la varita y las dos encuestas de la escalera—. El ladder vuelve a
    entrar después de cada diapo con otro `consumed`, así que sin esto dos
    disparadores que apuntan al mismo número se dibujan uno atrás del otro sobre
    la misma derivada.
@@ -205,9 +217,11 @@ comparte respuesta con otra**, y no hay tres derivadas seguidas con pantalla.
 **Las reglas 2 y 3 son distintas a propósito y mezclarlas sale caro.** Con una
 sola lectura y una distancia de cuatro, la pregunta de la varita de la 18
 empujaba el segundo cafecito de la 20 a la 40: estar a dos derivadas de
-distancia está bien, compartir la respuesta no. La encuesta de dificultad es la
-única que usa la regla 3 como distancia y no como igualdad, y es coherente con
-su lugar: va última del ladder justamente porque no convierte a nadie.
+distancia está bien, compartir la respuesta no. Las encuestas de la escalera son
+las únicas que usan la regla 3 como distancia y no como igualdad, y es coherente
+con su lugar: van últimas del ladder justamente porque no convierten a nadie. Con
+huecos de diez son también las que más veces se topan con otra pantalla, así que
+son las que más dependen de esa regla.
 
 Por qué se movió el reclutamiento de la 10 a la 9: en la 10 compartía respuesta
 con el registro —el registro sale primero y al cerrarlo el ladder vuelve a
@@ -369,21 +383,39 @@ mostró por qué tenía que ser explícita.
   a competir por la banda como cualquier otra. El panel de la tecla `p` muestra
   el piso como Elo de desbloqueo de la fila, así que la promesa de la pantalla y
   lo que el generador hace son el mismo número.
-- **Y una vez cada tanto se le pregunta** (`game/opinion.py`). Todo lo de
-  arriba el motor lo mide; esto es lo único que averigua preguntando. A las 10
-  resueltas, después cada 30 y como mucho tres veces, aparece una diapo con tres
-  opciones: 😴 muy fáciles / 👌 justas / 🤯 muy difíciles. Son los mismos tres
-  valores que el canal A de la micro-encuesta de Intervalo, para que los dos
-  productos se puedan cruzar sin traducir.
+- **Y cada tanto se le pregunta** (`game/opinion.py`). Todo lo de arriba el motor
+  lo mide; esto es lo que averigua preguntando. Desde la derivada 28 aparece una
+  diapo con tres opciones —😴 muy fáciles / 👌 justas / 🤯 muy difíciles— y vuelve
+  con huecos que crecen: 10, 10, 20, 30, 50, 80 y de ahí siempre 80
+  (`opinion-trigger.ts :: OPINION_CADENCIAS`). Son los mismos tres valores que el
+  canal A de la micro-encuesta de Intervalo, para que los dos productos se puedan
+  cruzar sin traducir.
+
+  **No tiene tope de apariciones, y lo que la corta es el silencio**: tres
+  salteos seguidos y deja de salir, y una respuesta borra la racha. Hasta el
+  24/09 volvía cada 30 y se terminaba a las tres veces; el cambio salió de
+  medirla —91,8% de respuesta sobre 437 impresiones, más que cualquier otra cosa
+  que el juego pregunte— y de notar que el tope se apagaba justo para los
+  jugadores pesados, que son los que más tienen para decir.
 
   El voto **ajusta el θ de quien lo emite**, y ahí está lo que hay que entender:
-  el voto elige el signo y la evidencia elige el tamaño. Sobre las últimas 20
+  el voto elige el signo y la evidencia elige el tamaño. Sobre hasta 20
   respuestas de primer intento sin tabla se calcula un paso de Newton encogido
   —`Δθ = Σ(acertó − p̂) / (SCALE·Σp̂(1−p̂) + I₀)`— y se aplica solo si va para el
   mismo lado que el voto, con tope de un tier (0,60) y una banda muerta de 0,15
   abajo. Quien dice «muy fácil» sin estarle ganando al motor no se mueve: el
   color del ranking se sigue ganando resolviendo, y el ajuste solo lo acredita
   antes.
+
+  **«Hasta 20» y no «las últimas 20»**, y esa palabra es la que permite preguntar
+  cada diez. La ventana arranca en el último voto que cobró
+  (`game_difficulty_votes.corte_ejercicio_id`), así que lo ya cobrado no se cobra
+  de nuevo. Con un hueco de diez entran diez respuestas y el ajuste sale unas
+  seis décimas del que saldría con veinte, porque el encogimiento de `I₀` pesa
+  más cuando hay menos evidencia: una ventana más corta compra una corrección más
+  chica, sin ninguna constante nueva. Y votar dos veces sin resolver nada en el
+  medio da cero, que es de paso el primer freno de servidor que tuvo este
+  endpoint —el tope de tres vivía solo en `localStorage`.
 
   No inventa una creencia. El paso de θ decae con la experiencia (a las 100
   respuestas vale 0,025 por acierto), así que a un veterano subvaluado el motor
@@ -396,6 +428,34 @@ mostró por qué tenía que ser explícita.
   color pero no el ejercicio si no hay ejercicio más difícil. Cuando esto se
   escribió la β creída más alta era 0,654 y el techo caía en θ ≈ 2,35; con la
   regla de la cadena adentro (ver más abajo) el techo pasó a θ ≈ 4,25.
+
+- **Y la otra mitad de la escalera: si le salen repetidas**
+  (`game/repetitividad.py`). 🎲 bien variadas / 👌 está bien así / 🔁 muy
+  repetidas, alternando el turno con la de dificultad y entrando recién en el
+  cuarto —a la 28-48 la repetición todavía no pasó: medida antes del arreglo del
+  10/09 era del 2,4% en las primeras diez contra el 77,5% del ejercicio 51 en
+  adelante.
+
+  **Este voto no mueve nada**, y lo que lo hace útil es lo que viaja al lado:
+  cuántas plantillas y cuántos enunciados distintos venía viendo en sus últimas
+  30 derivadas, congelados en la fila. Sin eso, dificultad y repetitividad se
+  mueven juntas y no hay manera de saber cuál arrastra a cuál —cuando el
+  catálogo se queda sin tiers el selector repite, y cuando repite la derivada se
+  siente fácil.
+
+  **Los dos contadores miden cosas distintas y se guardan los dos**: ocho
+  plantillas pueden ser ocho veces el mismo enunciado, que es exactamente el bug
+  del 10/09 (`sen(x)/x` servida 626 veces y siempre la misma expresión). La
+  ventana además cuenta TODO lo servido, salteados y mirados con la tabla
+  incluidos, al revés que la de dificultad: lo que se mide acá es lo que la
+  persona vio, y saltear es la reacción más probable a la cuarta vez de la misma.
+
+  Existe porque el tema aparecía solo: cinco de las 109 respuestas a la varita
+  hablan de repetición sin que se les pregunte, y las cinco son de jugadores
+  pesados (76, 325, 356, 374 y 583 derivadas). El panel lo lee contra
+  `generator._RECENT_EXCLUDE`: si quien vota «repetitivo» venía viendo casi
+  tantos enunciados distintos como el largo de la ventana, el problema es que el
+  banco es chico; si venía viendo pocos, la exclusión se está quedando corta.
 
 ### `dx-elo-1`: la velocidad del Elo (desde el 19/09)
 
@@ -799,9 +859,11 @@ nada más:
 > Si tuvieras una varita mágica, ¿qué le cambiarías o le agregarías al juego?
 
 Existe porque es lo único que el juego no puede medir. θ y β salen de los
-aciertos, el embudo sale de las derivadas resueltas, y la encuesta de dificultad
-tiene tres respuestas y las tres las elegimos nosotros. Ninguna de esas fuentes
-puede devolver algo que no se nos haya ocurrido preguntar.
+aciertos, el embudo sale de las derivadas resueltas, y las dos encuestas de la
+escalera tienen tres respuestas cada una y las seis las elegimos nosotros. Ninguna
+de esas fuentes puede devolver algo que no se nos haya ocurrido preguntar — de
+hecho la pregunta de repetitividad existe porque cinco respuestas de esta
+hablaron de repetición sin que nadie la mencionara.
 
 **No hay botón de saltar, y el campo no valida nada.** Las dos mitades son la
 misma decisión: sin botón, salir cuesta un acto deliberado y eso sube mucho
@@ -819,7 +881,7 @@ entero con las constantes reales (18/09):
 |---|---|---|
 | 10 | reclutas | 451 |
 | 12 | registro | — |
-| 14 | encuesta de dificultad | 321 |
+| 14 | encuesta de dificultad *(en ese momento la única, y con cadencia fija)* | 321 |
 | **18** | **libre** | **277** |
 | 20 | cafecito | 258 |
 
@@ -831,7 +893,8 @@ se desfasa: en 60 derivadas pasa de salir 3 veces a salir 1. La 18 está vacía,
 deja el calendario intacto y **llega a más gente que la 20**.
 
 Por el mismo motivo **no consume el cooldown compartido**, solo lo respeta (con
-la separación de 4 de instalar y opinión). Consumiéndolo, el cafecito de la 20
+la separación de 4 de instalar y de las dos encuestas). Consumiéndolo, el
+cafecito de la 20
 quedaría tapado hasta la 40. Una pregunta que se hace una vez en la vida no puede
 costar una oferta de tres; el check `check:encuesta` clava esa propiedad.
 

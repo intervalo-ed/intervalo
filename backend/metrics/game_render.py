@@ -36,20 +36,119 @@ nadie lee (`git log` las tiene si hacen falta de nuevo).
 """
 from __future__ import annotations
 
+import re
+import unicodedata
+from collections import Counter
 from datetime import date, datetime, timedelta
 
 from . import charts as ch
 from . import theme
 from .charts import esc, num
 from .game_queries import (
-    FIRST_WEEK, MIN_IMPRESIONES_CTR, PEDIDO_CAFECITO, PLATFORM_LABEL,
+    DEPTH_MAX, DEPTH_MIN, DEPTH_TOPE, FIRST_WEEK, MIN_IMPRESIONES_CTR,
+    MIN_IMPRESIONES_SEMANA, PEDIDO_CAFECITO, PLATFORM_LABEL,
 )
 
 # El grueso del CSS es el mismo que Intervalo (ver metrics/theme.py) — es la
 # piel de la que se copió en primer lugar. Acá solo quedan las reglas que no
-# tienen sentido fuera del juego: la celda monoespaciada de `template_key` y
-# el tamaño del MathML de los ejemplos.
-CSS = theme.BASE_CSS
+# tienen sentido fuera del juego: hoy, la pestaña de Voces, que es la única del
+# panel que no es una tabla ni un gráfico.
+CSS_DX = """
+/* Un segundo título adentro de una caja: el primero lo pone `theme.box` y
+   viene sin margen de arriba porque abre la caja; este abre una sección más
+   abajo y necesita el aire que el otro no. */
+h3.dentro{margin:18px 0 10px}
+
+/* ── El largo de la curva de profundidad ────────────────────────── */
+/* Vive en la misma fila que los desgloses y pegado al borde derecho: gobierna
+   el gráfico de abajo y nada más, así que lejos de él habría que acordarse de
+   que existe. */
+.kctrl{margin-left:auto;display:flex;align-items:center;gap:8px;
+  color:var(--muted);font-size:12px}
+.kctrl label{white-space:nowrap}
+.kctrl b{color:var(--fg);font-variant-numeric:tabular-nums;min-width:2ch;
+  text-align:right}
+.kctrl input[type=range]{-webkit-appearance:none;appearance:none;width:132px;
+  height:14px;background:transparent;cursor:pointer}
+.kctrl input[type=range]::-webkit-slider-runnable-track{height:3px;
+  border-radius:2px;background:var(--border)}
+.kctrl input[type=range]::-moz-range-track{height:3px;border-radius:2px;
+  background:var(--border)}
+.kctrl input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;
+  appearance:none;width:13px;height:13px;margin-top:-5px;border-radius:50%;
+  background:var(--indigo);border:2px solid var(--card)}
+.kctrl input[type=range]::-moz-range-thumb{width:13px;height:13px;
+  border-radius:50%;background:var(--indigo);border:2px solid var(--card)}
+.kctrl input[type=range]:focus-visible{outline:2px solid var(--indigo-soft);
+  outline-offset:3px;border-radius:6px}
+
+/* ── Voces: una tarjeta por respuesta ───────────────────────────── */
+
+/* El único número de la sección, de ancho completo: es el encabezado de lo que
+   viene abajo, no una tarjeta más de una fila de cuatro. El cuerpo de letra es
+   el de cualquier KPI del panel — lo que hace grande a esta caja es el ancho y
+   el aire, no el tamaño de la letra. */
+.kpi-ancho{display:flex;align-items:flex-end;justify-content:space-between;
+  gap:16px;flex-wrap:wrap;padding:18px 22px;min-height:96px}
+.kpi-ancho .izq{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+.kpi-ancho .label{font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;
+  font-weight:650}
+.kpi-ancho .val{font-size:29px}
+.kpi-ancho .hint{margin:0 0 6px;font-size:12.5px}
+
+/* Tres columnas fijas, dos en una tablet y una en el teléfono.
+   `align-items:start` es lo que deja que cada tarjeta mida lo que mide: con el
+   estiramiento por defecto, una respuesta de 400 caracteres infla a sus dos
+   vecinas de la fila hasta su alto, y la mediana son 21 caracteres. */
+.voces{display:grid;gap:12px;align-items:start;
+  grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:880px){.voces{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.voces{grid-template-columns:1fr}}
+.voz{border:1px solid var(--border);background:var(--card);border-radius:8px;
+  padding:14px 15px 12px;display:flex;flex-direction:column;gap:10px}
+.voz[hidden]{display:none}
+
+/* La respuesta es el contenido: lo único a cuerpo de lectura y en el color del
+   texto. Todo lo demás de la tarjeta es aparato y va en gris. */
+.dice{margin:0;font-size:14.5px;line-height:1.5;color:var(--fg);
+  overflow-wrap:anywhere}
+.dice::before{content:"\\201C";color:var(--muted);margin-right:1px}
+.dice::after{content:"\\201D";color:var(--muted);margin-left:1px}
+
+.quien{border-top:1px solid var(--border);padding-top:9px;
+  display:flex;flex-direction:column;gap:3px}
+.quien-top{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.quien .alias{font-weight:650;font-size:13px}
+.quien .carrera{font-size:12.5px;line-height:1}
+.quien .meta{color:var(--muted);font-size:11.5px;font-variant-numeric:tabular-nums}
+.quien .meta.dim{color:#7f8da1}
+.quien .origen{color:#7f8da1;font-size:11.5px;margin-top:2px}
+.quien .origen b{color:var(--muted);font-weight:600}
+.quien .origen::before{content:"\\21B3 ";color:var(--border)}
+
+/* El buscador. Mismo trato que los cortes de un gráfico: mismo alto, mismo
+   borde, mismo redondeo, y el atajo elegido se PINTA. */
+.buscador{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.buscador input{flex:1 1 260px;max-width:360px;background:var(--card);
+  color:var(--fg);border:1px solid var(--border);border-radius:6px;
+  padding:7px 11px;font:inherit;font-size:13px}
+.buscador input::placeholder{color:var(--muted)}
+.buscador input:focus{outline:none;border-color:var(--indigo-soft)}
+.atajos{display:flex;gap:6px;flex-wrap:wrap;font-size:12px}
+.atajos button{border:1px solid var(--border);border-radius:6px;padding:3px 9px;
+  color:var(--muted);background:var(--card);font:inherit;font-size:12px;
+  cursor:pointer;line-height:1.5}
+.atajos button:hover{color:var(--fg);border-color:var(--indigo)}
+.atajos button b{font-variant-numeric:tabular-nums;font-weight:600;opacity:.65;
+  margin-left:4px}
+.atajos button.cur{background:var(--indigo);color:#fff;border-color:var(--indigo);
+  font-weight:600}
+.atajos button.cur b{opacity:.8}
+.conteo{margin-left:auto;color:var(--muted);font-size:12px;
+  font-variant-numeric:tabular-nums}
+mark{background:rgba(84,87,229,.34);color:var(--fg);border-radius:3px;padding:0 1px}
+"""
+CSS = theme.BASE_CSS + CSS_DX
 
 # Los colores de marca de cada universidad, reusados del panel de Intervalo en
 # vez de copiar la lista: backend/universities.py ya advierte de las tres copias
@@ -57,7 +156,8 @@ CSS = theme.BASE_CSS
 # Son los mismos del chip que el jugador ve en su ranking, que es lo que hace
 # que una línea del desglose se reconozca sin leer la leyenda.
 from .render import (  # noqa: E402
-    SURVEY_EMOJI_A, SURVEY_TEXT, UNIVERSITY_COLOR, _uni_chip,
+    CAREER_LABEL, SURVEY_EMOJI_A, SURVEY_EMOJI_R, SURVEY_TEXT,
+    UNIVERSITY_COLOR, _uni_chip,
 )
 
 # Los pesos del sorteo se LEEN de donde se deciden, no se copian: la columna
@@ -163,6 +263,266 @@ def _kpi_chico(label: str, valor, hint: str = "", suffix: str = "", dec: int = 1
             f'<div class="val">{num(valor, suffix, dec)}</div>'
             + (f'<div class="hint">{esc(hint)}</div>' if hint else "")
             + "</div>")
+
+
+def _kpi_camada(label: str, valor, delta, contra: str, hint: str = "",
+                suffix: str = "", dec: int = 1) -> str:
+    """Un número de la última ola, con cuánto se movió contra la anterior.
+
+    Ni `_kpi_chico` —que no tiene contra qué compararse— ni `theme.kpi`, que
+    pide una serie para el sparkline y rotula el chip como «vs. semana
+    anterior». Acá la comparación NO es contra la semana anterior sino contra
+    la última ola que salió, que puede ser de hace dos o tres semanas, así que
+    el rótulo lo escribe quien llama y dice de qué fecha está hablando.
+    """
+    return (f'<div class="box kpi"><div class="label">{esc(label)}</div>'
+            f'<div class="val">{num(valor, suffix, dec)}</div>'
+            f'<div class="row" style="margin-top:8px">{_chip(delta, suffix, dec)}'
+            f'<span class="hint">{esc(contra)}</span></div>'
+            + (f'<div class="hint">{esc(hint)}</div>' if hint else "")
+            + "</div>")
+
+
+# El control del largo de la curva. `change` y no `input`: la barra dispara un
+# evento por píxel arrastrado, y cada uno acá es una página entera. El número de
+# al lado sí se mueve con `input`, que es lo que hace que el arrastre tenga
+# adónde mirar mientras tanto.
+DEPTH_JS = """
+(function(){
+  var r = document.getElementById('kmax');
+  if (!r) return;
+  var out = document.getElementById('kval');
+  r.addEventListener('input', function(){ out.textContent = r.value; });
+  r.addEventListener('change', function(){
+    var u = new URL(window.location.href);
+    u.searchParams.set('k', r.value);
+    window.location.href = u.toString();
+  });
+})();
+"""
+
+
+# ── Voces: la tarjeta, el buscador y sus atajos ──────────────────────────────
+#
+# Es la única pieza del panel que no es una tabla ni un gráfico, y es a
+# propósito: acá se viene a LEER de a una respuesta, no a comparar filas. La
+# tabla que había antes ponía el texto en la primera celda y a la persona en
+# cinco columnas de al lado, así que la respuesta se leía sin saber quién la
+# escribió y la persona se leía sin poder mirarla entera.
+
+
+def _sin_tildes(s: str) -> str:
+    """Minúsculas y sin diacríticos, para que buscar «analisis» encuentre
+    «Análisis». Es la misma normalización que hace el buscador en el navegador
+    —ver VOCES_JS—, y tiene que seguir siendo la misma: acá se cuentan los
+    atajos y allá se filtra con ellos."""
+    return "".join(c for c in unicodedata.normalize("NFD", (s or "").lower())
+                   if unicodedata.category(c) != "Mn")
+
+
+# Palabras que no distinguen una respuesta de otra, en tres grupos:
+#
+# · relleno del castellano;
+# · las que SON el producto — «derivadas» aparece en 36 de 190 respuestas y por
+#   eso mismo no sirve de atajo: un filtro que deja casi todo no filtra;
+# · los verbos de sugerencia y los adjetivos de elogio, que están en todas
+#   porque la pregunta PIDE una sugerencia («le pondría», «agregaría»,
+#   «buenísimo»). Son la forma de la respuesta, no su tema.
+_VOCES_STOP = set("""
+algo algun alguna alguno ante antes aqui aunque bien cada como con contra cual
+cuando decir desde donde ella ellas ellos entre era eran esta estan este esto
+estos fuera gran hace hacer hasta lugar mientras mucha mucho nada otra otro
+para pero poco poder porque pues puede pueden quiza quizas seria siempre sino
+sobre solo tambien tanto tener tiene todo todos vez veces
+ahora capaz forma manera mayor mejor menos mismo momento nose parte tipo
+app cosa cosas derivada derivadas ejercicio ejercicios juego jugar
+agregar agregaria agregarle cambiar cambiaria deberia estaria gustaria haria
+mejorar poner pondria ponerle quitar sacar sumar sumaria
+bueno buena buenos buenas buenisimo buenisima copado genial increible lindo
+piola perfecto
+""".split())
+
+
+def _voces_atajos(respuestas: list[dict], tope: int = 8, minimo: int = 3
+                  ) -> list[tuple[str, int]]:
+    """Las palabras más repetidas de estas mismas respuestas, con en cuántas
+    aparece cada una.
+
+    No es una lista de temas que suponemos: se cuenta sobre lo que la gente
+    escribió, así que el día que el tema cambie los atajos cambian solos. Se
+    cuenta por RESPUESTA y no por aparición — quien escribe «integrales» tres
+    veces en un renglón es una persona pidiendo integrales, no tres.
+    """
+    cuenta: Counter = Counter()
+    for r in respuestas:
+        palabras = {w for w in re.findall(r"[a-zñ]{4,}", _sin_tildes(r["texto"]))
+                    if w not in _VOCES_STOP}
+        cuenta.update(palabras)
+    return [(w, n) for w, n in cuenta.most_common(tope) if n >= minimo]
+
+
+def _buscador(respuestas: list[dict]) -> str:
+    atajos = "".join(
+        f'<button type="button" data-q="{esc(w)}">{esc(w)}<b>{n}</b></button>'
+        for w, n in _voces_atajos(respuestas))
+    return ('<div class="buscador">'
+            '<input id="voces-q" type="search" autocomplete="off" '
+            'placeholder="Buscar una palabra…">'
+            f'<div class="atajos">{atajos}</div>'
+            f'<span class="conteo" id="voces-conteo">{num(len(respuestas))} '
+            'respuestas</span></div>')
+
+
+def _voz(r: dict) -> str:
+    """Una respuesta y, debajo de una línea fina, quién la escribió."""
+    top = [f'<span class="alias">@{esc(r["alias"] or "—")}</span>',
+           _uni_chip(r["universidad"]) if r["universidad"]
+           else '<span class="tag tag-plain">sin universidad</span>']
+    carrera = CAREER_LABEL.get(r["carrera"] or "")
+    if carrera:
+        top.append(f'<span class="carrera" title="{esc(carrera[1])}">'
+                   f'{carrera[0]}</span>')
+    if not r["registrado"]:
+        top.append('<span class="pill">invitado</span>')
+
+    # Cuánto jugó, en las dos monedas que el juego tiene. El combo solo si
+    # existe: un 0 ocupa lo mismo que un 20 y no dice nada.
+    meta = [f'{num(r["derivadas"])} derivadas', f'{num(r["xp"])} XP']
+    if r["mejor_combo"]:
+        meta.append(f'mejor combo {num(r["mejor_combo"])}')
+    if r["correctas"] != 18:
+        # 18 es donde sale la pregunta, así que decirlo en las 9 de cada 10
+        # tarjetas donde vale 18 es ruido; las otras son gente que ya tenía
+        # más cuando la pregunta se estrenó, y eso sí se mira.
+        meta.append(f'iba por la {num(r["correctas"])}')
+
+    seg = r["segundos"]
+    # Día y hora, sin el año: el panel siempre se mira sobre una semana, así que
+    # «2026-» en 190 tarjetas es la misma columna repetida 190 veces.
+    cuando = [PLATFORM_LABEL.get(r["plataforma"], r["plataforma"] or "Sin dato"),
+              datetime.fromisoformat(r["cuando"]).strftime("%d/%m %H:%M"),
+              f"tardó {seg} s en escribirlo" if seg < 90
+              else f"tardó {seg // 60} min en escribirlo"]
+
+    # De dónde salió esta persona. Es lo que convierte una opinión suelta en
+    # «esto lo dice el grupo tal», que es como se decide a quién escribirle.
+    origen = []
+    if r["reclutador"]:
+        origen.append(f'entró por <b>@{esc(r["reclutador"])}</b>')
+    if r["grupo"]:
+        g = esc(r["grupo"]["universidad"] or "—")
+        if r["grupo"]["materia"]:
+            g += " — " + esc(_recortar(r["grupo"]["materia"], 34))
+        origen.append(("del grupo " if origen else "entró por el grupo ") + g)
+    if r["reclutas"]:
+        origen.append(f'trajo {num(r["reclutas"])} recluta'
+                      + ("s" if r["reclutas"] > 1 else ""))
+
+    # El buscador mira el texto Y esto, así que «UTN», «@fulano» o «invitado»
+    # son búsquedas válidas sin necesidad de una fila de filtros aparte.
+    quien = " ".join(str(x) for x in [
+        "@" + (r["alias"] or ""), r["universidad"] or "",
+        carrera[1] if carrera else "",
+        PLATFORM_LABEL.get(r["plataforma"], ""),
+        (r["grupo"] or {}).get("universidad") or "",
+        (r["grupo"] or {}).get("materia") or "",
+        ("@" + r["reclutador"]) if r["reclutador"] else "",
+        "registrado" if r["registrado"] else "invitado"] if x)
+
+    return (f'<article class="voz" data-quien="{esc(_sin_tildes(quien))}">'
+            f'<p class="dice">{esc(r["texto"] or "")}</p>'
+            f'<div class="quien"><div class="quien-top">{"".join(top)}</div>'
+            f'<div class="meta">{" · ".join(meta)}</div>'
+            f'<div class="meta dim">{" · ".join(cuando)}</div>'
+            + (f'<div class="origen">{" · ".join(origen)}</div>' if origen else "")
+            + "</div></article>")
+
+
+# El único JavaScript del panel, y vive acá abajo porque solo viaja cuando la
+# pestaña abierta es esta. Las respuestas ya están todas en la página —son
+# decenas, no millones— así que filtrar es esconder tarjetas y no volver al
+# servidor: sin recarga, sin estado en la URL y sin endpoint nuevo que
+# mantener.
+VOCES_JS = """
+(function(){
+  var cont = document.getElementById('voces-lista');
+  if (!cont) return;
+  var input = document.getElementById('voces-q');
+  var conteo = document.getElementById('voces-conteo');
+  var vacio = document.getElementById('voces-vacio');
+  var cajas = [].slice.call(cont.querySelectorAll('.voz'));
+  var total = cajas.length;
+
+  // Normalizar SIN perder el alineamiento con el texto original: «á» se vuelve
+  // «a» —una unidad donde el original tiene dos— así que el resaltado
+  // terminaría marcando la letra de al lado. Por eso se guarda el mapa de
+  // vuelta, de índice normalizado a índice original.
+  function prep(s){
+    var chars = Array.from(s), hay = '', map = [];
+    chars.forEach(function(c, i){
+      var n = c.normalize('NFD').replace(/[\\u0300-\\u036f]/g, '').toLowerCase();
+      if (n === '') n = '\\u0000';
+      for (var k = 0; k < n.length; k++){ hay += n[k]; map.push(i); }
+    });
+    return {chars: chars, hay: hay, map: map};
+  }
+  function norm(s){
+    return s.normalize('NFD').replace(/[\\u0300-\\u036f]/g, '').toLowerCase();
+  }
+
+  var datos = cajas.map(function(voz){
+    var p = voz.querySelector('.dice');
+    return {voz: voz, p: p, texto: p.textContent, idx: prep(p.textContent),
+            quien: voz.getAttribute('data-quien') || ''};
+  });
+
+  function pintar(d, q){
+    if (!q){ d.p.textContent = d.texto; return; }
+    var chars = d.idx.chars, hay = d.idx.hay, map = d.idx.map;
+    var frag = document.createDocumentFragment(), desde = 0, cursor = 0, i;
+    while ((i = hay.indexOf(q, desde)) !== -1){
+      var a = map[i], b = map[i + q.length - 1] + 1;
+      if (a > cursor) frag.appendChild(
+        document.createTextNode(chars.slice(cursor, a).join('')));
+      var m = document.createElement('mark');
+      m.textContent = chars.slice(a, b).join('');
+      frag.appendChild(m);
+      cursor = b; desde = i + q.length;
+    }
+    if (cursor < chars.length) frag.appendChild(
+      document.createTextNode(chars.slice(cursor).join('')));
+    d.p.innerHTML = '';
+    d.p.appendChild(frag);
+  }
+
+  function filtrar(){
+    var crudo = input.value.trim(), q = norm(crudo), n = 0;
+    datos.forEach(function(d){
+      var enTexto = d.idx.hay.indexOf(q) !== -1;
+      var hit = !q || enTexto || d.quien.indexOf(q) !== -1;
+      d.voz.hidden = !hit;
+      if (hit){ n++; pintar(d, enTexto ? q : ''); }
+    });
+    conteo.textContent = q ? n + ' de ' + total : total + ' respuestas';
+    vacio.hidden = n > 0;
+    vacio.textContent = 'Ninguna respuesta dice «' + crudo + '».';
+    [].forEach.call(document.querySelectorAll('.atajos button'), function(b){
+      b.className = b.getAttribute('data-q') === q ? 'cur' : '';
+    });
+  }
+
+  input.addEventListener('input', filtrar);
+  input.addEventListener('keydown', function(e){
+    if (e.key === 'Escape'){ input.value = ''; filtrar(); }
+  });
+  [].forEach.call(document.querySelectorAll('.atajos button'), function(b){
+    b.addEventListener('click', function(){
+      input.value = b.className === 'cur' ? '' : b.getAttribute('data-q');
+      filtrar(); input.focus();
+    });
+  });
+})();
+"""
 
 
 # Qué dice cada copy, para que la tabla de push se pueda leer sin abrir el
@@ -287,18 +647,23 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         f"<div class='weeknav'>{''.join(nav)}</div>"
         "</div></header>")
 
-    def link(*, s: str | None = None, corte: str | None = None) -> str:
+    def link(*, s: str | None = None, corte: str | None = None,
+             k: int | None = None) -> str:
         """La URL del panel cambiando UNA cosa y dejando el resto como está.
 
         Es lo que hace que las dos barras convivan: elegir semana no pierde la
-        pestaña, y elegir desglose no devuelve a la primera."""
+        pestaña, elegir desglose no devuelve a la primera, y ninguna de las dos
+        pierde hasta dónde se estaba mirando la curva."""
         s = s if s is not None else seccion
         corte = corte if corte is not None else p["profundidad"]["corte"]
+        k = k if k is not None else p["profundidad"]["k_max"]
         q = f"?w={week.isoformat()}"
         if s != SECCION_POR_DEFECTO:
             q += f"&s={s}"
         if corte != "total":
             q += f"&corte={corte}"
+        if k != DEPTH_MAX:
+            q += f"&k={k}"
         return f"/panel/{esc(token)}/dx{q}"
 
     tabs = "".join(
@@ -416,9 +781,9 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
             'más en dos y menos en la tercera.'
             '<br><br>Eso dejó de ser una sospecha: la curva de la hora de la PRIMERA sesión '
             'correlaciona a r = 0,82 con el cronograma de envío de la camada, y la de las '
-            'vueltas a r = 0,17. Está medido en <a href="#reloj">El reloj del día</a>, en '
-            'Activación — que además es dónde mirar si lo que se busca es a qué hora la '
-            'gente elige jugar.')
+            'vueltas a r = 0,17, medido sobre los checkpoints de Hermes de la camada del '
+            '14/09. El panel tenía una sección entera dibujando eso —«El reloj del día»— y '
+            'salió: lo que decía se lee acá, que es donde se está mirando la curva.')
 
     if not series:
         grafico = '<p class="empty">todavía no hay partidas cerradas en esta ventana</p>'
@@ -431,15 +796,36 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
     # existe. Son links y no un `<select>` porque el panel no tiene JavaScript —
     # y de yapa cada corte queda con URL propia, así que se puede compartir o
     # abrir dos en dos pestañas para compararlos al mismo tiempo.
+    #
+    # «Por universidad» no está en la barra: partía la cohorte en doce líneas
+    # de las que tres tenían base y el resto era el ruido de cuatro personas
+    # dibujado con la misma tinta. Quién estudia dónde se mira en Reclutas y en
+    # Difusión, que es donde la universidad decide algo. El corte sigue vivo en
+    # `game_queries.CORTES` para el data.json.
     selector = "".join(
         f'<span class="cur">{esc(t)}</span>' if c == corte
         else f'<a href="{link(corte=c)}">{esc(t)}</a>'
         for c, t in [("total", "Todos"), ("sesion", "Por sesión"),
-                     ("cohorte", "Por cohorte"),
-                     ("universidad", "Por universidad"), ("aparato", "Por aparato"),
+                     ("cohorte", "Por cohorte"), ("aparato", "Por aparato"),
                      ("horario", "Por horario")])
-    cuerpo = (f"<div class='cortes'><span class='sub'>Desglose</span>{selector}</div>"
-              + grafico)
+
+    # Hasta qué derivada se dibuja. Va arriba a la derecha del gráfico —pegado a
+    # lo único que gobierna— y es el primer control del panel que no es un link:
+    # una barra de 12 a 64 que recarga recién al soltarla, así que arrastrarla
+    # no dispara cuarenta consultas. El número se actualiza mientras se mueve
+    # para que el arrastre tenga adónde mirar. Sin JavaScript la barra no hace
+    # nada y el resto de la sección sigue entera.
+    control = (
+        '<span class="kctrl">'
+        f'<label for="kmax">hasta la derivada</label>'
+        f'<input id="kmax" type="range" min="{DEPTH_MIN}" max="{DEPTH_TOPE}" '
+        f'step="1" value="{pr["k_max"]}" aria-label="Hasta qué derivada se dibuja">'
+        f'<b id="kval">{num(pr["k_max"])}</b></span>')
+
+    cuerpo = (f"<div class='cortes'><span class='sub'>Desglose</span>{selector}"
+              f"{control}</div>"
+              + grafico
+              + f"<script>{DEPTH_JS}</script>")
 
     out.append(_section(
         1, "Profundidad",
@@ -603,9 +989,64 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         if len(cm) > 1 else
         '<p class="empty">una camada sola no hace una curva — vuelve cuando haya dos</p>')
 
-    # El cartel de compartir, que es el primer escalón del canal. Puede no
-    # existir si todavía no se mostró ninguno.
+    # El cartel de compartir, que es el primer escalón del canal y por eso abre
+    # la sección: nadie recluta sin tocarlo, así que todo lo que viene después
+    # —el K, la tabla por universidad, los diez que más trajeron— pasa por acá.
+    # Puede no existir si todavía no se mostró ninguno.
     sh = next((c for c in p["carteles"] if c["cta"] == "share"), None)
+    cs = p["cartel_share"]
+
+    # El acumulado dice cuánto vale el canal; la curva dice si se está moviendo.
+    # Comparten el eje con la curva de camadas de abajo a propósito: lo que se
+    # viene a mirar es si las dos se mueven juntas, porque un K que cae con el
+    # CTR quieto y uno que cae con el CTR desplomado piden cosas opuestas.
+    serie_ctr = [{
+        "label": "CTR del cartel", "color": VERDE_RECLUTAS,
+        "values": [c["ctr"] for c in cs],
+        # Punto hueco y tramo punteado donde la semana no llega al piso de
+        # impresiones: el dato existe —cortar la línea haría creer que el
+        # cartel no salió— pero un click lo mueve cinco puntos.
+        "weak": [c["flojo"] for c in cs],
+        "tips": [f'{c["label"]}: {_pct_txt(c["ctr"])} — {num(c["clicks"])} clicks '
+                 f'sobre {num(c["impresiones"])} impresiones'
+                 + ("" if not c["flojo"] else " · base flojita")
+                 for c in cs],
+    }]
+    grafico_ctr = (
+        ch.lines(serie_ctr, [c["label"] for c in cs], suffix="%", height=240,
+                 legend=False)
+        if sum(c["impresiones"] for c in cs) else
+        '<p class="empty">el cartel todavía no se mostró en ninguna semana</p>')
+
+    caja_cartel = _box(
+        "El cartel de compartir",
+        '<div class="grid g3">'
+        + "".join(
+            _kpi_chico(l, v, h, suffix=sfx) for l, v, sfx, h in [
+                ("Lo vieron", (sh or {}).get("impresiones"), "",
+                 "una impresión por partida, no por render"),
+                ("Lo tocaron", (sh or {}).get("clicks"), "", "clicks sobre el botón"),
+                ("CTR", (sh or {}).get("ctr"), "%", "de siempre, no de la semana"),
+            ])
+        + "</div>"
+        + f'<h3 class="dentro">Semana a semana</h3>{grafico_ctr}',
+        note=(
+            "La puerta del canal: nadie recluta sin tocar esto primero, así que un CTR "
+            "que se cae explica un K que baja sin necesidad de mirar nada más. Por eso "
+            "abre la sección, y por eso los tres números de arriba son de SIEMPRE "
+            "mientras la curva es por semana — el primero dice cuánto vale el canal y "
+            "la segunda si se está moviendo."
+            "<br><br><b>Las semanas flojitas van punteadas</b>: debajo de "
+            f'{MIN_IMPRESIONES_SEMANA} impresiones un solo click mueve el punto varios '
+            "puntos enteros, así que ahí se lee la altura y no la forma. Y el "
+            "denominador es la difusión: una semana sin ola tiene menos gente viendo el "
+            "cartel, así que un CTR que sube con las impresiones cayendo puede ser "
+            "simplemente que quedó la gente más enganchada."
+            "<br><br><b>Le falta el momento.</b> Los otros carteles anotan en qué "
+            "derivada salen y este no —`solved` viene vacío en las 2.056 impresiones—, "
+            "así que un CTR bajo puede ser el copy o puede ser que salga demasiado "
+            "temprano, y las dos explicaciones siguen siendo igual de plausibles."),
+    )
 
     # El reclutamiento abierto por universidad. Ordenado por reclutas y no por
     # K: la pregunta que la tabla contesta primero es de dónde sale la gente que
@@ -628,6 +1069,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         # acepta: gente nueva y cafecitos.
         #
         _fila_kpi(p["headline"]["reclutas"])
+        + caja_cartel
         + _box(
             "Cuánta gente trae cada camada",
             grafico_viral,
@@ -685,27 +1127,6 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                 "Un K alto puede ser una cultura o puede ser una persona, y sin esta columna "
                 "las dos se ven igual. Antes de mandar la próxima ola a la universidad que "
                 "encabeza, mirar de cuántas manos salió."))
-        + _box(
-            "El cartel de compartir",
-            '<div class="grid g3">'
-            + "".join(
-                _kpi_chico(l, v, h, suffix=sfx) for l, v, sfx, h in [
-                    ("Lo vieron", (sh or {}).get("impresiones"), "",
-                     "una impresión por partida, no por render"),
-                    ("Lo tocaron", (sh or {}).get("clicks"), "", "clicks sobre el botón"),
-                    ("CTR", (sh or {}).get("ctr"), "%", "de siempre, no de la semana"),
-                ])
-            + "</div>",
-            note=(
-                "La puerta del canal de arriba: nadie recluta sin tocar esto primero, así "
-                "que un CTR que se cae explica un K que baja sin necesidad de mirar nada "
-                "más. Está acá y no en la tabla de carteles que había en Retención porque "
-                "compartir no es monetizar — lo que pide es una persona, no plata."
-                "<br><br><b>Le falta el momento.</b> Los otros carteles anotan en qué "
-                "derivada salen y este no —`solved` viene vacío en las 2.056 impresiones—, "
-                "así que un CTR bajo puede ser el copy o puede ser que salga demasiado "
-                "temprano, y las dos explicaciones siguen siendo igual de plausibles."),
-        )
         + _box(
             "Los diez que más trajeron",
             _table(["Reclutador", "Universidad", "Reclutas", "Arrancaron", "XP ganada"],
@@ -1045,50 +1466,132 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
             '<code>scripts/diag/sync_grupos.py</code></p>')
     else:
         g = di["global"]
+        ca, pv = di["camada"], di["previa"]
+        contra = f'vs. la ola del {pv["label"]}' if pv else "sin ola anterior"
 
         # Intercalados y no agrupados: audiencia y clickrate de la misma copia,
         # pegados. Es la única forma de que se lean como una división —el de la
         # izquierda es el denominador del de la derecha— y de que comparar las
         # dos copias sea mirar dos pares y no cruzar cuatro casillas.
+        #
+        # Y son de la ÚLTIMA OLA, no del acumulado. El acumulado promedia todo
+        # lo que se mandó desde el principio: la ola del 14/09 rindió casi la
+        # mitad que la del 07/09 y el titular acumulado casi no se movió, porque
+        # la vieja pesa el doble en su propio promedio. Un número que tarda un
+        # mes en enterarse de una caída a la mitad no sirve de titular.
         def _par(clave, etiqueta):
-            d = di[clave]
+            d = ca[clave]
+            p = pv[clave] if pv else None
+
+            def _delta(campo):
+                if p is None or d[campo] is None or p[campo] is None:
+                    return None
+                return round(d[campo] - p[campo], 2)
+
             return [
-                (f"Audiencia · {etiqueta}", d["miembros"], "",
+                (f"Audiencia · {etiqueta}", d["miembros"], _delta("miembros"), "",
                  f'en {num(d["grupos"])} grupos', 0),
-                (f"Clickrate · {etiqueta}", d["pct"], "%",
+                (f"Clickrate · {etiqueta}", d["pct"], _delta("pct"), "%",
                  f'{num(d["jugadores"])} jugadores', 1),
             ]
 
+        # Las dos líneas de la curva: una copia cada una, una ola cada punto. El
+        # «sin copia» no dibuja una tercera —son grupos de los que no sabemos
+        # qué mensaje recibieron, así que su línea no significaría nada— pero el
+        # tamaño de la ola ENTERA sí entra en cada tooltip: es lo que deja ver
+        # que una copia cubrió media ola, que si no se lee como si hubiera
+        # cubierto toda.
+        #
+        # El tooltip solo existe donde hay punto —`ch.lines` lo cuelga del
+        # círculo— así que una semana sin envío no puede explicarse a sí misma y
+        # lo explica la nota de abajo. Un tip para un punto que no se dibuja es
+        # texto que nadie va a ver nunca.
+        def _serie(clave, etiqueta):
+            tips = []
+            for fila in di["semanal"]:
+                d = fila[clave]
+                if not d["grupos"]:
+                    tips.append(None)
+                    continue
+                t = (f'Semana del {fila["label"]} · {etiqueta}\n'
+                     f'{num(d["jugadores"])} jugadores de {num(d["miembros"])} '
+                     f'alcanzados en {num(d["grupos"])} grupos = {_pct_txt(d["pct"])}\n'
+                     f'La ola entera de esa semana: {num(fila["global"]["grupos"])} '
+                     f'grupos, {num(fila["global"]["miembros"])} alcanzados')
+                if not fila["madura"]:
+                    t += (f'\nTodavía suma clics: el último envío fue el '
+                          f'{fila["ultimo_envio"].strftime("%d/%m")}')
+                tips.append(t)
+            return {
+                "label": etiqueta,
+                "values": [f[clave]["pct"] if f[clave]["grupos"] else None
+                           for f in di["semanal"]],
+                "weak": [not f["madura"] for f in di["semanal"]],
+                "tips": tips,
+            }
+
         cuerpo_dif = (
-            '<div class="grid g4">'
-            + "".join(_kpi_chico(l, v, h, suffix=sfx, dec=d) for l, v, sfx, h, d in
-                      _par("analisis", "análisis") + _par("generico", "genérico"))
-            + "</div>"
+            ('<div class="grid g4">'
+             + "".join(_kpi_camada(l, v, dl, contra, h, suffix=sfx, dec=dc)
+                       for l, v, dl, sfx, h, dc in
+                       _par("analisis", "análisis") + _par("generico", "genérico"))
+             + "</div>"
+             if ca else
+             '<p class="empty">ningún grupo de la copia recibió dx dentro de la '
+             'ventana del panel</p>')
             + '<p class="note">'
-            + (f'<b>La ola salió con dos copias y no con una.</b> A los grupos donde '
-               f'las derivadas están en el temario se les habló de derivadas; a los '
-               f'demás, del juego. Los dos clickrates se comparan directo —son tasas '
-               f'por miembro, así que el tamaño de cada audiencia no los mueve— pero '
-               f'no se leen con la misma precisión: son '
-               f'{num(di["analisis"]["miembros"])} personas de un lado y '
-               f'{num(di["generico"]["miembros"])} del otro, y la más chica tiene el '
+            + (f'<b>Los cuatro números son de la última ola</b> —la del '
+               f'{ca["label"]}, {num(ca["envios"])} grupos— y no del acumulado. A '
+               f'los grupos donde las derivadas están en el temario se les habló de '
+               f'derivadas; a los demás, del juego. Los dos clickrates se comparan '
+               f'directo —son tasas por miembro, así que el tamaño de cada audiencia '
+               f'no los mueve— pero no se leen con la misma precisión: son '
+               f'{num(ca["analisis"]["miembros"])} personas de un lado y '
+               f'{num(ca["generico"]["miembros"])} del otro, y la más chica tiene el '
                f'intervalo más ancho.'
-               if di["analisis"]["miembros"] and di["generico"]["miembros"] else
-               '<b>Todavía no están las dos copias.</b> La etiqueta la escribe '
-               '<code>scripts/diag/sync_grupos.py --cluster</code> desde los planes '
-               'de la campaña; sin ella la ola no se puede partir.')
-            + (f'<br><br>Quedan afuera {num(di["sin_copia"]["miembros"])} personas en '
+               if ca and ca["analisis"]["miembros"] and ca["generico"]["miembros"] else
+               f'<b>La ola del {ca["label"]} no salió con las dos copias.</b> La '
+               f'etiqueta la escribe <code>scripts/diag/sync_grupos.py --cluster</code> '
+               f'desde los planes de la campaña; sin ella la ola no se puede partir.'
+               if ca else
+               '<b>Todavía no hay ninguna ola dentro de la ventana.</b>')
+            + ("" if not ca or ca["madura"] else
+               f'<br><br><b>Esa ola todavía no terminó de llegar.</b> Su último envío '
+               f'fue el {ca["ultimo_envio"].strftime("%d/%m")} y el clic tarda: el '
+               f'79% entra el mismo día, pero recién a los {di["maduracion_dias"]} '
+               f'días está el 96%. Los dos clickrates de arriba son un piso, y el '
+               f'delta contra la ola anterior se va a achicar solo.')
+            + (f'<br><br>Quedan afuera de las dos copias '
+               f'{num(di["sin_copia"]["miembros"])} personas en '
                f'{num(di["sin_copia"]["grupos"])} grupos sin copia anotada, que '
-               f'trajeron {num(di["sin_copia"]["jugadores"])} jugadores. Son de las '
-               f'primeras tandas, mandadas antes de que la ola se partiera en dos. No '
-               f'se reparten a ojo: «no sabemos con cuál» es información.'
+               f'trajeron {num(di["sin_copia"]["jugadores"])} jugadores. La etiqueta '
+               f'la escribe <code>scripts/diag/sync_grupos.py --cluster</code> desde '
+               f'los planes de la campaña, así que una campaña cuyos planes no la '
+               f'declaran deja a todos sus grupos afuera de las dos líneas. No se '
+               f'reparten a ojo: «no sabemos con cuál» es información.'
                if di["sin_copia"]["grupos"] else "")
-            + f'<br><br>El conjunto da <b>{_pct_txt(g["pct"])}</b> sobre '
+            + f'<br><br>Sumando todas las olas da <b>{_pct_txt(g["pct"])}</b> sobre '
               f'{num(g["miembros"])} personas en {num(g["grupos"])} grupos, '
-              f'{num(g["jugadores"])} jugadores. La cobertura del cruce es '
+              f'{num(g["jugadores"])} jugadores — y es el número que miden las tres '
+              f'tablas de abajo, que son acumuladas. La cobertura del cruce es '
               f'{_pct_txt(di["pct_cobertura"])} ({num(di["cubiertos"])} de '
               f'{num(di["atribuidos"])} atribuidos).'
             + "</p>"
+            + _box("Cómo se movió el clickrate de cada copia",
+                   ch.lines([_serie("analisis", "análisis"),
+                             _serie("generico", "genérico")],
+                            [f["label"] for f in di["semanal"]],
+                            suffix="%", height=240),
+                   note="Cada punto es una OLA y no una semana de calendario: los "
+                        "jugadores se le cuentan a la semana en que se posteó en su "
+                        "grupo, aunque entren tres días después. Las semanas sin "
+                        "envío no tienen punto y la línea se corta ahí: bajar a cero "
+                        "sería dibujar una ola que no salió. Las que "
+                        "todavía suman clics van con el punto hueco y la línea "
+                        "punteada. <b>Pasando el mouse por encima de un punto sale de "
+                        "cuántos grupos y de cuánta gente salió ese porcentaje</b>, "
+                        "que es lo que decide si la diferencia entre dos olas es una "
+                        "señal o dos grupos chicos.")
             + _box("Por universidad",
                    _table(["Universidad", "Grupos", "Alcanzados", "Jugadores", "Clickrate"],
                           [[f'<b>{esc(f["clave"])}</b>', num(f["grupos"]), num(f["miembros"]),
@@ -1145,87 +1648,6 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
             "quedaron del otro lado del corte.",
         anchor="difusion"))
     pieza_difusion = "".join(out)
-
-    # ── 3 · El reloj del día ─────────────────────────────────────────────────
-    out = []
-    ho = p["horarios"]
-    pri, pos = ho["perfil_primera"], ho["perfil_posterior"]
-    grupo, recluta = ho["por_origen"]["grupo"], ho["por_origen"]["recluta"]
-
-    # Normalizadas al total de cada una y no en crudo: son 606 sesiones contra
-    # 304, así que en absoluto la curva de las vueltas queda aplastada contra el
-    # piso y lo único que se leería es la primera. Lo que se compara son formas.
-    series_reloj = [
-        {"label": f'Primer uso · {num(pri["n"])} sesiones', "values": pri["pct"],
-         "tips": [f'{ho["bins"][i]} · {num(n)} '
-                  f'{"primera sesión" if n == 1 else "primeras sesiones"}'
-                  for n in ho["primera"]]},
-        {"label": f'Uso posterior · {num(pos["n"])} sesiones', "values": pos["pct"],
-         "tips": [f'{ho["bins"][i]} · {num(n)} {"vuelta" if n == 1 else "vueltas"}'
-                  for i, n in enumerate(ho["posterior"])]},
-    ]
-
-    out.append(_section(
-        3, "El reloj del día",
-        '<div class="grid g4">'
-        + "".join(_kpi_chico(l, v, h, suffix="%", dec=1) for l, v, h in [
-            ("Primer uso · 6 h más cargadas", pri["top3"],
-             f'pico en {pri["pico"] or "—"}'),
-            ("Uso posterior · 6 h más cargadas", pos["top3"],
-             f'pico en {pos["pico"] or "—"}'),
-            ("Primer uso · de noche", pri["noche"], "de 20 a 6"),
-            ("Uso posterior · de noche", pos["noche"], "de 20 a 6")])
-        + "</div>"
-        + _box(
-            "Cuándo arranca cada uso",
-            ch.lines(series_reloj, ho["bins"], suffix="%", height=280),
-            note=(
-                "<b>La curva del primer uso no es una preferencia: es nuestro cronograma "
-                "de envío.</b> Medida el 14/09 contra los checkpoints de Hermes de esta "
-                "camada —33 grupos a las 9, 30 a las 10, 42 a las 11, 25 a las 15— la "
-                "correlación hora por hora da <b>r = 0,82</b>, y hasta el rebote de la "
-                "tarde es la tanda de las 15. La misma cuenta sobre el uso posterior da "
-                "<b>r = 0,17</b>: de las dos curvas, esa es la única que mide cuándo la "
-                "gente elige jugar."
-                f'<br><br><b>El control está adentro de la base y no hace falta creerme.</b> '
-                f'Partido por cómo se invitó a cada uno, el primer uso de quien llegó por un '
-                f'grupo de WhatsApp ({num(grupo["n"])} sesiones) pica en '
-                f'{esc(grupo["pico"] or "—")} y tiene {_pct_txt(grupo["noche"])} de noche; '
-                f'el de quien lo trajo un recluta ({num(recluta["n"])}) pica en '
-                f'{esc(recluta["pico"] or "—")} y tiene {_pct_txt(recluta["noche"])}. Los dos '
-                f'son primeras veces: lo único distinto es quién los convocó. Si el pico de '
-                f'la mañana fuera «el que recién llega prefiere la mañana», las dos curvas '
-                f'tendrían la misma forma.'
-                f'<br><br><b>La unidad es la sesión, no la persona.</b> Quien jugó cinco '
-                f'veces aporta una primera y cuatro vueltas, que es lo que se quiere contar. '
-                f'De las {num(pos["n"])} vueltas, {num(ho["n_mismo_dia"])} son del mismo día '
-                f'en que esa persona entró —todavía arrastre de la campaña— y '
-                f'{num(ho["n_otro_dia"])} son de otro día; esas últimas son las más '
-                f'nocturnas de todo el panel, {_pct_txt(ho["perfil_otro_dia"]["noche"])} '
-                f'entre las 20 y las 6.'))
-        + _box(
-            "Qué fracción de cada franja es gente nueva",
-            ch.stackbars(ho["bins"],
-                         [{"label": "Primer uso", "values": ho["primera"]},
-                          {"label": "Uso posterior", "values": ho["posterior"]}],
-                         min_n=ho["min_base"]),
-            note=(
-                f'Las columnas miden todas igual a propósito: acá no se pregunta cuánto '
-                f'tráfico hay a cada hora —eso es el gráfico de arriba— sino de qué está '
-                f'hecho. Es la tira que decide a qué hora mandar la próxima tanda: donde el '
-                f'bloque de arriba es gordo, la hora ya la estamos usando; donde es flaco, '
-                f'esa franja es de los que vuelven solos y todavía no le mandamos a nadie.'
-                f'<br><br>Las franjas con menos de {num(ho["min_base"])} sesiones salen como '
-                f'un marco vacío en vez de como un reparto: a esa base una sola persona '
-                f'mueve la barra casi siete puntos, y un porcentaje dibujado firme sobre '
-                f'tres sesiones se lee igual que uno sobre doscientas.')),
-        sub=f'Cuándo alguien entra por primera vez y cuándo vuelve. Son dos preguntas '
-            f'distintas y el panel las venía contestando juntas. Acumulado desde la '
-            f'primera camada ({ho["desde"].strftime("%d/%m")}) y no por semana: la hora '
-            f'del día es un hecho estructural, y partido en semanas el brazo de las '
-            f'vueltas se queda sin base para dibujarse.',
-        anchor="reloj"))
-    pieza_horarios = "".join(out)
 
     # ── Monetización: dónde se pide el cafecito ──────────────────────────────
     mo = p["monetizacion"]
@@ -1424,15 +1846,80 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                     'El tope de un ajuste es un tier '
                     f'(<code>opinion.TOPE</code> = {num(OPINION_TOPE, dec=2)}), que '
                     'es lo que hace que un voto pueda subir de color pero nunca '
-                    'saltear un nivel.'),
+                    'saltear un nivel.')
+        + _box("Semana a semana",
+               _table(["Semana", "Votos", "Muy fáciles", "Se sienten cómodos en"],
+                      [[esc(f["label"]), num(f["n"]),
+                        num(f["pct_muy_facil"], "%"), num(f["comodo_en"], "%")]
+                       for f in op["por_semana"]],
+                      empty="todavía no hay votos"),
+               note='La tabla de arriba es de toda la historia y esta es la serie, y '
+                    'hace falta tener las dos: el 19/09 salieron los tiers 6-8 y el '
+                    'acumulado siguió mostrando el número de un catálogo que ya no '
+                    'existía. <b>La columna que hay que mirar es «muy fáciles»</b> — si '
+                    'la regla de la cadena hizo lo que tenía que hacer, baja.'),
         sub="El motor decide la dificultad con lo que mide. Esto es lo único que "
             "mide preguntando.",
         anchor="opinion")
 
+    # ── La otra pregunta: si le salen repetidas ───────────────────────────────
+    rp = p["repetitividad"]
+    _rot_r = lambda v: f'{SURVEY_EMOJI_R.get(v, "")} {SURVEY_TEXT.get(v, v)}'.strip()
+
+    if rp["enunciados_del_quejoso"] is None:
+        titular_r = ("Todavía no hay suficientes votos para decir de qué lado está "
+                     "el problema.")
+    else:
+        titular_r = (
+            f'Quien dice que se repiten venía viendo '
+            f'<b>{num(rp["enunciados_del_quejoso"], dec=1)} enunciados distintos</b> '
+            f'en sus últimas {num(rp["ventana"])} derivadas. El selector ya excluye '
+            f'las {num(rp["excluidas"])} plantillas más recientes, así que un número '
+            f'alto acá quiere decir que el banco es chico y la misma plantilla vuelve '
+            f'con otros números; uno bajo, que la exclusión se está quedando corta.'
+        )
+
+    pieza_repetitividad = _section(
+        4, "Si le salen repetidas",
+        '<div class="grid g4">'
+        + "".join(_kpi_chico(l, v, h, suffix=sfx, dec=d) for l, v, sfx, h, d in [
+            ("Contestaron", rp["pct_respuesta"], "%",
+             f'{num(rp["contestadas"])} de {num(rp["mostradas"])} preguntas', 1),
+            ("Personas", rp["jugadores"], "", "que votaron al menos una vez", 0),
+            ("Ventana", rp["ventana"], "", "sobre cuántas derivadas se mide", 0),
+            ("Plantillas excluidas", rp["excluidas"], "",
+             "las que el selector no puede repetir", 0)])
+        + "</div>"
+        + _box("Cuántos dijeron cada cosa",
+               ch.stack([{"label": _rot_r(f["voto"]), "n": f["n"]} for f in rp["filas"]])
+               if rp["filas"] else '<p class="empty">todavía nadie votó</p>')
+        + _box("Lo que decían contra lo que venían viendo",
+               _table(["Voto", "Votos", "Plantillas distintas", "Enunciados distintos",
+                       "Con datos"],
+                      [[f'<b>{esc(_rot_r(f["voto"]))}</b>', num(f["n"]),
+                        num(f["plantillas"], dec=1), num(f["enunciados"], dec=1),
+                        num(f["con_datos"])]
+                       for f in rp["filas"]],
+                      empty="todavía no hay votos"),
+               note=titular_r + ' Los dos contadores son promedios sobre la ventana y '
+                    'se cuentan aparte porque miden cosas distintas: ocho plantillas '
+                    'pueden ser ocho veces el mismo enunciado, que es exactamente el '
+                    'bug que se arregló el 10/09. «Con datos» son los votos de gente '
+                    'que ya había visto lo suficiente para que el promedio signifique '
+                    'algo; el resto cuenta para la tasa de respuesta y no para las '
+                    'dos columnas de la izquierda.')
+        + _box("Semana a semana",
+               _table(["Semana", "Votos", "Muy repetidas"],
+                      [[esc(f["label"]), num(f["n"]), num(f["pct_repetitivo"], "%")]
+                       for f in rp["por_semana"]],
+                      empty="todavía no hay votos")),
+        sub="Este voto no mueve nada: es dato para decidir cuánto ampliar el banco.",
+        anchor="repetitividad")
+
     # ── Fricción ─────────────────────────────────────────────────────────────
     fr = p["friccion"]
     pieza_friccion = _section(
-        4, "Fricción",
+        5, "Fricción",
         '<div class="grid g4">'
         + "".join(_kpi_chico(l, v, h, suffix=sfx, dec=d) for l, v, sfx, h, d in [
             ("Salteadas", fr["pct_salteados"], "%", "«esta no la sé»", 1),
@@ -1453,46 +1940,41 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
 
     # ── 12 · Voces ───────────────────────────────────────
     en = p["encuestas"]
-    filas_en = [
-        # Crudos y sin `esc`: `theme.table` escapa cada celda salvo que
-        # empiece con «<», y escapar dos veces deja «&amp;» en la pantalla.
-        [_recortar(r["texto"] or "", 400),
-         r["alias"] or "—",
-         r["universidad"] or "—",
-         num(r["correctas"]),
-         r["plataforma"] or "—",
-         r["cuando"].replace("T", " ")]
-        for r in en["respuestas"]
-    ]
+    nota_voces = (
+        'La pregunta sale una sola vez en la vida, en la derivada 18, y '
+        'la diapo <b>no tiene botón de saltar</b>: la única salida es '
+        'escribir algo. Eso es lo que sostiene el número de arriba. Los otros '
+        f'dos estados de la pregunta no se dibujan pero se siguen contando y '
+        f'viajan en el data.json: {num(en["pct_salto"], "%")} dijo que no con un '
+        f'punto o una raya, y {num(en["pct_abandono"], "%")} vio la pregunta y '
+        'cerró la pestaña — <b>ese es el que decide si la pregunta se saca</b>, '
+        'porque es lo que cuesta.<br><br>'
+        'Las respuestas se listan enteras y no se resumen a propósito: un '
+        'histograma de respuestas abiertas es una respuesta abierta tirada a la '
+        'basura. Las <b>derivadas</b> y el <b>XP</b> de cada tarjeta son los de '
+        'hoy, no los del momento en que contestó; «iba por la N» sí es de '
+        'entonces.')
+    cuerpo_voces = (
+        '<p class="empty">todavía no contestó nadie</p>' if not en["respuestas"]
+        else (_buscador(en["respuestas"])
+              + '<p class="empty" id="voces-vacio" hidden></p>'
+              + '<div class="voces" id="voces-lista">'
+              + "".join(_voz(r) for r in en["respuestas"])
+              + "</div>"
+              + f"<script>{VOCES_JS}</script>"))
     pieza_voces = _section(
         1, "Lo que escribieron",
-        '<div class="grid g4">'
-        + "".join(_kpi_chico(l, v, h, suffix=sfx, dec=d) for l, v, sfx, h, d in [
-            ("Contestaron", en["pct_respuesta"], "%",
-             f'{num(en["con_texto"])} de {num(en["mostradas"])} preguntas', 1),
-            ("Dijeron que no", en["pct_salto"], "%",
-             f'{num(en["saltos"])} escribieron un punto o una raya', 1),
-            ("Se fueron sin contestar", en["pct_abandono"], "%",
-             "vieron la pregunta y cerraron la pestaña", 1),
-            ("Largo medio", en["largo_medio"], "",
-             "caracteres de las respuestas de verdad", 0),
-        ])
-        + "</div>"
-        + _box("Las respuestas, la última primero",
-               _table(["Respuesta", "@", "Universidad", "Derivadas", "Aparato",
-                       "Cuándo"], filas_en,
-                      empty="todavía no contestó nadie"),
-               note='La pregunta sale una sola vez en la vida, en la derivada 18, y '
-                    'la diapo <b>no tiene botón de saltar</b>: la única salida es '
-                    'escribir algo. Eso es lo que sostiene el primer número, y por '
-                    'eso hay que mirar el tercero — si «se fueron sin contestar» se '
-                    'dispara, la pregunta está costando más de lo que devuelve y se '
-                    'saca. Un punto o una raya <b>también es una respuesta</b> y por '
-                    'eso se guarda: es alguien diciendo que no, que no es lo mismo '
-                    'que alguien que se fue.<br><br>'
-                    'Las filas se listan y no se resumen a propósito. Un histograma '
-                    'de respuestas abiertas es una respuesta abierta tirada a la '
-                    'basura.')
+        # Un solo número y de ancho completo. Los otros tres que había acá
+        # —salto, abandono, largo medio— no se leían nunca: lo que se viene a
+        # hacer a esta pestaña es LEER, y cuatro tarjetas antes de la primera
+        # respuesta son cuatro tarjetas de distancia.
+        '<div class="box kpi kpi-ancho">'
+        '<div class="izq"><span class="label">Contestaron</span>'
+        f'<span class="val">{num(en["pct_respuesta"], "%")}</span></div>'
+        f'<div class="hint">{num(en["con_texto"])} de {num(en["mostradas"])} '
+        'preguntas que salieron</div></div>'
+        + cuerpo_voces
+        + f'<p class="note">{nota_voces}</p>'
         + (_box("Preguntas en la bolsa",
                 "<p>" + ", ".join(f"<code>{esc(q)}</code>" for q in en["preguntas"])
                 + "</p>",
@@ -1510,12 +1992,12 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
     # algo llama la atención.
     paneles = {
         "activacion": (_fila_kpi(p["headline"]["activacion"])
-                       + pieza_difusion + pieza_reclutas + pieza_horarios),
+                       + pieza_difusion + pieza_reclutas),
         "retencion": (_fila_kpi(p["headline"]["retencion"])
                       + pieza_push + pieza_mails),
         "jugabilidad": (_fila_kpi(p["headline"]["jugabilidad"])
                         + pieza_profundidad + pieza_calibracion + pieza_opinion
-                        + pieza_friccion),
+                        + pieza_repetitividad + pieza_friccion),
         "monetizacion": (_fila_kpi(p["headline"]["monetizacion"])
                          + pieza_monetizacion),
         "experimentacion": (pieza_experimentos + pieza_experimento_motor

@@ -1,20 +1,45 @@
-fastapi
-uvicorn
-python-dotenv
-psycopg2-binary
-sqlalchemy
-alembic
-pyjwt[crypto]
-httpx
-resend
+# Todo pineado a una versión exacta, y eso es el punto: este archivo es el
+# lockfile del backend.
+#
+# El 24/09 producción se cayó sin que nadie tocara el repo. `sqlalchemy` estaba
+# sin pin, salió 2.1.0, y en 2.1 el DBAPI por defecto de `postgresql://` pasó de
+# psycopg2 a psycopg (v3), que no está instalado: el backend moría en
+# `create_engine` con `ModuleNotFoundError: No module named 'psycopg'`, antes de
+# correr las migraciones. Un 502 sin un solo log de aplicación.
+#
+# No fue mala suerte con SQLAlchemy: era que CUALQUIER release de arriba podía
+# tirar el deploy abajo, y que dos builds del mismo commit podían instalar cosas
+# distintas. Once de las doce dependencias estaban así.
+#
+# Las versiones son las que estaban corriendo y funcionando cuando esto se
+# escribió, leídas del contenedor, así que pinearlas no cambió nada en el
+# momento de escribirlas — solo dejó de ser casualidad.
+#
+# **El costo es que actualizar ahora es un acto deliberado**, y hay que hacerlo:
+# un pin que nadie mueve es una versión vieja con los bugs de entonces. La
+# versión adulta de esto es un bot de dependencias que abra el PR y deje que el
+# CI opine; mientras no exista, se sube a mano y se mira el CI.
+#
+# Y el driver de Postgres va explícito en `database.py`
+# (`postgresql+psycopg2://`), que es la otra mitad: con el driver en la URL, qué
+# DBAPI se usa deja de depender de qué versión resolvió pip.
+fastapi==0.141.1
+uvicorn==0.53.0
+python-dotenv==1.2.3
+psycopg2-binary==2.9.13
+sqlalchemy==2.0.54
+alembic==1.20.0
+pyjwt[crypto]==2.15.0
+httpx==0.28.1
+resend==2.47.0
 # zoneinfo necesita una base IANA completa: la imagen de Railway trae una tzdata
 # del sistema SIN los links de compatibilidad ("America/Buenos_Aires"), que es
 # justo lo que mandan los navegadores. Este paquete es el respaldo de zoneinfo.
-tzdata
+tzdata==2026.4
 # Minijuego de derivadas (backend/game/): deriva con sympy.diff y valida por
 # equivalencia numérica con lambdify. Sin numpy ni antlr4 a propósito.
-sympy
+sympy==1.14.0
 # El oyente de donaciones de Cafecito (backend/game/cafecito_stream.py) habla
 # socket.io a mano sobre un WebSocket: es lo que hace que el empuje aparezca en el
 # momento en que alguien dona, en vez de tener que aplicarlo a mano.
-websocket-client
+websocket-client==1.9.2

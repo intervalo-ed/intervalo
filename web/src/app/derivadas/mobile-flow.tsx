@@ -65,8 +65,13 @@ import { puedeOfrecerNotificaciones } from "./UseAvisosDelJuego"
 import { marcarPwaDesde } from "./game-storage"
 import { marcarEncuestaMostrada, tocaEncuesta } from "./encuesta-trigger"
 import { EncuestaSlide } from "./encuesta-slide"
-import { marcarOpinionMostrada, tocaOpinion } from "./opinion-trigger"
+import {
+  anotarRespuesta,
+  marcarPreguntaMostrada,
+  tocaPreguntar,
+} from "./opinion-trigger"
 import { OpinionSlide } from "./opinion-slide"
+import { RepetitividadSlide } from "./repetitividad-slide"
 import { marcarReclutasMostrado, tocaReclutar } from "./reclutas-trigger"
 import {
   HITO_PERFIL,
@@ -191,6 +196,9 @@ type Slide =
   // «¿Cómo te vienen resultando?». Sin `back` ni `trigger` por lo mismo que la
   // de instalar: no se puede abrir a mano, siempre llega después de responder.
   | { kind: "opinion" }
+  // «¿Te están saliendo repetidas?», la otra mitad de la misma escalera de
+  // turnos (opinion-trigger.ts). Mismas condiciones que la de arriba.
+  | { kind: "repetitividad" }
   // La pregunta abierta, una sola vez en la vida. Sin `back` ni `trigger` por
   // lo mismo que las otras dos: no se puede abrir a mano.
   | { kind: "encuesta" }
@@ -629,6 +637,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
         | "instalar"
         | "notificaciones"
         | "opinion"
+        | "repetitividad"
         | "encuesta"
         | "username"
         | "reglas"
@@ -895,14 +904,24 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
         goTo({ kind: "encuesta" })
         return
       }
-      // La encuesta de dificultad va ÚLTIMA del ladder y es deliberado: no convierte a nadie,
-      // así que no puede quedarse con el turno de algo que sí. Igual sale, y
+      // Las dos encuestas van ÚLTIMAS del ladder y es deliberado: no convierten a nadie,
+      // así que no pueden quedarse con el turno de algo que sí. Igual salen, y
       // temprano — los otros escalones piden en hitos puntuales y la mayoría de
       // las respuestas no los dispara, así que el turno libre aparece enseguida.
-      if (consumed !== "opinion" && tocaOpinion(totalCorrectas)) {
-        marcarOpinionMostrada(totalCorrectas)
-        goTo({ kind: "opinion" })
-        return
+      //
+      // Comparten una sola escalera y el ocupante alterna, así que el ladder
+      // pregunta una vez y despacha lo que le contesten (opinion-trigger.ts). Los
+      // dos `consumed` se chequean juntos: el que acaba de cerrarse no puede
+      // volver a abrirse en la misma respuesta, y tampoco puede abrir al otro.
+      if (consumed !== "opinion" && consumed !== "repetitividad") {
+        const pregunta = tocaPreguntar(totalCorrectas)
+        if (pregunta !== null) {
+          marcarPreguntaMostrada(totalCorrectas)
+          goTo({
+            kind: pregunta === "dificultad" ? "opinion" : "repetitividad",
+          })
+          return
+        }
       }
       pendingRef.current = null
       loadNext()
@@ -2119,7 +2138,28 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                 {({ salida }) => (
                   <OpinionSlide
                     slotSalida={salida}
-                    onContinue={() => advanceAfterAnswer("opinion")}
+                    onContinue={(contesto) => {
+                      anotarRespuesta(contesto)
+                      advanceAfterAnswer("opinion")
+                    }}
+                    fullBleed
+                    className="flex-none"
+                  />
+                )}
+              </ConSalidaAbajo>
+            </div>
+          )}
+
+          {slide.kind === "repetitividad" && (
+            <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col px-5 pb-[var(--cta-pb)] pt-4">
+              <ConSalidaAbajo>
+                {({ salida }) => (
+                  <RepetitividadSlide
+                    slotSalida={salida}
+                    onContinue={(contesto) => {
+                      anotarRespuesta(contesto)
+                      advanceAfterAnswer("repetitividad")
+                    }}
                     fullBleed
                     className="flex-none"
                   />

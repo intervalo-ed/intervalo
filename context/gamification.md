@@ -149,16 +149,42 @@ justo en un corte de nivel se le va a prender y apagar el color.
 
 ### La dificultad que la persona pide (dx)
 
-A las 10 derivadas resueltas —después cada 30, y tres veces como mucho— el juego
-pregunta **«¿Cómo te vienen resultando?»** con tres opciones: 😴 muy fáciles /
-👌 justas / 🤯 muy difíciles.
+El juego pregunta **«¿Cómo te vienen resultando?»** con tres opciones: 😴 muy
+fáciles / 👌 justas / 🤯 muy difíciles.
+
+**Vuelve, y cada vez más espaciada.** El primer turno de encuesta cae en la 28 y
+de ahí los huecos crecen: 10, 10, 20, 30, 50 y 80, que es el último y se repite
+para siempre (`opinion-trigger.ts :: OPINION_CADENCIAS`). **No hay tope de
+apariciones**; lo que corta es la falta de respuesta, tres salteos seguidos, que
+es la misma regla que el clásico usa en `feedback_survey.SKIP_STREAK_LEN`. Una
+respuesta borra la racha.
+
+Hasta el 24/09 volvía cada 30 y se terminaba a las tres veces. El cambio salió de
+medirla: 91,8% de respuesta sobre 437 impresiones, más que cualquier otra cosa
+que el juego pregunte. El tope se apagaba justo para los jugadores pesados, que
+son los que más tienen para decir.
+
+**El turno alterna con la otra pregunta.** Las dos encuestas comparten una sola
+escalera —el presupuesto de interrupciones es un número y no dos— así que el
+turno le toca a una o a la otra. Los tres primeros son de dificultad, porque a la
+28-48 la repetición todavía no pasó. Con el resto del ladder empujando por la
+regla de separación, los turnos reales de las primeras 200 derivadas caen en la
+28, 44, 54 y 113 para dificultad y en la 77 y 164 para repetitividad.
 
 El voto mueve el Elo de quien lo emite, en las dos direcciones, con una regla que
 conviene tener clara: **el voto elige el signo, la evidencia elige el tamaño.**
-El número sale de las últimas 20 respuestas de primer intento sin tabla abierta
+El número sale de hasta 20 respuestas de primer intento sin tabla abierta
 (`game/opinion.py`), se aplica solo si el registro va para el mismo lado que el
 voto, y nunca supera un tier (0,60 de θ, unos 120 puntos de rating). «Justo»
 nunca mueve nada.
+
+**«Hasta 20» y no «las últimas 20»**, y esa palabra es la que hace que la
+cadencia pueda ser corta. La ventana arranca en el último voto que cobró
+(`game_difficulty_votes.corte_ejercicio_id`), así que dos votos seguidos nunca se
+calculan sobre las mismas respuestas: lo ya cobrado no se cobra de nuevo. Con un
+hueco de 10 entran 10, y el ajuste sale más chico —unas seis décimas del que
+saldría con 20— porque el encogimiento de `I0_PRIOR` pesa más cuando hay menos
+evidencia. Votar dos veces sin resolver nada en el medio da cero.
 
 Consecuencias que importan para el resto de la gamificación:
 
@@ -172,6 +198,20 @@ Consecuencias que importan para el resto de la gamificación:
 - **Un Elo más alto paga más XP**, porque la XP se cobra por tier
   (`XP_POR_TIER`). Es el incentivo alineado y a la vez el límite del abuso:
   subir sin saber resolver no paga, porque hay que acertarlas.
+
+### Si le salen repetidas (dx)
+
+La otra pregunta de la escalera —**«¿Te están saliendo repetidas?»**, 🎲 bien
+variadas / 👌 está bien así / 🔁 muy repetidas— **no toca nada de la economía**:
+ni θ, ni XP, ni `n_updates`, ni el color del nombre. Se guarda junto al dato
+objetivo del momento (cuántas plantillas y cuántos enunciados distintos venía
+viendo en sus últimas 30 derivadas) y ahí termina.
+
+Está acá para que quede escrito que es así a propósito y no por falta de tiempo.
+No hay un equivalente de «el voto elige el signo, la evidencia elige el tamaño»:
+la ventana de exclusión del selector (`generator._RECENT_EXCLUDE`) es una
+constante global, no una preferencia por persona. El día que se quiera hacer
+personal, es un diseño propio y hay que hacerlo con estos números en la mano.
 
 ### La vuelta universitaria (dx)
 

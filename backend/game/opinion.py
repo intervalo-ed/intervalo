@@ -29,8 +29,10 @@ hay. El arreglo son los tiers 6-8 con regla de la cadena que `elo.BETA_SEED` ya
 tiene reservados, y es otro trabajo.
 
 Por suerte casi no se pisan: simulado sobre el historial real, **3 de 220
-disparos** caen arriba del techo. La encuesta pregunta temprano —a las 10
-resueltas, después cada 30— y a esa altura todavía nadie llegó ahí.
+disparos** caen arriba del techo. La encuesta pregunta temprano —el primer turno
+cae en la derivada 28— y a esa altura todavía nadie llegó ahí. Desde el 19/09,
+además, la regla de la cadena corrió el techo a θ ≈ 4,25, así que los turnos
+tardíos de la escalera tampoco lo tocan.
 """
 
 from __future__ import annotations
@@ -52,19 +54,33 @@ JUSTO = "justo"
 MUY_DIFICIL = "muy_dificil"
 VOTOS: tuple[str, ...] = (MUY_FACIL, JUSTO, MUY_DIFICIL)
 
-# Cuántas respuestas mira el ajuste hacia atrás.
+# El TOPE de cuántas respuestas mira el ajuste hacia atrás.
+#
+# **Es un tope y no el tamaño de la tanda**, y hasta el 24/09 era lo segundo. El
+# piso lo pone ahora el último voto que cobró (`models.GameDifficultyVote ::
+# corte_ejercicio_id`), así que lo normal es que entren menos de veinte: con la
+# escalera de encuestas preguntando cada diez, entran diez.
 #
 # Veinte es el tamaño con el que el estimador deja de ser ruido: el error típico
 # de θ sobre n respuestas en banda es `1/√(SCALE²·Σp̂(1−p̂))`, que da ±0,90 con 10
-# respuestas, ±0,63 con 20 y ±0,45 con 40. Con menos de veinte el error del
-# estimador es más grande que el TOPE, o sea que el tope no estaría acotando una
-# corrección sino tapando un sorteo.
+# respuestas, ±0,63 con 20 y ±0,45 con 40.
 #
-# Y el techo lo pone la cadencia: la ventana tiene que ser MÁS CHICA que cada
-# cuánto vuelve la pregunta (30 resueltas), o dos votos seguidos se calcularían
-# sobre las mismas respuestas y el segundo cobraría de nuevo una sorpresa que el
-# primero ya cobró. Simulado, entre 10, 20 y 40 el resultado casi no cambia; 20
-# es el único de los tres que además respeta eso.
+# **Que ahora entren diez y el error sea ±0,90 contra un TOPE de 0,60 no rompe el
+# argumento, y conviene tener claro por qué.** El tope no está acotando al
+# estimador crudo: `ajuste_de_theta` divide por `informacion + I0_PRIOR`, y con
+# media tanda la información cae a la mitad mientras el prior no se mueve, así que
+# el ajuste sale ~0,6× del que saldría con veinte. Una ventana más corta compra
+# una corrección más chica por construcción. Lo que queda expuesto es el ruido de
+# muestreo —diez aciertos de suerte con voto «muy fácil» acreditan ~0,38— y contra
+# eso están las tres barandas de siempre: el signo tiene que coincidir, la banda
+# muerta filtra lo chico, y el motor se sigue moviendo solo en la dirección
+# contraria si la racha era suerte.
+#
+# Antes de que existiera el corte, el techo lo ponía la cadencia: la ventana tenía
+# que ser MÁS CHICA que cada cuánto volvía la pregunta (30 resueltas), o dos votos
+# seguidos se calculaban sobre las mismas respuestas y el segundo cobraba de nuevo
+# una sorpresa que el primero ya había cobrado. Eso era un invariante entre dos
+# constantes que nada verificaba, y la escalera lo habría roto en silencio.
 VENTANA = 20
 
 # Con menos respuestas que estas no se ajusta nada: se guarda el voto y listo.

@@ -604,11 +604,52 @@ export interface paths {
          *     igual pero no mueve nada, porque antes de eso el registro habla de por dónde
          *     el juego hizo entrar a la persona y no de la persona.
          *
+         *     **Y la ventana arranca en el último voto que cobró**, no en la última
+         *     respuesta (`_corte_cobrado`). Es lo que permite que la pregunta vuelva cada
+         *     diez sin que nadie cobre dos veces la misma sorpresa, y de paso el único
+         *     freno que este endpoint tiene del lado del servidor: votar de nuevo sin
+         *     haber resuelto nada da ventana vacía y Δθ cero.
+         *
          *     No falla por contenido —un voto desconocido se ignora— por lo mismo que
          *     `/cta`: esto aparece en la mitad de una partida, y un error acá le rompería
          *     el juego a alguien por un dato que es opcional.
          */
         post: operations["record_opinion_game_derivemos_opinion_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/game/derivemos/repetitividad": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Record Repetitividad
+         * @description «¿Te están saliendo repetidas?» — la segunda opinión que el juego pide.
+         *
+         *     Mismo protocolo de dos pasos que `/opinion` y por el mismo motivo: una
+         *     pregunta mostrada y no contestada es información sobre la pregunta, y sin
+         *     registrar la impresión no hay manera de saber cuánta gente la ignora.
+         *
+         *     **Guarda y no ajusta**, que es toda la diferencia con la de dificultad. El
+         *     porqué está en `game/repetitividad.py`: la ventana de exclusión del selector
+         *     es una constante global y no una preferencia por persona, así que no hay nada
+         *     que mover con este voto todavía. Lo que sí hace es congelar los contadores
+         *     objetivos del momento —cuántas plantillas y cuántos enunciados distintos
+         *     venía viendo— porque el voto solo, sin eso al lado, no se puede distinguir de
+         *     una opinión sobre la dificultad.
+         *
+         *     No falla por contenido, igual que `/opinion` y `/cta`: esto aparece en la
+         *     mitad de una partida.
+         */
+        post: operations["record_repetitividad_game_derivemos_repetitividad_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2599,6 +2640,39 @@ export interface components {
              */
             total_xp_given: number;
         };
+        /**
+         * GameRepetitividadOut
+         * @description Si la respuesta quedó guardada.
+         *
+         *     Un booleano, como `GameEncuestaOut` y al revés que `GameOpinionOut`: este voto
+         *     no mueve θ, así que no hay ningún número que devolverle al front. El día que
+         *     mueva algo, esto gana campos.
+         */
+        GameRepetitividadOut: {
+            /** Guardado */
+            guardado: boolean;
+        };
+        /**
+         * GameRepetitividadRequest
+         * @description «¿Te están saliendo repetidas?», en los mismos dos pasos que las otras dos.
+         *
+         *     Los tres valores (`variado` / `justo` / `repetitivo`) no viajan validados por
+         *     el schema sino por `repetitividad.VOTOS` en el handler, igual que en
+         *     `GameOpinionRequest`: un voto desconocido no puede romperle la partida a
+         *     nadie, así que se ignora en vez de devolver 422.
+         *
+         *     No hay campo para los contadores objetivos y eso es a propósito: los calcula
+         *     el servidor sobre el historial, porque son la mitad del dato que hace
+         *     comparable al voto y el cliente no tiene por qué poder inventarlos.
+         */
+        GameRepetitividadRequest: {
+            /** Accion */
+            accion: string;
+            /** Voto */
+            voto?: string | null;
+            /** Platform */
+            platform?: string | null;
+        };
         /** GameSkipRequest */
         GameSkipRequest: {
             /** Exercise Id */
@@ -4111,6 +4185,42 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["GameOpinionOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    record_repetitividad_game_derivemos_repetitividad_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+                "x-game-token"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["GameRepetitividadRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GameRepetitividadOut"];
                 };
             };
             /** @description Validation Error */

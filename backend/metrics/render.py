@@ -89,14 +89,23 @@ SURVEY_EMOJI = {
 SURVEY_TEXT = {
     "aburrido": "Aburrido", "justo": "Justo", "interesante": "Interesante",
     "muy_facil": "Muy fácil", "muy_dificil": "Muy difícil",
+    "variado": "Bien variadas", "repetitivo": "Muy repetidas",
 }
 D_ORDER = ["aburrido", "justo", "interesante"]
 A_ORDER = ["muy_facil", "justo", "muy_dificil"]
+# El canal de repetitividad del juego (game/repetitividad.py :: VOTOS).
+R_ORDER = ["variado", "justo", "repetitivo"]
 
-# `justo` aparece en los dos canales con distinto significado, así que el emoji
-# del medio se resuelve por canal: 🙂 en D (ni aburrido ni interesante) y 👌 en A
-# (la dificultad estuvo bien). Ver el comentario de models.ExerciseFeedback.
+# `justo` aparece en los TRES canales con distinto significado, así que el emoji
+# del medio se resuelve por canal: 🙂 en D (ni aburrido ni interesante), 👌 en A
+# (la dificultad estuvo bien) y 👌 también en el de repetitividad (la variedad
+# estuvo bien). Ver el comentario de models.ExerciseFeedback.
+#
+# Que `justo` sea la misma palabra en los tres es a propósito —los canales se
+# cruzan sin tabla de traducción— y es también la trampa: cualquier consulta que
+# agrupe por valor sin filtrar por canal mezcla tres preguntas.
 SURVEY_EMOJI_A = dict(SURVEY_EMOJI, justo="👌")
+SURVEY_EMOJI_R = dict(SURVEY_EMOJI, justo="👌", variado="🎲", repetitivo="🔁")
 
 # Qué dice cada copy de push. Los nombres de categoría son internos
 # ("personal_best", "podium") y no significan nada de un vistazo, así que la
