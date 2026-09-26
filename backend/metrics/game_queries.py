@@ -301,9 +301,16 @@ def load(db: DBSession) -> dict:
         # atadura no hay forma de comparar el p̂ que el motor prometió con lo
         # que esa persona efectivamente contestó: la calibración se mide por
         # ejercicio, no por jugador.
+        # `answer_latex` viene SOLO en las filas que no parsearon, y el `CASE`
+        # no es una optimización cosmética: son 1.800 textos sobre 63.000
+        # intentos, así que traerlo entero multiplicaría por veinte el peso de
+        # esta consulta para tirar el 97% en el primer filtro. Lo que se hace
+        # con él —el ranking de qué escribe la gente cuando el parser la
+        # rechaza— solo mira los rechazos.
         "attempts": _rows(db, """
             SELECT player_id, exercise_id, attempt_number, parse_ok, is_correct,
-                   created_at
+                   created_at,
+                   CASE WHEN parse_ok THEN NULL ELSE answer_latex END AS answer_latex
             FROM game_attempts"""),
         # `external_ref` y `player_id` no son adorno: el primero distingue un
         # PAGO de una fila (una donación repartida entre dos universidades
@@ -424,6 +431,58 @@ def load(db: DBSession) -> dict:
     return data
 
 
+def _filtrar_camada(data: dict, camada: date | None) -> dict:
+    """Una vista de `data` con solo la gente que se dio de alta esa semana.
+
+    **Camada es la semana de ALTA de la persona, no la semana del evento.** Es
+    la misma definición que usan `_camadas`, la retención y la viralidad, y
+    tenerla distinta acá sería tener dos «camadas» en el mismo panel — el
+    defecto que ya costó caro con el K semanal.
+
+    Tiene una consecuencia que conviene entender antes de leer nada: **un
+    arreglo desplegado hoy NO aparece en una camada sola.** La gente que entró
+    el 07/09 sigue jugando hoy, así que su fila incluye el juego de antes y el
+    de después del arreglo. Lo que la camada aísla es la POBLACIÓN, no el
+    período: sirve para comparar grupos de gente que llegaron por olas
+    distintas, y no para leer el efecto de un deploy. Para eso están las series
+    semanales, que cortan por fecha del evento.
+
+    El filtro es por `player_id` sobre cualquier lista que lo tenga, y eso es a
+    propósito: una lista nueva en `load` queda filtrada sola, sin que haya que
+    acordarse de venir a agregarla acá. Lo único que se deja entero es lo que no
+    es de una persona —los grupos del tracker— porque el denominador de la
+    difusión no depende de a quién se esté mirando.
+    """
+    if camada is None:
+        return data
+    ids = {p["id"] for p in data["players"] if _week_of(p["created_at"]) == camada}
+    fuera = dict(data)
+    fuera["players"] = [p for p in data["players"] if p["id"] in ids]
+    for clave, filas in data.items():
+        if clave == "players" or not isinstance(filas, list) or not filas:
+            continue
+        if isinstance(filas[0], dict) and "player_id" in filas[0]:
+            fuera[clave] = [r for r in filas if r["player_id"] in ids]
+    return fuera
+
+
+def camadas_de(data: dict, week: date) -> list[dict]:
+    """Las camadas que el selector puede ofrecer, con cuánta gente tiene cada una.
+
+    El tamaño va al lado del nombre porque sin él el selector invita a comparar
+    una camada de mil personas con una de treinta como si fueran dos lecturas
+    del mismo peso.
+    """
+    por_semana: dict[date, int] = defaultdict(int)
+    for p in data["players"]:
+        w = _week_of(p["created_at"])
+        if w is not None:
+            por_semana[w] += 1
+    return [{"week": w.isoformat(), "label": w.strftime("%d/%m"),
+             "n": por_semana.get(w, 0)}
+            for w in _semanas_hasta(week)]
+
+
 def _weeks_back(week: date, n: int) -> list[date]:
     """La semana elegida y las n-1 anteriores, de más vieja a más nueva.
 
@@ -519,7 +578,8 @@ def _correctas_de_la_primera_sesion(lista: list[dict]) -> int:
     return sum(1 for a in _primera_sesion(lista) if a["is_correct"])
 
 
-def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
+def headline(data: dict, weeks: list[date], mot: dict | None = None,
+             opi: dict | None = None) -> dict[str, list[dict]]:
     """Los doce números de la semana, repartidos entre las cuatro pestañas.
 
     **No hay sección de titulares**, y la clave de cada lista es la pestaña que
@@ -557,6 +617,12 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
     # para la misma pregunta. Ya pasó con el K semanal.
     cam = _camadas(data, weeks)
     ret = _camadas_retencion(data, weeks)
+    # Los titulares del motor salen de las MISMAS funciones que dibujan sus
+    # secciones, y no de cuentas escritas acá adentro. Dos definiciones de la
+    # misma métrica terminan dando dos números para la misma pregunta; ya pasó
+    # con el K semanal.
+    mot = mot if mot is not None else motor(data, weeks)
+    opi = opi if opi is not None else opinion(data, weeks)
 
     def per_week(fn) -> list:
         return [fn(w) for w in weeks]
@@ -875,6 +941,30 @@ def headline(data: dict, weeks: list[date]) -> dict[str, list[dict]]:
                  "Mediana, una fila por tanda igual que la de al lado. Cierra el "
                  "cuadro: las dos tandas medidas con las dos mismas varas, "
                  "derivadas y minutos."),
+        ],
+        # Motor · los cuatro de `motor()`, más el voto que sale de `opinion`.
+        # Tres van con `invertido` porque tienen OBJETIVO y no dirección: subir
+        # el acierto real es alejarse de la banda, y subir la brecha es prometer
+        # cada vez peor. Sin eso el panel pinta de verde el empeoramiento.
+        "motor": [
+            {**card("En banda", [w["en_banda"] for w in mot["por_semana"]], "%",
+                    f"Qué fracción de las derivadas se sirve entre "
+                    f"{mot['banda'][0]}% y {mot['banda'][1]}% de acierto esperado, "
+                    f"que es donde el motor dice apuntar. Es la puntería, y se "
+                    f"arregla en el selector o en el catálogo.")},
+            {**card("Acierto real", [w["entregado"] for w in mot["por_semana"]], "%",
+                    f"Qué fracción se acierta al primer intento, sin tabla. Es la "
+                    f"consecuencia de los otros dos y el único sin palanca propia."),
+             "invertido": True, "objetivo": f"{mot['banda'][0]}–{mot['banda'][1]}%"},
+            {**card("Brecha", [w["brecha"] for w in mot["por_semana"]], " pp",
+                    "Entregado menos prometido. Es la honestidad del motor: "
+                    "positiva significa que promete de menos. Se arregla en las β, "
+                    "no en el selector."),
+             "invertido": True, "objetivo": "0"},
+            {**card("Cómodo en", [w["comodo_en"] for w in opi["por_semana"]], "%",
+                    "A qué tasa de acierto venía quien votó «justo». Es el único "
+                    "número que puede decir que la BANDA está mal puesta."),
+             "invertido": True, "objetivo": f"{mot['objetivo']}%"},
         ],
     }
 
@@ -2104,10 +2194,17 @@ def experimento_motor(data: dict) -> dict:
 
 # ── 7 · Difusión: a cuánta gente se llegó y cuánta entró ─────────────────────
 
-# Piso para que un grupo, una universidad o una campaña merezcan su propia fila.
-# Con menos de esto el clickrate es una fracción de números chicos: un grupo de
-# 20 miembros con 1 jugador da 5% y con 2 da 10%, y esa diferencia no es una
-# señal, es una persona.
+# Piso para que un grupo merezca entrar a una cuenta de clickrate. Con menos de
+# esto el clickrate es una fracción de números chicos: un grupo de 20 miembros
+# con 1 jugador da 5% y con 2 da 10%, y esa diferencia no es una señal, es una
+# persona.
+#
+# Vive acá y lo usa `experimento_grupos`, que es el único que quedó partiendo la
+# difusión en filas por grupo. La sección dejó de tener sus tres tablas
+# acumuladas —por universidad, por campaña y el top de grupos— el 25/09: lo que
+# se mira de la difusión es la ÚLTIMA OLA y cómo se movió, y un acumulado
+# ordenado por clickrate se llenaba de grupos chicos de olas viejas que ya no
+# deciden a quién mandarle.
 MIN_MIEMBROS_FILA = 40
 
 # Cuánto tarda una ola en terminar de traer clics. Medido en producción el
@@ -2198,28 +2295,6 @@ def difusion(data: dict, week: date) -> dict:
 
     sin_copia = tasa([g for g in tocados if not grupos[g]["cluster_dx"]])
 
-    def agrupar(campo: str) -> list[dict]:
-        cubos: dict[str, list[str]] = defaultdict(list)
-        for g in tocados:
-            clave = grupos[g][campo]
-            if clave:
-                cubos[clave].append(g)
-        filas = []
-        for clave, gs in cubos.items():
-            t = tasa(gs)
-            if t["miembros"] >= MIN_MIEMBROS_FILA:
-                filas.append({"clave": str(clave), **t})
-        return sorted(filas, key=lambda f: -(f["pct"] or 0))
-
-    detalle = []
-    for g in tocados:
-        d = grupos[g]
-        t = tasa([g])
-        if t["miembros"] >= MIN_MIEMBROS_FILA and t["jugadores"]:
-            detalle.append({"id": g, "universidad": d["universidad"],
-                            "materia": d["materia"] or d["cluster"], **t})
-    detalle.sort(key=lambda f: -(f["pct"] or 0))
-
     # La ola de cada semana. **Un grupo pertenece a la semana en que se le
     # mandó, y sus jugadores se le cuentan a esa semana aunque lleguen días
     # después** — es la misma convención que `_camadas` usa con los reclutas y
@@ -2272,9 +2347,6 @@ def difusion(data: dict, week: date) -> dict:
         "generico": copia("generico"),
         "sin_copia": sin_copia,
         "desde": FIRST_WEEK,
-        "por_universidad": agrupar("universidad"),
-        "por_campana": agrupar("ultima_campana"),
-        "top": detalle[:8],
         "atribuidos": atribuidos,
         "cubiertos": cubiertos,
         "pct_cobertura": _pct(cubiertos, atribuidos),
@@ -2898,7 +2970,147 @@ def calibracion(data: dict) -> dict:
             "banda": (round(100 * elo.TARGET_LOW), round(100 * elo.TARGET_HIGH))}
 
 
+# ── 9-bis · El motor: puntería, honestidad y resultado ───────────────────────
+
+def _servidas_validas(data: dict) -> list[tuple[dict, dict]]:
+    """Los pares (ejercicio, primer intento) sobre los que se mide el motor.
+
+    Las tres exclusiones son las mismas que usa `calibracion` y ninguna es
+    conservadurismo: un acierto al tercer intento no es lo que p̂ predice, uno
+    copiado de la tabla tampoco, y sin `p_hat` no hay promesa contra la cual
+    comparar. Mezclarlos infla la columna «real» y hace parecer calibrado un
+    motor que no lo está.
+    """
+    primeros: dict[int, dict] = {}
+    for a in data["_firsts"]:
+        eid = a.get("exercise_id")
+        if eid is not None and eid not in primeros:
+            primeros[eid] = a
+    return [(e, primeros[e["id"]]) for e in data["exercises"]
+            if e["p_hat"] is not None and not e["peeked"] and e["id"] in primeros]
+
+
+def _resumen_motor(pares: list[tuple[dict, dict]]) -> dict:
+    """Los cuatro números sobre un conjunto de servidas."""
+    n = len(pares)
+    if not n:
+        return {"n": 0, "en_banda": None, "prometido": None, "entregado": None,
+                "brecha": None, "arriba": None, "abajo": None}
+    prometido = 100 * sum(e["p_hat"] for e, _ in pares) / n
+    entregado = 100 * sum(1 for _, a in pares if a["is_correct"]) / n
+    return {
+        "n": n,
+        "en_banda": round(100 * sum(
+            1 for e, _ in pares if elo.TARGET_LOW <= e["p_hat"] <= elo.TARGET_HIGH) / n, 1),
+        "arriba": round(100 * sum(1 for e, _ in pares if e["p_hat"] > elo.TARGET_HIGH) / n, 1),
+        "abajo": round(100 * sum(1 for e, _ in pares if e["p_hat"] < elo.TARGET_LOW) / n, 1),
+        "prometido": round(prometido, 1),
+        "entregado": round(entregado, 1),
+        "brecha": round(entregado - prometido, 1),
+    }
+
+
+def motor(data: dict, weeks: list[date]) -> dict:
+    """Cómo le está yendo al motor de dificultad, en cuatro números.
+
+    Los cuatro están elegidos con un criterio: **cada uno falla por una razón
+    distinta y apunta a un archivo distinto**. Si dos se arreglan con el mismo
+    cambio, sobra uno.
+
+    - **en banda** — qué fracción se sirve dentro de `TARGET_LOW`–`TARGET_HIGH`.
+      Es la puntería, y se arregla en el selector o en el catálogo.
+    - **acierto real** — qué fracción se acierta. Es la consecuencia, y el único
+      de los cuatro que no tiene palanca propia.
+    - **brecha** — entregado menos prometido. Es la honestidad, y se arregla en
+      las β: el ancla y el recentrado.
+    - **cómodo en** — a qué tasa de acierto vota «justo» la gente. Es el único
+      que puede decir que la BANDA está mal puesta, y sale de `opinion`.
+
+    Los dos del medio se leen juntos y no es redundancia, es la descomposición
+    exacta: `entregado = prometido + brecha`. Si el acierto está alto, la brecha
+    dice si es porque el motor sirve fácil o porque miente.
+
+    **Se mide por DERIVADA SERVIDA y hay que tenerlo presente**, porque las
+    derivadas las pone desproporcionadamente gente muy fuerte: una sola persona
+    puso más de tres mil. Por persona el motor apunta bastante mejor que lo que
+    dice el número de acá. Son dos preguntas distintas y esta pestaña contesta
+    la primera — ver docs/reports/reporte-motor-2026-09-25.pdf §8.
+
+    Esta sección NO se filtra por camada, a diferencia de Jugabilidad: lo que
+    contesta es «cómo está el motor hoy», no «cómo le fue a esta camada», y
+    partir la calibración por semana de alta deja las celdas sin base.
+    """
+    pares = _servidas_validas(data)
+    por_semana = []
+    for w in weeks:
+        suyos = [(e, a) for e, a in pares if _in_week(a["created_at"], w)]
+        por_semana.append({"semana": w, "label": w.strftime("%d/%m"),
+                           **_resumen_motor(suyos)})
+    return {
+        "global": _resumen_motor(pares),
+        "por_semana": por_semana,
+        "banda": (round(100 * elo.TARGET_LOW), round(100 * elo.TARGET_HIGH)),
+        "objetivo": round(100 * elo.TARGET_MID),
+    }
+
+
 # ── 10 · La opinión de la gente ──────────────────────────────────────────────
+
+# El voto en una escala ordinal, para poder promediar un cambio. Más alto es
+# «me parece más difícil», así que un desplazamiento NEGATIVO significa que con
+# el tiempo el juego les fue pareciendo más fácil.
+ESCALA_VOTO = {"muy_facil": -1.0, "justo": 0.0, "muy_dificil": 1.0}
+
+
+def _voto_pareado(contestadas: list[dict]) -> dict:
+    """El primer voto de cada persona contra los que dio después.
+
+    **Solo entra la gente que votó al menos dos veces, y se compara contra sí
+    misma.** Comparar «todos los primeros votos» contra «todos los votos
+    siguientes» sin parear parece la misma cuenta y no lo es: quien llega a un
+    segundo voto es quien siguió jugando, así que el grupo de los siguientes
+    está seleccionado por la misma disposición que se quiere medir. Medido en
+    producción, esa versión sin parear da una diferencia que en buena parte es
+    composición — es la misma trampa que la curva de continuidad de la §9 del
+    reporte del motor.
+
+    `desplazamiento` es el promedio, por persona, de (media de sus votos
+    posteriores − su primer voto) en la escala ordinal. Negativo significa que
+    a medida que juegan les va pareciendo más fácil, que es lo que el motor
+    tendría que estar impidiendo.
+    """
+    por_jugador: dict[int, list[dict]] = defaultdict(list)
+    for v in contestadas:
+        if v["shown_at"] is not None:
+            por_jugador[v["player_id"]].append(v)
+
+    primeros, siguientes, desplazamientos = [], [], []
+    for votos in por_jugador.values():
+        if len(votos) < 2:
+            continue
+        votos.sort(key=lambda v: v["shown_at"])
+        primero, resto = votos[0], votos[1:]
+        primeros.append(primero["voto"])
+        siguientes.extend(v["voto"] for v in resto)
+        medio = sum(ESCALA_VOTO.get(v["voto"], 0.0) for v in resto) / len(resto)
+        desplazamientos.append(medio - ESCALA_VOTO.get(primero["voto"], 0.0))
+
+    def pct(votos: list[str], cual: str) -> float | None:
+        return _pct(sum(1 for v in votos if v == cual), len(votos))
+
+    return {
+        "personas": len(desplazamientos),
+        "votos_siguientes": len(siguientes),
+        "pct_muy_facil_primero": pct(primeros, "muy_facil"),
+        "pct_muy_facil_siguientes": pct(siguientes, "muy_facil"),
+        "pct_justo_primero": pct(primeros, "justo"),
+        "pct_justo_siguientes": pct(siguientes, "justo"),
+        "desplazamiento": (round(sum(desplazamientos) / len(desplazamientos), 3)
+                           if desplazamientos else None),
+        "mas_facil": sum(1 for d in desplazamientos if d < 0),
+        "igual": sum(1 for d in desplazamientos if d == 0),
+        "mas_dificil": sum(1 for d in desplazamientos if d > 0),
+    }
 
 def opinion(data: dict, weeks: list[date]) -> dict:
     """Lo que el motor prometía contra lo que dijo la persona.
@@ -2988,6 +3200,7 @@ def opinion(data: dict, weeks: list[date]) -> dict:
     return {
         "filas": filas,
         "por_semana": por_semana,
+        "pareado": _voto_pareado(contestadas),
         "mostradas": mostradas,
         "contestadas": len(contestadas),
         "pct_respuesta": _pct(len(contestadas), mostradas),
@@ -3112,6 +3325,92 @@ def friccion(data: dict) -> dict:
 
 
 
+# ── 11-bis · El teclado ──────────────────────────────────────────────────────
+
+# Cuánto tiempo puede pasar entre un envío rechazado y el siguiente para que
+# cuenten como la MISMA pelea. Veinte segundos es lo que tarda alguien en
+# corregir una notación que ya tenía escrita; más que eso y probablemente se
+# puso a resolver de nuevo, que es otra cosa.
+SEGUNDOS_DE_PELEA = 20
+
+# Cuántas formas distintas de escribir mal se listan. No es un top de curiosidades:
+# cada fila es un caso que el parser podría aceptar, así que la lista se corta
+# donde deja de haber trabajo que valga la pena y no donde queda linda.
+TOPE_RECHAZOS = 12
+
+
+def teclado(data: dict) -> dict:
+    """Dónde la persona sabe la derivada y el juego no la deja escribirla.
+
+    **La tasa de parseo por INTENTO no sirve para esto y es la trampa de esta
+    sección.** Da 97% largo, o sea que parece que no pasa nada. Pero la pregunta
+    que importa no es qué fracción de los envíos falla, sino **cuánta gente se
+    topó alguna vez con «lo sabía y el juego me dijo que no»** — y contado por
+    persona el número es otro completamente. Es la única parte del juego donde
+    el que pierde no es el estudiante.
+
+    Una PELEA es un envío rechazado seguido de otro envío sobre el mismo
+    ejercicio en menos de `SEGUNDOS_DE_PELEA`. Si el segundo parsea y acierta,
+    esa persona sabía la derivada y estaba peleando con la notación, no con la
+    matemática: son las que más caro salen y las más fáciles de arreglar.
+
+    El ranking de qué escriben es lo accionable de la sección. Cada fila es una
+    forma concreta de escribir que el parser rechaza, con cuánta gente la
+    intentó al lado — y casi todas son notación legítima que se podría aceptar.
+    """
+    jugadores = {p["id"] for p in data["players"]}
+    intentos = [a for a in data["attempts"] if a["player_id"] in jugadores]
+    rechazos = [a for a in intentos if not a["parse_ok"]]
+
+    # Las peleas se arman por EJERCICIO: dos envíos seguidos sobre derivadas
+    # distintas no son la misma pelea aunque los separen tres segundos.
+    por_ejercicio: dict[int, list[dict]] = defaultdict(list)
+    for a in intentos:
+        if a.get("exercise_id") is not None and a["created_at"] is not None:
+            por_ejercicio[a["exercise_id"]].append(a)
+
+    peleas, ganadas, peleadores = 0, 0, set()
+    for lista in por_ejercicio.values():
+        lista.sort(key=lambda a: a["created_at"])
+        for i, a in enumerate(lista[:-1]):
+            sig = lista[i + 1]
+            if a["parse_ok"]:
+                continue
+            if (sig["created_at"] - a["created_at"]).total_seconds() > SEGUNDOS_DE_PELEA:
+                continue
+            peleas += 1
+            peleadores.add(a["player_id"])
+            if sig["parse_ok"] and sig["is_correct"]:
+                ganadas += 1
+
+    textos: dict[str, list] = defaultdict(lambda: [0, set()])
+    for a in rechazos:
+        t = (a.get("answer_latex") or "").strip()
+        if t:
+            textos[t][0] += 1
+            textos[t][1].add(a["player_id"])
+    ranking = sorted(
+        ({"texto": t, "n": v[0], "personas": len(v[1])} for t, v in textos.items()),
+        key=lambda r: (-r["n"], -r["personas"]))[:TOPE_RECHAZOS]
+
+    con_rechazo = {a["player_id"] for a in rechazos}
+    return {
+        "intentos": len(intentos),
+        "rechazos": len(rechazos),
+        "pct_rechazo": _pct(len(rechazos), len(intentos)),
+        "jugadores": len(jugadores),
+        "con_rechazo": len(con_rechazo),
+        # El titular: por persona y no por intento. Ver el docstring.
+        "pct_con_rechazo": _pct(len(con_rechazo), len(jugadores)),
+        "peleas": peleas,
+        "peleadores": len(peleadores),
+        "ganadas": ganadas,
+        "pct_ganadas": _pct(ganadas, peleas),
+        "ranking": ranking,
+        "segundos": SEGUNDOS_DE_PELEA,
+    }
+
+
 # ── 12 · Lo que escribieron ───────────────────────────────────
 
 # Debajo de esto, lo que escribieron es «no quiero contestar». Gemela de
@@ -3213,10 +3512,34 @@ def encuestas(data: dict) -> dict:
 # ── Entrada ──────────────────────────────────────────────────────────────────
 
 def build(db: DBSession, week: date, weeks_shown: int = 4,
-          corte: str = "total", k_max: int = DEPTH_MAX) -> dict:
-    """Payload completo del panel del juego para la semana `week` (su lunes)."""
+          corte: str = "total", k_max: int = DEPTH_MAX,
+          camada: date | None = None) -> dict:
+    """Payload completo del panel del juego para la semana `week` (su lunes).
+
+    `camada` filtra SOLO las secciones de Jugabilidad, y a propósito: esa
+    pestaña pregunta cómo se siente el juego, que es una pregunta sobre un grupo
+    de gente. Motor pregunta cómo está el modelo hoy, que no lo es — partir la
+    calibración por semana de alta deja las celdas sin base y no contesta nada
+    que no conteste mejor la serie semanal. Ver `_filtrar_camada`.
+    """
     data = load(db)
     weeks = _weeks_back(week, weeks_shown)
+    # La vista de Jugabilidad. Con `camada=None` es el mismo objeto, así que el
+    # caso normal no paga nada.
+    d_jug = _filtrar_camada(data, camada)
+    # Se calculan una sola vez: los titulares del motor y sus secciones leen lo
+    # mismo, y recalcularlo sería recorrer 50.000 ejercicios dos veces para
+    # arriesgarse a que den distinto.
+    _motor = motor(data, weeks)
+    _opinion = opinion(data, weeks)
+    # Los titulares de Jugabilidad se recalculan sobre la camada elegida, y solo
+    # cuando hay una elegida: `headline` recorre las camadas y la retención, así
+    # que llamarlo dos veces siempre sería pagar ese recorrido por una pestaña
+    # que la mayoría de las visitas mira sin filtrar.
+    _head = headline(data, weeks, _motor, _opinion)
+    if camada is not None:
+        _head = {**_head,
+                 "jugabilidad": headline(d_jug, weeks, _motor, _opinion)["jugabilidad"]}
     return {
         "meta": {
             "week": week.isoformat(),
@@ -3228,9 +3551,12 @@ def build(db: DBSession, week: date, weeks_shown: int = 4,
             "estudiantes": len(data["players"]),
             "respuestas": len(data["_answers"]),
             "bots_excluidos": data["_bots"],
+            "camada": camada.isoformat() if camada else None,
+            "camadas": camadas_de(data, week),
+            "jugadores_camada": len(d_jug["players"]),
         },
-        "headline": headline(data, weeks),
-        "profundidad": profundidad(data, weeks, corte=corte, k_max=k_max),
+        "headline": _head,
+        "profundidad": profundidad(d_jug, weeks, corte=corte, k_max=k_max),
         "push": push(data, weeks),
         "mails": mails(data, weeks),
         "reclutas": reclutas(data, weeks),
@@ -3244,8 +3570,14 @@ def build(db: DBSession, week: date, weeks_shown: int = 4,
         "cartel_share": cartel_share_semanal(data, week),
         "monetizacion": monetizacion(data),
         "calibracion": calibracion(data),
-        "opinion": opinion(data, weeks),
-        "repetitividad": repetitividad(data, weeks),
+        "motor": _motor,
+        # Dos lecturas del MISMO voto. `opinion` es la de Motor y no se filtra:
+        # es el validador de la banda. `opinion_camada` es la de Jugabilidad y
+        # sí, porque ahí la pregunta es qué dijo esta gente.
+        "opinion": _opinion,
+        "opinion_camada": opinion(d_jug, weeks) if camada is not None else _opinion,
+        "teclado": teclado(d_jug),
+        "repetitividad": repetitividad(d_jug, weeks),
         "encuestas": encuestas(data),
-        "friccion": friccion(data),
+        "friccion": friccion(d_jug),
     }

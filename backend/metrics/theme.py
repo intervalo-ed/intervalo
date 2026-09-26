@@ -175,10 +175,20 @@ footer b{color:var(--fg)}
 """
 
 
-def delta_chip(d, suffix: str = "", dec: int = 1) -> str:
+def delta_chip(d, suffix: str = "", dec: int = 1, invertido: bool = False) -> str:
+    """`invertido` para las métricas que tienen OBJETIVO en vez de dirección.
+
+    El chip pinta verde para arriba, y eso es correcto para casi todo el panel:
+    más gente, más cafecitos, más vuelta. En la pestaña del motor es al revés en
+    tres de los cuatro números —el acierto real subiendo es ALEJARSE de la banda
+    objetivo, y la brecha subiendo es prometer cada vez peor— así que sin esto el
+    panel pintaría de verde justo el empeoramiento. El color se invierte; el
+    signo del número no, porque el número sigue siendo la diferencia que es.
+    """
     if d is None:
         return '<span class="chip flat">sin base</span>'
-    cls = "up" if d > 0 else ("down" if d < 0 else "flat")
+    bueno = (d < 0) if invertido else (d > 0)
+    cls = "flat" if d == 0 else ("up" if bueno else "down")
     sign = "+" if d > 0 else ""
     # La diferencia entre dos porcentajes son puntos porcentuales: "-2,2%" sobre
     # un 7,1% se lee como una caída del 2% cuando cayó de 9,3 a 7,1.
@@ -189,12 +199,18 @@ def delta_chip(d, suffix: str = "", dec: int = 1) -> str:
 def kpi(c: dict) -> str:
     sfx = c["suffix"]
     dec = c.get("dec", 1)
+    # `objetivo` se dibuja al lado del valor y no en la ayuda: un número con
+    # meta se lee comparándolo con la meta, y si la meta está tres renglones más
+    # abajo hay que acordarse de ella para leer el de arriba.
+    obj = (f'<span class="hint" style="margin-left:6px">meta {esc(c["objetivo"])}</span>'
+           if c.get("objetivo") else "")
     return (
         f'<div class="box kpi">'
         f'<div class="label">{esc(c["label"])}</div>'
-        f'<div class="row"><div class="val">{num(c["value"], sfx, dec)}</div>'
+        f'<div class="row"><div class="val">{num(c["value"], sfx, dec)}</div>{obj}'
         f'{ch.spark(c["series"])}</div>'
-        f'<div class="row" style="margin-top:8px">{delta_chip(c["delta"], sfx, dec)}'
+        f'<div class="row" style="margin-top:8px">'
+        f'{delta_chip(c["delta"], sfx, dec, c.get("invertido", False))}'
         f'<span class="hint">vs. semana anterior</span></div>'
         f'<div class="hint">{esc(c["hint"])}</div></div>')
 

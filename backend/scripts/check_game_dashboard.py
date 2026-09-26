@@ -64,6 +64,7 @@ def check(nombre: str, cond: bool, detalle: str = "") -> None:
 import re as _re  # noqa: E402
 from metrics import game_queries as q  # noqa: E402
 from metrics import game_render  # noqa: E402
+from metrics import theme  # noqa: E402
 from game import encuesta as game_encuesta  # noqa: E402
 
 # ── Escenario ────────────────────────────────────────────────────────────────
@@ -170,12 +171,13 @@ _at_id = [0]
 
 
 def responder(ex: int, player_id: int, cuando: datetime, correcto: bool,
-              intento=1, parse_ok=True, ms=8000) -> None:
+              intento=1, parse_ok=True, ms=8000, latex=None) -> None:
     _at_id[0] += 1
     s.add(GameAttempt(
         id=_at_id[0], exercise_id=ex, player_id=player_id,
         attempt_number=intento if parse_ok else intento - 1,
         parse_ok=parse_ok, is_correct=correcto, response_ms=ms, xp_awarded=25 if correcto else 0,
+        answer_latex=latex,
         theta_before=0.4 if (parse_ok and intento == 1) else None,
         theta_after=0.5 if (parse_ok and intento == 1) else None,
         created_at=cuando))
@@ -194,10 +196,22 @@ for i in range(2):
 ex_peek = servir(1, T(0, 16, 30), 0.30, peeked=True)
 responder(ex_peek, 1, T(0, 16, 30), correcto=True)
 
-# p1 también escribió algo que el parser no entendió, y después acertó bien.
+# p1 también escribió algo que el parser no entendió, y ocho segundos después
+# lo reescribió bien: eso es una PELEA GANADA, que es el caso que la sección del
+# teclado existe para contar — sabía la derivada y estaba peleando con la
+# notación. El texto rechazado se guarda porque es lo que alimenta el ranking.
 ex_parse = servir(1, T(0, 16, 40), 0.75)
-responder(ex_parse, 1, T(0, 16, 40), correcto=False, parse_ok=False)
-responder(ex_parse, 1, T(0, 16, 41), correcto=True)
+responder(ex_parse, 1, T(0, 16, 40), correcto=False, parse_ok=False,
+          latex=r"3x^2.e^{x}")
+responder(ex_parse, 1, T(0, 16, 40, 8), correcto=True)
+
+# Y un rechazo que NO es pelea: el reenvío llega dos minutos más tarde, así que
+# entre medio la persona se puso a resolver de nuevo en vez de corregir lo que
+# ya tenía escrito. Cuenta para «se toparon un rechazo» y no para «peleas».
+ex_lento = servir(1, T(0, 17, 0), 0.75)
+responder(ex_lento, 1, T(0, 17, 0), correcto=False, parse_ok=False,
+          latex=r"3x^2.e^{x}")
+responder(ex_lento, 1, T(0, 17, 2), correcto=True)
 
 # p2: 3 respuestas el día 1, dos correctas. Vuelve el día 3 con una más.
 for i in range(3):
@@ -410,18 +424,21 @@ check("se informa cuántos se sacaron", data["_bots"] == 1)
 
 # ── 2 · Qué es una respuesta ─────────────────────────────────────────────────
 print("\n— respuestas —")
-# p1: 12 + 1 mirada + 1 buena tras el fallo de parseo = 14 primeros intentos.
-# p2: 4. p3: 1. p4: 5. p5: 1. Total 25 respuestas parseadas.
-check("lo que no parsea no es respuesta", len(data["_answers"]) == 25,
+# p1: 12 + 1 mirada + 2 buenas tras sendos fallos de parseo = 15 primeros
+# intentos. p2: 4. p3: 1. p4: 5. p5: 1. Total 26 respuestas parseadas.
+check("lo que no parsea no es respuesta", len(data["_answers"]) == 26,
       f'({len(data["_answers"])})')
+# Dos fallos y no uno: uno se corrige en ocho segundos (una PELEA con el
+# teclado) y el otro dos minutos más tarde, que ya no lo es. La sección del
+# teclado necesita los dos para poder distinguirlos.
 check("el fallo de parseo sí queda registrado",
-      sum(1 for a in data["attempts"] if not a["parse_ok"]) == 1)
+      sum(1 for a in data["attempts"] if not a["parse_ok"]) == 2)
 # Los primeros intentos son la unidad de la curva de profundidad: el largo de
 # una partida es cuántas derivadas DISTINTAS enfrentó, no cuántas veces tipeó.
 # En este escenario nadie usó el segundo intento, así que coinciden — lo que se
 # clava acá es que el fallo de parseo, que sí ocurrió, no cuenta como ninguno.
 check("el largo de la partida se mide en primeros intentos",
-      len(data["_firsts"]) == 25 and len(data["_firsts"]) == len(data["_answers"]),
+      len(data["_firsts"]) == 26 and len(data["_firsts"]) == len(data["_answers"]),
       f'({len(data["_firsts"])} primeros intentos sobre {len(data["_answers"])} respuestas)')
 
 # ── 3 · Los números de la semana ───────────────────────────────────────────
@@ -608,13 +625,16 @@ check("la duración de la 1ª sesión sale en minutos",
 
 # El reparto es la parte que se puede romper sin que nadie lo note: una tarjeta
 # que se cae del dict desaparece de la página y ninguna consulta falla por eso.
-check("son dieciocho números", len(h) == 18, f"({len(h)})")
+check("son veintidós números", len(h) == 22, f"({len(h)})")
 # Activación queda en tres por lo mismo que Retención quedó en cuatro y no en
 # cinco: la grilla se llena con los números que hacen falta, no al revés.
+# Motor se sumó el 26/09 con sus propios cuatro. Los de él son los únicos del
+# panel que tienen OBJETIVO en vez de dirección, y tres van con el chip
+# invertido: subir el acierto real es alejarse de la banda.
 check("repartidos de a cuatro salvo activación y reclutas, que tienen tres",
       {k: len(v) for k, v in REPARTO.items()}
       == {"activacion": 3, "retencion": 4, "monetizacion": 4, "reclutas": 3,
-          "jugabilidad": 4},
+          "jugabilidad": 4, "motor": 4},
       f"({ {k: len(v) for k, v in REPARTO.items()} })")
 # El cafecito se mudó a Monetización y no quedó en los dos lados. Y el primero
 # de la fila es el denominador de los otros tres, que es lo que hace que la
@@ -1195,6 +1215,13 @@ check("y cada punto explica al pasar el mouse de dónde salió",
 # salió y no le hizo clic nadie.
 check("las semanas sin envío no dibujan un cero",
       h_dif.count("<title>Semana del") == 4)
+# Las tres tablas acumuladas —por universidad, por campaña y el top de grupos—
+# salieron el 25/09. De la difusión se mira la ÚLTIMA OLA y cuánto se movió; un
+# acumulado ordenado por clickrate se llenaba de grupos chicos de olas viejas
+# que ya no deciden a quién mandarle.
+check("las tres tablas acumuladas no volvieron",
+      not any(t in h_dif for t in ("Por universidad", "Por campaña",
+                                   "Los grupos que más rindieron")))
 
 # ── El reloj, que ya no se dibuja ───────────────────────────────────────────
 # La sección «El reloj del día» salió del panel entera. Lo que queda es el
@@ -1563,20 +1590,37 @@ check("que además avisa por qué le falta la segunda línea",
 # Una marca por pestaña: un título que solo aparece en ELLA. Con cuatro
 # secciones por pestaña no alcanza con contar `<h2>`, hay que mirar cuál es.
 print("— la opinión de la gente —")
-# La sección nueva de Jugabilidad. Va pegada a Calibración y en ese orden a
-# propósito: las dos comparan la promesa del motor contra algo, y la diferencia
-# es contra qué — el registro una, la persona la otra. Si alguna vez se separan,
-# el argumento de por qué existe esta sección se pierde.
+# El voto se dibuja en DOS pestañas y a propósito, porque contesta dos preguntas
+# distintas con el mismo dato. En Jugabilidad va el voto y su evolución, que es
+# percepción. En Motor va el mismo voto cruzado contra lo que la persona venía
+# acertando, que es el único número del panel capaz de decir que
+# `elo.TARGET_LOW/HIGH` está mal puesto.
+#
+# Antes eran una sola sección pegada a Calibración, con el argumento de que las
+# dos comparan la promesa del motor contra algo. Sigue siendo cierto — por eso
+# la mitad que compara contra la persona se fue a Motor CON Calibración, y lo
+# que quedó acá es lo que la gente dijo.
 MARCA_OPINION = "Lo que dice la gente"
+MARCA_OPINION_MOTOR = "El voto contra el comportamiento"
 h_jug = game_render.page(q.build(s, WEEK), token="tok", seccion="jugabilidad")
-check("la sección de opinión vive en Jugabilidad", MARCA_OPINION in h_jug)
-check("y va justo después de Calibración del motor",
-      h_jug.index("Calibración del motor") < h_jug.index(MARCA_OPINION) < h_jug.index(">Fricción<"))
+h_mot = game_render.page(q.build(s, WEEK), token="tok", seccion="motor")
+check("el voto y su evolución viven en Jugabilidad",
+      MARCA_OPINION in h_jug and "Semana a semana" in h_jug)
+check("y van después de Profundidad y antes de Fricción",
+      h_jug.index("Profundidad") < h_jug.index(MARCA_OPINION) < h_jug.index(">Fricción<"))
+check("el cruce contra el comportamiento vive en Motor",
+      MARCA_OPINION_MOTOR in h_mot and "Calibración, cubo por cubo" in h_mot)
+check("y va después de la calibración, que es lo que explica",
+      h_mot.index("Calibración, cubo por cubo") < h_mot.index(MARCA_OPINION_MOTOR))
+# Cada mitad en su pestaña y en ninguna otra: si una se colara, el panel diría
+# la misma cosa dos veces y la pestaña equivocada ganaría un número que no le
+# toca contestar.
 for clave, _ in game_render.SECCIONES:
-    if clave == "jugabilidad":
-        continue
     otra = game_render.page(q.build(s, WEEK), token="tok", seccion=clave)
-    check(f"y no se cuela en «{clave}»", MARCA_OPINION not in otra)
+    if clave != "jugabilidad":
+        check(f"el voto no se cuela en «{clave}»", MARCA_OPINION not in otra)
+    if clave != "motor":
+        check(f"el cruce no se cuela en «{clave}»", MARCA_OPINION_MOTOR not in otra)
 
 # Sin un solo voto la sección se dibuja igual y dice que no hay datos, en vez de
 # afirmar un cero. Es el estado en el que va a estar el día del deploy.
@@ -1602,6 +1646,15 @@ s.add(GameDifficultyVote(
     player_id=3, voto=None, shown_at=T(0, 12), answered_at=None,
     theta_at_vote=0.5, n_updates_at_vote=12, ventana=0, aciertos=0,
     p_hat_medio=None, delta_theta=0.0))
+# p2 vuelve a votar más tarde y cambia de opinión: sus cuatro primeros fueron
+# «muy fácil» y este es «muy difícil». Es lo único del escenario que le da al
+# pareado un desplazamiento distinto de cero, o sea lo único que puede detectar
+# un error de signo. `delta_theta=0` a propósito: así `theta_movido` no se mueve
+# y las dos cuentas siguen siendo independientes.
+s.add(GameDifficultyVote(
+    player_id=2, voto="muy_dificil", shown_at=T(0, 13), answered_at=T(0, 13),
+    theta_at_vote=1.5, n_updates_at_vote=44, ventana=20, aciertos=4,
+    p_hat_medio=0.70, delta_theta=0.0))
 # Y una del bot, que no puede contar para nada.
 s.add(GameDifficultyVote(
     player_id=9, voto="muy_dificil", shown_at=T(0, 12), answered_at=T(0, 12),
@@ -1610,21 +1663,101 @@ s.add(GameDifficultyVote(
 s.flush()
 
 op = q.build(s, WEEK)["opinion"]
-check("el voto del bot no cuenta", op["contestadas"] == 12,
-      f'(dio {op["contestadas"]}, esperaba 12)')
+check("el voto del bot no cuenta", op["contestadas"] == 13,
+      f'(dio {op["contestadas"]}, esperaba 13)')
 check("la mostrada y no contestada sí cuenta en el denominador",
-      op["mostradas"] == 13 and op["pct_respuesta"] == 92.3,
+      op["mostradas"] == 14 and op["pct_respuesta"] == 92.9,
       f'({op["contestadas"]}/{op["mostradas"]} = {op["pct_respuesta"]}%)')
+
+# ── El primer voto contra los siguientes ────────────────────────────────────
+# Pareado y solo con quien votó dos veces. p1 votó ocho veces «justo» (no se
+# mueve) y p2 cuatro «muy fácil» y después una «muy difícil», así que su media
+# posterior es −0,5 contra un primer voto de −1: se desplaza +0,5. El promedio
+# de los dos es +0,25.
+pa = op["pareado"]
+check("el pareado solo toma a quien votó dos veces o más",
+      pa["personas"] == 2, f'({pa["personas"]}, esperaba p1 y p2)')
+check("y mide el desplazamiento contra el PROPIO primer voto",
+      pa["desplazamiento"] == 0.25, f'(dio {pa["desplazamiento"]}, esperaba 0,25)')
+check("con el signo para el lado correcto",
+      pa["mas_dificil"] == 1 and pa["igual"] == 1 and pa["mas_facil"] == 0,
+      f'({pa["mas_facil"]} más fácil · {pa["igual"]} igual · {pa["mas_dificil"]} más difícil)')
+# El bot votó y no puede aparecer ni siquiera acá, que es la parte del panel que
+# más fácil se olvida de filtrarlo porque agrupa por jugador.
+check("y el bot tampoco se cuela en el pareado",
+      pa["votos_siguientes"] == 11, f'({pa["votos_siguientes"]}, esperaba 7+4)')
+
+# ── El teclado ──────────────────────────────────────────────────────────────
+# El defecto que esta sección existe para no repetir: medir el parseo POR
+# INTENTO, que da un número tranquilizador. Por persona da otra cosa.
+te = q.build(s, WEEK)["teclado"]
+check("las peleas se cuentan por reenvío rápido sobre el MISMO ejercicio",
+      te["peleas"] == 1, f'({te["peleas"]}, esperaba solo la de ocho segundos)')
+check("y el reenvío tardío cuenta como rechazo pero no como pelea",
+      te["rechazos"] == 2 and te["peleadores"] == 1,
+      f'({te["rechazos"]} rechazos · {te["peleadores"]} peleadores)')
+check("una pelea que termina en acierto es una pelea GANADA",
+      te["ganadas"] == 1 and te["pct_ganadas"] == 100.0, f'({te["ganadas"]})')
+check("el titular es por persona y no por intento",
+      te["pct_con_rechazo"] > te["pct_rechazo"],
+      f'({te["pct_con_rechazo"]}% de la gente contra {te["pct_rechazo"]}% de los envíos)')
+check("y el ranking agrupa por lo que se escribió",
+      te["ranking"][0]["texto"] == r"3x^2.e^{x}" and te["ranking"][0]["n"] == 2
+      and te["ranking"][0]["personas"] == 1, f'({te["ranking"][:1]})')
 check("«se sienten cómodos en» sale de «justo» y de ningún otro voto",
       op["comodo_en"] == 90.0, f'(dio {op["comodo_en"]})')
 check("y θ movido suma solo los ajustes de verdad",
       op["theta_movido"] == 1.8, f'(dio {op["theta_movido"]})')
 
-h_con = game_render.page(q.build(s, WEEK), token="tok", seccion="jugabilidad")
+# El titular —a qué distancia de la banda vota «justo» la gente— se lee en
+# MOTOR y no en Jugabilidad: es una afirmación sobre dónde está puesta la banda,
+# no sobre cómo se siente el juego.
+h_con = game_render.page(q.build(s, WEEK), token="tok", seccion="motor")
 check("el titular dice la distancia contra la banda del motor",
-      "15" in h_con.split(MARCA_OPINION)[1][:4000] and "por encima" in h_con)
+      "15" in h_con.split(MARCA_OPINION_MOTOR)[1][:4000] and "por encima" in h_con)
 check("y nombra la constante que habría que mover",
       "elo.TARGET_LOW/HIGH" in h_con)
+
+# ── El chip del motor va al revés ───────────────────────────────────────────
+# Tres de los cuatro números de Motor tienen OBJETIVO y no dirección: subir el
+# acierto real es ALEJARSE de la banda, y subir la brecha es prometer cada vez
+# peor. Sin `invertido`, el panel pintaría de verde justo el empeoramiento —y a
+# un número verde se le cree.
+check("el chip se da vuelta para las métricas con objetivo",
+      'class="chip down">+2' in theme.delta_chip(2.0, "%", invertido=True)
+      and 'class="chip up">-2' in theme.delta_chip(-2.0, "%", invertido=True)
+      and 'class="chip up">+2' in theme.delta_chip(2.0, "%"))
+check("pero el signo del número no se toca",
+      "+2 pp" in theme.delta_chip(2.0, "%", invertido=True))
+_inv = {c["label"]: c.get("invertido", False) for c in REPARTO["motor"]}
+check("y los tres que lo necesitan lo declaran",
+      _inv == {"En banda": False, "Acierto real": True, "Brecha": True,
+               "Cómodo en": True}, f"({_inv})")
+
+# ── El filtro de camada ─────────────────────────────────────────────────────
+# Filtra SOLO Jugabilidad, y por semana de ALTA de la persona. Los dos detalles
+# importan: si filtrara Motor, la calibración quedaría sin base por celda; y si
+# filtrara por fecha del evento en vez de por alta, sería otra definición de
+# «camada» que la del resto del panel.
+_cam = q.week_start(q.local_date(T(0, 14)))
+_sin = q.build(s, WEEK)
+_con = q.build(s, WEEK, camada=_cam)
+check("el filtro de camada achica la gente de Jugabilidad",
+      _con["meta"]["jugadores_camada"] < _sin["meta"]["jugadores_camada"],
+      f'({_con["meta"]["jugadores_camada"]} contra {_sin["meta"]["jugadores_camada"]})')
+check("y deja Motor intacto, que es lo que NO se filtra",
+      _con["motor"]["global"] == _sin["motor"]["global"]
+      and _con["calibracion"] == _sin["calibracion"])
+check("el selector ofrece una camada por semana del panel, con su tamaño",
+      [c["week"] for c in _sin["meta"]["camadas"]]
+      == [w.isoformat() for w in q._semanas_hasta(WEEK)]
+      and all("n" in c for c in _sin["meta"]["camadas"]))
+# Una camada inexistente no puede devolver el panel entero disfrazado de camada:
+# eso haría leer como «esta semana» lo que es «siempre».
+_vacia = q.build(s, WEEK, camada=q.FIRST_WEEK - timedelta(weeks=52))
+check("una camada sin nadie da vacío y no el total",
+      _vacia["meta"]["jugadores_camada"] == 0
+      and _vacia["teclado"]["rechazos"] == 0)
 
 print("— la pregunta abierta —")
 # Lo que se prueba acá son los TRES estados, y no el promedio de nada. La diapo
@@ -1715,7 +1848,8 @@ check("y la palabra que ES el producto no entra de atajo",
 
 titulos = {"activacion": "Difusión: a cuánta gente se llegó",
            "retencion": "Re-enganche · mails de ciclo de vida",
-           "jugabilidad": "Calibración del motor",
+           "jugabilidad": "Si le salen repetidas",
+           "motor": "Lo prometido contra lo entregado",
            "monetizacion": "Dónde se pide el cafecito",
            "experimentacion": "Experimentos",
            "voces": "Lo que escribieron"}

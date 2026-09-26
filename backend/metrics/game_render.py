@@ -585,13 +585,25 @@ COPY_REACTIVO = {
 SECCIONES: tuple[tuple[str, str], ...] = (
     ("activacion", "Activación"),
     ("retencion", "Retención"),
+    # Jugabilidad y Motor eran una sola pestaña y se partieron el 26/09, porque
+    # eran dos preguntas que no se contestan con los mismos datos ni las arregla
+    # la misma persona. Jugabilidad es la EXPERIENCIA —cómo se siente el juego,
+    # dónde pelea la gente con la interfaz— y se filtra por camada, que es la
+    # unidad en la que se leen las mejoras de producto. Motor es el modelo que
+    # decide qué derivada sirve, y NO se filtra por camada a propósito: lo que
+    # contesta es «cómo está el motor hoy».
     ("jugabilidad", "Jugabilidad"),
+    ("motor", "Motor"),
     ("monetizacion", "Monetización"),
     ("experimentacion", "Experimentación"),
-    # Voces va última y es la única pestaña del panel que no tiene un número
+    # Feedback va última y es la única pestaña del panel que no tiene un número
     # arriba: lo que hay adentro es texto que escribió gente, y ponerle un KPI
     # de sombrero sería invitar a mirar el resumen en vez de leer.
-    ("voces", "Voces"),
+    #
+    # La clave sigue siendo `voces` aunque la etiqueta diga «Feedback»: es lo que
+    # viaja en los `?s=` que ya están compartidos, y cambiarla rompería esos
+    # links a cambio de nada que se vea.
+    ("voces", "Feedback"),
 )
 SECCION_POR_DEFECTO = SECCIONES[0][0]
 
@@ -632,6 +644,8 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
             q += f"&s={seccion}"
         if corte_actual != "total":
             q += f"&corte={corte_actual}"
+        if m["camada"]:
+            q += f"&camada={m['camada']}"
         nav.append(f'<a href="/panel/{esc(token)}/dx{q}">{lab}</a>')
     # La marca lleva el link al panel de Intervalo. Antes eso vivía en una
     # segunda caja a la derecha; al sacarla, el logo se queda con el trabajo que
@@ -648,15 +662,22 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         "</div></header>")
 
     def link(*, s: str | None = None, corte: str | None = None,
-             k: int | None = None) -> str:
+             k: int | None = None, camada: str | None = "") -> str:
         """La URL del panel cambiando UNA cosa y dejando el resto como está.
 
-        Es lo que hace que las dos barras convivan: elegir semana no pierde la
-        pestaña, elegir desglose no devuelve a la primera, y ninguna de las dos
-        pierde hasta dónde se estaba mirando la curva."""
+        Es lo que hace que las tres barras convivan: elegir semana no pierde la
+        pestaña, elegir desglose no devuelve a la primera, elegir camada no
+        pierde el desglose, y ninguna pierde hasta dónde se estaba mirando la
+        curva.
+
+        `camada=""` significa «dejá la que está» y `camada=None` significa
+        «sacala». Hace falta distinguirlos porque None ES un valor válido acá —
+        es «todas las camadas»— así que el truco de los otros tres, usar None
+        como «no lo toques», no sirve."""
         s = s if s is not None else seccion
         corte = corte if corte is not None else p["profundidad"]["corte"]
         k = k if k is not None else p["profundidad"]["k_max"]
+        camada = m["camada"] if camada == "" else camada
         q = f"?w={week.isoformat()}"
         if s != SECCION_POR_DEFECTO:
             q += f"&s={s}"
@@ -664,6 +685,8 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
             q += f"&corte={corte}"
         if k != DEPTH_MAX:
             q += f"&k={k}"
+        if camada:
+            q += f"&camada={camada}"
         return f"/panel/{esc(token)}/dx{q}"
 
     tabs = "".join(
@@ -671,6 +694,43 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         else f'<a href="{link(s=c)}">{esc(t)}</a>'
         for c, t in SECCIONES)
     out.append(f"<nav class='jump'>{tabs}</nav>")
+
+    # ── La barra de camadas, que gobierna TODA la pestaña de Jugabilidad ─────
+    #
+    # Va arriba de todo y no pegada a un gráfico, al revés que el desglose de
+    # Profundidad: ese cambia una curva y este cambia la pestaña entera, así que
+    # tiene que verse antes de leer el primer número. Son links por lo mismo que
+    # los otros dos controles — el panel no tiene JavaScript, y cada camada
+    # queda con URL propia para poder abrir dos y compararlas.
+    # El tamaño va adentro del chip y apagado: sin él, el selector invita a
+    # comparar una camada de mil personas con una de treinta como si fueran dos
+    # lecturas del mismo peso.
+    _tam = "font-style:normal;opacity:.55;margin-left:5px"
+    _cam = "".join(
+        (f'<span class="cur">{esc(c["label"])}<i style="{_tam}">{num(c["n"])}</i></span>'
+         if c["week"] == m["camada"] else
+         f'<a href="{link(camada=c["week"])}">{esc(c["label"])}'
+         f'<i style="{_tam}">{num(c["n"])}</i></a>')
+        for c in m["camadas"])
+    # Mismo marcado que el desglose de Profundidad —`.cortes` con un `.sub` de
+    # etiqueta— para que las dos barras se lean como la misma clase de control.
+    # La diferencia es dónde vive: esta gobierna la pestaña entera, así que va
+    # arriba de todo en vez de pegada a un gráfico.
+    barra_camada = (
+        '<div class="box" style="margin-bottom:12px">'
+        '<div class="cortes"><span class="sub">Camada</span>'
+        + ('<span class="cur">Todas</span>' if not m["camada"]
+           else f'<a href="{link(camada=None)}">Todas</a>')
+        + _cam + "</div>"
+        + '<p class="note">Filtra TODA esta pestaña por la semana en que se dio de '
+          'alta la persona — la misma definición de camada que usan retención y '
+          'viralidad. <b>Aísla la población, no el período:</b> quien entró el 07/09 '
+          'sigue jugando hoy, así que su fila incluye el juego de antes y el de '
+          'después de cualquier cambio. Para leer el efecto de un deploy están las '
+          'series semanales, que cortan por fecha del evento.'
+        + (f' Mirando la camada del <b>{esc(next((c["label"] for c in m["camadas"] if c["week"] == m["camada"]), ""))}</b>: '
+           f'{num(m["jugadores_camada"])} jugadores.' if m["camada"] else "")
+        + '</p></div>')
 
     # Las tres se arman siempre y se muestra una. Armarlas cuesta unos SVG que
     # nadie va a ver, y a cambio el archivo se sigue leyendo en el orden del
@@ -1572,8 +1632,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                if di["sin_copia"]["grupos"] else "")
             + f'<br><br>Sumando todas las olas da <b>{_pct_txt(g["pct"])}</b> sobre '
               f'{num(g["miembros"])} personas en {num(g["grupos"])} grupos, '
-              f'{num(g["jugadores"])} jugadores — y es el número que miden las tres '
-              f'tablas de abajo, que son acumuladas. La cobertura del cruce es '
+              f'{num(g["jugadores"])} jugadores. La cobertura del cruce es '
               f'{_pct_txt(di["pct_cobertura"])} ({num(di["cubiertos"])} de '
               f'{num(di["atribuidos"])} atribuidos).'
             + "</p>"
@@ -1592,33 +1651,6 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                         "cuántos grupos y de cuánta gente salió ese porcentaje</b>, "
                         "que es lo que decide si la diferencia entre dos olas es una "
                         "señal o dos grupos chicos.")
-            + _box("Por universidad",
-                   _table(["Universidad", "Grupos", "Alcanzados", "Jugadores", "Clickrate"],
-                          [[f'<b>{esc(f["clave"])}</b>', num(f["grupos"]), num(f["miembros"]),
-                            num(f["jugadores"]), _pct_txt(f["pct"])]
-                           for f in di["por_universidad"]],
-                          empty="sin grupos con dx todavía"))
-            + _box("Por campaña",
-                   _table(["Campaña", "Grupos", "Alcanzados", "Jugadores", "Clickrate"],
-                          [[f'<b>{esc(f["clave"])}</b>', num(f["grupos"]), num(f["miembros"]),
-                            num(f["jugadores"]), _pct_txt(f["pct"])]
-                           for f in di["por_campana"]],
-                          empty="sin campaña anotada"),
-                   note="Comparar dos campañas entre sí es lo único que dice si un cambio de "
-                        "copy o de horario sirvió. Sale del tracker, así que depende de que "
-                        "el envío quede anotado ahí.")
-            + _box("Los grupos que más rindieron",
-                   _table(["Grupo", "Universidad", "Materia", "Miembros", "Jugadores",
-                           "Clickrate"],
-                          [[f'<code>{esc(f["id"])}</code>', esc(f["universidad"] or "—"),
-                            esc(_recortar(f["materia"] or "—", 30)), num(f["miembros"]),
-                            num(f["jugadores"]), _pct_txt(f["pct"])]
-                           for f in di["top"]],
-                          empty="todavía ninguno"),
-                   note="Los grupos chicos convierten mucho mejor por miembro que los "
-                        "grandes, así que esta tabla ordenada por clickrate tiende a "
-                        "llenarse de grupos chicos. Para elegir a quién mandarle hay que "
-                        "mirar las dos columnas: el porcentaje y de cuánta gente sale.")
         )
 
     aviso = []
@@ -1741,8 +1773,62 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         sub="Son dos escalones y no uno: el botón que abre el pedido, y el pedido.",
         anchor="monetizacion") + pieza_embudo
 
-    # ── Calibración ──────────────────────────────────────────────────────────
+    # ── El motor: los cuatro números y la curva ──────────────────────────────
+    mo_t = p["motor"]
+    g_mot = mo_t["global"]
     ca = p["calibracion"]
+
+    # La curva que el reporte del 25/09 pide como titular de la pestaña: las dos
+    # columnas de la tabla de calibración dibujadas una sobre la otra. Con la
+    # tabla hay que restar cinco pares mentalmente; con la curva se ve la FORMA
+    # del error, que acá dice algo — el hueco es mucho más grande donde el motor
+    # cree que algo es difícil, que es justo donde tiene menos evidencia.
+    _tips_cal = [
+        f'p̂ servido {f["rango"]} · {num(f["n"])} respuestas\n'
+        f'prometido {_pct_txt(f["prometido"])} · entregado {_pct_txt(f["real"])}\n'
+        f'brecha {num(round(f["real"] - f["prometido"], 1), " pp")}'
+        for f in ca["filas"]]
+    curva_cal = (
+        ch.lines([{"label": "Prometido", "values": [f["prometido"] for f in ca["filas"]],
+                   "tips": _tips_cal},
+                  {"label": "Entregado", "values": [f["real"] for f in ca["filas"]],
+                   "tips": _tips_cal}],
+                 [f["rango"] for f in ca["filas"]], suffix="%", height=250,
+                 band=(ca["banda"][0], ca["banda"][1]))
+        if ca["filas"] else '<p class="empty">todavía no hay respuestas sin tabla</p>')
+
+    pieza_motor = _section(
+        1, "Lo prometido contra lo entregado",
+        _fila_kpi(p["headline"]["motor"])
+        + _box("La curva de calibración", curva_cal,
+               note=f'Las dos líneas son las mismas dos columnas de la tabla de abajo, '
+                    f'una sobre la otra. Si el motor dijera la verdad se superpondrían; '
+                    f'la distancia entre ellas es el error. La franja marca la banda '
+                    f'objetivo ({num(ca["banda"][0], "%")}–{num(ca["banda"][1], "%")}), '
+                    f'que es DONDE EL MOTOR QUIERE SERVIR y no dónde quiere acertar. '
+                    f'<b>Pasando el mouse por un punto sale de cuántas respuestas sale '
+                    f'ese par</b>, que es lo que decide si una brecha es señal o son '
+                    f'cuatro personas.'
+                    f'<br><br>El error no es parejo: es mayor donde el motor cree que '
+                    f'algo es difícil, que es justamente donde tiene menos evidencia '
+                    f'porque esas plantillas las vio menos gente.')
+        + _box("De qué tamaño es cada cosa",
+               _table(["", "Derivadas", "En banda", "Por encima", "Por debajo"],
+                      [["<b>servidas</b>", num(g_mot["n"]),
+                        _pct_txt(g_mot["en_banda"]), _pct_txt(g_mot["arriba"]),
+                        _pct_txt(g_mot["abajo"])]],
+                      empty="sin derivadas servidas"),
+               note='<b>Se mide por DERIVADA SERVIDA, no por persona</b>, y las dos '
+                    'cuentas dan cosas distintas: el volumen lo pone '
+                    'desproporcionadamente gente muy fuerte —una sola persona puso más '
+                    'de tres mil derivadas— y a esa gente el catálogo se le quedó '
+                    'corto, así que recibe todo por encima de la banda. Por persona el '
+                    'motor apunta bastante mejor que lo que dice este número. Ver '
+                    '<code>docs/reports/reporte-motor-2026-09-25.pdf</code>, §8.'),
+        sub="El motor promete una probabilidad de acierto cada vez que sirve una "
+            "derivada. Estos cuatro números dicen si acierta esa promesa, y si está "
+            "sirviendo donde dice que quiere servir.",
+        anchor="motor")
     filas_cal = [[f'<b>{esc(f["rango"])}</b>', num(f["n"]), _pct_txt(f["prometido"]),
                   _pct_txt(f["real"]),
                   _chip(round(f["real"] - f["prometido"], 1), "%")]
@@ -1752,8 +1838,8 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                   f'{"por encima" if ca["brecha"] > 0 else "por debajo"} de lo que promete, '
                   f'en promedio ponderado.')
     pieza_calibracion = _section(
-        2, "Calibración del motor",
-        _box("Lo prometido contra lo entregado",
+        2, "Calibración, cubo por cubo",
+        _box("Cubo por cubo, con su base",
              _table(["p̂ servido", "Respuestas", "Prometido", "Real", "Brecha"], filas_cal,
                     empty="todavía no hay respuestas sin tabla"),
              note=brecha_txt +
@@ -1770,7 +1856,10 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         anchor="calibracion")
 
     # ── La opinión de la gente ───────────────────────────────────────────────
-    op = p["opinion"]
+    # `opinion_camada` y no `opinion`: esta sección vive en Jugabilidad, que se
+    # filtra. La de Motor lee la sin filtrar, que es la que valida la banda.
+    op = p["opinion_camada"]
+    pa = op["pareado"]
     _rot = lambda v: f'{SURVEY_EMOJI_A.get(v, "")} {SURVEY_TEXT.get(v, v)}'.strip()
 
     filas_op = [[f'<b>{esc(_rot(f["voto"]))}</b>', num(f["n"]),
@@ -1800,22 +1889,77 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                f'<code>elo.TARGET_LOW/HIGH</code>.'))
 
     pieza_opinion = _section(
-        3, "Lo que dice la gente",
-        '<div class="grid g4">'
+        2, "Lo que dice la gente",
+        '<div class="grid g3">'
         + "".join(_kpi_chico(l, v, h, suffix=sfx, dec=d) for l, v, sfx, h, d in [
             ("Contestaron", op["pct_respuesta"], "%",
              f'{num(op["contestadas"])} de {num(op["mostradas"])} preguntas', 1),
-            ("Se sienten cómodos en", op["comodo_en"], "%",
-             f'el motor apunta al {num(op["objetivo"], "%")}', 1),
             ("Personas", op["jugadores"], "", "que votaron al menos una vez", 0),
-            ("θ movido", op["theta_movido"], "",
-             "sumando todos los ajustes, en unidades de θ", 1),
+            ("Se sienten cómodos en", op["comodo_en"], "%",
+             f'el motor apunta al {num(op["objetivo"], "%")} — se lee en Motor', 1),
         ])
         + "</div>"
         + _box("Cuántos dijeron cada cosa",
                ch.stack([{"label": _rot(f["voto"]), "n": f["n"]} for f in op["filas"]])
                if op["filas"] else '<p class="empty">todavía nadie votó</p>')
-        + _box("Lo que el motor prometía contra lo que la persona entregó",
+        + _box("El primer voto contra los siguientes, de la misma gente",
+               _table(["", "Personas", "«Muy fácil»", "«Justo»"],
+                      [["<b>su primer voto</b>", num(pa["personas"]),
+                        _pct_txt(pa["pct_muy_facil_primero"]),
+                        _pct_txt(pa["pct_justo_primero"])],
+                       ["<b>los que dieron después</b>",
+                        f'{num(pa["votos_siguientes"])} votos',
+                        _pct_txt(pa["pct_muy_facil_siguientes"]),
+                        _pct_txt(pa["pct_justo_siguientes"])]],
+                      empty="todavía nadie votó dos veces")
+               + (f'<p class="note">En personas: <b>{num(pa["mas_facil"])}</b> pasaron a '
+                  f'verlo más fácil, <b>{num(pa["igual"])}</b> no se movieron y '
+                  f'<b>{num(pa["mas_dificil"])}</b> a verlo más difícil. El '
+                  f'desplazamiento medio es <b>{num(pa["desplazamiento"], dec=2)}</b> '
+                  f'en una escala donde muy fácil es −1 y muy difícil es +1, así que '
+                  f'un número negativo significa que con el tiempo les fue pareciendo '
+                  f'más fácil.</p>' if pa["personas"] else "")
+               + ("" if not pa["personas"] else
+                  '<p class="note"><b>Solo entra la gente que votó al menos dos veces, '
+                  'y se compara contra sí misma.</b> Contar «todos los primeros votos» '
+                  'contra «todos los siguientes» parece la misma cuenta y no lo es: '
+                  'quien llega a un segundo voto es quien siguió jugando, así que ese '
+                  'grupo está elegido por la misma disposición que se quiere medir. '
+                  'Pareado, cada persona es su propio control y eso se cancela solo.</p>'),
+               note="Es la pregunta que la tabla de arriba no puede contestar: no si "
+                    "la gente dice que está fácil, sino si <i>la misma persona</i> "
+                    "empieza a decirlo más a medida que juega. Si el motor sube la "
+                    "dificultad al ritmo al que la gente mejora, esto no debería "
+                    "moverse.")
+        + _box("Semana a semana",
+               _table(["Semana", "Votos", "Muy fáciles", "Se sienten cómodos en"],
+                      [[esc(f["label"]), num(f["n"]),
+                        num(f["pct_muy_facil"], "%"), num(f["comodo_en"], "%")]
+                       for f in op["por_semana"]],
+                      empty="todavía no hay votos"),
+               note='La tabla de arriba es de toda la historia y esta es la serie, y '
+                    'hace falta tener las dos: el 19/09 salieron los tiers 6-8 y el '
+                    'acumulado siguió mostrando el número de un catálogo que ya no '
+                    'existía. <b>La columna que hay que mirar es «muy fáciles»</b> — si '
+                    'la regla de la cadena hizo lo que tenía que hacer, baja.'),
+        sub="Lo único que el juego sabe preguntando en vez de midiendo. Acá está el "
+            "voto y cómo evoluciona; qué hace el motor con él se lee en Motor.",
+        anchor="opinion")
+
+    # El mismo voto, pero cruzado contra lo que la persona venía acertando. Va a
+    # Motor y no acá porque no es percepción: es el ÚNICO número del panel que
+    # puede decir que `elo.TARGET_LOW/HIGH` está mal puesto.
+    op = p["opinion"]
+    filas_op = [[f'<b>{esc(_rot(f["voto"]))}</b>', num(f["n"]),
+                 _pct_txt(f["prometido"]), _pct_txt(f["real"]),
+                 _chip(round(f["real"] - f["prometido"], 1), "%")
+                 if f["real"] is not None and f["prometido"] is not None else "—",
+                 num(f["delta_medio"], dec=2) if f["delta_medio"] is not None else "—",
+                 f'{num(f["movidos"])} · {num(f["cambiaron_nivel"])} de color']
+                for f in op["filas"]]
+    pieza_opinion_motor = _section(
+        3, "El voto contra el comportamiento",
+        _box("Lo que el motor prometía contra lo que la persona entregó",
                ch.vbars([_rot(f["voto"]) for f in op["filas"]],
                         [{"label": "Prometido",
                           "values": [f["prometido"] for f in op["filas"]]},
@@ -1835,6 +1979,10 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                     'persona</b>, y salen de lo que quedó congelado en la fila del '
                     'voto: β se mueve con cada respuesta, así que recalcular hoy '
                     'qué prometía el motor cuando alguien votó daría otro número.')
+        + '<div class="grid g3">'
+        + _kpi_chico("θ movido", op["theta_movido"], "sumando todos los ajustes, en "
+                     "unidades de θ", suffix="", dec=1)
+        + "</div>"
         + _box("Qué hizo el motor con cada voto",
                _table(["Voto", "Votos", "Prometido", "Real", "Brecha", "Δθ medio",
                        "Movieron"], filas_op,
@@ -1846,21 +1994,10 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                     'El tope de un ajuste es un tier '
                     f'(<code>opinion.TOPE</code> = {num(OPINION_TOPE, dec=2)}), que '
                     'es lo que hace que un voto pueda subir de color pero nunca '
-                    'saltear un nivel.')
-        + _box("Semana a semana",
-               _table(["Semana", "Votos", "Muy fáciles", "Se sienten cómodos en"],
-                      [[esc(f["label"]), num(f["n"]),
-                        num(f["pct_muy_facil"], "%"), num(f["comodo_en"], "%")]
-                       for f in op["por_semana"]],
-                      empty="todavía no hay votos"),
-               note='La tabla de arriba es de toda la historia y esta es la serie, y '
-                    'hace falta tener las dos: el 19/09 salieron los tiers 6-8 y el '
-                    'acumulado siguió mostrando el número de un catálogo que ya no '
-                    'existía. <b>La columna que hay que mirar es «muy fáciles»</b> — si '
-                    'la regla de la cadena hizo lo que tenía que hacer, baja.'),
-        sub="El motor decide la dificultad con lo que mide. Esto es lo único que "
-            "mide preguntando.",
-        anchor="opinion")
+                    'saltear un nivel.'),
+        sub="El voto de la gente al lado de lo que venía acertando cuando lo emitió. "
+            "Es lo único que puede decir que la banda está mal puesta.",
+        anchor="opinion-motor")
 
     # ── La otra pregunta: si le salen repetidas ───────────────────────────────
     rp = p["repetitividad"]
@@ -1880,7 +2017,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         )
 
     pieza_repetitividad = _section(
-        4, "Si le salen repetidas",
+        3, "Si le salen repetidas",
         '<div class="grid g4">'
         + "".join(_kpi_chico(l, v, h, suffix=sfx, dec=d) for l, v, sfx, h, d in [
             ("Contestaron", rp["pct_respuesta"], "%",
@@ -1918,8 +2055,53 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
 
     # ── Fricción ─────────────────────────────────────────────────────────────
     fr = p["friccion"]
+    # ── El teclado ───────────────────────────────────────────────────────────
+    te = p["teclado"]
+    pieza_teclado = _section(
+        5, "El teclado",
+        '<div class="grid g4">'
+        + "".join(_kpi_chico(l, v, h, suffix=sfx, dec=d) for l, v, sfx, h, d in [
+            ("Se toparon un rechazo", te["pct_con_rechazo"], "%",
+             f'{num(te["con_rechazo"])} de {num(te["jugadores"])} personas', 1),
+            ("Peleas con la notación", te["peleas"], "",
+             f'en {num(te["peleadores"])} personas', 0),
+            ("De esas, las ganaron", te["pct_ganadas"], "%",
+             "reescribieron y acertaron", 1),
+            ("Envíos rechazados", te["pct_rechazo"], "%",
+             f'{num(te["rechazos"])} de {num(te["intentos"])} intentos', 2),
+        ])
+        + "</div>"
+        + f'<p class="note"><b>El número de la izquierda y el de la derecha son la '
+          f'misma cosa contada de dos maneras, y dan muy distinto.</b> Por intento, el '
+          f'parser rechaza el {_pct_txt(te["pct_rechazo"])} — parece que no pasa nada. '
+          f'Por persona, <b>{_pct_txt(te["pct_con_rechazo"])} se topó alguna vez con '
+          f'«lo sabía y el juego me dijo que no»</b>. La segunda es la que importa: es '
+          f'la única parte del juego donde el que pierde no es el estudiante.'
+          f'<br><br>Una <b>pelea</b> es un envío rechazado seguido de otro sobre la '
+          f'misma derivada en menos de {num(te["segundos"])} segundos. Que '
+          f'{_pct_txt(te["pct_ganadas"])} terminen en acierto es el dato: esa gente '
+          f'sabía la derivada y estaba peleando con la notación, no con la '
+          f'matemática.</p>'
+        + _box("Qué escriben cuando el parser las rechaza",
+               _table(["Lo que mandaron", "Veces", "Personas"],
+                      [[f'<code>{esc(_recortar(f["texto"], 58))}</code>',
+                        num(f["n"]), num(f["personas"])]
+                       for f in te["ranking"]],
+                      empty="todavía no rechazó nada"),
+               note="<b>No es un top de curiosidades: cada fila es un caso que el "
+                    "parser podría aceptar.</b> Casi todas son notación legítima — el "
+                    "punto como multiplicación, <code>ln</code> sin barra, "
+                    "<code>sen</code> contra <code>sin</code>, un paréntesis cerrado "
+                    "del lado de afuera del radical. Se muestran las que más veces "
+                    "aparecen, con cuánta gente distinta las intentó al lado: una "
+                    "forma que usaron diez personas es una regla que falta, y una que "
+                    "usó una sola puede ser un tipeo."),
+        sub="Dónde la persona sabe la derivada y el juego no la deja escribirla. Es el "
+            "detalle de la línea «parseo correcto» de acá arriba.",
+        anchor="teclado")
+
     pieza_friccion = _section(
-        5, "Fricción",
+        4, "Fricción",
         '<div class="grid g4">'
         + "".join(_kpi_chico(l, v, h, suffix=sfx, dec=d) for l, v, sfx, h, d in [
             ("Salteadas", fr["pct_salteados"], "%", "«esta no la sé»", 1),
@@ -1995,9 +2177,16 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                        + pieza_difusion + pieza_reclutas),
         "retencion": (_fila_kpi(p["headline"]["retencion"])
                       + pieza_push + pieza_mails),
-        "jugabilidad": (_fila_kpi(p["headline"]["jugabilidad"])
-                        + pieza_profundidad + pieza_calibracion + pieza_opinion
-                        + pieza_repetitividad + pieza_friccion),
+        # Jugabilidad = la experiencia. Profundidad primero porque es la curva
+        # que resume todo lo demás, y después los tres lugares donde la persona
+        # pelea con el juego en vez de con la derivada.
+        "jugabilidad": (barra_camada + _fila_kpi(p["headline"]["jugabilidad"])
+                        + pieza_profundidad + pieza_opinion + pieza_repetitividad
+                        + pieza_friccion + pieza_teclado),
+        # Motor = el modelo. Los cuatro números y la curva arriba, el detalle
+        # por cubo después, y el voto cruzado contra el comportamiento al final
+        # porque es el único que puede mover la banda.
+        "motor": pieza_motor + pieza_calibracion + pieza_opinion_motor,
         "monetizacion": (_fila_kpi(p["headline"]["monetizacion"])
                          + pieza_monetizacion),
         "experimentacion": (pieza_experimentos + pieza_experimento_motor
