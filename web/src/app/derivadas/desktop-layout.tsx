@@ -45,6 +45,7 @@ import {
 } from "./opinion-trigger"
 import { OpinionSlide } from "./opinion-slide"
 import { RepetitividadSlide } from "./repetitividad-slide"
+import { diaDelCupo, TopePanel } from "./tope-panel"
 import { marcarReclutasMostrado, tocaReclutar } from "./reclutas-trigger"
 import {
   HITO_PERFIL,
@@ -144,6 +145,10 @@ type Panel =
   | "repetitividad"
   // La pregunta abierta (encuesta-slide.tsx), una sola vez en la vida.
   | "encuesta"
+  // El cartel del tope diario (tope-panel.tsx). No es un hito del ladder: es
+  // el estado en el que queda el juego cuando no hay más derivadas por hoy, y
+  // de él solo se sale comprando o esperando a mañana.
+  | "tope"
   // Las reglas que la puerta no dijo (reglas-slide.tsx), en el Continuar de
   // después de un acierto. Las tres juntas una sola vez en `control`, de a una
   // en `sin-peaje` (reglas-trigger.ts).
@@ -625,11 +630,27 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   // `fresco` fuerza el pedido normal y saltea lo adelantado. Lo usan los caminos
   // en los que el servidor movió el piso —un 409, un reinicio— donde lo que haya
   // en la caja ya no vale.
+  // El 402 del tope diario, que es el único error de `/next` con pantalla
+  // propia: no hay nada que reintentar hasta mañana. Invalida el jugador porque
+  // el cartel se dibuja con `player.muro` y el de caché puede ser anterior a que
+  // el cupo se agotara.
+  const alTope = useCallback(
+    (err: unknown) => {
+      if (!(err instanceof ApiError) || err.status !== 402) return
+      queryClient.invalidateQueries({ queryKey: gameKeys.me })
+      setNavPanel("tope")
+    },
+    [queryClient, setNavPanel],
+  )
+
   const loadNext = useCallback(
     ({ fresco = false }: { fresco?: boolean } = {}) => {
       const adelantado = fresco ? null : consumirAdelanto()
       if (adelantado === null) {
-        next.mutate(undefined, { onSuccess: (data) => servir(data, { adelantado: false }) })
+        next.mutate(undefined, {
+          onSuccess: (data) => servir(data, { adelantado: false }),
+          onError: alTope,
+        })
         return
       }
       void adelantado
@@ -637,10 +658,13 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
         // El adelanto falló después de haberlo tomado: se pide de nuevo, que es
         // lo que habría pasado sin todo esto.
         .catch(() => {
-          next.mutate(undefined, { onSuccess: (data) => servir(data, { adelantado: false }) })
+          next.mutate(undefined, {
+            onSuccess: (data) => servir(data, { adelantado: false }),
+            onError: alTope,
+          })
         })
     },
-    [next, consumirAdelanto, servir],
+    [next, consumirAdelanto, servir, alTope],
   )
 
   // Empezar de verdad: entra la primera derivada. Es lo que hace el botón y
@@ -847,7 +871,10 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
           // Acá y en ningún otro lado: acertar es lo único que cierra un
           // ejercicio, así que este es el primer instante en que pedir el
           // siguiente devuelve uno nuevo. Mientras corre el festejo, va y vuelve.
-          adelantar()
+          //
+          // Salvo que ésta haya sido la última del día: ahí el adelanto es un 402
+          // garantizado y pedirlo es gastar un viaje para que lo rechacen.
+          if (!data.muro?.bloqueado) adelantar()
           const rankBefore = data.rank_before ?? null
           const rankAfter = data.rank_after ?? null
           pendingClimbRef.current =
@@ -901,7 +928,12 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
             totalCorrectas,
           })
           const tocaCafecito =
-            trigger !== null && shouldShowCafecito(totalCorrectas, trigger)
+            trigger !== null &&
+            // Dos pedidos de plata seguidos, no: si el cartel del tope va a
+            // salir al cerrar esta respuesta, la diapo del cafecito se calla.
+            // El cartel lleva a la misma diapo, así que no se pierde nada.
+            !data.muro?.bloqueado &&
+            shouldShowCafecito(totalCorrectas, trigger)
           const sinUniversidad = player !== null && !player.university
           // La universidad se pregunta UNA VEZ y no es una condición permanente. Que lo
           // fuera es lo que rompió esto: como el paso se pregunta una sola vez por
@@ -1215,8 +1247,19 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
       setNavPanel("repetitividad")
       return
     }
+    // El cartel del tope va ÚLTIMO, después de todo lo que la escalera tuviera
+    // para decir: quien acaba de resolver la número 30 primero ve su festejo y
+    // recién después se entera de que no hay más por hoy.
+    //
+    // Se mira `lastAnswer` y no se espera al 402 de `/next` porque acá ya está
+    // la respuesta en la mano: el viaje que el servidor va a rechazar no hace
+    // falta hacerlo. El 402 sigue existiendo, para la recarga y el cliente viejo.
+    if (lastAnswer?.muro?.bloqueado) {
+      setNavPanel("tope")
+      return
+    }
     loadNext()
-  }, [closed, onRevisar, loadNext, cafecito, mostrarReglas])
+  }, [closed, onRevisar, loadNext, cafecito, mostrarReglas, lastAnswer, setNavPanel])
 
   const onSkip = useCallback(() => {
     if (
@@ -1584,7 +1627,11 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
         panel === "opinion" ||
         panel === "repetitividad" ||
         panel === "encuesta" ||
-        panel === "reglas"
+        panel === "reglas" ||
+        // El cartel del tope también escucha su propio Enter (y su
+        // Shift+Enter, que es el que compra), así que el global no puede
+        // atravesarlo: pediría una derivada que el servidor va a negar.
+        panel === "tope"
       )
         return
       if (statsOpen) {
@@ -1961,7 +2008,12 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
     panel === "reclutas" ||
     panel === "opinion" ||
     panel === "repetitividad" ||
-    panel === "encuesta"
+    panel === "encuesta" ||
+    // El cartel del tope comparte la FORMA con las diapos de pedido —el botón
+    // que cierra la pantalla vive en el pie— aunque lo que deja ahí abajo sea
+    // al revés que en todas las demás: la acción que CUESTA plata. Es
+    // deliberado, ver la cabecera de tope-panel.tsx.
+    panel === "tope"
   // Elegir carrera o universidad usa el MISMO pie que las diapos de pedido —
   // el botón vive abajo, por portal— porque se abre desde la configuración,
   // que sigue a la vista del otro lado: es una pausa adentro del ejercicio,
@@ -2325,6 +2377,30 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                     onContinue={(contesto) => {
                       anotarRespuesta(contesto)
                       loadNext()
+                    }}
+                  />
+                ) : panel === "tope" && player?.muro ? (
+                  <TopePanel
+                    keyboard
+                    muro={player.muro}
+                    dia={diaDelCupo(player.muro.libre_en_segundos)}
+                    // El dorado se va al pie y el de esperar se queda en la
+                    // caja, así que el orden es el mismo que en el teléfono.
+                    slotAccion={slotSalida}
+                    onEsperar={() => {
+                      sfx.select()
+                      // Acá el ranking ya está a la derecha, así que «esperar» no
+                      // navega a ningún lado: lo que hace es dejar de ofrecer. Se
+                      // vuelve a la misma pantalla, que es lo que corresponde
+                      // mientras no haya derivadas.
+                      setNavPanel("tope")
+                    }}
+                    onSeguir={() => {
+                      setCafecito({
+                        trigger: "tope",
+                        correctToday: player.muro?.hechas_hoy ?? 0,
+                      })
+                      setNavPanel("cafecito")
                     }}
                   />
                 ) : panel === "repetitividad" ? (

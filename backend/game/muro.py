@@ -1,0 +1,305 @@
+"""El tope diario de derivadas, y el pase que lo levanta.
+
+**Es el primer experimento de monetización del producto.** Hasta acá un cafecito
+compraba un multiplicador de XP para TODA una universidad, y `boosts.py` promete
+con todas las letras que eso es a propósito: «el ×3 no se compra, se junta».
+Poner un tope y venderle a una persona la llave de su propio tope es lo primero
+que se le cobra a alguien por algo que solo recibe esa persona. No es un detalle
+de implementación y por eso está escrito acá arriba: ver la sección
+«El tope diario y el pase» en context/gamification.md.
+
+Lo que este módulo decide es una sola cosa —si a esta persona, hoy, le queda
+alguna derivada— y lo decide en tres pasos:
+
+  1. ¿Está encendido el experimento? (`habilitado`, una variable de entorno)
+  2. ¿En qué brazo cayó? (`tope_de`, un hash de su id, sin columna nueva)
+  3. ¿Tiene un pase vigente? (`pase_hasta`, derivado de `game_boosts`)
+
+**Por qué no hay tabla de pases.** Un pase vigente es exactamente «esta persona
+puso plata hace menos de treinta días», y eso ya está escrito en `game_boosts`,
+una fila por donación y ninguna se muta nunca. Derivarlo en vez de persistirlo
+sale igual que lo que hace `sorteo.py` con el brazo, y trae tres cosas gratis:
+
+  · **es retroactivo** — los catorce donantes que ya existen tienen el pase puesto
+    el día uno, que es lo justo y además es imposible de conseguir con una tabla
+    nueva sin un backfill que adivine fechas;
+  · **`grant_game_boost.py` ya sirve** para comp y para reparar, sin escribir una
+    herramienta nueva;
+  · **no hay dos verdades** que se puedan desincronizar sobre la misma pregunta.
+
+El costo, dicho para que nadie lo descubra solo: el pase no se puede revocar ni
+regalar sin una fila de empuje, y `PASE_DIAS` es una constante de LECTURA, así
+que cambiarla mueve el vencimiento de todo el mundo a la vez. Durante un
+experimento eso es una ventaja —se acorta o se alarga sin migrar— y el día que
+deje de serlo, esto pasa a ser una columna.
+"""
+
+from __future__ import annotations
+
+import os
+from dataclasses import dataclass
+from datetime import datetime, timedelta
+from typing import Sequence
+
+from sqlalchemy import func
+from sqlalchemy.orm import Session
+
+from models import GameAttempt, GameBoost, GamePlayer
+
+from . import aforo, sorteo
+
+# Cuántas derivadas RESUELTAS por día. La unidad es la misma que el juego ya
+# lleva y ya le muestra a la persona en la diapo del cafecito («ya llevás 23
+# resueltas hoy»): `router._correctas_de_hoy`, o sea intentos con `is_correct`
+# sin filtrar `attempt_number`. Una derivada acertada en el segundo intento
+# cuenta, y una errada no consume nada.
+#
+# **Treinta, y el número está medido** (26/09, sobre 2.120 jugador-día y 54.362
+# resueltas). La distribución por día es p50 9 · p75 21 · p90 53 · p99 320:
+#
+#   · deja intacto al 82% de los jugador-día, y al jugador mediano ni lo roza;
+#   · no puede tocar el OMTM —la activación son 3 resueltas en la primera
+#     tanda— y eso es lo que separa este experimento de uno que se coma el
+#     embudo de entrada;
+#   · cae en una pausa que ya existe: quien pasa 30 en un día lo hace en 2,38
+#     sentadas (p50 = 2), así que el tope no corta el primer impulso sino la
+#     vuelta de más tarde;
+#   · llega después de que la persona ya vio la diapo del cafecito dos veces
+#     (`cafecito-cta.tsx`: la 14 y la 20), así que el tope no es la
+#     presentación del cafecito sino un motivo más;
+#   · y es el número más chico que se puede LEER este semestre: lo cruzan entre
+#     92 y 107 personas por semana, que son ~50 por brazo.
+#
+# Lo que cuesta, también medido: la primera tanda tiene p90 = 32, así que el tope
+# corta la primera sentada de alrededor de 1 de cada 9 recién llegados, y el
+# 59,6% de los días que bloquea son el primer día de esa persona. Es el precio
+# del experimento y la razón por la que el guardarraíl de días activos se mira
+# antes que el resultado.
+TOPE_DIARIO = 30
+
+# Cuánto dura el pase que compra un cafecito. **Fijo: un mes con uno o con diez.**
+# El empuje de la universidad ya escala con la cantidad (`boosts.horas_de` y
+# `multiplier_from_cafecitos`), y el propio comentario de `BOOST_HOURS_BASE`
+# avisa que dos premios que crecen a la vez se leen peor que uno solo.
+PASE_DIAS = 30
+
+# El interruptor, y no es una formalidad. Un tope es lo único que este producto
+# puede hacer que lastime en horas en vez de en semanas, así que tiene que poder
+# apagarse desde Railway sin un deploy. Mismo mecanismo que `GAME_CHAT_ENABLED`.
+#
+# Apagado por default: quien levante este repo en local no se encuentra un muro
+# que no pidió, y el día del despliegue el encendido es un acto explícito y
+# fechado en vez de un efecto secundario de mergear.
+ENV_ENCENDIDO = "MURO_ENABLED"
+
+# ── El experimento ──────────────────────────────────────────────────────────
+#
+# `dx-muro-1`. Se sortea del lado del SERVIDOR, con el hash de `sorteo.brazo_de`
+# y sin columna, por el mismo motivo que `dx-elo-1` y no por ahorrar: la
+# variante de `game_players.variant` se escribe al CREAR la fila, y los que hoy
+# llegan a 30 derivadas en un día existen todos desde hace semanas. Con el
+# sorteo de creación este experimento mediría a cero personas para siempre.
+EXPERIMENTO = "dx-muro-1"
+
+# El índice ES el bucket, igual que en los otros dos sorteos: agregar un brazo
+# al final no remueve a nadie de los que ya estaban.
+BRAZOS: tuple[str, ...] = ("control", "muro")
+
+# Qué tope le toca a cada brazo. `None` es «sin tope», que es el juego de hoy.
+TOPES: dict[str, int | None] = {"control": None, "muro": TOPE_DIARIO}
+
+# ── Los números del cartel ──────────────────────────────────────────────────
+
+# Qué porcentaje de jugadores NUNCA llegó a `TOPE_DIARIO` en un día. Medido el
+# 26/09: 1.285 de 1.555 que resolvieron algo.
+#
+# Es un número CONSTANTE para todo el que ve el cartel —con tope duro, todos los
+# que lo ven hicieron exactamente 30— así que se usa una sola vez por día y por
+# persona. En las vueltas siguientes habla `percentil_de_velocidad`, que sí
+# cambia según lo que esa persona hizo.
+PCT_NUNCA_LLEGA = 82.6
+
+# «Más rápido que el N%», por minutos de juego efectivo hasta la número 30.
+# Medido el 26/09 sobre los 392 días que llegaron a 30: p10 11 min, p25 16,
+# p50 25, p75 83, p90 353.
+#
+# Tabla y no fórmula porque la distribución tiene una cola larguísima y
+# cualquier curva suave mentiría justo donde más gente cae. Se lee de arriba
+# hacia abajo y gana el primer umbral que alcanza.
+VELOCIDAD: tuple[tuple[int, int], ...] = (
+    (11, 90), (16, 75), (20, 62), (25, 51), (30, 42), (35, 38),
+    (40, 34), (45, 33), (60, 30), (75, 27), (90, 24), (120, 21),
+    (180, 17), (240, 13),
+)
+
+# Hueco máximo entre dos respuestas para que sigan siendo la misma sentada. Es
+# el mismo corte con el que el análisis define «tanda», y es lo que hace que el
+# cartel diga «en 24 minutos» y no «en 9 h 40 min» a quien resolvió quince a la
+# mañana y quince a la noche. Medido: de la primera a la trigésima el reloj de
+# pared tiene mediana 25 min pero p90 de 353, o sea que una de cada diez
+# felicitaciones sería una burla.
+HUECO_SENTADA_MINUTOS = 30
+
+
+def habilitado() -> bool:
+    """¿Está encendido el experimento del tope?
+
+    Se lee en cada pedido y no una vez al importar: apagarlo tiene que ser
+    cambiar la variable en Railway y que el próximo `/next` ya pase, sin esperar
+    a que el proceso se reinicie.
+    """
+    return os.getenv(ENV_ENCENDIDO, "").strip().lower() in {"1", "true", "yes", "on"}
+
+
+def brazo_de(player_id: int) -> str:
+    """En qué brazo de `dx-muro-1` cayó esta persona."""
+    return sorteo.brazo_de(player_id, EXPERIMENTO, BRAZOS)
+
+
+def tope_de(player_id: int) -> int | None:
+    """El tope diario de esta persona, o `None` si no tiene.
+
+    `None` sale por dos caminos que el llamador NO tiene que distinguir: el
+    experimento está apagado, o le tocó el control. Los dos significan lo mismo
+    para quien juega —no hay tope— y mezclarlos acá evita que cada lugar que
+    pregunta tenga que acordarse de los dos.
+    """
+    if not habilitado():
+        return None
+    return TOPES[brazo_de(player_id)]
+
+
+def pase_hasta(db: Session, player: GamePlayer, ahora: datetime | None = None) -> datetime | None:
+    """Hasta cuándo esta persona tiene el tope levantado, o `None`.
+
+    Es la donación más reciente con su nombre, más `PASE_DIAS`. Se excluye el
+    empuje de aforo porque ese no lo pagó nadie (`aforo.SOURCE`): es el premio
+    por traer diez personas en un día, y regalar un mes de acceso con él sería
+    convertir el reclutamiento en la forma gratis de saltear el tope.
+
+    Devuelve el vencimiento y no un booleano a propósito: el cartel de
+    agradecimiento muestra la fecha, y si acá volviera un `bool` esa fecha habría
+    que ir a buscarla otra vez con la misma consulta.
+    """
+    ultimo = (
+        db.query(func.max(GameBoost.created_at))
+        .filter(
+            GameBoost.player_id == player.id,
+            GameBoost.source != aforo.SOURCE,
+        )
+        .scalar()
+    )
+    if ultimo is None:
+        return None
+    vence = ultimo + timedelta(days=PASE_DIAS)
+    return vence if vence > (ahora or datetime.utcnow()) else None
+
+
+def minutos_jugando(momentos: Sequence[datetime]) -> int:
+    """Minutos EFECTIVOS que abarcan esas respuestas, sin contar los recreos.
+
+    Suma los huecos de hasta `HUECO_SENTADA_MINUTOS`; los más largos valen cero.
+    Pura y sin base a propósito, para que el chequeo la pueda probar con una
+    lista escrita a mano.
+
+    Con una sola respuesta el resultado es 0, que es correcto: no hay intervalo
+    que medir. El cartel no lo va a mostrar nunca —aparece recién en la 30— pero
+    una función de este tipo no puede tener un caso que explote.
+    """
+    orden = sorted(momentos)
+    tope = timedelta(minutes=HUECO_SENTADA_MINUTOS)
+    total = timedelta()
+    for antes, despues in zip(orden, orden[1:]):
+        hueco = despues - antes
+        if hueco <= tope:
+            total += hueco
+    return int(total.total_seconds() // 60)
+
+
+def percentil_de_velocidad(minutos: int) -> int:
+    """«Más rápido que el N%» de los que llegan al tope, según la tabla medida."""
+    for umbral, pct in VELOCIDAD:
+        if minutos <= umbral:
+            return pct
+    return VELOCIDAD[-1][1]
+
+
+@dataclass(frozen=True)
+class Muro:
+    """El estado del tope para esta persona, ahora.
+
+    Viaja al cliente entero en vez de por pedacitos porque el cliente tiene que
+    poder decidir DOS cosas con esto —si dibujar el cartel y qué números
+    ponerle— y partirlo obligaría a una segunda llamada justo en el momento en
+    que la persona acaba de acertar.
+    """
+
+    tope: int | None
+    hechas_hoy: int
+    bloqueado: bool
+    pase_hasta: datetime | None
+    libre_en_segundos: int | None
+    minutos_jugando: int
+    pct_mas_que: float
+    pct_mas_rapido: int
+
+
+def _momentos_de_hoy(db: Session, player_id: int, desde: datetime) -> list[datetime]:
+    """Cuándo acertó hoy, en orden. Usa `ix_game_attempts_player_created`."""
+    filas = (
+        db.query(GameAttempt.created_at)
+        .filter(
+            GameAttempt.player_id == player_id,
+            GameAttempt.is_correct.is_(True),
+            GameAttempt.created_at >= desde,
+        )
+        .order_by(GameAttempt.created_at)
+        .all()
+    )
+    return [f[0] for f in filas]
+
+
+def estado(
+    db: Session,
+    player: GamePlayer,
+    hechas_hoy: int,
+    inicio_del_dia: datetime,
+    proxima_medianoche: datetime,
+    ahora: datetime | None = None,
+) -> Muro:
+    """Todo lo que el cliente necesita saber sobre el tope.
+
+    Las dos fechas llegan de afuera y no se calculan acá porque el «hoy» del
+    juego es una decisión que ya está tomada en un solo lugar
+    (`router._inicio_del_dia`, huso de Buenos Aires) y tener dos relojes sería
+    tener dos días.
+
+    **La consulta de los momentos solo corre cuando hace falta**, o sea cuando
+    la persona efectivamente llegó al tope. En el 82% de los días esto no se
+    ejecuta nunca, así que el cartel no le cuesta una consulta por respuesta a
+    todo el mundo.
+    """
+    ahora = ahora or datetime.utcnow()
+    tope = tope_de(player.id)
+    vence = pase_hasta(db, player, ahora) if tope is not None else None
+    alcanzo = tope is not None and hechas_hoy >= tope
+    bloqueado = alcanzo and vence is None
+
+    minutos = pct_rapido = 0
+    if alcanzo:
+        minutos = minutos_jugando(_momentos_de_hoy(db, player.id, inicio_del_dia))
+        pct_rapido = percentil_de_velocidad(minutos)
+
+    return Muro(
+        tope=tope,
+        hechas_hoy=hechas_hoy,
+        bloqueado=bloqueado,
+        pase_hasta=vence,
+        libre_en_segundos=(
+            max(0, int((proxima_medianoche - ahora).total_seconds()))
+            if bloqueado else None
+        ),
+        minutos_jugando=minutos,
+        pct_mas_que=PCT_NUNCA_LLEGA,
+        pct_mas_rapido=pct_rapido,
+    )

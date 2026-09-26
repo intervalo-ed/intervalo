@@ -2071,6 +2071,7 @@ export interface components {
              * @default false
              */
             is_record: boolean;
+            muro?: components["schemas"]["GameMuroOut"] | null;
         };
         /**
          * GameBoostOut
@@ -2428,6 +2429,49 @@ export interface components {
             /** Seconds Ago */
             seconds_ago: number;
         };
+        /**
+         * GameMuroOut
+         * @description El estado del tope diario de esta persona (game/muro.py).
+         *
+         *     Viaja en DOS lugares —con cada respuesta y con el jugador— y eso no es
+         *     duplicación: con la respuesta es como el cliente se entera en el momento de
+         *     que la que acaba de acertar fue la última, y con el jugador es como una
+         *     recarga de la página cae en el cartel en vez de en un ejercicio que el
+         *     servidor va a rechazar.
+         */
+        GameMuroOut: {
+            /** Tope */
+            tope?: number | null;
+            /**
+             * Hechas Hoy
+             * @default 0
+             */
+            hechas_hoy: number;
+            /**
+             * Bloqueado
+             * @default false
+             */
+            bloqueado: boolean;
+            /** Pase Hasta */
+            pase_hasta?: string | null;
+            /** Libre En Segundos */
+            libre_en_segundos?: number | null;
+            /**
+             * Minutos Jugando
+             * @default 0
+             */
+            minutos_jugando: number;
+            /**
+             * Pct Mas Que
+             * @default 0
+             */
+            pct_mas_que: number;
+            /**
+             * Pct Mas Rapido
+             * @default 0
+             */
+            pct_mas_rapido: number;
+        };
         /** GameNotificationSettings */
         GameNotificationSettings: {
             /** Enabled */
@@ -2549,6 +2593,7 @@ export interface components {
              * @default 1000
              */
             elo: number;
+            muro?: components["schemas"]["GameMuroOut"] | null;
         };
         /** GameProfilePatchRequest */
         GameProfilePatchRequest: {

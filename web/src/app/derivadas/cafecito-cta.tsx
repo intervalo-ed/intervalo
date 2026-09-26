@@ -74,7 +74,12 @@ export const CAFECITO_COOLDOWN = 5
 // una respuesta; `pedido` es cuando la persona la abrió ella misma con el botón
 // de la barra, y eso cambia dos cosas: no se la felicita por un hito que no
 // acaba de pasar, y al salir vuelve a SU ejercicio en vez de pedir uno nuevo.
-export type CafecitoTrigger = "record" | "big_climb" | "milestone" | "pedido"
+// `tope` es el quinto y no se parece a los otros cuatro: no lo decide el juego
+// después de una respuesta ni lo abre la persona desde la barra, sino que se
+// llega apretando «Continuar derivando ahora» en el cartel del tope diario
+// (tope-panel.tsx). Por eso se comporta como `pedido` —salida «Volver», sin
+// cuenta regresiva— y no como un hito.
+export type CafecitoTrigger = "record" | "big_climb" | "milestone" | "pedido" | "tope"
 
 // Las teclas de los dos botones de la barra que sacan del ejercicio.
 //

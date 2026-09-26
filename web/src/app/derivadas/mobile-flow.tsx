@@ -72,6 +72,7 @@ import {
 } from "./opinion-trigger"
 import { OpinionSlide } from "./opinion-slide"
 import { RepetitividadSlide } from "./repetitividad-slide"
+import { diaDelCupo, TopePanel } from "./tope-panel"
 import { marcarReclutasMostrado, tocaReclutar } from "./reclutas-trigger"
 import {
   HITO_PERFIL,
@@ -145,7 +146,16 @@ type Slide =
   // adelante, nunca a la pantalla anterior.
   | { kind: "username" }
   | { kind: "exercise" }
-  | { kind: "ranking"; answer: GameAnswer }
+  | { kind: "ranking"; answer: GameAnswer | null }
+  // El cartel del tope diario (tope-panel.tsx). Sin payload: el estado lo
+  // manda el servidor con el jugador (`player.muro`) y con cada respuesta, así
+  // que una recarga cae acá con los mismos números que antes de recargar.
+  //
+  // **Es la única diapo de la que no se sale hacia adelante.** Mientras el cupo
+  // esté agotado, todo lo que termina vuelve acá: el ranking porque su Continuar
+  // corre la escalera y el `/next` del final devuelve 402, y la recarga porque
+  // el estado viaja con el jugador.
+  | { kind: "tope" }
   // Las reglas que la puerta no dijo (reglas-slide.tsx), siempre después de un
   // ranking. `cuales` son índices de la lista de `IntroParagraphs`: las tres de
   // un saque en `control`, de a una en `sin-peaje`. Sin `back`: se entra desde
@@ -329,6 +339,12 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
   const sfx = useSfx()
 
   const [slide, setSlide] = useState<Slide>({ kind: "intro" })
+  // La última respuesta, para que «Esperar hasta mañana» pueda abrir el ranking
+  // con el festejo puesto. Al recargar con el cupo agotado no hay ninguna, y el
+  // ranking se abre igual: `answer` ahí adentro es solo el disparador de
+  // `onRelease`, así que en null no hay nada que soltar y no hay nada que
+  // inventar.
+  const ultimaRespuestaRef = useRef<GameAnswer | null>(null)
   const [slideSeq, setSlideSeq] = useState(0)
   // La hoja de "¿Qué pasa con mis datos?" de la slide de registro. Afuera del
   // stack de slides a propósito: se superpone a lo que sea que esté mostrando
@@ -592,20 +608,41 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
   // `fresco` fuerza el pedido normal y saltea lo adelantado. Lo usan los caminos
   // en los que el servidor movió el piso —un 409, un reinicio— donde lo que haya
   // en la caja ya no vale.
+  // El 402 del tope diario. Es el ÚNICO error de `/next` que tiene una pantalla:
+  // el resto son transitorios y los reintenta quien corresponda. Acá no hay nada
+  // que reintentar —hasta mañana no hay derivada— así que se dibuja el cartel.
+  //
+  // Se invalida el jugador de paso: el cartel se dibuja con `player.muro`, y el
+  // que está en caché puede ser de antes de que el cupo se agotara.
+  const alTope = useCallback(
+    (err: unknown) => {
+      if (!(err instanceof ApiError) || err.status !== 402) return
+      queryClient.invalidateQueries({ queryKey: gameKeys.me })
+      goTo({ kind: "tope" })
+    },
+    [goTo, queryClient],
+  )
+
   const loadNext = useCallback(
     ({ fresco = false }: { fresco?: boolean } = {}) => {
       const adelantado = fresco ? null : consumirAdelanto()
       if (adelantado === null) {
-        next.mutate(undefined, { onSuccess: (data) => servir(data, { adelantado: false }) })
+        next.mutate(undefined, {
+          onSuccess: (data) => servir(data, { adelantado: false }),
+          onError: alTope,
+        })
         return
       }
       void adelantado
         .then((data) => servir(data, { adelantado: true }))
         .catch(() => {
-          next.mutate(undefined, { onSuccess: (data) => servir(data, { adelantado: false }) })
+          next.mutate(undefined, {
+            onSuccess: (data) => servir(data, { adelantado: false }),
+            onError: alTope,
+          })
         })
     },
-    [next, consumirAdelanto, servir],
+    [next, consumirAdelanto, servir, alTope],
   )
 
   // Lo que hace el botón Continuar de la intro: a la primera derivada, salvo
@@ -749,6 +786,11 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
       const tocaCafecito =
         consumed !== "cafecito" &&
         trigger !== null &&
+        // Si el cartel del tope va a salir al final de esta misma escalera, la
+        // diapo del cafecito no sale: son dos pedidos de plata seguidos, que es
+        // exactamente lo que el mapa de hitos existe para no tener. El cartel
+        // lleva a la misma diapo, así que no se pierde nada.
+        !a.muro?.bloqueado &&
         shouldShowCafecito(totalCorrectas, trigger)
       const sinUniversidad = player !== null && !player.university
       // La universidad se pregunta UNA VEZ y no es una condición permanente. Que lo
@@ -924,6 +966,15 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
         }
       }
       pendingRef.current = null
+      // El cartel va ÚLTIMO de la escalera y no en lugar de ella: quien acaba de
+      // resolver la número 30 primero ve su ranking, su festejo y lo que le
+      // tocara, y recién después se entera de que no hay más por hoy. Al revés,
+      // el tope se comería el mejor momento de la sesión.
+      if (a.muro?.bloqueado) {
+        ultimaRespuestaRef.current = a
+        goTo({ kind: "tope" })
+        return
+      }
       loadNext()
     },
     [goTo, loadNext, player, releaseXp, sinPeaje],
@@ -1093,7 +1144,11 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
             // ejercicio, así que este es el primer instante en que pedir el
             // siguiente devuelve uno nuevo. Alcanza y sobra con lo que tarda la
             // slide del ranking.
-            adelantar()
+            //
+            // Salvo que ésta haya sido la última del día: ahí el adelanto es un
+            // 402 garantizado, y aunque se descarte solo, pedirlo es gastar un
+            // viaje para que lo rechacen.
+            if (!data.muro?.bloqueado) adelantar()
             pendingRef.current = { answer: data }
             // Modo `espera` porque el número que tiene que subir está en la
             // pantalla siguiente: la XP ya existe, pero contarla acá sería
@@ -2150,6 +2205,29 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
             </div>
           )}
 
+          {slide.kind === "tope" && player?.muro && (
+            <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col px-5 pb-[var(--cta-pb)] pt-4">
+              <TopePanel
+                muro={player.muro}
+                dia={diaDelCupo(player.muro.libre_en_segundos)}
+                onEsperar={() => {
+                  sfx.select()
+                  goTo({ kind: "ranking", answer: ultimaRespuestaRef.current })
+                }}
+                onSeguir={() =>
+                  goTo({
+                    kind: "cafecito",
+                    trigger: "tope",
+                    correctToday: player.muro?.hechas_hoy ?? 0,
+                    back: slide,
+                  })
+                }
+                fullBleed
+                className="flex-none"
+              />
+            </div>
+          )}
+
           {slide.kind === "repetitividad" && (
             <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col px-5 pb-[var(--cta-pb)] pt-4">
               <ConSalidaAbajo>
@@ -2202,7 +2280,7 @@ function RankingSlide({
   onCafecito,
   onReclutar,
 }: {
-  answer: GameAnswer
+  answer: GameAnswer | null
   climbFrom: number | null
   onSaltoArranca: () => void
   leerMemoria: () => MemoriaDelRanking
@@ -2235,7 +2313,9 @@ function RankingSlide({
     releaseRef.current = onRelease
   })
   useEffect(() => {
-    releaseRef.current()
+    // `answer` en null es el ranking abierto desde el cartel del tope después de
+    // recargar: no hubo respuesta nueva, así que no hay XP en espera que soltar.
+    if (answer !== null) releaseRef.current()
   }, [answer])
 
   // Qué está mostrando el ranking. Lo dice él (`onViewChange`), porque el

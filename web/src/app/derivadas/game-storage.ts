@@ -103,6 +103,7 @@ export function clearGameIdentity() {
     window.localStorage.removeItem(NOTIF_KEY)
     window.localStorage.removeItem(OPINION_KEY)
     window.localStorage.removeItem(OPINION_SALTOS_KEY)
+    window.localStorage.removeItem(TOPE_VISTO_KEY)
     window.localStorage.removeItem(ENCUESTA_KEY)
     window.localStorage.removeItem(REGLAS_KEY)
     window.localStorage.removeItem(REGLAS_V1_KEY)
@@ -380,6 +381,40 @@ export function readOpinionSaltos(): number {
 export function saveOpinionSaltos(n: number) {
   try {
     window.localStorage.setItem(OPINION_SALTOS_KEY, String(n))
+  } catch {}
+}
+
+// Qué día se le mostró por última vez el cartel del tope diario, como "AAAA-MM-DD".
+//
+// **Existe para que la impresión se cuente UNA vez por día y no una por
+// montaje**, y sin eso el CTR del experimento de monetización sería mentira:
+// desde el cartel se sale al ranking y del ranking se vuelve al cartel, así que
+// alguien que rebota diez veces dejaría diez impresiones y un click —10% de CTR
+// cuando la verdad es 100%—. Es el mismo error que el panel ya denuncia en
+// `settings` (24 clicks y cero impresiones), al revés.
+//
+// El mismo valor decide los cinco segundos de espera del botón de esperar: se
+// cobran la primera vez del día, que es cuando hay algo para leer, y no en cada
+// rebote, donde serían una traba.
+//
+// La fecha la manda el SERVIDOR (el "hoy" del juego es el de Buenos Aires, ver
+// game/router.py :: _inicio_del_dia) y acá solo se compara como texto: sin eso,
+// alguien jugando desde Madrid tendría un día propio y el cupo se le renovaría
+// cuando no corresponde.
+const TOPE_VISTO_KEY = "intervalo:game:tope-visto"
+
+export function readTopeVisto(): string {
+  if (typeof window === "undefined") return ""
+  try {
+    return window.localStorage.getItem(TOPE_VISTO_KEY) ?? ""
+  } catch {
+    return ""
+  }
+}
+
+export function saveTopeVisto(dia: string) {
+  try {
+    window.localStorage.setItem(TOPE_VISTO_KEY, dia)
   } catch {}
 }
 

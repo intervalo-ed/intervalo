@@ -4980,6 +4980,16 @@
             "type": "boolean",
             "title": "Is Record",
             "default": false
+          },
+          "muro": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/GameMuroOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "type": "object",
@@ -5720,6 +5730,72 @@
         "title": "GameMessageOut",
         "description": "Un mensaje del chat. Trae el @ y la universidad DE CUANDO SE ESCRIBI\u00d3, no\nlos de hoy: ver el docstring de GameMessage en models.py."
       },
+      "GameMuroOut": {
+        "properties": {
+          "tope": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tope"
+          },
+          "hechas_hoy": {
+            "type": "integer",
+            "title": "Hechas Hoy",
+            "default": 0
+          },
+          "bloqueado": {
+            "type": "boolean",
+            "title": "Bloqueado",
+            "default": false
+          },
+          "pase_hasta": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pase Hasta"
+          },
+          "libre_en_segundos": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Libre En Segundos"
+          },
+          "minutos_jugando": {
+            "type": "integer",
+            "title": "Minutos Jugando",
+            "default": 0
+          },
+          "pct_mas_que": {
+            "type": "number",
+            "title": "Pct Mas Que",
+            "default": 0.0
+          },
+          "pct_mas_rapido": {
+            "type": "integer",
+            "title": "Pct Mas Rapido",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "title": "GameMuroOut",
+        "description": "El estado del tope diario de esta persona (game/muro.py).\n\nViaja en DOS lugares \u2014con cada respuesta y con el jugador\u2014 y eso no es\nduplicaci\u00f3n: con la respuesta es como el cliente se entera en el momento de\nque la que acaba de acertar fue la \u00faltima, y con el jugador es como una\nrecarga de la p\u00e1gina cae en el cartel en vez de en un ejercicio que el\nservidor va a rechazar."
+      },
       "GameNotificationSettings": {
         "properties": {
           "enabled": {
@@ -6039,6 +6115,16 @@
             "type": "integer",
             "title": "Elo",
             "default": 1000
+          },
+          "muro": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/GameMuroOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "type": "object",

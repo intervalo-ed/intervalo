@@ -54,6 +54,11 @@ from game import elo
 # función que el motor. Importarla es lo que impide que las dos mitades del
 # experimento —quién lo vive y quién lo lee— se desincronicen.
 from game import sorteo
+# Ídem el tope diario: el panel decide quién entró al experimento con la MISMA
+# función que le niega la derivada a la persona. Si acá se copiara el 30, el día
+# que el tope cambie el panel seguiría inscribiendo por el número viejo y los
+# dos brazos medirían cohortes distintas sin que nada falle.
+from game import muro as game_muro
 
 from .queries import (A_ORDER, AR_OFFSET, P1_BAND, _pct, _rows, local_date,
                       week_start)
@@ -2192,6 +2197,287 @@ def experimento_motor(data: dict) -> dict:
         "sin_arrancar": sum(b["n"] + b["en_curso"] for b in brazos) == 0,
     }
 
+
+# ── 6-ter · El experimento de MONETIZACIÓN ──────────────────────────────────
+#
+# El tercero, y el primero que no mide una pantalla ni el motor sino si alguien
+# PAGA. Es otra función por los mismos tres motivos que el del motor —otra
+# gente, otro sorteo, otra aritmética— más uno propio:
+#
+#   * **Otra gente.** Solo entra quien LLEGA al tope en un día. Son ~100 personas
+#     por semana, el 16% de los jugadores y la mitad del volumen del juego.
+#   * **Otro sorteo.** Hash del `player.id` en el servidor (`game/muro.py`), no
+#     `game_players.variant`: los que hoy llegan a 30 en un día existen todos
+#     desde hace semanas, así que con el sorteo de creación este experimento
+#     mediría a cero personas para siempre.
+#   * **Otra aritmética.** La métrica es una proporción, como los del embudo,
+#     pero sobre una base rarísima —**0 de 65 en el pre-período**— así que el n
+#     no se puede sacar de la base observada sin que dé cualquier cosa.
+#   * **Y un guardarraíl que se lee ANTES que el resultado.** Es la única
+#     sección donde eso es deliberado: un tope puede hacer daño, y la pérdida de
+#     días activos es legible con 154 por brazo contra los 269 que pide el pago.
+#     El experimento se puede matar antes de poder ganarse.
+
+EXPERIMENTO_MURO: dict = {
+    "clave": game_muro.EXPERIMENTO,
+    "titulo": "El tope diario",
+    "hipotesis": (
+        "dx no cobra nada y un cafecito compra hoy un multiplicador para toda "
+        "una universidad, o sea que nadie pagó nunca por algo suyo. La hipótesis "
+        "es que un tope de 30 derivadas por día, con un cafecito que lo levanta "
+        "por un mes, convierte a una parte de los que más juegan en pagadores "
+        "sin espantar al resto. Lo que se prueba NO es el precio —a siete "
+        "centavos de dólar el mes, no hay precio— sino si un estudiante "
+        "atraviesa un checkout de Mercado Pago para seguir jugando."
+    ),
+    "desde": date(2026, 9, 26),
+    # La ventana de medición, igual que en el motor: nadie cuenta hasta que la
+    # suya cerró. Sumar una ventana abierta sería comparar a alguien medido 14
+    # días con alguien medido 3.
+    "ventana_dias": 14,
+    "brazos": (("control", "Control"), ("muro", f"Tope de {game_muro.TOPE_DIARIO}")),
+    "metrica": "pago",
+    # **La base observada es 0 de 65** (26/09, los que llegaron a 30 con la
+    # ventana de 14 días cerrada). Se declara 2% —el número de la ventana de 7
+    # días— porque es el lado conservador: con base 0 el mismo efecto pediría
+    # MENOS gente, así que prometer 2% es comprometerse a juntar de más.
+    "base": 0.02,
+    # Cinco puntos, y sale de la aritmética del embudo que ya existe: hoy el
+    # 17,2% de los que TOCAN el cartel pagan, así que un muro que consiga que
+    # 30% toque rinde ~5 pp. Es lo que se puede ver con esta población; si el
+    # efecto real es de 2 pp, este diseño lo va a dejar pasar, y eso hay que
+    # saberlo ahora.
+    "mde": 0.05,
+    "alpha": 0.05,
+    "potencia": 0.80,
+    # El guardarraíl que puede matarlo, con su propia aritmética de medias.
+    # Medidos sobre los 65 del pre-período: 1,49 días activos en los 14
+    # posteriores, sd 2,50.
+    "dias_base": 1.49,
+    "dias_sd": 2.50,
+    "dias_mde": 0.80,
+    "vuelve_base": 53.8,
+    "prediccion": (
+        "Lo cruzan entre 92 y 107 personas por semana, o sea ~50 por brazo, así "
+        "que los 269 por brazo llegan en unas 5,4 semanas de inscripción más 2 "
+        "de ventana: primera lectura a mediados de noviembre. El guardarraíl de "
+        "días activos se vuelve legible antes, a las ~3 semanas, y ese orden es "
+        "a propósito. Predicción del resultado: el pago se va a mover, porque "
+        "hoy el 17,2% de los que tocan el cartel pagan y el muro es el lugar "
+        "con más motivo para tocarlo; lo que NO sé es si el precio de eso es "
+        "medio día activo o dos."
+    ),
+}
+
+
+def _dias_con_resueltas(data: dict) -> dict[int, dict[date, int]]:
+    """Cuántas derivadas resolvió cada persona cada día.
+
+    Sale de `attempts` y no de `_firsts`: el tope cuenta `is_correct` sin mirar
+    el número de intento —una acertada en el segundo intento cuenta— y usar la
+    lista de primeros intentos mediría un tope distinto del que la gente vive.
+    """
+    por_dia: dict[int, dict[date, int]] = defaultdict(lambda: defaultdict(int))
+    for a in data["attempts"]:
+        if not a["is_correct"]:
+            continue
+        d = local_date(a["created_at"])
+        if d is not None:
+            por_dia[a["player_id"]][d] += 1
+    return por_dia
+
+
+def _alta_en_el_muro(dias: dict[date, int], desde: date, tope: int) -> date | None:
+    """Cuándo entró al experimento, o None si todavía no entró.
+
+    **La regla es `>= tope`, no `> tope`, y eso decide si el experimento existe.**
+    En el brazo tratado el contador NO PUEDE pasar del tope —el servidor corta
+    justo ahí— así que con `>` el brazo test tendría cero inscriptos para
+    siempre y el panel diría «faltan 269» hasta el fin de los tiempos. Con `>=`
+    los dos brazos se inscriben por el mismo hecho, «llegó al tope», que en el
+    control es exactamente el contrafáctico: el día que habría chocado.
+
+    Quien ya venía llegando al tope antes del arranque entra el día del
+    arranque, no el día en que lo cruzó por primera vez hace un mes: lo que
+    cuenta es cuándo empezó a vivir el tratamiento.
+    """
+    if any(n >= tope for d, n in dias.items() if d < desde):
+        return desde
+    candidatos = sorted(d for d, n in dias.items() if d >= desde and n >= tope)
+    return candidatos[0] if candidatos else None
+
+
+def experimento_muro(data: dict) -> dict:
+    """El bloque de `dx-muro-1`: cuántos pagaron, y cuánto costó.
+
+    Devuelve las dos lecturas por separado —la del pago y la del daño— porque
+    se habilitan en momentos distintos y mezclarlas en un solo `listo` haría lo
+    contrario de lo que este experimento necesita: esperar a tener el resultado
+    para poder mirar el precio.
+    """
+    exp = EXPERIMENTO_MURO
+    tope = game_muro.TOPE_DIARIO
+    desde, ventana = exp["desde"], exp["ventana_dias"]
+    hoy = local_date(datetime.utcnow())
+    n_pedido = n_comprometido(exp)
+    n_dias = _n_medias(exp["dias_sd"], exp["dias_mde"], exp["alpha"], exp["potencia"])
+
+    por_dia = _dias_con_resueltas(data)
+
+    # Los pagos con dueño, por persona y por día. El empuje de aforo no cuenta:
+    # no lo pagó nadie (ver `muro.pase_hasta`).
+    pagos: dict[int, list[date]] = defaultdict(list)
+    for b in data["boosts"]:
+        if b["player_id"] is None or b["source"] == "aforo":
+            continue
+        d = local_date(b["created_at"])
+        if d is not None:
+            pagos[b["player_id"]].append(d)
+
+    # El CTR del cartel, que es el escalón anterior al pago y el que se mueve
+    # primero. Se mira aunque el experimento no se pueda leer: si nadie toca, no
+    # hace falta esperar a noviembre para saber que no va a pasar nada.
+    imp = clk = 0
+    for e in data["cta"]:
+        if e["cta"] != "cafecito" or e["placement"] != "muro":
+            continue
+        if e["action"] == "impression":
+            imp += 1
+        elif e["action"] == "click":
+            clk += 1
+
+    brazos = []
+    for clave, nombre in exp["brazos"]:
+        n = abiertas = pagaron = vuelven = 0
+        dias_post: list[float] = []
+        derivadas_post: list[float] = []
+        for p in data["players"]:
+            pid = p["id"]
+            if p["is_bot"] or game_muro.brazo_de(pid) != clave:
+                continue
+            dias = por_dia.get(pid)
+            if not dias:
+                continue
+            alta = _alta_en_el_muro(dias, desde, tope)
+            if alta is None:
+                continue
+            cierra = alta + timedelta(days=ventana)
+            if hoy < cierra:
+                abiertas += 1
+                continue
+            n += 1
+            if any(alta <= d <= cierra for d in pagos.get(pid, ())):
+                pagaron += 1
+            # Lo que hizo DESPUÉS del día en que chocó. El día del choque no
+            # entra: es el tratamiento, no su consecuencia.
+            posteriores = {d: c for d, c in dias.items() if alta < d < cierra}
+            dias_post.append(float(len(posteriores)))
+            derivadas_post.append(float(sum(posteriores.values())))
+            if posteriores:
+                vuelven += 1
+        media = statistics.fmean(dias_post) if dias_post else 0.0
+        var = statistics.variance(dias_post) if len(dias_post) > 1 else 0.0
+        brazos.append({
+            "clave": clave,
+            "label": nombre,
+            "n": n,
+            "en_curso": abiertas,
+            "pago": pagaron,
+            "pct_pago": _pct(pagaron, n),
+            "pct_vuelve": _pct(vuelven, n),
+            "dias_media": round(media, 2),
+            "dias_sd": round(math.sqrt(var), 2),
+            "_var": var,
+            "derivadas_media": round(
+                statistics.fmean(derivadas_post) if derivadas_post else 0.0, 1),
+            "falta": max(0, n_pedido - n),
+            "falta_dias": max(0, n_dias - n),
+        })
+
+    def _welch(campo_media: str, campo_var: str) -> dict | None:
+        c, t = brazos[0], brazos[1]
+        if not c["n"] or not t["n"]:
+            return None
+        delta = t[campo_media] - c[campo_media]
+        se = math.sqrt(c[campo_var] / c["n"] + t[campo_var] / t["n"])
+        z = delta / se if se else 0.0
+        za = _z_de(1 - exp["alpha"] / 2)
+        return {
+            "delta": round(delta, 2),
+            "z": round(z, 2),
+            "p_valor": 2 * (1 - _phi(abs(z))),
+            "ic": (round(delta - za * se, 2), round(delta + za * se, 2)),
+            "rechaza": abs(z) > za,
+        }
+
+    listo = all(b["n"] >= n_pedido for b in brazos)
+    lectura = None
+    if listo and len(brazos) == 2:
+        control, test = brazos
+        nc, nt = control["n"], test["n"]
+        xc, xt = control["pago"], test["pago"]
+        pc, pt = xc / nc, xt / nt
+        pool = (xc + xt) / (nc + nt)
+        se0 = math.sqrt(pool * (1 - pool) * (1 / nc + 1 / nt))
+        z = (pt - pc) / se0 if se0 else 0.0
+        # El error del INTERVALO no usa la proporción combinada: esa vale bajo
+        # H0, y el intervalo no supone H0. Misma distinción que en experimentos().
+        se = math.sqrt(pc * (1 - pc) / nc + pt * (1 - pt) / nt)
+        za = _z_de(1 - exp["alpha"] / 2)
+        lectura = {
+            "delta_pp": round(100 * (pt - pc), 1),
+            "z": round(z, 2),
+            "p_valor": 2 * (1 - _phi(abs(z))),
+            "ic_pp": (round(100 * (pt - pc - za * se), 1),
+                      round(100 * (pt - pc + za * se), 1)),
+            "rechaza": abs(z) > za,
+        }
+
+    # El daño se lee por su cuenta y ANTES. `listo_dias` no espera al n del pago.
+    listo_dias = all(b["n"] >= n_dias for b in brazos)
+    dano = _welch("dias_media", "_var") if listo_dias and len(brazos) == 2 else None
+
+    # Y el guardarraíl de justicia: si el ranking se vuelve un tablero de pago,
+    # el experimento se apaga por más plata que entre. Se cuenta sobre TODOS los
+    # jugadores y no sobre los inscriptos, porque lo que se mira es el ranking
+    # que ve cualquiera.
+    con_plata = {pid for pid in pagos}
+    top = sorted((p for p in data["players"] if not p["is_bot"]),
+                 key=lambda p: p["xp"] or 0, reverse=True)[:20]
+    return {
+        "clave": exp["clave"],
+        "titulo": exp["titulo"],
+        "hipotesis": exp["hipotesis"],
+        "prediccion": exp["prediccion"],
+        "desde": exp["desde"],
+        "ventana_dias": ventana,
+        "tope": tope,
+        "pase_dias": game_muro.PASE_DIAS,
+        "encendido": game_muro.habilitado(),
+        "metrica": exp["metrica"],
+        "base": exp["base"],
+        "mde_pp": round(100 * exp["mde"], 0),
+        "alpha": exp["alpha"],
+        "potencia": exp["potencia"],
+        "n_pedido": n_pedido,
+        "n_dias": n_dias,
+        "dias_mde": exp["dias_mde"],
+        "vuelve_base": exp["vuelve_base"],
+        "brazos": brazos,
+        "listo": listo,
+        "lectura": lectura,
+        "listo_dias": listo_dias,
+        "dano": dano,
+        "cartel": {
+            "impresiones": imp,
+            "clicks": clk,
+            "ctr": _pct(clk, imp) if imp >= MIN_IMPRESIONES_CTR else None,
+        },
+        "top20_con_pase": sum(1 for p in top if p["id"] in con_plata),
+        "sin_arrancar": sum(b["n"] + b["en_curso"] for b in brazos) == 0,
+    }
+
+
 # ── 7 · Difusión: a cuánta gente se llegó y cuánta entró ─────────────────────
 
 # Piso para que un grupo merezca entrar a una cuenta de clickrate. Con menos de
@@ -2765,6 +3051,11 @@ LUGARES_CAFECITO = {
     "clasico_config": "Armando un clásico",
     "settings": "Ajustes",
     "settings_reclamo": "Ajustes · reclamar un cafecito",
+    # El cartel del tope diario (dx-muro-1). Es el único lugar donde el pedido
+    # no interrumpe algo que estaba pasando sino que ES lo que está pasando, así
+    # que su CTR no se compara contra la barra sino contra `milestone` y
+    # `pedido`, que también piden con la diapo entera.
+    "muro": "El tope diario",
 }
 
 
@@ -3564,6 +3855,7 @@ def build(db: DBSession, week: date, weeks_shown: int = 4,
         "reclutas_uni": reclutas_por_universidad(data),
         "experimentos": experimentos(data),
         "experimento_motor": experimento_motor(data),
+        "experimento_muro": experimento_muro(data),
         "experimentos_grupos": experimento_grupos(data),
         "difusion": difusion(data, week),
         "carteles": carteles(data),

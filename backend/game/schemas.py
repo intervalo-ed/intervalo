@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from datetime import datetime
 from typing import Any, Optional
 
 from pydantic import BaseModel, Field
@@ -48,6 +49,41 @@ class GamePlayerCreateRequest(BaseModel):
     timezone: Optional[str] = Field(default=None, max_length=_MAX_HUSO)
 
 
+class GameMuroOut(BaseModel):
+    """El estado del tope diario de esta persona (game/muro.py).
+
+    Viaja en DOS lugares —con cada respuesta y con el jugador— y eso no es
+    duplicación: con la respuesta es como el cliente se entera en el momento de
+    que la que acaba de acertar fue la última, y con el jugador es como una
+    recarga de la página cae en el cartel en vez de en un ejercicio que el
+    servidor va a rechazar.
+    """
+
+    # `null` es «esta persona no tiene tope», y sale por dos caminos que al
+    # cliente no le sirve distinguir: el experimento está apagado, o le tocó el
+    # brazo de control.
+    tope: Optional[int] = None
+    hechas_hoy: int = 0
+    # La única que el cliente necesita mirar para decidir si dibuja el cartel.
+    # No es `hechas_hoy >= tope`: quien tiene el pase llegó al tope y sigue.
+    bloqueado: bool = False
+    # Hasta cuándo tiene el tope levantado, si lo compró.
+    pase_hasta: Optional[datetime] = None
+    # Cuánto falta para la medianoche argentina. Lo manda el servidor ya
+    # calculado porque el «hoy» del juego es el de Buenos Aires y no el del
+    # aparato: quien juega desde Madrid comparte el día con el ranking con el
+    # que se compara.
+    libre_en_segundos: Optional[int] = None
+    # Minutos EFECTIVOS hasta llegar al tope, sin los recreos. Ver
+    # muro.minutos_jugando: el reloj de pared tiene p90 de 353 minutos y
+    # felicitar a alguien por tardar seis horas es una burla.
+    minutos_jugando: int = 0
+    # Los dos números del cartel. El primero es constante —todos los que lo ven
+    # hicieron lo mismo— y el segundo depende de cuánto tardó esta persona.
+    pct_mas_que: float = 0.0
+    pct_mas_rapido: int = 0
+
+
 class GamePlayerOut(BaseModel):
     player_id: int
     alias: str
@@ -78,6 +114,9 @@ class GamePlayerOut(BaseModel):
     # cuando se erra, que es lo que lo vuelve una medida de qué tan difícil se
     # está resolviendo y no de cuánto se jugó.
     elo: int = 1000
+    # El tope diario, para que una recarga con el cupo agotado caiga en el
+    # cartel y no en un ejercicio que el servidor va a rechazar con 402.
+    muro: Optional[GameMuroOut] = None
 
 
 class GamePlayerCreateResponse(BaseModel):
@@ -179,6 +218,10 @@ class GameAnswerResponse(BaseModel):
     rank_after: Optional[int] = None
     best_rank: Optional[int] = None
     is_record: bool = False
+    # El tope diario DESPUÉS de esta respuesta. Es así como el cliente se entera
+    # en el mismo momento de que la que acaba de acertar fue la última del día,
+    # sin tener que pedir un ejercicio nuevo para que se lo nieguen.
+    muro: Optional[GameMuroOut] = None
 
 
 class GameExplainRequest(BaseModel):

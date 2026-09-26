@@ -143,6 +143,22 @@ const FUGAZ = { duration: 0.11, ease: "easeOut" } as const
 // de marca y llega al mismo dorado, y va de 4,13 a 9,69.
 const tintaPara = (t: number) => mezclar(AMBAR_RGB, DORADO, t)
 
+// El extremo dorado de la rampa, fijo. Lo usan los datos que NO dependen del
+// slider —los treinta días del pase— para que no se apaguen al mover la barra:
+// lo que la tinta variable comunica es «esto es lo que estás eligiendo», y el
+// pase es el mismo con uno o con diez.
+//
+// Es además el mismo dorado del botón «Continuar derivando ahora» del cartel
+// del tope (tope-panel.tsx), que es de donde se llega hasta acá.
+const DORADO_FIJO = `rgb(${DORADO.join(", ")})`
+
+// Cuántos días de acceso sin tope compra una donación. Espejo de
+// `backend/game/muro.py :: PASE_DIAS`, y como todos los espejos de este archivo
+// es una copia que puede envejecer: el servidor manda el vencimiento exacto en
+// `GamePlayerOut.muro.pase_hasta`, así que lo que se muestra DESPUÉS de pagar
+// sale de allá. Este número es solo la promesa de antes de pagar.
+const PASE_DIAS = 30
+
 // El dorado en rgba, para todo lo que se ANIMA. `color-mix(...)` no se puede
 // interpolar —motion lo trata como texto y el valor salta— así que las auras que
 // respiran se escriben acá y no con mezclas de CSS.
@@ -331,12 +347,29 @@ const TRIGGER_COPY: Record<CafecitoTrigger, { title: string; sub: string }> = {
     title: "¿Café?",
     sub: "Intervalo se mantiene únicamente gracias a las donaciones de los estudiantes.",
   },
+  // El tope diario. Mismo título que los otros dos y no uno propio: la persona
+  // ya vio «¿Café?» en la derivada 14 y en la 20, así que reconoce la pantalla
+  // y el tope no le presenta un producto nuevo — le da un motivo más para el
+  // mismo. El subtítulo es lo único que cambia, y dice qué se está comprando.
+  //
+  // Dice «por 30 días» y no una fecha: la fecha concreta aparece recién en la
+  // cara de agradecimiento, cuando el pase ya existe y se puede afirmar.
+  tope: {
+    title: "¿Café?",
+    sub: "Un cafecito te da acceso ilimitado a Intervalo por 30 días.",
+  },
 }
 
 // El único disparador que la persona elige. Cambia dos cosas: no hay cuenta
 // regresiva para salir —nadie la interrumpió, así que retenerla sería cobrarle
 // por haber venido— y al salir vuelve a su ejercicio en vez de pedir uno nuevo.
-const LO_PIDIO = (t: CafecitoTrigger) => t === "pedido"
+// `tope` entra acá con `pedido` aunque no lo haya abierto la persona desde la
+// barra: lo que este predicado decide es si alguien fue INTERRUMPIDO, y al
+// cartel del tope se llega apretando un botón. Retener con cuenta regresiva a
+// quien vino sola sería cobrarle por haber venido, y la salida tiene que decir
+// «Volver» —que es a dónde va— y no «Ahora no», que nombra un rechazo a algo
+// que nadie le ofreció de prepo.
+const LO_PIDIO = (t: CafecitoTrigger) => t === "pedido" || t === "tope"
 
 /** La cuenta regresiva del botón de seguir. Devuelve los segundos que faltan, y
  *  cero cuando ya se puede. El intervalo se limpia solo al desmontar: la diapo
@@ -1270,7 +1303,68 @@ export function CafecitoPanel({
                 universidad en el techo la frase de subir sería mentira —el
                 multiplicador no se mueve— así que se cuenta lo otro, que es
                 verdad y también vale: el empuje dura más. */}
-            {!sube ? (
+            {/* La tercera rama, y va primero porque cambia QUÉ se está
+                comprando y no solo cómo se cuenta. Desde el cartel del tope, lo
+                que la persona vino a resolver es seguir jugando hoy; el empuje
+                de la universidad sigue estando y sigue valiendo, pero es la
+                segunda mitad de la oración y no la primera.
+
+                Los treinta días NO dependen del slider: el pase es el mismo con
+                uno o con diez, así que ese número va en la tinta del café pero
+                sin `tintaPara(t)` — no tiene que apagarse ni encenderse cuando
+                la barra se mueve, porque no se está eligiendo. */}
+            {trigger === "tope" ? (
+              <p className="mt-4 text-sm leading-relaxed text-foreground/90">
+                Sin tope por{" "}
+                <span className="font-semibold tabular-nums" style={{ color: DORADO_FIJO }}>
+                  {PASE_DIAS} días
+                </span>{" "}
+                {sube ? (
+                  <>
+                    y multiplicás por{" "}
+                    <span
+                      className="font-semibold tabular-nums"
+                      style={{ color: tintaPara(t) }}
+                    >
+                      {fmtMultiplier(destino)}
+                    </span>{" "}
+                    el XP de toda la{" "}
+                    <span className="font-semibold" style={{ color: tintaPara(t) }}>
+                      {university}
+                    </span>{" "}
+                    durante{" "}
+                    <span
+                      className="font-semibold tabular-nums"
+                      style={{ color: tintaPara(t) }}
+                    >
+                      {duracionDe(n)}
+                    </span>
+                    .
+                  </>
+                ) : (
+                  <>
+                    y sostenés el{" "}
+                    <span
+                      className="font-semibold tabular-nums"
+                      style={{ color: tintaPara(t) }}
+                    >
+                      {fmtMultiplier(actual)}
+                    </span>{" "}
+                    de la{" "}
+                    <span className="font-semibold" style={{ color: tintaPara(t) }}>
+                      {university}
+                    </span>{" "}
+                    <span
+                      className="font-semibold tabular-nums"
+                      style={{ color: tintaPara(t) }}
+                    >
+                      {restanteEnPalabras(segundosGanados).texto}
+                    </span>{" "}
+                    más.
+                  </>
+                )}
+              </p>
+            ) : !sube ? (
               <p className="mt-4 text-sm leading-relaxed text-foreground/90">
                 La{" "}
                 <span className="font-semibold" style={{ color: tintaPara(t) }}>
