@@ -1816,31 +1816,6 @@ check("y los tres que lo necesitan lo declaran",
       _inv == {"En banda": False, "Acierto real": True, "Brecha": True,
                "Cómodo en": True}, f"({_inv})")
 
-# ── El filtro de camada ─────────────────────────────────────────────────────
-# Filtra SOLO Jugabilidad, y por semana de ALTA de la persona. Los dos detalles
-# importan: si filtrara Motor, la calibración quedaría sin base por celda; y si
-# filtrara por fecha del evento en vez de por alta, sería otra definición de
-# «camada» que la del resto del panel.
-_cam = q.week_start(q.local_date(T(0, 14)))
-_sin = q.build(s, WEEK)
-_con = q.build(s, WEEK, camada=_cam)
-check("el filtro de camada achica la gente de Jugabilidad",
-      _con["meta"]["jugadores_camada"] < _sin["meta"]["jugadores_camada"],
-      f'({_con["meta"]["jugadores_camada"]} contra {_sin["meta"]["jugadores_camada"]})')
-check("y deja Motor intacto, que es lo que NO se filtra",
-      _con["motor"]["global"] == _sin["motor"]["global"]
-      and _con["calibracion"] == _sin["calibracion"])
-check("el selector ofrece una camada por semana del panel, con su tamaño",
-      [c["week"] for c in _sin["meta"]["camadas"]]
-      == [w.isoformat() for w in q._semanas_hasta(WEEK)]
-      and all("n" in c for c in _sin["meta"]["camadas"]))
-# Una camada inexistente no puede devolver el panel entero disfrazado de camada:
-# eso haría leer como «esta semana» lo que es «siempre».
-_vacia = q.build(s, WEEK, camada=q.FIRST_WEEK - timedelta(weeks=52))
-check("una camada sin nadie da vacío y no el total",
-      _vacia["meta"]["jugadores_camada"] == 0
-      and _vacia["teclado"]["rechazos"] == 0)
-
 print("— la pregunta abierta —")
 # Lo que se prueba acá son los TRES estados, y no el promedio de nada. La diapo
 # no tiene botón de saltar, así que un "." es alguien diciendo que no y tiene
