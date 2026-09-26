@@ -332,6 +332,52 @@ total y nada más, así que un monto que dos precios explican —los múltiplos 
 $300— lo cede al webhook, que sí tiene la metadata. Solo se corre mientras el
 webhook exista; sin `MP_ACCESS_TOKEN` vuelve a ser el único canal y acredita.
 
+### El tope diario y el pase (`game/muro.py`) — EXPERIMENTO `dx-muro-1`
+
+**Acá el cafecito deja de ser solo una donación, y eso cambia una promesa de
+este documento.** Todo lo de arriba está construido sobre que donar NO compra
+nada personal: el empuje es de toda la universidad justamente para que adentro
+de una universidad el orden no se mueva, y `game/boosts.py` lo dice con todas
+las letras («el ×3 no se compra, se junta»). El tope diario es lo primero que se
+le cobra a alguien por algo que solo recibe esa persona.
+
+Cómo funciona:
+
+- **30 derivadas resueltas por día** (`TOPE_DIARIO`). La unidad es la misma que
+  el juego ya contaba y ya mostraba: `correct_today`, o sea intentos con
+  `is_correct` sin mirar el número de intento. **Errar no consume cupo**;
+  acertar en el segundo intento sí.
+- El día es el de **Buenos Aires** (`router._inicio_del_dia`), igual que el
+  ranking: quien juega desde otro huso comparte el día con el público con el que
+  se compara.
+- **Un cafecito levanta el tope por 30 días** (`PASE_DIAS`), fijo, con uno o con
+  diez. El empuje de la universidad sigue funcionando igual y con la misma
+  escala de siempre: el pase es **aditivo**, no lo reemplaza.
+- **El pase no tiene tabla.** Es «esta persona tiene una fila en `game_boosts`
+  de menos de 30 días», derivado al leer. Por eso es retroactivo —los donantes
+  que ya existían lo tuvieron desde el día uno— y por eso `grant_game_boost.py`
+  ya sirve para regalarlo. El empuje de **aforo no lo da**: ese no lo pagó
+  nadie, y si lo diera, reclutar sería la forma gratis de saltear el tope.
+- **Dos puertas, no una**: `/next` y `/skip`. Saltear cierra el ejercicio y
+  sirve otro, así que sin la segunda el cupo se esquivaría salteando. `/answer`
+  **no frena nunca**: el ejercicio que ya estaba en pantalla se responde
+  siempre.
+- **`MURO_ENABLED`**, apagado por default. Un tope es lo único del producto que
+  puede hacer daño en horas en vez de en semanas, así que tiene que poder
+  apagarse desde Railway sin un deploy.
+
+**Quién lo vive**: la mitad, sorteada con un hash del `player.id`
+(`muro.brazo_de`) y sin columna nueva, por el mismo motivo que `dx-elo-1` —los
+que llegan a 30 en un día existen todos desde hace semanas, así que el sorteo al
+crear la fila mediría a cero personas—.
+
+**El costo que hay que vigilar**: con tope, el que paga sigue sumando XP cuando
+al otro se le cortó, así que el ranking pasa a ser en parte una función de la
+plata. El panel lo mira («cuántos de los 20 primeros pusieron plata») y si ese
+número se dispara el experimento se apaga por más plata que entre. La salida, si
+se llega ahí, es topear la **XP** del día en vez de las derivadas: todos pueden
+seguir jugando y lo único que se detiene es el marcador.
+
 ### Empuje por aforo: 10 personas nuevas en un día (`game/aforo.py`)
 
 El segundo modo de encender un empuje, y el único que no cuesta plata. Cuando

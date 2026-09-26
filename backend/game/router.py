@@ -39,6 +39,7 @@ from . import boosts
 from . import chat as game_chat
 from . import limits
 from . import mercadopago as mp
+from . import muro as game_muro
 from . import encuesta as game_encuesta
 from . import opinion as game_opinion
 from . import ranking
@@ -93,6 +94,7 @@ from .schemas import (
     GameLeaderboardSummary,
     GameMessageIn,
     GameMessageOut,
+    GameMuroOut,
     GameEncuestaOut,
     GameEncuestaRequest,
     GameOpinionOut,
@@ -307,6 +309,10 @@ def _player_out(db: Session, player: GamePlayer, with_rank: bool = True) -> Game
         # una preferencia: dice «1 cafecito = $150» apenas se abre, y la
         # preferencia recién se pide cuando el slider se queda quieto.
         precio_cafecito=boosts.precio_de(boosts.pais_de(player.timezone)),
+        # El tope diario. Va con el jugador para que una RECARGA con el cupo
+        # agotado caiga en el cartel: sin esto el cliente pediría una derivada,
+        # se comería el 402 y recién ahí sabría qué dibujar.
+        muro=_muro_de(db, player),
     )
 
 
@@ -696,6 +702,13 @@ def next_exercise(
     x_game_platform: str = Header(None),
     db: Session = Depends(get_db),
 ):
+    # El tope va ANTES de la guarda del ejercicio abierto, y ese orden importa:
+    # si fuera al revés, quien tiene uno servido de antes lo recibiría de vuelta
+    # con el cupo ya gastado. Lo que sigue estando permitido es RESPONDER el que
+    # ya tenía en pantalla (ver /answer, que no frena nunca): nadie pierde una
+    # derivada que ya estaba mirando.
+    _frenar_si_llego_al_tope(db, player)
+
     # Si ya hay uno abierto y recién servido, se devuelve ESE.
     #
     # Sin esto, /next era un salteo gratis: `serve_exercise` vence en bloque lo
@@ -892,6 +905,10 @@ def skip_exercise(
     Tampoco da XP, y como la XP escala con la dificultad, encadenar salteos
     hasta el piso rinde cada vez menos: la mecánica se autolimita.
     """
+    # La segunda puerta del tope, y la que es fácil olvidarse: saltear CIERRA el
+    # ejercicio y sirve otro, así que sin esto el cupo se esquiva salteando.
+    _frenar_si_llego_al_tope(db, player)
+
     # Ídem /answer: saltear baja el θ y corta la racha.
     player = lock_player(db, player)
 
@@ -965,6 +982,68 @@ def _correctas_de_hoy(db: Session, player_id: int) -> int:
     )
 
 
+def _proxima_medianoche() -> datetime:
+    """Cuándo se renueva el cupo: las 00:00 de mañana acá, en UTC ingenuo.
+
+    Se calcula sumando un día a la medianoche de hoy y NO reemplazando la fecha,
+    para que los cambios de hora no muevan el corte: la aritmética sobre el
+    instante local ya convertido es la que conserva el día de 23 o 25 horas.
+    """
+    return _inicio_del_dia() + timedelta(days=1)
+
+
+def _muro_de(db: Session, player: GamePlayer, hechas_hoy: int | None = None) -> GameMuroOut:
+    """El estado del tope para esta persona, listo para viajar.
+
+    `hechas_hoy` se puede pasar hecho porque `/answer` ya lo calculó para el
+    `correct_today` que manda igual: recalcularlo ahí sería correr dos veces la
+    misma consulta en el endpoint más caliente del juego.
+
+    **Sin tope no se cuenta nada.** Con el experimento apagado o en el brazo de
+    control no hay ninguna decisión que tomar, así que este atajo es lo que
+    mantiene a `/me` y a `/player` —que llaman a `_player_out`— exactamente tan
+    caros como eran antes para la mitad de la gente y para todos mientras el
+    interruptor esté en cero.
+    """
+    if game_muro.tope_de(player.id) is None:
+        return GameMuroOut()
+    if hechas_hoy is None:
+        hechas_hoy = _correctas_de_hoy(db, player.id)
+    e = game_muro.estado(
+        db, player, hechas_hoy, _inicio_del_dia(), _proxima_medianoche()
+    )
+    return GameMuroOut(
+        tope=e.tope,
+        hechas_hoy=e.hechas_hoy,
+        bloqueado=e.bloqueado,
+        pase_hasta=e.pase_hasta,
+        libre_en_segundos=e.libre_en_segundos,
+        minutos_jugando=e.minutos_jugando,
+        pct_mas_que=e.pct_mas_que,
+        pct_mas_rapido=e.pct_mas_rapido,
+    )
+
+
+def _frenar_si_llego_al_tope(db: Session, player: GamePlayer) -> None:
+    """402 si esta persona ya gastó su cupo de hoy y no tiene pase.
+
+    **Es el respaldo, no el mecanismo.** Quien decide cuándo se ve el cartel es
+    el cliente, con el `muro` que viaja en la respuesta anterior; esto existe
+    para el cliente viejo cacheado, para la consola abierta y para el reintento
+    de un teléfono que perdió la respuesta. Mismo reparto que la encuesta de
+    dificultad: allá se decide cuándo se muestra, acá cuánto vale.
+
+    402 y no 403: lo que falta es un pago, y el cliente lo distingue del resto
+    de los rechazos sin leer el cuerpo (`ApiError.status`, y `retriable` lo deja
+    afuera de los reintentos).
+    """
+    if game_muro.tope_de(player.id) is None:
+        return
+    if not _muro_de(db, player).bloqueado:
+        return
+    raise HTTPException(status_code=402, detail="Llegaste al tope de derivadas de hoy.")
+
+
 def _registrar_fallo_de_parseo(
     db: Session,
     exercise: GameExercise,
@@ -1019,6 +1098,7 @@ def _registrar_fallo_de_parseo(
         # resetee. Es el tipo de olvido que habilita tener dos constructores de la
         # respuesta a cien líneas de distancia, y por eso este es una función.
         correct_today=_correctas_de_hoy(db, player.id),
+        muro=_muro_de(db, player),
     )
     db.commit()
     return respuesta
@@ -1253,6 +1333,10 @@ def _repetir_ultima_respuesta(
         combo_bonus=0,
         exercises_correct=player.exercises_correct,
         correct_today=_correctas_de_hoy(db, player.id),
+        # También en la respuesta repetida: un teléfono que reintenta la 30ª
+        # tiene que enterarse del tope por este camino, que es el único que le
+        # va a contestar.
+        muro=_muro_de(db, player),
         correct_answer_latex=(
             latex_es(expr_from_stored(exercise.expected_derivative)) if not correcto else None
         ),
@@ -1428,6 +1512,10 @@ def answer_exercise(
         xp_multiplier=multiplier,
         exercises_correct=player.exercises_correct,
         correct_today=correctas_hoy_previas + (1 if correct else 0),
+        # El tope, con el contador que ya tenemos en la mano. Es lo que hace que
+        # el cartel aparezca en el mismo gesto de acertar la número 30, sin un
+        # /next fallido en el medio.
+        muro=_muro_de(db, player, correctas_hoy_previas + (1 if correct else 0)),
         # Ya no hay ejercicio que se cierre sin acertar, así que este campo sale
         # siempre en None desde acá. La derivada correcta llega por un solo
         # camino y es el «¿Por qué?».

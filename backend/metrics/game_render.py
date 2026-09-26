@@ -1430,7 +1430,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
     ]
 
     out = [_section(
-        1, "El motor: la varianza del Elo",
+        2, "El motor: la varianza del Elo",
         _box(esc(e["titulo"]), estado
              + _table(["Brazo", "Jugadores", "Días activos ▸", "Rating mediano",
                        "Derivadas", "% salteo", "Calibración"],
@@ -1476,6 +1476,160 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
             "mueve el Elo, y solo para los que ya llevan un rato jugando.",
         anchor="experimento-motor")]
     pieza_experimento_motor = "".join(out)
+
+    # ── 6a-ter · El experimento de MONETIZACIÓN ─────────────────────────────
+    # El único donde el guardarraíl se puede leer ANTES que el resultado, y eso
+    # se dibuja: la caja del daño va arriba de la del pago cuando hay algo que
+    # decir, porque un tope que lastima se apaga sin esperar al n.
+    e = p["experimento_muro"]
+    brazos = e["brazos"]
+    total = sum(b["n"] for b in brazos)
+    en_curso = sum(b["en_curso"] for b in brazos)
+    falta = max((b["falta"] for b in brazos), default=0)
+
+    if not e["encendido"]:
+        estado = _caja_estado(
+            "Apagado",
+            f'<code>MURO_ENABLED</code> está en cero, así que nadie tiene tope y los dos '
+            f'brazos son el mismo juego. Lo de abajo es lo que quedó de cuando estuvo '
+            f'prendido.', "espera")
+    elif e["sin_arrancar"]:
+        estado = _caja_estado(
+            "Sin datos todavía",
+            f'Nadie llegó a las {num(e["tope"])} derivadas resueltas en un día desde el '
+            f'{e["desde"].strftime("%d/%m")}. El reloj de cada persona arranca el día que '
+            f'choca, no el día del despliegue.', "espera")
+    elif falta > 0:
+        estado = _caja_estado(
+            f'Todavía no se puede leer — faltan {num(falta)} por brazo',
+            f'Van {num(total)} ventanas cerradas de las {num(2 * e["n_pedido"])} '
+            f'comprometidas ({num(e["n_pedido"])} por brazo), y hay {num(en_curso)} personas '
+            f'con la ventana todavía abierta. El p-valor no se calcula hasta llegar: mirar '
+            f'todos los días y parar en cuanto cruza {num(e["alpha"], dec=2)} no es leer el '
+            f'experimento, es repetir el sorteo hasta que salga.', "espera")
+    else:
+        L = e["lectura"]
+        if L is None:
+            estado = _caja_estado("Listo para leer", "Ya hay muestra suficiente.", "listo")
+        elif L["rechaza"]:
+            signo = "a favor" if L["delta_pp"] > 0 else "EN CONTRA"
+            estado = _caja_estado(
+                f'Diferencia significativa {signo}: {num(L["delta_pp"], " pp")} de pago',
+                f'z = {num(L["z"], dec=2)}, p-valor {_p_txt(L["p_valor"])}. Intervalo del '
+                f'95%: [{num(L["ic_pp"][0])} ; {num(L["ic_pp"][1])}] pp. Antes de dejarlo '
+                f'puesto, mirar el precio en la caja de arriba.',
+                "gana" if L["delta_pp"] > 0 else "pierde")
+        else:
+            estado = _caja_estado(
+                f'Sin diferencia detectable: {num(L["delta_pp"], " pp")} de pago',
+                f'z = {num(L["z"], dec=2)}, p-valor {_p_txt(L["p_valor"])}. El intervalo del '
+                f'95% —[{num(L["ic_pp"][0])} ; {num(L["ic_pp"][1])}] pp— contiene al cero. '
+                f'Un efecto de {num(e["mde_pp"], " pp", dec=0)} o más habría aparecido; uno '
+                f'más chico este diseño no lo puede ver.', "plano")
+
+    # El precio, y va PRIMERO cuando ya se puede leer. Es la única sección del
+    # panel donde el guardarraíl puede hablar antes que el titular, y es a
+    # propósito: pide la mitad de la gente que el resultado.
+    D = e["dano"]
+    if D is not None and D["rechaza"] and D["delta"] < 0:
+        precio = _caja_estado(
+            f'Está costando {num(abs(D["delta"]), " días activos", dec=2)}',
+            f'z = {num(D["z"], dec=2)}, p-valor {_p_txt(D["p_valor"])}, intervalo del 95% '
+            f'[{num(D["ic"][0], dec=2)} ; {num(D["ic"][1], dec=2)}] días. Esto se lee con '
+            f'{num(e["n_dias"])} por brazo y el resultado pide {num(e["n_pedido"])}, así que '
+            f'llega antes a propósito: un tope que hace daño se apaga sin esperar al '
+            f'p-valor del pago.', "pierde")
+    elif D is not None:
+        precio = _caja_estado(
+            f'Sin daño detectable: {num(D["delta"], " días activos", dec=2)}',
+            f'Intervalo del 95% [{num(D["ic"][0], dec=2)} ; {num(D["ic"][1], dec=2)}] días '
+            f'sobre una base de {num(e["dias_mde"], dec=2)} de efecto mínimo. No es «no pasa '
+            f'nada»: es que una pérdida de {num(e["dias_mde"], " días", dec=2)} habría '
+            f'aparecido.', "listo")
+    else:
+        faltan_d = max((b["falta_dias"] for b in brazos), default=0)
+        precio = _caja_estado(
+            f'El precio todavía no se puede leer — faltan {num(faltan_d)} por brazo',
+            f'La pérdida de días activos se vuelve legible con {num(e["n_dias"])} por brazo, '
+            f'o sea antes que el resultado ({num(e["n_pedido"])}). Hasta entonces la tabla '
+            f'de abajo se mira igual, pero el número todavía no separa señal de ruido.',
+            "espera")
+
+    filas_muro = [
+        [f'<b>{esc(b["label"])}</b>',
+         f'<span>{num(b["n"])} <span class="sub2">+{num(b["en_curso"])} en curso</span></span>',
+         f'<span>{_pct_txt(b["pct_pago"])} <span class="sub2">{num(b["pago"])}</span></span>',
+         f'<span>{num(b["dias_media"], dec=2)} <span class="sub2">± {num(b["dias_sd"], dec=2)}</span></span>',
+         _pct_txt(b["pct_vuelve"]), num(b["derivadas_media"], dec=1)]
+        for b in brazos
+    ]
+
+    c = e["cartel"]
+    cartel = _table(
+        ["Impresiones", "Clicks", "CTR"],
+        [[num(c["impresiones"]), num(c["clicks"]),
+          "—" if c["ctr"] is None else _pct_txt(c["ctr"])]],
+        empty="el cartel todavía no se mostró")
+
+    out = [_section(
+        3, "La plata: el tope diario",
+        _box(esc(e["titulo"]), precio + estado
+             + _table(["Brazo", "Personas", "Pagó ▸", "Días activos",
+                       "Volvió otro día", "Derivadas después"],
+                      filas_muro, empty="todavía nadie")
+             + f'<p class="note"><b>La columna con ▸ es la que decide</b>: si entró un '
+               f'cafecito suyo dentro de los {num(e["ventana_dias"])} días desde que chocó '
+               f'el tope. Las otras tres son el precio, y se miran desde el primer día — '
+               f'sobre todo <b>días activos</b>, que es el que puede matar el experimento '
+               f'antes de que se pueda ganar.<br><br>'
+               f'<b>Derivadas después</b> se muestra y no se lee: su desvío medido es de '
+               f'448 sobre una media de 118, así que haría falta muchísima más gente para '
+               f'que signifique algo. Está para ver el orden de magnitud, no para decidir.</p>'
+             + _box("El cartel del tope", cartel,
+                    note=f'El escalón anterior al pago, y el que se mueve primero: si nadie '
+                         f'toca, no hace falta esperar a noviembre para saber que no va a '
+                         f'pasar nada. Se compara contra los otros lugares que piden con la '
+                         f'diapo entera —«un hito» y «cuando lo piden»— y no contra la barra, '
+                         f'que es un ícono presente y no un texto leído. El CTR queda vacío '
+                         f'abajo de 30 impresiones.')
+             + f'<p class="note"><b>Quién entra:</b> cualquiera que llegue a '
+               f'{num(e["tope"])} derivadas resueltas en un día, el día que llega. '
+               f'<b>La regla es «llegó a {num(e["tope"])}» y no «pasó de {num(e["tope"])}», y '
+               f'de eso depende que el experimento exista</b>: en el brazo con tope el '
+               f'contador no puede pasar de {num(e["tope"])} porque el servidor corta justo '
+               f'ahí, así que con «pasó de» el brazo test tendría cero inscriptos para '
+               f'siempre. Con «llegó a», los dos brazos se inscriben por el mismo hecho, y '
+               f'en el control ese hecho es exactamente el contrafáctico: el día en que '
+               f'habría chocado.<br><br>'
+               f'<b>El brazo sale de un hash del id</b> (<code>game/muro.py</code>), no de '
+               f'<code>game_players.variant</code>, por el mismo motivo que el experimento '
+               f'del motor: los que llegan a {num(e["tope"])} en un día existen todos desde '
+               f'hace semanas, y con el sorteo de creación esto mediría a cero personas.'
+               f'<br><br><b>El pase se deriva de <code>game_boosts</code></b> y dura '
+               f'{num(e["pase_dias"])} días: no hay tabla nueva ni migración, y los donantes '
+               f'que ya existían lo tuvieron puesto desde el día uno. El empuje de aforo no '
+               f'lo da — ese no lo pagó nadie.</p>'
+             + f'<p class="note"><b>Guardarraíl de justicia: {num(e["top20_con_pase"])} de '
+               f'los 20 primeros del ranking pusieron plata alguna vez.</b> Con tope, el que '
+               f'paga sigue sumando XP cuando al otro se le cortó, y eso contradice de frente '
+               f'lo que <code>game/boosts.py</code> promete («el ×3 no se compra, se junta»). '
+               f'Si este número sube marcadamente, el experimento se apaga por más plata que '
+               f'entre, y lo que sigue es otro distinto: topear la XP del día en vez de las '
+               f'derivadas, para que todos puedan jugar y solo el marcador se detenga.</p>',
+             note=f'<b>Hipótesis:</b> {esc(e["hipotesis"])}'
+                  f'<br><br>Declarado el {e["desde"].strftime("%d/%m")}: base '
+                  f'{num(100 * e["base"], "%", dec=0)} y efecto mínimo '
+                  f'{num(e["mde_pp"], " pp", dec=0)}, alfa {num(e["alpha"], dec=2)}, '
+                  f'potencia {num(100 * e["potencia"], "%", dec=0)} → '
+                  f'<b>{num(e["n_pedido"])} por brazo</b>. La base observada en el '
+                  f'pre-período fue <b>0 de 65</b>; se declaró 2% porque es el lado '
+                  f'conservador — con base cero el mismo efecto pediría menos gente.'
+                  f'<br><br><b>Predicción, escrita antes:</b> {esc(e["prediccion"])}'),
+        sub="El primer experimento que le cobra a alguien por algo suyo. Mide una sola cosa: "
+            "si un estudiante atraviesa un checkout para seguir jugando, y cuánto cuesta "
+            "preguntárselo.",
+        anchor="experimento-muro")]
+    pieza_experimento_muro = "".join(out)
 
     # ── 6b · Experimentos por grupo de WhatsApp ──────────────────────────────
     # Mismo trato que la sección de arriba —estado primero, guardarraíles
@@ -1556,7 +1710,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                       f'{esc(e["prediccion"])}'))
 
     out.append(_section(
-        2, "Experimentos por grupo de WhatsApp",
+        4, "Experimentos por grupo de WhatsApp",
         "".join(bloques) or '<p class="empty">no hay experimentos de grupo declarados</p>',
         sub="La unidad acá es el GRUPO, no el jugador: todos sus miembros ven el mismo "
             "mensaje, así que lo que se aleatoriza y se cuenta es el grupo — ver "
@@ -2218,7 +2372,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         "monetizacion": (_fila_kpi(p["headline"]["monetizacion"])
                          + pieza_monetizacion),
         "experimentacion": (pieza_experimentos + pieza_experimento_motor
-                            + pieza_experimentos_grupos),
+                            + pieza_experimento_muro + pieza_experimentos_grupos),
         "voces": pieza_voces,
     }
 

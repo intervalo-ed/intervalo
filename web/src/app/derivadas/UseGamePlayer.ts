@@ -18,6 +18,11 @@ import { useGameApi } from "./UseGameApi"
 
 export type GamePlayer = components["schemas"]["GamePlayerOut"]
 
+/** El estado del tope diario (backend/game/muro.py). Viaja con el jugador y
+ *  también con cada respuesta, así que se nombra una vez acá en vez de
+ *  escribirse dos veces contra el esquema. */
+export type GameMuro = components["schemas"]["GameMuroOut"]
+
 export const gameKeys = {
   me: ["game", "me"] as const,
   leaderboard: ["game", "leaderboard"] as const,

@@ -180,6 +180,15 @@ eso obligó a mover un tercero, porque los números no viven solos:
 | 20 | el cafecito otra vez, y de ahí cada 20 |
 | 24 | instalar la app, y después cada 12: 36, 48, 60, 73, 85 |
 | 28 | la primera encuesta de la escalera (`OPINION_PRIMERA`, corrida por su separación), y de ahí vuelve para siempre |
+| 30 | *(experimento `dx-muro-1`, la mitad de la gente)* el **tope diario**: no hay más derivadas hasta mañana, salvo cafecito |
+
+**El tope de la 30 no es un escalón de esta escalera y por eso está en su propia
+fila.** Los demás interrumpen algo que estaba pasando y se salen con un botón;
+ése **es** lo que está pasando, y solo se sale comprando o esperando a mañana.
+Sale último de la escalera —después del ranking, del festejo y de lo que tocara—
+y apaga la diapo del cafecito de esa misma respuesta, para no pedir plata dos
+veces seguidas. Ver `game/muro.py` y la sección del tope en
+[gamification.md](gamification.md).
 
 **La escalera de encuestas es el único escalón que no se termina nunca.** Las dos
 preguntas del juego —dificultad y repetitividad— comparten un solo turno y
