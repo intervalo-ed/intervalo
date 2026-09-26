@@ -50,9 +50,8 @@ export function ProfileHeaderCard({
     (emoji?.bucket ? CAREER_EMOJI[emoji.bucket] : undefined)
   const badge =
     badgeWithCrown({
-      username: me?.username,
+      crowned: me?.crowned,
       resolved: resolvedBadge,
-      career: emoji?.bucket,
     }) ?? "✦"
 
   return (

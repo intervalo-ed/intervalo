@@ -6583,6 +6583,11 @@
             "type": "string",
             "title": "Belt",
             "default": "white"
+          },
+          "crowned": {
+            "type": "boolean",
+            "title": "Crowned",
+            "default": false
           }
         },
         "type": "object",
@@ -7016,6 +7021,11 @@
             "type": "string",
             "title": "Belt",
             "default": "white"
+          },
+          "crowned": {
+            "type": "boolean",
+            "title": "Crowned",
+            "default": false
           }
         },
         "type": "object",
@@ -8116,6 +8126,11 @@
               }
             ],
             "title": "Clerk User Id"
+          },
+          "crowned": {
+            "type": "boolean",
+            "title": "Crowned",
+            "default": false
           }
         },
         "type": "object",

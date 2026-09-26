@@ -42,6 +42,9 @@ export type FilaRecluta = {
   university?: string | null
   career?: string | null
   xp_given: number
+  /** Es el #1 del ranking general de clásico. Solo lo manda el backend de
+   *  clásico; en el juego y en los renglones de ejemplo queda sin corona. */
+  crowned?: boolean
 }
 
 // Los renglones de ejemplo del estado vacío.
@@ -167,9 +170,8 @@ const CAJA_EJEMPLO: React.CSSProperties = {
 
 function Fila({ fila, ejemplo }: { fila: FilaRecluta; ejemplo?: boolean }) {
   const emoji = badgeWithCrown({
-    username: fila.nombre,
+    crowned: fila.crowned,
     resolved: fila.career ? CAREER_EMOJI[fila.career] : undefined,
-    career: fila.career,
   })
   return (
     <li

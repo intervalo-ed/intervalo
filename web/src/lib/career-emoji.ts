@@ -9,26 +9,16 @@ export const CAREER_EMOJI: Record<string, string> = {
   Otra: "✦",
 }
 
-// Usuario con corona hardcodeada: cuando muestra el emoji por defecto de su
-// carrera (el primer icono del árbol), se reemplaza por 👑. Solo para él.
-const CROWNED_USERNAME = "nvrancovich"
-
-// Aplica la corona si corresponde; si no, devuelve el emoji ya resuelto.
+// La corona 👑 es del primero del ranking general de Intervalo clásico. Quién es
+// lo decide el backend (`crowned` en el ranking, los reclutas y /auth/me), así
+// que acá no se compara ningún nombre. Gana sobre cualquier emoji vestido: es un
+// título que se tiene mientras se esté arriba, no un adorno que se elige.
 export function badgeWithCrown({
-  username,
+  crowned,
   resolved,
-  career,
 }: {
-  username?: string | null
+  crowned?: boolean | null
   resolved?: string
-  career?: string | null
 }): string | undefined {
-  if (
-    username?.toLowerCase() === CROWNED_USERNAME &&
-    career != null &&
-    resolved === CAREER_EMOJI[career]
-  ) {
-    return "👑"
-  }
-  return resolved
+  return crowned ? "👑" : resolved
 }
