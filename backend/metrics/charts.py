@@ -362,29 +362,56 @@ def dots(points: list[dict], *, x: str = "x", y: str = "y", group: str = "group"
 
 # ── Barra apilada al 100% ────────────────────────────────────────────────────
 
-def stack(segments: list[dict], *, width: int = 760, height: int = 62,
+# Alto de cada fila de la leyenda, y cuánto hay entre la barra y la primera.
+_STACK_FILA = 18.0
+_STACK_HUECO = 16.0
+
+
+def stack(segments: list[dict], *, width: int = 760, height: int | None = None,
           colors: list[str] | None = None) -> str:
     """`segments` = [{"label":..., "n":...}]. Para distribuciones de una sola
-    variable (los tres valores del canal D, la mezcla de canales)."""
+    variable (los tres valores del canal D, la mezcla de canales).
+
+    **La leyenda es una lista vertical y no va debajo de su propio segmento.**
+    Pegada al segmento se pisa sola: la etiqueta arranca en el borde izquierdo
+    de su franja, así que una categoría del 2% deja sitio para dos caracteres y
+    el resto se mete encima de la siguiente. En el panel se leyó literalmente
+    «Bien v·ia·ad·sto» — dos etiquetas superpuestas que parecían una palabra
+    rota. Apilada, el ancho de cada fila no depende del tamaño de su categoría,
+    que es justo la variable que causaba el choque.
+
+    El alto se calcula a partir de cuántas categorías hay, porque con la
+    leyenda apilada ya no es constante. `height` sigue aceptándose por si algún
+    llamador necesita fijarlo.
+    """
     total = sum(s["n"] for s in segments)
     if not total:
         return _empty("sin respuestas todavía")
     pal = colors or SERIES
+    alto = height if height is not None else int(
+        26 + _STACK_HUECO + _STACK_FILA * len(segments))
     out, x = [], 0.0
     for i, s in enumerate(segments):
         w = width * s["n"] / total
         pct = 100 * s["n"] / total
+        color = pal[i % len(pal)]
         out.append(f'<rect x="{x:.1f}" y="0" width="{max(0, w - 2):.1f}" height="26" '
-                   f'rx="3" fill="{pal[i % len(pal)]}"/>')
+                   f'rx="3" fill="{color}"/>')
+        # El porcentaje adentro de la franja solo si entra. Cuando no entra, la
+        # fila de la leyenda lo dice igual, así que ninguna categoría se queda
+        # sin su número por ser chica — que es lo que pasaba antes.
         if pct >= 9:
             out.append(f'<text x="{x + w / 2:.1f}" y="18" text-anchor="middle" fill="#fff" '
                        f'font-size="12" font-weight="600" {FONT}>{pct:.0f}%</text>')
+        y = 26 + _STACK_HUECO + _STACK_FILA * i
         out.append(
-            f'<rect x="{x:.1f}" y="40" width="9" height="9" rx="2" fill="{pal[i % len(pal)]}"/>'
-            f'<text x="{x + 13:.1f}" y="48.5" fill="var(--muted)" font-size="11.5" {FONT}>'
-            f'{esc(s["label"])} · {s["n"]}</text>')
+            f'<rect x="0" y="{y - 8:.1f}" width="9" height="9" rx="2" fill="{color}"/>'
+            f'<text x="13" y="{y:.1f}" fill="var(--muted)" font-size="11.5" {FONT}>'
+            f'{esc(s["label"])}</text>'
+            f'<text x="{width}" y="{y:.1f}" text-anchor="end" fill="var(--muted)" '
+            f'font-size="11.5" {FONT}>{s["n"]} · {num(pct, "%")}</text>')
         x += w
-    return _svg(width, height, "".join(out))
+    return _svg(width, alto, "".join(out))
 
 
 # ── Barras apiladas al 100%, una por bin ─────────────────────────────────────

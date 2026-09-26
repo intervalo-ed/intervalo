@@ -64,6 +64,7 @@ def check(nombre: str, cond: bool, detalle: str = "") -> None:
 import re as _re  # noqa: E402
 from metrics import game_queries as q  # noqa: E402
 from metrics import game_render  # noqa: E402
+from metrics import charts  # noqa: E402
 from metrics import theme  # noqa: E402
 from game import encuesta as game_encuesta  # noqa: E402
 
@@ -1770,6 +1771,23 @@ _vacia = q.build(s, WEEK, camada=q.FIRST_WEEK - timedelta(weeks=52))
 check("una camada sin nadie da vacío y no el total",
       _vacia["meta"]["jugadores_camada"] == 0
       and _vacia["teclado"]["rechazos"] == 0)
+
+# ── La leyenda del apilado ──────────────────────────────────────────────────
+# Estaba pegada a su propio segmento, así que una categoría chica dejaba sitio
+# para dos caracteres y el resto se metía encima de la siguiente: en el panel se
+# llegó a leer «Bien v·ia·ad·sto», dos etiquetas superpuestas. Apilada, el ancho
+# de cada fila no depende del tamaño de su categoría.
+_st = charts.stack([{"label": "Bien variadas", "n": 2}, {"label": "Justo", "n": 6},
+                    {"label": "Muy repetidas", "n": 16}])
+_ys = [float(y) for y in _re.findall(r'<text x="13" y="([\d.]+)"', _st)]
+check("cada categoría del apilado tiene su propia fila",
+      len(_ys) == 3 and len(set(_ys)) == 3, f"({_ys})")
+check("y todas arrancan en la misma sangría, no en su segmento",
+      _st.count('<text x="13"') == 3)
+# La categoría del 8% no entra en su franja, así que si la leyenda no dijera el
+# porcentaje esa fila se quedaría sin número — que es lo que pasaba.
+check("la categoría que no entra en la barra igual muestra su porcentaje",
+      "8,3%" in _st and "25%" in _st)
 
 print("— la pregunta abierta —")
 # Lo que se prueba acá son los TRES estados, y no el promedio de nada. La diapo
