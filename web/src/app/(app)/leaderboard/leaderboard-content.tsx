@@ -405,9 +405,8 @@ function IndividualRanking({
                 const resolved =
                   entry.emoji ?? (entry.career ? CAREER_EMOJI[entry.career] : undefined)
                 const emoji = badgeWithCrown({
-                  username: entry.username,
+                  crowned: entry.crowned,
                   resolved,
-                  career: entry.career,
                 })
                 return (
                   emoji && (
@@ -582,6 +581,7 @@ function RecruitsRanking({
         university: e.university,
         career: e.career,
         xp_given: e.xp_given,
+        crowned: e.crowned,
       }))
 
   return (

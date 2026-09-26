@@ -404,6 +404,14 @@ ejercicio. El gemelo del minijuego es `game/ranking.py :: RESOLVIO_ACA`
 filtran tienen que moverse juntos: si el que cuenta el total no filtra igual que
 el que arma la lista, los números de la cabecera dejan de cuadrar con las filas.
 
+**La corona 👑 es del #1 del ranking general.** `main._coronado_id` elige al
+primero con el mismo universo (`VISIBLE_EN_RANKING`) y el mismo orden
+(`total_xp desc, id asc`) que la tabla, y viaja como `crowned` en `/leaderboard`,
+`/leaderboard/recruits` y `/auth/me`. Es del ranking GENERAL: filtrar por
+universidad o carrera no se la pasa al primero de la vista. Reemplaza al emoji
+vestido mientras se esté arriba (`career-emoji.ts :: badgeWithCrown`). Es de
+clásico: el minijuego tiene su propio 👑, el evento `lead`.
+
 **Una tercera vista: Reclutas.** Quien entra por el link de alguien (`?r=<@>`) le
 paga un **10%** (`referrals.SHARE_PERCENT`) de lo que gane, en la moneda que gane
 — XP de clásico a `users.total_xp`, XP de juego a `game_players.xp`, sin

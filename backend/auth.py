@@ -71,6 +71,8 @@ class UserResponse(BaseModel):
     username: Optional[str] = None
     display_name: Optional[str] = None
     clerk_user_id: Optional[str] = None
+    # Encabeza el ranking general de clásico: el perfil muestra la corona 👑.
+    crowned: bool = False
 
 
 class ClerkClaims(BaseModel):

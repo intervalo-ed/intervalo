@@ -18,6 +18,8 @@ Lo que se prueba es lo que se rompe en silencio:
   repo conviven tres (ver xp_boost.enrollment_de_referencia); el que se agrega
   acá tiene que ser el mismo del tag del ranking, o alguien vería impulsada una
   universidad y cobraría la de otra.
+· Que la corona 👑 sea del #1 del ranking general y de nadie más, también con
+  la tabla filtrada.
 
 Uso:
     python backend/scripts/check_ranking_clasico.py
@@ -313,6 +315,43 @@ check(
     "el total de estudiantes cuenta a los mismos que la lista",
     r_vis.total_students == len(visibles) - 1,
     f"(total {r_vis.total_students}, lista {len(visibles) - 1})",
+)
+
+print("9. la corona es del primero del ranking general")
+# u4 (500 XP) encabeza. La corona es del ranking GENERAL: filtrar no se la pasa
+# al primero de la vista, y la XP que solo vino de reclutar no la compra.
+
+
+def coronados(**scope):
+    return [e.username for e in main.get_leaderboard(
+        university=scope.get("university"), career=None, limit=50, offset=0,
+        around_me=False, current_user=mirador, db=db,
+    ).entries if e.crowned]
+
+
+check("la lleva el #1 y nadie más", coronados() == ["u4"], f"(dio {coronados()})")
+check(
+    "filtrar a la UTN no corona al primero de la UTN",
+    coronados(university="UTN") == [],
+    f"(dio {coronados(university='UTN')})",
+)
+check(
+    "su fila de recluta también la lleva",
+    [e.username for e in main.get_recruits(current_user=mirador, db=db).entries
+     if e.crowned] == ["u4"],
+)
+check("su perfil la muestra", main.get_current_user_info(current_user=recluta, db=db).crowned)
+check(
+    "el de otro no",
+    not main.get_current_user_info(current_user=mirador, db=db).crowned,
+)
+solo_recluto.total_xp = 1000
+solo_recluto.referral_xp_earned = 1000
+db.commit()
+check(
+    "la XP de reclutas sola no se la saca",
+    coronados() == ["u4"],
+    f"(dio {coronados()})",
 )
 
 print()

@@ -268,6 +268,8 @@ class LeaderboardEntry(BaseModel):
     university: str | None = None
     emoji: str | None = None  # emoji vestido; None → el front cae al de bucket
     belt: str = "white"  # máximo cinturón desbloqueado (en cualquier curso)
+    # Es el primero del ranking general (sin filtros): lleva la corona 👑.
+    crowned: bool = False
 
 
 class LeaderboardMe(BaseModel):
@@ -301,6 +303,8 @@ class RecruitEntry(BaseModel):
     # mismo motivo: es lo que pinta el nombre. Es la misma persona en las dos
     # tablas y tiene que verse igual en las dos.
     belt: str = "white"
+    # La misma corona que en el ranking individual: es el #1 general.
+    crowned: bool = False
 
 
 class RecruitsResponse(BaseModel):
