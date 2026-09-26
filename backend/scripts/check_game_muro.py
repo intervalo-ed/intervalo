@@ -334,6 +334,52 @@ check("muro" in LUGARES_CAFECITO,
       "y el panel sabe cómo se llama, o la tabla mostraría la clave cruda")
 
 
+# ── 10 · La regla de inscripción del panel ───────────────────────────────────
+print("10. quién entra al experimento")
+
+from datetime import date as _date  # noqa: E402
+from metrics.game_queries import _alta_en_el_muro  # noqa: E402
+
+DESDE = _date(2026, 9, 27)
+T = muro.TOPE_DIARIO
+
+# **`>=` y no `>`, y de esto depende que el experimento exista.** En el brazo
+# tratado el contador no puede pasar del tope porque el servidor corta justo
+# ahí, así que con `>` el brazo test tendría cero inscriptos para siempre y el
+# panel diría «faltan 269» hasta el fin de los tiempos.
+justo = {_date(2026, 9, 28): T}
+check(_alta_en_el_muro(justo, DESDE, T) == _date(2026, 9, 28),
+      f"llegar a {T} exactas inscribe (es el caso del brazo CON tope, que no "
+      f"puede pasar de ahí)")
+check(_alta_en_el_muro({_date(2026, 9, 28): T - 1}, DESDE, T) is None,
+      f"con {T - 1} no")
+
+# El control se inscribe por el mismo hecho, y ahí es el contrafáctico: el día
+# en que habría chocado.
+check(_alta_en_el_muro({_date(2026, 9, 28): T * 10}, DESDE, T) == _date(2026, 9, 28),
+      "y pasarse largo también, que es como entra el control")
+
+# El primero que cuenta es el PRIMERO, no el último ni el más grande.
+varios = {_date(2026, 9, 30): T * 3, _date(2026, 9, 28): T, _date(2026, 10, 5): T}
+check(_alta_en_el_muro(varios, DESDE, T) == _date(2026, 9, 28),
+      "con varios días que llegan, entra por el primero")
+
+# Nada de antes del arranque cuenta, y NO hay inscripción retroactiva: quien
+# llegó a 30 en septiembre y no volvió no chocó ningún muro, y meterlo sumaría
+# cientos de personas con cero días activos a los dos brazos.
+antes = {_date(2026, 9, 10): T * 5, _date(2026, 9, 20): T * 2}
+check(_alta_en_el_muro(antes, DESDE, T) is None,
+      "lo anterior al arranque no inscribe a nadie: sin esto, el experimento se "
+      "llenaría de gente que nunca vio un muro")
+mixto = {_date(2026, 9, 20): T * 5, _date(2026, 10, 2): T}
+check(_alta_en_el_muro(mixto, DESDE, T) == _date(2026, 10, 2),
+      "y quien ya llegaba antes entra recién el día que vuelve a llegar, con el "
+      "experimento corriendo")
+check(_alta_en_el_muro({}, DESDE, T) is None, "sin días jugados no entra nadie")
+check(_alta_en_el_muro({DESDE: T}, DESDE, T) == DESDE,
+      "el día del arranque cuenta (el borde es cerrado)")
+
+
 print()
 if FAILURES:
     print(f"{len(FAILURES)} chequeos fallaron:")
