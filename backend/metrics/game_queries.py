@@ -2968,7 +2968,14 @@ EXPERIMENTO_RAMPA: dict = {
         "una parte de esa pérdida es FRICCIÓN y no desinterés: el teclado "
         "completo delante de alguien que todavía no sabe de qué se trata."
     ),
-    "desde": date(2026, 9, 27),
+    # **El 28 y no el 27, que es el día en que se declaró.** `desde` no es
+    # cuándo se escribió esto: es desde cuándo cuenta la gente, y contar a
+    # alguien creado ANTES del deploy sería contarlo como inscripto sin que
+    # hubiera visto el tratamiento — en los tres brazos, porque antes del deploy
+    # los tres eran el mismo juego. A ~94 personas por día, arrancar el mismo
+    # día del deploy habría metido unas cincuenta así, todas sesgando hacia la
+    # nula. El día siguiente entero es limpio por construcción.
+    "desde": date(2026, 9, 28),
     # Tres brazos en ESCALERA: cada uno agrega una cosa al anterior, así que las
     # comparaciones son teclado-contra-control y ayudas-contra-teclado. No es un
     # factorial —la celda «ayudas sin teclado» pediría el teclado completo MÁS
