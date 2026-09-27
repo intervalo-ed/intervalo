@@ -1904,7 +1904,7 @@ CATEGORIAS: tuple[tuple[str, str], ...] = (
 # La carpeta de Drive donde viven los informes de cierre. Los PDF no van al
 # repo (docs/reports/FORMATO.md): son artefactos regenerables y pesados, y lo
 # que se versiona es el generador.
-PDF_CARPETA = "https://drive.google.com/drive/folders/1o89EEJuhEoPmNX7ney5gaKec9TBVhmzG"
+PDF_CARPETA = "https://drive.google.com/drive/folders/16b81RQuoezp1QVOZawV0aWx5b5oUARMY"
 
 
 def cerrado(fecha: date, veredicto: str, motivo: str, pdf: str | None = None) -> dict:
@@ -1968,6 +1968,7 @@ EXPERIMENTOS: tuple[dict, ...] = (
             "de más que llegaron a responder una derivada, 68 hicieron exactamente "
             "una y se fueron, y en llegar a 3 correctas la diferencia fueron 2 "
             "personas sobre 1.078.",
+            pdf="https://drive.google.com/file/d/1YT9yp2mVMN4d-8yehIKozvZAS1K9D0GT/view",
         ),
     },
     {
@@ -2021,6 +2022,7 @@ EXPERIMENTOS: tuple[dict, ...] = (
             "futilidad es la única parada temprana que NO puede fabricar un falso "
             "positivo: lo que infla el error de tipo I es frenar cuando el p-valor "
             "cruza 0,05, y acá se frena porque ningún futuro posible lo cruza.",
+            pdf="https://drive.google.com/file/d/1DJREiJsD5QuMsceD_juOLv2IkJlRV5tQ/view",
         ),
     },
 )

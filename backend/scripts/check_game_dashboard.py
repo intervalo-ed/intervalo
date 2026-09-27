@@ -1705,9 +1705,10 @@ for _e in _TODOS:
           _c["veredicto"][:30] in _idx)
     check(f'y el motivo por el que se cerró', _c["motivo"][:40] in _idx)
     check(f'y ya no dice cuánta gente falta',
-          f'Todav\u00eda no se puede leer' not in _idx.split(_c["veredicto"][:30])[1][:600])
-check("y un experimento cerrado deja link al informe",
-      q.PDF_CARPETA in _idx or ".pdf" in _idx)
+          'Todavía no se puede leer' not in _idx.split(_c["veredicto"][:30])[1][:600])
+    check(f'y el informe de «{_e["clave"]}» está linkeado',
+          _c.get("pdf") is not None and _c["pdf"] in _idx,
+          f'({_c.get("pdf") or "sin PDF"})')
 
 # ── 7 · La página se arma ───────────────────────────────────────────────────
 print("\n— render —")
