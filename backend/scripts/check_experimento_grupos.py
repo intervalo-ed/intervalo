@@ -110,10 +110,16 @@ def escenario(por_brazo: int, efecto_pp: float, semilla: int = 5):
 
 
 def leer(db):
-    """El payload y el HTML de la pestaña, como los ve el panel."""
+    """El payload y el HTML de la VISTA de este experimento, como los ve el panel.
+
+    Con `exp` la pestaña devuelve el índice y no el bloque: desde que
+    Experimentación es un router, los números de un experimento viven en su
+    propia vista y la pestaña de arriba es la puerta.
+    """
     q.FIRST_WEEK = LUNES.date() - timedelta(days=LUNES.weekday())
-    p = q.build(db, q.FIRST_WEEK)
-    html = game_render.page(p, token="tok", seccion="experimentacion")
+    clave = q.EXPERIMENTOS_GRUPOS[0]["clave"]
+    p = q.build(db, q.FIRST_WEEK, exp=clave)
+    html = game_render.page(p, token="tok", seccion="experimentacion", exp=clave)
     db.close()
     return p["experimentos_grupos"][0], html
 

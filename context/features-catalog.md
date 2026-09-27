@@ -318,19 +318,63 @@ Cada experimento declara además **cuál columna decide** (`metrica`), y la tabl
 la marca con ▸. Era implícita —siempre «llegó a la 1ª»— hasta que `dx-puerta-1`
 mostró por qué tenía que ser explícita.
 
-La pestaña **abre con un índice** de los cinco experimentos del producto, que se
-calculan en cuatro funciones distintas porque no comparten aritmética. Cada uno
-declara, al lado de su hipótesis, tres cosas más: su **categoría** —que es una de
-las pestañas del panel, o sea contra qué tablero se lee su resultado—, un
-**abstract** de una o dos frases, y su **cierre** cuando terminó. Los chips de
-arriba filtran la pestaña entera por categoría, no solo el índice.
+#### La pestaña es un ÍNDICE y una vista por experimento
 
-Una categoría sin experimentos no se esconde: hoy **Retención y Jugabilidad están
-vacías**, y eso es el dato, no un hueco del índice. Es exactamente lo que los dos
-experimentos de la puerta dejaron dicho.
+**No hay una página con los cinco.** La pestaña llegó a ser cuatro bloques
+apilados de cuarenta tablas, ordenados por cuándo se escribieron, y con eso
+puesto la pregunta «¿qué probamos sobre la retención?» se contestaba
+scrolleando. Ahora son dos pantallas:
 
-Un experimento cerrado **no se borra del panel**: sigue mostrando sus números, con
-el veredicto, la fecha y el **motivo** del cierre arriba de todo, y el link a su
+**El índice** (`?s=experimentacion`) es una tabla, una fila por experimento:
+título, abstract, categoría, **desde**, **hasta**, dos tags y el link al informe.
+Cada fila es la puerta de entrada. Las tres claves nuevas viven en la
+DECLARACIÓN de cada experimento y no en un catálogo aparte, para que agregar uno
+no lo pueda dejar fuera del índice sin que nadie se entere:
+
+- **`categoria`** — una de las pestañas del panel, o sea contra qué tablero se lee
+  su resultado. Una categoría sin experimentos no se esconde: hoy **Retención y
+  Jugabilidad están vacías**, y eso es el dato, no un hueco. Es exactamente lo que
+  los dos experimentos de la puerta dejaron dicho.
+- **`abstract`** — la pregunta, en una o dos frases, sin números.
+- **`cierre`** — `None` mientras corre.
+
+**Dos tags y no uno**, porque son dos preguntas: el **ciclo** (En curso ·
+Cerrado · Apagado) y el **resultado** (Sin datos · Faltan N · Listo para leer ·
+Ganó · Sin efecto · Perdió). El error que separarlos evita es leer un
+experimento cerrado sin diferencia como si estuviera esperando más gente — que
+es lo que el panel decía de `dx-puerta-2` mientras mostraba «faltan 97 por
+brazo».
+
+**`hasta` solo tiene fecha cuando cerró.** Los que corren dicen «en curso» y no
+una fecha proyectada: la inscripción de este producto va a los saltos de las
+olas de difusión —el 24/09 entraron 505 personas en un día y el 27 entraron 7—
+así que cualquier proyección se mueve una semana entera según qué día la mires,
+y una fecha que baila así se lee como compromiso.
+
+**La vista de un experimento** (`?s=experimentacion&x=<clave>`) reemplaza al
+índice —con un link para volver arriba a la izquierda— y trae tres cosas:
+
+1. **Su bloque**, el mismo de siempre, a ancho completo.
+2. **La curva de profundidad cortada por sus brazos**
+   (`game_queries.curva_por_brazo`), sobre la población del experimento entero y
+   no sobre la camada de la semana. Va **en personas y no en porcentaje**: cuando
+   el tratamiento toca la entrada los brazos arrancan desde alturas distintas, y
+   dos curvas normalizadas se ven más diferentes justo cuando menos lo son. Es
+   lo que pasó con `dx-puerta-1` —en porcentaje el brazo ganador parecía peor, y
+   en personas se ve que trajo 71 y perdió 68 de ellas en un paso—. Los
+   experimentos que sortean GRUPOS no la tienen, y la sección lo dice.
+3. **Los guardarraíles declarados** (`guardarrailes`): las mismas secciones que
+   viven en otras pestañas y son de ese experimento — la profundidad para los de
+   la puerta, el motor y la calibración para `dx-elo-1`, el embudo del cafecito
+   para `dx-muro-1`. Se traen sin recortar, así que si dijeran otra cosa que en su
+   pestaña, una de las dos estaría mintiendo.
+
+Las secciones prestadas traen el número que les toca EN SU PESTAÑA, así que se
+renumeran al pegarlas (`game_render._renumerar`): «1 El experimento», «2 La
+curva» y de golpe «7 El motor» se lee como cuatro bloques que no cargaron.
+
+Un experimento cerrado **no se borra del panel**: conserva sus números, con el
+veredicto, la fecha y el **motivo** del cierre arriba de todo, y el link a su
 informe. El motivo no tiene default en `game_queries.cerrado()` a propósito: es lo
 único que separa «se cerró porque llegó al n» de «se cerró porque no daba», y un
 cierre sin motivo invita a la lectura cómoda. Y es la única puerta por la que un
