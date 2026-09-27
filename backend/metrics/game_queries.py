@@ -92,24 +92,54 @@ PEDIDO_REGISTRO = 10
 PEDIDO_CAFECITO = 14
 PEDIDO_INSTALAR = 21
 
+# Cada cuánto vuelven los dos que vuelven en posición fija. Es el mismo número
+# en los dos lados del front (`RECLUTAS_CADA` y `CAFECITO_EVERY`) y ahí también
+# está escrito que tenerlos distintos solo escondería cuál manda.
+HITO_CADA = 20
+RECLUTAS_RESTO = PEDIDO_RECLUTAS % HITO_CADA
+
 # Los cinco, en el orden en que le llegan a la persona, con el nombre que el
 # panel les pone encima de la curva. La lista vive acá y no en el renderizador
 # porque el orden ES el embudo: entre la tercera derivada y la veintiuna hay
 # cinco interrupciones, y verlas en fila es la mitad de entender por qué la
 # curva baja donde baja.
 #
-# `clave` es para pintarlas; `k` es la PRIMERA aparición. Las que se repiten
-# —reclutas y cafecito cada 20, registro cada 12— no se marcan de nuevo: la
-# segunda vez cae en derivadas distintas para cada persona (dependen de récords,
-# de saltos de puesto y de si dijo que no), así que una marca fija ahí sería
-# inventar un lugar que nadie comparte.
-HITOS_DEL_EMBUDO: tuple[tuple[str, int, str], ...] = (
-    ("perfil", PEDIDO_PERFIL, "universidad y carrera"),
-    ("reclutas", PEDIDO_RECLUTAS, "compartir por WhatsApp"),
-    ("registro", PEDIDO_REGISTRO, "crear la cuenta"),
-    ("cafecito", PEDIDO_CAFECITO, "invitar un cafecito"),
-    ("instalar", PEDIDO_INSTALAR, "instalar la app"),
+# **Dos de ellas se repiten en posiciones FIJAS y por eso se marcan de nuevo.**
+# Reclutas sale cuando `totalCorrectas % 20 === 9` y el cafecito cuando
+# `% 20 === 0` (`reclutas-trigger.ts`, `cafecito-cta.tsx`), así que la segunda
+# vez cae en la misma derivada para todo el mundo: 29 y 20/40. Medido en la
+# camada del 21/09, la derivada 20 tiene el 13,1% de abandono —el pico más alto
+# de toda la curva después de la puerta— y es exactamente la segunda oferta de
+# cafecito.
+#
+# Las otras dos repeticiones NO se marcan y la diferencia es real: el registro
+# vuelve `REGISTRO_REPITE` correctas después de que se ofreció, así que depende
+# de cuándo dijo que no cada uno; y el cafecito sale ADEMÁS por récord y por
+# salto de puesto, que caen donde caen. Marcar esas sería inventar un lugar que
+# nadie comparte.
+#
+# `resto` es contra qué resto del módulo dispara; `None` significa que solo hay
+# primera vez.
+HITOS_DEL_EMBUDO: tuple[tuple[str, int, str, int | None], ...] = (
+    ("perfil", PEDIDO_PERFIL, "universidad y carrera", None),
+    ("reclutas", PEDIDO_RECLUTAS, "compartir por WhatsApp", RECLUTAS_RESTO),
+    ("registro", PEDIDO_REGISTRO, "crear la cuenta", None),
+    ("cafecito", PEDIDO_CAFECITO, "invitar un cafecito", 0),
+    ("instalar", PEDIDO_INSTALAR, "instalar la app", None),
 )
+
+
+def _ks_del_hito(primera: int, resto: int | None, k_max: int) -> list[int]:
+    """En qué derivadas cae un hito, contando las repeticiones fijas."""
+    ks = [primera] if primera <= k_max else []
+    if resto is None:
+        return ks
+    k = resto if resto > 0 else HITO_CADA
+    while k <= k_max:
+        if k > primera:
+            ks.append(k)
+        k += HITO_CADA
+    return ks
 
 # Cuántas correctas seguidas en la primera tanda cuentan como «entró al juego».
 #
@@ -1157,10 +1187,12 @@ def profundidad(data: dict, weeks: list[date], now: datetime | None = None,
     # verdad, y más a la izquierda cuanto más profunda. No se corrige con un
     # factor porque ese factor es distinto para cada persona; se dice.
     por_k = {c["k"]: c for c in curva}
-    hitos = [{"clave": clave, "k": k, "copy": texto,
+    hitos = [{"clave": clave, "k": k, "copy": texto, "primera": k == primera,
               "abandono": (por_k[k]["abandono"] if k in por_k else None),
               "vivos": (por_k[k]["vivos"] if k in por_k else None)}
-             for clave, k, texto in HITOS_DEL_EMBUDO if k <= k_max]
+             for clave, primera, texto, resto in HITOS_DEL_EMBUDO
+             for k in _ks_del_hito(primera, resto, k_max)]
+    hitos.sort(key=lambda h: h["k"])
 
     def serie(label: str, clave: str | None, valores: list[int]) -> dict:
         return {"label": label, "clave": clave, "base": len(valores),
