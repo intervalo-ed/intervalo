@@ -1768,6 +1768,19 @@ def game_bienvenida(
     mismo y el renglón de reclutas no aparecería nunca.
     """
     ahora = datetime.utcnow()
+
+    # **El cuarto brazo de `dx-rampa-1`.** Quien entró al experimento y no cayó
+    # ahí recibe la lista vacía, y el cliente cae al texto de siempre — que es
+    # exactamente el control que hace falta para poder medirla. Los veteranos y
+    # el experimento apagado la reciben igual (ver `rampa.muestra_digest`).
+    #
+    # Se devuelve vacío en vez de no llamar al endpoint para que el front no
+    # tenga que saber nada del sorteo: el que decide qué se muestra es el mismo
+    # que decide el brazo.
+    if not rampa.muestra_digest(player):
+        return GameBienvenidaOut(modo="control", saludo="", titulo=None,
+                                 novedades=[])
+
     datos = game_bienvenida_mod.construir(
         db, player, _correctas_de_hoy(db, player.id), _inicio_del_dia(), ahora
     )

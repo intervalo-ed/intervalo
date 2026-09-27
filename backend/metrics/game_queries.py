@@ -2976,16 +2976,29 @@ EXPERIMENTO_RAMPA: dict = {
     # día del deploy habría metido unas cincuenta así, todas sesgando hacia la
     # nula. El día siguiente entero es limpio por construcción.
     "desde": date(2026, 9, 28),
-    # Tres brazos en ESCALERA: cada uno agrega una cosa al anterior, así que las
-    # comparaciones son teclado-contra-control y ayudas-contra-teclado. No es un
-    # factorial —la celda «ayudas sin teclado» pediría el teclado completo MÁS
-    # dos filas de botones y ese alto no existe— y por eso el segundo contraste
-    # mide las ayudas DADO el teclado, que además es la única forma en que se
-    # van a mandar a producción.
+    # CUATRO brazos en ESCALERA: cada uno agrega una cosa al anterior, así que
+    # cada contraste es contra el escalón previo. No es un factorial —la celda
+    # «ayudas sin teclado» pediría el teclado completo MÁS dos filas de botones y
+    # ese alto no existe— y por eso cada contraste mide lo suyo DADO lo anterior,
+    # que además es la única forma en que se van a mandar a producción.
+    #
+    # **El cuarto escalón entró el 27/09, un día antes del arranque**, y es de
+    # otra naturaleza que los otros dos: la pantalla de bienvenida
+    # (`game/bienvenida.py`) vive ANTES de que se sirva la primera derivada, así
+    # que es la única que puede mover la BASE de la métrica y no solo el
+    # numerador. Salió al 100% ese día y se volvió variable acá: los veteranos y
+    # el experimento apagado la conservan, y entre los que entran la tiene solo
+    # este brazo (`game/rampa.py :: muestra_digest`).
+    #
+    # El cuarto brazo cuesta seis días sobre el contraste primario —a ~94 altas
+    # por día, 547 por brazo pasa de 17,5 a 23,3 días— y se aceptó a cambio de
+    # subir el caudal de las campañas. Si el caudal no sube, lo que se retrasa es
+    # la única pregunta que este diseño tiene potencia para contestar.
     "brazos": (
         ("control", "Control"),
         ("teclado", "Teclado en rampa"),
         ("ayudas", "Rampa + ayudas"),
+        ("bienvenida", "Rampa + ayudas + arranque"),
     ),
     "metrica": "llega_3",
     # Medido el 27/09 sobre las 2.056 personas legibles a las que se les sirvió

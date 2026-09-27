@@ -21,16 +21,28 @@ el riesgo de CADA paso, y eso compone. Los dos experimentos de la puerta
 movieron el primero y se evaporaron —`dx-puerta-1` ganó 71 personas en la
 derivada 1 y −1 en la 3—, así que separarlos es el punto.
 
-**La escalera.** Tres brazos, cada uno agrega una cosa al anterior:
+**La escalera.** Cuatro brazos, cada uno agrega una cosa al anterior:
 
-    control  →  teclado  →  teclado + ayudas
+    control  →  teclado  →  + ayudas  →  + pantalla de arranque
 
-y por eso las comparaciones son `teclado` contra `control` y `ayudas` contra
-`teclado`. No es un factorial: la celda «ayudas sin teclado» pediría el teclado
-completo MÁS dos filas de botones, y el alto de esa pantalla no existe —el
-propio `exercise-card.tsx` documenta que en Safari, con la barra de URL comiendo
-alto real, el panel ya se pasaba de largo—. Las dos cosas están acopladas por
-diseño: el espacio que las ayudas necesitan lo libera el teclado.
+y por eso las comparaciones son cada escalón contra el anterior. No es un
+factorial: la celda «ayudas sin teclado» pediría el teclado completo MÁS dos
+filas de botones, y el alto de esa pantalla no existe —el propio
+`exercise-card.tsx` documenta que en Safari, con la barra de URL comiendo alto
+real, el panel ya se pasaba de largo—. Las dos cosas están acopladas por diseño:
+el espacio que las ayudas necesitan lo libera el teclado.
+
+**El cuarto escalón es de OTRA naturaleza que los otros dos**, y conviene
+tenerlo a la vista al leerlo. El teclado y las ayudas cambian la pantalla del
+ejercicio; la bienvenida cambia la pantalla ANTERIOR —la intro, antes de que se
+sirva la primera derivada—. O sea que es la única de las tres que puede mover la
+BASE de la métrica y no solo el numerador: si hace que más gente toque
+Continuar, cambia cuántas personas entran a «se le sirvió el ejercicio 1».
+
+Eso no rompe nada mientras se lea como escalera —cada brazo contra el anterior,
+sobre la misma base de aterrizados— pero sí quiere decir que el contraste del
+cuarto escalón hay que mirarlo también sobre los que llegan, no solo sobre los
+que resuelven.
 
 **El teclado es palanca de TELÉFONO.** En escritorio el teclado del juego no
 tiene números —se tipean— y el físico sigue funcionando en paralelo, así que la
@@ -46,6 +58,8 @@ decide el cliente, que es el único que sabe qué está dibujando.
 from __future__ import annotations
 
 import os
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
 from . import sorteo
 
@@ -53,7 +67,7 @@ EXPERIMENTO = "dx-rampa-1"
 
 # El índice ES el bucket (ver `sorteo.brazo_de`), así que el orden no se toca:
 # reordenarlos re-sortea a todo el mundo a mitad del experimento.
-BRAZOS = ("control", "teclado", "ayudas")
+BRAZOS = ("control", "teclado", "ayudas", "bienvenida")
 
 # El interruptor. Arranca ENCENDIDO, al revés que `MURO_ENABLED`, y la asimetría
 # es a propósito: un muro puede hacer daño en horas —le corta el juego a alguien—
@@ -104,18 +118,56 @@ def etiqueta_de(player_id: int) -> str:
     return f"{EXPERIMENTO}:{brazo_de(player_id)}"
 
 
+# Desde cuándo el brazo decide la pantalla de arranque, en UTC ingenuo — que es
+# la escala de `game_players.created_at`.
+#
+# **Existe solo para el cuarto brazo.** Los otros tres no lo necesitan: a quien
+# ya venía jugando el teclado le salió completo desde siempre y sus teclas ya
+# están desbloqueadas, así que la rampa no le pasa nada y el gate es implícito.
+# La bienvenida no tiene esa suerte — salió al 100% el 27/09 y un veterano en el
+# brazo `control` la PERDERÍA. Este corte es lo que la deja puesta para toda la
+# base que ya la tiene y la vuelve variable solo para quien entra al experimento.
+_TZ_JUEGO = ZoneInfo("America/Argentina/Buenos_Aires")
+NACIDO_DESPUES_DE = (
+    datetime(2026, 9, 28, tzinfo=_TZ_JUEGO)
+    .astimezone(ZoneInfo("UTC"))
+    .replace(tzinfo=None)
+)
+
+
+def muestra_digest(player) -> bool:
+    """Si a esta persona la pantalla de arranque le cuenta novedades.
+
+    Tres casos, y el orden importa:
+
+      1. experimento apagado → sí, para todos. `RAMPA_ENABLED=0` tiene que
+         devolver el producto a como estaba, y como estaba la bienvenida era de
+         todos;
+      2. nació antes del arranque → sí. No está en el experimento y ya la tiene
+         puesta desde el 27/09; sacársela sería desinstalarle una feature para
+         medir a otra gente;
+      3. entró al experimento → solo en el cuarto brazo, que es el punto.
+    """
+    if not habilitado():
+        return True
+    nacio = getattr(player, "created_at", None)
+    if nacio is None or nacio < NACIDO_DESPUES_DE:
+        return True
+    return brazo_de(player.id) == "bienvenida"
+
+
 def con_rampa(player_id: int) -> bool:
     """¿A esta persona le crece el teclado?
 
     Los dos brazos tratados la tienen: `ayudas` es `teclado` MÁS la fila de
     botones, no otra cosa. Que sea una escalera y no un factorial vive acá.
     """
-    return habilitado() and brazo_de(player_id) in ("teclado", "ayudas")
+    return habilitado() and brazo_de(player_id) in ("teclado", "ayudas", "bienvenida")
 
 
 def con_ayudas(player_id: int) -> bool:
     """¿Esta persona ve la fila de Tabla y Saltear?"""
-    return habilitado() and brazo_de(player_id) == "ayudas"
+    return habilitado() and brazo_de(player_id) in ("ayudas", "bienvenida")
 
 
 def sin_elo(n_servidos: int) -> bool:
