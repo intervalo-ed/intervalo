@@ -562,7 +562,16 @@ export function SettingsPanel({
     </>
   )
 
-  const clase = "flex min-h-0 flex-1 flex-col"
+  // **Sin `flex`.** `SlideHorizontal` es una grilla de una celda —así las dos
+  // pantallas se apilan en el mismo lugar mientras cruzan— y `cn()` es
+  // tailwind-merge: un `flex` acá le GANABA al `grid` de adentro, y durante el
+  // pase las dos quedaban una debajo de la otra. Con eso puesto, entrar a
+  // carrera dibujaba la pantalla nueva 363 px más abajo y la subía de un
+  // tirón al desmontarse la vieja, y Guardar terminaba fuera de la pantalla.
+  //
+  // `SlideFlip` tampoco lo necesita: superpone sus caras con `absolute
+  // inset-0`. A los dos les alcanza con que el contenedor traiga alto.
+  const clase = "min-h-0 flex-1"
   return variant === "desktop" ? (
     <SlideFlip slide={section} className={clase}>
       {pantalla}
@@ -609,7 +618,15 @@ function PanelShell({
         </button>
         {title && <h2 className="text-lg font-semibold">{title}</h2>}
       </div>
-      <div className="no-scrollbar min-h-0 flex-1 overflow-y-auto">{children}</div>
+      {/* Columna y no bloque: el `mt-auto` de Guardar —que es lo que lo manda
+          al piso en vez de dejarlo pegado a la última opción— necesita que el
+          padre sea un contenedor flex. Como bloque no hacía nada.
+
+          Sigue scrolleando: cuando el contenido no entra, `mt-auto` vale cero y
+          la caja se desborda como siempre. */}
+      <div className="no-scrollbar flex min-h-0 flex-1 flex-col overflow-y-auto">
+        {children}
+      </div>
     </div>
   )
 }

@@ -680,6 +680,29 @@ check(
     "y va al fondo pese a su promedio altísimo",
 )
 
+# ── El ORDEN del desplegable de universidades ─────────────────────────────
+# En un filtro el orden es la usabilidad: alfabético dejaba arriba a las que
+# nadie eligió y mandaba al fondo a la más grande. Se mira acá y no en el
+# front porque el front lo mapea tal cual viene (leaderboard-chrome.tsx), así
+# que el orden del payload ES el que se ve, en escritorio y en teléfono.
+lista = client.get("/game/derivemos/leaderboard/summary", headers=H).json()["universities"]
+sembradas = [u for u in lista if u in ("GRANDE", "CHICA", "MINI")]
+check(
+    sembradas == ["GRANDE", "CHICA", "MINI"],
+    f"el filtro ordena por tamaño (dio {sembradas})",
+)
+
+# Y la propia va PRIMERA aunque sea la más chica de las tres: es el caso que
+# el orden por tamaño solo no cubre.
+client.patch("/game/derivemos/me", headers=H, json={"university": "MINI"})
+mia = client.get("/game/derivemos/me", headers=H).json()["university"]
+lista = client.get("/game/derivemos/leaderboard/summary", headers=H).json()["universities"]
+check(lista[0] == mia, f"y la del jugador va primera (dio {lista[:3]}, la suya es {mia})")
+check(
+    [u for u in lista if u in ("GRANDE", "CHICA")] == ["GRANDE", "CHICA"],
+    f"sin romperle el orden al resto (dio {lista[:4]})",
+)
+
 print("11. telemetría de los llamados a la acción")
 # El endpoint es trivial de escribir y trivial de romper en silencio: devuelve
 # 204 pase lo que pase, así que un vocabulario mal escrito o un commit que no
