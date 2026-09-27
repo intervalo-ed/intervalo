@@ -45,8 +45,9 @@ from . import charts as ch
 from . import theme
 from .charts import esc, num
 from .game_queries import (
-    DEPTH_MAX, DEPTH_MIN, DEPTH_TOPE, FIRST_WEEK, MIN_IMPRESIONES_CTR,
-    MIN_IMPRESIONES_SEMANA, PEDIDO_CAFECITO, PLATFORM_LABEL,
+    CATEGORIAS, DEPTH_MAX, DEPTH_MIN, DEPTH_TOPE, FIRST_WEEK,
+    MIN_IMPRESIONES_CTR, MIN_IMPRESIONES_SEMANA, PDF_CARPETA, PEDIDO_CAFECITO,
+    PLATFORM_LABEL,
 )
 
 # El grueso del CSS es el mismo que Intervalo (ver metrics/theme.py) — es la
@@ -217,6 +218,131 @@ def _caja_estado(titulo: str, cuerpo: str, tono: str) -> str:
             f'padding:12px 14px;margin-bottom:12px">'
             f'<div style="color:{borde};font-weight:700;font-size:13.5px">{esc(titulo)}</div>'
             f'<div class="hint" style="margin-top:4px">{cuerpo}</div></div>')
+
+
+# ── El índice de experimentación ────────────────────────────────────────────
+#
+# Los cinco experimentos se calculan en cuatro funciones distintas porque miden
+# cosas que no comparten aritmética (dos proporciones por jugador, dos medias
+# por jugador, una proporción de pago, dos medias por grupo de WhatsApp). Eso
+# está bien para calcular y era pésimo para leer: la pestaña eran cuatro bloques
+# sueltos, en un orden que solo se explicaba por el orden en que se escribieron.
+#
+# Lo que estas tres funciones agregan no es un resumen —el resumen ya está en la
+# caja de estado de cada bloque— sino las dos cosas que ningún bloque podía
+# decir solo: contra QUÉ PREGUNTA del producto se lee cada experimento, y cuáles
+# ya terminaron. La categoría de cada uno es una de las pestañas del panel
+# (CATEGORIAS), así que el índice también contesta al revés: parado
+# en Retención, qué probamos alguna vez contra esto.
+
+
+def _estado_corto(e: dict) -> tuple[str, str]:
+    """Una línea de estado y su tono, para la fila del índice.
+
+    Sirve a los cuatro payloads porque los cuatro tienen `brazos` con `falta` y
+    un `listo`, que es todo lo que hace falta para decir en qué punto está.
+    """
+    cierre = e.get("cierre")
+    if cierre:
+        return cierre["veredicto"], ("gana" if (e.get("lectura") or {}).get("rechaza")
+                                     else "plano")
+    if e.get("sin_arrancar"):
+        return "Sin datos todavía", "espera"
+    falta = max((b.get("falta") or 0 for b in e["brazos"]), default=0)
+    if falta > 0:
+        return f"En curso — faltan {num(falta)} por brazo", "espera"
+    if e.get("listo"):
+        L = e.get("lectura")
+        if L and L.get("rechaza"):
+            return "Listo: diferencia significativa", "gana"
+        if L:
+            return "Listo: sin diferencia detectable", "plano"
+        return "Listo para leer", "listo"
+    return "En curso", "espera"
+
+
+def _fila_indice(e: dict) -> list:
+    """La fila de un experimento en la tabla del índice."""
+    texto, tono = _estado_corto(e)
+    borde = _ESTADOS.get(tono, _ESTADOS["espera"])[0]
+    cierre = e.get("cierre")
+    pdf = (cierre or {}).get("pdf")
+    if pdf:
+        informe = f'<a href="{esc(pdf)}" target="_blank" rel="noopener">PDF</a>'
+    elif cierre:
+        # Cerrado y sin PDF propio todavía: la carpeta es un destino honesto y
+        # el bloque de abajo ya trae el motivo del cierre entero.
+        informe = (f'<a href="{esc(PDF_CARPETA)}" target="_blank" '
+                   f'rel="noopener" class="sub2">carpeta</a>')
+    else:
+        informe = "—"
+    return [
+        # El ancho se acota acá y no con una regla de CSS porque `theme.table` no
+        # reparte columnas: las mide por contenido. Sin el tope, el abstract
+        # —dos renglones de prosa— se lleva la tabla entera de ancho y empuja
+        # «Estado» e «Informe» afuera del scroll horizontal, que es donde nadie
+        # los ve.
+        f'<span style="display:inline-block;max-width:30em">'
+        f'<a href="#exp-{esc(e["clave"])}"><b>{esc(e["titulo"])}</b></a>'
+        f'<br><span class="sub2">{esc(e["abstract"])}</span></span>',
+        f'<span class="sub2">{esc(dict(CATEGORIAS).get(e["categoria"], e["categoria"]))}</span>',
+        f'<span class="sub2">{e["desde"].strftime("%d/%m")}</span>',
+        f'<span style="color:{borde}">{esc(texto)}</span>',
+        informe,
+    ]
+
+
+def _indice_experimentos(fichas: list[dict], link, filtro: str) -> str:
+    """La caja de arriba de la pestaña: el mapa, y el filtro por categoría."""
+    cuenta = Counter(f["categoria"] for f in fichas)
+    chips = [f'<span class="cur">Todos {len(fichas)}</span>' if filtro == "todos"
+             else f'<a href="{link(e="todos")}">Todos {len(fichas)}</a>']
+    for clave, label in CATEGORIAS:
+        n = cuenta.get(clave, 0)
+        txt = f'{esc(label)} {n or "—"}'
+        # Una categoría sin experimentos NO se esconde: que esté vacía es el
+        # dato. Hoy Retención y Jugabilidad lo están, y eso es justo lo que los
+        # dos experimentos de la puerta dejaron dicho — que la palanca que
+        # queda sin probar es la de por qué hacer la derivada siguiente.
+        chips.append(f'<span class="cur">{txt}</span>' if filtro == clave
+                     else (f'<a href="{link(e=clave)}">{txt}</a>' if n
+                           else f'<span class="sub2">{txt}</span>'))
+    visibles = [f for f in fichas if filtro == "todos" or f["categoria"] == filtro]
+    cerrados = sum(1 for f in fichas if f.get("cierre"))
+    return _section(
+        1, "Índice",
+        f'<nav class="jump" style="margin:0 0 12px">{"".join(chips)}</nav>'
+        + _table(["Experimento", "Categoría", "Desde", "Estado", "Informe"],
+                 [_fila_indice(f) for f in visibles],
+                 empty="ningún experimento en esta categoría")
+        + f'<p class="note"><b>La categoría es la PESTAÑA del panel contra la que se '
+          f'lee el resultado</b>, y por eso una vacía no es un hueco del índice: es el '
+          f'dato de que nunca probamos nada contra esa pregunta. Van {num(cerrados)} '
+          f'cerrados de {num(len(fichas))}, y un experimento cerrado sigue mostrando '
+          f'sus números —el bloque no se borra— con el veredicto y el motivo del '
+          f'cierre arriba.</p>',
+        sub="Qué se probó, contra qué pregunta del producto, y cómo terminó.",
+        anchor="indice")
+
+
+def _caja_cierre(e: dict) -> str:
+    """El estado de un experimento CERRADO: veredicto, motivo y el informe."""
+    c = e["cierre"]
+    L = e.get("lectura")
+    tono = "gana" if (L or {}).get("rechaza") else "plano"
+    detalle = ""
+    if L and "delta_pp" in L:
+        detalle = (f'Cerró en {num(L["delta_pp"], " pp")} '
+                   f'(z = {num(L["z"], dec=2)}, p-valor {_p_txt(L["p_valor"])}, '
+                   f'IC95 [{num(L["ic_pp"][0])} ; {num(L["ic_pp"][1])}] pp). ')
+    pdf = c.get("pdf")
+    enlace = (f' <a href="{esc(pdf)}" target="_blank" rel="noopener">'
+              f'Ver el informe completo (PDF)</a>.' if pdf else
+              f' El informe vive en <a href="{esc(PDF_CARPETA)}" '
+              f'target="_blank" rel="noopener">la carpeta de reportes</a>.')
+    return _caja_estado(
+        f'Cerrado el {c["fecha"].strftime("%d/%m/%Y")} · {c["veredicto"]}',
+        detalle + esc(c["motivo"]) + enlace, tono)
 
 
 def _p_txt(p: float) -> str:
@@ -712,13 +838,41 @@ def week_of_today() -> date:
 
 # ── Página ───────────────────────────────────────────────────────────────────
 
-def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
+def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
+         experimento: str = "todos") -> str:
     m = p["meta"]
     claves = [c for c, _ in SECCIONES]
     seccion = seccion if seccion in claves else SECCION_POR_DEFECTO
     week = date.fromisoformat(m["week"])
     labels = m["labels"]
     semanas = [date.fromisoformat(w) for w in m["weeks"]]
+
+    # ── El filtro de la pestaña de Experimentación ───────────────────────────
+    #
+    # Las secciones se numeran DESPUÉS de saber cuáles se ven, y no con un
+    # número fijo escrito al lado de cada título. Con números fijos, filtrar por
+    # Motor dejaba la pestaña mostrando «1 Índice» y «3 El motor», y un salteo
+    # así se lee como un bloque que no cargó — que es exactamente lo que el
+    # filtro no está haciendo.
+    fichas = (list(p["experimentos"])
+              + [p["experimento_motor"], p["experimento_muro"]]
+              + list(p["experimentos_grupos"]))
+    # Lo que está corriendo va arriba: es lo único sobre lo que se puede
+    # decidir algo hoy. Adentro de cada mitad, lo último declarado primero.
+    fichas.sort(key=lambda f: (bool(f.get("cierre")), -f["desde"].toordinal()))
+    filtro = experimento if experimento in dict(CATEGORIAS) else "todos"
+
+    def pasa(x: dict) -> bool:
+        return filtro == "todos" or x.get("categoria") == filtro
+
+    _visibles = [clave for clave, hay in (
+        ("experimentos", any(pasa(x) for x in p["experimentos"])),
+        ("motor", pasa(p["experimento_motor"])),
+        ("muro", pasa(p["experimento_muro"])),
+        ("grupos", any(pasa(x) for x in p["experimentos_grupos"])),
+    ) if hay]
+    # El 1 es el Índice, que está siempre.
+    NSEC = {clave: i + 2 for i, clave in enumerate(_visibles)}
 
     out: list[str] = ["<div class='wrap'>"]
 
@@ -757,15 +911,17 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         "</div></header>")
 
     def link(*, s: str | None = None, corte: str | None = None,
-             k: int | None = None) -> str:
+             k: int | None = None, e: str | None = None) -> str:
         """La URL del panel cambiando UNA cosa y dejando el resto como está.
 
-        Es lo que hace que las dos barras convivan: elegir semana no pierde la
-        pestaña, elegir desglose no devuelve a la primera, y ninguna de las dos
-        pierde hasta dónde se estaba mirando la curva."""
+        Es lo que hace que las tres barras convivan: elegir semana no pierde la
+        pestaña, elegir desglose no devuelve a la primera, elegir categoría de
+        experimento no pierde ninguna de las otras dos, y nada de eso pierde
+        hasta dónde se estaba mirando la curva."""
         s = s if s is not None else seccion
         corte = corte if corte is not None else p["profundidad"]["corte"]
         k = k if k is not None else p["profundidad"]["k_max"]
+        e = e if e is not None else filtro
         q = f"?w={week.isoformat()}"
         if s != SECCION_POR_DEFECTO:
             q += f"&s={s}"
@@ -773,6 +929,8 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
             q += f"&corte={corte}"
         if k != DEPTH_MAX:
             q += f"&k={k}"
+        if e != "todos":
+            q += f"&e={e}"
         return f"/panel/{esc(token)}/dx{q}"
 
     tabs = "".join(
@@ -782,6 +940,8 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
     out.append(f"<nav class='jump'>{tabs}</nav>")
 
 
+
+    pieza_indice = _indice_experimentos(fichas, link, filtro)
 
     # Las tres se arman siempre y se muestra una. Armarlas cuesta unos SVG que
     # nadie va a ver, y a cambio el archivo se sigue leyendo en el orden del
@@ -1438,6 +1598,8 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
     out = []
     bloques = []
     for e in p["experimentos"]:
+        if not pasa(e):
+            continue
         brazos = e["brazos"]
         total = sum(b["n"] for b in brazos)
         falta = max((b["falta"] for b in brazos), default=0)
@@ -1445,7 +1607,9 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         # El estado va PRIMERO y en grande, antes que cualquier número por brazo.
         # Es lo único que la sección existe para decir: si todavía no se puede
         # leer, todo lo de abajo es ruido con forma de resultado.
-        if e["sin_arrancar"]:
+        if e.get("cierre"):
+            estado = _caja_cierre(e)
+        elif e["sin_arrancar"]:
             estado = _caja_estado(
                 "Sin datos todavía",
                 f'Ningún jugador entró al experimento. La variante se escribe al crear la '
@@ -1513,6 +1677,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                 filas_plat.append([f'<b>{esc(PLATFORM_LABEL[plat])}</b>'] + celdas)
 
         bloques.append(
+            f'<div id="exp-{esc(e["clave"])}"></div>' +
             _box(esc(e["titulo"]), estado
                  + _table(cabeceras, filas, empty="todavía nadie")
                  + '<p class="note"><b>La columna con ▸ es la que decide, y se '
@@ -1542,12 +1707,12 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                       f'y no sutiles.'))
 
     out.append(_section(
-        1, "Experimentos",
+        NSEC.get("experimentos", 0), "Experimentos",
         "".join(bloques) or '<p class="empty">no hay experimentos declarados</p>',
         sub="Lo que esta sección hace y ninguna otra hace: negarse a contestar hasta tener "
             "la muestra que se prometió.",
         anchor="experimentos"))
-    pieza_experimentos = "".join(out)
+    pieza_experimentos = "".join(out) if "experimentos" in NSEC else ""
 
     # ── 6-bis · El experimento del MOTOR ─────────────────────────────────────
     # Mismo trato que la de arriba —estado primero, guardarraíles siempre,
@@ -1560,7 +1725,9 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
     en_curso = sum(b["en_curso"] for b in brazos)
     falta = max((b["falta"] for b in brazos), default=0)
 
-    if e["sin_arrancar"]:
+    if e.get("cierre"):
+        estado = _caja_cierre(e)
+    elif e["sin_arrancar"]:
         estado = _caja_estado(
             "Sin datos todavía",
             f'Nadie llegó a las {num(e["umbral_n"])} respuestas de primer intento, que es '
@@ -1606,8 +1773,9 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
     ]
 
     out = [_section(
-        2, "El motor: la varianza del Elo",
-        _box(esc(e["titulo"]), estado
+        NSEC.get("motor", 0), "El motor: la varianza del Elo",
+        f'<div id="exp-{esc(e["clave"])}"></div>'
+        + _box(esc(e["titulo"]), estado
              + _table(["Brazo", "Jugadores", "Días activos ▸", "Rating mediano",
                        "Derivadas", "% salteo", "Calibración"],
                       filas_motor, empty="todavía nadie")
@@ -1651,7 +1819,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         sub="El único experimento que no toca una pantalla: cambia el paso con el que se "
             "mueve el Elo, y solo para los que ya llevan un rato jugando.",
         anchor="experimento-motor")]
-    pieza_experimento_motor = "".join(out)
+    pieza_experimento_motor = "".join(out) if "motor" in NSEC else ""
 
     # ── 6a-ter · El experimento de MONETIZACIÓN ─────────────────────────────
     # El único donde el guardarraíl se puede leer ANTES que el resultado, y eso
@@ -1663,7 +1831,9 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
     en_curso = sum(b["en_curso"] for b in brazos)
     falta = max((b["falta"] for b in brazos), default=0)
 
-    if not e["encendido"]:
+    if e.get("cierre"):
+        estado = _caja_cierre(e)
+    elif not e["encendido"]:
         estado = _caja_estado(
             "Apagado",
             f'<code>MURO_ENABLED</code> está en cero, así que nadie tiene tope y los dos '
@@ -1749,8 +1919,9 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         empty="el cartel todavía no se mostró")
 
     out = [_section(
-        3, "La plata: el tope diario",
-        _box(esc(e["titulo"]), precio + estado
+        NSEC.get("muro", 0), "La plata: el tope diario",
+        f'<div id="exp-{esc(e["clave"])}"></div>'
+        + _box(esc(e["titulo"]), precio + estado
              + _table(["Brazo", "Personas", "Pagó ▸", "Días activos",
                        "Volvió otro día", "Derivadas después"],
                       filas_muro, empty="todavía nadie")
@@ -1822,7 +1993,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
             "llegan nuevos. Mide una sola cosa: si un estudiante atraviesa un checkout para "
             "seguir jugando, y cuánto cuesta preguntárselo.",
         anchor="experimento-muro")]
-    pieza_experimento_muro = "".join(out)
+    pieza_experimento_muro = "".join(out) if "muro" in NSEC else ""
 
     # ── 6b · Experimentos por grupo de WhatsApp ──────────────────────────────
     # Mismo trato que la sección de arriba —estado primero, guardarraíles
@@ -1832,11 +2003,15 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
     out = []
     bloques = []
     for e in p["experimentos_grupos"]:
+        if not pasa(e):
+            continue
         brazos = e["brazos"]
         total = sum(b["n"] for b in brazos)
         falta = max((b["falta"] for b in brazos), default=0)
 
-        if e["sin_arrancar"]:
+        if e.get("cierre"):
+            estado = _caja_cierre(e)
+        elif e["sin_arrancar"]:
             estado = _caja_estado(
                 "Sin datos todavía",
                 "Ningún grupo de ninguno de los dos brazos recibió esta campaña "
@@ -1881,6 +2056,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         ] for b in brazos]
 
         bloques.append(
+            f'<div id="exp-{esc(e["clave"])}"></div>' +
             _box(esc(e["titulo"]), estado
                  + _table(["Brazo", "Grupos", "Clickrate medio", "Desvío (por universidad)",
                            "Activación", "Activados / grupo", "Volvió otro día"], filas,
@@ -1903,13 +2079,13 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                       f'{esc(e["prediccion"])}'))
 
     out.append(_section(
-        4, "Experimentos por grupo de WhatsApp",
+        NSEC.get("grupos", 0), "Experimentos por grupo de WhatsApp",
         "".join(bloques) or '<p class="empty">no hay experimentos de grupo declarados</p>',
         sub="La unidad acá es el GRUPO, no el jugador: todos sus miembros ven el mismo "
             "mensaje, así que lo que se aleatoriza y se cuenta es el grupo — ver "
             "docs/reports/reporte-ab-imagen-ranking-2026-09-14.pdf.",
         anchor="experimentos-grupos"))
-    pieza_experimentos_grupos = "".join(out)
+    pieza_experimentos_grupos = "".join(out) if "grupos" in NSEC else ""
 
     # ── Difusión: el clickrate ───────────────────────────────────────────────
     out = []
@@ -2542,8 +2718,10 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         "motor": pieza_motor + pieza_calibracion + pieza_opinion_motor,
         "monetizacion": (_fila_kpi(p["headline"]["monetizacion"])
                          + pieza_monetizacion),
-        "experimentacion": (pieza_experimentos + pieza_experimento_motor
-                            + pieza_experimento_muro + pieza_experimentos_grupos),
+        # El índice primero, y después los bloques que el filtro deja pasar.
+        "experimentacion": (pieza_indice + pieza_experimentos
+                            + pieza_experimento_motor + pieza_experimento_muro
+                            + pieza_experimentos_grupos),
         "voces": pieza_voces,
     }
 

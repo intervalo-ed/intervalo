@@ -5,7 +5,7 @@ import { useAuth } from "@clerk/nextjs"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { readAttribution } from "@/lib/analytics/attribution"
 import { unwrap } from "@/lib/api/client"
-import { brazoDelJuego, etiquetaDeBrazo } from "@/lib/experiments/UseGameVariant"
+import { variantDelJuego } from "@/lib/experiments/UseGameVariant"
 import { isStandalone } from "@/lib/platform/detect"
 import type { components } from "@/lib/api/schema"
 import {
@@ -138,7 +138,11 @@ export function useGamePlayer() {
           // dibujar la primera pantalla. Va acá y no en un endpoint propio
           // porque es un dato de primer contacto como los tres de arriba, y el
           // server lo guarda con la misma regla write-once.
-          variant: etiquetaDeBrazo(brazoDelJuego()),
+          //
+          // `null` mientras no haya experimento en curso, que es hoy: así los
+          // jugadores nuevos no engordan el brazo control de uno ya cerrado
+          // (UseGameVariant.ts :: variantDelJuego).
+          variant: variantDelJuego(),
           // Desde dónde mira esta persona, que es lo que decide cuánto le sale
           // un cafecito (ver backend/game/boosts.py :: PRECIO_POR_PAIS). Cien
           // pesos argentinos son siete centavos de dólar: para quien mira desde

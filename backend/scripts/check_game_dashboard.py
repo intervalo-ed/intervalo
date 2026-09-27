@@ -1469,13 +1469,32 @@ def escenario(n_por_brazo, servidas_control, servidas_test):
     return {"players": players, "exercises": exercises, "_firsts": firsts}
 
 
+def abiertos(datos):
+    """`q.experimentos(datos)` leído como si ninguno estuviera cerrado.
+
+    **Sin esto, la invariante central de más abajo no prueba nada.** Los dos
+    experimentos declarados hoy están cerrados, y un experimento cerrado se lee
+    aunque no haya llegado al n — esa es la única exención que existe, y está
+    ahí porque un cierre es una decisión con fecha y motivo escritos. Pero el
+    escenario de esta sección inyecta brazos a medio juntar justo para probar
+    que el panel SE NIEGA a contestar, así que tiene que verlos abiertos o la
+    prueba se evapora sin que nada se ponga rojo.
+    """
+    guardados = q.EXPERIMENTOS
+    q.EXPERIMENTOS = tuple({**e, "cierre": None} for e in guardados)
+    try:
+        return q.experimentos(datos)
+    finally:
+        q.EXPERIMENTOS = guardados
+
+
 # ── La invariante central ──────────────────────────────────────────────────
 # Con la muestra a medio juntar NO se calcula el p-valor. Es lo único que esta
 # sección hace y ninguna otra del panel hace. Sin esto, alguien mira el panel
 # todos los días y para en cuanto cruza 0,05 — que no es leer el experimento
 # sino repetir el sorteo hasta que salga, y sube el error de tipo I muy por
 # encima del alfa declarado.
-flaco = q.experimentos(escenario(50, 25, 40))[0]
+flaco = abiertos(escenario(50, 25, 40))[0]
 check("con la muestra a medio juntar, no está listo", not flaco["listo"])
 check("y NO se calcula el p-valor todavía", flaco["lectura"] is None,
       f'({flaco["lectura"]})')
@@ -1488,7 +1507,7 @@ check("y los guardarraíles se miran igual, desde el primer día",
       all(b["pct_servida"] is not None for b in flaco["brazos"]))
 
 # ── Con la muestra completa ────────────────────────────────────────────────
-lleno = q.experimentos(escenario(400, 224, 264))[0]
+lleno = abiertos(escenario(400, 224, 264))[0]
 check("con la muestra completa, está listo", lleno["listo"])
 check("y ahí sí se calcula la lectura", lleno["lectura"] is not None)
 L = lleno["lectura"]
@@ -1505,7 +1524,7 @@ check("y el intervalo contiene al delta observado",
 
 # Sin efecto, no rechaza. Es la otra mitad: un panel que siempre encuentra algo
 # no sirve para decidir.
-plano = q.experimentos(escenario(400, 224, 224))[0]
+plano = abiertos(escenario(400, 224, 224))[0]
 check("y sin diferencia real no rechaza",
       not plano["lectura"]["rechaza"] and plano["lectura"]["p_valor"] > 0.05,
       f'(p={plano["lectura"]["p_valor"]:.3f})')
@@ -1521,7 +1540,40 @@ con_viejos["players"].append({
     "referred_by": None, "pwa_first_seen_at": None,
 })
 check("quien no tiene variante no entra a ningún brazo",
-      sum(b["n"] for b in q.experimentos(con_viejos)[0]["brazos"]) == 100)
+      sum(b["n"] for b in abiertos(con_viejos)[0]["brazos"]) == 100)
+
+# ── Y la exención, que es la otra mitad ────────────────────────────────────
+# Un experimento CERRADO sí se lee con la muestra a medio juntar. Es la única
+# puerta por la que se sale de la regla de arriba, y existe porque un cierre
+# lleva fecha y motivo escritos (game_queries.cerrado): el motivo que puede
+# parar antes del n es la futilidad, que es demostrar que ningún resultado
+# posible cambia la conclusión — la operación opuesta a esperar a que dé.
+cerrado = q.experimentos(escenario(50, 25, 40))[0]
+check("un experimento cerrado sí se lee con la muestra a medio juntar",
+      cerrado["cierre"] is not None and cerrado["lectura"] is not None,
+      f'(cierre={bool(cerrado["cierre"])}, lectura={cerrado["lectura"] is not None})')
+check("y sigue diciendo que no llegó al n, que es el dato honesto",
+      not cerrado["listo"] and any(b["falta"] > 0 for b in cerrado["brazos"]))
+# Y con un brazo en cero no divide por cero: es el caso del día del cierre.
+vacio = q.experimentos({"players": [], "exercises": [], "_firsts": []})[0]
+check("un cerrado sin nadie en un brazo no revienta", vacio["lectura"] is None)
+
+# ── Cada experimento declara su ficha para el índice ───────────────────────
+# Las tres claves van en la DECLARACIÓN y no en un catálogo aparte, justamente
+# para que agregar un experimento no pueda dejarlo fuera del índice sin que
+# nadie se entere. Esto es lo que lo fija.
+CATS = dict(q.CATEGORIAS)
+for _e in q.EXPERIMENTOS + (q.EXPERIMENTO_MOTOR, q.EXPERIMENTO_MURO) + q.EXPERIMENTOS_GRUPOS:
+    check(f'«{_e["clave"]}» declara una categoría del panel',
+          _e.get("categoria") in CATS, f'({_e.get("categoria")})')
+    check(f'y «{_e["clave"]}» declara su abstract',
+          isinstance(_e.get("abstract"), str) and len(_e["abstract"]) > 30,
+          f'({len(_e.get("abstract") or "")} caracteres)')
+    _c = _e.get("cierre")
+    check(f'y el cierre de «{_e["clave"]}» está bien formado o es None',
+          _c is None or ({"fecha", "veredicto", "motivo", "pdf"} <= set(_c)
+                         and _c["motivo"].strip() != ""),
+          f'({sorted(_c) if _c else "None"})')
 
 # ── Y que la pantalla lo diga ──────────────────────────────────────────────
 html_exp = game_render.page(q.build(s, WEEK), token="tok", seccion="experimentacion")
@@ -1559,7 +1611,10 @@ def _pintar(exp_listo):
 for etiqueta, datos in (("gana", escenario(400, 224, 264)),
                         ("plano", escenario(400, 224, 224)),
                         ("pierde", escenario(400, 264, 224))):
-    e = q.experimentos(datos)[0]
+    # Abiertos: con el cierre puesto, el recuadro que se dibuja es el del
+    # veredicto y estos tres caminos —el z, el p-valor y el intervalo del
+    # estado «ya se puede leer»— no los ejercita nadie más.
+    e = abiertos(datos)[0]
     html_l = _pintar(e)
     check(f"el estado «{etiqueta}» se dibuja sin romperse", len(html_l) > 8000,
           f"({len(html_l)} bytes)")
@@ -1569,7 +1624,90 @@ for etiqueta, datos in (("gana", escenario(400, 224, 264)),
     check(f"y «{etiqueta}» muestra el intervalo con sus dos extremos",
           " ; " in html_l and ", " not in html_l.split(" ; ")[0][-14:])
 check("y con la muestra completa aparece el p-valor",
-      "p-valor" in _pintar(q.experimentos(escenario(400, 224, 264))[0]))
+      "p-valor" in _pintar(abiertos(escenario(400, 224, 264))[0]))
+
+# ── El índice de la pestaña, y el filtro por categoría ─────────────────────
+print("\n— índice de experimentación —")
+_pay = q.build(s, WEEK)
+_idx = game_render.page(_pay, token="tok", seccion="experimentacion")
+_TODOS = (list(_pay["experimentos"])
+          + [_pay["experimento_motor"], _pay["experimento_muro"]]
+          + list(_pay["experimentos_grupos"]))
+
+check("la pestaña abre con el índice", 'id="indice"' in _idx)
+for _e in _TODOS:
+    check(f'«{_e["clave"]}» está en el índice con su abstract',
+          _e["abstract"][:40] in _idx)
+
+# **El ancla que no existe es invisible.** Una fila del índice que apunta a un
+# `#exp-...` que no está en la página no rompe nada: hace scroll a ninguna
+# parte, y quien la toca piensa que el panel se colgó. Es exactamente la clase
+# de error que esta suite existe para atrapar.
+for _e in _TODOS:
+    check(f'y el ancla de «{_e["clave"]}» existe de verdad',
+          f'href="#exp-{_e["clave"]}"' in _idx and f'id="exp-{_e["clave"]}"' in _idx)
+
+# Las categorías declaradas y las pestañas del panel son la MISMA lista: si se
+# separaran, el índice diría que un experimento se lee contra un tablero que no
+# existe.
+check("las categorías del índice son las pestañas del panel",
+      {c for c, _ in q.CATEGORIAS} <= {c for c, _ in game_render.SECCIONES},
+      f'({[c for c, _ in q.CATEGORIAS]})')
+
+# El filtro: con una categoría puesta, los bloques de las otras NO se dibujan.
+# Sin esto el filtro sería un adorno del índice y la pestaña seguiría igual de
+# larga, que es el problema que vino a resolver.
+_solo_motor = game_render.page(_pay, token="tok", seccion="experimentacion",
+                               experimento="motor")
+check("filtrando por «motor» queda el bloque del motor",
+      'id="exp-dx-elo-1"' in _solo_motor)
+check("y se van los de las otras categorías",
+      not any(f'id="exp-{c}"' in _solo_motor
+              for c in ("dx-puerta-1", "dx-puerta-2", "dx-muro-1", "dx-ab-imagen")))
+# La tabla del índice se filtra también: un índice que sigue listando cinco
+# experimentos mientras abajo se dibuja uno invita a tocar una fila que lleva a
+# un ancla que el filtro acaba de sacar de la página.
+check("y el índice filtrado lista solo los de esa categoría",
+      'href="#exp-dx-elo-1"' in _solo_motor
+      and not any(f'href="#exp-{c}"' in _solo_motor
+                  for c in ("dx-puerta-1", "dx-puerta-2", "dx-muro-1", "dx-ab-imagen")))
+check("pero el chip «Todos» sigue ofreciendo la vuelta",
+      f">Todos {len(_TODOS)}</a>" in _solo_motor)
+# Y el filtro viaja en los links: elegir otra semana o cambiar de desglose no
+# puede devolverte a «Todos», que es el mismo criterio que ya tienen `s` y
+# `corte` en `link()`.
+check("y el filtro viaja en los links de la página",
+      _solo_motor.count("&e=motor") >= 3,
+      f'({_solo_motor.count("&e=motor")} links lo llevan)')
+
+# Y la numeración no puede quedar con agujeros: «1 Índice» seguido de «3 El
+# motor» se lee como un bloque que no cargó, que es justo lo que el filtro NO
+# está haciendo.
+import re as _re
+for _etiqueta, _html in (("sin filtro", _idx), ("filtrado", _solo_motor)):
+    _ns = [int(m) for m in _re.findall(r"<h2><b>(\d+)</b>", _html)]
+    check(f'las secciones se numeran sin saltos ({_etiqueta})',
+          _ns == list(range(1, len(_ns) + 1)), f'({_ns})')
+
+# Una categoría vacía se ofrece pero no se puede tocar: no hay nada que filtrar
+# y un link que devuelve una pestaña vacía es peor que un rótulo apagado.
+check("una categoría sin experimentos no es un link",
+      "Retención —" in _idx and 'Retención —</a>' not in _idx)
+
+# El cierre, en pantalla: fecha, veredicto y MOTIVO. El motivo es lo único que
+# separa «se cerró porque llegó al n» de «se cerró porque no daba», y sin él la
+# lectura cómoda se come a la correcta.
+for _e in _TODOS:
+    _c = _e.get("cierre")
+    if not _c:
+        continue
+    check(f'el cierre de «{_e["clave"]}» muestra su veredicto',
+          _c["veredicto"][:30] in _idx)
+    check(f'y el motivo por el que se cerró', _c["motivo"][:40] in _idx)
+    check(f'y ya no dice cuánta gente falta',
+          f'Todav\u00eda no se puede leer' not in _idx.split(_c["veredicto"][:30])[1][:600])
+check("y un experimento cerrado deja link al informe",
+      q.PDF_CARPETA in _idx or ".pdf" in _idx)
 
 # ── 7 · La página se arma ───────────────────────────────────────────────────
 print("\n— render —")

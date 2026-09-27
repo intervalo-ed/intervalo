@@ -119,46 +119,55 @@ pasó a ser **«resolvió 3 en su primera tanda»** (`game_queries.py :: ENGANCH
 La medida vieja subió 13,8 puntos en este experimento sin que cambiara nada más;
 una vara que se mueve así no es un objetivo, es un contador de clics.
 
-#### `dx-puerta-2`, en curso desde el 18/09
+#### `dx-puerta-2`, cerrado el 27/09 por futilidad
 
-Los dos brazos tienen la misma puerta. Lo que cambia es dónde se cobra lo que la
-puerta no cobró.
+Los dos brazos tenían la misma puerta. Lo que cambiaba era dónde se cobra lo que
+la puerta no cobró.
 
-- **`control`** — el flujo que ganó, tal cual: después de la primera correcta,
-  **@ → ranking → reglas 2, 3 y 4 juntas** (`reglas-slide.tsx`, una sola vez por
-  dispositivo).
-- **`sin-peaje`** — entre la primera correcta y la segunda derivada no hay nada
-  salvo el ranking. Las dos piezas se corren:
-  - **el @** va a la tercera correcta, donde ya se pregunta carrera y
-    universidad (`HITO_PERFIL`). Sigue yendo antes del ranking, que es lo que
-    hace que la fila estrene el nombre elegido; lo único que cambia es el
-    acierto. La atrición manda: 20,4% en la primera contra 6,2% en la tercera.
-  - **las reglas** se reparten de a una, cada una donde tiene referente
-    (`reglas-trigger.ts :: CALENDARIO`): el **Elo en la 5**, cuando la dificultad
-    ya se movió y en el punto más calmo del tramo temprano; los **cafecitos en
-    la 12**, dos antes de que la diapo del cafecito aparezca por primera vez,
-    para que esa diapo no sea la primera noticia; la **tabla en la 17**, cuando
-    los ejercicios empezaron a costar de verdad y la regla es una salida y no un
-    dato.
+- **`control`** — el flujo que ganó `dx-puerta-1`, tal cual: después de la
+  primera correcta, **@ → ranking → reglas 2, 3 y 4 juntas**
+  (`reglas-slide.tsx`, una sola vez por dispositivo). **Es el flujo de hoy.**
+- **`sin-peaje`** — entre la primera correcta y la segunda derivada no había
+  nada salvo el ranking: el **@** se corría a la tercera correcta y las
+  **reglas** se repartían de a una (el Elo en la 5, los cafecitos en la 12, la
+  tabla en la 17), ninguna antes de la tercera y ninguna compartiendo respuesta
+  con otra pantalla.
 
-  Ninguna cae antes de la tercera correcta, y eso no es prolijidad: la métrica
-  primaria es llegar a tres, así que una regla que saliera antes estaría adentro
-  de lo que se está midiendo. Y ninguna comparte respuesta con otra pantalla:
-  las tres esquivan las derivadas donde el juego ya interrumpe (ver el mapa de
-  abajo).
+La métrica primaria era **llegar a 3 correctas en la primera tanda**, base 0,414
+y efecto mínimo 8 puntos → **606 por brazo**.
 
-**Esto no es el tutorial repartido que ya se sacó una vez.** Hasta el 13/09 las
-tres reglas venían de a una en los aciertos 1, 2 y 5, metidas ARRIBA DEL
-ENUNCIADO. Se fueron porque un renglón sobre la fórmula se lee como pie de página
-del ejercicio que tiene abajo, y porque caían donde la persona todavía no había
-decidido quedarse. El calendario de ahora son pantallas enteras y empiezan
-después de que esa decisión ya está tomada.
+**Cómo terminó.** Con 509 y 547 el brazo tratado iba **+2,2 pp** (39,1% → 41,3%,
+p 0,46, IC95 [−3,7 ; +8,1]). Se paró antes del n comprometido y el motivo es la
+única razón que puede parar antes: **no quedaba ningún futuro en el que ganara.**
+Aunque a las 156 personas que faltaban se les regalara el efecto declarado
+entero de 8 pp, el contraste final daría z = 0,99 contra el 1,96 que hace falta;
+para que diera significativo, los 59 que le faltaban al brazo tratado tendrían
+que llegar a tres en el 75,6% de los casos contra el 39,1% del control.
 
-La métrica primaria es **llegar a 3 correctas en la primera tanda**, base 0,414 y
-efecto mínimo 8 puntos → **606 por brazo**. La predicción declarada: Android es
-la que más se mueve, porque es donde `dx-puerta-1` perdió terreno y donde el
-desbarranco se lleva más gente en absoluto (149 → 109); iOS debería moverse
-menos, porque su ganancia vino de la puerta y no del peaje.
+Parar por futilidad **no es la parada prohibida**. Lo que infla el error de tipo
+I es mirar todos los días y frenar cuando el p-valor cruza 0,05; frenar porque
+ningún futuro posible lo cruza es la operación opuesta y no puede fabricar un
+falso positivo. Lo que sí cuesta es potencia para efectos chicos, y eso queda
+dicho: un efecto de 2 o 3 pp puede existir y este diseño nunca lo iba a ver.
+
+**En forma sí hizo lo que prometía, y esa es la conclusión que importa.** El
+brazo ganaba +4,8 pp en llegar a la 2ª derivada y +6,3 pp en llegar a la 3ª — o
+sea, recuperaba exactamente a la gente que el peaje se llevaba— y la ventaja se
+consumía entera en la 5ª. En personas: +39 en k=2, +41 en k=3, +11 en k=5, +3 en
+k=10 y −6 en k=20.
+
+Leído contra `dx-puerta-1`, que movió otro peaje en otro momento y ganó 71
+personas en la primera derivada y ninguna en la tercera, queda una sola
+afirmación: **cada peaje que se mueve compra exactamente un paso y ni uno más.**
+Después del primer escalón, el riesgo de abandono es ~6,3% por derivada y es
+plano (tendencia con k: −0,07 pp), y las vueltas siguientes abandonan igual que
+las primeras tandas de la quinta derivada en adelante. La cantidad de pantallas
+antes de la primera derivada, y el momento en que se cobran, están agotados como
+palanca. Los dos informes están en la carpeta de reportes.
+
+El brazo `sin-peaje` se fue con el experimento: el calendario de las reglas ya no
+existe en `reglas-trigger.ts` y las tres salen juntas. Está en el git y en el PDF
+del cierre.
 
 #### El mapa de interrupciones
 
@@ -169,13 +178,11 @@ eso obligó a mover un tercero, porque los números no viven solos:
 
 | derivada | qué sale |
 |---|---|
-| 3 | carrera y universidad (`HITO_PERFIL`); en `sin-peaje`, el @ va pegado antes |
-| 5 | *(sin-peaje)* la regla del Elo |
+| 1 | el @ (`username-slide.tsx`), y después del ranking las reglas 2, 3 y 4 juntas |
+| 3 | carrera y universidad (`HITO_PERFIL`) |
 | 9 | invitar a un amigo (`RECLUTAS_RESTO`) |
 | 10 | registrarse (`HITO_REGISTRO`), y se vuelve a ofrecer cada 12 |
-| 12 | *(sin-peaje)* la regla de los cafecitos |
 | 14 | el cafecito, por primera vez (`CAFECITO_PRIMERA`) |
-| 17 | *(sin-peaje)* la regla de la tabla |
 | 18 | la pregunta de la varita (`ENCUESTA_EN`), una sola vez en la vida |
 | 20 | el cafecito otra vez, y de ahí cada 20 |
 | 24 | instalar la app, y después cada 12: 36, 48, 60, 73, 85 |
@@ -278,8 +285,17 @@ experimento después de que vio la pantalla del control. La columna existe porqu
 PostHog segmenta eventos y el final del embudo no es un evento — el cafecito
 está en `game_boosts` y la profundidad en `game_attempts`.
 
-Lo que fija `backend/scripts/check_game_variante.py`, que lee el nombre del
-experimento del propio archivo del front para que no se pueda desincronizar.
+Lo que fija `backend/scripts/check_game_variante.py`, que lee el experimento del
+propio archivo del front para que no se pueda desincronizar.
+
+**Hoy no hay ningún experimento de pantallas corriendo, y eso es un estado
+declarado y no un olvido**: `EN_CURSO` está en `null` y `variant` viaja en NULL.
+Que viaje en NULL importa más de lo que parece — si al cerrar `dx-puerta-2` se
+hubiera seguido escribiendo `dx-puerta-2:control`, cada jugador nuevo habría
+entrado al brazo control de un experimento ya leído y sus números seguirían
+moviéndose para siempre, con un brazo creciendo y el otro congelado. Abrir el
+próximo es volver a llenar esa constante: la máquina del sorteo —el id de
+dispositivo, el hash y la avalancha— quedó intacta.
 
 **Desde `dx-elo-1` (19/09) éste no es el único sorteo, y la diferencia importa.**
 Aquél corre del lado del servidor y deriva el brazo de un hash del `player.id`
@@ -289,8 +305,8 @@ lo vuelve inservible para uno del MOTOR: un parámetro que rige de la inscripci�
 en adelante no tiene nada de «ya visto» que contaminar, y todos sus elegibles
 existen desde hace semanas.
 
-El panel lo lee en su pestaña **Experimentos**
-(`/panel/<token>/dx?s=experimentos`), que tiene una particularidad: **se niega a
+El panel lo lee en su pestaña **Experimentación**
+(`/panel/<token>/dx?s=experimentacion`), que tiene una particularidad: **se niega a
 contestar hasta tener la muestra que se prometió.** Mientras falte gente no
 calcula el p-valor ni dibuja un ganador, solo cuánto falta — mirar un A/B todos
 los días y parar en cuanto cruza 0,05 no es leerlo, es repetir el sorteo hasta
@@ -301,6 +317,26 @@ ganado.
 Cada experimento declara además **cuál columna decide** (`metrica`), y la tabla
 la marca con ▸. Era implícita —siempre «llegó a la 1ª»— hasta que `dx-puerta-1`
 mostró por qué tenía que ser explícita.
+
+La pestaña **abre con un índice** de los cinco experimentos del producto, que se
+calculan en cuatro funciones distintas porque no comparten aritmética. Cada uno
+declara, al lado de su hipótesis, tres cosas más: su **categoría** —que es una de
+las pestañas del panel, o sea contra qué tablero se lee su resultado—, un
+**abstract** de una o dos frases, y su **cierre** cuando terminó. Los chips de
+arriba filtran la pestaña entera por categoría, no solo el índice.
+
+Una categoría sin experimentos no se esconde: hoy **Retención y Jugabilidad están
+vacías**, y eso es el dato, no un hueco del índice. Es exactamente lo que los dos
+experimentos de la puerta dejaron dicho.
+
+Un experimento cerrado **no se borra del panel**: sigue mostrando sus números, con
+el veredicto, la fecha y el **motivo** del cierre arriba de todo, y el link a su
+informe. El motivo no tiene default en `game_queries.cerrado()` a propósito: es lo
+único que separa «se cerró porque llegó al n» de «se cerró porque no daba», y un
+cierre sin motivo invita a la lectura cómoda. Y es la única puerta por la que un
+experimento se lee sin haber llegado al n — porque el único motivo que puede parar
+antes es la futilidad, que es demostrar que ningún resultado posible cambia la
+conclusión.
 
 - **Cada 3 correctas, el festejo cuenta sobre la universidad.** La XP sigue
   siendo de la persona y le suma igual; lo que cambia es sobre qué fila trepa el

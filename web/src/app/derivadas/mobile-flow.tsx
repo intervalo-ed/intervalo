@@ -84,13 +84,9 @@ import { PuertaMinima } from "./intro-panel"
 import { ReglasSlide } from "./reglas-slide"
 import {
   REGLAS_DE_LA_DIAPO,
-  marcarReglaDicha,
   marcarReglasMostradas,
-  proximaRegla,
-  reglasDichas,
   tocaReglas,
 } from "./reglas-trigger"
-import { brazoDelJuego } from "@/lib/experiments/UseGameVariant"
 import { DerivativesTable, TableButton } from "./derivatives-table"
 import { PorQueButton, PorQuePanel, type PorQueGraph } from "./porque-panel"
 import { useExplainExercise } from "./UseGameExplain"
@@ -140,10 +136,10 @@ type Slide =
   | { kind: "intro" }
   // Elegir el @. Siempre DESPUÉS de resolver una derivada y antes del ranking,
   // para que la XP entre a una fila que ya tiene el nombre que la persona
-  // eligió. Cuál derivada es lo que separa a los brazos de `dx-puerta-2`: la
-  // primera en `control`, la tercera —junto con carrera y universidad— en
-  // `sin-peaje`. No lleva `back` porque de los dos lados se sale hacia
-  // adelante, nunca a la pantalla anterior.
+  // eligió, y en la PRIMERA correcta. Cuál derivada era lo que separaba a los
+  // brazos de `dx-puerta-2`; ese experimento cerró el 27/09 sin diferencia
+  // detectable y quedó el control. No lleva `back` porque de los dos lados se
+  // sale hacia adelante, nunca a la pantalla anterior.
   | { kind: "username" }
   | { kind: "exercise" }
   | { kind: "ranking"; answer: GameAnswer | null }
@@ -157,9 +153,10 @@ type Slide =
   // el estado viaja con el jugador.
   | { kind: "tope" }
   // Las reglas que la puerta no dijo (reglas-slide.tsx), siempre después de un
-  // ranking. `cuales` son índices de la lista de `IntroParagraphs`: las tres de
-  // un saque en `control`, de a una en `sin-peaje`. Sin `back`: se entra desde
-  // el ranking y se sale a la derivada siguiente, nunca al revés.
+  // ranking. `cuales` son índices de la lista de `IntroParagraphs`, y hoy son
+  // siempre las tres de un saque —repartirlas de a una era el brazo `sin-peaje`
+  // de `dx-puerta-2`, que no movió nada—. Sin `back`: se entra desde el
+  // ranking y se sale a la derivada siguiente, nunca al revés.
   | { kind: "reglas"; cuales: number[] }
   | { kind: "profile" }
   | { kind: "register" }
@@ -321,10 +318,6 @@ function GameHeader({
 
 export function MobileFlow({ intro }: { intro: GameIntro }) {
   const { player, refetch: refetchPlayer } = useGamePlayer()
-  // El brazo. Sincrónico y estable: no cambia dentro de la pestaña, así que se
-  // lee una vez y se usa como cualquier constante.
-  const brazo = brazoDelJuego()
-  const sinPeaje = brazo === "sin-peaje"
   const queryClient = useQueryClient()
   const next = useNextExercise()
   const answerMutation = useAnswerExercise()
@@ -444,11 +437,9 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
   // aparecer en la respuesta siguiente.
   const askedUsernameRef = useRef(false)
   // Las reglas, en cambio, no tienen condición del servidor: la memoria vive en
-  // localStorage (reglas-trigger.ts) y estos dos refs cubren el rato entre que
-  // se muestran y se anotan. Son dos porque los brazos cuentan distinto: el
-  // control las da todas juntas una vez, y `sin-peaje` lleva cuántas van.
+  // localStorage (reglas-trigger.ts) y este ref cubre el rato entre que se
+  // muestran y se anotan.
   const reglasMostradasRef = useRef(false)
-  const reglasDichasRef = useRef(0)
 
   // Cuando termina el conteo: recién ahí el ranking estrena orden y sube.
   const onBurstComplete = useCallback(() => {
@@ -654,13 +645,13 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
     // sin él en mobile esa distinción no existía para el 83% del tráfico — que
     // es exactamente donde está el problema (iOS 30,2% contra Android 53,4%
     // llegando a la primera derivada).
-    posthog.capture("game_intro_done", { layout: "mobile", brazo })
+    posthog.capture("game_intro_done", { layout: "mobile" })
     // Y nada más: antes de jugar no se pide nada. El @ se pide después de
     // acertar, que es donde hay un puesto al que ponerle el nombre (ver
     // `advanceAfterAnswer`). Hasta el 18/09 acá había una bifurcación por brazo
     // —el control pedía el apodo en la puerta— y se fue con `dx-puerta-1`.
     loadNext()
-  }, [loadNext, brazo])
+  }, [loadNext])
 
   // Después de resolver (o del ranking/hito/cafecito), decide la próxima slide.
   const advanceAfterAnswer = useCallback(
@@ -701,17 +692,15 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
       // elegiste», y a quien se fue antes de resolver la primera hay que poder
       // preguntarle cuando vuelva.
       //
-      // **`sin-peaje` lo corre a la tercera**, donde ya se pregunta carrera y
-      // universidad. No cambia el orden —sigue yendo antes del ranking— sino el
-      // acierto en el que aparece, y eso es todo lo que el brazo hace acá. El
-      // motivo es la atrición: en la primera correcta se va el 20,4% y en la
-      // tercera el 6,2%, así que el mismo pedido cuesta un tercio. La métrica
-      // primaria del experimento —llegar a tres— ya está cumplida cuando esto
-      // dispara, así que el brazo no se mide a sí mismo.
+      // **Correrlo a la tercera fue el brazo `sin-peaje` de `dx-puerta-2`.** La
+      // apuesta era la atrición —en la primera correcta se va el 20,4% y en la
+      // tercera el 6,2%, así que el mismo pedido costaría un tercio— y no se
+      // pagó: el brazo terminó +2,2 pp en llegar a tres, con el intervalo
+      // conteniendo al cero y sin futuro posible que lo hiciera significativo.
+      // Queda donde estaba, en la primera.
       if (
         consumed === null &&
         a.correct &&
-        (!sinPeaje || a.exercises_correct >= HITO_PERFIL) &&
         !askedUsernameRef.current &&
         player?.is_guest &&
         player.alias_is_generated
@@ -809,12 +798,16 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
       // que hace que la explicación caiga donde se pensó: pegada al festejo del
       // que habla.
       //
-      // `control`: las tres de un saque, después del primer ranking. Con una
-      // sola correcta encima ninguno de los otros escalones dispara, así que en
-      // la práctica no le saca el turno a nada.
+      // Las tres de un saque, después del primer ranking. Con una sola correcta
+      // encima ninguno de los otros escalones dispara, así que en la práctica no
+      // le saca el turno a nada.
+      //
+      // Repartirlas de a una —en la 5, la 12 y la 17— era el brazo `sin-peaje`
+      // de `dx-puerta-2`. Se fue con el experimento: el calendario entero vive
+      // en el git y en el PDF del cierre, no colgando de un `if` que nadie
+      // puede tomar.
       if (
         consumed === "ranking" &&
-        !sinPeaje &&
         !reglasMostradasRef.current &&
         tocaReglas(a.exercises_correct)
       ) {
@@ -822,20 +815,6 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
         marcarReglasMostradas(a.exercises_correct)
         goTo({ kind: "reglas", cuales: REGLAS_DE_LA_DIAPO })
         return
-      }
-      // `sin-peaje`: de a una, en la 5, la 8 y la 15. El máximo con el ref es
-      // por si localStorage está bloqueado — ahí `reglasDichas()` contesta
-      // siempre cero y, a diferencia del control, la regla no se repetiría «una
-      // vez por carga» sino en CADA correcta de la 5 en adelante.
-      if (consumed === "ranking" && sinPeaje) {
-        const dichas = Math.max(reglasDichasRef.current, reglasDichas())
-        const regla = proximaRegla(a.exercises_correct, dichas)
-        if (regla !== null) {
-          reglasDichasRef.current = dichas + 1
-          marcarReglaDicha(dichas, a.exercises_correct)
-          goTo({ kind: "reglas", cuales: [regla] })
-          return
-        }
       }
 
       // Recién salido del ranking: si mientras jugaba pasaron cosas, se muestran
@@ -977,7 +956,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
       }
       loadNext()
     },
-    [goTo, loadNext, player, releaseXp, sinPeaje],
+    [goTo, loadNext, player, releaseXp],
   )
 
   // Deshace el adelanto de racha/intentos si el servidor termina en

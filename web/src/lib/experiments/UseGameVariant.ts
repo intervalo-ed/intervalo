@@ -35,29 +35,42 @@ import posthog from "posthog-js"
 
 const DEVICE_KEY = "intervalo:game:device"
 
-/** El experimento en curso. Cambiarlo re-sortea a todo el mundo: el id de
- *  dispositivo se mantiene, pero el hash lleva el nombre adentro, así que los
- *  brazos de dos experimentos distintos no quedan correlacionados.
+/** El experimento en curso, o `null` cuando no hay ninguno.
  *
- *  `dx-puerta-1` terminó el 18/09 con 527 por brazo. Ganó `derivada-primero`
- *  —de 55,6% a 80,6% de gente a la que se le muestra una derivada, IC95
- *  [19,6 · 30,5]— y ES el flujo de hoy, así que dejó de ser un brazo: los dos
- *  brazos de acá abajo lo tienen puesto. Lo que ese experimento también dejó,
- *  y es de lo que este se ocupa, está en el catálogo de features. */
-export const EXPERIMENTO = "dx-puerta-2"
-
-/** Los brazos, en orden. El índice ES el bucket, así que agregar uno al final
- *  no remueve a nadie de los que ya estaban.
+ *  **Hoy no hay ninguno, y eso es un estado declarado y no un olvido.** Los dos
+ *  experimentos de la puerta terminaron:
  *
- *  `sin-peaje` saca lo que `dx-puerta-1` dejó apilado justo después de la
- *  primera correcta —el @, y las tres reglas— y lo corre a después de la
- *  tercera. Ver reglas-trigger.ts. */
-export const BRAZOS = ["control", "sin-peaje"] as const
-export type Brazo = (typeof BRAZOS)[number]
+ *    - `dx-puerta-1` cerró el 18/09 con 527 por brazo. Ganó `derivada-primero`
+ *      —de 55,7% a 80,3% de gente a la que se le muestra una derivada— y ES el
+ *      flujo de hoy, así que dejó de ser un brazo.
+ *    - `dx-puerta-2` cerró el 27/09 **por futilidad**, con 509 y 547 de los 606
+ *      comprometidos. No es que faltara gente: con el resultado en la mano, ni
+ *      siquiera regalándole a los 156 que faltaban el efecto declarado entero
+ *      de 8 pp el contraste llegaba a significativo (z = 0,99 contra el 1,96
+ *      que hace falta). Quedó el control, que es lo que ya estaba puesto.
+ *
+ *  Parar por futilidad no es la parada prohibida. Lo que infla el error de tipo
+ *  I es mirar todos los días y frenar cuando el p-valor cruza 0,05; frenar
+ *  porque NINGÚN futuro posible lo cruza no puede fabricar un falso positivo.
+ *
+ *  Para abrir el próximo alcanza con volver a llenar esta constante: la máquina
+ *  de abajo —el id de dispositivo, el hash y la avalancha— no se tocó, y el
+ *  nombre del experimento viaja adentro del hash, así que los brazos de dos
+ *  experimentos distintos nunca quedan correlacionados. */
+export const EN_CURSO: { clave: string; brazos: readonly string[] } | null = null
 
-/** Lo que se manda al backend y se guarda en `game_players.variant`. */
-export function etiquetaDeBrazo(brazo: Brazo): string {
-  return `${EXPERIMENTO}:${brazo}`
+/** Lo que se guarda en `game_players.variant`, o `null` si no hay experimento.
+ *
+ *  **El `null` no es un detalle de tipos: es lo que deja quieto un experimento
+ *  cerrado.** Si al cerrar `dx-puerta-2` se siguiera escribiendo
+ *  `dx-puerta-2:control`, cada jugador nuevo entraría al brazo control de un
+ *  experimento que ya se leyó y sus números seguirían moviéndose para siempre
+ *  —un brazo creciendo y el otro congelado, que es bastante peor que no tener
+ *  el dato—. El panel filtra por la etiqueta, así que sin etiqueta la persona
+ *  juega el flujo de hoy y no cuenta para nada que ya esté declarado. */
+export function variantDelJuego(): string | null {
+  const brazo = brazoDelJuego()
+  return brazo === null || EN_CURSO === null ? null : `${EN_CURSO.clave}:${brazo}`
 }
 
 /** Un id estable por dispositivo, creado la primera vez que se lo pide.
@@ -111,34 +124,38 @@ function hash(texto: string): number {
   return h >>> 0
 }
 
-/** Atajo de desarrollo: `?brazo=sin-peaje`. En producción no existe, así
+/** Atajo de desarrollo: `?brazo=<el que sea>`. En producción no existe, así
  *  que nadie puede forzarse un brazo y ensuciar los datos. */
-function brazoForzado(): Brazo | null {
+function brazoForzado(): string | null {
   if (process.env.NODE_ENV === "production" || typeof window === "undefined") return null
   const pedido = new URLSearchParams(window.location.search).get("brazo")
-  return BRAZOS.includes(pedido as Brazo) ? (pedido as Brazo) : null
+  return EN_CURSO !== null && pedido !== null && EN_CURSO.brazos.includes(pedido) ? pedido : null
 }
 
-let cache: Brazo | null = null
+let cache: string | null = null
 
-/** El brazo de este dispositivo. Sincrónica y estable dentro de la pestaña.
+/** El brazo de este dispositivo, o `null` si no hay experimento en curso.
  *
- *  Se puede llamar durante el render sin riesgo de hydration mismatch porque los
- *  dos layouts del juego montan solo del lado del cliente: `game-root.tsx` los
- *  carga con `dynamic({ ssr: false })` y no dibuja ninguno hasta que
- *  `usePlatform()` contesta. En el servidor devuelve el control, que además es
- *  el flujo seguro. */
-export function brazoDelJuego(): Brazo {
+ *  Sincrónica y estable dentro de la pestaña. Se puede llamar durante el render
+ *  sin riesgo de hydration mismatch porque los dos layouts del juego montan solo
+ *  del lado del cliente: `game-root.tsx` los carga con `dynamic({ ssr: false })`
+ *  y no dibuja ninguno hasta que `usePlatform()` contesta. En el servidor
+ *  devuelve el primer brazo, que por convención es el control y además es el
+ *  flujo seguro. */
+export function brazoDelJuego(): string | null {
+  if (EN_CURSO === null) return null
   if (cache !== null) return cache
-  if (typeof window === "undefined") return BRAZOS[0]
+  if (typeof window === "undefined") return EN_CURSO.brazos[0]
   const forzado = brazoForzado()
-  const brazo = forzado ?? BRAZOS[hash(`${EXPERIMENTO}:${idDeDispositivo()}`) % BRAZOS.length]
+  const brazo =
+    forzado ??
+    EN_CURSO.brazos[hash(`${EN_CURSO.clave}:${idDeDispositivo()}`) % EN_CURSO.brazos.length]
   cache = brazo
   // Como super propiedad, para poder cortar en PostHog cualquier evento del
   // juego por brazo sin tener que pasarlo en los treinta `capture` que hay
   // repartidos. Mismo criterio que `useGameIdentity`.
   try {
-    posthog.register({ [EXPERIMENTO]: brazo })
+    posthog.register({ [EN_CURSO.clave]: brazo })
   } catch {
     // PostHog bloqueado. El experimento sigue: el brazo ya está decidido y se
     // persiste igual en la base por el POST del jugador.
