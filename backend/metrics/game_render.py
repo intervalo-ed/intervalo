@@ -153,6 +153,27 @@ h3.dentro{margin:18px 0 10px}
   padding:7px 11px;font:inherit;font-size:13px}
 .buscador input::placeholder{color:var(--muted)}
 .buscador input:focus{outline:none;border-color:var(--indigo-soft)}
+/* ── Los dos controles de las encuestas ─────────────────────────── */
+
+/* Una barra de cortes que se resuelve en el navegador: mismo chip que
+   `.cortes a`, pero `button` porque no hay adónde navegar — las tres vistas ya
+   vinieron en la página. El selector de `<a>` de theme.py no alcanza a los
+   botones, así que hay que repetir el aspecto; lo que NO se repite son los
+   colores, que salen de las mismas variables. */
+.cortes button{border-radius:6px;padding:3px 9px;border:1px solid var(--border);
+  color:var(--muted);background:var(--card);font:inherit;font-size:12px;
+  cursor:pointer}
+.cortes button:hover{color:var(--fg);border-color:var(--indigo)}
+.cortes button.cur{background:var(--indigo);color:#fff;border-color:var(--indigo);
+  font-weight:600}
+
+/* La casilla de «solo la misma gente». Va pegada al gráfico y no en una barra
+   aparte: es una propiedad de la curva de abajo, no del panel. */
+.opcion{display:flex;gap:8px;align-items:flex-start;font-size:12px;
+  color:var(--muted);line-height:1.45;margin:0 0 12px;cursor:pointer}
+.opcion:hover{color:var(--fg)}
+.opcion input{accent-color:var(--indigo);margin:2px 0 0;flex:none}
+
 .atajos{display:flex;gap:6px;flex-wrap:wrap;font-size:12px}
 .atajos button{border:1px solid var(--border);border-radius:6px;padding:3px 9px;
   color:var(--muted);background:var(--card);font:inherit;font-size:12px;
@@ -241,6 +262,15 @@ def _pct_txt(v) -> str:
     return "—" if v is None else num(v, "%")
 
 
+def _texto(rotulo: str) -> str:
+    """El rótulo de un voto sin su emoji, para meterlo adentro de una frase.
+
+    En una tabla el emoji es la columna que se reconoce de un vistazo; en medio
+    de un párrafo es ruido, y además los rótulos de las dos encuestas se leen
+    solos («muy fácil», «bien variadas»)."""
+    return rotulo.split(" ", 1)[-1].lower() if " " in rotulo else rotulo.lower()
+
+
 def _y_lista(partes: list[str]) -> str:
     """«14», «14 y 20», «14, 20 y 40». Para enumerar sin que quede telegráfico."""
     if len(partes) <= 1:
@@ -248,71 +278,290 @@ def _y_lista(partes: list[str]) -> str:
     return ", ".join(partes[:-1]) + " y " + partes[-1]
 
 
-def _caja_por_orden(po: dict, valores, rotulo, mirar: str, pregunta: str) -> str:
-    """Cómo cambia el voto según CUÁNTAS VECES se le preguntó a esa persona.
+# ── Las dos encuestas: los titulares, la curva por camada y el caminito ──────
+#
+# Las dos preguntan lo mismo sobre ejes distintos —¿la derivada estaba en su
+# punto?, ¿venían muy repetidas?— así que las tres piezas de abajo sirven a las
+# dos y solo cambian los valores que puede tomar el voto. Lo que se lee en cada
+# una:
+#
+#   - los TRES TITULARES, que son el estado de hoy;
+#   - la curva POR CAMADA, que dice si eso viene mejorando de ola en ola;
+#   - el CAMINITO de la camada actual, que dice qué le pasa a una persona a
+#     medida que juega.
+#
+# Son tres preguntas distintas y ninguna reemplaza a las otras: una camada puede
+# arrancar cada vez mejor y despegarse cada vez más rápido al mismo tiempo, y
+# eso son dos decisiones de producto opuestas.
 
-    La misma caja para las dos encuestas: lo único que cambia son los valores
-    que puede tomar el voto y cuál es la columna que hay que mirar.
 
-    Van las dos lecturas y no una. La cruda contesta la pregunta directo pero
-    está confundida por supervivencia —a la 4ª vez solo llega quien siguió
-    jugando, así que la columna mezcla «mejoró» con «quedaron los que ya estaban
-    cómodos»— y la balanceada la corrige contando solo a quien llegó a `k`
-    votos, que es la misma gente en todos los puntos.
+def _techo_pct(valores) -> float | None:
+    """100 cuando el techo automático se pasaría de 100; si no, None.
+
+    `ch._nice_max` busca el múltiplo redondo que deja un 8% de aire arriba, así
+    que para una tasa de respuesta del 98,4% elige 120 — y el eje dibuja hasta
+    un 120% que no existe, dejando la serie apretada contra el techo y media
+    caja vacía. La condición es la misma que usa allá (`v * 1.08`), para que las
+    dos decidan lo mismo.
+
+    Debajo de ese umbral conviene NO fijar el techo: una serie que va de 37 a 48
+    contra un eje de 0 a 100 es una línea recta.
     """
-    # **La curva prefiere la serie BALANCEADA y cae a la cruda cuando no hay
-    # base para armarla.** Con población fija la pendiente significa una sola
-    # cosa; con la cruda son poblaciones distintas unidas por una línea —el
-    # punto de la 3ª vez tiene la cuarta parte de la gente que el de la 1ª— y la
-    # pendiente mezcla «cambió la respuesta» con «cambió quién contesta».
-    #
-    # Se dibuja igual en ese caso, con los puntos flojos huecos y la línea
-    # punteada, que es la misma convención que usa la difusión con las olas que
-    # todavía suman clics. Un cartel diciendo «no hay base» deja la sección sin
-    # nada que mirar hasta que la haya; una curva marcada como floja se lee
-    # sabiendo lo que es, y se endurece sola cuando llega la gente.
-    bal = po["balanceado"]
-    serie = bal["filas"] if bal else po["filas"]
-    flojos = [f["personas"] < po["min_panel"] for f in serie]
-    curva = ch.lines(
-        [{"label": rotulo(v), "color": ch.SERIES[i % len(ch.SERIES)],
-          "values": [f[f"pct_{v}"] for f in serie], "weak": flojos,
-          "tips": [f'{f["etiqueta"]} · {rotulo(v)}\n{_pct_txt(f[f"pct_{v}"])} de '
-                   f'{num(f["votos"])} votos ({num(f["personas"])} personas)'
-                   for f in serie]}
-         for i, v in enumerate(valores)],
-        [f["etiqueta"] for f in serie], suffix="%", height=260)
-    cuerpo = curva + (
-        f'<p class="note"><b>La misma gente en todos los puntos</b> — las '
-        f'{num(bal["personas"])} personas que llegaron a {bal["k"]} respuestas. Un '
-        f'movimiento acá no puede venir de que cambió quién contesta, que es lo '
-        f'único que la tabla de abajo no puede descartar.</p>' if bal else
-        f'<p class="note"><b>Ojo: acá cada punto es gente distinta.</b> Todavía no '
-        f'hay {num(po["min_panel"])} personas con dos respuestas, así que no se '
-        f'puede fijar la población y la curva dibuja la serie cruda — los puntos '
-        f'huecos y la línea punteada marcan eso. Una pendiente acá puede ser que '
-        f'la experiencia cambió o que cambió quién contesta, y no se pueden '
-        f'separar hasta que haya base.</p>')
+    vals = [v for v in valores if v is not None]
+    return 100.0 if vals and max(vals) * 1.08 > 100 else None
 
-    cuerpo += _table(["", "Votos", "Personas"] + [rotulo(v) for v in valores],
-                     [[f'<b>{esc(f["etiqueta"])}</b>', num(f["votos"]),
-                       num(f["personas"])]
-                      + [_pct_txt(f[f"pct_{v}"]) for v in valores]
-                      for f in po["filas"]],
-                     empty="todavía no hay votos")
-    return _box(pregunta, cuerpo,
-                note=f'<b>La serie que hay que mirar es «{esc(mirar)}».</b> Si la '
-                     f'experiencia mejora a medida que la persona se mete más en el '
-                     f'producto, esa línea baja de un punto al siguiente.'
-                     + '<br><br><b>La tabla llega más lejos que la curva, y por eso '
-                       'está confundida por quién sobrevive.</b> A la cuarta pregunta '
-                       'solo llega quien siguió jugando, o sea gente distinta de la '
-                       'que contestó una sola vez: una mejora ahí puede ser que la '
-                       'experiencia mejoró, o que quedaron los que ya estaban '
-                       'cómodos. Las dos cosas se ven igual. La curva de arriba no '
-                       'tiene ese problema pero llega hasta donde hay base; la tabla '
-                       'muestra el resto con su número de personas al lado, para '
-                       'poder leerlo sabiendo sobre cuánta gente se apoya.')
+
+def _kpis_encuesta(enc: dict, rotulo) -> str:
+    """Los tres titulares de una encuesta.
+
+    Van juntos porque ninguno se lee solo: un ajuste inicial alto sobre una tasa
+    de respuesta del 10% es el ajuste de los diez que contestan, y una ganancia
+    sin su punto de partida no distingue «mejoró» de «empeoró más despacio».
+    """
+    resto = _y_lista([f'{_pct_txt(d["pct"])} {rotulo(d["voto"]).lower()}'
+                      for d in enc["desvios"] if d["pct"] is not None])
+    # Qué votos cuentan como «en su punto» no es lo mismo en las dos encuestas
+    # —ver `game_queries.BIEN_DIFICULTAD`— así que el titular los nombra en vez
+    # de decir «justo», que en repetitividad dejaría afuera «bien variadas».
+    en_punto = _y_lista([f'«{_texto(rotulo(v))}»' for v in enc["bien"]])
+    k = enc["ganancia_k"]
+    return "".join(_kpi_chico(l, v, h, suffix=sfx, dec=1, signo=sg)
+                   for l, v, sfx, h, sg in [
+        ("Contestaron", enc["pct_respuesta"], "%",
+         f'{num(enc["contestadas"])} de {num(enc["mostradas"])} preguntas', False),
+        ("Ajuste inicial", enc["ajuste_inicial"], "%",
+         f'vota {en_punto} en su 1ª respuesta, sobre {num(enc["ajuste_n"])} '
+         f'personas' + (f' · el resto, {resto}' if resto else ""), False),
+        ("Ganancia de ajuste", enc["ganancia"], " pp",
+         (f'de {_pct_txt(enc["ganancia_desde"])} a {_pct_txt(enc["ganancia_hasta"])} '
+          f'entre la 1ª y la {k}ª, sobre las {num(enc["ganancia_n"])} personas que '
+          f'llegaron a {k}'), True),
+    ])
+
+
+def _caja_camadas(enc: dict, slug: str) -> str:
+    """Los tres titulares abiertos por camada, con el selector de cuál mirar.
+
+    **El selector se resuelve en el navegador y no en la URL.** La barra de
+    semanas y la de cortes sí viajan por la URL, y con razón: cambian los datos
+    y hay que ir a buscarlos. Acá las tres vistas son tres SVG que ya vinieron
+    en la página, así que un viaje al servidor solo agregaría espera y perdería
+    el scroll.
+
+    **La ganancia se dibuja con SUS DOS TÉRMINOS y no como la resta.** Es el
+    mismo argumento que dejó escrito el selector de viralidad unas líneas más
+    abajo: una diferencia sin los dos números que la forman no se puede
+    auditar, y −12 pp puede ser una camada que arranca peor o una que se despega
+    más rápido. De paso esquiva que `ch.lines` dibuja de cero para arriba, así
+    que una resta negativa se le saldría del recuadro.
+    """
+    filas = enc["por_camada"]
+    etiquetas = [f["label"] for f in filas]
+    piso, k = enc["min_panel"], enc["ganancia_k"]
+
+    def flojos(base: str) -> list[bool]:
+        return [f[base] < piso for f in filas]
+
+    def poca(f: dict, base: str) -> str:
+        return "" if f[base] >= piso else f'\nPoca base: menos de {num(piso)}'
+
+    def tips(clave: str, base: str, que: str) -> list[str]:
+        return [f'Camada del {f["label"]}\n'
+                + ("sin base" if f[clave] is None else num(f[clave], "%"))
+                + f' · {num(f[base])} {que}' + poca(f, base)
+                for f in filas]
+
+    def tip_gan(f: dict, cual: str) -> str:
+        if f["ganancia"] is None:
+            return (f'Camada del {f["label"]}\nmenos de {num(enc["min_camada"])} '
+                    f'personas llegaron a {k} respuestas')
+        return (f'Camada del {f["label"]} · {cual}\n'
+                f'{num(f["ganancia_desde"], "%")} → {num(f["ganancia_hasta"], "%")}, '
+                f'o sea {num(f["ganancia"], " pp")}\n'
+                f'sobre las {num(f["ganancia_n"])} personas que llegaron a {k} '
+                f'respuestas' + poca(f, "ganancia_n"))
+
+    vistas = [
+        ("Contestaron",
+         ch.lines([{"label": "Contestaron", "color": ch.SERIES[0],
+                    "values": [f["pct_respuesta"] for f in filas],
+                    "weak": flojos("mostradas"),
+                    "tips": tips("pct_respuesta", "mostradas", "preguntas salieron")}],
+                  etiquetas, suffix="%", height=250,
+                  y_max=_techo_pct(f["pct_respuesta"] for f in filas)),
+         "Qué fracción de las preguntas que le salieron a esa camada se contestó. "
+         "Es la base de las otras dos vistas: si cae, los otros dos números se "
+         "apoyan en menos gente sin decirlo."),
+        ("Ajuste inicial",
+         ch.lines([{"label": "Ajuste inicial", "color": ch.SERIES[1],
+                    "values": [f["ajuste_inicial"] for f in filas],
+                    "weak": flojos("ajuste_n"),
+                    "tips": tips("ajuste_inicial", "ajuste_n", "personas votaron")}],
+                  etiquetas, suffix="%", height=250,
+                  y_max=_techo_pct(f["ajuste_inicial"] for f in filas)),
+         "Qué fracción de la camada dice «justo» en su PRIMERA respuesta, una por "
+         "persona. Es lo más cerca que hay de una condición inicial: el juego "
+         "visto por alguien a quien el motor todavía no tuvo tiempo de seguir, y "
+         "sin depender de cuánto juegue cada uno después. Si sube de camada en "
+         "camada, el juego está recibiendo mejor a la gente nueva."),
+        ("Ganancia de ajuste",
+         ch.lines([{"label": "1ª respuesta", "color": ch.SERIES[1],
+                    "values": [f["ganancia_desde"] for f in filas],
+                    "weak": flojos("ganancia_n"),
+                    "tips": [tip_gan(f, "1ª respuesta") for f in filas]},
+                   {"label": f"{k}ª respuesta", "color": ch.SERIES[2],
+                    "values": [f["ganancia_hasta"] for f in filas],
+                    "weak": flojos("ganancia_n"),
+                    "tips": [tip_gan(f, f"{k}ª respuesta") for f in filas]}],
+                  etiquetas, suffix="%", height=250,
+                  y_max=_techo_pct([f[c] for f in filas
+                                    for c in ("ganancia_desde", "ganancia_hasta")])),
+         f'<b>La ganancia es el hueco entre las dos líneas</b>, y van las dos y no '
+         f'la resta: una caída de diez puntos puede ser una camada que arranca '
+         f'peor o una que se despega más rápido, y la resta sola no las '
+         f'distingue. Las dos se miden sobre LA MISMA GENTE —solo quien llegó a '
+         f'{k} respuestas, cada uno contra su propia primera— así que el hueco no '
+         f'puede venir de que cambió quién contesta.'),
+    ]
+
+    botones = "".join(
+        f'<button data-m="{i}" class="{"cur" if i == 0 else ""}">{esc(rot)}</button>'
+        for i, (rot, _, _) in enumerate(vistas))
+    cuerpo = "".join(
+        f'<div data-vista="{i}"{"" if i == 0 else " hidden"}>{svg}'
+        f'<p class="note">{nota}</p></div>'
+        for i, (_, svg, nota) in enumerate(vistas))
+
+    return (f'<div class="box" data-segm="{esc(slug)}">'
+            f'<h3>Cómo viene cambiando de camada en camada</h3>'
+            f'<div class="cortes"><span class="sub">Métrica</span>{botones}</div>'
+            f'{cuerpo}'
+            f'<p class="note"><b>Cada punto es una camada, por semana de alta y no '
+            f'por semana del voto.</b> Un voto del martes le cuenta a la camada de '
+            f'la persona, que es lo que hace que dos camadas se puedan comparar: '
+            f'cada una se mide contra sí misma. Es el mismo criterio que usa '
+            f'Retención.'
+            f'<br><br><b>Los puntos huecos con la línea punteada se apoyan en '
+            f'poca base</b>: menos de {num(piso)} preguntas en la primera vista, '
+            f'menos de {num(piso)} personas en las otras dos —el globo de cada '
+            f'punto dice cuál es la suya— y las camadas que no llegan a '
+            f'{num(enc["min_camada"])} directamente no se dibujan, porque sobre '
+            f'tres personas un porcentaje es una anécdota con forma de dato. La '
+            f'cola izquierda va a quedar flaca para siempre —ahí el juego recién '
+            f'arrancaba— y la derecha se endurece sola cuando llega la gente.'
+            f'</p></div>')
+
+
+def _caja_camino(enc: dict, valores, rotulo, slug: str) -> str:
+    """Cómo cambia el voto de la camada actual según CUÁNTAS VECES se preguntó.
+
+    La camada actual y no todas: la caja de arriba ya contesta cómo viene
+    cambiando de ola en ola, así que lo que falta acá es el zoom a la más nueva,
+    que es sobre la que todavía se puede hacer algo.
+
+    **La casilla elige entre dos preguntas parecidas y no entre dos versiones de
+    lo mismo.** Marcada —y arranca marcada— la serie cuenta SOLO a quien llegó a
+    las `k` respuestas, así que la población es la misma en todos los puntos y
+    un movimiento no puede venir de que cambió quién contesta. Desmarcada llega
+    más lejos, hasta la quinta pregunta, pero cada punto es gente distinta: a la
+    cuarta solo llega quien siguió jugando, o sea que una mejora ahí puede ser
+    que la experiencia mejoró o que quedaron los que ya estaban cómodos. Las dos
+    cosas se ven igual, y por eso la que se ofrece primero es la que no las
+    mezcla.
+    """
+    po = enc["camino"]
+    bal = po["balanceado"]
+
+    def curva(serie: list[dict]) -> str:
+        flojos = [f["personas"] < po["min_panel"] for f in serie]
+        return ch.lines(
+            [{"label": rotulo(v), "color": ch.SERIES[i % len(ch.SERIES)],
+              "values": [f[f"pct_{v}"] for f in serie], "weak": flojos,
+              "tips": [f'{f["etiqueta"]} · {rotulo(v)}\n{_pct_txt(f[f"pct_{v}"])} de '
+                       f'{num(f["votos"])} votos ({num(f["personas"])} personas)'
+                       for f in serie]}
+             for i, v in enumerate(valores)],
+            [f["etiqueta"] for f in serie], suffix="%", height=260,
+            y_max=_techo_pct(f[f"pct_{v}"] for f in serie for v in valores))
+
+    en_punto = _y_lista([f'«{_texto(rotulo(v))}»' for v in enc["bien"]])
+    pie = (f'<b>La línea que hay que mirar es {en_punto}</b>, que es la misma que '
+           f'el titular de ajuste de arriba: si sube de un punto al siguiente, el '
+           f'juego le va calzando mejor a la persona a medida que juega. El resto '
+           f'dice hacia qué lado se va cuando no calza, que es lo único accionable.')
+
+    if bal is None:
+        cuerpo = (curva(po["filas"])
+                  + f'<p class="note"><b>Ojo: acá cada punto es gente distinta.</b> '
+                    f'Todavía nadie de esta camada llegó a {enc["ganancia_k"]} '
+                    f'respuestas, así que no se puede fijar la población.</p>')
+        return (f'<div class="box"><h3>Cómo cambia la respuesta dentro de la camada '
+                f'del {esc(enc["camada"])}</h3>{cuerpo}'
+                f'<p class="note">{pie}</p></div>')
+
+    flaco = bal["personas"] < po["min_panel"]
+    return (
+        f'<div class="box" data-panel="{esc(slug)}">'
+        f'<h3>Cómo cambia la respuesta dentro de la camada del '
+        f'{esc(enc["camada"])}</h3>'
+        f'<label class="opcion"><input type="checkbox" checked>'
+        f'<span>Solo la misma gente en todos los puntos — las '
+        f'{num(bal["personas"])} personas de esta camada que llegaron a '
+        f'{bal["k"]} respuestas</span></label>'
+        f'<div data-vista="bal">{curva(bal["filas"])}'
+        f'<p class="note"><b>La misma gente en todos los puntos.</b> Un movimiento '
+        f'acá no puede venir de que cambió quién contesta, que es lo único que la '
+        f'otra vista no puede descartar.'
+        + (f' Son {num(bal["personas"])} personas, menos de las {num(po["min_panel"])} '
+           f'que hacen falta para leerlo como tendencia: por eso los puntos van '
+           f'huecos. La camada sigue sumando.' if flaco else "")
+        + f'</p></div>'
+        f'<div data-vista="crudo" hidden>{curva(po["filas"])}'
+        f'<p class="note"><b>Acá cada punto es gente distinta, y llega más lejos '
+        f'justamente por eso.</b> A la cuarta pregunta solo llega quien siguió '
+        f'jugando: una mejora ahí puede ser que la experiencia mejoró o que '
+        f'quedaron los que ya estaban cómodos, y las dos cosas se ven igual. El '
+        f'número de personas de cada punto está en el globo, para poder leerlo '
+        f'sabiendo sobre cuánta gente se apoya.</p></div>'
+        f'<p class="note">{pie}</p></div>')
+
+
+# Los dos controles de las encuestas: el selector de métrica de la curva por
+# camada y la casilla de «solo la misma gente» de la curva por orden.
+#
+# `pintar()` corre también al cargar, y no es defensivo de más: Firefox restaura
+# el estado de las casillas al recargar, así que una página que vuelve con la
+# casilla desmarcada mostraría la vista balanceada igual si solo se escuchara
+# `change`.
+ENCUESTA_JS = """
+(function(){
+  [].forEach.call(document.querySelectorAll('[data-segm]'), function(caja){
+    var bs = caja.querySelectorAll('.cortes button');
+    var vs = caja.querySelectorAll('[data-vista]');
+    [].forEach.call(bs, function(b){
+      b.addEventListener('click', function(){
+        var m = b.getAttribute('data-m');
+        [].forEach.call(bs, function(o){
+          o.className = o.getAttribute('data-m') === m ? 'cur' : ''; });
+        [].forEach.call(vs, function(v){
+          v.hidden = v.getAttribute('data-vista') !== m; });
+      });
+    });
+  });
+  [].forEach.call(document.querySelectorAll('[data-panel]'), function(caja){
+    var chk = caja.querySelector('input[type=checkbox]');
+    if (!chk) return;
+    var vs = caja.querySelectorAll('[data-vista]');
+    function pintar(){
+      var q = chk.checked ? 'bal' : 'crudo';
+      [].forEach.call(vs, function(v){
+        v.hidden = v.getAttribute('data-vista') !== q; });
+    }
+    chk.addEventListener('change', pintar);
+    pintar();
+  });
+})();
+"""
 
 
 # El gráfico de viralidad tuvo un selector con dos vistas —el coeficiente y el
@@ -349,7 +598,8 @@ def _fila_kpi(cards: list[dict], clase: str = "g4") -> str:
     return f'<div class="grid {clase}">{"".join(_kpi(c) for c in cards)}</div>'
 
 
-def _kpi_chico(label: str, valor, hint: str = "", suffix: str = "", dec: int = 1) -> str:
+def _kpi_chico(label: str, valor, hint: str = "", suffix: str = "", dec: int = 1,
+               signo: bool = False) -> str:
     """Un número con su etiqueta, sin sparkline ni delta.
 
     El otro —`theme.kpi`, el que arma `_fila_kpi`— pide serie y variación
@@ -357,9 +607,17 @@ def _kpi_chico(label: str, valor, hint: str = "", suffix: str = "", dec: int = 1
     anterior. Estos son otra cosa —cuántas suscripciones hay, cuántos mails
     salieron, cuántos reclutas hubo DESDE SIEMPRE— y no tienen contra qué
     compararse semana a semana sin inventar una serie.
+
+    `signo` es para los pocos que YA SON una diferencia —la ganancia de ajuste
+    de las encuestas— y no una cantidad. Sin el «+» delante, un valor positivo
+    se lee como un nivel («4,2 pp de ajuste») en vez de como el movimiento que
+    es; el negativo no lo necesita porque el menos ya está.
     """
+    txt = num(valor, suffix, dec)
+    if signo and valor is not None and valor > 0:
+        txt = "+" + txt
     return (f'<div class="box kpi"><div class="label">{esc(label)}</div>'
-            f'<div class="val">{num(valor, suffix, dec)}</div>'
+            f'<div class="val">{txt}</div>'
             + (f'<div class="hint">{esc(hint)}</div>' if hint else "")
             + "</div>")
 
@@ -2279,24 +2537,19 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                f'sostiene, lo que hay que mover no es el θ de nadie sino '
                f'<code>elo.TARGET_LOW/HIGH</code>.'))
 
-    pieza_opinion = _section(
-        2, "Lo que dice la gente",
-        '<div class="grid g3">'
-        + "".join(_kpi_chico(l, v, h, suffix=sfx, dec=d) for l, v, sfx, h, d in [
-            ("Contestaron", op["pct_respuesta"], "%",
-             f'{num(op["contestadas"])} de {num(op["mostradas"])} preguntas', 1),
-            ("Personas", op["jugadores"], "", "que votaron al menos una vez", 0),
-            ("Se sienten cómodos en", op["comodo_en"], "%",
-             f'el motor apunta al {num(op["objetivo"], "%")} — se lee en Motor', 1),
-        ])
-        + "</div>"
-        + _caja_por_orden(
-            op["por_orden"], A_ORDER, _rot, "muy fácil",
-            "Cómo cambia la respuesta según cuántas veces se preguntó")
-,
-        sub="Lo único que el juego sabe preguntando en vez de midiendo. Acá está el "
-            "voto y cómo evoluciona; qué hace el motor con él se lee en Motor.",
-        anchor="opinion")
+    # «Se sienten cómodos en» no está más acá: es el mismo voto cruzado contra
+    # lo que la persona venía acertando, o sea la pregunta de si la BANDA está
+    # bien puesta, y esa vive en Motor con los otros tres números del modelo.
+    # Acá la pregunta es la de la persona, no la del motor.
+    pieza_dificultad = _section(
+        2, "Dificultad",
+        '<div class="grid g3">' + _kpis_encuesta(op, _rot) + "</div>"
+        + _caja_camadas(op, "dificultad")
+        + _caja_camino(op, A_ORDER, _rot, "dificultad"),
+        sub="Lo único que el juego sabe preguntando en vez de midiendo: si la "
+            "derivada que sirvió estaba en su punto. Qué hace el motor con ese voto "
+            "se lee en Motor.",
+        anchor="dificultad")
 
     # El mismo voto, pero cruzado contra lo que la persona venía acertando. Va a
     # Motor y no acá porque no es percepción: es el ÚNICO número del panel que
@@ -2370,18 +2623,13 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
 
     pieza_repetitividad = _section(
         3, "Si le salen repetidas",
-        '<div class="grid g4">'
-        + "".join(_kpi_chico(l, v, h, suffix=sfx, dec=d) for l, v, sfx, h, d in [
-            ("Contestaron", rp["pct_respuesta"], "%",
-             f'{num(rp["contestadas"])} de {num(rp["mostradas"])} preguntas', 1),
-            ("Personas", rp["jugadores"], "", "que votaron al menos una vez", 0),
-            ("Ventana", rp["ventana"], "", "sobre cuántas derivadas se mide", 0),
-            ("Plantillas excluidas", rp["excluidas"], "",
-             "las que el selector no puede repetir", 0)])
-        + "</div>"
-        + _caja_por_orden(
-            rp["por_orden"], REP_ORDER, _rot_r, "muy repetidas",
-            "Cómo cambia la respuesta según cuántas veces se preguntó")
+        # Los mismos tres titulares que Dificultad, y no los cuatro de antes.
+        # «Ventana» y «Plantillas excluidas» no se perdieron: son contexto para
+        # leer la tabla de abajo y ahí están, adentro de su pie, que es donde se
+        # usan. Arriba ocupaban dos tarjetas para decir dos constantes.
+        '<div class="grid g3">' + _kpis_encuesta(rp, _rot_r) + "</div>"
+        + _caja_camadas(rp, "repetitividad")
+        + _caja_camino(rp, REP_ORDER, _rot_r, "repetitividad")
         + _box("Lo que decían contra lo que venían viendo",
                _table(["Voto", "Votos", "Plantillas distintas", "Enunciados distintos",
                        "Con datos"],
@@ -2534,8 +2782,12 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         # que resume todo lo demás, y después los tres lugares donde la persona
         # pelea con el juego en vez de con la derivada.
         "jugabilidad": (_fila_kpi(p["headline"]["jugabilidad"])
-                        + pieza_profundidad + pieza_opinion + pieza_repetitividad
-                        + pieza_friccion + pieza_teclado),
+                        + pieza_profundidad + pieza_dificultad + pieza_repetitividad
+                        + pieza_friccion + pieza_teclado
+                        # Los dos controles de las encuestas, una sola vez: el
+                        # script recorre el documento entero y las dos secciones
+                        # viven en esta misma pestaña.
+                        + f"<script>{ENCUESTA_JS}</script>"),
         # Motor = el modelo. Los cuatro números y la curva arriba, el detalle
         # por cubo después, y el voto cruzado contra el comportamiento al final
         # porque es el único que puede mover la banda.

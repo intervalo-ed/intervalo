@@ -3559,9 +3559,64 @@ TOPE_ORDEN = 5
 # que viene a arreglar.
 MIN_PANEL = 25
 
+# El caminito mínimo que dibuja la curva: 1ª → 2ª → 3ª respuesta.
+#
+# Es el MISMO `k` que reporta el titular de ganancia de ajuste, y por eso existe
+# como piso: sin él, `profundo` se cae a 2 en cuanto una camada no junta
+# `MIN_PANEL` personas con tres respuestas, y el panel quedaría diciendo «de la
+# 1ª a la 3ª» encima de una curva que llega hasta la 2ª.
+K_CAMINO = 3
+
+# Cuánta gente hace falta para dibujar el punto de UNA CAMADA. Es otro umbral
+# que `MIN_PANEL` y más bajo a propósito: `MIN_PANEL` decide si una curva se
+# puede leer como tendencia, esto decide si un punto es un dato o una anécdota.
+# Sobre tres personas, «66,7% justo» son dos votos.
+MIN_CAMADA = 5
+
+# Qué votos cuentan como «está en su punto», por encuesta. **No es el mismo
+# criterio en las dos, y la asimetría está en el COPY que ve el jugador**, no en
+# una decisión de panel:
+#
+#     dificultad     🥱 Muy fácil · 👌 Justo · 😰 Muy difícil
+#     repetitividad  🎲 Bien variadas · 👌 Está bien así · 🔁 Muy repetidas
+#
+# La de dificultad es una escala de dos lados: fallar por fácil y fallar por
+# difícil son las dos cosas que el motor tiene que evitar, así que solo el medio
+# está en el punto.
+#
+# La de repetitividad NO lo es, por más que `repetitividad.VOTOS` la ordene como
+# si lo fuera. «Bien variadas» es un elogio en la pantalla —la pregunta es «¿te
+# están saliendo repetidas?» y esa es la respuesta que dice que no— y quien la
+# vota no está pidiendo que el banco se achique. Medido el 27/09, contar solo
+# «justo» ahí daría 22,7% y el panel leería como un problema de variedad que
+# nadie reportó.
+#
+# **El día que el copy cambie, esto cambia con él.** Si «Bien variadas» pasara a
+# decir «Demasiado distintas», pasaría a ser un desvío y habría que sacarla de
+# acá; ver `web/src/app/derivadas/repetitividad-slide.tsx`.
+BIEN_DIFICULTAD: tuple[str, ...] = ("justo",)
+BIEN_REPETITIVIDAD: tuple[str, ...] = ("variado", "justo")
+
+
+def _ordenadas(contestadas: list[dict]) -> dict[int, list[dict]]:
+    """Los votos de cada persona, en el orden en que se los preguntaron.
+
+    Los que no tienen `shown_at` quedan afuera: sin el momento en que salió la
+    pregunta no hay forma de saber si ese voto fue el primero o el cuarto, y
+    meterlo en cualquier posición es inventar el dato que esta función existe
+    para leer.
+    """
+    por_jugador: dict[int, list[dict]] = defaultdict(list)
+    for v in contestadas:
+        if v["shown_at"] is not None:
+            por_jugador[v["player_id"]].append(v)
+    for votos in por_jugador.values():
+        votos.sort(key=lambda v: v["shown_at"])
+    return por_jugador
+
 
 def _por_orden(contestadas: list[dict], valores: tuple | list,
-               tope: int = TOPE_ORDEN) -> dict:
+               tope: int = TOPE_ORDEN, k_min: int = K_CAMINO) -> dict:
     """Cómo cambia la respuesta según CUÁNTAS VECES se le preguntó a esa persona.
 
     Es la pregunta de si la experiencia mejora a medida que alguien se mete más
@@ -3576,18 +3631,13 @@ def _por_orden(contestadas: list[dict], valores: tuple | list,
     así que no es un detalle.
 
     `balanceado` es la defensa: la misma serie pero contando SOLO a quien llegó
-    a `k` votos, con `k` elegido como la profundidad más grande que todavía
-    tiene `MIN_PANEL` personas. Ahí la población es la misma en todos los
-    puntos, así que un movimiento no puede venir de que cambió quién contesta.
-    Es el mismo argumento que el efecto fijo de la §9 del reporte del motor,
-    aplicado a una serie en vez de a dos cubos.
+    a `k` votos, con `k` la profundidad más grande que todavía tiene `MIN_PANEL`
+    personas y nunca menos que `k_min`. Ahí la población es la misma en todos
+    los puntos, así que un movimiento no puede venir de que cambió quién
+    contesta. Es el mismo argumento que el efecto fijo de la §9 del reporte del
+    motor, aplicado a una serie en vez de a dos cubos.
     """
-    por_jugador: dict[int, list[dict]] = defaultdict(list)
-    for v in contestadas:
-        if v["shown_at"] is not None:
-            por_jugador[v["player_id"]].append(v)
-    for votos in por_jugador.values():
-        votos.sort(key=lambda v: v["shown_at"])
+    por_jugador = _ordenadas(contestadas)
 
     def serie(minimo: int, hasta: int) -> list[dict]:
         cubos: dict[int, list[dict]] = defaultdict(list)
@@ -3614,14 +3664,136 @@ def _por_orden(contestadas: list[dict], valores: tuple | list,
     def cuantos(k: int) -> int:
         return sum(1 for vs in por_jugador.values() if len(vs) >= k)
 
-    profundo = max((k for k in range(2, tope + 1) if cuantos(k) >= MIN_PANEL),
-                   default=None)
+    # El panel llega tan hondo como la base aguante, pero nunca más corto que
+    # `k_min`: por debajo de eso la curva dejaría de dibujar el tramo que el
+    # titular de arriba afirma. Un panel flaco se MARCA —`personas` va en cada
+    # fila y el gráfico dibuja el punto hueco— en vez de apagarse, que es la
+    # misma convención que usa la difusión con las olas que todavía suman clics.
+    profundo = max([k_min] + [k for k in range(2, tope + 1)
+                              if cuantos(k) >= MIN_PANEL])
     return {
         "filas": serie(1, tope),
         "balanceado": ({"k": profundo, "personas": cuantos(profundo),
-                        "filas": serie(profundo, profundo)} if profundo else None),
+                        "filas": serie(profundo, profundo)}
+                       if cuantos(profundo) else None),
         "min_panel": MIN_PANEL,
         "tope": tope,
+    }
+
+
+def _ajuste(por_jugador: dict[int, list[dict]], valores: tuple | list,
+            bien: tuple[str, ...], k: int = K_CAMINO) -> dict:
+    """Qué fracción vota que está en su punto la 1ª vez, y cuánto cambia después.
+
+    **`ganancia` NO es «ajuste a la k-ésima menos ajuste inicial».** Esa resta
+    tendría dos denominadores distintos —el inicial son todos, la k-ésima solo
+    quien sobrevivió— y mezclaría el cambio de la experiencia con el cambio de
+    la población, que es exactamente el error que la serie balanceada existe
+    para no cometer. Acá las dos puntas se miden sobre EL MISMO PANEL: solo la
+    gente que llegó a `k` respuestas, cada uno contra su propia primera. Es un
+    efecto fijo, el mismo argumento de la §9 del reporte del motor.
+    """
+    primeras = [vs[0]["voto"] for vs in por_jugador.values() if vs]
+    hondos = [vs for vs in por_jugador.values() if len(vs) >= k]
+    desde = _pct(sum(1 for vs in hondos if vs[0]["voto"] in bien), len(hondos))
+    hasta = _pct(sum(1 for vs in hondos if vs[k - 1]["voto"] in bien), len(hondos))
+    return {
+        "ajuste_inicial": _pct(sum(1 for v in primeras if v in bien),
+                               len(primeras)),
+        "ajuste_n": len(primeras),
+        # Hacia qué lado falla quien NO vota uno de los de `bien`. El titular es
+        # un número solo y no sabría distinguir un motor que sirve fácil de más
+        # de uno que sirve difícil de más, que es lo único accionable de los dos.
+        "desvios": [{"voto": val,
+                     "pct": _pct(sum(1 for v in primeras if v == val),
+                                 len(primeras))}
+                    for val in valores if val not in bien],
+        "ganancia": (None if desde is None or hasta is None
+                     else round(hasta - desde, 1)),
+        "ganancia_desde": desde,
+        "ganancia_hasta": hasta,
+        "ganancia_n": len(hondos),
+        "ganancia_k": k,
+    }
+
+
+def _encuesta(votos: list[dict], valores: tuple | list, bien: tuple[str, ...],
+              data: dict, semanas: list[date], actual: date) -> dict:
+    """Los tres titulares de una encuesta, más las dos curvas que los abren.
+
+    Sirve igual a las dos encuestas del juego porque las dos preguntan lo mismo
+    sobre ejes distintos: ¿está en su punto? Qué votos contestan que sí lo dice
+    `bien`, y no es el mismo conjunto en las dos — ver `BIEN_DIFICULTAD`.
+
+      - `pct_respuesta`   cuántas de las preguntas que salieron se contestaron.
+        Es la base de los otros dos: si cae, los otros dos se apoyan en menos
+        gente sin que el número lo diga.
+      - `ajuste_inicial`  qué fracción vota algo de `bien` —«está en su punto»,
+        ver `BIEN_DIFICULTAD` y `BIEN_REPETITIVIDAD`— en su PRIMERA respuesta,
+        una por persona. Es el juego visto por alguien a quien el motor todavía
+        no tuvo tiempo de seguir, así que es lo más cerca que hay de una
+        condición inicial, y no depende de cuánto juegue cada uno después.
+      - `ganancia`        cuánto se mueve esa fracción hasta la `K_CAMINO`
+        respuesta, sobre la misma gente (ver `_ajuste`).
+
+    `por_camada` abre los tres por semana de alta. Son COHORTES, igual que
+    retención: un voto del martes le cuenta a la camada de la persona y no a la
+    semana del voto, que es lo que hace que dos camadas se puedan comparar.
+
+    `camino` es la serie por orden de respuesta de la camada ACTUAL y no de
+    todas: el gráfico de camadas ya contesta cómo viene cambiando de ola en ola,
+    así que lo que falta es el zoom a la más nueva, que es sobre la que todavía
+    se puede hacer algo.
+
+    Las camadas con menos de `MIN_CAMADA` personas viajan en None y no en su
+    número. El piso se aplica acá y no al dibujar, a propósito: un número que el
+    panel no está dispuesto a mostrar tampoco tendría que salir por `data.json`
+    para que alguien lo cite después sin el asterisco.
+    """
+    camada_de = {p["id"]: _week_of(p["created_at"]) for p in data["players"]}
+    contestadas = [v for v in votos if v["answered_at"] is not None and v["voto"]]
+
+    def trozo(camada: date | None) -> dict:
+        """Los números de una camada, o los de todas cuando `camada` es None."""
+        if camada is None:
+            mostr, cont = votos, contestadas
+        else:
+            mostr = [v for v in votos if camada_de.get(v["player_id"]) == camada]
+            cont = [v for v in contestadas
+                    if camada_de.get(v["player_id"]) == camada]
+        por_jugador = _ordenadas(cont)
+        return {
+            "mostradas": len(mostr),
+            "contestadas": len(cont),
+            "pct_respuesta": _pct(len(cont), len(mostr)),
+            "votantes": len(por_jugador),
+            **_ajuste(por_jugador, valores, bien),
+        }
+
+    filas = []
+    for w in semanas:
+        f = {"label": w.strftime("%d/%m"), "week": w.isoformat(), **trozo(w)}
+        if f["mostradas"] < MIN_CAMADA:
+            f["pct_respuesta"] = None
+        if f["ajuste_n"] < MIN_CAMADA:
+            f["ajuste_inicial"] = None
+            f["desvios"] = [{**d, "pct": None} for d in f["desvios"]]
+        if f["ganancia_n"] < MIN_CAMADA:
+            f["ganancia"] = f["ganancia_desde"] = f["ganancia_hasta"] = None
+        filas.append(f)
+
+    de_la_actual = [v for v in contestadas
+                    if camada_de.get(v["player_id"]) == actual]
+    return {
+        **trozo(None),
+        "jugadores": len({v["player_id"] for v in contestadas}),
+        "por_camada": filas,
+        "camino": _por_orden(de_la_actual, valores),
+        "bien": list(bien),
+        "camada": actual.strftime("%d/%m"),
+        "camada_semana": actual.isoformat(),
+        "min_camada": MIN_CAMADA,
+        "min_panel": MIN_PANEL,
     }
 
 def opinion(data: dict, weeks: list[date]) -> dict:
@@ -3651,7 +3823,6 @@ def opinion(data: dict, weeks: list[date]) -> dict:
     de leer el efecto de nada.
     """
     votos = data["votes"]
-    mostradas = len(votos)
     contestadas = [v for v in votos if v["answered_at"] is not None and v["voto"]]
 
     filas = []
@@ -3712,10 +3883,13 @@ def opinion(data: dict, weeks: list[date]) -> dict:
     return {
         "filas": filas,
         "por_semana": por_semana,
-        "por_orden": _por_orden(contestadas, A_ORDER),
-        "mostradas": mostradas,
-        "contestadas": len(contestadas),
-        "pct_respuesta": _pct(len(contestadas), mostradas),
+        # Los tres titulares de la sección de Dificultad, el reparto por
+        # camada y el caminito de la camada actual. `weeks[-1]` es la semana
+        # elegida en el panel; las camadas van desde `FIRST_WEEK` y no las
+        # últimas cuatro, por lo mismo que retención: con cuatro puntos una
+        # tendencia no se distingue de un rebote.
+        **_encuesta(votos, A_ORDER, BIEN_DIFICULTAD, data,
+                    _semanas_hasta(weeks[-1]), weeks[-1]),
         "comodo_en": justo["real"] if justo else None,
         "objetivo": round(100 * elo.TARGET_MID),
         # La banda del clásico, que sale de cruzar ESTOS MISMOS tres votos
@@ -3725,7 +3899,6 @@ def opinion(data: dict, weeks: list[date]) -> dict:
         # la persona, así que no son el mismo número, son la misma pregunta.
         "banda_clasico": list(P1_BAND),
         "theta_movido": round(movido_total, 1),
-        "jugadores": len({v["player_id"] for v in contestadas}),
     }
 
 def repetitividad(data: dict, weeks: list[date]) -> dict:
@@ -3753,7 +3926,6 @@ def repetitividad(data: dict, weeks: list[date]) -> dict:
     from game.generator import _RECENT_EXCLUDE
 
     votos = data["rep_votes"]
-    mostradas = len(votos)
     contestadas = [v for v in votos if v["answered_at"] is not None and v["voto"]]
 
     filas = []
@@ -3787,12 +3959,11 @@ def repetitividad(data: dict, weeks: list[date]) -> dict:
     return {
         "filas": filas,
         "por_semana": por_semana,
-        # La misma lectura que en `opinion`, con los valores de esta encuesta.
-        "por_orden": _por_orden(contestadas, dominio.VOTOS),
-        "mostradas": mostradas,
-        "contestadas": len(contestadas),
-        "pct_respuesta": _pct(len(contestadas), mostradas),
-        "jugadores": len({v["player_id"] for v in contestadas}),
+        # La misma lectura que en `opinion`, con los valores de esta encuesta:
+        # acá «justo» quiere decir que la variedad está bien y no que la
+        # dificultad lo está, pero la cuenta del ajuste es idéntica.
+        **_encuesta(votos, dominio.VOTOS, BIEN_REPETITIVIDAD, data,
+                    _semanas_hasta(weeks[-1]), weeks[-1]),
         # La ventana con la que se midió, para poder leer los promedios de arriba:
         # «14 enunciados distintos» no dice nada sin saber sobre cuántos.
         "ventana": dominio.VENTANA,
