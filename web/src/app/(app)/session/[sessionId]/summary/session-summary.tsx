@@ -921,7 +921,8 @@ function StreakPane({
           transition={{ delay: 0.6 }}
         >
           <p className="text-center text-sm text-muted-foreground">
-            Un cafecito multiplica el XP de toda tu universidad por un día.
+            Un cafecito multiplica el XP de toda tu universidad durante unas
+            horas.
           </p>
           <a
             href={CAFECITO_URL}
