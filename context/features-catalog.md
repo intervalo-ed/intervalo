@@ -332,18 +332,62 @@ DECLARACIÓN de cada experimento y no en un catálogo aparte, para que agregar u
 no lo pueda dejar fuera del índice sin que nadie se entere:
 
 - **`categoria`** — una de las pestañas del panel, o sea contra qué tablero se lee
-  su resultado. Una categoría sin experimentos no se esconde: hoy **Retención y
-  Jugabilidad están vacías**, y eso es el dato, no un hueco. Es exactamente lo que
-  los dos experimentos de la puerta dejaron dicho.
+  su resultado, y de dónde sale su color. Hoy **Retención y Jugabilidad no tienen
+  ninguno**, que es exactamente lo que los dos experimentos de la puerta dejaron
+  dicho: la palanca sin probar es por qué hacer la derivada siguiente.
 - **`abstract`** — la pregunta, en una o dos frases, sin números.
 - **`cierre`** — `None` mientras corre.
 
-**Dos tags y no uno**, porque son dos preguntas: el **ciclo** (En curso ·
-Cerrado · Apagado) y el **resultado** (Sin datos · Faltan N · Listo para leer ·
-Ganó · Sin efecto · Perdió). El error que separarlos evita es leer un
-experimento cerrado sin diferencia como si estuviera esperando más gente — que
-es lo que el panel decía de `dx-puerta-2` mientras mostraba «faltan 97 por
-brazo».
+**Un tag de estado y tres estados: Activo · Pausado · Finalizado.** El
+RESULTADO no se dibuja en la tabla, y eso es deliberado: un «Ganó» o un «Sin
+efecto» sin el intervalo, el n ni el motivo al lado es la forma más barata de
+que un «no se detectó diferencia» se lea como «no sirvió», que son dos
+afirmaciones distintas y solo una es cierta. El veredicto vive en la caja de
+estado de la vista del experimento, pegado a sus números, y en el informe.
+«Pausado» solo lo puede estar el tope, que es el único con interruptor de
+ambiente (`MURO_ENABLED`).
+
+**Los filtros ofrecen solo las categorías que tienen algo.** Un filtro que no
+filtra nada no es un filtro: aparecen solas el día que alguien declare el
+primero contra esa pregunta. Que falten se dice en la nota de abajo, calculada,
+para que el día que Retención tenga uno la frase se caiga sola.
+
+#### Un color por pregunta del producto
+
+Las siete pestañas del panel tenían el mismo color y el color solo decía cuál
+estaba abierta. Ahora dice **de qué se está hablando**, y el mismo tono aparece
+en tres lugares —la barra de arriba, los chips del filtro y la columna de
+categoría— que es lo que hace que «Monetización» se lea como una cosa y no como
+tres rótulos parecidos (`game_render.COLORES_SECCION`):
+
+| pestaña | color | |
+|---|---|---|
+| Activación | `#5fd39b` | verde claro |
+| Retención | `#3da878` | verde oscuro |
+| Jugabilidad | `#4f93e6` | azul |
+| Motor | `#a473e0` | violeta |
+| Monetización | `#d98e2b` | ámbar |
+| Experimentación | `#7e80f7` | el índigo de marca: es la que habla de las otras |
+| Feedback | `#e0789e` | rosa |
+
+Los tonos están elegidos sobre el fondo del panel para que el texto llegue a
+**4,5:1**, que es lo que obliga a que «verde oscuro» sea un verde medio y no el
+que uno elegiría sobre papel. La tinta del chip activo se calcula por luminancia
+(`_texto_sobre`) y no se fija: con blanco el de Activación queda ilegible, y con
+tinta oscura el de Retención también.
+
+Dos vecindades se cuidaron a mano porque caen en la MISMA FILA de la tabla:
+Monetización (ámbar anaranjado) contra «Pausado» (amarillo), y Activación
+(verde claro) contra «Activo» (lima), que se separan por matiz y no por brillo.
+Queda una sin resolver y conviene saberlo: **Retención y «Finalizado» son dos
+verdes a 31 de distancia en RGB**. Hoy no molesta porque Retención no tiene
+ningún experimento; el día que tenga uno cerrado, hay que mover uno de los dos.
+
+Todo esto va con estilo en línea y no con clases nuevas: `nav.jump` lo comparte
+el panel de Intervalo (`metrics/render.py`), y una regla ahí le cambiaría los
+chips a un panel que no pidió nada. Por el mismo motivo el tag de estado se
+llama `.estado` y no `.tag`: ese nombre ya era el chip de universidad de
+`theme.py`, que usan los dos paneles.
 
 **`hasta` solo tiene fecha cuando cerró.** Los que corren dicen «en curso» y no
 una fecha proyectada: la inscripción de este producto va a los saltos de las

@@ -1691,16 +1691,47 @@ for _e in _TODOS:
     check(f'y su fila linkea a su vista',
           f'x={_e["clave"]}"' in _idx, f'(x={_e["clave"]})')
 
-# Dos tags por fila: el CICLO y el RESULTADO. Son preguntas distintas y el
-# error que separarlas evita es leer un experimento cerrado sin diferencia como
-# si estuviera esperando más gente — que es lo que el panel decía de
-# `dx-puerta-2` mientras mostraba «faltan 97 por brazo».
+# UN tag por fila, y es el ciclo de vida. El resultado no se dibuja en la
+# tabla: un «Ganó» o un «Sin efecto» sin el intervalo, el n ni el motivo al
+# lado es la forma más barata de que un «no se detectó diferencia» se lea como
+# «no sirvió». Vive en la caja de estado de la vista, pegado a sus números.
 _filas = _idx.split("<tbody>")[1].split("</tbody>")[0].split("<tr>")[1:]
 check("hay una fila por experimento", len(_filas) == len(_TODOS),
       f'({len(_filas)} filas para {len(_TODOS)} experimentos)')
-check("y dos tags en cada una",
-      all(f.count('class="tag"') == 2 for f in _filas),
-      f'({[f.count(chr(99) + "lass=" + chr(34) + "tag" + chr(34)) for f in _filas]})')
+check("y dos tags en cada una: la categoría y el estado",
+      all(f.count('class="estado"') == 2 for f in _filas),
+      f'({[f.count(chr(99) + "lass=" + chr(34) + "estado" + chr(34)) for f in _filas]})')
+# El color de la categoría es el MISMO en la pestaña de arriba, en el chip del
+# filtro y en la celda de la tabla. Que sea el mismo es todo el punto: verlo
+# repetido es lo que hace que «Monetización» se lea como una cosa y no como
+# tres rótulos que se parecen.
+for _e in _TODOS:
+    _f = next(f for f in _filas if _e["abstract"][:40] in f)
+    check(f'la categoría de «{_e["clave"]}» va con su color',
+          game_render.COLORES_SECCION[_e["categoria"]] in _f,
+          f'({game_render.COLORES_SECCION[_e["categoria"]]})')
+check("y toda sección del panel tiene color declarado",
+      {c for c, _ in game_render.SECCIONES} <= set(game_render.COLORES_SECCION),
+      f'({sorted(set(c for c, _ in game_render.SECCIONES) - set(game_render.COLORES_SECCION))})')
+# La tinta del chip activo se calcula por luminancia: con blanco fijo el de
+# Activación queda ilegible y con tinta oscura fija el de Retención también.
+check("la tinta del chip activo se elige por luminancia",
+      game_render._texto_sobre("#5fd39b") == "#0d0d18"
+      and game_render._texto_sobre("#3da878") == "#ffffff")
+# `.tag` ya era el chip de universidad de theme.py, que usan los DOS paneles:
+# definirlo de nuevo le cambiaba el display, el peso y el radio en todas las
+# tablas con una sigla, y nada se hubiera puesto rojo.
+check("y no le pisa la clase al chip de universidad",
+      ".tag{" not in game_render.CSS_DX and ".estado{" in game_render.CSS_DX)
+_ESTADOS_VALIDOS = {"Activo", "Pausado", "Finalizado"}
+check("y el estado es uno de los tres declarados",
+      all(any(f'>{t}</span>' in f for t in _ESTADOS_VALIDOS) for _filas_i, f
+          in enumerate(_filas)))
+check("los cerrados dicen Finalizado",
+      all("Finalizado" in f for f in _filas
+          if any(e["abstract"][:40] in f for e in _TODOS if e.get("cierre"))))
+# Sin relleno: el tag no compite con las cajas de estado, que sí son bloques.
+check("los tags no llevan fondo", "background:none" in _idx)
 
 # DESDE siempre; HASTA solo cuando cerró. Una fecha de fin en un experimento
 # que sigue corriendo sería una promesa, y la inscripción de este producto va a
@@ -1732,10 +1763,19 @@ check("pero el chip «Todos» sigue ofreciendo la vuelta",
 check("y el filtro viaja en los links de la página",
       _solo_motor.count("&e=motor") >= 3,
       f'({_solo_motor.count("&e=motor")} links lo llevan)')
-# Una categoría vacía se ofrece pero no se puede tocar: no hay nada que filtrar
-# y un link que devuelve una tabla vacía es peor que un rótulo apagado.
-check("una categoría sin experimentos no es un link",
-      "Retención —" in _idx and "Retención —</a>" not in _idx)
+# Un filtro que no filtra nada no es un filtro: las categorías sin experimentos
+# no se ofrecen. Que falten se dice en la nota, calculado, para que el día que
+# alguien declare el primero contra Retención la frase se caiga sola.
+_vacias = [lab for cl, lab in q.CATEGORIAS
+           if not any(f["categoria"] == cl for f in _TODOS)]
+_chips = _idx.split('<nav class="jump" style="margin:0 0 12px">')[1].split("</nav>")[0]
+check("las categorías vacías no están entre los filtros",
+      all(v not in _chips for v in _vacias), f'({_vacias})')
+check("y las que tienen algo sí",
+      all(lab in _chips for cl, lab in q.CATEGORIAS
+          if any(f["categoria"] == cl for f in _TODOS)))
+check("pero la nota dice cuáles no tienen ninguno",
+      all(v in _idx for v in _vacias) if _vacias else True, f'({_vacias})')
 
 # \u2500\u2500 La vista de un experimento \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
 print("\n— la vista de un experimento —")
@@ -2353,8 +2393,14 @@ for clave, _ in game_render.SECCIONES:
     # título de la sección: la pestaña dice «Push» y el encabezado
     # «Re-enganche · push».
     etiqueta = dict(game_render.SECCIONES)[clave]
-    check(f"la pestaña «{clave}» queda marcada en la barra",
-          f'<span class="cur">{etiqueta}</span>' in h)
+    # El chip activo lleva ahora el color de su pregunta como relleno, así que
+    # el marcado tiene un `style` en el medio. Se chequea que sea el chip
+    # ACTIVO, que diga la etiqueta y que el color sea el de esa sección.
+    _cur = _re.search(r'<span class="cur"([^>]*)>' + _re.escape(etiqueta) + r'</span>', h)
+    check(f"la pestaña «{clave}» queda marcada en la barra", _cur is not None)
+    check(f"y con el color de «{clave}»",
+          _cur is not None and game_render.COLORES_SECCION[clave] in _cur.group(1),
+          f'({game_render.COLORES_SECCION[clave]})')
     # Y los números de la semana viajan con su sección. Es la forma callada de
     # que el reparto se rompa: una tarjeta con la clave mal escrita se dibuja
     # igual de linda, pero arriba del gráfico que no la explica — o no se dibuja

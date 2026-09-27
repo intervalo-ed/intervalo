@@ -75,12 +75,18 @@ table.indice td .sub2{display:block;margin-top:4px;line-height:1.5;
 /* Las columnas cortas no tienen por qué partirse: el que corta es el abstract. */
 table.indice td:not(:first-child){white-space:nowrap}
 
-/* Las pastillas de estado. Dos por fila —ciclo y resultado— y por eso el
-   contenedor sabe envolver: en una ventana angosta la segunda baja en vez de
-   empujar la columna. */
-.tag{display:inline-block;padding:1px 8px;border-radius:999px;font-size:11px;
-  font-weight:600;line-height:1.75;border:1px solid}
-.tags{display:inline-flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+/* El tag de estado de un experimento. Sin relleno: el color vive en el borde y
+   en el texto, que es lo que lo deja emparentarse con los chips de la barra de
+   arriba en vez de competir con las cajas de estado, que sí son bloques de
+   color.
+
+   **No se llama `.tag` y eso no es capricho:** ese nombre ya es el chip de
+   universidad de theme.py, que usan los dos paneles. Definirlo de nuevo acá le
+   cambiaba el display, el peso y el radio en todas las tablas donde aparece una
+   sigla, sin que nada se pusiera rojo. */
+.estado{display:inline-block;padding:1px 8px;border-radius:4px;font-size:11px;
+  font-weight:600;line-height:1.75;border:1px solid;background:none}
+.estados{display:inline-flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
 
 /* La barra de volver, arriba de la vista de un experimento. */
 .volver{display:flex;align-items:baseline;gap:12px;margin:0 0 14px}
@@ -236,21 +242,83 @@ _ESTADOS = {
     "gana": ("#2fb673", "#12301f"),
     "pierde": ("#d4604a", "#341a15"),
     "plano": ("#8a8aa8", "#23233a"),
-    # Los tres del CICLO de vida, que son otra pregunta que el resultado y por
-    # eso llevan su propio tag. «Cerrado» es violeta y no gris para que no se
-    # confunda con «Sin efecto»: en el índice los dos tags de una fila cerrada
-    # y plana quedan pegados, y en gris los dos se leerían como uno solo.
-    "curso": ("#4f7fe0", "#1a2540"),
-    "cerrado": ("#7e80f7", "#1e1c3a"),
-    "apagado": ("#d99a2b", "#33240c"),
+}
+
+# **Un color por pregunta del producto.** Cada pestaña del panel contesta una
+# cosa distinta, y hasta acá todas se veían iguales: el color solo decía cuál
+# estaba abierta. Con esto el color pasa a decir DE QUÉ se está hablando, y eso
+# vale porque el mismo vocabulario aparece en tres lugares —la barra de arriba,
+# los filtros del índice y la columna de categoría— y verlo repetido es lo que
+# hace que «Monetización» se lea como una sola cosa y no como tres rótulos.
+#
+# Los tonos están elegidos sobre el fondo del panel (#131324) para que el texto
+# llegue a 4,5:1, que es lo que obliga a que «verde oscuro» sea un verde medio y
+# no el que uno elegiría sobre papel.
+#
+# Dos vecindades que se cuidaron a mano, porque caen en la MISMA FILA de la
+# tabla del índice:
+#   · Monetización (ámbar anaranjado) contra «Pausado» (amarillo). Con el ámbar
+#     de libro los dos chips eran el mismo color a un metro de distancia.
+#   · Activación (verde claro) contra «Activo» (lima). El lima tira a amarillo y
+#     el verdecito a azul, así que se separan por matiz y no por brillo.
+COLORES_SECCION = {
+    "activacion": "#5fd39b",       # verde claro
+    "retencion": "#3da878",        # verde oscuro
+    "jugabilidad": "#4f93e6",      # azul
+    "motor": "#a473e0",            # violeta
+    "monetizacion": "#d98e2b",     # ámbar
+    # Las dos que no son una pregunta del producto sino una forma de mirarlo:
+    # el índigo de marca para la que habla de las otras, y un rosa para la única
+    # pestaña que no tiene un número arriba porque adentro hay texto que
+    # escribió gente.
+    "experimentacion": "#7e80f7",
+    "voces": "#e0789e",
+}
+
+# El ciclo de vida de un experimento. Los tres colores son una progresión y no
+# tres categorías sueltas: el amarillo avisa que algo está detenido, el lima es
+# lo único vivo de la tabla, y el verde oscuro es lo que ya se asentó y no se
+# mueve más.
+_TONOS_TAG = {
+    "pausado": "#e8c547",
+    "activo": "#a3e635",
+    "finalizado": "#48a06c",
 }
 
 
-def _tag(texto: str, tono: str) -> str:
-    """Una pastilla de estado. Mismo color que la caja grande del mismo tono."""
-    borde, fondo = _ESTADOS.get(tono, _ESTADOS["espera"])
-    return (f'<span class="tag" style="color:{borde};border-color:{borde};'
-            f'background:{fondo}">{esc(texto)}</span>')
+def _texto_sobre(color: str) -> str:
+    """Tinta legible sobre un relleno de ese color, por luminancia relativa.
+
+    Se calcula y no se elige a mano porque la paleta va de un lima muy claro a
+    un ámbar medio: con blanco fijo el chip activo de Activación queda ilegible,
+    y con tinta oscura fija el de Retención también. Es la fórmula de WCAG.
+    """
+    r, g, b = (int(color[i:i + 2], 16) / 255 for i in (1, 3, 5))
+    def lin(c):
+        return c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4
+    L = 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b)
+    return "#0d0d18" if L > 0.35 else "#ffffff"
+
+
+def _tag(texto: str, color: str) -> str:
+    """El tag de estado o de categoría. Sin relleno: el color es borde y texto."""
+    return (f'<span class="estado" style="color:{color};border-color:{color}">'
+            f'{esc(texto)}</span>')
+
+
+def _chip_seccion(clave: str, label: str, href: str | None) -> str:
+    """Un chip de la barra de secciones, pintado con el color de su pregunta.
+
+    Va con estilo en línea y no con una clase por categoría porque `nav.jump` lo
+    comparte el panel de Intervalo (`metrics/render.py`), y una regla nueva ahí
+    le cambiaría los chips a un panel que no pidió nada.
+    """
+    c = COLORES_SECCION.get(clave, "#7e80f7")
+    if href is None:
+        return (f'<span class="cur" style="background:{c};border-color:{c};'
+                f'color:{_texto_sobre(c)}">{esc(label)}</span>')
+    return (f'<a href="{href}" style="color:{c};border-color:{c}55">'
+            f'{esc(label)}</a>')
 
 
 def _tabla_indice(cols: list[str], rows: list[list], empty: str = "sin datos") -> str:
@@ -297,56 +365,40 @@ def _caja_estado(titulo: str, cuerpo: str, tono: str) -> str:
 # en Retención, qué probamos alguna vez contra esto.
 
 
-def _estado_corto(e: dict) -> tuple[tuple[str, str], tuple[str, str]]:
-    """Los dos tags de un experimento: en qué punto del ciclo está, y qué dice.
+def _estado_tag(e: dict) -> tuple[str, str]:
+    """En qué punto del ciclo está el experimento. Tres estados y nada más.
 
-    **Son dos preguntas distintas y por eso son dos tags.** «En curso» no dice
-    nada del resultado, y «Sin efecto» no dice si todavía se puede mover. El
-    error que esto evita es el de leer un experimento cerrado sin diferencia
-    como si estuviera esperando más gente — que es exactamente lo que pasó con
-    `dx-puerta-2` mientras el panel decía «faltan 97 por brazo».
+    **El RESULTADO no se dibuja acá a propósito.** Un «Ganó» o un «Sin efecto»
+    en una tabla, sin el intervalo, el n ni el motivo al lado, es la forma más
+    barata de que un «no se detectó diferencia» se lea como «no sirvió» — que
+    son dos afirmaciones distintas y solo una es cierta. El veredicto vive en la
+    caja de estado de la vista del experimento, pegado a sus números, y en el
+    informe. Acá lo único que hace falta saber es si hay algo corriendo.
 
-    Sirve a los cuatro payloads porque los cuatro traen `brazos` con `falta` y
-    un `listo`, que es todo lo que hace falta para ubicarlo.
+    `encendido` solo existe en el payload del tope, que es el único con
+    interruptor de ambiente (`MURO_ENABLED`); en los demás da None y no pausa
+    nada.
     """
     if e.get("cierre"):
-        ciclo = ("Cerrado", "cerrado")
-    elif e.get("encendido") is False:
-        ciclo = ("Apagado", "apagado")
-    else:
-        ciclo = ("En curso", "curso")
-
-    L = e.get("lectura") or {}
-    if L:
-        # `delta_pp` en los de proporciones, `delta` en los de medias. Se mira
-        # el signo y no el valor, así que no hace falta unificar la unidad.
-        delta = L.get("delta_pp", L.get("delta", 0)) or 0
-        if L.get("rechaza"):
-            return ciclo, (("Ganó", "gana") if delta > 0 else ("Perdió", "pierde"))
-        return ciclo, ("Sin efecto", "plano")
-    if e.get("sin_arrancar"):
-        return ciclo, ("Sin datos", "espera")
-    falta = max((b.get("falta") or 0 for b in e["brazos"]), default=0)
-    if falta > 0:
-        return ciclo, (f"Faltan {num(falta)} por brazo", "espera")
-    if e.get("listo"):
-        return ciclo, ("Listo para leer", "listo")
-    return ciclo, ("\u2014", "espera")
+        return "Finalizado", _TONOS_TAG["finalizado"]
+    if e.get("encendido") is False:
+        return "Pausado", _TONOS_TAG["pausado"]
+    return "Activo", _TONOS_TAG["activo"]
 
 
 def _fila_indice(e: dict, link) -> list:
     """La fila de un experimento en el índice. El título es la puerta de entrada."""
-    ciclo, resultado = _estado_corto(e)
     cierre = e.get("cierre")
     pdf = (cierre or {}).get("pdf")
     return [
         f'<a href="{link(x=e["clave"])}"><b>{esc(e["titulo"])}</b></a>'
         f'<div class="sub2">{esc(e["abstract"])}</div>',
-        f'<span class="sub2">{esc(dict(CATEGORIAS).get(e["categoria"], e["categoria"]))}</span>',
+        _tag(dict(CATEGORIAS).get(e["categoria"], e["categoria"]),
+             COLORES_SECCION.get(e["categoria"], "#8a8aa8")),
         f'<span class="sub2">{e["desde"].strftime("%d/%m")}</span>',
         (f'<span class="sub2">{cierre["fecha"].strftime("%d/%m")}</span>' if cierre
          else '<span class="sub2">en curso</span>'),
-        f'<span class="tags">{_tag(*ciclo)}{_tag(*resultado)}</span>',
+        f'<span class="estados">{_tag(*_estado_tag(e))}</span>',
         (f'<a href="{esc(pdf)}" target="_blank" rel="noopener">PDF</a>' if pdf
          else '<span class="sub2">\u2014</span>'),
     ]
@@ -363,20 +415,30 @@ def _indice_experimentos(fichas: list[dict], link, filtro: str) -> str:
     propia vista.
     """
     cuenta = Counter(f["categoria"] for f in fichas)
-    chips = [f'<span class="cur">Todos {len(fichas)}</span>' if filtro == "todos"
-             else f'<a href="{link(e="todos", x="")}">Todos {len(fichas)}</a>']
+    chips = [_chip_seccion("experimentacion", f"Todos {len(fichas)}",
+                           None if filtro == "todos" else link(e="todos", x=""))]
+    # Un filtro que no filtra nada no es un filtro. Las categorías sin
+    # experimentos no se ofrecen: aparecen solas el día que alguien declare el
+    # primero contra esa pregunta. Que hoy falten se dice abajo, en la nota,
+    # que es donde se puede decir bien y no como un rótulo apagado.
     for clave, label in CATEGORIAS:
         n = cuenta.get(clave, 0)
-        txt = f'{esc(label)} {n or "\u2014"}'
-        # Una categoría sin experimentos NO se esconde: que esté vacía es el
-        # dato. Hoy Retención y Jugabilidad lo están, y eso es justo lo que los
-        # dos experimentos de la puerta dejaron dicho — que la palanca que
-        # queda sin probar es la de por qué hacer la derivada siguiente.
-        chips.append(f'<span class="cur">{txt}</span>' if filtro == clave
-                     else (f'<a href="{link(e=clave, x="")}">{txt}</a>' if n
-                           else f'<span class="sub2">{txt}</span>'))
+        if not n:
+            continue
+        chips.append(_chip_seccion(
+            clave, f"{label} {n}",
+            None if filtro == clave else link(e=clave, x="")))
     visibles = [f for f in fichas if filtro == "todos" or f["categoria"] == filtro]
     cerrados = sum(1 for f in fichas if f.get("cierre"))
+    # Qué preguntas del producto no tienen NINGÚN experimento. Se calcula y no
+    # se escribe a mano porque es de las cosas que envejecen sin avisar, y
+    # porque hoy dice exactamente lo que los dos experimentos de la puerta
+    # dejaron dicho: la palanca sin probar es por qué hacer la derivada
+    # siguiente.
+    sin_nada = [label for clave, label in CATEGORIAS if not cuenta.get(clave)]
+    vacias = (f'Todavía no hay ninguno declarado contra '
+              f'{_y_lista([f"<b>{esc(x)}</b>" for x in sin_nada])}. '
+              if sin_nada else "")
     return _section(
         1, "Experimentos",
         f'<nav class="jump" style="margin:0 0 12px">{"".join(chips)}</nav>'
@@ -388,9 +450,8 @@ def _indice_experimentos(fichas: list[dict], link, filtro: str) -> str:
           f'bloque, la curva de profundidad cortada por sus brazos y los guardarraíles '
           f'que viven en otras pestañas y son suyos.<br><br>'
           f'<b>La categoría es la PESTAÑA del panel contra la que se lee el '
-          f'resultado</b>, y por eso una vacía no es un hueco del índice: es el dato de '
-          f'que nunca probamos nada contra esa pregunta. Van {num(cerrados)} cerrados '
-          f'de {num(len(fichas))}, y uno cerrado no se borra — conserva sus números, su '
+          f'resultado.</b> {vacias}Van {num(cerrados)} cerrados de '
+          f'{num(len(fichas))}, y uno cerrado no se borra — conserva sus números, su '
           f'veredicto y el motivo por el que se paró.</p>',
         sub="Qué se probó, contra qué pregunta del producto, y cómo terminó.",
         anchor="indice")
@@ -493,10 +554,9 @@ def _vista_experimento(p: dict, e: dict, bloque: str, prestados: dict,
 
     El índice desaparece: se entra por él y se vuelve con el link de arriba.
     """
-    ciclo, resultado = _estado_corto(e)
     cabeza = (
         f'<div class="volver"><a href="{link(x="")}">\u2190 Volver al índice</a>'
-        f'<span class="tags">{_tag(*ciclo)}{_tag(*resultado)}</span>'
+        f'<span class="estados">{_tag(*_estado_tag(e))}</span>'
         f'<span class="sub2">{esc(e["clave"])} \u00b7 desde el '
         f'{e["desde"].strftime("%d/%m/%Y")}</span></div>')
 
@@ -1143,8 +1203,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
         return f"/panel/{esc(token)}/dx{q}"
 
     tabs = "".join(
-        f'<span class="cur">{esc(t)}</span>' if c == seccion
-        else f'<a href="{link(s=c, x="")}">{esc(t)}</a>'
+        _chip_seccion(c, t, None if c == seccion else link(s=c, x=""))
         for c, t in SECCIONES)
     out.append(f"<nav class='jump'>{tabs}</nav>")
 
