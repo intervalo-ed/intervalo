@@ -464,13 +464,13 @@ function PanelDeVuelta({
             {estado.university ? (
               <>
                 Durante {restante}, todos los de la{" "}
-                {estado.university} que estén estudiando suman más XP, acá y en
-                Intervalo. Ya se está viendo en las novedades.
+                {estado.university} que estén derivando suman más XP. Ya se está
+                viendo en las novedades.
               </>
             ) : (
               <>
-                Durante {restante}, cualquiera que esté estudiando suma
-                más XP, acá y en Intervalo. Se lo regalaste a todos.
+                Durante {restante}, cualquiera que esté derivando suma más XP.
+                Se lo regalaste a todos.
               </>
             )}
           </p>
@@ -554,7 +554,10 @@ function PanelDeImpacto({
   const teclas = useTeclas()
   const cerrado = estado.state === "closed"
   const hayNumero = estado.xp_extra > 0
-  const donde = estado.university ? `la ${estado.university}` : "todo Intervalo"
+  // El empuje global se nombra por QUIÉNES lo reciben y no por un producto: la
+  // XP de arriba suma las dos apps (game/boosts.py :: efecto_del_empuje), así
+  // que cobrársela al juego solo sería decir de más.
+  const donde = estado.university ? `la ${estado.university}` : "todos"
   const { texto: cuanto } = restanteEnPalabras(estado.expires_in_seconds)
   // «estudiantes» y no «personas», que es como los llama el mail del vencimiento
   // y el resto del producto. Uno solo lleva el verbo en singular: con el empuje
@@ -562,12 +565,8 @@ function PanelDeImpacto({
   const cuantos = `${estado.estudiantes} ${estado.estudiantes === 1 ? "estudiante" : "estudiantes"}`
   const sumaron = estado.estudiantes === 1 ? "sumó" : "sumaron"
   // De qué universidad son, solo si hay una. Con el empuje global la frase ya
-  // dijo «para todo Intervalo» dos renglones arriba.
+  // dijo «para todos» dos renglones arriba.
   const deDonde = estado.university ? ` de la ${estado.university}` : ""
-  // Y dónde lo sumaron: nombrar los dos productos es el punto —el cafecito se
-  // invitó jugando y también vale para estudiar— salvo cuando el empuje es
-  // global, donde «Intervalo» ya apareció en el titular.
-  const enLosDos = estado.university ? ", acá y en Intervalo" : ""
 
   // Mismo Enter que la cara de vuelta, y por el mismo motivo: acá no hay nada
   // que ofrecer, así que no hay una segunda tecla ni una espera que respetar.
@@ -610,8 +609,8 @@ function PanelDeImpacto({
           </p>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
             {cerrado
-              ? `Repartidos entre ${cuantos}${enLosDos}.`
-              : `Desde que lo invitaste, ${cuantos}${deDonde} ${sumaron} eso de más${enLosDos}. Le quedan ${cuanto}.`}
+              ? `Repartidos entre ${cuantos}.`
+              : `Desde que lo invitaste, ${cuantos}${deDonde} ${sumaron} eso de más. Le quedan ${cuanto}.`}
           </p>
         </>
       ) : (
@@ -627,8 +626,8 @@ function PanelDeImpacto({
               : `Todo el juego está en ${fmtMultiplier(estado.multiplier)}`}
           </p>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-            Le quedan {cuanto}. Todo lo que se estudie en ese rato, acá y en
-            Intervalo, suma de más gracias a vos.
+            Le quedan {cuanto}. Todas las derivadas de ese rato suman de más
+            gracias a vos.
           </p>
         </>
       )}
@@ -671,7 +670,8 @@ function TiraDeImpacto({ estado }: { estado: GameCafecitoStatus }) {
   // guardas de este archivo ya usan `> 0` y por eso caen del lado bueno solas;
   // esta era la única que no.
   if (!(estado.xp_extra > 0)) return null
-  const donde = estado.university ? `la ${estado.university}` : "todo Intervalo"
+  // «todos» y no el nombre de un producto, por lo mismo que en PanelDeImpacto.
+  const donde = estado.university ? `la ${estado.university}` : "todos"
   return (
     <p
       className="mx-auto mb-4 w-full max-w-sm rounded-md px-3 py-2 text-sm"

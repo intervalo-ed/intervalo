@@ -12,11 +12,9 @@
 // (components/onboarding-fields.tsx), igual que en los hitos del juego.
 
 import { useRef, useState } from "react"
-import Link from "next/link"
 import posthog from "posthog-js"
 import { useQueryClient } from "@tanstack/react-query"
 import {
-  ArrowUpRight,
   ChevronLeft,
   Coffee,
   LogOut,
@@ -30,7 +28,6 @@ import { Button } from "@/components/ui/button"
 import { CareerSelect, UniversityGrid } from "@/components/onboarding-fields"
 import { setSoundMuted, useSoundMuted } from "@/lib/audio/sound-settings"
 import { useSfx } from "@/lib/audio/useSfx"
-import { BELT_HEX } from "@/lib/catalog"
 import { canonicalUniversity } from "@/lib/university-tags"
 import { cn } from "@/lib/utils"
 import { VERDE_TINTA, WhatsappGlyph } from "./cafecito-cta"
@@ -85,10 +82,6 @@ function Guardar({ disabled, onClick }: { disabled?: boolean; onClick: () => voi
     </Button>
   )
 }
-
-// El azul de Intervalo para la puerta de vuelta: es el cinturón azul del
-// catálogo, no un color inventado para esta fila.
-const AZUL_INTERVALO = BELT_HEX.blue.onDark
 
 const rowCls =
   "flex w-full items-center justify-between gap-3 rounded-lg border border-border bg-card px-4 py-3 text-left text-sm transition-colors hover:border-white/20"
@@ -433,31 +426,11 @@ export function SettingsPanel({
           </span>
         </button>
 
-        {/* La puerta de vuelta a Intervalo. Es la última fila NEUTRA: abajo
-            arranca el bloque de color (reclutar, cafecito) y después el
-            destructivo, y esto no es ni una cosa ni la otra.
-
-            <Link> de Next y no un <a> con target: /derivadas y / son el mismo
-            deploy y el mismo origen, así que esto es navegación interna y se
-            queda adentro de la PWA instalada. Un target="_blank" acá la sacaría
-            a Safari. La regla opuesta vale para cafecito.app, que sí tiene que
-            salir del contenedor (ver la fila del cafecito más abajo).
-
-            Un invitado cae en la landing y no en el panel, que es lo que se
-            busca: es la conversión, no un error. */}
-        <Link
-          href="/"
-          className={rowCls}
-          // El azul sale de BELT_HEX y no de un hex suelto: la paleta de
-          // cinturones tiene una sola fuente de verdad, y `onDark` es la
-          // variante pensada para leerse sobre el fondo del juego. El `D9` es
-          // el 85% de alfa del borde, igual que el `/85` de las filas de color
-          // de acá abajo.
-          style={{ color: AZUL_INTERVALO, borderColor: `${AZUL_INTERVALO}D9` }}
-        >
-          <span>Ir a Intervalo</span>
-          <ArrowUpRight size={16} />
-        </Link>
+        {/* Acá vivía la fila «Ir a Intervalo», la única puerta del juego al
+            otro producto. Se sacó junto con las menciones del cafecito: dx no
+            nombra ni linkea a Intervalo clásico. Es la mitad que faltaba de la
+            regla que ya declaraba register-slides.tsx — el puente de la cuenta
+            es pasivo. */}
 
         {/* Abre la diapo de reclutar, no WhatsApp. Mismo motivo que la fila del
             cafecito de acá abajo: mandando directo al chat, quien comparte no se
