@@ -324,6 +324,56 @@ check(unis < crudas,
       f"las de una sola persona no cuentan ({unis} contra {crudas} crudas)")
 check(unis >= 1, f"pero las que sí tienen gente cuentan (dio {unis})")
 
+print("7c. el cuarto brazo de dx-rampa-1")
+
+from game import rampa  # noqa: E402
+
+# **A los veteranos no se les desinstala.** La bienvenida salió al 100% el 27/09
+# y el experimento la vuelve variable el 28. Quien ya la tiene puesta la
+# conserva, venga el brazo que venga: sacársela para medir a OTRA gente sería
+# cobrarle el experimento a quien no está en él.
+viejo = jugador("veteranoConPantalla", university="UBA", correctas=30)
+viejo.created_at = rampa.NACIDO_DESPUES_DE - timedelta(days=5)
+db.commit()
+check(rampa.muestra_digest(viejo),
+      "el veterano la conserva aunque su hash caiga en cualquier brazo")
+
+# Y entre los que entran, solo el cuarto escalón.
+#
+# Con un doble de una línea y no con filas: `muestra_digest` mira `id` y
+# `created_at` y nada más, y forzar el `id` de una fila real para caer en el
+# brazo que se quiere probar choca contra el UNIQUE de la tabla. El doble deja
+# barrer LOS CUATRO brazos, que es lo que hace falta.
+class _Doble:
+    def __init__(self, pid, nacio):
+        self.id, self.created_at = pid, nacio
+
+
+DENTRO = rampa.NACIDO_DESPUES_DE + timedelta(hours=3)
+porbrazo = {}
+for i in range(1, 400):
+    porbrazo.setdefault(rampa.brazo_de(i), i)
+check(len(porbrazo) == len(rampa.BRAZOS),
+      f"el fixture tiene uno de cada brazo ({sorted(porbrazo)})")
+for brazo, pid in sorted(porbrazo.items()):
+    esperado = brazo == "bienvenida"
+    check(rampa.muestra_digest(_Doble(pid, DENTRO)) == esperado,
+          f"brazo «{brazo}»: {'la ve' if esperado else 'NO la ve'}")
+
+# Justo en el borde: un segundo antes del corte todavía es veterano.
+check(rampa.muestra_digest(
+        _Doble(porbrazo["control"], rampa.NACIDO_DESPUES_DE - timedelta(seconds=1))),
+      "un segundo antes del corte todavía la conserva")
+
+# Con el experimento apagado vuelve a ser de todos: RAMPA_ENABLED=0 tiene que
+# devolver el producto a como estaba, y como estaba era de todos.
+import os as _os  # noqa: E402
+
+_os.environ["RAMPA_ENABLED"] = "0"
+check(rampa.muestra_digest(_Doble(porbrazo["control"], DENTRO)),
+      "con el experimento apagado la ve todo el mundo")
+_os.environ.pop("RAMPA_ENABLED", None)
+
 
 print("8. el endpoint, y que marque")
 

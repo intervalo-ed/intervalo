@@ -90,22 +90,27 @@ print("1. el sorteo")
 reparto = {b: 0 for b in rampa.BRAZOS}
 for i in range(1, 3001):
     reparto[rampa.brazo_de(i)] += 1
-check(all(b in reparto for b in rampa.BRAZOS), "hay tres brazos",
+check(all(b in reparto for b in rampa.BRAZOS), "hay cuatro brazos",
       f"({rampa.BRAZOS})")
-# ±5% sobre 1.000 esperados por brazo: con 3.000 sorteos el desvío de un
-# multinomial uniforme es ~26, así que 50 son casi dos desvíos y esto no es un
-# umbral apretado. Lo que atrapa es un hash que agrupe, no el azar.
-check(all(abs(v - 1000) < 50 for v in reparto.values()),
-      "y reparte parejo", f"({reparto})")
+# El esperado sale de `len(BRAZOS)` y no de una constante: estaba en 1.000 —tres
+# brazos— y al sumar el cuarto este chequeo falló por aritmética propia y no por
+# un sorteo roto, que es la peor forma de fallar que tiene un chequeo.
+#
+# La tolerancia sí es fija y holgada a propósito: con 3.000 sorteos el desvío de
+# un multinomial uniforme está entre 24 y 26 según cuántos brazos haya, así que
+# 50 son casi dos desvíos. Lo que esto atrapa es un hash que agrupe, no el azar.
+ESPERADO = 3000 // len(rampa.BRAZOS)
+check(all(abs(v - ESPERADO) < 50 for v in reparto.values()),
+      f"y reparte parejo (~{ESPERADO} por brazo)", f"({reparto})")
 check(all(rampa.brazo_de(7) == rampa.brazo_de(7) for _ in range(5)),
       "el mismo id da siempre el mismo brazo")
 check(rampa.con_rampa is not None
-      and all(rampa.con_rampa(i) == (rampa.brazo_de(i) in ("teclado", "ayudas"))
+      and all(rampa.con_rampa(i) == (rampa.brazo_de(i) in ("teclado", "ayudas", "bienvenida"))
               for i in range(1, 200)),
-      "los DOS brazos tratados tienen rampa: `ayudas` es `teclado` más la fila")
-check(all(rampa.con_ayudas(i) == (rampa.brazo_de(i) == "ayudas")
+      "los TRES brazos tratados tienen rampa: cada escalón es el anterior más algo")
+check(all(rampa.con_ayudas(i) == (rampa.brazo_de(i) in ("ayudas", "bienvenida"))
           for i in range(1, 200)),
-      "y solo `ayudas` tiene la fila de botones")
+      "y la fila de botones la tienen `ayudas` y el escalón de arriba")
 
 
 # ── 2 · Un jugador de cada brazo ────────────────────────────────────────────

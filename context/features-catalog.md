@@ -240,6 +240,39 @@ no hay fila. Al errar, el botón principal se **bifurca** y queda una grilla 2×
 Tabla, Saltear, ¿Por qué? y Revisar a la vista al mismo tiempo, que es el momento
 en que se va el 41,5% de los que no aciertan al primer intento.
 
+**El cuarto escalón: la pantalla de arranque.** El 28/09 la escalera pasó de tres
+brazos a cuatro:
+
+    control  →  teclado  →  + ayudas  →  + pantalla de arranque
+
+La bienvenida (`game/bienvenida.py`) había salido **al 100% el 27/09**, un día
+antes del arranque de la inscripción, y acá se vuelve variable. Tres reglas la
+gobiernan (`game/rampa.py :: muestra_digest`):
+
+- **el veterano la conserva.** Quien nació antes del corte no está en el
+  experimento y ya la tiene puesta; sacársela sería desinstalarle una feature
+  para medir a otra gente;
+- **con `RAMPA_ENABLED=0` vuelve a ser de todos**, porque apagar el experimento
+  tiene que devolver el producto a como estaba;
+- **entre los que entran, solo el cuarto brazo.**
+
+**Es de otra naturaleza que los otros dos escalones**, y conviene tenerlo a la
+vista al leer el resultado: el teclado y las ayudas cambian la pantalla del
+ejercicio, y la bienvenida cambia la ANTERIOR. Es la única de las tres que puede
+mover la **base** de la métrica —cuánta gente llega a que se le sirva la primera
+derivada— y no solo el numerador. Por eso su contraste hay que mirarlo también
+sobre los aterrizados, no solo sobre los que resuelven.
+
+**Y cuesta seis días.** A ~94 altas por día, 547 por brazo pasa de 17,5 a 23,3
+días sobre el contraste primario —el que de verdad tiene potencia—. Se aceptó a
+cambio de subir el caudal de las campañas de difusión; si el caudal no sube, lo
+que se retrasa es la única pregunta que este diseño puede contestar.
+
+Un detalle que hay que respetar si alguna vez se toca de nuevo: **`sorteo.brazo_de`
+reparte con `% len(BRAZOS)`**, así que sumar o sacar un brazo re-sortea a todo el
+mundo. El cuarto entró el 27/09, con cero inscriptos, que es la única ventana en
+la que eso sale gratis.
+
 Ver `game/rampa.py`, `web/src/app/derivadas/pie-rampa.tsx` y la sección del Elo
 en [gamification.md](gamification.md), que cambia con esto.
 
