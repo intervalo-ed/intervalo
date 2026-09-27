@@ -172,6 +172,12 @@ def _elegir(semilla: str, opciones: list[str]) -> str:
     return opciones[zlib.crc32(semilla.encode("utf-8")) % len(opciones)]
 
 
+# El mismo, público: `game/bienvenida.py` escribe sus renglones con la misma
+# regla de variantes, y dos implementaciones del sorteo serían dos formas de que
+# el mismo hecho se lea distinto en dos pantallas que se ven seguidas.
+elegir = _elegir
+
+
 def _armar(semilla: str, opciones: list[str], **datos: object) -> str:
     return Template(_elegir(semilla, opciones)).safe_substitute(**datos)
 

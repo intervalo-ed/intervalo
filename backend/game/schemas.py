@@ -570,6 +570,44 @@ class GameMessageIn(BaseModel):
     text: str = Field(min_length=1, max_length=400)
 
 
+class GameNovedadOut(BaseModel):
+    """Un renglón de la pantalla de arranque.
+
+    Misma convención que `GameEventOut` y no una propia: `texto` viene con los
+    marcadores (`{a}` el protagonista, `{u0}`/`{u1}` las siglas) y el emoji
+    viaja aparte para que el cliente lo ponga siempre al final. Las dos
+    pantallas comparten el renderer del front por esto — si cada una trajera su
+    oración ya resuelta, el color del @ por nivel y la tag de universidad
+    habría que adivinarlos con una regex.
+    """
+
+    # Para la telemetría y para los chequeos: qué hecho es este renglón.
+    clave: str
+    texto: str
+    emoji: str
+    universities: list[str] = []
+    actor_alias: Optional[str] = None
+    actor_level: Optional[int] = None
+
+
+class GameBienvenidaOut(BaseModel):
+    """Lo que dice la pantalla con la que arranca toda sesión.
+
+    `modo` es lo único que el cliente necesita mirar para saber qué dibujar:
+
+      · `sigue`   — está a mitad del día. Una línea y «¿Seguimos?».
+      · `vuelve`  — ya jugó antes. Encabezado y hasta tres novedades.
+      · `primera` — nunca resolvió nada. Ídem, sobre el mundo y su gente.
+    """
+
+    modo: str
+    # Con `{a}` adentro cuando lleva el @: el cliente lo pinta con el color de
+    # su nivel, igual que en el feed y en el ranking.
+    saludo: str
+    titulo: Optional[str] = None
+    novedades: list[GameNovedadOut] = []
+
+
 class GameEventsResponse(BaseModel):
     events: list[GameEventOut]
     # Si el chat acepta mensajes ahora mismo (GAME_CHAT_ENABLED). Viaja con el

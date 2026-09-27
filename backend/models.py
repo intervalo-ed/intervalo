@@ -985,6 +985,31 @@ class GamePlayer(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
     last_seen_at = Column(DateTime, nullable=True)
 
+    # ── El digest de bienvenida ─────────────────────────────────────────────
+    # Hasta cuándo se le contó ya lo que pasó mientras no estaba.
+    #
+    # **No se puede usar `last_seen_at` para esto**, y no es una preferencia: esa
+    # se pisa DURANTE la sesión —la tocan `/next`, `/answer`, `/skip` y el
+    # generador—, así que para cuando la pantalla se dibuja ya dice «ahora» y la
+    # ventana del digest sale siempre vacía. El síntoma sería «la pantalla no
+    # cuenta nada», que nadie reporta como bug.
+    #
+    # Avanza cuando el digest se SIRVE, no cuando la persona toca Continuar: lo
+    # que no se puede contar dos veces es lo ya contado, y una pantalla que se
+    # mostró ya se contó. Es la misma semántica que `referral_xp_push_seen`.
+    #
+    # NULL = nunca se le mostró. Para el que ya jugaba cuando esto salió, el
+    # primer digest mira contra `last_seen_at` y de ahí en adelante contra esta.
+    digest_seen_at = Column(DateTime, nullable=True)
+
+    # Cuánto del `referral_xp_given` de sus reclutas ya se le contó POR ACÁ.
+    # Tercer canal, al lado de `referral_xp_push_seen` y del de mail: los tres
+    # cuentan lo mismo y ninguno puede enterarse por el otro, o la persona
+    # recibe el mismo número dos veces por dos caminos distintos.
+    referral_xp_digest_seen = Column(
+        Integer, nullable=False, default=0, server_default="0"
+    )
+
     # ── Avisos ──────────────────────────────────────────────────────────────
     # Las preferencias de notificación DEL INVITADO. Quien tiene cuenta usa las
     # de `users`: son la misma persona y no puede tener dos horarios ni dos

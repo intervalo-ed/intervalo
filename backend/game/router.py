@@ -31,6 +31,8 @@ from models import (
     User,
 )
 from universities import UNIVERSITIES as _UNIVERSIDADES, canonical_university
+
+from . import bienvenida as game_bienvenida_mod
 import handles
 import xp_boost
 from usernames import normalize_username, validate_username
@@ -79,12 +81,14 @@ from .schemas import (
     GamePushUnsubscribeRequest,
     GameAnswerRequest,
     GameAnswerResponse,
+    GameBienvenidaOut,
     GameBoostOut,
     GameCafecitoCheckout,
     GameCafecitoCheckoutRequest,
     GameCafecitoStatus,
     GameCtaRequest,
     GameEventOut,
+    GameNovedadOut,
     GameEventsResponse,
     GameExerciseOut,
     GameExplainOut,
@@ -1742,6 +1746,48 @@ def game_events_feed(
             for m in mensajes
         ],
         chat_enabled=_chat_habilitado(),
+    )
+
+
+@router.get("/bienvenida", response_model=GameBienvenidaOut)
+def game_bienvenida(
+    player: GamePlayer = Depends(get_current_player),
+    db: Session = Depends(get_db),
+):
+    """Qué dice la pantalla de arranque para esta persona.
+
+    **Endpoint propio y no un campo de `/me`.** `/me` es camino caliente —lo pide
+    cada montaje y cada vuelta del poll— y esto son cinco agregaciones que solo
+    hacen falta cuando la pantalla se dibuja, que es una vez por sesión.
+
+    **Marca que se mostró, y por eso es un GET con efecto.** Es la misma
+    semántica que `referral_xp_push_seen`: lo que se sirvió ya se contó. La
+    alternativa —esperar al Continuar— haría que quien cierra la pestaña reciba
+    mañana la misma novedad, y repetir una novedad es peor que perderla. El
+    orden importa: se construye ANTES de marcar, o el digest se contaría a sí
+    mismo y el renglón de reclutas no aparecería nunca.
+    """
+    ahora = datetime.utcnow()
+    datos = game_bienvenida_mod.construir(
+        db, player, _correctas_de_hoy(db, player.id), _inicio_del_dia(), ahora
+    )
+    game_bienvenida_mod.marcar_mostrado(db, player, ahora)
+    db.commit()
+    return GameBienvenidaOut(
+        modo=datos.modo,
+        saludo=datos.saludo,
+        titulo=datos.titulo,
+        novedades=[
+            GameNovedadOut(
+                clave=n.clave,
+                texto=n.texto,
+                emoji=n.emoji,
+                universities=n.universities,
+                actor_alias=n.actor_alias,
+                actor_level=n.actor_level,
+            )
+            for n in datos.novedades
+        ],
     )
 
 

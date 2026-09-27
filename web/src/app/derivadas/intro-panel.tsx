@@ -22,6 +22,9 @@
 import { Button } from "@/components/ui/button"
 import { KeyCap } from "./exercise-card"
 import { useTeclas } from "./teclas"
+import { useBienvenida } from "./UseBienvenida"
+import { useCachedPlayer } from "./UseGamePlayer"
+import { TextoConHuecos } from "./texto-con-huecos"
 
 // El texto de la intro, uno solo para las dos versiones: es lo único que se
 // explica en todo el juego y no puede decir una cosa en el teléfono y otra en
@@ -75,6 +78,14 @@ export const BIENVENIDA_MINIMA = "¡Bienvenido!"
 export const INSTRUCCION_MINIMA =
   "Resolvé la siguiente derivada para comenzar a jugar."
 
+/** Lo que reemplaza a la instrucción cuando la persona ya jugó hoy.
+ *
+ *  A alguien que lleva ocho derivadas hechas hace dos horas no hay que
+ *  explicarle qué es esto. La pregunta hace el trabajo que hacía la
+ *  instrucción, y además lo hace mejor: «¿Seguimos?» es una invitación a
+ *  retomar, y la instrucción era una orden para empezar algo que ya empezó. */
+export const SEGUIMOS = "¿Seguimos?"
+
 /** La puerta, entera.
  *
  *  Componente y no dos constantes sueltas en cada layout por el mismo motivo
@@ -86,10 +97,83 @@ export const INSTRUCCION_MINIMA =
  *  `gap-6` es el doble del `gap-3` con el que los dos layouts separan párrafos:
  *  un renglón en blanco entre el saludo y lo que hay que hacer. */
 export function PuertaMinima() {
+  const player = useCachedPlayer()
+  const { data } = useBienvenida(true)
+
+  // **El texto de siempre es el fallback, no el caso raro.** Mientras el pedido
+  // viaja —y para siempre si falla— esta pantalla se ve exactamente como se veía
+  // antes. Es lo que hace que la feature no pueda costar activación por un
+  // endpoint lento: lo peor que puede pasar es que no cuente nada, que es lo que
+  // contaba hasta ayer.
+  if (!data || data.novedades.length === 0) {
+    return (
+      <div className="flex flex-col gap-6">
+        <p className="font-semibold text-foreground">{BIENVENIDA_MINIMA}</p>
+        <p className="font-semibold text-foreground">{INSTRUCCION_MINIMA}</p>
+      </div>
+    )
+  }
+
+  // **Con `@` y el resto del juego sin él.** No es un descuido: el feed habla DE
+  // la gente ("sobreasado se puso la camiseta de la UNSAM") y esto le habla A la
+  // persona. Un vocativo pide el handle, que es como se la llama, y no el
+  // nombre en tercera persona. El `@` va adentro del span para que se pinte con
+  // el color del nivel: separarlo dejaría un arroba gris colgando de un nombre
+  // de color.
+  const saludo = (
+    <p className="font-semibold text-foreground">
+      <TextoConHuecos
+        texto={data.saludo}
+        actorAlias={player?.alias ? `@${player.alias}` : null}
+        actorLevel={player?.level ?? null}
+      />
+    </p>
+  )
+
+  // A mitad del día: una línea y una pregunta. Sin encabezado y sin lista —lo
+  // que pasó mientras no estaba no existe, porque estuvo hace un rato— y con la
+  // pregunta en vez de la instrucción, que es lo que convierte «ya llevás 8» en
+  // un motivo para tocar Continuar y no en un recibo.
+  if (data.modo === "sigue") {
+    const n = data.novedades[0]
+    return (
+      <div className="flex flex-col gap-6">
+        {saludo}
+        <p className="text-foreground/85">
+          <TextoConHuecos texto={n.texto} /> {n.emoji}
+          <br />
+          {SEGUIMOS}
+        </p>
+      </div>
+    )
+  }
+
   return (
-    <div className="flex flex-col gap-6">
-      <p className="font-semibold text-foreground">{BIENVENIDA_MINIMA}</p>
-      <p className="font-semibold text-foreground">{INSTRUCCION_MINIMA}</p>
+    <div className="flex flex-col gap-5">
+      {saludo}
+      {data.titulo && (
+        <p className="text-xs uppercase tracking-wider text-muted-foreground">
+          {data.titulo}
+        </p>
+      )}
+      {/* Lista y no párrafos: son hechos sueltos, cada uno con su emoji al
+          final. El emoji va DESPUÉS del punto y fuera del texto porque llega
+          aparte del servidor — misma convención que el feed, y lo que deja que
+          el mismo hecho se cuente con redacciones distintas sin tocar el
+          símbolo. */}
+      <ul className="flex flex-col gap-2.5 text-left">
+        {data.novedades.map((n) => (
+          <li key={n.clave} className="text-foreground/85">
+            <TextoConHuecos
+              texto={n.texto}
+              actorAlias={n.actor_alias}
+              actorLevel={n.actor_level}
+              universities={n.universities}
+            />{" "}
+            {n.emoji}
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }
