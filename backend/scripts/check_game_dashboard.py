@@ -1659,12 +1659,29 @@ check("la leyenda nombra cada pregunta arriba de la curva",
 # Un chip por PREGUNTA y no por marca: tres chips iguales para el café gastarían
 # la fila en repetir el mismo texto.
 # El copy también viaja en el tooltip de cada guía, así que contarlo suelto
-# cuenta las guías. Lo que prueba que el chip es uno por pregunta es que los
-# tres números del café estén en el MISMO chip.
-check("con un chip por pregunta, no uno por marca",
-      _h40.count("14, 20 y 40 · invitar un cafecito") == 2   # una caja por gráfico
-      and _h40.count("9 y 29 · compartir por WhatsApp") == 2,
-      f'({_h40.count("14, 20 y 40")} chips de café)')
+# cuenta las guías. Lo que prueba que el renglón es uno por pregunta es que los
+# tres números del café caigan en el MISMO renglón de la leyenda.
+_renglones = [_re.sub("<[^>]+>", "", x) for x in
+              _re.findall(r'<span class="h"[^>]*>(.*?)</span></span>', _h40)]
+# El renglón arranca con los números y sigue con el copy; el abandono va detrás
+# cuando esa derivada tiene base, así que se compara por el arranque.
+_arranca = lambda t: sum(1 for r in _renglones if r.startswith(t))
+check("un renglón de leyenda por pregunta, no uno por marca",
+      _arranca("14, 20 y 40 · invitar un cafecito") == 2   # una caja por gráfico
+      and _arranca("9 y 29 · compartir por WhatsApp") == 2,
+      f"({_renglones[:2]}…)")
+# La leyenda NO reusa `.cortes .cur`: ese chip es el estado «elegido» de un
+# selector —fondo índigo, texto blanco— y pintarle el texto del color del hito
+# dejaba color sobre color, ilegible. Lo único con color es la muestra de la
+# guía; el texto va en el color de siempre.
+_ley = _h40.split('<div class="hitos">', 1)[1].split("</div>", 1)[0]
+_colores = _re.findall(r'<span class="h" style="color:([^"]+)">', _ley)
+check("los cinco hitos se pintan de cinco colores distintos",
+      len(set(_colores)) == len(_colores) and "var(--muted)" not in _colores,
+      f"({_colores})")
+check("y la leyenda no se dibuja con el chip de «opción elegida»",
+      'class="cur"' not in _ley and 'class="g"' in _ley
+      and 'color:var(--fg)' in _ley)
 # Los dos gráficos de la sección llevan las mismas guías, y cada uno las
 # posiciona contra SU eje: el de pérdida corta donde ya no queda nadie vivo, así
 # que un índice prestado del otro correría la guía de derivada.
