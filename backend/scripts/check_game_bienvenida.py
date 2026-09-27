@@ -285,6 +285,46 @@ check(len({n.clave for n in b.novedades}) == len(b.novedades),
       "y no se repite un hecho dos veces")
 
 
+print("7b. dos bugs que solo aparecen con datos de verdad")
+
+# **La última persona que se sumó no puede ser uno mismo.** Para quien acaba de
+# llegar, la fila más nueva de `game_players` ES LA SUYA. Sin excluirla, el
+# renglón le dice «la última persona se sumó hace menos de un minuto» y esa
+# persona es quien lo está leyendo. Se vio en producción a los dos minutos de
+# desplegar: hay que ser el más nuevo de la base para pisarlo.
+# Todos los demás, con fecha vieja: en el fixture se crean en el mismo
+# instante, y así excluir a uno no cambiaría la respuesta. En producción las
+# altas están separadas —el hueco mediano es de tres minutos— y es justo esa
+# separación la que hace visible el bug.
+db.query(GamePlayer).update({GamePlayer.created_at: AHORA - timedelta(minutes=45)},
+                            synchronize_session=False)
+db.commit()
+recien = jugador("elRecienLlegado", guest_token="tok-recien")
+solo = bienvenida._minutos_desde_la_ultima_alta(db, AHORA, recien.id)
+conmigo = bienvenida._minutos_desde_la_ultima_alta(db, AHORA, None)
+check(conmigo == 0, f"sin excluirlo, la última alta es él mismo (dio {conmigo} min)")
+check(solo == 45, f"excluyéndolo, mira al anterior (dio {solo} min, esperaba 45)")
+b = construir(recien)
+linea = next((n for n in b.novedades if n.clave == "ultima_alta"), None)
+check(linea is None or "menos de un minuto" not in linea.texto,
+      f"así que la pantalla no le habla de él (dio «{linea and linea.texto}»)")
+
+# **«En N universidades» no cuenta las de una sola persona.** El campo es libre,
+# así que esa cola es mitad universidades reales y mitad tipeos. Medido en
+# producción el 27/09: 31 contra 16.
+jugador("unicoDeUnaRara", university="23213r", correctas=3)
+jugador("otroDeUnaRara", university="Ser f", correctas=3)
+db.commit()
+_, unis = bienvenida._universo(db)
+crudas = (db.query(GamePlayer.university)
+          .filter(GamePlayer.is_bot.is_(False), GamePlayer.exercises_correct > 0,
+                  GamePlayer.university.isnot(None), GamePlayer.university != "")
+          .distinct().count())
+check(unis < crudas,
+      f"las de una sola persona no cuentan ({unis} contra {crudas} crudas)")
+check(unis >= 1, f"pero las que sí tienen gente cuentan (dio {unis})")
+
+
 print("8. el endpoint, y que marque")
 
 H = {"X-Game-Token": "tok-rec"}
