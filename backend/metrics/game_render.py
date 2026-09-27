@@ -234,30 +234,39 @@ def _caja_por_orden(po: dict, valores, rotulo, mirar: str, pregunta: str) -> str
     cómodos»— y la balanceada la corrige contando solo a quien llegó a `k`
     votos, que es la misma gente en todos los puntos.
     """
+    # **La curva prefiere la serie BALANCEADA y cae a la cruda cuando no hay
+    # base para armarla.** Con población fija la pendiente significa una sola
+    # cosa; con la cruda son poblaciones distintas unidas por una línea —el
+    # punto de la 3ª vez tiene la cuarta parte de la gente que el de la 1ª— y la
+    # pendiente mezcla «cambió la respuesta» con «cambió quién contesta».
+    #
+    # Se dibuja igual en ese caso, con los puntos flojos huecos y la línea
+    # punteada, que es la misma convención que usa la difusión con las olas que
+    # todavía suman clics. Un cartel diciendo «no hay base» deja la sección sin
+    # nada que mirar hasta que la haya; una curva marcada como floja se lee
+    # sabiendo lo que es, y se endurece sola cuando llega la gente.
     bal = po["balanceado"]
-    if bal:
-        # La curva dibuja la serie BALANCEADA y no la cruda. Unir los puntos de
-        # la cruda sería unir tres poblaciones distintas con una línea: el punto
-        # de la 3ª vez tiene la cuarta parte de la gente que el de la 1ª, así
-        # que la pendiente mezclaría «cambió la respuesta» con «cambió quién
-        # contesta». Con población fija la línea significa una sola cosa.
-        curva = ch.lines(
-            [{"label": rotulo(v), "color": ch.SERIES[i % len(ch.SERIES)],
-              "values": [f[f"pct_{v}"] for f in bal["filas"]],
-              "tips": [f'{f["etiqueta"]} · {rotulo(v)}\n{_pct_txt(f[f"pct_{v}"])} '
-                       f'de {num(f["votos"])} votos' for f in bal["filas"]]}
-             for i, v in enumerate(valores)],
-            [f["etiqueta"] for f in bal["filas"]], suffix="%", height=260)
-        cuerpo = (curva
-                  + f'<p class="note"><b>La misma gente en todos los puntos</b> — las '
-                    f'{num(bal["personas"])} personas que llegaron a {bal["k"]} '
-                    f'respuestas. Un movimiento acá no puede venir de que cambió '
-                    f'quién contesta, que es lo único que la tabla de abajo no '
-                    f'puede descartar.</p>')
-    else:
-        cuerpo = (f'<p class="empty">todavía no hay {num(po["min_panel"])} personas '
-                  f'con dos respuestas, así que no se puede dibujar la curva con '
-                  f'población fija</p>')
+    serie = bal["filas"] if bal else po["filas"]
+    flojos = [f["personas"] < po["min_panel"] for f in serie]
+    curva = ch.lines(
+        [{"label": rotulo(v), "color": ch.SERIES[i % len(ch.SERIES)],
+          "values": [f[f"pct_{v}"] for f in serie], "weak": flojos,
+          "tips": [f'{f["etiqueta"]} · {rotulo(v)}\n{_pct_txt(f[f"pct_{v}"])} de '
+                   f'{num(f["votos"])} votos ({num(f["personas"])} personas)'
+                   for f in serie]}
+         for i, v in enumerate(valores)],
+        [f["etiqueta"] for f in serie], suffix="%", height=260)
+    cuerpo = curva + (
+        f'<p class="note"><b>La misma gente en todos los puntos</b> — las '
+        f'{num(bal["personas"])} personas que llegaron a {bal["k"]} respuestas. Un '
+        f'movimiento acá no puede venir de que cambió quién contesta, que es lo '
+        f'único que la tabla de abajo no puede descartar.</p>' if bal else
+        f'<p class="note"><b>Ojo: acá cada punto es gente distinta.</b> Todavía no '
+        f'hay {num(po["min_panel"])} personas con dos respuestas, así que no se '
+        f'puede fijar la población y la curva dibuja la serie cruda — los puntos '
+        f'huecos y la línea punteada marcan eso. Una pendiente acá puede ser que '
+        f'la experiencia cambió o que cambió quién contesta, y no se pueden '
+        f'separar hasta que haya base.</p>')
 
     cuerpo += _table(["", "Votos", "Personas"] + [rotulo(v) for v in valores],
                      [[f'<b>{esc(f["etiqueta"])}</b>', num(f["votos"]),
@@ -648,10 +657,8 @@ SECCIONES: tuple[tuple[str, str], ...] = (
     # Jugabilidad y Motor eran una sola pestaña y se partieron el 26/09, porque
     # eran dos preguntas que no se contestan con los mismos datos ni las arregla
     # la misma persona. Jugabilidad es la EXPERIENCIA —cómo se siente el juego,
-    # dónde pelea la gente con la interfaz— y se filtra por camada, que es la
-    # unidad en la que se leen las mejoras de producto. Motor es el modelo que
-    # decide qué derivada sirve, y NO se filtra por camada a propósito: lo que
-    # contesta es «cómo está el motor hoy».
+    # dónde pelea la gente con la interfaz— y Motor es el modelo que decide qué
+    # derivada sirve.
     ("jugabilidad", "Jugabilidad"),
     ("motor", "Motor"),
     ("monetizacion", "Monetización"),
@@ -704,8 +711,6 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
             q += f"&s={seccion}"
         if corte_actual != "total":
             q += f"&corte={corte_actual}"
-        if m["camada"]:
-            q += f"&camada={m['camada']}"
         nav.append(f'<a href="/panel/{esc(token)}/dx{q}">{lab}</a>')
     # La marca lleva el link al panel de Intervalo. Antes eso vivía en una
     # segunda caja a la derecha; al sacarla, el logo se queda con el trabajo que
@@ -722,22 +727,15 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         "</div></header>")
 
     def link(*, s: str | None = None, corte: str | None = None,
-             k: int | None = None, camada: str | None = "") -> str:
+             k: int | None = None) -> str:
         """La URL del panel cambiando UNA cosa y dejando el resto como está.
 
-        Es lo que hace que las tres barras convivan: elegir semana no pierde la
-        pestaña, elegir desglose no devuelve a la primera, elegir camada no
-        pierde el desglose, y ninguna pierde hasta dónde se estaba mirando la
-        curva.
-
-        `camada=""` significa «dejá la que está» y `camada=None` significa
-        «sacala». Hace falta distinguirlos porque None ES un valor válido acá —
-        es «todas las camadas»— así que el truco de los otros tres, usar None
-        como «no lo toques», no sirve."""
+        Es lo que hace que las dos barras convivan: elegir semana no pierde la
+        pestaña, elegir desglose no devuelve a la primera, y ninguna de las dos
+        pierde hasta dónde se estaba mirando la curva."""
         s = s if s is not None else seccion
         corte = corte if corte is not None else p["profundidad"]["corte"]
         k = k if k is not None else p["profundidad"]["k_max"]
-        camada = m["camada"] if camada == "" else camada
         q = f"?w={week.isoformat()}"
         if s != SECCION_POR_DEFECTO:
             q += f"&s={s}"
@@ -745,8 +743,6 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
             q += f"&corte={corte}"
         if k != DEPTH_MAX:
             q += f"&k={k}"
-        if camada:
-            q += f"&camada={camada}"
         return f"/panel/{esc(token)}/dx{q}"
 
     tabs = "".join(
@@ -755,42 +751,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         for c, t in SECCIONES)
     out.append(f"<nav class='jump'>{tabs}</nav>")
 
-    # ── La barra de camadas, que gobierna TODA la pestaña de Jugabilidad ─────
-    #
-    # Va arriba de todo y no pegada a un gráfico, al revés que el desglose de
-    # Profundidad: ese cambia una curva y este cambia la pestaña entera, así que
-    # tiene que verse antes de leer el primer número. Son links por lo mismo que
-    # los otros dos controles — el panel no tiene JavaScript, y cada camada
-    # queda con URL propia para poder abrir dos y compararlas.
-    # El tamaño va adentro del chip y apagado: sin él, el selector invita a
-    # comparar una camada de mil personas con una de treinta como si fueran dos
-    # lecturas del mismo peso.
-    _tam = "font-style:normal;opacity:.55;margin-left:5px"
-    _cam = "".join(
-        (f'<span class="cur">{esc(c["label"])}<i style="{_tam}">{num(c["n"])}</i></span>'
-         if c["week"] == m["camada"] else
-         f'<a href="{link(camada=c["week"])}">{esc(c["label"])}'
-         f'<i style="{_tam}">{num(c["n"])}</i></a>')
-        for c in m["camadas"])
-    # Mismo marcado que el desglose de Profundidad —`.cortes` con un `.sub` de
-    # etiqueta— para que las dos barras se lean como la misma clase de control.
-    # La diferencia es dónde vive: esta gobierna la pestaña entera, así que va
-    # arriba de todo en vez de pegada a un gráfico.
-    barra_camada = (
-        '<div class="box" style="margin-bottom:12px">'
-        '<div class="cortes"><span class="sub">Camada</span>'
-        + ('<span class="cur">Todas</span>' if not m["camada"]
-           else f'<a href="{link(camada=None)}">Todas</a>')
-        + _cam + "</div>"
-        + '<p class="note">Filtra TODA esta pestaña por la semana en que se dio de '
-          'alta la persona — la misma definición de camada que usan retención y '
-          'viralidad. <b>Aísla la población, no el período:</b> quien entró el 07/09 '
-          'sigue jugando hoy, así que su fila incluye el juego de antes y el de '
-          'después de cualquier cambio. Para leer el efecto de un deploy están las '
-          'series semanales, que cortan por fecha del evento.'
-        + (f' Mirando la camada del <b>{esc(next((c["label"] for c in m["camadas"] if c["week"] == m["camada"]), ""))}</b>: '
-           f'{num(m["jugadores_camada"])} jugadores.' if m["camada"] else "")
-        + '</p></div>')
+
 
     # Las tres se arman siempre y se muestra una. Armarlas cuesta unos SVG que
     # nadie va a ver, y a cambio el archivo se sigue leyendo en el orden del
@@ -2070,9 +2031,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         anchor="calibracion")
 
     # ── La opinión de la gente ───────────────────────────────────────────────
-    # `opinion_camada` y no `opinion`: esta sección vive en Jugabilidad, que se
-    # filtra. La de Motor lee la sin filtrar, que es la que valida la banda.
-    op = p["opinion_camada"]
+    op = p["opinion"]
     _rot = lambda v: f'{SURVEY_EMOJI_A.get(v, "")} {SURVEY_TEXT.get(v, v)}'.strip()
 
     filas_op = [[f'<b>{esc(_rot(f["voto"]))}</b>', num(f["n"]),
@@ -2355,7 +2314,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         # Jugabilidad = la experiencia. Profundidad primero porque es la curva
         # que resume todo lo demás, y después los tres lugares donde la persona
         # pelea con el juego en vez de con la derivada.
-        "jugabilidad": (barra_camada + _fila_kpi(p["headline"]["jugabilidad"])
+        "jugabilidad": (_fila_kpi(p["headline"]["jugabilidad"])
                         + pieza_profundidad + pieza_opinion + pieza_repetitividad
                         + pieza_friccion + pieza_teclado),
         # Motor = el modelo. Los cuatro números y la curva arriba, el detalle

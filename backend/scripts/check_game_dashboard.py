@@ -1725,15 +1725,24 @@ check("con base suficiente, el balanceado corta donde todos están presentes",
 check("y la misma gente aparece en todos los puntos de la curva",
       len({f["personas"] for f in _po2["balanceado"]["filas"]}) == 1,
       f'({[f["personas"] for f in _po2["balanceado"]["filas"]]})')
-# Una línea por valor del voto, cada una con su punto en cada posición: con
-# tres valores y las cinco posiciones del escenario son quince puntos, y cada
-# uno lleva su tooltip con la base. Se cuenta sobre la página porque el defecto
-# que importa no es que `lines` funcione sino que la curva llegue a la sección.
+# Una línea por valor del voto, cada una con su punto en cada posición, y cada
+# punto con su tooltip. Se cuenta sobre la página porque el defecto que importa
+# no es que `lines` funcione sino que la curva llegue a la sección.
 check("la curva se dibuja, con una línea por valor del voto",
-      _h2.count("<svg") > _h_sin_curva.count("<svg")
-      and _h2.count("misma gente en todos los puntos") >= 1
-      and _h2.count("<title>1ª vez · ") == len(q.A_ORDER),
-      f'(+{_h2.count(chr(60) + "svg") - _h_sin_curva.count(chr(60) + "svg")} svg)')
+      _h2.count("<title>1ª vez · ") == len(q.A_ORDER)
+      and "misma gente en todos los puntos" in _h2)
+# La curva se dibuja SIEMPRE, y lo que cambia es si sus puntos salen firmes o
+# huecos. Un cartel diciendo «no hay base» deja la sección sin nada que mirar
+# hasta que la haya; una curva marcada como floja se lee sabiendo lo que es.
+def _huecos_op(pagina):
+    trozo = pagina.split("Cómo cambia la respuesta")[1].split("</section>")[0]
+    return trozo.count('fill="var(--surface)" stroke=')
+
+check("sin base para población fija la curva igual se dibuja, pero floja",
+      _huecos_op(_h_sin_curva) > 0 and "cada punto es gente distinta" in _h_sin_curva,
+      f'({_huecos_op(_h_sin_curva)} puntos huecos)')
+check("y con población fija sale firme",
+      _huecos_op(_h2) == 0, f'({_huecos_op(_h2)} puntos huecos)')
 
 # Y que la tabla llegue a la página: la consulta puede estar perfecta y el
 # `_box` quedar enganchado en la sección equivocada, que es lo que pasó con la
@@ -1806,31 +1815,6 @@ _inv = {c["label"]: c.get("invertido", False) for c in REPARTO["motor"]}
 check("y los tres que lo necesitan lo declaran",
       _inv == {"En banda": False, "Acierto real": True, "Brecha": True,
                "Cómodo en": True}, f"({_inv})")
-
-# ── El filtro de camada ─────────────────────────────────────────────────────
-# Filtra SOLO Jugabilidad, y por semana de ALTA de la persona. Los dos detalles
-# importan: si filtrara Motor, la calibración quedaría sin base por celda; y si
-# filtrara por fecha del evento en vez de por alta, sería otra definición de
-# «camada» que la del resto del panel.
-_cam = q.week_start(q.local_date(T(0, 14)))
-_sin = q.build(s, WEEK)
-_con = q.build(s, WEEK, camada=_cam)
-check("el filtro de camada achica la gente de Jugabilidad",
-      _con["meta"]["jugadores_camada"] < _sin["meta"]["jugadores_camada"],
-      f'({_con["meta"]["jugadores_camada"]} contra {_sin["meta"]["jugadores_camada"]})')
-check("y deja Motor intacto, que es lo que NO se filtra",
-      _con["motor"]["global"] == _sin["motor"]["global"]
-      and _con["calibracion"] == _sin["calibracion"])
-check("el selector ofrece una camada por semana del panel, con su tamaño",
-      [c["week"] for c in _sin["meta"]["camadas"]]
-      == [w.isoformat() for w in q._semanas_hasta(WEEK)]
-      and all("n" in c for c in _sin["meta"]["camadas"]))
-# Una camada inexistente no puede devolver el panel entero disfrazado de camada:
-# eso haría leer como «esta semana» lo que es «siempre».
-_vacia = q.build(s, WEEK, camada=q.FIRST_WEEK - timedelta(weeks=52))
-check("una camada sin nadie da vacío y no el total",
-      _vacia["meta"]["jugadores_camada"] == 0
-      and _vacia["teclado"]["rechazos"] == 0)
 
 print("— la pregunta abierta —")
 # Lo que se prueba acá son los TRES estados, y no el promedio de nada. La diapo

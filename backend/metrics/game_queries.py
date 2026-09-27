@@ -436,58 +436,6 @@ def load(db: DBSession) -> dict:
     return data
 
 
-def _filtrar_camada(data: dict, camada: date | None) -> dict:
-    """Una vista de `data` con solo la gente que se dio de alta esa semana.
-
-    **Camada es la semana de ALTA de la persona, no la semana del evento.** Es
-    la misma definición que usan `_camadas`, la retención y la viralidad, y
-    tenerla distinta acá sería tener dos «camadas» en el mismo panel — el
-    defecto que ya costó caro con el K semanal.
-
-    Tiene una consecuencia que conviene entender antes de leer nada: **un
-    arreglo desplegado hoy NO aparece en una camada sola.** La gente que entró
-    el 07/09 sigue jugando hoy, así que su fila incluye el juego de antes y el
-    de después del arreglo. Lo que la camada aísla es la POBLACIÓN, no el
-    período: sirve para comparar grupos de gente que llegaron por olas
-    distintas, y no para leer el efecto de un deploy. Para eso están las series
-    semanales, que cortan por fecha del evento.
-
-    El filtro es por `player_id` sobre cualquier lista que lo tenga, y eso es a
-    propósito: una lista nueva en `load` queda filtrada sola, sin que haya que
-    acordarse de venir a agregarla acá. Lo único que se deja entero es lo que no
-    es de una persona —los grupos del tracker— porque el denominador de la
-    difusión no depende de a quién se esté mirando.
-    """
-    if camada is None:
-        return data
-    ids = {p["id"] for p in data["players"] if _week_of(p["created_at"]) == camada}
-    fuera = dict(data)
-    fuera["players"] = [p for p in data["players"] if p["id"] in ids]
-    for clave, filas in data.items():
-        if clave == "players" or not isinstance(filas, list) or not filas:
-            continue
-        if isinstance(filas[0], dict) and "player_id" in filas[0]:
-            fuera[clave] = [r for r in filas if r["player_id"] in ids]
-    return fuera
-
-
-def camadas_de(data: dict, week: date) -> list[dict]:
-    """Las camadas que el selector puede ofrecer, con cuánta gente tiene cada una.
-
-    El tamaño va al lado del nombre porque sin él el selector invita a comparar
-    una camada de mil personas con una de treinta como si fueran dos lecturas
-    del mismo peso.
-    """
-    por_semana: dict[date, int] = defaultdict(int)
-    for p in data["players"]:
-        w = _week_of(p["created_at"])
-        if w is not None:
-            por_semana[w] += 1
-    return [{"week": w.isoformat(), "label": w.strftime("%d/%m"),
-             "n": por_semana.get(w, 0)}
-            for w in _semanas_hasta(week)]
-
-
 def _weeks_back(week: date, n: int) -> list[date]:
     """La semana elegida y las n-1 anteriores, de más vieja a más nueva.
 
@@ -3848,34 +3796,15 @@ def encuestas(data: dict) -> dict:
 # ── Entrada ──────────────────────────────────────────────────────────────────
 
 def build(db: DBSession, week: date, weeks_shown: int = 4,
-          corte: str = "total", k_max: int = DEPTH_MAX,
-          camada: date | None = None) -> dict:
-    """Payload completo del panel del juego para la semana `week` (su lunes).
-
-    `camada` filtra SOLO las secciones de Jugabilidad, y a propósito: esa
-    pestaña pregunta cómo se siente el juego, que es una pregunta sobre un grupo
-    de gente. Motor pregunta cómo está el modelo hoy, que no lo es — partir la
-    calibración por semana de alta deja las celdas sin base y no contesta nada
-    que no conteste mejor la serie semanal. Ver `_filtrar_camada`.
-    """
+          corte: str = "total", k_max: int = DEPTH_MAX) -> dict:
+    """Payload completo del panel del juego para la semana `week` (su lunes)."""
     data = load(db)
     weeks = _weeks_back(week, weeks_shown)
-    # La vista de Jugabilidad. Con `camada=None` es el mismo objeto, así que el
-    # caso normal no paga nada.
-    d_jug = _filtrar_camada(data, camada)
     # Se calculan una sola vez: los titulares del motor y sus secciones leen lo
     # mismo, y recalcularlo sería recorrer 50.000 ejercicios dos veces para
     # arriesgarse a que den distinto.
     _motor = motor(data, weeks)
     _opinion = opinion(data, weeks)
-    # Los titulares de Jugabilidad se recalculan sobre la camada elegida, y solo
-    # cuando hay una elegida: `headline` recorre las camadas y la retención, así
-    # que llamarlo dos veces siempre sería pagar ese recorrido por una pestaña
-    # que la mayoría de las visitas mira sin filtrar.
-    _head = headline(data, weeks, _motor, _opinion)
-    if camada is not None:
-        _head = {**_head,
-                 "jugabilidad": headline(d_jug, weeks, _motor, _opinion)["jugabilidad"]}
     return {
         "meta": {
             "week": week.isoformat(),
@@ -3887,12 +3816,9 @@ def build(db: DBSession, week: date, weeks_shown: int = 4,
             "estudiantes": len(data["players"]),
             "respuestas": len(data["_answers"]),
             "bots_excluidos": data["_bots"],
-            "camada": camada.isoformat() if camada else None,
-            "camadas": camadas_de(data, week),
-            "jugadores_camada": len(d_jug["players"]),
         },
-        "headline": _head,
-        "profundidad": profundidad(d_jug, weeks, corte=corte, k_max=k_max),
+        "headline": headline(data, weeks, _motor, _opinion),
+        "profundidad": profundidad(data, weeks, corte=corte, k_max=k_max),
         "push": push(data, weeks),
         "mails": mails(data, weeks),
         "reclutas": reclutas(data, weeks),
@@ -3908,13 +3834,9 @@ def build(db: DBSession, week: date, weeks_shown: int = 4,
         "monetizacion": monetizacion(data),
         "calibracion": calibracion(data),
         "motor": _motor,
-        # Dos lecturas del MISMO voto. `opinion` es la de Motor y no se filtra:
-        # es el validador de la banda. `opinion_camada` es la de Jugabilidad y
-        # sí, porque ahí la pregunta es qué dijo esta gente.
         "opinion": _opinion,
-        "opinion_camada": opinion(d_jug, weeks) if camada is not None else _opinion,
-        "teclado": teclado(d_jug),
-        "repetitividad": repetitividad(d_jug, weeks),
+        "teclado": teclado(data),
+        "repetitividad": repetitividad(data, weeks),
         "encuestas": encuestas(data),
-        "friccion": friccion(d_jug),
+        "friccion": friccion(data),
     }
