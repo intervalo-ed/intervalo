@@ -82,6 +82,25 @@ h3.dentro{margin:18px 0 10px}
 .kctrl input[type=range]:focus-visible{outline:2px solid var(--indigo-soft);
   outline-offset:3px;border-radius:6px}
 
+/* ── Los hitos del embudo, encima de la curva ────────────────────── */
+
+/* Es una LEYENDA y no una barra de opciones, así que no reusa `.cortes .cur`:
+   ese chip es el estado «elegido» de un selector —fondo índigo, texto blanco— y
+   pintarle el texto del color del hito dejaba color sobre color, ilegible. Acá
+   lo único que lleva color es la muestra de la guía, que es lo que ata el
+   renglón con la línea punteada del gráfico; el texto se lee en el color de
+   siempre. */
+.hitos{display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-size:12px;
+  color:var(--fg);margin:0 0 10px;line-height:1.5}
+.hitos .sub{color:var(--muted);margin:0}
+.hitos .h{display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+/* La muestra imita el trazo del gráfico: vertical y punteada, no un cuadradito.
+   Un cuadrado de color diría «categoría» y lo que hay abajo es una línea. */
+.hitos .g{display:inline-block;width:0;height:13px;border-left:2px dashed;
+  border-color:inherit}
+.hitos .k{font-weight:700;font-variant-numeric:tabular-nums}
+.hitos .ab{color:var(--muted)}
+
 /* ── Voces: una tarjeta por respuesta ───────────────────────────── */
 
 /* El único número de la sección, de ancho completo: es el encabezado de lo que
@@ -313,6 +332,10 @@ def _caja_por_orden(po: dict, valores, rotulo, mirar: str, pregunta: str) -> str
 # que lo acompañaba se fue con la vista de volumen: era el color de la serie de
 # «nuevos», y esa serie ya no se dibuja.
 VERDE_RECLUTAS = "#2fb673"
+
+# El quinto color de la leyenda de hitos. Va acá al lado del verde y no suelto
+# entre el código: los cinco se eligen juntos o dos terminan siendo el mismo.
+ROSA_INSTALAR = "#c2185b"
 
 
 def _fila_kpi(cards: list[dict], clase: str = "g4") -> str:
@@ -890,9 +913,16 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
     # todos atrás: marcarlos ahí diría que el juego interrumpe en la tercera
     # derivada de esa tanda, y no interrumpe en ninguna.
     _hitos = pr["hitos"] if corte != "sesion" else []
-    _color_hito = {"perfil": ch.SERIES[1], "reclutas": "#2fb673",
+    # Un color por pregunta, y los cinco distinguibles entre sí sobre el fondo
+    # oscuro. El verde es el mismo con el que el juego pinta reclutar en la app
+    # (`VERDE_RECLUTAS`), así que la guía y el botón que la dispara coinciden.
+    #
+    # `ch.SERIES[4]` es `var(--muted)`, que acá no sirve: es el gris del texto
+    # secundario y de la grilla, así que la guía de instalar se confundía con el
+    # fondo del propio gráfico en vez de leerse como una serie más.
+    _color_hito = {"perfil": ch.SERIES[1], "reclutas": VERDE_RECLUTAS,
                    "registro": ch.SERIES[2], "cafecito": ch.SERIES[3],
-                   "instalar": ch.SERIES[4]}
+                   "instalar": ROSA_INSTALAR}
     def _marcas_en(eje: list[int]) -> list[dict]:
         """Las guías, posicionadas contra el eje que recibe.
 
@@ -916,17 +946,17 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
     for h in _hitos:
         _por_clave.setdefault(h["clave"], []).append(h)
     leyenda_hitos = ("" if not _hitos else
-                     '<div class="cortes" style="margin:0 0 8px">'
-                     '<span class="sub">El juego pregunta en</span>'
+                     '<div class="hitos">'
+                     '<span class="sub">El juego pregunta en la derivada</span>'
                      + "".join(
-                         f'<span class="cur" style="border-color:{_color_hito.get(c, "")};'
-                         f'color:{_color_hito.get(c, "")}">'
-                         + _y_lista([num(x["k"]) for x in hs])
-                         + f' · {esc(hs[0]["copy"])}'
-                         + (f' <i style="font-style:normal;opacity:.6">'
-                            f'{_pct_txt(hs[0]["abandono"])}</i>'
+                         f'<span class="h" style="color:{_color_hito.get(c, "")}">'
+                         f'<i class="g"></i>'
+                         f'<span style="color:var(--fg)">'
+                         f'<span class="k">{_y_lista([num(x["k"]) for x in hs])}</span>'
+                         f' · {esc(hs[0]["copy"])}'
+                         + (f' <span class="ab">{_pct_txt(hs[0]["abandono"])}</span>'
                             if hs[0]["abandono"] is not None else "")
-                         + '</span>' for c, hs in _por_clave.items())
+                         + '</span></span>' for c, hs in _por_clave.items())
                      + '</div>')
 
     # ── Cuánta gente pierde cada derivada ────────────────────────────────────
