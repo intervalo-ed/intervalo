@@ -153,29 +153,58 @@ def _derivadas(db: Session, desde: datetime) -> int:
     )
 
 
+# Cuánta gente hace falta para decir que el juego «está» en una universidad.
+#
+# Dos, y el uno que se descarta no es un tecnicismo: la universidad se carga a
+# mano en un campo libre, así que la cola de una sola persona es mitad
+# universidades de verdad (UNCUYO, UNAM, UNJu) y mitad tipeos —«23213r», «Ser
+# f», «FQ», «Fcea»—. Contarlas infla el número con basura que nadie puede ver
+# para desmentir: medido el 27/09, 31 contra 16.
+#
+# No arregla la canonicalización, que es otro problema y vive en la carga. Lo
+# que hace es no APOYARSE en ella para una afirmación pública.
+MIN_PRESENCIA = 2
+
+
 def _universo(db: Session) -> tuple[int, int]:
-    """Cuánta gente juega y en cuántas universidades."""
+    """Cuánta gente juega y en cuántas universidades hay presencia."""
     personas = db.query(func.count(GamePlayer.id)).filter(NO_BOT, JUEGA).scalar() or 0
     unis = (
-        db.query(func.count(func.distinct(GamePlayer.university)))
-        .filter(NO_BOT, JUEGA, GamePlayer.university.isnot(None),
-                GamePlayer.university != "")
+        db.query(func.count())
+        .select_from(
+            db.query(GamePlayer.university)
+            .filter(NO_BOT, JUEGA, GamePlayer.university.isnot(None),
+                    GamePlayer.university != "")
+            .group_by(GamePlayer.university)
+            .having(func.count(GamePlayer.id) >= MIN_PRESENCIA)
+            .subquery()
+        )
         .scalar()
         or 0
     )
     return int(personas), int(unis)
 
 
-def _minutos_desde_la_ultima_alta(db: Session, ahora: datetime) -> int | None:
-    """Hace cuánto llegó la última persona.
+def _minutos_desde_la_ultima_alta(
+    db: Session, ahora: datetime, salvo_id: int | None = None
+) -> int | None:
+    """Hace cuánto llegó la última persona, sin contar a quien pregunta.
 
     Es el único hecho que dice «esto está pasando AHORA» en vez de «esto es
     grande». Aguanta como renglón porque el hueco mediano entre altas es de tres
     minutos (medido sobre los `welcome` de siete días).
+
+    **`salvo_id` no es una optimización, es el bug.** Para alguien que acaba de
+    llegar, la fila más nueva de `game_players` ES LA SUYA, así que sin excluirla
+    el renglón dice «la última persona se sumó hace menos de un minuto» y esa
+    persona es quien lo está leyendo. Se vio en producción a los dos minutos de
+    desplegar, y es exactamente la clase de error que no aparece en un fixture:
+    hay que ser el más nuevo de la base para pisarlo.
     """
-    ultima = (
-        db.query(func.max(GamePlayer.created_at)).filter(NO_BOT).scalar()
-    )
+    q = db.query(func.max(GamePlayer.created_at)).filter(NO_BOT)
+    if salvo_id is not None:
+        q = q.filter(GamePlayer.id != salvo_id)
+    ultima = q.scalar()
     if ultima is None:
         return None
     return max(0, int((ahora - ultima).total_seconds() // 60))
@@ -350,8 +379,8 @@ def _n_universo(db) -> Novedad | None:
                    f"Ya somos {miles(personas)} en {unis} universidades.", "🏛️", 30)
 
 
-def _n_ultima_alta(db, ahora) -> Novedad | None:
-    m = _minutos_desde_la_ultima_alta(db, ahora)
+def _n_ultima_alta(db, ahora, salvo_id=None) -> Novedad | None:
+    m = _minutos_desde_la_ultima_alta(db, ahora, salvo_id)
     # Más de dos horas ya no es «ahora mismo», y decirlo sería vender quietud.
     if m is None or m > 120:
         return None
@@ -406,7 +435,7 @@ def construir(
         candidatas += [
             _n_derivadas(db, inicio_del_dia, "hoy"),
             _n_universo(db),
-            _n_ultima_alta(db, ahora),
+            _n_ultima_alta(db, ahora, player.id),
         ]
         saludo, titulo, modo = "¡Bienvenido!", "Lo que está pasando", "primera"
     else:
@@ -417,7 +446,7 @@ def construir(
         candidatas += [
             _n_derivadas(db, desde, "mientras tanto"),
             _n_universo(db),
-            _n_ultima_alta(db, ahora),
+            _n_ultima_alta(db, ahora, player.id),
         ]
         saludo, titulo, modo = "¡Bienvenido, {a}!", "Mientras no estabas", "vuelve"
 

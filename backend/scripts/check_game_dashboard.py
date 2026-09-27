@@ -111,6 +111,18 @@ s.flush()
 #     viralidad—. Cuatro semanas y no una para que quede afuera de la ventana
 #     visible: acá se lo quiere solo como "el de antes", no como parte de las
 #     cohortes que miden profundidad, difusión y aparato.
+#     Juega en su semana de alta, otra vez a la siguiente, y recién vuelve en la
+#     de referencia: con eso su curva de retenidos es 1, 0, 0, 1 y prueba de una
+#     que una misma persona puede contar en dos semanas separadas y que estar en
+#     la base no es aparecer.
+# p7  de la primera semana del panel, y no jugó nunca hasta la de referencia. No
+#     es un retenido: es una activación tardía, y es la única diferencia entre
+#     contar la base por "ya había jugado" y contarla por "ya se había dado de
+#     alta". Con la definición floja, p5 y p7 se cuentan igual.
+#     Va ocho semanas atrás y no cuatro —que sería lo natural, al lado de p5—
+#     porque en la camada de p5 le agregaría una segunda persona, y esa camada
+#     es el caso mínimo de K: una que trajo una y las dos jugaron. Media docena
+#     de checks de viralidad se apoyan en que ahí hay exactamente uno.
 # p6  entra y se va sin responder nada: el rebote, que es más de la mitad del
 #     tráfico real. Existe para que `activados` y `nuevos` NO sean el mismo
 #     número: con los cuatro de arriba activando al 100%, un porcentaje medido
@@ -133,6 +145,9 @@ PLAYERS = [
     dict(id=5, user_id=None, alias="cero", university=None, career=None,
          is_bot=False, platform=None,
          created_at=T(-28, 14), last_seen_at=T(0, 15)),
+    dict(id=7, user_id=None, alias="siete", university=None, career=None,
+         is_bot=False, platform=None,
+         created_at=T(-56, 14), last_seen_at=T(0, 16)),
     dict(id=6, user_id=None, alias="seis", university="UBA", career="E",
          is_bot=False, platform="android",
          created_at=T(3, 14), last_seen_at=T(3, 14, 2)),
@@ -234,9 +249,22 @@ for i in range(5):
 servir(4, T(2, 14, 30), 0.35, template="t5_ln_over_x", status="skipped")
 
 # p5 vuelve: una respuesta en la semana de referencia, cuatro semanas después
-# de su alta. Es lo único que lo hace contar como retenido.
+# de su alta. Es lo único que lo hace contar como retenido — y para que «volver»
+# sea cierto tiene que haber jugado antes, así que juega en su semana de alta y
+# en la siguiente. Las dos del medio las saltea: un retenido que no aparece una
+# semana sigue en la base y cuenta cero, que es lo que hace bajar la curva.
+ex = servir(5, T(-28, 15), 0.70)
+responder(ex, 5, T(-28, 15), correcto=True)
+ex = servir(5, T(-21, 15), 0.70)
+responder(ex, 5, T(-21, 15), correcto=True)
 ex = servir(5, T(0, 15), 0.70)
 responder(ex, 5, T(0, 15), correcto=True)
+
+# p7 se dio de alta hace dos meses y recién juega ahora: NO es un retenido. La
+# definición floja —«de una semana anterior y activo en esta»— lo contaría; la
+# del panel pide que ya hubiera jugado, porque quien nunca jugó no puede volver.
+ex = servir(7, T(0, 16), 0.70)
+responder(ex, 7, T(0, 16), correcto=True)
 
 # Bot: 50 respuestas que NO tienen que aparecer en ningún lado.
 for i in range(50):
@@ -398,7 +426,7 @@ weeks = q._weeks_back(WEEK, 4)
 
 # ── 1 · Los bots no existen ──────────────────────────────────────────────────
 print("\n— bots —")
-check("los estudiantes sembrados se excluyen", len(data["players"]) == 6,
+check("los estudiantes sembrados se excluyen", len(data["players"]) == 7,
       f'({len(data["players"])} estudiantes)')
 check("sus ejercicios también", all(e["player_id"] != 9 for e in data["exercises"]))
 check("sus respuestas también", all(a["player_id"] != 9 for a in data["attempts"]))
@@ -426,8 +454,9 @@ check("se informa cuántos se sacaron", data["_bots"] == 1)
 # ── 2 · Qué es una respuesta ─────────────────────────────────────────────────
 print("\n— respuestas —")
 # p1: 12 + 1 mirada + 2 buenas tras sendos fallos de parseo = 15 primeros
-# intentos. p2: 4. p3: 1. p4: 5. p5: 1. Total 26 respuestas parseadas.
-check("lo que no parsea no es respuesta", len(data["_answers"]) == 26,
+# intentos. p2: 4. p3: 1. p4: 5. p5: 3 (una por semana de su ida y vuelta).
+# p7: 1. Total 29 respuestas parseadas.
+check("lo que no parsea no es respuesta", len(data["_answers"]) == 29,
       f'({len(data["_answers"])})')
 # Dos fallos y no uno: uno se corrige en ocho segundos (una PELEA con el
 # teclado) y el otro dos minutos más tarde, que ya no lo es. La sección del
@@ -439,7 +468,7 @@ check("el fallo de parseo sí queda registrado",
 # En este escenario nadie usó el segundo intento, así que coinciden — lo que se
 # clava acá es que el fallo de parseo, que sí ocurrió, no cuenta como ninguno.
 check("el largo de la partida se mide en primeros intentos",
-      len(data["_firsts"]) == 26 and len(data["_firsts"]) == len(data["_answers"]),
+      len(data["_firsts"]) == 29 and len(data["_firsts"]) == len(data["_answers"]),
       f'({len(data["_firsts"])} primeros intentos sobre {len(data["_answers"])} respuestas)')
 
 # ── 3 · Los números de la semana ───────────────────────────────────────────
@@ -626,15 +655,18 @@ check("la duración de la 1ª sesión sale en minutos",
 
 # El reparto es la parte que se puede romper sin que nadie lo note: una tarjeta
 # que se cae del dict desaparece de la página y ninguna consulta falla por eso.
-check("son veintidós números", len(h) == 22, f"({len(h)})")
-# Activación queda en tres por lo mismo que Retención quedó en cuatro y no en
-# cinco: la grilla se llena con los números que hacen falta, no al revés.
+check("son veintitrés números", len(h) == 23, f"({len(h)})")
+# Activación queda en tres porque la grilla se llena con los números que hacen
+# falta, no al revés. Retención tiene cinco y el quinto es de otra naturaleza:
+# los cuatro primeros son un denominador de camada y sus tres tasas, y
+# «Retenidos» se mide por semana — ver `_retenidos` en game_queries.py.
 # Motor se sumó el 26/09 con sus propios cuatro. Los de él son los únicos del
 # panel que tienen OBJETIVO en vez de dirección, y tres van con el chip
 # invertido: subir el acierto real es alejarse de la banda.
-check("repartidos de a cuatro salvo activación y reclutas, que tienen tres",
+check("repartidos de a cuatro, con tres en activación y reclutas y cinco en "
+      "retención",
       {k: len(v) for k, v in REPARTO.items()}
-      == {"activacion": 3, "retencion": 4, "monetizacion": 4, "reclutas": 3,
+      == {"activacion": 3, "retencion": 5, "monetizacion": 4, "reclutas": 3,
           "jugabilidad": 4, "motor": 4},
       f"({ {k: len(v) for k, v in REPARTO.items()} })")
 # El cafecito se mudó a Monetización y no quedó en los dos lados. Y el primero
@@ -643,8 +675,58 @@ check("repartidos de a cuatro salvo activación y reclutas, que tienen tres",
 check("retención arranca por su denominador y no tiene el cafecito",
       [c["label"] for c in REPARTO["retencion"]]
       == ["Activados de la camada", "Vuelven otro día", "Se registran",
-          "Instalan la app"],
+          "Instalan la app", "Retenidos"],
       f'({[c["label"] for c in REPARTO["retencion"]]})')
+
+# ── Retenidos ───────────────────────────────────────────────────────────────
+# El quinto de la fila, y el único que no mira camadas: se para en una semana y
+# pregunta quién de los que YA HABÍAN JUGADO apareció. Va último justamente
+# porque los cuatro de arriba son una sola cuenta —un denominador y sus tres
+# tasas— y este es otra.
+print("\n— retenidos —")
+RET = {f["week"]: f for f in q.retencion(data, WEEK)["retenidos"]}
+_r_sem = RET[WEEK.isoformat()]
+# p5 jugó cuatro semanas antes y vuelve en esta: es el retenido. p7 está de alta
+# desde hace dos meses y recién juega ahora, así que NO lo es — y esa es la
+# única diferencia entre las dos definiciones posibles. Con la floja («de una
+# semana anterior y activo en esta») los dos números darían 2.
+check("el retenido es el que ya había jugado, no el que ya estaba de alta",
+      _r_sem["retenidos"] == 1 and _r_sem["base"] == 1,
+      f'({_r_sem["retenidos"]} de {_r_sem["base"]})')
+check("y la activación tardía no se cuela en el denominador",
+      7 not in {p["id"] for p in data["players"]
+                if q._week_of(p["created_at"]) == WEEK}
+      and _r_sem["base"] == 1,
+      f'(p7 es de la camada {q._week_of([p for p in data["players"] if p["id"] == 7][0]["created_at"])})')
+# La primera semana del panel no tiene semanas anteriores: su retención no es
+# cero, no existe. Dibujar un cero ahí haría arrancar la curva desde el piso y
+# leer como crecimiento lo que es el borde del universo.
+check("la primera semana viaja sin punto y no con un cero",
+      RET[q.FIRST_WEEK.isoformat()]["retenidos"] is None,
+      f'({RET[q.FIRST_WEEK.isoformat()]["retenidos"]})')
+# p5 juega en su semana de alta, en la siguiente y en la de referencia. O sea:
+# cuenta DOS veces separadas, y en las dos del medio sigue en la base y cuenta
+# cero. Las dos mitades juntas son lo que prueba que la serie es por semana y no
+# por persona.
+_serie = [RET[(q.FIRST_WEEK + timedelta(weeks=i)).isoformat()]["retenidos"]
+          for i in range(9)]
+check("una misma persona cuenta en cada semana que aparece",
+      _serie == [None, None, None, None, None, 1, 0, 0, 1], f"({_serie})")
+# El conteo sube con la base aunque nadie retenga mejor, así que la tasa viaja
+# al lado y no se calcula en el navegador.
+check("y la tasa viaja junto al conteo, sobre la misma base",
+      _r_sem["pct"] == 100.0 and RET[(q.FIRST_WEEK + timedelta(weeks=6))
+                                     .isoformat()]["pct"] == 0.0,
+      f'({_r_sem["pct"]}%)')
+# La ventana ES la semana, así que el punto de la semana en curso está a medio
+# contar. No es maduración —no hay nada que esperar salvo el domingo— y el
+# gráfico lo dibuja hueco.
+check("las semanas cerradas se declaran cerradas",
+      all(f["cerrada"] for f in RET.values()),
+      f'({sum(1 for f in RET.values() if not f["cerrada"])} abiertas)')
+check("y el titular es exactamente ese número",
+      h["Retenidos"]["value"] == 1 and h["Retenidos"]["suffix"] == "",
+      f'({h["Retenidos"]["value"]})')
 # Cada uno va donde está el gráfico que lo explica, y la sección a la que apunta
 # tiene que existir como pestaña: una clave mal escrita acá es una fila de
 # números que no se dibuja en ningún lado.
@@ -963,7 +1045,7 @@ rc = q.reclutas(data, weeks)
 # p2 entró por el link de p5: es el único reclutado del escenario.
 check("cuenta a quien entró por un link", rc["total_reclutados"] == 1,
       f'({rc["total_reclutados"]})')
-check("y el bot no está en el denominador", rc["total_jugadores"] == 6,
+check("y el bot no está en el denominador", rc["total_jugadores"] == 7,
       f'({rc["total_jugadores"]})')
 top = {t["alias"]: t for t in rc["top"]}
 check("el reclutador aparece en el top", "cero" in top, f'({list(top)})')
@@ -2350,6 +2432,34 @@ check("el selector por camada trae las tres vistas y muestra una",
 check("el script de los controles va una sola vez por página",
       _h_po.count("data-segm") == 3 and _h_po.count("[data-segm]") == 1,
       f'({_h_po.count("data-segm")} usos)')
+
+# ── La caja de retenidos, en la página ─────────────────────────────────────
+# La consulta puede estar perfecta y el `_box` quedar colgado de la sección
+# equivocada: ya pasó con la mitad del voto que se fue a Motor.
+_h_ret = game_render.page(q.build(s, WEEK), token="tok", seccion="retencion")
+_caja_ret = _h_ret.split('data-segm="retenidos"')[1].split("</section>")[0]
+check("la curva de retenidos se dibuja en Retención",
+      "Cuánta gente de antes vuelve cada semana" in _h_ret
+      and _h_ret.count('data-segm="retenidos"') == 1)
+# Las dos vistas viajan en la página y el botón las prende: un conteo cuyo
+# denominador crece no se puede leer solo, y una tasa sin su escala tampoco.
+check("y trae las dos vistas, con la de personas puesta",
+      _caja_ret.count("<button data-m=") == 2
+      and _caja_ret.count("data-vista=") == 2
+      and _caja_ret.count(" hidden>") == 1,
+      f'({_caja_ret.count("<button data-m=")} botones)')
+check("y el script de los controles viaja también en esta pestaña",
+      _h_ret.count("[data-segm]") == 1 and _h_ret.count("<script>") == 1,
+      f'({_h_ret.count("<script>")} scripts)')
+# El quinto titular entra en la grilla de cinco. Con `g4` la fila se parte en
+# 4+1 y el último número queda solo en un renglón, leyéndose como de otra cosa.
+check("la fila de Retención se arma para cinco",
+      '<div class="grid g5">' in _h_ret and "Retenidos" in _h_ret)
+# Y la pestaña sigue siendo la de retención: la caja no se le escapó a otra.
+_h_act = game_render.page(q.build(s, WEEK), token="tok", seccion="activacion")
+check("y no aparece en ninguna otra pestaña",
+      'data-segm="retenidos"' not in _h_act
+      and 'data-segm="retenidos"' not in _h_po)
 
 # ── La camada de cada voto ─────────────────────────────────────────────────
 # p5 es de una camada vieja —se dio de alta cuatro semanas antes— y vota tres
