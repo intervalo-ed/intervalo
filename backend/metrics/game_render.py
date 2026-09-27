@@ -2622,7 +2622,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         )
 
     pieza_repetitividad = _section(
-        3, "Si le salen repetidas",
+        3, "Repetitividad",
         # Los mismos tres titulares que Dificultad, y no los cuatro de antes.
         # «Ventana» y «Plantillas excluidas» no se perdieron: son contexto para
         # leer la tabla de abajo y ahí están, adentro de su pie, que es donde se
