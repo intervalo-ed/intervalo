@@ -1067,6 +1067,21 @@ check("pero el desglose por universidad se dibuja igual",
 
 check("con el escenario de agosto están todas cerradas",
       all(c["madura"] for c in _cm), f"({len(_cm)} camadas)")
+def _camadas_r_madura(q, sesion, week) -> bool:
+    """Si la ÚLTIMA camada del escenario se está dando por madura.
+
+    El escenario vive en agosto de 2026 y `madura` se mide contra hoy, así que
+    con el reloj real todas están maduras. Lo que se prueba es lo contrario:
+    que una camada cuyo cierre más la maduración caiga en el futuro NO lo esté.
+    """
+    from datetime import timedelta as _td
+    filas = q.build(sesion, week)["retencion"]["filas"]
+    if not filas:
+        return False
+    futura = week + _td(weeks=52)
+    return q._camadas_retencion(q.load(sesion), [futura])[futura]["madura"]
+
+
 def _huecos(pagina: str) -> int:
     """Cuántos puntos de la curva de camadas salen huecos.
 
@@ -1603,6 +1618,115 @@ print("— la opinión de la gente —")
 # que quedó acá es lo que la gente dijo.
 MARCA_OPINION = "Lo que dice la gente"
 MARCA_OPINION_MOTOR = "El voto contra el comportamiento"
+# ── Los hitos del embudo sobre la curva ─────────────────────────────────────
+# Cada marca es una derivada en la que el juego, en vez de dar la siguiente,
+# pregunta algo. Son la mitad de la explicación de por qué la curva baja donde
+# baja, y hasta el 27/09 había que saberse los números de memoria.
+_pr40 = q.build(s, WEEK, k_max=40)["profundidad"]
+check("los hitos salen en el payload de la curva, en orden",
+      [h["k"] for h in _pr40["hitos"]] == sorted(h["k"] for h in _pr40["hitos"])
+      and [h["clave"] for h in _pr40["hitos"]]
+      == [c for c, _, _ in q.HITOS_DEL_EMBUDO],
+      f'({[(h["clave"], h["k"]) for h in _pr40["hitos"]]})')
+# Un hito fuera de lo dibujado no se marca: la guía caería en el borde del
+# gráfico y diría que el juego pregunta en la última derivada de la curva.
+_pr12 = q.build(s, WEEK, k_max=12)["profundidad"]
+check("y los que caen fuera de la curva no se marcan",
+      all(h["k"] <= 12 for h in _pr12["hitos"])
+      and len(_pr12["hitos"]) < len(_pr40["hitos"]),
+      f'({len(_pr12["hitos"])} con k_max=12 contra {len(_pr40["hitos"])} con 40)')
+
+_h40 = game_render.page(q.build(s, WEEK, k_max=40), token="tok", seccion="jugabilidad")
+check("la leyenda nombra cada pregunta arriba de la curva",
+      all(texto in _h40 for _, _, texto in q.HITOS_DEL_EMBUDO)
+      and "El juego pregunta en" in _h40)
+# Los dos gráficos de la sección llevan las mismas guías, y cada uno las
+# posiciona contra SU eje: el de pérdida corta donde ya no queda nadie vivo, así
+# que un índice prestado del otro correría la guía de derivada.
+_arriba, _abajo = _h40.split("Cuánta gente pierde cada derivada", 1)
+_guia = lambda t: t.count('stroke-dasharray="3 3"')
+check("la curva acumulada lleva una guía por hito",
+      _guia(_arriba) == len(_pr40["hitos"]),
+      f'({_guia(_arriba)} guías para {len(_pr40["hitos"])} hitos)')
+# El gráfico de pérdida corta donde ya no queda nadie vivo, así que puede tener
+# menos posiciones que hitos. Las que entran son exactamente las que caen dentro
+# de SU eje, y por eso cada uno arma las suyas contra el eje que dibuja: un
+# índice prestado del otro correría la guía de derivada o la tiraría afuera.
+_vivas = [c["k"] for c in _pr40["curva"] if c["abandono"] is not None]
+_caben = [h for h in _pr40["hitos"] if h["k"] in _vivas]
+check("y la de pérdida solo las que caen dentro de su propio eje",
+      _guia(_abajo) == len(_caben) and _guia(_abajo) <= _guia(_arriba),
+      f'({_guia(_abajo)} guías, caben {len(_caben)} de {len(_pr40["hitos"])})')
+check("cada guía se ancla en la derivada de su hito, no en su posición",
+      all(f'derivada {h["k"]}: {h["copy"]}' in _h40 for h in _pr40["hitos"]))
+
+# ── La curva de pérdida por derivada ────────────────────────────────────────
+# La acumulada baja siempre, así que no distingue «se va la misma fracción en
+# cada paso» de «se van todos al principio y después casi nadie». Esta sí.
+check("la caja de pérdida se dibuja debajo de la acumulada",
+      "Cuánta gente pierde cada derivada" in _h40
+      and _h40.index("Cuántos siguen jugando") < _h40.index("Cuánta gente pierde"))
+# No se desglosa: la barra de arriba parte a la gente y esto mide al conjunto.
+# Si cambiara con el corte, estaría contestando otra pregunta sin avisar.
+_h_ap = game_render.page(q.build(s, WEEK, k_max=40, corte="aparato"), token="tok",
+                         seccion="jugabilidad")
+_perdida = lambda t: t.split("Cuánta gente pierde cada derivada", 1)[1][:6000]
+check("y no cambia al mover el desglose",
+      _perdida(_h40) == _perdida(_h_ap))
+# El riesgo por tramo es media GEOMÉTRICA y no el promedio de las tasas:
+# promediar le daría el mismo peso al riesgo medido sobre seiscientas personas
+# que al medido sobre ocho, y la cola está llena de los segundos.
+_r = [t for t in _pr40["riesgo"] if t["pct"] is not None]
+check("el riesgo se resume por tramo y no derivada por derivada",
+      [t["tramo"] for t in _pr40["riesgo"]] == [e for e, _, _ in q.TRAMOS_RIESGO]
+      and len(_r) >= 1, f'({[(t["tramo"], t["pct"]) for t in _pr40["riesgo"]]})')
+# Reconstruir la supervivencia del tramo desde la tasa tiene que devolver la
+# gente que de verdad quedó: es lo que distingue la media geométrica de un
+# promedio, y es la propiedad que hace comparables dos tramos de distinto largo.
+_c = {c["k"]: c for c in _pr40["curva"]}
+for _t in _r:
+    _ini, _fin = _c.get(_t["desde"]), _c.get(_t["hasta"] + 1) or _c.get(_t["hasta"])
+    if not _ini or not _fin or not _ini["vivos"]:
+        continue
+    _pasos = _t["hasta"] + 1 - _t["desde"]
+    _esperado = _ini["vivos"] * (1 - _t["pct"] / 100) ** _pasos
+    check(f"«{_t['tramo']}» reconstruye la supervivencia de su tramo",
+          abs(_esperado - _fin["vivos"]) <= max(1.0, _fin["vivos"] * 0.02),
+          f'({_esperado:.1f} contra {_fin["vivos"]} vivos)')
+# En «2ª y siguientes» no van, y no es una omisión: los hitos se disparan con
+# las correctas ACUMULADAS, así que en la segunda tanda ya están todos atrás.
+# Marcarlos ahí afirmaría que el juego interrumpe en la tercera derivada de esa
+# tanda, y no interrumpe en ninguna.
+_h_ses = game_render.page(q.build(s, WEEK, corte="sesion"), token="tok",
+                          seccion="jugabilidad")
+check("pero no en el desglose que mezcla las tandas siguientes",
+      "El juego pregunta en" not in _h_ses)
+
+# ── Y que no se desincronicen del front ─────────────────────────────────────
+# Los cinco números viven en TypeScript —el juego los usa para decidir— y acá
+# se copian para poder dibujarlos. El comentario de `PEDIDO_PERFIL` ya advertía
+# que tenerlos viejos corre el escalón que se está buscando; esto lo convierte
+# en un check en vez de una advertencia.
+_WEB = BACKEND.parent / "web" / "src" / "app" / "derivadas"
+
+
+def _const_ts(archivo: str, nombre: str) -> int | None:
+    txt = (_WEB / archivo).read_text(encoding="utf-8")
+    m = _re.search(rf"export const {nombre}\s*=\s*(\d+)", txt)
+    return int(m.group(1)) if m else None
+
+
+for _arch, _nombre, _py in [
+    ("hitos-del-juego.ts", "HITO_PERFIL", q.PEDIDO_PERFIL),
+    ("reclutas-trigger.ts", "RECLUTAS_RESTO", q.PEDIDO_RECLUTAS),
+    ("hitos-del-juego.ts", "HITO_REGISTRO", q.PEDIDO_REGISTRO),
+    ("cafecito-cta.tsx", "CAFECITO_PRIMERA", q.PEDIDO_CAFECITO),
+    ("instalacion-trigger.ts", "INSTALAR_PRIMERA", q.PEDIDO_INSTALAR),
+]:
+    _ts = _const_ts(_arch, _nombre)
+    check(f"{_nombre} dice lo mismo en el front y en el panel",
+          _ts == _py, f"({_arch} dice {_ts}, el panel {_py})")
+
 h_jug = game_render.page(q.build(s, WEEK), token="tok", seccion="jugabilidad")
 h_mot = game_render.page(q.build(s, WEEK), token="tok", seccion="motor")
 check("el voto y su evolución viven en Jugabilidad",
@@ -1816,6 +1940,34 @@ check("y los tres que lo necesitan lo declaran",
       _inv == {"En banda": False, "Acierto real": True, "Brecha": True,
                "Cómodo en": True}, f"({_inv})")
 
+# ── Los tres cubos de retención ─────────────────────────────────────────────
+# Apilar exige que sean EXCLUYENTES, y `charts.areas` no lo puede verificar: si
+# se le pasan conjuntos que se solapan, el techo de la pila es una suma que no
+# corresponde a ninguna persona y el gráfico miente sin dar señal. El invariante
+# se clava acá.
+_ret = q.build(s, WEEK)["retencion"]["filas"]
+for _f in _ret:
+    if not _f["activados"]:
+        continue
+    check(f'los tres cubos de la camada {_f["label"]} parten «al menos una»',
+          _f["n_instalo"] + _f["n_volvio_sin_instalar"] + _f["n_solo_registro"]
+          == _f["n_alguna"],
+          f'({_f["n_instalo"]}+{_f["n_volvio_sin_instalar"]}+{_f["n_solo_registro"]}'
+          f' contra {_f["n_alguna"]})')
+    check(f'y nadie queda afuera de los activados en {_f["label"]}',
+          _f["n_alguna"] <= _f["activados"])
+    # El punto de todo el ejercicio: la suma cruda de las tres tasas es MAYOR
+    # que la gente que hizo algo, porque se solapan. Si alguna vez diera igual,
+    # es que se perdió el solapamiento y la partición sobra.
+    check(f'y la suma cruda infla, que es por lo que hay partición ({_f["label"]})',
+          _f["n_vuelven"] + _f["n_registran"] + _f["n_instalan"] >= _f["n_alguna"],
+          f'({_f["n_vuelven"]}+{_f["n_registran"]}+{_f["n_instalan"]} '
+          f'contra {_f["n_alguna"]})')
+# La madurez: una camada que cerró hace poco no puede darse por completa, porque
+# volver otro día tarda hasta quince días y la columna leería baja.
+check("una camada recién cerrada no se da por madura",
+      not _camadas_r_madura(q, s, WEEK), "(la del escenario está en el futuro)")
+
 print("— la pregunta abierta —")
 # Lo que se prueba acá son los TRES estados, y no el promedio de nada. La diapo
 # no tiene botón de saltar, así que un "." es alguien diciendo que no y tiene
@@ -1970,8 +2122,12 @@ for c in q.CORTES:
     # «Por universidad» no tiene botón: partía la cohorte en doce líneas de las
     # que tres tenían base. El corte sigue vivo —el data.json lo acepta y la
     # página se arma— pero no se ofrece, y eso último también se prueba.
-    activo = {"total": "Todos", "sesion": "Por sesión", "cohorte": "Por cohorte",
-              "aparato": "Por aparato", "horario": "Por horario"}.get(c)
+    # Los dos primeros se renombraron el 27/09: la curva mide la PRIMERA tanda
+    # de cada persona en todos los cortes menos uno, y «Todos» se leía como
+    # «todas las sesiones», que es lo contrario de lo que hace.
+    activo = {"total": "Primera sesión", "sesion": "1ª vs siguientes",
+              "cohorte": "Por cohorte", "aparato": "Por aparato",
+              "horario": "Por horario"}.get(c)
     check(f"y el corte «{c}» queda marcado en la barra" if activo
           else "y «por universidad» no se ofrece en la barra",
           f'<span class="cur">{activo}</span>' in h if activo

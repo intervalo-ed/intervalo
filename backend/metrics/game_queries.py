@@ -87,8 +87,29 @@ SESSION_GAP_MINUTES = 30
 # en el mismo lugar, mientras que las de después dependen de récords y saltos de
 # puesto y por lo tanto caen en derivadas distintas para cada persona.
 PEDIDO_PERFIL = 3
+PEDIDO_RECLUTAS = 9
 PEDIDO_REGISTRO = 10
 PEDIDO_CAFECITO = 14
+PEDIDO_INSTALAR = 21
+
+# Los cinco, en el orden en que le llegan a la persona, con el nombre que el
+# panel les pone encima de la curva. La lista vive acá y no en el renderizador
+# porque el orden ES el embudo: entre la tercera derivada y la veintiuna hay
+# cinco interrupciones, y verlas en fila es la mitad de entender por qué la
+# curva baja donde baja.
+#
+# `clave` es para pintarlas; `k` es la PRIMERA aparición. Las que se repiten
+# —reclutas y cafecito cada 20, registro cada 12— no se marcan de nuevo: la
+# segunda vez cae en derivadas distintas para cada persona (dependen de récords,
+# de saltos de puesto y de si dijo que no), así que una marca fija ahí sería
+# inventar un lugar que nadie comparte.
+HITOS_DEL_EMBUDO: tuple[tuple[str, int, str], ...] = (
+    ("perfil", PEDIDO_PERFIL, "universidad y carrera"),
+    ("reclutas", PEDIDO_RECLUTAS, "compartir por WhatsApp"),
+    ("registro", PEDIDO_REGISTRO, "crear la cuenta"),
+    ("cafecito", PEDIDO_CAFECITO, "invitar un cafecito"),
+    ("instalar", PEDIDO_INSTALAR, "instalar la app"),
+)
 
 # Cuántas correctas seguidas en la primera tanda cuentan como «entró al juego».
 #
@@ -974,6 +995,45 @@ def _curva_de(largos: list[int], k_max: int = DEPTH_MAX) -> list[dict]:
     return out
 
 
+# Los tres tramos en los que se resume el riesgo por derivada. El primero es la
+# puerta, el segundo es donde el producto interrumpe —los cinco hitos caen entre
+# la 3 y la 21— y el tercero es quien ya se quedó. El corte en 5 y en 20 no es
+# redondo por gusto: 20 es hasta dónde se busca `peor_escalon`, y 5 es donde la
+# atrición deja de estar dominada por gente que abrió y no jugó.
+TRAMOS_RIESGO: tuple[tuple[str, int, int], ...] = (
+    ("la puerta", 1, 5),
+    ("donde el juego pregunta", 6, 20),
+    ("los que se quedaron", 21, 0),
+)
+
+
+def _riesgo_medio(curva: list[dict], desde: int, hasta: int) -> float | None:
+    """La tasa de abandono POR DERIVADA de un tramo, como media geométrica.
+
+    **No es el promedio de los `abandono` del tramo**, y la diferencia importa.
+    Promediar tasas le da el mismo peso al riesgo medido sobre seiscientas
+    personas que al medido sobre ocho, y la cola está llena de los segundos: el
+    promedio simple termina describiendo el ruido del final en vez del tramo.
+
+    Acá se toma cuánta gente entró al tramo y cuánta salió, y se reparte esa
+    pérdida entre las derivadas que tiene — `1 − (S_fin/S_ini)^(1/pasos)`. Es la
+    tasa constante que produciría la misma supervivencia, o sea exactamente lo
+    que se quiere comparar entre tramos.
+    """
+    ini = next((c for c in curva if c["k"] == desde), None)
+    fin = next((c for c in curva if c["k"] == hasta + 1), None) if hasta else None
+    if fin is None and hasta == 0 and curva:
+        # El último tramo no tiene borde derecho: se cierra donde termina la
+        # curva dibujada, y los que siguen vivos ahí no son una pérdida.
+        fin, hasta = curva[-1], curva[-1]["k"] - 1
+    if not ini or not fin or not ini["vivos"] or fin["vivos"] > ini["vivos"]:
+        return None
+    pasos = hasta + 1 - desde
+    if pasos <= 0:
+        return None
+    return round(100 * (1 - (fin["vivos"] / ini["vivos"]) ** (1 / pasos)), 1)
+
+
 def profundidad(data: dict, weeks: list[date], now: datetime | None = None,
                 corte: str = "total", k_max: int = DEPTH_MAX) -> dict:
     """Cuántas derivadas aguanta la gente, y dónde exactamente se va.
@@ -1086,6 +1146,22 @@ def profundidad(data: dict, weeks: list[date], now: datetime | None = None,
     tramo = [c for c in curva if c["k"] <= 20 and c["vivos"] >= 5]
     peor = max(tramo, key=lambda c: c["abandono"] or 0) if tramo else None
 
+    # Los hitos que caen DENTRO de lo que se está dibujando. Van con el abandono
+    # de su propia derivada al lado: la pregunta que la marca existe para
+    # contestar es si el escalón está donde el juego interrumpe, y tenerlo que
+    # buscar en la curva a ojo es justo lo que la marca vendría a evitar.
+    #
+    # **El hito se dispara con las CORRECTAS y la curva cuenta DERIVADAS.** Con
+    # el acierto al 90% la tercera correcta cae en promedio en la derivada 3,3,
+    # así que la marca está a la izquierda de donde la interrupción ocurre de
+    # verdad, y más a la izquierda cuanto más profunda. No se corrige con un
+    # factor porque ese factor es distinto para cada persona; se dice.
+    por_k = {c["k"]: c for c in curva}
+    hitos = [{"clave": clave, "k": k, "copy": texto,
+              "abandono": (por_k[k]["abandono"] if k in por_k else None),
+              "vivos": (por_k[k]["vivos"] if k in por_k else None)}
+             for clave, k, texto in HITOS_DEL_EMBUDO if k <= k_max]
+
     def serie(label: str, clave: str | None, valores: list[int]) -> dict:
         return {"label": label, "clave": clave, "base": len(valores),
                 "curva": _curva_de(valores, k_max),
@@ -1172,6 +1248,15 @@ def profundidad(data: dict, weeks: list[date], now: datetime | None = None,
         "mediana": _median([float(n) for n in largos]),
         "p90": _p([float(n) for n in largos], 0.90),
         "peor_escalon": peor,
+        "hitos": hitos,
+        # Cuánto se desacelera la caída. Tres números y no cuarenta: la curva de
+        # riesgo por derivada es ruidosa por construcción —el denominador se
+        # achica en cada paso— y lo que se quiere leer de ella es si cada
+        # derivada sobrevivida abarata la siguiente.
+        "riesgo": [{"tramo": etiqueta, "desde": d,
+                    "hasta": h or (curva[-1]["k"] if curva else d),
+                    "pct": _riesgo_medio(curva, d, h)}
+                   for etiqueta, d, h in TRAMOS_RIESGO],
     }
 
 
@@ -1596,6 +1681,21 @@ def reclutas_por_universidad(data: dict) -> list[dict]:
 # que volver a medirlos cuando haya camadas de dos meses. Mientras tanto sirven
 # para lo único que se usan acá, que es marcar qué punto de la curva todavía
 # está sumando y no se puede leer como una caída.
+# Cuánto tarda una camada en terminar de retener. Medido en producción el
+# 27/09 sobre los activados desde la primera camada oficial, contando desde el
+# alta de cada persona hasta que hace cada cosa:
+#
+#     volver otro día   p50 1,0 d · p90 5,8 d · p95  9,6 d · máx 15,1 d
+#     instalar la app   p50 0,0 d · p90 2,2 d · p95  6,7 d · máx 12,3 d
+#     registrarse       p50 0,0 d · p90 0,7 d · p95  1,7 d · máx 10,7 d
+#
+# El que manda es volver otro día, y se toma su p95 redondeado. NO el máximo,
+# que es lo que hace `MADURACION_DIAS` con los reclutas: allá la cola cerraba a
+# los 3,6 días y acá se estira a 15, así que esperar el máximo dejaría tres
+# semanas de panel marcadas como incompletas para ganar medio punto.
+MADURACION_RETENCION_DIAS = 10
+
+
 def _camadas_retencion(data: dict, semanas: list[date]) -> dict[date, dict]:
     """Qué hizo cada camada después de arrancar, sobre los que arrancaron.
 
@@ -1636,13 +1736,38 @@ def _camadas_retencion(data: dict, semanas: list[date]) -> dict[date, dict]:
         if w is not None and p["id"] in activos:
             por_camada[w].append(p)
 
+    hoy = local_date(datetime.utcnow())
     filas: dict[date, dict] = {}
     for w in semanas:
         act = por_camada.get(w, [])
         n = len(act)
-        vuelven = sum(1 for p in act if len(dias_de.get(p["id"], ())) > 1)
+        volvio = [len(dias_de.get(p["id"], ())) > 1 for p in act]
+        vuelven = sum(volvio)
         registran = sum(1 for p in act if p["user_id"])
         instalan = sum(1 for p in act if p["pwa_first_seen_at"])
+        # **Los tres se SOLAPAN, así que sumarlos no da «cuánta gente hizo
+        # algo».** Medido el 27/09: la suma cruda da 36,8% de los activados
+        # cuando los que hacen al menos una cosa son el 23,3%. De los 250 que
+        # vuelven, 155 también se registran. Para poder apilarlos en un gráfico
+        # hace falta partirlos en cubos excluyentes, y eso obliga a elegir un
+        # orden.
+        #
+        # El orden es instaló > volvió > se registró, y sale de cuánto cuesta
+        # cada cosa medido acá: instalar lo hace el 4,1% y hay que aceptarle un
+        # cartel al sistema operativo; volver otro día es la prueba de que el
+        # producto valió una segunda vez; registrarse pasa adentro de la primera
+        # tanda —el juego lo ofrece a las 10 correctas— y es el único que ocurre
+        # sin ningún compromiso posterior: 115 de 270 se registran y no vuelven
+        # nunca.
+        #
+        # Es un orden DECLARADO y no una escalera natural, y conviene tenerlo
+        # presente al leerlo: 12 personas instalaron sin volver nunca.
+        solo_r = sum(1 for i, p in enumerate(act)
+                     if p["user_id"] and not volvio[i] and not p["pwa_first_seen_at"])
+        volvio_sin_i = sum(1 for i, p in enumerate(act)
+                           if volvio[i] and not p["pwa_first_seen_at"])
+        alguna = sum(1 for i, p in enumerate(act)
+                     if volvio[i] or p["user_id"] or p["pwa_first_seen_at"])
         filas[w] = {
             "label": w.strftime("%d/%m"),
             "week": w.isoformat(),
@@ -1653,9 +1778,41 @@ def _camadas_retencion(data: dict, semanas: list[date]) -> dict[date, dict]:
             "vuelven": _pct(vuelven, n),
             "registran": _pct(registran, n),
             "instalan": _pct(instalan, n),
+            # Los tres cubos excluyentes, de más caro a más barato, y el total.
+            "n_instalo": instalan,
+            "n_volvio_sin_instalar": volvio_sin_i,
+            "n_solo_registro": solo_r,
+            "n_alguna": alguna,
+            "pct_instalo": _pct(instalan, n),
+            "pct_volvio_sin_instalar": _pct(volvio_sin_i, n),
+            "pct_solo_registro": _pct(solo_r, n),
+            "pct_alguna": _pct(alguna, n),
+            # Una camada recién deja de moverse `MADURACION_RETENCION_DIAS`
+            # después de cerrar. Sin esto la última columna se lee como una
+            # caída cuando es censura: la del 21/09 tiene MENOS vueltas que la
+            # anterior con MÁS activados.
+            "madura": hoy >= w + timedelta(days=7 + MADURACION_RETENCION_DIAS),
         }
     return filas
 
+
+
+def retencion(data: dict, week: date) -> dict:
+    """Qué hizo cada camada después de arrancar, sobre los que arrancaron.
+
+    Todas las camadas y no las últimas cuatro, por lo mismo que la curva de
+    activación: con cuatro puntos una tendencia no se distingue de un rebote.
+
+    Lo que el panel dibuja de acá son los TRES CUBOS EXCLUYENTES y no las tres
+    tasas crudas — ver `_camadas_retencion` para por qué no se pueden apilar
+    tal cual.
+    """
+    semanas = _semanas_hasta(week)
+    filas = _camadas_retencion(data, semanas)
+    return {
+        "filas": [filas[w] for w in semanas],
+        "maduracion_dias": MADURACION_RETENCION_DIAS,
+    }
 
 
 # ── 6 · Experimentos ─────────────────────────────────────────────────────────
@@ -3823,6 +3980,7 @@ def build(db: DBSession, week: date, weeks_shown: int = 4,
         "mails": mails(data, weeks),
         "reclutas": reclutas(data, weeks),
         "camadas": camadas(data, week),
+        "retencion": retencion(data, week),
         "reclutas_uni": reclutas_por_universidad(data),
         "experimentos": experimentos(data),
         "experimento_motor": experimento_motor(data),

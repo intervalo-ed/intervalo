@@ -866,11 +866,116 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
             '14/09. El panel tenía una sección entera dibujando eso —«El reloj del día»— y '
             'salió: lo que decía se lee acá, que es donde se está mirando la curva.')
 
+    # ── Los hitos del embudo, encima de la curva ─────────────────────────────
+    #
+    # Cada marca es una derivada en la que el juego, en vez de darle la
+    # siguiente, le pregunta algo. Es la mitad de la explicación de por qué la
+    # curva baja donde baja, y hasta ahora había que saberse los números de
+    # memoria para leerla.
+    #
+    # El rótulo va en una fila de chips ARRIBA y la guía adentro del gráfico va
+    # muda. Poner el texto en el SVG obligaría a resolver colisiones —la 9 y la
+    # 10 caen a una derivada de distancia— para decir en vertical y apretado lo
+    # que en una fila se lee de corrido.
+    #
+    # **NO se dibujan en «2ª y siguientes».** Los hitos se disparan con las
+    # correctas ACUMULADAS del jugador, así que en la segunda tanda ya están
+    # todos atrás: marcarlos ahí diría que el juego interrumpe en la tercera
+    # derivada de esa tanda, y no interrumpe en ninguna.
+    _hitos = pr["hitos"] if corte != "sesion" else []
+    _color_hito = {"perfil": ch.SERIES[1], "reclutas": "#2fb673",
+                   "registro": ch.SERIES[2], "cafecito": ch.SERIES[3],
+                   "instalar": ch.SERIES[4]}
+    def _marcas_en(eje: list[int]) -> list[dict]:
+        """Las guías, posicionadas contra el eje que recibe.
+
+        Se pasa el eje y no se reusa uno calculado: los dos gráficos de la
+        sección comparten los hitos pero no el largo —el de pérdida corta donde
+        ya no queda nadie vivo— y un índice prestado corre la guía de derivada o
+        la tira fuera del cuadro.
+        """
+        pos = {k: i for i, k in enumerate(eje)}
+        return [{"i": pos[h["k"]], "color": _color_hito.get(h["clave"], ""),
+                 "tip": f'derivada {h["k"]}: {h["copy"]}'
+                        + (f' · acá abandona el {_pct_txt(h["abandono"])}'
+                           if h["abandono"] is not None else "")}
+                for h in _hitos if h["k"] in pos]
+
+    marcas = _marcas_en([c["k"] for c in pr["curva"]])
+    leyenda_hitos = ("" if not _hitos else
+                     '<div class="cortes" style="margin:0 0 8px">'
+                     '<span class="sub">El juego pregunta en</span>'
+                     + "".join(
+                         f'<span class="cur" style="border-color:{_color_hito.get(h["clave"], "")};'
+                         f'color:{_color_hito.get(h["clave"], "")}" title="'
+                         f'{esc(h["copy"])}">{num(h["k"])} · {esc(h["copy"])}'
+                         + (f' <i style="font-style:normal;opacity:.6">'
+                            f'{_pct_txt(h["abandono"])}</i>' if h["abandono"] is not None
+                            else "")
+                         + '</span>' for h in _hitos)
+                     + '</div>')
+
+    # ── Cuánta gente pierde cada derivada ────────────────────────────────────
+    #
+    # La curva de arriba es acumulada, y una curva acumulada esconde justamente
+    # lo que se quiere ver: baja siempre, así que no distingue «se va la misma
+    # fracción en cada paso» de «se van todos al principio y después nadie». El
+    # riesgo por derivada —de los que llegaron a k, cuántos no hicieron k+1— sí
+    # lo distingue, y es plano cuando la caída es exponencial y decreciente
+    # cuando cada derivada sobrevivida abarata la siguiente.
+    #
+    # NO se desglosa, a propósito: es la camada de la semana elegida y punto.
+    # `pr["curva"]` ya es eso —sale de `largos_de(semana)` y no depende del
+    # corte— así que el gráfico no cambia al mover la barra de arriba, y eso es
+    # lo correcto: el corte parte a la gente y esto mide al conjunto.
+    _riesgo = [c for c in pr["curva"] if c["abandono"] is not None]
+    if not _riesgo:
+        perdida = '<p class="empty">todavía no hay partidas cerradas en esta ventana</p>'
+    else:
+        perdida = ch.lines(
+            [{"label": "No hizo la siguiente",
+              "values": [c["abandono"] for c in _riesgo],
+              "weak": [c["vivos"] < 10 for c in _riesgo],
+              "tips": [f'derivada {c["k"]}: de los {num(c["vivos"])} que llegaron, '
+                       f'{_pct_txt(c["abandono"])} no hizo la siguiente'
+                       for c in _riesgo]}],
+            [str(c["k"]) for c in _riesgo], suffix="%", height=240, legend=False,
+            marcas=_marcas_en([c["k"] for c in _riesgo]))
+
+    _tr = [t for t in pr["riesgo"] if t["pct"] is not None]
+    caja_perdida = _box(
+        "Cuánta gente pierde cada derivada",
+        leyenda_hitos + perdida,
+        note=(("" if len(_tr) < 2 else
+               "".join(f'<b>{esc(t["tramo"])}</b> (derivadas {num(t["desde"])}–'
+                       f'{num(t["hasta"])}): se va el <b>{_pct_txt(t["pct"])}</b> '
+                       f'por derivada.<br>' for t in _tr)
+               + (f'<br>La caída se {"desacelera" if _tr[-1]["pct"] < _tr[0]["pct"] else "acelera"}: '
+                  f'cada derivada que alguien sobrevive '
+                  f'{"abarata" if _tr[-1]["pct"] < _tr[0]["pct"] else "encarece"} la '
+                  f'siguiente. Entre el primer tramo y el último la diferencia es de '
+                  f'{num(abs(_tr[0]["pct"] - _tr[-1]["pct"]), " pp")} por derivada.<br><br>'))
+              + "Es la misma gente que la curva de arriba, mirada por paso en vez de "
+                "acumulada. <b>Una curva acumulada baja siempre</b>, así que no "
+                "distingue «se va la misma fracción en cada paso» de «se van todos al "
+                "principio y después casi nadie»; esta sí. Plana significa caída "
+                "exponencial, y decreciente que cada derivada sobrevivida abarata la "
+                "siguiente."
+                "<br><br><b>No se desglosa y no depende de la barra de arriba:</b> es "
+                "la camada de la semana elegida, entera. El desglose parte a la gente "
+                "y esto mide al conjunto."
+                "<br><br>El tramo punteado es donde quedan menos de diez partidas "
+                "vivas: ahí el riesgo se mueve entero con una persona. Y el "
+                "denominador se achica en cada paso por construcción, así que la cola "
+                "es ruidosa aunque no esté punteada — por eso el resumen de arriba va "
+                "por tramos y no derivada por derivada."))
+
     if not series:
         grafico = '<p class="empty">todavía no hay partidas cerradas en esta ventana</p>'
     else:
-        grafico = ch.lines(series, [str(c["k"]) for c in pr["curva"]], suffix="%",
-                           height=340, y_max=100, legend=corte != "total", mono=mono)
+        grafico = leyenda_hitos + ch.lines(
+            series, [str(c["k"]) for c in pr["curva"]], suffix="%", height=340,
+            y_max=100, legend=corte != "total", mono=mono, marcas=marcas)
 
     # El selector va pegado al gráfico que gobierna, y no arriba de la página:
     # es lo único que cambia, así que si vive lejos hay que acordarse de que
@@ -886,7 +991,11 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
     selector = "".join(
         f'<span class="cur">{esc(t)}</span>' if c == corte
         else f'<a href="{link(corte=c)}">{esc(t)}</a>'
-        for c, t in [("total", "Todos"), ("sesion", "Por sesión"),
+        # «Primera sesión» y no «Todos»: la curva mide la PRIMERA tanda de
+        # cada persona en todos los cortes menos uno, y el rótulo viejo se leía
+        # como «todas las sesiones», que es lo contrario. El único que agrega
+        # las siguientes es el que ahora lo dice en el nombre.
+        for c, t in [("total", "Primera sesión"), ("sesion", "1ª vs siguientes"),
                      ("cohorte", "Por cohorte"), ("aparato", "Por aparato"),
                      ("horario", "Por horario")])
 
@@ -920,7 +1029,8 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                     f'cohorte quedaron afuera {num(pr["abiertos"])} partidas todavía abiertas.'
                     "<br><br>El tramo punteado es donde quedan menos de diez partidas vivas: "
                     "ahí el porcentaje se mueve entero con una persona y no conviene leer la "
-                    "forma."),
+                    "forma.")
+        + caja_perdida,
         sub=f"La misma cohorte del embudo —los que abrieron el juego en la semana del "
             f"{labels[-1]}—, en su primera sentada. Es la métrica del juego: el Elo, el ranking y "
             f"el cafecito existen para mover esta curva.",
@@ -947,8 +1057,56 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
             r["enviadas"], num(100 * r["enviadas"] / total_enviadas, "%"), nominal,
             r["abiertas"], _pct_txt(r["ctr"])])
 
+    # ── Qué hizo la camada después de arrancar ───────────────────────────────
+    re_t = p["retencion"]
+    _rf = re_t["filas"]
+    _CUBOS = (
+        ("pct_instalo", "n_instalo", "Instaló la app", ch.SERIES[0]),
+        ("pct_volvio_sin_instalar", "n_volvio_sin_instalar",
+         "Volvió otro día (sin instalar)", ch.SERIES[1]),
+        ("pct_solo_registro", "n_solo_registro", "Solo se registró", ch.SERIES[2]),
+    )
+    _flojas = [not f["madura"] for f in _rf]
+    area = ch.areas(
+        [{"label": lab, "color": col,
+          "values": [f[pct] for f in _rf],
+          "tips": [f'Camada del {f["label"]} · {lab}\n{_pct_txt(f[pct])} '
+                   f'({num(f[cru])} de {num(f["activados"])} activados)'
+                   + ("" if f["madura"] else "\nTodavía sumando: la camada no cerró")
+                   for f in _rf]}
+         for pct, cru, lab, col in _CUBOS],
+        [f["label"] for f in _rf], suffix="%", height=260, weak=_flojas,
+        weak_label="todavía sumando")
+
     out.append(_section(
-        1, "Re-enganche · push",
+        1, "Qué hizo la camada después de arrancar",
+        _box("Los tres compromisos, sobre los activados de cada camada", area,
+             note='<b>Los tres cubos son excluyentes y por eso se pueden apilar.</b> '
+                  'Las tres tasas crudas se solapan —de los 250 que vuelven, 155 '
+                  'también se registran— así que sumarlas daría 36,8% cuando los que '
+                  'hacen al menos una cosa son el 23,3%. Acá cada persona entra en un '
+                  'cubo solo, y el techo de la pila es <b>cuánta gente hizo al menos '
+                  'una de las tres</b>.'
+                  '<br><br>El orden es <b>instaló &gt; volvió &gt; se registró</b>, y '
+                  'sale de cuánto cuesta cada cosa: instalar lo hace el 4,1% y pide '
+                  'aceptarle un cartel al sistema operativo; volver otro día es la '
+                  'prueba de que el producto valió una segunda vez; registrarse pasa '
+                  'adentro de la primera tanda —el juego lo ofrece a las 10 correctas— '
+                  'y es el único que ocurre sin ningún compromiso posterior: 115 de '
+                  '270 se registran y no vuelven nunca. Es un orden DECLARADO y no una '
+                  'escalera natural: 12 personas instalaron sin volver.'
+                  + (f'<br><br><b>Las columnas con trama todavía no cerraron.</b> Una '
+                     f'camada deja de moverse {num(re_t["maduracion_dias"])} días '
+                     f'después de cerrar —volver otro día es lo más lento, con p95 a '
+                     f'los 9,6 días— así que leen BAJO y van a subir solas. Si el '
+                     f'borde derecho baja, eso es lo primero que hay que descartar.'
+                     if any(_flojas) else "")),
+        sub="El denominador son los ACTIVADOS de cada camada, no sus altas: acá solo "
+            "entra gente que ya jugó.",
+        anchor="retencion"))
+
+    out.append(_section(
+        2, "Re-enganche · push",
         '<div class="grid g4">'
         + "".join(_kpi_chico(l, v, h, dec=0)
                   for l, v, h in [
@@ -992,7 +1150,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
     filas_mail = [[f'<b>{esc(t["tipo"])}</b>', esc(t["desc"]), t["enviados"],
                    t["activados"], _pct_txt(t["pct"])] for t in ma["tipos"]]
     out.append(_section(
-        2, "Re-enganche · mails de ciclo de vida",
+        3, "Re-enganche · mails de ciclo de vida",
         '<div class="grid g4">'
         + "".join(_kpi_chico(l, v, h, suffix=sfx, dec=0 if not sfx else 1)
                   for l, v, sfx, h in [

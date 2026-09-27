@@ -204,7 +204,7 @@ def ramp(n: int) -> list[float]:
 def lines(series: list[dict], x_labels: list[str], *, suffix: str = "%",
           width: int = 760, height: int = 220, y_max: float | None = None,
           band: tuple[float, float] | None = None, legend: bool = True,
-          mono: bool = False) -> str:
+          mono: bool = False, marcas: list[dict] | None = None) -> str:
     """`series` = [{"label": ..., "values": [...], "tips": [...]}]. Los None
     cortan la línea: un hueco es un dato que no existe, y unirlo con una recta
     lo inventaría.
@@ -219,7 +219,15 @@ def lines(series: list[dict], x_labels: list[str], *, suffix: str = "%",
     que uno sobre 95 hace leer como derrumbe lo que es ruido de la cola.
 
     `mono=True` dibuja todas las series con el mismo color y una rampa de
-    intensidad (ver `ramp`)."""""
+    intensidad (ver `ramp`).
+
+    `marcas` = [{"i": índice en `x_labels`, "color": ..., "tip": ...}] dibuja una
+    guía vertical punteada en esa posición. Va DETRÁS de las series y sin texto:
+    el rótulo de cada una vive afuera del SVG, en la leyenda que arma quien
+    llama. Con cinco marcas en cuarenta posiciones, dos que caen a una derivada
+    de distancia —la 9 y la 10— tendrían los textos encimados, y el gráfico
+    pasaría a necesitar un algoritmo de colocación para decir algo que en una
+    fila de chips se lee de corrido."""""
     pts_all = [v for s in series for v in s["values"] if v is not None]
     if not pts_all:
         return _empty()
@@ -239,6 +247,18 @@ def lines(series: list[dict], x_labels: list[str], *, suffix: str = "%",
         out.append(f'<rect x="{pad_l}" y="{y0:.1f}" width="{plot_w:.1f}" '
                    f'height="{max(0, y1 - y0):.1f}" fill="var(--indigo)" opacity="0.10"/>')
     out.append(_grid(pad_l, pad_t, plot_w, plot_h, top, suffix))
+
+    for m in marcas or ():
+        if not 0 <= m["i"] < n:
+            continue
+        x = pad_l + m["i"] * step
+        titulo = f'<title>{esc(m["tip"])}</title>' if m.get("tip") else ""
+        out.append(
+            f'<line x1="{x:.1f}" y1="{pad_t}" x2="{x:.1f}" y2="{pad_t + plot_h:.1f}" '
+            f'stroke="{m.get("color") or chr(118) + "ar(--muted)"}" stroke-width="1" stroke-opacity="0.55" '
+            f'stroke-dasharray="3 3"/>'
+            f'<rect x="{x - 5:.1f}" y="{pad_t}" width="10" height="{plot_h:.1f}" '
+            f'fill="transparent" style="cursor:help">{titulo}</rect>')
 
     alphas = ramp(len(series)) if mono else [1.0] * len(series)
     for si, s in enumerate(series):
@@ -357,6 +377,90 @@ def dots(points: list[dict], *, x: str = "x", y: str = "y", group: str = "group"
                    f'text-anchor="middle" {FONT}>{esc(y_label)}</text>')
     if len(groups) > 1:
         out.append(_legend(groups, pad_l, 10))
+    return _svg(width, height, "".join(out))
+
+
+# ── Áreas apiladas ───────────────────────────────────────────────────────────
+
+def areas(series: list[dict], x_labels: list[str], *, width: int = 760,
+          height: int = 250, suffix: str = "%", y_max: float | None = None,
+          weak: list[bool] | None = None, weak_label: str = "") -> str:
+    """Áreas apiladas. `series` = [{"label", "values", "color"}], de abajo hacia
+    arriba.
+
+    **Apilar exige que las categorías sean mutuamente excluyentes**, y eso no lo
+    puede verificar esta función: lo tiene que garantizar quien la llama. Si se
+    le pasan conjuntos que se solapan, el techo de la pila es una suma que no
+    corresponde a ninguna persona y el gráfico miente sin dar ninguna señal.
+
+    `weak` marca las columnas que todavía no terminaron de llenarse. Se dibujan
+    con una trama encima y una línea de corte, porque en un área apilada no
+    alcanza con el punto hueco de `lines`: lo que está incompleto es la altura
+    de toda la columna, no un punto suelto.
+    """
+    if not series or not any(v is not None for s in series for v in s["values"]):
+        return _empty()
+    n_x = max(len(x_labels), 2)
+    pad_l, pad_t, pad_b = 38, 12, 48
+    plot_w = width - pad_l - 12
+    plot_h = height - pad_b - pad_t
+    step = plot_w / (n_x - 1)
+
+    acum = [0.0] * len(x_labels)
+    techos = []
+    for s_ in series:
+        nuevo = [a + (v or 0.0) for a, v in zip(acum, s_["values"])]
+        techos.append(nuevo)
+        acum = nuevo
+    top = y_max or _nice_max(max(acum))
+
+    def xy(i, v):
+        return (pad_l + i * step, pad_t + plot_h * (1 - min(v, top) / top))
+
+    out = [_grid(pad_l, pad_t, plot_w, plot_h, top, suffix)]
+    piso = [0.0] * len(x_labels)
+    for si, (s_, techo) in enumerate(zip(series, techos)):
+        arriba = " ".join(f"{x:.1f},{y:.1f}" for x, y in
+                          (xy(i, v) for i, v in enumerate(techo)))
+        abajo = " ".join(f"{x:.1f},{y:.1f}" for x, y in
+                         reversed([xy(i, v) for i, v in enumerate(piso)]))
+        color = s_.get("color") or SERIES[si % len(SERIES)]
+        out.append(f'<polygon points="{arriba} {abajo}" fill="{color}" '
+                   f'fill-opacity="0.72"/>')
+        out.append(f'<polyline points="{arriba}" fill="none" stroke="{color}" '
+                   f'stroke-width="1.6"/>')
+        for i, v in enumerate(techo):
+            tip = (s_.get("tips") or [None] * len(techo))[i]
+            if tip:
+                x, y = xy(i, v)
+                out.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="11" '
+                           f'fill="transparent" style="cursor:help">'
+                           f'<title>{esc(tip)}</title></circle>')
+        piso = techo
+
+    # Las columnas sin madurar: trama encima y corte vertical donde arrancan.
+    if weak and any(weak):
+        primera = weak.index(True)
+        x0 = pad_l + max(primera - 0.5, 0) * step
+        out.insert(0, '<defs><pattern id="tramaw" width="6" height="6" '
+                      'patternTransform="rotate(45)" patternUnits="userSpaceOnUse">'
+                      '<line x1="0" y1="0" x2="0" y2="6" stroke="var(--fg)" '
+                      'stroke-width="1" stroke-opacity="0.16"/></pattern></defs>')
+        out.append(f'<rect x="{x0:.1f}" y="{pad_t}" width="{pad_l + plot_w - x0:.1f}" '
+                   f'height="{plot_h:.1f}" fill="url(#tramaw)"/>')
+        out.append(f'<line x1="{x0:.1f}" y1="{pad_t}" x2="{x0:.1f}" '
+                   f'y2="{pad_t + plot_h:.1f}" stroke="var(--fg)" stroke-width="0.9" '
+                   f'stroke-dasharray="3 3" stroke-opacity="0.5"/>')
+        if weak_label:
+            out.append(f'<text x="{x0 + 5:.1f}" y="{pad_t + 11}" fill="var(--muted)" '
+                       f'font-size="7.6" {FONT}>{esc(weak_label)}</text>')
+
+    for i, lab in enumerate(x_labels):
+        out.append(f'<text x="{pad_l + i * step:.1f}" y="{height - pad_b + 16}" '
+                   f'text-anchor="middle" fill="var(--fg)" font-size="11" {FONT}>'
+                   f'{esc(lab)}</text>')
+    out.append(_legend([s_["label"] for s_ in series], pad_l, height - 4,
+                       colors=[s_.get("color") for s_ in series]))
     return _svg(width, height, "".join(out))
 
 
