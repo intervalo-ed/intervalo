@@ -222,6 +222,13 @@ def _pct_txt(v) -> str:
     return "—" if v is None else num(v, "%")
 
 
+def _y_lista(partes: list[str]) -> str:
+    """«14», «14 y 20», «14, 20 y 40». Para enumerar sin que quede telegráfico."""
+    if len(partes) <= 1:
+        return partes[0] if partes else ""
+    return ", ".join(partes[:-1]) + " y " + partes[-1]
+
+
 def _caja_por_orden(po: dict, valores, rotulo, mirar: str, pregunta: str) -> str:
     """Cómo cambia el voto según CUÁNTAS VECES se le preguntó a esa persona.
 
@@ -902,17 +909,24 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                 for h in _hitos if h["k"] in pos]
 
     marcas = _marcas_en([c["k"] for c in pr["curva"]])
+    # Un chip por PREGUNTA y no por marca: el cafecito cae en la 14, la 20 y la
+    # 40, y tres chips iguales gastarían la fila en repetir el mismo texto. Los
+    # números van juntos y las guías siguen siendo una por derivada.
+    _por_clave: dict[str, list[dict]] = {}
+    for h in _hitos:
+        _por_clave.setdefault(h["clave"], []).append(h)
     leyenda_hitos = ("" if not _hitos else
                      '<div class="cortes" style="margin:0 0 8px">'
                      '<span class="sub">El juego pregunta en</span>'
                      + "".join(
-                         f'<span class="cur" style="border-color:{_color_hito.get(h["clave"], "")};'
-                         f'color:{_color_hito.get(h["clave"], "")}" title="'
-                         f'{esc(h["copy"])}">{num(h["k"])} · {esc(h["copy"])}'
+                         f'<span class="cur" style="border-color:{_color_hito.get(c, "")};'
+                         f'color:{_color_hito.get(c, "")}">'
+                         + _y_lista([num(x["k"]) for x in hs])
+                         + f' · {esc(hs[0]["copy"])}'
                          + (f' <i style="font-style:normal;opacity:.6">'
-                            f'{_pct_txt(h["abandono"])}</i>' if h["abandono"] is not None
-                            else "")
-                         + '</span>' for h in _hitos)
+                            f'{_pct_txt(hs[0]["abandono"])}</i>'
+                            if hs[0]["abandono"] is not None else "")
+                         + '</span>' for c, hs in _por_clave.items())
                      + '</div>')
 
     # ── Cuánta gente pierde cada derivada ────────────────────────────────────

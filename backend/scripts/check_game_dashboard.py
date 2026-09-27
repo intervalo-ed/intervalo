@@ -1625,9 +1625,25 @@ MARCA_OPINION_MOTOR = "El voto contra el comportamiento"
 _pr40 = q.build(s, WEEK, k_max=40)["profundidad"]
 check("los hitos salen en el payload de la curva, en orden",
       [h["k"] for h in _pr40["hitos"]] == sorted(h["k"] for h in _pr40["hitos"])
-      and [h["clave"] for h in _pr40["hitos"]]
-      == [c for c, _, _ in q.HITOS_DEL_EMBUDO],
+      and {h["clave"] for h in _pr40["hitos"]} == {c for c, _, _, _ in q.HITOS_DEL_EMBUDO},
       f'({[(h["clave"], h["k"]) for h in _pr40["hitos"]]})')
+# Dos de los cinco vuelven en posición FIJA —reclutas con `% 20 === 9` y el
+# cafecito con `% 20 === 0`— así que la segunda vez cae en la misma derivada
+# para todo el mundo y se marca igual que la primera. Sin esto, la derivada 20
+# quedaba sin etiqueta: en la camada del 21/09 tiene el 13,1% de abandono, el
+# pico más alto de la curva después de la puerta, y es la segunda oferta de café.
+check("y los que vuelven en posición fija se marcan de nuevo",
+      [h["k"] for h in _pr40["hitos"] if h["clave"] == "cafecito"] == [14, 20, 40]
+      and [h["k"] for h in _pr40["hitos"] if h["clave"] == "reclutas"] == [9, 29],
+      f'({[(h["clave"], h["k"]) for h in _pr40["hitos"]]})')
+# Y los que vuelven en posición variable NO: el registro se reofrece
+# `REGISTRO_REPITE` correctas después de que se ofreció, así que depende de
+# cuándo dijo que no cada uno. Una marca fija ahí inventaría un lugar común.
+check("y los que vuelven donde cae no se marcan dos veces",
+      [h["k"] for h in _pr40["hitos"] if h["clave"] == "registro"] == [10]
+      and [h["k"] for h in _pr40["hitos"] if h["clave"] == "perfil"] == [3])
+check("la primera aparición queda distinguida de las repeticiones",
+      sum(1 for h in _pr40["hitos"] if h["primera"]) == len(q.HITOS_DEL_EMBUDO))
 # Un hito fuera de lo dibujado no se marca: la guía caería en el borde del
 # gráfico y diría que el juego pregunta en la última derivada de la curva.
 _pr12 = q.build(s, WEEK, k_max=12)["profundidad"]
@@ -1638,8 +1654,17 @@ check("y los que caen fuera de la curva no se marcan",
 
 _h40 = game_render.page(q.build(s, WEEK, k_max=40), token="tok", seccion="jugabilidad")
 check("la leyenda nombra cada pregunta arriba de la curva",
-      all(texto in _h40 for _, _, texto in q.HITOS_DEL_EMBUDO)
+      all(texto in _h40 for _, _, texto, _ in q.HITOS_DEL_EMBUDO)
       and "El juego pregunta en" in _h40)
+# Un chip por PREGUNTA y no por marca: tres chips iguales para el café gastarían
+# la fila en repetir el mismo texto.
+# El copy también viaja en el tooltip de cada guía, así que contarlo suelto
+# cuenta las guías. Lo que prueba que el chip es uno por pregunta es que los
+# tres números del café estén en el MISMO chip.
+check("con un chip por pregunta, no uno por marca",
+      _h40.count("14, 20 y 40 · invitar un cafecito") == 2   # una caja por gráfico
+      and _h40.count("9 y 29 · compartir por WhatsApp") == 2,
+      f'({_h40.count("14, 20 y 40")} chips de café)')
 # Los dos gráficos de la sección llevan las mismas guías, y cada uno las
 # posiciona contra SU eje: el de pérdida corta donde ya no queda nadie vivo, así
 # que un índice prestado del otro correría la guía de derivada.
