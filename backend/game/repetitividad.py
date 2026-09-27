@@ -36,6 +36,15 @@ from typing import Sequence
 # se cruzan sin una tabla de traducción en el medio. Pero significa otra cosa
 # —acá es «ni variadas ni repetidas»—, así que agrupar por valor sin filtrar por
 # canal mezcla tres preguntas distintas.
+#
+# **Y la escala no es simétrica, por más que este orden lo sugiera.** Lo que ve
+# el jugador es «🎲 Bien variadas · 👌 Está bien así · 🔁 Muy repetidas» debajo
+# de «¿Te están saliendo repetidas?» (`repetitividad-slide.tsx`), así que
+# `VARIADO` es una respuesta que dice que NO y no una queja por exceso de
+# variedad: la única mala de las tres es `REPETITIVO`. Quien mida «qué fracción
+# está conforme» tiene que contar las dos primeras — ver
+# `metrics.game_queries.BIEN_REPETITIVIDAD`, donde contar solo `JUSTO` daba 22,7%
+# y el panel reportaba un problema de variedad que nadie tiene.
 VARIADO = "variado"
 JUSTO = "justo"
 REPETITIVO = "repetitivo"

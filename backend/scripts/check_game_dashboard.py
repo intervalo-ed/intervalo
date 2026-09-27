@@ -1616,7 +1616,11 @@ print("— la opinión de la gente —")
 # dos comparan la promesa del motor contra algo. Sigue siendo cierto — por eso
 # la mitad que compara contra la persona se fue a Motor CON Calibración, y lo
 # que quedó acá es lo que la gente dijo.
-MARCA_OPINION = "Lo que dice la gente"
+# La marca es el ENCABEZADO y no el nombre suelto: «Dificultad» aparece también
+# en prosa —el pie de la curva habla de la dificultad— así que buscar la palabra
+# encontraría cualquier párrafo y el check de «no se cuela en otra pestaña» se
+# pondría rojo por un texto.
+MARCA_OPINION = "</b>Dificultad</h2>"
 MARCA_OPINION_MOTOR = "El voto contra el comportamiento"
 # ── Los hitos del embudo sobre la curva ─────────────────────────────────────
 # Cada marca es una derivada en la que el juego, en vez de dar la siguiente,
@@ -1773,7 +1777,8 @@ h_jug = game_render.page(q.build(s, WEEK), token="tok", seccion="jugabilidad")
 h_mot = game_render.page(q.build(s, WEEK), token="tok", seccion="motor")
 check("el voto y su evolución viven en Jugabilidad",
       MARCA_OPINION in h_jug
-      and "Cómo cambia la respuesta según cuántas veces se preguntó" in h_jug)
+      and "Cómo viene cambiando de camada en camada" in h_jug
+      and "Cómo cambia la respuesta dentro de la camada" in h_jug)
 check("y la serie semanal ya no se dibuja, aunque siga en el payload",
       "Semana a semana" not in h_jug
       and q.build(s, WEEK)["opinion"]["por_semana"])
@@ -1795,9 +1800,13 @@ for clave, _ in game_render.SECCIONES:
 
 # Sin un solo voto la sección se dibuja igual y dice que no hay datos, en vez de
 # afirmar un cero. Es el estado en el que va a estar el día del deploy.
+# Sin un solo voto los tres titulares salen en raya y los gráficos dicen que no
+# hay datos. El defecto que esto evita es el contrario y es peor: un 0,0% se lee
+# como «nadie dice que está justo» cuando lo que pasa es que nadie contestó.
+_sin_votos = h_jug.split(MARCA_OPINION)[1].split("</section>")[0]
 check("sin votos, la sección no miente con ceros",
-      "todavía no hay votos" in h_jug
-      and "0,0%" not in h_jug.split(MARCA_OPINION)[1][:2000])
+      "0,0%" not in _sin_votos and "sin datos en esta ventana" in _sin_votos
+      and _sin_votos.count("<div class=\"val\">—</div>") == 3)
 
 # Y con votos: quien dice «justo» viene acertando el 90% contra el 75% al que
 # apunta el motor, que es exactamente el hallazgo que esta sección existe para
@@ -1847,7 +1856,7 @@ check("la mostrada y no contestada sí cuenta en el denominador",
 # una «muy difícil», así que las primeras cuatro posiciones tienen un voto de
 # cada uno y el último cubo —«5ª vez o más»— junta las cuatro restantes de p1
 # más la quinta de p2.
-po = op["por_orden"]
+po = op["camino"]
 check("la serie se abre por número de pregunta, no por fecha",
       [f["nro"] for f in po["filas"]] == [1, 2, 3, 4, 5],
       f'({[f["nro"] for f in po["filas"]]})')
@@ -1865,12 +1874,19 @@ check("el último cubo acumula de ahí en adelante",
 check("y ningún voto se pierde ni se cuenta dos veces",
       sum(f["votos"] for f in po["filas"]) == op["contestadas"],
       f'({sum(f["votos"] for f in po["filas"])} contra {op["contestadas"]})')
-# El panel balanceado existe solo si hay base: con dos personas no la hay, y lo
-# correcto es no dibujarlo en vez de dibujarlo con dos.
-check("sin base para población fija, el balanceado no se inventa",
-      po["balanceado"] is None and po["min_panel"] == q.MIN_PANEL)
+# Antes el panel balanceado se apagaba cuando no había base, y la sección se
+# quedaba sin la única curva que se puede leer sin asteriscos. Ahora se dibuja
+# igual y lo que el piso decide es si los puntos salen huecos, no si la curva
+# existe — y nunca corta antes de `K_CAMINO`, que es el tramo que el titular de
+# ganancia afirma: un gráfico que llega hasta la 2ª debajo de un número que dice
+# «entre la 1ª y la 3ª» es el panel contradiciéndose solo.
+check("sin base para población fija la curva igual existe, y llega hasta K_CAMINO",
+      po["balanceado"] is not None and po["balanceado"]["k"] == q.K_CAMINO
+      and po["balanceado"]["personas"] < po["min_panel"]
+      and po["min_panel"] == q.MIN_PANEL,
+      f'({po["balanceado"]})')
 # La otra encuesta tiene la misma lectura, con sus propios valores.
-_pr = q.build(s, WEEK)["repetitividad"]["por_orden"]
+_pr = q.build(s, WEEK)["repetitividad"]["camino"]
 # La curva con población fija es lo que la sección existe para mostrar, y con el
 # piso real (MIN_PANEL) no se dibuja acá: el escenario tiene dos votantes. Se
 # baja el piso un momento —como se baja FIRST_WEEK arriba— para poder probarla,
@@ -1879,7 +1895,7 @@ _piso = q.MIN_PANEL
 _h_sin_curva = game_render.page(q.build(s, WEEK), token="tok", seccion="jugabilidad")
 q.MIN_PANEL = 2
 try:
-    _po2 = q.build(s, WEEK)["opinion"]["por_orden"]
+    _po2 = q.build(s, WEEK)["opinion"]["camino"]
     _h2 = game_render.page(q.build(s, WEEK), token="tok", seccion="jugabilidad")
 finally:
     q.MIN_PANEL = _piso
@@ -1894,34 +1910,158 @@ check("y la misma gente aparece en todos los puntos de la curva",
 # Una línea por valor del voto, cada una con su punto en cada posición, y cada
 # punto con su tooltip. Se cuenta sobre la página porque el defecto que importa
 # no es que `lines` funcione sino que la curva llegue a la sección.
+# Dos vistas por encuesta —la de la misma gente y la cruda— así que cada valor
+# del voto pone su punto de la 1ª vez dos veces. La de repetitividad no dibuja
+# nada porque el escenario no tiene votos de esa encuesta.
 check("la curva se dibuja, con una línea por valor del voto",
-      _h2.count("<title>1ª vez · ") == len(q.A_ORDER)
-      and "misma gente en todos los puntos" in _h2)
+      _h2.count("<title>1ª vez · ") == 2 * len(q.A_ORDER)
+      and "misma gente en todos los puntos" in _h2,
+      f'({_h2.count("<title>1ª vez · ")} puntos de la 1ª vez)')
 # La curva se dibuja SIEMPRE, y lo que cambia es si sus puntos salen firmes o
 # huecos. Un cartel diciendo «no hay base» deja la sección sin nada que mirar
 # hasta que la haya; una curva marcada como floja se lee sabiendo lo que es.
 def _huecos_op(pagina):
-    trozo = pagina.split("Cómo cambia la respuesta")[1].split("</section>")[0]
-    return trozo.count('fill="var(--surface)" stroke=')
+    trozo = pagina.split("Cómo cambia la respuesta dentro de la camada")[1]
+    return trozo.split("</section>")[0].count('fill="var(--surface)" stroke=')
 
 check("sin base para población fija la curva igual se dibuja, pero floja",
-      _huecos_op(_h_sin_curva) > 0 and "cada punto es gente distinta" in _h_sin_curva,
+      _huecos_op(_h_sin_curva) > 0,
       f'({_huecos_op(_h_sin_curva)} puntos huecos)')
 check("y con población fija sale firme",
       _huecos_op(_h2) == 0, f'({_huecos_op(_h2)} puntos huecos)')
+# La casilla arranca marcada y la vista cruda viaja escondida, no ausente: es lo
+# que hace que cambiarla no sea un viaje al servidor. Si alguna de las dos
+# dejara de emitirse, el control quedaría prendido sin nada que mostrar.
+_caja_cam = _h2.split("Cómo cambia la respuesta dentro de la camada")[1]
+_caja_cam = _caja_cam.split("</section>")[0]
+check("el caminito arranca en la vista de la misma gente",
+      'type="checkbox" checked' in _caja_cam
+      and 'data-vista="bal"><svg' in _caja_cam
+      and 'data-vista="crudo" hidden' in _caja_cam)
 
 # Y que la tabla llegue a la página: la consulta puede estar perfecta y el
 # `_box` quedar enganchado en la sección equivocada, que es lo que pasó con la
 # mitad del voto que se fue a Motor.
 _h_po = game_render.page(q.build(s, WEEK), token="tok", seccion="jugabilidad")
-check("la tabla por número de pregunta se dibuja en Jugabilidad",
-      _h_po.count("Cómo cambia la respuesta según cuántas veces se preguntó") == 2
-      and "1ª vez" in _h_po and "5ª vez o más" in _h_po,
-      "(una caja por encuesta)")
+check("las dos cajas se dibujan en Jugabilidad, una por encuesta",
+      _h_po.count("Cómo viene cambiando de camada en camada") == 2
+      and _h_po.count("Cómo cambia la respuesta dentro de la camada") == 2
+      and "1ª vez" in _h_po and "5ª vez o más" in _h_po)
 check("la otra encuesta trae la misma serie con sus propios valores",
-      "por_orden" in q.build(s, WEEK)["repetitividad"]
+      "camino" in q.build(s, WEEK)["repetitividad"]
       and all(f"pct_{v}" in (_pr["filas"][0] if _pr["filas"] else {f"pct_{v}": 0})
               for v in q_rep.VOTOS))
+
+# ── Los tres titulares, y qué NO está más acá ──────────────────────────────
+check("la sección trae sus tres titulares y ninguno más",
+      all(t in _h_po for t in ("Contestaron", "Ajuste inicial", "Ganancia de ajuste")))
+# Las dos encuestas NO cuentan lo mismo como «en su punto», y el criterio sale
+# del copy que ve el jugador y no de que las dos tengan un voto llamado «justo».
+# En repetitividad la pregunta es «¿te están saliendo repetidas?» y «bien
+# variadas» es la respuesta que dice que no: contarla como desvío daría 22,7% de
+# ajuste inicial en producción, o sea el panel reportando un problema de
+# variedad que nadie tiene.
+_b_bien = q.build(s, WEEK)
+check("cada encuesta declara qué votos están «en su punto»",
+      _b_bien["opinion"]["bien"] == list(q.BIEN_DIFICULTAD) == ["justo"]
+      and _b_bien["repetitividad"]["bien"] == list(q.BIEN_REPETITIVIDAD)
+      == ["variado", "justo"],
+      f'({_b_bien["opinion"]["bien"]} contra {_b_bien["repetitividad"]["bien"]})')
+check("y el titular NOMBRA los suyos en vez de escribir «justo» en las dos",
+      "vota «justo» en su 1ª respuesta" in _h_po
+      and "vota «bien variadas» y «justo» en su 1ª respuesta" in _h_po)
+# «Se sienten cómodos en» es el mismo voto cruzado contra lo que la persona
+# venía acertando, o sea la pregunta de si la BANDA está bien puesta. Eso vive
+# en Motor, y tenerlo en los dos lados haría que dos pestañas contesten lo
+# mismo con el mismo número.
+check("y el cruce contra el acierto no vuelve a colarse acá",
+      "Se sienten cómodos en" not in _h_po
+      and "Se sienten cómodos en" not in game_render.page(
+          q.build(s, WEEK), token="tok", seccion="motor"))
+# La ganancia es una DIFERENCIA, no una cantidad, y sin el «+» un valor positivo
+# se lee como un nivel («4,2 pp de ajuste») en vez de como el movimiento que es.
+check("un titular que es una diferencia sale con su signo",
+      "+3,2 pp" in game_render._kpi_chico("g", 3.2, suffix=" pp", signo=True)
+      and "-3,2 pp" in game_render._kpi_chico("g", -3.2, suffix=" pp", signo=True)
+      and "3,2 pp" in game_render._kpi_chico("g", 3.2, suffix=" pp"))
+# Un porcentaje no llega a 120, y el techo automático sí: para una tasa de
+# respuesta del 98,4% elige 120 y deja media caja vacía con la serie apretada
+# contra el techo. Debajo del umbral el techo NO se fija, porque una serie de 37
+# a 48 contra un eje de 0 a 100 es una línea recta.
+check("el eje de un porcentaje no se pasa de 100",
+      game_render.ch._nice_max(98.4) > 100
+      and game_render._techo_pct([98.4, 92.3]) == 100.0
+      and game_render._techo_pct([48.0, 37.0]) is None
+      and game_render._techo_pct([None, None]) is None,
+      f'(el automático daría {game_render.ch._nice_max(98.4)})')
+
+# Las tres vistas del selector por camada viajan juntas y solo la primera se ve.
+_caja_cams = _h_po.split("Cómo viene cambiando de camada en camada")[1]
+_caja_cams = _caja_cams.split("</div><div class=\"box\"")[0]
+check("el selector por camada trae las tres vistas y muestra una",
+      _caja_cams.count('<button data-m=') == 3
+      and _caja_cams.count('data-vista=') == 3
+      and _caja_cams.count(" hidden>") == 2)
+# Un solo <script> para las dos secciones: recorre el documento entero, así que
+# emitirlo por sección ataría los controles dos veces y cada clic contaría doble.
+check("el script de los controles va una sola vez por página",
+      _h_po.count("data-segm") == 3 and _h_po.count("[data-segm]") == 1,
+      f'({_h_po.count("data-segm")} usos)')
+
+# ── La camada de cada voto ─────────────────────────────────────────────────
+# p5 es de una camada vieja —se dio de alta cuatro semanas antes— y vota tres
+# veces. Es el único de todo el escenario que puede detectar que el caminito
+# dejó de filtrar: sin él, «la camada actual» y «todas» son el mismo conjunto y
+# el filtro se podría borrar sin que nada se ponga rojo.
+for _ in range(3):
+    s.add(GameDifficultyVote(
+        player_id=5, voto="muy_dificil", shown_at=T(0, 12), answered_at=T(0, 12),
+        theta_at_vote=0.2, n_updates_at_vote=20, ventana=20, aciertos=3,
+        p_hat_medio=0.8, delta_theta=0.0))
+s.flush()
+_op3 = q.build(s, WEEK)["opinion"]
+_cam = {f["label"]: f for f in _op3["por_camada"]}
+_vieja = q.week_start(q.local_date(T(-28, 14))).strftime("%d/%m")
+check("cada voto le cuenta a la camada de SU PERSONA, no a la semana del voto",
+      _cam[_vieja]["contestadas"] == 3 and _cam[_op3["camada"]]["contestadas"] == 13,
+      f'({_vieja}: {_cam[_vieja]["contestadas"]}, '
+      f'{_op3["camada"]}: {_cam[_op3["camada"]]["contestadas"]})')
+check("y el caminito mira solo la camada actual",
+      sum(f["votos"] for f in _op3["camino"]["filas"]) == 13
+      and _op3["contestadas"] == 16,
+      f'({sum(f["votos"] for f in _op3["camino"]["filas"])} de {_op3["contestadas"]})')
+# Una camada de una persona no dibuja porcentajes. El crudo sí viaja: lo que el
+# piso apaga es la afirmación, no el dato.
+check("una camada por debajo del piso viaja sin sus porcentajes",
+      _cam[_vieja]["pct_respuesta"] is None
+      and _cam[_vieja]["ajuste_inicial"] is None
+      and _cam[_vieja]["ganancia"] is None
+      and all(d["pct"] is None for d in _cam[_vieja]["desvios"])
+      and _cam[_vieja]["votantes"] == 1,
+      f'({_cam[_vieja]})')
+
+# p6 vota UNA sola vez y dice «justo». Con eso el ajuste inicial sube —cuenta a
+# todo el mundo— pero la ganancia no lo ve, porque p6 nunca llegó a la tercera.
+# Es el único escenario que distingue la cuenta pareada de la resta ingenua.
+s.add(GameDifficultyVote(
+    player_id=6, voto="justo", shown_at=T(0, 12), answered_at=T(0, 12),
+    theta_at_vote=1.0, n_updates_at_vote=30, ventana=20, aciertos=18,
+    p_hat_medio=0.85, delta_theta=0.0))
+s.flush()
+_op4 = q.build(s, WEEK)["opinion"]
+check("la ganancia se mide sobre el mismo panel en las dos puntas",
+      _op4["ajuste_inicial"] == 50.0 and _op4["ganancia_n"] == 3
+      and _op4["ganancia_desde"] == 33.3 and _op4["ganancia_hasta"] == 33.3
+      and _op4["ganancia"] == 0.0,
+      f'(inicial {_op4["ajuste_inicial"]}%, desde {_op4["ganancia_desde"]}% — '
+      f'la resta ingenua daría {round(_op4["ganancia_hasta"] - _op4["ajuste_inicial"], 1)} pp)')
+# Y el desvío dice hacia qué lado falla el que no dice «justo», que es lo único
+# accionable: un motor que sirve fácil de más y uno que sirve difícil de más dan
+# el mismo ajuste inicial y piden lo contrario.
+check("el titular de ajuste trae hacia qué lado se va el resto",
+      {d["voto"]: d["pct"] for d in _op4["desvios"]}
+      == {"muy_facil": 25.0, "muy_dificil": 25.0},
+      f'({_op4["desvios"]})')
 
 # ── El teclado ──────────────────────────────────────────────────────────────
 # El defecto que esta sección existe para no repetir: medir el parseo POR
