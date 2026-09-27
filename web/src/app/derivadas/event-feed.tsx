@@ -18,6 +18,7 @@ import { cn } from "@/lib/utils"
 import { Hueco } from "@/components/skeleton-barra"
 import { levelColor } from "./game-colors"
 import { useGameEvents, type GameEvent } from "./UseGameLeaderboard"
+import { TextoConHuecos } from "./texto-con-huecos"
 
 // A cuántos píxeles del fondo se sigue considerando "pegado abajo".
 const STICK_SLACK_PX = 24
@@ -56,60 +57,17 @@ const SLOT = /(\{(?:a|b|u0|u1)\})/
  * allá y después buscar las siglas con una regex acá sería adivinar: "UNT"
  * también puede aparecer dentro de una palabra, y el copy cambia. */
 function EventText({ event }: { event: GameEvent }) {
-  const level = event.actor_level
   return (
-    <>
-      {event.text.split(SLOT).map((chunk, i) => {
-        if (chunk === "{a}") {
-          return (
-            <span
-              key={i}
-              className="font-semibold"
-              // Sin nivel —quien invita un cafecito no es necesariamente un
-              // jugador— el nombre va destacado pero sin robarle un color que no
-              // le corresponde.
-              style={level === null || level === undefined ? undefined : { color: levelColor(level) }}
-            >
-              {event.actor_alias}
-            </span>
-          )
-        }
-        if (chunk === "{b}") {
-          // El segundo nombre de la oración: a quien reclutaron, o a quien le
-          // sacaron el número 1. Sin color de nivel a propósito, como las siglas
-          // de universidad — el protagonista es {a}, y a este le alcanza con
-          // destacarse sin anunciar su rango.
-          //
-          // Puede venir con el evento y no estar en el texto: el servidor elige
-          // entre varias redacciones y algunas no nombran al segundo (ver
-          // backend/game/events_copy.py). Que mande el marcador es lo correcto.
-          return event.actor_b_alias ? (
-            <span key={i} className="font-semibold text-foreground/90">
-              {event.actor_b_alias}
-            </span>
-          ) : null
-        }
-        if (chunk === "{u0}" || chunk === "{u1}") {
-          const uni = event.universities?.[chunk === "{u0}" ? 0 : 1]
-          // Sigla en texto, no la <UniTag>: el feed es una oración corrida —"la
-          // UNSAM pasó a la UNL"— y meterle dos chips de color adentro la
-          // partía en pedazos en vez de dejarla leer. El artículo ("la"/"el") ya
-          // viene en el texto del servidor, que es el único que sabe cuáles son
-          // institutos.
-          //
-          // Si la sigla no vino, se cae el marcador: mejor una oración corta que
-          // un "{u1}" crudo en pantalla.
-          return uni ? (
-            <span key={i} className="font-semibold text-foreground/90">
-              {uni}
-            </span>
-          ) : null
-        }
-        return chunk
-      })}
-    </>
+    <TextoConHuecos
+      texto={event.text}
+      actorAlias={event.actor_alias}
+      actorLevel={event.actor_level}
+      actorBAlias={event.actor_b_alias}
+      universities={event.universities}
+    />
   )
 }
+
 
 function EventRow({ event }: { event: GameEvent }) {
   // Dos resaltados y no más: lo que hiciste vos y lo que le pasa a tu universidad.
