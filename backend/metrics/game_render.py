@@ -1628,9 +1628,10 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
     elif e["sin_arrancar"]:
         estado = _caja_estado(
             "Sin datos todavía",
-            f'Nadie llegó a las {num(e["tope"])} derivadas resueltas en un día desde el '
-            f'{e["desde"].strftime("%d/%m")}. El reloj de cada persona arranca el día que '
-            f'choca, no el día del despliegue.', "espera")
+            f'Ningún jugador creado desde el {e["desde"].strftime("%d/%m")} llegó a las '
+            f'{num(e["tope"])} derivadas resueltas en un día. El reloj de cada persona '
+            f'arranca el día que choca, no el día del despliegue, y los que ya jugaban '
+            f'antes del arranque no entran.', "espera")
     elif falta > 0:
         estado = _caja_estado(
             f'Todavía no se puede leer — faltan {num(falta)} por brazo',
@@ -1724,8 +1725,21 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                          f'diapo entera —«un hito» y «cuando lo piden»— y no contra la barra, '
                          f'que es un ícono presente y no un texto leído. El CTR queda vacío '
                          f'abajo de 30 impresiones.')
-             + f'<p class="note"><b>Quién entra:</b> cualquiera que llegue a '
-               f'{num(e["tope"])} derivadas resueltas en un día, el día que llega. '
+             + f'<p class="note"><b>Quién entra: solo jugadores NUEVOS.</b> Hay que '
+               f'haberse creado el {e["desde"].strftime("%d/%m")} o después, y llegar a '
+               f'{num(e["tope"])} derivadas resueltas en un día. Quien ya venía jugando '
+               f'antes del arranque <b>no tiene tope</b>, ni en el brazo tratado ni nunca, y '
+               f'tampoco se lo cuenta acá: hasta ahora son {num(e["exentos"])} personas que '
+               f'llegaron al tope un día que contaba y quedaron afuera.<br><br>'
+               f'No es una concesión, es lo que hace que esto mida lo que dice medir. Un '
+               f'veterano que a los cuarenta días se encuentra una pared reacciona a que le '
+               f'QUITARON algo; un recién llegado reacciona a cómo es el producto, y esa es '
+               f'la pregunta. El costo está medido: el 86% de los que llegan al tope lo hacen '
+               f'el mismo día que se crean, así que la excepción saca sobre todo la camada de '
+               f'veteranos de la primera semana y el ritmo baja de ~111 a ~95 por semana. '
+               f'<b>Lo que NO se va a poder concluir</b>: si sale que pagan, eso vale para '
+               f'jugadores nuevos — y la plata de hoy está en los veteranos, que son los '
+               f'catorce donantes y la punta del ranking.<br><br>'
                f'<b>La regla es «llegó a {num(e["tope"])}» y no «pasó de {num(e["tope"])}», y '
                f'de eso depende que el experimento exista</b>: en el brazo con tope el '
                f'contador no puede pasar de {num(e["tope"])} porque el servidor corta justo '
@@ -1733,10 +1747,13 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                f'siempre. Con «llegó a», los dos brazos se inscriben por el mismo hecho, y '
                f'en el control ese hecho es exactamente el contrafáctico: el día en que '
                f'habría chocado.<br><br>'
-               f'<b>El brazo sale de un hash del id</b> (<code>game/muro.py</code>), no de '
-               f'<code>game_players.variant</code>, por el mismo motivo que el experimento '
-               f'del motor: los que llegan a {num(e["tope"])} en un día existen todos desde '
-               f'hace semanas, y con el sorteo de creación esto mediría a cero personas.'
+               f'<b>El brazo sale de un hash del id</b> (<code>game/muro.py</code>) y no de '
+               f'<code>game_players.variant</code>. El motivo original ya no aplica —se '
+               f'eligió así porque los elegibles existían todos desde hacía semanas, y ahora '
+               f'son todos nuevos por construcción— pero la decisión se queda: está repartido '
+               f'y verificado contra producción con el experimento corriendo, cambiarlo '
+               f're-sortearía a los ya inscriptos, y el panel puede recalcular el brazo de '
+               f'cualquiera al leer sin depender de una columna.'
                f'<br><br><b>El pase se deriva de <code>game_boosts</code></b> y dura '
                f'{num(e["pase_dias"])} días: no hay tabla nueva ni migración, y los donantes '
                f'que ya existían lo tuvieron puesto desde el día uno. El empuje de aforo no '
@@ -1757,9 +1774,9 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                   f'pre-período fue <b>0 de 65</b>; se declaró 2% porque es el lado '
                   f'conservador — con base cero el mismo efecto pediría menos gente.'
                   f'<br><br><b>Predicción, escrita antes:</b> {esc(e["prediccion"])}'),
-        sub="El primer experimento que le cobra a alguien por algo suyo. Mide una sola cosa: "
-            "si un estudiante atraviesa un checkout para seguir jugando, y cuánto cuesta "
-            "preguntárselo.",
+        sub="El primer experimento que le cobra a alguien por algo suyo, y solo a los que "
+            "llegan nuevos. Mide una sola cosa: si un estudiante atraviesa un checkout para "
+            "seguir jugando, y cuánto cuesta preguntárselo.",
         anchor="experimento-muro")]
     pieza_experimento_muro = "".join(out)
 

@@ -180,7 +180,7 @@ eso obligó a mover un tercero, porque los números no viven solos:
 | 20 | el cafecito otra vez, y de ahí cada 20 |
 | 24 | instalar la app, y después cada 12: 36, 48, 60, 73, 85 |
 | 28 | la primera encuesta de la escalera (`OPINION_PRIMERA`, corrida por su separación), y de ahí vuelve para siempre |
-| 30 | *(experimento `dx-muro-1`, la mitad de la gente)* el **tope diario**: no hay más derivadas hasta mañana, salvo cafecito |
+| 30 | *(experimento `dx-muro-1`, la mitad de los jugadores NUEVOS — los de antes del 27/09 no tienen tope)* el **tope diario**: no hay más derivadas hasta mañana, salvo cafecito |
 
 **El tope de la 30 no es un escalón de esta escalera y por eso está en su propia
 fila.** Los demás interrumpen algo que estaba pasando y se salen con un botón;

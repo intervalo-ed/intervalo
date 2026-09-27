@@ -365,11 +365,42 @@ Cómo funciona:
 - **`MURO_ENABLED`**, apagado por default. Un tope es lo único del producto que
   puede hacer daño en horas en vez de en semanas, así que tiene que poder
   apagarse desde Railway sin un deploy.
+- **Solo lo viven los jugadores NUEVOS** (`muro.ARRANQUE`, el 27/09/2026). Quien
+  ya venía jugando antes de esa fecha **no tiene tope**, ni le toque el brazo
+  tratado ni nunca, y el panel tampoco lo cuenta como inscripto. Es la excepción
+  más importante de este experimento y está explicada abajo.
 
-**Quién lo vive**: la mitad, sorteada con un hash del `player.id`
-(`muro.brazo_de`) y sin columna nueva, por el mismo motivo que `dx-elo-1` —los
-que llegan a 30 en un día existen todos desde hace semanas, así que el sorteo al
-crear la fila mediría a cero personas—.
+**Quién lo vive**: la mitad **de los que llegaron después del arranque**,
+sorteada con un hash del `player.id` (`muro.brazo_de`) y sin columna nueva. El
+motivo original de ese hash ya no vale —se eligió porque los elegibles existían
+todos desde hacía semanas, y con la excepción son todos nuevos por construcción—
+pero la decisión se queda: está repartido y verificado en producción con el
+experimento corriendo, cambiarlo re-sortearía a los ya inscriptos, y el panel
+puede recalcular el brazo de cualquiera al leer sin depender de una columna.
+
+**Por qué solo los nuevos.** No es para que no se enoje nadie: es lo que hace
+que el experimento mida lo que dice medir. Un veterano que a los cuarenta días
+se encuentra una pared reacciona a que le **quitaron** algo que tenía; un recién
+llegado reacciona a **cómo es el producto**. Son dos cantidades distintas, y la
+que contesta «¿este producto puede tener un tope?» es la segunda. Con la
+excepción, todos los inscriptos conocieron una sola regla desde su primera
+derivada.
+
+El costo está medido (26/09): de las 270 personas que alguna vez llegaron a 30
+en un día, **232 lo hicieron el mismo día que se crearon** (86%), y el p90 de la
+demora es un día. Así que la excepción no vacía el experimento: le saca los ~117
+veteranos que ya estaban arriba del tope y después casi no se nota — el ritmo de
+inscripción pasa de ~111 a ~95 personas por semana.
+
+Y lo que **no** se va a poder concluir: el resultado vale para jugadores nuevos.
+Si sale que pagan, eso no dice qué haría un veterano, y ahí está la plata de hoy
+—los catorce donantes y la punta del ranking son todos de antes del arranque—.
+Encender el tope para todos seguiría siendo un cambio sin medir.
+
+Un efecto lateral que conviene saber: borrar el navegador crea un jugador nuevo,
+así que un veterano que limpie su `localStorage` **pierde la excepción** junto
+con su XP. Es el reverso de la puerta de atrás que este experimento ya tenía
+anotada como riesgo, y no hace falta taparlo.
 
 **El costo que hay que vigilar**: con tope, el que paga sigue sumando XP cuando
 al otro se le cortó, así que el ranking pasa a ser en parte una función de la
