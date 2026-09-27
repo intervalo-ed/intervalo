@@ -139,8 +139,8 @@ export const UNIVERSITY_TAGS: UniversityTag[] = [
   // Colores: paleta distintiva generada, no verificada institución por institución
   // (salvo las privadas grandes, con su color de marca real).
   { key: "UNCUYO", fullName: "Universidad Nacional de Cuyo", color: "#9E2E6B", font: TAG_FONT, tagFontSize: TAG_FONT_SIZE },
-  { key: "UNNE", fullName: "Universidad Nacional del Nordeste", color: "#B8358C", font: TAG_FONT, tagFontSize: TAG_FONT_SIZE },
-  { key: "UNMDP", fullName: "Universidad Nacional de Mar del Plata", color: "#9E452E", font: TAG_FONT, tagFontSize: TAG_FONT_SIZE },
+  { key: "UNNE", fullName: "Universidad Nacional del Nordeste", color: "#E0479E", font: TAG_FONT, tagFontSize: TAG_FONT_SIZE },
+  { key: "UNMDP", fullName: "Universidad Nacional de Mar del Plata", color: "#E06B3E", font: TAG_FONT, tagFontSize: TAG_FONT_SIZE },
   { key: "UNLZ", fullName: "Universidad Nacional de Lomas de Zamora", color: "#ADB835", font: TAG_FONT, tagFontSize: TAG_FONT_SIZE },
   { key: "UNLU", fullName: "Universidad Nacional de Luján", color: "#8C479E", font: TAG_FONT, tagFontSize: TAG_FONT_SIZE },
   { key: "UNSA", fullName: "Universidad Nacional de Salta", color: "#9E476F", font: TAG_FONT, tagFontSize: TAG_FONT_SIZE },
@@ -174,7 +174,7 @@ export const UNIVERSITY_TAGS: UniversityTag[] = [
   { key: "UNLA", fullName: "Universidad Nacional de Lanús", color: "#3A799E", font: TAG_FONT, tagFontSize: TAG_FONT_SIZE },
 
   // Privadas
-  { key: "UCA", fullName: "Universidad Católica Argentina", color: "#8C2A3B", font: TAG_FONT, tagFontSize: TAG_FONT_SIZE },
+  { key: "UCA", fullName: "Universidad Católica Argentina", color: "#3454D1", font: TAG_FONT, tagFontSize: TAG_FONT_SIZE },
   { key: "UP", fullName: "Universidad de Palermo", color: "#B5453E", font: TAG_FONT, tagFontSize: TAG_FONT_SIZE },
   { key: "UB", fullName: "Universidad de Belgrano", color: "#1B3A6B", font: TAG_FONT, tagFontSize: TAG_FONT_SIZE },
   { key: "Kennedy", fullName: "Universidad Argentina John F. Kennedy", color: "#2E6FA8", font: TAG_FONT, tagFontSize: TAG_FONT_SIZE },
