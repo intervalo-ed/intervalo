@@ -1706,7 +1706,19 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                     className="pointer-events-none fixed inset-x-0 bottom-0 z-0"
                   >
                     <div
-                      className="border-t px-5 pt-6 pb-[calc(var(--cta-pt)_+_var(--cta-h)_+_var(--cta-pb))]"
+                      className={cn(
+                        // El relleno de abajo reserva el alto del PIE, que es lo
+                        // que deja el texto del cartel a la vista en vez de
+                        // tapado. El brazo `ayudas` tiene DOS filas de botones
+                        // (pie-rampa.tsx), así que hay que reservar una más y su
+                        // hueco: sin esto la frase «podés ayudarte con la tabla»
+                        // queda cortada por los botones justo cuando es cuando
+                        // más hace falta leerla.
+                        "border-t px-5 pt-6",
+                        conAyudas
+                          ? "pb-[calc(var(--cta-pt)_+_2_*_var(--cta-h)_+_0.5rem_+_var(--cta-pb))]"
+                          : "pb-[calc(var(--cta-pt)_+_var(--cta-h)_+_var(--cta-pb))]",
+                      )}
                       style={{
                         borderColor: `${WRONG}80`,
                         backgroundColor: `color-mix(in srgb, color-mix(in oklab, var(--background) 75%, ${WRONG} 25%) 88%, transparent)`,
