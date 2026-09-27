@@ -1712,13 +1712,69 @@ check("cada guía se ancla en la derivada de su hito, no en su posición",
 check("la caja de pérdida se dibuja debajo de la acumulada",
       "Cuánta gente pierde cada derivada" in _h40
       and _h40.index("Cuántos siguen jugando") < _h40.index("Cuánta gente pierde"))
-# No se desglosa: la barra de arriba parte a la gente y esto mide al conjunto.
-# Si cambiara con el corte, estaría contestando otra pregunta sin avisar.
-_h_ap = game_render.page(q.build(s, WEEK, k_max=40, corte="aparato"), token="tok",
-                         seccion="jugabilidad")
+# **Las observaciones son PRIMERAS SESIONES, una por persona.** Quien volvió
+# cuatro veces aporta un solo largo —el de su primera tanda— y no cuatro. Si se
+# colaran las vueltas, la curva mezclaría «dónde se va alguien que empieza» con
+# «cuánto rinde una vuelta», que son dos preguntas distintas: la segunda la
+# contesta el desglose «por sesión» con su propia línea, y encima sobre una
+# población filtrada por lo mismo que se está midiendo (a la segunda vuelta solo
+# llega el que se enganchó).
+#
+# El escenario tiene tandas siguientes de verdad, así que el número de abajo
+# puede fallar: no es una tautología sobre una lista vacía.
+# El piso de series se baja un momento —el mismo truco que usa el corte por
+# sesión más arriba— porque en este escenario las tandas siguientes son dos y no
+# llegan a dibujar su línea. Sin bajarlo, `_l2` sería None y el check pasaría
+# por no tener nada contra qué fallar.
+_piso_serie = q.MIN_BASE_SERIE
+q.MIN_BASE_SERIE = 1
+try:
+    _ses40 = q.build(s, WEEK, k_max=40, corte="sesion")["profundidad"]
+finally:
+    q.MIN_BASE_SERIE = _piso_serie
+_l2 = next((x for x in _ses40["series"] if x["clave"] == "2+"), None)
+check("la caja de pérdida observa una primera sesión por persona",
+      _pr40["curva"][0]["vivos"] == _pr40["base"]
+      and _l2 is not None and _l2["base"] > 0
+      and _ses40["curva"][0]["vivos"] == _pr40["base"],
+      f'({_pr40["base"]} personas en la curva; las '
+      f'{_l2["base"] if _l2 else 0} tandas siguientes quedan afuera)')
+# Y que el pie lo DIGA. Decía «la camada de la semana elegida, entera», que se
+# lee como «todas sus sesiones» con la misma facilidad que como «sin partir por
+# desglose» — y es lo segundo. Un pie ambiguo sobre qué se está contando es la
+# forma barata de que alguien cite el número como si fuera otra cosa.
+check("y el pie dice sobre qué se cuenta, sin dejarlo a la interpretación",
+      "Cada observación es una PRIMERA sesión, una por persona." in _h40)
+
+# ── Las guías: una regla por gráfico ───────────────────────────────────────
+#
+# **La de pérdida las lleva SIEMPRE** porque dibuja la cohorte entera en los
+# seis desgloses: sale de `pr["curva"]`, que no depende del corte. Si cambiara
+# con la barra de arriba estaría contestando otra pregunta sin avisar.
+#
+# **La acumulada solo SIN DESGLOSAR.** Partida, las guías mienten de dos
+# maneras: el número del chip —«en la 10 abandona el 12,3%»— sale de la misma
+# curva sin partir, así que colgado encima de las tres líneas de «por horario»
+# se lee como si fuera de la que uno está mirando y no es de ninguna; y en «por
+# sesión» los hitos ya quedaron todos atrás, porque se disparan con las
+# correctas ACUMULADAS del jugador.
+#
+# Se prueban los SEIS y no uno: la regla ya se había roto en el que no se
+# probaba. «Por sesión» apagaba los hitos de los dos gráficos, así que la caja
+# de pérdida cambiaba con el desglose —justo lo que el check de al lado fija—
+# y nadie lo veía porque solo se comparaba «por aparato».
 _perdida = lambda t: t.split("Cuánta gente pierde cada derivada", 1)[1][:6000]
-check("y no cambia al mover el desglose",
-      _perdida(_h40) == _perdida(_h_ap))
+for _c in q.CORTES:
+    if _c == "total":
+        continue
+    _h_c = game_render.page(q.build(s, WEEK, k_max=40, corte=_c), token="tok",
+                            seccion="jugabilidad")
+    _arr_c = _h_c.split("Cuánta gente pierde cada derivada", 1)[0]
+    check(f"la caja de pérdida no cambia con el desglose «{_c}»",
+          _perdida(_h40) == _perdida(_h_c))
+    check(f"y en «{_c}» la curva acumulada va sin guías ni leyenda",
+          _guia(_arr_c) == 0 and "El juego pregunta en" not in _arr_c,
+          f'({_guia(_arr_c)} guías arriba)')
 # El riesgo por tramo es media GEOMÉTRICA y no el promedio de las tasas:
 # promediar le daría el mismo peso al riesgo medido sobre seiscientas personas
 # que al medido sobre ocho, y la cola está llena de los segundos.
@@ -1739,14 +1795,22 @@ for _t in _r:
     check(f"«{_t['tramo']}» reconstruye la supervivencia de su tramo",
           abs(_esperado - _fin["vivos"]) <= max(1.0, _fin["vivos"] * 0.02),
           f'({_esperado:.1f} contra {_fin["vivos"]} vivos)')
-# En «2ª y siguientes» no van, y no es una omisión: los hitos se disparan con
-# las correctas ACUMULADAS, así que en la segunda tanda ya están todos atrás.
-# Marcarlos ahí afirmaría que el juego interrumpe en la tercera derivada de esa
-# tanda, y no interrumpe en ninguna.
+# En «2ª y siguientes» no van sobre la curva, y no es una omisión: los hitos se
+# disparan con las correctas ACUMULADAS, así que en la segunda tanda ya están
+# todos atrás. Marcarlos ahí afirmaría que el juego interrumpe en la tercera
+# derivada de esa tanda, y no interrumpe en ninguna.
+#
+# Abajo sí van, porque ese gráfico sigue siendo la primera sesión de la cohorte
+# entera: el desglose no lo toca. Las dos mitades juntas son lo que prueba que
+# la leyenda que queda es la de abajo y no un resto de la de arriba.
 _h_ses = game_render.page(q.build(s, WEEK, corte="sesion"), token="tok",
                           seccion="jugabilidad")
-check("pero no en el desglose que mezcla las tandas siguientes",
-      "El juego pregunta en" not in _h_ses)
+_arr_ses, _aba_ses = _h_ses.split("Cuánta gente pierde cada derivada", 1)
+check("el desglose que mezcla las tandas siguientes no lleva guías arriba",
+      "El juego pregunta en" not in _arr_ses and _guia(_arr_ses) == 0)
+check("y la caja de pérdida las conserva, que ahí no se mezcla nada",
+      "El juego pregunta en" in _aba_ses and _guia(_aba_ses) == _guia(_abajo),
+      f'({_guia(_aba_ses)} guías contra {_guia(_abajo)} sin desglosar)')
 
 # ── Y que no se desincronicen del front ─────────────────────────────────────
 # Los cinco números viven en TypeScript —el juego los usa para decidir— y acá

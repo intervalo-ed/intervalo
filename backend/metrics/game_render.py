@@ -1166,11 +1166,27 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
     # 10 caen a una derivada de distancia— para decir en vertical y apretado lo
     # que en una fila se lee de corrido.
     #
-    # **NO se dibujan en «2ª y siguientes».** Los hitos se disparan con las
+    # **Las guías van sobre el dibujo que es la COHORTE ENTERA, y solo ahí.**
+    #
+    # `pr["curva"]` —de donde salen los hitos y el abandono que cada chip
+    # muestra al lado— es la camada de la semana sin partir y no depende del
+    # corte. El gráfico de pérdida dibuja exactamente eso, así que ahí las guías
+    # valen siempre; de hecho ese gráfico tiene que quedar idéntico en los seis
+    # desgloses, que es una propiedad que el check ya fija.
+    #
+    # La curva de arriba sí se parte, y ahí las guías mienten de dos maneras. El
+    # número del chip —«en la 10 abandona el 12,3%»— es del conjunto, así que
+    # colgado encima de las tres líneas de «por horario» se lee como si fuera de
+    # la que uno está mirando, y no es de ninguna. Y cinco colores de guía
+    # cruzando cinco colores de serie dejan un gráfico donde no se distingue qué
+    # es una población y qué es una interrupción.
+    #
+    # En «por sesión» hay además un motivo propio: los hitos se disparan con las
     # correctas ACUMULADAS del jugador, así que en la segunda tanda ya están
-    # todos atrás: marcarlos ahí diría que el juego interrumpe en la tercera
-    # derivada de esa tanda, y no interrumpe en ninguna.
-    _hitos = pr["hitos"] if corte != "sesion" else []
+    # todos atrás y marcarlos diría que el juego interrumpe en la tercera
+    # derivada de esa tanda, cuando no interrumpe en ninguna.
+    _hitos = pr["hitos"]
+    _hitos_curva = _hitos if corte == "total" else []
     # Un color por pregunta, y los cinco distinguibles entre sí sobre el fondo
     # oscuro. El verde es el mismo con el que el juego pinta reclutar en la app
     # (`VERDE_RECLUTAS`), así que la guía y el botón que la dispara coinciden.
@@ -1181,41 +1197,50 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
     _color_hito = {"perfil": ch.SERIES[1], "reclutas": VERDE_RECLUTAS,
                    "registro": ch.SERIES[2], "cafecito": ch.SERIES[3],
                    "instalar": ROSA_INSTALAR}
-    def _marcas_en(eje: list[int]) -> list[dict]:
+    def _marcas_en(eje: list[int], hitos: list[dict]) -> list[dict]:
         """Las guías, posicionadas contra el eje que recibe.
 
-        Se pasa el eje y no se reusa uno calculado: los dos gráficos de la
-        sección comparten los hitos pero no el largo —el de pérdida corta donde
-        ya no queda nadie vivo— y un índice prestado corre la guía de derivada o
-        la tira fuera del cuadro.
+        Se pasan el eje y los hitos, y no se reusa nada calculado: los dos
+        gráficos de la sección no dibujan ni el mismo largo —el de pérdida corta
+        donde ya no queda nadie vivo— ni los mismos hitos, y un índice prestado
+        del otro corre la guía de derivada o la tira fuera del cuadro.
         """
         pos = {k: i for i, k in enumerate(eje)}
         return [{"i": pos[h["k"]], "color": _color_hito.get(h["clave"], ""),
                  "tip": f'derivada {h["k"]}: {h["copy"]}'
                         + (f' · acá abandona el {_pct_txt(h["abandono"])}'
                            if h["abandono"] is not None else "")}
-                for h in _hitos if h["k"] in pos]
+                for h in hitos if h["k"] in pos]
 
-    marcas = _marcas_en([c["k"] for c in pr["curva"]])
+    marcas = _marcas_en([c["k"] for c in pr["curva"]], _hitos_curva)
     # Un chip por PREGUNTA y no por marca: el cafecito cae en la 14, la 20 y la
     # 40, y tres chips iguales gastarían la fila en repetir el mismo texto. Los
     # números van juntos y las guías siguen siendo una por derivada.
-    _por_clave: dict[str, list[dict]] = {}
-    for h in _hitos:
-        _por_clave.setdefault(h["clave"], []).append(h)
-    leyenda_hitos = ("" if not _hitos else
-                     '<div class="hitos">'
-                     '<span class="sub">El juego pregunta en la derivada</span>'
-                     + "".join(
-                         f'<span class="h" style="color:{_color_hito.get(c, "")}">'
-                         f'<i class="g"></i>'
-                         f'<span style="color:var(--fg)">'
-                         f'<span class="k">{_y_lista([num(x["k"]) for x in hs])}</span>'
-                         f' · {esc(hs[0]["copy"])}'
-                         + (f' <span class="ab">{_pct_txt(hs[0]["abandono"])}</span>'
-                            if hs[0]["abandono"] is not None else "")
-                         + '</span></span>' for c, hs in _por_clave.items())
-                     + '</div>')
+    def _leyenda(hitos: list[dict]) -> str:
+        """La fila de chips que nombra cada guía. Vacía cuando no hay guías.
+
+        Es función y no una variable porque los dos gráficos ya no dibujan lo
+        mismo: el de pérdida las lleva siempre y la curva de arriba solo sin
+        desglosar. Una leyenda sin guías abajo sería un índice de algo que no
+        está dibujado.
+        """
+        if not hitos:
+            return ""
+        por_clave: dict[str, list[dict]] = {}
+        for h in hitos:
+            por_clave.setdefault(h["clave"], []).append(h)
+        return ('<div class="hitos">'
+                '<span class="sub">El juego pregunta en la derivada</span>'
+                + "".join(
+                    f'<span class="h" style="color:{_color_hito.get(c, "")}">'
+                    f'<i class="g"></i>'
+                    f'<span style="color:var(--fg)">'
+                    f'<span class="k">{_y_lista([num(x["k"]) for x in hs])}</span>'
+                    f' · {esc(hs[0]["copy"])}'
+                    + (f' <span class="ab">{_pct_txt(hs[0]["abandono"])}</span>'
+                       if hs[0]["abandono"] is not None else "")
+                    + '</span></span>' for c, hs in por_clave.items())
+                + '</div>')
 
     # ── Cuánta gente pierde cada derivada ────────────────────────────────────
     #
@@ -1242,12 +1267,12 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                        f'{_pct_txt(c["abandono"])} no hizo la siguiente'
                        for c in _riesgo]}],
             [str(c["k"]) for c in _riesgo], suffix="%", height=240, legend=False,
-            marcas=_marcas_en([c["k"] for c in _riesgo]))
+            marcas=_marcas_en([c["k"] for c in _riesgo], _hitos))
 
     _tr = [t for t in pr["riesgo"] if t["pct"] is not None]
     caja_perdida = _box(
         "Cuánta gente pierde cada derivada",
-        leyenda_hitos + perdida,
+        _leyenda(_hitos) + perdida,
         note=(("" if len(_tr) < 2 else
                "".join(f'<b>{esc(t["tramo"])}</b> (derivadas {num(t["desde"])}–'
                        f'{num(t["hasta"])}): se va el <b>{_pct_txt(t["pct"])}</b> '
@@ -1263,9 +1288,15 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                 "principio y después casi nadie»; esta sí. Plana significa caída "
                 "exponencial, y decreciente que cada derivada sobrevivida abarata la "
                 "siguiente."
+                "<br><br><b>Cada observación es una PRIMERA sesión, una por "
+                "persona.</b> Quien volvió cuatro veces aporta un solo largo —el de "
+                "su primera tanda— y no cuatro: la pregunta es dónde se va alguien "
+                "que empieza. Cuánto rinde una vuelta es otra pregunta, y la contesta "
+                "«Por sesión» arriba, con su propia línea."
                 "<br><br><b>No se desglosa y no depende de la barra de arriba:</b> es "
                 "la camada de la semana elegida, entera. El desglose parte a la gente "
-                "y esto mide al conjunto."
+                "y esto mide al conjunto — por eso las guías del embudo se quedan acá "
+                "aunque se vayan de la curva de arriba."
                 "<br><br>El tramo punteado es donde quedan menos de diez partidas "
                 "vivas: ahí el riesgo se mueve entero con una persona. Y el "
                 "denominador se achica en cada paso por construcción, así que la cola "
@@ -1275,7 +1306,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
     if not series:
         grafico = '<p class="empty">todavía no hay partidas cerradas en esta ventana</p>'
     else:
-        grafico = leyenda_hitos + ch.lines(
+        grafico = _leyenda(_hitos_curva) + ch.lines(
             series, [str(c["k"]) for c in pr["curva"]], suffix="%", height=340,
             y_max=100, legend=corte != "total", mono=mono, marcas=marcas)
 
