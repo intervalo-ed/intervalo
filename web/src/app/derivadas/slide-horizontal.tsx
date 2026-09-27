@@ -49,7 +49,14 @@ export function SlideHorizontal({
     // Grilla de una celda: las dos cajas se apilan en el mismo lugar mientras
     // dura el cruce, sin sacarlas del flujo con `absolute` —que le haría perder
     // el alto al contenedor justo cuando las dos conviven.
-    <div className={cn("relative grid overflow-hidden", className)}>
+    //
+    // **El `className` va PRIMERO a propósito.** `cn()` es tailwind-merge, así
+    // que en un empate gana la última: con el orden natural, un `flex` del que
+    // llama pisaba este `grid` y las dos cajas pasaban a apilarse verticalmente
+    // —el cruce se veía como un salto—. Las tres clases de acá son la forma de
+    // este componente, no un default: quien lo usa trae el tamaño (`flex-1`,
+    // `min-h-0`), no el display.
+    <div className={cn(className, "relative grid overflow-hidden")}>
       <AnimatePresence mode="sync" initial={false} custom={direccion}>
         <motion.div
           key={llave}
