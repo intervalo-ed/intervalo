@@ -70,11 +70,20 @@ for _ in range(16):
         f"{','.join(ex['keys']) or '(vacío)'}"
     )
     # Lo nuevo tiene que estar en el inventario, y no puede repetirse nunca.
+    #
+    # Son DOS familias con su propia fila: las dinámicas (`new_keys` ⊆ `keys`) y
+    # las del bloque fijo que desbloquea `dx-rampa-1` (`fijas_nuevas` ⊆ `fijas`).
+    # El invariante se verifica en las dos, porque el error que atrapa —anunciar
+    # como nueva una tecla que no está en el inventario, o anunciarla dos veces y
+    # que destelle de nuevo— es el mismo de los dos lados.
     if not set(ex["new_keys"]).issubset(ex["keys"]):
         FAILURES.append("new_keys no es subconjunto de keys")
-    if anunciadas & set(ex["new_keys"]):
+    if not set(ex.get("fijas_nuevas") or []).issubset(ex.get("fijas") or []):
+        FAILURES.append("fijas_nuevas no es subconjunto de fijas")
+    nuevas = set(ex["new_keys"]) | set(ex.get("fijas_nuevas") or [])
+    if anunciadas & nuevas:
         FAILURES.append("una tecla se anunció como nueva dos veces")
-    anunciadas |= set(ex["new_keys"])
+    anunciadas |= nuevas
     # Se le sube el θ a mano, porque errar todo el tiempo
     # NO tiene que ver tiers nuevos: desde que β está anclada a la semilla del
     # tier (elo.effective_beta), la dificultad que recibe cada uno la manda su

@@ -365,7 +365,7 @@ for template in TEMPLATES:
         generated = build(template, rng)
         derivative = sympy.diff(generated.f, x)
         required = game_keyboard.required_keys(derivative)
-        col, fresh = game_keyboard.unlock("", derivative)
+        col, fresh, _fijas = game_keyboard.unlock("", derivative)
         keys = game_keyboard.parse_unlocked_ordered(col)
         if not required.issubset(keys):
             ok_covers = False
@@ -385,7 +385,7 @@ sizes: list[int] = []
 for template in TEMPLATES:
     for _ in range(5):
         derivative = sympy.diff(build(template, rng).f, x)
-        col, _fresh = game_keyboard.unlock(col, derivative)
+        col, _fresh, _fij = game_keyboard.unlock(col, derivative)
         sizes.append(len(game_keyboard.parse_unlocked(col)))
 check(all(b >= a for a, b in zip(sizes, sizes[1:])), "el inventario nunca encoge")
 
@@ -409,7 +409,7 @@ print(f"   alcanzables: {' '.join(game_keyboard.in_order(alcanzable))}")
 print(f"   sin plantilla que las pida: {' '.join(inalcanzables) or '(ninguna)'}")
 # Volver a servir algo ya visto no vuelve a anunciarlo como nuevo.
 repetida = sympy.diff(build(TEMPLATES[0], rng).f, x)
-_col, fresh_otra_vez = game_keyboard.unlock(col, repetida)
+_col, fresh_otra_vez, _f3 = game_keyboard.unlock(col, repetida)
 check(fresh_otra_vez == [], "una tecla ya desbloqueada no se reanuncia")
 
 print("   muestras (desde cero, una plantilla sola):")

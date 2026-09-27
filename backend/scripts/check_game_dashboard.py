@@ -1674,7 +1674,8 @@ print("\n— índice de experimentación —")
 _pay = q.build(s, WEEK)
 _idx = game_render.page(_pay, token="tok", seccion="experimentacion")
 _TODOS = (list(_pay["experimentos"])
-          + [_pay["experimento_motor"], _pay["experimento_muro"]]
+          + [_pay["experimento_motor"], _pay["experimento_muro"],
+             _pay["experimento_rampa"]]
           + list(_pay["experimentos_grupos"]))
 
 check("la pestaña abre con el índice", 'id="indice"' in _idx)
@@ -1760,7 +1761,8 @@ _solo_motor = game_render.page(_pay, token="tok", seccion="experimentacion",
 check("filtrando por «motor» queda solo ese en la tabla",
       'x=dx-elo-1"' in _solo_motor
       and not any(f'x={c}"' in _solo_motor
-                  for c in ("dx-puerta-1", "dx-puerta-2", "dx-muro-1", "dx-ab-imagen")))
+                  for c in ("dx-puerta-1", "dx-puerta-2", "dx-muro-1", "dx-ab-imagen",
+                            "dx-rampa-1")))
 check("pero el chip «Todos» sigue ofreciendo la vuelta",
       f">Todos {len(_TODOS)}</a>" in _solo_motor)
 check("y el filtro viaja en los links de la página",

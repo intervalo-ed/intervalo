@@ -200,6 +200,33 @@ Consecuencias que importan para el resto de la gamificación:
   (`XP_POR_TIER`). Es el incentivo alineado y a la vez el límite del abuso:
   subir sin saber resolver no paga, porque hay que acertarlas.
 
+### Los tres primeros ejercicios NO mueven el Elo (dx)
+
+Desde `dx-rampa-1` (27/09), las **tres primeras derivadas de cualquier jugador**
+quedan fuera del Elo: no mueven θ, no suman a `n_updates`, no corrigen la β de su
+plantilla ni suman observación o persona a sus estadísticas. Sí suman a
+`exercises_attempted`, a la racha y a la XP — se juegan, simplemente no se miden.
+Vale para **los tres brazos**, incluido el control (`game/rampa.py ::
+SIN_ELO_HASTA`).
+
+**Por qué.** Esas tres están fijadas por diseño y son siempre las mismas: `x` (la
+respuesta es `1`), `x²` (`2x`) y `2x²` (`4x`), servidas con θ=0 y p̂ entre 0,82 y
+0,85. El motor recién toma el control en la cuarta, donde p̂ cae a 0,77 y la
+mediana de tiempo salta de 5,8 a 17,7 segundos. Son ítems de calibración, no de
+medición.
+
+**Y por qué ahora.** `dx-rampa-1` le da al brazo tratado un teclado que arranca
+con las teclas que la respuesta necesita, así que esas tres pasan a ser casi
+seguras. Si siguieran actualizando θ, el brazo tratado entraría al motor con un θ
+más alto —o sea con ejercicios **más difíciles**— y perdería profundidad por algo
+que no es el tratamiento. Apagarlo en **los dos** brazos es lo que evita eso:
+apagarlo en uno solo habría *creado* la diferencia en vez de sacarla.
+
+**Lo que cuesta, dicho:** las β de `t0_x`, `t1_pow` y `t1_kpow` quedan
+congeladas. Tienen miles de observaciones y su dificultad está bien estimada, así
+que congelarlas no pierde nada — y un ítem que todos aciertan porque el teclado se
+los sirve no debería informar el modelo de dificultad de todos modos.
+
 ### Si le salen repetidas (dx)
 
 La otra pregunta de la escalera —**«¿Te están saliendo repetidas?»**, 🎲 bien

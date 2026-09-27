@@ -262,6 +262,11 @@ const PAD_DYNAMIC_SLOTS = PAD_COLS * PAD_ROWS - 8
 // ejercicios— pero ahora es un inventario que crece, y con una sola tecla
 // desbloqueada esa fila más alta se veía como un botón suelto de otro tamaño.
 // El alto alcanza para los glifos compuestos (√□, e^□ miden 30 px).
+// El alto de una tecla del teclado empaquetado. Más que las del numérico
+// (2.5rem) porque con pocas teclas sobra alto y una tecla grande es más fácil de
+// acertar con el pulgar, que es justo lo que la rampa viene a resolver.
+const RAMPA_ROW = "2.9rem"
+
 const DYNAMIC_ROW = "2.75rem"
 const DYNAMIC_ROW_DESKTOP = "2.6rem"
 export const STRIP_ROW = "2.6rem"
@@ -325,6 +330,64 @@ const DYN_ONE_ROW_MAX = 7
 // distintos. Ver ExerciseCard :: PANEL_CONTENT.
 export const CONTENT_WIDTH = "mx-auto w-full max-w-[32rem]"
 
+// ── La rampa del bloque fijo (`dx-rampa-1`, ver backend/game/rampa.py) ──────
+//
+// Hasta acá el bloque fijo estaba SIEMPRE completo y lo único que crecía era el
+// inventario de arriba. La rampa lo mete en el mismo mecanismo: el teclado
+// arranca con lo que la primera respuesta necesita —la derivada de `x` es `1`,
+// así que con una tecla alcanza— y crece.
+//
+// Los ids son los del backend (`keyboard.py :: FIJAS_ORDER`) y el mapa vive acá
+// porque es donde vive el dibujo. Un id desconocido se ignora, igual que en el
+// vocabulario dinámico.
+//
+// El retroceso y las flechas NO están en el mapa y no es un olvido: no se
+// desbloquean nunca. Son lo que hace falta para corregir, y un teclado del que
+// no se puede volver atrás no es una rampa, es una trampa.
+const FIJA_A_TECLAS: Record<string, Key[]> = {
+  ...Object.fromEntries("0123456789".split("").map((d) => [`f:${d}`, [NUM(d)]])),
+  "f:x": [CENTER[0]],
+  "f:+": [CENTER[1]],
+  "f:-": [CENTER[2]],
+  "f:*": [CENTER[3]],
+  "f:()": [LEFT[0], LEFT[1]],
+  "f:C": [CLEAR_KEY],
+}
+
+/** Cuántas fijas hay en total. Derivado y no escrito a mano: con el literal, el
+ *  día que el backend sume una tecla el teclado se quedaría en modo rampa para
+ *  siempre, porque nunca alcanzaría el total. */
+const FIJAS_TOTAL = Object.keys(FIJA_A_TECLAS).length
+
+// Lo que se escribe arriba y lo que se edita abajo, que es la MISMA agrupación
+// que usan las tiras de escritorio (STRIP_WRITE / STRIP_EDIT). Reusarla no es
+// ahorro de código: es que el teclado incompleto y el de escritorio se lean como
+// el mismo objeto, porque los dos son "las teclas que hay, ordenadas", sin la
+// grilla de calculadora que solo tiene sentido con el numérico entero.
+const ORDEN_ESCRIBIR = [
+  ...("0123456789".split("").map((d) => `f:${d}`)),
+  "f:x", "f:+", "f:-", "f:*", "f:()",
+]
+const ORDEN_EDITAR = ["f:C"]
+
+// Cuántas teclas entran en una fila del teclado empaquetado. Cinco, medido: a
+// 52 px de tecla y 6 de hueco, cinco piden 284 px contra los 358 que deja una
+// pantalla de 390 con sus márgenes. Seis entran justo (342) y siete se van
+// (400), así que cinco deja aire para el teléfono más angosto.
+const RAMPA_MAX_COL = 5
+
+/** Reparte una tira en filas de largo PAREJO, nunca de más de `RAMPA_MAX_COL`.
+ *
+ *  Parejo y no "llenar hasta el tope y que sobre": nueve teclas salen 5+4 y no
+ *  5+4-por-desborde, que es la diferencia entre un bloque y una fila con un
+ *  resto colgando. */
+function repartir<T>(items: T[]): T[][] {
+  if (items.length === 0) return []
+  const filas = Math.ceil(items.length / RAMPA_MAX_COL)
+  const por = Math.ceil(items.length / filas)
+  return Array.from({ length: filas }, (_, i) => items.slice(i * por, (i + 1) * por))
+}
+
 const KEY_CLASS =
   "flex select-none items-center justify-center rounded-md bg-background leading-none transition-colors active:bg-accent"
 
@@ -339,6 +402,8 @@ export function MathKeyboard({
   newKeys = [],
   numpad = true,
   bare = false,
+  fijas = null,
+  newFijas = [],
   className,
 }: {
   input: React.RefObject<MathInputHandle | null>
@@ -355,6 +420,18 @@ export function MathKeyboard({
   // del panel ocupada por lo más fácil de escribir. Lo que queda es lo que la
   // botonera aporta de verdad: lo que uno no sabe cómo escribir.
   numpad?: boolean
+  // Las teclas FIJAS desbloqueadas (`dx-rampa-1`). `null` = el bloque completo,
+  // que es lo que ve el brazo control y lo que veía todo el mundo antes.
+  //
+  // Solo tiene efecto CON numérico, o sea en el teléfono. En escritorio no hay
+  // dígitos que recortar —se tipean— y el teclado físico sigue funcionando en
+  // paralelo, así que la rampa ahí no significaría nada. Que esa condición viva
+  // en una sola línea es a propósito: es lo que hace que «el teclado es palanca
+  // de teléfono» sea verificable y no una convención repartida.
+  fijas?: string[] | null
+  // Las fijas recién desbloqueadas, para que solo esas nazcan con animación.
+  // Aparte de `newKeys` porque son otra familia de ids y otra fila.
+  newFijas?: string[]
   className?: string
 }) {
   const sfx = useSfx()
@@ -476,6 +553,39 @@ export function MathKeyboard({
     return [dynamic.slice(0, DYN_ONE_ROW_MAX), dynamic.slice(DYN_ONE_ROW_MAX)]
   }, [dynamic, numpad])
 
+  // ¿El teclado está en rampa? Hace falta que el backend haya mandado la lista
+  // (o sea que la persona esté en un brazo tratado), que ESTE teclado tenga
+  // numérico (o sea que sea el del teléfono) y que todavía falte alguna tecla.
+  // Cuando el bloque fijo se completa, el teclado vuelve a ser el de siempre sin
+  // ningún caso especial.
+  const enRampa = fijas !== null && numpad && fijas.length < FIJAS_TOTAL
+  const filasRampa = useMemo(() => {
+    if (!enRampa) return []
+    const tiene = new Set(fijas ?? [])
+    // El id viaja junto a la tecla y no se reconstruye desde `key.insert`: el
+    // `·` inserta "\cdot", los paréntesis son DOS teclas de un solo id y la C
+    // no inserta nada, así que ir para atrás desde lo que inserta se rompe en
+    // tres de los dieciséis. Con el id al lado, el destello de tecla nueva cae
+    // siempre donde tiene que caer.
+    const teclas = (orden: string[]) =>
+      orden
+        .filter((id) => tiene.has(id))
+        .flatMap((id) => (FIJA_A_TECLAS[id] ?? []).map((key) => ({ id, key })))
+    const escribir = teclas(ORDEN_ESCRIBIR)
+    // El retroceso y las flechas siempre están: son las de corregir, y nunca se
+    // desbloquean, así que no llevan id de fija ni pueden destellar.
+    const editar = [
+      ...teclas(ORDEN_EDITAR),
+      ...[ERASE_KEY, ...LEFT.slice(2)].map((key) => ({ id: "", key })),
+    ]
+    // Con muy pocas teclas, partirlas en dos tiras deja una fila de una sola
+    // tecla arriba de otra de tres, que se lee como un error de maquetado. Hasta
+    // cinco van todas juntas en una fila sola.
+    return escribir.length + editar.length <= RAMPA_MAX_COL
+      ? [[...escribir, ...editar]]
+      : [...repartir(escribir), ...repartir(editar)]
+  }, [enRampa, fijas])
+
   const padDinFilas = Math.ceil(padDynamic.length / PAD_COLS)
   const padFijasAlto = (PAD_ROWS - padDinFilas) / 2
   const padRows = {
@@ -561,7 +671,32 @@ export function MathKeyboard({
           </div>
         ),
       )}
-      {numpad ? (
+      {enRampa ? (
+        // El teclado INCOMPLETO no conserva la grilla de calculadora con huecos:
+        // se empaqueta en filas centradas y parejas del mismo tamaño. La grilla
+        // de la Casio existe para que el dedo encuentre el 7 sin mirar, y eso no
+        // se puede cumplir con tres teclas; con huecos, además, el bloque se lee
+        // como un teclado roto en vez de como uno que crece.
+        //
+        // El costo, asumido: las teclas se mueven de lugar mientras el
+        // inventario crece. Es el mismo trato que ya tiene la fila dinámica
+        // —«la posición final se alcanza con el vocabulario completo»— y es lo
+        // que además libera el alto que la fila de ayudas ocupa abajo.
+        filasRampa.map((fila, f) => (
+          <div
+            key={`rampa-${f}`}
+            className="flex shrink-0 justify-center gap-1.5"
+          >
+            {fila.map((entry, i) =>
+              button(entry.key, `rampa-${f}-${i}`, {
+                className: "w-[3.25rem]",
+                style: { height: RAMPA_ROW },
+                nueva: entry.id !== "" && newFijas.includes(entry.id),
+              }),
+            )}
+          </div>
+        ))
+      ) : numpad ? (
         // El bloque de abajo SÍ va en el canal de 28rem, igual que el campo de
         // la respuesta y la caja de la fórmula (exercise-card.tsx ::
         // PANEL_CONTENT): es lo que hace que el panel se lea como una columna.

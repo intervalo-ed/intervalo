@@ -243,9 +243,14 @@ def link_guest_to_user(db: Session, guest: GamePlayer, user: User) -> GamePlayer
     # El teclado se UNE, no se elige uno de los dos. Es progresión ganada
     # resolviendo derivadas —cada tecla apareció porque una la exigía— y perderla
     # justo al registrarse castiga exactamente el paso que se quiere fomentar.
+    # Las DOS familias: las dinámicas de la fila de arriba y las fijas que
+    # `dx-rampa-1` desbloquea abajo. Uniendo solo las dinámicas, registrarse a
+    # mitad de la rampa devolvía el teclado a su estado inicial.
     existing.unlocked_keys = keyboard.serialize(
         keyboard.parse_unlocked(existing.unlocked_keys)
         | keyboard.parse_unlocked(guest.unlocked_keys)
+        | keyboard.parse_fijas(existing.unlocked_keys)
+        | keyboard.parse_fijas(guest.unlocked_keys)
     )
 
     # TODAS las tablas que apuntan al invitado, no solo las dos del progreso.

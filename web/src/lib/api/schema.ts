@@ -2295,6 +2295,13 @@ export interface components {
              * @default []
              */
             tabla_slugs: string[];
+            /** Fijas */
+            fijas?: string[] | null;
+            /**
+             * Fijas Nuevas
+             * @default []
+             */
+            fijas_nuevas: string[];
         };
         /**
          * GameExplainOut
@@ -2594,6 +2601,8 @@ export interface components {
              */
             elo: number;
             muro?: components["schemas"]["GameMuroOut"] | null;
+            /** Rampa */
+            rampa?: string | null;
         };
         /** GameProfilePatchRequest */
         GameProfilePatchRequest: {

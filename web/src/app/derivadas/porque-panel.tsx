@@ -22,7 +22,7 @@ import { LINE_COLOR, SECOND_LINE_COLOR } from "@/components/math-graph-colors"
 import MathText from "@/components/math-text"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { KeyCap, WRONG } from "./exercise-card"
+import { KeyCap } from "./exercise-card"
 import { enCampoDeTexto } from "./teclas"
 
 // El gráfico se baja recién cuando hay uno que dibujar.
@@ -467,12 +467,18 @@ export function PorQueButton({
   // "Volver" y el relleno pasa de la mezcla translúcida a un color sólido,
   // para que quede claro que tocarlo de nuevo saca de ahí y no abre otra cosa.
   open = false,
-  // Ya se equivocó una vez: el botón se pinta del mismo lima amarillento que
-  // marca una respuesta incorrecta en el resto del juego (`WRONG`,
-  // exercise-card.tsx) — diga "¿Por qué?" o "Volver", abierto o cerrado—, así
-  // que la explicación queda visualmente atada al error que la motivó desde
-  // que aparece, no recién al abrirla.
-  wrong = false,
+  // Sin relleno: contorno grueso sobre el fondo, con la negrita de siempre.
+  //
+  // Reemplaza a un `wrong` que pintaba el botón del color del error y que NUNCA
+  // se usó desde ningún lado — era código muerto con un comentario que lo
+  // defendía—. Y la idea de atarlo al veredicto se descartó a propósito: el
+  // error ya lo dicen el borde del campo y el cartel de «¿Seguro?», y decirlo
+  // una tercera vez en el botón es ruido.
+  //
+  // Lo pide la grilla 2×2 del brazo `ayudas` (pie-rampa.tsx), donde este botón
+  // queda al lado de Revisar —blanco lleno— y arriba de dos ayudas de contorno
+  // fino: ahí el relleno gris competía con el blanco en vez de ordenarse debajo.
+  plano = false,
   // Solo lo pide AnswerField (exercise-card.tsx), para el botón que
   // reemplaza al campo entero al acertar: ahí es blanco con letra negra,
   // igual que Continuar —sin veredicto en el color, a propósito: es el lugar
@@ -487,7 +493,7 @@ export function PorQueButton({
   // impresa al lado sería prometer un atajo que no existe.
   showKeyHint?: boolean
   open?: boolean
-  wrong?: boolean
+  plano?: boolean
   blanco?: boolean
   className?: string
 }) {
@@ -500,15 +506,9 @@ export function PorQueButton({
       style={
         blanco
           ? { backgroundColor: "#fff", color: "#000" }
-          : // `wrong` manda sobre `open`: el lima marca el error, no el estado
-            // del panel. El texto pasa a NEGRO con el lima —más claro que el
-            // violeta que tenía antes, blanco encima ya no se leía bien—; el
-            // gris sólido de "Volver" ya se quedaba con negro por lo mismo.
-            wrong
-            ? { backgroundColor: WRONG, color: "#000" }
-            : open
-              ? { backgroundColor: GRIS_VOLVER, color: "#000" }
-              : undefined
+          : open
+            ? { backgroundColor: GRIS_VOLVER, color: "#000" }
+            : undefined
       }
       className={cn(
         // Gris, pero gris LLENO, que es distinto de gris apagado.
@@ -522,19 +522,21 @@ export function PorQueButton({
         //
         // La salida es cambiar de FAMILIA en vez de bajar el volumen: Revisar es
         // blanco lleno, Saltear es contorno sobre el fondo, y este es un relleno
-        // gris (o lima, si hay un error). Tres formas distintas, tres pesos
-        // distintos, y el del medio se ve sin competirle al blanco.
+        // gris. Tres formas distintas, tres pesos distintos, y el del medio se
+        // ve sin competirle al blanco.
         //
         // `font-bold` y no el `font-normal` de antes: la misma negrita que ya
         // tiene Revisar/Continuar (`AnswerButton`, que hereda `font-bold` del
-        // variant `default` del Button base). Los dos botones que pueden
-        // quedar pintados de un color de veredicto tienen el mismo peso.
-        "h-[var(--cta-h)] shrink-0 rounded-md border-transparent font-bold transition-colors",
-        !wrong &&
+        // variant `default` del Button base).
+        "h-[var(--cta-h)] shrink-0 rounded-md font-bold transition-colors",
+        !plano && "border-transparent",
+        plano &&
+          "border-2 border-border bg-background px-5 hover:bg-accent dark:bg-background",
+        !plano &&
           !open &&
           !blanco &&
           "bg-foreground/[0.14] px-5 text-foreground hover:bg-foreground/25 dark:bg-foreground/[0.14] dark:hover:bg-foreground/25",
-        (wrong || open || blanco) && "px-5 hover:opacity-90",
+        (open || blanco) && "px-5 hover:opacity-90",
         className,
       )}
     >

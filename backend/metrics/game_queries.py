@@ -59,6 +59,7 @@ from game import sorteo
 # que el tope cambie el panel seguiría inscribiendo por el número viejo y los
 # dos brazos medirían cohortes distintas sin que nada falle.
 from game import muro as game_muro
+from game import rampa as game_rampa
 
 from .queries import (A_ORDER, AR_OFFSET, P1_BAND, _pct, _rows, local_date,
                       week_start)
@@ -351,7 +352,8 @@ def load(db: DBSession) -> dict:
         # separa «resolvió» de «copió», que mezclados arruinan la tasa de
         # acierto. Siguen siendo pocas columnas sobre una tabla chica.
         "exercises": _rows(db, """
-            SELECT id, player_id, created_at, p_hat, status, peeked, template_key
+            SELECT id, player_id, created_at, p_hat, status, peeked, template_key,
+                   theta_at_serve
             FROM game_exercises"""),
         # `exercise_id` ata el intento al ejercicio que lo originó, y sin esa
         # atadura no hay forma de comparar el p̂ que el motor prometió con lo
@@ -2110,6 +2112,11 @@ def _brazos_del_experimento(data: dict, clave: str) -> dict[int, str]:
         cambiar algo.
       - **Tope** (`dx-muro-1`) — mismo hash, y elegible es quien nació después
         del arranque: los veteranos están exentos por diseño.
+      - **Rampa** (`dx-rampa-1`) — mismo hash, y elegible es quien nació a partir
+        del arranque. La rampa solo significa algo para alguien que empieza: a
+        quien ya venía jugando el teclado le salió completo desde siempre y su
+        `unlocked_keys` ya está poblado, así que meterlo diluiría los tres
+        brazos con gente a la que no le pasó nada.
 
     `dx-ab-imagen` no está y no es un olvido: ahí la unidad es el GRUPO de
     WhatsApp y no la persona, así que no hay brazo que asignarle a un jugador.
@@ -2125,6 +2132,11 @@ def _brazos_del_experimento(data: dict, clave: str) -> dict[int, str]:
     if clave == game_muro.EXPERIMENTO:
         return {p["id"]: game_muro.brazo_de(p["id"]) for p in vivos
                 if (p["created_at"] or datetime.min) >= game_muro.NACIDO_DESPUES_DE}
+    if clave == game_rampa.EXPERIMENTO:
+        desde_rampa = EXPERIMENTO_RAMPA["desde"]
+        return {p["id"]: game_rampa.brazo_de(p["id"]) for p in vivos
+                if p["created_at"] is not None
+                and local_date(p["created_at"]) >= desde_rampa}
     return {}
 
 
@@ -2929,6 +2941,372 @@ def experimento_muro(data: dict) -> dict:
         },
         "top20_con_pase": sum(1 for p in top if p["id"] in con_plata),
         "sin_arrancar": sum(b["n"] + b["en_curso"] for b in brazos) == 0,
+    }
+
+
+# ── 6b · La rampa del teclado (dx-rampa-1) ──────────────────────────────────
+
+EXPERIMENTO_RAMPA: dict = {
+    "clave": game_rampa.EXPERIMENTO,
+    "titulo": "El teclado que crece",
+    "categoria": "activacion",
+    "guardarrailes": ("profundidad",),
+    "abstract": (
+        "La primera derivada es x, o sea que la respuesta es 1, y el teclado "
+        "muestra veinticuatro teclas para eso. ¿Arrancar con las que la "
+        "respuesta pide —y poner saltear y la tabla a la vista— hace que más "
+        "gente llegue a la tercera?"
+    ),
+    "cierre": None,
+    "hipotesis": (
+        "De cada diez personas a las que el juego le sirve su primera derivada, "
+        "dos la miran y NO ESCRIBEN NADA: 376 de 2.056 medidas el 27/09, y 310 "
+        "de esas 376 no tocaron absolutamente nada, ni respuesta ni salteo. No "
+        "aparecen en ninguna curva del panel porque todas arrancan en «contestó "
+        "al menos una». Sobre la base correcta —se le sirvió el primer "
+        "ejercicio— llega a la tercera derivada el 61,92%. La hipótesis es que "
+        "una parte de esa pérdida es FRICCIÓN y no desinterés: el teclado "
+        "completo delante de alguien que todavía no sabe de qué se trata."
+    ),
+    "desde": date(2026, 9, 27),
+    # Tres brazos en ESCALERA: cada uno agrega una cosa al anterior, así que las
+    # comparaciones son teclado-contra-control y ayudas-contra-teclado. No es un
+    # factorial —la celda «ayudas sin teclado» pediría el teclado completo MÁS
+    # dos filas de botones y ese alto no existe— y por eso el segundo contraste
+    # mide las ayudas DADO el teclado, que además es la única forma en que se
+    # van a mandar a producción.
+    "brazos": (
+        ("control", "Control"),
+        ("teclado", "Teclado en rampa"),
+        ("ayudas", "Rampa + ayudas"),
+    ),
+    "metrica": "llega_3",
+    # Medido el 27/09 sobre las 2.056 personas legibles a las que se les sirvió
+    # su primera derivada. No es el 76,4% que muestra la curva de profundidad:
+    # esa arranca en «contestó al menos una», que es POSTERIOR al tratamiento.
+    "base": 0.6192,
+    # +8 pp. Defendible por el tamaño del blanco: los 376 que no escriben nada
+    # son el 18,3% de la base, así que convertir un tercio ya son +6,1 pp antes
+    # de tocar a un solo tropezado. Lo que este MDE NO puede ver está dicho en
+    # la predicción: el efecto plausible de las AYUDAS sobre esta métrica es de
+    # +2 pp, donde la potencia es del 10,5%.
+    "mde": 0.08,
+    "alpha": 0.05,
+    "potencia": 0.80,
+    "prediccion": (
+        "El teclado se lee con potencia 0,80 a +8 pp. Las ayudas NO: su efecto "
+        "plausible sobre esta métrica son +2 pp —los 168 que nunca aciertan el "
+        "primer ejercicio, rescatando a un tercio— y ahí la potencia es 10,5%. "
+        "Leerlas pediría 9.152 por brazo, o sea 28 semanas. Por eso el segundo "
+        "escalón se declara de antemano como ESTIMACIÓN y no como test: va a "
+        "producir un intervalo de ±5,7 pp, y «no rechazamos» va a significar «no "
+        "pudimos ver nada de este tamaño», no «no sirve». Lo que sí se testea de "
+        "las ayudas es el MECANISMO: hoy abre la tabla el 15,6%, y si la fila de "
+        "botones lo lleva a 30% eso se ve con 120 por brazo. "
+        "Forma esperada de la curva de diferencia en personas: el teclado nace "
+        "grande en la segunda derivada y decae —es una ganancia de una sola vez "
+        "sobre el primer paso—; las ayudas nacen en cero y crecen con la "
+        "profundidad, porque actúan en cada paso. Son firmas opuestas y por eso "
+        "la forma dice cuál de las dos ganó."
+    ),
+}
+
+# La regla de multiplicidad: SECUENCIA FIJA.
+#
+# Dos contrastes a alfa 0,05 cada uno dan un error familiar de 1 − 0,95² = 9,75%,
+# casi el doble del declarado. Bonferroni lo arregla subiendo el n de 548 a 663
+# por brazo (tres semanas en vez de dos y media). La secuencia fija lo arregla
+# GRATIS: se testea el primer escalón a 0,05 y el segundo SOLO si el primero
+# rechaza, y eso controla el error familiar en 0,05 sin perder un punto de
+# potencia en ninguno de los dos.
+#
+# El costo es que si el teclado no rechaza, las ayudas no se pueden afirmar
+# formalmente. Y encaja con la causalidad del diseño: las ayudas viajan montadas
+# sobre el teclado, así que preguntar por el segundo escalón cuando el primero no
+# existió no significa nada.
+CONTRASTES_RAMPA: tuple[tuple[str, str, str], ...] = (
+    ("teclado", "control", "El teclado"),
+    ("ayudas", "teclado", "Las ayudas, dado el teclado"),
+)
+
+
+def _contraste_prop(a: dict, b: dict, alpha: float) -> dict | None:
+    """El z de dos proporciones, con proporción combinada bajo H0.
+
+    `a` es el tratamiento y `b` el control del contraste, y el signo sale de esa
+    resta: darlo vuelta convierte cada pérdida en una ganancia dibujada en verde.
+    """
+    na, nb = a["n"], b["n"]
+    if not na or not nb:
+        return None
+    pa, pb_ = a["exitos"] / na, b["exitos"] / nb
+    pool = (a["exitos"] + b["exitos"]) / (na + nb)
+    se0 = math.sqrt(pool * (1 - pool) * (1 / na + 1 / nb))
+    # El error del INTERVALO no usa la combinada: esa vale bajo H0, y el
+    # intervalo no supone H0.
+    se = math.sqrt(pa * (1 - pa) / na + pb_ * (1 - pb_) / nb)
+    z = (pa - pb_) / se0 if se0 else 0.0
+    za = _z_de(1 - alpha / 2)
+    return {
+        "delta_pp": round(100 * (pa - pb_), 1),
+        "z": round(z, 2),
+        "p_valor": 2 * (1 - _phi(abs(z))),
+        "ic_pp": (round(100 * (pa - pb_ - za * se), 1),
+                  round(100 * (pa - pb_ + za * se), 1)),
+        "rechaza": abs(z) > za,
+    }
+
+
+def experimento_rampa(data: dict, now: datetime | None = None) -> dict:
+    """El estado de `dx-rampa-1`.
+
+    **La base es «se le sirvió el primer ejercicio» y no «contestó alguna»**, y
+    no es un detalle de gusto. Contestar es POSTERIOR al tratamiento: medir
+    sobre eso es condicionar en un colisionador, y además deja afuera a los 376
+    que miran una derivada y no escriben nada, que son el blanco más grande que
+    tiene este experimento.
+
+    **La métrica primaria se lee sobre TELÉFONO.** En escritorio el teclado del
+    juego no tiene números —se tipean— y el físico sigue funcionando en
+    paralelo, así que ahí el brazo `teclado` es idéntico al control y meterlo al
+    promedio diluye el efecto hacia cero. Lo que sí se lee en escritorio es el
+    contraste de las ayudas SOLAS, que sale de regalo: ahí `control` y `teclado`
+    son la misma pantalla, así que juntarlos y compararlos contra `ayudas` mide
+    la fila de botones sin teclado de por medio.
+    """
+    exp = EXPERIMENTO_RAMPA
+    desde = exp["desde"]
+    ahora = now or datetime.utcnow()
+    corte = ahora - timedelta(minutes=SESSION_GAP_MINUTES)
+
+    # Cuándo se le sirvió a cada uno su primer ejercicio, y el θ con el que se
+    # le sirvió el cuarto —que es el guardarraíl del Elo—.
+    primera: dict[int, datetime] = {}
+    theta4: dict[int, float] = {}
+    phat4: dict[int, float] = {}
+    por_jug: dict[int, list[dict]] = defaultdict(list)
+    for e in data["exercises"]:
+        if e["created_at"] is not None:
+            por_jug[e["player_id"]].append(e)
+    for pid, ejs in por_jug.items():
+        ejs.sort(key=lambda e: e["created_at"])
+        primera[pid] = ejs[0]["created_at"]
+        if len(ejs) >= 4:
+            cuarto = ejs[3]
+            if cuarto.get("theta_at_serve") is not None:
+                theta4[pid] = cuarto["theta_at_serve"]
+            if cuarto.get("p_hat") is not None:
+                phat4[pid] = cuarto["p_hat"]
+
+    # Quién abrió la tabla y quién salteó alguna vez: el MECANISMO de las ayudas.
+    espio = {e["player_id"] for e in data["exercises"] if e.get("peeked")}
+    salteo = {e["player_id"] for e in data["exercises"] if e.get("status") == "skipped"}
+
+    respuestas: dict[int, list[dict]] = defaultdict(list)
+    for a in data["_firsts"]:
+        respuestas[a["player_id"]].append(a)
+
+    # ── La población ────────────────────────────────────────────────────────
+    filas: list[dict] = []
+    abiertos = 0
+    for p in data["players"]:
+        if p["is_bot"]:
+            continue
+        pid = p["id"]
+        servido = primera.get(pid)
+        if servido is None or local_date(servido) < desde:
+            continue
+        tandas = _sesiones(respuestas.get(pid) or [])
+        if tandas:
+            # La tanda tiene que estar CERRADA para poder leerla: media hora sin
+            # responder es la misma definición de «sentada» que usa la curva.
+            if tandas[0][-1]["created_at"] >= corte:
+                abiertos += 1
+                continue
+            largo = len(tandas[0])
+            vuelve = len(tandas) > 1
+        else:
+            # Se le sirvió y nunca contestó. Cuenta como largo 0 —que es el dato
+            # que ninguna curva del panel muestra hoy— en cuanto pasó el hueco.
+            if servido >= corte:
+                abiertos += 1
+                continue
+            largo, vuelve = 0, False
+        filas.append({
+            "brazo": game_rampa.brazo_de(pid),
+            "movil": (p.get("platform") or "") in ("ios", "android"),
+            "largo": largo,
+            "vuelve": vuelve,
+            "peek": pid in espio,
+            "skip": pid in salteo,
+            "theta4": theta4.get(pid),
+            "phat4": phat4.get(pid),
+        })
+
+    n_pedido = n_comprometido(exp)
+
+    # La FUNCIÓN DE POTENCIA del contraste primario, con el n comprometido.
+    #
+    # Se calcula y se dibuja porque es lo que impide leer mal el resultado. Con
+    # 550 por brazo el experimento ve un efecto de +8 pp ocho de cada diez veces
+    # y uno de +2 pp una de cada diez, y el efecto plausible de las AYUDAS sobre
+    # esta métrica es justamente +2 pp. Sin esta curva a la vista, un «no
+    # rechaza» del segundo escalón se lee como «no sirve», que es otra cosa.
+    za = _z_de(1 - exp["alpha"] / 2)
+    potencia_curva = []
+    for pp in (2, 3, 4, 5, 6, 8, 10, 12):
+        d = pp / 100
+        p0, p1 = exp["base"], exp["base"] + d
+        pb = (p0 + p1) / 2
+        se0 = math.sqrt(2 * pb * (1 - pb) / n_pedido)
+        se1 = math.sqrt((p0 * (1 - p0) + p1 * (1 - p1)) / n_pedido)
+        pot = (1 - _phi((za * se0 - d) / se1)) + _phi((-za * se0 - d) / se1)
+        potencia_curva.append({"pp": pp, "potencia": round(100 * pot, 1)})
+    # El semiancho del intervalo que el segundo escalón va a producir. Es el
+    # número que convierte «no concluyente» en algo verificable.
+    ic_semiancho = round(
+        100 * za * math.sqrt(2 * exp["base"] * (1 - exp["base"]) / n_pedido), 1)
+
+    def resumen(rows: list[dict], clave: str, label: str) -> dict:
+        prop = [r for r in rows if r["brazo"] == clave]
+        n = len(prop)
+        llega3 = sum(1 for r in prop if r["largo"] >= 3)
+        thetas = [r["theta4"] for r in prop if r["theta4"] is not None]
+        phats = [r["phat4"] for r in prop if r["phat4"] is not None]
+        return {
+            "clave": clave,
+            "label": label,
+            "n": n,
+            "exitos": llega3,
+            "pct": _pct(llega3, n),
+            "falta": max(0, n_pedido - n),
+            # Profundidad en PERSONAS y no en porcentaje: cuando el tratamiento
+            # toca la entrada, los brazos arrancan la curva desde alturas
+            # distintas y dos curvas normalizadas se ven más diferentes justo
+            # cuando menos lo son. Es lo que pasó con `dx-puerta-1`.
+            "vivos": {k: sum(1 for r in prop if r["largo"] >= k)
+                      for k in (1, 2, 3, 5, 10, 20)},
+            "muda": sum(1 for r in prop if r["largo"] == 0),
+            "vuelve": _pct(sum(1 for r in prop if r["vuelve"]), n),
+            "peek": _pct(sum(1 for r in prop if r["peek"]), n),
+            "skip": _pct(sum(1 for r in prop if r["skip"]), n),
+            "theta4": round(sum(thetas) / len(thetas), 3) if thetas else None,
+            "phat4": round(sum(phats) / len(phats), 3) if phats else None,
+            "n_theta4": len(thetas),
+        }
+
+    moviles = [r for r in filas if r["movil"]]
+    brazos = [resumen(moviles, c, l) for c, l in exp["brazos"]]
+    por_clave = {b["clave"]: b for b in brazos}
+
+    # ── Los dos contrastes, en secuencia fija ───────────────────────────────
+    listo = all(b["n"] >= n_pedido for b in brazos)
+    escalones = []
+    gatillo_abierto = True
+    for trat, ctrl, titulo in CONTRASTES_RAMPA:
+        a, b = por_clave[trat], por_clave[ctrl]
+        lectura = _contraste_prop(a, b, exp["alpha"]) if listo else None
+        # El segundo escalón solo se puede AFIRMAR si el primero rechazó. El
+        # número se calcula igual y se muestra igual —esconderlo sería peor—
+        # pero sale marcado como no afirmable, que es lo que la secuencia fija
+        # significa.
+        afirmable = gatillo_abierto
+        if lectura is not None and not lectura["rechaza"]:
+            gatillo_abierto = False
+        escalones.append({
+            "titulo": titulo, "trat": trat, "ctrl": ctrl,
+            "lectura": lectura, "afirmable": afirmable,
+            # Las ayudas no están powered en esta métrica y eso se declaró antes
+            # de ver un dato: se muestra como estimación con su intervalo.
+            "solo_estimacion": trat == "ayudas",
+        })
+
+    # ── El guardarraíl del Elo ──────────────────────────────────────────────
+    #
+    # Los tres primeros ejercicios no actualizan θ EN NINGÚN BRAZO justamente
+    # para que esto no pase (ver game/rampa.py :: SIN_ELO_HASTA). Se mide igual,
+    # porque un guardarraíl que se confía de que el código hace lo que dice no
+    # es un guardarraíl: si θ al servir el cuarto ejercicio difiere entre brazos,
+    # el motor les está sirviendo dificultades distintas y la profundidad deja de
+    # ser comparable.
+    thetas = [b["theta4"] for b in brazos if b["theta4"] is not None]
+    elo_limpio = None
+    if len(thetas) == len(brazos) and thetas:
+        elo_limpio = (max(thetas) - min(thetas)) < 0.05
+
+    # ── Las ayudas SOLAS, en escritorio ─────────────────────────────────────
+    escritorio = [r for r in filas if not r["movil"]]
+    sin_rampa = [r for r in escritorio if r["brazo"] in ("control", "teclado")]
+    con_ayudas = [r for r in escritorio if r["brazo"] == "ayudas"]
+    desk = None
+    if sin_rampa and con_ayudas:
+        a = {"n": len(con_ayudas),
+             "exitos": sum(1 for r in con_ayudas if r["largo"] >= 3)}
+        b = {"n": len(sin_rampa),
+             "exitos": sum(1 for r in sin_rampa if r["largo"] >= 3)}
+        desk = {
+            "n_ayudas": a["n"], "n_resto": b["n"],
+            "pct_ayudas": _pct(a["exitos"], a["n"]),
+            "pct_resto": _pct(b["exitos"], b["n"]),
+            "lectura": _contraste_prop(a, b, exp["alpha"]),
+            "peek_ayudas": _pct(sum(1 for r in con_ayudas if r["peek"]), a["n"]),
+            "peek_resto": _pct(sum(1 for r in sin_rampa if r["peek"]), b["n"]),
+        }
+
+    # ── El mecanismo: ¿la gente ENCUENTRA las ayudas? ───────────────────────
+    #
+    # Es el único contraste de este experimento que está sobrado de potencia, y
+    # contesta una pregunta distinta y bien planteada. Si el mecanismo no se
+    # dispara, el rediseño no hizo nada y la discusión sobre retención no existe.
+    mecanismo = None
+    if por_clave["ayudas"]["n"] and por_clave["teclado"]["n"]:
+        mecanismo = {
+            "tabla": _contraste_prop(
+                {"n": por_clave["ayudas"]["n"],
+                 "exitos": sum(1 for r in moviles
+                               if r["brazo"] == "ayudas" and r["peek"])},
+                {"n": por_clave["teclado"]["n"],
+                 "exitos": sum(1 for r in moviles
+                               if r["brazo"] == "teclado" and r["peek"])},
+                exp["alpha"]),
+            "saltear": _contraste_prop(
+                {"n": por_clave["ayudas"]["n"],
+                 "exitos": sum(1 for r in moviles
+                               if r["brazo"] == "ayudas" and r["skip"])},
+                {"n": por_clave["teclado"]["n"],
+                 "exitos": sum(1 for r in moviles
+                               if r["brazo"] == "teclado" and r["skip"])},
+                exp["alpha"]),
+        }
+
+    return {
+        **_ficha(exp),
+        "clave": exp["clave"],
+        "titulo": exp["titulo"],
+        "hipotesis": exp["hipotesis"],
+        "prediccion": exp["prediccion"],
+        "desde": exp["desde"],
+        "encendido": game_rampa.habilitado(),
+        "metrica": exp["metrica"],
+        "base": exp["base"],
+        "mde_pp": round(100 * exp["mde"], 0),
+        "alpha": exp["alpha"],
+        "potencia": exp["potencia"],
+        "n_pedido": n_pedido,
+        "potencia_curva": potencia_curva,
+        "ic_semiancho": ic_semiancho,
+        "brazos": brazos,
+        "abiertos": abiertos,
+        "listo": listo,
+        "escalones": escalones,
+        # El panel de experimentos pide una `lectura` para el tag y la caja de
+        # estado: es la del PRIMER escalón, que es la primaria.
+        "lectura": escalones[0]["lectura"] if escalones else None,
+        "elo_limpio": elo_limpio,
+        "sin_elo_hasta": game_rampa.SIN_ELO_HASTA,
+        "escritorio": desk,
+        "mecanismo": mecanismo,
+        "sin_arrancar": sum(b["n"] for b in brazos) == 0,
     }
 
 
@@ -4507,6 +4885,7 @@ def build(db: DBSession, week: date, weeks_shown: int = 4,
         "experimentos": experimentos(data),
         "experimento_motor": experimento_motor(data),
         "experimento_muro": experimento_muro(data),
+        "experimento_rampa": experimento_rampa(data),
         "experimentos_grupos": experimento_grupos(data),
         # Solo la del experimento que se esta mirando; None en el indice.
         "curva_brazos": (curva_por_brazo(data, exp, _d["brazos"], k_max)

@@ -96,6 +96,7 @@ import {
   STRIP_ROW,
   columnaDeTira,
 } from "./math-keyboard"
+import { PieDeRampa } from "./pie-rampa"
 import { Barra, Hueco } from "@/components/skeleton-barra"
 import { parseAnswerToMathJson, warmupComputeEngine } from "./parse-answer"
 import { useLocalVerdict } from "./UseLocalVerdict"
@@ -1442,6 +1443,13 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
     else loadNext()
   }, [exercise, loadNext, sfx])
 
+  // El brazo `ayudas` de `dx-rampa-1` (backend/game/rampa.py). En escritorio la
+  // RAMPA DEL TECLADO no aplica —no hay numérico que recortar y el teclado
+  // físico sigue andando— pero la fila de ayudas sí, y eso deja un contraste
+  // regalado: acá `control` y `teclado` son idénticos, así que juntarlos y
+  // compararlos contra `ayudas` mide las ayudas SOLAS, sin teclado de por medio.
+  const conAyudas = player?.rampa === "ayudas"
+
   const toggleTable = useCallback(() => {
     sfx.select()
     flipTable()
@@ -2092,7 +2100,9 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                 bajó lo mismo, ver INTRO_FONT_PX en game-intro.tsx. */}
             <GameIntroLogo intro={intro} fontSize="1.0625rem" />
             <div className="flex items-center gap-2" style={chromeStyle}>
-              <TableButton open={tableOpen} onToggle={toggleTable} />
+              {/* Con la fila de ayudas puesta la tabla vive en el pie, así
+                  que acá arriba sobra. La tecla Alt sigue abriéndola igual. */}
+              {!conAyudas && <TableButton open={tableOpen} onToggle={toggleTable} />}
               <ChatButton
                 open={chatOpen}
                 sinLeer={mensajesSinLeer}
@@ -2712,6 +2722,26 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                         Volver
                         <KeyCap>{teclas.enter}</KeyCap>
                       </Button>
+                    ) : exercise && conAyudas ? (
+                      <PieDeRampa
+                        tone={tone}
+                        seq={answerSeq}
+                        cerradoVisual={cerradoVisual}
+                        closed={cerradoVisual}
+                        hayPorque={hayPorque}
+                        primerIntento={primerIntento}
+                        principalDisabled={
+                          answerMutation.isPending ||
+                          (closed && (next.isPending || esperandoAdelanto))
+                        }
+                        skipDisabled={
+                          skipMutation.isPending || answerMutation.isPending
+                        }
+                        onPrincipal={onPrimary}
+                        onSkip={onSkip}
+                        onTabla={toggleTable}
+                        onPorque={porqueOpen ? cerrarPorque : abrirPorque}
+                      />
                     ) : exercise ? (
                       <>
                         {/* Resuelto el ejercicio el pie es UNO solo, Continuar

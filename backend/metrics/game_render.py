@@ -45,7 +45,7 @@ from . import charts as ch
 from . import theme
 from .charts import esc, num
 from .game_queries import (
-    CATEGORIAS, DEPTH_MAX, DEPTH_MIN, DEPTH_TOPE, FIRST_WEEK,
+    CATEGORIAS, CONTRASTES_RAMPA, DEPTH_MAX, DEPTH_MIN, DEPTH_TOPE, FIRST_WEEK,
     MIN_IMPRESIONES_CTR, MIN_IMPRESIONES_SEMANA, PDF_CARPETA, PEDIDO_CAFECITO,
     PLATFORM_LABEL,
 )
@@ -1368,7 +1368,8 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
     # así se lee como un bloque que no cargó — que es exactamente lo que el
     # filtro no está haciendo.
     fichas = (list(p["experimentos"])
-              + [p["experimento_motor"], p["experimento_muro"]]
+              + [p["experimento_motor"], p["experimento_muro"],
+                 p["experimento_rampa"]]
               + list(p["experimentos_grupos"]))
     # Lo que está corriendo va arriba: es lo único sobre lo que se puede
     # decidir algo hoy. Adentro de cada mitad, lo último declarado primero.
@@ -2530,6 +2531,292 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
             "llegan nuevos. Mide una sola cosa: si un estudiante atraviesa un checkout para "
             "seguir jugando, y cuánto cuesta preguntárselo.",
         anchor="experimento-muro")
+
+    # ── 6a-quater · El experimento de ACTIVACIÓN: la rampa del teclado ──────
+    #
+    # El único con TRES brazos y dos contrastes, así que la caja de estado no
+    # alcanza con un veredicto: son dos escalones y cada uno tiene el suyo. Y el
+    # segundo se declaró de antemano como ESTIMACIÓN y no como test, así que se
+    # dibuja con su intervalo y no con un sí/no — un p-valor ahí invitaría a leer
+    # «no rechaza» como «no sirve», que con potencia del 10% es exactamente el
+    # error que hay que evitar.
+    e = p["experimento_rampa"]
+    brazos = e["brazos"]
+    total = sum(b["n"] for b in brazos)
+    falta = max((b["falta"] for b in brazos), default=0)
+
+    if e.get("cierre"):
+        estado = _caja_cierre(e)
+    elif not e["encendido"]:
+        estado = _caja_estado(
+            "Apagado",
+            '<code>RAMPA_ENABLED</code> está en cero: nadie tiene rampa ni fila de '
+            'ayudas, y los tres brazos son el mismo juego. Lo de abajo es lo que quedó '
+            'de cuando estuvo prendido.', "espera")
+    elif e["sin_arrancar"]:
+        estado = _caja_estado(
+            "Sin datos todavía",
+            f'Todavía no hay nadie legible. Entra quien se creó el '
+            f'{e["desde"].strftime("%d/%m")} o después, recibió su primera derivada y ya '
+            f'cerró su primera tanda — o nunca contestó y pasó la media hora, que es '
+            f'justamente el caso que ninguna curva del panel mostraba.', "espera")
+    elif falta > 0:
+        estado = _caja_estado(
+            f'Todavía no se puede leer — faltan {num(falta)} por brazo',
+            f'Van {num(total)} de los {num(3 * e["n_pedido"])} comprometidos '
+            f'({num(e["n_pedido"])} por brazo) y hay {num(e["abiertos"])} con la primera '
+            f'tanda abierta, que se leen en media hora. El p-valor no se calcula hasta '
+            f'llegar: mirar todos los días y parar en cuanto cruza '
+            f'{num(e["alpha"], dec=2)} no es leer el experimento, es repetir el sorteo '
+            f'hasta que salga.', "espera")
+    else:
+        primero = e["escalones"][0]["lectura"] or {}
+        if primero.get("rechaza"):
+            gana = primero["delta_pp"] > 0
+            estado = _caja_estado(
+                f'El teclado {"GANÓ" if gana else "PERDIÓ"}: '
+                f'{num(primero["delta_pp"], " pp", dec=1)}',
+                f'IC 95% [{num(primero["ic_pp"][0], dec=1)}, '
+                f'{num(primero["ic_pp"][1], dec=1)}] pp · z = '
+                f'{num(primero["z"], dec=2)} · p = {num(primero["p_valor"], dec=4)}. '
+                f'Con el primer escalón rechazando, el segundo se puede afirmar.',
+                "gana" if gana else "pierde")
+        else:
+            estado = _caja_estado(
+                "Sin diferencia detectable en el teclado",
+                f'{num(primero.get("delta_pp", 0), " pp", dec=1)}, IC 95% '
+                f'[{num((primero.get("ic_pp") or [0, 0])[0], dec=1)}, '
+                f'{num((primero.get("ic_pp") or [0, 0])[1], dec=1)}] pp. Por la '
+                f'secuencia fija, el segundo escalón ya no se puede afirmar — su número '
+                f'sigue abajo porque esconderlo sería peor, pero es descriptivo.',
+                "plano")
+
+    # ── El embudo por brazo, en PERSONAS ────────────────────────────────────
+    #
+    # Arranca en «se le sirvió la primera derivada» y no en «contestó alguna», y
+    # ese primer escalón es el motivo entero del experimento: entre los dos hay
+    # un 18,3% que mira una derivada y no escribe nada, y no aparecía en ninguna
+    # curva del panel.
+    PASOS = (("Se le sirvió", None), ("Contestó ≥1", 1), ("Llegó a la 2ª", 2),
+             ("Llegó a la 3ª ▸", 3), ("a la 5ª", 5), ("a la 10ª", 10))
+    embudo = ch.vbars(
+        [lab for lab, _ in PASOS],
+        [{"label": b["label"],
+          "values": [b["n"] if k is None else b["vivos"].get(k, 0) for _, k in PASOS]}
+         for b in brazos if b["n"]],
+        suffix="") if total else '<p class="empty">todavía no entró nadie</p>'
+
+    # ── La curva por brazo, en personas ─────────────────────────────────────
+    KS = list(range(1, 21))
+    curva = ch.lines(
+        [{"label": f'{b["label"]} (n={num(b["n"])})',
+          "values": [b["vivos"].get(k, 0) for k in KS],
+          "weak": [b["vivos"].get(k, 0) < 10 for k in KS]}
+         for b in brazos if b["n"]],
+        [str(k) for k in KS], suffix="", height=300,
+    ) if total else ""
+
+    # ── La forma de la diferencia, que es lo que el experimento contesta ────
+    #
+    # No es una curiosidad: las dos palancas predicen formas OPUESTAS. El teclado
+    # mueve el riesgo del primer paso, así que multiplica la curva por una
+    # constante — nace grande y decae. Las ayudas mueven el riesgo de CADA paso,
+    # así que componen — nacen en cero y crecen. Por eso la forma dice cuál de
+    # las dos ganó, y por eso se escribió en la predicción antes de ver un dato.
+    por_clave = {b["clave"]: b for b in brazos}
+    filas_dif = []
+    for k in (1, 2, 3, 5, 10, 20):
+        cel = [f"k = {k}"]
+        for trat, ctrl, _ in CONTRASTES_RAMPA:
+            a, b = por_clave.get(trat), por_clave.get(ctrl)
+            if not a or not b or not a["n"] or not b["n"]:
+                cel.append("—")
+                continue
+            # Diferencia en personas NORMALIZADA al mismo n: los brazos no
+            # tienen exactamente la misma cantidad de gente (el hash reparte con
+            # su desvío) y restar crudo confundiría el desbalance del sorteo con
+            # el efecto.
+            d = a["vivos"].get(k, 0) - b["vivos"].get(k, 0) * a["n"] / b["n"]
+            color = _ESTADOS["gana" if d > 0 else "pierde"][0]
+            cel.append(f'<b style="color:{color}">{d:+.0f}</b>' if abs(d) >= 0.5 else "0")
+        filas_dif.append(cel)
+    tabla_dif = _table(
+        ["", "Teclado − control", "Ayudas − teclado"], filas_dif,
+        empty="todavía no hay con qué") if total else ""
+
+    # ── Los dos escalones ───────────────────────────────────────────────────
+    filas_esc = []
+    for esc_ in e["escalones"]:
+        L = esc_["lectura"]
+        if L is None:
+            filas_esc.append([esc_["titulo"], "—", "—", "—",
+                              "no se lee hasta el n"])
+            continue
+        if esc_["solo_estimacion"]:
+            veredicto = "estimación, sin potencia para testear"
+        elif not esc_["afirmable"]:
+            veredicto = "no afirmable (el escalón anterior no rechazó)"
+        elif L["rechaza"]:
+            veredicto = "rechaza H₀"
+        else:
+            veredicto = "no rechaza H₀"
+        filas_esc.append([
+            esc_["titulo"],
+            f'{num(L["delta_pp"], " pp", dec=1)}',
+            f'[{num(L["ic_pp"][0], dec=1)}, {num(L["ic_pp"][1], dec=1)}]',
+            f'{num(L["z"], dec=2)} · p {num(L["p_valor"], dec=4)}',
+            veredicto,
+        ])
+    tabla_esc = _table(
+        ["Contraste", "Diferencia", "IC 95% (pp)", "z", "Veredicto"],
+        filas_esc, empty="todavía no")
+
+    # ── La función de potencia ──────────────────────────────────────────────
+    potencia = ch.lines(
+        [{"label": "Potencia del contraste primario",
+          "values": [c["potencia"] for c in e["potencia_curva"]],
+          "tips": [f'Si el efecto real fuera de {c["pp"]} pp, este experimento lo '
+                   f'detectaría el {_pct_txt(c["potencia"])} de las veces.'
+                   for c in e["potencia_curva"]]}],
+        [f'+{c["pp"]}' for c in e["potencia_curva"]],
+        suffix="%", height=190, legend=False)
+
+    # ── El mecanismo, que es el único contraste sobrado de potencia ─────────
+    mec = e["mecanismo"]
+    mecanismo = ch.vbars(
+        ["Abre la tabla", "Saltea alguna vez"],
+        [{"label": b["label"], "values": [b["peek"] or 0, b["skip"] or 0]}
+         for b in brazos if b["n"]],
+        suffix="%") if total else '<p class="empty">sin datos</p>'
+
+    # ── El guardarraíl del Elo ──────────────────────────────────────────────
+    filas_elo = [[b["label"], num(b["n_theta4"]),
+                  "—" if b["theta4"] is None else num(b["theta4"], dec=3),
+                  "—" if b["phat4"] is None else num(b["phat4"], dec=3)]
+                 for b in brazos]
+    if e["elo_limpio"] is None:
+        tono_elo, txt_elo = "espera", "todavía no hay suficiente gente en la cuarta derivada"
+    elif e["elo_limpio"]:
+        tono_elo, txt_elo = "gana", "θ no divergió: los tres brazos entran al motor desde el mismo lugar"
+    else:
+        tono_elo, txt_elo = "pierde", ("θ DIVERGIÓ entre brazos — el motor les está sirviendo "
+                                       "dificultades distintas y la profundidad deja de ser comparable")
+
+    # ── Las ayudas SOLAS, en escritorio ─────────────────────────────────────
+    desk = e["escritorio"]
+    if desk and desk["lectura"]:
+        tabla_desk = _table(
+            ["", "Personas", "Llega a la 3ª", "Abre la tabla"],
+            [["Con fila de ayudas", num(desk["n_ayudas"]),
+              _pct_txt(desk["pct_ayudas"]), _pct_txt(desk["peek_ayudas"])],
+             ["Control + teclado (misma pantalla)", num(desk["n_resto"]),
+              _pct_txt(desk["pct_resto"]), _pct_txt(desk["peek_resto"])],
+             [f'<b>Diferencia</b>', "",
+              f'<b>{num(desk["lectura"]["delta_pp"], " pp", dec=1)}</b>', ""]])
+    else:
+        tabla_desk = '<p class="empty">todavía no hay escritorio legible en los dos lados</p>'
+
+    bloque_de[e["clave"]] = _section(
+        1, "La activación: el teclado que crece",
+        _box(esc(e["titulo"]), estado
+             + _table(["Brazo", "Personas", "No escribió nada", "Llega a la 3ª ▸",
+                       "Llega a la 10ª", "Vuelve otro día", "Faltan"],
+                      [[b["label"], num(b["n"]), num(b["muda"]),
+                        _pct_txt(b["pct"]), num(b["vivos"].get(10, 0)),
+                        _pct_txt(b["vuelve"]),
+                        "—" if not b["falta"] else num(b["falta"])]
+                       for b in brazos], empty="todavía nadie")
+             + f'<p class="note"><b>La base es «se le sirvió la primera derivada», no '
+               f'«contestó alguna».</b> Y eso es lo que hace que este experimento pueda '
+               f'ver lo que los dos de la puerta no veían: entre los dos escalones hay un '
+               f'18,3% que mira una derivada y <b>no escribe nada</b> — la columna «no '
+               f'escribió nada» de arriba—. Medir sobre «contestó» además sería condicionar '
+               f'en una variable POSTERIOR al tratamiento, o sea en un colisionador, y el '
+               f'contraste saldría sesgado.<br><br>'
+               f'<b>La métrica primaria se lee sobre TELÉFONO.</b> En escritorio el teclado '
+               f'del juego no tiene números —se tipean— y el físico sigue andando, así que '
+               f'ahí el brazo del teclado es idéntico al control y meterlo al promedio '
+               f'diluiría el efecto hacia cero.</p>'
+             + _box("El embudo, por brazo y en personas", embudo,
+                    note='El primer escalón es el que ninguna curva del panel mostraba. '
+                         'En PERSONAS y no en porcentaje: cuando el tratamiento toca la '
+                         'entrada los brazos arrancan desde alturas distintas, y dos curvas '
+                         'normalizadas se ven más diferentes justo cuando menos lo son.')
+             + _box("Los dos escalones de la escalera", tabla_esc,
+                    note=f'<b>Secuencia fija.</b> Se testea el teclado a alfa '
+                         f'{num(e["alpha"], dec=2)} y las ayudas SOLO si el teclado rechaza. '
+                         f'Eso controla el error familiar en {num(e["alpha"], dec=2)} sin '
+                         f'perder potencia — Bonferroni habría subido el n de '
+                         f'{num(e["n_pedido"])} a 663 por brazo.<br><br>'
+                         f'<b>El segundo escalón es una ESTIMACIÓN, no un test, y se declaró '
+                         f'así antes de ver un dato.</b> El efecto plausible de las ayudas '
+                         f'sobre esta métrica son +2 pp, donde la potencia es del 10,5%: el '
+                         f'intervalo va a medir ±{num(e["ic_semiancho"], dec=1)} pp, o sea '
+                         f'que va a contener el cero Y efectos que valdría la pena tener. '
+                         f'«No rechazamos» ahí significa «no pudimos ver nada de este '
+                         f'tamaño», no «no sirve».')
+             + _box("La forma de la diferencia, en personas", tabla_dif + curva,
+                    note='<b>Las dos palancas predicen formas OPUESTAS, y por eso la forma '
+                         'es el resultado.</b> El teclado mueve el riesgo del primer paso: '
+                         'multiplica la curva entera por una constante, así que nace grande '
+                         'y decae. Las ayudas mueven el riesgo de CADA paso: componen, así '
+                         'que nacen en cero y crecen con la profundidad. Si la ventaja del '
+                         'teclado se desploma en tres pasos, rescató turistas —es lo que '
+                         'pasó en <code>dx-puerta-1</code>, que ganó 71 personas en la '
+                         'primera derivada y −1 en la tercera—; si aguanta, rescató gente. '
+                         'La diferencia está normalizada al n del brazo tratado, para no '
+                         'confundir el desbalance del sorteo con el efecto.')
+             + _box("¿La gente ENCUENTRA las ayudas?", mecanismo,
+                    note='<b>El único contraste de este experimento que está sobrado de '
+                         'potencia.</b> Hoy abre la tabla el 15,6% y la fila de botones '
+                         'debería multiplicarlo: un salto así se ve con 120 por brazo. '
+                         'Contesta una pregunta distinta y bien planteada — si el mecanismo '
+                         'no se dispara, el rediseño no hizo nada y la discusión sobre '
+                         'retención no existe; si se dispara y la profundidad no se movió, '
+                         'aprendiste que encontrarlas no alcanza.')
+             + _box("Guardarraíl: el Elo de los tres brazos", _caja_estado(
+                 txt_elo,
+                 f'θ y p̂ con los que el motor sirve el CUARTO ejercicio, que es donde toma '
+                 f'el control. Los {num(e["sin_elo_hasta"])} primeros no actualizan θ en '
+                 f'NINGÚN brazo justamente para que esto no diverja '
+                 f'(<code>game/rampa.py</code>), y se mide igual porque un guardarraíl que '
+                 f'confía en que el código hace lo que dice no es un guardarraíl.',
+                 tono_elo) + _table(
+                     ["Brazo", "Con 4º ejercicio", "θ al servir el 4º", "p̂ al servir el 4º"],
+                     filas_elo, empty="todavía nadie llegó al cuarto"),
+                 note='Si la rampa vuelve casi seguras las tres primeras y esas movieran θ, '
+                      'el brazo tratado entraría al motor con θ más alto, o sea con '
+                      'ejercicios MÁS difíciles, y perdería profundidad por algo que no es '
+                      'el tratamiento. Apagarlo en los TRES brazos y no solo en los tratados '
+                      'es lo que hace que la comparación mida lo que dice medir.')
+             + _box("De regalo: las ayudas SOLAS, en escritorio", tabla_desk,
+                    note='En escritorio la rampa del teclado no aplica, así que <b>control y '
+                         'teclado son exactamente la misma pantalla</b>. Juntarlos y '
+                         'compararlos contra el brazo con ayudas mide la fila de botones sin '
+                         'teclado de por medio — un contraste limpio que el diseño no buscó '
+                         'y que sale gratis. Es ~20% del caudal, así que está para mirar la '
+                         'dirección, no para decidir.')
+             + _box("Con qué potencia se ve cada efecto", potencia,
+                    note=f'Con {num(e["n_pedido"])} por brazo. El MDE declarado de '
+                         f'{num(e["mde_pp"], " pp", dec=0)} es donde la potencia vale 0,80; '
+                         f'a la izquierda de eso el experimento empieza a no ver. Está '
+                         f'dibujada porque es lo que impide leer un «no rechaza» como un '
+                         f'«no sirve».'),
+             note=f'<b>Hipótesis:</b> {esc(e["hipotesis"])}'
+                  f'<br><br>Declarado el {e["desde"].strftime("%d/%m")}: base '
+                  f'{num(100 * e["base"], "%", dec=2)} y efecto mínimo '
+                  f'{num(e["mde_pp"], " pp", dec=0)}, alfa {num(e["alpha"], dec=2)}, '
+                  f'potencia {num(100 * e["potencia"], "%", dec=0)} → '
+                  f'<b>{num(e["n_pedido"])} por brazo</b>, {num(3 * e["n_pedido"])} en '
+                  f'total. Tres brazos en ESCALERA —cada uno agrega una cosa al anterior— y '
+                  f'no un factorial: la celda «ayudas sin teclado» pediría el teclado '
+                  f'completo más dos filas de botones, y ese alto no existe. El espacio que '
+                  f'las ayudas necesitan lo libera el teclado.'
+                  f'<br><br><b>Predicción, escrita antes:</b> {esc(e["prediccion"])}'),
+        sub="Tres brazos y dos contrastes. Prueba las dos mitades de la misma frase: que el "
+            "teclado completo delante de alguien que no sabe de qué se trata es fricción, y "
+            "que un tropiezo deja de ser terminal si hay una salida que no es irse.",
+        anchor="experimento-rampa")
 
     # ── 6b · Experimentos por grupo de WhatsApp ──────────────────────────────
     # Mismo trato que la sección de arriba —estado primero, guardarraíles
