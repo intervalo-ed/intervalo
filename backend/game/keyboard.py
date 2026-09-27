@@ -111,15 +111,114 @@ def required_keys(expr: sympy.Expr) -> set[str]:
     return out
 
 
+# ── El bloque FIJO, que hasta `dx-rampa-1` no se desbloqueaba nunca ─────────
+#
+# El numérico, la incógnita, las cuatro operaciones y los paréntesis estaban
+# SIEMPRE completos: el único vocabulario que crecía era el dinámico de arriba.
+# La rampa los mete en el mismo mecanismo, y por eso viven en la MISMA columna
+# (`game_players.unlocked_keys`) y no en una nueva: es una lista de ids separada
+# por comas, así que sumarle ids de otra familia no es una migración.
+#
+# Los ids llevan prefijo `f:` justamente para que las dos familias convivan sin
+# pisarse y para que un cliente viejo —que filtra por su propio diccionario—
+# los ignore solo, sin romperse.
+#
+# El retroceso y las flechas NO están acá y no es un olvido: no se desbloquean
+# nunca. Son las dos cosas que hacen falta para corregir lo que se escribió, y
+# un teclado del que no se puede volver atrás no es una rampa, es una trampa.
+FIJA_X = "f:x"
+FIJA_MAS = "f:+"
+FIJA_MENOS = "f:-"
+FIJA_POR = "f:*"
+FIJA_PAR = "f:()"     # los dos paréntesis son una sola tecla a estos efectos
+FIJA_CLEAR = "f:C"
+
+FIJAS_ORDER: tuple[str, ...] = (
+    *(f"f:{d}" for d in "0123456789"),
+    FIJA_X, FIJA_MAS, FIJA_MENOS, FIJA_POR, FIJA_PAR, FIJA_CLEAR,
+)
+_FIJAS_INDEX = {k: i for i, k in enumerate(FIJAS_ORDER)}
+
+# El calendario de la rampa, para lo que NO sale de la respuesta.
+#
+# Los dígitos y la `x` se desbloquean por NECESIDAD —lo que la derivada esperada
+# exige— y eso alcanza para las tres primeras, que son fijas por diseño: `x` da
+# 1, `x²` da 2x y `2x²` da 4x. De la cuarta en adelante el motor de Elo toma el
+# control y empieza a servir sumas y coeficientes cualesquiera, así que ahí
+# entran los operadores.
+#
+# El techo es lo que garantiza que esto sea una rampa y no una jaula: a la
+# octava derivada servida se desbloquea TODO lo que falte, haya salido o no.
+ESCALONES: dict[int, frozenset[str]] = {
+    1: frozenset({"f:1"}),
+    4: frozenset({FIJA_MAS, FIJA_MENOS, FIJA_POR, FIJA_CLEAR}),
+    6: frozenset({FIJA_PAR}),
+}
+RAMPA_COMPLETA_EN = 8
+
+
+def fijas_requeridas(expr: sympy.Expr) -> set[str]:
+    """Las teclas fijas sin las cuales esta derivada no se puede escribir.
+
+    Es la garantía que hace que la rampa no pueda trabar a nadie: la tecla que
+    la respuesta necesita aparece en el ejercicio que la necesita, no después.
+    """
+    out: set[str] = set()
+    for node in sympy.preorder_traversal(expr):
+        if isinstance(node, sympy.Symbol):
+            out.add(FIJA_X)
+        elif isinstance(node, sympy.Rational):
+            # Cubre Integer y Rational: `str(abs(...))` da "4" o "1/2", y de ahí
+            # salen los dígitos que hay que poder tipear.
+            for ch in str(abs(node)):
+                if ch.isdigit():
+                    out.add(f"f:{ch}")
+            if node.is_negative:
+                out.add(FIJA_MENOS)
+        elif isinstance(node, sympy.Add):
+            out.add(FIJA_MAS)
+        elif isinstance(node, (exp, log, sin, cos, tan)):
+            # Escribir una función es escribir su paréntesis.
+            out.add(FIJA_PAR)
+    return out
+
+
+def fijas_del_escalon(n_servidos: int) -> set[str]:
+    """Lo que el calendario suelta al servir el ejercicio número `n_servidos`."""
+    if n_servidos >= RAMPA_COMPLETA_EN:
+        return set(FIJAS_ORDER)
+    return set().union(*(v for k, v in ESCALONES.items() if n_servidos >= k)) \
+        if any(n_servidos >= k for k in ESCALONES) else set()
+
+
 def parse_unlocked(raw: str | None) -> set[str]:
-    """Lee la columna, descartando ids que ya no existan en el vocabulario."""
+    """Las teclas DINÁMICAS de la columna, descartando lo que no reconozca.
+
+    Sigue devolviendo solo las dinámicas aunque la columna ahora guarde las dos
+    familias: es lo que alimenta la fila de arriba del teclado, y meterle ids
+    fijos la llenaría de teclas que ya están dibujadas abajo.
+    """
     if not raw:
         return set()
     return {k for k in raw.split(",") if k in _ORDER_INDEX}
 
 
+def parse_fijas(raw: str | None) -> set[str]:
+    """Las teclas FIJAS desbloqueadas. Vacío = nadie tocó la rampa."""
+    if not raw:
+        return set()
+    return {k for k in raw.split(",") if k in _FIJAS_INDEX}
+
+
+def fijas_en_orden(keys: set[str]) -> list[str]:
+    return sorted(keys, key=lambda k: _FIJAS_INDEX[k])
+
+
 def serialize(keys: set[str]) -> str:
-    return ",".join(in_order(keys))
+    """La columna. Acepta las dos familias mezcladas y las ordena por separado."""
+    din = {k for k in keys if k in _ORDER_INDEX}
+    fij = {k for k in keys if k in _FIJAS_INDEX}
+    return ",".join(in_order(din) + fijas_en_orden(fij))
 
 
 def in_order(keys: set[str]) -> list[str]:
@@ -131,13 +230,25 @@ def parse_unlocked_ordered(raw: str | None) -> list[str]:
     return in_order(parse_unlocked(raw))
 
 
-def unlock(raw: str | None, expr: sympy.Expr) -> tuple[str, list[str]]:
+def unlock(raw: str | None, expr: sympy.Expr, rampa: bool = False,
+           n_servidos: int = 0) -> tuple[str, list[str], list[str]]:
     """Suma al inventario lo que esta derivada exige.
 
-    Devuelve (columna nueva, teclas recién desbloqueadas). Lo segundo es lo que
-    el front necesita para poder festejar solo lo nuevo en vez de animar la fila
-    entera en cada ejercicio.
+    Devuelve (columna nueva, dinámicas nuevas, fijas nuevas). Las dos listas van
+    SEPARADAS y no juntas porque alimentan dos filas distintas del teclado, y
+    porque `new_keys` tiene que seguir siendo un subconjunto de `keys` — que es
+    un invariante que el contrato de la API promete y `check_game_unlocks`
+    verifica.
+
+    Con `rampa` puesto —el jugador cayó en un brazo de `dx-rampa-1`— también
+    crece el bloque FIJO, por necesidad más calendario. Sin rampa las fijas que
+    la columna ya tuviera **se conservan pero no crecen**: si el experimento se
+    apaga a mitad de camino, nadie pierde teclas que ya se había ganado.
     """
-    have = parse_unlocked(raw)
-    fresh = required_keys(expr) - have
-    return serialize(have | fresh), in_order(fresh)
+    have_din = parse_unlocked(raw)
+    fresh = required_keys(expr) - have_din
+    todo = have_din | fresh | parse_fijas(raw)
+    if not rampa:
+        return serialize(todo), in_order(fresh), []
+    nuevas_fij = (fijas_requeridas(expr) | fijas_del_escalon(n_servidos)) - todo
+    return serialize(todo | nuevas_fij), in_order(fresh), fijas_en_orden(nuevas_fij)

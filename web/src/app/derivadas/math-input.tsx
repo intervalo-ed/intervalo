@@ -194,7 +194,7 @@ export const HINT_MOBILE = "Usá el teclado 👇"
 // coincide con el naranja de las sesiones (ver el comentario ahí).
 const TONE_BORDER = {
   correct: "#22C55E",
-  wrong: "#65A30D",
+  wrong: "#FDD000",
 } as const
 
 // El campo lo crea MathLive de forma imperativa y su borde vive en un estilo

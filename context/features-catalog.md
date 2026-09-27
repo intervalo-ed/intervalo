@@ -197,6 +197,52 @@ y apaga la diapo del cafecito de esa misma respuesta, para no pedir plata dos
 veces seguidas. Ver `game/muro.py` y la sección del tope en
 [gamification.md](gamification.md).
 
+#### El teclado en rampa y la fila de ayudas (`dx-rampa-1`, desde el 27/09)
+
+El teclado del juego tenía **dos zonas**: un bloque FIJO que estaba siempre
+completo —numérico, `x`, las cuatro operaciones, paréntesis, flechas— y una fila
+DINÁMICA arriba que crecía a medida que las derivadas pedían teclas nuevas
+(`game/keyboard.py`, `game_players.unlocked_keys`). `dx-rampa-1` mete el bloque
+fijo en el mismo mecanismo.
+
+**La rampa.** El teclado arranca con las teclas que la respuesta necesita y
+crece. Como las tres primeras derivadas son fijas —`x` → `1`, `x²` → `2x`,
+`2x²` → `4x`— eso da literalmente: una tecla, después tres, después cuatro. De la
+cuarta en adelante entran los operadores, y **a la octava se desbloquea todo lo
+que falte**, haya salido o no (`RAMPA_COMPLETA_EN`). Ese techo es lo que la hace
+una rampa y no una jaula.
+
+Dos invariantes que el mecanismo garantiza y `check_game_rampa.py` verifica:
+
+- **la tecla que la respuesta necesita SIEMPRE está**, porque se desbloquea en el
+  mismo ejercicio que la pide. Sin esto alguien queda trabado sin salida;
+- **el inventario nunca encoge**, y lo que se ganó **no se pierde si el
+  experimento se apaga**: la columna conserva las fijas aunque dejen de crecer.
+
+**Mientras el bloque fijo está incompleto, el teclado se EMPAQUETA**: filas
+centradas y parejas del mismo tamaño en vez de la grilla de calculadora con
+huecos. La grilla de la Casio existe para que el dedo encuentre el 7 sin mirar, y
+eso no se puede cumplir con tres teclas; con huecos, además, se lee como un
+teclado roto en vez de como uno que crece. El costo —las teclas se mueven de
+lugar mientras crece— es el mismo trato que ya tenía la fila dinámica.
+
+**Es palanca de TELÉFONO.** En escritorio el teclado no tiene números —se
+tipean— y el físico sigue funcionando en paralelo, así que la rampa ahí no
+significaría nada; el cliente la ignora cuando no dibuja numérico.
+
+**La fila de ayudas** (solo el brazo `ayudas`) sube **Tabla** y **Saltear** a una
+fila propia partida por la mitad, arriba del botón principal, con el ícono a la
+derecha de la palabra. El alto sale del teclado, que en rampa mide una o dos
+filas en vez de cuatro — por eso las dos mitades viajan juntas y no como un
+factorial. Con la fila puesta, el botón de la tabla **sale de la barra de
+arriba** (aparecería dos veces); en la pantalla del ranking se queda, porque ahí
+no hay fila. Al errar, el botón principal se **bifurca** y queda una grilla 2×2:
+Tabla, Saltear, ¿Por qué? y Revisar a la vista al mismo tiempo, que es el momento
+en que se va el 41,5% de los que no aciertan al primer intento.
+
+Ver `game/rampa.py`, `web/src/app/derivadas/pie-rampa.tsx` y la sección del Elo
+en [gamification.md](gamification.md), que cambia con esto.
+
 **La escalera de encuestas es el único escalón que no se termina nunca.** Las dos
 preguntas del juego —dificultad y repetitividad— comparten un solo turno y
 alternan: los huecos nominales son 10, 10, 20, 30, 50 y 80 (el último se repite),

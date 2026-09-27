@@ -89,6 +89,7 @@ import {
 } from "./reglas-trigger"
 import { DerivativesTable, TableButton } from "./derivatives-table"
 import { PorQueButton, PorQuePanel, type PorQueGraph } from "./porque-panel"
+import { PieDeRampa } from "./pie-rampa"
 import { useExplainExercise } from "./UseGameExplain"
 import {
   SLIDE_TRANSITION,
@@ -276,11 +277,19 @@ function GameHeader({
   sinLeerChat = 0,
   onCafecito,
   onReclutar,
+  conTabla = true,
 }: {
   onSettings: () => void
   // Abre el chat. En el teléfono no hay tecla, así que este botón ES el acceso.
   onChat: () => void
   sinLeerChat?: number
+  // El brazo `ayudas` de `dx-rampa-1` sube la tabla al pie, en una fila propia
+  // (pie-rampa.tsx), así que acá arriba sobra: dos accesos a lo mismo en la
+  // misma pantalla es justamente lo que la fila vino a evitar.
+  //
+  // Se esconde SOLO en la pantalla del ejercicio. En la del ranking no hay fila
+  // de ayudas, así que ahí el botón se queda y nadie pierde el acceso.
+  conTabla?: boolean
   // La tabla va PRIMERA de las tres de la derecha: es la única que hace algo
   // adentro del juego, y las otras dos sacan de él. Puesta al final quedaba
   // agrupada con las que se van.
@@ -302,7 +311,7 @@ function GameHeader({
         <Settings size={17} />
       </button>
       <span className="flex items-center gap-1.5">
-        <TableButton open={false} onToggle={onTable} keyboard={false} />
+        {conTabla && <TableButton open={false} onToggle={onTable} keyboard={false} />}
         <ChatButton open={false} onToggle={onChat} sinLeer={sinLeerChat} keyboard={false} />
         <ShareButton placement="header_mobile" onOpen={onReclutar} />
         <CafecitoButton
@@ -1253,6 +1262,12 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
   // la respuesta, y el servidor lo rechaza igual (409 en POST /explain).
   const hayPorque = solvedLatex !== null || fallado
 
+  // El brazo `ayudas` de `dx-rampa-1` (backend/game/rampa.py). Cambia el PIE:
+  // Tabla y Saltear suben a una fila propia y el botón principal ocupa el ancho.
+  // Con el experimento apagado el backend manda null y esto es false, o sea el
+  // pie de siempre.
+  const conAyudas = player?.rampa === "ayudas"
+
   // Pedir el texto. Suelto de la navegación porque el botón de reintentar, que
   // vive DENTRO de la pantalla del ¿Por qué?, tiene que volver a pedirlo sin
   // navegar a ninguna parte.
@@ -1515,6 +1530,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   sfx.select()
                   goTo({ kind: "settings", back: { kind: "exercise" } })
                 }}
+                conTabla={!conAyudas}
                 onTable={() => {
                   sfx.select()
                   verTabla()
@@ -1614,6 +1630,9 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   bare
                   input={inputRef}
                   keys={exercise.keys}
+                  newKeys={exercise.new_keys}
+                  fijas={exercise.fijas ?? null}
+                  newFijas={exercise.fijas_nuevas}
                   className={cerradoVisual ? "pointer-events-none opacity-45" : undefined}
                 />
               </div>
@@ -1687,7 +1706,19 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                     className="pointer-events-none fixed inset-x-0 bottom-0 z-0"
                   >
                     <div
-                      className="border-t px-5 pt-6 pb-[calc(var(--cta-pt)_+_var(--cta-h)_+_var(--cta-pb))]"
+                      className={cn(
+                        // El relleno de abajo reserva el alto del PIE, que es lo
+                        // que deja el texto del cartel a la vista en vez de
+                        // tapado. El brazo `ayudas` tiene DOS filas de botones
+                        // (pie-rampa.tsx), así que hay que reservar una más y su
+                        // hueco: sin esto la frase «podés ayudarte con la tabla»
+                        // queda cortada por los botones justo cuando es cuando
+                        // más hace falta leerla.
+                        "border-t px-5 pt-6",
+                        conAyudas
+                          ? "pb-[calc(var(--cta-pt)_+_2_*_var(--cta-h)_+_0.5rem_+_var(--cta-pb))]"
+                          : "pb-[calc(var(--cta-pt)_+_var(--cta-h)_+_var(--cta-pb))]",
+                      )}
                       style={{
                         borderColor: `${WRONG}80`,
                         backgroundColor: `color-mix(in srgb, color-mix(in oklab, var(--background) 75%, ${WRONG} 25%) 88%, transparent)`,
@@ -1709,6 +1740,34 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   ejercicio, y moverlos dejaría un instante sin dónde tocar.
                   `relative z-10` para quedar ARRIBA del banner de acá encima,
                   que es fijo a toda la pantalla y si no los taparía. */}
+              {conAyudas ? (
+                <PieDeRampa
+                  tone={tone}
+                  seq={answerSeq}
+                  cerradoVisual={cerradoVisual}
+                  closed={cerradoVisual}
+                  // Cerrado y acertado la pregunta se mudó adentro del campo,
+                  // así que acá el ¿Por qué? solo entra en el otro cierre
+                  // posible: se agotaron los intentos sin acertar.
+                  hayPorque={hayPorque && (!cerradoVisual || solvedLatex === null)}
+                  primerIntento={primerIntento}
+                  principalDisabled={
+                    answerMutation.isPending ||
+                    (closed && (next.isPending || esperandoAdelanto))
+                  }
+                  skipDisabled={skipMutation.isPending || answerMutation.isPending}
+                  onPrincipal={() => {
+                    if (closed) advanceAfterAnswer(null)
+                    else void onRevisar()
+                  }}
+                  onSkip={onSkip}
+                  onTabla={() => {
+                    sfx.select()
+                    verTabla()
+                  }}
+                  onPorque={abrirPorque}
+                />
+              ) : (
               <div className="relative z-10 flex items-stretch gap-2">
                 {/* Acertada, la pregunta ya se mudó adentro del campo (ver el
                     `hint` de AnswerField, arriba) y el pie queda para el solo
@@ -1753,6 +1812,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                 )}
 
               </div>
+              )}
             </div>
           )}
 

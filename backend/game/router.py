@@ -42,6 +42,7 @@ from . import mercadopago as mp
 from . import muro as game_muro
 from . import encuesta as game_encuesta
 from . import opinion as game_opinion
+from . import rampa
 from . import ranking
 from . import repetitividad as game_repetitividad
 from . import elo
@@ -313,6 +314,11 @@ def _player_out(db: Session, player: GamePlayer, with_rank: bool = True) -> Game
         # agotado caiga en el cartel: sin esto el cliente pediría una derivada,
         # se comería el 402 y recién ahí sabría qué dibujar.
         muro=_muro_de(db, player),
+        # El brazo de `dx-rampa-1`. Es una funcion pura del id, asi que se
+        # calcula en cada lectura en vez de guardarse: no hay nada que pueda
+        # quedar viejo, y con el experimento apagado devuelve None y el cliente
+        # dibuja el pie de siempre.
+        rampa=rampa.brazo_de(player.id) if rampa.habilitado() else None,
     )
 
 
@@ -669,11 +675,22 @@ def _exercise_out(exercise: GameExercise, player: GamePlayer) -> GameExerciseOut
     jugador: los dos endpoints commitean después de llamar a esto.
     """
     template = template_for(exercise)
-    unlocked, fresh = game_keyboard.unlock(
-        player.unlocked_keys, expr_from_stored(exercise.expected_derivative)
+    # El número de ejercicio de ESTA derivada, contando desde 1. Sale del
+    # contador que ya existe y no de un COUNT: `exercises_attempted` se
+    # incrementa una vez por ejercicio respondido (`_aplicar_elo` sale antes en
+    # los reintentos), así que al servir el k-ésimo vale k−1. Salteado no suma, y
+    # eso es lo correcto acá: la rampa mide PROGRESO, no exposición.
+    n_servidos = player.exercises_attempted + 1
+    con_rampa = rampa.con_rampa(player.id)
+    unlocked, fresh, fijas_nuevas = game_keyboard.unlock(
+        player.unlocked_keys, expr_from_stored(exercise.expected_derivative),
+        rampa=con_rampa, n_servidos=n_servidos,
     )
     player.unlocked_keys = unlocked
     return GameExerciseOut(
+        fijas=(game_keyboard.fijas_en_orden(game_keyboard.parse_fijas(unlocked))
+               if con_rampa else None),
+        fijas_nuevas=fijas_nuevas,
         exercise_id=exercise.id,
         prompt_latex=exercise.prompt_latex,
         tier=template.tier if template else 0,
@@ -1182,6 +1199,21 @@ def _aplicar_elo(
 
     theta_before = theta_after = None
     if attempt_number != 1:
+        return level_before, theta_before, theta_after
+
+    # Los tres ejercicios de la rampa no mueven θ, EN LOS DOS BRAZOS (ver
+    # game/rampa.py :: SIN_ELO_HASTA). Son ítems de calibración fijos —`x`, `x²`,
+    # `2x²`, servidos con θ=0— y `dx-rampa-1` los vuelve casi seguros en el brazo
+    # tratado: dejarlos actualizando θ haría que ese brazo entre al motor con un
+    # θ más alto, o sea con ejercicios más difíciles, y perdiera profundidad por
+    # algo que no es el tratamiento.
+    #
+    # Se mira el contador ANTES de incrementarlo, así que al responder el primero
+    # vale 0 y `n_servidos` es 1.
+    if rampa.sin_elo(player.exercises_attempted + 1):
+        player.exercises_attempted += 1
+        player.current_combo = player.current_combo + 1 if correct else 0
+        player.best_combo = max(player.best_combo, player.current_combo)
         return level_before, theta_before, theta_after
 
     if not peeked:

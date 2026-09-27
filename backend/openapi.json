@@ -5415,6 +5415,28 @@
             "type": "array",
             "title": "Tabla Slugs",
             "default": []
+          },
+          "fijas": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fijas"
+          },
+          "fijas_nuevas": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Fijas Nuevas",
+            "default": []
           }
         },
         "type": "object",
@@ -6125,6 +6147,17 @@
                 "type": "null"
               }
             ]
+          },
+          "rampa": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rampa"
           }
         },
         "type": "object",

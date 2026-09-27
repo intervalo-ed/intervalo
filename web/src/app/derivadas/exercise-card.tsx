@@ -40,17 +40,38 @@ export const PANEL_CONTENT = "mx-auto w-full max-w-[32rem]"
 
 // El verde sigue siendo el mismo hex que usa el session-runner para acertar:
 // que el juego y las sesiones festejen distinto sería gratis y no aportaría
-// nada. El naranja de errar, en cambio, es a propósito SOLO de acá adentro
-// —un lima amarillento y no el naranja de siempre—, elegido entre variantes
-// que se probaron una al lado de la otra (antes fue violeta; se cambió por
-// esto). Las sesiones, el onboarding y la tabla del banco (`session-runner.tsx`,
+// nada. El color de errar, en cambio, es a propósito SOLO de acá adentro — las
+// sesiones, el onboarding y la tabla del banco (`session-runner.tsx`,
 // `onboarding-wizard.tsx`, `exercise-table.tsx`) se quedaron con el naranja
 // original; no es un descuido, es que el juego pidió separarse.
+//
+// Pasó por violeta, después por un lima verdoso (#65A30D) y ahora por este
+// dorado. El lima se cambió porque estaba MAL ELEGIDO, y el motivo se ve recién
+// en OKLCH —en HSL el amarillo miente: un amarillo con la misma «lightness» que
+// el verde sale mostaza—. Lo que hace que dos colores se sientan de la misma
+// familia es el CROMA:
+//
+//   #22C55E  verde de acierto      L 0,723  C 0,192  H 150
+//   #65A30D  el lima de antes      L 0,648  C 0,175  H 132
+//   #FDD000  este                  L 0,871  C 0,178  H  93
+//
+// El lima tenía croma parecido pero mucha menos luminosidad: era el color más
+// apagado de toda la paleta, y por eso necesitaba relleno sólido para hacerse
+// ver. El amarillo solo alcanza ese croma arriba de L≈0,85, así que este TIENE
+// que ser claro; no es una preferencia, es dónde vive el amarillo en sRGB.
+//
+// Quedan 9° hasta el dorado de los paréntesis del teclado (#DCBA74, H 84), pero
+// con casi el doble de croma (0,178 contra 0,097): uno es una arena pálida en
+// una tecla, el otro un dorado encendido en el borde del campo.
+//
+// **Está escrito en tres lugares y hay que cambiar los tres**: acá, el
+// `TONE_PULSE.wrong` de abajo —que va en rgba() y es el que se olvida— y el
+// `TONE_BORDER.wrong` de math-input.tsx.
 //
 // El verde se exporta porque no es solo el destello de la respuesta: es EL color
 // de haber acertado, y con él se prende también la XP mientras se llena (ver
 // xp-conteo.ts). Un solo verde para las dos mitades del mismo festejo.
-export const WRONG = "#65A30D"
+export const WRONG = "#FDD000"
 export const VERDE_ACIERTO = "#22C55E"
 
 // El pulso del ¿Por qué? no vive acá: es blanco y arranca lleno en vez de
@@ -59,7 +80,7 @@ export const VERDE_ACIERTO = "#22C55E"
 // mirar" con un color.
 const TONE_PULSE = {
   correct: "rgba(34, 197, 94, 0.26)",
-  wrong: "rgba(101, 163, 13, 0.28)",
+  wrong: "rgba(253, 208, 0, 0.28)",
 } as const
 
 export type AnswerTone = "correct" | "wrong" | null

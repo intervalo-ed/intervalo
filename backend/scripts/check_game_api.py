@@ -795,13 +795,21 @@ from models import GameTemplateStat as _GTS  # noqa: E402
 CLAVE = "t2_sum2"
 
 
-def _resolver(pid: int, headers: dict) -> None:
-    """Sirve un ejercicio forzado de CLAVE a `pid` y lo responde bien."""
+def _resolver(pid: int, headers: dict, clave: str = CLAVE) -> None:
+    """Sirve un ejercicio forzado de `clave` a `pid` y lo responde bien.
+
+    La plantilla es un parámetro por la rampa de `dx-rampa-1`: para probar que
+    pasada la rampa un estudiante nuevo SÍ suma persona hay que quemarla con
+    OTRA plantilla, porque `n_players` solo cuenta el primer encuentro de cada
+    persona con cada una (`_ya_la_habia_visto`). Quemándola con la misma, el
+    cuarto ejercicio ya no era un encuentro nuevo y el conteo no se movía — que
+    es correcto, pero no es lo que esta prueba quiere mirar.
+    """
     db.query(GameExercise).filter(GameExercise.player_id == pid).update(
         {"status": "expired"}, synchronize_session=False
     )
     ej = GameExercise(
-        player_id=pid, template_key=CLAVE, prompt_latex="x^{2}+x",
+        player_id=pid, template_key=clave, prompt_latex="x^{2}+x",
         expected_derivative="2*x + 1", common_errors_json="[]",
         theta_at_serve=0.0, beta_at_serve=-1.0, p_hat=0.75, status="served",
     )
@@ -835,10 +843,25 @@ H_otro = {"X-Game-Token": otro["guest_token"]}
 otro_id = (
     db.query(GamePlayer).filter(GamePlayer.guest_token == otro["guest_token"]).first().id
 )
+# La RAMPA de `dx-rampa-1`: los tres primeros ejercicios de cualquiera quedan
+# fuera del Elo, en los tres brazos (game/rampa.py :: SIN_ELO_HASTA). Así que un
+# estudiante recién creado NO suma ni observación ni persona hasta cruzarla, y
+# eso se pin-ea explícitamente: es la diferencia entre el comportamiento nuevo y
+# una regresión que deje de contar gente para siempre.
+from game import rampa as _rampa  # noqa: E402
+
+for _ in range(_rampa.SIN_ELO_HASTA):
+    _resolver(otro_id, H_otro, clave="t2_sum3")
+obs_rampa, gente_rampa = _muestra()
+check(obs_rampa == obs2 and gente_rampa == gente2,
+      f"los {_rampa.SIN_ELO_HASTA} de la rampa NO entran al Elo "
+      f"({gente2} → {gente_rampa})")
+
 _resolver(otro_id, H_otro)
 obs3, gente3 = _muestra()
 check(obs3 == obs2 + 1 and gente3 == gente2 + 1,
-      f"y un estudiante distinto sí suma persona ({gente2} → {gente3})")
+      f"y pasada la rampa, un estudiante distinto sí suma persona "
+      f"({gente_rampa} → {gente3})")
 db.close()
 
 print("14. dispositivo")

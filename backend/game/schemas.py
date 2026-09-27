@@ -117,6 +117,11 @@ class GamePlayerOut(BaseModel):
     # El tope diario, para que una recarga con el cupo agotado caiga en el
     # cartel y no en un ejercicio que el servidor va a rechazar con 402.
     muro: Optional[GameMuroOut] = None
+    # El brazo de `dx-rampa-1`: "control" | "teclado" | "ayudas", o `None` con el
+    # experimento apagado. Va en el jugador y no en el ejercicio porque decide
+    # cómo se dibuja el PIE de la pantalla —la fila de Tabla y Saltear— y eso
+    # tiene que estar resuelto antes de que llegue la primera derivada.
+    rampa: Optional[str] = None
 
 
 class GamePlayerCreateResponse(BaseModel):
@@ -155,6 +160,19 @@ class GameExerciseOut(BaseModel):
     # Viajan los slugs de fila y no la `template_key` a propósito: es lo que la
     # tabla precisa, y no delata más de lo que ya delatan `tier` y `keys`.
     tabla_slugs: list[str] = []
+    # Las teclas del bloque FIJO que este jugador tiene desbloqueadas
+    # (`dx-rampa-1`, ver game/rampa.py). `None` = el bloque completo, que es lo
+    # que ve el brazo control y lo que veía todo el mundo antes.
+    #
+    # Viaja aunque el cliente sea de escritorio —donde la rampa no aplica porque
+    # no hay numérico y el teclado físico sigue andando— a propósito: el servidor
+    # dice qué teclas tiene la persona y el cliente decide qué hacer con eso,
+    # que es el único que sabe qué está dibujando.
+    fijas: Optional[list[str]] = None
+    # Las fijas que se desbloquean con ESTE ejercicio, subconjunto de `fijas`.
+    # Van aparte de `new_keys` —que sigue siendo subconjunto de `keys`— porque
+    # alimentan dos filas distintas del teclado.
+    fijas_nuevas: list[str] = []
 
 
 class GameSkipRequest(BaseModel):
