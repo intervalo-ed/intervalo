@@ -623,6 +623,7 @@ def headline(data: dict, weeks: list[date], mot: dict | None = None,
     # para la misma pregunta. Ya pasó con el K semanal.
     cam = _camadas(data, weeks)
     ret = _camadas_retencion(data, weeks)
+    retn = _retenidos(data, weeks)
     # Los titulares del motor salen de las MISMAS funciones que dibujan sus
     # secciones, y no de cuentas escritas acá adentro. Dos definiciones de la
     # misma métrica terminan dando dos números para la misma pregunta; ya pasó
@@ -868,6 +869,19 @@ def headline(data: dict, weeks: list[date], mot: dict | None = None,
                  "lenta de las tres en cerrar: mediana 10 horas pero cola de 13,4 "
                  "días. Y son 16 instalaciones en toda la vida del producto, así "
                  "que una persona mueve el número entero.", dec=1),
+            # El quinto va al final y no entre los otros porque se mide al
+            # revés: los cuatro de arriba siguen a una camada desde su alta y
+            # este mira una semana y pregunta quién de antes apareció. Es el
+            # único que dice si el producto tiene base instalada o solo tiene
+            # difusión.
+            card("Retenidos", per_week(lambda w: retn[w]["retenidos"]), "",
+                 "Gente que ya había jugado en semanas anteriores y volvió a "
+                 "responder en esta. No es un porcentaje de camada: el "
+                 "denominador es toda la base que alguna vez jugó, y por eso el "
+                 "conteo sube con cada ola aunque el producto retenga igual. La "
+                 "curva de abajo lo muestra también sobre esa base. La semana en "
+                 "curso va a medio contar —la ventana ES la semana, no hay nada "
+                 "que madurar— así que la variación recién cierra el domingo."),
         ],
         # Monetización · el pedido de cafecito de punta a punta, en el orden en
         # que ocurre al revés: primero la plata que entró y después las dos
@@ -1730,6 +1744,65 @@ def reclutas_por_universidad(data: dict) -> list[dict]:
 MADURACION_RETENCION_DIAS = 10
 
 
+def _retenidos(data: dict, semanas: list[date]) -> dict[date, dict]:
+    """De la gente que YA HABÍA JUGADO, cuánta volvió a jugar en cada semana.
+
+    **Es el único número de Retención que no mira camadas**, y por eso contesta
+    algo que los otros no pueden: si la base instalada sigue viva o si cada
+    semana se sostiene sola con la gente que entró esa semana. Las camadas miran
+    hacia adelante desde el alta —qué hizo esta gente— y esto mira hacia atrás
+    desde la semana: quién, de todos los que alguna vez jugaron, apareció.
+
+    **El denominador es «ya había jugado antes de esta semana», no «se dio de
+    alta antes».** La diferencia son las personas que abrieron el link una
+    semana, no llegaron a responder nada, y jugaron por primera vez más tarde:
+    seis de las 78 medidas el 27/09. Esas no volvieron —recién llegan— y meterlas
+    acá haría que «retenidos» contara activaciones tardías. Que la primera
+    respuesta caiga antes del lunes ya implica que el alta también, porque nadie
+    responde antes de existir, así que la condición se escribe una sola vez.
+
+    El porcentaje es lo que hace legible al conteo, y por eso viaja al lado:
+    entre el 14/09 y el 21/09 los retenidos pasaron de 29 a 72 —parece que se
+    duplicó— y la tasa bajó de 7,7% a 7,2%, porque la base creció de 379 a 1.002.
+    El conteo crudo mide la difusión de antes; la tasa mide el producto.
+
+    `cerrada` es False mientras la semana sigue corriendo, y no es lo mismo que
+    la maduración de las camadas: allá el dato se completa con el tiempo, acá se
+    corta, porque la ventana ES la semana. Un miércoles el número va por la
+    mitad y no hay nada que esperar salvo el domingo.
+    """
+    semanas_de: dict[int, set[date]] = defaultdict(set)
+    for a in data["_answers"]:
+        d = local_date(a["created_at"])
+        if d is not None:
+            semanas_de[a["player_id"]].add(week_start(d))
+
+    # `players` ya viene sin bots, así que pedirle la camada a este dict es lo
+    # que los deja afuera: un id que no está acá no es un jugador del panel.
+    camada_de = {p["id"]: _week_of(p["created_at"]) for p in data["players"]}
+    primera_de = {pid: min(ws) for pid, ws in semanas_de.items()
+                  if ws and camada_de.get(pid) is not None}
+
+    hoy = local_date(datetime.utcnow())
+    filas: dict[date, dict] = {}
+    for w in semanas:
+        base = [pid for pid, primera in primera_de.items() if primera < w]
+        volvieron = sum(1 for pid in base if w in semanas_de[pid])
+        filas[w] = {
+            "label": w.strftime("%d/%m"),
+            "week": w.isoformat(),
+            "base": len(base),
+            # La primera semana del panel no tiene semanas anteriores, así que
+            # su retención no es cero: no existe. Un cero dibujado ahí haría
+            # arrancar la curva desde el piso y leer como crecimiento lo que es
+            # el borde del universo.
+            "retenidos": volvieron if base else None,
+            "pct": _pct(volvieron, len(base)),
+            "cerrada": hoy >= w + timedelta(days=7),
+        }
+    return filas
+
+
 def _camadas_retencion(data: dict, semanas: list[date]) -> dict[date, dict]:
     """Qué hizo cada camada después de arrancar, sobre los que arrancaron.
 
@@ -1843,9 +1916,14 @@ def retencion(data: dict, week: date) -> dict:
     """
     semanas = _semanas_hasta(week)
     filas = _camadas_retencion(data, semanas)
+    # La otra mitad de la pestaña, y la que no es una cohorte: ver `_retenidos`.
+    # Viaja acá adentro y no en una clave propia del payload porque se dibuja en
+    # la misma pestaña y con la misma ventana de semanas.
+    vivos = _retenidos(data, semanas)
     return {
         "filas": [filas[w] for w in semanas],
         "maduracion_dias": MADURACION_RETENCION_DIAS,
+        "retenidos": [vivos[w] for w in semanas],
     }
 
 
