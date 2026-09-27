@@ -45,8 +45,9 @@ from . import charts as ch
 from . import theme
 from .charts import esc, num
 from .game_queries import (
-    DEPTH_MAX, DEPTH_MIN, DEPTH_TOPE, FIRST_WEEK, MIN_IMPRESIONES_CTR,
-    MIN_IMPRESIONES_SEMANA, PEDIDO_CAFECITO, PLATFORM_LABEL,
+    CATEGORIAS, DEPTH_MAX, DEPTH_MIN, DEPTH_TOPE, FIRST_WEEK,
+    MIN_IMPRESIONES_CTR, MIN_IMPRESIONES_SEMANA, PDF_CARPETA, PEDIDO_CAFECITO,
+    PLATFORM_LABEL,
 )
 
 # El grueso del CSS es el mismo que Intervalo (ver metrics/theme.py) — es la
@@ -58,6 +59,39 @@ CSS_DX = """
    viene sin margen de arriba porque abre la caja; este abre una sección más
    abajo y necesita el aire que el otro no. */
 h3.dentro{margin:18px 0 10px}
+
+/* El índice de experimentación es la única tabla del panel con prosa adentro:
+   cada fila lleva el título y, debajo, el abstract. El CSS común pone
+   `white-space:nowrap` en toda celda —correcto para tablas de números— y no
+   define `vertical-align`, así que los valores de una línea quedaban
+   centrados contra un bloque de dos: la categoría y la fecha flotando entre el
+   título y su descripción. Acá las celdas se alinean arriba y la fila crece
+   con lo que tenga adentro. */
+table.indice td,table.indice th{vertical-align:top;white-space:normal}
+table.indice td{padding-top:12px;padding-bottom:12px}
+table.indice td:first-child{padding-right:24px;min-width:20em}
+table.indice td .sub2{display:block;margin-top:4px;line-height:1.5;
+  max-width:46em}
+/* Las columnas cortas no tienen por qué partirse: el que corta es el abstract. */
+table.indice td:not(:first-child){white-space:nowrap}
+
+/* El tag de estado de un experimento. Sin relleno: el color vive en el borde y
+   en el texto, que es lo que lo deja emparentarse con los chips de la barra de
+   arriba en vez de competir con las cajas de estado, que sí son bloques de
+   color.
+
+   **No se llama `.tag` y eso no es capricho:** ese nombre ya es el chip de
+   universidad de theme.py, que usan los dos paneles. Definirlo de nuevo acá le
+   cambiaba el display, el peso y el radio en todas las tablas donde aparece una
+   sigla, sin que nada se pusiera rojo. */
+.estado{display:inline-block;padding:1px 8px;border-radius:7px;font-size:11px;
+  font-weight:600;line-height:1.75;border:1px solid;background:none}
+.estados{display:inline-flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+
+/* La barra de volver, arriba de la vista de un experimento. */
+.volver{display:flex;align-items:baseline;gap:12px;margin:0 0 14px}
+.volver a{font-size:12.5px;font-weight:600}
+.volver .sub2{font-size:12px}
 
 /* ── El largo de la curva de profundidad ────────────────────────── */
 /* Vive en la misma fila que los desgloses y pegado al borde derecho: gobierna
@@ -231,6 +265,93 @@ _ESTADOS = {
     "plano": ("#8a8aa8", "#23233a"),
 }
 
+# **Un color por pregunta del producto.** Cada pestaña del panel contesta una
+# cosa distinta, y hasta acá todas se veían iguales: el color solo decía cuál
+# estaba abierta. Con esto el color pasa a decir DE QUÉ se está hablando, y eso
+# vale porque el mismo vocabulario aparece en tres lugares —la barra de arriba,
+# los filtros del índice y la columna de categoría— y verlo repetido es lo que
+# hace que «Monetización» se lea como una sola cosa y no como tres rótulos.
+#
+# Los tonos están elegidos sobre el fondo del panel (#131324) para que el texto
+# llegue a 4,5:1, que es lo que obliga a que «verde oscuro» sea un verde medio y
+# no el que uno elegiría sobre papel.
+#
+# Dos vecindades que se cuidaron a mano, porque caen en la MISMA FILA de la
+# tabla del índice:
+#   · Monetización (ámbar anaranjado) contra «Pausado» (amarillo). Con el ámbar
+#     de libro los dos chips eran el mismo color a un metro de distancia.
+#   · Activación (verde claro) contra «Activo» (lima). El lima tira a amarillo y
+#     el verdecito a azul, así que se separan por matiz y no por brillo.
+COLORES_SECCION = {
+    "activacion": "#5fd39b",       # verde claro
+    "retencion": "#3da878",        # verde oscuro
+    "jugabilidad": "#4f93e6",      # azul
+    "motor": "#a473e0",            # violeta
+    "monetizacion": "#d98e2b",     # ámbar
+    # Las dos que no son una pregunta del producto sino una forma de mirarlo:
+    # el índigo de marca para la que habla de las otras, y un rosa para la única
+    # pestaña que no tiene un número arriba porque adentro hay texto que
+    # escribió gente.
+    "experimentacion": "#7e80f7",
+    "voces": "#e0789e",
+}
+
+# El ciclo de vida de un experimento. Los tres colores son una progresión y no
+# tres categorías sueltas: el amarillo avisa que algo está detenido, el lima es
+# lo único vivo de la tabla, y el verde oscuro es lo que ya se asentó y no se
+# mueve más.
+_TONOS_TAG = {
+    "pausado": "#e8c547",
+    "activo": "#a3e635",
+    "finalizado": "#48a06c",
+}
+
+
+def _tag(texto: str, color: str) -> str:
+    """El tag de estado o de categoría. Sin relleno: el color es borde y texto."""
+    return (f'<span class="estado" style="color:{color};border-color:{color}">'
+            f'{esc(texto)}</span>')
+
+
+def _chip_seccion(clave: str, label: str, href: str | None) -> str:
+    """Un chip de la barra de secciones, pintado con el color de su pregunta.
+
+    Va con estilo en línea y no con una clase por categoría porque `nav.jump` lo
+    comparte el panel de Intervalo (`metrics/render.py`), y una regla nueva ahí
+    le cambiaría los chips a un panel que no pidió nada.
+    """
+    c = COLORES_SECCION.get(clave, "#7e80f7")
+    if href is None:
+        # El activo se marca con el borde y el peso, no con un relleno. El
+        # `padding` baja un píxel para compensar el borde que sube uno: sin eso
+        # el chip elegido es dos píxeles más grande que los otros y la barra
+        # entera se corre al cambiar de pestaña.
+        return (f'<span class="cur" style="background:none;color:{c};'
+                f'border-color:{c};border-width:2px;padding:2px 8px;'
+                f'font-weight:700">{esc(label)}</span>')
+    return (f'<a href="{href}" style="color:{c};border-color:{c}55">'
+            f'{esc(label)}</a>')
+
+
+def _tabla_indice(cols: list[str], rows: list[list], empty: str = "sin datos") -> str:
+    """`theme.table` con una clase propia, para que las filas puedan crecer.
+
+    El CSS común de tablas pone `white-space:nowrap` en toda celda, que es lo
+    correcto para las otras veinte del panel: son números y cortarlos al medio
+    no ayuda a nadie. Esta es la única con prosa adentro, y con esa regla el
+    abstract no podía cortar — empujaba la tabla a lo ancho hasta sacar
+    «Estado» e «Informe» fuera del scroll.
+    """
+    if not rows:
+        return f'<p class="empty">{esc(empty)}</p>'
+    head = "".join(f"<th>{esc(c)}</th>" for c in cols)
+    body = "".join(
+        "<tr>" + "".join(
+            f"<td>{c if isinstance(c, str) and c.startswith('<') else esc(c)}</td>"
+            for c in r) + "</tr>" for r in rows)
+    return (f'<div class="scroll"><table class="indice">'
+            f'<thead><tr>{head}</tr></thead><tbody>{body}</tbody></table></div>')
+
 
 def _caja_estado(titulo: str, cuerpo: str, tono: str) -> str:
     borde, fondo = _ESTADOS.get(tono, _ESTADOS["espera"])
@@ -238,6 +359,266 @@ def _caja_estado(titulo: str, cuerpo: str, tono: str) -> str:
             f'padding:12px 14px;margin-bottom:12px">'
             f'<div style="color:{borde};font-weight:700;font-size:13.5px">{esc(titulo)}</div>'
             f'<div class="hint" style="margin-top:4px">{cuerpo}</div></div>')
+
+
+# ── El índice de experimentación ────────────────────────────────────────────
+#
+# Los cinco experimentos se calculan en cuatro funciones distintas porque miden
+# cosas que no comparten aritmética (dos proporciones por jugador, dos medias
+# por jugador, una proporción de pago, dos medias por grupo de WhatsApp). Eso
+# está bien para calcular y era pésimo para leer: la pestaña eran cuatro bloques
+# sueltos, en un orden que solo se explicaba por el orden en que se escribieron.
+#
+# Lo que estas tres funciones agregan no es un resumen —el resumen ya está en la
+# caja de estado de cada bloque— sino las dos cosas que ningún bloque podía
+# decir solo: contra QUÉ PREGUNTA del producto se lee cada experimento, y cuáles
+# ya terminaron. La categoría de cada uno es una de las pestañas del panel
+# (CATEGORIAS), así que el índice también contesta al revés: parado
+# en Retención, qué probamos alguna vez contra esto.
+
+
+def _estado_tag(e: dict) -> tuple[str, str]:
+    """En qué punto del ciclo está el experimento. Tres estados y nada más.
+
+    **El RESULTADO no se dibuja acá a propósito.** Un «Ganó» o un «Sin efecto»
+    en una tabla, sin el intervalo, el n ni el motivo al lado, es la forma más
+    barata de que un «no se detectó diferencia» se lea como «no sirvió» — que
+    son dos afirmaciones distintas y solo una es cierta. El veredicto vive en la
+    caja de estado de la vista del experimento, pegado a sus números, y en el
+    informe. Acá lo único que hace falta saber es si hay algo corriendo.
+
+    `encendido` solo existe en el payload del tope, que es el único con
+    interruptor de ambiente (`MURO_ENABLED`); en los demás da None y no pausa
+    nada.
+    """
+    if e.get("cierre"):
+        return "Finalizado", _TONOS_TAG["finalizado"]
+    if e.get("encendido") is False:
+        return "Pausado", _TONOS_TAG["pausado"]
+    return "Activo", _TONOS_TAG["activo"]
+
+
+def _fila_indice(e: dict, link) -> list:
+    """La fila de un experimento en el índice. El título es la puerta de entrada."""
+    cierre = e.get("cierre")
+    pdf = (cierre or {}).get("pdf")
+    return [
+        f'<a href="{link(x=e["clave"])}"><b>{esc(e["titulo"])}</b></a>'
+        f'<div class="sub2">{esc(e["abstract"])}</div>',
+        _tag(dict(CATEGORIAS).get(e["categoria"], e["categoria"]),
+             COLORES_SECCION.get(e["categoria"], "#8a8aa8")),
+        f'<span class="sub2">{e["desde"].strftime("%d/%m")}</span>',
+        (f'<span class="sub2">{cierre["fecha"].strftime("%d/%m")}</span>' if cierre
+         else '<span class="sub2">en curso</span>'),
+        f'<span class="estados">{_tag(*_estado_tag(e))}</span>',
+        (f'<a href="{esc(pdf)}" target="_blank" rel="noopener">PDF</a>' if pdf
+         else '<span class="sub2">\u2014</span>'),
+    ]
+
+
+def _indice_experimentos(fichas: list[dict], link, filtro: str) -> str:
+    """El índice: la única cosa que se ve en la pestaña hasta que elegís uno.
+
+    **Es un selector y no un resumen**, y por eso los bloques de los
+    experimentos ya no van debajo. La pestaña llegó a ser cuatro bloques
+    apilados de cuarenta tablas, ordenados por cuándo se escribieron, y con eso
+    puesto la pregunta «¿qué probamos sobre la retención?» se contestaba
+    scrolleando. Ahora se contesta acá, y el detalle de cada uno vive en su
+    propia vista.
+    """
+    cuenta = Counter(f["categoria"] for f in fichas)
+    chips = [_chip_seccion("experimentacion", f"Todos {len(fichas)}",
+                           None if filtro == "todos" else link(e="todos", x=""))]
+    # Un filtro que no filtra nada no es un filtro. Las categorías sin
+    # experimentos no se ofrecen: aparecen solas el día que alguien declare el
+    # primero contra esa pregunta. Que hoy falten se dice abajo, en la nota,
+    # que es donde se puede decir bien y no como un rótulo apagado.
+    for clave, label in CATEGORIAS:
+        n = cuenta.get(clave, 0)
+        if not n:
+            continue
+        chips.append(_chip_seccion(
+            clave, f"{label} {n}",
+            None if filtro == clave else link(e=clave, x="")))
+    visibles = [f for f in fichas if filtro == "todos" or f["categoria"] == filtro]
+    cerrados = sum(1 for f in fichas if f.get("cierre"))
+    # Qué preguntas del producto no tienen NINGÚN experimento. Se calcula y no
+    # se escribe a mano porque es de las cosas que envejecen sin avisar, y
+    # porque hoy dice exactamente lo que los dos experimentos de la puerta
+    # dejaron dicho: la palanca sin probar es por qué hacer la derivada
+    # siguiente.
+    sin_nada = [label for clave, label in CATEGORIAS if not cuenta.get(clave)]
+    vacias = (f'Todavía no hay ninguno declarado contra '
+              f'{_y_lista([f"<b>{esc(x)}</b>" for x in sin_nada])}. '
+              if sin_nada else "")
+    return _section(
+        1, "Experimentos",
+        f'<nav class="jump" style="margin:0 0 12px">{"".join(chips)}</nav>'
+        + _tabla_indice(["Experimento", "Categoría", "Desde", "Hasta", "Estado",
+                         "Informe"],
+                        [_fila_indice(f, link) for f in visibles],
+                        empty="ningún experimento en esta categoría")
+        + f'<p class="note"><b>Tocá un experimento para entrar.</b> Adentro está su '
+          f'bloque, la curva de profundidad cortada por sus brazos y los guardarraíles '
+          f'que viven en otras pestañas y son suyos.<br><br>'
+          f'<b>La categoría es la PESTAÑA del panel contra la que se lee el '
+          f'resultado.</b> {vacias}Van {num(cerrados)} cerrados de '
+          f'{num(len(fichas))}, y uno cerrado no se borra — conserva sus números, su '
+          f'veredicto y el motivo por el que se paró.</p>',
+        sub="Qué se probó, contra qué pregunta del producto, y cómo terminó.",
+        anchor="indice")
+
+
+_RE_NUM_SECCION = re.compile(r"(<section[^>]*><h2><b>)\d+(</b>)")
+
+
+def _renumerar(html: str, desde: int) -> tuple[str, int]:
+    """Renumera las secciones de un bloque de HTML ya armado, desde `desde`.
+
+    **Es una sustitución sobre HTML generado, y eso normalmente es una mala
+    idea.** Se hace igual porque la alternativa es peor: la vista de un
+    experimento presta secciones enteras de otras pestañas —el motor, la
+    calibración, el embudo del cafecito— que se arman una sola vez con el
+    número que les toca EN SU PESTAÑA. Traídas tal cual, la vista de `dx-elo-1`
+    mostraba «1 El experimento», «2 La curva por brazos» y de golpe «7 El motor
+    de dificultad», que se lee como cuatro bloques que no cargaron.
+
+    El patrón está anclado al formato exacto que emite `theme.section` y no a
+    una heurística: si esa función cambia, esto deja de encontrar nada y el
+    chequeo de numeración sin saltos se pone rojo en el acto.
+    """
+    n = desde
+
+    def uno(m):
+        nonlocal n
+        s = f"{m.group(1)}{n}{m.group(2)}"
+        n += 1
+        return s
+
+    return _RE_NUM_SECCION.sub(uno, html), n
+
+
+def _pieza_curva_brazos(cb: dict | None, e: dict, n: int) -> str:
+    """La curva de profundidad con una línea por brazo, en PERSONAS.
+
+    **En personas y no en porcentaje**, que es la decisión entera de este
+    gráfico. Cuando el tratamiento toca la entrada, los brazos arrancan la curva
+    desde alturas distintas, y dos curvas normalizadas se ven más diferentes
+    justo cuando menos lo son. Es lo que pasó con `dx-puerta-1`: en porcentaje
+    el brazo ganador parecía mucho peor, y en personas se ve lo que de verdad
+    ocurrió — trajo 71 y perdió 68 de ellas en un solo paso.
+
+    La población es la del experimento entero y no la camada de la semana
+    elegida. Ver `game_queries.curva_por_brazo`.
+    """
+    if cb is None:
+        return _section(
+            n, "La curva, por brazo",
+            '<p class="empty">este experimento no reparte jugadores</p>',
+            sub="En `dx-ab-imagen` lo que se sortea es el GRUPO de WhatsApp y no la "
+                "persona, así que no hay brazo que asignarle a un jugador ni curva que "
+                "cortar. Su unidad de análisis es el clickrate por grupo.",
+            anchor="curva-brazos")
+
+    ks = [str(c["k"]) for c in cb["series"][0]["curva"]]
+    series = [{
+        "label": f'{s["label"]} (n={num(s["n"])})',
+        "values": [c["vivos"] for c in s["curva"]],
+        "tips": [f'{s["label"]}: {c["vivos"]} de los {s["base"]} que respondieron al '
+                 f'menos una llegaron a {c["k"]} derivadas en su primera tanda '
+                 f'({_pct_txt(c["pct"])}).' for c in s["curva"]],
+        "weak": [c["vivos"] < 10 for c in s["curva"]],
+    } for s in cb["series"] if s["base"]]
+
+    filas = []
+    if len(cb["series"]) == 2 and cb["diferencia"]:
+        a, b = cb["series"]
+        for k in (1, 2, 3, 5, 10, 20, 30, 40):
+            if k > cb["k_max"]:
+                continue
+            ca, cbb = a["curva"][k - 1], b["curva"][k - 1]
+            d = cb["diferencia"][k - 1]["d"]
+            filas.append([
+                f"k = {k}",
+                f'{ca["vivos"]} ({_pct_txt(ca["pct"])})',
+                f'{cbb["vivos"]} ({_pct_txt(cbb["pct"])})',
+                f'<b style="color:{_ESTADOS["gana" if d > 0 else "pierde"][0]}">'
+                f'{d:+}</b>' if d else "0",
+            ])
+
+    cuerpo = ch.lines(series, ks, suffix="", height=320, legend=True) if series else \
+        '<p class="empty">todavía no hay partidas cerradas en ningún brazo</p>'
+    if filas:
+        a, b = cb["series"]
+        cuerpo += _table(["", f'{a["label"]} (personas)', f'{b["label"]} (personas)',
+                          "Diferencia"], filas)
+    return _section(
+        n, "La curva, por brazo", cuerpo,
+        sub=f'Cuánta gente de cada brazo tuvo una primera tanda de al menos k '
+            f'derivadas, en PERSONAS. Sobre los {num(cb["inscriptos"])} que el '
+            f'experimento repartió, no sobre la camada de la semana.',
+        anchor="curva-brazos")
+
+
+def _vista_experimento(p: dict, e: dict, bloque: str, prestados: dict,
+                       link) -> str:
+    """Todo lo que se mide sobre UN experimento, y nada más.
+
+    El índice desaparece: se entra por él y se vuelve con el link de arriba.
+    """
+    cabeza = (
+        f'<div class="volver"><a href="{link(x="")}">\u2190 Volver al índice</a>'
+        f'<span class="estados">{_tag(*_estado_tag(e))}</span>'
+        f'<span class="sub2">{esc(e["clave"])} \u00b7 desde el '
+        f'{e["desde"].strftime("%d/%m/%Y")}</span></div>')
+
+    partes, n = _renumerar(bloque, 1)
+    curva = _pieza_curva_brazos(p.get("curva_brazos"), e, n)
+    n += 1
+
+    cola = ""
+    nombres = [g for g in (e.get("guardarrailes") or []) if prestados.get(g)]
+    if nombres:
+        pegado, n = _renumerar("".join(prestados[g] for g in nombres), n)
+        # De dónde salieron, dicho: son las MISMAS secciones de esas pestañas y
+        # no una copia con otro recorte. Si dijeran números distintos habría que
+        # ir a mirar cuál miente.
+        # Deduplicado y en orden: `dx-elo-1` presta tres secciones y las tres
+        # viven en Motor, así que sin esto la nota decía «Motor, Motor y Motor».
+        tabs = list(dict.fromkeys(_TAB_DE_PIEZA.get(g, "") for g in nombres))
+        donde = _y_lista([f'<b>{esc(dict(SECCIONES).get(t, t))}</b>' for t in tabs])
+        cola = (f'<p class="sub" style="margin:26px 0 0">Guardarraíles \u2014 las '
+                f'mismas secciones que viven en {donde}, sin recortar: si acá dijeran '
+                f'otra cosa que allá, una de las dos estaría mintiendo.</p>' + pegado)
+    return cabeza + partes + curva + cola
+
+
+# A qué pestaña pertenece cada pieza prestada, para poder decir de dónde salió.
+_TAB_DE_PIEZA = {
+    "profundidad": "jugabilidad", "motor": "motor", "calibracion": "motor",
+    "opinion_motor": "motor", "monetizacion": "monetizacion",
+    "embudo": "monetizacion", "difusion": "activacion",
+}
+
+
+def _caja_cierre(e: dict) -> str:
+    """El estado de un experimento CERRADO: veredicto, motivo y el informe."""
+    c = e["cierre"]
+    L = e.get("lectura")
+    tono = "gana" if (L or {}).get("rechaza") else "plano"
+    detalle = ""
+    if L and "delta_pp" in L:
+        detalle = (f'Cerró en {num(L["delta_pp"], " pp")} '
+                   f'(z = {num(L["z"], dec=2)}, p-valor {_p_txt(L["p_valor"])}, '
+                   f'IC95 [{num(L["ic_pp"][0])} ; {num(L["ic_pp"][1])}] pp). ')
+    pdf = c.get("pdf")
+    enlace = (f' <a href="{esc(pdf)}" target="_blank" rel="noopener">'
+              f'Ver el informe completo (PDF)</a>.' if pdf else
+              f' El informe vive en <a href="{esc(PDF_CARPETA)}" '
+              f'target="_blank" rel="noopener">la carpeta de reportes</a>.')
+    return _caja_estado(
+        f'Cerrado el {c["fecha"].strftime("%d/%m/%Y")} · {c["veredicto"]}',
+        detalle + esc(c["motivo"]) + enlace, tono)
 
 
 def _p_txt(p: float) -> str:
@@ -970,13 +1351,37 @@ def week_of_today() -> date:
 
 # ── Página ───────────────────────────────────────────────────────────────────
 
-def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
+def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
+         experimento: str = "todos", exp: str | None = None) -> str:
     m = p["meta"]
     claves = [c for c, _ in SECCIONES]
     seccion = seccion if seccion in claves else SECCION_POR_DEFECTO
     week = date.fromisoformat(m["week"])
     labels = m["labels"]
     semanas = [date.fromisoformat(w) for w in m["weeks"]]
+
+    # ── El filtro de la pestaña de Experimentación ───────────────────────────
+    #
+    # Las secciones se numeran DESPUÉS de saber cuáles se ven, y no con un
+    # número fijo escrito al lado de cada título. Con números fijos, filtrar por
+    # Motor dejaba la pestaña mostrando «1 Índice» y «3 El motor», y un salteo
+    # así se lee como un bloque que no cargó — que es exactamente lo que el
+    # filtro no está haciendo.
+    fichas = (list(p["experimentos"])
+              + [p["experimento_motor"], p["experimento_muro"]]
+              + list(p["experimentos_grupos"]))
+    # Lo que está corriendo va arriba: es lo único sobre lo que se puede
+    # decidir algo hoy. Adentro de cada mitad, lo último declarado primero.
+    fichas.sort(key=lambda f: (bool(f.get("cierre")), -f["desde"].toordinal()))
+    filtro = experimento if experimento in dict(CATEGORIAS) else "todos"
+
+    # El bloque de cada experimento, por clave. Se arman los cinco siempre y se
+    # muestra a lo sumo uno: armarlos cuesta unas tablas que nadie ve, y a
+    # cambio el archivo se sigue leyendo en el orden del panel en vez de
+    # partirse en ramas colgando de un `if`. Es el mismo criterio con el que
+    # `page` arma las tres barras de la cabecera.
+    bloque_de: dict[str, str] = {}
+    elegido = next((f for f in fichas if f["clave"] == exp), None) if exp else None
 
     out: list[str] = ["<div class='wrap'>"]
 
@@ -1015,15 +1420,24 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         "</div></header>")
 
     def link(*, s: str | None = None, corte: str | None = None,
-             k: int | None = None) -> str:
+             k: int | None = None, e: str | None = None,
+             x: str | None = None) -> str:
         """La URL del panel cambiando UNA cosa y dejando el resto como está.
 
-        Es lo que hace que las dos barras convivan: elegir semana no pierde la
-        pestaña, elegir desglose no devuelve a la primera, y ninguna de las dos
-        pierde hasta dónde se estaba mirando la curva."""
+        Es lo que hace que las tres barras convivan: elegir semana no pierde la
+        pestaña, elegir desglose no devuelve a la primera, elegir categoría de
+        experimento no pierde ninguna de las otras dos, y nada de eso pierde
+        hasta dónde se estaba mirando la curva."""
         s = s if s is not None else seccion
         corte = corte if corte is not None else p["profundidad"]["corte"]
         k = k if k is not None else p["profundidad"]["k_max"]
+        e = e if e is not None else filtro
+        # `x` es el experimento abierto. A diferencia de los otros, el default
+        # NO es «dejar lo que había»: las pestañas de arriba y los chips de
+        # categoría tienen que devolver al índice, así que pasan `x=""` y el
+        # resto lo hereda. Un `x` colgado en el link de una pestaña haría que
+        # Experimentación no volviera nunca a mostrar el índice.
+        x = x if x is not None else (exp or "")
         q = f"?w={week.isoformat()}"
         if s != SECCION_POR_DEFECTO:
             q += f"&s={s}"
@@ -1031,15 +1445,20 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
             q += f"&corte={corte}"
         if k != DEPTH_MAX:
             q += f"&k={k}"
+        if e != "todos":
+            q += f"&e={e}"
+        if x:
+            q += f"&x={x}"
         return f"/panel/{esc(token)}/dx{q}"
 
     tabs = "".join(
-        f'<span class="cur">{esc(t)}</span>' if c == seccion
-        else f'<a href="{link(s=c)}">{esc(t)}</a>'
+        _chip_seccion(c, t, None if c == seccion else link(s=c, x=""))
         for c, t in SECCIONES)
     out.append(f"<nav class='jump'>{tabs}</nav>")
 
 
+
+    pieza_indice = _indice_experimentos(fichas, link, filtro)
 
     # Las tres se arman siempre y se muestra una. Armarlas cuesta unos SVG que
     # nadie va a ver, y a cambio el archivo se sigue leyendo en el orden del
@@ -1694,7 +2113,6 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
 
     # ── 6 · Experimentos ─────────────────────────────────────────────────────
     out = []
-    bloques = []
     for e in p["experimentos"]:
         brazos = e["brazos"]
         total = sum(b["n"] for b in brazos)
@@ -1703,7 +2121,9 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         # El estado va PRIMERO y en grande, antes que cualquier número por brazo.
         # Es lo único que la sección existe para decir: si todavía no se puede
         # leer, todo lo de abajo es ruido con forma de resultado.
-        if e["sin_arrancar"]:
+        if e.get("cierre"):
+            estado = _caja_cierre(e)
+        elif e["sin_arrancar"]:
             estado = _caja_estado(
                 "Sin datos todavía",
                 f'Ningún jugador entró al experimento. La variante se escribe al crear la '
@@ -1770,7 +2190,8 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
             if any(c != "—" for c in celdas):
                 filas_plat.append([f'<b>{esc(PLATFORM_LABEL[plat])}</b>'] + celdas)
 
-        bloques.append(
+        bloque_de[e["clave"]] = _section(
+            1, e["titulo"],
             _box(esc(e["titulo"]), estado
                  + _table(cabeceras, filas, empty="todavía nadie")
                  + '<p class="note"><b>La columna con ▸ es la que decide, y se '
@@ -1797,15 +2218,10 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                       f'<b>{num(e["n_pedido"])} por brazo</b>. El n va con el inverso del '
                       f'CUADRADO del efecto, así que pedir la mitad de efecto cuesta cuatro '
                       f'veces la muestra: es lo que obliga a que los experimentos sean audaces '
-                      f'y no sutiles.'))
-
-    out.append(_section(
-        1, "Experimentos",
-        "".join(bloques) or '<p class="empty">no hay experimentos declarados</p>',
-        sub="Lo que esta sección hace y ninguna otra hace: negarse a contestar hasta tener "
-            "la muestra que se prometió.",
-        anchor="experimentos"))
-    pieza_experimentos = "".join(out)
+                      f'y no sutiles.'),
+            sub="Lo que esta sección hace y ninguna otra hace: negarse a contestar "
+                "hasta tener la muestra que se prometió.",
+            anchor="experimento")
 
     # ── 6-bis · El experimento del MOTOR ─────────────────────────────────────
     # Mismo trato que la de arriba —estado primero, guardarraíles siempre,
@@ -1818,7 +2234,9 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
     en_curso = sum(b["en_curso"] for b in brazos)
     falta = max((b["falta"] for b in brazos), default=0)
 
-    if e["sin_arrancar"]:
+    if e.get("cierre"):
+        estado = _caja_cierre(e)
+    elif e["sin_arrancar"]:
         estado = _caja_estado(
             "Sin datos todavía",
             f'Nadie llegó a las {num(e["umbral_n"])} respuestas de primer intento, que es '
@@ -1863,8 +2281,8 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         for b in brazos
     ]
 
-    out = [_section(
-        2, "El motor: la varianza del Elo",
+    bloque_de[e["clave"]] = _section(
+        1, "El motor: la varianza del Elo",
         _box(esc(e["titulo"]), estado
              + _table(["Brazo", "Jugadores", "Días activos ▸", "Rating mediano",
                        "Derivadas", "% salteo", "Calibración"],
@@ -1908,8 +2326,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                   f'<br><br><b>Predicción, escrita antes:</b> {esc(e["prediccion"])}'),
         sub="El único experimento que no toca una pantalla: cambia el paso con el que se "
             "mueve el Elo, y solo para los que ya llevan un rato jugando.",
-        anchor="experimento-motor")]
-    pieza_experimento_motor = "".join(out)
+        anchor="experimento-motor")
 
     # ── 6a-ter · El experimento de MONETIZACIÓN ─────────────────────────────
     # El único donde el guardarraíl se puede leer ANTES que el resultado, y eso
@@ -1921,7 +2338,9 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
     en_curso = sum(b["en_curso"] for b in brazos)
     falta = max((b["falta"] for b in brazos), default=0)
 
-    if not e["encendido"]:
+    if e.get("cierre"):
+        estado = _caja_cierre(e)
+    elif not e["encendido"]:
         estado = _caja_estado(
             "Apagado",
             f'<code>MURO_ENABLED</code> está en cero, así que nadie tiene tope y los dos '
@@ -2006,8 +2425,8 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
           "—" if c["ctr"] is None else _pct_txt(c["ctr"])]],
         empty="el cartel todavía no se mostró")
 
-    out = [_section(
-        3, "La plata: el tope diario",
+    bloque_de[e["clave"]] = _section(
+        1, "La plata: el tope diario",
         _box(esc(e["titulo"]), precio + estado
              + _table(["Brazo", "Personas", "Pagó ▸", "Días activos",
                        "Volvió otro día", "Derivadas después"],
@@ -2079,8 +2498,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         sub="El primer experimento que le cobra a alguien por algo suyo, y solo a los que "
             "llegan nuevos. Mide una sola cosa: si un estudiante atraviesa un checkout para "
             "seguir jugando, y cuánto cuesta preguntárselo.",
-        anchor="experimento-muro")]
-    pieza_experimento_muro = "".join(out)
+        anchor="experimento-muro")
 
     # ── 6b · Experimentos por grupo de WhatsApp ──────────────────────────────
     # Mismo trato que la sección de arriba —estado primero, guardarraíles
@@ -2088,13 +2506,14 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
     # no el jugador: la tabla muestra clickrate medio y desvío ENTRE GRUPOS, no
     # una proporción de jugadores (ver game_queries.py :: experimento_grupos).
     out = []
-    bloques = []
     for e in p["experimentos_grupos"]:
         brazos = e["brazos"]
         total = sum(b["n"] for b in brazos)
         falta = max((b["falta"] for b in brazos), default=0)
 
-        if e["sin_arrancar"]:
+        if e.get("cierre"):
+            estado = _caja_cierre(e)
+        elif e["sin_arrancar"]:
             estado = _caja_estado(
                 "Sin datos todavía",
                 "Ningún grupo de ninguno de los dos brazos recibió esta campaña "
@@ -2138,8 +2557,9 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
             _pct_txt(b["pct_vuelven"]),
         ] for b in brazos]
 
-        bloques.append(
-            _box(esc(e["titulo"]), estado
+        bloque_de[e["clave"]] = _section(
+            1, e["titulo"], _box(
+            esc(e["titulo"]), estado
                  + _table(["Brazo", "Grupos", "Clickrate medio", "Desvío (por universidad)",
                            "Activación", "Activados / grupo", "Volvió otro día"], filas,
                           empty="todavía ningún grupo")
@@ -2158,16 +2578,11 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
                       f'alfa {num(e["alpha"], dec=2)}, potencia '
                       f'{num(100 * e["potencia"], "%", dec=0)} → '
                       f'<b>{num(e["n_pedido"])} grupos por brazo</b>. '
-                      f'{esc(e["prediccion"])}'))
-
-    out.append(_section(
-        4, "Experimentos por grupo de WhatsApp",
-        "".join(bloques) or '<p class="empty">no hay experimentos de grupo declarados</p>',
-        sub="La unidad acá es el GRUPO, no el jugador: todos sus miembros ven el mismo "
-            "mensaje, así que lo que se aleatoriza y se cuenta es el grupo — ver "
-            "docs/reports/reporte-ab-imagen-ranking-2026-09-14.pdf.",
-        anchor="experimentos-grupos"))
-    pieza_experimentos_grupos = "".join(out)
+                      f'{esc(e["prediccion"])}'),
+            sub="La unidad acá es el GRUPO, no el jugador: todos sus miembros ven "
+                "el mismo mensaje, así que lo que se aleatoriza y se cuenta es el "
+                "grupo — ver docs/reports/reporte-ab-imagen-ranking-2026-09-14.pdf.",
+            anchor="experimento-grupo")
 
     # ── Difusión: el clickrate ───────────────────────────────────────────────
     out = []
@@ -2794,8 +3209,20 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO) -> str:
         "motor": pieza_motor + pieza_calibracion + pieza_opinion_motor,
         "monetizacion": (_fila_kpi(p["headline"]["monetizacion"])
                          + pieza_monetizacion),
-        "experimentacion": (pieza_experimentos + pieza_experimento_motor
-                            + pieza_experimento_muro + pieza_experimentos_grupos),
+        # **O el índice, o UN experimento. Nunca las dos cosas.** La pestaña
+        # llegó a ser cuatro bloques apilados de cuarenta tablas, y con eso
+        # puesto el índice no era un índice sino un resumen arriba de lo mismo.
+        # Ahora el índice es la puerta y cada experimento tiene su vista, con
+        # los guardarraíles que viven en otras pestañas traídos al lado.
+        "experimentacion": (
+            _vista_experimento(p, elegido, bloque_de.get(exp, ""), {
+                "profundidad": pieza_profundidad, "motor": pieza_motor,
+                "calibracion": pieza_calibracion,
+                "opinion_motor": pieza_opinion_motor,
+                "monetizacion": pieza_monetizacion, "embudo": pieza_embudo,
+                "difusion": pieza_difusion,
+            }, link)
+            if elegido is not None else pieza_indice),
         "voces": pieza_voces,
     }
 

@@ -6,6 +6,14 @@ montones que no son los brazos y la conclusión es peor que no haber
 experimentado. Todo lo que se fija acá es de esa clase — nada de esto se ve
 mirando el juego.
 
+**Corre igual sin experimento en curso, y eso es a propósito.** Desde el
+27/09 no hay ninguno: `dx-puerta-2` cerró por futilidad y el front dejó de
+sortear. Lo que se chequea entonces no es que los brazos se llamen bien sino la
+maquinaria que los guarda —write-once, descarte de basura, reparto del hash—,
+que tiene que seguir en pie para el próximo. Con `EN_CURSO` en null las
+secciones 1 a 3 usan una etiqueta sintética y la 4 un nombre de experimento
+inventado; en cuanto se declare uno, las cuatro pasan a usar el de verdad.
+
 Lo que se cubre:
   - el brazo se guarda al crear la fila, por los TRES caminos de alta (invitado
     nuevo, invitado que vuelve con token, y usuario con sesión de Clerk);
@@ -67,14 +75,22 @@ API = "/game/derivemos"
 _VARIANTE_TS = (Path(__file__).resolve().parents[2]
                 / "web/src/lib/experiments/UseGameVariant.ts").read_text(encoding="utf-8")
 
-_m = re.search(r'export const EXPERIMENTO = "([^"]+)"', _VARIANTE_TS)
-assert _m, "no se encontró EXPERIMENTO en UseGameVariant.ts"
-EXPERIMENTO = _m.group(1)
+_m = re.search(r"export const EN_CURSO[^=]*=\s*(null|\{.*?\})", _VARIANTE_TS, re.S)
+assert _m, "no se encontró EN_CURSO en UseGameVariant.ts"
 
-_m = re.search(r"export const BRAZOS = \[([^\]]+)\]", _VARIANTE_TS)
-assert _m, "no se encontró BRAZOS en UseGameVariant.ts"
-BRAZOS = re.findall(r'"([^"]+)"', _m.group(1))
-assert len(BRAZOS) == 2, f"se esperaban dos brazos y hay {BRAZOS}"
+if _m.group(1).strip() == "null":
+    # Sin experimento. Se prueba la maquinaria con una etiqueta que NO puede
+    # chocar con ninguna real: si alguna vez llegara a la base, se ve de lejos
+    # que salió de un chequeo y no de un jugador.
+    EXPERIMENTO = "dx-chequeo-0"
+    BRAZOS = ["control", "test"]
+    HAY_EXPERIMENTO = False
+else:
+    EXPERIMENTO = re.search(r'clave:\s*"([^"]+)"', _m.group(1)).group(1)
+    BRAZOS = re.findall(r'"([^"]+)"',
+                        re.search(r"brazos:\s*\[([^\]]+)\]", _m.group(1)).group(1))
+    assert len(BRAZOS) == 2, f"se esperaban dos brazos y hay {BRAZOS}"
+    HAY_EXPERIMENTO = True
 
 BRAZO_A = f"{EXPERIMENTO}:{BRAZOS[0]}"
 BRAZO_B = f"{EXPERIMENTO}:{BRAZOS[1]}"
@@ -100,6 +116,16 @@ def variante_de(player_id: int) -> str | None:
         return fila.variant if fila else None
     finally:
         db.close()
+
+
+print("0. Qué dice el front")
+
+# No es una opinión sobre si conviene tener un experimento abierto: es dejar
+# escrito CUÁL, para que el día que alguien abra uno sin darse cuenta —o cierre
+# uno y se olvide de apagar el sorteo— la diferencia se vea en el diff de este
+# chequeo y no en un panel con un brazo creciendo y el otro congelado.
+check(True, f"experimento en curso: {EXPERIMENTO if HAY_EXPERIMENTO else '(ninguno)'}",
+      f"(brazos {BRAZOS})" if HAY_EXPERIMENTO else "(se prueba con una etiqueta sintética)")
 
 
 print("1. El brazo se guarda al crear la fila")
@@ -197,9 +223,10 @@ check(all(BRAZOS[hash_fnv1a(f"{EXPERIMENTO}:{ident}") % len(BRAZOS)] == uno for 
       "y el mismo dispositivo cae siempre en el mismo brazo")
 
 # El nombre del experimento entra al hash, así que el próximo experimento
-# re-sortea a todo el mundo en vez de heredar los brazos de este. Sin eso, quien
-# estuvo en el control de la puerta estaría en el control de TODOS los
-# experimentos que vengan, y los efectos se confundirían entre sí.
+# re-sortea a todo el mundo en vez de heredar los brazos del anterior. Sin eso,
+# quien estuvo en el control de la puerta estaría en el control de TODOS los
+# experimentos que vengan, y los efectos se confundirían entre sí. Es la
+# propiedad que hace barato abrir el próximo: alcanza con llenar `EN_CURSO`.
 distintos = sum(
     1 for _ in range(2000)
     if (lambda i: BRAZOS[hash_fnv1a(f"{EXPERIMENTO}:{i}") % 2]

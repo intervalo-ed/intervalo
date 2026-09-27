@@ -2619,18 +2619,20 @@ _game_panel_cache: dict[str, tuple[float, dict]] = {}
 
 
 def _game_panel_payload(week, db: Session, corte: str = "total",
-                        k: int | None = None) -> dict:
+                        k: int | None = None, exp: str | None = None) -> dict:
     from metrics import game_queries
 
     k = game_queries.clamp_depth(k if k is not None else game_queries.DEPTH_MAX)
     # La clave lleva el corte Y el largo de la curva: los dos cambian el
     # payload, y sin esto pasar de «por universidad» a «por aparato» devolvía
     # el gráfico anterior durante dos minutos.
-    key = f"{week.isoformat()}:{corte}:{k}"
+    # `exp` entra a la clave porque cambia el payload: la curva por brazos se
+    # calcula solo para el experimento que se esta mirando.
+    key = f"{week.isoformat()}:{corte}:{k}:{exp or ''}"
     hit = _game_panel_cache.get(key)
     if hit and time.time() - hit[0] < _PANEL_TTL_SECONDS:
         return hit[1]
-    payload = game_queries.build(db, week, corte=corte, k_max=k)
+    payload = game_queries.build(db, week, corte=corte, k_max=k, exp=exp)
     # Se guardan los últimos cuatro y no uno solo: los cuatro cortes son links
     # de la misma barra y se recorren de a uno, así que con una sola ranura cada
     # click volvía a recorrer todas las tablas.
@@ -2666,13 +2668,15 @@ def _game_panel_week(w: str | None):
 @app.get("/panel/{token}/dx", response_class=HTMLResponse, include_in_schema=False)
 def game_panel_page(token: str, w: str | None = None, s: str = "activacion",
                     corte: str = "total", k: int | None = None,
+                    e: str = "todos", x: str | None = None,
                     db: Session = Depends(get_db)):
     from metrics.game_render import page as game_page
 
     _require_panel_token(token)
     week = _game_panel_week(w)
     return HTMLResponse(
-        game_page(_game_panel_payload(week, db, corte, k), token=token, seccion=s),
+        game_page(_game_panel_payload(week, db, corte, k, x), token=token,
+                  seccion=s, experimento=e, exp=x),
         headers=_PANEL_HEADERS,
     )
 

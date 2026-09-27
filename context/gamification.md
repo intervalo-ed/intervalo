@@ -132,7 +132,8 @@ Tres cosas de ese experimento que no se parecen a los demás:
 - **El piso muerde recién en la respuesta 43**, que es donde el paso natural cae
   hasta 0,20 (se calcula con `elo.n_donde_muerde`, no se escribe). Abajo de ahí
   los dos brazos son bit a bit el mismo motor, y por eso esto puede correr al
-  mismo tiempo que `dx-puerta-2`, que mide las tres primeras correctas.
+  mismo tiempo que `dx-puerta-2`, que medía las tres primeras correctas (cerrado
+  el 27/09 por futilidad, sin diferencia detectable).
 
 La métrica es continua —días activos en 14 días, base medida 2,70 ± 2,02— porque
 con 139 elegibles ninguna proporción alcanza: pedirían ~600 por brazo. La

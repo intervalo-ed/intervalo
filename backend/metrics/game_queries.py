@@ -1868,10 +1868,100 @@ def retencion(data: dict, week: date) -> dict:
 #
 #   - `servida`  llegó a que se le mostrara una derivada.
 #   - `engancha` resolvió `ENGANCHE` en su primera tanda. Es el OMTM de hoy.
+# ── El fichero de experimentación ───────────────────────────────────────────
+#
+# Los cinco experimentos del producto viven en cuatro funciones distintas
+# —proporciones por jugador, medias por jugador, una proporción de pago y medias
+# por grupo de WhatsApp— porque miden cosas que no se comparan con la misma
+# aritmética. Eso está bien para calcular y es pésimo para leer: la pestaña era
+# cuatro bloques sueltos, en un orden que solo se explicaba por el orden en que
+# se escribieron, y no había forma de contestar «¿qué probamos sobre la
+# retención?» sin leer los cuatro.
+#
+# Estas tres claves son lo que arma el índice. Van en la DECLARACIÓN de cada
+# experimento y no en un catálogo aparte: un catálogo aparte se desincroniza el
+# día que alguien agrega un experimento y se olvida de anotarlo ahí, y el índice
+# diría que no existe.
+#
+#   - `categoria`  a qué pregunta del producto contesta.
+#   - `abstract`   la pregunta, en una o dos frases, sin números.
+#   - `cierre`     None mientras corre; un dict cuando terminó.
+#
+# **Las categorías son las MISMAS pestañas del panel** (game_render.SECCIONES) y
+# eso es deliberado: significa que cada experimento declara contra qué tablero
+# se lee su resultado. Una categoría vacía tampoco es un hueco del índice — es
+# el dato de que nunca probamos nada contra esa pregunta, y hoy Retención y
+# Jugabilidad están vacías, que es exactamente lo que los dos experimentos de la
+# puerta dejaron dicho.
+CATEGORIAS: tuple[tuple[str, str], ...] = (
+    ("activacion", "Activación"),
+    ("retencion", "Retención"),
+    ("jugabilidad", "Jugabilidad"),
+    ("motor", "Motor"),
+    ("monetizacion", "Monetización"),
+)
+
+# La carpeta de Drive donde viven los informes de cierre. Los PDF no van al
+# repo (docs/reports/FORMATO.md): son artefactos regenerables y pesados, y lo
+# que se versiona es el generador.
+PDF_CARPETA = "https://drive.google.com/drive/folders/16b81RQuoezp1QVOZawV0aWx5b5oUARMY"
+
+
+def cerrado(fecha: date, veredicto: str, motivo: str, pdf: str | None = None) -> dict:
+    """El cierre de un experimento: cuándo, qué se concluyó y por qué se paró.
+
+    **`motivo` es el campo que importa y por eso no tiene default.** Un
+    experimento que se cierra sin decir por qué invita a la lectura más cómoda
+    —«no dio, lo apagamos»— y esa lectura borra la diferencia entre las dos
+    únicas formas honestas de parar: llegar al n comprometido, o demostrar que
+    ningún resultado posible va a cambiar la conclusión. La tercera, parar
+    cuando el p-valor cruzó 0,05, es la que esta sección entera existe para no
+    dejar hacer.
+    """
+    return {"fecha": fecha, "veredicto": veredicto, "motivo": motivo, "pdf": pdf}
+
+
+def _ficha(exp: dict) -> dict:
+    """Las tres claves del índice, copiadas del declarativo al payload.
+
+    Se copian con una función y no a mano en cada `return` para que agregar una
+    cuarta clave no obligue a acordarse de los cuatro lugares.
+    """
+    return {"categoria": exp["categoria"], "abstract": exp["abstract"],
+            "cierre": exp.get("cierre"),
+            "guardarrailes": list(exp.get("guardarrailes") or ())}
+
+
+def declaracion(clave: str) -> dict | None:
+    """La declaración de un experimento por su clave, de las cuatro familias.
+
+    Existe porque la pestaña ahora tiene una vista por experimento y el router
+    recibe una clave de la URL: sin esto, cada lugar que necesita «los brazos de
+    dx-elo-1» tendría que saber en qué tupla vive cada uno.
+    """
+    for exp in EXPERIMENTOS + EXPERIMENTOS_GRUPOS:
+        if exp["clave"] == clave:
+            return exp
+    for exp in (EXPERIMENTO_MOTOR, EXPERIMENTO_MURO):
+        if exp["clave"] == clave:
+            return exp
+    return None
+
+
 EXPERIMENTOS: tuple[dict, ...] = (
     {
         "clave": "dx-puerta-1",
         "titulo": "La puerta",
+        "categoria": "activacion",
+        # Qué OTRAS secciones del panel se leen junto con este experimento. Es
+        # lo que hace que entrar a uno valga la pena: el bloque propio dice si
+        # ganó, y estas dicen contra qué. Las claves son las piezas que arma
+        # `game_render.page`, no consultas nuevas.
+        "guardarrailes": ("profundidad",),
+        "abstract": (
+            "¿Sacar las tres pantallas que hay entre aterrizar y la primera derivada "
+            "trae más gente a jugar?"
+        ),
         "hipotesis": (
             "Entre aterrizar y ver una derivada hay tres peajes —la presentación del "
             "logo, cuatro párrafos de reglas y el pedido de apodo— y nadie los pidió. "
@@ -1890,10 +1980,29 @@ EXPERIMENTOS: tuple[dict, ...] = (
             "Mobile debería moverse más que escritorio: escritorio ya está en 64% y "
             "tiene poco recorrido."
         ),
+        "cierre": cerrado(
+            date(2026, 9, 18),
+            "Ganó «derivada primero», y es el flujo de hoy",
+            "Llegó al n comprometido y ganó su métrica declarada por 24,6 pp. Se "
+            "cerró el mismo día que se implementó el brazo ganador, que es cuando un "
+            "experimento de pantallas deja de tener sentido: los dos brazos pasan a "
+            "ser el mismo. Lo que dejó escrito para el siguiente: de las 71 personas "
+            "de más que llegaron a responder una derivada, 68 hicieron exactamente "
+            "una y se fueron, y en llegar a 3 correctas la diferencia fueron 2 "
+            "personas sobre 1.078.",
+            pdf="https://drive.google.com/file/d/1YT9yp2mVMN4d-8yehIKozvZAS1K9D0GT/view",
+        ),
     },
     {
         "clave": "dx-puerta-2",
         "titulo": "El segundo ejercicio",
+        "categoria": "activacion",
+        "guardarrailes": ("profundidad",),
+        "abstract": (
+            "Las mismas tres pantallas, corridas a después de la tercera correcta en "
+            "vez de la primera. ¿Se recupera a la gente que se va justo después de "
+            "acertar por primera vez?"
+        ),
         "hipotesis": (
             "El peaje de la puerta no desapareció, se mudó. En el flujo de hoy, "
             "entre la primera correcta y la segunda derivada hay tres pantallas "
@@ -1923,6 +2032,20 @@ EXPERIMENTOS: tuple[dict, ...] = (
             "—de 43,6% a 33,9% llegando a cinco correctas— y donde el desbarranco "
             "se lleva más gente en absoluto: 149 a 109. iOS debería moverse menos, "
             "porque su ganancia vino de la puerta y no del peaje."
+        ),
+        "cierre": cerrado(
+            date(2026, 9, 27),
+            "Sin diferencia detectable · cerrado por FUTILIDAD",
+            "Se paró con 509 y 547 de los 606 por brazo, y no por cansancio: aunque "
+            "a las 156 personas que faltaban se les regalara el efecto declarado "
+            "entero de 8 pp, el contraste final daría z = 0,99 contra el 1,96 que "
+            "hace falta. Para que todavía diera significativo, los 59 que le faltan "
+            "al brazo tratado tendrían que llegar a tres correctas en el 75,6% de "
+            "los casos contra el 39,1% del control — un efecto de +36 pp. Parar por "
+            "futilidad es la única parada temprana que NO puede fabricar un falso "
+            "positivo: lo que infla el error de tipo I es frenar cuando el p-valor "
+            "cruza 0,05, y acá se frena porque ningún futuro posible lo cruza.",
+            pdf="https://drive.google.com/file/d/1DJREiJsD5QuMsceD_juOLv2IkJlRV5tQ/view",
         ),
     },
 )
@@ -1966,6 +2089,100 @@ def n_comprometido(exp: dict) -> int:
     t1 = za * math.sqrt(2 * pb * (1 - pb))
     t2 = zb * math.sqrt(pc * (1 - pc) + pt * (1 - pt))
     return int((t1 + t2) ** 2 / exp["mde"] ** 2) + 1
+
+
+def _brazos_del_experimento(data: dict, clave: str) -> dict[int, str]:
+    """`player_id -> brazo`, para cualquiera de los experimentos de JUGADORES.
+
+    Un `if` explícito por familia y no una función guardada en la declaración,
+    por dos motivos. Uno: las declaraciones viajan enteras al `data.json` y un
+    callable ahí lo rompe. Dos: las tres familias no se diferencian en un
+    parámetro sino en de dónde sale el brazo Y en quién es elegible, y esconder
+    eso detrás de una firma común haría que el día que alguien agregue un
+    experimento crea que alcanza con pasar un nombre.
+
+      - **Pantallas** (`dx-puerta-*`) — el brazo está escrito en
+        `game_players.variant`, puesto al crear la fila. Elegible es quien tiene
+        la etiqueta: nadie más entró.
+      - **Motor** (`dx-elo-1`) — el brazo sale de un hash del id en el servidor
+        y no se guarda en ninguna columna. Elegible es quien cruzó las
+        `UMBRAL_N` respuestas de primer intento, que es donde el piso empieza a
+        cambiar algo.
+      - **Tope** (`dx-muro-1`) — mismo hash, y elegible es quien nació después
+        del arranque: los veteranos están exentos por diseño.
+
+    `dx-ab-imagen` no está y no es un olvido: ahí la unidad es el GRUPO de
+    WhatsApp y no la persona, así que no hay brazo que asignarle a un jugador.
+    """
+    vivos = [p for p in data["players"] if not p["is_bot"]]
+    if clave.startswith("dx-puerta-"):
+        pref = f"{clave}:"
+        return {p["id"]: (p["variant"] or "")[len(pref):] for p in vivos
+                if (p["variant"] or "").startswith(pref)}
+    if clave == sorteo.EXPERIMENTO:
+        return {p["id"]: sorteo.brazo_de(p["id"]) for p in vivos
+                if (p["n_updates"] or 0) >= sorteo.UMBRAL_N}
+    if clave == game_muro.EXPERIMENTO:
+        return {p["id"]: game_muro.brazo_de(p["id"]) for p in vivos
+                if (p["created_at"] or datetime.min) >= game_muro.NACIDO_DESPUES_DE}
+    return {}
+
+
+def curva_por_brazo(data: dict, clave: str, brazos: tuple[tuple[str, str], ...],
+                    k_max: int = DEPTH_MAX) -> dict | None:
+    """La curva de profundidad con una línea por brazo del experimento.
+
+    **La población es la del EXPERIMENTO entero y no la cohorte de una semana**,
+    y esa es toda la diferencia con la curva de la pestaña de Jugabilidad. Ahí
+    la pregunta es «cómo le va a la gente que llegó esta semana» y la semana es
+    el recorte correcto; acá es «qué le hizo el tratamiento a los que
+    sortearon», y recortar por semana partiría el brazo en pedazos que no se
+    comparan porque cada semana entró gente distinta.
+
+    Se cuenta el LARGO DE LA PRIMERA TANDA en derivadas, igual que la otra
+    curva, así que las dos se leen con la misma regla. Y en PERSONAS además de
+    en porcentaje: los brazos arrancan en alturas distintas cuando el
+    tratamiento toca la entrada, y dos curvas normalizadas se ven parecidas
+    justo cuando más difieren. Es lo que le pasó a `dx-puerta-1`, donde el
+    porcentaje decía que el brazo tratado era peor y las personas decían que
+    había traído 71 y perdido 68 de ellas en un paso.
+    """
+    de_quien = _brazos_del_experimento(data, clave)
+    if not de_quien:
+        return None
+    por_jugador: dict[int, list[dict]] = defaultdict(list)
+    for a in data["_firsts"]:
+        if a["player_id"] in de_quien:
+            por_jugador[a["player_id"]].append(a)
+
+    largos_de: dict[str, list[int]] = defaultdict(list)
+    for pid, brazo in de_quien.items():
+        tandas = _sesiones(por_jugador.get(pid) or [])
+        if tandas:
+            largos_de[brazo].append(len(tandas[0]))
+
+    series = []
+    for cl, nombre in brazos:
+        largos = largos_de.get(cl, [])
+        series.append({
+            "clave": cl, "label": nombre, "base": len(largos),
+            "n": sum(1 for b in de_quien.values() if b == cl),
+            "curva": _curva_de(largos, k_max),
+            "mediana": _median([float(x) for x in largos]),
+        })
+    if not any(s["base"] for s in series):
+        return None
+    # La diferencia en PERSONAS, brazo test menos control, en cada k. Es la
+    # serie que contesta la pregunta y la única que no se puede sacar a ojo de
+    # las otras dos.
+    dif = None
+    if len(series) == 2:
+        a, b = series
+        dif = [{"k": i + 1,
+                "d": b["curva"][i]["vivos"] - a["curva"][i]["vivos"]}
+               for i in range(k_max)]
+    return {"clave": clave, "series": series, "diferencia": dif,
+            "k_max": k_max, "inscriptos": len(de_quien)}
 
 
 def experimentos(data: dict) -> list[dict]:
@@ -2052,8 +2269,24 @@ def experimentos(data: dict) -> list[dict]:
             })
 
         listo = all(b["n"] >= n_pedido for b in brazos)
+        # **Un experimento CERRADO se lee aunque no haya llegado al n**, y esta
+        # es la única puerta por la que se sale de la regla de la sección.
+        #
+        # No la ablanda: la regla prohíbe mirar el p-valor DURANTE, porque parar
+        # en cuanto cruza 0,05 es repetir el sorteo hasta que salga. Un cierre
+        # es una decisión declarada, con fecha y con el motivo escrito en
+        # `cerrado()`, y el único motivo que puede parar antes del n es la
+        # futilidad —demostrar que ningún resultado posible cambia la
+        # conclusión—, que es la operación opuesta a esperar a que dé. Si alguna
+        # vez aparece un cierre cuyo motivo sea «cruzó 0,05», el problema está
+        # en ese motivo y no acá.
+        cerrado_el = (exp.get("cierre") or {}).get("fecha")
         lectura = None
-        if listo and len(brazos) == 2:
+        # `all(b["n"] ...)` no sobra por más que `listo` ya lo implique: un
+        # experimento cerrado entra por la otra rama, y uno cerrado con un brazo
+        # en cero —el caso de los chequeos, y el de un cierre el mismo día del
+        # despliegue— dividía por cero ahí mismo.
+        if (listo or cerrado_el) and len(brazos) == 2 and all(b["n"] for b in brazos):
             control, test = brazos[0], brazos[1]
             nc, nt = control["n"], test["n"]
             xc, xt = control[exp["metrica"]], test[exp["metrica"]]
@@ -2077,6 +2310,7 @@ def experimentos(data: dict) -> list[dict]:
             }
 
         salida.append({
+            **_ficha(exp),
             "clave": exp["clave"],
             "titulo": exp["titulo"],
             "hipotesis": exp["hipotesis"],
@@ -2116,6 +2350,14 @@ def experimentos(data: dict) -> list[dict]:
 EXPERIMENTO_MOTOR: dict = {
     "clave": sorteo.EXPERIMENTO,
     "titulo": "La varianza del Elo",
+    "categoria": "motor",
+    "guardarrailes": ("motor", "calibracion", "opinion_motor"),
+    "abstract": (
+        "El paso de aprendizaje del Elo decae sin piso, así que el rating deja de "
+        "moverse justo para los que más juegan. ¿Ponerle un piso los hace volver "
+        "más días?"
+    ),
+    "cierre": None,
     "hipotesis": (
         "El paso de aprendizaje de θ decae sin piso, así que el rating deja de "
         "moverse justo para los que más juegan. Medido el 19/09 sobre los 7 días "
@@ -2316,6 +2558,7 @@ def experimento_motor(data: dict) -> dict:
         }
 
     return {
+        **_ficha(exp),
         "clave": exp["clave"],
         "titulo": exp["titulo"],
         "hipotesis": exp["hipotesis"],
@@ -2358,6 +2601,15 @@ def experimento_motor(data: dict) -> dict:
 EXPERIMENTO_MURO: dict = {
     "clave": game_muro.EXPERIMENTO,
     "titulo": "El tope diario",
+    "categoria": "monetizacion",
+    # Una sola y no dos: `pieza_monetizacion` ya concatena el embudo del
+    # cafecito adentro, así que declarar los dos lo dibujaba dos veces.
+    "guardarrailes": ("monetizacion",),
+    "abstract": (
+        "Un tope de 30 derivadas por día, y un cafecito que lo levanta por un mes. "
+        "¿Un estudiante completa un pago para seguir jugando, o se va?"
+    ),
+    "cierre": None,
     "hipotesis": (
         "dx no cobra nada y un cafecito compra hoy un multiplicador para toda "
         "una universidad, o sea que nadie pagó nunca por algo suyo. La hipótesis "
@@ -2645,6 +2897,7 @@ def experimento_muro(data: dict) -> dict:
         if _alta_en_el_muro(por_dia.get(p["id"]) or {}, desde, tope):
             exentos += 1
     return {
+        **_ficha(exp),
         "clave": exp["clave"],
         "titulo": exp["titulo"],
         "hipotesis": exp["hipotesis"],
@@ -2871,6 +3124,14 @@ EXPERIMENTOS_GRUPOS: tuple[dict, ...] = (
     {
         "clave": "dx-ab-imagen",
         "titulo": "La imagen del ranking",
+        "categoria": "activacion",
+        "guardarrailes": ("difusion",),
+        "abstract": (
+            "El mensaje de difusión que apela a la universidad, mandado como pie de "
+            "una foto del top 5 en vez de como texto suelto. ¿Sube el clickrate del "
+            "grupo?"
+        ),
+        "cierre": None,
         "hipotesis": (
             "Los seis mensajes de siempre, salvo que el último —el que apela a la "
             "universidad— viaja como el pie de una foto del top 5 en vez de como "
@@ -3100,6 +3361,7 @@ def experimento_grupos(data: dict) -> list[dict]:
             del b["_n_uni"]
 
         salida.append({
+            **_ficha(exp),
             "clave": exp["clave"],
             "titulo": exp["titulo"],
             "hipotesis": exp["hipotesis"],
@@ -4205,8 +4467,16 @@ def encuestas(data: dict) -> dict:
 # ── Entrada ──────────────────────────────────────────────────────────────────
 
 def build(db: DBSession, week: date, weeks_shown: int = 4,
-          corte: str = "total", k_max: int = DEPTH_MAX) -> dict:
-    """Payload completo del panel del juego para la semana `week` (su lunes)."""
+          corte: str = "total", k_max: int = DEPTH_MAX,
+          exp: str | None = None) -> dict:
+    """Payload completo del panel del juego para la semana `week` (su lunes).
+
+    `exp` es la clave del experimento que se esta mirando, o None en el indice.
+    La curva por brazos se calcula SOLO para ese, y no para los cinco: recorre
+    las tandas de toda su poblacion, y hacerlo siempre le pondria cuatro pasadas
+    de mas a cada carga del panel para dibujar graficos que nadie esta mirando.
+    Va en la clave de cache de main.py junto con la semana y el corte.
+    """
     data = load(db)
     weeks = _weeks_back(week, weeks_shown)
     # Se calculan una sola vez: los titulares del motor y sus secciones leen lo
@@ -4238,6 +4508,9 @@ def build(db: DBSession, week: date, weeks_shown: int = 4,
         "experimento_motor": experimento_motor(data),
         "experimento_muro": experimento_muro(data),
         "experimentos_grupos": experimento_grupos(data),
+        # Solo la del experimento que se esta mirando; None en el indice.
+        "curva_brazos": (curva_por_brazo(data, exp, _d["brazos"], k_max)
+                         if exp and (_d := declaracion(exp)) else None),
         "difusion": difusion(data, week),
         "carteles": carteles(data),
         "cartel_share": cartel_share_semanal(data, week),
