@@ -999,13 +999,14 @@ def _muro_de(db: Session, player: GamePlayer, hechas_hoy: int | None = None) -> 
     `correct_today` que manda igual: recalcularlo ahí sería correr dos veces la
     misma consulta en el endpoint más caliente del juego.
 
-    **Sin tope no se cuenta nada.** Con el experimento apagado o en el brazo de
-    control no hay ninguna decisión que tomar, así que este atajo es lo que
-    mantiene a `/me` y a `/player` —que llaman a `_player_out`— exactamente tan
-    caros como eran antes para la mitad de la gente y para todos mientras el
+    **Sin tope no se cuenta nada.** Con el experimento apagado, en el brazo de
+    control o con un jugador de antes del arranque no hay ninguna decisión que
+    tomar, así que este atajo es lo que mantiene a `/me` y a `/player` —que
+    llaman a `_player_out`— exactamente tan caros como eran antes para la mitad
+    de la gente, para toda la que ya estaba jugando, y para todos mientras el
     interruptor esté en cero.
     """
-    if game_muro.tope_de(player.id) is None:
+    if game_muro.tope_de(player) is None:
         return GameMuroOut()
     if hechas_hoy is None:
         hechas_hoy = _correctas_de_hoy(db, player.id)
@@ -1037,7 +1038,7 @@ def _frenar_si_llego_al_tope(db: Session, player: GamePlayer) -> None:
     de los rechazos sin leer el cuerpo (`ApiError.status`, y `retriable` lo deja
     afuera de los reintentos).
     """
-    if game_muro.tope_de(player.id) is None:
+    if game_muro.tope_de(player) is None:
         return
     if not _muro_de(db, player).bloqueado:
         return

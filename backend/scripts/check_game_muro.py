@@ -8,6 +8,11 @@ sección existe por un agujero concreto:
   - **el brazo de control no ve muro nunca**, ni con doscientas resueltas. Si
     esto se rompe, el experimento deja de tener grupo de comparación y no se nota
     hasta leer el panel;
+  - **los jugadores VIEJOS tampoco**, en ningún brazo. Solo participa quien se
+    creó a partir de `muro.ARRANQUE`, y el panel filtra con la misma fecha. Si
+    esto se rompe, el tope aparece de golpe en la mitad de la gente que ya venía
+    jugando sin él — que es exactamente el daño que la excepción existe para no
+    hacer;
   - **`/skip` también corta.** Es la puerta que es fácil olvidarse: saltear
     CIERRA el ejercicio y sirve otro, así que sin esto el cupo se esquiva
     salteando y el experimento mide cero;
@@ -78,10 +83,17 @@ client = TestClient(main.app, raise_server_exceptions=True)
 # hash lleva el nombre del experimento adentro, así que renombrarlo re-sortea a
 # todo el mundo y un id escrito a mano dejaría este archivo verde midiendo el
 # brazo equivocado.
+# `created_at` se escribe a mano y no se deja en el default. Solo participa
+# quien nació a partir de `muro.ARRANQUE` (ver sección 11), y esa fecha puede
+# estar en el FUTURO el día que esta suite corra: con el default («ahora») todo
+# este archivo mediría a dos jugadores exentos y pasaría en verde sin haber
+# probado el tope una sola vez. Nacen en el instante exacto del corte, que es el
+# borde que sí participa.
 _creados: dict[str, GamePlayer] = {}
 for i in range(1, 60):
     j = GamePlayer(alias=f"tope{i}", theta=0.0, n_updates=0, exercises_correct=0,
                    exercises_attempted=0, is_bot=False, guest_token=f"tok-tope{i}")
+    j.created_at = muro.NACIDO_DESPUES_DE
     db.add(j)
     db.commit()
     _creados.setdefault(muro.brazo_de(j.id), j)
@@ -142,7 +154,7 @@ check(850 <= iguales <= 1150,
 # ── 2 · El control no ve muro nunca ──────────────────────────────────────────
 print("2. el brazo de control juega como siempre")
 
-check(muro.tope_de(CONTROL.id) is None, "el control no tiene tope")
+check(muro.tope_de(CONTROL) is None, "el control no tiene tope")
 acertar(CONTROL, 200)
 r = client.post(f"{API}/next", headers={"X-Game-Token": TOK_CONTROL})
 check(r.status_code == 200,
@@ -152,7 +164,7 @@ check(r.status_code == 200,
 # ── 3 · El tope corta, y corta en el número declarado ────────────────────────
 print("3. el tope del brazo test")
 
-check(muro.tope_de(CON_MURO.id) == muro.TOPE_DIARIO,
+check(muro.tope_de(CON_MURO) == muro.TOPE_DIARIO,
       f"el brazo test tiene tope {muro.TOPE_DIARIO}")
 
 acertar(CON_MURO, muro.TOPE_DIARIO - 1)
@@ -300,7 +312,7 @@ check(all(a[0] < b[0] for a, b in zip(muro.VELOCIDAD, muro.VELOCIDAD[1:])),
 print("8. se puede apagar sin deploy")
 
 os.environ["MURO_ENABLED"] = "0"
-check(muro.tope_de(CON_MURO.id) is None, "apagado, nadie tiene tope")
+check(muro.tope_de(CON_MURO) is None, "apagado, nadie tiene tope")
 r = client.post(f"{API}/next", headers={"X-Game-Token": TOK_MURO})
 check(r.status_code == 200,
       f"y el que estaba bloqueado vuelve a jugar (dio {r.status_code})")
@@ -308,7 +320,7 @@ check(muro.estado(db, CON_MURO, 999, _inicio_del_dia(),
                   _proxima_medianoche()).bloqueado is False,
       "ni con 999 resueltas")
 os.environ["MURO_ENABLED"] = "1"
-check(muro.tope_de(CON_MURO.id) == muro.TOPE_DIARIO,
+check(muro.tope_de(CON_MURO) == muro.TOPE_DIARIO,
       "y se vuelve a encender leyendo la variable, sin reiniciar el proceso")
 
 
@@ -338,10 +350,16 @@ check("muro" in LUGARES_CAFECITO,
 print("10. quién entra al experimento")
 
 from datetime import date as _date  # noqa: E402
-from metrics.game_queries import _alta_en_el_muro  # noqa: E402
+from metrics.game_queries import EXPERIMENTO_MURO, _alta_en_el_muro  # noqa: E402
 
-DESDE = _date(2026, 9, 27)
+# Se LEE de `muro.ARRANQUE` y no se escribe: esa fecha hace dos cosas a la vez
+# —abre la inscripción y define quién es nuevo— y con la fecha copiada acá este
+# archivo seguiría verde el día que una de las dos mitades se mueva.
+DESDE = muro.ARRANQUE
 T = muro.TOPE_DIARIO
+
+check(EXPERIMENTO_MURO["desde"] == muro.ARRANQUE,
+      "el panel inscribe desde la MISMA fecha que define quién participa")
 
 # **`>=` y no `>`, y de esto depende que el experimento exista.** En el brazo
 # tratado el contador no puede pasar del tope porque el servidor corta justo
@@ -378,6 +396,111 @@ check(_alta_en_el_muro(mixto, DESDE, T) == _date(2026, 10, 2),
 check(_alta_en_el_muro({}, DESDE, T) is None, "sin días jugados no entra nadie")
 check(_alta_en_el_muro({DESDE: T}, DESDE, T) == DESDE,
       "el día del arranque cuenta (el borde es cerrado)")
+
+
+# ── 11 · La excepción de los veteranos ───────────────────────────────────────
+print("11. los jugadores de antes no participan")
+
+from datetime import timezone as _tz  # noqa: E402
+
+# Un jugador con la misma suerte que `CON_MURO` —mismo brazo— pero creado antes
+# del arranque. El id se busca, igual que arriba: el brazo sale de un hash.
+VIEJO = None
+for i in range(200, 400):
+    j = GamePlayer(alias=f"tope{i}", theta=0.0, n_updates=0, exercises_correct=0,
+                   exercises_attempted=0, is_bot=False, guest_token=f"tok-tope{i}")
+    db.add(j)
+    db.commit()
+    if muro.brazo_de(j.id) == "muro":
+        VIEJO = j
+        break
+assert VIEJO is not None
+# Nacido un día antes del corte. Se escribe a mano porque el default de la
+# columna es «ahora», y «ahora» siempre cae después del arranque.
+VIEJO.created_at = muro.NACIDO_DESPUES_DE - timedelta(days=1)
+db.commit()
+TOK_VIEJO = f"tok-tope{VIEJO.alias[4:]}"
+
+check(muro.brazo_de(VIEJO.id) == "muro",
+      "el jugador de prueba cayó en el brazo CON tope, que es donde se nota")
+check(muro.participa(VIEJO) is False, "y no participa, por ser de antes")
+check(muro.tope_de(VIEJO) is None,
+      "así que no tiene tope aunque le haya tocado el brazo tratado")
+
+acertar(VIEJO, 200)
+check(muro.estado(db, VIEJO, 200, _inicio_del_dia(),
+                  _proxima_medianoche()).bloqueado is False,
+      "con 200 resueltas hoy sigue sin muro")
+r = client.post(f"{API}/next", headers={"X-Game-Token": TOK_VIEJO})
+check(r.status_code == 200, f"y /next le sirve otra derivada (dio {r.status_code})")
+_abierto = r.json().get("exercise_id") if r.status_code == 200 else None
+r = client.post(f"{API}/skip", json={"exercise_id": _abierto},
+                headers={"X-Game-Token": TOK_VIEJO})
+check(r.status_code != 402,
+      f"y /skip tampoco lo corta (dio {r.status_code})")
+
+# El borde, que es lo único que una fecha puede tener mal.
+class _Falso:
+    def __init__(self, created_at):
+        self.created_at = created_at
+        self.id = 1
+
+check(muro.participa(_Falso(muro.NACIDO_DESPUES_DE)) is True,
+      "el instante del corte SÍ participa (el borde es cerrado)")
+check(muro.participa(_Falso(muro.NACIDO_DESPUES_DE - timedelta(microseconds=1))) is False,
+      "y un microsegundo antes no")
+check(muro.participa(_Falso(None)) is False,
+      "sin fecha de creación no participa: el caso imposible cae del lado seguro")
+# El corte es medianoche de Buenos Aires y no de UTC, que son tres horas de
+# jugadores. Con el corte en UTC, todo el que se creara entre las 21 y las 24 del
+# día anterior entraría al experimento sin que fuera su día.
+check(muro.NACIDO_DESPUES_DE.replace(tzinfo=_tz.utc).astimezone(
+          muro._TZ_JUEGO).hour == 0,
+      "el corte es la medianoche ARGENTINA, no la de UTC")
+
+
+# ── 12 · El panel no cuenta a los veteranos ──────────────────────────────────
+print("12. y el panel tampoco los cuenta")
+
+from metrics.game_queries import experimento_muro  # noqa: E402
+
+# El dato mínimo que el bloque necesita: dos personas del MISMO brazo, una nueva
+# y una vieja, las dos con un día que llega al tope después del arranque.
+_dia = datetime(DESDE.year, DESDE.month, DESDE.day, 15, 0, 0)
+_fake = {
+    "players": [
+        {"id": CON_MURO.id, "is_bot": False, "xp": 100,
+         "created_at": muro.NACIDO_DESPUES_DE},
+        {"id": VIEJO.id, "is_bot": False, "xp": 100,
+         "created_at": muro.NACIDO_DESPUES_DE - timedelta(days=1)},
+    ],
+    "attempts": [
+        {"player_id": pid, "is_correct": True, "created_at": _dia}
+        for pid in (CON_MURO.id, VIEJO.id) for _ in range(T)
+    ],
+    "boosts": [],
+    "cta": [],
+}
+_b = {x["clave"]: x for x in experimento_muro(_fake)["brazos"]}
+check(_b["muro"]["n"] + _b["muro"]["en_curso"] == 1,
+      "de los dos que llegaron al tope, el panel inscribe UNO: el nuevo")
+check(experimento_muro(_fake)["exentos"] == 1,
+      "y cuenta al otro como exento, que es el precio de la excepción")
+
+# Y el control, que también se filtra: si la excepción valiera solo del lado del
+# tope, el control tendría gente que el brazo tratado no puede tener y los dos
+# montones dejarían de ser comparables.
+_fake2 = {
+    **_fake,
+    "players": [{"id": CONTROL.id, "is_bot": False, "xp": 100,
+                 "created_at": muro.NACIDO_DESPUES_DE - timedelta(days=1)}],
+    "attempts": [{"player_id": CONTROL.id, "is_correct": True, "created_at": _dia}
+                 for _ in range(T)],
+}
+_b2 = {x["clave"]: x for x in experimento_muro(_fake2)["brazos"]}
+check(_b2["control"]["n"] + _b2["control"]["en_curso"] == 0,
+      "un veterano del CONTROL tampoco entra, o los brazos medirían poblaciones "
+      "distintas")
 
 
 print()

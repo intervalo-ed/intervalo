@@ -9,11 +9,12 @@ de implementación y por eso está escrito acá arriba: ver la sección
 «El tope diario y el pase» en context/gamification.md.
 
 Lo que este módulo decide es una sola cosa —si a esta persona, hoy, le queda
-alguna derivada— y lo decide en tres pasos:
+alguna derivada— y lo decide en cuatro pasos:
 
   1. ¿Está encendido el experimento? (`habilitado`, una variable de entorno)
-  2. ¿En qué brazo cayó? (`tope_de`, un hash de su id, sin columna nueva)
-  3. ¿Tiene un pase vigente? (`pase_hasta`, derivado de `game_boosts`)
+  2. ¿Participa? (`participa`: **solo los jugadores nuevos**, ver `ARRANQUE`)
+  3. ¿En qué brazo cayó? (`brazo_de`, un hash de su id, sin columna nueva)
+  4. ¿Tiene un pase vigente? (`pase_hasta`, derivado de `game_boosts`)
 
 **Por qué no hay tabla de pases.** Un pase vigente es exactamente «esta persona
 puso plata hace menos de treinta días», y eso ya está escrito en `game_boosts`,
@@ -38,8 +39,9 @@ from __future__ import annotations
 
 import os
 from dataclasses import dataclass
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
 from typing import Sequence
+from zoneinfo import ZoneInfo
 
 from sqlalchemy import func
 from sqlalchemy.orm import Session
@@ -94,11 +96,20 @@ ENV_ENCENDIDO = "MURO_ENABLED"
 
 # ── El experimento ──────────────────────────────────────────────────────────
 #
-# `dx-muro-1`. Se sortea del lado del SERVIDOR, con el hash de `sorteo.brazo_de`
-# y sin columna, por el mismo motivo que `dx-elo-1` y no por ahorrar: la
-# variante de `game_players.variant` se escribe al CREAR la fila, y los que hoy
-# llegan a 30 derivadas en un día existen todos desde hace semanas. Con el
-# sorteo de creación este experimento mediría a cero personas para siempre.
+# `dx-muro-1`. El brazo se sortea del lado del SERVIDOR, con el hash de
+# `sorteo.brazo_de` y sin columna.
+#
+# **Ojo con el motivo, porque cambió.** Cuando esto se escribió, el sorteo tenía
+# que ser del servidor porque `game_players.variant` se escribe al CREAR la fila
+# y los que llegaban a 30 en un día existían todos desde hacía semanas: con el
+# sorteo de creación el experimento habría medido a cero personas. Con la
+# excepción de los veteranos (`ARRANQUE`) eso ya no es cierto —ahora todos los
+# participantes se crean DESPUÉS del arranque, así que la variante de creación
+# también funcionaría—. El hash se queda igual, por tres razones distintas de la
+# original: ya está repartido y verificado contra producción con el experimento
+# corriendo, cambiar el mecanismo re-sortearía a quien ya está inscripto, y el
+# panel puede recalcular el brazo de cualquiera en tiempo de lectura sin
+# depender de que una columna se haya escrito bien.
 EXPERIMENTO = "dx-muro-1"
 
 # El índice ES el bucket, igual que en los otros dos sorteos: agregar un brazo
@@ -107,6 +118,48 @@ BRAZOS: tuple[str, ...] = ("control", "muro")
 
 # Qué tope le toca a cada brazo. `None` es «sin tope», que es el juego de hoy.
 TOPES: dict[str, int | None] = {"control": None, "muro": TOPE_DIARIO}
+
+# ── Quiénes participan ──────────────────────────────────────────────────────
+#
+# **Solo los jugadores NUEVOS.** Quien ya venía jugando antes del arranque no
+# tiene tope —ni en el brazo tratado, ni nunca— y el panel tampoco lo cuenta.
+#
+# No es una concesión para que no se enoje nadie: es lo que hace que el
+# experimento mida lo que dice medir. Un veterano que a los cuarenta días se
+# encuentra una pared reacciona a que le QUITARON algo que tenía; un recién
+# llegado reacciona a cómo es el producto. Son dos cantidades distintas, y la
+# que contesta «¿este producto puede tener un tope?» es la segunda. Con la
+# excepción, todos los inscriptos conocieron una sola regla desde su primera
+# derivada.
+#
+# **Lo que cuesta, medido el 26/09.** De las 270 personas que alguna vez
+# llegaron a 30 resueltas en un día, 232 lo hicieron **el mismo día que se
+# crearon** (86%) y el p90 de la demora es UN día. Así que la excepción no vacía
+# el experimento: le saca los ~117 veteranos que ya estaban arriba del tope
+# —casi todos se habrían inscripto en la primera semana— y después casi no se
+# nota. El ritmo pasa de ~111 a ~91-98 personas por semana.
+#
+# **Y lo que ya no se va a poder concluir.** El resultado va a valer para
+# jugadores nuevos y nada más. Si sale que pagan, eso no dice qué haría un
+# veterano, y ahí está la plata de hoy: los catorce donantes y la punta del
+# ranking son todos de antes del arranque. Encender el tope para todos seguiría
+# siendo un cambio sin medir.
+ARRANQUE = date(2026, 9, 27)
+
+# El huso del juego, para traducir `ARRANQUE` a la escala en que está escrita la
+# base. Se define acá en vez de importarlo de `router` porque router importa este
+# módulo; es el mismo duplicado que ya tiene `aforo.py`, y por el mismo motivo.
+_TZ_JUEGO = ZoneInfo("America/Argentina/Buenos_Aires")
+
+# El instante del corte, en UTC ingenuo, que es la escala de
+# `game_players.created_at` (escrito con `datetime.utcnow`). Se calcula una vez
+# al importar: es una fecha fija y Argentina no mueve el reloj desde 2009.
+NACIDO_DESPUES_DE = (
+    datetime(ARRANQUE.year, ARRANQUE.month, ARRANQUE.day, tzinfo=_TZ_JUEGO)
+    .astimezone(ZoneInfo("UTC"))
+    .replace(tzinfo=None)
+)
+
 
 # ── Los números del cartel ──────────────────────────────────────────────────
 
@@ -156,17 +209,42 @@ def brazo_de(player_id: int) -> str:
     return sorteo.brazo_de(player_id, EXPERIMENTO, BRAZOS)
 
 
-def tope_de(player_id: int) -> int | None:
+def participa(player: GamePlayer) -> bool:
+    """¿Este jugador entra al experimento del tope?
+
+    Solo los creados a partir de `ARRANQUE`. Con `created_at` en NULL la
+    respuesta es NO: no puede pasar —la columna tiene default— pero la única
+    forma de equivocarse acá es ponerle un tope a alguien que no debía tenerlo,
+    así que el caso raro cae del lado seguro.
+
+    Un detalle que conviene saber antes de que alguien lo descubra solo: borrar
+    el navegador crea un jugador NUEVO, así que un veterano que limpie su
+    `localStorage` **pierde la excepción** junto con su XP. Es el reverso exacto
+    de la puerta de atrás que este experimento ya tenía anotada como riesgo, y
+    no hace falta taparlo: nadie borra su progreso para conseguir un tope.
+    """
+    nacio = player.created_at
+    return nacio is not None and nacio >= NACIDO_DESPUES_DE
+
+
+def tope_de(player: GamePlayer) -> int | None:
     """El tope diario de esta persona, o `None` si no tiene.
 
-    `None` sale por dos caminos que el llamador NO tiene que distinguir: el
-    experimento está apagado, o le tocó el control. Los dos significan lo mismo
-    para quien juega —no hay tope— y mezclarlos acá evita que cada lugar que
-    pregunta tenga que acordarse de los dos.
+    `None` sale por TRES caminos que el llamador no tiene que distinguir: el
+    experimento está apagado, la persona ya jugaba antes del arranque, o le tocó
+    el control. Los tres significan lo mismo para quien juega —no hay tope— y
+    mezclarlos acá evita que cada lugar que pregunta tenga que acordarse de los
+    tres.
+
+    Toma el jugador y no su id justamente por eso: con la firma vieja
+    (`tope_de(player_id)`) cualquier llamador nuevo podía preguntar por el brazo
+    y saltearse la excepción sin enterarse.
     """
     if not habilitado():
         return None
-    return TOPES[brazo_de(player_id)]
+    if not participa(player):
+        return None
+    return TOPES[brazo_de(player.id)]
 
 
 def pase_hasta(db: Session, player: GamePlayer, ahora: datetime | None = None) -> datetime | None:
@@ -280,7 +358,7 @@ def estado(
     todo el mundo.
     """
     ahora = ahora or datetime.utcnow()
-    tope = tope_de(player.id)
+    tope = tope_de(player)
     vence = pase_hasta(db, player, ahora) if tope is not None else None
     alcanzo = tope is not None and hechas_hoy >= tope
     bloqueado = alcanzo and vence is None

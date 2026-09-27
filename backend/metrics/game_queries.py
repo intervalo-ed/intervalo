@@ -2333,7 +2333,10 @@ EXPERIMENTO_MURO: dict = {
         "por un mes, convierte a una parte de los que más juegan en pagadores "
         "sin espantar al resto. Lo que se prueba NO es el precio —a siete "
         "centavos de dólar el mes, no hay precio— sino si un estudiante "
-        "atraviesa un checkout de Mercado Pago para seguir jugando."
+        "atraviesa un checkout de Mercado Pago para seguir jugando. "
+        "**Solo entran jugadores nuevos**: quien ya venía jugando antes del "
+        "arranque no tiene tope, así que lo que se mide es cómo se recibe la "
+        "regla y no cómo se recibe que te la cambien."
     ),
     # **El día siguiente al despliegue y no el mismo, y eso no es un redondeo.**
     # El interruptor se encendió el 26/09 a media tarde, así que ese día hubo
@@ -2343,7 +2346,13 @@ EXPERIMENTO_MURO: dict = {
     # la primera fila del experimento a las únicas personas que lo vivieron a
     # medias. Con el 27 todos los inscriptos tienen el día completo desde su
     # primera derivada.
-    "desde": date(2026, 9, 27),
+    #
+    # **Y se LEE de `muro.ARRANQUE` en vez de estar escrita acá**, porque esta
+    # fecha hace dos cosas a la vez: abre la inscripción y define quién es nuevo
+    # (nadie creado antes participa). Con la fecha copiada, mover una de las dos
+    # mitades dejaría al panel inscribiendo gente que el servidor no topea, o al
+    # revés, y nada fallaría.
+    "desde": game_muro.ARRANQUE,
     # La ventana de medición, igual que en el motor: nadie cuenta hasta que la
     # suya cerró. Sumar una ventana abierta sería comparar a alguien medido 14
     # días con alguien medido 3.
@@ -2364,21 +2373,31 @@ EXPERIMENTO_MURO: dict = {
     "alpha": 0.05,
     "potencia": 0.80,
     # El guardarraíl que puede matarlo, con su propia aritmética de medias.
-    # Medidos sobre los 65 del pre-período: 1,49 días activos en los 14
-    # posteriores, sd 2,50.
-    "dias_base": 1.49,
-    "dias_sd": 2.50,
+    #
+    # **Re-medidos sobre la población que el experimento va a tener de verdad**:
+    # los 58 del pre-período que llegaron al tope el mismo día que se crearon,
+    # que es la forma que tiene un jugador nuevo de chocarlo. Los números casi no
+    # se mueven respecto de los 65 de antes (1,49 con sd 2,50 y 53,8% de vuelta),
+    # y eso es en sí un dato: el veterano que choca el tope se comporta como el
+    # recién llegado. Se re-declaran igual porque la población cambió, y declarar
+    # la base de una población distinta de la medida es la forma silenciosa de
+    # comprometerse a un n que no alcanza.
+    "dias_base": 1.48,
+    "dias_sd": 2.59,
     "dias_mde": 0.80,
-    "vuelve_base": 53.8,
+    "vuelve_base": 51.7,
     "prediccion": (
-        "Lo cruzan entre 92 y 107 personas por semana, o sea ~50 por brazo, así "
-        "que los 269 por brazo llegan en unas 5,4 semanas de inscripción más 2 "
-        "de ventana: primera lectura a mediados de noviembre. El guardarraíl de "
-        "días activos se vuelve legible antes, a las ~3 semanas, y ese orden es "
-        "a propósito. Predicción del resultado: el pago se va a mover, porque "
-        "hoy el 17,2% de los que tocan el cartel pagan y el muro es el lugar "
-        "con más motivo para tocarlo; lo que NO sé es si el precio de eso es "
-        "medio día activo o dos."
+        "Con la excepción de los veteranos lo cruzan entre 91 y 98 personas por "
+        "semana en vez de 111 —el 86% de los que llegan al tope lo hacen el "
+        "mismo día que se crean, así que la excepción saca sobre todo la camada "
+        "de veteranos de la primera semana— o sea ~47 por brazo. Los 269 por "
+        "brazo llegan en unas 6 semanas de inscripción más 2 de ventana: "
+        "primera lectura a fin de noviembre. El guardarraíl de días activos se "
+        "vuelve legible antes, a las ~3,5 semanas, y ese orden es a propósito. "
+        "Predicción del resultado: el pago se va a mover, porque hoy el 17,2% "
+        "de los que tocan el cartel pagan y el muro es el lugar con más motivo "
+        "para tocarlo; lo que NO sé es si el precio de eso es medio día activo "
+        "o dos."
     ),
 }
 
@@ -2422,6 +2441,10 @@ def _alta_en_el_muro(dias: dict[date, int], desde: date, tope: int) -> date | No
 
     Así, todos los inscriptos son gente que llegó al tope con el experimento
     corriendo, en una fecha conocida.
+
+    **La tercera regla no está acá**: que la persona sea NUEVA lo decide quien
+    llama, porque es una propiedad de la persona y no de sus días. Ver la
+    excepción en `experimento_muro` y el motivo en `muro.ARRANQUE`.
     """
     candidatos = sorted(d for d, n in dias.items() if d >= desde and n >= tope)
     return candidatos[0] if candidatos else None
@@ -2474,6 +2497,17 @@ def experimento_muro(data: dict) -> dict:
         for p in data["players"]:
             pid = p["id"]
             if p["is_bot"] or game_muro.brazo_de(pid) != clave:
+                continue
+            # **La excepción de los veteranos.** Quien ya jugaba antes del
+            # arranque no tiene tope, así que no hay nada suyo que medir: en el
+            # brazo tratado porque nunca chocó nada, y en el control porque
+            # sería el contrafáctico de algo que a su pareja tampoco le pasó.
+            # Se filtra en los DOS brazos con la misma función que decide el
+            # tope (`muro.NACIDO_DESPUES_DE`), y no con una fecha copiada.
+            #
+            # `datetime.min` en el caso imposible de `created_at` en NULL: la
+            # respuesta segura es «no participa».
+            if (p["created_at"] or datetime.min) < game_muro.NACIDO_DESPUES_DE:
                 continue
             dias = por_dia.get(pid)
             if not dias:
@@ -2564,6 +2598,20 @@ def experimento_muro(data: dict) -> dict:
     con_plata = {pid for pid in pagos}
     top = sorted((p for p in data["players"] if not p["is_bot"]),
                  key=lambda p: p["xp"] or 0, reverse=True)[:20]
+
+    # Cuánta gente se salvó del tope por ser de antes del arranque, contada
+    # solamente entre los que SÍ habrían entrado: llegaron al tope un día que
+    # cuenta. Es el precio de la excepción en la única moneda que importa acá
+    # —inscripción que no se junta— y se muestra porque es lo que explica que el
+    # n crezca más lento de lo que decía la predicción original.
+    exentos = 0
+    for p in data["players"]:
+        if p["is_bot"]:
+            continue
+        if (p["created_at"] or datetime.min) >= game_muro.NACIDO_DESPUES_DE:
+            continue
+        if _alta_en_el_muro(por_dia.get(p["id"]) or {}, desde, tope):
+            exentos += 1
     return {
         "clave": exp["clave"],
         "titulo": exp["titulo"],
@@ -2572,6 +2620,7 @@ def experimento_muro(data: dict) -> dict:
         "desde": exp["desde"],
         "ventana_dias": ventana,
         "tope": tope,
+        "exentos": exentos,
         "pase_dias": game_muro.PASE_DIAS,
         "encendido": game_muro.habilitado(),
         "metrica": exp["metrica"],
