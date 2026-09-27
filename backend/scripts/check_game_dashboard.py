@@ -1713,11 +1713,14 @@ for _e in _TODOS:
 check("y toda sección del panel tiene color declarado",
       {c for c, _ in game_render.SECCIONES} <= set(game_render.COLORES_SECCION),
       f'({sorted(set(c for c, _ in game_render.SECCIONES) - set(game_render.COLORES_SECCION))})')
-# La tinta del chip activo se calcula por luminancia: con blanco fijo el de
-# Activación queda ilegible y con tinta oscura fija el de Retención también.
-check("la tinta del chip activo se elige por luminancia",
-      game_render._texto_sobre("#5fd39b") == "#0d0d18"
-      and game_render._texto_sobre("#3da878") == "#ffffff")
+# El chip activo se marca con borde y peso, no con relleno, y compensa el
+# píxel de borde en el padding: si no, la barra se corre al cambiar de pestaña.
+_act = _re.search(r'<span class="cur"([^>]*)>Experimentación</span>', _idx).group(1)
+check("el chip activo no lleva relleno sólido", "background:none" in _act)
+check("y se marca con el borde y la negrita",
+      "border-width:2px" in _act and "font-weight:700" in _act)
+check("y compensa el borde en el padding, para que la barra no se corra",
+      "padding:2px 8px" in _act)
 # `.tag` ya era el chip de universidad de theme.py, que usan los DOS paneles:
 # definirlo de nuevo le cambiaba el display, el peso y el radio en todas las
 # tablas con una sigla, y nada se hubiera puesto rojo.

@@ -84,7 +84,7 @@ table.indice td:not(:first-child){white-space:nowrap}
    universidad de theme.py, que usan los dos paneles. Definirlo de nuevo acá le
    cambiaba el display, el peso y el radio en todas las tablas donde aparece una
    sigla, sin que nada se pusiera rojo. */
-.estado{display:inline-block;padding:1px 8px;border-radius:4px;font-size:11px;
+.estado{display:inline-block;padding:1px 8px;border-radius:7px;font-size:11px;
   font-weight:600;line-height:1.75;border:1px solid;background:none}
 .estados{display:inline-flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
 
@@ -286,20 +286,6 @@ _TONOS_TAG = {
 }
 
 
-def _texto_sobre(color: str) -> str:
-    """Tinta legible sobre un relleno de ese color, por luminancia relativa.
-
-    Se calcula y no se elige a mano porque la paleta va de un lima muy claro a
-    un ámbar medio: con blanco fijo el chip activo de Activación queda ilegible,
-    y con tinta oscura fija el de Retención también. Es la fórmula de WCAG.
-    """
-    r, g, b = (int(color[i:i + 2], 16) / 255 for i in (1, 3, 5))
-    def lin(c):
-        return c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4
-    L = 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b)
-    return "#0d0d18" if L > 0.35 else "#ffffff"
-
-
 def _tag(texto: str, color: str) -> str:
     """El tag de estado o de categoría. Sin relleno: el color es borde y texto."""
     return (f'<span class="estado" style="color:{color};border-color:{color}">'
@@ -315,8 +301,13 @@ def _chip_seccion(clave: str, label: str, href: str | None) -> str:
     """
     c = COLORES_SECCION.get(clave, "#7e80f7")
     if href is None:
-        return (f'<span class="cur" style="background:{c};border-color:{c};'
-                f'color:{_texto_sobre(c)}">{esc(label)}</span>')
+        # El activo se marca con el borde y el peso, no con un relleno. El
+        # `padding` baja un píxel para compensar el borde que sube uno: sin eso
+        # el chip elegido es dos píxeles más grande que los otros y la barra
+        # entera se corre al cambiar de pestaña.
+        return (f'<span class="cur" style="background:none;color:{c};'
+                f'border-color:{c};border-width:2px;padding:2px 8px;'
+                f'font-weight:700">{esc(label)}</span>')
     return (f'<a href="{href}" style="color:{c};border-color:{c}55">'
             f'{esc(label)}</a>')
 

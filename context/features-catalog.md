@@ -372,9 +372,12 @@ tres rótulos parecidos (`game_render.COLORES_SECCION`):
 
 Los tonos están elegidos sobre el fondo del panel para que el texto llegue a
 **4,5:1**, que es lo que obliga a que «verde oscuro» sea un verde medio y no el
-que uno elegiría sobre papel. La tinta del chip activo se calcula por luminancia
-(`_texto_sobre`) y no se fija: con blanco el de Activación queda ilegible, y con
-tinta oscura el de Retención también.
+que uno elegiría sobre papel.
+
+El chip de la pestaña abierta **no lleva relleno**: se marca con el borde a 2px y
+la negrita, y el `padding` baja un píxel para compensar el borde que sube uno —
+sin eso el chip elegido es dos píxeles más grande que los otros y la barra entera
+se corre al cambiar de pestaña.
 
 Dos vecindades se cuidaron a mano porque caen en la MISMA FILA de la tabla:
 Monetización (ámbar anaranjado) contra «Pausado» (amarillo), y Activación
