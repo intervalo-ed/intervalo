@@ -2239,7 +2239,7 @@ check("y la palabra que ES el producto no entra de atajo",
 
 titulos = {"activacion": "Difusión: a cuánta gente se llegó",
            "retencion": "Re-enganche · mails de ciclo de vida",
-           "jugabilidad": "Si le salen repetidas",
+           "jugabilidad": "Repetitividad",
            "motor": "Lo prometido contra lo entregado",
            "monetizacion": "Dónde se pide el cafecito",
            "experimentacion": "Experimentos",
