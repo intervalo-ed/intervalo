@@ -179,43 +179,48 @@ check(
 )
 
 print("2. todas las filas de la tabla tienen plantilla, y el piso manda sobre la beta aprendida")
-from game.templates import PISO_TRIGONOMETRICAS, TEMPLATE_BY_KEY as _TBK  # noqa: E402
+from game.templates import TEMPLATE_BY_KEY as _TBK  # noqa: E402
 
-# El a4978533 agregó t1_recip, t1_sqrt y t3_tan sin tocar ROW_TEMPLATES, y el
-# panel se pasó seis días mostrando «—» en tres de sus catorce filas. Esto es
-# lo que hubiera avisado: ninguna fila puede quedar vacía, y ninguna plantilla
+# El a4978533 agrego t1_recip, t1_sqrt y t3_tan sin tocar ROW_TEMPLATES, y el
+# panel se paso seis dias mostrando «-» en tres de sus catorce filas. Esto es
+# lo que hubiera avisado: ninguna fila puede quedar vacia, y ninguna plantilla
 # puede quedar sin fila salvo las combinaciones que la tabla no lista.
 sin_plantilla = [slug for slug, keys in game_stats.ROW_TEMPLATES.items() if not keys]
-check(not sin_plantilla, f"ninguna fila sin plantilla (vacías: {sin_plantilla})")
+check(not sin_plantilla, f"ninguna fila sin plantilla (vacias: {sin_plantilla})")
 
 _COMBINACIONES = {"t1_kx", "t2_sum2", "t2_sum3", "t2_pow_plus_const", "t3_trig_sum", "t3_mix_sum"}
 mapeadas = {k for keys in game_stats.ROW_TEMPLATES.values() for k in keys}
 huerfanas = sorted(set(_TBK) - mapeadas - _COMBINACIONES)
-check(not huerfanas, f"ninguna plantilla propia sin fila (huérfanas: {huerfanas})")
+check(not huerfanas, f"ninguna plantilla propia sin fila (huerfanas: {huerfanas})")
 
 unlock = game_stats._unlock_ratings(db)
 check(all(v is not None for v in unlock.values()), "las 15 filas tienen un Elo de desbloqueo")
 
-# Seno con la β de producción (−3.05 con 12 personas): la cuenta de comodidad
-# la daría por abierta en ~870, y en 870 el generador no la sirve. Sin el piso
-# el panel prometería una fila que el motor tiene cerrada.
+# **El piso de las trigonometricas se saco el 28/09** (la historia esta en
+# templates.py). Hasta esa fecha esta parte probaba que el piso GANARA sobre la
+# cuenta de comodidad: la beta aprendida del seno lo daria por comodo en 870 y
+# en 870 el generador no lo servia, asi que el panel habria prometido una fila
+# que el motor tenia cerrada.
+#
+# Ya no hay piso, asi que lo que se prueba es lo que queda en pie: que ninguna
+# fila herede uno que no existe, y que el `max(comodo, piso)` siga estando por
+# si vuelve. Sin esto, alguien que reponga un `min_rating` manana no tendria
+# nada que le avise si el panel lo ignora.
+pisos = {slug: game_stats._piso_de_fila(keys)
+         for slug, keys in game_stats.ROW_TEMPLATES.items() if keys}
+con_piso = {k: v for k, v in pisos.items() if v}
+check(not con_piso, f"hoy ninguna fila hereda piso de rating (dio {con_piso})")
+
+# Y el desbloqueo pasa a salir ENTERO de la cuenta de comodidad, que es la mitad
+# que el piso tapaba: el seno se abre donde la beta dice, no donde un numero
+# escrito a mano decia.
 db.query(GameTemplateStat).filter(GameTemplateStat.template_key == "t3_sin").delete()
 db.add(GameTemplateStat(template_key="t3_sin", tier=3, beta=-3.05, n_players=12))
 db.commit()
 comodo_sin = elo.rating_of(game_stats._unlock_theta(-3.05, 3, 12))
-check(comodo_sin < PISO_TRIGONOMETRICAS,
-      f"la β aprendida del seno lo daría por cómodo en {comodo_sin}, debajo del piso")
 unlock = game_stats._unlock_ratings(db)
-for slug in ("sin_x", "cos_x", "tan_x"):
-    check(unlock[slug] == PISO_TRIGONOMETRICAS,
-          f"{slug}.unlock_elo == {PISO_TRIGONOMETRICAS} (dio {unlock[slug]})")
-
-# "prod" tiene tres plantillas con piso y dos sin: se abre con las que no lo
-# tienen, así que el piso de la FILA es 0 y manda la cuenta de comodidad.
-check(game_stats._piso_de_fila(game_stats.ROW_TEMPLATES["prod"]) == 0,
-      "la fila de productos no hereda el piso: x²·eˣ no tiene seno")
-check(game_stats._piso_de_fila(game_stats.ROW_TEMPLATES["quot"]) == 0,
-      "ídem cocientes: solo uno de los cinco tiene seno")
+check(unlock["sin_x"] == comodo_sin,
+      f"sin_x.unlock_elo sale de la comodidad ({comodo_sin}, dio {unlock['sin_x']})")
 
 print("3. Elo de desbloqueo de una fila con varias plantillas: promedio en θ, no en rating redondeado")
 # "prod" junta 5 plantillas de tier 4; se les pone n_players=0 salvo a dos, con

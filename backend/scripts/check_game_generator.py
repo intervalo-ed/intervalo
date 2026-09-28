@@ -443,74 +443,80 @@ print("   muestras (desde cero, una plantilla sola):")
 for key, keys in samples.items():
     print(f"     {key:22s} {' '.join(keys) if keys else '(sin teclas nuevas)'}")
 
-# ── 6. Piso de Elo de las trigonometricas ────────────────────────────────────
+# ── 6. El gate por rating: la herramienta, no el piso que ya no esta ──────
 print()
-print("6. piso de Elo")
-from game.generator import desbloqueadas  # noqa: E402
-from game.templates import PISO_TRIGONOMETRICAS  # noqa: E402
+print("6. el gate por rating (min_rating)")
+import dataclasses  # noqa: E402
 
-CON_PISO = {t.key for t in TEMPLATES if t.min_rating is not None}
-check(CON_PISO == {"t3_sin", "t3_cos", "t3_tan", "t3_trig_sum",
-                   "t4_pow_sin", "t4_exp_cos", "t4_exp_sin", "t5_sin_over_x",
-                   # Las seis de la cadena que también llevan seno o coseno. El
-                   # criterio no cambió: si la fila trigonométrica todavía no
-                   # está abierta, tampoco se sirve una cadena que la use.
-                   "t6_sin_lineal", "t6_cos_lineal", "t7_pow_trig",
-                   "t8_exp_sin", "t8_cos_ln", "t8_quot_cadena"},
-      f"el piso cubre las 14 plantillas con seno, coseno o tangente (dio {sorted(CON_PISO)})")
+from game.generator import ONBOARDING, desbloqueadas  # noqa: E402
+from game.templates import GameTemplate  # noqa: E402
 
-# El θ justo debajo y justo encima de la barrera. rating_of redondea, así que se
-# toma un paso de un punto entero de rating para no depender del redondeo.
-theta_piso = (PISO_TRIGONOMETRICAS - elo.RATING_BASE) / elo.RATING_PER_THETA
+# **El piso de las trigonometricas se saco el 28/09** (la historia entera esta en
+# templates.py). Hasta esa fecha esta seccion probaba ese piso concreto: que las
+# catorce plantillas con seno estuvieran tapadas debajo de 1200 y se abrieran
+# todas juntas al cruzarlo.
+#
+# Lo que se prueba ahora es otra cosa y conviene decirla: **el mecanismo sigue
+# entero aunque no lo use nadie**. Un gate sin usuarios se pudre en silencio, y
+# el dia que alguien ponga `min_rating` en una plantilla nueva va a dar por hecho
+# que funciona — con `pick_template` teniendo cinco caminos de rescate que
+# podrian esquivarlo. Se prueba con una plantilla FALSA, para no volver a atar el
+# check a una decision de producto que puede cambiar.
+CON_PISO = [t.key for t in TEMPLATES if t.min_rating is not None]
+check(not CON_PISO, f"hoy ninguna plantilla tiene piso de rating (dio {CON_PISO})")
+
+PISO_FALSO = 1200
+falsa = dataclasses.replace(TEMPLATES[2], key="zz_falsa_con_piso",
+                            min_rating=PISO_FALSO)
+theta_piso = (PISO_FALSO - elo.RATING_BASE) / elo.RATING_PER_THETA
 ABAJO = theta_piso - 1 / elo.RATING_PER_THETA
-JUSTO = theta_piso
 
 gate = GamePlayer(guest_token="check-piso", alias="checkpiso")
 db.add(gate)
 db.commit()
 db.refresh(gate)
 
-gate.theta = ABAJO
-check(elo.rating_of(gate.theta) < PISO_TRIGONOMETRICAS, "el jugador de prueba está debajo de la barrera")
-check(not (CON_PISO & {t.key for t in desbloqueadas(gate)}),
-      "debajo del piso no hay ninguna trigonométrica desbloqueada")
-gate.theta = JUSTO
-check(CON_PISO <= {t.key for t in desbloqueadas(gate)},
-      "al tocar la barrera se desbloquean las catorce de una")
+import game.generator as _gen  # noqa: E402
+import game.templates as _tpl  # noqa: E402
 
-# Lo que importa no es la función pura sino que NINGÚN camino de pick_template
-# la esquive: ni la rampa, ni el tope del salteo, ni los fallbacks que se
-# quedan sin candidatos. Se barre θ de −2 a la barrera, con y sin tope.
-gate.theta = ABAJO
-servidas = set()
-for n_updates in (0, 1, 2, 3, 4, 50):
-    gate.n_updates = n_updates
-    for theta in (-2.0, -1.0, -0.5, 0.0, 0.4, 0.8, ABAJO):
-        gate.theta = theta
-        for seed in range(25):
-            servidas.add(pick_template(db, gate, random.Random(seed))[0].key)
-            for tope in (-1, 0, 1, 2, 3, 4, 5):
-                servidas.add(
-                    pick_template(db, gate, random.Random(seed), max_tier=tope)[0].key
-                )
-colados = sorted(CON_PISO & servidas)
-check(not colados, f"debajo del piso no se cuela ninguna por ningún camino (se colaron: {colados})")
-check(len(servidas) >= 10, f"y queda banco de sobra para elegir ({len(servidas)} plantillas distintas)")
+_orig = _tpl.TEMPLATES
+try:
+    _tpl.TEMPLATES = _orig + (falsa,)
+    _gen.TEMPLATES = _tpl.TEMPLATES
+    gate.theta = ABAJO
+    check(elo.rating_of(gate.theta) < PISO_FALSO,
+          "el jugador de prueba esta debajo de la barrera")
+    check(falsa.key not in {t.key for t in desbloqueadas(gate)},
+          "debajo del piso, la plantilla con gate no esta desbloqueada")
+    # Y que ningun camino de pick_template la esquive: ni la rampa, ni el tope
+    # del salteo, ni los fallbacks que se quedan sin candidatos.
+    servidas = set()
+    for n_updates in (0, 1, 2, 3, 4, 50):
+        gate.n_updates = n_updates
+        for theta in (-2.0, -1.0, 0.0, 0.8, ABAJO):
+            gate.theta = theta
+            for seed in range(15):
+                servidas.add(pick_template(db, gate, random.Random(seed))[0].key)
+                for tope in (-1, 0, 2, 5):
+                    servidas.add(pick_template(db, gate, random.Random(seed),
+                                               max_tier=tope)[0].key)
+    check(falsa.key not in servidas,
+          f"y no se cuela por ningun camino ({len(servidas)} plantillas distintas servidas)")
+    gate.theta = theta_piso
+    check(falsa.key in {t.key for t in desbloqueadas(gate)},
+          "al tocar la barrera se desbloquea")
+finally:
+    _tpl.TEMPLATES = _orig
+    _gen.TEMPLATES = _orig
 
-# Y del otro lado de la barrera vuelven a estar en juego, que es la mitad que
-# hace que esto sea un piso y no una baja.
-gate.n_updates = 50
-gate.theta = (1400 - elo.RATING_BASE) / elo.RATING_PER_THETA
-arriba = set()
-for seed in range(200):
-    arriba.add(pick_template(db, gate, random.Random(seed))[0].key)
-check(bool(CON_PISO & arriba), f"pasada la barrera vuelven a salir (salieron {sorted(CON_PISO & arriba)})")
-
-# El arranque fijo no toca ninguna: si alguna vez se cambia ONBOARDING por una
-# trigonométrica, el piso no la frenaría —ese camino no pasa por pick_template—.
-from game.generator import ONBOARDING  # noqa: E402
-check(not (CON_PISO & {k for k, _ in ONBOARDING}),
-      "el arranque fijo no incluye ninguna con piso")
+# Y la mitad que el piso se llevaba puesta y que ahora tiene que estar: sin
+# ningun gate, el catalogo entero esta disponible desde el rating mas bajo.
+gate.theta = -2.0
+check(len(desbloqueadas(gate)) == len(TEMPLATES),
+      f"sin ningun piso, las {len(TEMPLATES)} plantillas estan disponibles desde "
+      f"abajo (dio {len(desbloqueadas(gate))})")
+check(len({k for k, _ in ONBOARDING}) == len(ONBOARDING),
+      "y el arranque fijo sigue siendo de plantillas distintas")
 
 print()
 if FAILURES:
