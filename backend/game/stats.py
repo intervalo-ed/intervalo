@@ -219,10 +219,15 @@ def _unlock_ratings(db: DBSession) -> dict[str, int | None]:
         # números ya redondeados y volver a redondear acumula un sesgo que no
         # existe si se promedia antes de la única conversión.
         comodo = elo.rating_of(sum(thetas) / len(thetas))
-        # El piso gana cuando hay uno: la β aprendida del seno lo daría por
-        # cómodo en 870, y en 870 el generador no lo va a servir. Un panel que
+        # El piso gana cuando hay uno, y **hoy no hay ninguno**: el de las
+        # trigonométricas se sacó el 28/09 (ver la historia en templates.py), así
+        # que `_piso_de_fila` devuelve 0 para todas y manda la comodidad.
+        #
+        # El `max` se queda igual. Existía porque la β aprendida del seno lo daba
+        # por cómodo en 870 y en 870 el generador no lo servía: un panel que
         # promete una fila antes de que el motor la habilite miente en la única
-        # pantalla donde el jugador va a buscar cuánto le falta.
+        # pantalla donde el jugador va a buscar cuánto le falta. El día que
+        # vuelva a haber un `min_rating`, esa mentira vuelve sin esta línea.
         out[slug] = max(comodo, _piso_de_fila(keys))
     return out
 

@@ -41,6 +41,11 @@ BACKEND = Path(__file__).resolve().parent.parent
 os.environ["DATABASE_URL"] = "sqlite:///" + str(
     Path(tempfile.mkdtemp()) / "game_seleccion.db"
 ).replace("\\", "/")
+# `dx-banda-1` sortea la banda objetivo por jugador, y este check mide el
+# SELECTOR y la ESCALA, no el experimento: con el sorteo prendido, la mitad
+# de los jugadores de prueba apunta a [0,58 ; 0,72] y los fixtures de abajo
+# pasan a medir un brazo u otro segun que id les toque.
+os.environ["BANDA_ENABLED"] = "0"
 sys.path.insert(0, str(BACKEND))
 sys.path.insert(0, str(BACKEND.parent))
 
@@ -258,24 +263,49 @@ def primeros_tiers(theta, etiqueta, n=5):
     return tiers
 
 
-# theta=3.0 YA NO es un jugador sin banda: con la regla de la cadena adentro
-# del catalogo, T6 (semilla 1,4) le da p-hat 0,79 y le cae justo adentro. Que
-# reciba 6 y no 8 es el selector funcionando —elige en banda, no lo mas dificil
-# que hay— y es todo el punto de haber escrito los tiers nuevos.
-tiers_3 = primeros_tiers(3.0, "t3")
-check(
-    tiers_3 == [6] * 5,
-    "a theta=3.0 la cadena le cae en banda: 5 tiradas de tier 6 (dio %s)" % tiers_3,
-)
+# **Los dos theta se DERIVAN de las semillas, no se escriben a mano.** Estaban
+# fijos en 3.0 y 5.0, elegidos contra las semillas de antes de la recalibracion
+# del 27/09; cuando las semillas pasaron a ser una medicion (T6 de 1,40 a 0,63)
+# los dos fixtures quedaron apuntando a otra cosa y el check fallo sin que el
+# selector hubiera cambiado una linea. Derivandolos, el dia que una semilla se
+# mueva el fixture se mueve con ella.
 
-# Y el invariante original sigue vivo, solo que ahora hace falta pasarse del
-# techo NUEVO para provocarlo. A theta=5.0 no hay nada en banda (lo mas duro,
-# T8 con semilla 2,6, da p-hat 0,88) y el motor tiene que servir eso igual en
-# vez de diluir hacia lo facil, que es lo que hacia antes de 2026-09.
-tiers_5 = primeros_tiers(5.0, "t5")
+# El theta al que T6 le cae JUSTO en el centro de la banda. Ahi el selector
+# tiene que elegir en banda y no lo mas dificil que hay, que es todo el punto.
+THETA_T6 = round(elo.BETA_SEED[6] + elo._OFFSET_DE_BANDA, 2)
+tiers_3 = primeros_tiers(THETA_T6, "t3")
+# **Se exige "en banda", no "tier 6".** A ese theta hay mas de un tier adentro de
+# la banda —T4 cae justo en el borde de 0,80— y `pick_template` elige al azar
+# entre los que entran, que es lo que tiene que hacer. Pedir las cinco del mismo
+# tier era pedirle al selector que fuera determinista, y el desempate al azar
+# existe para que no sirva siempre la primera de la lista.
+EN_BANDA = sorted({
+    t.tier for t in TEMPLATES
+    if t.min_rating is None or elo.rating_of(THETA_T6) >= t.min_rating
+    if elo.TARGET_LOW
+    <= elo.predict(THETA_T6, elo.effective_beta(elo.BETA_SEED[t.tier], t.tier, 0))
+    <= elo.TARGET_HIGH
+})
 check(
-    tiers_5 == [8] * 5,
-    "pasado el techo, sigue sirviendo lo mas dificil y no diluye (dio %s)" % tiers_5,
+    bool(tiers_3) and all(t in EN_BANDA for t in tiers_3),
+    "a theta=%s sirve SIEMPRE algo en banda (dio %s; en banda: %s)"
+    % (THETA_T6, tiers_3, EN_BANDA),
+)
+check(6 in EN_BANDA, "y la cadena es uno de los que entran")
+
+# Y el invariante original sigue vivo: pasado el techo no hay nada en banda y el
+# motor tiene que servir lo mas dificil IGUAL, en vez de diluir hacia lo facil
+# —que es lo que hacia antes de 2026-09—. Un theta bien arriba del techo.
+THETA_TECHO = round(max(elo.BETA_SEED.values()) + 2.0, 2)
+tiers_5 = primeros_tiers(THETA_TECHO, "t5")
+# Se aceptan los dos tiers de arriba y no solo el 8: medidas, T7 y T8 quedaron
+# en 1,51 y 1,54. Exigir el 8 seria exigir que el selector distinga 0,03 de
+# dificultad, que es ruido — lo que se esta probando es que NO baje a lo facil.
+TOPES = sorted(elo.BETA_SEED, key=lambda t: -elo.BETA_SEED[t])[:2]
+check(
+    all(t in TOPES for t in tiers_5),
+    "pasado el techo, sigue sirviendo lo mas dificil y no diluye (dio %s, "
+    "los dos tiers mas duros son %s)" % (tiers_5, sorted(TOPES)),
 )
 
 print("\n%d fallos" % len(FAILURES) if FAILURES else "\ntodo ok")

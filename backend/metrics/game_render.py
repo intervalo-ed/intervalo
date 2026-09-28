@@ -1454,7 +1454,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
     # filtro no está haciendo.
     fichas = (list(p["experimentos"])
               + [p["experimento_motor"], p["experimento_muro"],
-                 p["experimento_rampa"]]
+                 p["experimento_rampa"], p["experimento_banda"]]
               + list(p["experimentos_grupos"]))
     # Lo que está corriendo va arriba: es lo único sobre lo que se puede
     # decidir algo hoy. Adentro de cada mitad, lo último declarado primero.
@@ -2914,6 +2914,124 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
             "teclado completo delante de alguien que no sabe de qué se trata es fricción, y "
             "que un tropiezo deja de ser terminal si hay una salida que no es irse.",
         anchor="experimento-rampa")
+
+    # ── 6a-quinquies · El experimento de la BANDA OBJETIVO ──────────────────
+    #
+    # El único cuya métrica es lo que la gente DICE y no lo que hace, y el
+    # dibujo lo tiene que respetar: la caja del guardarraíl de llegada va ARRIBA
+    # del resultado, porque si llegar a votar depende del brazo, el contraste de
+    # los votos no mide la banda sino quién sobrevivió hasta la pregunta.
+    e = p["experimento_banda"]
+    brazos = e["brazos"]
+    total = sum(b["n"] for b in brazos)
+    falta = max((b["falta"] for b in brazos), default=0)
+    inscriptos = sum(b["inscriptos"] for b in brazos)
+
+    if e.get("cierre"):
+        estado = _caja_cierre(e)
+    elif not e["encendido"]:
+        estado = _caja_estado(
+            "Apagado",
+            '<code>BANDA_ENABLED</code> está en cero: los dos brazos apuntan a la banda '
+            'de siempre. Lo de abajo es lo que quedó de cuando estuvo prendido.', "espera")
+    elif e["sin_arrancar"]:
+        estado = _caja_estado(
+            "Sin datos todavía",
+            f'Nadie creado el {e["desde"].strftime("%d/%m")} o después recibió su primer '
+            f'ejercicio. La banda gobierna cada elección de plantilla, así que solo entra '
+            f'quien la vivió desde el principio: a quien ya venía jugando le cambiaría a '
+            f'mitad de camino.', "espera")
+    elif falta > 0:
+        estado = _caja_estado(
+            f'Todavía no se puede leer — faltan {num(falta)} votos por brazo',
+            f'Van {num(total)} primeros votos de los {num(2 * e["n_pedido"])} comprometidos '
+            f'({num(e["n_pedido"])} por brazo), sobre {num(inscriptos)} inscriptos. Se '
+            f'cuenta UN voto por persona —el primero— y no todos: quien juega más vota más, '
+            f'y es justo donde el «muy fácil» abunda, así que promediar votos sueltos le '
+            f'daría a los veteranos un peso que la métrica no les quiso dar.', "espera")
+    else:
+        L = e["lectura"]
+        if L is None:
+            estado = _caja_estado("Listo para leer", "Ya hay muestra suficiente.", "listo")
+        elif L["rechaza"]:
+            # Menos «muy fácil» es GANAR: el signo del contraste es exigente
+            # menos control, así que un delta negativo es el resultado buscado.
+            gana = L["delta_pp"] < 0
+            estado = _caja_estado(
+                f'{"Se siente más difícil" if gana else "Se siente MÁS FÁCIL"}: '
+                f'{num(L["delta_pp"], " pp")} de «muy fácil»',
+                f'z = {num(L["z"], dec=2)}, p-valor {_p_txt(L["p_valor"])}. Intervalo del '
+                f'95%: [{num(L["ic_pp"][0])} ; {num(L["ic_pp"][1])}] pp. Antes de dejarlo '
+                f'puesto, mirar «muy difícil» y el salteo en la tabla.',
+                "gana" if gana else "pierde")
+        else:
+            estado = _caja_estado(
+                f'Sin diferencia detectable: {num(L["delta_pp"], " pp")} de «muy fácil»',
+                f'z = {num(L["z"], dec=2)}, p-valor {_p_txt(L["p_valor"])}. El intervalo del '
+                f'95% —[{num(L["ic_pp"][0])} ; {num(L["ic_pp"][1])}] pp— contiene al cero. '
+                f'Un efecto de {num(e["mde_pp"], " pp", dec=0)} o más habría aparecido; uno '
+                f'más chico este diseño no lo puede ver.', "plano")
+
+    # El guardarraíl que se lee ANTES que el resultado.
+    G = e["llegada"]
+    caja_llegada = ""
+    if G is not None:
+        roto = G["rechaza"]
+        caja_llegada = _caja_estado(
+            ("Ojo: llegar a votar depende del brazo" if roto
+             else "Llegar a votar no depende del brazo"),
+            f'{num(G["delta_pp"], " pp")} de diferencia en la fracción que llega a dar su '
+            f'primer voto (z = {num(G["z"], dec=2)}, p-valor {_p_txt(G["p_valor"])}). '
+            + ('<b>Con esto roto el contraste de arriba no se puede leer</b>: la pregunta '
+               'sale a las 10 correctas, así que una banda más exigente retrasa la '
+               'llegada y los que igual llegaron son los más fuertes de su brazo. Es un '
+               'colisionador, y ningún n lo arregla.'
+               if roto else
+               'Es la condición que hace legible el contraste de los votos: la pregunta '
+               'sale a las 10 correctas, así que una banda más exigente podría retrasar '
+               'la llegada y dejar votando solo a los más fuertes. No está pasando.'),
+            "pierde" if roto else "gana")
+
+    # El otro guardarraíl: que la banda no se haya corrido de más.
+    D = e["dano"]
+    caja_dano = ""
+    if D is not None and D["rechaza"]:
+        caja_dano = _caja_estado(
+            f'La banda se corrió de más: {num(D["delta_pp"], " pp")} de «muy difícil»',
+            f'z = {num(D["z"], dec=2)}, una cola, p-valor {_p_txt(D["p_valor"] / 2)}. '
+            f'Se lee de un solo lado porque lo único que importa es que suba, y con '
+            f'{num(e["n_dano"])} por brazo ya se ve un salto de 10 pp — un tercio de lo '
+            f'que pide la primaria. <b>Esto se mira antes que el resultado</b>: una banda '
+            f'que expulsa no se compensa con que los que quedan la sientan mejor.',
+            "pierde")
+
+    tabla_brazos = _table(
+        ["Brazo", "Banda", "Inscriptos", "Votaron", "Llega", "«muy fácil» ▸",
+         "«justo»", "«muy difícil»", "p̂ al votar", "Derivadas", "% salteo", "Faltan"],
+        [[b["label"],
+          f'{num(100 * e["bandas"][b["clave"]][0], "%", dec=0)}–'
+          f'{num(100 * e["bandas"][b["clave"]][1], "%", dec=0)}',
+          num(b["inscriptos"]), num(b["n"]), num(b["pct_llega"], "%"),
+          num(b["pct_muy_facil"], "%"), num(b["justo"]),
+          num(b["pct_muy_dificil"], "%"),
+          num(b["p_hat_medio"], dec=3) if b["p_hat_medio"] is not None else "—",
+          num(b["profundidad"], dec=1), num(b["pct_salteo"], "%"),
+          num(b["falta"]) if b["falta"] else "—"]
+         for b in brazos],
+        empty="todavía no entró nadie")
+
+    bloque_de[e["clave"]] = _section(
+        1, "El motor: a qué dificultad apuntamos",
+        _box(esc(e["titulo"]), estado + caja_dano + caja_llegada + tabla_brazos,
+             note='«muy fácil» es la métrica y va marcada. Las otras dos columnas de voto '
+                  'no son decoración: <b>«muy difícil» es el guardarraíl</b> —si la banda '
+                  'se corre de más eso se dispara antes que cualquier otra cosa— y «justo» '
+                  'es el dato que dice a qué tasa de acierto la gente se siente cómoda, '
+                  'que es lo único que puede decir dónde poner la banda la próxima vez.'),
+        sub="El primero que mide percepción en vez de conducta. Un motor puede estar "
+            "perfectamente calibrado y sentirse plano igual, y la profundidad no lo "
+            "distingue: sube tanto con un juego bien graduado como con uno fácil.",
+        anchor="experimento-banda")
 
     # ── 6b · Experimentos por grupo de WhatsApp ──────────────────────────────
     # Mismo trato que la sección de arriba —estado primero, guardarraíles

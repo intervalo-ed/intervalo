@@ -10,8 +10,35 @@ from __future__ import annotations
 
 import math
 
-# Calibración por temperatura medida en producción de Intervalo (a = 0.818).
-SCALE = 0.818
+# Cuánto separa en probabilidad una unidad de θ. **Reajustado el 27/09/2026
+# contra 23.444 respuestas del propio juego; antes era 0.818, heredado de la
+# calibración por temperatura de Intervalo clásico.**
+#
+# El 0.818 venía de otro producto, con otros ítems y otra gente, y acá estaba
+# mal por 37%. El costo de tenerlo estirado no es cosmético: p̂ = σ((θ−β)·SCALE),
+# así que con la escala corta el motor predice más cerca de 0,5 de lo que
+# corresponde, y para el caso normal —alguien al que el ejercicio le queda
+# fácil— eso significa PROMETER MENOS ACIERTO DEL QUE VA A HABER. Medido sobre
+# 53.842 primeras respuestas sin tabla: el motor prometía 83,86% y la gente
+# entregaba 91,48%, un sesgo de +7,62 pp que aparecía en TODOS los tramos de la
+# curva de calibración (+3 pp arriba, +23 pp abajo).
+#
+# Traducido a lo que la persona ve: la banda objetivo [0,70 , 0,80] son
+# (θ−β) ∈ [1,04 , 1,70] en unidades del motor, y ese mismo rango con la escala
+# real da p̂ ∈ [0,76 , 0,87]. **El motor apuntaba a 75% y servía 82%.**
+#
+# El número sale de un Rasch conjunto —habilidad por persona y dificultad por
+# plantilla estimadas a la vez, de los datos crudos— y no de las creencias del
+# propio motor, que es lo que lo haría circular. Tres ajustes independientes
+# coincidieron: 1,1164 sobre la historia completa, 1,1247 y 1,1261 sobre la
+# ventana reciente de cada jugador. Se toma el de la ventana reciente porque el
+# Rasch da UNA habilidad por persona y sobre la historia entera promedia a cada
+# uno con su propio pasado.
+#
+# Cambiar esto es un cambio de COORDENADAS: θ y β viven en esta escala, así que
+# mover SCALE sin mover los dos deja al motor creyendo cualquier cosa. La
+# migración es `scripts/diag/recalibrar_motor.py` y corre una sola vez.
+SCALE = 1.1266
 
 # Banda objetivo de probabilidad de acierto al primer intento.
 TARGET_LOW = 0.70
@@ -30,7 +57,25 @@ EXPLORE_HIGH = 0.85
 # así el juego arranca en y=k, y=x aunque el θ inicial sea 0.
 RAMP_UPDATES = 5
 
-# Dificultad seed por tier. Con θ=0: T0 → p̂≈0.86, T5 → p̂≈0.32, T8 → p̂≈0.10.
+# Dificultad seed por tier. Con θ=0: T0 → p̂≈0.89, T5 → p̂≈0.24, T8 → p̂≈0.15.
+#
+# **Medidas, no elegidas, desde el 27/09/2026.** Salen del mismo Rasch conjunto
+# que reajustó SCALE, promediando las plantillas de cada tier. Las anteriores
+# eran una escalera pareja de 0,6 en 0,6 puesta a mano, y los datos dicen tres
+# cosas que esa escalera no sabía:
+#
+#   · **los tiers se separan la mitad de lo supuesto** (+0,31 real contra +0,60);
+#   · **T6 sale más fácil que T5**: la cadena con interior lineal (`sen(ax+b)`)
+#     es más fácil que la regla del cociente, y eso es un hallazgo pedagógico
+#     real, no ruido. La semilla lo dice ahora en vez de esconderlo;
+#   · **T7 y T8 están empatados** (1,51 y 1,54): arriba de T6 la escalera está
+#     plana, así que el catálogo no tiene tres escalones ahí, tiene uno.
+#
+# Que la secuencia ya NO sea monótona es a propósito. El tier dice de qué es la
+# derivada; la semilla dice cuánto cuesta. Forzarlas a coincidir era justamente
+# el error: `desvio_de_escala` no veía nada raro porque solo corrige la MEDIA, y
+# las derivas de arriba (T8 se creía 1,08 más difícil de lo que es) se cancelaban
+# con las de abajo (T1 se creía 0,90 más fácil).
 #
 # Los tres últimos son la regla de la cadena, y son exactamente los valores que
 # este comentario venía reservando desde v1. Se cobraron porque el catálogo se
@@ -41,8 +86,8 @@ RAMP_UPDATES = 5
 #
 # `check_game_techo.py` deja esa cuenta escrita en vez de que se redescubra
 # dentro de tres meses leyendo un PDF.
-BETA_SEED: dict[int, float] = {0: -2.2, 1: -1.6, 2: -1.0, 3: -0.4, 4: 0.3, 5: 0.9,
-                               6: 1.4, 7: 2.0, 8: 2.6}
+BETA_SEED: dict[int, float] = {0: -1.88, 1: -0.70, 2: -0.55, 3: 0.03, 4: 0.38,
+                               5: 1.05, 6: 0.63, 7: 1.51, 8: 1.54}
 
 # Cuántos ESTUDIANTES DISTINTOS "vale" la semilla del tier. Ver `effective_beta`.
 #
@@ -69,9 +114,16 @@ BETA_PRIOR_CAP = 20
 # Castigo de θ al saltear un ejercicio. Plano a propósito: el lr de `update`
 # decae con la experiencia, y con ese decaimiento un jugador veterano podría
 # saltear sin que el juego le bajara nunca la dificultad — justo lo contrario de
-# lo que promete el botón. La escala se lee contra BETA_SEED, que separa tiers de
-# a ~0.6: cada salteo cuesta un cuarto de tier, cuatro seguidos bajan uno entero.
-SKIP_THETA_PENALTY = 0.15
+# lo que promete el botón. La escala se lee contra BETA_SEED, que ahora separa
+# tiers de a ~0.31 medido: cada salteo cuesta un tercio de tier, y tres seguidos
+# bajan uno entero.
+#
+# **0.12 y no 0.15 desde la recalibración del 27/09.** No es una decisión nueva
+# sobre cuánto tiene que costar saltear: es el mismo castigo expresado en la
+# escala nueva. θ se comprimió por 0,798 al recalibrar (ver
+# `scripts/diag/recalibrar_motor.py`), así que un número en unidades de θ que se
+# quede quieto pasa a significar otra cosa. 0,15 × 0,798 = 0,12.
+SKIP_THETA_PENALTY = 0.12
 
 # Hiperparámetros del update. El grid del reporte daba a_u=0.8 b_u=0.15 a_x=1.2
 # b_x=0.05, y esos valores dejaban el reparto al revés de lo que conviene.
@@ -239,7 +291,7 @@ def effective_beta(beta: float, tier: int, n_players: int) -> float:
 # se mueve ~0,0007 por respuesta, así que con esta banda muerta el reajuste cae
 # cada ~70 respuestas: suficiente para que el gasto sea despreciable y para que
 # la escala nunca se vaya más de un 2% de un tier.
-RECENTRADO_UMBRAL = 0.05
+RECENTRADO_UMBRAL = 0.04
 
 # Y cuánto es DEMASIADO para corregir solo. Un corrector automático hace ajustes
 # chicos y continuos; un δ grande no significa "corregí fuerte", significa que
@@ -253,7 +305,7 @@ RECENTRADO_UMBRAL = 0.05
 # escala de golpe es un cambio de COORDENADAS y hay que mover las dos puntas
 # juntas; eso lo hace `scripts/diag/recentrar_escala.py`, a mano y con
 # confirmación.
-RECENTRADO_MAX = 0.5
+RECENTRADO_MAX = 0.40
 
 
 def desvio_de_escala(betas: dict[str, float], tiers: dict[str, int]) -> float:
@@ -366,7 +418,26 @@ def difficulty_stars(p_hat: float) -> int:
 # cómodas» (T2) y θ=1,6 «los productos» (T4). Con el tercero en 3,7 los tres
 # niveles desbloquean T2 / T4 / T8, que es lo que `check_game_events_copy.py`
 # verifica sin que haya que aflojarle nada.
-_LEVEL_CUTS = (0.3, 1.6, 3.7)
+# **Recalculados el 27/09/2026 con las semillas medidas.** La regla no cambió
+# —nivel 1 donde T2 entra en banda, nivel 2 donde entra T4, nivel 3 donde entra
+# T8— pero las semillas y el offset sí, así que los cortes se mueven con ellas:
+# (0.3, 1.6, 3.7) → (0.45, 1.35, 2.52), con un redondeo que los deja a 6 puntos
+# de rating o menos del valor exacto.
+#
+# **El tercero NO se redondea a 2,50 y el motivo vale la línea:** T7 y T8 quedaron
+# empatados (1,51 y 1,54), así que con el corte en 2,50 `tier_objetivo` devuelve
+# 7 y el feed anunciaría el nivel máximo nombrando el anteúltimo escalón. 2,52 cae
+# del lado de T8 y la frase vuelve a ser cierta. Es exactamente el tipo de cosa
+# que `check_game_events_copy.py` existe para no dejar pasar.
+#
+# **Nadie baja de color con la migración y 815 suben**, contado sobre los 1.670
+# jugadores con al menos una respuesta. El reparto pasa de [735, 727, 170, 38] a
+# [284, 902, 358, 126]. Que el último nivel se triplique es la parte a mirar: no
+# es inflación, es que el motor venía subestimando a todo el mundo por 7,6 pp y
+# con eso corregido hay 126 personas para las que T8 es, de verdad, su banda.
+# Sigue significando lo mismo —«llegaste a lo más difícil que el juego tiene»—
+# solo que ahora es cierto para más gente.
+_LEVEL_CUTS = (0.45, 1.35, 2.52)
 
 
 def level_of(theta: float) -> int:
@@ -432,8 +503,19 @@ def tier_objetivo(theta: float) -> int:
 #
 # Pasó por 652 unas horas, cuando el re-anclaje de escala corrió los θ sin
 # recalcularlos; ese número ya no aplica.
-RATING_BASE = 821
-RATING_PER_THETA = 200
+# **821/200 → 646/251 el 27/09**, y el cambio existe justamente para que el
+# rating NO se mueva. Al recalibrar, θ se comprimió por 0,798; si los puntos por
+# unidad de θ se hubieran quedado en 200, el rating de todo el mundo se habría
+# encogido hacia la mediana y el marcador habría dejado de discriminar de un día
+# para el otro. Dividiendo por el mismo 0,798 (200/0,798 = 251) y corriendo la
+# base para absorber el término independiente, **el rating de cada jugador queda
+# igual a menos de 2 puntos, y 1.213 de 1.670 no se mueven ni uno**.
+#
+# O sea: la migración cambia lo que el motor CREE y lo que va a servir, y no
+# toca el número que la persona ve. Es la mitad del argumento para poder
+# correrla sin avisar.
+RATING_BASE = 646
+RATING_PER_THETA = 251
 # Piso, como el de la FIDE. θ puede caer bien abajo si alguien erra todo, y un
 # marcador que llega a cero (o a un negativo) se lee como un juego roto, no como
 # un mal día.

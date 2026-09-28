@@ -39,6 +39,11 @@ BACKEND = Path(__file__).resolve().parent.parent
 os.environ["DATABASE_URL"] = "sqlite:///" + str(
     Path(tempfile.mkdtemp()) / "game_escala.db"
 ).replace("\\", "/")
+# `dx-banda-1` sortea la banda objetivo por jugador, y este check mide el
+# SELECTOR y la ESCALA, no el experimento: con el sorteo prendido, la mitad
+# de los jugadores de prueba apunta a [0,58 ; 0,72] y los fixtures de abajo
+# pasan a medir un brazo u otro segun que id les toque.
+os.environ["BANDA_ENABLED"] = "0"
 sys.path.insert(0, str(BACKEND))
 sys.path.insert(0, str(BACKEND.parent))
 
@@ -134,9 +139,14 @@ check(
     elo.effective_beta(-3.0, 5, 0) == elo.BETA_SEED[5],
     "sin nadie que la haya visto, la plantilla ES su semilla",
 )
-# Con evidencia por debajo del tope el comportamiento no cambia.
+# Con evidencia por debajo del tope el comportamiento no cambia. La cuenta se
+# escribe contra las CONSTANTES y no contra el 0,9 de la semilla de T5: ese
+# literal quedo viejo el 27/09 cuando las semillas pasaron a ser medidas
+# (T5 de 0,90 a 1,05) y el check fallo sin que la formula hubiera cambiado.
 check(
-    abs(elo.effective_beta(-3.0, 5, 5) - (5 * -3.0 + 8 * 0.9) / 13) < 1e-9,
+    abs(elo.effective_beta(-3.0, 5, 5)
+        - (5 * -3.0 + elo.BETA_PRIOR_PLAYERS * elo.BETA_SEED[5])
+        / (5 + elo.BETA_PRIOR_PLAYERS)) < 1e-9,
     "por debajo del tope se comporta igual que antes",
 )
 

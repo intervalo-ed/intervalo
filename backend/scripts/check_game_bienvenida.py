@@ -38,6 +38,7 @@ Sale con código 1 si algo falla.
 import os
 import sys
 import tempfile
+import datetime as _dt
 from datetime import datetime, timedelta
 from pathlib import Path
 
@@ -376,6 +377,20 @@ _os.environ.pop("RAMPA_ENABLED", None)
 
 
 print("8. el endpoint, y que marque")
+
+# **El jugador de prueba se hace VETERANO a mano, y sin esto el check es una
+# bomba de tiempo de calendario.** `jugador()` lo crea con `created_at = ahora`,
+# asi que mientras "ahora" fue anterior al `desde` de `dx-rampa-1` (28/09) caia
+# en el caso 2 de `rampa.muestra_digest` —nacio antes del arranque, la ve— y el
+# endpoint devolvia un modo real. Desde el 28/09 entra al experimento, le toca
+# el brazo que le toque, y si no es el cuarto el endpoint contesta
+# `modo="control"` con las novedades vacias: correcto para produccion, y una
+# falla en un check que no habla del sorteo.
+#
+# Se fija la fecha en vez de apagar el experimento porque esta seccion prueba el
+# camino en que el digest SI se arma; el sorteo ya tiene su propia seccion 7.
+rec.created_at = _dt.datetime(2026, 9, 1)
+db.commit()
 
 H = {"X-Game-Token": "tok-rec"}
 r = client.get(f"{API}/bienvenida", headers=H)

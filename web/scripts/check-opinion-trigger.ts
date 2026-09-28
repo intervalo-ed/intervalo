@@ -253,7 +253,12 @@ check(
 limpio()
 let mixtas = 0
 const patron = [false, false, true, false, false, true]
-for (let n = 1; n <= 600 && mixtas < 12; n++) {
+// Sin tope de turnos: lo tenía en 12 porque con la cadencia vieja ([10, 10, 20,
+// 30, 50, 80]) eso era todo lo que entraba en 600 derivadas. Al duplicarse la
+// frecuencia el tope pasó a cortar el loop ANTES que las 600 y el check falló
+// comparando 12 contra la escalera entera — un tope de conveniencia que se había
+// convertido en parte de la afirmación.
+for (let n = 1; n <= 600; n++) {
   if (tocaPreguntar(n) === null) continue
   marcarPreguntaMostrada(n)
   anotarRespuesta(patron[mixtas % patron.length])

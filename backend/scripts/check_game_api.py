@@ -31,6 +31,7 @@ sys.path.insert(0, str(BACKEND.parent))
 from fastapi.testclient import TestClient  # noqa: E402
 
 import database  # noqa: E402
+from game import elo as game_elo  # noqa: E402
 from game import xp as game_xp  # noqa: E402
 from game.templates import TEMPLATE_BY_KEY  # noqa: E402
 from models import (  # noqa: E402
@@ -303,7 +304,12 @@ check(nxt["tier"] < ex["tier"], f"el nuevo es más fácil ({ex['tier']} -> {nxt[
 db = database.SessionLocal()
 after = db.query(GamePlayer).filter(GamePlayer.id == player_id).first()
 drop = theta_before - after.theta
-check(abs(drop - 0.15) < 1e-9, f"θ baja 0.15 exactas (dio {drop:.4f})")
+# Contra la constante y no contra un literal: el castigo se mide en unidades
+# de θ, y al recalibrar la escala el 27/09 pasó de 0,15 a 0,12 para seguir
+# costando lo mismo. Escrito a mano, este check convertía una traducción de
+# unidades en una falla.
+check(abs(drop - game_elo.SKIP_THETA_PENALTY) < 1e-9,
+      f"θ baja {game_elo.SKIP_THETA_PENALTY} exactas (dio {drop:.4f})")
 check(after.current_combo == 0, "corta la racha")
 check(after.exercises_attempted == attempted_before, "no suma a los ejercicios intentados")
 check(
@@ -424,7 +430,6 @@ print("9. empuje de XP por universidad (cafecitos)")
 from datetime import datetime, timedelta  # noqa: E402
 
 from game import boosts as game_boosts
-from game import elo as game_elo  # noqa: E402
 
 
 def _forzar_ejercicio(combo: int) -> int:

@@ -1666,12 +1666,21 @@ html_exp = "".join(
     game_render.page(_pay_exp, token="tok", seccion="experimentacion",
                      exp=_x["clave"])
     for _x in _pay_exp["experimentos"])
-# La negativa a contestar se mira en un experimento que SIGA ABIERTO: los dos
-# de la puerta están cerrados y su caja es la del veredicto, así que buscarla
-# ahí era buscar algo que por construcción ya no puede aparecer.
-_abierto = game_render.page(q.build(s, WEEK, exp=q.EXPERIMENTO_MOTOR["clave"]),
+# La negativa a contestar se mira en un experimento que SIGA ABIERTO: los
+# cerrados muestran la caja del veredicto, así que buscarla ahí era buscar algo
+# que por construcción ya no puede aparecer.
+#
+# **Y cuál está abierto se elige, no se nombra.** Nombrarlo a mano ya rompió
+# este check una vez: apuntaba a `dx-elo-1`, y el día que ese experimento se
+# cerró el check falló sin que nada de lo que el check afirma hubiera dejado de
+# ser cierto. Un check que hay que editar cada vez que se cierra un experimento
+# mide el calendario, no el panel.
+_CANDIDATOS_ABIERTOS = (q.EXPERIMENTO_RAMPA, q.EXPERIMENTO_MURO, q.EXPERIMENTO_MOTOR)
+_exp_abierto = next((_x for _x in _CANDIDATOS_ABIERTOS if not _x.get("cierre")),
+                   _CANDIDATOS_ABIERTOS[0])
+_abierto = game_render.page(q.build(s, WEEK, exp=_exp_abierto["clave"]),
                             token="tok", seccion="experimentacion",
-                            exp=q.EXPERIMENTO_MOTOR["clave"])
+                            exp=_exp_abierto["clave"])
 check("un experimento abierto avisa que todavía no se puede leer",
       "Todavía no se puede leer" in _abierto or "Sin datos todavía" in _abierto)
 check("y no muestra un p-valor antes de tiempo",
@@ -1757,7 +1766,7 @@ _pay = q.build(s, WEEK)
 _idx = game_render.page(_pay, token="tok", seccion="experimentacion")
 _TODOS = (list(_pay["experimentos"])
           + [_pay["experimento_motor"], _pay["experimento_muro"],
-             _pay["experimento_rampa"]]
+             _pay["experimento_rampa"], _pay["experimento_banda"]]
           + list(_pay["experimentos_grupos"]))
 
 check("la pestaña abre con el índice", 'id="indice"' in _idx)

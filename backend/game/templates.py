@@ -68,21 +68,44 @@ class Generated:
     prompt_latex: str | None = None
 
 
-# Piso de Elo para las plantillas con seno, coseno o tangente: por debajo de
-# este rating el generador no las sirve, y a partir de acá vuelven a jugar con
-# la banda objetivo como cualquier otra.
+# ── El piso de las trigonométricas, que existió del 08/09 al 28/09 ───────────
 #
-# El motivo por el que esto es un PISO y no una semilla más alta: la β de las
-# trigonométricas se desplomó sola. En producción (2026-09-08) `t3_sin` tiene
-# β = −3.05 con 12 personas, o sea POR DEBAJO de la semilla de T1, y el
-# encogimiento de `elo.effective_beta` solo la levanta hasta −1.99. Subir
-# BETA_SEED no alcanza: con 12 personas la semilla pesa 8/20, así que ni
-# poniéndola en +1.0 la β creída pasa de −1.4 y el seno se sigue sirviendo
-# temprano. El resultado medido es que el 100% de las veces que se sirvió
-# `t3_sin` fue por debajo de 1200, con un promedio de 968 y un mínimo de 760.
+# Hubo un `PISO_TRIGONOMETRICAS = 1200` que le prohibía estas catorce plantillas
+# a quien no llegara a ese rating. **Se sacó el 28/09 y la historia queda acá
+# para que no se vuelva a poner sin datos.**
 #
-# Un solo número, y sacarlo es borrar el campo de las 8 plantillas de abajo.
-PISO_TRIGONOMETRICAS = 1200
+# Por qué existió: la β APRENDIDA de las trigonométricas se había desplomado
+# sola. El 08/09 `t3_sin` tenía β = −3,05 con 12 personas, o sea por debajo de
+# la semilla de T1, y el encogimiento solo la levantaba hasta −1,99. El motor
+# creía que el seno era más fácil que `x²` y lo servía a principiantes: el 100%
+# de las veces que se sirvió `t3_sin` fue por debajo de 1200, con un promedio de
+# 968. Subir la semilla no alcanzaba, porque con 12 personas la semilla pesa
+# 8/20.
+#
+# Por qué se fue: la recalibración del 27/09 (ver `elo.SCALE`) arregló
+# exactamente eso. Medida con un Rasch conjunto, la β real de `t3_sin` es −0,29
+# contra −0,70 de las potencias, así que **el motor ya cree que el seno es más
+# difícil que `x²`** — que es el orden correcto. La inversión que el piso venía
+# a tapar dejó de existir, y el piso pasó a ser un impuesto sin contraparte.
+#
+# Lo que costaba, medido: le tapaba **14 de 44 plantillas al 90,1% de los
+# jugadores**. Sacarlo duplica las opciones EN BANDA en toda la franja donde
+# vive casi todo el mundo (a θ 1,2 pasa de 7 a 14), que es de lo que se queja la
+# gente cuando dice que le salen repetidas.
+#
+# Y la evidencia de que no eran un muro: a quien SÍ las recibió por debajo de
+# 1200 antes del piso le fue **mejor** que con el resto del catálogo en la misma
+# franja — 96,2% de acierto sobre 1.207 respuestas, contra 88,6% sobre 29.082.
+#
+# **Lo que esa evidencia NO cubre, y hay que saberlo**: el Rasch supone una sola
+# habilidad por persona, y saber la regla de la potencia no es saber que
+# sen′ = cos. Eso es un hueco de conocimiento y no de dificultad. Lo que lo hace
+# tolerable es que la tabla de derivadas tiene sen, cos y tan y está a un toque
+# — mirarla es distinto de estar trabado. Si alguna vez se mide que los que
+# reciben trigonométricas temprano se van, el arreglo NO es este piso: es un
+# gate por cantidad de ejercicios, que es lo que el piso quería decir de verdad.
+#
+# El campo `min_rating` se queda: es la herramienta, y hoy no la usa nadie.
 
 
 @dataclass(frozen=True)
@@ -419,9 +442,45 @@ def _t4_exp_sin(rng: CyclingRandom) -> Generated:
     return Generated(f=u * v, common_errors=_product_errors(u, v))
 
 
+# ── Las ranuras endurecidas del 27/09/2026 ──────────────────────────────────
+#
+# Lo que sigue recorta el dominio de algunas ranuras para que la instancia que
+# sale sea la difícil de esa plantilla y no el promedio. No es una preferencia:
+# el catálogo TOPEA. Medido con un Rasch conjunto, la plantilla más difícil que
+# hay (`t8_quot_cadena`) tiene β 2,18, y con la banda objetivo cayendo 0,98 por
+# encima de β eso alcanza hasta θ = 3,14. El 13,4% de los jugadores medidos está
+# por arriba, y son el 52% del volumen servido: para esa gente NADA de lo que el
+# juego tiene la desafía, y el 54,6% de los votos de dificultad dice «muy fácil»
+# (76,2% entre los que pasaron las 250 respuestas).
+#
+# **Cada recorte está medido, y varios que parecían obvios NO se hicieron.**
+# Subir el exponente no endurece parejo — el acierto real por exponente, sobre
+# el historial completo:
+#
+#     t5_sin_over_x    n=1 96%   n=2 92%   n=3 90%     ← baja, se recorta n=1
+#     t8_pow_ln        n=2 98%   n=3 87%   n=4 90%     ← n=2 es regalada
+#     t7_pow_trig      n=2 94%   n=3 94%   n=4 86%   n=5 90%
+#     t6_pow_lineal    n=2 95%   n=3 90%   n=4 89%   n=5 95%   ← n=5 vuelve a ser fácil
+#     t5_pow_over_linear  n=2 93%   n=3 92%                    ← plano, NO se toca
+#
+# En `t8_prod_cadena` y `t7_pow_poly` el enunciado tiene más de un exponente, así
+# que la medición no los separa y se dejan quietos: endurecer a ciegas ahí podía
+# hacerlos más fáciles, que es exactamente lo que el n=5 de `t6_pow_lineal`
+# muestra que pasa.
+#
+# Lo que esto compra, estimado con las mismas tasas: entre +0,20 y +0,55 de β
+# según la plantilla, y el techo sube de θ 3,14 a ~3,36. **Es parcial y hay que
+# decirlo**: sin plantillas nuevas el techo no se cierra, solo se corre. Lo que
+# falta se mide solo — `game_template_stats` reaprende las β en una semana.
+#
+# El estado de ciclado (`numeric_cycle_json`) puede tener valores del dominio
+# viejo guardados; se sirven una vez más y el ciclo se rearma con el dominio
+# nuevo. No hace falta limpiarlo.
+
+
 def _t5_sin_over_x(rng: CyclingRandom) -> Generated:
     k = rng.randint("k", 1, 9)
-    n = rng.randint("n", 1, 3)
+    n = rng.randint("n", 2, 3)
     u, v = Integer(k) * sin(x), x**n
     return Generated(f=u / v, common_errors=_quotient_errors(u, v))
 
@@ -434,7 +493,7 @@ def _t5_pow_over_linear(rng: CyclingRandom) -> Generated:
 
 
 def _t5_exp_over_pow(rng: CyclingRandom) -> Generated:
-    n = rng.randint("n", 1, 3)
+    n = rng.randint("n", 2, 3)
     k = rng.randint("k", 1, 9)
     u, v = Integer(k) * exp(x), x**n
     return Generated(f=u / v, common_errors=_quotient_errors(u, v))
@@ -442,7 +501,7 @@ def _t5_exp_over_pow(rng: CyclingRandom) -> Generated:
 
 def _t5_ln_over_x(rng: CyclingRandom) -> Generated:
     k = rng.randint("k", 1, 9)
-    n = rng.randint("n", 1, 3)
+    n = rng.randint("n", 2, 3)
     u, v = Integer(k) * log(x), x**n
     return Generated(f=u / v, common_errors=_quotient_errors(u, v))
 
@@ -497,7 +556,7 @@ def _t6_ln_lineal(rng: CyclingRandom) -> Generated:
 def _t6_pow_lineal(rng: CyclingRandom) -> Generated:
     a = rng.randint("a", 2, 9)
     b = rng.randint("b", 1, 9)
-    n = rng.randint("n", 2, 5)
+    n = rng.randint("n", 3, 4)
     u = Integer(a) * x + Integer(b)
     f = u**n
     return Generated(f=f, common_errors=_chain_errors(f, u))
@@ -544,8 +603,8 @@ def _t7_ln_poly(rng: CyclingRandom) -> Generated:
 def _t7_pow_trig(rng: CyclingRandom) -> Generated:
     # sen^n(x): la cadena al reves, con la potencia AFUERA y la trigonometrica
     # adentro. Es la forma que mas se confunde con `sen(x^n)`.
-    k = rng.choice("k", [1, 1, 2, 3, 4, 5, 6, 7, 8, 9])
-    n = rng.randint("n", 2, 5)
+    k = rng.choice("k", [1, 2, 3, 4, 5, 6, 7, 8, 9])
+    n = rng.randint("n", 4, 5)
     u = sin(x)
     f = Integer(k) * u**n
     return Generated(f=f, common_errors=_chain_errors(f, u))
@@ -558,7 +617,7 @@ def _t7_pow_trig(rng: CyclingRandom) -> Generated:
 # separado, que es la forma en la que esto aparece en un parcial.
 
 def _t8_exp_sin(rng: CyclingRandom) -> Generated:
-    c = rng.choice("c", [1, 1, 2, 3, 4, 5])
+    c = rng.choice("c", [1, 2, 3, 4, 5])
     k = rng.randint("k", 2, 5)
     u = Integer(k) * sin(x)
     f = Integer(c) * exp(u)
@@ -566,7 +625,7 @@ def _t8_exp_sin(rng: CyclingRandom) -> Generated:
 
 
 def _t8_cos_ln(rng: CyclingRandom) -> Generated:
-    c = rng.choice("c", [1, 1, 2, 3, 4, 5])
+    c = rng.choice("c", [1, 2, 3, 4, 5])
     k = rng.randint("k", 2, 5)
     u = Integer(k) * log(x)
     f = Integer(c) * cos(u)
@@ -574,8 +633,8 @@ def _t8_cos_ln(rng: CyclingRandom) -> Generated:
 
 
 def _t8_pow_ln(rng: CyclingRandom) -> Generated:
-    c = rng.choice("c", [1, 1, 2, 3, 4, 5, 6, 7, 8, 9])
-    n = rng.randint("n", 2, 4)
+    c = rng.choice("c", [1, 2, 3, 4, 5, 6, 7, 8, 9])
+    n = rng.randint("n", 3, 4)
     u = log(x)
     f = Integer(c) * u**n
     return Generated(f=f, common_errors=_chain_errors(f, u))
@@ -593,7 +652,7 @@ def _t8_prod_cadena(rng: CyclingRandom) -> Generated:
 
 def _t8_quot_cadena(rng: CyclingRandom) -> Generated:
     a = rng.randint("a", 2, 9)
-    n = rng.randint("n", 1, 3)
+    n = rng.randint("n", 2, 3)
     u, v = sin(Integer(a) * x), x**n
     return Generated(f=u / v, common_errors=_quotient_errors(u, v))
 
@@ -612,18 +671,18 @@ TEMPLATES: tuple[GameTemplate, ...] = (
     GameTemplate("t2_pow_plus_const", 2, _t2_pow_plus_const),
     GameTemplate("t3_exp", 3, _t3_exp),
     GameTemplate("t3_ln", 3, _t3_ln),
-    GameTemplate("t3_sin", 3, _t3_sin, min_rating=PISO_TRIGONOMETRICAS),
-    GameTemplate("t3_cos", 3, _t3_cos, min_rating=PISO_TRIGONOMETRICAS),
+    GameTemplate("t3_sin", 3, _t3_sin),
+    GameTemplate("t3_cos", 3, _t3_cos),
     GameTemplate("t3_ax", 3, _t3_ax),
     GameTemplate("t3_loga", 3, _t3_loga),
-    GameTemplate("t3_trig_sum", 3, _t3_trig_sum, min_rating=PISO_TRIGONOMETRICAS),
+    GameTemplate("t3_trig_sum", 3, _t3_trig_sum),
     GameTemplate("t3_mix_sum", 3, _t3_mix_sum),
-    GameTemplate("t4_pow_sin", 4, _t4_pow_sin, "Revisá la regla del producto: $\\left(u \\cdot v\\right)' = u'v + uv'$.", min_rating=PISO_TRIGONOMETRICAS),
+    GameTemplate("t4_pow_sin", 4, _t4_pow_sin, "Revisá la regla del producto: $\\left(u \\cdot v\\right)' = u'v + uv'$."),
     GameTemplate("t4_pow_exp", 4, _t4_pow_exp, "Revisá la regla del producto: $\\left(u \\cdot v\\right)' = u'v + uv'$."),
-    GameTemplate("t4_exp_cos", 4, _t4_exp_cos, "Revisá la regla del producto: $\\left(u \\cdot v\\right)' = u'v + uv'$.", min_rating=PISO_TRIGONOMETRICAS),
+    GameTemplate("t4_exp_cos", 4, _t4_exp_cos, "Revisá la regla del producto: $\\left(u \\cdot v\\right)' = u'v + uv'$."),
     GameTemplate("t4_pow_ln", 4, _t4_pow_ln, "Revisá la regla del producto: $\\left(u \\cdot v\\right)' = u'v + uv'$."),
-    GameTemplate("t4_exp_sin", 4, _t4_exp_sin, "Revisá la regla del producto: $\\left(u \\cdot v\\right)' = u'v + uv'$.", min_rating=PISO_TRIGONOMETRICAS),
-    GameTemplate("t5_sin_over_x", 5, _t5_sin_over_x, "Revisá la regla del cociente.", min_rating=PISO_TRIGONOMETRICAS),
+    GameTemplate("t4_exp_sin", 4, _t4_exp_sin, "Revisá la regla del producto: $\\left(u \\cdot v\\right)' = u'v + uv'$."),
+    GameTemplate("t5_sin_over_x", 5, _t5_sin_over_x, "Revisá la regla del cociente."),
     GameTemplate("t5_pow_over_linear", 5, _t5_pow_over_linear, "Revisá la regla del cociente."),
     GameTemplate("t5_exp_over_pow", 5, _t5_exp_over_pow, "Revisá la regla del cociente."),
     GameTemplate("t5_ln_over_x", 5, _t5_ln_over_x, "Revisá la regla del cociente."),
@@ -633,12 +692,12 @@ TEMPLATES: tuple[GameTemplate, ...] = (
     # corrido ese índice sin que el check avisara por qué empezó a fallar.
     GameTemplate("t1_recip", 1, _t1_recip),
     GameTemplate("t1_sqrt", 1, _t1_sqrt),
-    GameTemplate("t3_tan", 3, _t3_tan, min_rating=PISO_TRIGONOMETRICAS),
+    GameTemplate("t3_tan", 3, _t3_tan),
     # ── La regla de la cadena ────────────────────────────────────────────────
     # Tambien al final, por el mismo motivo que las tres de arriba: el indice
     # posicional que referencia check_game_explain.py no se puede correr.
-    GameTemplate("t6_sin_lineal", 6, _t6_sin_lineal, _FB_CADENA, min_rating=PISO_TRIGONOMETRICAS),
-    GameTemplate("t6_cos_lineal", 6, _t6_cos_lineal, _FB_CADENA, min_rating=PISO_TRIGONOMETRICAS),
+    GameTemplate("t6_sin_lineal", 6, _t6_sin_lineal, _FB_CADENA),
+    GameTemplate("t6_cos_lineal", 6, _t6_cos_lineal, _FB_CADENA),
     GameTemplate("t6_exp_lineal", 6, _t6_exp_lineal, _FB_CADENA),
     GameTemplate("t6_ln_lineal", 6, _t6_ln_lineal, _FB_CADENA),
     GameTemplate("t6_pow_lineal", 6, _t6_pow_lineal, _FB_CADENA),
@@ -646,12 +705,12 @@ TEMPLATES: tuple[GameTemplate, ...] = (
     GameTemplate("t7_sqrt_poly", 7, _t7_sqrt_poly, _FB_CADENA),
     GameTemplate("t7_exp_poly", 7, _t7_exp_poly, _FB_CADENA),
     GameTemplate("t7_ln_poly", 7, _t7_ln_poly, _FB_CADENA),
-    GameTemplate("t7_pow_trig", 7, _t7_pow_trig, _FB_CADENA, min_rating=PISO_TRIGONOMETRICAS),
-    GameTemplate("t8_exp_sin", 8, _t8_exp_sin, _FB_CADENA, min_rating=PISO_TRIGONOMETRICAS),
-    GameTemplate("t8_cos_ln", 8, _t8_cos_ln, _FB_CADENA, min_rating=PISO_TRIGONOMETRICAS),
+    GameTemplate("t7_pow_trig", 7, _t7_pow_trig, _FB_CADENA),
+    GameTemplate("t8_exp_sin", 8, _t8_exp_sin, _FB_CADENA),
+    GameTemplate("t8_cos_ln", 8, _t8_cos_ln, _FB_CADENA),
     GameTemplate("t8_pow_ln", 8, _t8_pow_ln, _FB_CADENA),
     GameTemplate("t8_prod_cadena", 8, _t8_prod_cadena, "Revisa la regla del producto, y ojo con la derivada de adentro del segundo factor."),
-    GameTemplate("t8_quot_cadena", 8, _t8_quot_cadena, "Revisa la regla del cociente, y ojo con la derivada de adentro del numerador.", min_rating=PISO_TRIGONOMETRICAS),
+    GameTemplate("t8_quot_cadena", 8, _t8_quot_cadena, "Revisa la regla del cociente, y ojo con la derivada de adentro del numerador."),
 )
 
 TEMPLATE_BY_KEY: dict[str, GameTemplate] = {t.key: t for t in TEMPLATES}
