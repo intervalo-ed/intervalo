@@ -1766,6 +1766,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                     verTabla()
                   }}
                   onPorque={abrirPorque}
+                  keyboard={false}
                 />
               ) : (
               <div className="relative z-10 flex items-stretch gap-2">

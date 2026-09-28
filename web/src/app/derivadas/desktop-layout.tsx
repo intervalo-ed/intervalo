@@ -523,6 +523,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
     paso: onOrbeLlega,
     attachPrompt,
     attachTarget,
+    attachRespaldo,
     magnetTarget,
   } = useXpConteo({ onComplete: onBurstComplete })
 
@@ -2728,7 +2729,14 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                         seq={answerSeq}
                         cerradoVisual={cerradoVisual}
                         closed={cerradoVisual}
-                        hayPorque={hayPorque}
+                        // Cerrado y ACERTADO la pregunta ya se mudó adentro del
+                        // campo (ver el `hint` de AnswerField), así que acá solo
+                        // entra en el otro cierre posible: se agotaron los
+                        // intentos sin acertar. Pasando `hayPorque` pelado
+                        // salían dos «¿Por qué?» a la vez, uno en la caja de la
+                        // pista y otro al lado de Continuar. Es la misma guarda
+                        // que ya tenía mobile-flow.tsx.
+                        hayPorque={hayPorque && (!cerradoVisual || solvedLatex === null)}
                         primerIntento={primerIntento}
                         principalDisabled={
                           answerMutation.isPending ||
@@ -2830,7 +2838,11 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
               )}
             </div>
 
-            <aside className="flex min-h-0 flex-col gap-3">
+            {/* `ref` acá y no en la tarjeta: esta columna está montada siempre,
+                sin importar qué dorso esté dado vuelta ni qué fila muestre el
+                ranking, y es el destino de respaldo de los orbes de XP (ver
+                `magnetTarget` en xp-conteo.ts). */}
+            <aside ref={attachRespaldo} className="flex min-h-0 flex-col gap-3">
               {/* Esta columna tiene TRES dorsos y una sola cara: la
                       configuración, la tabla de derivadas y —desde que existe
                       el panel de estadísticas (tecla `j`)— la misma tabla con

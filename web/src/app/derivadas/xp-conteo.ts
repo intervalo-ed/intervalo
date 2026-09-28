@@ -86,6 +86,14 @@ const SALVAVIDAS_MS = 3000
  * ese árbol tenga transforms que no sean animaciones. */
 function centerOf(el: HTMLElement | null): { x: number; y: number } | null {
   if (!el) return null
+  // **`isConnected` y no solo la medida.** `attachTarget` guarda el nodo que le
+  // pasa la fila propia del ranking, y cuando esa fila se desmonta —el ranking
+  // cambió de orden, se repaginó, o la fila se fue de la página cargada— el ref
+  // se queda con el nodo VIEJO, ya fuera del documento. Un nodo desmontado mide
+  // 0×0, así que el `return null` de abajo lo atrapaba igual; se chequea
+  // explícito porque «está desmontado» y «todavía no se midió» son dos cosas
+  // distintas y solo una de las dos se arregla esperando.
+  if (!el.isConnected) return null
   const r = el.getBoundingClientRect()
   if (r.width === 0 && r.height === 0) return null
   let x = r.left + r.width / 2
@@ -243,6 +251,8 @@ export function useXpConteo({ onComplete }: { onComplete?: () => void } = {}) {
   const seqRef = useRef(0)
   const promptRef = useRef<HTMLDivElement | null>(null)
   const targetRef = useRef<HTMLElement | null>(null)
+  // El destino de respaldo: la columna del ranking. Ver `magnetTarget`.
+  const respaldoRef = useRef<HTMLElement | null>(null)
 
   /** Arranca el festejo con una XP TODAVÍA NO CONFIRMADA por el servidor: la
    *  llama el veredicto local en el instante en que dice "correcto", sin
@@ -392,7 +402,38 @@ export function useXpConteo({ onComplete }: { onComplete?: () => void } = {}) {
   const attachTarget = useCallback((node: HTMLElement | null) => {
     targetRef.current = node
   }, [])
-  const magnetTarget = useCallback(() => centerOf(targetRef.current), [])
+  const attachRespaldo = useCallback((node: HTMLElement | null) => {
+    respaldoRef.current = node
+  }, [])
+
+  /** Dónde tienen que aterrizar los orbes.
+   *
+   * **El respaldo no es una precaución de más: sin él los orbes se CONGELAN.**
+   * `orb-flight.tsx` espera hasta `SIN_DESTINO_MS` a que haya destino y, si no
+   * aparece, da todos por llegados de una — un sonido solo y los puntos que se
+   * apagan donde nacieron, sin volar. Eso es lo que se ve cuando el número de
+   * XP de la fila propia no se puede medir, y hay por lo menos dos formas de
+   * que pase:
+   *
+   *   · el ranking está ordenado por Elo, donde ese número no se dibuja y
+   *     `GameRanking` deja de pasar `attachXpTarget`. Al acertar se vuelve solo
+   *     a experiencia, pero la fila tiene que volver a montarse antes de que se
+   *     acabe la paciencia;
+   *   · la fila propia no está en la página cargada de la lista —se repaginó,
+   *     o el salto de puesto la movió—, así que no hay nodo que medir.
+   *
+   * Las dos son intermitentes desde el lado del jugador, y por eso el arreglo
+   * no es taparlas de a una sino que no haya forma de quedarse sin destino. El
+   * respaldo es la columna entera del ranking: está montada siempre y no
+   * depende de qué fila se esté mostrando. Volar al borde de la columna en vez
+   * de al número exacto se nota apenas; no volar se nota mucho.
+   *
+   * Y como el vuelo relee esto en CADA frame, si el número aparece a mitad de
+   * camino la curva se corrige sola y los últimos orbes entran donde deben. */
+  const magnetTarget = useCallback(
+    () => centerOf(targetRef.current) ?? centerOf(respaldoRef.current),
+    [],
+  )
 
   return {
     // XP a mostrar en la fila propia. Queda en el valor final cuando el conteo
@@ -419,6 +460,7 @@ export function useXpConteo({ onComplete }: { onComplete?: () => void } = {}) {
     paso,
     attachPrompt,
     attachTarget,
+    attachRespaldo,
     magnetTarget,
   }
 }
