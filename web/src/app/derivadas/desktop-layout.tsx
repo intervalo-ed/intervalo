@@ -98,7 +98,7 @@ import {
 } from "./math-keyboard"
 import { PieDeRampa, conAyudasDe } from "./pie-rampa"
 import { Barra, Hueco } from "@/components/skeleton-barra"
-import { parseAnswerToMathJson, warmupComputeEngine } from "./parse-answer"
+import { parseAnswerToMathJson } from "./parse-answer"
 import { useLocalVerdict } from "./UseLocalVerdict"
 import { EditCareerPanel, EditUniversityPanel } from "./edit-profile-field"
 import { ProfileSlides, RegisterSlide } from "./register-slides"
@@ -559,7 +559,6 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
       // durante dieciséis días sin que se viera.
       layout: "desktop",
     })
-    warmupComputeEngine()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -723,7 +722,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
     if (!exercise || answerMutation.isPending) return
     const latex = inputRef.current?.getLatex() ?? ""
     if (!latex.trim()) return
-    const mathjson = await parseAnswerToMathJson(latex)
+    const mathjson = parseAnswerToMathJson(latex)
 
     // El color y el sonido salen ACÁ si el veredicto local puede decidirlo, sin
     // esperar el viaje al servidor. La XP, el Elo y el puesto siguen viniendo de

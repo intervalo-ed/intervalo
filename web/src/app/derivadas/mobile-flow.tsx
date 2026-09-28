@@ -103,7 +103,7 @@ import { ALL_SCOPE, type RankingView } from "@/components/leaderboard-chrome"
 import { AMBAR } from "./game-colors"
 import { HINT_MOBILE, MathInput, type MathInputHandle } from "./math-input"
 import { MathKeyboard } from "./math-keyboard"
-import { parseAnswerToMathJson, warmupComputeEngine } from "./parse-answer"
+import { parseAnswerToMathJson } from "./parse-answer"
 import { useLocalVerdict } from "./UseLocalVerdict"
 import { LegalSheet } from "@/app/onboarding/legal-sheet"
 import { ProfileSlides, RegisterSlide } from "./register-slides"
@@ -492,7 +492,6 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
     // `platform` es super propiedad (ios | android | desktop) y una propiedad
     // del evento con ese nombre la pisa.
     posthog.capture("game_start", { is_guest: player?.is_guest ?? true, layout: "mobile" })
-    warmupComputeEngine()
     // Solo al montar: el evento es de apertura, no de cambios de player.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -989,7 +988,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
     if (!exercise || answerMutation.isPending) return
     const latex = inputRef.current?.getLatex() ?? ""
     if (!latex.trim()) return
-    const mathjson = await parseAnswerToMathJson(latex)
+    const mathjson = parseAnswerToMathJson(latex)
 
     // El color y el sonido salen ACÁ si el veredicto local puede decidirlo, sin
     // esperar el viaje al servidor. La XP, el Elo y el puesto siguen viniendo de

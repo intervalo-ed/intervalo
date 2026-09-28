@@ -24,17 +24,11 @@ export function useLocalVerdict(promptLatex: string | null) {
   const muestras = useRef<MuestrasEsperadas | null>(null)
 
   useEffect(() => {
-    // Se limpia primero: si el ejercicio cambió y las muestras nuevas todavía no
-    // están, hay que callarse, no juzgar con las del enunciado anterior.
-    muestras.current = null
-    if (promptLatex === null) return
-    let vigente = true
-    void muestrasEsperadas(promptLatex).then((listas) => {
-      if (vigente) muestras.current = listas
-    })
-    return () => {
-      vigente = false
-    }
+    // Sin carrera que cuidar desde que el parseo es sincrónico: las muestras del
+    // enunciado nuevo se calculan acá mismo, así que no existe el momento en que
+    // las viejas seguían puestas esperando a las nuevas. Antes eso pedía un
+    // `vigente` y una limpieza previa.
+    muestras.current = promptLatex === null ? null : muestrasEsperadas(promptLatex)
   }, [promptLatex])
 
   return useCallback(
