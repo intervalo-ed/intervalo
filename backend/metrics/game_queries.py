@@ -75,8 +75,15 @@ SESSION_GAP_MINUTES = 30
 # cambien.
 #
 #   - carrera y universidad a las 3   (web/src/app/derivadas/hitos-del-juego.ts :: HITO_PERFIL)
-#   - registro a las 10               (idem :: HITO_REGISTRO)
-#   - el primer cafecito a las 14     (web/src/app/derivadas/cafecito-cta.tsx :: CAFECITO_PRIMERA)
+#   - la pregunta de dificultad a las 8 (opinion-trigger.ts :: OPINION_PRIMERA)
+#   - registro a las 10               (hitos-del-juego.ts :: HITO_REGISTRO)
+#   - reclutas a las 14               (reclutas-trigger.ts :: RECLUTAS_RESTO)
+#   - el primer cafecito a las 20     (cafecito-cta.tsx :: CAFECITO_PRIMERA)
+#
+# **El arranque se reordenó el 28/09**: la pregunta de dificultad se adelantó de
+# la 28 a la 8, y para hacerle lugar reclutas se fue de la 9 a la 14 y el café de
+# la 14 a la 20. En la 28 la pregunta ya no le llegaba a la gente sino a los que
+# habían sobrevivido hasta ahí.
 #
 # El panel los marca para poder ver si el escalón de abandono cae JUSTO ahí, que
 # sería el producto pinchando su propia partida. Por eso importa que estén al
@@ -89,9 +96,9 @@ SESSION_GAP_MINUTES = 30
 # en el mismo lugar, mientras que las de después dependen de récords y saltos de
 # puesto y por lo tanto caen en derivadas distintas para cada persona.
 PEDIDO_PERFIL = 3
-PEDIDO_RECLUTAS = 9
+PEDIDO_RECLUTAS = 14
 PEDIDO_REGISTRO = 10
-PEDIDO_CAFECITO = 14
+PEDIDO_CAFECITO = 20
 PEDIDO_INSTALAR = 21
 
 # Cada cuánto vuelven los dos que vuelven en posición fija. Es el mismo número
@@ -1864,7 +1871,7 @@ def _camadas_retencion(data: dict, semanas: list[date]) -> dict[date, dict]:
         # cada cosa medido acá: instalar lo hace el 4,1% y hay que aceptarle un
         # cartel al sistema operativo; volver otro día es la prueba de que el
         # producto valió una segunda vez; registrarse pasa adentro de la primera
-        # tanda —el juego lo ofrece a las 10 correctas— y es el único que ocurre
+        # tanda —el juego lo ofrece a las 8 correctas— y es el único que ocurre
         # sin ningún compromiso posterior: 115 de 270 se registran y no vuelven
         # nunca.
         #
@@ -2741,10 +2748,28 @@ EXPERIMENTO_BANDA: dict = {
         "conviene apuntar más abajo todavía. El brazo exigente corre la banda un "
         "ancho entero, de [0,70 ; 0,80] a [0,58 ; 0,72]."
     ),
+    # Lo que cambió el 28/09, y hay que tenerlo escrito porque mueve la métrica:
+    # la pregunta de dificultad se adelantó de la 28 a la 8. Gana que la conteste
+    # muchísima más gente —en la 28 solo llegaban los sobrevivientes— y pierde
+    # que la banda haya tenido apenas cuatro ejercicios para actuar antes de que
+    # se pregunte. El experimento pasa a leerse mucho más rápido y a medir un
+    # efecto más chico.
     "desde": date(2026, 9, 28),
     "brazos": (("control", "Control"), ("exigente", "Banda exigente")),
     "metrica": "muy_facil",
     # 311 de 570 votos contestados entre el 13/09 y el 27/09.
+    #
+    # **Está medida con la pregunta cayendo en la 28, y el 28/09 se adelantó a la
+    # 8.** Son dos poblaciones distintas: en la 28 contestaba el que había
+    # sobrevivido hasta ahí —justo el que no tiene problema con la dificultad— y
+    # en la 8 contesta casi cualquiera que empezó. La base real de acá en
+    # adelante va a ser otra, y probablemente más baja.
+    #
+    # No se re-declara sobre la marcha y el motivo es que cambiarla no cambiaría
+    # el n: `p(1−p)` se maximiza en 0,50 y 0,546 está pegado ahí, así que los 272
+    # por brazo son casi el máximo que este diseño puede pedir. Si la base real
+    # cae a 0,45 o 0,40, el n que haría falta BAJA. El número declarado es el
+    # conservador y se deja como quedó, con esta nota al lado.
     "base": 0.546,
     # Doce puntos. Es mucho y se declara igual porque es lo que esta población
     # puede ver: los votos son ~300 por semana y bajar el MDE a 6 pp
@@ -2776,7 +2801,7 @@ def experimento_banda(data: dict, now: datetime | None = None) -> dict:
     pesa uno y el contraste no necesita corrección por agrupamiento.
 
     **La inscripción es «se le sirvió el primer ejercicio», que es anterior al
-    tratamiento.** Votar no lo es: hay que llegar a las 10 correctas, y una banda
+    tratamiento.** Votar no lo es: hay que llegar a las 8 correctas, y una banda
     más exigente hace que se llegue más tarde. Por eso la fracción que llega a
     votar se calcula SIEMPRE y se muestra arriba del resultado: si difiere entre
     brazos, el contraste de los votos está condicionado en un colisionador y no

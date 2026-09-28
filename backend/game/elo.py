@@ -150,9 +150,33 @@ SKIP_THETA_PENALTY = 0.12
 # 0,07 a 0,39, el p90 de 0,89 a 2,03, los cinturones de [295,117,8,2] a
 # [184,177,25,36], y el orden de dificultad entre tiers vuelve a ser monótono
 # (con los valores viejos T3 terminaba más difícil que T5).
-_A_USER = 0.8
+#
+# **0.58 y no 0.8 desde el 28/09, y es una corrección, no una decisión nueva.**
+# El paso se mide en unidades de θ, y la recalibración del 27/09 cambió la escala
+# de θ sin que nadie tocara estos dos números — así que el motor pasó a aprender
+# más rápido *en relación a la dificultad* sin que se hubiera decidido. Medido
+# contra el ancho de la banda objetivo, que es la vara honesta:
+#
+#     _A_USER = 0,8   →  1,21 anchos de banda antes  ·  1,67 después
+#     _A_USER = 0,58  →  1,21 anchos de banda, igual que siempre
+#
+# El factor es 0,7255, que es `SCALE_viejo / SCALE_nuevo` = 0,818 / 1,1266. Es
+# el mismo criterio con el que se reescalaron `SKIP_THETA_PENALTY` y el tope del
+# ajuste por voto; a estos dos se les había pasado.
+#
+# **`_B_USER` y `_B_TEMPLATE` NO se tocan**: multiplican a `n`, que es un conteo
+# de respuestas y no cambió de unidades. Y como solo se escalan los numeradores,
+# la capacidad relativa —`a/b`, cuánto puede moverse cada número en toda su
+# vida— se encoge igual para los dos, así que el reparto de la sorpresa entre la
+# persona y la plantilla queda exactamente donde estaba: 8,3 contra 5,8, la
+# misma razón de 1,43 que tenía con 11,4 contra 8.
+#
+# Que el motor aprenda más rápido puede ser lo que convenga —el diagnóstico del
+# 27/09 dice que el decaimiento es demasiado lento— pero esa es una decisión que
+# se toma y se mide, no un efecto secundario de un cambio de coordenadas.
+_A_USER = 0.58
 _B_USER = 0.07
-_A_TEMPLATE = 0.8
+_A_TEMPLATE = 0.58
 _B_TEMPLATE = 0.10
 
 # ── El piso del paso de aprendizaje ──────────────────────────────────────────

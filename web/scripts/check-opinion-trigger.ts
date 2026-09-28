@@ -346,8 +346,8 @@ check(
 // El número que documenta context/features-catalog.md. Si se mueve, el mapa de
 // hitos de ese documento quedó mintiendo.
 check(
-  encuestas[0]?.n === 28,
-  `la primera cae en la 28 como dice el mapa de hitos (${encuestas[0]?.n})`,
+  encuestas[0]?.n === 8,
+  `la primera cae en la 8 como dice el mapa de hitos (${encuestas[0]?.n})`,
 )
 // Ninguna respuesta muestra dos diapos: cada una ocupa el turno sola. Es la
 // regla 3 del mapa de hitos, y con la escalera corta es la que más riesgo corre.

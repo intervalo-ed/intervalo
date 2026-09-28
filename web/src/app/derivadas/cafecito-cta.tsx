@@ -59,7 +59,14 @@ export const PRECIO_CAFECITO = 100
 // probando CUALQUIER otra cosa del juego, que es más seguido de lo que se
 // prueba esta diapo puntual. Para trabajar en cafecito/reclutas, bajar estos
 // números a mano (sin commitearlo).
-export const CAFECITO_PRIMERA = 14
+// **Veinte desde el 28/09, y antes eran catorce.** Se corrió para dejarle la 14
+// a reclutas, que a su vez le dejó la 8 a la pregunta de dificultad. El orden
+// del arranque pasa a ser: reglas, dificultad, registro, reclutas, varita, café.
+//
+// Pedir la cuenta antes que la plata ya era la regla (ver `HITO_REGISTRO`); esto
+// agrega que primero se escucha y después se pide. El café no pierde nada: su
+// segunda aparición ya caía en la 20.
+export const CAFECITO_PRIMERA = 20
 export const CAFECITO_EVERY = 20
 
 // Cinco y no diez, y el número no es libre: sale de las dos distancias que tiene
