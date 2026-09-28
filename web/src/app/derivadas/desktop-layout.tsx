@@ -116,6 +116,7 @@ import {
   type GameExercise,
 } from "./UseGameExercise"
 import { useGamePulse, useMyBoost } from "./UseGameLeaderboard"
+import { useDespuesDelArranque } from "./UseDespuesDelArranque"
 import { gameKeys, useGamePlayer, type GamePlayer } from "./UseGamePlayer"
 import { useGameEvents } from "./UseGameLeaderboard"
 import { useGameStats } from "./UseGameStats"
@@ -530,7 +531,12 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   // Late cada 10 s y refresca el ranking solo si alguien respondió algo. Se
   // pausa mientras vuelan los orbes: ahí el orden viejo tiene que quedarse
   // quieto.
-  useGamePulse({ enabled: player !== null, paused: counting })
+  // El único precalentamiento que se corre en escritorio: acá el ranking y el
+  // feed están en pantalla desde el arranque, así que sus pedidos dibujan algo y
+  // no se tocan. El pulso no: late cada diez segundos y en el primero no tiene
+  // nada que refrescar, pero salía junto con los que sí trancan la pantalla.
+  const arrancado = useDespuesDelArranque()
+  useGamePulse({ enabled: player !== null && arrancado, paused: counting })
 
   // El empuje de la universidad sale del mismo pulso, sin pedido propio.
   const boost = useMyBoost(player?.university)

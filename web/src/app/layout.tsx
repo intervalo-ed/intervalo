@@ -1,5 +1,6 @@
 import Providers from "@/app/providers"
 import AppChrome from "@/app/app-chrome"
+import { ConexionesTempranas } from "@/app/conexiones-tempranas"
 import { auth } from "@clerk/nextjs/server"
 import { cookies } from "next/headers"
 import { COOKIE_BIENVENIDA, yaHizoSesion } from "@/lib/nav/bienvenida"
@@ -97,6 +98,11 @@ export default async function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">
+        {/* No dibuja nada: abre las conexiones al backend y a Clerk mientras
+            todavía se baja el JavaScript. Hoy la primera sale recién a los 6,6
+            segundos, y el saludo TLS de ese momento se paga entero dentro del
+            camino crítico. */}
+        <ConexionesTempranas />
         <Providers>
           <AppChrome signedIn={!!userId} splash={!!userId && !yaVino}>
             {children}
