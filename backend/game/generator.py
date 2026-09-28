@@ -18,7 +18,7 @@ from sqlalchemy.orm import Session
 
 from models import GameExercise, GamePlayer, GameTemplateStat
 
-from . import elo
+from . import banda as game_banda, elo
 from .cycler import CyclingRandom, ForcedRandom
 from .templates import TEMPLATE_BY_KEY, TEMPLATES, GameTemplate, latex_es, x
 
@@ -228,6 +228,14 @@ def pick_template(
     rng = rng or random.Random()
     recent = _recent_template_keys(db, player)
 
+    # A qué p̂ se apunta para ESTE jugador. Es el brazo de `dx-banda-1`, y es el
+    # único parámetro de dificultad que se puede sortear: β vive en una tabla
+    # compartida, así que moverla repartiría el tratamiento al otro brazo (ver
+    # game/banda.py). Con el experimento apagado devuelve la banda de siempre.
+    banda_lo, banda_hi = game_banda.banda_de(player.id)
+    banda_mid = game_banda.centro_de(banda_lo, banda_hi)
+    expl_lo, expl_hi = game_banda.exploracion_de(banda_lo, banda_hi)
+
     # `permitidas` y no TEMPLATES en TODAS las ramas de acá abajo: cada rescate
     # está para no quedarse sin nada que servir, y si alguno volviera a la lista
     # completa el piso de rating se evaporaría justo en el caso raro. Nunca queda
@@ -259,7 +267,7 @@ def pick_template(
         explore = [
             s
             for s in scored
-            if elo.EXPLORE_LOW <= s[2] <= elo.EXPLORE_HIGH and s[0].key not in recent
+            if expl_lo <= s[2] <= expl_hi and s[0].key not in recent
         ]
         if explore:
             return min(explore, key=lambda s: s[1].n_observations)
@@ -271,7 +279,7 @@ def pick_template(
         libres = [s for s in scored if s[0].key not in vetadas]
         if not libres:
             continue
-        en_banda = [s for s in libres if elo.TARGET_LOW <= s[2] <= elo.TARGET_HIGH]
+        en_banda = [s for s in libres if banda_lo <= s[2] <= banda_hi]
         if en_banda:
             return rng.choice(en_banda)
         # La banda objetivo no tuvo candidatas con esta ventana, pero HAY
@@ -285,14 +293,14 @@ def pick_template(
         # `_CASI_EMPATE` desempata al azar entre las que quedaron igual de
         # cerca, para no servir siempre la primera en orden de lista cuando hay
         # varias plantillas del mismo tier tan buenas la una como la otra.
-        mejor = min(abs(s[2] - elo.TARGET_MID) for s in libres)
-        empatadas = [s for s in libres if abs(s[2] - elo.TARGET_MID) <= mejor + _CASI_EMPATE]
+        mejor = min(abs(s[2] - banda_mid) for s in libres)
+        empatadas = [s for s in libres if abs(s[2] - banda_mid) <= mejor + _CASI_EMPATE]
         return rng.choice(empatadas)
 
     # Inalcanzable mientras `_VENTANAS` termine en 0 y `permitidas` no esté vacía
     # (T0 no tiene piso de rating). Queda por si alguna de las dos cosas cambia.
-    mejor = min(abs(s[2] - elo.TARGET_MID) for s in scored)
-    empatadas = [s for s in scored if abs(s[2] - elo.TARGET_MID) <= mejor + _CASI_EMPATE]
+    mejor = min(abs(s[2] - banda_mid) for s in scored)
+    empatadas = [s for s in scored if abs(s[2] - banda_mid) <= mejor + _CASI_EMPATE]
     return rng.choice(empatadas)
 
 

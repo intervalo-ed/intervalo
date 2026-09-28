@@ -148,14 +148,88 @@ o sea 20 puntos de rating con el paso de hoy y 70 con el piso. Ese temblor ES el
 efecto buscado —que el número se mueva— y a la vez el riesgo: a quien esté parado
 justo en un corte de nivel se le va a prender y apagar el color.
 
+### La escala del motor, recalibrada el 27/09 (dx)
+
+`p̂ = σ((θ − β)·SCALE)`, y **`SCALE` estaba mal por 37%**. Valía 0,818, heredado
+de la calibración por temperatura de Intervalo clásico; medido contra 23.444
+respuestas del propio juego con un Rasch conjunto, el valor real es **1,1266**.
+
+Lo que costaba, medido sobre 53.842 primeras respuestas sin tabla: **el motor
+prometía 83,86% y la gente entregaba 91,48%**, un sesgo de +7,62 pp presente en
+todos los tramos de la curva de calibración. Traducido a lo que se siente: la
+banda objetivo [0,70 ; 0,80] son (θ−β) ∈ [1,04 ; 1,70] en unidades del motor, y
+ese rango con la escala real da p̂ ∈ [0,76 ; 0,87]. **El motor apuntaba a 75% y
+servía 82%.**
+
+Las semillas tenían el mismo problema: estaban puestas a mano separadas de a
+0,6, y los tiers se separan **0,31** medidos. Ahora salen del ajuste, y dejaron
+de ser monótonas a propósito:
+
+| tier | qué es | semilla vieja | medida |
+|---|---|---|---|
+| 0 | las constantes | −2,20 | −1,88 |
+| 1 | las potencias | −1,60 | −0,70 |
+| 2 | las sumas | −1,00 | −0,55 |
+| 3 | la tabla | −0,40 | +0,03 |
+| 4 | los productos | +0,30 | +0,38 |
+| 5 | los cocientes | +0,90 | +1,05 |
+| 6 | la cadena | +1,40 | **+0,63** |
+| 7 | las compuestas | +2,00 | +1,51 |
+| 8 | las anidadas | +2,60 | +1,54 |
+
+**T6 sale más fácil que T5**: la cadena con interior lineal (`sen(ax+b)`) cuesta
+menos que la regla del cociente. Es un hallazgo pedagógico, no ruido, y el tier
+lo dice ahora en vez de esconderlo — el tier nombra QUÉ es la derivada, la
+semilla dice cuánto cuesta. **T7 y T8 están empatados**, así que arriba de T6 la
+escalera está plana: el catálogo no tiene tres escalones ahí, tiene uno.
+
+**Nadie vio cambiar su rating.** `RATING_BASE` y `RATING_PER_THETA` pasaron de
+821/200 a 646/251 justamente para absorber el cambio de coordenadas: el rating de
+cada jugador quedó igual a menos de 2 puntos y 1.213 de 1.670 no se movieron ni
+uno. De color, 815 subieron y **ninguno bajó** — el reparto pasó de
+[735, 727, 170, 38] a [284, 902, 358, 126].
+
+La migración es `scripts/diag/recalibrar_motor.py` y corrió una sola vez. Lo que
+cambia de acá en adelante es lo que el motor SIRVE: apuntando a 75% ahora sirve
+75%, que son unos diez puntos más difícil que antes.
+
+### A qué dificultad apuntamos (dx) — EXPERIMENTO `dx-banda-1`
+
+Con el motor ya diciendo la verdad, queda la pregunta de producto: **¿a qué tasa
+de acierto conviene apuntar?** El 54,6% de los votos de dificultad dice «muy
+fácil» y el 1,8% «muy difícil», y la proporción empeora con la experiencia —
+76,2% entre los que pasaron las 250 respuestas.
+
+    control    p̂ ∈ [0,70 ; 0,80]   centro 0,75   — la banda de siempre
+    exigente   p̂ ∈ [0,58 ; 0,72]   centro 0,65   — un ancho de banda más abajo
+
+La banda es **el único parámetro de dificultad que se puede sortear por
+jugador**: β vive en `game_template_stats`, que es una tabla sola, así que moverla
+le repartiría el tratamiento al otro brazo. Por eso `SCALE` y las semillas se
+arreglaron para todos y solo esto se experimenta.
+
+Métrica: qué fracción del **primer voto de cada persona** dice «muy fácil», base
+54,6%, efecto mínimo 12 pp → 272 votos por brazo. Guardarraíl que se lee antes
+que el resultado: la fracción que **llega** a votar. La pregunta sale a las 10
+correctas, así que una banda más exigente podría retrasar la llegada y dejar
+votando solo a los más fuertes de su brazo; si eso pasa, el contraste está
+condicionado en un colisionador y ningún n lo arregla.
+
+Ver `game/banda.py` y `metrics/game_queries.py :: experimento_banda`.
+
 ### La dificultad que la persona pide (dx)
 
 El juego pregunta **«¿Cómo te vienen resultando?»** con tres opciones: 😴 muy
 fáciles / 👌 justas / 🤯 muy difíciles.
 
 **Vuelve, y cada vez más espaciada.** El primer turno de encuesta cae en la 28 y
-de ahí los huecos crecen: 10, 10, 20, 30, 50 y 80, que es el último y se repite
-para siempre (`opinion-trigger.ts :: OPINION_CADENCIAS`). **No hay tope de
+de ahí los huecos crecen: 8, 8, 12, 18, 28 y 40, que es el último y se repite
+para siempre (`opinion-trigger.ts :: OPINION_CADENCIAS`). **Los huecos se
+partieron al medio el 27/09** —eran 10, 10, 20, 30, 50 y 80— porque esta
+pregunta pasó de ser un termómetro suelto a ser la MÉTRICA de un experimento
+(`dx-banda-1`): con la cadencia vieja llegaba al 10,3% de los jugadores y el
+experimento se leía en meses. Sube para todos y no se sortea: un termómetro que
+marque distinto en cada brazo no mide, decora. **No hay tope de
 apariciones**; lo que corta es la falta de respuesta, tres salteos seguidos, que
 es la misma regla que el clásico usa en `feedback_survey.SKIP_STREAK_LEN`. Una
 respuesta borra la racha.

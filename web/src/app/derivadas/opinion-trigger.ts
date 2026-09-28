@@ -74,6 +74,19 @@ export const OPINION_PRIMERA = 10
 //
 //   turnos: 28, 38, 48, 68, 98, 148, 228, 308, 388, 468…
 //
+// **Duplicada el 27/09**, de [10, 10, 20, 30, 50, 80] a la tabla de abajo. El
+// motivo no es que la de antes molestara —el 93,6% sigue contestando— sino que
+// esta pregunta pasó a ser el TERMÓMETRO de un experimento: `dx-banda-1` mide a
+// qué tasa de acierto conviene apuntar, y su métrica es qué fracción de los
+// votos dice «muy fácil» (hoy 54,6%, y 76,2% entre los que pasaron las 250
+// respuestas). Con la cadencia vieja llegaba al 10,3% de los jugadores y el
+// experimento se leía en meses.
+//
+// Sube para TODOS y a propósito no se sortea: un termómetro que marque distinto
+// en cada brazo no mide, decora.
+//
+//   turnos nuevos: 28, 36, 44, 56, 74, 102, 142, 182, 222, 262…
+//
 // **Un hueco de 10 era imposible hasta que el servidor aprendió a cortar la
 // ventana.** El ajuste de θ mira hasta 20 respuestas hacia atrás, así que dos
 // votos a 10 de distancia se calculaban sobre media tanda compartida y el segundo
@@ -82,7 +95,7 @@ export const OPINION_PRIMERA = 10
 // (`game_difficulty_votes.corte_ejercicio_id`, `router._corte_cobrado`), así que
 // la cadencia dejó de ser una restricción. Si esa columna se fuera, este 10 tiene
 // que volver a ser mayor que 20.
-export const OPINION_CADENCIAS = [10, 10, 20, 30, 50, 80] as const
+export const OPINION_CADENCIAS = [8, 8, 12, 18, 28, 40] as const
 
 // Cuántos turnos seguidos de dificultad antes de empezar a alternar.
 //

@@ -419,9 +419,45 @@ def _t4_exp_sin(rng: CyclingRandom) -> Generated:
     return Generated(f=u * v, common_errors=_product_errors(u, v))
 
 
+# ── Las ranuras endurecidas del 27/09/2026 ──────────────────────────────────
+#
+# Lo que sigue recorta el dominio de algunas ranuras para que la instancia que
+# sale sea la difícil de esa plantilla y no el promedio. No es una preferencia:
+# el catálogo TOPEA. Medido con un Rasch conjunto, la plantilla más difícil que
+# hay (`t8_quot_cadena`) tiene β 2,18, y con la banda objetivo cayendo 0,98 por
+# encima de β eso alcanza hasta θ = 3,14. El 13,4% de los jugadores medidos está
+# por arriba, y son el 52% del volumen servido: para esa gente NADA de lo que el
+# juego tiene la desafía, y el 54,6% de los votos de dificultad dice «muy fácil»
+# (76,2% entre los que pasaron las 250 respuestas).
+#
+# **Cada recorte está medido, y varios que parecían obvios NO se hicieron.**
+# Subir el exponente no endurece parejo — el acierto real por exponente, sobre
+# el historial completo:
+#
+#     t5_sin_over_x    n=1 96%   n=2 92%   n=3 90%     ← baja, se recorta n=1
+#     t8_pow_ln        n=2 98%   n=3 87%   n=4 90%     ← n=2 es regalada
+#     t7_pow_trig      n=2 94%   n=3 94%   n=4 86%   n=5 90%
+#     t6_pow_lineal    n=2 95%   n=3 90%   n=4 89%   n=5 95%   ← n=5 vuelve a ser fácil
+#     t5_pow_over_linear  n=2 93%   n=3 92%                    ← plano, NO se toca
+#
+# En `t8_prod_cadena` y `t7_pow_poly` el enunciado tiene más de un exponente, así
+# que la medición no los separa y se dejan quietos: endurecer a ciegas ahí podía
+# hacerlos más fáciles, que es exactamente lo que el n=5 de `t6_pow_lineal`
+# muestra que pasa.
+#
+# Lo que esto compra, estimado con las mismas tasas: entre +0,20 y +0,55 de β
+# según la plantilla, y el techo sube de θ 3,14 a ~3,36. **Es parcial y hay que
+# decirlo**: sin plantillas nuevas el techo no se cierra, solo se corre. Lo que
+# falta se mide solo — `game_template_stats` reaprende las β en una semana.
+#
+# El estado de ciclado (`numeric_cycle_json`) puede tener valores del dominio
+# viejo guardados; se sirven una vez más y el ciclo se rearma con el dominio
+# nuevo. No hace falta limpiarlo.
+
+
 def _t5_sin_over_x(rng: CyclingRandom) -> Generated:
     k = rng.randint("k", 1, 9)
-    n = rng.randint("n", 1, 3)
+    n = rng.randint("n", 2, 3)
     u, v = Integer(k) * sin(x), x**n
     return Generated(f=u / v, common_errors=_quotient_errors(u, v))
 
@@ -434,7 +470,7 @@ def _t5_pow_over_linear(rng: CyclingRandom) -> Generated:
 
 
 def _t5_exp_over_pow(rng: CyclingRandom) -> Generated:
-    n = rng.randint("n", 1, 3)
+    n = rng.randint("n", 2, 3)
     k = rng.randint("k", 1, 9)
     u, v = Integer(k) * exp(x), x**n
     return Generated(f=u / v, common_errors=_quotient_errors(u, v))
@@ -442,7 +478,7 @@ def _t5_exp_over_pow(rng: CyclingRandom) -> Generated:
 
 def _t5_ln_over_x(rng: CyclingRandom) -> Generated:
     k = rng.randint("k", 1, 9)
-    n = rng.randint("n", 1, 3)
+    n = rng.randint("n", 2, 3)
     u, v = Integer(k) * log(x), x**n
     return Generated(f=u / v, common_errors=_quotient_errors(u, v))
 
@@ -497,7 +533,7 @@ def _t6_ln_lineal(rng: CyclingRandom) -> Generated:
 def _t6_pow_lineal(rng: CyclingRandom) -> Generated:
     a = rng.randint("a", 2, 9)
     b = rng.randint("b", 1, 9)
-    n = rng.randint("n", 2, 5)
+    n = rng.randint("n", 3, 4)
     u = Integer(a) * x + Integer(b)
     f = u**n
     return Generated(f=f, common_errors=_chain_errors(f, u))
@@ -544,8 +580,8 @@ def _t7_ln_poly(rng: CyclingRandom) -> Generated:
 def _t7_pow_trig(rng: CyclingRandom) -> Generated:
     # sen^n(x): la cadena al reves, con la potencia AFUERA y la trigonometrica
     # adentro. Es la forma que mas se confunde con `sen(x^n)`.
-    k = rng.choice("k", [1, 1, 2, 3, 4, 5, 6, 7, 8, 9])
-    n = rng.randint("n", 2, 5)
+    k = rng.choice("k", [1, 2, 3, 4, 5, 6, 7, 8, 9])
+    n = rng.randint("n", 4, 5)
     u = sin(x)
     f = Integer(k) * u**n
     return Generated(f=f, common_errors=_chain_errors(f, u))
@@ -558,7 +594,7 @@ def _t7_pow_trig(rng: CyclingRandom) -> Generated:
 # separado, que es la forma en la que esto aparece en un parcial.
 
 def _t8_exp_sin(rng: CyclingRandom) -> Generated:
-    c = rng.choice("c", [1, 1, 2, 3, 4, 5])
+    c = rng.choice("c", [1, 2, 3, 4, 5])
     k = rng.randint("k", 2, 5)
     u = Integer(k) * sin(x)
     f = Integer(c) * exp(u)
@@ -566,7 +602,7 @@ def _t8_exp_sin(rng: CyclingRandom) -> Generated:
 
 
 def _t8_cos_ln(rng: CyclingRandom) -> Generated:
-    c = rng.choice("c", [1, 1, 2, 3, 4, 5])
+    c = rng.choice("c", [1, 2, 3, 4, 5])
     k = rng.randint("k", 2, 5)
     u = Integer(k) * log(x)
     f = Integer(c) * cos(u)
@@ -574,8 +610,8 @@ def _t8_cos_ln(rng: CyclingRandom) -> Generated:
 
 
 def _t8_pow_ln(rng: CyclingRandom) -> Generated:
-    c = rng.choice("c", [1, 1, 2, 3, 4, 5, 6, 7, 8, 9])
-    n = rng.randint("n", 2, 4)
+    c = rng.choice("c", [1, 2, 3, 4, 5, 6, 7, 8, 9])
+    n = rng.randint("n", 3, 4)
     u = log(x)
     f = Integer(c) * u**n
     return Generated(f=f, common_errors=_chain_errors(f, u))
@@ -593,7 +629,7 @@ def _t8_prod_cadena(rng: CyclingRandom) -> Generated:
 
 def _t8_quot_cadena(rng: CyclingRandom) -> Generated:
     a = rng.randint("a", 2, 9)
-    n = rng.randint("n", 1, 3)
+    n = rng.randint("n", 2, 3)
     u, v = sin(Integer(a) * x), x**n
     return Generated(f=u / v, common_errors=_quotient_errors(u, v))
 

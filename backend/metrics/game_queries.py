@@ -59,6 +59,7 @@ from game import sorteo
 # que el tope cambie el panel seguiría inscribiendo por el número viejo y los
 # dos brazos medirían cohortes distintas sin que nada falle.
 from game import muro as game_muro
+from game import banda as game_banda
 from game import rampa as game_rampa
 
 from .queries import (A_ORDER, AR_OFFSET, P1_BAND, _pct, _rows, local_date,
@@ -1944,7 +1945,8 @@ def declaracion(clave: str) -> dict | None:
     for exp in EXPERIMENTOS + EXPERIMENTOS_GRUPOS:
         if exp["clave"] == clave:
             return exp
-    for exp in (EXPERIMENTO_MOTOR, EXPERIMENTO_MURO):
+    for exp in (EXPERIMENTO_MOTOR, EXPERIMENTO_MURO, EXPERIMENTO_RAMPA,
+                EXPERIMENTO_BANDA):
         if exp["clave"] == clave:
             return exp
     return None
@@ -2112,6 +2114,10 @@ def _brazos_del_experimento(data: dict, clave: str) -> dict[int, str]:
         cambiar algo.
       - **Tope** (`dx-muro-1`) — mismo hash, y elegible es quien nació después
         del arranque: los veteranos están exentos por diseño.
+      - **Banda** (`dx-banda-1`) — mismo hash, y elegible es quien nació a
+        partir del arranque. La banda objetivo gobierna cada elección de
+        plantilla, así que a quien ya venía jugando le cambiaría a mitad de
+        camino y su historial mezclaría las dos.
       - **Rampa** (`dx-rampa-1`) — mismo hash, y elegible es quien nació a partir
         del arranque. La rampa solo significa algo para alguien que empieza: a
         quien ya venía jugando el teclado le salió completo desde siempre y su
@@ -2132,6 +2138,11 @@ def _brazos_del_experimento(data: dict, clave: str) -> dict[int, str]:
     if clave == game_muro.EXPERIMENTO:
         return {p["id"]: game_muro.brazo_de(p["id"]) for p in vivos
                 if (p["created_at"] or datetime.min) >= game_muro.NACIDO_DESPUES_DE}
+    if clave == game_banda.EXPERIMENTO:
+        desde_banda = EXPERIMENTO_BANDA["desde"]
+        return {p["id"]: game_banda.brazo_de(p["id"]) for p in vivos
+                if p["created_at"] is not None
+                and local_date(p["created_at"]) >= desde_banda}
     if clave == game_rampa.EXPERIMENTO:
         desde_rampa = EXPERIMENTO_RAMPA["desde"]
         return {p["id"]: game_rampa.brazo_de(p["id"]) for p in vivos
@@ -2369,7 +2380,33 @@ EXPERIMENTO_MOTOR: dict = {
         "moverse justo para los que más juegan. ¿Ponerle un piso los hace volver "
         "más días?"
     ),
-    "cierre": None,
+    "cierre": cerrado(
+        date(2026, 9, 27),
+        "Parado antes del n · el piso NO se implementa, el motor se rediseña",
+        "Se paró con 0 de 65 ventanas cerradas por brazo: la métrica declarada "
+        "—días activos con los 14 días cumplidos— todavía no existe, y la primera "
+        "lectura posible era el 06/10. O sea que este cierre NO es ninguna de las "
+        "dos paradas honestas: no llegó al n y no hay argumento de futilidad. Es "
+        "una decisión de producto tomada sobre un interim, y queda etiquetada así. "
+        "Lo que el interim dice, sobre la cohorte del 19/09 (136 personas, 80/56 "
+        "por el hash) y una ventana TRUNCADA a 8 días: 0,74 días activos en el "
+        "control contra 1,72 con piso, +0,98 (p 0,0055), +1,15 ajustando por "
+        "actividad previa (p 0,0004), y 3 de 200 sorteos placebo alcanzan ese "
+        "delta (p 0,015 por inferencia de aleatorización). Aguanta el recorte del "
+        "decil más activo de cada brazo (+0,76, p 0,0011) y los rangos "
+        "(Mann-Whitney p 0,0195); llegar a 3 días activos pasa de 8,8% a 28,3%. "
+        "Seis covariables balanceadas y la ventana previa limpia (p 0,22). El "
+        "mecanismo disparó: |Δθ| de 0,23 a 1,04 y el sesgo de calibración de "
+        "+6,9 pp a +2,9 pp, que era el guardarraíl que podía salir mal y salió "
+        "mejor. Aun así el piso no se implementa, y el motivo es que el "
+        "decaimiento entero se rediseña: un piso pegado encima de una curva que "
+        "va a cambiar es deuda, y el +0,98 está inflado por parar en un positivo "
+        "(con un prior N(0 ; 0,5) el posterior es +0,65). El sorteo SIGUE "
+        "corriendo hasta el 06/10 —no se toca ninguna constante del motor— "
+        "justamente porque la lectura declarada es ahora el mejor dato que hay "
+        "sobre cuánto vale frenar el decaimiento, que es la palanca del rediseño.",
+        pdf="https://drive.google.com/file/d/1Q8Ks_ynainpR3wBkABO0nCPAqvZAM5Le/view",
+    ),
     "hipotesis": (
         "El paso de aprendizaje de θ decae sin piso, así que el rating deja de "
         "moverse justo para los que más juegan. Medido el 19/09 sobre los 7 días "
@@ -2587,6 +2624,180 @@ def experimento_motor(data: dict) -> dict:
         "listo": listo,
         "lectura": lectura,
         "sin_arrancar": sum(b["n"] + b["en_curso"] for b in brazos) == 0,
+    }
+
+
+# ── 6-quinquies · El experimento de la BANDA OBJETIVO ───────────────────────
+#
+# El cuarto del motor, y el primero que mide PERCEPCIÓN en vez de conducta. La
+# métrica no sale de lo que la gente hace sino de lo que dice: qué fracción de
+# los votos de dificultad contesta «muy fácil».
+#
+# Es una métrica distinta a todas las demás del panel y conviene decir por qué se
+# la banca. Un motor puede estar perfectamente calibrado —prometer 75% y entregar
+# 75%— y sentirse plano igual, porque lo que se percibe no es el acierto medio
+# sino si la cosa sube. La conducta no lo distingue: la profundidad y los días
+# activos suben tanto con un juego bien graduado como con uno fácil y
+# entretenido. La pregunta sí, y ya está construida con 93,6% de respuesta.
+#
+# El sorteo es del servidor y por hash del id (`game/banda.py`), no
+# `game_players.variant`: la banda gobierna cada elección de plantilla de acá en
+# adelante y no una pantalla que se vea una vez.
+
+EXPERIMENTO_BANDA: dict = {
+    "clave": game_banda.EXPERIMENTO,
+    "titulo": "La banda objetivo",
+    "categoria": "motor",
+    "guardarrailes": ("motor", "calibracion", "opinion_motor", "profundidad"),
+    "abstract": (
+        "El 54,6% de los votos dice «muy fácil» y sube al 76,2% entre los que más "
+        "juegan. ¿Apuntar a 65% de acierto en vez de a 75% se siente mejor?"
+    ),
+    "cierre": None,
+    "hipotesis": (
+        "El motor apuntaba a 75% y servía 82%: medido sobre 53.842 primeras "
+        "respuestas sin tabla, prometía 83,86% y la gente entregaba 91,48%. La "
+        "recalibración del 27/09 arregla esa mitad —SCALE pasó de 0,818 a 1,1266 "
+        "y las semillas a sus valores medidos— y sola ya sirve unos 10 puntos más "
+        "difícil. Lo que queda por saber es si, con el motor diciendo la verdad, "
+        "conviene apuntar más abajo todavía. El brazo exigente corre la banda un "
+        "ancho entero, de [0,70 ; 0,80] a [0,58 ; 0,72]."
+    ),
+    "desde": date(2026, 9, 28),
+    "brazos": (("control", "Control"), ("exigente", "Banda exigente")),
+    "metrica": "muy_facil",
+    # 311 de 570 votos contestados entre el 13/09 y el 27/09.
+    "base": 0.546,
+    # Doce puntos. Es mucho y se declara igual porque es lo que esta población
+    # puede ver: los votos son ~300 por semana y bajar el MDE a 6 pp
+    # cuadruplicaría el n a 1.070 por brazo, o sea siete semanas.
+    "mde": -0.12,
+    "alpha": 0.05,
+    "potencia": 0.80,
+    "prediccion": (
+        "La recalibración se lleva la mayor parte del efecto y este experimento "
+        "mide el resto, así que el contraste debería salir MÁS CHICO que la "
+        "diferencia antes/después del 27/09. El guardarraíl que más puede doler "
+        "es «muy difícil», hoy en 1,8%: si el brazo exigente lo lleva arriba del "
+        "10% la banda está corrida de más, y eso se ve antes que el resultado "
+        "porque no necesita que nadie vote «muy fácil» para moverse. El segundo a "
+        "mirar es la fracción que LLEGA a votar: si difiere entre brazos, el "
+        "contraste de los votos está contaminado por quién llegó y no se puede "
+        "leer aunque el n esté completo."
+    ),
+}
+
+
+def experimento_banda(data: dict, now: datetime | None = None) -> dict:
+    """El estado de `dx-banda-1`: qué votó cada brazo, y si ya se puede leer.
+
+    **Un voto por persona, el primero.** No todos: quien juega más vota más, y
+    promediar votos sin agrupar le da a los veteranos un peso que la métrica no
+    les quiso dar — justo la gente donde el «muy fácil» es más frecuente (76,2%
+    pasando las 250 respuestas). Con el primer voto de cada uno, cada persona
+    pesa uno y el contraste no necesita corrección por agrupamiento.
+
+    **La inscripción es «se le sirvió el primer ejercicio», que es anterior al
+    tratamiento.** Votar no lo es: hay que llegar a las 10 correctas, y una banda
+    más exigente hace que se llegue más tarde. Por eso la fracción que llega a
+    votar se calcula SIEMPRE y se muestra arriba del resultado: si difiere entre
+    brazos, el contraste de los votos está condicionado en un colisionador y no
+    se puede leer por más n que haya.
+    """
+    exp = EXPERIMENTO_BANDA
+    desde = exp["desde"]
+    ahora = now or datetime.utcnow()
+    n_pedido = n_comprometido(exp)
+
+    primera: dict[int, datetime] = {}
+    for e in data["exercises"]:
+        if e["created_at"] is None:
+            continue
+        pid = e["player_id"]
+        if pid not in primera or e["created_at"] < primera[pid]:
+            primera[pid] = e["created_at"]
+
+    # El PRIMER voto contestado de cada persona, y el p̂ que el motor le prometía
+    # en esa tanda — que es contra lo que el voto se lee.
+    primer_voto: dict[int, dict] = {}
+    for v in sorted((v for v in data["votes"] if v.get("voto")),
+                    key=lambda v: v["shown_at"]):
+        primer_voto.setdefault(v["player_id"], v)
+
+    servidas: dict[int, int] = defaultdict(int)
+    salteos: dict[int, int] = defaultdict(int)
+    for e in data["exercises"]:
+        servidas[e["player_id"]] += 1
+        if e.get("status") == "skipped":
+            salteos[e["player_id"]] += 1
+
+    brazos = []
+    for clave, nombre in exp["brazos"]:
+        inscriptos = votaron = muy_facil = muy_dificil = justo = 0
+        phat, prof, salt, n_salt = [], [], 0, 0
+        for p in data["players"]:
+            pid = p["id"]
+            if p["is_bot"] or game_banda.brazo_de(pid) != clave:
+                continue
+            if pid not in primera or local_date(primera[pid]) < desde:
+                continue
+            inscriptos += 1
+            prof.append(servidas[pid])
+            salt += salteos[pid]
+            n_salt += servidas[pid]
+            v = primer_voto.get(pid)
+            if v is None:
+                continue
+            votaron += 1
+            if v["voto"] == "muy_facil":
+                muy_facil += 1
+            elif v["voto"] == "muy_dificil":
+                muy_dificil += 1
+            else:
+                justo += 1
+            if v.get("p_hat_medio") is not None:
+                phat.append(float(v["p_hat_medio"]))
+        brazos.append({
+            "clave": clave, "label": nombre,
+            "inscriptos": inscriptos,
+            "n": votaron,
+            "exitos": muy_facil,
+            "muy_facil": muy_facil, "justo": justo, "muy_dificil": muy_dificil,
+            "pct_muy_facil": _pct(muy_facil, votaron),
+            "pct_muy_dificil": _pct(muy_dificil, votaron),
+            "pct_llega": _pct(votaron, inscriptos),
+            "p_hat_medio": round(statistics.fmean(phat), 3) if phat else None,
+            "profundidad": round(statistics.fmean(prof), 1) if prof else 0.0,
+            "pct_salteo": _pct(salt, n_salt),
+            "falta": max(0, n_pedido - votaron),
+        })
+
+    listo = all(b["n"] >= n_pedido for b in brazos)
+    lectura = None
+    if listo and len(brazos) == 2:
+        lectura = _contraste_prop(brazos[1], brazos[0], exp["alpha"])
+
+    # El guardarraíl que se lee SIEMPRE y ANTES: si llegar a votar depende del
+    # brazo, el contraste de arriba no mide la banda, mide quién sobrevivió.
+    llegada = None
+    if all(b["inscriptos"] for b in brazos):
+        llegada = _contraste_prop(
+            {"n": brazos[1]["inscriptos"], "exitos": brazos[1]["n"]},
+            {"n": brazos[0]["inscriptos"], "exitos": brazos[0]["n"]},
+            exp["alpha"])
+
+    return {
+        **_ficha(exp),
+        "clave": exp["clave"], "titulo": exp["titulo"],
+        "hipotesis": exp["hipotesis"], "prediccion": exp["prediccion"],
+        "desde": exp["desde"], "base": exp["base"], "mde": exp["mde"],
+        "mde_pp": abs(round(100 * exp["mde"], 1)),
+        "alpha": exp["alpha"], "potencia": exp["potencia"],
+        "n_pedido": n_pedido, "brazos": brazos,
+        "listo": listo, "lectura": lectura, "llegada": llegada,
+        "encendido": game_banda.habilitado(),
+        "sin_arrancar": sum(b["inscriptos"] for b in brazos) == 0,
+        "bandas": {c: game_banda.BANDAS[c] for c, _ in exp["brazos"]},
     }
 
 
@@ -4893,6 +5104,7 @@ def build(db: DBSession, week: date, weeks_shown: int = 4,
         "experimento_motor": experimento_motor(data),
         "experimento_muro": experimento_muro(data),
         "experimento_rampa": experimento_rampa(data),
+        "experimento_banda": experimento_banda(data),
         "experimentos_grupos": experimento_grupos(data),
         # Solo la del experimento que se esta mirando; None en el indice.
         "curva_brazos": (curva_por_brazo(data, exp, _d["brazos"], k_max)

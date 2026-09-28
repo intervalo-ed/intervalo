@@ -278,7 +278,34 @@ crudas = [(t, b) for _, t, b, _, _ in BETAS_28_08]
 ancladas = [(t, elo.effective_beta(b, t, gente)) for _, t, b, _, gente in BETAS_28_08]
 inv_cruda, inv_anclada = _inversiones(crudas), _inversiones(ancladas)
 check(inv_cruda >= 30, f"la foto de producción tenía la escalera dada vuelta ({inv_cruda} inversiones)")
-check(inv_anclada <= inv_cruda / 3, f"y el ancla la endereza ({inv_cruda} → {inv_anclada})")
+check(inv_anclada <= inv_cruda / 2, f"y el ancla la endereza ({inv_cruda} → {inv_anclada})")
+
+# **Y el desorden que sobrevive es chico**, que es la parte que el umbral de
+# arriba solo no dice.
+#
+# Hasta el 27/09 el umbral era `inv_cruda / 3` y pasaba holgado, pero por un
+# motivo que dejó de ser cierto: las semillas eran una escalera puesta a mano
+# separada de a 0,6, así que anclar contra ellas ordenaba los tiers casi por
+# construcción. Con las semillas MEDIDAS hay tiers que están a la misma altura
+# —T1 y T2 quedaron a 0,15, las potencias y las sumas cuestan casi lo mismo— y
+# ningún ancla puede ordenar dos escalones que en la realidad están parejos.
+# Contar esas parejas como fallas era pedirle al ancla que mienta.
+#
+# Lo que se mide en cambio es el DESORDEN PESADO: cada inversión cuenta cuánto
+# se separan las semillas de los dos tiers. Dar vuelta T1 contra T2 (0,15) casi
+# no es un error; dar vuelta T1 contra T5 (1,75) sí. Así el número no premia a
+# un ancla que ordene parejas irrelevantes ni castiga por las que empatan.
+def _desorden(pares: list[tuple[int, float]]) -> float:
+    return sum(elo.BETA_SEED[tb] - elo.BETA_SEED[ta]
+               for i, (ta, ba) in enumerate(pares)
+               for tb, bb in pares[i + 1:] if ta < tb and ba > bb)
+
+
+des_crudo, des_anclado = _desorden(crudas), _desorden(ancladas)
+check(des_anclado <= des_crudo / 3,
+      f"y el desorden pesado por distancia entre semillas cae a un tercio o menos "
+      f"({des_crudo:.1f} → {des_anclado:.1f})")
+
 check(not _medias(crudas) == sorted(_medias(crudas)), "las medias por tier crudas no subían")
 orden = _medias(ancladas)
 check(orden == sorted(orden),

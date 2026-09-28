@@ -724,6 +724,25 @@ de rating hoy y 70 con el piso. Ese temblor ES el efecto buscado, pero a quien
 esté parado justo en un corte de nivel se le va a prender y apagar el color — y
 el corte de 3,7 acaba de dejar a 70 personas ahí cerca.
 
+### `dx-banda-1`: a qué dificultad apuntamos (desde el 28/09)
+
+Dos brazos sorteados por hash del id en el servidor (`game/banda.py`), sin
+columna: `control` con la banda de siempre (p̂ 0,70–0,80) y `exigente` corrida un
+ancho entero hacia abajo (0,58–0,72). Entra quien se creó el 28/09 o después,
+desde su primer ejercicio — la banda gobierna cada elección de plantilla, así
+que a quien ya venía jugando le cambiaría a mitad de camino.
+
+Es el primer experimento del juego cuya métrica es **lo que la gente dice** y no
+lo que hace: la fracción del primer voto de dificultad que contesta «muy fácil».
+Un motor puede estar perfectamente calibrado y sentirse plano igual, y la
+profundidad no lo distingue — sube tanto con un juego bien graduado como con uno
+fácil y entretenido.
+
+Corre encima de la recalibración del 27/09 (ver `context/gamification.md`), que
+ya sirvió unos diez puntos más difícil para todos. La predicción escrita de
+antemano es que este contraste salga MÁS CHICO que aquella diferencia
+antes/después. Interruptor: `BANDA_ENABLED=0`.
+
 ### El feed de eventos (`game/events.py`)
 
 La lista que corre debajo del CTA, y que en el panel del chat se intercala con lo

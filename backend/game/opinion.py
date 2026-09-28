@@ -12,8 +12,16 @@ vale 0,025 por acierto, así que a un veterano subvaluado el motor tarda decenas
 de respuestas en encontrarlo. Lo que se aplica acá es **la corrección que el
 motor iba a hacer igual, de una sola vez**, calculada sobre el registro de esa
 misma persona. Medido en producción el 2026-09-13 sobre 15.106 primeras
-respuestas sin tabla: el motor promete 0,87 y la gente entrega 0,92, que en
-unidades de θ son 0,66 — un tier entero de subvaluación.
+respuestas sin tabla: el motor prometía 0,87 y la gente entregaba 0,92, que en
+unidades de θ eran 0,66 — un tier entero de subvaluación.
+
+**Parte de esa brecha era el motor y no la gente, y se corrigió el 27/09.** El
+reajuste de `elo.SCALE` (0,818 → 1,1266) y de las semillas llevó el sesgo de
+calibración de +7,62 pp a 0,00. Lo que este ajuste corrige ahora es el residuo
+por persona, que es para lo que estaba pensado: la corrección que el motor iba a
+hacer igual, de una sola vez. Si después de la recalibración los votos de «muy
+fácil» siguen disparando ajustes grandes y seguidos, eso ya no es el motor mal
+calibrado — es la banda objetivo puesta demasiado floja, y se arregla ahí.
 
 **El voto decide el signo, la evidencia decide el tamaño.** Esa separación es lo
 que hace que esto no se pueda abusar: quien dice «muy fácil» sin estar
@@ -62,8 +70,11 @@ VOTOS: tuple[str, ...] = (MUY_FACIL, JUSTO, MUY_DIFICIL)
 # escalera de encuestas preguntando cada diez, entran diez.
 #
 # Veinte es el tamaño con el que el estimador deja de ser ruido: el error típico
-# de θ sobre n respuestas en banda es `1/√(SCALE²·Σp̂(1−p̂))`, que da ±0,90 con 10
-# respuestas, ±0,63 con 20 y ±0,45 con 40.
+# de θ sobre n respuestas en banda es `1/√(SCALE²·Σp̂(1−p̂))`, que da ±0,65 con 10
+# respuestas, ±0,46 con 20 y ±0,33 con 40. (Eran ±0,90 / ±0,63 / ±0,45 antes de
+# la recalibración del 27/09: el error no bajó porque el estimador mejorara, sino
+# porque θ se mide en unidades más chicas — la banda objetivo también se
+# angostó de 0,66 a 0,48.)
 #
 # **Que ahora entren diez y el error sea ±0,90 contra un TOPE de 0,60 no rompe el
 # argumento, y conviene tener claro por qué.** El tope no está acotando al
@@ -107,11 +118,19 @@ MIN_RESPUESTAS = 8
 #   I₀ = 3,0 → mueve el 59%,                 mediana 0,38, topea el 17%
 #   I₀ = 4,0 → mueve el 58%,                 mediana 0,31, topea el  3%
 #
-# Con 3,0 la mediana corrige algo más de la mitad de la brecha medida (0,66) de
-# una sola vez, y el resto queda para el voto siguiente o para el propio motor.
+# Con 3,0 la mediana corregía algo más de la mitad de la brecha medida (0,66) de
+# una sola vez, y el resto quedaba para el voto siguiente o para el propio motor.
 # Un corrector hace ajustes chicos y seguidos; es el mismo criterio que ya está
 # escrito en `elo.RECENTRADO_MAX`.
-I0_PRIOR = 3.0
+#
+# **4,13 y no 3,0 desde la recalibración del 27/09, y es el mismo ajuste.** I₀
+# está en las mismas unidades que `informacion`, que es `SCALE·Σp̂(1−p̂)`, así que
+# cuando SCALE subió de 0,818 a 1,1266 la información de cada tanda subió por el
+# mismo factor 1,377. Multiplicar I₀ por 1,377 deja el cociente —y por lo tanto
+# el ajuste— exactamente donde estaba en proporción a la banda objetivo. Dejarlo
+# en 3,0 habría encogido el prior un 27% y hecho los ajustes más grandes sin que
+# nadie lo hubiera decidido.
+I0_PRIOR = 4.13
 
 # Banda muerta: por debajo de esto no se ajusta nada.
 #
@@ -130,15 +149,19 @@ I0_PRIOR = 3.0
 # amplificarlo. Es la misma forma que `elo.RECENTRADO_UMBRAL`.
 AJUSTE_MINIMO = elo.SKIP_THETA_PENALTY
 
-# El ajuste más grande que se aplica. Un tier de `elo.BETA_SEED` (que se separan de a ~0,6), que es
-# además el ancho en θ de la banda objetivo: ir de p̂=0,70 a p̂=0,80 sobre la misma
-# plantilla son 0,66 unidades. O sea que un voto puede correr a alguien de punta
-# a punta de su propia banda, y nunca más que eso.
+# El ajuste más grande que se aplica: **el ancho en θ de la banda objetivo**. Ir
+# de p̂=0,70 a p̂=0,80 sobre la misma plantilla son 0,48 unidades con la escala
+# recalibrada del 27/09 (eran 0,66 con SCALE 0,818). O sea que un voto puede
+# correr a alguien de punta a punta de su propia banda, y nunca más que eso.
 #
-# Coincide con la brecha medida en producción (0,66), y no por casualidad: es el
-# orden de magnitud del error que esto viene a corregir. Un tope más grande no
-# corregiría más rápido, corregiría de más.
-TOPE = 0.60
+# **Los dos anclajes que este número tenía dejaron de coincidir, y se elige el de
+# la banda.** Antes 0,60 era a la vez «un tier de `elo.BETA_SEED`» y «el ancho de
+# la banda», porque las semillas estaban puestas a mano separadas de a 0,6. Con
+# las semillas medidas los tiers se separan 0,31, así que 0,48 es ahora una banda
+# entera y tier y medio. Manda la banda: lo que el tope acota es cuánto se puede
+# correr a alguien DENTRO de la dificultad que le toca, y eso es la banda, no el
+# escalón del catálogo.
+TOPE = 0.48
 
 
 @dataclass(frozen=True)

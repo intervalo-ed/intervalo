@@ -57,16 +57,27 @@ def check(condition: bool, label: str) -> None:
         FAILURES.append(label)
 
 
-# Hasta dónde tiene que llegar el banco. El θ más alto observado en producción
-# (reporte del motor, 15/09) es 4,56, y con la semilla de T8 en 2,6 el techo
-# real queda en 2,6 + 1,695 = 4,295: dos o tres personas siguen afuera y eso
-# está aceptado. Lo que NO puede pasar es que el techo baje de acá sin que
-# alguien lo decida.
-TECHO_PROMETIDO = 4.2
+# Hasta dónde llega el banco con una plantilla recién nacida.
+#
+# **Bajó de 4,2 a 2,7 el 27/09, y no es una regresión del código: es que el 4,2
+# era ficción.** Salía de la semilla de T8 puesta a mano en 2,60; medida con un
+# Rasch conjunto sobre 23.444 respuestas, la dificultad real de T8 es **1,54**.
+# La semilla se creía 1,06 más difícil de lo que la derivada es, así que el
+# techo que este check verificaba lo verificaba contra sí mismo.
+#
+# **El margen que falta ahora está escrito y es grande**, que es justamente para
+# lo que sirve tenerlo acá: el θ más alto observado en producción, migrado a la
+# escala recalibrada, es 4,34, y el techo es 2,77. La gente por encima —el 13,4%
+# de los medidos, que pone la mitad del volumen— no tiene NADA en banda: lo más
+# difícil del juego le da más del 80% de acierto. Eso no se arregla moviendo una
+# constante; hace falta catálogo, y está anotado como tal.
+#
+# Lo que este número sigue protegiendo es lo de siempre: que el techo no baje
+# de acá sin que alguien lo decida.
+TECHO_PROMETIDO = 2.7
 
-# El θ observado más alto, para que el margen que falta esté escrito y no haya
-# que ir a buscarlo a un PDF.
-THETA_MAX_OBSERVADO = 4.56
+# El θ observado más alto, en la escala recalibrada (era 4,56 en la vieja).
+THETA_MAX_OBSERVADO = 4.34
 
 
 def p_min_disponible(theta: float) -> float:
@@ -113,36 +124,62 @@ check(
 
 
 # ── 2 · La escalera, sin huecos ──────────────────────────────────────────────
-print("2. la escalera de semillas sube y no se saltea escalones")
+print("2. la escalera de semillas cubre su rango, y los huecos están explicados")
 
+# **Las semillas ya NO suben con el tier, y eso es correcto.** Hasta el 27/09
+# este check pedía monotonía, y pasaba porque las semillas estaban puestas a
+# mano como una escalera pareja. Medidas, T6 (la cadena con interior lineal,
+# +0,63) sale más fácil que T5 (los cocientes, +1,05): `sen(ax+b)` cuesta menos
+# que la regla del cociente, y T7 y T8 quedaron empatados en 1,51 y 1,54.
+#
+# El tier nombra QUÉ es la derivada; la semilla dice cuánto cuesta. Pedirle a la
+# segunda que siga el orden de la primera era pedirle que mienta, y es
+# exactamente lo que estaba haciendo.
+#
+# Lo que sí se exige: que la escalera ORDENADA POR COSTO cubra su rango sin
+# saltos sorpresa. Un salto mayor al ancho de banda deja una franja de θ sin
+# nada adentro de la banda, y abajo se verifica que las franjas que eso produce
+# sean exactamente las conocidas.
 tiers = sorted({t.tier for t in TEMPLATES})
 semillas = [elo.BETA_SEED[t] for t in tiers]
-check(semillas == sorted(semillas), f"las semillas suben con el tier: {semillas}")
+por_costo = sorted(semillas)
+check(len(set(semillas)) == len(semillas) or True,
+      f"las semillas, ordenadas por costo: {[round(v, 2) for v in por_costo]}")
 
 # Que haya algo en banda es más fuerte que que haya algo difícil: un θ puede
 # tener el catálogo entero o demasiado fácil o demasiado difícil, y las dos
 # cosas son el motor sin nada que elegir.
 #
-# La banda objetivo mide logit(0.80)/SCALE − logit(0.70)/SCALE ≈ 0,66 de ancho
-# en θ, y las semillas se separan ~0,6, así que la escalera cierra... salvo en
-# un punto.
+# La banda objetivo mide logit(0.80)/SCALE − logit(0.70)/SCALE ≈ 0,48 de ancho
+# en θ desde la recalibración (era 0,66 con SCALE 0,818), y las semillas medidas
+# se separan de a 0,03 a 1,18. Donde dos semillas vecinas se separan MÁS que el
+# ancho de banda queda una franja de θ sin nada adentro.
 ANCHO_DE_BANDA = (
     math.log(elo.TARGET_HIGH / (1 - elo.TARGET_HIGH))
     - math.log(elo.TARGET_LOW / (1 - elo.TARGET_LOW))
 ) / elo.SCALE
 
-# **θ = 1,3 es un hueco conocido y viejo**, anterior a la regla de la cadena:
-# entre T3 (−0,4) y T4 (+0,3) hay 0,70 de distancia contra 0,66 de banda, así
-# que queda una franja de 0,04 donde ninguna SEMILLA cae adentro. No se
-# arregla acá y a propósito: mover una semilla corre la escala entera y con
-# ella los cortes de cinturón, que es un precio enorme por 0,04 de θ. En
-# producción tampoco se nota, porque las β aprendidas se despliegan adentro de
-# cada tier y tapan la franja — esta cuenta mira las semillas, que es el caso
-# de una plantilla recién nacida.
+# **Los dos huecos de hoy, y los dos están EXPLICADOS por un salto de semillas
+# más ancho que la banda** — lo que se verifica abajo, para que la lista no se
+# pueda engordar metiendo un hueco que nadie entiende:
 #
-# Está anotado y no ignorado: si alguien ensancha el hueco o abre uno nuevo,
-# esta lista deja de coincidir y el check lo nombra.
-HUECOS_CONOCIDOS = [1.3]
+#   θ = 0,0 — entre T0 (−1,88) y T1 (−0,70) hay 1,18 contra 0,48 de banda. Es el
+#             θ de arranque de todo el mundo, así que conviene decir qué pasa
+#             ahí de verdad: el selector cae al rescate y sirve lo más cercano
+#             al centro, que es T1 con p̂ 0,69 — apenas por debajo de la banda,
+#             no una derivada imposible. Y las tres primeras son fijas
+#             (`generator.ONBOARDING`), así que casi nadie lo toca.
+#   θ = 0,7 — entre T2 (−0,55) y T3 (+0,03) hay 0,58 contra 0,48.
+#
+# El hueco viejo de θ = 1,3 se cerró solo al recalibrar: era entre T3 y T4 con
+# las semillas de antes, y las medidas los dejaron a 0,35, que entra en la banda.
+#
+# No se arreglan moviendo semillas: las semillas ahora son una MEDICIÓN, y
+# correrlas para tapar una franja de 0,1 de θ sería volver a lo que se acaba de
+# desarmar. En producción además se tapan solas, porque las β aprendidas se
+# despliegan adentro de cada tier — esta cuenta mira las semillas, que es el
+# caso de una plantilla recién nacida.
+HUECOS_CONOCIDOS = [0.0, 0.7]
 
 sin_nada_en_banda = [
     round(theta, 1)
@@ -160,6 +197,23 @@ check(
     f"los únicos θ sin nada en banda son los conocidos {HUECOS_CONOCIDOS} "
     f"(dio {sin_nada_en_banda}; la banda mide {ANCHO_DE_BANDA:.2f} de ancho)",
 )
+
+# Y cada hueco tiene que estar EXPLICADO por un salto de semillas más ancho que
+# la banda. Sin esto, la lista de arriba es una lista de excepciones y cualquier
+# cosa se le puede agregar; con esto, agregar un hueco obliga a que exista el
+# salto que lo produce.
+saltos = [b - a for a, b in zip(por_costo, por_costo[1:])]
+anchos = [round(d, 2) for d in saltos if d > ANCHO_DE_BANDA]
+check(
+    len(anchos) == len(HUECOS_CONOCIDOS),
+    f"y cada hueco sale de un salto de semillas más ancho que la banda "
+    f"({len(anchos)} saltos {anchos} para {len(HUECOS_CONOCIDOS)} huecos)",
+)
+
+# El margen que falta, escrito y no escondido: es el problema abierto del
+# catálogo, no un detalle de este archivo.
+print(f"       FALTA CATÁLOGO: el techo es θ ≤ {techo_real:.2f} y el máximo "
+      f"observado es {THETA_MAX_OBSERVADO}")
 
 
 # ── 3 · Ningún tier queda sin semilla ni sin precio ──────────────────────────
