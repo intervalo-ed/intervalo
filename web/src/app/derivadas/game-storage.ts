@@ -1,6 +1,8 @@
 // Estado local del minijuego. Todo con try/catch: Safari en modo privado tira
 // al escribir y nada de esto puede romper el juego.
 
+import { RUTA_TOKEN } from "./token-cookie"
+
 const TOKEN_KEY = "intervalo:game:token"
 const CAFECITO_LAST_KEY = "intervalo:game:cafecito-last"
 const CAFECITO_VISTOS_KEY = "intervalo:game:cafecito-vistos"
@@ -69,6 +71,33 @@ export function readGameToken(): string | null {
   }
 }
 
+// Cuál token ya se mandó a la cookie en esta carga. El alta lo guarda una vez y
+// el rescate lo vuelve a guardar apenas lo adopta, así que sin esto la misma
+// carga haría dos POST idénticos.
+let enLaCookie: string | null = null
+
+/** Copia el token a la cookie de primera parte, que es la que sobrevive al
+ *  borrado de Safari (ver `app/api/dx/token/route.ts`).
+ *
+ *  Sin `await` y tragando el error a propósito: es un respaldo, y que falle no
+ *  puede frenar ni ensuciar el arranque del juego. Se vuelve a escribir en cada
+ *  visita, o sea que el vencimiento es una ventana deslizante. */
+function espejarEnCookie(token: string) {
+  // `fetch` con una ruta relativa TIRA en el servidor, y lo hace antes de
+  // devolver la promesa —así que el `.catch` de abajo no lo agarraría—. Este
+  // módulo lo importan componentes de cliente, que Next igual renderiza del
+  // lado del servidor para hidratar.
+  if (typeof window === "undefined") return
+  if (enLaCookie === token) return
+  enLaCookie = token
+  void fetch(RUTA_TOKEN, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ token }),
+    keepalive: true,
+  }).catch(() => {})
+}
+
 export function saveGameToken(token: string) {
   // El caché y el aviso van SIEMPRE, aunque el localStorage falle: en Safari
   // privado el token igual sirve para la sesión en curso, y lo que no puede
@@ -80,7 +109,47 @@ export function saveGameToken(token: string) {
   } catch {
     // Sin persistencia el juego sigue: se pierde el progreso al recargar.
   }
+  espejarEnCookie(token)
   if (changed) for (const listener of tokenListeners) listener()
+}
+
+/** Qué encontró esta carga: si había token guardado, y si hubo que ir a
+ *  buscarlo a la cookie. */
+export type Rescate = { sinTokenLocal: boolean; rescatado: boolean }
+
+/** Adopta el token que vino en la cookie, si en este navegador no hay ninguno.
+ *
+ *  Es a la vez el arreglo y la medición, y por eso devuelve las dos banderas en
+ *  vez de un booleano. Safari borra el localStorage de un sitio al que no se
+ *  vuelve en siete días, y sin `guest_token` guardado cada carga de página es
+ *  un jugador nuevo — que es la explicación más probable de que iOS tenga el
+ *  41,9% de sus filas sin una derivada servida y retenga la mitad que Android.
+ *
+ *  · `sinTokenLocal: false` → visita normal, no pasó nada.
+ *  · `sinTokenLocal: true, rescatado: true` → el borrado ocurrió y se recuperó
+ *    la identidad. Contar estas contra las de arriba ES la medición.
+ *  · `sinTokenLocal: true, rescatado: false` → alguien nuevo de verdad, o
+ *    alguien que borró los datos del sitio a mano. Los dos son correctos.
+ *
+ *  Corre durante el PRIMER render de `GameRoot`, antes de `useGamePlayer`, para
+ *  que el alta salga ya con el token puesto y el server devuelva al jugador de
+ *  siempre en vez de crear uno. */
+export function adoptarTokenDeRescate(deLaCookie: string | null): Rescate {
+  // En el render del servidor no hay nada que adoptar ni a dónde guardarlo. El
+  // inicializador de `useState` que llama a esto vuelve a correr en el cliente
+  // al hidratar, que es cuando de verdad importa.
+  if (typeof window === "undefined") {
+    return { sinTokenLocal: false, rescatado: false }
+  }
+  const propio = readGameToken()
+  if (propio !== null) {
+    tokenCache = propio
+    espejarEnCookie(propio)
+    return { sinTokenLocal: false, rescatado: false }
+  }
+  if (deLaCookie === null) return { sinTokenLocal: true, rescatado: false }
+  saveGameToken(deLaCookie)
+  return { sinTokenLocal: true, rescatado: true }
 }
 
 /** Borra toda huella local de quién era este jugador: el token de invitado y
@@ -94,6 +163,11 @@ export function saveGameToken(token: string) {
  *  no cerraría nada — solo volvería a mostrar al mismo jugador sin cuenta. */
 export function clearGameIdentity() {
   tokenCache = null
+  // Y la cookie también, o cerrar sesión no cerraría nada: en la carga
+  // siguiente el rescate resucitaría al invitado viejo, que es exactamente el
+  // bug que esta función existe para no tener.
+  enLaCookie = null
+  void fetch(RUTA_TOKEN, { method: "DELETE" }).catch(() => {})
   try {
     window.localStorage.removeItem(TOKEN_KEY)
     window.localStorage.removeItem(CAFECITO_LAST_KEY)

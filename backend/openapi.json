@@ -1451,6 +1451,61 @@
         }
       }
     },
+    "/game/derivemos/dispositivo": {
+      "post": {
+        "tags": [
+          "game"
+        ],
+        "summary": "Record Device",
+        "description": "Registra con qu\u00e9 aparato se abri\u00f3 el juego y cu\u00e1nto tard\u00f3 en pintar.\n\n**Por qu\u00e9 ac\u00e1 y no en PostHog, que ya mide web vitals.** Porque PostHog\npierde el 11% del tr\u00e1fico \u2014Brave, Firefox y Opera: el 54,9% de quienes\nentran por ah\u00ed no dejan ni un `game_start`, contra el 1,6% del resto\u2014 y ese\n11% es justo el que una medici\u00f3n de rendimiento no se puede dar el lujo de\nperder. Es el mismo motivo por el que los carteles se escriben en las dos\npuntas (`game_cta_events`), y ac\u00e1 pesa m\u00e1s todav\u00eda.\n\n**Y por qu\u00e9 el FCP y no el LCP.** El LCP deja de actualizarse reci\u00e9n en la\nprimera interacci\u00f3n y el INP de una persona es el peor de todos sus toques:\nlos dos crecen con cu\u00e1nto jug\u00f3, as\u00ed que correlacionarlos con engancharse es\nmedir el uso dos veces \u2014cortando por cuartil de LCP, el cuartil m\u00e1s lento\nengancha 25 puntos M\u00c1S\u2014. La primera pintura se mide una sola vez y\ntemprano, antes de que la persona haya hecho nada, y por eso s\u00ed se puede\ncruzar contra el desenlace.\n\nDevuelve 204 y no falla por contenido, igual que `/cta`: es telemetr\u00eda, y\nuna telemetr\u00eda que puede tirar un error en medio de una partida es peor que\nno tenerla.",
+        "operationId": "record_device_game_derivemos_dispositivo_post",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          },
+          {
+            "name": "x-game-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "X-Game-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GameDeviceRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/game/derivemos/opinion": {
       "post": {
         "tags": [
@@ -5276,6 +5331,73 @@
         ],
         "title": "GameCtaRequest",
         "description": "Telemetr\u00eda de un llamado a la acci\u00f3n. Todo opcional salvo qu\u00e9 y qu\u00e9 pas\u00f3:\nel cliente manda lo que sabe y el server no discute."
+      },
+      "GameDeviceRequest": {
+        "properties": {
+          "platform": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 8
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Platform"
+          },
+          "device_model": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 4000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Device Model"
+          },
+          "fcp_ms": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 2000000000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fcp Ms"
+          },
+          "dcl_ms": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 2000000000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dcl Ms"
+          },
+          "sin_token_local": {
+            "type": "boolean",
+            "title": "Sin Token Local",
+            "default": false
+          },
+          "token_rescatado": {
+            "type": "boolean",
+            "title": "Token Rescatado",
+            "default": false
+          }
+        },
+        "type": "object",
+        "title": "GameDeviceRequest",
+        "description": "Con qu\u00e9 aparato se abri\u00f3 el juego. Todo opcional: el cliente manda lo que\npuede medir y el server no discute.\n\n**Los l\u00edmites son a prop\u00f3sito grandes y el recorte pasa en el endpoint.**\nLa tentaci\u00f3n es validar fino ac\u00e1 \u2014`le=600_000`, `max_length=64`\u2014 y eso\nestar\u00eda mal: un 422 no recorta el campo raro, pierde la FILA ENTERA, y con\nella las dos banderas del rescate, que son el dato m\u00e1s caro de esta tabla.\nUna pesta\u00f1a abierta en segundo plano y pintada una hora despu\u00e9s manda un\nFCP de tres millones y medio, y esa visita tiene que contar igual.\n\nLo que s\u00ed vive ac\u00e1 es el techo que no puede entrar en un Integer de\nPostgres: m\u00e1s all\u00e1 de eso no hay fila que salvar, solo un 500 en el commit."
       },
       "GameEncuestaOut": {
         "properties": {

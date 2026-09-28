@@ -65,6 +65,7 @@ CHECKS = [
     "check_game_chat",
     "check_game_bienvenida",
     "check_game_dashboard",
+    "check_game_dispositivo",
     "check_game_elo_piso",
     "check_game_encuesta",
     "check_game_events",
