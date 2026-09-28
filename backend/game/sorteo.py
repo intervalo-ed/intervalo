@@ -43,17 +43,48 @@ EXPERIMENTO = "dx-elo-1"
 BRAZOS = ("control", "rapido")
 
 # Qué piso le toca a cada brazo. El control es el motor de hoy, tal cual.
+# **Los dos brazos son el mismo desde el 28/09: el experimento se cerró y el
+# sorteo se apagó acá**, dejando `LR_MIN_RAPIDO` en su lugar como registro de
+# cuál fue el tratamiento.
+#
+# Estuvo repartiendo ocho días de más, y ese es el motivo por el que se apaga y
+# no una formalidad de prolijidad:
+#
+#   * **la recalibración del 27/09 cayó en el medio de su ventana de medición**
+#     (las de este experimento cerraban entre el 03 y el 06/10), y ataca la
+#     misma causa raíz que el piso — que el motor no le seguía el paso a la
+#     gente—. La lectura del 06/10 ya no habría medido «piso contra no-piso»
+#     sino «piso contra no-piso, con un cambio de motor en el medio»;
+#   * **y el tratamiento cambió de tamaño solo.** El piso se escribe en unidades
+#     de θ, y θ cambió de escala: 0,20 valía 0,30 anchos de banda objetivo antes
+#     de la recalibración y pasó a valer 0,42. Un experimento cuyo tratamiento se
+#     agranda un 38% a mitad de camino no tiene nada que leer al final.
+#
+# Se apaga poniendo los dos brazos en el mismo piso y no borrando el sorteo:
+# `UMBRAL_N` sigue saliendo de `LR_MIN_RAPIDO` y el panel sigue sabiendo a quién
+# había inscripto, que es lo que hace falta para que el cierre se pueda leer.
 PISOS: dict[str, float] = {
     "control": elo.LR_MIN_CONTROL,
-    "rapido": elo.LR_MIN_RAPIDO,
+    "rapido": elo.LR_MIN_CONTROL,
 }
 
-# Desde qué respuesta el brazo test empieza a diferenciarse del control. No es
-# una constante: sale de los hiperparámetros del motor (ver `elo.n_donde_muerde`),
-# así que si alguien mueve `_A_USER` o `_B_USER` este número lo sigue. El panel
-# lo usa para decidir a quién inscribir, y si se desincronizaran el experimento
-# estaría midiendo gente a la que no le pasó nada.
-UMBRAL_N = elo.n_donde_muerde(elo.LR_MIN_RAPIDO) or 0
+# Desde qué respuesta el brazo test empezaba a diferenciarse del control.
+#
+# **Fijo en 43 desde el 28/09, y hasta ese día era derivado.** Salía de
+# `elo.n_donde_muerde(LR_MIN_RAPIDO)` justamente para que siguiera a los
+# hiperparámetros del motor: mientras el experimento estaba vivo, mover `_A_USER`
+# sin mover esto habría dejado al panel inscribiendo gente a la que el piso
+# todavía no le hacía nada.
+#
+# Cerrado el experimento, ese argumento se da vuelta. El 28/09 `_A_USER` pasó de
+# 0,8 a 0,58 y la cuenta derivada devolvía 28 en vez de 43: el panel habría
+# **reescrito hacia atrás quién estuvo adentro**, metiendo en la cohorte a gente
+# que nunca vivió el tratamiento. La regla de inscripción de un experimento
+# terminado es un hecho histórico, no una fórmula que se recalcula.
+#
+# 43 es lo que la cuenta daba con los hiperparámetros vigentes del 19/09 al
+# 27/09, que es exactamente el período en que este sorteo repartió algo.
+UMBRAL_N = 43
 
 
 def _hash(texto: str) -> int:

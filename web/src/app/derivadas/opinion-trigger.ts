@@ -49,9 +49,21 @@ export type Pregunta = "dificultad" | "repetitividad"
 // (stats-gate.ts :: UMBRAL_ESTADISTICAS), y esa coincidencia conviene: la
 // pregunta le llega a alguien que ya pudo ver sus propios números.
 //
-// En la práctica el primer turno cae en la 28, corrido por `OPINION_SEPARACION`
-// y por el resto del ladder (ver el mapa de hitos en context/features-catalog.md).
-export const OPINION_PRIMERA = 10
+// En la práctica el primer turno cae en la 8: desde el 28/09 el ladder se
+// reordenó para que llegue ahí (reclutas se fue a la 14 y el café a la 20).
+// Antes caía en la 28, corrido por `OPINION_SEPARACION` y por todo lo demás que
+// competía por el mismo turno.
+// **Ocho desde el 28/09, y antes eran diez.** El número no mandaba: con diez, y
+// con el ladder entero compitiendo por los mismos turnos, la primera pregunta
+// terminaba cayendo en la 28. Y en la 28 ya no se le pregunta a la gente — se
+// le pregunta a los que sobrevivieron, que son justo los que no tienen problema
+// con la dificultad.
+//
+// Ocho es lo más temprano que tiene sentido del lado del motor: la rampa inicial
+// termina a las 5 respuestas, las tres primeras derivadas son fijas, y el ajuste
+// del servidor pide 8 respuestas para mirar algo (`game/opinion.py ::
+// MIN_RESPUESTAS`). Antes de ahí el registro no habla de la persona.
+export const OPINION_PRIMERA = 8
 
 // El hueco hasta el turno siguiente, según cuántos turnos ya salieron. El último
 // valor se repite para siempre.
@@ -187,7 +199,7 @@ export function tocaPreguntar(totalCorrectas: number): Pregunta | null {
   // justamente porque no convierten a nadie—. Sin esto la encuesta salía en la
   // 13, entre la regla de los cafecitos de la 12 y el primer cafecito de la 14:
   // tres pantallas en tres derivadas seguidas, que es lo que el mapa de hitos
-  // existe para no tener. Con esto el primer turno sale en la 28.
+  // existe para no tener. Con esto el primer turno sale en la 8.
   if (totalCorrectas - readUltimaPantalla() < OPINION_SEPARACION) return null
   return preguntaDelTurno(vistas)
 }

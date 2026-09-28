@@ -222,7 +222,11 @@ Ver `game/banda.py` y `metrics/game_queries.py :: experimento_banda`.
 El juego pregunta **«¿Cómo te vienen resultando?»** con tres opciones: 😴 muy
 fáciles / 👌 justas / 🤯 muy difíciles.
 
-**Vuelve, y cada vez más espaciada.** El primer turno de encuesta cae en la 28 y
+**Vuelve, y cada vez más espaciada.** El primer turno de encuesta cae en la 8 —
+**se adelantó desde la 28 el 28/09**, corriendo reclutas a la 14 y el cafecito a
+la 20 para hacerle lugar. En la 28 la pregunta ya no le llegaba a la gente sino a
+los que habían sobrevivido hasta ahí, que son justamente los que no tienen
+problema con la dificultad. De ahí
 de ahí los huecos crecen: 8, 8, 12, 18, 28 y 40, que es el último y se repite
 para siempre (`opinion-trigger.ts :: OPINION_CADENCIAS`). **Los huecos se
 partieron al medio el 27/09** —eran 10, 10, 20, 30, 50 y 80— porque esta

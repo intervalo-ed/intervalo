@@ -50,7 +50,14 @@ export const RECLUTAS_CADA = 20
 //
 // Sigue llegando antes que el café, que es el orden que importa: se invita a un
 // amigo antes de que se pida plata.
-export const RECLUTAS_RESTO = 9
+// **Catorce desde el 28/09, y antes era nueve.** Se corrió para dejarle la
+// primera pregunta de dificultad a la 8: con reclutas en la 9 y el cooldown
+// compartido, la pregunta no tenía aire y volvía a irse al fondo del ladder, que
+// es el problema que se estaba arreglando.
+//
+// Catorce es el lugar que dejó libre el cafecito, que se fue de ahí en el mismo
+// cambio (ver `CAFECITO_PRIMERA`).
+export const RECLUTAS_RESTO = 14
 // Mismo número que CAFECITO_COOLDOWN y por el mismo motivo: los dos miden contra
 // el último pedido de cualquier tipo, así que el más chico de los dos es el que
 // manda y tenerlos distintos solo esconde cuál es.

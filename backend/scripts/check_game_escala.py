@@ -28,6 +28,7 @@ Uso:
 Determinístico. Sale con código 1 si algo falla.
 """
 
+import math
 import os
 import sys
 import tempfile
@@ -170,10 +171,23 @@ check(
 )
 
 # El veterano no queda congelado: a 280 respuestas todavia se mueve.
+#
+# **Se mide en ANCHOS DE BANDA y no en theta pelado.** El umbral era 0,03 de
+# theta, y el 28/09 dejo de significar lo mismo: al recalibrar la escala, theta
+# se comprimio y `_A_USER` se reescalo de 0,8 a 0,58 para que el motor siguiera
+# aprendiendo igual. El paso crudo bajo a 0,0282 y el check fallo sin que nada
+# hubiera cambiado de verdad. Contra el ancho de la banda objetivo el numero es
+# el mismo antes y despues, porque es la unidad en la que "moverse" significa
+# algo: cuanto te corre respecto de la dificultad que te toca.
 paso_280 = elo._A_USER / (1 + elo._B_USER * 280)
+ancho_banda = (
+    math.log(elo.TARGET_HIGH / (1 - elo.TARGET_HIGH))
+    - math.log(elo.TARGET_LOW / (1 - elo.TARGET_LOW))
+) / elo.SCALE
 check(
-    paso_280 > 0.03,
-    "un jugador con 280 respuestas todavia mueve theta (paso %.4f)" % paso_280,
+    paso_280 / ancho_banda > 0.05,
+    "un jugador con 280 respuestas todavia mueve theta (%.4f = %.3f anchos de banda)"
+    % (paso_280, paso_280 / ancho_banda),
 )
 
 

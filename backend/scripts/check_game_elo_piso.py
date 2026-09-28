@@ -67,22 +67,16 @@ check(UMBRAL == 43, f"muerde en la respuesta 43 (dio {UMBRAL})")
 check(elo.n_donde_muerde(elo.LR_MIN_CONTROL) is None,
       "el control no tiene piso: n_donde_muerde devuelve None")
 
-# El umbral es EL borde, no un número cerca del borde.
-check(elo.lr_de_usuario(UMBRAL) <= elo.LR_MIN_RAPIDO,
-      f"en n={UMBRAL} el lr sin piso ya cayó hasta el piso")
-check(elo.lr_de_usuario(UMBRAL - 1) > elo.LR_MIN_RAPIDO,
-      f"y en n={UMBRAL - 1} todavía no: el umbral es el borde exacto")
-
-# Que esté DERIVADO y no escrito: si se mueve un hiperparámetro, se mueve.
-_a_original = elo._A_USER
-try:
-    elo._A_USER = 1.6  # el doble de paso inicial
-    check(elo.n_donde_muerde(elo.LR_MIN_RAPIDO) > UMBRAL,
-          "con otro _A_USER el umbral se mueve solo (está calculado, no escrito)")
-finally:
-    elo._A_USER = _a_original
-check(elo.n_donde_muerde(elo.LR_MIN_RAPIDO) == UMBRAL,
-      "y vuelve a su valor cuando el hiperparámetro vuelve")
+# **El umbral está CONGELADO en 43 desde el 28/09, y antes estaba derivado.**
+# Salía de `n_donde_muerde` para que siguiera a los hiperparámetros mientras el
+# experimento estuviera vivo. Cerrado el experimento el argumento se da vuelta:
+# el 28/09 `_A_USER` pasó de 0,8 a 0,58 y la cuenta derivada daba 28, con lo cual
+# el panel habría reescrito hacia atrás quién estuvo adentro. La regla de
+# inscripción de un experimento terminado es un hecho, no una fórmula.
+check(UMBRAL == 43, "y sigue congelado en 43 aunque los hiperparámetros se movieron")
+check(elo.n_donde_muerde(elo.LR_MIN_RAPIDO) != UMBRAL,
+      f"la cuenta derivada hoy daría otra cosa "
+      f"({elo.n_donde_muerde(elo.LR_MIN_RAPIDO)}), que es justo por lo que se congeló")
 
 check(elo.lr_de_usuario(10_000, elo.LR_MIN_RAPIDO) == elo.LR_MIN_RAPIDO,
       "el piso aguanta hasta el infinito: con 10.000 respuestas sigue en 0,20")
@@ -100,14 +94,19 @@ def mueve(theta: float, n_user: int, lr_min: float, correct: bool) -> tuple[floa
                       tier=TIER, n_players=N_PLAYERS, lr_min=lr_min)
 
 
-# 1 · Abajo del umbral: idénticos, y no «parecidos».
+# **Los dos brazos son el mismo desde el 28/09**: el experimento se cerró y
+# `sorteo.PISOS` los dejó a los dos en el piso del control. Lo que se prueba acá
+# ya no es que coincidan abajo del umbral sino que coincidan SIEMPRE — si alguien
+# reabriera el sorteo sin declararlo, esto lo agarra.
+check(len(set(sorteo.PISOS.values())) == 1,
+      f"el sorteo está apagado: los dos brazos tienen el mismo piso ({sorteo.PISOS})")
 iguales = all(
-    mueve(1.0, n, elo.LR_MIN_CONTROL, ok) == mueve(1.0, n, elo.LR_MIN_RAPIDO, ok)
-    for n in range(0, UMBRAL)
+    mueve(1.0, n, sorteo.PISOS["control"], ok) == mueve(1.0, n, sorteo.PISOS["rapido"], ok)
+    for n in range(0, 600)
     for ok in (True, False)
 )
 check(iguales,
-      f"abajo de {UMBRAL} los dos brazos dan el MISMO θ, bit a bit "
+      f"y hasta la respuesta 600 dan el MISMO θ, bit a bit "
       "(es lo que deja correr dx-puerta-2 al mismo tiempo)")
 
 # 2 · Arriba del umbral: distintos, y la brecha crece con la experiencia.

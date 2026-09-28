@@ -1941,7 +1941,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
                   'sale de cuánto cuesta cada cosa: instalar lo hace el 4,1% y pide '
                   'aceptarle un cartel al sistema operativo; volver otro día es la '
                   'prueba de que el producto valió una segunda vez; registrarse pasa '
-                  'adentro de la primera tanda —el juego lo ofrece a las 10 correctas— '
+                  'adentro de la primera tanda —el juego lo ofrece a las 8 correctas— '
                   'y es el único que ocurre sin ningún compromiso posterior: 115 de '
                   '270 se registran y no vuelven nunca. Es un orden DECLARADO y no una '
                   'escalera natural: 12 personas instalaron sin volver.'
@@ -2983,12 +2983,12 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
             f'{num(G["delta_pp"], " pp")} de diferencia en la fracción que llega a dar su '
             f'primer voto (z = {num(G["z"], dec=2)}, p-valor {_p_txt(G["p_valor"])}). '
             + ('<b>Con esto roto el contraste de arriba no se puede leer</b>: la pregunta '
-               'sale a las 10 correctas, así que una banda más exigente retrasa la '
+               'sale a las 8 correctas, así que una banda más exigente retrasa la '
                'llegada y los que igual llegaron son los más fuertes de su brazo. Es un '
                'colisionador, y ningún n lo arregla.'
                if roto else
                'Es la condición que hace legible el contraste de los votos: la pregunta '
-               'sale a las 10 correctas, así que una banda más exigente podría retrasar '
+               'sale a las 8 correctas, así que una banda más exigente podría retrasar '
                'la llegada y dejar votando solo a los más fuertes. No está pasando.'),
             "pierde" if roto else "gana")
 

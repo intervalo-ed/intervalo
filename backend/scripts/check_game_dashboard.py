@@ -2006,9 +2006,17 @@ check("los hitos salen en el payload de la curva, en orden",
 # para todo el mundo y se marca igual que la primera. Sin esto, la derivada 20
 # quedaba sin etiqueta: en la camada del 21/09 tiene el 13,1% de abandono, el
 # pico más alto de la curva después de la puerta, y es la segunda oferta de café.
+# Las posiciones se DERIVAN de las constantes del espejo y no se escriben: el
+# ladder del arranque se reordenó el 28/09 (la pregunta de dificultad se adelantó
+# a la 8, reclutas se fue a la 14 y el café a la 20) y estas dos listas escritas
+# a mano rompieron el check sin que nada del panel hubiera cambiado.
+def _fijos(pedido: int, hasta: int = 40) -> list[int]:
+    return [k for k in range(pedido, hasta + 1, q.HITO_CADA)]
+
+
 check("y los que vuelven en posición fija se marcan de nuevo",
-      [h["k"] for h in _pr40["hitos"] if h["clave"] == "cafecito"] == [14, 20, 40]
-      and [h["k"] for h in _pr40["hitos"] if h["clave"] == "reclutas"] == [9, 29],
+      [h["k"] for h in _pr40["hitos"] if h["clave"] == "cafecito"] == _fijos(q.PEDIDO_CAFECITO)
+      and [h["k"] for h in _pr40["hitos"] if h["clave"] == "reclutas"] == _fijos(q.PEDIDO_RECLUTAS),
       f'({[(h["clave"], h["k"]) for h in _pr40["hitos"]]})')
 # Y los que vuelven en posición variable NO: el registro se reofrece
 # `REGISTRO_REPITE` correctas después de que se ofreció, así que depende de
@@ -2040,10 +2048,16 @@ _renglones = [_re.sub("<[^>]+>", "", x) for x in
 # El renglón arranca con los números y sigue con el copy; el abandono va detrás
 # cuando esa derivada tiene base, así que se compara por el arranque.
 _arranca = lambda t: sum(1 for r in _renglones if r.startswith(t))
+def _lista(ks: list[int]) -> str:
+    return " y ".join([", ".join(str(k) for k in ks[:-1]), str(ks[-1])]) if len(ks) > 1         else str(ks[0])
+
+
+_cafe = f"{_lista(_fijos(q.PEDIDO_CAFECITO))} · invitar un cafecito"
+_recl = f"{_lista(_fijos(q.PEDIDO_RECLUTAS))} · compartir por WhatsApp"
 check("un renglón de leyenda por pregunta, no uno por marca",
-      _arranca("14, 20 y 40 · invitar un cafecito") == 2   # una caja por gráfico
-      and _arranca("9 y 29 · compartir por WhatsApp") == 2,
-      f"({_renglones[:2]}…)")
+      _arranca(_cafe) == 2   # una caja por gráfico
+      and _arranca(_recl) == 2,
+      f"(esperaba «{_cafe}» y «{_recl}»; hay {_renglones[:2]}…)")
 # La leyenda NO reusa `.cortes .cur`: ese chip es el estado «elegido» de un
 # selector —fondo índigo, texto blanco— y pintarle el texto del color del hito
 # dejaba color sobre color, ilegible. Lo único con color es la muestra de la
