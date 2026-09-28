@@ -129,6 +129,12 @@ s.flush()
 #     sobre altas y uno medido sobre activados daban idéntico, y ningún check
 #     podía distinguirlos. Los tres de retención se miden sobre activados.
 # p9  BOT: no tiene que aparecer en ninguna métrica
+# p10 SCRIPT: tampoco, y por otro motivo. No es un sembrado —nadie lo puso en
+#     la base— sino algo que le habló a la API sin ser el juego: sin cuenta y
+#     sin `platform`, que el cliente estampa en todos sus pedidos. Juega como
+#     el del 28/09, que contestaba las cuatro derivadas fijas del arranque y
+#     abandonaba en la quinta; la diferencia con p6 —que también se va— es que
+#     p6 es una persona que rebota y este no es nadie.
 PLAYERS = [
     dict(id=1, user_id=1, alias="uno", university="UBA", career="E", is_bot=False,
          platform="desktop", pwa_first_seen_at=T(0, 15),
@@ -143,10 +149,10 @@ PLAYERS = [
          platform="android",
          created_at=T(2, 14), last_seen_at=T(2, 15)),
     dict(id=5, user_id=None, alias="cero", university=None, career=None,
-         is_bot=False, platform=None,
+         is_bot=False, platform="android",
          created_at=T(-28, 14), last_seen_at=T(0, 15)),
     dict(id=7, user_id=None, alias="siete", university=None, career=None,
-         is_bot=False, platform=None,
+         is_bot=False, platform="android",
          created_at=T(-56, 14), last_seen_at=T(0, 16)),
     dict(id=6, user_id=None, alias="seis", university="UBA", career="E",
          is_bot=False, platform="android",
@@ -154,6 +160,9 @@ PLAYERS = [
     dict(id=9, user_id=None, alias="bot", university="UBA", career="E", is_bot=True,
          platform="desktop",
          created_at=T(0, 10), last_seen_at=T(0, 11)),
+    dict(id=10, user_id=None, alias="script", university=None, career=None,
+         is_bot=False, platform=None,
+         created_at=T(0, 13), last_seen_at=T(0, 13, 13)),
 ]
 for p in PLAYERS:
     s.add(GamePlayer(theta=0.5, n_updates=5, xp=100, unlocked_keys="pow,sq", **p))
@@ -270,6 +279,13 @@ responder(ex, 7, T(0, 16), correcto=True)
 for i in range(50):
     ex = servir(9, T(0, 12, i % 60), 0.90)
     responder(ex, 9, T(0, 12, i % 60), correcto=True)
+
+# Script: las cuatro fijas del arranque en trece segundos y se corta en la
+# quinta, que queda servida y sin responder. Tampoco tiene que aparecer.
+for i in range(4):
+    ex = servir(10, T(0, 13, i * 3), 0.85)
+    responder(ex, 10, T(0, 13, i * 3 + 1), correcto=True)
+servir(10, T(0, 13, 13), 0.70, status="served")
 
 # ── Cafecito ─────────────────────────────────────────────────────────────────
 # 4 impresiones sobre 2 personas, 1 click de 1 persona → CTR por persona = 50%.
@@ -450,6 +466,34 @@ check("los cafecitos también se cortan",
       f'({len(data["boosts"])} boosts)')
 
 check("se informa cuántos se sacaron", data["_bots"] == 1)
+
+# Un script no es un sembrado: nadie lo puso en la base, le habló a la API. La
+# señal es que no trae `platform` —el cliente lo manda en todos sus pedidos por
+# un middleware, y el server lo estampa al crear la fila— y no tiene cuenta.
+check("una fila que nuestro cliente nunca tocó no es un estudiante",
+      10 not in {p["id"] for p in data["players"]})
+check("y se lleva lo que hizo",
+      not any(e["player_id"] == 10 for e in data["exercises"])
+      and not any(a["player_id"] == 10 for a in data["attempts"]))
+check("se informa cuántas se sacaron", data["_sin_cliente"] == 1,
+      f'({data["_sin_cliente"]})')
+# Los tres motivos se cuentan por separado, así que tienen que ser disjuntos:
+# el sembrado viene sin cuenta igual que el script, y lo único que lo salva de
+# contarse dos veces es que SÍ trae aparato. `_usuario_de` es el único mapa que
+# quedó con todos los jugadores, incluidos los que se fueron.
+check("y los tres motivos suman los excluidos, sin pisarse",
+      data["_bots"] + data["_sin_cliente"] + data["_previos"]
+      == len(data["_usuario_de"]) - len(data["players"]),
+      f'({data["_bots"]}+{data["_sin_cliente"]}+{data["_previos"]} de '
+      f'{len(data["_usuario_de"]) - len(data["players"])})')
+# La otra mitad de la regla. Hay filas viejas de gente registrada sin
+# plataforma —jugadores creados por otro camino que nunca pidieron un
+# ejercicio— y esas son personas: el día que alguien saque esta condición, el
+# panel empieza a borrar usuarios de verdad.
+check("tener cuenta alcanza para ser persona aunque falte el aparato",
+      not q._sin_cliente({"platform": None, "user_id": 7})
+      and q._sin_cliente({"platform": None, "user_id": None})
+      and not q._sin_cliente({"platform": "ios", "user_id": None}))
 
 # ── 2 · Qué es una respuesta ─────────────────────────────────────────────────
 print("\n— respuestas —")
