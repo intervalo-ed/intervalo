@@ -1487,7 +1487,19 @@ function IndividualRanking({
           <Row
             key={entry.player_id}
             entry={entry}
-            shownRank={entry.rank}
+            // El puesto que la fila MUESTRA. En la propia, hasta que el viaje
+            // arranca es el viejo: la lista ya trae el puesto nuevo desde que
+            // llegó, así que sin esto el número lo estrenaba en el fotograma
+            // agachado —antes de moverse— y después el conteo lo hacía volver al
+            // viejo para subir otra vez hasta él. Medido: con la pestaña sin
+            // fotogramas ese adelanto dura los 120 ms de la red del agachado, y
+            // se ve el número parpadear al puesto de llegada y retroceder.
+            shownRank={
+              entry.is_current_player &&
+              (fase === "agachado" || fase === "abriendo")
+                ? desde
+                : entry.rank
+            }
             // De qué puesto viene, solo en la fila propia y solo mientras dura
             // el salto: el número cuenta durante el viaje, con la misma curva
             // que la fila. En las otras ochenta y nueve filas es la constante
