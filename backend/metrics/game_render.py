@@ -720,6 +720,86 @@ def _kpis_encuesta(enc: dict, rotulo) -> str:
     ])
 
 
+def _caja_retenidos(rt: list[dict]) -> str:
+    """La gente de antes que volvió a jugar, semana a semana.
+
+    **Dos vistas y no una, por el mismo motivo que el selector de viralidad: un
+    conteo cuyo denominador crece no se puede leer solo.** Los retenidos pasaron
+    de 29 a 72 entre el 14/09 y el 21/09 y la tasa bajó de 7,7% a 7,2%; con la
+    curva de personas sola, esa semana se lee como que la retención se duplicó
+    cuando lo que se duplicó fue la base. Con la de porcentaje sola se pierde la
+    escala —7% de mil y 7% de diez son dos productos— así que van las dos y el
+    botón elige cuál.
+
+    El selector se resuelve en el navegador: las dos vistas ya vinieron en la
+    página (ver `_caja_camadas`).
+    """
+    etiquetas = [f["label"] for f in rt]
+    flojas = [not f["cerrada"] for f in rt]
+
+    # El mismo globo en las dos vistas, y a propósito: las dos salen de los
+    # mismos dos números, y que el de la tasa diga de dónde sale es lo que la
+    # deja auditar sin cambiar de vista.
+    globos = [
+        (f'Semana del {f["label"]}\n'
+         + ("sin semanas anteriores" if f["retenidos"] is None else
+            f'{num(f["retenidos"])} de {num(f["base"])} que ya habían jugado '
+            f'· {_pct_txt(f["pct"])}')
+         + ("" if f["cerrada"] else "\nLa semana todavía no cerró"))
+        for f in rt]
+
+    vistas = [
+        ("Personas",
+         ch.lines([{"label": "Retenidos", "color": ch.SERIES[0],
+                    "values": [f["retenidos"] for f in rt], "weak": flojas,
+                    "tips": globos}],
+                  etiquetas, suffix="", height=250),
+         "Cuánta gente que ya había jugado apareció esa semana. Es un conteo, "
+         "así que sube cuando la base crece aunque nadie retenga mejor: al lado "
+         "de la curva de activación dice si el producto está acumulando gente "
+         "viva o reponiendo la que se va."),
+        ("% de la base",
+         ch.lines([{"label": "% de la base", "color": ch.SERIES[1],
+                    "values": [f["pct"] for f in rt], "weak": flojas,
+                    "tips": globos}],
+                  etiquetas, suffix="%", height=250,
+                  y_max=_techo_pct(f["pct"] for f in rt)),
+         "Los mismos retenidos divididos por toda la gente que alguna vez jugó "
+         "antes de esa semana. Es la vista que no se mueve con la difusión: si "
+         "baja mientras el conteo sube, el producto está creciendo sin retener."),
+    ]
+
+    botones = "".join(
+        f'<button data-m="{i}" class="{"cur" if i == 0 else ""}">{esc(rot)}</button>'
+        for i, (rot, _, _) in enumerate(vistas))
+    cuerpo = "".join(
+        f'<div data-vista="{i}"{"" if i == 0 else " hidden"}>{svg}'
+        f'<p class="note">{nota}</p></div>'
+        for i, (_, svg, nota) in enumerate(vistas))
+
+    return (f'<div class="box" data-segm="retenidos">'
+            f'<h3>Cuánta gente de antes vuelve cada semana</h3>'
+            f'<div class="cortes"><span class="sub">Métrica</span>{botones}</div>'
+            f'{cuerpo}'
+            f'<p class="note"><b>Cada punto es una SEMANA y no una camada.</b> Es '
+            f'el único número de la pestaña que se mide así: los de abajo siguen '
+            f'a una camada desde su alta, y este se para en una semana y pregunta '
+            f'quién de los que ya habían jugado apareció. Por eso una misma '
+            f'persona puede contar en varias semanas seguidas, y esa es justamente '
+            f'la gente que se quiere.'
+            f'<br><br><b>La base son los que ya habían jugado, no los que ya se '
+            f'habían dado de alta.</b> Quien abrió el link una semana, no llegó a '
+            f'responder nada y jugó por primera vez más tarde no volvió: recién '
+            f'llega, y va a Activación. Son seis de 78 en la semana del 21/09, y '
+            f'contarlos acá haría que «retenidos» incluyera activaciones tardías.'
+            f'<br><br><b>La primera semana no tiene punto</b>, y no es un dato que '
+            f'falta: antes de ella no hay semanas anteriores de donde volver. Y el '
+            f'punto hueco con la línea punteada es la semana en curso, que va por '
+            f'la mitad — acá no hay nada que madurar, la ventana ES la semana, así '
+            f'que ese punto termina de contarse el domingo.</p>'
+            f'</div>')
+
+
 def _caja_camadas(enc: dict, slug: str) -> str:
     """Los tres titulares abiertos por camada, con el selector de cuál mirar.
 
@@ -907,14 +987,19 @@ def _caja_camino(enc: dict, valores, rotulo, slug: str) -> str:
         f'<p class="note">{pie}</p></div>')
 
 
-# Los dos controles de las encuestas: el selector de métrica de la curva por
-# camada y la casilla de «solo la misma gente» de la curva por orden.
+# Los controles que cambian qué se está mirando sin volver al servidor: el
+# selector de métrica de una caja con varias vistas —las dos encuestas, la curva
+# de retenidos— y la casilla de «solo la misma gente» de la curva por orden.
+#
+# Es uno solo y genérico porque engancha por atributo y no por sección: recorre
+# el documento entero, así que una pestaña lo incluye una vez y le sirve a todas
+# las cajas que tenga.
 #
 # `pintar()` corre también al cargar, y no es defensivo de más: Firefox restaura
 # el estado de las casillas al recargar, así que una página que vuelve con la
 # casilla desmarcada mostraría la vista balanceada igual si solo se escuchara
 # `change`.
-ENCUESTA_JS = """
+VISTAS_JS = """
 (function(){
   [].forEach.call(document.querySelectorAll('[data-segm]'), function(caja){
     var bs = caja.querySelectorAll('.cortes button');
@@ -1810,6 +1895,18 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
             r["enviadas"], num(100 * r["enviadas"] / total_enviadas, "%"), nominal,
             r["abiertas"], _pct_txt(r["ctr"])])
 
+    # ── Quién de antes sigue jugando ─────────────────────────────────────────
+    # Va primera de la pestaña porque es la más agregada: mira al producto
+    # entero en una semana, y las tres que siguen parten a la gente en camadas,
+    # en canales y en copys.
+    out.append(_section(
+        1, "Quién de antes sigue jugando",
+        _caja_retenidos(p["retencion"]["retenidos"]),
+        sub="La base instalada del juego: de toda la gente que alguna vez jugó, "
+            "cuánta aparece cada semana. Es la pregunta que las camadas no "
+            "contestan, porque cada una mira solo a la suya.",
+        anchor="retenidos"))
+
     # ── Qué hizo la camada después de arrancar ───────────────────────────────
     re_t = p["retencion"]
     _rf = re_t["filas"]
@@ -1832,7 +1929,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
         weak_label="todavía sumando")
 
     out.append(_section(
-        1, "Qué hizo la camada después de arrancar",
+        2, "Qué hizo la camada después de arrancar",
         _box("Los tres compromisos, sobre los activados de cada camada", area,
              note='<b>Los tres cubos son excluyentes y por eso se pueden apilar.</b> '
                   'Las tres tasas crudas se solapan —de los 250 que vuelven, 155 '
@@ -1859,7 +1956,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
         anchor="retencion"))
 
     out.append(_section(
-        2, "Re-enganche · push",
+        3, "Re-enganche · push",
         '<div class="grid g4">'
         + "".join(_kpi_chico(l, v, h, dec=0)
                   for l, v, h in [
@@ -1895,7 +1992,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
         sub="El canal que existe para que alguien vuelva sin que se lo tengamos que recordar "
             "por WhatsApp. Le llega también a los invitados, que son la mayoría del juego.",
         anchor="push"))
-    pieza_push = "".join(out)
+    pieza_retenidos, pieza_push = out[0], "".join(out[1:])
 
     # ── 4 · Mails ────────────────────────────────────────────────────────────
     out = []
@@ -1903,7 +2000,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
     filas_mail = [[f'<b>{esc(t["tipo"])}</b>', esc(t["desc"]), t["enviados"],
                    t["activados"], _pct_txt(t["pct"])] for t in ma["tipos"]]
     out.append(_section(
-        3, "Re-enganche · mails de ciclo de vida",
+        4, "Re-enganche · mails de ciclo de vida",
         '<div class="grid g4">'
         + "".join(_kpi_chico(l, v, h, suffix=sfx, dec=0 if not sfx else 1)
                   for l, v, sfx, h in [
@@ -3614,18 +3711,23 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
     paneles = {
         "activacion": (_fila_kpi(p["headline"]["activacion"])
                        + pieza_difusion + pieza_reclutas),
-        "retencion": (_fila_kpi(p["headline"]["retencion"])
-                      + pieza_push + pieza_mails),
+        # `g5` y no `g4`: el quinto es «Retenidos», que se mide por semana y
+        # no por camada — ver `_retenidos` en game_queries.py.
+        "retencion": (_fila_kpi(p["headline"]["retencion"], "g5")
+                      + pieza_retenidos + pieza_push + pieza_mails
+                      # El selector de la curva de retenidos. El script recorre
+                      # el documento entero, así que va una vez por pestaña.
+                      + f"<script>{VISTAS_JS}</script>"),
         # Jugabilidad = la experiencia. Profundidad primero porque es la curva
         # que resume todo lo demás, y después los tres lugares donde la persona
         # pelea con el juego en vez de con la derivada.
         "jugabilidad": (_fila_kpi(p["headline"]["jugabilidad"])
                         + pieza_profundidad + pieza_dificultad + pieza_repetitividad
                         + pieza_friccion + pieza_teclado
-                        # Los dos controles de las encuestas, una sola vez: el
+                        # Los controles de las dos encuestas, una sola vez: el
                         # script recorre el documento entero y las dos secciones
                         # viven en esta misma pestaña.
-                        + f"<script>{ENCUESTA_JS}</script>"),
+                        + f"<script>{VISTAS_JS}</script>"),
         # Motor = el modelo. Los cuatro números y la curva arriba, el detalle
         # por cubo después, y el voto cruzado contra el comportamiento al final
         # porque es el único que puede mover la banda.

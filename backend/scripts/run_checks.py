@@ -63,6 +63,7 @@ CHECKS = [
     "check_game_api",
     "check_game_cafecito_impacto",
     "check_game_chat",
+    "check_game_bienvenida",
     "check_game_dashboard",
     "check_game_elo_piso",
     "check_game_encuesta",

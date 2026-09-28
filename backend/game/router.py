@@ -31,6 +31,8 @@ from models import (
     User,
 )
 from universities import UNIVERSITIES as _UNIVERSIDADES, canonical_university
+
+from . import bienvenida as game_bienvenida_mod
 import handles
 import xp_boost
 from usernames import normalize_username, validate_username
@@ -79,12 +81,14 @@ from .schemas import (
     GamePushUnsubscribeRequest,
     GameAnswerRequest,
     GameAnswerResponse,
+    GameBienvenidaOut,
     GameBoostOut,
     GameCafecitoCheckout,
     GameCafecitoCheckoutRequest,
     GameCafecitoStatus,
     GameCtaRequest,
     GameEventOut,
+    GameNovedadOut,
     GameEventsResponse,
     GameExerciseOut,
     GameExplainOut,
@@ -1745,6 +1749,61 @@ def game_events_feed(
     )
 
 
+@router.get("/bienvenida", response_model=GameBienvenidaOut)
+def game_bienvenida(
+    player: GamePlayer = Depends(get_current_player),
+    db: Session = Depends(get_db),
+):
+    """Qué dice la pantalla de arranque para esta persona.
+
+    **Endpoint propio y no un campo de `/me`.** `/me` es camino caliente —lo pide
+    cada montaje y cada vuelta del poll— y esto son cinco agregaciones que solo
+    hacen falta cuando la pantalla se dibuja, que es una vez por sesión.
+
+    **Marca que se mostró, y por eso es un GET con efecto.** Es la misma
+    semántica que `referral_xp_push_seen`: lo que se sirvió ya se contó. La
+    alternativa —esperar al Continuar— haría que quien cierra la pestaña reciba
+    mañana la misma novedad, y repetir una novedad es peor que perderla. El
+    orden importa: se construye ANTES de marcar, o el digest se contaría a sí
+    mismo y el renglón de reclutas no aparecería nunca.
+    """
+    ahora = datetime.utcnow()
+
+    # **El cuarto brazo de `dx-rampa-1`.** Quien entró al experimento y no cayó
+    # ahí recibe la lista vacía, y el cliente cae al texto de siempre — que es
+    # exactamente el control que hace falta para poder medirla. Los veteranos y
+    # el experimento apagado la reciben igual (ver `rampa.muestra_digest`).
+    #
+    # Se devuelve vacío en vez de no llamar al endpoint para que el front no
+    # tenga que saber nada del sorteo: el que decide qué se muestra es el mismo
+    # que decide el brazo.
+    if not rampa.muestra_digest(player):
+        return GameBienvenidaOut(modo="control", saludo="", titulo=None,
+                                 novedades=[])
+
+    datos = game_bienvenida_mod.construir(
+        db, player, _correctas_de_hoy(db, player.id), _inicio_del_dia(), ahora
+    )
+    game_bienvenida_mod.marcar_mostrado(db, player, ahora)
+    db.commit()
+    return GameBienvenidaOut(
+        modo=datos.modo,
+        saludo=datos.saludo,
+        titulo=datos.titulo,
+        novedades=[
+            GameNovedadOut(
+                clave=n.clave,
+                texto=n.texto,
+                emoji=n.emoji,
+                universities=n.universities,
+                actor_alias=n.actor_alias,
+                actor_level=n.actor_level,
+            )
+            for n in datos.novedades
+        ],
+    )
+
+
 @router.get("/leaderboard/summary", response_model=GameLeaderboardSummary)
 def game_leaderboard_summary(
     university: str | None = Query(default=None),
@@ -1772,13 +1831,40 @@ def game_leaderboard_summary(
         .filter(*scope, RESOLVIO_ACA)
         .one()
     )
+    # **El filtro se ordena por TAMAÑO, con la del jugador primero.**
+    #
+    # Alfabético dejaba arriba justo a las que no le sirven a nadie —la lista
+    # abría con «23213r», «CAECE», «CERN», «Fcea», «FCEFYN»— y a la UBA, que es
+    # de lejos la más grande, había que ir a buscarla scrolleando. El orden de un
+    # desplegable es el orden de la probabilidad de que elijan cada opción, y
+    # acá esa probabilidad es el tamaño.
+    #
+    # La propia va primero y no simplemente «arriba por ser grande»: quien filtra
+    # casi siempre filtra por la suya, y a quien estudia en una chica el orden
+    # por tamaño la dejaría tan lejos como la dejaba el alfabético.
+    #
+    # Se cuenta con `RESOLVIO_ACA`, que es como cuenta el ranking por
+    # universidad: «tamaño» tiene que querer decir lo mismo en las dos pestañas.
+    # Los sembrados SÍ cuentan, por lo mismo que cuentan allá (ver
+    # game/ranking.py). Y las que no tienen a nadie que haya resuelto no se
+    # borran de la lista —siguen siendo una opción válida— pero caen al fondo
+    # solas, que es donde tiene que estar una opción que devuelve una tabla
+    # vacía.
+    conteo = (
+        db.query(GamePlayer.university, func.count(case((RESOLVIO_ACA, 1))))
+        .filter(GamePlayer.university.isnot(None), GamePlayer.university != "")
+        .group_by(GamePlayer.university)
+        .all()
+    )
     universities = [
         u
-        for (u,) in db.query(GamePlayer.university)
-        .filter(GamePlayer.university.isnot(None), GamePlayer.university != "")
-        .distinct()
-        .order_by(GamePlayer.university.asc())
-        .all()
+        for u, _ in sorted(
+            conteo,
+            # El desempate por nombre va sin mayúsculas: hay siglas cargadas a
+            # mano que difieren solo en eso («Fcea» y «FCEA»), y con el orden
+            # por defecto de la base quedaban separadas por media lista.
+            key=lambda f: (f[0] != player.university, -f[1], f[0].lower()),
+        )
     ]
     elo_avg = (
         elo.rating_of(float(theta_sum) / rated) if rated >= boosts.MIN_PLAYERS_RANKED else None

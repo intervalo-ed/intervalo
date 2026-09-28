@@ -368,6 +368,37 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/game/derivemos/bienvenida": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Game Bienvenida
+         * @description Qué dice la pantalla de arranque para esta persona.
+         *
+         *     **Endpoint propio y no un campo de `/me`.** `/me` es camino caliente —lo pide
+         *     cada montaje y cada vuelta del poll— y esto son cinco agregaciones que solo
+         *     hacen falta cuando la pantalla se dibuja, que es una vez por sesión.
+         *
+         *     **Marca que se mostró, y por eso es un GET con efecto.** Es la misma
+         *     semántica que `referral_xp_push_seen`: lo que se sirvió ya se contó. La
+         *     alternativa —esperar al Continuar— haría que quien cierra la pestaña reciba
+         *     mañana la misma novedad, y repetir una novedad es peor que perderla. El
+         *     orden importa: se construye ANTES de marcar, o el digest se contaría a sí
+         *     mismo y el renglón de reclutas no aparecería nunca.
+         */
+        get: operations["game_bienvenida_game_derivemos_bienvenida_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/game/derivemos/leaderboard/summary": {
         parameters: {
             query?: never;
@@ -2074,6 +2105,29 @@ export interface components {
             muro?: components["schemas"]["GameMuroOut"] | null;
         };
         /**
+         * GameBienvenidaOut
+         * @description Lo que dice la pantalla con la que arranca toda sesión.
+         *
+         *     `modo` es lo único que el cliente necesita mirar para saber qué dibujar:
+         *
+         *       · `sigue`   — está a mitad del día. Una línea y «¿Seguimos?».
+         *       · `vuelve`  — ya jugó antes. Encabezado y hasta tres novedades.
+         *       · `primera` — nunca resolvió nada. Ídem, sobre el mundo y su gente.
+         */
+        GameBienvenidaOut: {
+            /** Modo */
+            modo: string;
+            /** Saludo */
+            saludo: string;
+            /** Titulo */
+            titulo?: string | null;
+            /**
+             * Novedades
+             * @default []
+             */
+            novedades: components["schemas"]["GameNovedadOut"][];
+        };
+        /**
          * GameBoostOut
          * @description Un empuje de XP vigente, agregado por universidad (ver game/boosts.py).
          */
@@ -2496,6 +2550,34 @@ export interface components {
             time?: string | null;
             /** Timezone */
             timezone?: string | null;
+        };
+        /**
+         * GameNovedadOut
+         * @description Un renglón de la pantalla de arranque.
+         *
+         *     Misma convención que `GameEventOut` y no una propia: `texto` viene con los
+         *     marcadores (`{a}` el protagonista, `{u0}`/`{u1}` las siglas) y el emoji
+         *     viaja aparte para que el cliente lo ponga siempre al final. Las dos
+         *     pantallas comparten el renderer del front por esto — si cada una trajera su
+         *     oración ya resuelta, el color del @ por nivel y la tag de universidad
+         *     habría que adivinarlos con una regex.
+         */
+        GameNovedadOut: {
+            /** Clave */
+            clave: string;
+            /** Texto */
+            texto: string;
+            /** Emoji */
+            emoji: string;
+            /**
+             * Universities
+             * @default []
+             */
+            universities: string[];
+            /** Actor Alias */
+            actor_alias?: string | null;
+            /** Actor Level */
+            actor_level?: number | null;
         };
         /**
          * GameOpinionOut
@@ -3928,6 +4010,38 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["GameEventsResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    game_bienvenida_game_derivemos_bienvenida_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+                "x-game-token"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GameBienvenidaOut"];
                 };
             };
             /** @description Validation Error */

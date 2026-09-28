@@ -240,6 +240,39 @@ no hay fila. Al errar, el botón principal se **bifurca** y queda una grilla 2×
 Tabla, Saltear, ¿Por qué? y Revisar a la vista al mismo tiempo, que es el momento
 en que se va el 41,5% de los que no aciertan al primer intento.
 
+**El cuarto escalón: la pantalla de arranque.** El 28/09 la escalera pasó de tres
+brazos a cuatro:
+
+    control  →  teclado  →  + ayudas  →  + pantalla de arranque
+
+La bienvenida (`game/bienvenida.py`) había salido **al 100% el 27/09**, un día
+antes del arranque de la inscripción, y acá se vuelve variable. Tres reglas la
+gobiernan (`game/rampa.py :: muestra_digest`):
+
+- **el veterano la conserva.** Quien nació antes del corte no está en el
+  experimento y ya la tiene puesta; sacársela sería desinstalarle una feature
+  para medir a otra gente;
+- **con `RAMPA_ENABLED=0` vuelve a ser de todos**, porque apagar el experimento
+  tiene que devolver el producto a como estaba;
+- **entre los que entran, solo el cuarto brazo.**
+
+**Es de otra naturaleza que los otros dos escalones**, y conviene tenerlo a la
+vista al leer el resultado: el teclado y las ayudas cambian la pantalla del
+ejercicio, y la bienvenida cambia la ANTERIOR. Es la única de las tres que puede
+mover la **base** de la métrica —cuánta gente llega a que se le sirva la primera
+derivada— y no solo el numerador. Por eso su contraste hay que mirarlo también
+sobre los aterrizados, no solo sobre los que resuelven.
+
+**Y cuesta seis días.** A ~94 altas por día, 547 por brazo pasa de 17,5 a 23,3
+días sobre el contraste primario —el que de verdad tiene potencia—. Se aceptó a
+cambio de subir el caudal de las campañas de difusión; si el caudal no sube, lo
+que se retrasa es la única pregunta que este diseño puede contestar.
+
+Un detalle que hay que respetar si alguna vez se toca de nuevo: **`sorteo.brazo_de`
+reparte con `% len(BRAZOS)`**, así que sumar o sacar un brazo re-sortea a todo el
+mundo. El cuarto entró el 27/09, con cero inscriptos, que es la única ventana en
+la que eso sale gratis.
+
 Ver `game/rampa.py`, `web/src/app/derivadas/pie-rampa.tsx` y la sección del Elo
 en [gamification.md](gamification.md), que cambia con esto.
 
@@ -638,6 +671,86 @@ conclusión.
   `generator._RECENT_EXCLUDE`: si quien vota «repetitivo» venía viendo casi
   tantos enunciados distintos como el largo de la ventana, el problema es que el
   banco es chico; si venía viendo pocos, la exclusión se está quedando corta.
+
+### La pantalla de arranque cuenta lo que pasó (desde el 27/09)
+
+La puerta dejó de decir *«Resolvé la siguiente derivada para comenzar a jugar»*
+—nueve palabras que no informaban nada— y pasa a contar qué pasó mientras la
+persona no estaba. `PuertaMinima` sigue siendo un solo componente y por eso el
+cambio entra igual en teléfono y en escritorio.
+
+**No es un sistema de eventos nuevo: es un digest del feed que ya corría.** Los
+hechos salen de `game_events` y de cinco agregaciones, y se escriben con la
+convención del feed —oración con huecos (`{a}`, `{u0}`), punto final, y el emoji
+aparte—. El renderer es literalmente el mismo: `texto-con-huecos.tsx`, extraído
+de `event-feed.tsx` cuando pasó a tener dos consumidores.
+
+#### Las tres ramas las decide `correct_today`, no un reloj
+
+| | cuándo | qué dice |
+|---|---|---|
+| `sigue` | `correct_today > 0` | «¡Hola, @x!» · *Hoy ya resolviste N derivadas.* · ¿Seguimos? |
+| `vuelve` | ya jugó, hoy no | «¡Bienvenido, @x!» · *Mientras no estabas* + hasta 3 |
+| `primera` | nunca resolvió nada | «¡Bienvenido!» · *Lo que está pasando* + hasta 3 |
+
+Se probó con un umbral de horas y no cierra: con «menos de un día», quien jugó
+ayer a las 23 y vuelve hoy a las 8 lleva nueve horas afuera y **cero derivadas
+hoy**, y «hoy ya resolviste 0» es un renglón roto. Ramificando por el contador la
+frase no puede decir cero, el corte es la medianoche argentina que el juego ya usa
+para el tope, y un solo booleano decide saludo, encabezado y cantidad de renglones.
+
+#### La ventana es mixta, y no por gusto
+
+Hay dos clases de hecho y solo una necesita fallback:
+
+- **evento** (pasó o no pasó) — los reclutas te dejaron XP, tu universidad superó
+  a otra. Ventana desde el último digest, **sin mínimo**: 6.644 XP son 6.644 XP.
+- **conteo** (es un número) — altas de tu universidad. Desde el último digest si
+  llega a `MIN_CONTEO`; si no, la cifra de siete días **con su propio rótulo**.
+
+Medido el 27/09: en 24 h entraron **8 personas en todo el juego** (UBA 3, UTN 3,
+UNC 1, UNLP 1) contra 108/97/69/55 en la semana. Sin el mixto, el renglón diría
+«+1 persona se sumó» casi siempre, que es peor que el silencio.
+
+#### `digest_seen_at` existe porque `last_seen_at` no sirve
+
+`last_seen_at` se pisa **durante** la sesión —la tocan `/next`, `/answer`,
+`/skip` y el generador—, así que para cuando la pantalla se dibuja ya vale
+«ahora» y la ventana saldría vacía siempre. El síntoma sería «la pantalla no
+cuenta nada», que se ve idéntico a «no pasó nada» y por eso nadie lo reporta.
+
+La marca avanza cuando el digest **se sirve**, no cuando se toca Continuar: una
+pantalla que se mostró ya se contó, y esperar haría que quien cierra la pestaña
+reciba mañana la misma novedad. Repetir una novedad es peor que perderla.
+`referral_xp_digest_seen` es el tercer canal del mismo mecanismo, al lado de los
+de push y mail: ninguno puede enterarse por el otro.
+
+#### La universidad de quien llega por primera vez sale del link
+
+El **76,8%** de los jugadores aterriza con un `?g=<grupo>`, y de esos el **100%**
+tiene el grupo en `game_groups` con su universidad. O sea que para tres de cada
+cuatro sabemos de dónde son antes de que la carguen — y solo el 37% la carga
+alguna vez. Se usa **solo para elegir de quién hablarle**; no se le asigna nada.
+
+#### Lo que esto le debe al experimento de la puerta
+
+`dx-puerta-1` ganó **+25,0 pp** vaciando esta pantalla, así que devolverle
+contenido no es gratis y hay que decirlo. Tres cosas acotan el riesgo:
+
+1. **La pantalla ya existía y ya tenía su botón.** No se agrega un paso; se
+   cambia qué dice un texto que igual había que leer.
+2. **El texto de siempre es el fallback**, no el caso raro: mientras el pedido
+   viaja, y para siempre si falla, la puerta se ve como antes. Lo peor que puede
+   pasar es que no cuente nada.
+3. **Nada que le saque algo a la persona** —«te pasaron 3 puestos», «se te cayó
+   la racha»— en la rama `sigue`. Esta pantalla se ve en CADA arranque: un
+   renglón que señala una pérdida funciona una vez y a la quinta es el motivo por
+   el que no se vuelve.
+
+Salió **sin brazo de control**, que es la decisión de producto que hay que tener
+a la vista al leer la activación de las próximas semanas: cualquier movimiento va
+a estar mezclado con la variación de las olas de difusión, y separarlos va a
+requerir cruzar contra el clickrate en vez de leer una diferencia entre brazos.
 
 ### `dx-elo-1`: la velocidad del Elo (desde el 19/09)
 

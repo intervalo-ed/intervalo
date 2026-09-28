@@ -297,7 +297,7 @@ const TIPS = {
   },
   boost: {
     title: "Cafecito",
-    body: "Un cafecito multiplica el XP de toda tu universidad por un día.",
+    body: "Un cafecito multiplica el XP de toda tu universidad durante unas horas.",
   },
 } as const
 

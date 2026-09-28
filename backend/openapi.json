@@ -829,6 +829,58 @@
         }
       }
     },
+    "/game/derivemos/bienvenida": {
+      "get": {
+        "tags": [
+          "game"
+        ],
+        "summary": "Game Bienvenida",
+        "description": "Qu\u00e9 dice la pantalla de arranque para esta persona.\n\n**Endpoint propio y no un campo de `/me`.** `/me` es camino caliente \u2014lo pide\ncada montaje y cada vuelta del poll\u2014 y esto son cinco agregaciones que solo\nhacen falta cuando la pantalla se dibuja, que es una vez por sesi\u00f3n.\n\n**Marca que se mostr\u00f3, y por eso es un GET con efecto.** Es la misma\nsem\u00e1ntica que `referral_xp_push_seen`: lo que se sirvi\u00f3 ya se cont\u00f3. La\nalternativa \u2014esperar al Continuar\u2014 har\u00eda que quien cierra la pesta\u00f1a reciba\nma\u00f1ana la misma novedad, y repetir una novedad es peor que perderla. El\norden importa: se construye ANTES de marcar, o el digest se contar\u00eda a s\u00ed\nmismo y el rengl\u00f3n de reclutas no aparecer\u00eda nunca.",
+        "operationId": "game_bienvenida_game_derivemos_bienvenida_get",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          },
+          {
+            "name": "x-game-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "X-Game-Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameBienvenidaOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/game/derivemos/leaderboard/summary": {
       "get": {
         "tags": [
@@ -5004,6 +5056,44 @@
         ],
         "title": "GameAnswerResponse"
       },
+      "GameBienvenidaOut": {
+        "properties": {
+          "modo": {
+            "type": "string",
+            "title": "Modo"
+          },
+          "saludo": {
+            "type": "string",
+            "title": "Saludo"
+          },
+          "titulo": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Titulo"
+          },
+          "novedades": {
+            "items": {
+              "$ref": "#/components/schemas/GameNovedadOut"
+            },
+            "type": "array",
+            "title": "Novedades",
+            "default": []
+          }
+        },
+        "type": "object",
+        "required": [
+          "modo",
+          "saludo"
+        ],
+        "title": "GameBienvenidaOut",
+        "description": "Lo que dice la pantalla con la que arranca toda sesi\u00f3n.\n\n`modo` es lo \u00fanico que el cliente necesita mirar para saber qu\u00e9 dibujar:\n\n  \u00b7 `sigue`   \u2014 est\u00e1 a mitad del d\u00eda. Una l\u00ednea y \u00ab\u00bfSeguimos?\u00bb.\n  \u00b7 `vuelve`  \u2014 ya jug\u00f3 antes. Encabezado y hasta tres novedades.\n  \u00b7 `primera` \u2014 nunca resolvi\u00f3 nada. \u00cddem, sobre el mundo y su gente."
+      },
       "GameBoostOut": {
         "properties": {
           "university": {
@@ -5887,6 +5977,60 @@
           "enabled"
         ],
         "title": "GameNotificationSettingsRequest"
+      },
+      "GameNovedadOut": {
+        "properties": {
+          "clave": {
+            "type": "string",
+            "title": "Clave"
+          },
+          "texto": {
+            "type": "string",
+            "title": "Texto"
+          },
+          "emoji": {
+            "type": "string",
+            "title": "Emoji"
+          },
+          "universities": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Universities",
+            "default": []
+          },
+          "actor_alias": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Actor Alias"
+          },
+          "actor_level": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Actor Level"
+          }
+        },
+        "type": "object",
+        "required": [
+          "clave",
+          "texto",
+          "emoji"
+        ],
+        "title": "GameNovedadOut",
+        "description": "Un rengl\u00f3n de la pantalla de arranque.\n\nMisma convenci\u00f3n que `GameEventOut` y no una propia: `texto` viene con los\nmarcadores (`{a}` el protagonista, `{u0}`/`{u1}` las siglas) y el emoji\nviaja aparte para que el cliente lo ponga siempre al final. Las dos\npantallas comparten el renderer del front por esto \u2014 si cada una trajera su\noraci\u00f3n ya resuelta, el color del @ por nivel y la tag de universidad\nhabr\u00eda que adivinarlos con una regex."
       },
       "GameOpinionOut": {
         "properties": {

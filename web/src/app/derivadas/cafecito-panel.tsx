@@ -1481,9 +1481,21 @@ export function CafecitoPanel({
           </>
         ) : (
           <>
+            {/* «Por un día» era falso y por un factor grande: una donación
+                dura `1 + ⌈cafecitos/2⌉` horas —de dos a seis—, no un día. La
+                cara con universidad ya dice la duración exacta porque tiene el
+                slider al lado para elegirla; acá no hay slider, así que va la
+                franja, con la misma palabra que usa `context/gamification.md`.
+
+                Y lo que hay que contestar antes de pedirle la universidad a
+                alguien es POR QUÉ hace falta: el empuje cae sobre una
+                universidad entera y no sobre una persona, así que sin saber
+                cuál es no hay dónde ponerlo. Eso es lo que convierte el botón
+                de abajo en un paso con sentido y no en un trámite. */}
             <p className="mt-4 text-sm leading-relaxed text-foreground/90">
-              Un cafecito multiplica el XP de toda tu universidad por un día.
-              Elegí dónde estudiás y el próximo se lo llevás vos.
+              Un cafecito multiplica el XP de toda una universidad durante unas
+              horas, no solo el de quien lo invita. Elegí dónde estudiás y el
+              próximo va a la tuya.
             </p>
             {onPickUniversity && (
               <Salida slot={slotAccion}>
@@ -1500,11 +1512,31 @@ export function CafecitoPanel({
                   className={
                     slotAccion
                       ? CLASE_ACCION_EN_EL_PIE
-                      : "mt-5 flex w-full items-center justify-center rounded-md px-4 py-3 text-base font-semibold text-white transition-opacity hover:opacity-90"
+                      : "mt-5 flex w-full items-center justify-center rounded-md px-4 py-3 text-base font-semibold transition-opacity hover:opacity-90"
                   }
-                  style={{ backgroundColor: CAFE, color: "#FFFFFF" }}
+                  // El dorado del EXTREMO de la rampa —el mismo que toma el
+                  // botón de invitar cuando la barra llega a diez—, no el
+                  // marrón apagado con el que esa barra arranca. Esta cara no
+                  // tiene barra que subir, así que no hay ninguna razón para
+                  // mostrar el botón en su versión más floja; y el dorado ya es
+                  // lo que dice «café» en el resto del juego (es el mismo del
+                  // «Continuar derivando ahora» del cartel del tope).
+                  //
+                  // Con el fondo claro la tinta va oscura por el mismo motivo
+                  // que allá: sobre este dorado, el blanco da 1,77:1.
+                  //
+                  // El aura va en su valor de pico y quieta. Lo que respira en
+                  // las otras caras es la cantidad que se está pidiendo, y acá
+                  // todavía no se está pidiendo nada.
+                  style={{
+                    backgroundColor: DORADO_FIJO,
+                    color: TINTA_OSCURA,
+                    boxShadow: auraBoton(1, 1),
+                  }}
                 >
-                  Elegir mi universidad
+                  {/* «Elegir» a secas: el párrafo de arriba ya acaba de decir
+                      qué se elige, y el botón no tiene por qué repetirlo. */}
+                  Elegir
                 </button>
               </Salida>
             )}
