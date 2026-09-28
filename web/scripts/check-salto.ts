@@ -13,7 +13,9 @@
 // no pueda volver en silencio.
 
 import {
+  ABRIR_MS,
   ALTO_FILA_PX,
+  CERRAR_MS,
   FILAS_TOPE,
   RAMPA,
   SALTO_MS_MAX,
@@ -22,6 +24,8 @@ import {
   curvaDelSalto,
   duracionDelSalto,
   filasDelSalto,
+  duracionTotalDelSalto,
+  tramosDelSalto,
   velocidadDelSalto,
 } from "../src/app/derivadas/salto-ranking"
 
@@ -123,6 +127,45 @@ for (const d of [1, 3, 10, 20, 30, FILAS_TOPE, FILAS_TOPE + 50]) {
       ` · ${velocidadDelSalto(d).toFixed(0).padStart(3)} px/s`,
   )
 }
+
+console.log("\nlos tres tiempos del salto")
+// El salto dejó de ser un solo movimiento: la lista abre el lugar, la fila
+// viaja, y recién cuando llegó se cierra el hueco de atrás. Que los tres existan
+// y estén en ese orden es lo que hace que se entienda qué pasó; antes pasaban a
+// la vez y lo que se veía era la lista entera moviéndose.
+for (const d of [1, 5, 15, 40, 400]) {
+  const t = tramosDelSalto(d)
+  check(
+    t.abrir === ABRIR_MS && t.cerrar === CERRAR_MS && t.viaje === duracionDelSalto(d),
+    `${d} puestos: abre ${t.abrir} ms, viaja ${t.viaje} ms, cierra ${t.cerrar} ms`,
+  )
+  check(
+    t.abrir > 0 && t.viaje > 0 && t.cerrar > 0,
+    `  y los tres tramos duran algo (un tramo en cero es un tramo que no se ve)`,
+  )
+  check(
+    duracionTotalDelSalto(d) === t.abrir + t.viaje + t.cerrar,
+    `  el total es la suma de los tres`,
+  )
+}
+// Sin salto no hay nada que abrir ni que cerrar: una fila que no se mueve no
+// puede pedirle a la lista que le haga lugar.
+const quieta = tramosDelSalto(0)
+check(
+  quieta.abrir === 0 && quieta.viaje === 0 && quieta.cerrar === 0,
+  "sin salto, los tres tramos en cero",
+)
+check(
+  tramosDelSalto(10, 0).viaje === 0 && tramosDelSalto(10, 0).abrir === 0,
+  "y tampoco cuando no hay filas cargadas por debajo para viajar",
+)
+// El tope de tres segundos era del VIAJE y sigue siéndolo; abrir y cerrar se
+// suman aparte y son cortos a propósito.
+check(
+  duracionTotalDelSalto(1e6) <= SALTO_MS_MAX + ABRIR_MS + CERRAR_MS,
+  `el salto más largo posible dura ${duracionTotalDelSalto(1e6)} ms de punta a punta, ` +
+    `y el techo son ${SALTO_MS_MAX + ABRIR_MS + CERRAR_MS}`,
+)
 
 console.log(fallos === 0 ? "\ntodo ok" : `\n${fallos} fallos`)
 process.exit(fallos === 0 ? 0 : 1)

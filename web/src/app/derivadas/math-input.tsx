@@ -34,6 +34,46 @@ type Mathfield = HTMLElement & {
   getValue: (format?: string) => string
   executeCommand: (cmd: string | [string, ...unknown[]]) => boolean
   focus: () => void
+  hasFocus: () => boolean
+}
+
+/** Devuelve el foco DE VERDAD al campo.
+ *
+ * `mf.focus()` no sirve para esto, y ese es todo el bug. MathLive lleva su
+ * propio `blurred` y su `focus()` no hace nada mientras ese flag diga que ya
+ * tiene el foco (mathlive 0.110):
+ *
+ *     hasFocus() { return !this.blurred }
+ *     focus(options) { … if (!this.hasFocus()) { … this.onFocus() … } … }
+ *     blur() { …; if (!this.hasFocus()) return; this.keyboardDelegate.blur() }
+ *
+ * El flag lo mueven los eventos `focus`/`blur` del editable que MathLive tiene
+ * en su shadow DOM. Cuando la ventana pierde el foco sin que ese editable
+ * reciba su `blur` —cambiar de pestaña, clickear otra ventana— el flag queda
+ * mintiendo. Medido en producción: `hasFocus()` da `true` con
+ * `document.activeElement` en `body`, así que el cursor se dibuja, el campo se
+ * deja clickear y ninguna tecla llega a ningún lado. `blur()` tampoco lo
+ * destraba: se va por su propia guarda y encima le pide `blur()` a un elemento
+ * que ya no tiene el foco, o sea que no dispara ningún evento.
+ *
+ * Lo único que lo arregla es enfocar el editable, que es el nodo que de verdad
+ * recibe las teclas. La clase es parte de la hoja de estilos pública de
+ * MathLive (`mathlive-static.css`), no un detalle interno; si algún día
+ * cambiara, el `mf.focus()` de abajo deja el campo como estaba. */
+function recuperarFoco(mf: Mathfield | null) {
+  if (!mf) return
+  // El foco ya es real: enfocar de nuevo movería el cursor por gusto.
+  if (document.activeElement === mf) return
+  // MathLive sabe que no lo tiene: su camino funciona, y además hace el
+  // `scrollIntoView` que el campo necesita en el teléfono. Solo se lo saltea
+  // cuando el flag miente, que es el caso que esta función existe para arreglar.
+  if (!mf.hasFocus()) {
+    mf.focus()
+    return
+  }
+  const sink = mf.shadowRoot?.querySelector<HTMLElement>(".ML__keyboard-sink")
+  if (sink) sink.focus()
+  else mf.focus()
 }
 
 // Cartel del campo vacío. El texto lo pone cada layout porque la respuesta
@@ -252,6 +292,10 @@ export function MathInput({
   const onEnterRef = useRef(onEnter)
   const toneRef = useRef(tone)
   const autoFocusRef = useRef(autoFocus)
+  // Los listeners de ventana que hay que sacar al desmontar. Se llenan cuando
+  // MathLive termina de cargar, que es después de que este efecto ya devolvió su
+  // limpieza.
+  const limpiezaRef = useRef<(() => void) | null>(null)
   useEffect(() => {
     onChangeRef.current = onChange
     onEnterRef.current = onEnter
@@ -276,12 +320,12 @@ export function MathInput({
   useImperativeHandle(handleRef, () => ({
     insert: (latex: string) => {
       fieldRef.current?.executeCommand(["insert", latex])
-      fieldRef.current?.focus()
+      recuperarFoco(fieldRef.current)
       syncEmpty()
     },
     command: (cmd: string) => {
       fieldRef.current?.executeCommand(cmd)
-      fieldRef.current?.focus()
+      recuperarFoco(fieldRef.current)
       syncEmpty()
     },
     getLatex: () => fieldRef.current?.getValue("latex") ?? "",
@@ -289,7 +333,7 @@ export function MathInput({
       if (fieldRef.current) fieldRef.current.value = ""
       setEmpty(true)
     },
-    focus: () => fieldRef.current?.focus(),
+    focus: () => recuperarFoco(fieldRef.current),
   }))
 
   useEffect(() => {
@@ -375,6 +419,23 @@ export function MathInput({
         { capture: true },
       )
 
+      // Al volver a la pestaña o a la ventana. Solo si MathLive CREE que tiene
+      // el foco: si de verdad lo perdió, su propio camino ya funciona y robarle
+      // el foco al que lo tenga sería peor que el bug.
+      const alVolver = () => {
+        if (mf.hasFocus()) recuperarFoco(mf)
+      }
+      window.addEventListener("focus", alVolver)
+      document.addEventListener("visibilitychange", alVolver)
+      limpiezaRef.current = () => {
+        window.removeEventListener("focus", alVolver)
+        document.removeEventListener("visibilitychange", alVolver)
+      }
+      // Y al tocar el campo para escribir, que es lo que la persona hace cuando
+      // vuelve. En captura: pasa antes que el manejador de MathLive, que es el
+      // que decide dónde cae el cursor.
+      mf.addEventListener("pointerdown", () => recuperarFoco(mf), { capture: true })
+
       host.replaceChildren(mf)
       applyTone(mf, toneRef.current)
       // menuItems e inlineShortcuts exigen el elemento ya montado.
@@ -394,6 +455,8 @@ export function MathInput({
 
     return () => {
       cancelled = true
+      limpiezaRef.current?.()
+      limpiezaRef.current = null
       fieldRef.current = null
       host.replaceChildren()
     }

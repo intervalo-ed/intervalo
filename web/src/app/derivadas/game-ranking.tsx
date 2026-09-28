@@ -41,7 +41,13 @@ import {
   useBoostMultipliers,
 } from "@/components/boost-banner"
 import { filaConEmpuje, levelColor } from "./game-colors"
-import { curvaDelSalto, duracionDelSalto, filasDelSalto } from "./salto-ranking"
+import {
+  ABRIR_MS,
+  CERRAR_MS,
+  curvaDelSalto,
+  duracionDelSalto,
+  filasDelSalto,
+} from "./salto-ranking"
 import { corrimientoDelBache, filaALaVista } from "./ventana-ranking"
 import { VERDE, fmtMultiplier } from "./cafecito-cta"
 import { EJEMPLOS_COUNT, EJEMPLOS_XP_TOTAL, ListaDeReclutas } from "./reclutas-list"
@@ -87,10 +93,48 @@ const RESORTE_AMBIENTE = { type: "spring", stiffness: 320, damping: 32 } as cons
 // Con movimiento reducido no hay resorte que valga: la fila aparece donde va.
 const SIN_MOVIMIENTO = { duration: 0 } as const
 
-// Las tres fases del salto. `agachado` dura UN fotograma pintado —el que dibuja
-// la fila en el puesto del que viene, para que el FLIP de motion tenga contra
-// qué medir— y `volando` dura lo que dure el salto.
-type Fase = "agachado" | "volando" | "listo"
+// Las fases del salto, en el orden en que se ven.
+//
+// `agachado` dura UN fotograma pintado —el que dibuja la fila en el puesto del
+// que viene, para que el FLIP de motion tenga contra qué medir—. Los otros tres
+// son el salto propiamente dicho, y son tres y no uno porque son tres cosas
+// distintas que se leen una después de la otra:
+//
+//   abriendo   la lista hace lugar donde la fila va a caer
+//   viajando   la fila viaja a ese lugar, y NADA MÁS se mueve
+//   cerrando   recién ahora se cierra el hueco que dejó atrás
+//
+// Antes era un solo tramo: la fila subía mientras todas las demás se acomodaban
+// a la vez, y lo que se veía era la lista entera moviéndose sin que se
+// entendiera qué había pasado. Los tiempos de abrir y cerrar están en
+// salto-ranking.ts, al lado del del viaje.
+type Fase = "agachado" | "abriendo" | "viajando" | "cerrando" | "listo"
+
+// Las clases de una fila de la lista individual. Constante porque el HUECO
+// —la fila vacía que abre y cierra el lugar— tiene que medir exactamente lo
+// mismo que una fila de verdad, y la única forma de garantizarlo es que salgan
+// las dos de acá.
+const FILA_CLASE =
+  "flex items-center gap-3 rounded-lg px-4 py-3 ring-1 ring-foreground/10"
+
+/** El lugar que se abre y se cierra.
+ *
+ *  Una fila vacía, invisible y sin anillo, del mismo alto que una de verdad: el
+ *  `py-3` más el renglón de `text-sm`. Lleva `layout` como las demás, que es lo
+ *  que hace que aparecer y desaparecer se vea como la lista corriéndose y no
+ *  como un parpadeo. */
+function FilaHueca({ quieto }: { quieto: boolean }) {
+  return (
+    <motion.li
+      layout
+      aria-hidden
+      transition={quieto ? SIN_MOVIMIENTO : undefined}
+      className={cn(FILA_CLASE, "pointer-events-none opacity-0 ring-0")}
+    >
+      <span className="text-sm leading-5">{"\u200b"}</span>
+    </motion.li>
+  )
+}
 
 // Un solo objeto de transición por duración, cacheado. No es microoptimización:
 // es lo que hace que las hasta noventa filas de un salto compartan la MISMA
@@ -987,6 +1031,17 @@ function IndividualRanking({
   const desde = nuevo ? (climbFrom as number) : salto.desde
   const settled = fase === "listo"
 
+  // Cuánto dura el tramo que se está viendo. Es lo que las filas usan de
+  // transición, así que abrir y cerrar se mueven a su ritmo y no al del viaje.
+  const tramoMs =
+    fase === "abriendo"
+      ? ABRIR_MS
+      : fase === "viajando"
+        ? saltoMs
+        : fase === "cerrando"
+          ? CERRAR_MS
+          : 0
+
   // El aviso viaja por un ref y NO por las dependencias del efecto de abajo, y
   // no es prolijidad: los dos layouts lo pasan como una flecha inline, así que
   // su identidad cambia en cada render. Con él en las dependencias, cada render
@@ -1007,7 +1062,7 @@ function IndividualRanking({
       // haya PINTADO la fila en su puesto viejo, porque el FLIP de motion mide
       // contra lo último que hubo en pantalla.
       const salir = () => {
-        setSalto({ key: desde, fase: "volando", filas, ms: saltoMs, desde })
+        setSalto({ key: desde, fase: "abriendo", filas, ms: saltoMs, desde })
         // Ya está en el aire: el salto de esta derivada se dio por visto. Lo que
         // lo apaga es el layout, poniendo `climbFrom` en null — y por eso se
         // avisa al ARRANCAR y no al terminar: si la persona se va al chat a
@@ -1027,9 +1082,17 @@ function IndividualRanking({
         clearTimeout(red)
       }
     }
+    // Los tres tramos encadenados: cada uno espera lo suyo y pasa al siguiente.
+    const sigue: Record<string, { fase: Fase; ms: number }> = {
+      abriendo: { fase: "viajando", ms: ABRIR_MS },
+      viajando: { fase: "cerrando", ms: saltoMs },
+      cerrando: { fase: "listo", ms: CERRAR_MS },
+    }
+    const paso = sigue[fase]
+    if (!paso) return
     const t = setTimeout(
-      () => setSalto({ key: desde, fase: "listo", filas, ms: saltoMs, desde }),
-      saltoMs,
+      () => setSalto({ key: desde, fase: paso.fase, filas, ms: saltoMs, desde }),
+      paso.ms,
     )
     return () => clearTimeout(t)
   }, [fase, filas, saltoMs, desde])
@@ -1194,8 +1257,21 @@ function IndividualRanking({
     origenRef.current = { y: mine.offsetTop, scroll: el.scrollTop, alto: mine.offsetHeight }
   }, [fase])
 
+  // Terminado de abrir, la fila ya está en su lugar de partida DEFINITIVO: el
+  // hueco de arriba la corrió una fila más abajo. Se la vuelve a encuadrar y se
+  // toma de ahí el origen del viaje, que antes se tomaba en el fotograma
+  // agachado —o sea, una fila más arriba de donde el viaje empieza de verdad.
   useLayoutEffect(() => {
-    if (fase !== "volando") return
+    if (fase !== "abriendo") return
+    const el = scrollRef.current
+    const mine = el?.querySelector<HTMLElement>("[data-current='true']")
+    if (!el || !mine) return
+    el.scrollTop = encuadrar(el, mine.offsetTop, mine.offsetHeight, el.scrollTop)
+    origenRef.current = { y: mine.offsetTop, scroll: el.scrollTop, alto: mine.offsetHeight }
+  }, [fase])
+
+  useLayoutEffect(() => {
+    if (fase !== "viajando") return
     const el = scrollRef.current
     const mine = el?.querySelector<HTMLElement>("[data-current='true']")
     const origen = origenRef.current
@@ -1335,22 +1411,43 @@ function IndividualRanking({
     return <p className="text-sm text-muted-foreground">Todavía no hay ranking.</p>
   }
 
-  // El fotograma agachado: la fila propia se dibuja en el puesto del que viene.
-  // El resto del vuelo ya está en el suyo y lo que la mueve es el FLIP.
+  // Qué se dibuja en cada fase. `null` en la lista es el HUECO.
   //
   // Sin `Math.min` acá: `filasDelSalto` ya acotó por las filas cargadas, y ese
   // es justamente el motivo por el que ese tope se mudó allá arriba. Con el
   // `Math.min` la fila quedaba clavada al final de la lista y la duración
   // seguía calculándose sobre una distancia que nunca se recorría.
-  const ordered =
-    fase !== "agachado" || meIndex < 0
-      ? entries
-      : (() => {
-          const rows = [...entries]
-          const [mine] = rows.splice(meIndex, 1)
-          rows.splice(meIndex + filas, 0, mine)
-          return rows
-        })()
+  //
+  //   agachado   la fila propia dibujada en el puesto del que viene, sin hueco.
+  //              Es el fotograma contra el que mide el FLIP.
+  //   abriendo   igual, más un hueco en el puesto de destino: la lista se corre
+  //              hacia abajo para hacerle lugar.
+  //   viajando   la fila pasa a ocupar ese lugar y deja un hueco donde estaba,
+  //              así que lo ÚNICO que se mueve es ella: todas las demás
+  //              conservan su posición.
+  //   cerrando   se saca el hueco de atrás y la lista se cierra sobre él.
+  //
+  // Que las tres listas se puedan escribir así —una permutación y un hueco— es
+  // lo que permite que el layout de motion haga los tres tramos solo, sin sacar
+  // la fila del flujo ni posicionar nada a mano.
+  const ordered: (GameLeaderboardEntry | null)[] = (() => {
+    if (meIndex < 0 || fase === "listo" || fase === "cerrando") return entries
+    const rows: (GameLeaderboardEntry | null)[] = [...entries]
+    const [mine] = rows.splice(meIndex, 1)
+    if (fase === "agachado") {
+      rows.splice(meIndex + filas, 0, mine)
+      return rows
+    }
+    if (fase === "abriendo") {
+      rows.splice(meIndex + filas, 0, mine)
+      rows.splice(meIndex, 0, null)
+      return rows
+    }
+    // viajando: la fila ya está arriba y el hueco quedó abajo.
+    rows.splice(meIndex + filas, 0, null)
+    rows.splice(meIndex, 0, mine)
+    return rows
+  })()
 
   return (
     // `relative` no es decorativo: hace que el scroller sea el `offsetParent` de
@@ -1383,7 +1480,10 @@ function IndividualRanking({
         </div>
       )}
       <ol className="flex flex-col gap-2 py-1">
-        {ordered.map((entry) => (
+        {ordered.map((entry) =>
+          entry === null ? (
+            <FilaHueca key="hueco" quieto={quieto} />
+          ) : (
           <Row
             key={entry.player_id}
             entry={entry}
@@ -1392,7 +1492,9 @@ function IndividualRanking({
             // el salto: el número cuenta durante el viaje, con la misma curva
             // que la fila. En las otras ochenta y nueve filas es la constante
             // `null`, así que ni se enteran de que hay un salto.
-            rankDesde={entry.is_current_player && saltoMs > 0 ? desde : null}
+            rankDesde={
+              entry.is_current_player && fase === "viajando" ? desde : null
+            }
             // Mientras el conteo corre manda él (aunque la lista ya tenga el
             // total); una vez que terminó, el mayor de los dos, para que el
             // número no retroceda si el ranking viene atrasado.
@@ -1409,9 +1511,12 @@ function IndividualRanking({
             // Un número y no un objeto de transición, y eso NO es un detalle:
             // la transición del salto depende de la distancia, así que armarla
             // acá le rompería el memo a las noventa filas justo en el fotograma
-            // más caro. Cambia dos veces por respuesta (0 → N → 0), lo mismo que
-            // cambiaba el booleano que reemplaza.
-            saltoMs={settled ? 0 : saltoMs}
+            // más caro.
+            //
+            // Es el tramo que se está viendo y no el viaje entero: abrir y
+            // cerrar tienen su propio tiempo, y con el del viaje la lista se
+            // corría en cámara lenta para hacer un lugar.
+            saltoMs={tramoMs}
             // Solo la fila propia y solo un fotograma: el que la dibuja en el
             // puesto viejo. Las demás no se mueven en ese commit, así que
             // reciben la constante `false`.
@@ -1433,7 +1538,8 @@ function IndividualRanking({
                 : null
             }
           />
-        ))}
+          ),
+        )}
       </ol>
       {isFetchingNextPage && (
         <div className="flex justify-center py-2">
@@ -1562,10 +1668,7 @@ const Row = memo(function Row({
       // DOM y no en un `useMemo` sobre `entries` porque lo que hace falta es la
       // altura MEDIDA, que solo el navegador sabe.
       data-pid={entry.player_id}
-      className={cn(
-        "flex items-center gap-3 rounded-lg px-4 py-3 ring-1 ring-foreground/10",
-        mine && MINE_ROW_CLASS,
-      )}
+      className={cn(FILA_CLASE, mine && MINE_ROW_CLASS)}
       style={
         previewMultiplier
           ? filaConEmpuje(previewMultiplier.value)
