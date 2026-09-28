@@ -63,6 +63,39 @@ export const FILAS_TOPE = Math.floor(
   ((1 - RAMPA) * V_TOPE_PX_S * SALTO_MS_MAX) / (1000 * ALTO_FILA_PX),
 )
 
+/** Cuánto tarda la lista en ABRIR el lugar al que la fila va a viajar, y cuánto
+ *  en CERRAR el que deja atrás.
+ *
+ *  Son dos tiempos y no uno solo porque son dos cosas distintas y se leen una
+ *  después de la otra: primero la lista se corre para hacer lugar, después la
+ *  fila viaja a ese lugar, y recién cuando llegó se cierra el hueco de donde
+ *  salió. Antes las tres pasaban a la vez —la fila subía mientras todas las
+ *  demás se acomodaban— y lo que se veía era la lista entera moviéndose sin que
+ *  se entendiera qué había pasado.
+ *
+ *  Cortos a propósito: no son el protagonista, son el lugar abriéndose. Lo que
+ *  hay que mirar es el viaje, que dura `duracionDelSalto`. */
+export const ABRIR_MS = 200
+export const CERRAR_MS = 200
+
+/** Los tres tramos del salto, en el orden en que se ven. Sin salto, los tres en
+ *  cero: no hay lugar que abrir para una fila que no se mueve. */
+export function tramosDelSalto(
+  distancia: number,
+  disponibles = Infinity,
+): { abrir: number; viaje: number; cerrar: number } {
+  const viaje = duracionDelSalto(distancia, disponibles)
+  return viaje === 0
+    ? { abrir: 0, viaje: 0, cerrar: 0 }
+    : { abrir: ABRIR_MS, viaje, cerrar: CERRAR_MS }
+}
+
+/** Lo que dura el salto entero, de punta a punta. */
+export function duracionTotalDelSalto(distancia: number, disponibles = Infinity): number {
+  const t = tramosDelSalto(distancia, disponibles)
+  return t.abrir + t.viaje + t.cerrar
+}
+
 /** La curva del salto: la integral de un trapecio de velocidad, normalizada.
  *
  *  Sale de cero, sube en rampa hasta la velocidad de crucero, se queda ahí, y

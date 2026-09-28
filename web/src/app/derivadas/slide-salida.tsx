@@ -20,8 +20,19 @@
 // docena de piezas de estado mudadas de lugar y duplicadas en el flujo del
 // teléfono, para mover un botón cuarenta píxeles.
 
-import { useEffect, useState } from "react"
+import { createContext, useContext, useEffect, useState } from "react"
 import { createPortal } from "react-dom"
+import { useIsPresent } from "motion/react"
+import { cn } from "@/lib/utils"
+
+/** Si el hueco donde cae el botón es de la propia diapo o lo comparte con las
+ *  demás.
+ *
+ *  En el teléfono cada diapo monta el suyo (`ConSalidaAbajo`), así que el hueco
+ *  se va de pantalla con ella y el botón tiene que seguir dibujado hasta el
+ *  final. En escritorio el hueco es el pie de la columna y lo comparten todas,
+ *  así que la que se va tiene que soltarlo (ver `Salida`). */
+const HuecoPropio = createContext(false)
 
 /** La cuenta regresiva del botón de salida: "Ahora no (7)", "Ahora no (6)"…
  *
@@ -42,6 +53,35 @@ export function useCuentaRegresiva(segundos: number): number {
   return restante
 }
 
+/** Cuánto se queda apagado el botón del pie cuando cambia de dueño.
+ *
+ *  El pie es el único lugar de la pantalla que NO cambia entre una diapo y la
+ *  siguiente: la caja de arriba se funde, y abajo queda un botón que dice lo
+ *  mismo antes y después. Sin nada que lo marque, el cambio de pantalla se lee
+ *  como que no pasó nada y el dedo puede tocar dos veces sin querer.
+ *
+ *  Así que el que entra aparece apagado y se enciende solo. Es un gesto de
+ *  enfriado —el mismo que tiene cualquier botón que acaba de hacer algo—, no un
+ *  bloqueo: el botón se puede tocar todo el tiempo, y Enter también. Apagarlo de
+ *  verdad sería tragarse la tecla de alguien que ya sabe a dónde va.
+ *
+ *  Medio segundo: alcanza para verlo prenderse y no llega a sentirse como espera.
+ *  Lo cubre entero la transición de opacidad, que es más lenta al encender
+ *  (`duration-500`) que al apagar, para que se lea como algo que vuelve y no
+ *  como un parpadeo. */
+const ENFRIADO_MS = 500
+
+/** True mientras dure el enfriado de ESTE montaje. Una diapo nueva monta su
+ *  `Salida` nueva, así que el enfriado corre una vez por diapo y se apaga solo. */
+function useEnfriado(aplica: boolean): boolean {
+  const [frio, setFrio] = useState(true)
+  useEffect(() => {
+    const t = setTimeout(() => setFrio(false), ENFRIADO_MS)
+    return () => clearTimeout(t)
+  }, [])
+  return aplica && frio
+}
+
 /** El botón de salida, puesto donde corresponda.
  *
  * `slot` es el nodo del pie que publica el layout de escritorio. Sin él —el
@@ -51,7 +91,21 @@ export function useCuentaRegresiva(segundos: number): number {
  * volteo: el pie se desmonta en el mismo instante en que cambia el panel, pero la
  * diapo que se va sigue montada unos 380 ms más (así funciona `AnimatePresence`,
  * ver slide-flip.tsx). Sin esto, durante ese rato habría dos botones apilados en
- * el pie — el que vuelve y el que todavía no se fue. */
+ * el pie — el que vuelve y el que todavía no se fue.
+ *
+ * **Y lo mismo pasa entre dos diapos que comparten el pie**, que es el caso que
+ * el párrafo de arriba no cubría: cambiar de reglas a «Elegí tu @», o de carrera
+ * a universidad, no cambia el panel, así que el hueco NO se desmonta. Durante el
+ * cruce las dos diapos dibujan su botón en el mismo hueco, que es un `flex`, así
+ * que los dos se reparten el ancho: el botón se parte en dos de 304 px y vuelve
+ * a 608 cuando la que se va termina de irse (medido en producción, con el pie de
+ * escritorio). Se ve como un movimiento raro entre dos pantallas donde no tenía
+ * que pasar nada — el botón dice lo mismo antes y después.
+ *
+ * `useIsPresent` es la señal de motion para «esta cara ya se está yendo»: la que
+ * sale deja de dibujar en el pie apenas arranca su salida, así que en el hueco
+ * hay SIEMPRE un botón, nunca dos. Fuera de un `AnimatePresence` devuelve `true`,
+ * así que las pantallas que no son diapos no se enteran de nada. */
 export function Salida({
   slot,
   children,
@@ -59,7 +113,29 @@ export function Salida({
   slot?: HTMLElement | null
   children: React.ReactNode
 }) {
-  return slot ? createPortal(children, slot) : <>{children}</>
+  const presente = useIsPresent()
+  const propio = useContext(HuecoPropio)
+  // Solo en el pie COMPARTIDO. En el teléfono el botón se va de pantalla con su
+  // diapo y entra el de la que llega: ahí el cambio ya se ve, y apagar de paso
+  // el que entra sería ruido encima de un pase que se entiende solo.
+  const frio = useEnfriado(!propio && !!slot)
+  if (!slot) return <>{children}</>
+  if (!presente && !propio) return null
+  return createPortal(
+    propio ? (
+      children
+    ) : (
+      <div
+        className={cn(
+          "flex w-full transition-opacity duration-500",
+          frio && "opacity-40",
+        )}
+      >
+        {children}
+      </div>
+    ),
+    slot,
+  )
 }
 
 /** El hueco de abajo donde la diapo deja su botón de salir, en el teléfono.
@@ -87,7 +163,9 @@ export function ConSalidaAbajo({
   const [salida, setSalida] = useState<HTMLDivElement | null>(null)
   const [accion, setAccion] = useState<HTMLDivElement | null>(null)
   return (
-    <>
+    // El hueco es de esta diapo y se va con ella, así que la salida no lo suelta
+    // al empezar a irse: ver `HuecoPropio`.
+    <HuecoPropio.Provider value={true}>
       <div className="flex min-h-0 flex-1 flex-col justify-center">
         {children({ salida, accion })}
       </div>
@@ -105,7 +183,7 @@ export function ConSalidaAbajo({
           dejaría su margen suelto. */}
       <div ref={setSalida} className="mt-3 shrink-0 empty:hidden" />
       <div ref={setAccion} className="mt-2 shrink-0 empty:hidden" />
-    </>
+    </HuecoPropio.Provider>
   )
 }
 
