@@ -89,7 +89,7 @@ import {
 } from "./reglas-trigger"
 import { DerivativesTable, TableButton } from "./derivatives-table"
 import { PorQueButton, PorQuePanel, type PorQueGraph } from "./porque-panel"
-import { PieDeRampa } from "./pie-rampa"
+import { PieDeRampa, conAyudasDe } from "./pie-rampa"
 import { useExplainExercise } from "./UseGameExplain"
 import {
   SLIDE_TRANSITION,
@@ -1266,7 +1266,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
   // Tabla y Saltear suben a una fila propia y el botón principal ocupa el ancho.
   // Con el experimento apagado el backend manda null y esto es false, o sea el
   // pie de siempre.
-  const conAyudas = player?.rampa === "ayudas"
+  const conAyudas = conAyudasDe(player?.rampa)
 
   // Pedir el texto. Suelto de la navegación porque el botón de reintentar, que
   // vive DENTRO de la pantalla del ¿Por qué?, tiene que volver a pedirlo sin
@@ -1766,6 +1766,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                     verTabla()
                   }}
                   onPorque={abrirPorque}
+                  keyboard={false}
                 />
               ) : (
               <div className="relative z-10 flex items-stretch gap-2">

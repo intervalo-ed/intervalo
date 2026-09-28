@@ -26,8 +26,9 @@ import { SkipForward, Table2 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { AnswerButton, type AnswerTone } from "./exercise-card"
+import { AnswerButton, KeyCap, type AnswerTone } from "./exercise-card"
 import { PorQueButton } from "./porque-panel"
+import { useTeclas } from "./teclas"
 
 // Una ayuda: contorno sobre el fondo y el ícono a la DERECHA de la palabra.
 //
@@ -40,11 +41,16 @@ function BotonDeAyuda({
   icono,
   onClick,
   disabled,
+  // El chip de la tecla, cuando hay teclado. Va DESPUÉS del ícono y no antes:
+  // el orden de lectura es qué hace, con qué se reconoce, y recién después el
+  // atajo, que es lo único de los tres que no hace falta para usar el botón.
+  atajo,
 }: {
   children: React.ReactNode
   icono: React.ReactNode
   onClick: () => void
   disabled?: boolean
+  atajo?: React.ReactNode
 }) {
   return (
     <Button
@@ -56,8 +62,30 @@ function BotonDeAyuda({
     >
       <span className="truncate">{children}</span>
       {icono}
+      {atajo}
     </Button>
   )
+}
+
+/** ¿Este brazo de `dx-rampa-1` ve la fila de Tabla y Saltear?
+ *
+ * **La regla vive acá y no repetida en los dos layouts**, que es como se rompio:
+ * los dos preguntaban `rampa === "ayudas"` y el cuarto brazo se quedaba sin la
+ * fila. `dx-rampa-1` es una ESCALERA —cada escalon agrega algo al anterior— y
+ * `bienvenida` es `ayudas` MAS la pantalla de intro, no otra cosa; asi lo dice
+ * `backend/game/rampa.py :: con_ayudas`, que ya incluia los dos.
+ *
+ * Lo que costaba: el cuarto brazo corria como «teclado + bienvenida» en vez de
+ * «ayudas + bienvenida», o sea dos cambios en direcciones opuestas a la vez, y
+ * su contraste contra `ayudas` no medía la pantalla de intro sino la pantalla de
+ * intro menos la fila de botones. Un contraste asi no se puede leer.
+ *
+ * Se compara contra el string que manda el server (`GamePlayerOut.rampa`) y no
+ * contra un enum del front a proposito: agregar un brazo alla tiene que ser un
+ * lugar donde venir a decidir si lleva la fila, no algo que el cliente adivine.
+ */
+export function conAyudasDe(rampa: string | null | undefined): boolean {
+  return rampa === "ayudas" || rampa === "bienvenida"
 }
 
 export function PieDeRampa({
@@ -73,6 +101,7 @@ export function PieDeRampa({
   onSkip,
   onTabla,
   onPorque,
+  keyboard = true,
   className,
 }: {
   tone: AnswerTone
@@ -90,8 +119,13 @@ export function PieDeRampa({
   onSkip: () => void
   onTabla: () => void
   onPorque: () => void
+  // Hay teclado físico. En el teléfono se toca y un chip con «alt + enter» al
+  // lado sería prometer un atajo que no existe — misma convención y mismo
+  // nombre que `TableButton` y `ChatButton`.
+  keyboard?: boolean
   className?: string
 }) {
+  const teclas = useTeclas()
   const principal = (
     <AnswerButton
       className="flex-1"
@@ -99,6 +133,7 @@ export function PieDeRampa({
       seq={seq}
       closed={closed}
       sinFlash={primerIntento}
+      showKeyHint={keyboard}
       disabled={principalDisabled}
       onClick={onPrincipal}
     />
@@ -108,23 +143,30 @@ export function PieDeRampa({
   // de una sola fila, que es el mismo que ve el brazo control.
   if (cerradoVisual) {
     return (
-      <div className={cn("relative z-10 flex items-stretch gap-2", className)}>
-        {hayPorque && <PorQueButton onClick={onPorque} blanco />}
+      <div className={cn("relative z-10 flex w-full items-stretch gap-2", className)}>
+        {hayPorque && (
+          <PorQueButton onClick={onPorque} showKeyHint={keyboard} blanco />
+        )}
         {principal}
       </div>
     )
   }
 
   return (
-    <div className={cn("relative z-10 flex flex-col gap-2", className)}>
+    <div className={cn("relative z-10 flex w-full flex-col gap-2", className)}>
       <div className="grid grid-cols-2 gap-2">
-        <BotonDeAyuda icono={<Table2 size={16} />} onClick={onTabla}>
+        <BotonDeAyuda
+          icono={<Table2 size={16} />}
+          onClick={onTabla}
+          atajo={keyboard ? <KeyCap>{teclas.alt}</KeyCap> : null}
+        >
           Tabla
         </BotonDeAyuda>
         <BotonDeAyuda
           icono={<SkipForward size={16} />}
           onClick={onSkip}
           disabled={skipDisabled}
+          atajo={keyboard ? <KeyCap>{teclas.altEnter}</KeyCap> : null}
         >
           Saltear
         </BotonDeAyuda>
@@ -135,7 +177,12 @@ export function PieDeRampa({
               ayudas de arriba por PESO —borde grueso y negrita— y no por tinte.
               El veredicto ya lo dicen el borde del campo y el cartel de abajo;
               decirlo una tercera vez en el botón era ruido. */}
-          <PorQueButton onClick={onPorque} plano className="w-full" />
+          <PorQueButton
+            onClick={onPorque}
+            showKeyHint={keyboard}
+            plano
+            className="w-full"
+          />
           {principal}
         </div>
       ) : (
