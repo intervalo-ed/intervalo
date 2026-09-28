@@ -86,6 +86,10 @@ def escenario(por_brazo: int, efecto_pp: float, semilla: int = 5):
             db.add(GamePlayer(
                 id=pid, alias=f"j{pid}", university=f["universidad"], theta=0.5,
                 n_updates=5, xp=10, unlocked_keys="pow", first_group_id=f["id"],
+                # El aparato no lo mira este experimento, pero sin él estas
+                # filas no son personas para el panel: una fila sin plataforma
+                # y sin cuenta es un script (game_queries.py :: _sin_cliente).
+                platform="android",
                 is_bot=False, created_at=cuando, last_seen_at=cuando))
             # Dos de cada tres llegan a que se les sirva una derivada, y uno de
             # cada seis vuelve otro día: son los guardarraíles, que se calculan

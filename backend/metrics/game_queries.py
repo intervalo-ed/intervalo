@@ -10,9 +10,12 @@ SQL portable sería peor código para el mismo resultado.
 **Definiciones que no se negocian.** Son las que, si se aflojan, convierten el
 panel en un generador de números lindos:
 
-  - **Estudiante** = fila de `game_players` con `is_bot = false`. Los sembrados
+  - **Estudiante** = fila de `game_players` con `is_bot = false` y que haya
+    pasado por nuestro cliente alguna vez (ver `_sin_cliente`). Los sembrados
     pueblan el ranking para que el primero en llegar tenga a quién escalar
-    (scripts/seed_game_bots.py); contarlos como gente inflaría todo.
+    (scripts/seed_game_bots.py); lo otro son scripts hablándole a la API. Las
+    dos cosas son filas de `game_players` que no son personas, y contarlas
+    infla todo.
   - **Respuesta** = intento con `parse_ok = true`. Lo que no parsea se registra
     igual pero vive en su propia sección: es fricción del input, no matemática.
   - **Derivada resuelta** = acierto. Un ejercicio se cierra al acertar o al
@@ -334,6 +337,46 @@ def _p(values: list[float], q: float) -> float | None:
     return round(s[lo] + (s[hi] - s[lo]) * (pos - lo), 1)
 
 
+def _sin_cliente(p: dict) -> bool:
+    """La fila la creó algo que no es el juego.
+
+    `game_players.platform` sale del header `X-Game-Platform`, y ese header lo
+    pone un middleware en TODOS los pedidos del cliente y no cada llamada a
+    mano (web/src/app/derivadas/game-api.ts), con un valor que `getPlatform()`
+    siempre devuelve —nunca nulo, siempre uno de los tres—. El server lo valida
+    contra un vocabulario cerrado y lo estampa al CREAR la fila
+    (game/router.py :: _platform). O sea que una fila sin plataforma es una
+    fila que nuestro cliente no pidió nunca.
+
+    **La cuenta también cuenta, y no alcanza con la plataforma.** Hay filas
+    viejas de gente registrada sin plataforma —jugadores creados por otro
+    camino, que nunca llegaron a pedir un ejercicio— y esas son personas. Un
+    script no tiene cuenta: no la puede tener sin pasar por Clerk.
+
+    **Por qué hace falta.** El 28/09 alguien corrió un script contra
+    producción: jugadores nuevos cada dos segundos, que contestan las cuatro
+    derivadas fijas del arranque y mandan `0` en la quinta, que es la primera
+    que elige el motor. Se comió 45 de los 62 activados de esa camada, y la
+    curva de profundidad mostró un derrumbe del 80% al 27% entre la derivada 5
+    y la 6 que no le pasó a ninguna persona. No fue la primera vez: la semana
+    del 21/09 tiene 50 filas iguales que nadie vio, porque esa tanda no llegó a
+    jugar y lo único que hizo fue inflar las altas —o sea, bajar la activación
+    sin que nadie se fuera—.
+
+    La regla se banca mirando la historia. Hay 118 filas sin plataforma en toda
+    la base: las 66 anteriores al 28/09 no respondieron una sola derivada ni
+    sumaron un punto de XP, y ninguna de las 118 donó un cafecito. Ocho tienen
+    cuenta y por eso se quedan; las otras 110 se van.
+
+    No se marca `is_bot` en la base y se resuelve acá a propósito. `is_bot`
+    quiere decir «sembrado del ranking» y tiene consecuencias de producto —la
+    simulación les mueve la XP sola (game/simulation.py)—, así que usarlo para
+    esto los pondría a escalar el ranking. Además esto no necesita escritura
+    ninguna: el dato ya está en la fila.
+    """
+    return p["platform"] is None and p["user_id"] is None
+
+
 # ── Carga ────────────────────────────────────────────────────────────────────
 
 def load(db: DBSession) -> dict:
@@ -455,15 +498,23 @@ def load(db: DBSession) -> dict:
             FROM game_survey_answers"""),
     }
 
-    # Los bots se sacan UNA vez, acá, y no en cada bloque: filtrar en diez
-    # lugares es la forma segura de olvidarse en el undécimo.
-    # Fuera en UN lugar y no en cada bloque, por lo mismo que los bots: filtrar
-    # en diez lugares es la forma segura de olvidarse en el undécimo. Se van los
-    # bots y se va todo lo anterior a la primera camada oficial (ver FIRST_WEEK).
+    # Quién no cuenta se decide en UN solo lugar y no en cada bloque: filtrar
+    # en diez lados es la forma segura de olvidarse en el undécimo. Son tres
+    # motivos distintos y por eso son tres conjuntos:
+    #
+    #   · los **sembrados**, que pueblan el ranking (seed_game_bots.py);
+    #   · las filas que **nuestro cliente nunca tocó**, que son scripts
+    #     hablándole a la API (ver `_sin_cliente`);
+    #   · y lo **anterior a la primera camada oficial** (ver FIRST_WEEK).
+    #
+    # Se cuentan por separado y no como un total, porque el día que uno de los
+    # tres crezca de golpe hay que poder ver cuál.
     crudos = data["players"]
-    fuera = {p["id"] for p in crudos
-             if p["is_bot"] or (local_date(p["created_at"]) or date.max) < FIRST_WEEK}
-    bots = {p["id"] for p in data["players"] if p["is_bot"]}
+    bots = {p["id"] for p in crudos if p["is_bot"]}
+    automatas = {p["id"] for p in crudos if _sin_cliente(p)}
+    previos = {p["id"] for p in crudos
+               if (local_date(p["created_at"]) or date.max) < FIRST_WEEK}
+    fuera = bots | automatas | previos
     data["players"] = [p for p in data["players"] if p["id"] not in fuera]
     data["exercises"] = [e for e in data["exercises"] if e["player_id"] not in fuera]
     data["attempts"] = [a for a in data["attempts"] if a["player_id"] not in fuera]
@@ -479,7 +530,8 @@ def load(db: DBSession) -> dict:
     data["boosts"] = [b for b in data["boosts"]
                       if (local_date(b["created_at"]) or date.min) >= FIRST_WEEK]
     data["_bots"] = len(bots)
-    data["_previos"] = len(fuera) - len(bots)
+    data["_sin_cliente"] = len(automatas - bots)
+    data["_previos"] = len(previos - bots - automatas)
     # Quién tiene cuenta, de TODOS los jugadores y no solo de los que quedaron.
     # Lo usa el embudo del agradecimiento: alguien de antes del corte puede
     # haber donado después, y con el mapa recortado se lo contaría como «donó
@@ -5243,6 +5295,7 @@ def build(db: DBSession, week: date, weeks_shown: int = 4,
             "estudiantes": len(data["players"]),
             "respuestas": len(data["_answers"]),
             "bots_excluidos": data["_bots"],
+            "sin_cliente_excluidos": data["_sin_cliente"],
         },
         "headline": headline(data, weeks, _motor, _opinion),
         "profundidad": profundidad(data, weeks, corte=corte, k_max=k_max),
