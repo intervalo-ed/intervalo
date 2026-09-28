@@ -27,6 +27,7 @@
     "check:salto": "bun run scripts/check-salto.ts",
     "check:ventana": "bun run scripts/check-ventana.ts",
     "check:cafecito": "bun run scripts/check-cafecito.ts",
+    "check:preconnect": "bun run scripts/check-preconnect.ts",
     "check:parser": "bun run scripts/check-parser.ts"
   },
   "dependencies": {

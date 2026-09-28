@@ -124,6 +124,7 @@ import {
   useGameUniversityLeaderboard,
   useMyBoost,
 } from "./UseGameLeaderboard"
+import { useDespuesDelArranque } from "./UseDespuesDelArranque"
 import { gameKeys, useGamePlayer, type GamePlayer } from "./UseGamePlayer"
 import { comboTrasIntento } from "./racha-estimate"
 import { vistaInicialDelRanking } from "./vuelta-universitaria"
@@ -468,9 +469,16 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
     abort: abortXp,
   } = useXpConteo({ onComplete: onBurstComplete })
 
+  // Los tres pedidos de abajo son precalentamientos: ninguno dibuja la primera
+  // pantalla, y los tres salían en el mismo instante que `player` y
+  // `bienvenida`, que sí la trancan. `arrancado` los corre hasta que el
+  // navegador termina lo urgente —no los saca: el motivo de cada uno sigue
+  // valiendo, y está escrito abajo—.
+  const arrancado = useDespuesDelArranque()
+
   // Late cada 10 s y refresca el ranking solo si alguien respondió algo. Se
   // pausa mientras dura el conteo: ahí el orden viejo tiene que quedarse quieto.
-  useGamePulse({ enabled: player !== null, paused: counting })
+  useGamePulse({ enabled: player !== null && arrancado, paused: counting })
 
   // La lista de universidades, tibia desde el arranque y no desde la primera
   // diapo de ranking. En el teléfono el ranking vive dentro de una diapo, así
@@ -478,7 +486,10 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
   // con dos correctas hechas tiene su PRIMERA vuelta universitaria en el acierto
   // siguiente, o sea sobre un esqueleto. Mismo scope que el que la diapo usa al
   // montarse (sin filtros), así que comparten la entrada de caché.
-  useGameUniversityLeaderboard({ university: ALL_SCOPE, career: ALL_SCOPE }, player !== null)
+  useGameUniversityLeaderboard(
+    { university: ALL_SCOPE, career: ALL_SCOPE },
+    player !== null && arrancado,
+  )
 
   // El empuje de la universidad sale del mismo pulso, sin pedido propio.
   const boost = useMyBoost(player?.university)
@@ -520,7 +531,12 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
   // Las novedades del juego. Se consultan siempre —el mismo latido que en
   // escritorio— para que en el momento de decidir el dato ya esté y no haya que
   // esperar una request con la persona mirando una pantalla en blanco.
-  const eventos = useGameEvents(true)
+  //
+  // Correrlas al final del arranque mueve además la línea de corte de lo que
+  // cuenta como novedad —la fija la PRIMERA lista que llega (`visto`, abajo)— y
+  // eso es un segundo, no un cambio de sentido: sigue siendo «lo que había
+  // cuando me senté a jugar».
+  const eventos = useGameEvents(arrancado)
 
   // El id de la última novedad que esta persona YA VIO. Arranca en null y se fija
   // con la primera lista que llega: lo que pasó antes de sentarse a jugar no es
