@@ -2631,7 +2631,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
 
     # ── 6a-quater · El experimento de ACTIVACIÓN: la rampa del teclado ──────
     #
-    # El único con TRES brazos y dos contrastes, así que la caja de estado no
+    # El único con CUATRO brazos y tres contrastes, así que la caja de estado no
     # alcanza con un veredicto: son dos escalones y cada uno tiene el suyo. Y el
     # segundo se declaró de antemano como ESTIMACIÓN y no como test, así que se
     # dibuja con su intervalo y no con un sí/no — un p-valor ahí invitaría a leer
@@ -2660,7 +2660,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
     elif falta > 0:
         estado = _caja_estado(
             f'Todavía no se puede leer — faltan {num(falta)} por brazo',
-            f'Van {num(total)} de los {num(3 * e["n_pedido"])} comprometidos '
+            f'Van {num(total)} de los {num(len(brazos) * e["n_pedido"])} comprometidos '
             f'({num(e["n_pedido"])} por brazo) y hay {num(e["abiertos"])} con la primera '
             f'tanda abierta, que se leen en media hora. El p-valor no se calcula hasta '
             f'llegar: mirar todos los días y parar en cuanto cruza '
@@ -2741,7 +2741,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
         ["", "Teclado − control", "Ayudas − teclado"], filas_dif,
         empty="todavía no hay con qué") if total else ""
 
-    # ── Los dos escalones ───────────────────────────────────────────────────
+    # ── Los escalones de la escalera, uno por contraste ─────────────────────
     filas_esc = []
     for esc_ in e["escalones"]:
         L = esc_["lectura"]
@@ -2839,7 +2839,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
                          'En PERSONAS y no en porcentaje: cuando el tratamiento toca la '
                          'entrada los brazos arrancan desde alturas distintas, y dos curvas '
                          'normalizadas se ven más diferentes justo cuando menos lo son.')
-             + _box("Los dos escalones de la escalera", tabla_esc,
+             + _box(f'Los {num(len(e["escalones"]))} escalones de la escalera', tabla_esc,
                     note=f'<b>Secuencia fija.</b> Se testea el teclado a alfa '
                          f'{num(e["alpha"], dec=2)} y las ayudas SOLO si el teclado rechaza. '
                          f'Eso controla el error familiar en {num(e["alpha"], dec=2)} sin '
@@ -2904,15 +2904,18 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
                   f'{num(100 * e["base"], "%", dec=2)} y efecto mínimo '
                   f'{num(e["mde_pp"], " pp", dec=0)}, alfa {num(e["alpha"], dec=2)}, '
                   f'potencia {num(100 * e["potencia"], "%", dec=0)} → '
-                  f'<b>{num(e["n_pedido"])} por brazo</b>, {num(3 * e["n_pedido"])} en '
-                  f'total. Tres brazos en ESCALERA —cada uno agrega una cosa al anterior— y '
-                  f'no un factorial: la celda «ayudas sin teclado» pediría el teclado '
-                  f'completo más dos filas de botones, y ese alto no existe. El espacio que '
-                  f'las ayudas necesitan lo libera el teclado.'
+                  f'<b>{num(e["n_pedido"])} por brazo</b>, '
+                  f'{num(len(brazos) * e["n_pedido"])} en total. {num(len(brazos))} brazos en '
+                  f'ESCALERA —cada uno agrega una cosa al anterior— y no un factorial: la '
+                  f'celda «ayudas sin teclado» pediría el teclado completo más dos filas de '
+                  f'botones, y ese alto no existe. El espacio que las ayudas necesitan lo '
+                  f'libera el teclado.'
                   f'<br><br><b>Predicción, escrita antes:</b> {esc(e["prediccion"])}'),
-        sub="Tres brazos y dos contrastes. Prueba las dos mitades de la misma frase: que el "
-            "teclado completo delante de alguien que no sabe de qué se trata es fricción, y "
-            "que un tropiezo deja de ser terminal si hay una salida que no es irse.",
+        sub=f'{num(len(brazos))} brazos y {num(len(e["escalones"]))} contrastes, cada uno '
+            f'contra el escalón anterior. Prueba que el teclado completo delante de alguien '
+            f'que no sabe de qué se trata es fricción, que un tropiezo deja de ser terminal '
+            f'si hay una salida que no es irse, y que decirle qué está pasando antes de la '
+            f'primera derivada lo trae a jugar.',
         anchor="experimento-rampa")
 
     # ── 6a-quinquies · El experimento de la BANDA OBJETIVO ──────────────────

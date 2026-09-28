@@ -3386,9 +3386,15 @@ EXPERIMENTO_RAMPA: dict = {
 # formalmente. Y encaja con la causalidad del diseño: las ayudas viajan montadas
 # sobre el teclado, así que preguntar por el segundo escalón cuando el primero no
 # existió no significa nada.
+# **Uno por escalón, y son TRES desde el 28/09.** El cuarto brazo entró el 27/09
+# y esta lista se quedó con dos: el arm se sorteaba, se trataba y aparecía en la
+# tabla, pero su contraste —lo único que ese brazo existe para producir— no se
+# calculaba nunca. Cada contraste es contra el escalón previo, que es lo que
+# «escalera» significa y lo que la declaración ya decía.
 CONTRASTES_RAMPA: tuple[tuple[str, str, str], ...] = (
     ("teclado", "control", "El teclado"),
     ("ayudas", "teclado", "Las ayudas, dado el teclado"),
+    ("bienvenida", "ayudas", "El arranque, dadas las ayudas"),
 )
 
 
@@ -3578,9 +3584,11 @@ def experimento_rampa(data: dict, now: datetime | None = None) -> dict:
         escalones.append({
             "titulo": titulo, "trat": trat, "ctrl": ctrl,
             "lectura": lectura, "afirmable": afirmable,
-            # Las ayudas no están powered en esta métrica y eso se declaró antes
-            # de ver un dato: se muestra como estimación con su intervalo.
-            "solo_estimacion": trat == "ayudas",
+            # Ni las ayudas ni el arranque están powered en esta métrica, y eso
+            # se declaró antes de ver un dato: se muestran como estimación con su
+            # intervalo. Solo el primer escalón —el teclado— tiene el n que su
+            # MDE pide; los de arriba heredan la muestra y no la potencia.
+            "solo_estimacion": trat in ("ayudas", "bienvenida"),
         })
 
     # ── El guardarraíl del Elo ──────────────────────────────────────────────

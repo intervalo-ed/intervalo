@@ -250,16 +250,21 @@ export function TopePanel({
         <p className="mx-auto max-w-sm text-sm leading-relaxed">
           Resolviste{" "}
           <span className="font-semibold tabular-nums" style={{ color: "#EABB74" }}>
-            {muro.hechas_hoy} derivadas
+            {muro.hechas_hoy === 1 ? "1 derivada" : `${muro.hechas_hoy} derivadas`}
           </span>
           {/* Los minutos salen solo si el servidor pudo calcularlos. Con cero
               —una sola respuesta, o un historial raro— la frase se acorta en vez
-              de decir «en 0 minutos», que se leería como una burla. */}
+              de decir «en 0 minutos», que se leería como una burla.
+
+              Y el singular se escribe: visto en producción, con el cupo hecho
+              rápido la frase decía «en 1 minutos». Es la misma regla que ya
+              aplican `cafecito-panel.tsx` con las horas y la diapo de reclutas
+              con las personas. */}
           {muro.minutos_jugando > 0 && (
             <>
               {" "}en{" "}
               <span className="font-semibold tabular-nums" style={{ color: "#EABB74" }}>
-                {muro.minutos_jugando} minutos
+                {muro.minutos_jugando === 1 ? "1 minuto" : `${muro.minutos_jugando} minutos`}
               </span>
             </>
           )}{" "}

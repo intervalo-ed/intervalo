@@ -1769,6 +1769,29 @@ _TODOS = (list(_pay["experimentos"])
              _pay["experimento_rampa"], _pay["experimento_banda"]]
           + list(_pay["experimentos_grupos"]))
 
+# ── La escalera de dx-rampa-1: un contraste por escalón ─────────────────────
+#
+# **Esto existe porque ya pasó.** El cuarto brazo entró el 27/09 y
+# `CONTRASTES_RAMPA` se quedó con dos entradas: el brazo se sorteaba, se trataba
+# y salía en la tabla, pero su contraste —lo único que ese brazo existe para
+# producir— no se calculaba nunca, y el panel seguía diciendo «tres brazos y dos
+# contrastes» mientras dibujaba cuatro filas. No lo atrapó nada durante un día.
+#
+# Una escalera de N brazos tiene N−1 escalones, y cada uno compara contra el
+# anterior. Las tres cosas se verifican porque las tres se pueden romper solas:
+# la cantidad, que es lo que pasó; el encadenado, que es lo que distingue una
+# escalera de una comparación contra el control; y el arranque.
+_BR = [c for c, _ in q.EXPERIMENTO_RAMPA["brazos"]]
+check("hay un contraste por escalón de la escalera",
+      len(q.CONTRASTES_RAMPA) == len(_BR) - 1,
+      f"({len(q.CONTRASTES_RAMPA)} contrastes para {len(_BR)} brazos)")
+check("y cada uno compara contra el escalón anterior",
+      [(t, c) for t, c, _ in q.CONTRASTES_RAMPA]
+      == [(_BR[i + 1], _BR[i]) for i in range(len(_BR) - 1)],
+      f"({[(t, c) for t, c, _ in q.CONTRASTES_RAMPA]})")
+check("y el primero arranca contra el control",
+      q.CONTRASTES_RAMPA[0][1] == _BR[0])
+
 check("la pestaña abre con el índice", 'id="indice"' in _idx)
 check("y con NADA más: el índice es la puerta, no un resumen arriba de lo mismo",
       _idx.count("<section") == 1, f'({_idx.count("<section")} secciones)')
