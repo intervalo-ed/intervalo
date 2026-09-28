@@ -284,7 +284,11 @@ print("6. saltear")
 db = database.SessionLocal()
 p = db.query(GamePlayer).filter(GamePlayer.id == player_id).first()
 p.theta = 1.6
+# Los dos contadores: el salteo prueba que el motor sirve algo mas facil, y
+# para eso tiene que poder elegir —o sea, estar fuera de la rampa, que mira
+# `exercises_attempted` (elo.max_tier_de)—.
 p.n_updates = 20
+p.exercises_attempted = 20
 p.current_combo = 4
 db.commit()
 theta_before = p.theta
@@ -326,6 +330,7 @@ db = database.SessionLocal()
 p = db.query(GamePlayer).filter(GamePlayer.id == player_id).first()
 p.theta = 1.2
 p.n_updates = 20
+p.exercises_attempted = 20
 p.current_combo = 3
 db.commit()
 antes = {

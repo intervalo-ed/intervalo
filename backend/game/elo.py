@@ -53,8 +53,38 @@ EPSILON = 0.15
 EXPLORE_LOW = 0.65
 EXPLORE_HIGH = 0.85
 
-# Rampa inicial: mientras n_updates < RAMP_UPDATES se restringe tier <= n_updates,
-# así el juego arranca en y=k, y=x aunque el θ inicial sea 0.
+# Rampa inicial: hasta la quinta RESPUESTA se restringe tier <= respuestas, así
+# el juego arranca en y=k, y=x aunque el θ inicial sea 0.
+#
+# **Cuenta respuestas y no updates de θ, y la diferencia no es cosmética.** Eran
+# el mismo número hasta que `rampa.SIN_ELO_HASTA` congeló `n_updates` en las tres
+# derivadas fijas del arranque (router.py :: _aplicar_elo sale antes de
+# incrementarlo). Desde ahí, leer `n_updates` acá dejaba el tope en 0 con tres
+# derivadas ya contestadas: la rampa pasó de cinco ejercicios a ocho, la cuarta
+# derivada de cualquiera volvía a ser `x` —la misma que la primera— y el motor no
+# elegía libre hasta la novena. Medido el 28/09: 31 de 31 recibieron T0 en la
+# cuarta, y la escalera salía en lockstep T0→T1→T2→T3 en vez de un rango donde
+# el motor elige por p̂. Nadie decidió eso; fue rebote.
+RAMP_RESPUESTAS = 5
+
+
+def max_tier_de(respuestas: int) -> int | None:
+    """El tope de tier de la rampa inicial, o None cuando ya no hay tope.
+
+    `respuestas` son las derivadas contestadas (`game_players.exercises_attempted`),
+    que es el mismo reloj que ya usan la rampa del teclado y `rampa.sin_elo`:
+    «la rampa mide PROGRESO, no exposición» (game/router.py). La función existe
+    para que el contador entre por la firma y pasarle `n_updates` sea algo que
+    haya que escribir a propósito.
+    """
+    return respuestas if respuestas < RAMP_RESPUESTAS else None
+
+
+# Desde cuándo el rating deja de ser provisorio. Esto SÍ cuenta updates de θ,
+# porque la pregunta es otra: no «qué le puedo servir» sino «¿θ se movió lo
+# suficiente como para publicarlo?» (ranking, eventos, `elo_ranked`). Vale lo
+# mismo que RAMP_RESPUESTAS y aun así son dos constantes, porque son dos
+# decisiones: el día que una se mueva, la otra no tiene por qué seguirla.
 RAMP_UPDATES = 5
 
 # Dificultad seed por tier. Con θ=0: T0 → p̂≈0.89, T5 → p̂≈0.24, T8 → p̂≈0.15.

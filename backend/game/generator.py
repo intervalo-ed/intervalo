@@ -241,8 +241,10 @@ def pick_template(
     # completa el piso de rating se evaporaría justo en el caso raro. Nunca queda
     # vacía —T0 no tiene piso—.
     permitidas = desbloqueadas(player)
-    if player.n_updates < elo.RAMP_UPDATES:
-        permitidas = [t for t in permitidas if t.tier <= player.n_updates] or permitidas
+    # Respuestas contestadas y NO `n_updates`: ver elo.max_tier_de.
+    tope_rampa = elo.max_tier_de(player.exercises_attempted)
+    if tope_rampa is not None:
+        permitidas = [t for t in permitidas if t.tier <= tope_rampa] or permitidas
     if max_tier is not None:
         # El tope del salteo se aplica ACÁ y no como un filtro más adelante: el
         # botón promete una más fácil, así que es parte de qué se puede servir y
