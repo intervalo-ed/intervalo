@@ -111,7 +111,12 @@ teléfono**, y las dos elecciones tienen un porqué medido:
   es un hallazgo: es el uso medido dos veces. El FCP se mide una sola vez y
   temprano, antes de que la persona haya hecho nada.
 - **Y para qué sirve el modelo.** De ahí sale la gama del aparato, que está
-  decidida antes de que la persona llegue. Es la única variable de exposición
+  decidida antes de que la persona llegue. Se pide por **Client Hints**
+  (`navigator.userAgentData.getHighEntropyValues(["model"])`) y no del
+  User-Agent: Chrome lo redujo y manda `(Linux; Android 10; K)` para todos los
+  teléfonos — 30.274 de 31.055 eventos de Android en 30 días, el 97,5%. La
+  primera versión leía el User-Agent y dejaba la columna vacía; se vio con las
+  dos primeras muestras reales de Android. Es la única variable de exposición
   exógena que hay, y con ella el resultado es que **la gama no predice el
   abandono**: dentro de Android, los teléfonos de entrada enganchan igual o
   mejor que los de gama alta, con 2,1 veces más de tiempo de pintura y 3 veces

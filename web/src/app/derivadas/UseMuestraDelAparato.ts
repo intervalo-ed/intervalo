@@ -31,20 +31,59 @@ import { useGameApi } from "./UseGameApi"
 // decisión y mismo motivo que `bootstrapStarted` en UseGamePlayer.ts.
 let yaMandada = false
 
-/** El modelo del teléfono, cuando el aparato lo dice.
+/** El modelo del teléfono según el User-Agent, que hoy casi nunca lo trae.
  *
- * Android lo pone en el User-Agent —`(Linux; Android 14; SM-A155M)`, con un
- * ` Build/…` pegado en las WebView— y iOS no lo pone nunca: ahí esta función
- * devuelve null y el dato se pide prestado al `os_version`, que iOS sí da.
+ * Chrome redujo el User-Agent y manda `(Linux; Android 10; K)` para todos los
+ * teléfonos: la `K` es una etiqueta de mentira que no distingue nada. Medido
+ * sobre 30 días de producción, **30.274 de 31.055 eventos de Android (97,5%)
+ * llegan así**. O sea que esta función sola dejaría la columna vacía.
  *
- * `K` es el modelo de mentira que Chrome manda desde que redujo el User-Agent.
- * Guardarlo sería llenar la columna de una etiqueta que no distingue nada. */
-export function modeloDelAparato(ua: string): string | null {
+ * Sigue acá como respaldo porque el User-Agent viejo todavía existe —WebViews y
+ * navegadores que no redujeron— y ahí sí trae el modelo, a veces con un
+ * ` Build/…` pegado. iOS no lo publica por ningún camino.
+ *
+ * El camino bueno es `modeloDelAparato`, abajo. */
+export function modeloSegunUserAgent(ua: string): string | null {
   const m = /Android\s[\d.]+;\s*([^;)]+)/.exec(ua)
   if (m === null) return null
   const modelo = m[1].replace(/\s+Build\/.*$/, "").trim()
   if (modelo === "" || modelo === "K") return null
   return modelo.slice(0, 64)
+}
+
+type ConHints = Navigator & {
+  userAgentData?: {
+    getHighEntropyValues?: (campos: string[]) => Promise<{ model?: string }>
+  }
+}
+
+/** El modelo del teléfono, pidiéndolo por Client Hints y cayendo al User-Agent.
+ *
+ * **Este es el único camino que funciona hoy.** Desde que Chrome redujo el
+ * User-Agent, el modelo real solo se consigue con
+ * `navigator.userAgentData.getHighEntropyValues(["model"])` — que es de dónde
+ * lo saca PostHog, y por eso PostHog conoce el modelo de 30.395 de 31.055
+ * eventos de Android mientras el User-Agent crudo de esos mismos eventos dice
+ * `K`.
+ *
+ * Devuelve null donde no hay nada que pedir: Safari y Firefox no implementan
+ * `userAgentData`, y iOS no publica el modelo por ningún camino. Eso es
+ * correcto y esperado — la gama del aparato es una pregunta que hoy solo
+ * Android contesta. */
+export async function modeloDelAparato(): Promise<string | null> {
+  try {
+    const nav = navigator as ConHints
+    const pedir = nav.userAgentData?.getHighEntropyValues
+    if (typeof pedir === "function") {
+      const datos = await pedir.call(nav.userAgentData, ["model"])
+      const modelo = (datos?.model ?? "").trim()
+      if (modelo !== "" && modelo !== "K") return modelo.slice(0, 64)
+    }
+  } catch {
+    // Los Client Hints pueden estar bloqueados por política de permisos. Ahí
+    // queda el respaldo de abajo, que es lo que había antes.
+  }
+  return modeloSegunUserAgent(navigator.userAgent)
 }
 
 /** El FCP en milisegundos, o null si este navegador no lo publica.
@@ -111,7 +150,7 @@ export function useMuestraDelAparato(listo: boolean, rescate: Rescate) {
     if (!listo || yaMandada) return
     yaMandada = true
     void (async () => {
-      const fcp = await esperarFcp()
+      const [fcp, modelo] = await Promise.all([esperarFcp(), modeloDelAparato()])
       // Sin await y con el error tragado, igual que el resto de la telemetría
       // del juego: que esto falle no puede ensuciar lo que la persona está
       // haciendo.
@@ -119,7 +158,7 @@ export function useMuestraDelAparato(listo: boolean, rescate: Rescate) {
         .POST("/game/derivemos/dispositivo", {
           body: {
             platform: getPlatform(),
-            device_model: modeloDelAparato(navigator.userAgent),
+            device_model: modelo,
             fcp_ms: fcp,
             dcl_ms: domContentLoaded(),
             sin_token_local: rescate.sinTokenLocal,

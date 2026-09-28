@@ -167,10 +167,23 @@ check([(m.sin_token_local, m.token_rescatado) for m in f]
       "las tres combinaciones llegan distintas a la base")
 
 print()
-print("6. el modelo se extrae del User-Agent como dice el front")
-# Espejo de `modeloDelAparato` en web/src/app/derivadas/UseMuestraDelAparato.ts.
-# La regex vive allá —el recorte pasa en el cliente para no guardar el
-# User-Agent entero— y acá se fija su contrato con casos reales de producción.
+print("6. el respaldo del User-Agent, y por qué es solo un respaldo")
+# Espejo de `modeloSegunUserAgent` en UseMuestraDelAparato.ts.
+#
+# **El camino principal NO es este.** Chrome redujo el User-Agent y manda
+# `(Linux; Android 10; K)` para todos los teléfonos: medido sobre 30 días de
+# producción, 30.274 de 31.055 eventos de Android (97,5%) llegan así. El modelo
+# real solo se consigue con
+# `navigator.userAgentData.getHighEntropyValues(["model"])`, y de ahí lo saca
+# también PostHog — por eso PostHog conoce el modelo de 30.395 de esos 31.055
+# eventos mientras el User-Agent crudo de los mismos dice `K`.
+#
+# La primera versión de esto usaba solo el User-Agent y dejaba la columna vacía.
+# Se vio en producción con las dos primeras muestras de Android reales.
+#
+# Lo que se fija acá es que el respaldo siga leyendo bien los User-Agent que
+# todavía traen modelo (WebViews, navegadores sin reducir) y que descarte la
+# `K`, que no distingue nada.
 RE = re.compile(r"Android\s[\d.]+;\s*([^;)]+)")
 
 
@@ -191,7 +204,8 @@ CASOS = [
     # WebView: el modelo viene pegado a su Build/, que no aporta nada.
     ("Mozilla/5.0 (Linux; Android 10; SM-A105M Build/QP1A.190711.020; wv)",
      "SM-A105M"),
-    # Chrome redujo el User-Agent y manda "K" para todos: no distingue nada.
+    # El 97,5% de Android llega así. Por eso el respaldo devuelve None acá y el
+    # modelo de verdad lo trae Client Hints.
     ("Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36", None),
     # iOS no publica el modelo nunca.
     ("Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15",
