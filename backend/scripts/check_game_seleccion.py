@@ -94,7 +94,13 @@ def corrida(theta: float, n: int, semilla: int) -> list[tuple[str, str]]:
         guest_token="tok%d" % semilla,
         alias="j%d" % semilla,
         theta=theta,
+        # Las dos, y no solo `n_updates`: el tope de tier de la rampa mira las
+        # respuestas contestadas (elo.max_tier_de) y no los updates de theta.
+        # En produccion avanzan juntos, asi que mover uno solo describe a un
+        # jugador que no puede existir —y este escenario lo necesita LEJOS de
+        # la rampa para que el motor pueda elegir entre todo el catalogo—.
         n_updates=elo.RAMP_UPDATES + 50,
+        exercises_attempted=elo.RAMP_UPDATES + 50,
     )
     db.add(player)
     db.commit()
@@ -136,7 +142,9 @@ print("2. Antes de repetir se ensancha la banda")
 # derivada un poco fuera de banda.
 db = database.SessionLocal()
 apretado = GamePlayer(
-    guest_token="apretado", alias="apretado", theta=3.0, n_updates=elo.RAMP_UPDATES + 50
+    guest_token="apretado", alias="apretado", theta=3.0,
+    n_updates=elo.RAMP_UPDATES + 50,
+    exercises_attempted=elo.RAMP_UPDATES + 50,
 )
 db.add(apretado)
 db.commit()
@@ -238,6 +246,7 @@ def primeros_tiers(theta, etiqueta, n=5):
     jugador = GamePlayer(
         guest_token="fresco-" + etiqueta, alias="fresco" + etiqueta,
         theta=theta, n_updates=elo.RAMP_UPDATES + 50,
+        exercises_attempted=elo.RAMP_UPDATES + 50,
     )
     db.add(jugador)
     db.commit()

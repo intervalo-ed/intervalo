@@ -96,10 +96,11 @@ VENTANA = 20
 
 # Con menos respuestas que estas no se ajusta nada: se guarda el voto y listo.
 #
-# Ocho es donde la rampa inicial ya quedó atrás (`elo.RAMP_UPDATES = 5`) y los
-# tres ejercicios fijos del arranque (`generator.ONBOARDING`) también. Antes de
-# ahí el registro no habla de la persona: habla de por dónde la hizo entrar el
-# juego.
+# Ocho deja atrás los tres ejercicios fijos del arranque
+# (`generator.ONBOARDING`) y la rampa inicial, que termina en la quinta
+# respuesta (`elo.RAMP_RESPUESTAS`), con dos derivadas de margen ya elegidas
+# por el motor. Antes de ahí el registro no habla de la persona: habla de por
+# dónde la hizo entrar el juego.
 MIN_RESPUESTAS = 8
 
 # Cuánta información "vale" el θ que la persona ya tiene. Es el encogimiento, y

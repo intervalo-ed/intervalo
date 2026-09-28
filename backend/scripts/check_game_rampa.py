@@ -64,6 +64,7 @@ from models import Base, GameExercise, GamePlayer  # noqa: E402
 Base.metadata.create_all(bind=database.engine)
 
 from fastapi.testclient import TestClient  # noqa: E402
+from game import elo  # noqa: E402
 from game import keyboard as kb  # noqa: E402
 from game import rampa  # noqa: E402
 from game.cycler import CyclingRandom  # noqa: E402
@@ -264,6 +265,16 @@ for brazo in rampa.BRAZOS:
     check(fila_j.exercises_attempted == rampa.SIN_ELO_HASTA,
           f"`{brazo}`: pero el contador de ejercicios SI avanzo",
           f"({fila_j.exercises_attempted})")
+    # Y la consecuencia, que es la que faltaba y por eso el bug entro sin que
+    # nada se pusiera en rojo: el tope de tier tiene que haber avanzado con las
+    # respuestas y no con theta. Leyendo `n_updates` —que es lo que hacia el
+    # generador— el tope queda en 0 con tres derivadas contestadas, y la rampa
+    # pasa de cinco ejercicios a ocho sin que nadie lo decida.
+    check(elo.max_tier_de(fila_j.exercises_attempted) == rampa.SIN_ELO_HASTA
+          and elo.max_tier_de(fila_j.n_updates) == 0,
+          f"`{brazo}`: y el tope de tier avanzo con el, no con theta",
+          f"(tope={elo.max_tier_de(fila_j.exercises_attempted)}, "
+          f"si mirara theta seria {elo.max_tier_de(fila_j.n_updates)})")
     # Y el siguiente sí lo mueve: si no, la rampa nunca terminaría.
     responder_forzado(j.id, h)
     db.expire_all()

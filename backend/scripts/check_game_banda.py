@@ -121,8 +121,11 @@ por_brazo: dict[str, list[float]] = {b: [] for b in banda.BRAZOS}
 # θ = 1,2 es donde hay catálogo de sobra a los dos lados, así que la banda puede
 # elegir y la diferencia mide la banda y no el techo.
 for pid in range(1, 61):
+    # `exercises_attempted` va al lado de `n_updates` porque el tope de tier
+    # de la rampa mira ese contador (elo.max_tier_de): sin el, estos sesenta
+    # jugadores quedarian en la rampa y el motor no podria elegir nada.
     p = GamePlayer(id=pid, alias=f"p{pid}", guest_token=f"t{pid}",
-                   theta=1.2, n_updates=60)
+                   theta=1.2, n_updates=60, exercises_attempted=60)
     db.add(p)
 db.commit()
 for pid in range(1, 61):
