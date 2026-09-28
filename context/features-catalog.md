@@ -1209,6 +1209,51 @@ Dos decisiones de vocabulario más, las dos con chequeo propio para que no vuelv
 solas: las rachas **alternan «errar» y «pifiar»** —la misma idea con dos
 registros, el doble de frases sin agregar ninguna— y **no se cuentan «al hilo»**.
 
+### El veredicto adelantado, y qué cuesta leerlo (`local-verdict.ts`)
+
+El color de la respuesta no espera al servidor. El cliente deriva el enunciado
+numéricamente, evalúa lo que escribió la persona en una grilla de diez puntos y
+decide ahí mismo; el servidor sigue siendo la autoridad y si alguna vez difieren
+la card se corrige sola. Se dispara en el **96,9%** de las respuestas de Android
+y en el **99,6%** de las primeras respuestas de cada persona, y lo que tapa es
+un viaje real: la mediana medida de ida y vuelta a Railway es de **436 ms** en
+Android y de **503 ms** en la gama de entrada.
+
+Por eso el veredicto local no necesita ser infalible: necesita ser **prudente**.
+Ante cualquier duda devuelve `null` y se espera como antes.
+
+**Hasta el 28/09 el parseo lo hacía `@cortex-js/compute-engine`**, un sistema de
+álgebra completo de 2.581 kB descomprimidos — el 46% de todo el JavaScript de
+`/derivadas` — usado para dos llamadas, las dos para convertir LaTeX en
+MathJSON. Y sobre un lenguaje que emitimos nosotros: el enunciado lo genera
+`game/generator.py` desde plantillas propias y la respuesta la escribe un teclado
+con teclas cerradas, así que 60 días de producción dan **18 comandos LaTeX
+distintos en 64.943 respuestas y 9 en 61.606 enunciados**.
+
+Ahora lo hace `latex-a-mathjson.ts`, que lee ese vocabulario y devuelve `null`
+ante cualquier otra cosa. Dos consecuencias además del peso:
+
+- **el parseo es sincrónico**, así que desapareció la ventana en la que el
+  motor todavía se estaba bajando y el veredicto no podía contestar aunque
+  quisiera. En un teléfono de gama de entrada esa ventana eran segundos, y caía
+  justo en la primera respuesta de la partida;
+- **se arregló un veredicto que estaba mal desde el 20/09.** compute-engine lee
+  `\ln{\left(x \right)}^{4}` como ln(x⁴), y la plantilla que lo genera
+  (`t8_pow_ln`) quiere decir (ln x)⁴ — el servidor espera `4*log(x)**3/x`. O
+  sea que el cliente venía derivando otra función: **677 ejercicios servidos a
+  43 personas, con 640 respuestas correctas que vieron un rojo** (y su sonido)
+  antes de que el servidor las corrigiera a verde medio segundo después.
+  `veredictoLocal` devuelve `false` y no `null` en cuanto un punto se desvía más
+  de 1e-3, así que era un veredicto seguro y equivocado.
+
+Lo que lo sostiene es `check:parser`: pasa las **16.451 respuestas y los 3.165
+enunciados distintos** de producción por el parser nuevo y por el motor viejo y
+exige que, donde los dos contestan, den el mismo número en la grilla. Además
+mide **cobertura** —94,5% del peso en respuestas, 99,0% en enunciados— porque un
+parser que contestara `null` a todo pasaría el chequeo en verde sin haber
+comprado nada. La única divergencia aceptada es la de arriba, y está fijada
+contra la derivada que espera el servidor y no contra el motor viejo.
+
 ## El chat (`game/chat.py`, `chat-panel.tsx`)
 
 Una sola columna donde se intercalan las novedades del sistema y lo que escribe

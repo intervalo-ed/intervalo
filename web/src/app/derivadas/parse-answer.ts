@@ -1,50 +1,34 @@
-// LaTeX del alumno → MathJSON con @cortex-js/compute-engine, en el cliente.
-// El server valida numéricamente contra SU derivada esperada, así que un
-// MathJSON malicioso solo puede perjudicar a quien lo manda. Import dinámico y
-// singleton: el motor pesa ~1MB y solo hace falta acá.
+// LaTeX del alumno → MathJSON, en el cliente.
+//
+// Hasta el 28/09 esto lo hacía `@cortex-js/compute-engine`: un sistema de
+// álgebra completo, **2.581 kB descomprimidos**, el 46% de todo el JavaScript
+// de /derivadas y el archivo más grande de la página con diferencia. Se usaba
+// para dos llamadas, las dos para lo mismo, y sobre un lenguaje que emitimos
+// nosotros: 18 comandos LaTeX distintos en 64.943 respuestas y 9 en 61.606
+// enunciados, medido sobre 60 días de producción.
+//
+// Ahora lo hace `latex-a-mathjson.ts`, que lee exactamente ese vocabulario y
+// devuelve null ante cualquier otra cosa. `check:parser` lo corre contra el
+// motor viejo sobre el corpus entero.
+//
+// **Y ahora es sincrónico**, que no es solo una simplificación. Antes había una
+// ventana real —la primera respuesta de la partida, mientras el motor de un
+// mega todavía bajaba y se compilaba— en la que el veredicto local no podía
+// contestar y había que esperar al servidor igual. En un teléfono de gama de
+// entrada esa ventana es de segundos. Ya no existe.
+//
+// El server sigue siendo la autoridad: valida numéricamente contra SU derivada
+// esperada, y si alguna vez difieren gana él (ver local-verdict.ts).
 
 import { normalizeAnswerLatex } from "./latex-normalize"
-
-type ComputeEngineLike = {
-  parse: (latex: string) => { json: unknown }
-}
-
-let cePromise: Promise<ComputeEngineLike> | null = null
-
-function engine(): Promise<ComputeEngineLike> {
-  cePromise ??= import("@cortex-js/compute-engine").then(
-    (m) => new m.ComputeEngine() as unknown as ComputeEngineLike,
-  )
-  return cePromise
-}
-
-// Precalentar el motor mientras la persona lee el primer enunciado.
-//
-// Con un parseo de mentira, no solo construyendo el motor: el diccionario de
-// LaTeX y la biblioteca estándar se arman perezosamente en el PRIMER parseo, así
-// que sin esto ese costo lo pagaba la primera respuesta de la partida, sincrónico
-// y con la persona esperando.
-export function warmupComputeEngine() {
-  void engine().then((ce) => {
-    try {
-      ce.parse("x^2")
-    } catch {
-      // Precalentar es una mejora, no un requisito.
-    }
-  })
-}
+import { latexAMathJson, type MathJson } from "./latex-a-mathjson"
 
 /** LaTeX crudo → MathJSON, sin normalizar. Para texto que ya viene del server. */
-export async function parseLatexToMathJson(latex: string): Promise<unknown> {
-  try {
-    const ce = await engine()
-    return ce.parse(latex).json
-  } catch {
-    return null
-  }
+export function parseLatexToMathJson(latex: string): MathJson | null {
+  return latexAMathJson(latex)
 }
 
-export async function parseAnswerToMathJson(latex: string): Promise<unknown> {
+export function parseAnswerToMathJson(latex: string): MathJson | null {
   // El server responde parse_ok=false y no consume intento.
-  return parseLatexToMathJson(normalizeAnswerLatex(latex))
+  return latexAMathJson(normalizeAnswerLatex(latex))
 }

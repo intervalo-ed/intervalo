@@ -89,6 +89,7 @@ jobs:
           bun run check:ventana
           bun run check:cafecito
           bun run check:preconnect
+          bun run check:parser
 
       - name: Build
         working-directory: web

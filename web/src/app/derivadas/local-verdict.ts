@@ -189,13 +189,17 @@ function derivadaEn(f: (x: number) => number | null, x: number): number | null {
 
 export type MuestrasEsperadas = { x: number; y: number }[]
 
-/** La derivada del enunciado evaluada en la grilla, o null si no se pudo. */
-export async function muestrasEsperadas(
-  promptLatex: string,
-): Promise<MuestrasEsperadas | null> {
+/** La derivada del enunciado evaluada en la grilla, o null si no se pudo.
+ *
+ * Sincrónica desde el 28/09: el parser propio no hay que bajarlo ni compilarlo
+ * (ver parse-answer.ts), así que las muestras están listas en el mismo render
+ * en que llega el ejercicio. Antes esto era una promesa y había una ventana
+ * real —de segundos en un teléfono de entrada— en la que el veredicto local no
+ * podía contestar todavía. */
+export function muestrasEsperadas(promptLatex: string): MuestrasEsperadas | null {
   // El enunciado viene en notación española (`\operatorname{sen}`, `\ln`), la
   // misma que normaliza lo que escribe el alumno.
-  const arbol = await parseLatexToMathJson(normalizeAnswerLatex(promptLatex))
+  const arbol = parseLatexToMathJson(normalizeAnswerLatex(promptLatex))
   if (arbol === null) return null
 
   const f = (x: number) => evaluarMathJson(arbol, x)
