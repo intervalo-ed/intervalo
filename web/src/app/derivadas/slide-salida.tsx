@@ -23,6 +23,7 @@
 import { createContext, useContext, useEffect, useState } from "react"
 import { createPortal } from "react-dom"
 import { useIsPresent } from "motion/react"
+import { cn } from "@/lib/utils"
 
 /** Si el hueco donde cae el botón es de la propia diapo o lo comparte con las
  *  demás.
@@ -50,6 +51,35 @@ export function useCuentaRegresiva(segundos: number): number {
     return () => clearInterval(t)
   }, [segundos])
   return restante
+}
+
+/** Cuánto se queda apagado el botón del pie cuando cambia de dueño.
+ *
+ *  El pie es el único lugar de la pantalla que NO cambia entre una diapo y la
+ *  siguiente: la caja de arriba se funde, y abajo queda un botón que dice lo
+ *  mismo antes y después. Sin nada que lo marque, el cambio de pantalla se lee
+ *  como que no pasó nada y el dedo puede tocar dos veces sin querer.
+ *
+ *  Así que el que entra aparece apagado y se enciende solo. Es un gesto de
+ *  enfriado —el mismo que tiene cualquier botón que acaba de hacer algo—, no un
+ *  bloqueo: el botón se puede tocar todo el tiempo, y Enter también. Apagarlo de
+ *  verdad sería tragarse la tecla de alguien que ya sabe a dónde va.
+ *
+ *  Medio segundo: alcanza para verlo prenderse y no llega a sentirse como espera.
+ *  Lo cubre entero la transición de opacidad, que es más lenta al encender
+ *  (`duration-500`) que al apagar, para que se lea como algo que vuelve y no
+ *  como un parpadeo. */
+const ENFRIADO_MS = 500
+
+/** True mientras dure el enfriado de ESTE montaje. Una diapo nueva monta su
+ *  `Salida` nueva, así que el enfriado corre una vez por diapo y se apaga solo. */
+function useEnfriado(aplica: boolean): boolean {
+  const [frio, setFrio] = useState(true)
+  useEffect(() => {
+    const t = setTimeout(() => setFrio(false), ENFRIADO_MS)
+    return () => clearTimeout(t)
+  }, [])
+  return aplica && frio
 }
 
 /** El botón de salida, puesto donde corresponda.
@@ -85,8 +115,27 @@ export function Salida({
 }) {
   const presente = useIsPresent()
   const propio = useContext(HuecoPropio)
+  // Solo en el pie COMPARTIDO. En el teléfono el botón se va de pantalla con su
+  // diapo y entra el de la que llega: ahí el cambio ya se ve, y apagar de paso
+  // el que entra sería ruido encima de un pase que se entiende solo.
+  const frio = useEnfriado(!propio && !!slot)
   if (!slot) return <>{children}</>
-  return presente || propio ? createPortal(children, slot) : null
+  if (!presente && !propio) return null
+  return createPortal(
+    propio ? (
+      children
+    ) : (
+      <div
+        className={cn(
+          "flex w-full transition-opacity duration-500",
+          frio && "opacity-40",
+        )}
+      >
+        {children}
+      </div>
+    ),
+    slot,
+  )
 }
 
 /** El hueco de abajo donde la diapo deja su botón de salir, en el teléfono.
