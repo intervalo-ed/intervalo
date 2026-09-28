@@ -333,6 +333,19 @@ export function useXpConteo({ onComplete }: { onComplete?: () => void } = {}) {
     (answer: GameAnswer) => {
       const xp = answer.xp_awarded
       setBase(answer.xp_total - xp)
+      // **El total pasa a ser el REAL, y eso no es prolijidad.** `counting` es
+      // `sumado < total`, y `total` lo había fijado la estimación: cuando el
+      // servidor paga MENOS que lo estimado, el conteo llega a su fin —termina
+      // en `xp`— pero `sumado < total` sigue siendo cierto, así que `counting`
+      // se queda en true para siempre. Y de `counting` cuelga el latido del
+      // ranking (`useGamePulse({ paused })`), o sea que la tabla dejaba de
+      // actualizarse hasta el próximo acierto, y la fila propia se quedaba
+      // mostrando el conteo en vez del dato del servidor.
+      //
+      // Pagar menos que lo estimado no es raro: `estimarXp` NO cubre
+      // `explained`, así que acertar después de leer el «¿Por qué?» estima la
+      // XP entera (20 en un t3) y el servidor paga XP_EXPLICADO, que son 3.
+      setTotal(xp)
       const partes = partesRef.current
       const totalActual = partes.reduce((a, b) => a + b, 0)
       if (xp === totalActual) return

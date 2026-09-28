@@ -42,6 +42,7 @@ import {
 } from "@/components/boost-banner"
 import { filaConEmpuje, levelColor } from "./game-colors"
 import { curvaDelSalto, duracionDelSalto, filasDelSalto } from "./salto-ranking"
+import { corrimientoDelBache, filaALaVista } from "./ventana-ranking"
 import { VERDE, fmtMultiplier } from "./cafecito-cta"
 import { EJEMPLOS_COUNT, EJEMPLOS_XP_TOTAL, ListaDeReclutas } from "./reclutas-list"
 import {
@@ -169,6 +170,17 @@ export type MemoriaDelRanking = {
 /** Una memoria en blanco: la de la derivada que recién empieza. */
 export function memoriaEnBlanco(): MemoriaDelRanking {
   return { mano: false, top: 0 }
+}
+
+/** Las filas de la lista con su id y su altura, en el orden en que están.
+ *
+ *  `data-pid` y no la posición: lo que hay que poder responder es «¿esta MISMA
+ *  fila sigue estando, y dónde?», y la posición es justamente lo que cambia. */
+function filasMedidas(el: HTMLElement): { id: number; y: number }[] {
+  return Array.from(el.querySelectorAll<HTMLElement>("li[data-pid]")).map((li) => ({
+    id: Number(li.dataset.pid),
+    y: li.offsetTop,
+  }))
 }
 
 // Dónde tiene que quedar el scroll para que la fila marcada como propia
@@ -894,6 +906,17 @@ function IndividualRanking({
       seen.add(entry.player_id)
       out.push(entry)
     }
+    // Y ordenada por puesto, que es lo que una lista de puestos es.
+    //
+    // No es redundante: las páginas NO llegan en orden. La primera se pide con
+    // `around_me` y las demás con un offset fijo, y al invalidar se refrescan
+    // todas con el parámetro con el que se pidieron — o sea que la ventana
+    // centrada se mueve con la persona y las de offset fijo se quedan donde
+    // estaban. Si alguien scrolleó hacia arriba y después acertó, el `flatMap`
+    // devolvía la página vieja primero: la lista quedaba con los puestos en
+    // zigzag y la fila propia AL FINAL, que además deja el salto sin filas por
+    // debajo para viajar (`disponibles`).
+    out.sort((a, b) => a.rank - b.rank)
     return out
   }, [data])
 
@@ -1044,8 +1067,11 @@ function IndividualRanking({
     manoRef.current = m.mano
     topRef.current = m.top
   }, [leerMemoria])
-  const prevTopRankRef = useRef<number | null>(null)
-  const prevHeightRef = useRef(0)
+  // La primera fila del commit anterior, con su altura dentro de la lista: el
+  // ancla que separa «entró un bache por arriba» de «esta es otra ventana». El
+  // por qué —y el número que se midió cuando las dos se confundían— está en
+  // ventana-ranking.ts.
+  const anclaRef = useRef<{ id: number; y: number } | null>(null)
 
   // Posición de descanso de la fila propia: a ROWS_ABOVE filas del techo, no en
   // el centro exacto. Se ancla contando filas y no con aritmética de píxeles
@@ -1087,7 +1113,18 @@ function IndividualRanking({
       const top = restingScrollTop()
       if (!el || top === null) return
       if (Math.abs(el.scrollTop - top) < 4) return
-      el.scrollTo({ top, behavior: smooth ? "smooth" : "auto" })
+      // Suave SOLO si la fila propia se está viendo. Si está fuera de la vista
+      // esto no es un acomodo cosmético sino la corrección que la trae de vuelta,
+      // y una corrección no se puede perder en un `smooth` que el navegador
+      // descarta cuando no hay fotogramas (ver `filaALaVista`).
+      const mine = el.querySelector<HTMLElement>("[data-current='true']")
+      const seVe =
+        mine !== null &&
+        filaALaVista(
+          { y: mine.offsetTop, alto: mine.offsetHeight },
+          { scroll: el.scrollTop, alto: el.clientHeight },
+        )
+      el.scrollTo({ top, behavior: smooth && seVe ? "smooth" : "auto" })
     },
     [restingScrollTop],
   )
@@ -1098,14 +1135,15 @@ function IndividualRanking({
   // apuntando a donde estaba la fila en la lista vieja.
   useEffect(() => {
     centeredRef.current = false
-    prevTopRankRef.current = null
-    prevHeightRef.current = 0
+    anclaRef.current = null
   }, [scope.university, scope.career, sort])
 
   useLayoutEffect(() => {
     const el = scrollRef.current
     if (!el || entries.length === 0) return
-    const firstRank = entries[0]?.rank ?? null
+    // Una sola pasada por el DOM: `offsetTop` no lo mueve el scroll, así que la
+    // misma medición sirve para compensar y para dejar el ancla nueva.
+    const filas = filasMedidas(el)
     if (!centeredRef.current) {
       // Con la mano puesta, montarse de nuevo no es entrar al ranking: es volver
       // a donde estabas. Restaurar en vez de centrar es toda la diferencia entre
@@ -1114,28 +1152,28 @@ function IndividualRanking({
       if (manoRef.current) el.scrollTop = topRef.current
       else snapToMe(false)
       centeredRef.current = true
-    } else if (
-      prevTopRankRef.current !== null &&
-      firstRank !== null &&
-      firstRank < prevTopRankRef.current
-    ) {
+    } else {
       // Llegó un bache por arriba: la lista creció hacia atrás, así que hay que
-      // compensar el scroll o el contenido salta bajo el cursor.
-      el.scrollTop += el.scrollHeight - prevHeightRef.current
+      // compensar el scroll o el contenido salta bajo el cursor. Se compensa por
+      // lo que se corrió EL ANCLA y no por lo que creció la lista: si el ancla ya
+      // no está, esto no es un bache sino una ventana nueva —la que `around_me`
+      // trae cuando la persona cambia de puesto— y ahí el scroll viejo no apunta
+      // a nada que compensar.
+      const corrimiento = corrimientoDelBache(anclaRef.current, filas)
+      if (corrimiento !== 0) el.scrollTop += corrimiento
     }
-    prevTopRankRef.current = firstRank
-    prevHeightRef.current = el.scrollHeight
+    anclaRef.current = filas[0] ?? null
     // Con dependencias, no en cada render.
     //
-    // Sin ellas esto corría después de CADA pintado, y lee `scrollHeight`, que
-    // obliga al navegador a recalcular el layout en el acto. Durante el festejo
-    // son catorce renders en menos de dos segundos, cada uno con su reflujo
-    // forzado intercalado entre las escrituras de motion — justo lo que hace que
-    // el momento de acertar se sienta trabado.
+    // Sin ellas esto corría después de CADA pintado, y mide el `offsetTop` de
+    // todas las filas, que obliga al navegador a recalcular el layout en el
+    // acto. Durante el festejo son catorce renders en menos de dos segundos,
+    // cada uno con su reflujo forzado intercalado entre las escrituras de motion
+    // — justo lo que hace que el momento de acertar se sienta trabado.
     //
-    // Lo único que puede mover el alto de la lista o el puesto de la primera
-    // fila es que cambien las filas, así que `entries` es toda la dependencia
-    // que hace falta. La XP en vuelo no cambia ninguna de las dos cosas.
+    // Lo único que puede mover a las filas de altura, o cambiar cuáles son, es
+    // que cambien las filas, así que `entries` es toda la dependencia que hace
+    // falta. La XP en vuelo no cambia ninguna de las dos cosas.
   }, [entries, snapToMe])
 
   // ── El scroll durante el salto ─────────────────────────────────────────────
@@ -1519,6 +1557,11 @@ const Row = memo(function Row({
             : tweenDelSalto(saltoMs)
       }
       data-current={mine ? "true" : undefined}
+      // De quién es esta fila, para poder preguntarle al DOM si una fila que ya
+      // estaba sigue estando y a qué altura (ver ventana-ranking.ts). Va en el
+      // DOM y no en un `useMemo` sobre `entries` porque lo que hace falta es la
+      // altura MEDIDA, que solo el navegador sabe.
+      data-pid={entry.player_id}
       className={cn(
         "flex items-center gap-3 rounded-lg px-4 py-3 ring-1 ring-foreground/10",
         mine && MINE_ROW_CLASS,
