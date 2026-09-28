@@ -48,6 +48,81 @@ Producto aparte, con identidad y economía propias pero la misma tabla de
 cafecitos. Lo único documentado acá es **cómo elige qué ejercicio servir**, que
 es la mecánica que gobierna la experiencia entera:
 
+### Quién es cada uno cuando vuelve (la cookie `dx_token`, desde el 28/09)
+
+El juego se juega sin cuenta, así que toda la identidad de la mayoría de la
+gente es un `guest_token` en el `localStorage`. Eso tenía una fuga grande y
+silenciosa: **Safari borra todo el almacenamiento escribible por script de un
+sitio al que no se vuelve en siete días**, y sin token guardado cada carga de
+página se anota como un jugador nuevo — `reglas-trigger.ts` ya lo decía con
+todas las letras, como un detalle sin consecuencias.
+
+Las consecuencias, medidas el 28/09 sobre la base propia desde el 14/09:
+
+| | Escritorio | iOS | Android |
+|---|---:|---:|---:|
+| se le sirvió la 1ª derivada | 80,6% | **58,1%** | 76,5% |
+| engancha, dado que se le sirvió | 58,2% | 57,5% | 59,3% |
+| vuelve otro día, dado que enganchó | 12,5% | **13,6%** | **27,5%** |
+
+La fila del medio es la que orienta: **una vez que la derivada aparece, las tres
+plataformas se comportan igual**. Nadie se va por culpa de iOS jugando. Toda la
+pérdida está en el escalón anterior, y una sola mecánica explica sus dos
+mitades — filas nuevas que nunca resuelven nada, y vueltas que no se cuentan
+como vueltas.
+
+**El arreglo es una cookie, y hay dos detalles que no son detalles.** La pone el
+servidor en un `Set-Cookie`, que no entra en el tope de siete días (ese tope es
+sobre lo que escribe un script). Y la pone `intervalo.xyz` y **no la API**: la
+API vive en otro origen, así que su cookie sería de tercera parte y Safari las
+bloquea enteras. De ahí que el juego tenga el primer route handler de Next
+bajo `/api` de toda la app (`app/api/dx/token/route.ts`; los que ya había
+generan íconos), con su `DELETE` para que cerrar sesión no deje al invitado
+viejo listo para resucitar.
+
+La cookie se lee **del lado del servidor** en `app/derivadas/page.tsx` y viaja
+como prop hasta `GameRoot`, que la adopta en el inicializador de un `useState`
+— antes de `useGamePlayer`, porque si el token se adopta después el alta ya
+salió sin él y el server creó el jugador nuevo que esto viene a evitar. Pedirla
+con un `fetch` habría costado un viaje de red entero en el arranque, y
+justamente a quien menos lo puede pagar.
+
+**Y es a la vez la medición.** Cada apertura escribe una fila en
+`game_device_samples` con dos banderas: `sin_token_local` (llegó sin token) y
+`token_rescatado` (la cookie lo devolvió). La proporción entre las dos dice
+cuántas de las «altas» de iOS eran vueltas, que es el número que hace falta para
+saber si esto alcanzó.
+
+### Con qué aparato juega cada uno (`game_device_samples`)
+
+La misma fila guarda **el FCP de la primera pintura** y **el modelo del
+teléfono**, y las dos elecciones tienen un porqué medido:
+
+- **Por qué no alcanza PostHog, que ya mide web vitals.** Pierde el 11% del
+  tráfico: quien entra con Brave, Firefox u Opera manda el `$pageview` y
+  después casi nada — el 54,9% de ellos no deja ni un `game_start`, contra el
+  1,6% del resto. Es el mismo motivo por el que los carteles se escriben en las
+  dos puntas (`game_cta_events`), y acá pesa más.
+- **Por qué el FCP y no el LCP o el INP.** Los dos crecen con el uso: el LCP
+  deja de actualizarse recién en la primera interacción, y el INP de una
+  persona es el PEOR de todos sus toques — quien juega doscientas derivadas
+  tiene doscientas oportunidades de que uno salga lento. Cortando por cuartil de
+  LCP, el cuartil «más lento» enganchaba **25 puntos MÁS** que el rápido. Eso no
+  es un hallazgo: es el uso medido dos veces. El FCP se mide una sola vez y
+  temprano, antes de que la persona haya hecho nada.
+- **Y para qué sirve el modelo.** De ahí sale la gama del aparato, que está
+  decidida antes de que la persona llegue. Es la única variable de exposición
+  exógena que hay, y con ella el resultado es que **la gama no predice el
+  abandono**: dentro de Android, los teléfonos de entrada enganchan igual o
+  mejor que los de gama alta, con 2,1 veces más de tiempo de pintura y 3 veces
+  más de CPU.
+
+El endpoint **recorta y no rechaza** (`/dispositivo`, 204 siempre). Un 422 no
+descartaría el campo raro sino la fila entera, y con ella las dos banderas del
+rescate, que son lo caro. Una pestaña abierta en segundo plano y pintada una
+hora después manda un FCP de tres millones y medio, y esa visita tiene que
+contar igual.
+
 ### La puerta, y los dos experimentos que la corrieron
 
 Entre aterrizar y ver la primera derivada no hay nada: el logo quieto, el saludo,

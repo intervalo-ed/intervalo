@@ -86,6 +86,7 @@ jobs:
           bun run check:latex
           bun run check:restante
           bun run check:salto
+          bun run check:ventana
           bun run check:cafecito
           bun run check:preconnect
 
