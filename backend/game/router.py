@@ -22,6 +22,7 @@ from sqlalchemy.orm import Session, load_only
 from models import (
     GameAttempt,
     GameCtaEvent,
+    GameDeviceSample,
     GameDifficultyVote,
     GameRepetitionVote,
     GameExercise,
@@ -87,6 +88,7 @@ from .schemas import (
     GameCafecitoCheckoutRequest,
     GameCafecitoStatus,
     GameCtaRequest,
+    GameDeviceRequest,
     GameEventOut,
     GameNovedadOut,
     GameEventsResponse,
@@ -2325,6 +2327,72 @@ def record_cta(
             # persona la cambia mañana, el cartel de hoy se lo mostramos con la
             # que tenía hoy.
             university=player.university,
+            created_at=datetime.utcnow(),
+        )
+    )
+    db.commit()
+    return None
+
+
+# ── El aparato con el que se abre el juego ─────────────────────────
+
+_PLATAFORMAS = ("ios", "android", "desktop")
+
+# Diez minutos. Más que eso no es una medición de nada: es una pestaña que
+# estuvo en segundo plano y recién se pintó cuando la trajeron al frente. Se
+# recorta en vez de descartarse para que la visita cuente igual —lo caro de la
+# fila son las banderas del rescate, no el milisegundo— y para que ningún
+# percentil se lo coma.
+_TOPE_MS = 600_000
+
+
+def _ms(valor: int | None) -> int | None:
+    return None if valor is None else min(valor, _TOPE_MS)
+
+
+@router.post(
+    "/dispositivo",
+    status_code=204,
+    # Una fila por apertura, sin deduplicación del lado del server: el cliente
+    # ya manda una sola por sesión. El tope es por si eso se rompe.
+    dependencies=[Depends(limits.por_jugador(10, "dispositivo"))],
+)
+def record_device(
+    body: GameDeviceRequest,
+    player: GamePlayer = Depends(get_current_player),
+    db: Session = Depends(get_db),
+):
+    """Registra con qué aparato se abrió el juego y cuánto tardó en pintar.
+
+    **Por qué acá y no en PostHog, que ya mide web vitals.** Porque PostHog
+    pierde el 11% del tráfico —Brave, Firefox y Opera: el 54,9% de quienes
+    entran por ahí no dejan ni un `game_start`, contra el 1,6% del resto— y ese
+    11% es justo el que una medición de rendimiento no se puede dar el lujo de
+    perder. Es el mismo motivo por el que los carteles se escriben en las dos
+    puntas (`game_cta_events`), y acá pesa más todavía.
+
+    **Y por qué el FCP y no el LCP.** El LCP deja de actualizarse recién en la
+    primera interacción y el INP de una persona es el peor de todos sus toques:
+    los dos crecen con cuánto jugó, así que correlacionarlos con engancharse es
+    medir el uso dos veces —cortando por cuartil de LCP, el cuartil más lento
+    engancha 25 puntos MÁS—. La primera pintura se mide una sola vez y
+    temprano, antes de que la persona haya hecho nada, y por eso sí se puede
+    cruzar contra el desenlace.
+
+    Devuelve 204 y no falla por contenido, igual que `/cta`: es telemetría, y
+    una telemetría que puede tirar un error en medio de una partida es peor que
+    no tenerla.
+    """
+    plat = body.platform if body.platform in _PLATAFORMAS else None
+    db.add(
+        GameDeviceSample(
+            player_id=player.id,
+            platform=plat,
+            device_model=(body.device_model or None) and body.device_model[:64],
+            fcp_ms=_ms(body.fcp_ms),
+            dcl_ms=_ms(body.dcl_ms),
+            sin_token_local=body.sin_token_local,
+            token_rescatado=body.token_rescatado,
             created_at=datetime.utcnow(),
         )
     )

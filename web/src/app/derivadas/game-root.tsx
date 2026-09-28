@@ -4,12 +4,14 @@
 // flujo infinito de slides; desktop = todo en una vista. `usePlatform` devuelve
 // null hasta montar (SSR), así que hasta ahí se muestra el fondo pelado.
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import dynamic from "next/dynamic"
 import { getPlatform, usePlatform } from "@/lib/platform/detect"
+import { adoptarTokenDeRescate } from "./game-storage"
 import { GameIntroBackdrop, useGameIntro } from "./game-intro"
 import { useApplyDesiredAlias } from "./register-slides"
 import { useGamePlayer } from "./UseGamePlayer"
+import { useMuestraDelAparato } from "./UseMuestraDelAparato"
 
 // Cada plataforma se baja SOLO su layout.
 //
@@ -46,9 +48,20 @@ if (typeof window !== "undefined") {
     : import("./mobile-flow"))
 }
 
-export function GameRoot() {
+export function GameRoot({ tokenDeRescate }: { tokenDeRescate: string | null }) {
   const platform = usePlatform()
+
+  // ANTES de `useGamePlayer`, y por eso está acá arriba y no en un efecto: si
+  // el token se adopta después, el alta ya salió sin él y el server creó un
+  // jugador nuevo —que es justamente lo que esto viene a evitar—. En un
+  // inicializador de `useState` corre una sola vez por montaje, durante el
+  // primer render, que es la ventana que hay.
+  const [rescate] = useState(() => adoptarTokenDeRescate(tokenDeRescate))
   const { player, refetch } = useGamePlayer()
+
+  // Con qué aparato entró y cuánto tardó en pintar. Espera a que haya jugador
+  // porque la fila se firma con él; el FCP ya pasó y queda en el buffer.
+  useMuestraDelAparato(player !== null, rescate)
   const applyDesiredAlias = useApplyDesiredAlias()
   const appliedRef = useRef(false)
   // La presentación corre en cada ingreso, con o sin sesión (el splash de

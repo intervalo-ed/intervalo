@@ -1529,6 +1529,79 @@ class GameCtaEvent(Base):
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow, index=True)
 
 
+class GameDeviceSample(Base):
+    """Con qué aparato se abrió el juego y cuánto tardó en pintar la primera vez.
+
+    Existe porque las dos fuentes que decían algo de esto viven afuera y
+    ninguna de las dos sirve para lo que hace falta:
+
+    · **PostHog pierde el 11% del tráfico.** Quien entra con Brave, Firefox u
+      Opera manda el `$pageview` y después casi nada: el 54,9% de ellos no deja
+      ni un `game_start`, contra el 1,6% del resto. Es el 11% más celoso de la
+      base, probablemente solapado con el que más se queja, y es exactamente el
+      que una medición de rendimiento no se puede dar el lujo de perder.
+
+    · **El LCP y el INP por persona crecen con el uso.** El LCP deja de
+      actualizarse recién en la primera interacción, y el INP de alguien es el
+      PEOR de todos sus toques: quien juega doscientas derivadas tiene
+      doscientas oportunidades de que uno salga lento, quien se va a los diez
+      segundos tiene tres. Cortando por ellos, el cuartil «más lento» enganchaba
+      25 puntos MÁS que el rápido. Eso no es un hallazgo, es medir el uso dos
+      veces.
+
+    Por eso acá se guarda **la primera pintura** —una sola vez, temprano, antes
+    de que la persona haya hecho nada— y **el modelo del aparato**, que está
+    decidido antes de que llegue. Las dos son anteriores al desenlace, que es la
+    única forma de cruzarlas contra él sin que la correlación salga al revés.
+
+    **Una fila por apertura y no por jugador.** La pregunta que esta tabla
+    contesta es semanal —«¿mejoró esta semana?»— y alguien que vuelve en marzo
+    con otro teléfono es una medición nueva, no la de agosto corregida.
+    """
+
+    __tablename__ = "game_device_samples"
+
+    id = Column(Integer, primary_key=True, index=True)
+    player_id = Column(Integer, ForeignKey("game_players.id"), nullable=True, index=True)
+
+    # "ios" | "android" | "desktop", el mismo vocabulario de
+    # `game_players.platform` y por el mismo motivo: lo manda el cliente, no se
+    # deduce del User-Agent (un iPad se reporta como Macintosh).
+    platform = Column(String(8), nullable=True, index=True)
+
+    # El modelo, solo cuando el aparato lo dice: Android lo pone en el
+    # User-Agent ("SM-A155M", "moto g24 power") y iOS no lo pone nunca. Se
+    # recorta en el cliente y viaja ya extraído, no el User-Agent entero: de ahí
+    # lo único que se quiere es la gama del teléfono, y guardar la cadena
+    # completa sería guardar de más para siempre.
+    device_model = Column(String(64), nullable=True, index=True)
+
+    # First Contentful Paint en milisegundos: cuánto tardó en aparecer lo
+    # primero. Es LA medida del aparato, y es la que no se contamina con lo que
+    # la persona haga después.
+    fcp_ms = Column(Integer, nullable=True)
+    # Cuándo terminó de parsearse el HTML con su JavaScript. Sirve para separar
+    # «tarda en llegar» de «tarda en compilar», que se arreglan distinto.
+    dcl_ms = Column(Integer, nullable=True)
+
+    # Esta visita arrancó SIN el token en localStorage. No es lo mismo que ser
+    # nuevo: Safari borra el almacenamiento de un sitio al que no se vuelve en
+    # siete días, y sin token cada carga de página se anota como un jugador
+    # nuevo (lo dice `reglas-trigger.ts`, y explica de una sola vez por qué iOS
+    # tiene el 41,9% de sus filas sin una derivada servida y por qué retiene la
+    # mitad que Android).
+    sin_token_local = Column(Boolean, nullable=False, default=False,
+                             server_default="false")
+    # …y la cookie de primera parte sí estaba, así que la identidad se recuperó
+    # en vez de crear un jugador nuevo. La proporción de este contra el de
+    # arriba ES la medición: cuántas de las «altas» de iOS eran en realidad
+    # vueltas.
+    token_rescatado = Column(Boolean, nullable=False, default=False,
+                             server_default="false")
+
+    created_at = Column(DateTime, nullable=False, default=datetime.utcnow, index=True)
+
+
 class GameDifficultyVote(Base):
     """Qué le pareció la dificultad a la persona, y qué hizo el motor con eso.
 

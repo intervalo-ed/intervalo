@@ -612,6 +612,45 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/game/derivemos/dispositivo": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Record Device
+         * @description Registra con qué aparato se abrió el juego y cuánto tardó en pintar.
+         *
+         *     **Por qué acá y no en PostHog, que ya mide web vitals.** Porque PostHog
+         *     pierde el 11% del tráfico —Brave, Firefox y Opera: el 54,9% de quienes
+         *     entran por ahí no dejan ni un `game_start`, contra el 1,6% del resto— y ese
+         *     11% es justo el que una medición de rendimiento no se puede dar el lujo de
+         *     perder. Es el mismo motivo por el que los carteles se escriben en las dos
+         *     puntas (`game_cta_events`), y acá pesa más todavía.
+         *
+         *     **Y por qué el FCP y no el LCP.** El LCP deja de actualizarse recién en la
+         *     primera interacción y el INP de una persona es el peor de todos sus toques:
+         *     los dos crecen con cuánto jugó, así que correlacionarlos con engancharse es
+         *     medir el uso dos veces —cortando por cuartil de LCP, el cuartil más lento
+         *     engancha 25 puntos MÁS—. La primera pintura se mide una sola vez y
+         *     temprano, antes de que la persona haya hecho nada, y por eso sí se puede
+         *     cruzar contra el desenlace.
+         *
+         *     Devuelve 204 y no falla por contenido, igual que `/cta`: es telemetría, y
+         *     una telemetría que puede tirar un error en medio de una partida es peor que
+         *     no tenerla.
+         */
+        post: operations["record_device_game_derivemos_dispositivo_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/game/derivemos/opinion": {
         parameters: {
             query?: never;
@@ -2232,6 +2271,41 @@ export interface components {
             placement?: string | null;
             /** Solved */
             solved?: number | null;
+        };
+        /**
+         * GameDeviceRequest
+         * @description Con qué aparato se abrió el juego. Todo opcional: el cliente manda lo que
+         *     puede medir y el server no discute.
+         *
+         *     **Los límites son a propósito grandes y el recorte pasa en el endpoint.**
+         *     La tentación es validar fino acá —`le=600_000`, `max_length=64`— y eso
+         *     estaría mal: un 422 no recorta el campo raro, pierde la FILA ENTERA, y con
+         *     ella las dos banderas del rescate, que son el dato más caro de esta tabla.
+         *     Una pestaña abierta en segundo plano y pintada una hora después manda un
+         *     FCP de tres millones y medio, y esa visita tiene que contar igual.
+         *
+         *     Lo que sí vive acá es el techo que no puede entrar en un Integer de
+         *     Postgres: más allá de eso no hay fila que salvar, solo un 500 en el commit.
+         */
+        GameDeviceRequest: {
+            /** Platform */
+            platform?: string | null;
+            /** Device Model */
+            device_model?: string | null;
+            /** Fcp Ms */
+            fcp_ms?: number | null;
+            /** Dcl Ms */
+            dcl_ms?: number | null;
+            /**
+             * Sin Token Local
+             * @default false
+             */
+            sin_token_local: boolean;
+            /**
+             * Token Rescatado
+             * @default false
+             */
+            token_rescatado: boolean;
         };
         /**
          * GameEncuestaOut
@@ -4309,6 +4383,40 @@ export interface operations {
         requestBody: {
             content: {
                 "application/json": components["schemas"]["GameCtaRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    record_device_game_derivemos_dispositivo_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+                "x-game-token"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["GameDeviceRequest"];
             };
         };
         responses: {

@@ -664,6 +664,29 @@ class GameCtaRequest(BaseModel):
     solved: Optional[int] = Field(default=None, ge=0, le=1_000_000)
 
 
+class GameDeviceRequest(BaseModel):
+    """Con qué aparato se abrió el juego. Todo opcional: el cliente manda lo que
+    puede medir y el server no discute.
+
+    **Los límites son a propósito grandes y el recorte pasa en el endpoint.**
+    La tentación es validar fino acá —`le=600_000`, `max_length=64`— y eso
+    estaría mal: un 422 no recorta el campo raro, pierde la FILA ENTERA, y con
+    ella las dos banderas del rescate, que son el dato más caro de esta tabla.
+    Una pestaña abierta en segundo plano y pintada una hora después manda un
+    FCP de tres millones y medio, y esa visita tiene que contar igual.
+
+    Lo que sí vive acá es el techo que no puede entrar en un Integer de
+    Postgres: más allá de eso no hay fila que salvar, solo un 500 en el commit.
+    """
+
+    platform: Optional[str] = Field(default=None, max_length=8)
+    device_model: Optional[str] = Field(default=None, max_length=4000)
+    fcp_ms: Optional[int] = Field(default=None, ge=0, le=2_000_000_000)
+    dcl_ms: Optional[int] = Field(default=None, ge=0, le=2_000_000_000)
+    sin_token_local: bool = False
+    token_rescatado: bool = False
+
+
 class GameOpinionRequest(BaseModel):
     """La encuesta de dificultad, en dos pasos.
 
