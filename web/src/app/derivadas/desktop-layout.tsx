@@ -96,7 +96,7 @@ import {
   STRIP_ROW,
   columnaDeTira,
 } from "./math-keyboard"
-import { PieDeRampa } from "./pie-rampa"
+import { PieDeRampa, conAyudasDe } from "./pie-rampa"
 import { Barra, Hueco } from "@/components/skeleton-barra"
 import { parseAnswerToMathJson, warmupComputeEngine } from "./parse-answer"
 import { useLocalVerdict } from "./UseLocalVerdict"
@@ -1449,7 +1449,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   // físico sigue andando— pero la fila de ayudas sí, y eso deja un contraste
   // regalado: acá `control` y `teclado` son idénticos, así que juntarlos y
   // compararlos contra `ayudas` mide las ayudas SOLAS, sin teclado de por medio.
-  const conAyudas = player?.rampa === "ayudas"
+  const conAyudas = conAyudasDe(player?.rampa)
 
   const toggleTable = useCallback(() => {
     sfx.select()

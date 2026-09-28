@@ -67,6 +67,27 @@ function BotonDeAyuda({
   )
 }
 
+/** ¿Este brazo de `dx-rampa-1` ve la fila de Tabla y Saltear?
+ *
+ * **La regla vive acá y no repetida en los dos layouts**, que es como se rompio:
+ * los dos preguntaban `rampa === "ayudas"` y el cuarto brazo se quedaba sin la
+ * fila. `dx-rampa-1` es una ESCALERA —cada escalon agrega algo al anterior— y
+ * `bienvenida` es `ayudas` MAS la pantalla de intro, no otra cosa; asi lo dice
+ * `backend/game/rampa.py :: con_ayudas`, que ya incluia los dos.
+ *
+ * Lo que costaba: el cuarto brazo corria como «teclado + bienvenida» en vez de
+ * «ayudas + bienvenida», o sea dos cambios en direcciones opuestas a la vez, y
+ * su contraste contra `ayudas` no medía la pantalla de intro sino la pantalla de
+ * intro menos la fila de botones. Un contraste asi no se puede leer.
+ *
+ * Se compara contra el string que manda el server (`GamePlayerOut.rampa`) y no
+ * contra un enum del front a proposito: agregar un brazo alla tiene que ser un
+ * lugar donde venir a decidir si lleva la fila, no algo que el cliente adivine.
+ */
+export function conAyudasDe(rampa: string | null | undefined): boolean {
+  return rampa === "ayudas" || rampa === "bienvenida"
+}
+
 export function PieDeRampa({
   tone,
   seq,
