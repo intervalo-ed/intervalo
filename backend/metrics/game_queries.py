@@ -2855,14 +2855,38 @@ def experimento_banda(data: dict, now: datetime | None = None) -> dict:
     if listo and len(brazos) == 2:
         lectura = _contraste_prop(brazos[1], brazos[0], exp["alpha"])
 
-    # El guardarraíl que se lee SIEMPRE y ANTES: si llegar a votar depende del
-    # brazo, el contraste de arriba no mide la banda, mide quién sobrevivió.
+    # ── Los dos guardarraíles, que se leen SIEMPRE y ANTES que el resultado ──
+    #
+    # **Ninguno lleva corrección por multiplicidad, y es deliberado.** Corregir
+    # α sube la vara para DETECTAR, y un guardarraíl existe para frenar daño: un
+    # Bonferroni acá no protege de nada, hace más difícil darse cuenta de que la
+    # banda lastima. La corrección aplica cuando varias pruebas compiten por
+    # declarar un éxito, y estas dos no declaran ninguno.
+
+    # 1 · Si llegar a votar depende del brazo, el contraste primario no mide la
+    # banda: mide quién sobrevivió hasta la pregunta.
     llegada = None
     if all(b["inscriptos"] for b in brazos):
         llegada = _contraste_prop(
             {"n": brazos[1]["inscriptos"], "exitos": brazos[1]["n"]},
             {"n": brazos[0]["inscriptos"], "exitos": brazos[0]["n"]},
             exp["alpha"])
+
+    # 2 · Que la banda no se haya corrido de más. Base 1,8%, y **se lee de UN
+    # SOLO LADO**: lo único que importa es que suba. Con el z de dos colas
+    # haría falta 1,96 para decir «esto lastima», que son 0,025 de error por el
+    # lado que interesa — el doble de exigente justo donde conviene equivocarse
+    # por precavido. Un salto de +10 pp se ve con 99 por brazo contra los 272 de
+    # la primaria, así que este guardarraíl puede hablar bastante antes.
+    dano = None
+    if all(b["n"] for b in brazos):
+        dano = _contraste_prop(
+            {"n": brazos[1]["n"], "exitos": brazos[1]["muy_dificil"]},
+            {"n": brazos[0]["n"], "exitos": brazos[0]["muy_dificil"]},
+            exp["alpha"])
+        if dano is not None:
+            dano["rechaza"] = dano["z"] > _z_de(1 - exp["alpha"])
+            dano["una_cola"] = True
 
     return {
         **_ficha(exp),
@@ -2872,7 +2896,11 @@ def experimento_banda(data: dict, now: datetime | None = None) -> dict:
         "mde_pp": abs(round(100 * exp["mde"], 1)),
         "alpha": exp["alpha"], "potencia": exp["potencia"],
         "n_pedido": n_pedido, "brazos": brazos,
-        "listo": listo, "lectura": lectura, "llegada": llegada,
+        "listo": listo, "lectura": lectura, "llegada": llegada, "dano": dano,
+        # El n al que cada guardarraíl empieza a ver su efecto de interés. Va en
+        # el payload y no en un comentario porque es lo que justifica leerlos
+        # antes: si el número no está a la vista, «se lee antes» es una frase.
+        "n_dano": n_comprometido({**exp, "base": 0.018, "mde": 0.10}),
         "encendido": game_banda.habilitado(),
         "sin_arrancar": sum(b["inscriptos"] for b in brazos) == 0,
         "bandas": {c: game_banda.BANDAS[c] for c, _ in exp["brazos"]},

@@ -2992,6 +2992,19 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
                'la llegada y dejar votando solo a los más fuertes. No está pasando.'),
             "pierde" if roto else "gana")
 
+    # El otro guardarraíl: que la banda no se haya corrido de más.
+    D = e["dano"]
+    caja_dano = ""
+    if D is not None and D["rechaza"]:
+        caja_dano = _caja_estado(
+            f'La banda se corrió de más: {num(D["delta_pp"], " pp")} de «muy difícil»',
+            f'z = {num(D["z"], dec=2)}, una cola, p-valor {_p_txt(D["p_valor"] / 2)}. '
+            f'Se lee de un solo lado porque lo único que importa es que suba, y con '
+            f'{num(e["n_dano"])} por brazo ya se ve un salto de 10 pp — un tercio de lo '
+            f'que pide la primaria. <b>Esto se mira antes que el resultado</b>: una banda '
+            f'que expulsa no se compensa con que los que quedan la sientan mejor.',
+            "pierde")
+
     tabla_brazos = _table(
         ["Brazo", "Banda", "Inscriptos", "Votaron", "Llega", "«muy fácil» ▸",
          "«justo»", "«muy difícil»", "p̂ al votar", "Derivadas", "% salteo", "Faltan"],
@@ -3009,7 +3022,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
 
     bloque_de[e["clave"]] = _section(
         1, "El motor: a qué dificultad apuntamos",
-        _box(esc(e["titulo"]), estado + caja_llegada + tabla_brazos,
+        _box(esc(e["titulo"]), estado + caja_dano + caja_llegada + tabla_brazos,
              note='«muy fácil» es la métrica y va marcada. Las otras dos columnas de voto '
                   'no son decoración: <b>«muy difícil» es el guardarraíl</b> —si la banda '
                   'se corre de más eso se dispara antes que cualquier otra cosa— y «justo» '
