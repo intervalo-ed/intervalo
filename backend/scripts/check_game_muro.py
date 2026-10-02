@@ -358,8 +358,11 @@ from metrics.game_queries import EXPERIMENTO_MURO, _alta_en_el_muro  # noqa: E40
 DESDE = muro.ARRANQUE
 T = muro.TOPE_DIARIO
 
-check(EXPERIMENTO_MURO["desde"] == muro.ARRANQUE,
-      "el panel inscribe desde la MISMA fecha que define quién participa")
+# El panel puede abrir la inscripción DESPUÉS del arranque —lo hace desde el
+# 02/10, ver `LECTURA_DESDE`— y nunca antes: antes inscribiría gente que el
+# servidor no topea.
+check(EXPERIMENTO_MURO["desde"] >= muro.ARRANQUE,
+      "el panel nunca inscribe antes de la fecha que define quién participa")
 
 # **`>=` y no `>`, y de esto depende que el experimento exista.** En el brazo
 # tratado el contador no puede pasar del tope porque el servidor corta justo
@@ -466,7 +469,11 @@ from metrics.game_queries import experimento_muro  # noqa: E402
 
 # El dato mínimo que el bloque necesita: dos personas del MISMO brazo, una nueva
 # y una vieja, las dos con un día que llega al tope después del arranque.
-_dia = datetime(DESDE.year, DESDE.month, DESDE.day, 15, 0, 0)
+# El día en que los dos llegan al tope es uno que el PANEL ya lee: desde el
+# 02/10 su inscripción abre después del arranque (`LECTURA_DESDE`), así que un
+# día entre las dos fechas no inscribiría a nadie y el chequeo mediría eso.
+_ABRE = EXPERIMENTO_MURO["desde"]
+_dia = datetime(_ABRE.year, _ABRE.month, _ABRE.day, 15, 0, 0)
 _fake = {
     "players": [
         {"id": CON_MURO.id, "is_bot": False, "xp": 100,

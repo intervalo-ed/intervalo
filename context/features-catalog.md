@@ -404,6 +404,17 @@ arranque contra puerta vacía» sino «pantalla de arranque contra una puerta qu
 ya explica el producto», y los tres primeros brazos tampoco son comparables con
 sus propios inscriptos anteriores.
 
+**El panel ya parte la serie: los experimentos abiertos del juego se leen desde
+el lunes 05/10** (`metrics/game_queries.py :: LECTURA_DESDE`). Vale para
+`dx-rampa-1`, `dx-banda-1` y `dx-muro-1`: lo inscripto antes no entra a ningún
+resultado. Es un filtro del PANEL y no mueve nada del juego —quién está en qué
+brazo, quién ve la pantalla de arranque (`rampa.NACIDO_DESPUES_DE`) y quién
+tiene tope (`muro.ARRANQUE`) siguen como estaban—. En `dx-muro-1` eso separa
+dos fechas que antes eran una: el panel inscribe desde el 05/10 a un
+subconjunto de los que el servidor topea desde el 27/09, nunca al revés.
+`dx-ab-imagen` no se movió: es de difusión, por grupos, y nada de este cambio
+le toca la métrica.
+
 Un detalle que hay que respetar si alguna vez se toca de nuevo: **`sorteo.brazo_de`
 reparte con `% len(BRAZOS)`**, así que sumar o sacar un brazo re-sortea a todo el
 mundo. El cuarto entró el 27/09, con cero inscriptos, que es la única ventana en
