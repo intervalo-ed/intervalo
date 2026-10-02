@@ -18,7 +18,7 @@
 // poder compararse sin una tabla de traducción en el medio.
 
 import { useEffect, useRef, useState } from "react"
-import { motion, useReducedMotion } from "motion/react"
+import { motion, useIsPresent, useReducedMotion } from "motion/react"
 import posthog from "posthog-js"
 
 import { cn } from "@/lib/utils"
@@ -27,7 +27,7 @@ import { useSfx } from "@/lib/audio/useSfx"
 import { useGameApi } from "./UseGameApi"
 import { KeyCap } from "./exercise-card"
 import { Salida } from "./slide-salida"
-import { enCampoDeTexto, useTeclas } from "./teclas"
+import { digitoDe, enCampoDeTexto, enCampoHtml, useTeclas } from "./teclas"
 
 export type VotoDificultad = "muy_facil" | "justo" | "muy_dificil"
 
@@ -42,20 +42,30 @@ const OPCIONES: { voto: VotoDificultad; emoji: string; texto: string }[] = [
   { voto: "muy_dificil", emoji: "🤯", texto: "Muy difíciles" },
 ]
 
-/** Qué se le dice después de votar.
- *
- * Tres líneas cortas y ninguna promesa. El ajuste solo sale cuando el registro
- * de la persona respalda lo que dijo, así que «anotado» es la respuesta más
- * frecuente y tiene que poder leerse como una respuesta completa y no como un
- * consuelo.
- *
- * Sin mencionar XP jamás, que es la regla de context/writing-voice.md: agradecer
- * con una recompensa convierte la encuesta en un trámite pago y arruina el dato.
- */
-function respuesta(delta: number): string {
-  if (delta > 0) return "Te subimos la vara."
-  if (delta < 0) return "Te bajamos un poco la vara."
-  return "Anotado."
+// El renglón que aparece debajo apenas se elige una opción, y cambia si se
+// cambia de opción. Es la respuesta del juego a lo que la persona acaba de
+// decir: sin él, tocar una opción solo la pintaba y no se sabía si eso servía
+// para algo.
+//
+// Hubo uno parecido que se fue —«Anotado.», «Te subimos la vara.»— y se fue por
+// dos motivos que este esquiva. Salía DESPUÉS de mandar el voto, y hoy el voto
+// no se manda hasta Continuar; este depende solo de lo elegido, así que no
+// espera a nadie. Y el más frecuente era «Anotado.», que acusaba recibo sin
+// decir nada; estos dicen qué va a pasar.
+//
+// En primera del plural, como el subtítulo («Ajustemos la dificultad»): la
+// dificultad se decide entre los dos, y el renglón es la mitad del juego
+// contestando.
+//
+// **Prometen más de lo que el servidor garantiza, y es una decisión de
+// producto.** El voto decide el signo del ajuste y el registro de la persona
+// decide el tamaño (backend/game/opinion.py): quien dice «muy fáciles» sin
+// venir ganándole al motor no se mueve. «Aumentamos» es cierto para quien tiene
+// el registro que lo respalda y es una intención para el resto.
+const RESPUESTA: Record<VotoDificultad, string> = {
+  muy_facil: "Aumentamos entonces.",
+  justo: "La dejamos igual entonces.",
+  muy_dificil: "Bajamos entonces.",
 }
 
 export function OpinionSlide({
@@ -87,7 +97,6 @@ export function OpinionSlide({
   const teclas = useTeclas()
   const reduce = useReducedMotion()
   const [votado, setVotado] = useState<VotoDificultad | null>(null)
-  const [linea, setLinea] = useState<string | null>(null)
 
   useEffect(() => {
     posthog.capture("game_opinion_shown")
@@ -102,64 +111,95 @@ export function OpinionSlide({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  async function votar(voto: VotoDificultad) {
-    if (votado) return
-    setVotado(voto)
+  // **Elegir no es contestar.** El primer toque marcaba la opción, mandaba el
+  // voto y apagaba las otras dos: quien se equivocaba de renglón —o cambiaba de
+  // idea al verlas juntas— no tenía forma de corregir, y el dato que quedaba en
+  // la base era el error. Ahora el toque solo marca, se puede cambiar todas las
+  // veces, y lo que manda es Continuar.
+  function elegir(voto: VotoDificultad) {
     sfx.select()
-    posthog.capture("game_opinion_answered", { voto })
-    try {
-      const { data } = await api.POST("/game/derivemos/opinion", {
-        body: { accion: "answer", voto },
-      })
-      setLinea(respuesta(data?.delta_theta ?? 0))
-    } catch {
-      // Si el POST se pierde, el voto se perdió y no hay nada que prometer.
-      setLinea("Anotado.")
+    setVotado(voto)
+  }
+
+  /** Confirmar: manda lo elegido —si hay algo— y sigue.
+   *
+   *  Sin `await`: la pantalla se va en este mismo toque y no hay nada que
+   *  mostrar con la respuesta. Si el POST se pierde, se perdió un voto; frenar
+   *  la partida por eso sería cobrar el error dos veces. */
+  function confirmar() {
+    // Un solo Continuar por aparición, venga del teclado o del botón: desde que
+    // el voto se manda acá, el segundo toque mandaba un segundo voto.
+    if (seguidoRef.current) return
+    seguidoRef.current = true
+    const voto = votadoRef.current
+    if (voto !== null) {
+      posthog.capture("game_opinion_answered", { voto })
+      void api
+        .POST("/game/derivemos/opinion", { body: { accion: "answer", voto } })
+        .catch(() => {})
     }
+    onContinue(voto !== null)
   }
 
   // El listener vive en `document` y `votar` se redefine en cada render, así que
   // se lo alcanza por ref en vez de meterlo en las dependencias: con `votar` en
   // la lista, el efecto se desarma y se rearma en cada tecla. Es el mismo
   // mecanismo que reclutas-panel.tsx.
-  const votarRef = useRef(votar)
+  const votarRef = useRef(elegir)
   useEffect(() => {
-    votarRef.current = votar
+    votarRef.current = elegir
   })
   // Y lo mismo con «¿votó?», por el mismo motivo: el listener de Enter se arma
   // con `[keyboard, onContinue]` en las dependencias, así que leer `votado`
   // directo desde ahí daría el valor que tenía cuando se armó —siempre `null`—
   // y todo Continuar por teclado contaría como salteo.
-  const contestoRef = useRef(false)
+  const votadoRef = useRef<VotoDificultad | null>(null)
   useEffect(() => {
-    contestoRef.current = votado !== null
+    votadoRef.current = votado
+  })
+  const confirmarRef = useRef(confirmar)
+  useEffect(() => {
+    confirmarRef.current = confirmar
   })
   // Un solo Continuar por aparición: un teclado que repite mandaría dos, y el
   // segundo caería sobre la derivada siguiente.
   const seguidoRef = useRef(false)
 
+  // Solo mientras la diapo ESTÁ: el fundido de salida la deja montada 220 ms, y
+  // en captura esos 220 ms le robaban el primer dígito a la derivada siguiente.
+  const presente = useIsPresent()
   useEffect(() => {
-    if (!keyboard) return
+    if (!keyboard || !presente) return
     const onKey = (e: KeyboardEvent) => {
       // Escribiendo en el chat, un 2 es un 2. Este listener vive en `document` y
       // la diapo puede estar abierta con el aside volteado al chat.
-      if (enCampoDeTexto(e.target)) return
       if (e.metaKey || e.ctrlKey || e.altKey) return
       if (e.key === "Enter") {
+        // El Enter de un desplegable es del desplegable: lo abre y lo cierra.
+        if (enCampoDeTexto(e.target)) return
         e.preventDefault()
-        if (seguidoRef.current) return
-        seguidoRef.current = true
-        onContinue(contestoRef.current)
+        e.stopPropagation()
+        confirmarRef.current()
         return
       }
-      const i = TECLAS.indexOf(e.key)
-      if (i === -1) return
+      // Los números solo ceden ante un campo de texto de verdad (el chat). Ni
+      // un filtro del ranking con el foco ni el campo de la respuesta, que
+      // queda enfocado debajo de la diapo, se los pueden quedar.
+      if (enCampoHtml(e.target)) return
+      const n = digitoDe(e)
+      if (n === null || n > OPCIONES.length) return
+      const i = n - 1
       e.preventDefault()
-      void votarRef.current(OPCIONES[i].voto)
+      e.stopPropagation()
+      votarRef.current(OPCIONES[i].voto)
     }
-    document.addEventListener("keydown", onKey)
-    return () => document.removeEventListener("keydown", onKey)
-  }, [keyboard, onContinue])
+    // EN CAPTURA, y parando la tecla usada. El campo de la respuesta conserva el
+    // foco debajo de esta diapo y MathLive no deja burbujear sus teclas: en
+    // burbuja el 1, el 2 y el 3 se escribían en un campo que no se ve y acá no
+    // llegaban. Ver `teclas.ts :: enCampoHtml`.
+    document.addEventListener("keydown", onKey, true)
+    return () => document.removeEventListener("keydown", onKey, true)
+  }, [keyboard, onContinue, presente])
 
   return (
     <div
@@ -173,10 +213,23 @@ export function OpinionSlide({
         className,
       )}
     >
-      <div className="space-y-2 text-center">
-        <h2 className="text-xl font-semibold">¿Cómo te vienen resultando?</h2>
-        <p className="text-sm text-muted-foreground">
-          Nos sirve para elegir mejor qué mostrarte.
+      <div className="text-center">
+        {/* Dos palabras y nada más.
+         *
+         *  Antes decía «¿Cómo te vienen resultando?» con un subtítulo que explicaba
+         *  para qué servía contestar. Las dos cosas eran lenguaje de producto:
+         *  «resultando» no se dice hablando, y el subtítulo justificaba la
+         *  pregunta ante alguien que todavía no había decidido si le molestaba.
+         *
+         *  Las tres opciones de abajo ya dicen de qué se trata —muy fáciles,
+         *  justas, muy difíciles—, así que el título no tiene que acotar nada.
+         *
+         *  El subtítulo volvió, pero con otro trabajo: no explica para qué
+         *  sirve contestar, dice qué se va a hacer con la respuesta. Es lo que
+         *  le da sentido al renglón que aparece abajo al elegir. */}
+        <h2 className="text-xl font-semibold">¿Cómo venís?</h2>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Ajustemos la dificultad.
         </p>
       </div>
 
@@ -189,8 +242,7 @@ export function OpinionSlide({
           <motion.button
             key={o.voto}
             type="button"
-            disabled={votado !== null}
-            onClick={() => void votar(o.voto)}
+            onClick={() => elegir(o.voto)}
             // Entran escalonadas, de arriba abajo: es el orden en que se leen, y
             // el retraso hace que la lista se lea COMO una lista y no como un
             // bloque que apareció de golpe.
@@ -214,10 +266,9 @@ export function OpinionSlide({
               delay: reduce || votado !== null ? 0 : 0.05 * i,
               ease: "easeOut",
             }}
-            whileTap={reduce || votado !== null ? undefined : { scale: 0.97 }}
+            whileTap={reduce ? undefined : { scale: 0.97 }}
             className={cn(
-              "relative flex items-center justify-center gap-3 rounded-lg border px-4 py-3 transition-colors",
-              votado === null && "hover:border-chart-5 hover:bg-accent/40",
+              "relative flex items-center justify-center gap-3 rounded-lg border px-4 py-3 transition-colors hover:border-chart-5 hover:bg-accent/40",
               votado === o.voto && "border-chart-5 bg-accent/40",
             )}
           >
@@ -234,20 +285,15 @@ export function OpinionSlide({
         ))}
       </div>
 
-      {/* El alto se reserva desde el principio: sin esto, la línea de respuesta
-          aparece y empuja los tres botones justo cuando la persona acaba de
-          tocar uno. */}
-      <div className="min-h-5 text-center text-sm text-muted-foreground">
-        {linea && (
-          <motion.p
-            initial={reduce ? false : { opacity: 0, y: 4 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: reduce ? 0 : 0.25, ease: "easeOut" }}
-          >
-            {linea}
-          </motion.p>
-        )}
-      </div>
+      {/* El alto se reserva desde el principio: sin esto, el renglón aparece y
+          empuja las tres opciones justo cuando la persona acaba de tocar una.
+          `aria-live` para que un lector de pantalla también lo diga. */}
+      <p
+        aria-live="polite"
+        className="min-h-5 text-center text-sm text-muted-foreground"
+      >
+        {votado !== null ? RESPUESTA[votado] : null}
+      </p>
 
       <Salida slot={slotSalida}>
         {/* Blanco, como el Continuar del resto del juego, y no el gris de salida
@@ -256,7 +302,7 @@ export function OpinionSlide({
             bajarle el volumen. Mismo botón que la cara de vuelta del cafecito. */}
         <button
           type="button"
-          onClick={() => onContinue(votado !== null)}
+          onClick={confirmar}
           className={cn(
             "flex w-full items-center justify-center rounded-md bg-white text-base font-semibold text-black transition-colors hover:bg-white/90",
             slotSalida ? "h-[var(--cta-h)]" : "mt-3 px-4 py-3",

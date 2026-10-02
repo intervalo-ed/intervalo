@@ -32,7 +32,7 @@ from __future__ import annotations
 VARITA = "varita_v1"
 
 PREGUNTAS: dict[str, str] = {
-    VARITA: "Si tuvieras una varita mágica, ¿qué le cambiarías o le agregarías al juego?",
+    VARITA: "Si tuvieras una varita mágica, ¿qué le cambiarías o le agregarías a Intervalo?",
 }
 
 # Cuál se está haciendo hoy. Una sola a la vez: dos preguntas abiertas en la

@@ -58,7 +58,15 @@ function BotonDeAyuda({
       variant="outline"
       disabled={disabled}
       onClick={onClick}
-      className="h-[var(--cta-h)] w-full min-w-0 gap-2 rounded-md bg-background font-normal dark:bg-background"
+      // La pulsación es la del botón principal (AnswerButton): baja medio píxel
+      // al apretar y apenas se atenúa al pasar por encima. Lo que se apaga es lo
+      // que traía la variante `outline` y el principal no tiene:
+      //   · el cambio de fondo al pasar/apretar (`hover:bg-*`), que con
+      //     `transition-all` se veía como un latido de color;
+      //   · el 50% de opacidad de `disabled`. Saltear se deshabilita mientras
+      //     viaja su propio pedido, o sea que se atenuaba y volvía en cada
+      //     toque. El toque doble ya lo frena `onSkip`; no hace falta avisarlo.
+      className="h-[var(--cta-h)] w-full min-w-0 gap-2 rounded-md bg-background font-normal transition-colors hover:bg-background hover:opacity-90 disabled:opacity-100 dark:bg-background dark:hover:bg-background"
     >
       <span className="truncate">{children}</span>
       {icono}
@@ -102,6 +110,7 @@ export function PieDeRampa({
   onTabla,
   onPorque,
   keyboard = true,
+  ayudasFijas = false,
   className,
 }: {
   tone: AnswerTone
@@ -123,6 +132,13 @@ export function PieDeRampa({
   // lado sería prometer un atajo que no existe — misma convención y mismo
   // nombre que `TableButton` y `ChatButton`.
   keyboard?: boolean
+  // Cerrado el ejercicio, la fila de Tabla y Saltear CONSERVA SU LUGAR en vez
+  // de irse. Solo el teléfono: ahí el pie está apilado debajo del teclado en
+  // pantalla, y al perder una fila todo lo de arriba —teclado incluido— se
+  // corría hacia abajo justo al responder. La fila queda `invisible`: ocupa su
+  // lugar sin dibujarse. Dibujada se veía A TRAVÉS del cartel del resultado,
+  // que es traslúcido y cae justo encima.
+  ayudasFijas?: boolean
   className?: string
 }) {
   const teclas = useTeclas()
@@ -142,12 +158,35 @@ export function PieDeRampa({
   // Cerrado: nada que saltear ni que consultar antes de responder. Queda el pie
   // de una sola fila, que es el mismo que ve el brazo control.
   if (cerradoVisual) {
-    return (
-      <div className={cn("relative z-10 flex w-full items-stretch gap-2", className)}>
+    const fila = (
+      <>
         {hayPorque && (
           <PorQueButton onClick={onPorque} showKeyHint={keyboard} blanco />
         )}
         {principal}
+      </>
+    )
+    if (!ayudasFijas) {
+      return (
+        <div className={cn("relative z-10 flex w-full items-stretch gap-2", className)}>
+          {fila}
+        </div>
+      )
+    }
+    return (
+      // La fila de ayudas va `invisible`: reserva el alto y no se dibuja. El
+      // `relative z-10` lo lleva la fila del botón principal, que tiene que
+      // quedar por encima del cartel.
+      <div className={cn("flex w-full flex-col gap-2", className)}>
+        <div className="invisible grid grid-cols-2 gap-2" aria-hidden>
+          <BotonDeAyuda icono={<Table2 size={16} />} onClick={onTabla} disabled>
+            Tabla
+          </BotonDeAyuda>
+          <BotonDeAyuda icono={<SkipForward size={16} />} onClick={onSkip} disabled>
+            Saltear
+          </BotonDeAyuda>
+        </div>
+        <div className="relative z-10 flex w-full items-stretch gap-2">{fila}</div>
       </div>
     )
   }

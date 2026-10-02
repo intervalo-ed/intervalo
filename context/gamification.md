@@ -219,8 +219,15 @@ Ver `game/banda.py` y `metrics/game_queries.py :: experimento_banda`.
 
 ### La dificultad que la persona pide (dx)
 
-El juego pregunta **«¿Cómo te vienen resultando?»** con tres opciones: 😴 muy
-fáciles / 👌 justas / 🤯 muy difíciles.
+El juego pregunta **«¿Cómo venís?»** —con el subtítulo «Ajustemos la
+dificultad.»— y tres opciones: 😴 muy fáciles / 👌 justas / 🤯 muy difíciles.
+
+**Elegir no es contestar.** El toque solo marca la opción y se puede cambiar; el
+voto se manda al tocar Continuar. Apenas se elige, aparece un renglón que
+contesta —«Aumentamos entonces.», «La dejamos igual entonces.», «Bajamos
+entonces.»— y cambia si se cambia de opción. Ese renglón dice la intención: el
+ajuste real lo decide el registro de la persona (ver más abajo), así que para
+quien no lo respalda «aumentamos» no mueve nada.
 
 **Vuelve, y cada vez más espaciada.** El primer turno de encuesta cae en la 8 —
 **se adelantó desde la 28 el 28/09**, corriendo reclutas a la 14 y el cafecito a

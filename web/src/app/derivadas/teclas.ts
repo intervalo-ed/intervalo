@@ -126,6 +126,44 @@ const NO_SE_ESCRIBE = new Set([
   "image",
 ])
 
+/** ¿El teclazo cae en un campo de HTML donde se escribe texto? Solo `<input>`
+ *  de texto y `<textarea>`: el chat, el @, la universidad «otra».
+ *
+ *  Es la guarda de los NÚMEROS de una diapo —las pantallas que tapan al
+ *  ejercicio—, y es más angosta que `enCampoDeTexto` en dos cosas.
+ *
+ *  Deja afuera al desplegable cerrado: los dos `Select` del ranking se quedan
+ *  con el foco al tocarlos y `enCampoDeTexto` los cuenta como campo —el Enter
+ *  les pertenece—, pero un «2» ahí no va a ninguna parte, y con esa guarda el
+ *  atajo moría con el chip todavía dibujado.
+ *
+ *  Y deja afuera al campo de la respuesta. Ese campo CONSERVA EL FOCO debajo
+ *  de la diapo: el layout se lo da al servir cada derivada y nadie se lo saca
+ *  cuando la card se da vuelta. Con el foco ahí, un «2» no es alguien
+ *  escribiendo una respuesta —el campo no se ve— sino alguien eligiendo la
+ *  opción 2 de lo que sí se ve.
+ *
+ *  Va de la mano de escuchar EN CAPTURA (ver las diapos): MathLive se queda con
+ *  las teclas de su campo y no las deja burbujear, así que un listener en
+ *  burbuja ni se entera. */
+export function enCampoHtml(target: EventTarget | null): boolean {
+  const el = target as HTMLElement | null
+  const tag = el?.tagName
+  if (tag === "INPUT") {
+    return !NO_SE_ESCRIBE.has((el as HTMLInputElement).type)
+  }
+  return tag === "TEXTAREA"
+}
+
+/** El número de una tecla del 1 al 9, o `null`. Mira `key` y, si no dice nada
+ *  útil, `code`: con algunas distribuciones y con el teclado numérico `key` no
+ *  es el dígito pelado. */
+export function digitoDe(e: KeyboardEvent): number | null {
+  if (/^[1-9]$/.test(e.key)) return Number(e.key)
+  const m = /^(?:Digit|Numpad)([1-9])$/.exec(e.code)
+  return m && !e.shiftKey ? Number(m[1]) : null
+}
+
 export function enCampoDeTexto(target: EventTarget | null): boolean {
   const el = target as HTMLElement | null
   const tag = el?.tagName

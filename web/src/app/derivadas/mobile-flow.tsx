@@ -82,8 +82,9 @@ import {
 import { GameIntroLogo, type GameIntro } from "./game-intro"
 import { PuertaMinima } from "./intro-panel"
 import { ReglasSlide } from "./reglas-slide"
+import { HerramientasSlide } from "./herramientas-slide"
 import {
-  REGLAS_DE_LA_DIAPO,
+  reglasDeLaDiapo,
   marcarReglasMostradas,
   tocaReglas,
 } from "./reglas-trigger"
@@ -137,13 +138,22 @@ const ctaCls =
 
 type Slide =
   | { kind: "intro" }
-  // Elegir el @. Siempre DESPUÉS de resolver una derivada y antes del ranking,
-  // para que la XP entre a una fila que ya tiene el nombre que la persona
-  // eligió, y en la PRIMERA correcta. Cuál derivada era lo que separaba a los
+  // Elegir el @. Siempre DESPUÉS de resolver una derivada y DESPUÉS del
+  // ranking, en la PRIMERA correcta. Hasta el 02/10 entraba ANTES del ranking,
+  // para que la XP cayera en una fila que ya tenía el nombre elegido; se
+  // invirtió para que el orden sea el mismo que en escritorio, donde el ranking
+  // es la columna de al lado y siempre se vio primero (ver la cabecera del
+  // bloque en `advanceAfterAnswer`). Cuál derivada era lo que separaba a los
   // brazos de `dx-puerta-2`; ese experimento cerró el 27/09 sin diferencia
   // detectable y quedó el control. No lleva `back` porque de los dos lados se
   // sale hacia adelante, nunca a la pantalla anterior.
   | { kind: "username" }
+  // Con qué contás: la tabla y el salteo (herramientas-slide.tsx). Entre la
+  // puerta y la primera derivada, y una sola vez —mientras no haya contestado
+  // ninguna—. Solo en los brazos que tienen la fila de ayudas: en los otros dos
+  // el botón de Tabla no existe y la pantalla prometería algo que no se puede
+  // tocar.
+  | { kind: "herramientas" }
   | { kind: "exercise" }
   | { kind: "ranking"; answer: GameAnswer | null }
   // El cartel del tope diario (tope-panel.tsx). Sin payload: el estado lo
@@ -662,7 +672,36 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
     [next, consumirAdelanto, servir, alTope],
   )
 
-  // Lo que hace el botón Continuar de la intro: a la primera derivada, salvo
+  // El chasquido del Continuar, con guardia contra el doble.
+  //
+  // Es el mismo `continue_sound.mp3` de Intervalo clásico (session-runner.tsx).
+  // Lo toca el embudo de abajo —`advanceAfterAnswer`, por donde pasan todos los
+  // botones que hacen avanzar— pero TRES diapos ya lo tocaban por su cuenta
+  // (username-slide, encuesta-slide, register-slides), porque en escritorio el
+  // embudo es otro y ahí ellas son el único que suena. Sin esto, en el teléfono
+  // esas tres sonarían dos veces encimadas.
+  //
+  // Guardia por tiempo y no por una lista de diapos exentas: la lista hay que
+  // acordarse de actualizarla y el síntoma de olvidarla es un eco que nadie
+  // reporta. 150 ms es menos que el sonido y más que cualquier par de llamadas
+  // del mismo toque.
+  const ultimoChasquidoRef = useRef(0)
+  const chasquido = useCallback(() => {
+    const ahora = Date.now()
+    if (ahora - ultimoChasquidoRef.current < 150) return
+    ultimoChasquidoRef.current = ahora
+    sfx.continue()
+  }, [sfx])
+  // Lo que la guardia de arriba NO ve: una diapo que suena y recién después
+  // ESPERA al servidor antes de avisar que terminó (el @ y el perfil guardan
+  // con un PATCH). Entre su sonido y el del embudo pasa un viaje de red, mucho
+  // más que 150 ms, y se oían dos. Esas dos avisan acá que ya sonaron, justo
+  // antes de entrar al embudo.
+  const yaSono = useCallback(() => {
+    ultimoChasquidoRef.current = Date.now()
+  }, [])
+
+  // Lo que hace el botón de la intro («¡Vamos!»): a la primera derivada, salvo
   // que este dispositivo esté entrando por primera vez y el jugador siga con
   // el @ que le tocó al azar — ahí primero pasa por la slide de "elegí tu @".
   const startFromIntro = useCallback(() => {
@@ -672,14 +711,33 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
     // es exactamente donde está el problema (iOS 30,2% contra Android 53,4%
     // llegando a la primera derivada).
     posthog.capture("game_intro_done", { layout: "mobile" })
+    chasquido()
     // Y nada más: antes de jugar no se pide nada. El @ se pide después de
     // acertar, que es donde hay un puesto al que ponerle el nombre (ver
     // `advanceAfterAnswer`). Hasta el 18/09 acá había una bifurcación por brazo
     // —el control pedía el apodo en la puerta— y se fue con `dx-puerta-1`.
+    //
+    // Lo único que se mete en el medio es la pantalla de las herramientas, y no
+    // es un pedido: es lo que hay que saber ANTES de trabarse. La condición es
+    // «todavía no contestó ninguna» y sale del servidor, así que recargar antes
+    // de resolver la primera la vuelve a mostrar —que es lo correcto: esa
+    // persona sigue sin haber empezado—.
+    if (conAyudasDe(player?.rampa) && (player?.exercises_attempted ?? 0) === 0) {
+      goTo({ kind: "herramientas" })
+      return
+    }
     loadNext()
-  }, [loadNext])
+  }, [loadNext, player, goTo, chasquido])
 
   // Después de resolver (o del ranking/hito/cafecito), decide la próxima slide.
+  //
+  // **Y acá suena el Continuar.** Es el embudo por el que pasan TODOS los
+  // botones que hacen avanzar el juego —el del ejercicio cerrado, el del
+  // ranking, el de las reglas, el de cada diapo de pedido—, así que el sonido
+  // vive una vez en el camino común en vez de repetido en quince handlers, que
+  // es como se olvida en el próximo que se agregue. Es el mismo
+  // `continue_sound.mp3` que suena en cada Continuar de Intervalo clásico
+  // (session-runner.tsx); dx lo tenía cargado y lo tocaba en un solo lugar.
   const advanceAfterAnswer = useCallback(
     (
       consumed:
@@ -697,6 +755,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
         | "reglas"
         | null,
     ) => {
+      chasquido()
       const pending = pendingRef.current
       if (!pending) {
         loadNext()
@@ -724,25 +783,13 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
       // pagó: el brazo terminó +2,2 pp en llegar a tres, con el intervalo
       // conteniendo al cero y sin futuro posible que lo hiciera significativo.
       // Queda donde estaba, en la primera.
-      if (
-        consumed === null &&
-        a.correct &&
-        !askedUsernameRef.current &&
-        player?.is_guest &&
-        player.alias_is_generated
-      ) {
-        askedUsernameRef.current = true
-        goTo({ kind: "username" })
-        return
-      }
-
       // Toda correcta pasa por el ranking: ahí está el marcador y ahí sube el
       // número. Las erradas siguen de largo al próximo ejercicio.
       //
-      // `"username"` entra en la misma puerta que `null` porque no es un
-      // escalón del ladder: es una pausa ENTRE la respuesta y su festejo, y lo
-      // que sigue después de ella es exactamente lo que seguía antes.
-      if ((consumed === null || consumed === "username") && a.correct) {
+      // Es lo PRIMERO que sale después de responder, antes incluso del @ (ver
+      // abajo): el festejo es la respuesta al toque, y cualquier cosa que se
+      // meta en el medio lo corre de donde se ganó.
+      if (consumed === null && a.correct) {
         const rankBefore = a.rank_before ?? null
         const rankAfter = a.rank_after ?? null
         if (rankBefore !== null && rankAfter !== null && rankAfter < rankBefore) {
@@ -785,6 +832,40 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
         goTo({ kind: "ranking", answer: a })
         return
       }
+
+      // ── El @, DESPUÉS del ranking ────────────────────────────────────────
+      //
+      // **Esto rompe a propósito el trato que tenía esta pantalla.** El @ entraba
+      // antes del ranking para que la XP cayera en una fila que ya tenía el
+      // nombre elegido; invertido, el primer festejo se mira con el alias
+      // generado y el nombre llega después. Se aceptó ese costo para que el
+      // orden sea el mismo en los dos layouts: en escritorio el ranking es la
+      // columna de al lado y la XP vuela hacia ella en el instante de responder,
+      // así que allá el ranking SIEMPRE se vio primero. El teléfono era la
+      // excepción, y lo que se pide primero cuando recién se acierta no puede
+      // depender del aparato.
+      //
+      // Sigue sin `isFirstVisit`: la pregunta no es «primera vez en este
+      // aparato» sino «todavía no elegiste», y a quien se fue antes de resolver
+      // la primera hay que poder preguntarle cuando vuelva.
+      //
+      // **Correrlo a la tercera fue el brazo `sin-peaje` de `dx-puerta-2`.** La
+      // apuesta era la atrición —en la primera correcta se va el 20,4% y en la
+      // tercera el 6,2%, así que el mismo pedido costaría un tercio— y no se
+      // pagó: el brazo terminó +2,2 pp en llegar a tres, con el intervalo
+      // conteniendo al cero. Queda en la primera.
+      if (
+        consumed === "ranking" &&
+        a.correct &&
+        !askedUsernameRef.current &&
+        player?.is_guest &&
+        player.alias_is_generated
+      ) {
+        askedUsernameRef.current = true
+        goTo({ kind: "username" })
+        return
+      }
+
       // El disparador del cafecito se calcula ACÁ ARRIBA, antes que los hitos de
       // perfil y registro, porque uno de ellos depende de él. La regla vive en
       // cafecito-cta.tsx, compartida con escritorio.
@@ -835,11 +916,11 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
       if (
         consumed === "ranking" &&
         !reglasMostradasRef.current &&
-        tocaReglas(a.exercises_correct)
+        tocaReglas(a.exercises_correct, conAyudasDe(player?.rampa))
       ) {
         reglasMostradasRef.current = true
         marcarReglasMostradas(a.exercises_correct)
-        goTo({ kind: "reglas", cuales: REGLAS_DE_LA_DIAPO })
+        goTo({ kind: "reglas", cuales: reglasDeLaDiapo(conAyudasDe(player?.rampa)) })
         return
       }
 
@@ -982,7 +1063,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
       }
       loadNext()
     },
-    [goTo, loadNext, player, releaseXp],
+    [goTo, loadNext, player, releaseXp, chasquido],
   )
 
   // Deshace el adelanto de racha/intentos si el servidor termina en
@@ -1329,6 +1410,8 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
   // Saltear también en el teléfono: no hay atajo de teclado, pero el botón sí está.
   const onSkip = useCallback(() => {
     if (!exercise || closed || skipMutation.isPending || answerMutation.isPending) return
+    // El mismo sonido que Continuar: saltear también es pasar a la siguiente.
+    sfx.continue()
     posthog.capture("game_skip", {
       tier: exercise.tier,
       stars: exercise.difficulty_stars,
@@ -1392,6 +1475,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
       },
     )
   }, [
+    sfx,
     exercise,
     closed,
     skipMutation,
@@ -1497,9 +1581,20 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   disabled={startDisabled}
                   onClick={startFromIntro}
                 >
-                  Continuar
+                  ¡Vamos!
                 </Button>
               </div>
+            </div>
+          )}
+
+          {slide.kind === "herramientas" && (
+            <div className="mx-auto flex w-full max-w-md flex-1 flex-col px-5 pb-[var(--cta-pb)]">
+              <HerramientasSlide
+                onContinue={() => {
+                  chasquido()
+                  loadNext()
+                }}
+              />
             </div>
           )}
 
@@ -1508,11 +1603,20 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
               <UsernameSlide
                 player={player}
                 // Desde la intro no hay nada que festejar y lo que sigue es la
-                // primera derivada; desde una respuesta hay un ranking
-                // esperando. `pendingRef` es lo que distingue las dos, y es el
-                // mismo discriminador que ya usa el "Ahora no" del registro.
+                // primera derivada; desde una respuesta el ranking YA se vio y
+                // lo que sigue es el resto de la escalera. `pendingRef` es lo
+                // que distingue las dos, y es el mismo discriminador que ya usa
+                // el "Ahora no" del registro.
+                //
+                // Y se retoma como `"ranking"` y no como `"username"` porque
+                // esta pantalla no es un escalon del ladder: es una pausa
+                // ADENTRO del escalon del ranking, y lo que sigue es lo que
+                // seguia a aquel. No se repite ninguno de los dos: el ranking
+                // exige `consumed === null` y el @ ya dejo puesto
+                // `askedUsernameRef`.
                 onDone={() => {
-                  if (pendingRef.current) advanceAfterAnswer("username")
+                  yaSono()
+                  if (pendingRef.current) advanceAfterAnswer("ranking")
                   else loadNext()
                 }}
               />
@@ -1588,7 +1692,6 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   streak={player?.combo ?? 0}
                   attempted={player?.exercises_attempted ?? 0}
                   elo={player?.elo ?? null}
-                  multiplier={boost?.multiplier ?? 1}
                   promptLatex={exercise.prompt_latex}
                   // Sin explosión de por medio —los orbes son de escritorio,
                   // acá el contador está en otra pantalla— el intercambio es
@@ -1784,6 +1887,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   }}
                   onPorque={abrirPorque}
                   keyboard={false}
+                  ayudasFijas
                 />
               ) : (
               <div className="relative z-10 flex items-stretch gap-2">
@@ -1969,8 +2073,16 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
             <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col gap-3 px-4 pb-[var(--cta-pb)] pt-4">
               {/* La MISMA tabla que en escritorio, sin una copia para el
                   teléfono: es una lista de reglas y no cambia con el aparato.
-                  Scrollea sola adentro de su caja. */}
-              <DerivativesTable />
+                  Scrollea sola adentro de su caja.
+
+                  Y con las MISMAS filas marcadas. `destacar` faltaba justo acá:
+                  escritorio resaltaba las reglas del ejercicio en curso y el
+                  teléfono abría quince renglones iguales, donde hay que buscar
+                  a mano la que hace falta. Es donde más importa, además: en una
+                  pantalla de 375 la tabla no entra entera, así que `acomodar`
+                  sube arriba las que la derivada necesita en vez de dejarlas
+                  abajo del scroll. */}
+              <DerivativesTable destacar={exercise?.tabla_slugs} />
               {/* Volver es un botón de ancho completo y no una flecha arriba:
                   esta pantalla se abre en medio de un ejercicio y lo que se
                   quiere es salir rápido con el pulgar, que está abajo. */}
@@ -2104,6 +2216,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
             <div className="mx-auto flex w-full max-w-md flex-1 flex-col px-4 pb-[var(--cta-pb)]">
               <ProfileSlides
                 onDone={() => {
+                  yaSono()
                   refetchPlayer()
                   queryClient.invalidateQueries({ queryKey: gameKeys.leaderboard })
                   advanceAfterAnswer("milestone")

@@ -15,6 +15,7 @@
 // también aparece adentro de palabras, y el copy cambia. El que arma la frase es
 // el único que sabe dónde puso cada cosa.
 
+import { UniTag } from "@/components/university-tag"
 import { levelColor } from "./game-colors"
 
 const SLOT = /(\{(?:a|b|u0|u1)\})/
@@ -25,12 +26,17 @@ export function TextoConHuecos({
   actorLevel,
   actorBAlias,
   universities,
+  conTags = false,
 }: {
   texto: string
   actorAlias?: string | null
   actorLevel?: number | null
   actorBAlias?: string | null
   universities?: string[] | null
+  // Si las siglas se dibujan con su chip de color o en texto corrido. Ver el
+  // comentario de `{u0}` más abajo: no es lo mismo en las dos pantallas, así
+  // que lo elige quien dibuja y no esta pieza.
+  conTags?: boolean
 }) {
   return (
     <>
@@ -68,16 +74,28 @@ export function TextoConHuecos({
         }
         if (chunk === "{u0}" || chunk === "{u1}") {
           const uni = universities?.[chunk === "{u0}" ? 0 : 1]
-          // Sigla en texto y no la `<UniTag>`: esto es una oración corrida —"la
-          // UNSAM pasó a la UNL"— y meterle dos chips de color adentro la parte
-          // en pedazos en vez de dejarla leer. El artículo ("la"/"el") ya viene
-          // en el texto del servidor, que es el único que sabe cuáles son
-          // institutos.
-          return uni ? (
+          if (!uni) return null
+          // **Dónde va el chip y dónde no, y por qué no es lo mismo.**
+          //
+          // En el feed del ranking la sigla va en TEXTO: ahí las oraciones
+          // corren una abajo de la otra —"la UNSAM pasó a la UNL"— y dos chips
+          // de color adentro de un renglón lo parten en pedazos en vez de
+          // dejarlo leer.
+          //
+          // En la pantalla de arranque van con chip: son tres hechos sueltos y
+          // separados, no un feed, y el chip es lo que hace que la universidad
+          // de uno se encuentre de un vistazo —que es justo lo que esa pantalla
+          // quiere decir—.
+          //
+          // El artículo ("la"/"el") viene en el texto del servidor en los dos
+          // casos: es el único que sabe cuáles son institutos.
+          return conTags ? (
+            <UniTag key={i} university={uni} />
+          ) : (
             <span key={i} className="font-semibold text-foreground/90">
               {uni}
             </span>
-          ) : null
+          )
         }
         return chunk
       })}

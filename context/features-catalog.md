@@ -206,7 +206,8 @@ la puerta no cobró.
 
 - **`control`** — el flujo que ganó `dx-puerta-1`, tal cual: después de la
   primera correcta, **@ → ranking → reglas 2, 3 y 4 juntas**
-  (`reglas-slide.tsx`, una sola vez por dispositivo). **Es el flujo de hoy.**
+  (`reglas-slide.tsx`, una sola vez por dispositivo). Fue el flujo hasta el
+  02/10; lo que quedó está en «Qué explica el juego, y cuándo», más abajo.
 - **`sin-peaje`** — entre la primera correcta y la segunda derivada no había
   nada salvo el ranking: el **@** se corría a la tercera correcta y las
   **reglas** se repartían de a una (el Elo en la 5, los cafecitos en la 12, la
@@ -246,8 +247,42 @@ antes de la primera derivada, y el momento en que se cobran, están agotados com
 palanca. Los dos informes están en la carpeta de reportes.
 
 El brazo `sin-peaje` se fue con el experimento: el calendario de las reglas ya no
-existe en `reglas-trigger.ts` y las tres salen juntas. Está en el git y en el PDF
-del cierre.
+existe en `reglas-trigger.ts`. Está en el git y en el PDF del cierre.
+
+#### Qué explica el juego, y cuándo (desde el 02/10)
+
+Eran cuatro reglas: el ejercicio, el Elo, los cafecitos y la tabla. La primera la
+dice la puerta en imperativo y las otras tres salían juntas después de la primera
+correcta. Quedaron así:
+
+| | dónde | quién la ve |
+|---|---|---|
+| el ejercicio | la puerta, en imperativo | todos |
+| la tabla y el salteo | **antes** de la primera derivada, pantalla propia | `ayudas` y `bienvenida` |
+| el Elo | después de la primera correcta en `control` y `teclado`; de la **segunda** en `ayudas` y `bienvenida` (`reglasTras`) | todos |
+| la tabla | después de la primera correcta | `control` y `teclado` |
+| los cafecitos | — | nadie |
+
+**Los cafecitos ya no se explican.** El cafecito sigue entero —el pedido, el
+empuje a la universidad, el ranking—; lo que se sacó es contarle la mecánica a
+alguien que todavía no resolvió nada. Era la única de las cuatro que no hace falta
+para jugar y se llevaba un tercio de la única pantalla que el juego dedica a
+explicarse. Con eso también se fue el contador ☕ del marcador, que existía para
+que el emoji de la regla tuviera dónde reconocerse.
+
+**La tabla y el salteo se explican ANTES de jugar, no después**, y solo donde los
+botones existen. La atrición por derivada es 20,4% en la PRIMERA y entre 5,7% y
+8,9% de la cuarta en adelante: el momento en que alguien se va es justo el que
+esa pantalla cubre, y decirle después que podía haber salteado es llegar tarde a
+la única vez que importaba. En `control` y en `teclado` la fila de ayudas no está
+en el pie, así que ahí la pantalla prometería un botón que no se puede tocar y la
+regla de la tabla se queda donde siempre estuvo (`reglas-trigger.ts ::
+reglasDeLaDiapo`, `herramientas-slide.tsx`).
+
+La condición de la pantalla nueva es «todavía no contestó ninguna» y sale del
+servidor (`exercises_attempted`), no de localStorage: recargar antes de resolver
+la primera la vuelve a mostrar, que es lo correcto —esa persona sigue sin haber
+empezado—.
 
 #### El mapa de interrupciones
 
@@ -258,7 +293,7 @@ eso obligó a mover un tercero, porque los números no viven solos:
 
 | derivada | qué sale |
 |---|---|
-| 1 | el @ (`username-slide.tsx`), y después del ranking las reglas 2, 3 y 4 juntas |
+| 1 | el @ (`username-slide.tsx`) —en el teléfono, **después** del ranking— y la diapo de reglas: el Elo y la tabla en `control` y `teclado`. En `ayudas` y `bienvenida` la diapo sale en la 2 y dice solo el Elo |
 | 3 | carrera y universidad (`HITO_PERFIL`) |
 | 9 | invitar a un amigo (`RECLUTAS_RESTO`) |
 | 10 | registrarse (`HITO_REGISTRO`), y se vuelve a ofrecer cada 12 |
@@ -306,13 +341,22 @@ eso no se puede cumplir con tres teclas; con huecos, además, se lee como un
 teclado roto en vez de como uno que crece. El costo —las teclas se mueven de
 lugar mientras crece— es el mismo trato que ya tenía la fila dinámica.
 
+**Y cuando el empaquetado pediría cuatro filas, va directo el definitivo**
+(`math-keyboard.tsx :: rampaDibujada`). Cuatro filas es lo que mide el teclado
+completo, así que a esa altura empaquetar no ahorra alto y lo que se veía era lo
+peor de los dos: una grilla sin orden de calculadora a un paso de reacomodarse
+entera. El costo, asumido: en el definitivo se ven TODAS las fijas, también las
+que el calendario del servidor todavía no soltó. Para quien llega a ese punto la
+rampa del cliente termina antes que `RAMPA_COMPLETA_EN`; el inventario de
+funciones se sigue desbloqueando de a una.
+
 **Es palanca de TELÉFONO.** En escritorio el teclado no tiene números —se
 tipean— y el físico sigue funcionando en paralelo, así que la rampa ahí no
 significaría nada; el cliente la ignora cuando no dibuja numérico.
 
-**La fila de ayudas** (solo el brazo `ayudas`) sube **Tabla** y **Saltear** a una
+**La fila de ayudas** (los brazos `ayudas` y `bienvenida`) sube **Tabla** y **Saltear** a una
 fila propia partida por la mitad, arriba del botón principal, con el ícono a la
-derecha de la palabra. El alto sale del teclado, que en rampa mide una o dos
+derecha de la palabra. El alto sale del teclado, que en rampa mide hasta tres
 filas en vez de cuatro — por eso las dos mitades viajan juntas y no como un
 factorial. Con la fila puesta, el botón de la tabla **sale de la barra de
 arriba** (aparecería dos veces); en la pantalla del ranking se queda, porque ahí
@@ -347,6 +391,18 @@ sobre los aterrizados, no solo sobre los que resuelven.
 días sobre el contraste primario —el que de verdad tiene potencia—. Se aceptó a
 cambio de subir el caudal de las campañas de difusión; si el caudal no sube, lo
 que se retrasa es la única pregunta que este diseño puede contestar.
+
+**El 02/10 se movió la base, y hay que partir la serie ahí.** El texto de
+respaldo de la puerta —que es lo que ven `control`, `teclado` y `ayudas`— ganó
+una oración que antes no tenía: *«Memorizá todas las derivadas y llegá mejor
+preparado a tus parciales con este minijuego.»* En el mismo cambio la
+instrucción pasó a *«Resolvé la siguiente derivada para comenzar.»*, el botón a
+*«¡Vamos!»*, y el digest del cuarto brazo cambió de contenido (conteos por
+período, sin totales). Fue una decisión de producto tomada a sabiendas. Lo que
+cuesta: desde esa fecha el contraste del cuarto brazo ya no mide «pantalla de
+arranque contra puerta vacía» sino «pantalla de arranque contra una puerta que
+ya explica el producto», y los tres primeros brazos tampoco son comparables con
+sus propios inscriptos anteriores.
 
 Un detalle que hay que respetar si alguna vez se toca de nuevo: **`sorteo.brazo_de`
 reparte con `% len(BRAZOS)`**, así que sumar o sacar un brazo re-sortea a todo el
@@ -760,7 +816,7 @@ persona no estaba. `PuertaMinima` sigue siendo un solo componente y por eso el
 cambio entra igual en teléfono y en escritorio.
 
 **No es un sistema de eventos nuevo: es un digest del feed que ya corría.** Los
-hechos salen de `game_events` y de cinco agregaciones, y se escriben con la
+hechos salen de `game_events` y de cuatro agregaciones, y se escriben con la
 convención del feed —oración con huecos (`{a}`, `{u0}`), punto final, y el emoji
 aparte—. El renderer es literalmente el mismo: `texto-con-huecos.tsx`, extraído
 de `event-feed.tsx` cuando pasó a tener dos consumidores.
@@ -770,8 +826,27 @@ de `event-feed.tsx` cuando pasó a tener dos consumidores.
 | | cuándo | qué dice |
 |---|---|---|
 | `sigue` | `correct_today > 0` | «¡Hola, @x!» · *Hoy ya resolviste N derivadas.* · ¿Seguimos? |
-| `vuelve` | ya jugó, hoy no | «¡Bienvenido, @x!» · *Mientras no estabas* + hasta 3 |
-| `primera` | nunca resolvió nada | «¡Bienvenido!» · *Lo que está pasando* + hasta 3 |
+| `vuelve` | ya jugó, hoy no | «¡Bienvenido, @x!» · hasta 3, con *Llevás N derivadas resueltas.* siempre entre ellas · ¿Seguimos? |
+| `primera` | nunca resolvió nada | «¡Bienvenido!» · qué es el juego · hasta 3 · *Resolvé la siguiente derivada para comenzar.* |
+
+**Las tres cierran invitando, y dos de las tres no lo hacían.** `vuelve`
+terminaba en la última novedad —tres hechos sobre los demás y nada que llamara a
+la persona— y `primera` se había llevado puesta la única instrucción que el juego
+da, justo para quien nunca resolvió nada: el digest REEMPLAZA al texto de
+siempre, así que al estrenarse se la comió. Hoy `vuelve` cierra con la misma
+pregunta que `sigue` y `primera` con la instrucción de siempre.
+
+**Y `vuelve` dice algo sobre la persona.** Sus candidatas hablaban todas del
+mundo. `_n_mio` suma lo
+acumulado (`exercises_correct`), no lo de hoy —que en esa rama es cero por
+definición— y no el puesto —que pudo BAJAR mientras no estaba, y esta pantalla no
+señala pérdidas—.
+
+**Los encabezados ya no se dibujan.** *Mientras no estabas* y *Lo que está
+pasando* siguen viajando en `GameBienvenidaOut.titulo` y desde el 02/10 no los
+muestra nadie: las novedades pasaron a una caja con borde, y el rótulo encima
+repetía lo que el borde ya dice gastando un renglón en la pantalla más apretada
+del juego.
 
 Se probó con un umbral de horas y no cierra: con «menos de un día», quien jugó
 ayer a las 23 y vuelve hoy a las 8 lleva nueve horas afuera y **cero derivadas
@@ -779,18 +854,46 @@ hoy**, y «hoy ya resolviste 0» es un renglón roto. Ramificando por el contado
 frase no puede decir cero, el corte es la medianoche argentina que el juego ya usa
 para el tope, y un solo booleano decide saludo, encabezado y cantidad de renglones.
 
-#### La ventana es mixta, y no por gusto
+#### Qué renglones hay, y los conteos nombran su período
 
-Hay dos clases de hecho y solo una necesita fallback:
+Hasta tres, por prioridad. El tono es impersonal y de hecho consumado —«se
+resolvieron», «llegaron»—, no de comunidad: no hay «ya somos» ni totales
+acumulados.
+
+| rama | renglón | cuándo sale |
+|---|---|---|
+| `vuelve` | *Tus N reclutas te dejaron X XP.* 🪖 | XP nueva de reclutas desde el último digest |
+| `vuelve` | *Llevás N derivadas resueltas.* 💪 | siempre |
+| `vuelve` | el último movimiento de su universidad, con la frase del feed | si pasó desde el último digest (a lo sumo 14 días) |
+| las dos | *Hoy / Esta semana / Este mes llegaron N estudiantes.* 🎓 | ver abajo |
+| `primera` | *La UTN va 3ª en el ranking.* 🏆 | universidad conocida, con tabla de al menos tres |
+| las dos | *Se resolvieron N derivadas hoy / esta semana / este mes.* 🧩 | ver abajo |
+
+Hay dos clases de hecho:
 
 - **evento** (pasó o no pasó) — los reclutas te dejaron XP, tu universidad superó
   a otra. Ventana desde el último digest, **sin mínimo**: 6.644 XP son 6.644 XP.
-- **conteo** (es un número) — altas de tu universidad. Desde el último digest si
-  llega a `MIN_CONTEO`; si no, la cifra de siete días **con su propio rótulo**.
+- **conteo** (es un número) — estudiantes que llegaron, derivadas resueltas.
+  **Siempre con su período dicho en la oración**, y es el más corto en el que el
+  número llega a `MIN_CONTEO` (5): hoy, si no la semana, si no el mes. Si no
+  llega ni en el mes, el renglón no sale. «Esta semana» son los últimos siete
+  días y «este mes» los últimos treinta, no los del calendario: el día 2 el mes
+  del calendario diría menos que la semana.
 
 Medido el 27/09: en 24 h entraron **8 personas en todo el juego** (UBA 3, UTN 3,
-UNC 1, UNLP 1) contra 108/97/69/55 en la semana. Sin el mixto, el renglón diría
-«+1 persona se sumó» casi siempre, que es peor que el silencio.
+UNC 1, UNLP 1) contra 108/97/69/55 en la semana. Sin la escalera, el renglón
+diría «hoy llegó 1 estudiante» casi siempre, que es peor que el silencio.
+
+**Las llegadas cuentan el juego entero, sin sigla.** Con la universidad, el
+renglón no entraba en una línea de la caja y quedaba pegado al del puesto, dos
+seguidos nombrando a la misma universidad. La sigla la lleva solo el del puesto.
+Quien lee no se cuenta entre los que llegaron, y los sembrados tampoco.
+
+**Lo que se sacó el 02/10**, para que no vuelva por descuido: el total por
+universidad («Ya hay N personas de la UTN jugando»), el total del juego («Ya
+somos N en M universidades»), «La última persona se sumó hace N minutos», el
+tamaño de la tabla en el renglón del puesto («va 3ª de 8»), y las ventanas
+«desde tu última visita» y «mientras tanto» de los conteos.
 
 #### `digest_seen_at` existe porque `last_seen_at` no sirve
 
@@ -799,7 +902,7 @@ UNC 1, UNLP 1) contra 108/97/69/55 en la semana. Sin el mixto, el renglón dirí
 «ahora» y la ventana saldría vacía siempre. El síntoma sería «la pantalla no
 cuenta nada», que se ve idéntico a «no pasó nada» y por eso nadie lo reporta.
 
-La marca avanza cuando el digest **se sirve**, no cuando se toca Continuar: una
+La marca avanza cuando el digest **se sirve**, no cuando se toca «¡Vamos!»: una
 pantalla que se mostró ya se contó, y esperar haría que quien cierra la pestaña
 reciba mañana la misma novedad. Repetir una novedad es peor que perderla.
 `referral_xp_digest_seen` es el tercer canal del mismo mecanismo, al lado de los
@@ -819,9 +922,13 @@ contenido no es gratis y hay que decirlo. Tres cosas acotan el riesgo:
 
 1. **La pantalla ya existía y ya tenía su botón.** No se agrega un paso; se
    cambia qué dice un texto que igual había que leer.
-2. **El texto de siempre es el fallback**, no el caso raro: mientras el pedido
-   viaja, y para siempre si falla, la puerta se ve como antes. Lo peor que puede
-   pasar es que no cuente nada.
+2. **Hay un texto de respaldo**, y no es el caso raro: si el pedido falla, o
+   tarda más de 2,5 s (`ESPERA_MAX_MS`), la puerta dice «¡Bienvenido!», la
+   oración de qué es el juego y la instrucción. Mientras el pedido viaja el
+   lugar queda reservado sin pintarse, para que no se lea una cosa y medio
+   segundo después otra; si falla, el respaldo sale en el acto; y si la
+   respuesta llega tarde, reemplaza al respaldo igual. Lo peor que puede pasar
+   es que no cuente nada.
 3. **Nada que le saque algo a la persona** —«te pasaron 3 puestos», «se te cayó
    la racha»— en la rama `sigue`. Esta pantalla se ve en CADA arranque: un
    renglón que señala una pérdida funciona una vez y a la quinta es el motivo por
@@ -1295,7 +1402,7 @@ frena escribir, nunca leer.
 Una diapo en la **derivada 18**, una sola vez en la vida, con un campo de texto y
 nada más:
 
-> Si tuvieras una varita mágica, ¿qué le cambiarías o le agregarías al juego?
+> Si tuvieras una varita mágica, ¿qué le cambiarías o le agregarías a Intervalo?
 
 Existe porque es lo único que el juego no puede medir. θ y β salen de los
 aciertos, el embudo sale de las derivadas resueltas, y las dos encuestas de la

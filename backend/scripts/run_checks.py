@@ -84,6 +84,7 @@ CHECKS = [
     "check_game_simulation",
     "check_game_stats",
     "check_game_techo",
+    "check_game_teclado",
     "check_game_unlocks",
     "check_game_username",
     "check_game_variante",

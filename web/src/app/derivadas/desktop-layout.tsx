@@ -79,8 +79,9 @@ import { GameRanking, type RankingSort } from "./game-ranking"
 import { AMBAR } from "./game-colors"
 import { IntroPanel, IntroStartButton } from "./intro-panel"
 import { ReglasSlide } from "./reglas-slide"
+import { HerramientasSlide } from "./herramientas-slide"
 import {
-  REGLAS_DE_LA_DIAPO,
+  reglasDeLaDiapo,
   marcarReglasMostradas,
   tocaReglas,
 } from "./reglas-trigger"
@@ -150,6 +151,12 @@ type Panel =
   // Las reglas que la puerta no dijo (reglas-slide.tsx), en el Continuar de
   // después de un acierto. Las tres juntas y una sola vez (reglas-trigger.ts);
   // repartirlas de a una fue el brazo `sin-peaje`, que cerró sin diferencia.
+  // Con qué contás: la tabla y el salteo (herramientas-slide.tsx). Entre la
+  // puerta y la primera derivada, y una sola vez —mientras no haya contestado
+  // ninguna—. Solo en los brazos que tienen la fila de ayudas: en los otros dos
+  // el botón de Tabla no existe y la pantalla prometería algo que no se puede
+  // tocar.
+  | "herramientas"
   | "reglas"
 
 // Los hitos que interrumpen el ejercicio son un subconjunto: la intro no se
@@ -647,11 +654,22 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
 
   const loadNext = useCallback(
     ({ fresco = false }: { fresco?: boolean } = {}) => {
+      // **Todo camino que no termine sirviendo una derivada tiene que soltar el
+      // adelanto.** `consumir()` prende `esperando`, y `esperando` es lo que
+      // apaga el botón de Continuar; lo único que lo baja es `servir`. Si el
+      // pedido falla por cualquier motivo que no sea el 402 del tope, no se
+      // sirve nada y el botón se queda apagado PARA SIEMPRE: la persona ve su
+      // derivada resuelta, un Continuar muerto, y ninguna forma de seguir que no
+      // sea recargar. Reportado jugando, después de la segunda derivada.
+      const falla = (err: unknown) => {
+        alTope(err)
+        descartarAdelanto()
+      }
       const adelantado = fresco ? null : consumirAdelanto()
       if (adelantado === null) {
         next.mutate(undefined, {
           onSuccess: (data) => servir(data, { adelantado: false }),
-          onError: alTope,
+          onError: falla,
         })
         return
       }
@@ -662,11 +680,11 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
         .catch(() => {
           next.mutate(undefined, {
             onSuccess: (data) => servir(data, { adelantado: false }),
-            onError: alTope,
+            onError: falla,
           })
         })
     },
-    [next, consumirAdelanto, servir, alTope],
+    [next, consumirAdelanto, servir, alTope, descartarAdelanto],
   )
 
   // Empezar de verdad: entra la primera derivada. Es lo que hace el botón y
@@ -677,8 +695,15 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
     // Y nada más: antes de jugar no se pide nada. Hasta el 18/09 acá había una
     // bifurcación por brazo —el control pedía el apodo en la puerta— y se fue
     // con `dx-puerta-1`.
+    //
+    // Lo único que se mete en el medio es la pantalla de las herramientas, y no
+    // es un pedido: es lo que hay que saber ANTES de trabarse.
+    if (conAyudasDe(player?.rampa) && (player?.exercises_attempted ?? 0) === 0) {
+      setNavPanel("herramientas")
+      return
+    }
     loadNext()
-  }, [loadNext, sfx])
+  }, [loadNext, sfx, player, setNavPanel])
 
   // La pantalla efectiva: lo último que se eligió a mano y, si no se eligió
   // nada, la intro. Siempre la intro: ya no se recuerda en localStorage si se
@@ -1004,14 +1029,15 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
           // ── El @ y las reglas ─────────────────────────────────────────
           //
           // El @ primero y las reglas después, que es el orden del teléfono
-          // (mobile-flow.tsx) menos una cosa que acá no se puede dar: allá el @
-          // entra ANTES del ranking, porque el ranking es una pantalla que
-          // llega después. Acá el ranking es la columna de al lado y la XP ya
-          // voló hacia ella en el instante de responder, así que lo que se ve
-          // es la fila propia cambiando de nombre en vez de estrenándolo. La
-          // alternativa era congelar el festejo de escritorio hasta que se
-          // eligiera el @, y eso sería romper lo que funciona para copiar un
-          // orden.
+          // (mobile-flow.tsx).
+          //
+          // Y ahora también coincide en qué se ve ANTES del @: el ranking. Acá
+          // siempre fue así —es la columna de al lado y la XP vuela hacia ella
+          // en el instante de responder, así que la fila propia cambia de nombre
+          // en vez de estrenarlo— y el teléfono era la excepción, con el @
+          // metido entre la respuesta y el festejo. El 02/10 se invirtió allá
+          // en vez de congelar el festejo de acá: lo que se pide primero cuando
+          // recién se acierta no puede depender del aparato.
           //
           // Sin `isFirstVisit`, igual que en el teléfono: la pregunta no es
           // «primera vez en este aparato» sino «todavía no elegiste». Correrlo a
@@ -1026,8 +1052,13 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
             askedUsernameRef.current = true
             usernamePendienteRef.current = true
           }
-          if (!reglasMostradasRef.current && tocaReglas(totalCorrectas)) {
-            reglasPendienteRef.current = { cuales: REGLAS_DE_LA_DIAPO }
+          if (
+            !reglasMostradasRef.current &&
+            tocaReglas(totalCorrectas, conAyudasDe(player?.rampa))
+          ) {
+            reglasPendienteRef.current = {
+              cuales: reglasDeLaDiapo(conAyudasDe(player?.rampa)),
+            }
           }
           // Los dos con `totalCorrectas` —las acumuladas del servidor— y no con
           // el contador de la pestaña, que vuelve a cero en cada carga. Ver
@@ -1170,6 +1201,11 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
       void onRevisar()
       return
     }
+    // El chasquido del Continuar, el mismo de Intervalo clasico
+    // (session-runner.tsx). Va aca y no en cada panel porque este es el embudo:
+    // de aca salen el @, las reglas, los hitos, el cafe y la derivada
+    // siguiente, o sea todos los botones que hacen avanzar el juego.
+    sfx.continue()
     // Acá había un guardia que no dejaba seguir mientras el festejo estuviera en
     // curso. Hacía falta con la mesa de billar, donde las bolas se quedaban
     // rodando ADENTRO de la card del ejercicio: cambiar de ejercicio con la mesa
@@ -1244,7 +1280,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
       return
     }
     loadNext()
-  }, [closed, onRevisar, loadNext, cafecito, mostrarReglas, lastAnswer, setNavPanel])
+  }, [closed, onRevisar, loadNext, cafecito, mostrarReglas, lastAnswer, setNavPanel, sfx])
 
   const onSkip = useCallback(() => {
     if (
@@ -1254,6 +1290,8 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
       answerMutation.isPending
     )
       return
+    // El mismo sonido que Continuar: saltear también es pasar a la siguiente.
+    sfx.continue()
     posthog.capture("game_skip", {
       tier: exercise.tier,
       stars: exercise.difficulty_stars,
@@ -1327,6 +1365,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
       },
     )
   }, [
+    sfx,
     exercise,
     closed,
     skipMutation,
@@ -1620,6 +1659,11 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
         panel === "repetitividad" ||
         panel === "encuesta" ||
         panel === "reglas" ||
+        // Y la de las herramientas, por lo mismo: tiene su propio Enter adentro
+        // (herramientas-slide.tsx). Sin esto el primer Enter la saltearía
+        // entera y la pantalla que explica los dos botones no se vería nunca
+        // en escritorio.
+        panel === "herramientas" ||
         // El cartel del tope también escucha su propio Enter (y su
         // Shift+Enter, que es el que compra), así que el global no puede
         // atravesarlo: pediría una derivada que el servidor va a negar.
@@ -2028,6 +2072,9 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   // encuesta: no piden nada, pero comparten la FORMA — el Continuar abajo, por
   // portal, donde estaba Revisar.
   const esReglas = panel === "reglas"
+  // La de las herramientas comparte la forma con las reglas: no pide nada y su
+  // Continuar va abajo, por portal, donde estaba Revisar.
+  const esHerramientas = panel === "herramientas"
   const pieDelPanel =
     panel === "intro" ||
     panel === "exercise" ||
@@ -2036,7 +2083,8 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
     registroEnElPie ||
     esUsername ||
     esPerfil ||
-    esReglas
+    esReglas ||
+    esHerramientas
 
   // El nodo del pie donde las diapos dibujan su botón de salir (ver
   // slide-salida.tsx). Va en estado y no en un ref porque un ref no vuelve a
@@ -2289,6 +2337,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                         loadNext()
                       }}
                       slotSalida={slotSalida}
+                      keyboard
                     />
                   </div>
                 ) : panel === "editCareer" && player ? (
@@ -2406,6 +2455,17 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                       loadNext()
                     }}
                   />
+                ) : panel === "herramientas" ? (
+                  <div className="flex min-h-0 flex-1 flex-col rounded-lg border border-border bg-card p-5">
+                    <HerramientasSlide
+                      keyboard
+                      slotSalida={slotSalida}
+                      onContinue={() => {
+                        sfx.continue()
+                        loadNext()
+                      }}
+                    />
+                  </div>
                 ) : panel === "reglas" ? (
                   <div className="flex min-h-0 flex-1 flex-col rounded-lg border border-border bg-card p-5">
                     <ReglasSlide
@@ -2414,7 +2474,10 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                       slotSalida={slotSalida}
                       // Siempre llega por hito, así que lo que sigue es la
                       // derivada siguiente.
-                      onContinue={() => loadNext()}
+                      onContinue={() => {
+                        sfx.continue()
+                        loadNext()
+                      }}
                     />
                   </div>
                 ) : panel === "username" && player ? (
@@ -2543,7 +2606,6 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                             streak={player?.combo ?? 0}
                             attempted={player?.exercises_attempted ?? 0}
                             elo={player?.elo ?? null}
-                            multiplier={boost?.multiplier ?? 1}
                             promptLatex={exercise.prompt_latex}
                             // La caja del enunciado pasa a mostrar la derivada
                             // que se escribió. Entra después de la explosión,
@@ -2698,7 +2760,8 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                       registroEnElPie ||
                       esUsername ||
                       esPerfil ||
-                      esReglas ? (
+                      esReglas ||
+                      esHerramientas ? (
                       // La caja vacía donde la diapo (o el campo) dibuja su
                       // botón. Se monta y se desmonta con `panel`, y eso
                       // resuelve el único caso molesto: durante los ~380 ms

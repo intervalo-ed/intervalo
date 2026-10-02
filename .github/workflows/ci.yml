@@ -90,6 +90,7 @@ jobs:
           bun run check:cafecito
           bun run check:preconnect
           bun run check:parser
+          bun run check:teclado
 
       - name: Build
         working-directory: web

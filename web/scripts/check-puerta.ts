@@ -33,10 +33,11 @@ import { INSTALAR_PRIMERA } from "../src/app/derivadas/instalacion-trigger"
 import { HITO_PERFIL, HITO_REGISTRO } from "../src/app/derivadas/hitos-del-juego"
 import { RECLUTAS_CADA, RECLUTAS_RESTO } from "../src/app/derivadas/reclutas-trigger"
 import {
-  REGLAS_DE_LA_DIAPO,
-  REGLAS_TRAS,
+  REGLAS_MAX,
   marcarReglasMostradas,
+  reglasDeLaDiapo,
   reglasDichas,
+  reglasTras,
   tocaReglas,
 } from "../src/app/derivadas/reglas-trigger"
 import {
@@ -67,9 +68,19 @@ function limpio() {
   guardado.clear()
 }
 
+// Las dos listas posibles. Con la fila de ayudas la tabla se explica antes de
+// la primera derivada y en su propia pantalla, así que la diapo queda con el
+// Elo solo; sin la fila, esa pantalla no existe y la regla de la tabla se queda
+// acá. Las dos se recorren en todo lo que sigue: una lista que se rompa en un
+// solo brazo se rompe para un cuarto de la gente.
+const LISTAS = [
+  { brazo: "con ayudas", conAyudas: true, cuales: reglasDeLaDiapo(true), tras: reglasTras(true) },
+  { brazo: "sin ayudas", conAyudas: false, cuales: reglasDeLaDiapo(false), tras: reglasTras(false) },
+]
+
 console.log(
   `valores: experimento en curso ${EN_CURSO === null ? "(ninguno)" : EN_CURSO.clave}, ` +
-    `la diapo sale tras ${REGLAS_TRAS} correcta(s) con [${REGLAS_DE_LA_DIAPO.join(", ")}]`,
+    LISTAS.map((l) => `${l.brazo} tras ${l.tras} [${l.cuales.join(", ")}]`).join(" y "),
 )
 
 console.log("1. el sorteo está apagado y no escribe la etiqueta de un experimento cerrado")
@@ -84,10 +95,23 @@ check(variantDelJuego() === null, "y `variant` viaja en null al backend")
 console.log("2. la regla 1 no se dice dos veces")
 // La 1 la dice la puerta (`INSTRUCCION_MINIMA`, en imperativo) y es la derivada
 // que la persona acaba de resolver. Repetirla es contarle lo que hizo.
-check(!REGLAS_DE_LA_DIAPO.includes(0), "la diapo no la incluye")
 check(
-  new Set(REGLAS_DE_LA_DIAPO).size === REGLAS_DE_LA_DIAPO.length,
-  `y ninguna repetida ([${REGLAS_DE_LA_DIAPO.join(", ")}])`,
+  LISTAS.every((l) => !l.cuales.includes(0)),
+  "la diapo no la incluye, en ningún brazo",
+)
+check(
+  LISTAS.every((l) => new Set(l.cuales).size === l.cuales.length),
+  `y ninguna repetida (${LISTAS.map((l) => `[${l.cuales.join(", ")}]`).join(" ")})`,
+)
+// La tabla se explica UNA vez: o en la diapo, o antes de la primera derivada.
+// Las dos a la vez es decirle dos veces lo mismo a la misma persona.
+check(
+  reglasDeLaDiapo(true).length < reglasDeLaDiapo(false).length,
+  "y con ayudas trae menos: la tabla ya se explicó antes de jugar",
+)
+check(
+  LISTAS.every((l) => l.cuales.length >= 1 && l.cuales.length <= REGLAS_MAX),
+  `ninguna lista pasa de ${REGLAS_MAX}, que es lo que anota la marca`,
 )
 
 console.log("3. la diapo no le pisa el turno a ningún otro hito")
@@ -103,41 +127,52 @@ const ocupados = [
   ...[0, 1, 2].map((k) => k * RECLUTAS_CADA + RECLUTAS_RESTO),
 ]
 check(
-  !ocupados.includes(REGLAS_TRAS),
-  `la ${REGLAS_TRAS} está libre (ocupadas: ${[...new Set(ocupados)].sort((a, b) => a - b).join(", ")})`,
+  LISTAS.every((l) => !ocupados.includes(l.tras)),
+  `las ${LISTAS.map((l) => l.tras).join(" y ")} están libres (ocupadas: ${[...new Set(ocupados)].sort((a, b) => a - b).join(", ")})`,
 )
 check(
-  REGLAS_TRAS < Math.min(...ocupados),
-  `y llega antes que todos (el primero es la ${Math.min(...ocupados)})`,
+  LISTAS.every((l) => l.tras < Math.min(...ocupados)),
+  `y llegan antes que todos (el primero es la ${Math.min(...ocupados)})`,
 )
 
 console.log("4. salen una sola vez, y después nunca más")
-limpio()
-const salen: number[] = []
-for (let n = 1; n <= 60; n++) {
-  if (tocaReglas(n)) {
-    salen.push(n)
-    marcarReglasMostradas(n)
+for (const l of LISTAS) {
+  limpio()
+  const salen: number[] = []
+  for (let n = 1; n <= 60; n++) {
+    if (tocaReglas(n, l.conAyudas)) {
+      salen.push(n)
+      marcarReglasMostradas(n)
+    }
   }
+  check(salen.length === 1, `${l.brazo}: sale una sola vez (${salen.length})`)
+  check(salen[0] === l.tras, `y es en la ${l.tras} (${salen[0]})`)
+  check(
+    reglasDichas() === REGLAS_MAX,
+    `queda anotada la marca entera (${reglasDichas()})`,
+  )
 }
-check(salen.length === 1, `sale una sola vez (${salen.length})`)
-check(salen[0] === REGLAS_TRAS, `y es en la ${REGLAS_TRAS} (${salen[0]})`)
-check(
-  reglasDichas() === REGLAS_DE_LA_DIAPO.length,
-  `quedan anotadas las tres (${reglasDichas()})`,
-)
 
-console.log("5. antes de la primera correcta no salen")
-limpio()
-check(!tocaReglas(0), "no sale con cero correctas")
-check(!tocaReglas(-2), "ni con un número negativo")
+console.log("5. antes del umbral no salen")
+for (const l of LISTAS) {
+  limpio()
+  check(!tocaReglas(0, l.conAyudas), `${l.brazo}: no sale con cero correctas`)
+  check(!tocaReglas(-2, l.conAyudas), "ni con un número negativo")
+  check(
+    !tocaReglas(l.tras - 1, l.conAyudas),
+    `ni una antes del umbral (${l.tras - 1})`,
+  )
+}
 
 console.log("6. a quien ya venía jugando se le explican igual")
 // Quien estaba en el medio cuando cambió la forma tiene correctas acumuladas y
 // ninguna marca, y tiene que recibirlas en su próximo acierto en vez de quedarse
 // sin ellas para siempre.
 limpio()
-check(tocaReglas(37), "con 37 correctas y sin marca, salen")
+check(
+  LISTAS.every((l) => tocaReglas(37, l.conAyudas)),
+  "con 37 correctas y sin marca, salen",
+)
 
 console.log("7. no le comen el turno a los pedidos")
 // Las reglas no son un pedido —no piden plata, ni un contacto, ni una cuenta—
@@ -146,7 +181,7 @@ console.log("7. no le comen el turno a los pedidos")
 // nada.
 limpio()
 saveUltimoPedidoAt(4)
-marcarReglasMostradas(REGLAS_TRAS)
+marcarReglasMostradas(reglasTras(false))
 check(
   readUltimoPedidoAt() === 4,
   `el cooldown compartido queda donde estaba (${readUltimoPedidoAt()})`,
@@ -158,10 +193,13 @@ console.log("8. cerrar sesión las devuelve")
 // explicación. Sin limpiar esta clave, el segundo invitado del mismo navegador
 // nunca se enteraría de cómo funciona el juego.
 limpio()
-marcarReglasMostradas(REGLAS_TRAS)
-check(readPedidoState(PEDIDO_REGLAS).vistas === 3, "quedaron anotadas")
+marcarReglasMostradas(reglasTras(false))
+check(
+  readPedidoState(PEDIDO_REGLAS).vistas === REGLAS_MAX,
+  "quedaron anotadas",
+)
 clearGameIdentity()
-check(tocaReglas(1), "y después de cerrar sesión vuelven a salir")
+check(tocaReglas(1, false), "y después de cerrar sesión vuelven a salir")
 
 console.log("9. si no se puede anotar, se siguen ofreciendo")
 // localStorage bloqueado (modo privado, permisos). El lado hacia el que se
@@ -176,11 +214,11 @@ const setItem = store.setItem
 store.setItem = () => {
   throw new Error("QuotaExceeded")
 }
-marcarReglasMostradas(REGLAS_TRAS)
-check(tocaReglas(1), "se siguen ofreciendo si no se pudo anotar")
+marcarReglasMostradas(reglasTras(false))
+check(tocaReglas(1, false), "se siguen ofreciendo si no se pudo anotar")
 store.setItem = setItem
 
-console.log("10. quien ya vio las tres con el esquema viejo no las vuelve a ver")
+console.log("10. quien ya la vio con el esquema viejo no la vuelve a ver")
 // La caja vieja guardaba `vistas: 1` queriendo decir «las tres salieron», porque
 // salían juntas. Del 18 al 27/09 el brazo `sin-peaje` las contó de a una, así que
 // ese 1 pasó a decir «salió una». El brazo se fue, pero la caja vieja sigue
@@ -189,17 +227,20 @@ console.log("10. quien ya vio las tres con el esquema viejo no las vuelve a ver"
 // jugando: hay que volver con un localStorage de la semana pasada.
 limpio()
 savePedidoState(PEDIDO_REGLAS_V1, { vistas: 1, ultima: 1 })
-check(reglasDichas() === 3, `la marca vieja vale por las tres (${reglasDichas()})`)
-check(!tocaReglas(1), "así que la diapo no se repite")
+check(
+  reglasDichas() === REGLAS_MAX,
+  `la marca vieja vale por la diapo entera (${reglasDichas()})`,
+)
+check(!tocaReglas(1, false), "así que la diapo no se repite")
 
 console.log("11. pero la caja nueva manda sobre la vieja")
 // Un aparato puede tener las dos: la vieja de cuando las reglas salían juntas y
 // la nueva de después. La que cuenta es la nueva.
 limpio()
 savePedidoState(PEDIDO_REGLAS_V1, { vistas: 1, ultima: 1 })
-savePedidoState(PEDIDO_REGLAS, { vistas: 3, ultima: REGLAS_TRAS })
+savePedidoState(PEDIDO_REGLAS, { vistas: 3, ultima: reglasTras(false) })
 check(reglasDichas() === 3, `gana la nueva (${reglasDichas()})`)
-check(!tocaReglas(1), "y tampoco se repite")
+check(!tocaReglas(1, false), "y tampoco se repite")
 
 console.log("12. cerrar sesión borra las dos cajas")
 // Si quedara la vieja, el segundo invitado de este navegador arrancaría con «las
@@ -210,7 +251,7 @@ savePedidoState(PEDIDO_REGLAS_V1, { vistas: 1, ultima: 1 })
 savePedidoState(PEDIDO_REGLAS, { vistas: 3, ultima: 15 })
 clearGameIdentity()
 check(reglasDichas() === 0, `no queda rastro de ninguna (${reglasDichas()})`)
-check(tocaReglas(1), "y el próximo jugador de este aparato las recibe")
+check(tocaReglas(1, false), "y el próximo jugador de este aparato las recibe")
 
 console.log(fallos === 0 ? "\ntodos los chequeos pasaron" : `\n${fallos} fallos`)
 process.exit(fallos === 0 ? 0 : 1)

@@ -21,7 +21,7 @@
 // cada uno, y el panel resuelve el emoji por canal.
 
 import { useEffect, useRef, useState } from "react"
-import { motion, useReducedMotion } from "motion/react"
+import { motion, useIsPresent, useReducedMotion } from "motion/react"
 import posthog from "posthog-js"
 
 import { cn } from "@/lib/utils"
@@ -30,7 +30,7 @@ import { useSfx } from "@/lib/audio/useSfx"
 import { useGameApi } from "./UseGameApi"
 import { KeyCap } from "./exercise-card"
 import { Salida } from "./slide-salida"
-import { enCampoDeTexto, useTeclas } from "./teclas"
+import { digitoDe, enCampoDeTexto, enCampoHtml, useTeclas } from "./teclas"
 
 export type VotoRepetitividad = "variado" | "justo" | "repetitivo"
 
@@ -109,26 +109,41 @@ export function RepetitividadSlide({
   })
   const seguidoRef = useRef(false)
 
+  // Solo mientras la diapo ESTÁ: el fundido de salida la deja montada 220 ms, y
+  // en captura esos 220 ms le robaban el primer dígito a la derivada siguiente.
+  const presente = useIsPresent()
   useEffect(() => {
-    if (!keyboard) return
+    if (!keyboard || !presente) return
     const onKey = (e: KeyboardEvent) => {
-      if (enCampoDeTexto(e.target)) return
       if (e.metaKey || e.ctrlKey || e.altKey) return
       if (e.key === "Enter") {
+        // El Enter de un desplegable es del desplegable: lo abre y lo cierra.
+        if (enCampoDeTexto(e.target)) return
         e.preventDefault()
+        e.stopPropagation()
         if (seguidoRef.current) return
         seguidoRef.current = true
         onContinue(contestoRef.current)
         return
       }
-      const i = TECLAS.indexOf(e.key)
-      if (i === -1) return
+      // Los números solo ceden ante un campo de texto de verdad (el chat). Ni
+      // un filtro del ranking con el foco ni el campo de la respuesta, que
+      // queda enfocado debajo de la diapo, se los pueden quedar.
+      if (enCampoHtml(e.target)) return
+      const n = digitoDe(e)
+      if (n === null || n > OPCIONES.length) return
+      const i = n - 1
       e.preventDefault()
+      e.stopPropagation()
       void votarRef.current(OPCIONES[i].voto)
     }
-    document.addEventListener("keydown", onKey)
-    return () => document.removeEventListener("keydown", onKey)
-  }, [keyboard, onContinue])
+    // EN CAPTURA, y parando la tecla usada. El campo de la respuesta conserva el
+    // foco debajo de esta diapo y MathLive no deja burbujear sus teclas: en
+    // burbuja el 1, el 2 y el 3 se escribían en un campo que no se ve y acá no
+    // llegaban. Ver `teclas.ts :: enCampoHtml`.
+    document.addEventListener("keydown", onKey, true)
+    return () => document.removeEventListener("keydown", onKey, true)
+  }, [keyboard, onContinue, presente])
 
   return (
     <div

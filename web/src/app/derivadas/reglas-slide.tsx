@@ -12,8 +12,8 @@
 // eligen índices. La regla 1 nunca entra — ya se dio en la puerta, en
 // imperativo, y es la derivada que la persona acaba de resolver.
 //
-// Con tres van numeradas 1, 2 y 3. Con una no lleva número: un «1.» arriba de un
-// renglón único promete una lista que no viene.
+// Van sin numerar, como en todas las demás pantallas: ver la cabecera de
+// `IntroParagraphs`.
 //
 // Sale después del ranking y no antes porque es lo único que la hace legible.
 // Las reglas hablan del Elo, del ranking y de la tabla; llegando acá, el Elo se
@@ -42,7 +42,7 @@ export function ReglasSlide({
   slotSalida,
   keyboard = false,
 }: {
-  /** Índices de la lista de `IntroParagraphs`. Uno o tres, según el brazo. */
+  /** Índices de la lista de `IntroParagraphs`. Uno o dos, según el brazo. */
   cuales: number[]
   onContinue: () => void
   /** Dónde dibujar el Continuar: el pie de la columna, AFUERA de la caja —
@@ -94,7 +94,7 @@ export function ReglasSlide({
           acá este texto ES el contenido de la pantalla, no una aclaración al
           pie. */}
       <div className="flex flex-col gap-3 leading-relaxed text-foreground/85">
-        <IntroParagraphs cuales={cuales} numera={cuales.length > 1} />
+        <IntroParagraphs cuales={cuales} />
       </div>
       <Salida slot={slotSalida}>
         <Button size="lg" className={ctaCls} onClick={onContinue}>

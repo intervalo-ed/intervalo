@@ -22,12 +22,12 @@ Toda sesión del juego empieza en esta pantalla, así que un error acá lo ve el
   - **y se marca DESPUÉS de construir**. Al revés, el digest se contaría a sí
     mismo y el renglón de reclutas no aparecería nunca;
 
-  - **el conteo cae a la ventana semanal** cuando el número no llega al mínimo,
-    que es lo que evita el «+1 persona se sumó» — peor que el silencio;
+  - **los conteos dicen su período**, y es el más corto en el que el número
+    llega al mínimo: hoy, si no la semana, si no el mes. Es lo que evita el «hoy
+    llegó 1 estudiante» — peor que el silencio;
 
   - **la universidad sale del `?g=`** para quien no la cargó. Es el 77% de los
-    que llegan, y sin esto la pantalla de primera vez les habla del mundo en vez
-    de hablarles de su gente.
+    que llegan, y es de quién habla el renglón del puesto en el ranking.
 
 Uso:
     python backend/scripts/check_game_bienvenida.py
@@ -52,7 +52,7 @@ sys.path.insert(0, str(BACKEND))
 sys.path.insert(0, str(BACKEND.parent))
 
 import database  # noqa: E402
-from models import Base, GameAttempt, GameEvent, GameGroup, GamePlayer  # noqa: E402
+from models import Base, GameAttempt, GameGroup, GamePlayer  # noqa: E402
 
 Base.metadata.create_all(bind=database.engine)
 
@@ -94,7 +94,7 @@ def claves(b):
 
 # ── El mundo ─────────────────────────────────────────────────────────────────
 # **Gente y no sembrados.** Cada renglón de esta pantalla es una afirmación
-# sobre PERSONAS («ya hay 371 de la UBA jugando»), así que el módulo filtra
+# sobre PERSONAS («hoy llegaron 40 estudiantes»), así que el módulo filtra
 # `is_bot` en todas sus cuentas. Un fixture de bots mediría lo contrario de lo
 # que producción va a medir — y hoy en producción hay 0 sembrados, así que no
 # hay divergencia posible con el ranking, que sí los contaría.
@@ -138,6 +138,25 @@ check(construir(vuelve, correct_today=1).novedades[0].texto.count("derivadas") =
       "con una sola dice «1 derivada», no «1 derivadas»")
 
 
+# El renglón que habla de la persona. Es el único de `vuelve` que no habla del
+# mundo, y la rama existió dos días sin él.
+b = construir(vuelve, correct_today=0)
+check("mio" in claves(b), f"vuelve trae el renglón propio (dio {claves(b)})")
+linea = next((n for n in b.novedades if n.clave == "mio"), None)
+check(linea is not None and "30 derivadas resueltas" in linea.texto,
+      f"con lo que lleva resuelto (dio «{linea and linea.texto}»)")
+check(claves(b)[0] == "mio" or claves(b)[0] == "reclutas",
+      f"y arriba de todo lo que habla del mundo (dio {claves(b)})")
+
+unaSola = jugador("elDeUna", university="UBA", correctas=1)
+linea = next(n for n in construir(unaSola).novedades if n.clave == "mio")
+check("1 derivada resuelta." in linea.texto,
+      f"con una sola, singular en los dos lados (dio «{linea.texto}»)")
+
+check("mio" not in claves(construir(vuelve, correct_today=8)),
+      "y en `sigue` no sale: ahí el renglón propio es el de hoy")
+
+
 print("2. quien nunca resolvió nada es primera vez")
 
 nuevo = jugador("elNuevo", guest_token="tok-nuevo")
@@ -148,6 +167,7 @@ check(b.titulo == "Lo que está pasando", f"otro encabezado (dio {b.titulo})")
 check(len(b.novedades) <= bienvenida.MAX_NOVEDADES,
       f"como mucho {bienvenida.MAX_NOVEDADES} renglones (dio {len(b.novedades)})")
 check("reclutas" not in claves(b), "y nunca habla de reclutas: no tiene")
+check("mio" not in claves(b), "ni de lo que lleva resuelto: no lleva nada")
 
 
 print("3. la universidad sale del ?g= cuando no la cargó")
@@ -159,8 +179,10 @@ delink = jugador("porElLink", first_group_id="uba262", guest_token="tok-link")
 check(bienvenida.universidad_del_link(db, delink) == "UBA",
       "el grupo dice de qué universidad es")
 b = construir(delink)
-check("uni_gente" in claves(b) or "uni_puesto" in claves(b),
-      f"y la pantalla le habla de su gente (dio {claves(b)})")
+# La sigla la lleva SOLO el renglón del puesto. El de llegadas cuenta el juego
+# entero: con la sigla no entraba en un renglón y repetía a la universidad.
+check(all(not n.universities for n in b.novedades if n.clave.startswith("altas")),
+      f"y el renglón de llegadas va sin sigla (dio {claves(b)})")
 # Un ranking de una sola universidad no es un ranking: «va 1ª de 1» es una tabla
 # de una fila con un podio encima. Con dos universidades en el fixture todavía
 # no llega al mínimo, así que el renglón del puesto no puede salir.
@@ -170,7 +192,7 @@ check("uni_puesto" not in claves(b),
 sinlink = jugador("sinNada", guest_token="tok-sinlink")
 check(bienvenida.universidad_del_link(db, sinlink) is None, "sin ?g= no se inventa")
 b = construir(sinlink)
-check("uni_gente" not in claves(b) and "uni_puesto" not in claves(b),
+check(all(not n.universities for n in b.novedades),
       f"y no le habla de una universidad que no sabemos (dio {claves(b)})")
 check(len(b.novedades) >= 1, "pero igual tiene qué decirle: los fallbacks")
 
@@ -204,38 +226,155 @@ check(bienvenida._ventana(p, AHORA) == AHORA - bienvenida.VENTANA_MAXIMA,
       f"y nunca más atrás de {bienvenida.VENTANA_MAXIMA.days} días")
 
 
-print("5. el conteo cae a la ventana semanal, y no dice «+1»")
+print("5. los conteos dicen su período, y es el más corto que alcanza")
 
-casa = jugador("delaCasa", university="UNQ", correctas=20, guest_token="tok-casa")
-casa.digest_seen_at = AHORA - timedelta(hours=6)
-# Nacido hace rato: si no, ÉL MISMO cuenta como alta dentro de su propia ventana
-# y el fixture mide uno de más. Alguien que vuelve no se creó hace un minuto.
-casa.created_at = AHORA - timedelta(days=30)
-db.commit()
-# Cuatro altas en las últimas 6 h: no llega a MIN_CONTEO.
-for i in range(bienvenida.MIN_CONTEO - 1):
-    j = jugador(f"unq_reciente_{i}", university="UNQ")
-    j.created_at = AHORA - timedelta(hours=2)
-# Y muchas en la semana.
-for i in range(20):
-    j = jugador(f"unq_semana_{i}", university="UNQ")
-    j.created_at = AHORA - timedelta(days=3)
-db.commit()
+PERIODOS = bienvenida._periodos(INICIO_DEL_DIA, AHORA)
+HACE_3_DIAS = AHORA - timedelta(days=3)
+HACE_20_DIAS = AHORA - timedelta(days=20)
 
-n = bienvenida._n_altas(db, "UNQ", AHORA - timedelta(hours=6), AHORA, "s")
+
+def del_juego():
+    """El renglón de llegadas tal como lo pide la pantalla: sin universidad."""
+    return bienvenida._n_altas(db, None, INICIO_DEL_DIA, AHORA, 70)
+
+
+# ── 5a · el camino que usa la pantalla: todo el juego, sin sigla ─────────────
+# Todo lo que existe hasta acá se manda a hace 40 días: fuera de los tres
+# períodos. Es lo que deja armar cada escalón sin que el fixture de arriba —que
+# nació «hoy»— lo tape.
+db.query(GamePlayer).update(
+    {GamePlayer.created_at: AHORA - timedelta(days=40)}, synchronize_session=False)
+db.commit()
+check(del_juego() is None, "sin llegadas en el mes no hay renglón")
+
+for i in range(bienvenida.MIN_CONTEO + 1):
+    jugador(f"mes_{i}").created_at = HACE_20_DIAS
+db.commit()
+n = del_juego()
+check(n is not None and n.clave == "altas_mes"
+      and n.texto == f"Este mes llegaron {bienvenida.MIN_CONTEO + 1} estudiantes.",
+      f"con llegadas solo en el mes dice el mes (dio «{n and n.texto}»)")
+check(n is not None and not n.universities and "{u0}" not in n.texto,
+      "y sin sigla: cuenta el juego entero")
+
+for i in range(bienvenida.MIN_CONTEO):
+    jugador(f"semana_{i}").created_at = HACE_3_DIAS
+db.commit()
+n = del_juego()
+check(n is not None and n.clave == "altas_semana"
+      and n.texto == f"Esta semana llegaron {bienvenida.MIN_CONTEO} estudiantes.",
+      f"con suficientes en la semana dice la semana (dio «{n and n.texto}»)")
+
+# Cuatro de hoy: no llega al mínimo, sigue hablando de la semana (que ahora
+# los incluye).
+hoy = [jugador(f"hoy_{i}") for i in range(bienvenida.MIN_CONTEO - 1)]
+for j in hoy:
+    j.created_at = AHORA
+db.commit()
+n = del_juego()
 check(n is not None and n.clave == "altas_semana",
-      f"con {bienvenida.MIN_CONTEO - 1} altas recientes usa la semanal (dio {n and n.clave})")
-check(n is not None and "semana" in n.texto.lower(),
-      f"y lo dice: «{n and n.texto}»")
-check(n is not None and "{u0}" in n.texto, "con el hueco de la sigla, como el feed")
+      f"con {bienvenida.MIN_CONTEO - 1} de hoy todavía es la semana (dio {n and n.clave})")
 
-# Con suficientes, vuelve a la ventana propia.
-for i in range(bienvenida.MIN_CONTEO + 2):
-    j = jugador(f"unq_muchas_{i}", university="UNQ")
-    j.created_at = AHORA - timedelta(hours=1)
+for i in range(2):
+    j = jugador(f"hoy_mas_{i}")
+    j.created_at = AHORA
+    hoy.append(j)
 db.commit()
-n = bienvenida._n_altas(db, "UNQ", AHORA - timedelta(hours=6), AHORA, "s")
-check(n is not None and n.clave == "altas", f"con suficientes usa la propia (dio {n and n.clave})")
+n = del_juego()
+check(n is not None and n.clave == "altas_hoy"
+      and n.texto == f"Hoy llegaron {len(hoy)} estudiantes.",
+      f"y con suficientes hoy dice hoy (dio «{n and n.texto}»)")
+
+# **Quien lee no se cuenta a sí mismo**, y eso tiene que llegar desde
+# `construir`, que es quien sabe quién lee. `hoy[0]` nunca resolvió nada, así
+# que cae en `primera`, y es uno de los que llegaron hoy.
+b = construir(hoy[0])
+linea = next((x for x in b.novedades if x.clave.startswith("altas")), None)
+check(linea is not None and linea.texto == f"Hoy llegaron {len(hoy) - 1} estudiantes.",
+      f"la pantalla no cuenta a quien la lee (dio «{linea and linea.texto}»)")
+check(linea is not None and linea.emoji == "🎓", "con el birrete y no el saludo")
+
+# ── 5b · las derivadas, con la misma escalera ────────────────────────────────
+
+
+# `game_attempts` tiene un único por (ejercicio, intento): cada intento del
+# fixture va contra un ejercicio distinto. El ejercicio no existe —SQLite no
+# exige la clave foránea— y no hace falta: lo que se cuenta son los intentos.
+_ejercicio = iter(range(1, 10_000))
+
+
+def resolver(p, cuantas, cuando, bien=True):
+    for k in range(cuantas):
+        db.add(GameAttempt(
+            exercise_id=next(_ejercicio), player_id=p.id, attempt_number=1, answer_latex="x",
+            answer_parsed="x", parse_ok=True, is_correct=bien, xp_awarded=0,
+            created_at=cuando))
+    db.commit()
+
+
+def derivadas():
+    return bienvenida._n_derivadas(db, INICIO_DEL_DIA, AHORA)
+
+
+check(derivadas() is None, "sin derivadas resueltas no hay renglón")
+alguien = db.query(GamePlayer).filter(GamePlayer.alias == "mes_0").one()
+resolver(alguien, 7, HACE_20_DIAS)
+resolver(alguien, 9, HACE_20_DIAS, bien=False)
+n = derivadas()
+check(n is not None and n.texto == "Se resolvieron 7 derivadas este mes.",
+      f"cuenta solo las correctas, y dice el mes (dio «{n and n.texto}»)")
+resolver(alguien, 6, HACE_3_DIAS)
+n = derivadas()
+check(n is not None and n.texto == "Se resolvieron 6 derivadas esta semana.",
+      f"con suficientes en la semana dice la semana (dio «{n and n.texto}»)")
+resolver(alguien, 5, AHORA)
+n = derivadas()
+check(n is not None and n.texto == "Se resolvieron 5 derivadas hoy.",
+      f"y con suficientes hoy dice hoy (dio «{n and n.texto}»)")
+sembrado = jugador("unBot", is_bot=True)
+resolver(sembrado, 50, AHORA)
+n = derivadas()
+check(n is not None and n.texto == "Se resolvieron 5 derivadas hoy.",
+      f"las de un sembrado no cuentan (dio «{n and n.texto}»)")
+
+# Una sola pasada por tabla, que es por lo que las cuentas salen juntas.
+cuentas = bienvenida._derivadas(db, PERIODOS)
+check(cuentas == {"hoy": 5, "semana": 11, "mes": 18},
+      f"los tres períodos salen de una consulta, y cada uno incluye al anterior (dio {cuentas})")
+
+# ── 5c · el camino con universidad: hoy no lo llama nadie, pero existe ───────
+
+
+def altas(uni):
+    return bienvenida._n_altas(db, uni, INICIO_DEL_DIA, AHORA, 70)
+
+
+for i in range(bienvenida.MIN_CONTEO + 2):
+    jugador(f"unq_semana_{i}", university="UNQ").created_at = HACE_3_DIAS
+db.commit()
+n = altas("UNQ")
+check(n is not None and n.clave == "altas_semana" and n.universities == ["UNQ"]
+      and "{u0}" in n.texto,
+      f"con universidad lleva el hueco de la sigla (dio «{n and n.texto}»)")
+n = altas("UNDESIERTA")
+check(n is not None and not n.universities and "{u0}" not in n.texto,
+      f"y sin llegadas propias habla del juego entero (dio «{n and n.texto}»)")
+
+# ── 5d · el puesto en el ranking, que es lo único que nombra a la universidad ─
+# Hace falta una tabla de al menos MIN_TABLA universidades con gente fuera de la
+# rampa; arriba hay dos (UBA y UTN), así que se arma la tercera.
+for i in range(6):
+    jugador(f"pobla_unc_{i}", university="UNC", correctas=5, theta=0.2, n_updates=9)
+db.commit()
+delgrupo = jugador("porElLinkConTabla", first_group_id="uba262", guest_token="tok-tabla")
+b = construir(delgrupo)
+linea = next((x for x in b.novedades if x.clave == "uni_puesto"), None)
+check(linea is not None and linea.universities == ["UBA"],
+      f"quien llega por el link de un grupo ve el puesto de su universidad (dio {claves(b)})")
+check(linea is not None and linea.texto == "La {u0} va 1ª en el ranking.",
+      f"sin el tamaño de la tabla (dio «{linea and linea.texto}»)")
+check(all(not x.universities for x in b.novedades if x.clave.startswith("altas")),
+      "y el renglón de llegadas sigue sin sigla: no se repite la universidad")
 
 
 print("6. lo que se contó no se vuelve a contar")
@@ -286,44 +425,29 @@ check(len({n.clave for n in b.novedades}) == len(b.novedades),
       "y no se repite un hecho dos veces")
 
 
-print("7b. dos bugs que solo aparecen con datos de verdad")
+print("7b. lo que solo aparece con datos de verdad")
 
-# **La última persona que se sumó no puede ser uno mismo.** Para quien acaba de
-# llegar, la fila más nueva de `game_players` ES LA SUYA. Sin excluirla, el
-# renglón le dice «la última persona se sumó hace menos de un minuto» y esa
-# persona es quien lo está leyendo. Se vio en producción a los dos minutos de
-# desplegar: hay que ser el más nuevo de la base para pisarlo.
-# Todos los demás, con fecha vieja: en el fixture se crean en el mismo
-# instante, y así excluir a uno no cambiaría la respuesta. En producción las
-# altas están separadas —el hueco mediano es de tres minutos— y es justo esa
-# separación la que hace visible el bug.
-db.query(GamePlayer).update({GamePlayer.created_at: AHORA - timedelta(minutes=45)},
-                            synchronize_session=False)
-db.commit()
+# **Nadie recibe el renglón de «La última persona se sumó hace N minutos».** Se
+# sacó el 02/10. Lo que queda fijado es que su clave no vuelva por descuido: era
+# el único renglón que podía hablarle a alguien de sí mismo —para quien acaba de
+# llegar, la fila más nueva de `game_players` es la suya—.
 recien = jugador("elRecienLlegado", guest_token="tok-recien")
-solo = bienvenida._minutos_desde_la_ultima_alta(db, AHORA, recien.id)
-conmigo = bienvenida._minutos_desde_la_ultima_alta(db, AHORA, None)
-check(conmigo == 0, f"sin excluirlo, la última alta es él mismo (dio {conmigo} min)")
-check(solo == 45, f"excluyéndolo, mira al anterior (dio {solo} min, esperaba 45)")
 b = construir(recien)
-linea = next((n for n in b.novedades if n.clave == "ultima_alta"), None)
-check(linea is None or "menos de un minuto" not in linea.texto,
-      f"así que la pantalla no le habla de él (dio «{linea and linea.texto}»)")
+check(all(n.clave != "ultima_alta" for n in b.novedades),
+      "la pantalla no cuenta hace cuánto llegó el último")
 
-# **«En N universidades» no cuenta las de una sola persona.** El campo es libre,
-# así que esa cola es mitad universidades reales y mitad tipeos. Medido en
-# producción el 27/09: 31 contra 16.
-jugador("unicoDeUnaRara", university="23213r", correctas=3)
-jugador("otroDeUnaRara", university="Ser f", correctas=3)
-db.commit()
-_, unis = bienvenida._universo(db)
-crudas = (db.query(GamePlayer.university)
-          .filter(GamePlayer.is_bot.is_(False), GamePlayer.exercises_correct > 0,
-                  GamePlayer.university.isnot(None), GamePlayer.university != "")
-          .distinct().count())
-check(unis < crudas,
-      f"las de una sola persona no cuentan ({unis} contra {crudas} crudas)")
-check(unis >= 1, f"pero las que sí tienen gente cuentan (dio {unis})")
+# **No quedan totales acumulados.** «Ya hay N personas de la UTN jugando» y «Ya
+# somos N en M universidades» se sacaron el 02/10: los conteos hablan de un
+# período. Y cada renglón de conteo lo nombra.
+check(not ({"uni_gente", "universo"} & set(claves(b))),
+      f"ni totales sin período (dio {claves(b)})")
+conteos = [x for x in b.novedades if x.clave.startswith("altas") or x.clave == "derivadas"]
+check(len(conteos) >= 1 and all(
+          x.texto.startswith(("Hoy ", "Esta semana ", "Este mes "))
+          or x.texto.endswith((" hoy.", " esta semana.", " este mes."))
+          for x in conteos),
+      f"y todo conteo dice su período (dio {[x.texto for x in conteos]})")
+
 
 print("7c. el cuarto brazo de dx-rampa-1")
 

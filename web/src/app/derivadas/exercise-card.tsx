@@ -15,7 +15,6 @@ import { motion, useReducedMotion } from "motion/react"
 import MathText from "@/components/math-text"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { fmtMultiplier } from "./cafecito-cta"
 import { Cara } from "./flip-face"
 import { FUNDIDO } from "./slide-flip"
 import { useTeclas } from "./teclas"
@@ -295,13 +294,9 @@ const TIPS = {
     title: "Elo",
     body: "Tu nivel. Sube cuando resolvés algo difícil y baja cuando errás.",
   },
-  boost: {
-    title: "Cafecito",
-    body: "Un cafecito multiplica el XP de toda tu universidad durante unas horas.",
-  },
 } as const
 
-// Los tres marcadores, en el renglón que antes ocupaba la pregunta. Van juntos
+// Los marcadores, en el renglón que antes ocupaba la pregunta. Van juntos
 // en una pastilla centrada y no separados a lo ancho de la card: son UNA cosa
 // —el marcador del juego— y desparramados a lo largo de 28 rem se leían como
 // tres adornos sueltos, cada uno perdido en su esquina.
@@ -316,7 +311,6 @@ function Counters({
   attempted,
   streak,
   elo,
-  multiplier,
   className,
 }: {
   attempted: number
@@ -324,10 +318,6 @@ function Counters({
   // Null hasta que carga el jugador: se deja el hueco en vez de mostrar un 1000
   // que después salta al valor real.
   elo: number | null
-  // Empuje vigente de la universidad. Se muestra SIEMPRE, también en ×1,0 y
-  // apagado: es la única forma de que alguien que nunca vio un empuje sepa que
-  // existe la mecánica antes de que le toque uno.
-  multiplier: number
   className?: string
 }) {
   const bar = <span aria-hidden className="h-3.5 w-px shrink-0 bg-border" />
@@ -388,14 +378,6 @@ function Counters({
           />
         </>
       )}
-      {bar}
-      <Counter
-        text={fmtMultiplier(multiplier)}
-        emoji="☕"
-        label={`multiplicador de XP ${fmtMultiplier(multiplier)}`}
-        tip={TIPS.boost}
-        dim={multiplier <= 1}
-      />
     </span>
   )
 }
@@ -684,7 +666,6 @@ export function ExerciseCard({
   streak,
   attempted,
   elo,
-  multiplier,
   promptLatex,
   solvedLatex = null,
   promptGone = false,
@@ -697,7 +678,6 @@ export function ExerciseCard({
   streak: number
   attempted: number
   elo: number | null
-  multiplier: number
   promptLatex: string
   // La derivada que la persona escribió, cuando estuvo bien. Con esto puesto la
   // caja del enunciado deja de pedir la derivada y pasa a mostrarla.
@@ -730,7 +710,6 @@ export function ExerciseCard({
         attempted={attempted}
         streak={streak}
         elo={elo}
-        multiplier={multiplier}
         className="shrink-0"
       />
       {/* En escritorio la card crece hasta llenar la columna. Lo que crece es la

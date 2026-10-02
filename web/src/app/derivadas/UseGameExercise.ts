@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { unwrap } from "@/lib/api/client"
 import type { components } from "@/lib/api/schema"
@@ -135,21 +135,62 @@ export function useEjercicioAdelantado() {
   }, [api])
 
   /** El adelantado, vaciando la caja: dos llamadas seguidas, la segunda es null. */
+  // El reloj que impide que `esperando` se quede puesto.
+  //
+  // `esperando` apaga el botón de Continuar y lo único que lo baja es que se
+  // sirva una derivada. Si por lo que sea eso no pasa —y pasa: reportado
+  // jugando, el botón queda muerto después de la segunda derivada y no hay
+  // forma de seguir que no sea recargar— el juego se termina ahí.
+  //
+  // Esto NO es el arreglo de por qué no se sirve: es la garantía de que el
+  // botón vuelva.
+  //
+  // El reloj corre desde que el pedido TERMINA, no desde que se lo consume. Con
+  // el reloj contando desde el consumo, en una red lenta el botón volvía con el
+  // `/next` todavía en vuelo: un segundo Continuar pedía otro, llegaban los dos
+  // y el segundo servido borraba lo que la persona ya había escrito. Terminado
+  // el pedido, lo que queda es servirlo —un render— y cuatro segundos sobran.
+  // El techo de quince es para el pedido que no termina nunca.
+  const relojRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const soltar = useCallback(() => {
+    if (relojRef.current) clearTimeout(relojRef.current)
+    relojRef.current = null
+  }, [])
+  useEffect(() => soltar, [soltar])
+
   const consumir = useCallback(() => {
     const promesa = caja.current
     caja.current = null
-    if (promesa !== null) setEsperando(true)
+    if (promesa !== null) {
+      setEsperando(true)
+      soltar()
+      const armar = (ms: number) => {
+        soltar()
+        relojRef.current = setTimeout(() => setEsperando(false), ms)
+      }
+      armar(15000)
+      const alTerminar = () => {
+        // Solo si este reloj sigue siendo el de ESTE pedido: si ya se sirvió o
+        // se descartó, `soltar` lo dejó en null y no hay nada que rearmar.
+        if (relojRef.current !== null) armar(4000)
+      }
+      promesa.then(alTerminar, alTerminar)
+    }
     return promesa
-  }, [])
+  }, [soltar])
 
-  const servido = useCallback(() => setEsperando(false), [])
+  const servido = useCallback(() => {
+    soltar()
+    setEsperando(false)
+  }, [soltar])
 
   /** Para cuando el servidor movió el piso: un 409 o un reinicio de progreso
    *  vencen lo servido, así que lo adelantado ya no vale. */
   const descartar = useCallback(() => {
     caja.current = null
+    soltar()
     setEsperando(false)
-  }, [])
+  }, [soltar])
 
   return { adelantar, consumir, servido, descartar, esperando }
 }

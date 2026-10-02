@@ -1,13 +1,14 @@
 ## Antes de dar por terminado un cambio
 
-**Correr la suite:** `python backend/scripts/run_checks.py` (55 checks, ~4 min).
+**Correr la suite:** `python backend/scripts/run_checks.py` (56 checks, ~4 min).
 Un check nuevo se agrega a la lista de `CHECKS` en ese script — la lista es
 explícita a propósito: `backend/scripts/diag/` tiene scripts que se conectan a la
 base REAL y uno de ellos renombra gente, así que un glob no sirve.
 
 Del lado del front: `bunx tsc --noEmit`, `bun run build` y los checks propios
-(`bun run check:xp`, `check:reclutas`, `check:latex`, `check:restante`). El CI
-corre todo esto en cada PR (`.github/workflows/ci.yml`).
+(`bun run check:xp`, `check:reclutas`, `check:latex`, `check:restante`,
+`check:teclado`). El CI corre todo esto en cada PR
+(`.github/workflows/ci.yml`).
 
 **Si tocaste `models.py`**, `check_schema_migrations` es obligatorio: hay
 precedente de una columna que existía en la base y no en el modelo.
