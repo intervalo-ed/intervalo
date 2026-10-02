@@ -42,13 +42,11 @@ import {
 } from "@/components/boost-banner"
 import { filaConEmpuje, levelColor } from "./game-colors"
 import {
-  ABRIR_MS,
   ALTO_FILA_PX,
-  CERRAR_MS,
   curvaDelSalto,
-  duracionDelSalto,
   filasConLugar,
   filasDelSalto,
+  ritmoDelSalto,
 } from "./salto-ranking"
 import { corrimientoDelBache, filaALaVista } from "./ventana-ranking"
 import { VERDE, fmtMultiplier } from "./cafecito-cta"
@@ -138,16 +136,27 @@ function FilaHueca({ quieto }: { quieto: boolean }) {
   )
 }
 
-// Un solo objeto de transición por duración, cacheado. No es microoptimización:
-// es lo que hace que las hasta noventa filas de un salto compartan la MISMA
-// identidad de transición, igual que compartían `RESORTE_AMBIENTE`. Hay una sola
-// duración por salto, así que una caché de un elemento acierta siempre.
-let ultimoTween: { ms: number; t: Transition } | null = null
-function tweenDelSalto(ms: number): Transition {
-  if (ultimoTween?.ms !== ms) {
-    ultimoTween = { ms, t: { type: "tween", duration: ms / 1000, ease: curvaDelSalto } }
+// Un solo objeto de transición por curva y duración, cacheado. No es
+// microoptimización: es lo que hace que las hasta noventa filas de un salto
+// compartan la MISMA identidad de transición, igual que compartían
+// `RESORTE_AMBIENTE`. Un salto usa un puñado: la curva del lugar con el tiempo
+// de abrir y el de cerrar, y la del viaje con el suyo.
+const tweens = new Map<(t: number) => number, Map<number, Transition>>()
+function tweenDelSalto(ms: number, curva: (t: number) => number): Transition {
+  let porMs = tweens.get(curva)
+  if (porMs === undefined) {
+    porMs = new Map()
+    tweens.set(curva, porMs)
   }
-  return ultimoTween.t
+  let t = porMs.get(ms)
+  if (t === undefined) {
+    // Las duraciones del viaje son muchas (una por distancia): que no crezca
+    // sin fin en una sesión larga.
+    if (porMs.size > 64) porMs.clear()
+    t = { type: "tween", duration: ms / 1000, ease: curva }
+    porMs.set(ms, t)
+  }
+  return t
 }
 
 // Cuánto se adelanta la fila a la ventana a mitad del viaje, en píxeles.
@@ -1027,23 +1036,30 @@ function IndividualRanking({
     setSalto({ key: null, fase: "listo", filas: 0, ms: 0, desde: 0 })
   }
 
+  // Los tiempos y las curvas del salto. En el teléfono va un poco más lento y
+  // más blando que en escritorio (ver `RITMO_MOVIL` en salto-ranking.ts).
+  const ritmo = ritmoDelSalto(mobile)
+
   const nuevo = climbing && filasPosibles > 0 && salto.key !== climbFrom
   const fase: Fase = nuevo ? "agachado" : salto.fase
   const filas = nuevo ? filasPosibles : salto.filas
-  const saltoMs = nuevo ? duracionDelSalto(filasPosibles) : salto.ms
+  const saltoMs = nuevo ? ritmo.viaje(filasPosibles) : salto.ms
   const desde = nuevo ? (climbFrom as number) : salto.desde
   const settled = fase === "listo"
+  const curvaDelViaje = ritmo.curvaDelViaje(filas)
 
-  // Cuánto dura el tramo que se está viendo. Es lo que las filas usan de
-  // transición, así que abrir y cerrar se mueven a su ritmo y no al del viaje.
+  // Cuánto dura el tramo que se está viendo, y con qué curva. Es lo que las
+  // filas usan de transición, así que abrir y cerrar se mueven a su ritmo y no
+  // al del viaje.
   const tramoMs =
     fase === "abriendo"
-      ? ABRIR_MS
+      ? ritmo.abrir
       : fase === "viajando"
         ? saltoMs
         : fase === "cerrando"
-          ? CERRAR_MS
+          ? ritmo.cerrar
           : 0
+  const curvaDelTramo = fase === "viajando" ? curvaDelViaje : ritmo.curvaDelLugar
 
   // El aviso viaja por un ref y NO por las dependencias del efecto de abajo, y
   // no es prolijidad: los dos layouts lo pasan como una flecha inline, así que
@@ -1087,9 +1103,9 @@ function IndividualRanking({
     }
     // Los tres tramos encadenados: cada uno espera lo suyo y pasa al siguiente.
     const sigue: Record<string, { fase: Fase; ms: number }> = {
-      abriendo: { fase: "viajando", ms: ABRIR_MS },
+      abriendo: { fase: "viajando", ms: ritmo.abrir },
       viajando: { fase: "cerrando", ms: saltoMs },
-      cerrando: { fase: "listo", ms: CERRAR_MS },
+      cerrando: { fase: "listo", ms: ritmo.cerrar },
     }
     const paso = sigue[fase]
     if (!paso) return
@@ -1098,7 +1114,7 @@ function IndividualRanking({
       paso.ms,
     )
     return () => clearTimeout(t)
-  }, [fase, filas, saltoMs, desde])
+  }, [fase, filas, saltoMs, desde, ritmo])
 
   // Lo que lee `useStagedOrder` para callarse. Ahora dice la verdad: se apaga
   // cuando el salto TERMINÓ de moverse, no cuando arrancó su último paso.
@@ -1287,16 +1303,16 @@ function IndividualRanking({
       if (menos !== filas) {
         // Se vuelve a dibujar este mismo fotograma con el viaje más corto: el
         // efecto corre de nuevo —`filas` cambió— y ahí sí entra.
-        setSalto({ key: desde, fase: "agachado", filas: menos, ms: duracionDelSalto(menos), desde })
+        setSalto({ key: desde, fase: "agachado", filas: menos, ms: ritmo.viaje(menos), desde })
         return
       }
       el.scrollTop = Math.max(0, Math.min(deseado, tope))
     }
     origenRef.current = { y: mine.offsetTop, scroll: el.scrollTop, alto }
-  }, [fase, filas, desde])
+  }, [fase, filas, desde, ritmo])
 
   // Abierto el lugar, la fila está en su punto de partida DEFINITIVO: el hueco
-  // de arriba la corrió una fila más abajo, y motion la lleva ahí en ABRIR_MS.
+  // de arriba la corrió una fila más abajo, y motion la lleva ahí en `ritmo.abrir`.
   // Acá no se la mueve —ese corrimiento chico hacia abajo es lo que dice «te
   // están haciendo lugar»— y se toma de ahí el origen del viaje.
   //
@@ -1321,15 +1337,15 @@ function IndividualRanking({
     let raf = 0
     const tick = (ahora: number) => {
       if (manoRef.current) return
-      const t = Math.min(1, (ahora - inicio) / ABRIR_MS)
-      el.scrollTop = s0 + sobra * curvaDelSalto(t)
+      const t = Math.min(1, (ahora - inicio) / ritmo.abrir)
+      el.scrollTop = s0 + sobra * ritmo.curvaDelLugar(t)
       raf = t < 1 ? requestAnimationFrame(tick) : 0
     }
     raf = requestAnimationFrame(tick)
     return () => {
       if (raf) cancelAnimationFrame(raf)
     }
-  }, [fase])
+  }, [fase, ritmo])
 
   useLayoutEffect(() => {
     if (fase !== "viajando") return
@@ -1361,7 +1377,7 @@ function IndividualRanking({
       // también acá: el vuelo es un festejo, no una orden.
       if (manoRef.current) return
       const t = Math.min(1, (ahora - inicio) / saltoMs)
-      const p = curvaDelSalto(t)
+      const p = curvaDelViaje(t)
       // La posición de la fila se INTERPOLA con la misma curva con la que motion
       // la mueve, en vez de leerse del DOM: durante el vuelo `offsetTop` ya es el
       // destino, no dónde está. `mine.offsetTop` se relee igual para absorber un
@@ -1379,7 +1395,7 @@ function IndividualRanking({
     return () => {
       if (raf) cancelAnimationFrame(raf)
     }
-  }, [fase, saltoMs, restingScrollTop])
+  }, [fase, saltoMs, restingScrollTop, curvaDelViaje])
 
   // Cambiar de puesto siempre reacomoda, escales vos o te pasen los demás:
   // mientras resolvés el ranking sigue moviéndose, y sin esto la fila propia se
@@ -1648,6 +1664,7 @@ function IndividualRanking({
             // cerrar tienen su propio tiempo, y con el del viaje la lista se
             // corría en cámara lenta para hacer un lugar.
             saltoMs={tramoMs}
+            curva={curvaDelTramo}
             // Un solo fotograma: el que estrena la ventana nueva, con la fila
             // propia dibujada en el puesto del que viene. Ese fotograma es un
             // cambio de DATOS, no un movimiento, y vale para TODAS las filas, no
@@ -1724,21 +1741,31 @@ function IndividualRanking({
  *
  *  Y es lo que reemplaza a ver a quién pasaste: ya no se ve a QUIÉN, pero se ve
  *  a cuántos, y en vivo. */
-function RankEnVuelo({ desde, hasta, ms }: { desde: number; hasta: number; ms: number }) {
+function RankEnVuelo({
+  desde,
+  hasta,
+  ms,
+  curva,
+}: {
+  desde: number
+  hasta: number
+  ms: number
+  curva: (t: number) => number
+}) {
   const [n, setN] = useState(desde)
   useEffect(() => {
     let raf = 0
     const inicio = performance.now()
     const tick = (ahora: number) => {
       const t = Math.min(1, (ahora - inicio) / ms)
-      setN(Math.round(desde + (hasta - desde) * curvaDelSalto(t)))
+      setN(Math.round(desde + (hasta - desde) * curva(t)))
       raf = t < 1 ? requestAnimationFrame(tick) : 0
     }
     raf = requestAnimationFrame(tick)
     return () => {
       if (raf) cancelAnimationFrame(raf)
     }
-  }, [desde, hasta, ms])
+  }, [desde, hasta, ms, curva])
   return <>{n}</>
 }
 
@@ -1749,6 +1776,7 @@ const Row = memo(function Row({
   xp,
   delta,
   saltoMs = 0,
+  curva = curvaDelSalto,
   agachado = false,
   capa,
   quieto = false,
@@ -1776,6 +1804,10 @@ const Row = memo(function Row({
   // pinta sin transición para que, si por lo que fuera tuviera que
   // teletransportarse, lo haga en un fotograma y no con un resorte hacia abajo.
   agachado?: boolean
+  // La curva del tramo en curso: la del lugar al abrir y cerrar, la del viaje
+  // al viajar. Una función y no un objeto de transición por lo mismo que
+  // `saltoMs` es un número: su identidad es estable y no le rompe el memo.
+  curva?: (t: number) => number
   // Con qué se compara esta fila para decidir si cambió de lugar: motion la
   // mide solo cuando esto cambia. Ver `capaDe` en `IndividualRanking`.
   capa?: string
@@ -1811,7 +1843,7 @@ const Row = memo(function Row({
           ? SIN_MOVIMIENTO
           : saltoMs === 0
             ? RESORTE_AMBIENTE
-            : tweenDelSalto(saltoMs)
+            : tweenDelSalto(saltoMs, curva)
       }
       data-current={mine ? "true" : undefined}
       // De quién es esta fila, para poder preguntarle al DOM si una fila que ya
@@ -1832,7 +1864,7 @@ const Row = memo(function Row({
           en vuelo hace que se vea cambiar de ancho mientras cuenta hacia abajo,
           que es peor que verlo fijo y ancho. */}
       <span className="w-8 shrink-0 text-center text-sm font-semibold tabular-nums text-muted-foreground">
-        {rankDesde === null ? shownRank : <RankEnVuelo desde={rankDesde} hasta={shownRank} ms={saltoMs} />}
+        {rankDesde === null ? shownRank : <RankEnVuelo desde={rankDesde} hasta={shownRank} ms={saltoMs} curva={curva} />}
       </span>
       <span className="flex min-w-0 flex-1 items-center gap-1.5">
         <span

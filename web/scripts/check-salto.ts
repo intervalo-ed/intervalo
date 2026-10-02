@@ -23,8 +23,14 @@ import {
   V_TOPE_PX_S,
   curvaDelSalto,
   duracionDelSalto,
+  LENTITUD_MOVIL,
+  RAMPA_MOVIL,
+  RITMO,
+  RITMO_MOVIL,
+  curvaConRampa,
   filasConLugar,
   filasDelSalto,
+  rampaMovil,
   duracionTotalDelSalto,
   tramosDelSalto,
   velocidadDelSalto,
@@ -200,6 +206,90 @@ console.log("\nel viaje se acorta cuando el puesto de origen no entra en la pant
     filasConLugar(3, TOPE + 10_000, TOPE) === 1,
     "y nunca baja de una fila: un salto que no se mueve no es un salto",
   )
+}
+
+console.log("\nel ritmo del teléfono: más lento y más blando, con los mismos topes")
+// Pedido mirándolo el 2026-10-02: en el teléfono la apertura y la subida se
+// sentían bruscas. Lo que se fija acá es que «más lento y más blando» no rompa
+// ninguna de las dos promesas del archivo: tres segundos y 900 px/s.
+{
+  const todas = Array.from({ length: FILAS_TOPE }, (_, i) => i + 1)
+  check(
+    RITMO.abrir === ABRIR_MS &&
+      RITMO.cerrar === CERRAR_MS &&
+      todas.every((f) => RITMO.viaje(f) === duracionDelSalto(f)) &&
+      todas.every((f) => RITMO.curvaDelViaje(f) === curvaDelSalto) &&
+      RITMO.curvaDelLugar === curvaDelSalto,
+    "el de escritorio es exactamente el de siempre",
+  )
+  check(
+    [0, 0.1, 0.2, 0.37, 0.5, 0.8, 0.93, 1].every(
+      (t) => curvaConRampa(t, RAMPA) === curvaDelSalto(t),
+    ),
+    "y `curvaConRampa` con la rampa de siempre es la curva de siempre",
+  )
+  check(
+    RITMO_MOVIL.abrir > RITMO.abrir && RITMO_MOVIL.cerrar > RITMO.cerrar,
+    `abre en ${RITMO_MOVIL.abrir} ms y cierra en ${RITMO_MOVIL.cerrar} (escritorio: ${RITMO.abrir} y ${RITMO.cerrar})`,
+  )
+  check(
+    todas.every((f) => RITMO_MOVIL.viaje(f) >= RITMO.viaje(f)),
+    "ningún viaje dura menos que en escritorio",
+  )
+  check(
+    RITMO_MOVIL.viaje(1) === Math.ceil(SALTO_MS_MIN * LENTITUD_MOVIL),
+    `un puesto solo dura ${RITMO_MOVIL.viaje(1)} ms (escritorio: ${RITMO.viaje(1)})`,
+  )
+  check(
+    todas.every((f) => RITMO_MOVIL.viaje(f) <= SALTO_MS_MAX),
+    `y ninguno pasa de ${SALTO_MS_MAX} ms: el tope es el mismo`,
+  )
+  check(
+    todas.slice(1).every((f) => RITMO_MOVIL.viaje(f) >= RITMO_MOVIL.viaje(f - 1)),
+    "no decreciente: más filas nunca duran menos",
+  )
+  check(RITMO_MOVIL.viaje(0) === 0, "sin filas no hay viaje");
+  check(
+    todas.every((f) => rampaMovil(f) >= RAMPA && rampaMovil(f) <= RAMPA_MOVIL),
+    `la rampa queda entre la de siempre (${RAMPA}) y la del teléfono (${RAMPA_MOVIL})`,
+  )
+  check(
+    rampaMovil(1) === RAMPA_MOVIL && rampaMovil(FILAS_TOPE) < RAMPA_MOVIL,
+    `un viaje corto toma toda la rampa (${rampaMovil(1)}); uno largo no le sobra tiempo (${rampaMovil(FILAS_TOPE)})`,
+  )
+  // El pico de velocidad, medido sobre la curva de verdad y no deducido.
+  const picoPxS = (f: number) => {
+    const c = RITMO_MOVIL.curvaDelViaje(f)
+    const M = 2000
+    let pico = 0
+    for (let i = 1; i <= M; i++) pico = Math.max(pico, (c(i / M) - c((i - 1) / M)) * M)
+    return (pico * f * ALTO_FILA_PX * 1000) / RITMO_MOVIL.viaje(f)
+  }
+  const masRapido = Math.max(...todas.map(picoPxS))
+  check(
+    masRapido <= V_TOPE_PX_S + 0.5,
+    `ningún viaje del teléfono pasa de ${V_TOPE_PX_S} px/s (el más rápido midió ${masRapido.toFixed(1)})`,
+  )
+  check(
+    todas.every((f) => {
+      const c = RITMO_MOVIL.curvaDelViaje(f)
+      let ok = c(0) === 0 && c(1) === 1
+      for (let i = 1; i <= 200; i++) ok = ok && c(i / 200) > c((i - 1) / 200)
+      return ok
+    }),
+    "todas sus curvas van de 0 a 1 sin retroceder",
+  )
+  check(
+    RITMO_MOVIL.curvaDelViaje(3) === RITMO_MOVIL.curvaDelViaje(3),
+    "y la curva de un viaje es siempre la MISMA función (es la `ease` de un tween)",
+  )
+  console.log("\n  la tabla del teléfono")
+  for (const f of [1, 3, 10, 20, 30, FILAS_TOPE]) {
+    console.log(
+      `  ${String(f).padStart(3)} filas → ${String(RITMO_MOVIL.viaje(f)).padStart(4)} ms` +
+        ` · rampa ${rampaMovil(f).toFixed(2)} · ${picoPxS(f).toFixed(0).padStart(3)} px/s`,
+    )
+  }
 }
 
 console.log(fallos === 0 ? "\ntodo ok" : `\n${fallos} fallos`)
