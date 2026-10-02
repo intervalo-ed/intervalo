@@ -115,7 +115,7 @@ import {
   type GameAnswer,
   type GameExercise,
 } from "./UseGameExercise"
-import { useGamePulse, useMyBoost } from "./UseGameLeaderboard"
+import { refrescarRankingCentrado, useGamePulse, useMyBoost } from "./UseGameLeaderboard"
 import { useDespuesDelArranque } from "./UseDespuesDelArranque"
 import { gameKeys, useGamePlayer, type GamePlayer } from "./UseGamePlayer"
 import { useGameEvents } from "./UseGameLeaderboard"
@@ -507,7 +507,10 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   // Cuando entra el último orbe: recién ahí el ranking estrena orden y la fila
   // propia sube. Antes de eso sigue mostrando el puesto viejo.
   const onBurstComplete = useCallback(() => {
-    queryClient.invalidateQueries({ queryKey: gameKeys.leaderboard })
+    // Centrado, no en el lugar: la persona cambió de puesto y la ventana tiene
+    // que seguirla. Ver `refrescarRankingCentrado` por qué `invalidateQueries`
+    // a secas la hacía desaparecer de la lista.
+    void refrescarRankingCentrado(queryClient)
     setClimbFrom(pendingClimbRef.current)
     pendingClimbRef.current = null
   }, [queryClient])

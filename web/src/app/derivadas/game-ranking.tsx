@@ -43,9 +43,11 @@ import {
 import { filaConEmpuje, levelColor } from "./game-colors"
 import {
   ABRIR_MS,
+  ALTO_FILA_PX,
   CERRAR_MS,
   curvaDelSalto,
   duracionDelSalto,
+  filasConLugar,
   filasDelSalto,
 } from "./salto-ranking"
 import { corrimientoDelBache, filaALaVista } from "./ventana-ranking"
@@ -148,16 +150,17 @@ function tweenDelSalto(ms: number): Transition {
   return ultimoTween.t
 }
 
-// Cuánto se retrasa la ventana respecto de la fila durante el salto: la ventana
-// recorre `p ** RETRASO_VENTANA` mientras la fila recorre `p`, así que va siempre
-// atrás y las dos llegan juntas.
+// Cuánto se adelanta la fila a la ventana a mitad del viaje, en píxeles.
 //
-// El retraso existe para que se vea que la fila TREPA por la pantalla en vez de
-// quedar clavada en su lugar mientras el resto desfila. Antes era un 0,4 de
-// acercamiento por paso, que dejaba una deuda al final y se pagaba con un scroll
-// suave aparte —o sea, un segundo movimiento pegado al primero—. Así el retraso
-// se salda adentro del mismo viaje.
-const RETRASO_VENTANA = 1.5
+// Durante el salto lo que se decide es la TRAYECTORIA DE LA FILA EN LA PANTALLA
+// —de donde estaba a donde descansa, con esta comba hacia arriba en el medio— y
+// el scroll se deriva de ahí fotograma a fotograma. El adelanto existe para que
+// se vea que la fila TREPA por la pantalla en vez de quedar clavada en su lugar
+// mientras el resto desfila; acotado en píxeles y no en proporción del viaje
+// porque un salto de cuarenta filas con un adelanto proporcional la sacaba por
+// el techo de la vista. Antes era `p ** 1.5` sobre el scroll, que era eso mismo
+// sin la cota.
+const ADELANTO_PX = ALTO_FILA_PX * 1.5
 
 // Filas que quedan por encima de la propia cuando la lista descansa. No es el
 // centro: se mira hacia arriba, a quién falta pasar, más que hacia abajo.
@@ -1135,6 +1138,13 @@ function IndividualRanking({
   // por qué —y el número que se midió cuando las dos se confundían— está en
   // ventana-ranking.ts.
   const anclaRef = useRef<{ id: number; y: number } | null>(null)
+  // A qué altura de la VENTANA está la fila propia: `offsetTop - scrollTop`. Se
+  // anota con cada scroll y con cada lista nueva, porque es el dato que el salto
+  // necesita y que deja de existir en el mismo instante en que llega la lista
+  // nueva. `pinRef` es el valor que había ANTES del último commit —el que la
+  // fila tiene que conservar al dibujarse en el puesto del que viene.
+  const relRef = useRef<number | null>(null)
+  const pinRef = useRef<number | null>(null)
 
   // Posición de descanso de la fila propia: a ROWS_ABOVE filas del techo, no en
   // el centro exacto. Se ancla contando filas y no con aritmética de píxeles
@@ -1207,6 +1217,10 @@ function IndividualRanking({
     // Una sola pasada por el DOM: `offsetTop` no lo mueve el scroll, así que la
     // misma medición sirve para compensar y para dejar el ancla nueva.
     const filas = filasMedidas(el)
+    // Dónde estaba la fila propia en la pantalla ANTES de este commit. Se toma
+    // antes de tocar el scroll: es lo que el fotograma agachado tiene que
+    // conservar, y todo lo que sigue lo pisa.
+    pinRef.current = relRef.current
     if (!centeredRef.current) {
       // Con la mano puesta, montarse de nuevo no es entrar al ranking: es volver
       // a donde estabas. Restaurar en vez de centrar es toda la diferencia entre
@@ -1226,6 +1240,8 @@ function IndividualRanking({
       if (corrimiento !== 0) el.scrollTop += corrimiento
     }
     anclaRef.current = filas[0] ?? null
+    const propiaEl = el.querySelector<HTMLElement>("[data-current='true']")
+    relRef.current = propiaEl ? propiaEl.offsetTop - el.scrollTop : null
     // Con dependencias, no en cada render.
     //
     // Sin ellas esto corría después de CADA pintado, y mide el `offsetTop` de
@@ -1249,25 +1265,70 @@ function IndividualRanking({
     const el = scrollRef.current
     const mine = el?.querySelector<HTMLElement>("[data-current='true']")
     if (!el || !mine) return
-    // El puesto del que venís puede caer fuera de la ventana —podés venir de
-    // cuarenta filas más abajo— así que se lo trae a la vista SIN animación. Es
-    // el único fotograma en que esto pega un salto, y es justo el fotograma en
-    // que la fila no se veía.
-    el.scrollTop = encuadrar(el, mine.offsetTop, mine.offsetHeight, el.scrollTop)
-    origenRef.current = { y: mine.offsetTop, scroll: el.scrollTop, alto: mine.offsetHeight }
-  }, [fase])
+    const alto = mine.offsetHeight
+    const rel = pinRef.current
+    if (rel === null) {
+      // No se sabe dónde estaba: se la trae a la vista y listo. Es el único
+      // caso en que este fotograma pega un salto.
+      el.scrollTop = encuadrar(el, mine.offsetTop, alto, el.scrollTop)
+    } else {
+      // **La fila arranca el viaje exactamente donde la persona la estaba
+      // mirando.** Llegó la ventana nueva —otros vecinos, otro alto— así que el
+      // mismo lugar de la pantalla es otro `scrollTop`; se escribe ese.
+      //
+      // Si no alcanza la lista debajo del puesto de origen para dejarla ahí, el
+      // viaje se ACORTA hasta que alcance (ver `filasConLugar`). Lo que hacía
+      // antes `encuadrar` era lo contrario: mandaba el scroll al fondo para
+      // mostrar un puesto de origen que no entraba, y la fila aparecía de golpe
+      // pegada al borde de abajo.
+      const tope = el.scrollHeight - el.clientHeight
+      const deseado = mine.offsetTop - rel
+      const menos = filasConLugar(filas, deseado, tope)
+      if (menos !== filas) {
+        // Se vuelve a dibujar este mismo fotograma con el viaje más corto: el
+        // efecto corre de nuevo —`filas` cambió— y ahí sí entra.
+        setSalto({ key: desde, fase: "agachado", filas: menos, ms: duracionDelSalto(menos), desde })
+        return
+      }
+      el.scrollTop = Math.max(0, Math.min(deseado, tope))
+    }
+    origenRef.current = { y: mine.offsetTop, scroll: el.scrollTop, alto }
+  }, [fase, filas, desde])
 
-  // Terminado de abrir, la fila ya está en su lugar de partida DEFINITIVO: el
-  // hueco de arriba la corrió una fila más abajo. Se la vuelve a encuadrar y se
-  // toma de ahí el origen del viaje, que antes se tomaba en el fotograma
-  // agachado —o sea, una fila más arriba de donde el viaje empieza de verdad.
+  // Abierto el lugar, la fila está en su punto de partida DEFINITIVO: el hueco
+  // de arriba la corrió una fila más abajo, y motion la lleva ahí en ABRIR_MS.
+  // Acá no se la mueve —ese corrimiento chico hacia abajo es lo que dice «te
+  // están haciendo lugar»— y se toma de ahí el origen del viaje.
+  //
+  // Salvo que ese corrimiento la saque por el borde de abajo, que es donde vive
+  // quien llega último: ahí el scroll la acompaña con la misma curva y el mismo
+  // tiempo con que se abre el lugar, así que lo que se ve es el lugar
+  // abriéndose ARRIBA y la fila quieta en el pie. Antes acá iba un `encuadrar`
+  // de golpe, que la hacía saltar una fila hacia arriba justo cuando empezaba
+  // la apertura.
   useLayoutEffect(() => {
     if (fase !== "abriendo") return
     const el = scrollRef.current
     const mine = el?.querySelector<HTMLElement>("[data-current='true']")
     if (!el || !mine) return
-    el.scrollTop = encuadrar(el, mine.offsetTop, mine.offsetHeight, el.scrollTop)
-    origenRef.current = { y: mine.offsetTop, scroll: el.scrollTop, alto: mine.offsetHeight }
+    const y0 = mine.offsetTop
+    const s0 = el.scrollTop
+    const alto = mine.offsetHeight
+    origenRef.current = { y: y0, scroll: s0, alto }
+    const sobra = y0 + alto + LIST_TOP_PADDING - (s0 + el.clientHeight)
+    if (sobra <= 0 || manoRef.current) return
+    const inicio = performance.now()
+    let raf = 0
+    const tick = (ahora: number) => {
+      if (manoRef.current) return
+      const t = Math.min(1, (ahora - inicio) / ABRIR_MS)
+      el.scrollTop = s0 + sobra * curvaDelSalto(t)
+      raf = t < 1 ? requestAnimationFrame(tick) : 0
+    }
+    raf = requestAnimationFrame(tick)
+    return () => {
+      if (raf) cancelAnimationFrame(raf)
+    }
   }, [fase])
 
   useLayoutEffect(() => {
@@ -1278,9 +1339,21 @@ function IndividualRanking({
     if (!el || !mine || !origen) return
     // Post-commit el DOM ya está en el orden nuevo: esto es el destino.
     const yFin0 = mine.offsetTop
-    const sFin = restingScrollTop() ?? el.scrollTop
+    // El scroll de partida es el REAL, no el anotado al abrir: entre uno y otro
+    // pudo moverse (el acompañamiento de la apertura, la mano). Arrancar de un
+    // número viejo era un salto de cientos de píxeles en el primer fotograma.
+    const s0 = el.scrollTop
+    const pant0 = origen.y - s0
+    // Dónde descansa: a ROWS_ABOVE del techo, pero sin pasarse del tope que la
+    // lista va a tener cuando el hueco de abajo se CIERRE. Cerca del final de la
+    // lista cargada ese tope manda —no hay lista debajo con qué centrarla— y es
+    // mejor aterrizar un poco más abajo que aterrizar centrada y que el cierre
+    // del hueco la haga saltar.
+    const topeAlCerrar = Math.max(0, el.scrollHeight - ALTO_FILA_PX - el.clientHeight)
+    const sFin = Math.min(restingScrollTop() ?? s0, topeAlCerrar)
+    const pantFin = yFin0 - sFin
     const dY = yFin0 - origen.y
-    const dS = sFin - origen.scroll
+    const adelanto = Math.min(ADELANTO_PX, Math.abs(dY) * 0.3)
     const inicio = performance.now()
     let raf = 0
     const tick = (ahora: number) => {
@@ -1293,11 +1366,13 @@ function IndividualRanking({
       // la mueve, en vez de leerse del DOM: durante el vuelo `offsetTop` ya es el
       // destino, no dónde está. `mine.offsetTop` se relee igual para absorber un
       // bache que entre por arriba y corra todo hacia abajo.
-      const yFin = mine.offsetTop
-      const y = yFin - dY * (1 - p)
-      const corrimiento = yFin - yFin0
-      const deseado = origen.scroll + corrimiento + dS * Math.pow(p, RETRASO_VENTANA)
-      el.scrollTop = encuadrar(el, y, origen.alto, deseado)
+      const y = mine.offsetTop - dY * (1 - p)
+      // Lo que se decide es dónde se VE la fila: va de donde estaba a donde
+      // descansa, adelantándose una comba en el medio. El scroll es lo que haga
+      // falta para eso, acotado a lo que la lista da.
+      const pant = pant0 + (pantFin - pant0) * p - adelanto * Math.sin(Math.PI * p)
+      const tope = el.scrollHeight - el.clientHeight
+      el.scrollTop = Math.max(0, Math.min(y - pant, tope))
       raf = t < 1 ? requestAnimationFrame(tick) : 0
     }
     raf = requestAnimationFrame(tick)
@@ -1344,6 +1419,10 @@ function IndividualRanking({
       // que hay que guardar es dónde QUEDÓ.
       topRef.current = el.scrollTop
       guardarMemoria?.({ mano: manoRef.current, top: el.scrollTop })
+      // Y dónde quedó la fila propia respecto de la ventana, que es lo que el
+      // salto conserva al dibujarse en el puesto del que viene (ver `relRef`).
+      const mine = el.querySelector<HTMLElement>("[data-current='true']")
+      if (mine) relRef.current = mine.offsetTop - el.scrollTop
       // En el teléfono, el primer gesto apaga el recentrado y no se vuelve a
       // armar: la lista se queda donde la persona la dejó hasta la derivada
       // siguiente. El timer sigue colgado de `scroll` y no de la rueda porque el
@@ -1449,6 +1528,40 @@ function IndividualRanking({
     return rows
   })()
 
+  // ── Cuándo una fila «se movió» ─────────────────────────────────────────────
+  // Motion anima el `layout` de una fila comparando dónde estaba con dónde
+  // quedó, y por defecto mide en CADA render. Eso le hace ver un movimiento en
+  // lo único que no lo es: la ventana nueva del salto. Ahí la lista se corre
+  // entera —las filas que sobreviven cambian de altura tantas filas como se
+  // corrió la ventana— y el scroll se compensa en el mismo fotograma, así que en
+  // la pantalla no se mueve nada. Pero motion mide adentro de la lista, no en la
+  // pantalla: ve cientos de píxeles de diferencia y los anima.
+  //
+  // `layoutDependency` es lo que motion ofrece para esto: una fila se mide solo
+  // cuando su valor cambia. El valor es **el lugar de la fila respecto de la
+  // propia**, más el tramo del salto:
+  //
+  //   · la ventana nueva corre a todas por igual, la propia incluida: nadie
+  //     cambió de lugar respecto de ella, nadie se mide, nada se anima;
+  //   · un cruce entre vecinos, o que te pasen, cambia justamente eso;
+  //   · abrir el lugar, viajar y cerrar cambian el tramo, así que ahí se miden
+  //     todas —que es cuando el hueco las corre de verdad.
+  //
+  // La propia no puede compararse consigo misma: se compara con quién tiene
+  // arriba. Si la propia no está en la lista (un filtro que la deja afuera) no
+  // hay contra qué comparar y se vuelve a lo de siempre, medir en cada render.
+  //
+  // El fotograma agachado comparte tramo con el reposo a propósito: es lo que
+  // hace que estrenar la ventana no cuente como un cambio.
+  const tramoDeLayout = fase === "listo" || fase === "agachado" ? "quieta" : fase
+  const iPropia = ordered.findIndex((e) => e !== null && e.is_current_player)
+  const capaDe = (i: number, propia: boolean): string | undefined => {
+    if (iPropia < 0) return undefined
+    if (!propia) return `${tramoDeLayout}|${i - iPropia}`
+    const arriba = i === 0 ? "techo" : (ordered[i - 1]?.player_id ?? "hueco")
+    return `${tramoDeLayout}|yo|${arriba}`
+  }
+
   return (
     // `relative` no es decorativo: hace que el scroller sea el `offsetParent` de
     // las filas. Sin él, `offsetTop` se mide contra el ancestro posicionado de
@@ -1471,7 +1584,12 @@ function IndividualRanking({
     <motion.div
       ref={scrollRef}
       layoutScroll
-      className="no-scrollbar relative -mx-1 min-h-0 flex-1 overflow-y-auto overscroll-contain px-1"
+      // `overflow-anchor: none`: el scroll de esta lista lo escribe este
+      // componente —la compensación del bache, el pin del salto, el vuelo— y el
+      // anclaje automático del navegador escribe lo mismo por su cuenta, en el
+      // mismo fotograma y sin avisar. Con los dos puestos cada inserción de una
+      // fila era un movimiento de ida y vuelta.
+      className="no-scrollbar relative -mx-1 min-h-0 flex-1 overflow-y-auto overscroll-contain px-1 [overflow-anchor:none]"
     >
       {hasPreviousPage && <div ref={topSentinelRef} aria-hidden className="h-px" />}
       {isFetchingPreviousPage && (
@@ -1480,13 +1598,14 @@ function IndividualRanking({
         </div>
       )}
       <ol className="flex flex-col gap-2 py-1">
-        {ordered.map((entry) =>
+        {ordered.map((entry, i) =>
           entry === null ? (
             <FilaHueca key="hueco" quieto={quieto} />
           ) : (
           <Row
             key={entry.player_id}
             entry={entry}
+            capa={capaDe(i, entry.is_current_player)}
             // El puesto que la fila MUESTRA. En la propia, hasta que el viaje
             // arranca es el viejo: la lista ya trae el puesto nuevo desde que
             // llegó, así que sin esto el número lo estrenaba en el fotograma
@@ -1529,10 +1648,25 @@ function IndividualRanking({
             // cerrar tienen su propio tiempo, y con el del viaje la lista se
             // corría en cámara lenta para hacer un lugar.
             saltoMs={tramoMs}
-            // Solo la fila propia y solo un fotograma: el que la dibuja en el
-            // puesto viejo. Las demás no se mueven en ese commit, así que
-            // reciben la constante `false`.
-            agachado={entry.is_current_player && fase === "agachado"}
+            // Un solo fotograma: el que estrena la ventana nueva, con la fila
+            // propia dibujada en el puesto del que viene. Ese fotograma es un
+            // cambio de DATOS, no un movimiento, y vale para TODAS las filas, no
+            // solo para la propia.
+            //
+            // Era solo para la propia, con el argumento de que «las demás no se
+            // mueven en ese commit». No es cierto: cuando la ventana nueva
+            // comparte filas con la anterior —o sea casi siempre— las que
+            // sobreviven cambian de altura dentro de la lista, y motion las
+            // animaba desde donde estaban con el scroll ya compensado: la lista
+            // entera saltando cientos de píxeles y volviendo con un resorte,
+            // encima del lugar que se estaba abriendo. Medido el 2026-10-02 en
+            // un salto de 12 puestos: doce filas ajenas con 624 px de transform.
+            //
+            // `capa` (ver `capaDe`) hace que en el caso normal motion ni las
+            // mida. Esto es la red para cuando sí las mide —el viaje acortado,
+            // que les cambia el lugar respecto de la propia—: que al menos no
+            // haya resorte.
+            agachado={fase === "agachado"}
             quieto={quieto}
             sort={sort}
             boostMultiplier={
@@ -1616,6 +1750,7 @@ const Row = memo(function Row({
   delta,
   saltoMs = 0,
   agachado = false,
+  capa,
   quieto = false,
   sort,
   boostMultiplier,
@@ -1641,6 +1776,9 @@ const Row = memo(function Row({
   // pinta sin transición para que, si por lo que fuera tuviera que
   // teletransportarse, lo haga en un fotograma y no con un resorte hacia abajo.
   agachado?: boolean
+  // Con qué se compara esta fila para decidir si cambió de lugar: motion la
+  // mide solo cuando esto cambia. Ver `capaDe` en `IndividualRanking`.
+  capa?: string
   // Movimiento reducido: nada de animaciones.
   quieto?: boolean
   // Qué número cierra la fila: la experiencia o el Elo. Es el mismo que ordena
@@ -1667,6 +1805,7 @@ const Row = memo(function Row({
   return (
     <motion.li
       layout
+      layoutDependency={capa}
       transition={
         quieto || agachado
           ? SIN_MOVIMIENTO

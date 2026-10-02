@@ -138,6 +138,32 @@ export function filasDelSalto(distancia: number, disponibles = Infinity): number
   return Math.max(0, Math.min(Math.floor(distancia), FILAS_TOPE, tope))
 }
 
+/** Cuántas filas puede viajar la fila propia SIN MOVERSE DE LA PANTALLA antes
+ *  de arrancar.
+ *
+ *  El salto empieza dibujando la fila en el puesto del que viene, y la tiene que
+ *  dibujar en el mismo lugar de la pantalla donde la persona la estaba mirando
+ *  cuando recibió su XP. Eso es un `scrollTop` concreto (`deseado`), y la lista
+ *  no siempre lo da: si el puesto de origen cae muy cerca del final de lo
+ *  cargado, no hay contenido debajo con qué llenar la ventana y el scroll se
+ *  queda en su tope. Antes ahí se mandaba el scroll al fondo igual, y la fila
+ *  aparecía de golpe pegada al borde de abajo del ranking.
+ *
+ *  Así que el viaje se ACORTA hasta que el origen entre: cada fila de menos sube
+ *  el origen `altoFila` píxeles. El número del puesto cuenta la distancia entera
+ *  igual —la geometría dice lo que se puede mostrar, no lo que pasó— y siempre
+ *  queda al menos una fila de viaje: un salto que no se mueve no es un salto. */
+export function filasConLugar(
+  filas: number,
+  deseado: number,
+  tope: number,
+  altoFila = ALTO_FILA_PX,
+): number {
+  // Un píxel de gracia: las alturas se miden redondeadas.
+  if (deseado <= tope + 1) return filas
+  return Math.max(1, filas - Math.ceil((deseado - tope) / altoFila))
+}
+
 /** Cuánto dura el salto, en milisegundos: crece con la distancia, satura por
  *  velocidad y queda acotada arriba y abajo. */
 export function duracionDelSalto(distancia: number, disponibles = Infinity): number {

@@ -23,6 +23,7 @@ import {
   V_TOPE_PX_S,
   curvaDelSalto,
   duracionDelSalto,
+  filasConLugar,
   filasDelSalto,
   duracionTotalDelSalto,
   tramosDelSalto,
@@ -166,6 +167,40 @@ check(
   `el salto más largo posible dura ${duracionTotalDelSalto(1e6)} ms de punta a punta, ` +
     `y el techo son ${SALTO_MS_MAX + ABRIR_MS + CERRAR_MS}`,
 )
+
+console.log("\nel viaje se acorta cuando el puesto de origen no entra en la pantalla")
+// Reportado jugando el 2026-09-30: la tarjeta aparecía de golpe pegada al borde
+// de abajo del ranking antes de escalar. El puesto de origen caía al final de lo
+// cargado, sin lista debajo para dejar la fila donde la persona la estaba
+// mirando, y el scroll se mandaba al fondo igual.
+{
+  // Los números del caso medido: ventana de 31 filas, fila propia centrada a
+  // 212 px del techo, viaje pedido de 15 filas → el origen es la última fila.
+  const TOPE = 1172
+  const DESEADO = 1564 - 212
+  check(
+    filasConLugar(15, DESEADO, TOPE) === 11,
+    `15 filas no entran (faltan ${DESEADO - TOPE} px de lista): viaja ${filasConLugar(15, DESEADO, TOPE)}`,
+  )
+  const corto = filasConLugar(15, DESEADO, TOPE)
+  check(
+    DESEADO - (15 - corto) * ALTO_FILA_PX <= TOPE,
+    "  y con ese viaje el origen SÍ entra",
+  )
+  check(
+    DESEADO - (15 - corto - 1) * ALTO_FILA_PX > TOPE,
+    "  y no se acortó de más: con una fila más ya no entraba",
+  )
+  check(filasConLugar(9, 1041, TOPE) === 9, "si entra, el viaje no se toca")
+  check(filasConLugar(9, TOPE + 1, TOPE) === 9, "un píxel de redondeo no acorta nada")
+  // Quien llega último está pegado al pie: el origen es la última fila de la
+  // lista y el scroll que la deja ahí es exactamente el tope.
+  check(filasConLugar(15, TOPE, TOPE) === 15, "pegado al pie, el viaje entero entra")
+  check(
+    filasConLugar(3, TOPE + 10_000, TOPE) === 1,
+    "y nunca baja de una fila: un salto que no se mueve no es un salto",
+  )
+}
 
 console.log(fallos === 0 ? "\ntodo ok" : `\n${fallos} fallos`)
 process.exit(fallos === 0 ? 0 : 1)
