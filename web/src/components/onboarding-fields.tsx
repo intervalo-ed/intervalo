@@ -25,6 +25,16 @@ export const CAREERS = [
   { value: "M", label: "Matemática", emoji: "📐" },
 ]
 
+// Los valores en el orden en que se dibujan las cinco tarjetas: las cuatro de
+// la grilla y "Otra". Quien les pone un atajo numérico —el minijuego, en
+// escritorio— lee el orden de acá, para que el 3 sea siempre la tercera tarjeta.
+export const CAREER_CHOICES = [...CAREERS.map((c) => c.value), "Otra"]
+
+// El atajo de teclado de una opción, si quien la muestra tiene teclado: recibe
+// el lugar de la opción (desde 0) y devuelve qué dibujar en su esquina. Este
+// archivo no sabe de teclas —el onboarding no las usa—, solo les hace lugar.
+export type OptionShortcut = (index: number) => React.ReactNode
+
 // Logos monocromos (gris) de universidades para los botones del step de universidad.
 // El gris se atenúa sin seleccionar y se lleva a blanco (brightness) al seleccionar.
 export const UNIVERSITY_LOGOS: Partial<Record<string, string>> = {
@@ -42,12 +52,14 @@ export function OptionButton({
   onClick,
   className,
   style,
+  atajo,
 }: {
   children: React.ReactNode
   selected?: boolean
   onClick: () => void
   className?: string
   style?: React.CSSProperties
+  atajo?: React.ReactNode
 }) {
   return (
     <button
@@ -58,10 +70,16 @@ export function OptionButton({
         selected
           ? "border-[#7e80f7] text-[#c4c6ff]"
           : "border-white/10 text-foreground/80 hover:border-white/20",
+        atajo != null && "relative",
         className,
       )}
     >
       {children}
+      {/* En la esquina y absoluto: lo que tiene que quedar centrado es la
+          opción, y con el chip en el flujo se corría hacia un costado. */}
+      {atajo != null && (
+        <span className="absolute right-1 top-1 flex">{atajo}</span>
+      )}
     </button>
   )
 }
@@ -72,12 +90,14 @@ export function CareerCard({
   selected,
   onClick,
   className,
+  atajo,
 }: {
   emoji: string
   label: string
   selected?: boolean
   onClick: () => void
   className?: string
+  atajo?: React.ReactNode
 }) {
   return (
     <button
@@ -87,11 +107,15 @@ export function CareerCard({
         selected
           ? "border-[#7e80f7] text-[#c4c6ff]"
           : "border-white/10 text-foreground/80 hover:border-white/20",
+        atajo != null && "relative",
         className,
       )}
     >
       <span className="text-2xl leading-none">{emoji}</span>
       <span className="text-sm">{label}</span>
+      {atajo != null && (
+        <span className="absolute right-2.5 top-2.5 flex">{atajo}</span>
+      )}
     </button>
   )
 }
@@ -100,9 +124,11 @@ export function CareerCard({
 export function CareerSelect({
   value,
   onSelect,
+  atajo,
 }: {
   value: string
   onSelect: (value: string) => void
+  atajo?: OptionShortcut
 }) {
   return (
     <div className="flex flex-col gap-5">
@@ -113,13 +139,14 @@ export function CareerSelect({
         </p>
       </div>
       <div className="grid grid-cols-2 gap-2.5">
-        {CAREERS.map((c) => (
+        {CAREERS.map((c, i) => (
           <CareerCard
             key={c.value}
             emoji={c.emoji}
             label={c.label}
             selected={value === c.value}
             onClick={() => onSelect(c.value)}
+            atajo={atajo?.(i)}
           />
         ))}
         <CareerCard
@@ -128,6 +155,7 @@ export function CareerSelect({
           label="Otra"
           selected={value === "Otra"}
           onClick={() => onSelect("Otra")}
+          atajo={atajo?.(CAREERS.length)}
         />
       </div>
     </div>
@@ -146,6 +174,7 @@ export function UniversityGrid({
   onConfirmOther,
   onPickSuggestion,
   inputRef,
+  atajo,
 }: {
   university: string
   showOther: boolean
@@ -156,6 +185,8 @@ export function UniversityGrid({
   onConfirmOther: () => void
   onPickSuggestion: (key: string) => void
   inputRef?: React.Ref<HTMLInputElement>
+  // Los chips van del 0 en adelante y "Otra" es el que sigue al último.
+  atajo?: OptionShortcut
 }) {
   const suggestions = otherValue.trim() ? matchUniversities(otherValue) : []
   return (
@@ -163,7 +194,7 @@ export function UniversityGrid({
       <h2 className="text-2xl font-bold">¿Dónde?</h2>
       <div className="flex flex-col gap-2.5">
         <div className="grid grid-cols-3 gap-2.5">
-          {ONBOARDING_UNIVERSITIES.map((u) => {
+          {ONBOARDING_UNIVERSITIES.map((u, i) => {
             const logo = UNIVERSITY_LOGOS[u]
             const isSel = university === u && !showOther
             return (
@@ -176,6 +207,7 @@ export function UniversityGrid({
                 style={logo ? undefined : UNIVERSITY_TAG_BY_KEY[u]?.font}
                 selected={isSel}
                 onClick={() => onPick(u)}
+                atajo={atajo?.(i)}
               >
                 {logo ? (
                   // eslint-disable-next-line @next/next/no-img-element
@@ -202,7 +234,11 @@ export function UniversityGrid({
               type="text"
               value={otherValue}
               onChange={(e) => onOtherChange(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && onConfirmOther()}
+              // Sin Alt: en el minijuego Alt+Enter es «Ahora no», y un campo
+              // que además confirmara mandaría las dos cosas a la vez.
+              onKeyDown={(e) =>
+                e.key === "Enter" && !e.altKey && onConfirmOther()
+              }
               placeholder="Ej: UNQ, UNLa, UNGS…"
               autoFocus
               className="h-[52px] rounded-md border border-[#7e80f7] bg-white/5 px-4 text-foreground outline-none transition-colors"
@@ -224,7 +260,11 @@ export function UniversityGrid({
             )}
           </div>
         ) : (
-          <OptionButton selected={false} onClick={onSelectOther}>
+          <OptionButton
+            selected={false}
+            onClick={onSelectOther}
+            atajo={atajo?.(ONBOARDING_UNIVERSITIES.length)}
+          >
             Otra
           </OptionButton>
         )}

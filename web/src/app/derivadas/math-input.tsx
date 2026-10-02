@@ -61,6 +61,15 @@ type Mathfield = HTMLElement & {
  * MathLive (`mathlive-static.css`), no un detalle interno; si algún día
  * cambiara, el `mf.focus()` de abajo deja el campo como estaba. */
 function recuperarFoco(mf: Mathfield | null) {
+  try {
+    enfocar(mf)
+  } catch {
+    // MathLive todavía no terminó de construir su interno: `focus()` lee
+    // `this.disabled`, que lo toca. Quien llama decide si reintenta.
+  }
+}
+
+function enfocar(mf: Mathfield | null) {
   if (!mf) return
   // El foco ya es real: enfocar de nuevo movería el cursor por gusto.
   if (document.activeElement === mf) return
@@ -450,7 +459,30 @@ export function MathInput({
         tg: "\\tan",
       }
       fieldRef.current = mf
-      if (autoFocusRef.current) mf.focus()
+
+      // **Con reintento.** `mf.focus()` tira «Cannot read properties of
+      // undefined (reading 'options')» cuando MathLive todavía no terminó de
+      // construir su interno: `focus()` consulta `this.disabled`, y ese getter
+      // lo lee. Pasaba justo al entrar a una derivada después de otra pantalla
+      // —el campo se crea y se enfoca en el mismo tick— y el síntoma era doble:
+      // un error en consola y, sobre todo, que el campo NO quedaba enfocado, o
+      // sea que había que tocarlo para poder escribir.
+      //
+      // El reintento es la forma honesta: no hay evento que avise «ya estoy
+      // listo», y `connectedCallback` no alcanza porque la construcción sigue
+      // después. Diez intentos cada 30 ms son 300 ms de gracia; si en ese rato
+      // no se pudo, no se pudo, y el campo se enfoca al tocarlo.
+      const enfocarCuandoSePueda = (quedan: number) => {
+        if (cancelled || fieldRef.current !== mf) return
+        try {
+          enfocar(mf)
+          return
+        } catch {
+          if (quedan <= 0) return
+          setTimeout(() => enfocarCuandoSePueda(quedan - 1), 30)
+        }
+      }
+      if (autoFocusRef.current) enfocarCuandoSePueda(10)
     })
 
     return () => {

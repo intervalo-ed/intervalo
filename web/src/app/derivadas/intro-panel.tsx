@@ -19,11 +19,14 @@
 // alcanza, y a partir de ahí ocupaba el lugar donde ahora van los marcadores. El
 // trato es este —se explica en serio, y después no se repite nunca.
 
+import { useEffect, useState } from "react"
+import { useAuth } from "@clerk/nextjs"
 import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 import { KeyCap } from "./exercise-card"
 import { useTeclas } from "./teclas"
 import { useBienvenida } from "./UseBienvenida"
-import { useCachedPlayer } from "./UseGamePlayer"
+import { useCachedPlayer, useGameToken } from "./UseGamePlayer"
 import { TextoConHuecos } from "./texto-con-huecos"
 
 // El texto de la intro, uno solo para las dos versiones: es lo único que se
@@ -39,9 +42,8 @@ import { TextoConHuecos } from "./texto-con-huecos"
 // El `︎` del peón fuerza presentación de TEXTO: sin él el navegador lo
 // dibuja como emoji, una imagen oscura de color fijo que sobre este fondo se
 // apaga. Es el mismo tratamiento que en el contador.
-// El mismo peso y el mismo color que los números de la lista: lo que resalta en
-// estos párrafos es la numeración y la palabra clave, y si cada una tuviera su
-// tratamiento serían dos jerarquías compitiendo en cuatro renglones.
+// Lo único que resalta en estos párrafos. Antes compartía el papel con el número
+// de cada regla; sin los números, la palabra clave es la jerarquía entera.
 function Fuerte({ children }: { children: React.ReactNode }) {
   return <strong className="font-semibold text-foreground">{children}</strong>
 }
@@ -73,10 +75,26 @@ function Fuerte({ children }: { children: React.ReactNode }) {
  *  La instrucción es la regla 1 de `IntroParagraphs` dicha en imperativo:
  *  aquella explica qué es un ejercicio, esta pide que se resuelva. Por eso
  *  ninguna de las dos formas de decir las reglas la incluye — ya se dio acá
- *  (reglas-trigger.ts :: REGLAS_DE_LA_DIAPO y CALENDARIO). */
+ *  (reglas-trigger.ts :: reglasDeLaDiapo). */
 export const BIENVENIDA_MINIMA = "¡Bienvenido!"
+
+/** Qué es esto, para quien llega por primera vez.
+ *
+ *  Es la primera oración del preview de WhatsApp (layout.tsx :: DESCRIPCION),
+ *  igual palabra por palabra. Se escribe de nuevo y no se importa de
+ *  `layout.tsx` igual: son dos textos con dos trabajos distintos —uno vende el
+ *  link, el otro recibe a quien ya entró— y atarlos obligaría a que el día que
+ *  uno cambie el otro lo siga sin motivo.
+ *
+ *  **Va también en el texto de respaldo, y eso mueve un experimento.** El
+ *  respaldo es la rama de CONTROL de `dx-rampa-1`: desde este cambio, el cuarto
+ *  brazo se mide contra una puerta que ya explica el producto. Fue una decisión
+ *  de producto tomada a sabiendas; quien lea el resultado de `dx-rampa-1` tiene
+ *  que partir la serie en la fecha de este cambio. */
+export const QUE_ES =
+  "Memorizá todas las derivadas y llegá mejor preparado a tus parciales con este minijuego."
 export const INSTRUCCION_MINIMA =
-  "Resolvé la siguiente derivada para comenzar a jugar."
+  "Resolvé la siguiente derivada para comenzar."
 
 /** Lo que reemplaza a la instrucción cuando la persona ya jugó hoy.
  *
@@ -96,20 +114,87 @@ export const SEGUIMOS = "¿Seguimos?"
  *
  *  `gap-6` es el doble del `gap-3` con el que los dos layouts separan párrafos:
  *  un renglón en blanco entre el saludo y lo que hay que hacer. */
+/** Cuánto se espera al digest antes de caer al texto de siempre.
+ *
+ *  **La espera existe porque el respaldo se pintaba antes de tiempo.** El juego
+ *  entero es cliente —el HTML del servidor no trae este texto— así que la
+ *  pantalla ya está en blanco hasta que hidrata, y lo único que esta espera
+ *  agrega es el viaje de `/bienvenida`. Medido en local el 02/10: el pedido sale
+ *  1.028 ms después de navegar y tarda 53 ms. O sea que lo que se veía cambiar no
+ *  era un endpoint lento sino el respaldo dibujado y reemplazado 50 ms después.
+ *
+ *  Dos segundos y medio es el TECHO y no la espera normal: cubre el viaje en una
+ *  red lenta más el alta del invitado, que en una primera visita va antes. Era
+ *  uno y medio; se subió para que una red de teléfono floja alcance a traer las
+ *  novedades antes de que salga el respaldo. Si vence, sale el texto de siempre
+ *  en el mismo lugar exacto donde ya estaba reservado, así que no se mueve nada.
+ *
+ *  **Vencido el plazo, el digest igual se muestra si llega.** El plazo decide
+ *  cuándo deja de estar en blanco la pantalla, no cuándo se deja de esperar: el
+ *  pedido sigue en vuelo y, cuando contesta, las novedades reemplazan al
+ *  respaldo. Llegar tarde es mejor que no llegar. */
+const ESPERA_MAX_MS = 2_500
+
+/** Verdadero cuando pasaron `ms` desde que se montó. */
+function useVencio(ms: number): boolean {
+  const [vencio, setVencio] = useState(false)
+  useEffect(() => {
+    const t = setTimeout(() => setVencio(true), ms)
+    return () => clearTimeout(t)
+  }, [ms])
+  return vencio
+}
+
 export function PuertaMinima() {
   const player = useCachedPlayer()
-  const { data } = useBienvenida(true)
+  const token = useGameToken()
+  const { isSignedIn } = useAuth()
 
-  // **El texto de siempre es el fallback, no el caso raro.** Mientras el pedido
-  // viaja —y para siempre si falla— esta pantalla se ve exactamente como se veía
+  // **El pedido espera a que haya jugador.** `/game/derivemos/bienvenida` pasa
+  // por `get_current_player`, que sin `X-Game-Token` y sin sesión contesta 401
+  // (backend/game/deps.py). En una primera visita este componente monta ANTES de
+  // que el alta termine —medido: los dos pedidos salen en el mismo milisegundo—
+  // así que salía 401, y con `retry: false` no había segundo intento: la rama
+  // `primera`, que es la escrita justo para quien nunca resolvió nada, no se veía
+  // NUNCA. El token entra por `useGameToken`, que es reactivo, así que el pedido
+  // sale solo apenas el invitado existe.
+  const hayJugador = token !== null || isSignedIn === true
+  const { data, isError } = useBienvenida(hayJugador)
+  const vencio = useVencio(ESPERA_MAX_MS)
+
+  // **El texto de siempre es el fallback, no el caso raro.** Si el pedido falla
+  // —o tarda más que el techo— esta pantalla se ve exactamente como se veía
   // antes. Es lo que hace que la feature no pueda costar activación por un
   // endpoint lento: lo peor que puede pasar es que no cuente nada, que es lo que
   // contaba hasta ayer.
-  if (!data || data.novedades.length === 0) {
+  //
+  // Mientras tanto se dibuja igual pero `invisible`: ocupa su lugar sin pintarse,
+  // así que cuando llega el digest crece hacia abajo y cuando vence el plazo
+  // aparece donde ya estaba. Lo que no vuelve a pasar es que se lea una cosa y
+  // medio segundo después otra.
+  //
+  // Y si el pedido FALLÓ no hay nada que esperar: el respaldo sale ya, en vez
+  // de dejar la pantalla en blanco hasta que venza el plazo.
+  const esperando = data === undefined && !vencio && !isError
+  if (esperando || !data || data.novedades.length === 0) {
     return (
-      <div className="flex flex-col gap-6">
+      <div className={cn("flex flex-col gap-5", esperando && "invisible")}>
         <p className="font-semibold text-foreground">{BIENVENIDA_MINIMA}</p>
-        <p className="font-semibold text-foreground">{INSTRUCCION_MINIMA}</p>
+        {/* Que es esto, tambien aca.
+         *
+         *  Esta rama la ven los tres brazos que no reciben el digest —control,
+         *  teclado y ayudas— y hasta ahora era la unica pantalla del juego que
+         *  no decia a que vino: saludo e instruccion, sin nada en el medio.
+         *
+         *  **Y esto mueve la base de `dx-rampa-1`**, porque este texto es su
+         *  rama de control. Se hace a sabiendas: el contraste del cuarto brazo
+         *  pasa a medir la pantalla de arranque CONTRA una puerta que ya
+         *  explica el producto, que es una pregunta distinta de la que se
+         *  declaro. Lo que se gana es que nadie entre sin saber que es esto. */}
+        <p className="text-balance text-foreground/85">{QUE_ES}</p>
+        <p className="text-balance font-semibold text-foreground">
+          {INSTRUCCION_MINIMA}
+        </p>
       </div>
     )
   }
@@ -133,7 +218,7 @@ export function PuertaMinima() {
   // A mitad del día: una línea y una pregunta. Sin encabezado y sin lista —lo
   // que pasó mientras no estaba no existe, porque estuvo hace un rato— y con la
   // pregunta en vez de la instrucción, que es lo que convierte «ya llevás 8» en
-  // un motivo para tocar Continuar y no en un recibo.
+  // un motivo para tocar el botón y no en un recibo.
   if (data.modo === "sigue") {
     const n = data.novedades[0]
     return (
@@ -148,20 +233,50 @@ export function PuertaMinima() {
     )
   }
 
+  const primera = data.modo === "primera"
+
   return (
     <div className="flex flex-col gap-5">
       {saludo}
-      {data.titulo && (
-        <p className="text-xs uppercase tracking-wider text-muted-foreground">
-          {data.titulo}
-        </p>
+      {/* Después del saludo y antes de los hechos: el saludo abre, esta dice a
+          qué vino y recién entonces los números significan algo. Sin negrita —la
+          llevan el saludo y la instrucción, que son los dos extremos— así que la
+          pantalla se lee de arriba abajo como título, cuerpo, caja, acción. */}
+      {primera && (
+        <p className="text-balance text-foreground/85">{QUE_ES}</p>
       )}
-      {/* Lista y no párrafos: son hechos sueltos, cada uno con su emoji al
-          final. El emoji va DESPUÉS del punto y fuera del texto porque llega
-          aparte del servidor — misma convención que el feed, y lo que deja que
-          el mismo hecho se cuente con redacciones distintas sin tocar el
-          símbolo. */}
-      <ul className="flex flex-col gap-2.5 text-left">
+      {/* Las novedades van en una caja, y la caja NO lleva fondo.
+       *
+       *  Sueltas se leían como tres renglones más del saludo, en una pantalla
+       *  donde todo lo demás ya es texto centrado sobre el fondo del juego: el
+       *  borde es lo que las junta en UNA cosa que se puede mirar y después
+       *  dejar de mirar. Sin relleno porque un bloque opaco acá pesa más que el
+       *  logo, y el logo es el título de esta pantalla.
+       *
+       *  El encabezado entra ADENTRO: es el rótulo de esta caja y no una sección
+       *  de la pantalla, y afuera quedaba flotando entre el saludo y el borde. */}
+      {/* La caja ES la lista: sin encabezado adentro.
+       *
+       *  Tenía uno —«LO QUE ESTÁ PASANDO», «MIENTRAS NO ESTABAS»— y con el borde
+       *  puesto pasó a sobrar: el borde ya dice que esto es un bloque aparte, y
+       *  el rótulo encima repetía eso gastando un renglón en la pantalla más
+       *  apretada del juego. `GameBienvenidaOut.titulo` sigue viniendo del
+       *  servidor y ya no lo dibuja nadie.
+       *
+       *  `text-sm` y no el cuerpo de afuera: son hechos de apoyo, no lo que la
+       *  pantalla viene a decir. Un escalón alcanza para que se lean como nota
+       *  al margen sin que haya que entrecerrar los ojos.
+       *
+       *  Lista y no párrafos: son hechos sueltos, cada uno con su emoji al
+       *  final. El emoji va DESPUÉS del punto y fuera del texto porque llega
+       *  aparte del servidor —misma convención que el feed, y lo que deja que el
+       *  mismo hecho se cuente con redacciones distintas sin tocar el símbolo. */}
+      {/* `w-fit` y centrada: la caja mide lo que mide el renglón mas largo y
+          no lo que mide la columna. Estirada al ancho del panel dejaba una
+          franja vacía a la derecha de cada hecho, que se leía como un bloque a
+          medio llenar. `max-w-full` es el techo: una novedad larga envuelve
+          adentro de la columna en vez de empujar la caja afuera. */}
+      <ul className="mx-auto flex w-fit max-w-full flex-col gap-2.5 rounded-lg border border-border/60 px-4 py-3 text-left text-sm md:text-base">
         {data.novedades.map((n) => (
           <li key={n.clave} className="text-foreground/85">
             <TextoConHuecos
@@ -169,23 +284,57 @@ export function PuertaMinima() {
               actorAlias={n.actor_alias}
               actorLevel={n.actor_level}
               universities={n.universities}
+              conTags
             />{" "}
             {n.emoji}
           </li>
         ))}
       </ul>
+      {/* Y la primera vez, qué hay que hacer.
+       *
+       *  El digest reemplaza al texto de siempre, así que al estrenar esta
+       *  pantalla se llevó puesta la única instrucción que el juego da —y se la
+       *  llevó justo para quien nunca resolvió nada—. Alguien que entra por
+       *  primera vez leía que ya hay 412 personas de la UTN jugando y nada que
+       *  dijera que lo que sigue es una derivada.
+       *
+       *  Solo en `primera`: `vuelve` ya jugó y `sigue` cierra con «¿Seguimos?»,
+       *  que dice lo mismo en el tiempo que corresponde. Y va al final, pegada
+       *  al botón, porque es lo que hay que hacer al tocarlo. */}
+      {/* El renglon de cierre, que es lo que invita a tocar el boton.
+       *
+       *  Las tres ramas tienen uno y antes `vuelve` era la excepcion: cerraba
+       *  con la ultima novedad, asi que quien volvia despues de un dia leia tres
+       *  hechos sobre los demas y nada que lo llamara a el. `sigue` ya cerraba
+       *  con "¿Seguimos?" adentro de su parrafo, y esta rama usa la misma
+       *  palabra a proposito: las dos le hablan a alguien que ya jugo, y dos
+       *  formas de decir lo mismo en la misma pantalla son dos de mas.
+       *
+       *  `text-balance`: cuando no entra en un renglon, que los dos queden
+       *  parejos en vez de dejar "comenzar." solo abajo. En escritorio entra entero
+       *  desde los ~920 px de ventana (la oracion pide 388 y la columna llega a
+       *  512); mas angosto envuelve, que es lo correcto: nunca se desborda. */}
+      {(primera || data.modo === "vuelve") && (
+        <p className="text-balance font-semibold text-foreground">
+          {primera ? INSTRUCCION_MINIMA : SEGUIMOS}
+        </p>
+      )}
     </div>
   )
 }
 
-// Los párrafos numerados. El número NO va en el texto sino acá, sobre el
-// índice: son cosas que se cuentan una por vez, y si alguna vez se suma o se
-// saca una, la numeración se acomoda sola en las dos pantallas.
+// Los párrafos de las reglas.
+//
+// **Sin numerar, desde el 02/10.** Los números existían cuando esto era una
+// lista de cuatro que se leía de corrido; hoy lo que queda en cada pantalla son
+// una o dos reglas sueltas, y una lista de dos con «1.» y «2.» se lee como un
+// procedimiento —primero esto, después aquello— cuando en realidad son dos
+// cosas independientes que pasan a la vez. La palabra en negrita ya hace de
+// ancla, que es lo que los números venían a hacer.
 //
 // Componente y no un `map` en cada layout porque son dos —teléfono y
 // escritorio— y lo único que cambia entre ellos es el cuerpo de letra, que
-// entra por `className`. Duplicar el map era la forma segura de que dentro de
-// un mes uno tuviera números y el otro no.
+// entra por `className`.
 export function IntroParagraphs({
   className,
   // Cuáles, y en qué orden. Índices de la lista de abajo.
@@ -195,19 +344,12 @@ export function IntroParagraphs({
   // separadas, ese día una de las dos se queda vieja — que es justo lo que le
   // pasó al tutorial repartido que esto reemplazó una vez.
   //
-  // Y es una lista y no un corte porque `sin-peaje` las reparte en un orden que
-  // no es el de acá: el Elo, la tabla y recién después los cafecitos, cada una
-  // donde tiene referente (reglas-trigger.ts :: CALENDARIO).
+  // Y es una lista y no un corte porque no todos ven las mismas: con la fila de
+  // ayudas, la tabla se explica antes de la primera derivada y en su propia
+  // pantalla, así que acá queda el Elo solo (reglas-trigger.ts ::
+  // reglasDeLaDiapo).
   cuales,
-  // Numerarlas. La numeración es sobre `cuales` y arranca en 1 siempre: durante
-  // un rato las tres de la diapo salieron como 2, 3 y 4, con un renglón arriba
-  // explicando cuál faltaba, y se lee peor de lo que suena — tres ítems que
-  // empiezan en 2 hacen buscar el 1 aunque el texto diga dónde quedó.
-  //
-  // Una sola regla va sin número: un «1.» arriba de un renglón único promete
-  // una lista que no viene.
-  numera = true,
-}: { className?: string; cuales: number[]; numera?: boolean }) {
+}: { className?: string; cuales: number[] }) {
   // Los párrafos se arman ACÁ y no en una constante del módulo. Cuando eran
   // JSX de nivel de módulo, los elementos quedaban creados una sola vez al
   // evaluarse el archivo, y Fast Refresh no puede reconciliar eso: al editar el
@@ -228,29 +370,30 @@ export function IntroParagraphs({
       Tu puntaje <Fuerte>Elo</Fuerte> ♟︎ define la dificultad y se ajusta con tus
       aciertos y errores.
     </>,
+    // Acá hubo un tercero sobre los cafecitos —«para que vos y tu universidad
+    // escalen el ranking más rápido que el resto»— y se fue el 02/10. El cafecito
+    // sigue entero: el pedido, el empuje a la universidad y el ranking (el
+    // contador ☕ del marcador se fue con la regla). Lo que se sacó es EXPLICÁRSELO a alguien que todavía no
+    // resolvió nada: es la única de las reglas que no hace falta para jugar, y
+    // ocupaba un tercio de la única pantalla que el juego dedica a explicarse.
+    // La tabla se explica en los dos lados porque en los dos existe: en el
+    // teléfono se toca un botón y en escritorio se mantiene Alt.
+    //
+    // **No dice lo que cuesta, y antes lo decía** («pero esa derivada te va a
+    // sumar mucho menos»). Mirarla sigue bajando la XP del ejercicio y
+    // salteándose el ajuste de Elo —eso no cambió—; lo que se sacó es
+    // anunciárselo de entrada a alguien que todavía no se trabó. La frase
+    // convertía la única salida que el juego ofrece en una multa, y el momento
+    // en que se lee es justo el que decide si alguien sigue o se va.
     <>
-      Podés usar <Fuerte>cafecitos</Fuerte> ☕ para que vos y tu universidad
-      escalen el ranking más rápido que el resto.
-    </>,
-    // El cuarto llegó con la tabla en el teléfono, pero se explica en los dos
-    // lados porque en los dos existe: acá se toca un botón y en escritorio se
-    // mantiene Alt. Lo que importa es lo mismo — que se puede mirar, y que no
-    // sale gratis.
-    <>
-      Si te trabás podés mirar la <Fuerte>tabla</Fuerte> 📖, pero esa derivada
-      te va a sumar mucho menos.
+      Si te trabás podés mirar la <Fuerte>tabla</Fuerte> 📖.
     </>,
   ]
   return (
     <>
-      {cuales.map((idx, i) => (
+      {cuales.map((idx) => (
         // La lista es fija, así que el índice en ella alcanza como clave.
         <p key={idx} className={className}>
-          {numera && (
-            <>
-              <span className="font-semibold text-foreground">{i + 1}.</span>{" "}
-            </>
-          )}
           {parrafos[idx]}
         </p>
       ))}
@@ -272,7 +415,13 @@ export function IntroParagraphs({
 export function IntroPanel() {
   return (
       <div className="flex min-h-0 flex-1 flex-col rounded-lg border border-border bg-card p-6">
-      <div className="mx-auto flex min-h-0 w-full max-w-sm flex-1 flex-col items-center justify-center gap-6 text-center">
+      {/* `max-w-lg` y no `max-w-sm`.
+          Con 384 px, «Resolvé la siguiente derivada para comenzar a jugar»
+          envolvía en dos renglones y partía la única instrucción del juego al
+          medio. Con 512 entra entera, y de paso las novedades dejan de cortarse
+          a mitad de oración. Es ancho que en escritorio sobra: la card mide 592
+          y el texto llegaba hasta los 384. */}
+      <div className="mx-auto flex min-h-0 w-full max-w-lg flex-1 flex-col items-center justify-center gap-6 text-center">
         {/* Sin titular ni fórmula de muestra. Los dos estuvieron y los dos se
             fueron por lo mismo: decían con otras palabras lo que ya dicen los
             tres párrafos. El operador se conoce en el primer ejercicio, que llega
@@ -282,7 +431,11 @@ export function IntroPanel() {
             (mobile-flow.tsx) y que la bienvenida del onboarding: en la primera
             pantalla del juego este texto ES el contenido, y en `text-sm
             text-muted-foreground` se leía como una aclaración al pie. */}
-        <div className="flex flex-col gap-3 leading-relaxed text-foreground/85">
+        {/* `text-lg` solo acá: en el teléfono este texto ocupa la pantalla
+            entera y el cuerpo normal ya pesa lo que tiene que pesar; en
+            escritorio vive adentro de una card con aire de sobra y al mismo
+            cuerpo se leía como una nota al pie de su propio logo. */}
+        <div className="flex flex-col gap-3 text-lg leading-relaxed text-foreground/85">
           <PuertaMinima />
         </div>
       </div>
@@ -294,11 +447,12 @@ export function IntroPanel() {
 // —mismo alto, mismo lugar— para que al empezar no se mueva nada abajo mientras
 // la card de arriba gira.
 //
-// "Empezar" anuncia que algo va a arrancar, y eso es exactamente lo que esta
-// puerta no quiere decir: del otro lado no hay una partida inaugurándose, hay
-// una derivada. "Continuar" es además la palabra que ocupa este mismo lugar
-// durante todo el resto del juego, así que el primer botón deja de ser el único
-// distinto. El teléfono ya decía "Continuar" desde antes.
+// Dice «¡Vamos!» y no «Continuar», en las dos pantallas (el del teléfono está
+// en mobile-flow.tsx). Es la respuesta al renglón de arriba, que siempre
+// termina invitando: «Resolvé la siguiente derivada para comenzar.» a quien
+// llega, «¿Seguimos?» a quien vuelve. «Continuar» era la palabra del resto del
+// juego, pero acá no hay nada que continuar todavía: es el único botón que se
+// toca ANTES de la primera derivada, y puede decir algo propio.
 export function IntroStartButton({
   onStart,
   disabled,
@@ -314,7 +468,7 @@ export function IntroStartButton({
       onClick={onStart}
       className="h-[var(--cta-h)] w-full shrink-0 rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
     >
-      Continuar
+      ¡Vamos!
       <KeyCap>{teclas.enter}</KeyCap>
     </Button>
   )

@@ -26,21 +26,23 @@ saludo, encabezado y cantidad de renglones.
   · `vuelve`  — ya jugó antes, hoy no. Hasta tres novedades.
   · `primera` — nunca resolvió nada. Hasta tres, sobre el mundo y su gente.
 
-── La ventana, que es mixta a propósito ─────────────────────────────────────
+── Los conteos hablan de un período con nombre ──────────────────────────────
 
-Hay dos clases de hecho y solo una necesita fallback:
+Hay dos clases de hecho:
 
   · **evento** (pasó o no pasó): los reclutas te dejaron XP, tu universidad
     superó a otra. Ventana = desde el último digest. Sin mínimo: si pasó, se
     cuenta, y 6.644 XP son 6.644 XP.
-  · **conteo** (es un número): altas de tu universidad. Desde el último digest
-    si el número llega a `MIN_CONTEO`; si no, la cifra de siete días con su
-    propio rótulo.
+  · **conteo** (es un número): estudiantes que llegaron, derivadas que se
+    resolvieron. Siempre con su período dicho en la oración —«hoy», «esta
+    semana», «este mes»— y nunca como un total acumulado ni como «desde tu
+    última visita», que es una ventana que solo conoce el servidor.
 
-El fallback no es cosmético. Medido el 27/09, en 24 h entraron 8 personas en
-todo el juego —UBA 3, UTN 3, UNC 1, UNLP 1— contra 108/97/69/55 en la semana.
-Sin el mixto, el renglón diría «+1 persona se sumó» la mayoría de las veces, que
-es peor que no decir nada.
+El período es el MÁS CORTO en el que el número llega a `MIN_CONTEO`. La
+escalera no es cosmética: medido el 27/09, en 24 h entraron 8 personas en todo
+el juego —UBA 3, UTN 3, UNC 1, UNLP 1— contra 108/97/69/55 en la semana. Sin
+ella el renglón diría «hoy llegó 1 estudiante» la mayoría de las veces, que es
+peor que no decir nada.
 
 ── Lo que NO se muestra ─────────────────────────────────────────────────────
 
@@ -60,35 +62,39 @@ from sqlalchemy.orm import Session
 from models import GameAttempt, GameEvent, GameGroup, GamePlayer
 
 from . import elo as game_elo
-from .events_copy import elegir, miles
+from .events_copy import miles
 
 # Cuántos renglones entran. Tres es lo que el diseño fijó; la lista puede volver
 # más corta y el cliente dibuja los que haya.
 MAX_NOVEDADES = 3
 
-# Debajo de esto, un conteo cae a la ventana de siete días. Cinco es donde el
-# número deja de leerse como «no pasó nada»: con 3 altas, «+3 personas de la UTN
-# se sumaron» compite mal contra el silencio.
+# Debajo de esto, un conteo sube al período siguiente (hoy → semana → mes).
+# Cinco es donde el número deja de leerse como «no pasó nada»: «Hoy llegaron 3
+# estudiantes» compite mal contra el silencio.
 MIN_CONTEO = 5
 
 VENTANA_SEMANAL = timedelta(days=7)
+# «Este mes» son los últimos treinta días y no el mes del calendario: el día 2
+# el mes del calendario mide dos días y diría menos que la semana.
+VENTANA_MENSUAL = timedelta(days=30)
 
-# Sin esto, alguien que vuelve después de tres meses recibe «se resolvieron
-# 180.000 derivadas», que no se lee como una novedad sino como un almanaque. El
-# digest habla de lo reciente.
+# Cuánto para atrás miran los EVENTOS (hoy, el movimiento del ranking de
+# universidades). Sin tope, alguien que vuelve después de tres meses recibe un
+# sobrepaso de julio como si fuera una novedad. Los conteos no la usan: llevan
+# su propio período.
 VENTANA_MAXIMA = timedelta(days=14)
 
 # Solo cuenta quien resolvió algo, que es como cuenta el ranking
-# (game/ranking.py :: RESOLVIO_ACA). «Cuánta gente hay» tiene que querer decir lo
-# mismo en las dos pantallas.
+# (game/ranking.py :: RESOLVIO_ACA). El puesto de una universidad tiene que
+# salir de la misma gente en las dos pantallas.
 JUEGA = GamePlayer.exercises_correct > 0
 
 # Los sembrados NO cuentan acá, al revés que en el ranking —que los incluye a
 # propósito, para que el primero en llegar tenga a quién escalar—. La diferencia
 # es qué se está diciendo: el ranking muestra filas para competir contra, y esta
-# pantalla afirma que hay TANTAS PERSONAS. Decirle a alguien «ya hay 371 de la
-# UBA jugando» cuando cien son fixtures es una mentira barata en el primer
-# segundo de la relación.
+# pantalla afirma que llegaron TANTOS ESTUDIANTES. Decirle a alguien «hoy
+# llegaron 105 estudiantes» cuando cien son fixtures es una mentira barata en el
+# primer segundo de la relación.
 #
 # Hoy la distinción no cambia ningún número —producción tiene 0 sembrados sobre
 # 3.284 jugadores— así que no hay contradicción visible con el ranking. El día
@@ -132,82 +138,59 @@ def _ventana(player: GamePlayer, ahora: datetime) -> datetime:
     return max(desde, ahora - VENTANA_MAXIMA)
 
 
-def _altas(db: Session, university: str, desde: datetime) -> int:
+def _periodos(inicio_del_dia: datetime, ahora: datetime):
+    """Los tres períodos con nombre, del más corto al más largo."""
     return (
-        db.query(func.count(GamePlayer.id))
-        .filter(NO_BOT, GamePlayer.university == university,
-                GamePlayer.created_at >= desde)
-        .scalar()
-        or 0
+        ("hoy", inicio_del_dia),
+        ("semana", ahora - VENTANA_SEMANAL),
+        ("mes", ahora - VENTANA_MENSUAL),
     )
 
 
-def _derivadas(db: Session, desde: datetime) -> int:
-    return (
-        db.query(func.count(GameAttempt.id))
-        .join(GamePlayer, GamePlayer.id == GameAttempt.player_id)
-        .filter(NO_BOT, GameAttempt.is_correct.is_(True),
-                GameAttempt.created_at >= desde)
-        .scalar()
-        or 0
-    )
+def _por_periodo(consulta, columna, periodos) -> dict[str, int]:
+    """Cuenta UNA vez y reparte en los tres períodos.
 
-
-# Cuánta gente hace falta para decir que el juego «está» en una universidad.
-#
-# Dos, y el uno que se descarta no es un tecnicismo: la universidad se carga a
-# mano en un campo libre, así que la cola de una sola persona es mitad
-# universidades de verdad (UNCUYO, UNAM, UNJu) y mitad tipeos —«23213r», «Ser
-# f», «FQ», «Fcea»—. Contarlas infla el número con basura que nadie puede ver
-# para desmentir: medido el 27/09, 31 contra 16.
-#
-# No arregla la canonicalización, que es otro problema y vive en la carga. Lo
-# que hace es no APOYARSE en ella para una afirmación pública.
-MIN_PRESENCIA = 2
-
-
-def _universo(db: Session) -> tuple[int, int]:
-    """Cuánta gente juega y en cuántas universidades hay presencia."""
-    personas = db.query(func.count(GamePlayer.id)).filter(NO_BOT, JUEGA).scalar() or 0
-    unis = (
-        db.query(func.count())
-        .select_from(
-            db.query(GamePlayer.university)
-            .filter(NO_BOT, JUEGA, GamePlayer.university.isnot(None),
-                    GamePlayer.university != "")
-            .group_by(GamePlayer.university)
-            .having(func.count(GamePlayer.id) >= MIN_PRESENCIA)
-            .subquery()
-        )
-        .scalar()
-        or 0
-    )
-    return int(personas), int(unis)
-
-
-def _minutos_desde_la_ultima_alta(
-    db: Session, ahora: datetime, salvo_id: int | None = None
-) -> int | None:
-    """Hace cuánto llegó la última persona, sin contar a quien pregunta.
-
-    Es el único hecho que dice «esto está pasando AHORA» en vez de «esto es
-    grande». Aguanta como renglón porque el hueco mediano entre altas es de tres
-    minutos (medido sobre los `welcome` de siete días).
-
-    **`salvo_id` no es una optimización, es el bug.** Para alguien que acaba de
-    llegar, la fila más nueva de `game_players` ES LA SUYA, así que sin excluirla
-    el renglón dice «la última persona se sumó hace menos de un minuto» y esa
-    persona es quien lo está leyendo. Se vio en producción a los dos minutos de
-    desplegar, y es exactamente la clase de error que no aparece en un fixture:
-    hay que ser el más nuevo de la base para pisarlo.
+    Eran hasta tres consultas por renglón —una por período, hasta dar con el que
+    alcanzaba— y esta pantalla corre en cada arranque. `game_attempts` no tiene
+    índice que empiece por `created_at`, así que cada una era una pasada entera
+    por la tabla. Con `count(case(...))` es una sola, acotada al período más
+    largo.
     """
-    q = db.query(func.max(GamePlayer.created_at)).filter(NO_BOT)
+    cuentas = [func.count(case((columna >= desde, 1))) for _, desde in periodos]
+    fila = (
+        consulta.with_entities(*cuentas)
+        .filter(columna >= min(desde for _, desde in periodos))
+        .one()
+    )
+    return {nombre: int(n or 0) for (nombre, _), n in zip(periodos, fila)}
+
+
+def _altas(
+    db: Session, university: str | None, periodos,
+    salvo_id: int | None = None,
+) -> dict[str, int]:
+    """Cuántos llegaron en cada período; sin universidad, en todo el juego.
+
+    **`salvo_id` no es una optimización.** Para alguien que acaba de llegar, una
+    de las altas de hoy ES LA SUYA: sin excluirla, «hoy llegaron 5 estudiantes»
+    lo cuenta a él, que es quien lo está leyendo.
+    """
+    q = db.query(GamePlayer).filter(NO_BOT)
+    if university is not None:
+        q = q.filter(GamePlayer.university == university)
     if salvo_id is not None:
         q = q.filter(GamePlayer.id != salvo_id)
-    ultima = q.scalar()
-    if ultima is None:
-        return None
-    return max(0, int((ahora - ultima).total_seconds() // 60))
+    return _por_periodo(q, GamePlayer.created_at, periodos)
+
+
+def _derivadas(db: Session, periodos) -> dict[str, int]:
+    """Cuántas derivadas se resolvieron en cada período."""
+    q = (
+        db.query(GameAttempt)
+        .join(GamePlayer, GamePlayer.id == GameAttempt.player_id)
+        .filter(NO_BOT, GameAttempt.is_correct.is_(True))
+    )
+    return _por_periodo(q, GameAttempt.created_at, periodos)
 
 
 def _reclutas(db: Session, player: GamePlayer) -> tuple[int, int]:
@@ -299,7 +282,31 @@ def universidad_del_link(db: Session, player: GamePlayer) -> str | None:
 # ── Las novedades ────────────────────────────────────────────────────────────
 
 
-def _n_reclutas(db, player, sem) -> Novedad | None:
+def _n_mio(player) -> Novedad | None:
+    """Lo único que esta pantalla dice sobre LA PERSONA que la está leyendo.
+
+    Las seis candidatas de `vuelve` hablaban del mundo —reclutas, sorpasso,
+    altas, derivadas, universo, última alta— y ninguna de quién abre la app: a
+    los dos días de estar en producción, el reclamo fue exactamente ese. Alguien
+    que vuelve leía tres hechos sobre los demás y nada sobre lo suyo.
+
+    **Lo acumulado y no lo de hoy.** En esta rama lo de hoy es cero por
+    definición —si no, sería `sigue`— y «hoy resolviste 0» es justo el renglón
+    que la ramificación por contador existe para no escribir.
+
+    Y un total y no un puesto: el puesto puede haber BAJADO mientras no estaba,
+    y esta pantalla no señala pérdidas (ver la cabecera). Lo que lleva resuelto
+    no baja nunca.
+    """
+    n = int(player.exercises_correct or 0)
+    if n <= 0:
+        return None
+    texto = ("Llevás 1 derivada resuelta." if n == 1
+             else f"Llevás {miles(n)} derivadas resueltas.")
+    return Novedad("mio", texto, "💪", 95)
+
+
+def _n_reclutas(db, player) -> Novedad | None:
     n, xp = _reclutas(db, player)
     if not n or xp <= 0:
         return None
@@ -317,37 +324,39 @@ def _n_sorpasso(db, uni, desde) -> Novedad | None:
     return Novedad("sorpasso", ev.text, ev.emoji, 90, universities=unis)
 
 
-def _n_altas(db, uni, desde, ahora, sem) -> Novedad | None:
-    """El conteo con su fallback: desde tu visita si alcanza, si no la semana."""
-    n = _altas(db, uni, desde)
-    if n >= MIN_CONTEO:
-        cuerpo = elegir(f"{sem}:altas", [
-            "{n} personas de la {u0} se sumaron.",
-            "Se sumaron {n} personas de la {u0}.",
-            "La {u0} sumó {n} personas.",
-        ])
-        return Novedad("altas", cuerpo.replace("{n}", miles(n)), "👋", 70,
-                       universities=[uni])
-    semanal = _altas(db, uni, ahora - VENTANA_SEMANAL)
-    if semanal < MIN_CONTEO:
-        return None
-    return Novedad(
-        "altas_semana",
-        "Esta semana se sumaron " + miles(semanal) + " personas de la {u0}.",
-        "👋", 60, universities=[uni])
+_ALTAS = {
+    "hoy": "Hoy llegaron {n} estudiantes",
+    "semana": "Esta semana llegaron {n} estudiantes",
+    "mes": "Este mes llegaron {n} estudiantes",
+}
 
 
-def _n_gente_de_la_uni(db, uni) -> Novedad | None:
-    n = (
-        db.query(func.count(GamePlayer.id))
-        .filter(NO_BOT, JUEGA, GamePlayer.university == uni)
-        .scalar()
-        or 0
-    )
-    if n < MIN_CONTEO:
-        return None
-    return Novedad("uni_gente", "Ya hay " + miles(n) + " personas de la {u0} jugando.",
-                   "👋", 95, universities=[uni])
+def _n_altas(db, uni, inicio_del_dia, ahora, puntaje, salvo_id=None) -> Novedad | None:
+    """Cuántos estudiantes llegaron, en el período más corto que alcance.
+
+    Con universidad habla de la suya; si la suya no llega al mínimo ni en el
+    mes —o no se sabe cuál es—, habla de todo el juego.
+
+    **La pantalla lo llama siempre sin universidad** (ver `construir`). Con la
+    sigla, «Esta semana llegaron 97 estudiantes de la UTN» no entraba en un
+    renglón de la caja, y quedaba pegado a «La UTN va 2ª en el ranking»: dos
+    renglones seguidos nombrando a la misma universidad. La sigla la lleva el
+    del puesto, y este cuenta el juego entero. El camino con universidad queda
+    porque es el mismo código y está chequeado; hoy no lo usa nadie.
+    """
+    periodos = _periodos(inicio_del_dia, ahora)
+    for de_quien in ([uni, None] if uni else [None]):
+        cuentas = _altas(db, de_quien, periodos, salvo_id)
+        for periodo, _ in periodos:
+            n = cuentas[periodo]
+            if n < MIN_CONTEO:
+                continue
+            texto = _ALTAS[periodo].replace("{n}", miles(n))
+            if de_quien:
+                return Novedad(f"altas_{periodo}", texto + " de la {u0}.", "🎓",
+                               puntaje, universities=[de_quien])
+            return Novedad(f"altas_{periodo}", texto + ".", "🎓", puntaje)
+    return None
 
 
 # Debajo de esto no hay ranking que contar: «va 1ª de 1» es una tabla de una
@@ -359,34 +368,24 @@ def _n_puesto(db, uni) -> Novedad | None:
     p = _puesto(db, uni)
     if p is None or p[1] < MIN_TABLA:
         return None
-    return Novedad("uni_puesto", f"La {{u0}} va {p[0]}ª de {p[1]} en el ranking.",
+    return Novedad("uni_puesto", f"La {{u0}} va {p[0]}ª en el ranking.",
                    "🏆", 80, universities=[uni])
 
 
-def _n_derivadas(db, desde, cuando: str) -> Novedad | None:
-    n = _derivadas(db, desde)
-    if n < MIN_CONTEO:
-        return None
-    return Novedad("derivadas", f"Se resolvieron {miles(n)} derivadas {cuando}.",
-                   "🧩", 40)
+_DERIVADAS = {"hoy": "hoy", "semana": "esta semana", "mes": "este mes"}
 
 
-def _n_universo(db) -> Novedad | None:
-    personas, unis = _universo(db)
-    if personas < MIN_CONTEO or unis < 2:
-        return None
-    return Novedad("universo",
-                   f"Ya somos {miles(personas)} en {unis} universidades.", "🏛️", 30)
-
-
-def _n_ultima_alta(db, ahora, salvo_id=None) -> Novedad | None:
-    m = _minutos_desde_la_ultima_alta(db, ahora, salvo_id)
-    # Más de dos horas ya no es «ahora mismo», y decirlo sería vender quietud.
-    if m is None or m > 120:
-        return None
-    cuando = "hace menos de un minuto" if m < 1 else (
-        "hace un minuto" if m == 1 else f"hace {m} minutos")
-    return Novedad("ultima_alta", f"La última persona se sumó {cuando}.", "👋", 35)
+def _n_derivadas(db, inicio_del_dia, ahora) -> Novedad | None:
+    periodos = _periodos(inicio_del_dia, ahora)
+    cuentas = _derivadas(db, periodos)
+    for periodo, _ in periodos:
+        n = cuentas[periodo]
+        if n >= MIN_CONTEO:
+            return Novedad(
+                "derivadas",
+                f"Se resolvieron {miles(n)} derivadas {_DERIVADAS[periodo]}.",
+                "🧩", 40)
+    return None
 
 
 # ── El armado ────────────────────────────────────────────────────────────────
@@ -406,7 +405,6 @@ def construir(
     en dos lugares es tenerlo en uno y medio.
     """
     ahora = ahora or datetime.utcnow()
-    sem = f"{player.id}"
 
     # ── Rama 1 · está a mitad del día ───────────────────────────────────────
     if correct_today > 0:
@@ -427,26 +425,31 @@ def construir(
 
     if primera:
         # Nunca resolvió nada: no tiene progreso, ni reclutas, ni puesto. Quedan
-        # dos drives —que esto está vivo, y que su gente ya está adentro— así
-        # que tres renglones sobre dos drives obligan a que el tercero sea el
-        # que dice «ahora mismo» y no un tercer total.
+        # dos drives —que esto está vivo, y que su gente ya está adentro—.
+        #
+        # Hubo un renglón más, «La última persona se sumó hace N minutos», que
+        # era el que decía «ahora mismo». Se sacó el 02/10 por decisión de
+        # producto: sin universidad conocida esta rama da dos renglones y no
+        # tres, y está bien que así sea.
+        #
+        # Y hubo dos totales —«Ya hay N personas de la UTN jugando», «Ya somos
+        # N en M universidades»— que se fueron el mismo día: los conteos hablan
+        # de un período, no de un acumulado.
+        candidatas += [_n_altas(db, None, inicio_del_dia, ahora, 95, player.id)]
         if uni:
-            candidatas += [_n_gente_de_la_uni(db, uni), _n_puesto(db, uni)]
-        candidatas += [
-            _n_derivadas(db, inicio_del_dia, "hoy"),
-            _n_universo(db),
-            _n_ultima_alta(db, ahora, player.id),
-        ]
+            candidatas += [_n_puesto(db, uni)]
+        candidatas += [_n_derivadas(db, inicio_del_dia, ahora)]
         saludo, titulo, modo = "¡Bienvenido!", "Lo que está pasando", "primera"
     else:
-        candidatas += [_n_reclutas(db, player, sem)]
+        # El propio va PRIMERO entre los que hablan de la persona —debajo de los
+        # reclutas, que también son suyos y además son XP recién llegada— y por
+        # encima de todo lo que habla del mundo.
+        candidatas += [_n_reclutas(db, player), _n_mio(player)]
         if uni:
-            candidatas += [_n_sorpasso(db, uni, desde),
-                           _n_altas(db, uni, desde, ahora, sem)]
+            candidatas += [_n_sorpasso(db, uni, desde)]
         candidatas += [
-            _n_derivadas(db, desde, "mientras tanto"),
-            _n_universo(db),
-            _n_ultima_alta(db, ahora, player.id),
+            _n_altas(db, None, inicio_del_dia, ahora, 70, player.id),
+            _n_derivadas(db, inicio_del_dia, ahora),
         ]
         saludo, titulo, modo = "¡Bienvenido, {a}!", "Mientras no estabas", "vuelve"
 

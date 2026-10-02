@@ -150,13 +150,15 @@ export function EncuestaSlide({
       )}
     >
       <div className="space-y-2 text-center">
+        {/* Dos renglones, partidos en la coma: la condición arriba y la
+            pregunta entera abajo. Cada mitad es un bloque, así que el corte no
+            depende del ancho; si la pregunta no entra, envuelve ella sola. */}
         <h2 className="text-xl font-semibold">
-          Si tuvieras una varita mágica, ¿qué le cambiarías o le agregarías al
-          juego?
+          <span className="block">Si tuvieras una varita mágica,</span>
+          <span className="block text-balance">
+            ¿qué le cambiarías o le agregarías a Intervalo?
+          </span>
         </h2>
-        <p className="text-sm text-muted-foreground">
-          Lo lee una persona, no un robot.
-        </p>
       </div>
 
       <div className="mx-auto w-full max-w-sm">
@@ -166,9 +168,11 @@ export function EncuestaSlide({
           onChange={(e) => setTexto(e.target.value.slice(0, MAX_LARGO))}
           rows={4}
           maxLength={MAX_LARGO}
-          // Sin `placeholder` que sugiera qué contestar: cualquier ejemplo que
-          // pongamos se vuelve la respuesta más frecuente, y entonces la
-          // pregunta deja de averiguar nada.
+          // El arranque de la oración y nada más. No es un ejemplo de QUÉ
+          // contestar —cualquier ejemplo se vuelve la respuesta más frecuente,
+          // y entonces la pregunta deja de averiguar nada—: sugiere la forma, un
+          // deseo, y deja el contenido en blanco.
+          placeholder="Me gustaría..."
           className="w-full resize-none rounded-lg border border-border bg-background p-3 text-base outline-none transition-colors placeholder:text-muted-foreground focus:border-chart-5"
           aria-label="Tu respuesta"
         />

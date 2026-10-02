@@ -1,8 +1,9 @@
-// Cuándo se dicen las tres reglas que la puerta no dice.
+// Cuándo se dicen las reglas que la puerta no dice.
 //
 // La puerta pide una sola cosa —«resolvé la siguiente derivada»— y es la regla 1
-// dicha en imperativo. Las otras tres (el Elo, los cafecitos, la tabla) llegan
-// **las tres juntas, en una diapo, después del primer ranking**.
+// dicha en imperativo. De las otras quedan dos —el Elo y la tabla; la de los
+// cafecitos se fue el 02/10— y llegan **juntas, en una diapo, después del
+// ranking** (ver `reglasDeLaDiapo` y `reglasTras`, que dependen del brazo).
 //
 // **Repartirlas de a una fue el brazo `sin-peaje` de `dx-puerta-2`**, con un
 // calendario que las ponía en la 5, la 12 y la 17 y ninguna antes de la tercera
@@ -42,16 +43,47 @@ import {
  *  arrastrar React, posthog y la card del ejercicio a un script de bun. Es el
  *  mismo motivo por el que existe este módulo. */
 export const ELO = 1
-export const CAFECITOS = 2
-export const TABLA = 3
+export const TABLA = 2
 
-/** Después de cuántas correctas sale la diapo con las tres. */
-export const REGLAS_TRAS = 1
+/** Después de cuántas correctas sale la diapo, y depende del brazo.
+ *
+ *  **Dos con la fila de ayudas.** Esa gente ya recibió una pantalla antes de
+ *  jugar —la tabla y el salteo—, así que ponerle otra apenas acierta la primera
+ *  es la segunda interrupción en tres pantallas. Corrida a la segunda, entre las
+ *  dos explicaciones hay una derivada entera.
+ *
+ *  **Una sin la fila**, que es donde estaba: esa diapo es lo único que esos dos
+ *  brazos reciben, y moverla sería cambiarles el producto para medir otra cosa.
+ *
+ *  Sigue sin pisar ningún hito: el primero del calendario es la 3
+ *  (hitos-del-juego.ts). */
+export const REGLAS_TRAS_CON_AYUDAS = 2
+export const REGLAS_TRAS_SIN_AYUDAS = 1
 
-/** Qué dice esa diapo. Las tres, de un saque. */
-export const REGLAS_DE_LA_DIAPO = [ELO, CAFECITOS, TABLA]
+export function reglasTras(conAyudas: boolean): number {
+  return conAyudas ? REGLAS_TRAS_CON_AYUDAS : REGLAS_TRAS_SIN_AYUDAS
+}
 
-/** Cuántas de las tres ya se dijeron — con una sola diapo, cero o tres. Vive en
+/** Cuántas reglas trae la diapo como máximo. Existe para traducir la caja
+ *  vieja de localStorage, que guardaba una CANTIDAD y no una lista. */
+export const REGLAS_MAX = 2
+
+/** Qué dice esa diapo, y depende del brazo de `dx-rampa-1`.
+ *
+ *  Con la fila de ayudas la tabla ya se explicó ANTES de la primera derivada, en
+ *  su propia pantalla y con el símbolo del botón que la abre
+ *  (herramientas-slide.tsx), así que acá queda el Elo solo. Sin la fila esa
+ *  pantalla no existe —explicaría un botón que no está— y la regla de la tabla
+ *  se queda donde siempre estuvo.
+ *
+ *  Toma un booleano y no el brazo a propósito: este módulo lo lee un script de
+ *  bun sin React, y el predicado vive en `pie-rampa.tsx :: conAyudasDe`, que sí
+ *  arrastra React. Quien llama ya tiene el jugador en la mano. */
+export function reglasDeLaDiapo(conAyudas: boolean): number[] {
+  return conAyudas ? [ELO] : [ELO, TABLA]
+}
+
+/** Cuántas reglas ya se dijeron — con una sola diapo, ninguna o todas. Vive en
  *  localStorage y por eso vale para todo el aparato: esto no es un pedido que
  *  vuelve, es una explicación que se da una vez.
  *
@@ -66,7 +98,7 @@ export const REGLAS_DE_LA_DIAPO = [ELO, CAFECITOS, TABLA]
 export function reglasDichas(): number {
   const estado = readPedidoState(PEDIDO_REGLAS)
   if (estado.vistas > 0) return estado.vistas
-  if (readPedidoState(PEDIDO_REGLAS_V1).vistas > 0) return REGLAS_DE_LA_DIAPO.length
+  if (readPedidoState(PEDIDO_REGLAS_V1).vistas > 0) return REGLAS_MAX
   return 0
 }
 
@@ -80,15 +112,19 @@ export function reglasDichas(): number {
  *  las reglas vuelven a salir. No es un problema: sin localStorage tampoco hay
  *  `guest_token` guardado, así que cada carga de página es un jugador nuevo con
  *  cero correctas, y «una vez por carga» es exactamente «una vez por jugador». */
-export function tocaReglas(totalCorrectas: number): boolean {
-  if (totalCorrectas < REGLAS_TRAS) return false
+export function tocaReglas(totalCorrectas: number, conAyudas: boolean): boolean {
+  if (totalCorrectas < reglasTras(conAyudas)) return false
   return reglasDichas() === 0
 }
 
-/** Anota que salieron las tres. */
+/** Anota que la diapo salió.
+ *
+ *  Guarda el TOPE y no cuántas trajo esta vez: la marca significa «ya se
+ *  explicó», y si guardara 1 porque el brazo con ayudas trae una sola, alguien
+ *  que cambiara de brazo volvería a ver la pantalla. */
 export function marcarReglasMostradas(totalCorrectas: number) {
   savePedidoState(PEDIDO_REGLAS, {
-    vistas: REGLAS_DE_LA_DIAPO.length,
+    vistas: REGLAS_MAX,
     ultima: totalCorrectas,
   })
 }

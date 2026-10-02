@@ -289,7 +289,7 @@ const pedidos: { n: number; que: string }[] = []
 // trigger se puede correr solo, que es justo para lo que se lo separó.
 for (let n = 1; n <= 200; n++) {
   const esRecord = n % 23 === 0
-  if (tocaReglas(n)) {
+  if (tocaReglas(n, false)) {
     pedidos.push({ n, que: "reglas" })
     marcarReglasMostradas(n)
     continue

@@ -6,13 +6,21 @@
 // con el gancho de elegir tu @username. Todo skippeable ("Ahora no").
 
 import { useEffect, useRef, useState } from "react"
+import { useIsPresent } from "motion/react"
 import { useSignIn } from "@clerk/nextjs"
 import { useQueryClient } from "@tanstack/react-query"
 import posthog from "posthog-js"
 import { Button } from "@/components/ui/button"
-import { CareerSelect, UniversityGrid } from "@/components/onboarding-fields"
+import {
+  CAREER_CHOICES,
+  CareerSelect,
+  UniversityGrid,
+} from "@/components/onboarding-fields"
 import { readOnboarding, saveOnboarding } from "@/lib/onboarding/storage"
-import { canonicalUniversity } from "@/lib/university-tags"
+import {
+  ONBOARDING_UNIVERSITIES,
+  canonicalUniversity,
+} from "@/lib/university-tags"
 import { cn } from "@/lib/utils"
 import { useSfx } from "@/lib/audio/useSfx"
 import { ApiError, unwrap } from "@/lib/api/client"
@@ -21,11 +29,11 @@ import { XpDots } from "@/components/xp-dots"
 import { ALL_SCOPE } from "@/components/leaderboard-chrome"
 import { VERDE } from "./cafecito-cta"
 import { KeyCap } from "./exercise-card"
-import { colorDeCafe, levelColor } from "./game-colors"
+import { levelColor } from "./game-colors"
 import { Salida, claseDeSalida } from "./slide-salida"
 import { SlideFlip } from "./slide-flip"
 import { SlideHorizontal } from "./slide-horizontal"
-import { enCampoDeTexto, useTeclas } from "./teclas"
+import { digitoDe, enCampoDeTexto, enCampoHtml, useTeclas } from "./teclas"
 import { useGameApi } from "./UseGameApi"
 import { useGameLeaderboard, useGameRecruits } from "./UseGameLeaderboard"
 import { gameKeys, type GamePlayer } from "./UseGamePlayer"
@@ -39,13 +47,13 @@ const ctaCls =
 // de universidad se estiran y quedan deformes.
 const panelCls = "mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col gap-6"
 const bodyCls = "flex min-h-0 flex-1 flex-col justify-center overflow-y-auto py-6"
-
-// El ámbar del café, en su punto MÁS ENCENDIDO — el mismo con el que se ve la
-// barra del slider de cafecitos cuando está al máximo (`colorPara`/
-// `colorDeCafe` en 1, ver cafecito-panel.tsx/game-colors.ts). No el `AMBAR`
-// fijo de game-colors.ts (el punto MEDIO de esa rampa): acá hace falta el
-// extremo más vivo, no el del medio.
-const AMBAR_MAXIMO = colorDeCafe(1)
+// El mismo cuerpo, en el teléfono. Centrado de verdad quedaba ALTO a la vista:
+// debajo tiene «Ahora no», que es texto suelto y no pesa, así que el bloque se
+// leía pegado al techo con un hueco abajo. Más relleno arriba que abajo lo corre
+// ~20 px hacia los botones sin moverlos (la mitad de la diferencia, porque el
+// contenido sigue centrado en lo que queda).
+const bodyMovilCls =
+  "flex min-h-0 flex-1 flex-col justify-center overflow-y-auto pb-2 pt-12"
 
 const DESIRED_ALIAS_KEY = "intervalo:game:desired-alias"
 
@@ -70,6 +78,7 @@ export function ProfileSlides({
   onDone,
   onSkip,
   slotSalida,
+  keyboard = false,
 }: {
   onDone: (data: { career: string; university: string }) => void
   onSkip: () => void
@@ -80,9 +89,16 @@ export function ProfileSlides({
   // manda `desktop-layout.tsx`; en el teléfono los botones se quedan adentro,
   // donde siempre estuvieron.
   slotSalida?: HTMLElement | null
+  // Atajos de teclado, solo escritorio (mismo criterio que el registro de más
+  // abajo): cada opción tiene su número, Enter es Continuar y Alt+Enter es
+  // «Ahora no». Valen en las dos pantallas —carrera y universidad— porque el
+  // pie es el mismo: un Enter que anduviera en una sola dejaría al chip del
+  // botón mintiendo en la otra.
+  keyboard?: boolean
 }) {
   const sfx = useSfx()
   const api = useGameApi()
+  const teclas = useTeclas()
   const [phase, setPhase] = useState<"career" | "university">("career")
   const [career, setCareer] = useState("")
   const [university, setUniversity] = useState("")
@@ -90,9 +106,34 @@ export function ProfileSlides({
   const [showOther, setShowOther] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const [saving, setSaving] = useState(false)
+  // De esta pantalla se sale UNA vez, guardando o salteando. El guardia es un
+  // ref y no `saving`: el estado recién se entera en el render siguiente, y dos
+  // teclas en el mismo instante lo leían las dos en `false` — dos guardados, o
+  // un guardado y un «Ahora no», y cada uno pedía su derivada siguiente.
+  const saliendoRef = useRef(false)
+  // Y se SUELTA al rato. Salir es pedir la derivada siguiente, y ese pedido
+  // puede fallar: ahí la pantalla no se va, y con el guardia puesto para
+  // siempre no quedaba ni «Ahora no» ni Continuar — solo recargar. Un segundo y
+  // medio es mucho más que el doble toque que el guardia existe para frenar, y
+  // si la pantalla sí se fue, el desmontaje cancela el reloj.
+  const soltarRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  useEffect(
+    () => () => {
+      if (soltarRef.current) clearTimeout(soltarRef.current)
+    },
+    [],
+  )
+  const soltarLuego = () => {
+    if (soltarRef.current) clearTimeout(soltarRef.current)
+    soltarRef.current = setTimeout(() => {
+      saliendoRef.current = false
+      setSaving(false)
+    }, 1500)
+  }
 
   const finish = async (chosenUniversity: string) => {
-    if (saving) return
+    if (saliendoRef.current) return
+    saliendoRef.current = true
     setSaving(true)
     sfx.continue()
     try {
@@ -112,6 +153,7 @@ export function ProfileSlides({
     }
     posthog.capture("game_register_completed", { slide: "profile" })
     onDone({ career, university: chosenUniversity })
+    soltarLuego()
   }
 
   const confirmOther = () => {
@@ -119,6 +161,136 @@ export function ProfileSlides({
     if (!value) return
     void finish(value)
   }
+
+  const elegirCarrera = (v: string) => {
+    sfx.select()
+    setCareer(v)
+  }
+  const elegirUniversidad = (u: string) => {
+    sfx.select()
+    setUniversity(u)
+    setShowOther(false)
+  }
+  const abrirOtra = () => {
+    sfx.select()
+    setUniversity("")
+    setShowOther(true)
+  }
+  const pasarAUniversidad = () => {
+    sfx.continue()
+    posthog.capture("game_register_slide_shown", { slide: "university" })
+    setPhase("university")
+  }
+  const saltar = () => {
+    if (saliendoRef.current) return
+    saliendoRef.current = true
+    onSkip()
+    soltarLuego()
+  }
+
+  // Lo que hace cada tecla EN LA PANTALLA QUE SE VE. Las dos devuelven si la
+  // tecla sirvió de algo, que es lo que decide si se la traga: un 9 que no es de
+  // nadie tiene que seguir de largo.
+  const continuar = () => {
+    if (phase === "career") {
+      if (career) pasarAUniversidad()
+    } else if (showOther) confirmOther()
+    else if (university) void finish(university)
+  }
+  const elegir = (i: number): boolean => {
+    if (phase === "career") {
+      const v = CAREER_CHOICES[i]
+      if (v === undefined) return false
+      elegirCarrera(v)
+      return true
+    }
+    if (i < ONBOARDING_UNIVERSITIES.length) {
+      elegirUniversidad(ONBOARDING_UNIVERSITIES[i])
+      return true
+    }
+    // «Otra» es la que sigue al último chip, y solo mientras es un botón: una
+    // vez abierta es un campo de texto y ahí los números son números.
+    if (i === ONBOARDING_UNIVERSITIES.length && !showOther) {
+      abrirOtra()
+      return true
+    }
+    return false
+  }
+
+  // Por ref y no en las dependencias —mismo mecanismo que el registro de más
+  // abajo—: son closures nuevas en cada render, y con ellas en la lista el
+  // listener se sacaría y se pondría de nuevo en cada tecla.
+  const atajosRef = useRef({ continuar, elegir, saltar })
+  useEffect(() => {
+    atajosRef.current = { continuar, elegir, saltar }
+  })
+  // Solo mientras la pantalla ESTÁ: el fundido de salida la deja montada 220 ms
+  // (slide-flip.tsx), y en captura esos 220 ms le robaban las primeras teclas
+  // a la derivada que ya había entrado.
+  const presente = useIsPresent()
+  const panelRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (!keyboard || !presente) return
+    const onKey = (e: KeyboardEvent) => {
+      // A esta pantalla se llega con un Enter (el Continuar del ejercicio). Si
+      // sigue apretado, sus repeticiones no son una respuesta a lo que se ve.
+      if (e.repeat) return
+      if (e.key === "Enter") {
+        // Alt+Enter llega siempre, también desde el campo de «Otra»: nada en
+        // un `<input>` le da un uso a esa combinación.
+        if (e.altKey) {
+          e.preventDefault()
+          e.stopPropagation()
+          atajosRef.current.saltar()
+          return
+        }
+        // El Enter del campo de «Otra» es del campo (ver `onConfirmOther`).
+        if (enCampoDeTexto(e.target)) return
+        // Y el de un botón de AFUERA de esta pantalla es de ese botón: quien
+        // llegó con Tab hasta «Ahora no», o hasta la tuerca, y aprieta Enter,
+        // quiere ese botón y no Continuar. Los de adentro —las tarjetas, que
+        // se quedan con el foco al elegirlas con el mouse— no cuentan: ahí
+        // Enter sigue siendo Continuar.
+        const el = e.target as HTMLElement | null
+        if (
+          typeof el?.closest === "function" &&
+          el.closest("button, a") &&
+          !panelRef.current?.contains(el)
+        )
+          return
+        e.preventDefault()
+        e.stopPropagation()
+        atajosRef.current.continuar()
+        return
+      }
+      // Los números solo ceden ante un campo de texto de verdad («Otra», el
+      // chat). Ni un filtro del ranking con el foco ni el campo de la
+      // respuesta, que queda enfocado debajo de esta pantalla, se los pueden
+      // quedar. Ver `teclas.ts :: enCampoHtml`.
+      if (enCampoHtml(e.target)) return
+      if (e.altKey || e.ctrlKey || e.metaKey) return
+      const n = digitoDe(e)
+      if (n === null) return
+      // El `preventDefault` importa con «Otra»: abre un campo con autofoco, y
+      // sin esto el número de la tecla quedaba escrito adentro.
+      if (atajosRef.current.elegir(n - 1)) {
+        e.preventDefault()
+        e.stopPropagation()
+      }
+    }
+    // EN CAPTURA, y parando la tecla usada. El campo de la respuesta conserva el
+    // foco debajo de esta pantalla y MathLive no deja burbujear sus teclas: en
+    // burbuja los números se escribían en un campo que no se ve. Y un Enter que
+    // siguiera viaje llegaría al del ejercicio, que acá saltearía la pantalla.
+    document.addEventListener("keydown", onKey, true)
+    return () => document.removeEventListener("keydown", onKey, true)
+  }, [keyboard, presente])
+
+  // El número de cada opción, dibujado como tecla. `ml-0`: el margen de base
+  // del chip es para cuando va después de una palabra, y acá va solo.
+  const atajo = keyboard
+    ? (i: number) => <KeyCap className="ml-0">{i + 1}</KeyCap>
+    : undefined
 
   // Las dos preguntas del perfil son dos pantallas, y cambiar de pantalla en
   // este juego es el pase de cada aparato. Antes la segunda reemplazaba a la
@@ -139,34 +311,25 @@ export function ProfileSlides({
   // portalizar al MISMO nodo del pie a la vez y se verían superpuestas un
   // instante. Afuera, el botón no cruza con nada: cambia de golpe con
   // `phase`, que es del padre y no de la cara.
+  const cuerpoCls = slotSalida ? bodyCls : bodyMovilCls
   const cara =
     phase === "career" ? (
-      <div className={bodyCls}>
+      <div className={cuerpoCls}>
         <CareerSelect
           value={career}
-          onSelect={(v) => {
-            sfx.select()
-            setCareer(v)
-          }}
+          onSelect={elegirCarrera}
+          atajo={atajo}
         />
       </div>
     ) : (
-      <div className={bodyCls}>
+      <div className={cuerpoCls}>
         <UniversityGrid
           university={university}
           showOther={showOther}
           otherValue={universityOther}
           onOtherChange={setUniversityOther}
-          onPick={(u) => {
-            sfx.select()
-            setUniversity(u)
-            setShowOther(false)
-          }}
-          onSelectOther={() => {
-            sfx.select()
-            setUniversity("")
-            setShowOther(true)
-          }}
+          onPick={elegirUniversidad}
+          onSelectOther={abrirOtra}
           onConfirmOther={confirmOther}
           onPickSuggestion={(key) => {
             sfx.select()
@@ -174,12 +337,13 @@ export function ProfileSlides({
             inputRef.current?.focus()
           }}
           inputRef={inputRef}
+          atajo={atajo}
         />
       </div>
     )
 
   return (
-    <div className={panelCls}>
+    <div ref={panelRef} className={panelCls}>
       {slotSalida ? (
         <SlideFlip slide={phase} className="flex min-h-0 flex-1 flex-col">
           {cara}
@@ -195,21 +359,31 @@ export function ProfileSlides({
       <Salida slot={slotSalida}>
         {/* En el pie (escritorio), Continuar y Ahora no van UNO AL LADO DEL
             OTRO —la misma fila que Revisar/¿Por qué?/Saltear en el
-            ejercicio—, con Continuar quedándose con el ancho que sobra. En el
-            teléfono (sin `slotSalida`) siguen apilados, como siempre. */}
-        <div className={slotSalida ? "flex w-full items-stretch gap-2" : "flex flex-col gap-2"}>
+            ejercicio—, con Continuar quedándose con el ancho que sobra.
+
+            En el teléfono van apilados y el Ahora no va ARRIBA: abajo de todo
+            está el lugar que el pulgar alcanza sin mover la mano, y ahí tiene
+            que estar lo que la pantalla pide, no la puerta de salida. Es la
+            misma regla que ya seguían las diapos de pedido
+            (slide-salida.tsx :: ConSalidaAbajo), y estas dos eran la excepción.
+            `flex-col-reverse` y no reordenar el JSX para que el orden de
+            tabulado siga siendo Continuar primero, que es la acción. */}
+        <div
+          className={
+            slotSalida
+              ? "flex w-full items-stretch gap-2"
+              : "flex flex-col-reverse gap-2"
+          }
+        >
           {phase === "career" ? (
             <Button
               size="lg"
               className={cn(ctaCls, slotSalida && "flex-1")}
               disabled={!career}
-              onClick={() => {
-                sfx.continue()
-                posthog.capture("game_register_slide_shown", { slide: "university" })
-                setPhase("university")
-              }}
+              onClick={pasarAUniversidad}
             >
               Continuar
+              {keyboard && <KeyCap>{teclas.enter}</KeyCap>}
             </Button>
           ) : showOther ? (
             <Button
@@ -219,6 +393,7 @@ export function ProfileSlides({
               onClick={confirmOther}
             >
               Continuar
+              {keyboard && <KeyCap>{teclas.enter}</KeyCap>}
             </Button>
           ) : (
             <Button
@@ -228,11 +403,12 @@ export function ProfileSlides({
               onClick={() => void finish(university)}
             >
               Continuar
+              {keyboard && <KeyCap>{teclas.enter}</KeyCap>}
             </Button>
           )}
           <button
             type="button"
-            onClick={onSkip}
+            onClick={saltar}
             className={
               slotSalida
                 ? cn(claseDeSalida(true), "w-auto shrink-0")
@@ -240,6 +416,7 @@ export function ProfileSlides({
             }
           >
             Ahora no
+            {keyboard && <KeyCap>{teclas.altEnter}</KeyCap>}
           </button>
         </div>
       </Salida>
@@ -578,35 +755,19 @@ export function RegisterSlide({
             {/* Ya eligió su @ antes (en "Elegí tu @" o en el registro de
                 Configuración) — repetírselo acá sería pisar el gancho de la
                 pantalla anterior. Este hito ya no vende el @: vende la cuenta,
-                así que el cuerpo cuenta cuánto lleva jugado y qué gana
-                registrándose, en vez de quién es. El puesto ya no va en el
-                párrafo: lo muestra `FilaPropia`, con el mismo lenguaje visual
-                que el ranking de al lado. */}
+                así que el cuerpo cuenta cuánto lleva jugado, en vez de quién
+                es. El puesto ya no va en el párrafo: lo muestra `FilaPropia`,
+                con el mismo lenguaje visual que el ranking de al lado.
+
+                Hubo un párrafo más —«Registrándote podés reclutar gente… o
+                donar cafecitos…»— que se sacó por decisión de producto: el
+                título y la fila alcanzan. */}
             <h2 className="text-2xl font-bold">¡Guardá tu progreso!</h2>
             <p className="text-sm leading-relaxed text-muted-foreground">
               Ya llevás <span className="text-foreground">{player.exercises_correct}</span>{" "}
               {player.exercises_correct === 1 ? "derivada resuelta" : "derivadas resueltas"}.
             </p>
             <FilaPropia player={player} delta={miEntrada?.rank_delta ?? 0} />
-            <p className="text-sm leading-relaxed text-foreground/90">
-              Registrándote podés{" "}
-              <span className="font-semibold" style={{ color: VERDE }}>
-                reclutar gente
-              </span>{" "}
-              y llevarte parte de la{" "}
-              <span className="font-semibold" style={{ color: VERDE }}>
-                XP
-              </span>{" "}
-              que generen, o{" "}
-              <span className="font-semibold" style={{ color: AMBAR_MAXIMO }}>
-                donar cafecitos
-              </span>{" "}
-              para{" "}
-              <span className="font-semibold" style={{ color: AMBAR_MAXIMO }}>
-                multiplicar el XP
-              </span>{" "}
-              de tu universidad.
-            </p>
           </>
         )}
         {/* El @ ya se eligió antes de llegar acá (en "Elegí tu @" o en el
@@ -704,7 +865,18 @@ export function RegisterSlide({
             </button>
           </div>
         ) : (
+          // El Ahora no arriba del botón de color, como en el pie del teléfono
+          // (ver el comentario del pie de ProfileSlides). El enlace de datos
+          // queda ÚLTIMO igual: no es una salida, es una aclaración, y por eso
+          // acá se reordena el JSX en vez de dar vuelta la columna entera.
           <div className="flex flex-col gap-2">
+            <button
+              type="button"
+              onClick={onSkip}
+              className="py-2 text-sm text-muted-foreground"
+            >
+              Ahora no
+            </button>
             <Button
               size="lg"
               className={ctaCls}
@@ -714,13 +886,6 @@ export function RegisterSlide({
               <GoogleIcon className="mr-2 size-4" />
               {authPending ? "Conectando…" : "Continuar con Google"}
             </Button>
-            <button
-              type="button"
-              onClick={onSkip}
-              className="py-2 text-sm text-muted-foreground"
-            >
-              Ahora no
-            </button>
             {onOpenPrivacy && (
               <button
                 type="button"
