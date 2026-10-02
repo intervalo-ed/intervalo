@@ -2781,6 +2781,25 @@ def experimento_motor(data: dict) -> dict:
 # `game_players.variant`: la banda gobierna cada elección de plantilla de acá en
 # adelante y no una pantalla que se vea una vez.
 
+# ── Desde cuándo se LEEN los experimentos abiertos del juego ────────────────
+#
+# El 02/10 entró un cambio grande en lo que estos tres experimentos miran (#447):
+# la puerta ganó una oración —que es la rama de control de `dx-rampa-1`—, el
+# digest del cuarto brazo cambió de contenido, el teclado de la rampa empezó a
+# dibujar las teclas que antes no dibujaba, y la encuesta de dificultad —la
+# métrica de `dx-banda-1`— pasó a mandar el voto en Continuar. Lo inscripto
+# antes de eso vio otro producto en los TRES brazos, así que sumarlo a lo de
+# después es promediar dos experimentos distintos.
+#
+# Los experimentos arrancan, a los efectos de su lectura, el lunes 05/10: es el
+# primer día completo de una semana en la que el producto ya es uno solo.
+#
+# **Es un filtro del PANEL y no mueve nada del juego.** Quién está en qué brazo,
+# quién ve la pantalla de arranque (`rampa.NACIDO_DESPUES_DE`) y quién tiene
+# tope (`muro.ARRANQUE`) siguen como estaban: mover esas fechas le cambiaría el
+# juego a gente que ya está jugando. Lo que se corre es desde cuándo se CUENTA.
+LECTURA_DESDE = date(2026, 10, 5)
+
 EXPERIMENTO_BANDA: dict = {
     "clave": game_banda.EXPERIMENTO,
     "titulo": "La banda objetivo",
@@ -2806,7 +2825,9 @@ EXPERIMENTO_BANDA: dict = {
     # que la banda haya tenido apenas cuatro ejercicios para actuar antes de que
     # se pregunte. El experimento pasa a leerse mucho más rápido y a medir un
     # efecto más chico.
-    "desde": date(2026, 9, 28),
+    #
+    # Corría desde el 28/09; se lee desde `LECTURA_DESDE` (ver arriba).
+    "desde": LECTURA_DESDE,
     "brazos": (("control", "Control"), ("exigente", "Banda exigente")),
     "metrica": "muy_facil",
     # 311 de 570 votos contestados entre el 13/09 y el 27/09.
@@ -3042,7 +3063,14 @@ EXPERIMENTO_MURO: dict = {
     # (nadie creado antes participa). Con la fecha copiada, mover una de las dos
     # mitades dejaría al panel inscribiendo gente que el servidor no topea, o al
     # revés, y nada fallaría.
-    "desde": game_muro.ARRANQUE,
+    #
+    # Desde el 02/10 la inscripción del panel abre en `LECTURA_DESDE`, que es
+    # POSTERIOR al arranque. Es la única dirección en la que las dos mitades se
+    # pueden separar sin romper lo de arriba: el panel inscribe a un subconjunto
+    # de los que el servidor topea, nunca a alguien sin tope. Quién es nuevo lo
+    # sigue decidiendo `muro.NACIDO_DESPUES_DE`. El `max` es lo que impide que,
+    # si algún día el arranque se corre para adelante, el panel quede atrás.
+    "desde": max(game_muro.ARRANQUE, LECTURA_DESDE),
     # La ventana de medición, igual que en el motor: nadie cuenta hasta que la
     # suya cerró. Sumar una ventana abierta sería comparar a alguien medido 14
     # días con alguien medido 3.
@@ -3369,7 +3397,10 @@ EXPERIMENTO_RAMPA: dict = {
     # los tres eran el mismo juego. A ~94 personas por día, arrancar el mismo
     # día del deploy habría metido unas cincuenta así, todas sesgando hacia la
     # nula. El día siguiente entero es limpio por construcción.
-    "desde": date(2026, 9, 28),
+    #
+    # Corría desde el 28/09; se lee desde `LECTURA_DESDE` (ver arriba), por la
+    # misma razón: lo inscripto antes del 02/10 vio otra puerta y otro teclado.
+    "desde": LECTURA_DESDE,
     # CUATRO brazos en ESCALERA: cada uno agrega una cosa al anterior, así que
     # cada contraste es contra el escalón previo. No es un factorial —la celda
     # «ayudas sin teclado» pediría el teclado completo MÁS dos filas de botones y
