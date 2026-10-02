@@ -119,6 +119,7 @@ import {
 } from "./UseGameExercise"
 import { useGameIdentity } from "./game-telemetry"
 import {
+  refrescarRankingCentrado,
   useGameEvents,
   useGamePulse,
   useGameUniversityLeaderboard,
@@ -453,7 +454,8 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
 
   // Cuando termina el conteo: recién ahí el ranking estrena orden y sube.
   const onBurstComplete = useCallback(() => {
-    queryClient.invalidateQueries({ queryKey: gameKeys.leaderboard })
+    // Centrado, no en el lugar: ver `refrescarRankingCentrado`.
+    void refrescarRankingCentrado(queryClient)
     setClimbFrom(pendingClimbRef.current)
     pendingClimbRef.current = null
   }, [queryClient])

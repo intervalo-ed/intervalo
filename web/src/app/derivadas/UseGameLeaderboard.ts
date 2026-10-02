@@ -1,12 +1,19 @@
 "use client"
 
 import { useCallback, useEffect, useRef } from "react"
-import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+  type QueryClient,
+} from "@tanstack/react-query"
 import { unwrap } from "@/lib/api/client"
 import { ALL_SCOPE } from "@/components/leaderboard-chrome"
 import type { components } from "@/lib/api/schema"
 import { gameKeys } from "./UseGamePlayer"
 import { useGameApi } from "./UseGameApi"
+import { parametrosCentrados } from "./ventana-ranking"
 
 export type GameLeaderboard = components["schemas"]["GameLeaderboardResponse"]
 export type GameLeaderboardEntry = components["schemas"]["GameLeaderboardEntry"]
@@ -122,6 +129,33 @@ export function useGameLeaderboard(
     // xp-conteo (onComplete) y al cambiar de scope, que es otra queryKey.
     refetchOnMount: false,
   })
+}
+
+/** Refresca el ranking individual volviendo a CENTRAR la ventana en el jugador.
+ *
+ *  Es lo que hay que llamar cuando el jugador cambió de puesto —al terminar el
+ *  conteo de XP— en vez de `invalidateQueries` a secas: con páginas cargadas por
+ *  arriba, el refresco a secas ya no pide la ventana `around_me` y la fila
+ *  propia se borra de la lista. El por qué y el número que se midió están en
+ *  ventana-ranking.ts :: `parametrosCentrados`.
+ *
+ *  Lo que estaba cargado por arriba se reemplaza: la persona acaba de cambiar de
+ *  puesto y la lista la sigue a ella, que es lo mismo que ya hacía el recentrado
+ *  del scroll al acertar.
+ *
+ *  Solo para el salto. El pulso y los cambios de perfil siguen refrescando en el
+ *  lugar: alguien mirando el puesto 40 con la mano no tiene por qué volver a su
+ *  fila cada diez segundos. */
+export function refrescarRankingCentrado(queryClient: QueryClient): Promise<void> {
+  for (const q of queryClient.getQueryCache().findAll({ queryKey: gameKeys.leaderboard })) {
+    // De la misma clave cuelgan consultas que no son la lista —summary,
+    // universities—: no tienen páginas y no se tocan.
+    const data = q.state.data as { pages?: unknown[]; pageParams?: PageParam[] } | undefined
+    if (!data?.pages || !data.pageParams) continue
+    const pageParams = parametrosCentrados<PageParam>(data.pageParams, { around: true })
+    if (pageParams !== null) queryClient.setQueryData(q.queryKey, { ...data, pageParams })
+  }
+  return queryClient.invalidateQueries({ queryKey: gameKeys.leaderboard })
 }
 
 // Latido del ranking. Se consulta cada 10 s y la lista se refresca SOLO si el

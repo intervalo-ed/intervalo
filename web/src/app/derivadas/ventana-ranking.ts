@@ -1,5 +1,6 @@
-// Las dos cuentas que el ranking hace sobre su propia ventana: cuánto se corrió
-// la lista bajo el cursor, y si la fila propia se está viendo.
+// Las cuentas que el ranking hace sobre su propia ventana: cuánto se corrió la
+// lista bajo el cursor, si la fila propia se está viendo, y con qué parámetros
+// hay que refrescarla para que siga a la persona.
 //
 // Viven acá y no adentro del componente por el mismo motivo que `salto-ranking.ts`:
 // son lo único de todo el manejo de scroll que se puede comprobar sin un
@@ -47,6 +48,33 @@ export function corrimientoDelBache(
   if (ancla === null) return 0
   const ahora = filas.find((f) => f.id === ancla.id)
   return ahora === undefined ? 0 : ahora.y - ancla.y
+}
+
+/** Los parámetros de página con los que hay que refrescar la lista para que la
+ * ventana vuelva a CENTRARSE en el jugador, o `null` si ya lo hace.
+ *
+ * Al refrescar una consulta infinita, TanStack pide la primera página con el
+ * parámetro con el que la primera página SE PIDIÓ y encadena las demás hacia
+ * abajo con `getNextPageParam`. Mientras la lista tiene una sola página, esa
+ * primera es la ventana `around_me`, que se mueve con la persona. Pero apenas se
+ * cargó una página POR ARRIBA —y eso pasa solo, en cuanto el centinela del
+ * techo entra en su margen de 300 px— la primera página pasa a ser una de
+ * offset fijo, y el refresco pide esa y encadena desde ahí: la ventana centrada
+ * desaparece de la consulta para siempre. Si la persona cambió de puesto, su
+ * fila nueva no está en ninguna de las páginas que vuelven y se borra de la
+ * lista.
+ *
+ * Medido el 2026-10-01 con un invitado nuevo en una ventana de 592 px de alto:
+ * XP contada, fila desaparecida 92 segundos, y el salto disparado recién cuando
+ * un scroll a mano cargó de casualidad la página que la traía.
+ *
+ * Solo importa el PRIMER parámetro: los demás no se usan al refrescar. */
+export function parametrosCentrados<P extends { around: boolean }>(
+  pageParams: readonly P[],
+  centrado: P,
+): P[] | null {
+  if (pageParams.length === 0 || pageParams[0].around) return null
+  return [centrado, ...pageParams.slice(1)]
 }
 
 /** ¿Se ve, aunque sea un pedazo, la fila propia?

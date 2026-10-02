@@ -22,6 +22,7 @@
 import {
   corrimientoDelBache,
   filaALaVista,
+  parametrosCentrados,
   type FilaMedida,
 } from "../src/app/derivadas/ventana-ranking"
 
@@ -137,6 +138,34 @@ check(
   !filaALaVista({ y: V.scroll + V.alto, alto: 44 }, V),
   "apenas debajo del piso, no",
 )
+
+console.log("\nel refresco del salto vuelve a pedir la ventana centrada")
+// Segunda regresión, medida el 2026-10-01: con una página cargada por arriba,
+// el refresco pedía ESA por offset y la ventana `around_me` no se volvía a
+// pedir nunca. La fila propia desaparecía de la lista 92 segundos.
+{
+  type P = { around: true } | { around: false; offset: number; limit: number }
+  const centrado: P = { around: true }
+  check(
+    parametrosCentrados<P>([{ around: true }], centrado) === null,
+    "una lista que arranca centrada no se toca",
+  )
+  check(parametrosCentrados<P>([], centrado) === null, "una lista sin páginas, tampoco")
+  const conBache: P[] = [{ around: false, offset: 175, limit: 30 }, { around: true }]
+  const arreglados = parametrosCentrados<P>(conBache, centrado)
+  check(
+    arreglados !== null && arreglados[0].around === true,
+    "con una página por arriba, la primera vuelve a ser la centrada",
+  )
+  check(
+    arreglados !== null && arreglados.length === conBache.length,
+    "y la lista conserva la misma cantidad de páginas",
+  )
+  check(
+    conBache[0].around === false,
+    "sin tocar el arreglo que le pasaron (es el del caché)",
+  )
+}
 
 console.log(fallos === 0 ? "\nTodo bien.\n" : `\n${fallos} fallo(s).\n`)
 process.exit(fallos === 0 ? 0 : 1)

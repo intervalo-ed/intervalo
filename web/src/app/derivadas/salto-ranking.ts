@@ -109,9 +109,17 @@ export function duracionTotalDelSalto(distancia: number, disponibles = Infinity)
  *  se vea nada raro en pantalla — por eso el chequeo la fija midiendo el pico de
  *  la derivada. */
 export function curvaDelSalto(t: number): number {
+  return curvaConRampa(t, RAMPA)
+}
+
+/** El mismo trapecio de velocidad, con la rampa que se le pida: `r` es la
+ *  fracción del viaje que se va en acelerar, y otro tanto en frenar. Con 0,5 no
+ *  queda crucero —acelera hasta la mitad y frena desde ahí—, que es lo más
+ *  blando que este trapecio puede ser. La velocidad de crucero es `1/(1-r)`
+ *  veces la media. */
+export function curvaConRampa(t: number, r: number): number {
   if (t <= 0) return 0
   if (t >= 1) return 1
-  const r = RAMPA
   if (t < r) return (t * t) / (2 * r * (1 - r))
   if (t > 1 - r) {
     const q = 1 - t
@@ -138,6 +146,32 @@ export function filasDelSalto(distancia: number, disponibles = Infinity): number
   return Math.max(0, Math.min(Math.floor(distancia), FILAS_TOPE, tope))
 }
 
+/** Cuántas filas puede viajar la fila propia SIN MOVERSE DE LA PANTALLA antes
+ *  de arrancar.
+ *
+ *  El salto empieza dibujando la fila en el puesto del que viene, y la tiene que
+ *  dibujar en el mismo lugar de la pantalla donde la persona la estaba mirando
+ *  cuando recibió su XP. Eso es un `scrollTop` concreto (`deseado`), y la lista
+ *  no siempre lo da: si el puesto de origen cae muy cerca del final de lo
+ *  cargado, no hay contenido debajo con qué llenar la ventana y el scroll se
+ *  queda en su tope. Antes ahí se mandaba el scroll al fondo igual, y la fila
+ *  aparecía de golpe pegada al borde de abajo del ranking.
+ *
+ *  Así que el viaje se ACORTA hasta que el origen entre: cada fila de menos sube
+ *  el origen `altoFila` píxeles. El número del puesto cuenta la distancia entera
+ *  igual —la geometría dice lo que se puede mostrar, no lo que pasó— y siempre
+ *  queda al menos una fila de viaje: un salto que no se mueve no es un salto. */
+export function filasConLugar(
+  filas: number,
+  deseado: number,
+  tope: number,
+  altoFila = ALTO_FILA_PX,
+): number {
+  // Un píxel de gracia: las alturas se miden redondeadas.
+  if (deseado <= tope + 1) return filas
+  return Math.max(1, filas - Math.ceil((deseado - tope) / altoFila))
+}
+
 /** Cuánto dura el salto, en milisegundos: crece con la distancia, satura por
  *  velocidad y queda acotada arriba y abajo. */
 export function duracionDelSalto(distancia: number, disponibles = Infinity): number {
@@ -155,4 +189,91 @@ export function velocidadDelSalto(distancia: number, disponibles = Infinity): nu
   const ms = duracionDelSalto(distancia, disponibles)
   if (filas === 0 || ms === 0) return 0
   return (filas * ALTO_FILA_PX * 1000) / (ms * (1 - RAMPA))
+}
+
+// ── El ritmo: escritorio y teléfono ────────────────────────────────────────
+/** Con qué tiempos y con qué curvas se mueve un salto.
+ *
+ *  Es un objeto y no cinco constantes sueltas porque hay DOS ritmos, y lo que
+ *  no puede pasar es que el componente tome la duración de uno y la curva del
+ *  otro: la duración promete un techo de px/s y la curva es la que lo cumple. */
+export type Ritmo = {
+  /** Cuánto tarda la lista en abrir el lugar, y en cerrar el que queda atrás. */
+  abrir: number
+  cerrar: number
+  /** La curva con la que las filas hacen y cierran ese lugar. */
+  curvaDelLugar: (t: number) => number
+  /** Cuánto dura el viaje de `filas` filas (las que viaja DE VERDAD: ya
+   *  acotadas por `filasDelSalto` y `filasConLugar`). */
+  viaje: (filas: number) => number
+  /** La curva de ese viaje. Devuelve siempre la MISMA función para las mismas
+   *  filas: es la `ease` de un tween, y su identidad tiene que ser estable. */
+  curvaDelViaje: (filas: number) => (t: number) => number
+}
+
+/** El de siempre. */
+export const RITMO: Ritmo = {
+  abrir: ABRIR_MS,
+  cerrar: CERRAR_MS,
+  curvaDelLugar: curvaDelSalto,
+  viaje: (filas) => duracionDelSalto(filas),
+  curvaDelViaje: () => curvaDelSalto,
+}
+
+/** Cuánto más lento va todo en el teléfono.
+ *
+ *  Pedido mirándolo: con los tiempos de escritorio, en el teléfono la apertura
+ *  y la subida se sentían bruscas. Ahí el ranking ocupa la pantalla entera —no
+ *  es una columna al costado de otra cosa— y un salto corto, que es el de casi
+ *  todas las derivadas, eran 200 ms de abrir y 260 de viaje. */
+export const LENTITUD_MOVIL = 1.3
+
+/** Hasta cuánta rampa puede tener el viaje en el teléfono. El escritorio usa
+ *  `RAMPA` (0,2) siempre; acá cada viaje toma toda la que le entra. */
+export const RAMPA_MOVIL = 0.4
+
+/** La rampa de un viaje en el teléfono: la más blanda que se pueda SIN pasar
+ *  `V_TOPE_PX_S`.
+ *
+ *  Un viaje corto dura mucho más de lo que su distancia pide —lo sostiene el
+ *  piso— así que le sobra tiempo: en vez de gastarlo viajando a velocidad
+ *  constante, lo gasta acelerando y frenando. Un viaje largo va justo de
+ *  tiempo, no le sobra nada y se queda con la rampa de siempre. Entre los dos
+ *  extremos la rampa sale de despejar el techo de velocidad:
+ *  `crucero = px / (ms × (1 − r))`. Redondeada hacia ABAJO, para que el
+ *  redondeo nunca la pase del techo. */
+export function rampaMovil(filas: number): number {
+  const ms = RITMO_MOVIL.viaje(filas)
+  if (filas <= 0 || ms === 0) return RAMPA
+  const justa = 1 - (filas * ALTO_FILA_PX * 1000) / (ms * V_TOPE_PX_S)
+  return Math.max(RAMPA, Math.min(RAMPA_MOVIL, Math.floor(justa * 100) / 100))
+}
+
+const curvasMoviles = new Map<number, (t: number) => number>()
+// Sin crucero: para correr una fila 52 px no hace falta, y es lo más blando.
+const curvaBlanda = (t: number): number => curvaConRampa(t, 0.5)
+
+/** El del teléfono: lo mismo, `LENTITUD_MOVIL` veces más lento y con las
+ *  rampas más largas. El tope de tres segundos del viaje es el mismo. */
+export const RITMO_MOVIL: Ritmo = {
+  abrir: Math.round(ABRIR_MS * LENTITUD_MOVIL),
+  cerrar: Math.round(CERRAR_MS * LENTITUD_MOVIL),
+  curvaDelLugar: curvaBlanda,
+  viaje: (filas) => {
+    const base = duracionDelSalto(filas)
+    return base === 0 ? 0 : Math.min(SALTO_MS_MAX, Math.ceil(base * LENTITUD_MOVIL))
+  },
+  curvaDelViaje: (filas) => {
+    const r = rampaMovil(filas)
+    let c = curvasMoviles.get(r)
+    if (c === undefined) {
+      c = (t: number) => curvaConRampa(t, r)
+      curvasMoviles.set(r, c)
+    }
+    return c
+  },
+}
+
+export function ritmoDelSalto(movil: boolean): Ritmo {
+  return movil ? RITMO_MOVIL : RITMO
 }
