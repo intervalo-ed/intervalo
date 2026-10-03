@@ -5987,17 +5987,10 @@
             "title": "Bloqueado",
             "default": false
           },
-          "pase_hasta": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "date-time"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Pase Hasta"
+          "con_pase": {
+            "type": "boolean",
+            "title": "Con Pase",
+            "default": false
           },
           "libre_en_segundos": {
             "anyOf": [

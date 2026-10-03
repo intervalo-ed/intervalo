@@ -52,7 +52,7 @@ sys.path.insert(0, str(BACKEND))
 sys.path.insert(0, str(BACKEND.parent))
 
 import database  # noqa: E402
-from models import Base, GameAttempt, GameGroup, GamePlayer  # noqa: E402
+from models import Base, GameAttempt, GameEvent, GameGroup, GamePlayer  # noqa: E402
 
 Base.metadata.create_all(bind=database.engine)
 
@@ -150,7 +150,7 @@ check(claves(b)[0] == "mio" or claves(b)[0] == "reclutas",
 
 unaSola = jugador("elDeUna", university="UBA", correctas=1)
 linea = next(n for n in construir(unaSola).novedades if n.clave == "mio")
-check("1 derivada resuelta." in linea.texto,
+check(linea.texto == "Llevás 1 derivada resuelta",
       f"con una sola, singular en los dos lados (dio «{linea.texto}»)")
 
 check("mio" not in claves(construir(vuelve, correct_today=8)),
@@ -252,7 +252,7 @@ for i in range(bienvenida.MIN_CONTEO + 1):
 db.commit()
 n = del_juego()
 check(n is not None and n.clave == "altas_mes"
-      and n.texto == f"Este mes llegaron {bienvenida.MIN_CONTEO + 1} estudiantes.",
+      and n.texto == f"Este mes llegaron {bienvenida.MIN_CONTEO + 1} estudiantes",
       f"con llegadas solo en el mes dice el mes (dio «{n and n.texto}»)")
 check(n is not None and not n.universities and "{u0}" not in n.texto,
       "y sin sigla: cuenta el juego entero")
@@ -262,7 +262,7 @@ for i in range(bienvenida.MIN_CONTEO):
 db.commit()
 n = del_juego()
 check(n is not None and n.clave == "altas_semana"
-      and n.texto == f"Esta semana llegaron {bienvenida.MIN_CONTEO} estudiantes.",
+      and n.texto == f"Esta semana llegaron {bienvenida.MIN_CONTEO} estudiantes",
       f"con suficientes en la semana dice la semana (dio «{n and n.texto}»)")
 
 # Cuatro de hoy: no llega al mínimo, sigue hablando de la semana (que ahora
@@ -282,7 +282,7 @@ for i in range(2):
 db.commit()
 n = del_juego()
 check(n is not None and n.clave == "altas_hoy"
-      and n.texto == f"Hoy llegaron {len(hoy)} estudiantes.",
+      and n.texto == f"Hoy llegaron {len(hoy)} estudiantes",
       f"y con suficientes hoy dice hoy (dio «{n and n.texto}»)")
 
 # **Quien lee no se cuenta a sí mismo**, y eso tiene que llegar desde
@@ -290,7 +290,7 @@ check(n is not None and n.clave == "altas_hoy"
 # que cae en `primera`, y es uno de los que llegaron hoy.
 b = construir(hoy[0])
 linea = next((x for x in b.novedades if x.clave.startswith("altas")), None)
-check(linea is not None and linea.texto == f"Hoy llegaron {len(hoy) - 1} estudiantes.",
+check(linea is not None and linea.texto == f"Hoy llegaron {len(hoy) - 1} estudiantes",
       f"la pantalla no cuenta a quien la lee (dio «{linea and linea.texto}»)")
 check(linea is not None and linea.emoji == "🎓", "con el birrete y no el saludo")
 
@@ -321,26 +321,42 @@ alguien = db.query(GamePlayer).filter(GamePlayer.alias == "mes_0").one()
 resolver(alguien, 7, HACE_20_DIAS)
 resolver(alguien, 9, HACE_20_DIAS, bien=False)
 n = derivadas()
-check(n is not None and n.texto == "Se resolvieron 7 derivadas este mes.",
+check(n is not None and n.texto == "Se resolvieron 7 derivadas este mes",
       f"cuenta solo las correctas, y dice el mes (dio «{n and n.texto}»)")
 resolver(alguien, 6, HACE_3_DIAS)
 n = derivadas()
-check(n is not None and n.texto == "Se resolvieron 6 derivadas esta semana.",
+check(n is not None and n.texto == "Se resolvieron 6 derivadas esta semana",
       f"con suficientes en la semana dice la semana (dio «{n and n.texto}»)")
 resolver(alguien, 5, AHORA)
 n = derivadas()
-check(n is not None and n.texto == "Se resolvieron 5 derivadas hoy.",
+check(n is not None and n.texto == "Se resolvieron 5 derivadas hoy",
       f"y con suficientes hoy dice hoy (dio «{n and n.texto}»)")
 sembrado = jugador("unBot", is_bot=True)
 resolver(sembrado, 50, AHORA)
 n = derivadas()
-check(n is not None and n.texto == "Se resolvieron 5 derivadas hoy.",
+check(n is not None and n.texto == "Se resolvieron 5 derivadas hoy",
       f"las de un sembrado no cuentan (dio «{n and n.texto}»)")
 
 # Una sola pasada por tabla, que es por lo que las cuentas salen juntas.
 cuentas = bienvenida._derivadas(db, PERIODOS)
 check(cuentas == {"hoy": 5, "semana": 11, "mes": 18},
       f"los tres períodos salen de una consulta, y cada uno incluye al anterior (dio {cuentas})")
+
+# ── 5d · un período por pantalla ─────────────────────────────────────────────
+# Hay suficientes altas de hoy (5a) y suficientes derivadas de hoy (5b). En la
+# pantalla el renglón de altas se queda con «hoy» y el de derivadas sube.
+n = bienvenida._n_derivadas(db, INICIO_DEL_DIA, AHORA, sin=("hoy",))
+check(n is not None and n.clave == "derivadas_semana"
+      and n.texto == "Se resolvieron 11 derivadas esta semana",
+      f"con «hoy» tomado, las derivadas hablan de la semana (dio «{n and n.texto}»)")
+n = bienvenida._n_derivadas(db, INICIO_DEL_DIA, AHORA, sin=("hoy", "semana", "mes"))
+check(n is None, "y sin ningún período libre, no hay renglón")
+b = construir(hoy[0])
+periodos_vistos = [bienvenida.periodo_de(x) for x in b.novedades if bienvenida.periodo_de(x)]
+check(len(periodos_vistos) == len(set(periodos_vistos)) and "hoy" in periodos_vistos,
+      f"en la pantalla ningún período se repite (dio {[x.texto for x in b.novedades]})")
+check(sum(bool(re.search(r"\bhoy\b", x.texto, re.I)) for x in b.novedades) == 1,
+      f"y la palabra «hoy» aparece en un solo renglón (dio {[x.texto for x in b.novedades]})")
 
 # ── 5c · el camino con universidad: hoy no lo llama nadie, pero existe ───────
 
@@ -371,7 +387,7 @@ b = construir(delgrupo)
 linea = next((x for x in b.novedades if x.clave == "uni_puesto"), None)
 check(linea is not None and linea.universities == ["UBA"],
       f"quien llega por el link de un grupo ve el puesto de su universidad (dio {claves(b)})")
-check(linea is not None and linea.texto == "La {u0} va 1ª en el ranking.",
+check(linea is not None and linea.texto == "La {u0} va 1ª en el ranking",
       f"sin el tamaño de la tabla (dio «{linea and linea.texto}»)")
 check(all(not x.universities for x in b.novedades if x.clave.startswith("altas")),
       "y el renglón de llegadas sigue sin sigla: no se repite la universidad")
@@ -389,7 +405,8 @@ db.commit()
 b = construir(rec)
 check("reclutas" in claves(b), f"la primera vez sale el renglón (dio {claves(b)})")
 linea = next(n for n in b.novedades if n.clave == "reclutas")
-check("1.500" in linea.texto, f"con la XP acumulada (dio «{linea.texto}»)")
+check("{xp:1500}" in linea.texto and "XP" not in linea.texto,
+      f"con la XP acumulada, como hueco y sin la sigla (dio «{linea.texto}»)")
 check(linea.emoji == "🪖", f"y el emoji del feed para reclutas (dio {linea.emoji})")
 
 bienvenida.marcar_mostrado(db, rec, AHORA)
@@ -408,6 +425,42 @@ linea = next((n for n in b.novedades if n.clave == "reclutas"), None)
 check(linea is not None and "800" in linea.texto,
       f"y lo que llegó después sí (dio «{linea and linea.texto}»)")
 
+# ── 6b · el movimiento de la universidad, con la frase del feed ──────────────
+# El texto llega de `game_events`, escrito para el feed: con punto, con «XP» en
+# letras, y —en `uni_top`— con gente adentro.
+DESDE_SIEMPRE = AHORA - timedelta(days=10)
+
+
+def evento(kind, text, **kw):
+    ev = GameEvent(kind=kind, text=text, emoji="🥇", created_at=AHORA, **kw)
+    db.add(ev)
+    db.commit()
+    return ev
+
+
+check(bienvenida._n_sorpasso(db, "UNPALIZA", DESDE_SIEMPRE) is None,
+      "sin movimientos de su universidad no hay renglón")
+evento("uni_pass", "La {u0} barrió a la {u1} por 12.500 XP.",
+       university="UNPALIZA", university_b="UNOTRA")
+n = bienvenida._n_sorpasso(db, "UNPALIZA", DESDE_SIEMPRE)
+check(n is not None and n.texto == "La {u0} barrió a la {u1} por {xp:12500}",
+      f"la paliza sale sin punto y con la XP como hueco (dio «{n and n.texto}»)")
+check(n is not None and n.universities == ["UNPALIZA", "UNOTRA"],
+      "con las dos siglas en el orden de la oración")
+
+evento("uni_top", "{a} le sacó el número 1 de la {u0} a {b}.",
+       university="UNTOP", actor_alias="lagrange", actor_level=4,
+       actor_b_alias="euler")
+n = bienvenida._n_sorpasso(db, "UNTOP", DESDE_SIEMPRE)
+check(n is not None and n.actor_alias == "lagrange" and n.actor_level == 4,
+      f"un podio lleva a su protagonista (dio {n and n.actor_alias})")
+check(n is not None and n.texto == "{a} le sacó el número 1 de la {u0} a euler",
+      f"y el segundo va escrito, que el renglón no tiene dónde mandarlo (dio «{n and n.texto}»)")
+
+evento("uni_top", "{a} es el número 1 de la {u0}.", university="UNSINNADIE")
+check(bienvenida._n_sorpasso(db, "UNSINNADIE", DESDE_SIEMPRE) is None,
+      "y sin protagonista no sale: la oración quedaría sin sujeto")
+
 
 print("7. el orden, el tope y la forma de la oración")
 
@@ -418,8 +471,8 @@ check([n.puntaje for n in b.novedades] == puntajes, "vienen ordenadas por puntaj
 check(len(b.novedades) <= bienvenida.MAX_NOVEDADES,
       f"y nunca más de {bienvenida.MAX_NOVEDADES}")
 for n in b.novedades:
-    check(n.texto.rstrip().endswith((".", "?", "!")),
-          f"«{n.texto}» termina en punto")
+    check(not n.texto.rstrip().endswith("."),
+          f"«{n.texto}» va sin punto final")
     check(n.emoji != "", f"«{n.clave}» trae emoji")
 check(len({n.clave for n in b.novedades}) == len(b.novedades),
       "y no se repite un hecho dos veces")
@@ -441,10 +494,10 @@ check(all(n.clave != "ultima_alta" for n in b.novedades),
 # período. Y cada renglón de conteo lo nombra.
 check(not ({"uni_gente", "universo"} & set(claves(b))),
       f"ni totales sin período (dio {claves(b)})")
-conteos = [x for x in b.novedades if x.clave.startswith("altas") or x.clave == "derivadas"]
+conteos = [x for x in b.novedades if x.clave.startswith(("altas", "derivadas"))]
 check(len(conteos) >= 1 and all(
           x.texto.startswith(("Hoy ", "Esta semana ", "Este mes "))
-          or x.texto.endswith((" hoy.", " esta semana.", " este mes."))
+          or x.texto.endswith((" hoy", " esta semana", " este mes"))
           for x in conteos),
       f"y todo conteo dice su período (dio {[x.texto for x in conteos]})")
 

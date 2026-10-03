@@ -289,10 +289,10 @@ export function MathInput({
   // tecla y MathLive es dueño del keydown mientras el campo tiene el foco.
   onEnter?: (opts: { skip: boolean }) => void
   tone?: "correct" | "wrong" | null
-  // Toma el foco apenas el campo existe. Hace falta porque este campo se
-  // desmonta al acertar —su lugar lo ocupa el botón del «¿Por qué?»— y vuelve
-  // con la derivada siguiente: el `focus()` que el layout dispara al recibirla
-  // corre ANTES de que exista, así que iría al que se está yendo.
+  // Toma el foco apenas el campo existe: el `focus()` que el layout dispara al
+  // recibir la primera derivada corre ANTES de que MathLive termine de armarse.
+  // Vale para el montaje; entre derivadas el campo no se remonta en escritorio
+  // y el foco lo pide el layout después del commit.
   autoFocus?: boolean
 }) {
   const hostRef = useRef<HTMLDivElement | null>(null)
@@ -472,15 +472,37 @@ export function MathInput({
       // listo», y `connectedCallback` no alcanza porque la construcción sigue
       // después. Diez intentos cada 30 ms son 300 ms de gracia; si en ese rato
       // no se pudo, no se pudo, y el campo se enfoca al tocarlo.
+      //
+      // **Y comprobando que quedó.** Que `focus()` no tire no quiere decir que
+      // el foco haya llegado: con el interno a medio armar a veces vuelve sin
+      // hacer nada y sin quejarse, y el campo quedaba con el cartel puesto y el
+      // foco en el `body` —medido el 03/10 con la grabadora de teclas: ocho
+      // segundos de dígitos contra el `body` después de salir de una diapo con
+      // «Ahora no»—. Se reintenta también en ese caso.
       const enfocarCuandoSePueda = (quedan: number) => {
         if (cancelled || fieldRef.current !== mf) return
         try {
           enfocar(mf)
-          return
         } catch {
-          if (quedan <= 0) return
-          setTimeout(() => enfocarCuandoSePueda(quedan - 1), 30)
+          // Sigue de largo: abajo se comprueba y se reintenta.
         }
+        if (document.activeElement === mf) return
+        // Otro campo de TEXTO tiene el foco a propósito (el chat, «Otra»): no
+        // se lo saca nadie. Un botón no cuenta: quien sale de una diapo con el
+        // mouse deja el foco en un botón que se desmonta 220 ms después, y
+        // cediéndole a ese el foco terminaba en el `body` sin reintento.
+        const activo = document.activeElement
+        if (
+          activo &&
+          (activo.tagName === "INPUT" ||
+            activo.tagName === "TEXTAREA" ||
+            activo.tagName === "SELECT" ||
+            (activo as HTMLElement).isContentEditable)
+        ) {
+          return
+        }
+        if (quedan <= 0) return
+        setTimeout(() => enfocarCuandoSePueda(quedan - 1), 30)
       }
       if (autoFocusRef.current) enfocarCuandoSePueda(10)
     })

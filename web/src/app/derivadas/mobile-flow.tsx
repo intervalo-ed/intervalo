@@ -261,17 +261,13 @@ function fondoDeSlide(kind: Slide["kind"]): string {
 // frecuente.
 const NOVEDADES_MINIMAS = 3
 
-// El pase de la slide del @, más lento que el del resto del juego.
-//
-// Es la única pantalla que entra con la persona todavía sin haber tocado nada
-// del juego: viene de la intro, no de responder. Con los 0,28 s de siempre —que
-// están calibrados para el rebote ejercicio/ranking, donde lo que importa es no
-// hacer esperar— aparecía de golpe, y lo primero que pide el juego (elegir cómo
-// te van a ver los demás) merece llegar caminando.
-//
-// Solo esta: subirle el tiempo a `SLIDE_TRANSITION` volvería lento todo el
-// rebote, que es lo que se hace mil veces por partida.
-const PASE_DEL_ALIAS = { duration: 0.45, ease: "easeInOut" } as const
+// La slide del @ tuvo un pase propio, más lento (0,45 s contra los 0,28 del
+// resto), y se sacó el 03/10. La transición se elegía por la diapo ACTUAL, pero
+// en un cruce hay dos elementos y el que sale se queda con la suya: al entrar,
+// el @ llegaba en 0,45 s mientras la anterior ya se había ido en 0,28 —un hueco
+// vacío en el medio—, y al salir era al revés: la siguiente llegaba en 0,28 y
+// le pasaba por encima al @, que seguía saliendo. Dos diapos de un mismo cruce
+// tienen que durar lo mismo, así que hay UN pase para todas.
 
 // El "gancho" post-respuesta que queda pendiente de mostrar tras el Continuar.
 type PendingAfter = { answer: GameAnswer } | null
@@ -438,6 +434,9 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
     if (handle) inputRef.current = handle
   }, [])
   const servedAtRef = useRef<number>(0)
+  // El ejercicio que está en pantalla. Lo lee el `onSuccess` del «¿Por qué?»
+  // para no escribirle a una derivada la explicación de la anterior.
+  const enPantallaRef = useRef<number | null>(null)
   const pendingRef = useRef<PendingAfter>(null)
   const pendingClimbRef = useRef<number | null>(null)
   // Cuántas veces se intentó ESTE ejercicio. Lo necesita el festejo optimista
@@ -601,6 +600,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
   // segundos del festejo y dejaría de ser comparable con game_attempts.
   const servir = useCallback(
     (data: GameExercise, { adelantado }: { adelantado: boolean }) => {
+      enPantallaRef.current = data.exercise_id
       setExercise(data)
       setLastAnswer(null)
       setTonoLocal(null)
@@ -1378,6 +1378,14 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
       { exercise_id: exercise.exercise_id },
       {
         onSuccess: (data) => {
+          // Mismo guardia que en escritorio: la explicación de una derivada que
+          // ya se fue no pisa la que está en pantalla.
+          if (
+            enPantallaRef.current !== null &&
+            enPantallaRef.current !== exercise.exercise_id
+          ) {
+            return
+          }
           setPorqueTexto(data.explanation)
           setPorqueGraph({
             fn: data.graph_fn,
@@ -1441,6 +1449,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
           // `gameKeys.me`), así que no hace falta reconciliar nada: solo
           // cerrar el adelanto.
           rachaAdelantadaRef.current = false
+          enPantallaRef.current = data.exercise_id
           setExercise(data)
           setLastAnswer(null)
           setTonoLocal(null)
@@ -1534,7 +1543,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
           initial="enter"
           animate="center"
           exit="exit"
-          transition={slide.kind === "username" ? PASE_DEL_ALIAS : SLIDE_TRANSITION}
+          transition={SLIDE_TRANSITION}
           // `min-w-0` no es de adorno: como ítem de grilla, el mínimo por
           // defecto es su CONTENIDO, así que algo más ancho que la pantalla
           // —la pastilla del marcador con un Elo de cuatro cifras, por

@@ -72,7 +72,18 @@ export function Cara({
         ...(scale && { scale: visible ? 1 : ESCALA_APAGADO }),
       }}
       transition={{ duration: tramo.duracion, ease: tramo.ease }}
-      style={{ pointerEvents: visible ? undefined : "none" }}
+      // `visibility` es la red: la cara apagada deja de dibujarse aunque el
+      // fundido de motion no llegue a correr o no termine. Se vio el botón del
+      // «¿Por qué?» a opacidad plena encima del campo de una derivada NUEVA
+      // —inerte y sin puntero, o sea tapando y sin servir— y lo que lo sacaba
+      // de ahí era solamente que la animación a opacidad cero terminara. La
+      // demora es del CSS y no de JS: al apagarse espera lo que dura el fundido
+      // y recién entonces esconde; al encenderse muestra ya.
+      style={{
+        pointerEvents: visible ? undefined : "none",
+        visibility: visible ? "visible" : "hidden",
+        transition: `visibility 0s linear ${visible ? 0 : tramo.duracion}s`,
+      }}
       inert={!visible}
     >
       {children}

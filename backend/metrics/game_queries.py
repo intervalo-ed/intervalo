@@ -3033,7 +3033,7 @@ EXPERIMENTO_MURO: dict = {
     # cafecito adentro, así que declarar los dos lo dibujaba dos veces.
     "guardarrailes": ("monetizacion",),
     "abstract": (
-        "Un tope de 30 derivadas por día, y un cafecito que lo levanta por un mes. "
+        "Un tope de 30 derivadas por día, y un cafecito que lo levanta para siempre. "
         "¿Un estudiante completa un pago para seguir jugando, o se va?"
     ),
     "cierre": None,
@@ -3041,9 +3041,9 @@ EXPERIMENTO_MURO: dict = {
         "dx no cobra nada y un cafecito compra hoy un multiplicador para toda "
         "una universidad, o sea que nadie pagó nunca por algo suyo. La hipótesis "
         "es que un tope de 30 derivadas por día, con un cafecito que lo levanta "
-        "por un mes, convierte a una parte de los que más juegan en pagadores "
+        "para siempre, convierte a una parte de los que más juegan en pagadores "
         "sin espantar al resto. Lo que se prueba NO es el precio —a siete "
-        "centavos de dólar el mes, no hay precio— sino si un estudiante "
+        "centavos de dólar, una sola vez, no hay precio— sino si un estudiante "
         "atraviesa un checkout de Mercado Pago para seguir jugando. "
         "**Solo entran jugadores nuevos**: quien ya venía jugando antes del "
         "arranque no tiene tope, así que lo que se mide es cómo se recibe la "
@@ -3186,7 +3186,7 @@ def experimento_muro(data: dict) -> dict:
     por_dia = _dias_con_resueltas(data)
 
     # Los pagos con dueño, por persona y por día. El empuje de aforo no cuenta:
-    # no lo pagó nadie (ver `muro.pase_hasta`).
+    # no lo pagó nadie (ver `muro.tiene_pase`).
     pagos: dict[int, list[date]] = defaultdict(list)
     for b in data["boosts"]:
         if b["player_id"] is None or b["source"] == "aforo":
@@ -3340,7 +3340,6 @@ def experimento_muro(data: dict) -> dict:
         "ventana_dias": ventana,
         "tope": tope,
         "exentos": exentos,
-        "pase_dias": game_muro.PASE_DIAS,
         "encendido": game_muro.habilitado(),
         "metrica": exp["metrica"],
         "base": exp["base"],

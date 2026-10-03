@@ -65,8 +65,18 @@ export function UsernameSlide({
   // y le escribe el scroll, con lo que el deslizamiento se colapsa a su estado
   // final. Exactamente el mismo bug que ya tenía la diapo del cafecito, y que
   // está contado con todas las letras en cafecito-panel.tsx.
+  //
+  // Y se pide cuando la diapo ya LLEGÓ, no en el primer commit. En Android el
+  // foco abre el teclado, el teclado achica el `h-dvh` de la pantalla, y con la
+  // diapo todavía deslizándose eso era el título, el campo y el botón
+  // reacomodándose cada uno por su lado a mitad del pase. 320 ms cubre el pase
+  // del teléfono (280) y el fundido de escritorio (220).
   useEffect(() => {
-    campoRef.current?.focus({ preventScroll: true })
+    const t = window.setTimeout(
+      () => campoRef.current?.focus({ preventScroll: true }),
+      320,
+    )
+    return () => window.clearTimeout(t)
   }, [])
   const puedeContinuar = alias.length > 0 && !error
 

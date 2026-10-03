@@ -2,7 +2,8 @@
 
 // La oración con marcadores, que es cómo el servidor manda TODO lo que nombra a
 // alguien o a una universidad: `{a}` el protagonista, `{b}` el segundo, y
-// `{u0}`/`{u1}` las siglas en el orden en que aparecen.
+// `{u0}`/`{u1}` las siglas en el orden en que aparecen. Y `{xp:1500}`, una
+// cantidad de experiencia: el número con el ícono de XP en lugar de la palabra.
 //
 // Existe como pieza propia porque ahora son dos las pantallas que la dibujan —el
 // feed del ranking y la de arranque (`intro-panel.tsx`)— y son pantallas que se
@@ -16,9 +17,12 @@
 // el único que sabe dónde puso cada cosa.
 
 import { UniTag } from "@/components/university-tag"
+import { XpDots } from "@/components/xp-dots"
 import { levelColor } from "./game-colors"
 
-const SLOT = /(\{(?:a|b|u0|u1)\})/
+const SLOT = /(\{(?:a|b|u0|u1|xp:\d+)\})/
+const XP = /^\{xp:(\d+)\}$/
+const miles = new Intl.NumberFormat("es-AR")
 
 export function TextoConHuecos({
   texto,
@@ -40,7 +44,7 @@ export function TextoConHuecos({
 }) {
   return (
     <>
-      {texto.split(SLOT).map((chunk, i) => {
+      {texto.split(SLOT).map((chunk, i, todos) => {
         if (chunk === "{a}") {
           // Sin nivel —quien invita un cafecito no es necesariamente un
           // jugador— el nombre va destacado pero sin robarle un color que no le
@@ -89,11 +93,37 @@ export function TextoConHuecos({
           //
           // El artículo ("la"/"el") viene en el texto del servidor en los dos
           // casos: es el único que sabe cuáles son institutos.
+          // `mx-1` además del espacio de la oración: el chip tiene borde y
+          // fondo, y a un espacio de distancia quedaba pegado a la palabra de
+          // al lado —«La[UTN]superó a la[UBA]»—.
           return conTags ? (
-            <UniTag key={i} university={uni} />
+            <span
+              key={i}
+              // Sin margen a la derecha si lo que sigue es puntuación: «la
+              // UBA .» con el punto despegado se lee como un error.
+              className={`inline-flex align-baseline ${/^[.,;:!?]/.test(todos[i + 1] ?? "") ? "ml-1" : "mx-1"}`}
+            >
+              <UniTag university={uni} />
+            </span>
           ) : (
             <span key={i} className="font-semibold text-foreground/90">
               {uni}
+            </span>
+          )
+        }
+        const xp = XP.exec(chunk)
+        if (xp) {
+          // El número y su ícono, que es como la XP se escribe en el resto del
+          // juego (el ranking, el resumen): la sigla «XP» en texto corrido era
+          // el único lugar donde se la nombraba con letras. `whitespace-nowrap`
+          // para que el ícono no caiga solo al renglón siguiente.
+          return (
+            <span
+              key={i}
+              className="inline-flex items-baseline gap-1 whitespace-nowrap font-semibold text-foreground"
+            >
+              {miles.format(Number(xp[1]))}
+              <XpDots className="size-[0.85em] self-center" />
             </span>
           )
         }

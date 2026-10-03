@@ -23,7 +23,7 @@ sección existe por un agujero concreto:
     trabarse no cuesta. Si algún día se contara el intento, el tope castigaría
     justo a quien peor la está pasando;
   - **el contador es de HOY.** Cincuenta respuestas de ayer no frenan nada;
-  - **el pase sale de `game_boosts` y vence.** Y el empuje de AFORO no lo da:
+  - **el pase sale de `game_boosts` y NO vence.** Y el empuje de AFORO no lo da:
     ese no lo pagó nadie, y si lo diera el reclutamiento sería la forma gratis
     de saltear el tope;
   - **el interruptor apaga todo.** Un tope tiene que poder apagarse sin deploy;
@@ -244,14 +244,14 @@ check(_proxima_medianoche() - _inicio_del_dia() == timedelta(days=1),
 # ── 6 · El pase ──────────────────────────────────────────────────────────────
 print("6. el pase que compra un cafecito")
 
-check(muro.pase_hasta(db, CON_MURO) is None, "sin donaciones no hay pase")
+check(not muro.tiene_pase(db, CON_MURO), "sin donaciones no hay pase")
 
 pago = GameBoost(university="UTN", cafecitos=1, source="cafecito",
                  player_id=CON_MURO.id, external_ref="mp:test-1",
                  expires_at=datetime.utcnow() + timedelta(hours=2))
 db.add(pago)
 db.commit()
-check(muro.pase_hasta(db, CON_MURO) is not None, "una donación lo enciende")
+check(muro.tiene_pase(db, CON_MURO), "una donación lo enciende")
 e = muro.estado(db, CON_MURO, muro.TOPE_DIARIO * 3, _inicio_del_dia(),
                 _proxima_medianoche())
 check(not e.bloqueado,
@@ -259,22 +259,31 @@ check(not e.bloqueado,
 r = client.post(f"{API}/next", headers={"X-Game-Token": TOK_MURO})
 check(r.status_code == 200, f"el endpoint también lo deja pasar (dio {r.status_code})")
 
-# Vence. Se mueve la fila un día más allá del pase en vez de esperar un mes.
-pago.created_at = datetime.utcnow() - timedelta(days=muro.PASE_DIAS + 1)
+# NO vence. Duraba treinta días hasta el 03/10; ahora es para siempre. Se
+# mueve la donación dos años atrás y el tope sigue levantado.
+pago.created_at = datetime.utcnow() - timedelta(days=730)
 db.commit()
-check(muro.pase_hasta(db, CON_MURO) is None,
-      f"a los {muro.PASE_DIAS + 1} días el pase venció")
+check(muro.tiene_pase(db, CON_MURO), "una donación de hace dos años sigue dando pase")
+e = muro.estado(db, CON_MURO, muro.TOPE_DIARIO * 3, _inicio_del_dia(),
+                _proxima_medianoche())
+check(e.con_pase and not e.bloqueado, "y el estado lo dice: con pase, sin bloqueo")
 r = client.post(f"{API}/next", headers={"X-Game-Token": TOK_MURO})
-check(r.status_code == 402, f"y el tope vuelve a cortar (dio {r.status_code})")
+check(r.status_code == 200, f"y el tope NO vuelve a cortar (dio {r.status_code})")
+check(not hasattr(muro, "PASE_DIAS"), "no queda una duración que alguien pueda leer")
 
-# El empuje de aforo NO da pase: ese no lo pagó nadie.
+# El empuje de aforo NO da pase: ese no lo pagó nadie. Se saca la donación
+# para que lo único que quede con su nombre sea el regalo.
+db.delete(pago)
+db.commit()
+r = client.post(f"{API}/next", headers={"X-Game-Token": TOK_MURO})
+check(r.status_code == 402, f"sin la donación el tope vuelve a cortar (dio {r.status_code})")
 regalo = GameBoost(university="UTN", cafecitos=aforo.CAFECITOS_EQUIVALENTES,
                    source=aforo.SOURCE, player_id=CON_MURO.id,
                    external_ref="aforo:UTN:hoy",
                    expires_at=datetime.utcnow() + timedelta(hours=2))
 db.add(regalo)
 db.commit()
-check(muro.pase_hasta(db, CON_MURO) is None,
+check(not muro.tiene_pase(db, CON_MURO),
       "el empuje de aforo no da pase: si lo diera, reclutar sería la forma "
       "gratis de saltear el tope")
 

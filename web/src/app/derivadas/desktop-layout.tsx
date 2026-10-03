@@ -87,7 +87,7 @@ import {
 } from "./reglas-trigger"
 import { SlideFlip } from "./slide-flip"
 import { puedeVerEstadisticas } from "./stats-gate"
-import { enCampoDeTexto, useTeclas } from "./teclas"
+import { enCampoDeTexto, enCampoHtml, useTeclas } from "./teclas"
 import { MathInput, tipFor, type MathInputHandle } from "./math-input"
 import {
   CONTENT_WIDTH,
@@ -304,6 +304,11 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   // comentario de mobile-flow.tsx; ahora todo eso usa las acumuladas del
   // servidor.
   const [climbFrom, setClimbFrom] = useState<number | null>(null)
+  // Sube con cada festejo que arranca. El ranking lo lee para aterrizar un
+  // salto que todavía esté en vuelo ANTES de que salgan los orbes (ver
+  // `cortarSalto` en game-ranking.tsx). Solo pasa cuando se resuelve la
+  // derivada siguiente adentro de los tres segundos del salto anterior.
+  const [cortarSalto, setCortarSalto] = useState(0)
   const [centerKey, setCenterKey] = useState(0)
   // El disparador MÁS el número que la diapo va a mostrar. Van juntos porque el
   // conteo del día viaja en la respuesta que disparó el hito: guardarlo aparte
@@ -493,6 +498,10 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
     if (handle) inputRef.current = handle
   }, [])
   const servedAtRef = useRef<number>(0)
+  // El ejercicio que está en pantalla, para que una respuesta de `/answer` que
+  // llega tarde —cuando ya se sirvió la derivada siguiente— no le escriba su
+  // veredicto a la nueva (ver el `onSuccess` de `onRevisar`).
+  const enPantallaRef = useRef<number | null>(null)
   // Puesto anterior, guardado hasta que termina el conteo de XP.
   const pendingClimbRef = useRef<number | null>(null)
   // Cuántas veces se intentó ESTE ejercicio. Lo necesita el festejo optimista
@@ -588,6 +597,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   // lo mismo del otro lado.
   const servir = useCallback(
     (data: GameExercise, { adelantado }: { adelantado: boolean }) => {
+      enPantallaRef.current = data.exercise_id
       setExercise(data)
       // El panel vuelve al ejercicio ACÁ y no en quien pidió el ejercicio, que
       // es donde estaba. Cambiarlo antes producía DOS transiciones por un solo
@@ -805,6 +815,12 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
       // de nada que traiga la respuesta, y los orbes necesitan que el ranking
       // ya esté mostrando la fila propia en experiencia para tener destino.
       setCenterKey((n) => n + 1)
+      // El salto anterior se corta esté donde esté: en vuelo (`cortarSalto`) o
+      // armado y todavía sin arrancar (`climbFrom` puesto, esperando la lista
+      // nueva). Sin lo segundo el corte no encontraba nada que cortar y el
+      // salto arrancaba un instante después, debajo de los orbes nuevos.
+      setCortarSalto((n) => n + 1)
+      setClimbFrom(null)
       setRankingSort("experiencia")
       // Estimado, como la XP: el contador del servidor todavía no llegó, así
       // que se cuenta este acierto sobre el que ya había. El `onSuccess` de
@@ -834,6 +850,16 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
       },
       {
         onSuccess: (data) => {
+          // Respuesta de una derivada que ya no está en pantalla: no toca nada.
+          // Sin esto dejaba `solvedLatex` puesto sobre la derivada NUEVA, y el
+          // campo de respuesta salía convertido en el botón del «¿Por qué?».
+          // El caché (combo, intentos) ya lo actualizó el `onSuccess` del hook.
+          if (
+            enPantallaRef.current !== null &&
+            enPantallaRef.current !== exercise.exercise_id
+          ) {
+            return
+          }
           setLastAnswer(data)
           // Manda el servidor: el color local ya cumplió su función.
           setTonoLocal(null)
@@ -914,6 +940,8 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
           // se arranca acá directo con el dato real antes de reconciliar.
           if (!festejoAdelantadoRef.current) {
             setCenterKey((n) => n + 1)
+            setCortarSalto((n) => n + 1)
+            setClimbFrom(null)
             setRankingSort("experiencia")
             fireXpProvisional(data.xp_awarded, {
               modo: "vuelo",
@@ -1143,6 +1171,16 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
       { exercise_id: exercise.exercise_id },
       {
         onSuccess: (data) => {
+          // La explicación de una derivada que ya no está en pantalla no se
+          // escribe: `servir` ya limpió el texto, y pisarlo dejaba la
+          // explicación de la ANTERIOR puesta sobre la nueva —y con
+          // `porqueTexto` lleno, la nueva no volvía a pedir la suya—.
+          if (
+            enPantallaRef.current !== null &&
+            enPantallaRef.current !== exercise.exercise_id
+          ) {
+            return
+          }
           setPorqueTexto(data.explanation)
           setPorqueGraph({
             fn: data.graph_fn,
@@ -1320,6 +1358,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
           // en `data.combo` (y `useSkipExercise` invalida `gameKeys.me`), así
           // que no hace falta reconciliar nada: solo cerrar el adelanto.
           rachaAdelantadaRef.current = false
+          enPantallaRef.current = data.exercise_id
           setExercise(data)
           setLastAnswer(null)
           // También el tono local, no solo el del servidor. Si `/answer` falló
@@ -1888,6 +1927,88 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
       window.removeEventListener("blur", abortar)
     }
   }, [gameFocused, estadisticasDisponibles, openTable, sfx, flipStats])
+
+  // La red del foco. Con la derivada en pantalla, lo que se tipea es la
+  // respuesta, tenga el foco quien lo tenga. El campo se enfoca solo al servir
+  // cada derivada, pero hay caminos en los que ese foco no llega o se pierde, y
+  // el síntoma es el peor posible: el cartel del campo a la vista, el cursor
+  // dibujado, y las teclas cayendo en otro lado sin que pase nada (medido el
+  // 03/10 con la grabadora: ocho segundos de dígitos perdidos contra el
+  // `body`). Los caminos que se conocen:
+  //
+  //   · el campo se monta DESPUÉS del `focus()` de `loadNext` —al volver de una
+  //     diapo— y MathLive todavía se está armando (ver math-input.tsx);
+  //   · un click con el mouse en cualquier botón: Revisar, un botón del
+  //     encabezado, un filtro del ranking, la tuerca. El foco queda en el botón,
+  //     y al corregir una respuesta errada las teclas iban a él;
+  //   · cerrar un panel del costado cuyo campo tenía el foco: el campo se
+  //     desmonta y el foco cae al `body`.
+  //
+  // Cede ante quien de verdad está recibiendo texto: un `<input>`/`<textarea>`
+  // (el chat, «Otra», los ajustes) y una lista desplegada, donde las teclas
+  // navegan. Un botón o un desplegable CERRADO no hacen nada con un dígito.
+  //
+  // Solo lo que no es un atajo: las letras sueltas son las teclas del
+  // encabezado, así que acá entran los dígitos, la `x`, los signos y Backspace.
+  // La tecla que disparó el rescate se aplica igual —a mano, porque el evento
+  // ya salió para otro lado—, salvo las que MathLive arma distinto que un
+  // carácter (`/`, `^`, `*`, las flechas): esas enfocan y se pierden una vez,
+  // que es mejor que escribir una barra suelta.
+  useEffect(() => {
+    if (!gameFocused) return
+    const INSERTABLES = /^[0-9x+\-.,()]$/
+    const SOLO_FOCO = /^([/^*]|ArrowLeft|ArrowRight)$/
+    const recibeTexto = (el: Element | null) => {
+      if (!el || el === document.body) return false
+      if (el.tagName === "MATH-FIELD") return true
+      if (enCampoHtml(el)) return true
+      if ((el as HTMLElement).isContentEditable) return true
+      if (el.closest('[role="listbox"], [role="option"], [role="menu"]')) return true
+      return el.getAttribute("aria-expanded") === "true"
+    }
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.altKey || e.ctrlKey || e.metaKey || e.repeat) return
+      // Con la card volteada (el «¿Por qué?», las estadísticas) el campo no se
+      // ve: escribirle era cambiar la respuesta a ciegas, y su `onChange` borra
+      // además el veredicto del intento. Con la derivada cerrada tampoco hay
+      // campo: en su lugar está el botón del «¿Por qué?».
+      if (statsOpenRef.current || porqueOpenRef.current) return
+      if (cerradoVisual) return
+      if (recibeTexto(document.activeElement)) return
+      if (INSERTABLES.test(e.key)) {
+        e.preventDefault()
+        inputRef.current?.insert(e.key)
+      } else if (e.key === "Backspace") {
+        e.preventDefault()
+        inputRef.current?.command("deleteBackward")
+      } else if (SOLO_FOCO.test(e.key)) {
+        inputRef.current?.focus()
+      }
+    }
+    document.addEventListener("keydown", onKeyDown)
+    return () => document.removeEventListener("keydown", onKeyDown)
+  }, [gameFocused, cerradoVisual])
+
+  // El foco del campo, pedido DESPUÉS del commit.
+  //
+  // `servir` ya llama a `focus()`, pero lo hace antes de que React pinte: en ese
+  // instante la derivada anterior sigue «resuelta», la cara del campo sigue
+  // `inert` (ver `Cara` en flip-face.tsx) y el navegador ignora el foco sobre
+  // algo inerte sin avisar. El campo NO se remonta entre derivadas —las dos
+  // caras de `AnswerField` viven siempre—, así que su `autoFocus` tampoco
+  // vuelve a correr. Lo que quedaba era el foco en el `body`: los dígitos los
+  // rescata la red de arriba, las letras no (son los atajos del encabezado).
+  //
+  // Acá el commit ya pasó y la cara dejó de ser inerte. Cede ante un campo de
+  // texto que tenga el foco a propósito (el chat, los ajustes).
+  const idEnPantalla = exercise?.exercise_id ?? null
+  const campoLibre = solvedLatex === null
+  useEffect(() => {
+    if (!gameFocused || !campoLibre || idEnPantalla === null) return
+    const activo = document.activeElement
+    if (activo && (enCampoHtml(activo) || (activo as HTMLElement).isContentEditable)) return
+    inputRef.current?.focus()
+  }, [gameFocused, campoLibre, idEnPantalla])
 
   // La tecla del «¿Por qué?». Mismo molde que la de arriba —captura +
   // stopPropagation, para ganarle a MathLive, que escucha en el elemento— y con
@@ -2652,12 +2773,11 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                               >
                                 <MathInput
                                   handleRef={attachInput}
-                                  // Al acertar, el campo deja lugar al botón
-                                  // del «¿Por qué?» (ver `hint`), así que en la
-                                  // derivada siguiente vuelve a montarse — y el
-                                  // `focus()` que dispara `loadNext` corre antes
-                                  // de que exista. Saliendo por Saltear no se
-                                  // desmonta y lo enfoca aquel.
+                                  // Solo para la PRIMERA derivada: el campo
+                                  // no se remonta entre una y otra (las dos
+                                  // caras de `AnswerField` viven siempre), así
+                                  // que de la segunda en adelante el foco lo
+                                  // pide el efecto de «El foco del campo».
                                   autoFocus
                                   tone={tone}
                                   hint={tipFor({
@@ -2935,6 +3055,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                       // vale una sola vez por derivada, sin depender de que
                       // `servir` lo limpie. Ver `onSaltoArranca`.
                       onSaltoArranca={() => setClimbFrom(null)}
+                      cortarSalto={cortarSalto}
                       enabled={player !== null}
                       liveXp={liveXp}
                       liveXpDelta={liveXpDelta}

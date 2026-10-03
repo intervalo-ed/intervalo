@@ -2587,8 +2587,11 @@ export interface components {
              * @default false
              */
             bloqueado: boolean;
-            /** Pase Hasta */
-            pase_hasta?: string | null;
+            /**
+             * Con Pase
+             * @default false
+             */
+            con_pase: boolean;
             /** Libre En Segundos */
             libre_en_segundos?: number | null;
             /**
