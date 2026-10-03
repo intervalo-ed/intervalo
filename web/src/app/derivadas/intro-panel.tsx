@@ -234,6 +234,7 @@ export function PuertaMinima() {
   }
 
   const primera = data.modo === "primera"
+  const NBSP = String.fromCharCode(160)
 
   return (
     <div className="flex flex-col gap-5">
@@ -268,15 +269,22 @@ export function PuertaMinima() {
        *  al margen sin que haya que entrecerrar los ojos.
        *
        *  Lista y no párrafos: son hechos sueltos, cada uno con su emoji al
-       *  final. El emoji va DESPUÉS del punto y fuera del texto porque llega
+       *  final. El emoji va DESPUÉS del texto y fuera de él porque llega
        *  aparte del servidor —misma convención que el feed, y lo que deja que el
        *  mismo hecho se cuente con redacciones distintas sin tocar el símbolo. */}
       {/* `w-fit` y centrada: la caja mide lo que mide el renglón mas largo y
           no lo que mide la columna. Estirada al ancho del panel dejaba una
           franja vacía a la derecha de cada hecho, que se leía como un bloque a
           medio llenar. `max-w-full` es el techo: una novedad larga envuelve
-          adentro de la columna en vez de empujar la caja afuera. */}
-      <ul className="mx-auto flex w-fit max-w-full flex-col gap-2.5 rounded-lg border border-border/60 px-4 py-3 text-left text-sm md:text-base">
+          adentro de la columna en vez de empujar la caja afuera.
+
+          El techo es la columna MÁS dos rem, y la caja se centra con
+          `self-center`: en el teléfono la columna mide 320 px y «Se resolvieron
+          284 derivadas esta semana» se quedaba a un emoji de entrar en un
+          renglón. Esos 16 px por lado salen del margen de la pantalla, que
+          sobra. Y el emoji va pegado con un espacio duro: si igual no entra,
+          baja con la última palabra y no solo. */}
+      <ul className="flex w-fit max-w-[calc(100%+2rem)] flex-col self-center gap-2.5 rounded-lg border border-border/60 px-4 py-3 text-left text-sm">
         {data.novedades.map((n) => (
           <li key={n.clave} className="text-foreground/85">
             <TextoConHuecos
@@ -285,7 +293,8 @@ export function PuertaMinima() {
               actorLevel={n.actor_level}
               universities={n.universities}
               conTags
-            />{" "}
+            />
+            {NBSP}
             {n.emoji}
           </li>
         ))}
@@ -431,11 +440,10 @@ export function IntroPanel() {
             (mobile-flow.tsx) y que la bienvenida del onboarding: en la primera
             pantalla del juego este texto ES el contenido, y en `text-sm
             text-muted-foreground` se leía como una aclaración al pie. */}
-        {/* `text-lg` solo acá: en el teléfono este texto ocupa la pantalla
-            entera y el cuerpo normal ya pesa lo que tiene que pesar; en
-            escritorio vive adentro de una card con aire de sobra y al mismo
-            cuerpo se leía como una nota al pie de su propio logo. */}
-        <div className="flex flex-col gap-3 text-lg leading-relaxed text-foreground/85">
+        {/* Cuerpo normal también acá. Fue `text-lg` un tiempo —la card de
+            escritorio tiene aire de sobra— pero con el digest adentro el saludo
+            y la caja de novedades se leían grandes, como un cartel. */}
+        <div className="flex flex-col gap-3 leading-relaxed text-foreground/85">
           <PuertaMinima />
         </div>
       </div>

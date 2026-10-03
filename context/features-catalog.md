@@ -836,8 +836,8 @@ de `event-feed.tsx` cuando pasó a tener dos consumidores.
 
 | | cuándo | qué dice |
 |---|---|---|
-| `sigue` | `correct_today > 0` | «¡Hola, @x!» · *Hoy ya resolviste N derivadas.* · ¿Seguimos? |
-| `vuelve` | ya jugó, hoy no | «¡Bienvenido, @x!» · hasta 3, con *Llevás N derivadas resueltas.* siempre entre ellas · ¿Seguimos? |
+| `sigue` | `correct_today > 0` | «¡Hola, @x!» · *Hoy ya resolviste N derivadas* · ¿Seguimos? |
+| `vuelve` | ya jugó, hoy no | «¡Bienvenido, @x!» · hasta 3, con *Llevás N derivadas resueltas* siempre entre ellas · ¿Seguimos? |
 | `primera` | nunca resolvió nada | «¡Bienvenido!» · qué es el juego · hasta 3 · *Resolvé la siguiente derivada para comenzar.* |
 
 **Las tres cierran invitando, y dos de las tres no lo hacían.** `vuelve`
@@ -869,16 +869,20 @@ para el tope, y un solo booleano decide saludo, encabezado y cantidad de renglon
 
 Hasta tres, por prioridad. El tono es impersonal y de hecho consumado —«se
 resolvieron», «llegaron»—, no de comunidad: no hay «ya somos» ni totales
-acumulados.
+acumulados. **Los renglones van sin punto final** (03/10): cada uno lo cierra su
+emoji, y el texto del feed que se reusa llega con el punto ya sacado y con la
+XP pasada al hueco `{xp:N}` («por 1.200 XP» → el número con su ícono). Un podio
+de universidad (`uni_top`) lleva a su protagonista como `{a}`; si la frase
+nombra a un segundo, va escrito en el texto.
 
 | rama | renglón | cuándo sale |
 |---|---|---|
-| `vuelve` | *Tus N reclutas te dejaron X XP.* 🪖 | XP nueva de reclutas desde el último digest |
-| `vuelve` | *Llevás N derivadas resueltas.* 💪 | siempre |
+| `vuelve` | *Tus N reclutas te dejaron X* + ícono de XP (hueco `{xp:N}`) 🪖 | XP nueva de reclutas desde el último digest |
+| `vuelve` | *Llevás N derivadas resueltas* 💪 | siempre |
 | `vuelve` | el último movimiento de su universidad, con la frase del feed | si pasó desde el último digest (a lo sumo 14 días) |
-| las dos | *Hoy / Esta semana / Este mes llegaron N estudiantes.* 🎓 | ver abajo |
-| `primera` | *La UTN va 3ª en el ranking.* 🏆 | universidad conocida, con tabla de al menos tres |
-| las dos | *Se resolvieron N derivadas hoy / esta semana / este mes.* 🧩 | ver abajo |
+| las dos | *Hoy / Esta semana / Este mes llegaron N estudiantes* 🎓 | ver abajo |
+| `primera` | *La UTN va 3ª en el ranking* 🏆 | universidad conocida, con tabla de al menos tres |
+| las dos | *Se resolvieron N derivadas hoy / esta semana / este mes* 🧩 | ver abajo |
 
 Hay dos clases de hecho:
 
@@ -894,6 +898,14 @@ Hay dos clases de hecho:
 Medido el 27/09: en 24 h entraron **8 personas en todo el juego** (UBA 3, UTN 3,
 UNC 1, UNLP 1) contra 108/97/69/55 en la semana. Sin la escalera, el renglón
 diría «hoy llegó 1 estudiante» casi siempre, que es peor que el silencio.
+
+**Cada período se usa una vez por pantalla** (03/10). Dos renglones seguidos con
+«hoy» repiten la palabra y cuentan el mismo día dos veces. El conteo de más
+arriba (las llegadas) elige primero; el de derivadas saltea el período que ese
+ya usó: «Hoy llegaron 7 estudiantes» + «Se resolvieron 412 derivadas esta
+semana». Saltea ese y nada más: si las llegadas quedaron en la semana, las
+derivadas pueden ser las de hoy. Si al segundo no le queda ningún período que
+llegue al mínimo, no sale.
 
 **Las llegadas cuentan el juego entero, sin sigla.** Con la universidad, el
 renglón no entraba en una línea de la caja y quedaba pegado al del puesto, dos

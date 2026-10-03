@@ -280,6 +280,16 @@ export type GameRankingProps = {
   // irse al chat a mitad de vuelo desmonta el ranking: al volver, el salto ya no
   // vuelve a empezar.
   onSaltoArranca?: () => void
+  // Cambiar este número ATERRIZA el salto que esté en vuelo: la fila pasa a su
+  // puesto de destino sin viaje, y la lista se cierra. Lo manda escritorio en
+  // el instante en que un acierto nuevo suelta sus orbes, porque los orbes
+  // apuntan al número de la fila propia DESCONTANDO el transform (ver
+  // `centerOf` en xp-conteo.ts) y durante el viaje ese nodo ya está en el DOM
+  // en el puesto nuevo, traído con un transform desde el viejo: sin el
+  // transform, el destino queda `filas × 52 px` por arriba de donde se ve la
+  // fila, y con veinte puestos eso es afuera de la pantalla. Quien resuelve
+  // rápido ve festejos cortos, nunca dos encimados.
+  cortarSalto?: number
   enabled?: boolean
   // XP a mostrar en la fila propia mientras el conteo la va llenando.
   liveXp?: number | null
@@ -380,6 +390,7 @@ const SCOPE_INICIAL = { view: "individual" as RankingView, university: ALL_SCOPE
 export function GameRanking({
   climbFrom = null,
   onSaltoArranca,
+  cortarSalto = 0,
   enabled = true,
   liveXp = null,
   liveXpDelta = null,
@@ -698,6 +709,7 @@ export function GameRanking({
           // hueco entre el acierto y ese cambio, no el caso normal.
           climbFrom={sort === "elo" ? null : climbFrom}
           onSaltoArranca={onSaltoArranca}
+          cortarSalto={cortarSalto}
           liveXp={sort === "elo" ? null : liveXp}
           counting={counting}
           xpColor={xpColor}
@@ -913,6 +925,7 @@ function IndividualRanking({
   sort,
   climbFrom,
   onSaltoArranca,
+  cortarSalto = 0,
   liveXp,
   counting,
   xpColor,
@@ -928,6 +941,7 @@ function IndividualRanking({
   sort: RankingSort
   climbFrom: number | null
   onSaltoArranca?: () => void
+  cortarSalto?: number
   liveXp: number | null
   counting: boolean
   xpColor: string | null
@@ -1036,6 +1050,45 @@ function IndividualRanking({
     setSalto({ key: null, fase: "listo", filas: 0, ms: 0, desde: 0 })
   }
 
+  // El corte desde afuera (ver `cortarSalto` en las props). Se guarda el último
+  // valor visto y se compara durante el render, como el ajuste de arriba: lo
+  // que hay que evitar es que un fotograma más del vuelo llegue a pintarse con
+  // los orbes ya en el aire. Aterrizar es pasar a «listo» con la misma clave:
+  // la fila queda en su puesto nuevo, el hueco se va, y los efectos del scroll
+  // se cancelan solos porque la fase cambió.
+  //
+  // `trasCorte` cubre lo que «listo» solo no alcanza, y son dos cosas:
+  //
+  //   · **El orden.** Con el salto terminado la lista vuelve a ser la
+  //     escalonada, y esa se alinea con el servidor recién en el próximo latido
+  //     de `useStagedOrder` (420 ms). Un corte antes de ese latido mostraba el
+  //     orden VIEJO: la fila volvía a su puesto de antes y subía de a un cruce.
+  //     Mientras dure se sigue dibujando la lista cruda, y el reacomodo se
+  //     mantiene callado para que se alinee de una en vez de caminar.
+  //   · **El movimiento.** Sin salto las filas se mueven con el resorte de
+  //     ambiente, no en seco. Un corte durante la apertura —la fila todavía en
+  //     su puesto de origen— la hacía recorrer todo el viaje con ese resorte,
+  //     con los orbes ya apuntándole al destino. Mientras dure, las filas no
+  //     animan.
+  //
+  // Se apaga solo, en el render en que la escalonada ya coincide con la cruda.
+  const [corteVisto, setCorteVisto] = useState(cortarSalto)
+  const [trasCorte, setTrasCorte] = useState(false)
+  if (cortarSalto !== corteVisto) {
+    setCorteVisto(cortarSalto)
+    if (salto.fase !== "listo") {
+      setSalto({ ...salto, fase: "listo" })
+      setTrasCorte(true)
+    }
+  }
+  if (
+    trasCorte &&
+    staged.length === rawEntries.length &&
+    staged.every((e, i) => e.player_id === rawEntries[i].player_id)
+  ) {
+    setTrasCorte(false)
+  }
+
   // Los tiempos y las curvas del salto. En el teléfono va un poco más lento y
   // más blando que en escritorio (ver `RITMO_MOVIL` en salto-ranking.ts).
   const ritmo = ritmoDelSalto(mobile)
@@ -1119,7 +1172,7 @@ function IndividualRanking({
   // Lo que lee `useStagedOrder` para callarse. Ahora dice la verdad: se apaga
   // cuando el salto TERMINÓ de moverse, no cuando arrancó su último paso.
   useEffect(() => {
-    escalandoRef.current = !settled
+    escalandoRef.current = !settled || trasCorte
   })
 
   // Mientras el salto vuela, la lista es la CRUDA y no la escalonada. Los dos
@@ -1129,7 +1182,7 @@ function IndividualRanking({
   // cuando el CONJUNTO de jugadores no cambia, el escalonado todavía tiene el
   // orden viejo y el salto empieza empujando la fila POR DEBAJO de donde ya
   // estaba: una caída de hasta tres segundos antes de subir.
-  const entries = settled ? staged : rawEntries
+  const entries = settled && !trasCorte ? staged : rawEntries
   const meIndex = entries.findIndex((e) => e.is_current_player)
 
   // ── Scroll: centrado, anclaje al prepend y carga por baches ────────────────
@@ -1684,7 +1737,7 @@ function IndividualRanking({
             // que les cambia el lugar respecto de la propia—: que al menos no
             // haya resorte.
             agachado={fase === "agachado"}
-            quieto={quieto}
+            quieto={quieto || trasCorte}
             sort={sort}
             boostMultiplier={
               entry.university ? boostByUni.get(entry.university) ?? null : null

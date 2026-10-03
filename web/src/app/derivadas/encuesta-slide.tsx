@@ -87,8 +87,16 @@ export function EncuestaSlide({
   // sube hasta el ancestro scrolleable para traerla a la vista y el
   // deslizamiento se colapsa a su estado final. Está contado con todas las
   // letras en username-slide.tsx y en cafecito-panel.tsx.
+  //
+  // Y cuando la diapo ya llegó, no en el primer commit: en Android el foco abre
+  // el teclado y achica la pantalla a mitad del pase (mismo arreglo y mismo
+  // número que en username-slide.tsx).
   useEffect(() => {
-    campoRef.current?.focus({ preventScroll: true })
+    const t = window.setTimeout(
+      () => campoRef.current?.focus({ preventScroll: true }),
+      320,
+    )
+    return () => window.clearTimeout(t)
   }, [])
 
   const puedeSeguir = texto.trim().length > 0

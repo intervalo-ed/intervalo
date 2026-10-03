@@ -67,8 +67,8 @@ class GameMuroOut(BaseModel):
     # La única que el cliente necesita mirar para decidir si dibuja el cartel.
     # No es `hechas_hoy >= tope`: quien tiene el pase llegó al tope y sigue.
     bloqueado: bool = False
-    # Hasta cuándo tiene el tope levantado, si lo compró.
-    pase_hasta: Optional[datetime] = None
+    # Si tiene el tope levantado porque lo compró. No vence (game/muro.py).
+    con_pase: bool = False
     # Cuánto falta para la medianoche argentina. Lo manda el servidor ya
     # calculado porque el «hoy» del juego es el de Buenos Aires y no el del
     # aparato: quien juega desde Madrid comparte el día con el ranking con el

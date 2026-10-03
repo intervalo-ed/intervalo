@@ -14,11 +14,11 @@ alguna derivada— y lo decide en cuatro pasos:
   1. ¿Está encendido el experimento? (`habilitado`, una variable de entorno)
   2. ¿Participa? (`participa`: **solo los jugadores nuevos**, ver `ARRANQUE`)
   3. ¿En qué brazo cayó? (`brazo_de`, un hash de su id, sin columna nueva)
-  4. ¿Tiene un pase vigente? (`pase_hasta`, derivado de `game_boosts`)
+  4. ¿Tiene el pase? (`tiene_pase`, derivado de `game_boosts`)
 
-**Por qué no hay tabla de pases.** Un pase vigente es exactamente «esta persona
-puso plata hace menos de treinta días», y eso ya está escrito en `game_boosts`,
-una fila por donación y ninguna se muta nunca. Derivarlo en vez de persistirlo
+**Por qué no hay tabla de pases.** Tener el pase es exactamente «esta persona
+puso plata alguna vez», y eso ya está escrito en `game_boosts`, una fila por
+donación y ninguna se muta nunca. Derivarlo en vez de persistirlo
 sale igual que lo que hace `sorteo.py` con el brazo, y trae tres cosas gratis:
 
   · **es retroactivo** — los catorce donantes que ya existen tienen el pase puesto
@@ -29,10 +29,15 @@ sale igual que lo que hace `sorteo.py` con el brazo, y trae tres cosas gratis:
   · **no hay dos verdades** que se puedan desincronizar sobre la misma pregunta.
 
 El costo, dicho para que nadie lo descubra solo: el pase no se puede revocar ni
-regalar sin una fila de empuje, y `PASE_DIAS` es una constante de LECTURA, así
-que cambiarla mueve el vencimiento de todo el mundo a la vez. Durante un
-experimento eso es una ventaja —se acorta o se alarga sin migrar— y el día que
-deje de serlo, esto pasa a ser una columna.
+regalar sin una fila de empuje.
+
+**El pase NO VENCE** (03/10). Nació durando treinta días (`PASE_DIAS = 30`) y
+se cambió por decisión de producto antes de que el experimento empezara a
+leerse (`metrics/game_queries.py :: LECTURA_DESDE`): un cafecito levanta el
+tope para siempre. Como el pase se deriva al leer, el cambio fue retroactivo y
+sin migración —quien había donado hace más de un mes lo recuperó en el mismo
+deploy—. Si alguna vez vuelve a tener duración, vuelve acá como una constante
+de lectura, con el mismo efecto para todos a la vez.
 """
 
 from __future__ import annotations
@@ -43,7 +48,6 @@ from datetime import date, datetime, timedelta
 from typing import Sequence
 from zoneinfo import ZoneInfo
 
-from sqlalchemy import func
 from sqlalchemy.orm import Session
 
 from models import GameAttempt, GameBoost, GamePlayer
@@ -79,11 +83,11 @@ from . import aforo, sorteo
 # antes que el resultado.
 TOPE_DIARIO = 30
 
-# Cuánto dura el pase que compra un cafecito. **Fijo: un mes con uno o con diez.**
-# El empuje de la universidad ya escala con la cantidad (`boosts.horas_de` y
-# `multiplier_from_cafecitos`), y el propio comentario de `BOOST_HOURS_BASE`
-# avisa que dos premios que crecen a la vez se leen peor que uno solo.
-PASE_DIAS = 30
+# El pase que compra un cafecito no tiene duración: es para siempre, con uno o
+# con diez (ver la cabecera). El empuje de la universidad ya escala con la
+# cantidad (`boosts.horas_de` y `multiplier_from_cafecitos`), y el propio
+# comentario de `BOOST_HOURS_BASE` avisa que dos premios que crecen a la vez se
+# leen peor que uno solo.
 
 # El interruptor, y no es una formalidad. Un tope es lo único que este producto
 # puede hacer que lastime en horas en vez de en semanas, así que tiene que poder
@@ -247,30 +251,23 @@ def tope_de(player: GamePlayer) -> int | None:
     return TOPES[brazo_de(player.id)]
 
 
-def pase_hasta(db: Session, player: GamePlayer, ahora: datetime | None = None) -> datetime | None:
-    """Hasta cuándo esta persona tiene el tope levantado, o `None`.
+def tiene_pase(db: Session, player: GamePlayer) -> bool:
+    """Si esta persona tiene el tope levantado. Es para siempre.
 
-    Es la donación más reciente con su nombre, más `PASE_DIAS`. Se excluye el
+    Alcanza con una donación con su nombre, de cualquier fecha. Se excluye el
     empuje de aforo porque ese no lo pagó nadie (`aforo.SOURCE`): es el premio
-    por traer diez personas en un día, y regalar un mes de acceso con él sería
+    por traer diez personas en un día, y regalar el acceso con él sería
     convertir el reclutamiento en la forma gratis de saltear el tope.
-
-    Devuelve el vencimiento y no un booleano a propósito: el cartel de
-    agradecimiento muestra la fecha, y si acá volviera un `bool` esa fecha habría
-    que ir a buscarla otra vez con la misma consulta.
     """
-    ultimo = (
-        db.query(func.max(GameBoost.created_at))
+    return (
+        db.query(GameBoost.id)
         .filter(
             GameBoost.player_id == player.id,
             GameBoost.source != aforo.SOURCE,
         )
-        .scalar()
+        .first()
+        is not None
     )
-    if ultimo is None:
-        return None
-    vence = ultimo + timedelta(days=PASE_DIAS)
-    return vence if vence > (ahora or datetime.utcnow()) else None
 
 
 def minutos_jugando(momentos: Sequence[datetime]) -> int:
@@ -315,7 +312,7 @@ class Muro:
     tope: int | None
     hechas_hoy: int
     bloqueado: bool
-    pase_hasta: datetime | None
+    con_pase: bool
     libre_en_segundos: int | None
     minutos_jugando: int
     pct_mas_que: float
@@ -359,9 +356,9 @@ def estado(
     """
     ahora = ahora or datetime.utcnow()
     tope = tope_de(player)
-    vence = pase_hasta(db, player, ahora) if tope is not None else None
+    con_pase = tiene_pase(db, player) if tope is not None else False
     alcanzo = tope is not None and hechas_hoy >= tope
-    bloqueado = alcanzo and vence is None
+    bloqueado = alcanzo and not con_pase
 
     minutos = pct_rapido = 0
     if alcanzo:
@@ -372,7 +369,7 @@ def estado(
         tope=tope,
         hechas_hoy=hechas_hoy,
         bloqueado=bloqueado,
-        pase_hasta=vence,
+        con_pase=con_pase,
         libre_en_segundos=(
             max(0, int((proxima_medianoche - ahora).total_seconds()))
             if bloqueado else None

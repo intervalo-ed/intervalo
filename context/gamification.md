@@ -463,11 +463,13 @@ Cómo funciona:
 - El día es el de **Buenos Aires** (`router._inicio_del_dia`), igual que el
   ranking: quien juega desde otro huso comparte el día con el público con el que
   se compara.
-- **Un cafecito levanta el tope por 30 días** (`PASE_DIAS`), fijo, con uno o con
-  diez. El empuje de la universidad sigue funcionando igual y con la misma
+- **Un cafecito levanta el tope para siempre**, con uno o con diez. Hasta el
+  03/10 duraba 30 días (`PASE_DIAS`); se cambió antes de que `dx-muro-1`
+  empezara a leerse, y como el pase se deriva al leer, quien había donado hace
+  más de un mes lo recuperó en el mismo deploy. El empuje de la universidad sigue funcionando igual y con la misma
   escala de siempre: el pase es **aditivo**, no lo reemplaza.
-- **El pase no tiene tabla.** Es «esta persona tiene una fila en `game_boosts`
-  de menos de 30 días», derivado al leer. Por eso es retroactivo —los donantes
+- **El pase no tiene tabla.** Es «esta persona tiene una fila en `game_boosts`»,
+  de cualquier fecha, derivado al leer (`muro.tiene_pase`). Por eso es retroactivo —los donantes
   que ya existían lo tuvieron desde el día uno— y por eso `grant_game_boost.py`
   ya sirve para regalarlo. El empuje de **aforo no lo da**: ese no lo pagó
   nadie, y si lo diera, reclutar sería la forma gratis de saltear el tope.

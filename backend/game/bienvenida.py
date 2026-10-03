@@ -44,6 +44,15 @@ el juego —UBA 3, UTN 3, UNC 1, UNLP 1— contra 108/97/69/55 en la semana. Sin
 ella el renglón diría «hoy llegó 1 estudiante» la mayoría de las veces, que es
 peor que no decir nada.
 
+**Y cada período se usa UNA vez por pantalla.** «Hoy llegaron 7 estudiantes» y
+«Se resolvieron 68 derivadas hoy» uno debajo del otro repiten la palabra y
+cuentan el mismo día dos veces; con tres renglones, dos iguales es la mitad de
+la variedad. El conteo que va más arriba elige primero, y el siguiente SALTEA
+el período que ese ya usó (`sin=`): «Hoy llegaron 7 estudiantes» + «Se
+resolvieron 412 derivadas esta semana». Saltea ese y nada más: si las llegadas
+quedaron en la semana, las derivadas pueden ser las de hoy. Si al segundo no le
+queda ningún período que llegue al mínimo, no sale.
+
 ── Lo que NO se muestra ─────────────────────────────────────────────────────
 
 Nada que le saque algo a la persona —«te pasaron 3 puestos», «se te cayó la
@@ -53,6 +62,7 @@ vuelve. En `vuelve` se permite a lo sumo uno, y nunca primero.
 """
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 
@@ -101,6 +111,34 @@ JUEGA = GamePlayer.exercises_correct > 0
 # que se siembre, esta pantalla va a decir menos que el ranking de al lado, y
 # eso es lo correcto.
 NO_BOT = GamePlayer.is_bot.is_(False)
+
+
+def _sin_punto(texto: str) -> str:
+    """El renglón sin su punto final.
+
+    **Los renglones de esta pantalla van sin punto** (03/10). Son hechos sueltos
+    en una caja, cada uno cerrado por su emoji: el punto entre el texto y el
+    emoji no separa nada, y con un chip o el ícono de XP al final quedaba
+    colgando solo. Los que arma este módulo ya se escriben sin él; esto es para
+    los que llegan de afuera —el texto de un evento del feed, que allá sí lo
+    lleva—.
+    """
+    return texto.rstrip().removesuffix(".")
+
+
+# «1.200 XP» en el texto de un evento del feed, para pasarlo al hueco `{xp:N}`.
+_XP_EN_TEXTO = re.compile(r"(\d{1,3}(?:\.\d{3})*|\d+) XP\b")
+
+
+def _xp_a_hueco(texto: str) -> str:
+    """La XP del feed, escrita como la escribe esta pantalla.
+
+    El feed dice «por 1.200 XP» con letras; acá la XP va con su ícono
+    (`{xp:N}`, ver `_n_reclutas`), y un renglón con la sigla al lado de otro con
+    el ícono eran dos formas de decir lo mismo en la misma caja.
+    """
+    return _XP_EN_TEXTO.sub(
+        lambda m: "{xp:%d}" % int(m.group(1).replace(".", "")), texto)
 
 
 @dataclass
@@ -301,8 +339,8 @@ def _n_mio(player) -> Novedad | None:
     n = int(player.exercises_correct or 0)
     if n <= 0:
         return None
-    texto = ("Llevás 1 derivada resuelta." if n == 1
-             else f"Llevás {miles(n)} derivadas resueltas.")
+    texto = ("Llevás 1 derivada resuelta" if n == 1
+             else f"Llevás {miles(n)} derivadas resueltas")
     return Novedad("mio", texto, "💪", 95)
 
 
@@ -311,7 +349,9 @@ def _n_reclutas(db, player) -> Novedad | None:
     if not n or xp <= 0:
         return None
     cuantos = "Tu recluta te dejó" if n == 1 else f"Tus {n} reclutas te dejaron"
-    return Novedad("reclutas", f"{cuantos} {miles(xp)} XP.", "🪖", 100)
+    # `{xp:N}` es un hueco como `{a}`: el cliente dibuja el número con el ícono
+    # de XP (texto-con-huecos.tsx). Va el entero pelado, sin puntos de miles.
+    return Novedad("reclutas", f"{cuantos} {{xp:{int(xp)}}}", "🪖", 100)
 
 
 def _n_sorpasso(db, uni, desde) -> Novedad | None:
@@ -321,7 +361,19 @@ def _n_sorpasso(db, uni, desde) -> Novedad | None:
     # En el mismo orden en que aparecen `{u0}` y `{u1}` en la oración, que es
     # como el feed las manda (ver GameEventOut.universities).
     unis = [u for u in (ev.university, ev.university_b) if u]
-    return Novedad("sorpasso", ev.text, ev.emoji, 90, universities=unis)
+    texto = _xp_a_hueco(_sin_punto(ev.text))
+    # `uni_top` nombra gente: «{a} es el número 1 de la {u0}», y a veces a quién
+    # se lo sacó, `{b}`. El renglón del digest no tiene dónde mandar al segundo
+    # —`GameNovedadOut` lleva un solo actor— así que se escribe acá, en texto.
+    # Sin esto la oración salía sin sujeto: « es el número 1 de la UTN».
+    if "{a}" in texto and not ev.actor_alias:
+        return None
+    if "{b}" in texto:
+        if not ev.actor_b_alias:
+            return None
+        texto = texto.replace("{b}", ev.actor_b_alias)
+    return Novedad("sorpasso", texto, ev.emoji, 90, universities=unis,
+                   actor_alias=ev.actor_alias, actor_level=ev.actor_level)
 
 
 _ALTAS = {
@@ -331,8 +383,19 @@ _ALTAS = {
 }
 
 
-def _n_altas(db, uni, inicio_del_dia, ahora, puntaje, salvo_id=None) -> Novedad | None:
+def periodo_de(n: Novedad | None) -> str | None:
+    """El período que un renglón de conteo ya gastó («hoy», «semana», «mes»)."""
+    if n is None:
+        return None
+    _, sep, periodo = n.clave.rpartition("_")
+    return periodo if sep and periodo in _ALTAS else None
+
+
+def _n_altas(db, uni, inicio_del_dia, ahora, puntaje, salvo_id=None,
+             sin: tuple[str, ...] = ()) -> Novedad | None:
     """Cuántos estudiantes llegaron, en el período más corto que alcance.
+
+    `sin` son los períodos que otro renglón de la misma pantalla ya usó.
 
     Con universidad habla de la suya; si la suya no llega al mínimo ni en el
     mes —o no se sabe cuál es—, habla de todo el juego.
@@ -349,13 +412,13 @@ def _n_altas(db, uni, inicio_del_dia, ahora, puntaje, salvo_id=None) -> Novedad 
         cuentas = _altas(db, de_quien, periodos, salvo_id)
         for periodo, _ in periodos:
             n = cuentas[periodo]
-            if n < MIN_CONTEO:
+            if n < MIN_CONTEO or periodo in sin:
                 continue
             texto = _ALTAS[periodo].replace("{n}", miles(n))
             if de_quien:
-                return Novedad(f"altas_{periodo}", texto + " de la {u0}.", "🎓",
+                return Novedad(f"altas_{periodo}", texto + " de la {u0}", "🎓",
                                puntaje, universities=[de_quien])
-            return Novedad(f"altas_{periodo}", texto + ".", "🎓", puntaje)
+            return Novedad(f"altas_{periodo}", texto, "🎓", puntaje)
     return None
 
 
@@ -368,27 +431,33 @@ def _n_puesto(db, uni) -> Novedad | None:
     p = _puesto(db, uni)
     if p is None or p[1] < MIN_TABLA:
         return None
-    return Novedad("uni_puesto", f"La {{u0}} va {p[0]}ª en el ranking.",
+    return Novedad("uni_puesto", f"La {{u0}} va {p[0]}ª en el ranking",
                    "🏆", 80, universities=[uni])
 
 
 _DERIVADAS = {"hoy": "hoy", "semana": "esta semana", "mes": "este mes"}
 
 
-def _n_derivadas(db, inicio_del_dia, ahora) -> Novedad | None:
+def _n_derivadas(db, inicio_del_dia, ahora,
+                 sin: tuple[str, ...] = ()) -> Novedad | None:
     periodos = _periodos(inicio_del_dia, ahora)
     cuentas = _derivadas(db, periodos)
     for periodo, _ in periodos:
         n = cuentas[periodo]
-        if n >= MIN_CONTEO:
+        if n >= MIN_CONTEO and periodo not in sin:
             return Novedad(
-                "derivadas",
-                f"Se resolvieron {miles(n)} derivadas {_DERIVADAS[periodo]}.",
+                f"derivadas_{periodo}",
+                f"Se resolvieron {miles(n)} derivadas {_DERIVADAS[periodo]}",
                 "🧩", 40)
     return None
 
 
 # ── El armado ────────────────────────────────────────────────────────────────
+
+
+def _usado(n: Novedad | None) -> tuple[str, ...]:
+    p = periodo_de(n)
+    return (p,) if p else ()
 
 
 def construir(
@@ -414,7 +483,7 @@ def construir(
             modo="sigue",
             saludo="¡Hola, {a}!",
             titulo=None,
-            novedades=[Novedad("hoy", f"Hoy ya resolviste {cuantas}.", "🧩", 100)],
+            novedades=[Novedad("hoy", f"Hoy ya resolviste {cuantas}", "🧩", 100)],
         )
 
     primera = (player.exercises_correct or 0) == 0
@@ -435,10 +504,13 @@ def construir(
         # Y hubo dos totales —«Ya hay N personas de la UTN jugando», «Ya somos
         # N en M universidades»— que se fueron el mismo día: los conteos hablan
         # de un período, no de un acumulado.
-        candidatas += [_n_altas(db, None, inicio_del_dia, ahora, 95, player.id)]
+        # Las altas eligen período primero (van más arriba); las derivadas no
+        # repiten el que quedó usado.
+        altas = _n_altas(db, None, inicio_del_dia, ahora, 95, player.id)
+        candidatas += [altas]
         if uni:
             candidatas += [_n_puesto(db, uni)]
-        candidatas += [_n_derivadas(db, inicio_del_dia, ahora)]
+        candidatas += [_n_derivadas(db, inicio_del_dia, ahora, sin=_usado(altas))]
         saludo, titulo, modo = "¡Bienvenido!", "Lo que está pasando", "primera"
     else:
         # El propio va PRIMERO entre los que hablan de la persona —debajo de los
@@ -447,10 +519,8 @@ def construir(
         candidatas += [_n_reclutas(db, player), _n_mio(player)]
         if uni:
             candidatas += [_n_sorpasso(db, uni, desde)]
-        candidatas += [
-            _n_altas(db, None, inicio_del_dia, ahora, 70, player.id),
-            _n_derivadas(db, inicio_del_dia, ahora),
-        ]
+        altas = _n_altas(db, None, inicio_del_dia, ahora, 70, player.id)
+        candidatas += [altas, _n_derivadas(db, inicio_del_dia, ahora, sin=_usado(altas))]
         saludo, titulo, modo = "¡Bienvenido, {a}!", "Mientras no estabas", "vuelve"
 
     vivas = [n for n in candidatas if n is not None]

@@ -252,8 +252,27 @@ exercises = [
     {"id": 11, "player_id": 4, "created_at": DENTRO, "p_hat": 0.75,
      "status": "answered", "peeked": False},
 ]
-bloque = q.experimento_motor(
-    {"players": players, "exercises": exercises, "_firsts": firsts})
+# **El reloj del panel se congela, y no es un detalle.** `experimento_motor` lee
+# «hoy» de `datetime.utcnow()` para decidir qué ventanas ya cerraron, y este
+# fixture está fechado en el arranque del experimento, que es una fecha fija del
+# calendario. Sin esto el check era una bomba de tiempo: pasó mientras «hoy»
+# cayó adentro de los 14 días del arranque y empezó a fallar el 03/10 —el día 14
+# del jugador 1—, en un PR que no tocaba nada de esto. Lo que se prueba es
+# «con la ventana abierta nadie cuenta», así que el día en que se prueba tiene
+# que ser uno con la ventana abierta, no el día en que corre el CI.
+class _RelojDelFixture(datetime):
+    @classmethod
+    def utcnow(cls):
+        return DENTRO + timedelta(days=2)
+
+
+_reloj_real = q.datetime
+q.datetime = _RelojDelFixture
+try:
+    bloque = q.experimento_motor(
+        {"players": players, "exercises": exercises, "_firsts": firsts})
+finally:
+    q.datetime = _reloj_real
 
 inscriptos = sum(b["n"] + b["en_curso"] for b in bloque["brazos"])
 check(inscriptos == 2,

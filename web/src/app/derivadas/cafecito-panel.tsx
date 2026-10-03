@@ -144,20 +144,13 @@ const FUGAZ = { duration: 0.11, ease: "easeOut" } as const
 const tintaPara = (t: number) => mezclar(AMBAR_RGB, DORADO, t)
 
 // El extremo dorado de la rampa, fijo. Lo usan los datos que NO dependen del
-// slider —los treinta días del pase— para que no se apaguen al mover la barra:
+// slider —el «para siempre» del pase— para que no se apaguen al mover la barra:
 // lo que la tinta variable comunica es «esto es lo que estás eligiendo», y el
 // pase es el mismo con uno o con diez.
 //
 // Es además el mismo dorado del botón «Continuar derivando ahora» del cartel
 // del tope (tope-panel.tsx), que es de donde se llega hasta acá.
 const DORADO_FIJO = `rgb(${DORADO.join(", ")})`
-
-// Cuántos días de acceso sin tope compra una donación. Espejo de
-// `backend/game/muro.py :: PASE_DIAS`, y como todos los espejos de este archivo
-// es una copia que puede envejecer: el servidor manda el vencimiento exacto en
-// `GamePlayerOut.muro.pase_hasta`, así que lo que se muestra DESPUÉS de pagar
-// sale de allá. Este número es solo la promesa de antes de pagar.
-const PASE_DIAS = 30
 
 // El dorado en rgba, para todo lo que se ANIMA. `color-mix(...)` no se puede
 // interpolar —motion lo trata como texto y el valor salta— así que las auras que
@@ -352,11 +345,11 @@ const TRIGGER_COPY: Record<CafecitoTrigger, { title: string; sub: string }> = {
   // y el tope no le presenta un producto nuevo — le da un motivo más para el
   // mismo. El subtítulo es lo único que cambia, y dice qué se está comprando.
   //
-  // Dice «por 30 días» y no una fecha: la fecha concreta aparece recién en la
-  // cara de agradecimiento, cuando el pase ya existe y se puede afirmar.
+  // «Para siempre»: el pase no vence (backend/game/muro.py :: tiene_pase).
+  // Duraba 30 días hasta el 03/10.
   tope: {
     title: "¿Café?",
-    sub: "Un cafecito te da acceso ilimitado a Intervalo por 30 días.",
+    sub: "Un cafecito te da acceso ilimitado a Intervalo para siempre.",
   },
 }
 
@@ -1309,15 +1302,15 @@ export function CafecitoPanel({
                 de la universidad sigue estando y sigue valiendo, pero es la
                 segunda mitad de la oración y no la primera.
 
-                Los treinta días NO dependen del slider: el pase es el mismo con
-                uno o con diez, así que ese número va en la tinta del café pero
-                sin `tintaPara(t)` — no tiene que apagarse ni encenderse cuando
-                la barra se mueve, porque no se está eligiendo. */}
+                El «para siempre» NO depende del slider: el pase es el mismo
+                con uno o con diez, así que va en la tinta del café pero sin
+                `tintaPara(t)` — no tiene que apagarse ni encenderse cuando la
+                barra se mueve, porque no se está eligiendo. */}
             {trigger === "tope" ? (
               <p className="mt-4 text-sm leading-relaxed text-foreground/90">
-                Sin tope por{" "}
-                <span className="font-semibold tabular-nums" style={{ color: DORADO_FIJO }}>
-                  {PASE_DIAS} días
+                Sin tope{" "}
+                <span className="font-semibold" style={{ color: DORADO_FIJO }}>
+                  para siempre
                 </span>{" "}
                 {sube ? (
                   <>
