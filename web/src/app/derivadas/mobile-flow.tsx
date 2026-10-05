@@ -1278,6 +1278,16 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
         // única salida es recargar la página. Pidiendo otro, se destraba solo.
         onError: (err) => {
           if (err instanceof ApiError && err.status === 409) {
+            // Solo si la derivada que falló es la que se está viendo. Un 409
+            // que llega tarde —con otra ya servida— no tiene nada que destrabar,
+            // y vaciar la pantalla era cambiarle la derivada a quien ya estaba
+            // resolviendo la siguiente.
+            if (
+              enPantallaRef.current !== null &&
+              enPantallaRef.current !== exercise.exercise_id
+            ) {
+              return
+            }
             setExercise(null)
             setLastAnswer(null)
             setTonoLocal(null)
@@ -1471,6 +1481,16 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
           // reinicio, lo cerró otra pestaña— saltear también devolvía 409 y
           // dejaba el juego trabado. Se pide otro y sigue.
           if (err instanceof ApiError && err.status === 409) {
+            // Solo si la derivada que falló es la que se está viendo. Un 409
+            // que llega tarde —con otra ya servida— no tiene nada que destrabar,
+            // y vaciar la pantalla era cambiarle la derivada a quien ya estaba
+            // resolviendo la siguiente.
+            if (
+              enPantallaRef.current !== null &&
+              enPantallaRef.current !== exercise.exercise_id
+            ) {
+              return
+            }
             setExercise(null)
             setLastAnswer(null)
             setTonoLocal(null)

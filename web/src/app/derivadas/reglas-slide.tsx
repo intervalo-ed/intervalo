@@ -21,6 +21,7 @@
 // puerta son la pantalla que `dx-puerta-1` sacó del camino.
 
 import { useEffect, useRef } from "react"
+import { useIsPresent } from "motion/react"
 import posthog from "posthog-js"
 
 import { Button } from "@/components/ui/button"
@@ -67,8 +68,11 @@ export function ReglasSlide({
     posthog.capture("game_reglas_shown", { reglas: cuales })
   }, [cuales])
 
+  // Saliendo no escucha: la diapo sigue montada mientras se funde (o se
+  // desliza, en el teléfono) y un Enter en ese rato era suyo otra vez.
+  const presente = useIsPresent()
   useEffect(() => {
-    if (!keyboard) return
+    if (!keyboard || !presente) return
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== "Enter") return
       // El aside puede estar volteado al chat: ahí un Enter es un Enter.
@@ -80,7 +84,7 @@ export function ReglasSlide({
     }
     document.addEventListener("keydown", onKey)
     return () => document.removeEventListener("keydown", onKey)
-  }, [keyboard, onContinue])
+  }, [keyboard, presente, onContinue])
 
   return (
     <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col justify-center gap-5">

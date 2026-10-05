@@ -21,6 +21,7 @@
 // (backend/game/encuesta.py :: es_salto).
 
 import { useEffect, useRef, useState } from "react"
+import { useIsPresent } from "motion/react"
 import posthog from "posthog-js"
 
 import { cn } from "@/lib/utils"
@@ -129,8 +130,11 @@ export function EncuestaSlide({
     enviarRef.current = enviar
   })
 
+  // Saliendo no escucha: la diapo sigue montada mientras se funde (o se
+  // desliza, en el teléfono) y un Enter en ese rato era suyo otra vez.
+  const presente = useIsPresent()
   useEffect(() => {
-    if (!keyboard) return
+    if (!keyboard || !presente) return
     const onKey = (e: KeyboardEvent) => {
       // **Enter solo, no.** El campo es de varias líneas y alguien escribiendo
       // dos oraciones va a apretar Enter en el medio; mandar ahí sería comerse
@@ -144,7 +148,7 @@ export function EncuestaSlide({
     }
     document.addEventListener("keydown", onKey)
     return () => document.removeEventListener("keydown", onKey)
-  }, [keyboard])
+  }, [keyboard, presente])
 
   return (
     <div

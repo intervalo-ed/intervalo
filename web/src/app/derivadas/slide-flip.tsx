@@ -21,7 +21,7 @@
 // dos caras conviven, que es de lo que se trata un fundido.
 
 import { useState } from "react"
-import { AnimatePresence, motion } from "motion/react"
+import { AnimatePresence, motion, useIsPresent } from "motion/react"
 import { cn } from "@/lib/utils"
 
 type Curva = readonly [number, number, number, number]
@@ -92,8 +92,16 @@ function Cara({ children }: { children: React.ReactNode }) {
   // Arranca en true porque la animación de entrada empieza en el mismo momento
   // en que esto se monta.
   const [animando, setAnimando] = useState(true)
+  // La cara que SALE sigue montada los 0,22 s del fundido, y hasta acá seguía
+  // recibiendo clicks y foco como si fuera la pantalla: un segundo toque rápido
+  // le pegaba al botón de la diapo que se estaba yendo. `inert` la saca del
+  // puntero, del tabulado y del foco en el mismo commit en que empieza a salir.
+  // Los atajos que las diapos escuchan en `document` no pasan por acá: cada una
+  // se calla sola con `useIsPresent`.
+  const presente = useIsPresent()
   return (
     <motion.div
+      inert={!presente}
       // Absoluta para que las dos caras se superpongan durante el cruce en
       // vez de empujarse. El contenedor es quien tiene que traer el tamaño.
       className="absolute inset-0 flex min-h-0 flex-col"

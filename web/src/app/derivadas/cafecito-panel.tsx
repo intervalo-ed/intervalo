@@ -24,7 +24,7 @@
 // que ya usan el botón de la cabecera y el multiplicador del marcador.
 
 import { useEffect, useRef, useState } from "react"
-import { motion, useReducedMotion } from "motion/react"
+import { motion, useIsPresent, useReducedMotion } from "motion/react"
 import { ArrowLeft, ArrowRight, Coffee, UsersIcon } from "lucide-react"
 
 import { MercadoPagoIcon } from "./mercadopago-icon"
@@ -414,8 +414,11 @@ function PanelDeVuelta({
   // Sin cuenta regresiva para salir, al revés que la oferta. Ahí la espera
   // existe para que el pedido se lea; acá la persona ya decidió —y quizás ya
   // pagó— y retenerla sería cobrarle dos veces.
+  // Saliendo no escucha: la diapo sigue montada mientras se funde (o se
+  // desliza, en el teléfono) y un Enter en ese rato era suyo otra vez.
+  const presente = useIsPresent()
   useEffect(() => {
-    if (!keyboard) return
+    if (!keyboard || !presente) return
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== "Enter") return
       // Escribiendo en el chat, un Enter es un Enter. Este listener vive en
@@ -427,7 +430,7 @@ function PanelDeVuelta({
     }
     document.addEventListener("keydown", onKey)
     return () => document.removeEventListener("keydown", onKey)
-  }, [keyboard, onContinue])
+  }, [keyboard, presente, onContinue])
 
   return (
     <div className="mx-auto w-full max-w-sm">
@@ -563,8 +566,11 @@ function PanelDeImpacto({
 
   // Mismo Enter que la cara de vuelta, y por el mismo motivo: acá no hay nada
   // que ofrecer, así que no hay una segunda tecla ni una espera que respetar.
+  // Saliendo no escucha: la diapo sigue montada mientras se funde (o se
+  // desliza, en el teléfono) y un Enter en ese rato era suyo otra vez.
+  const presente = useIsPresent()
   useEffect(() => {
-    if (!keyboard) return
+    if (!keyboard || !presente) return
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== "Enter") return
       if (enCampoDeTexto(e.target)) return
@@ -573,7 +579,7 @@ function PanelDeImpacto({
     }
     document.addEventListener("keydown", onKey)
     return () => document.removeEventListener("keydown", onKey)
-  }, [keyboard, onContinue])
+  }, [keyboard, presente, onContinue])
 
   return (
     <div className="mx-auto w-full max-w-sm">
@@ -1209,8 +1215,11 @@ export function CafecitoPanel({
   // piden DOS derivadas: la segunda se sirve y se descarta sin que nadie la vea.
   // Con este pestillo, cada diapo despacha su Enter una sola vez en su vida.
   const seguidoRef = useRef(false)
+  // Saliendo no escucha: la diapo sigue montada mientras se funde (o se
+  // desliza, en el teléfono) y un Enter en ese rato era suyo otra vez.
+  const presente = useIsPresent()
   useEffect(() => {
-    if (!keyboard) return
+    if (!keyboard || !presente) return
     // Con el cartel de vuelta en pantalla manda SU Enter, no este. Los efectos
     // de la oferta siguen corriendo aunque su JSX ya no se dibuje —viven en el
     // cuerpo del componente— así que sin esta guarda los dos escuchan la misma
@@ -1233,7 +1242,7 @@ export function CafecitoPanel({
     }
     document.addEventListener("keydown", onKey)
     return () => document.removeEventListener("keydown", onKey)
-  }, [keyboard, listo, onContinue, university, cara])
+  }, [keyboard, presente, listo, onContinue, university, cara])
 
   return (
     <div

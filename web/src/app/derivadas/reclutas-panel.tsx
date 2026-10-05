@@ -27,6 +27,7 @@
 // "el 10% de lo que sumen" en algo que se puede mirar.
 
 import { useEffect, useRef } from "react"
+import { useIsPresent } from "motion/react"
 import { PORCENTAJE_POR_DEFECTO } from "@/components/reclutas-list"
 import { cn } from "@/lib/utils"
 import { useSfx } from "@/lib/audio/useSfx"
@@ -150,8 +151,11 @@ export function ReclutasPanel({
     reclutarRef.current = reclutarConTeclado
   })
   const seguidoRef = useRef(false)
+  // Saliendo no escucha: la diapo sigue montada mientras se funde (o se
+  // desliza, en el teléfono) y un Enter en ese rato era suyo otra vez.
+  const presente = useIsPresent()
   useEffect(() => {
-    if (!keyboard) return
+    if (!keyboard || !presente) return
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== "Enter") return
       // Escribiendo en el chat, un Enter es un Enter. Este listener vive en
@@ -169,7 +173,7 @@ export function ReclutasPanel({
     }
     document.addEventListener("keydown", onKey)
     return () => document.removeEventListener("keydown", onKey)
-  }, [keyboard, listo, onContinue])
+  }, [keyboard, presente, listo, onContinue])
 
   return (
     <div
