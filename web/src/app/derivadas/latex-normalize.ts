@@ -55,8 +55,58 @@ function unwrapOperatorName(inner: string): string {
 // borrar uno.
 const SIGNO_ADELANTE_RE = /^([+-]+)(.+)$/
 
+/** Lo que el campo deja escrito y no es parte de la respuesta.
+ *
+ * MathLive serializa lo que hay en pantalla, y en pantalla quedan restos de
+ * escribir con el dedo: el casillero de un exponente que se abrió y no se
+ * llenó, un espacio que entró con la barra, el menos tipográfico de un teclado
+ * que autocorrige. Nada de eso cambia qué expresión escribió la persona, y el
+ * parser —que devuelve null ante cualquier cosa fuera de su vocabulario— la
+ * rebotaba entera como ilegible.
+ *
+ * **Null acá no es «esperá al servidor»: es un rebote.** El servidor valida el
+ * MathJSON que le manda el cliente; sin MathJSON contesta `parse_ok: false` y
+ * la persona ve «¿Seguro?» sobre una respuesta que estaba bien. Medido sobre
+ * el corpus de producción, estas formas más las de `latex-a-mathjson.ts` eran
+ * el 3% de todos los intentos, y adentro están `\frac12x^{-\frac12}` (la
+ * derivada de la raíz, 78 veces) y `\frac{1}{\cos^2(x)}` (la de la tangente).
+ */
+function sinRestosDelCampo(latex: string): string {
+  let out = latex
+  // El menos y el punto medio tipográficos, y el por.
+  out = out.replace(/[\u2212\u2013]/g, "-").replace(/[\u00b7\u22c5]/g, "\\cdot ").replace(/\u00d7/g, "\\times ")
+  // Casilleros sin llenar. Un exponente o subíndice que quedó vacío se va con
+  // su `^`; un casillero suelto, solo.
+  out = out.replace(/\\placeholder\s*(?:\[[^\]]*\])?\s*\{[^{}]*\}/g, "")
+  let antes = ""
+  while (antes !== out) {
+    antes = out
+    out = out.replace(/[\^_]\s*\{\s*\}/g, "")
+    // Un envoltorio tipográfico que quedó sin nada adentro, y un grupo vacío
+    // suelto. No los de `\frac{}{x}` ni `\sqrt{}`: ahí falta un argumento de
+    // verdad y eso sí es ilegible.
+    out = out.replace(/\\(?:mathrm|mathit|text|textrm|mathsf)\s*\{\s*\}/g, "")
+    out = out.replace(/(?<![\\a-zA-Z}\^_\s])\s*\{\s*\}/g, "")
+  }
+  // `\frac12`: TeX toma un carácter por argumento cuando no hay llaves. El
+  // tokenizador junta los dígitos, así que se le ponen acá.
+  out = out.replace(/(\\[dtc]?frac)\s*(\d)\s*(\d)/g, "$1{$2}{$3}")
+  out = out.replace(/(\\[dtc]?frac)\s*(\d)\s*\{/g, "$1{$2}{")
+  out = out.replace(/(\\[dtc]?frac\s*\{(?:[^{}]|\{[^{}]*\})*\})\s*([\dx])/g, "$1{$2}")
+  // Lo mismo con la raíz: `\sqrt2` es √2.
+  out = out.replace(/\\sqrt\s*([\dx])/g, "\\sqrt{$1}")
+  // El punto como signo de multiplicar (`3x^2.e^{x}`), que es como se escribe
+  // en el secundario. Solo cuando no es una coma decimal: entre dos dígitos se
+  // deja como está.
+  out = out.replace(/(?<!\d)\.|\.(?!\d)/g, "\\cdot ")
+  // La tilde es un espacio en LaTeX, y una barra suelta al final es un `\ ` al
+  // que el `trim()` le comió el espacio.
+  out = out.replace(/~/g, " ").replace(/(?:\\\s*)+$/, "")
+  return out
+}
+
 export function normalizeAnswerLatex(latex: string): string {
-  let out = latex.trim()
+  let out = sinRestosDelCampo(latex).trim()
   out = out.replace(PREFIX_RE, "")
   out = out.replace(OPERATORNAME_RE, (_match, inner: string) => {
     const crudo = unwrapOperatorName(inner)

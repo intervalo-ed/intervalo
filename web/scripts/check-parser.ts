@@ -47,7 +47,13 @@ const TOL = 1e-9
 // el cambio valga la pena. Es un piso, no una meta: si algún día baja de acá es
 // porque el juego empezó a emitir algo que este archivo no sabe leer, y eso hay
 // que ver antes de que se note en la pantalla.
-const COBERTURA_MINIMA = 0.9
+//
+// Subió de 0,90 a 0,97 el 05/10. Con 0,90 el chequeo pasaba en verde mientras
+// el parser rebotaba el 3% de los intentos que el motor viejo sí leía —la
+// derivada de la raíz y la de la tangente entre ellos—, porque «no contestar»
+// se pensó como «esperar al servidor» y el servidor no lee LaTeX: sin MathJSON
+// del cliente contesta que no pudo leer. Hoy el parser cubre 97,5%.
+const COBERTURA_MINIMA = 0.97
 
 // **La única divergencia aceptada, y es un ARREGLO.** `\ln{A}^{n}` significa
 // (ln A)ⁿ, que es lo que dice la plantilla que lo genera: para
@@ -189,6 +195,45 @@ for (const [latex, f] of [
     })
   check(ok, `«${latex}» se lee como la potencia de la función, que es lo que el servidor espera`)
 }
+
+// ── 4. Lo que reportaron ────────────────────────────────────────────────────
+//
+// Dos respuestas CORRECTAS que el juego rebotó como ilegibles el 01/10, y las
+// formas vecinas que salieron de medir el corpus. Cada una con la función que
+// la persona quiso escribir.
+console.log()
+console.log("4. respuestas correctas que se rebotaban como ilegibles")
+const R = String.raw
+const sen = Math.sin
+const cos = Math.cos
+for (const [latex, f, que] of [
+  [R`4\operatorname{sen}^3\left(x\right)\cdot\cos\left(x\right)`, (x: number) => 4 * sen(x) ** 3 * cos(x), "la potencia pegada al nombre de la función"],
+  [R`\frac{1}{\cos^2\left(x\right)}`, (x: number) => 1 / cos(x) ** 2, "la derivada de la tangente"],
+  [R`\frac{9x\cos\left(9x\right)^{}-\operatorname{sen}\left(9x\right)}{x^2}`, (x: number) => (9 * x * cos(9 * x) - sen(9 * x)) / x ** 2, "un exponente que se abrió y quedó vacío"],
+  [R`\frac{9x\cos\left(9x\right)-\operatorname{sen}\left(9x\right)}{x^2}\ `, (x: number) => (9 * x * cos(9 * x) - sen(9 * x)) / x ** 2, "un espacio al final"],
+  [R`\frac12x^{-\frac12}`, (x: number) => 0.5 * x ** -0.5, "la fracción sin llaves, que es la derivada de la raíz"],
+  [R`3e^{\placeholder{}}`, () => 3 * Math.E, "un casillero sin llenar"],
+  [R`\frac{1}{\sqrt2}`, () => 1 / Math.SQRT2, "la raíz sin llaves"],
+  [R`3x^2.e^{x}+x^3.e^{x}`, (x: number) => 3 * x ** 2 * Math.exp(x) + x ** 3 * Math.exp(x), "el punto como signo de multiplicar"],
+  [`2x${"−"}3`, (x: number) => 2 * x - 3, "el menos tipográfico"],
+] as const) {
+  const mio = latexAMathJson(normalizeAnswerLatex(latex))
+  const ok =
+    mio !== null &&
+    [0.37, 1.23, 2.31].every((x) => {
+      const v = evaluarMathJson(mio, x)
+      return v !== null && Math.abs(v - f(x)) < 1e-9
+    })
+  check(ok, `«${latex}»: ${que}`)
+}
+// Y lo que NO se adivina.
+check(latexAMathJson(normalizeAnswerLatex(R`\sin^{-1}\left(x\right)`)) === null,
+  "«sen⁻¹(x)» no se contesta: arcoseno para unos, recíproco para otros")
+check(latexAMathJson(normalizeAnswerLatex(R`\frac{}{x}`)) === null,
+  "una fracción sin numerador sigue siendo ilegible")
+check(latexAMathJson(normalizeAnswerLatex("2.5x")) !== null &&
+  evaluarMathJson(latexAMathJson(normalizeAnswerLatex("2.5x")), 2) === 5,
+  "y el punto entre dos dígitos sigue siendo decimal")
 
 console.log()
 if (fallos > 0) {

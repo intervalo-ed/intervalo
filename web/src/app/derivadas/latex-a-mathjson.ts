@@ -330,7 +330,25 @@ class Analizador {
       return ["Log", this.argumento()]
     }
 
-    if (t.v in FUNCIONES) return [FUNCIONES[t.v], this.argumento()]
+    if (t.v in FUNCIONES) {
+      // `\cos^2(x)`: la potencia pegada al nombre es la potencia de la FUNCIÓN,
+      // (cos x)². Es como se escribe a mano y como lo serializa MathLive cuando
+      // se toca la tecla de la función y después la del exponente, y son la
+      // derivada de la tangente (`1/\cos^2(x)`) y toda la regla de la cadena
+      // sobre una potencia de seno o coseno (`4\sin^3(x)\cos(x)`).
+      //
+      // Con −1 no se contesta: `\sin^{-1}` es el arcoseno para medio mundo y el
+      // recíproco para el otro medio, y acá no se adivina.
+      if (this.esCh("^")) {
+        this.i++
+        const potencia = this.exponente()
+        if (potencia === -1 || (Array.isArray(potencia) && potencia[0] === "Negate" && potencia[1] === 1)) {
+          throw new Falla()
+        }
+        return ["Power", [FUNCIONES[t.v], this.argumento()], potencia]
+      }
+      return [FUNCIONES[t.v], this.argumento()]
+    }
 
     throw new Falla()
   }
