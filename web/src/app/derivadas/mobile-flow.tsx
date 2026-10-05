@@ -1874,12 +1874,31 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                       }}
                     >
                       <div className="mx-auto w-full max-w-md text-[15px]">
-                        <span className="font-semibold text-white">¿Seguro?</span>
-                        <div className="mt-3 text-foreground/85">
-                          Podés ayudarte con la tabla{" "}
-                          <Table2 className="-mt-0.5 inline-block size-[0.9em]" /> o revisar la
-                          explicación con el botón de «¿Por qué?».
-                        </div>
+                        {/* Dos carteles y no uno. `parse_ok: false` quiere
+                            decir que la respuesta NO SE PUDO LEER —un paréntesis
+                            sin cerrar, un casillero vacío—, y no que esté mal:
+                            el servidor ni llegó a corregirla y no consume
+                            intento. Decirle «¿Seguro?» y mandarla a la tabla le
+                            hace revisar la matemática a quien solo tiene que
+                            revisar cómo la escribió. */}
+                        {lastAnswer?.parse_ok === false ? (
+                          <>
+                            <span className="font-semibold text-white">No se pudo leer</span>
+                            <div className="mt-3 text-foreground/85">
+                              Algo falló en la lectura de tu respuesta. Revisá cómo la
+                              escribiste.
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <span className="font-semibold text-white">¿Seguro?</span>
+                            <div className="mt-3 text-foreground/85">
+                              Podés ayudarte con la tabla{" "}
+                              <Table2 className="-mt-0.5 inline-block size-[0.9em]" /> o revisar
+                              la explicación con el botón de «¿Por qué?».
+                            </div>
+                          </>
+                        )}
                       </div>
                     </div>
                   </motion.div>
