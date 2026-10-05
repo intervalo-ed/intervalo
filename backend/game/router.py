@@ -968,7 +968,9 @@ def skip_exercise(
 # perfil ni zona declarada— sino la del público al que apunta: si alguien juega
 # desde otro huso, su "hoy" arranca cuando arranca acá, que es cuando arranca el
 # ranking con el que se compara.
-_TZ_JUEGO = ZoneInfo("America/Argentina/Buenos_Aires")
+# Una sola zona para el día del juego: la define la simulación, que saca la
+# foto diaria del ranking con el mismo borde.
+_TZ_JUEGO = simulation.TZ_JUEGO
 _UTC = ZoneInfo("UTC")
 
 
@@ -2064,8 +2066,6 @@ def game_leaderboard(
                 GamePlayer.career,
                 GamePlayer.theta,
                 GamePlayer.user_id,
-                GamePlayer.rank_recent,
-                GamePlayer.rank_recent_at,
                 GamePlayer.rank_snapshot,
                 GamePlayer.rank_snapshot_at,
                 # Cuántas respuestas ajustaron el Elo: es lo que decide si el
@@ -2081,6 +2081,12 @@ def game_leaderboard(
     )
 
     now = datetime.utcnow()
+    # La flecha compara contra la foto del día, que es del ranking ENTERO por
+    # XP. Ordenado por Elo o acotado a una universidad o carrera, el puesto de
+    # la fila es de otra tabla y la resta daría un número que no es el
+    # movimiento de nadie: ahí no hay flecha.
+    con_flecha = not por_elo and not scope
+    hay_foto = con_flecha and simulation.hay_foto_de_hoy(db, now)
     entries = [
         GameLeaderboardEntry(
             rank=page_offset + index + 1,
@@ -2101,12 +2107,12 @@ def game_leaderboard(
             # para cambiar de columna.
             elo=elo.rating_of(row.theta),
             elo_ranked=row.n_updates >= elo.RAMP_UPDATES,
-            # Sin flecha en el orden por Elo. `rank_delta` se calcula contra
-            # `rank_snapshot` / `rank_recent`, que son fotos del puesto por XP
-            # (simulation.py): comparadas contra un puesto por Elo darían un
-            # número que no es el movimiento de nadie.
             rank_delta=(
-                0 if por_elo else simulation.rank_delta(row, page_offset + index + 1, now)
+                simulation.rank_delta(
+                    row, page_offset + index + 1, now,
+                    ultimo_puesto=total_count, hay_foto=hay_foto,
+                )
+                if con_flecha else 0
             ),
         )
         for index, row in enumerate(page)
