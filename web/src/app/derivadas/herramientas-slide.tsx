@@ -25,6 +25,7 @@
 // al lado de un ⊞ es una pista falsa.
 
 import { useEffect, useRef } from "react"
+import { useIsPresent } from "motion/react"
 import posthog from "posthog-js"
 import { SkipForward, Table2 } from "lucide-react"
 
@@ -81,8 +82,11 @@ export function HerramientasSlide({
     posthog.capture("game_herramientas_shown")
   }, [])
 
+  // Saliendo no escucha: la diapo sigue montada mientras se funde (o se
+  // desliza, en el teléfono) y un Enter en ese rato era suyo otra vez.
+  const presente = useIsPresent()
   useEffect(() => {
-    if (!keyboard) return
+    if (!keyboard || !presente) return
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== "Enter") return
       if (enCampoDeTexto(e.target)) return
@@ -93,7 +97,7 @@ export function HerramientasSlide({
     }
     document.addEventListener("keydown", onKey)
     return () => document.removeEventListener("keydown", onKey)
-  }, [keyboard, onContinue])
+  }, [keyboard, presente, onContinue])
 
   return (
     // `slotSalida` distingue escritorio en todo este flujo. Alla la pantalla

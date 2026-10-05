@@ -23,7 +23,7 @@
 // después de haber leído que mañana vuelve gratis.
 
 import { useEffect, useRef, useState } from "react"
-import { motion, useReducedMotion } from "motion/react"
+import { motion, useIsPresent, useReducedMotion } from "motion/react"
 import { Coffee } from "lucide-react"
 import posthog from "posthog-js"
 
@@ -164,8 +164,11 @@ export function TopePanel({
     listoRef.current = listo
   })
 
+  // Saliendo no escucha: la diapo sigue montada mientras se funde (o se
+  // desliza, en el teléfono) y un Enter en ese rato era suyo otra vez.
+  const presente = useIsPresent()
   useEffect(() => {
-    if (!keyboard) return
+    if (!keyboard || !presente) return
     const onKey = (e: KeyboardEvent) => {
       if (enCampoDeTexto(e.target)) return
       if (e.metaKey || e.ctrlKey || e.altKey) return
@@ -183,7 +186,7 @@ export function TopePanel({
     }
     document.addEventListener("keydown", onKey)
     return () => document.removeEventListener("keydown", onKey)
-  }, [keyboard])
+  }, [keyboard, presente])
 
   const esperar = (
     <button
