@@ -1066,6 +1066,32 @@ ya sirvió unos diez puntos más difícil para todos. La predicción escrita de
 antemano es que este contraste salga MÁS CHICO que aquella diferencia
 antes/después. Interruptor: `BANDA_ENABLED=0`.
 
+### La flecha del ranking: lo subido hoy (`game/simulation.py`)
+
+Al lado de cada fila del ranking individual por XP, una flecha verde o naranja
+con un número: **cuántos puestos subió o bajó hoy**. Es el puesto con el que
+empezó el día menos el de ahora.
+
+- **Una foto por día.** El primer tick posterior a la medianoche de Buenos Aires
+  escribe el puesto de todos en `game_players.rank_snapshot`, en una sola
+  sentencia. No hay tabla nueva ni historial: solo la foto de hoy.
+- **Quien entra al ranking hoy arranca de abajo de todo.** No tiene foto —a la
+  medianoche no había resuelto nada—, así que su referencia es el último puesto.
+  La flecha cuenta desde su primera derivada, que es cuando más puestos se
+  suben: la cola del ranking es densa, y el primer acierto ya pasa a cientos.
+- **Se apaga a la medianoche** y vuelve a contar de cero.
+- **Sin flecha** en el orden por Elo y con un filtro de universidad o carrera:
+  la foto es del ranking entero por XP, y contra el puesto de otra tabla la
+  resta no es el movimiento de nadie.
+
+Hasta el 05/10 medía otra cosa —lo movido en los últimos 2,5 a 5 minutos, con
+dos fotos que se corrían cada 150 s— y se cambió por un caso real: alguien subió
+unos 875 puestos en su primera tanda y la flecha decía ↑136. Olvidaba a los
+cinco minutos, y no empezaba a contar hasta la primera foto posterior al primer
+acierto. De paso numeraba a los de `xp > 0` cuando el ranking muestra a los de
+`exercises_correct > 0`. La versión de ahora además escribe menos: un UPDATE de
+la tabla por día en vez de uno cada dos minutos y medio.
+
 ### El feed de eventos (`game/events.py`)
 
 La lista que corre debajo del CTA, y que en el panel del chat se intercala con lo

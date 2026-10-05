@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import random
 from datetime import datetime, timedelta
+from zoneinfo import ZoneInfo
 
 from sqlalchemy import and_ as sa_and, or_ as sa_or, text as sa_text
 from sqlalchemy.orm import Session
@@ -34,11 +35,41 @@ TICK_SECONDS = 10
 BOTS_PER_TICK = (3, 6)
 XP_PER_MOVE = (20, 40)
 
-# Ventana de las flechitas de "se movió recién". La foto del puesto se refresca
-# a la mitad de la ventana, así que lo que muestra cada flecha es un movimiento
-# de entre 2,5 y 5 minutos — nunca más viejo que eso.
-RANK_WINDOW_SECONDS = 300
-SNAPSHOT_REFRESH_SECONDS = RANK_WINDOW_SECONDS // 2
+# ── La flecha del ranking: cuánto subió HOY ─────────────────────────────────
+#
+# La flecha de cada fila es «el puesto con el que empezó el día menos el de
+# ahora». Hay UNA foto por día —la saca el primer tick después de la medianoche
+# de Buenos Aires— y todo lo demás se calcula al leer.
+#
+# Hasta el 05/10 era otra cosa: una ventana de 2,5 a 5 minutos, con dos fotos
+# en registro de desplazamiento que se corrían cada 150 segundos. Tenía tres
+# problemas, y los tres se vieron con un jugador de verdad:
+#
+#   · **Olvidaba.** Quien subía 875 puestos en una tanda veía «↑136»: lo de los
+#     últimos minutos. El número que la persona quiere es el de su día.
+#   · **Arrancaba tarde.** La foto solo incluía a quien ya tenía XP, así que un
+#     recién llegado no tenía contra qué compararse hasta el primer corrimiento
+#     posterior a su primer acierto. Los primeros aciertos —que son los que más
+#     puestos mueven, porque la cola del ranking es densa— no contaban.
+#   · **Numeraba otra población.** La foto ordenaba a los de `xp > 0` y el
+#     ranking muestra a los de `exercises_correct > 0` (ver `ranking.py`): con
+#     alguien en una y no en la otra, todas las flechas arrastraban el mismo
+#     corrimiento.
+#
+# Y es más barata: un UPDATE de toda la tabla por día en vez de uno cada dos
+# minutos y medio.
+#
+# El día es el de Buenos Aires, el mismo del resto del juego (el contador de
+# derivadas, el tope): `router._inicio_del_dia` usa esta misma zona.
+TZ_JUEGO = ZoneInfo("America/Argentina/Buenos_Aires")
+_UTC = ZoneInfo("UTC")
+
+
+def inicio_del_dia(now: datetime) -> datetime:
+    """La medianoche de Buenos Aires anterior a `now`, en UTC ingenuo."""
+    local = now.replace(tzinfo=_UTC).astimezone(TZ_JUEGO)
+    medianoche = local.replace(hour=0, minute=0, second=0, microsecond=0)
+    return medianoche.astimezone(_UTC).replace(tzinfo=None)
 
 
 def get_state(db: Session) -> GameSimState:
@@ -133,12 +164,17 @@ def _advance_bots(db: Session, now: datetime, rng: random.Random) -> int:
 
 
 def _refresh_snapshots(db: Session, now: datetime) -> None:
-    """Corre el registro de fotos del puesto, si la última ya está vieja.
+    """Saca la foto del día, si todavía no se sacó.
 
-    Es un registro de desplazamiento de dos posiciones: la foto reciente pasa a
-    ser la de referencia y se toma una nueva. Así el punto de comparación
-    siempre tiene entre media ventana y una ventana de antigüedad, y nunca hay
-    un instante en que todas las flechas del ranking se apaguen juntas.
+    Con cuánto puesto empezó hoy cada uno. Corre en el primer tick posterior a
+    la medianoche de Buenos Aires; si a esa hora no hay nadie, corre cuando
+    llegue el primero, y da lo mismo: sin tráfico no hay ticks, sin ticks los
+    sembrados no avanzan, y sin nadie jugando el orden no cambió.
+
+    Numera a quienes están EN el ranking (`exercises_correct > 0`), con el orden
+    canónico. Tiene que ser la misma población y el mismo orden que arma la
+    lista (`ranking.RESOLVIO_ACA`, `ranking.ORDEN_XP`), o la flecha compara
+    puestos de dos tablas distintas.
 
     Se escribe el puesto de cada fila en UNA sentencia, numerando con una función
     de ventana. Antes era un UPDATE por jugador dentro de un bucle de Python,
@@ -149,10 +185,8 @@ def _refresh_snapshots(db: Session, now: datetime) -> None:
     que va tocando: el juego entero se detenía cada dos minutos y medio.
     """
     state = get_state(db)
-    if state.last_snapshot_at is not None:
-        age = (now - state.last_snapshot_at).total_seconds()
-        if age < SNAPSHOT_REFRESH_SECONDS:
-            return
+    if state.last_snapshot_at is not None and state.last_snapshot_at >= inicio_del_dia(now):
+        return
 
     # `UPDATE ... FROM` con una subconsulta numerada. Postgres y SQLite escriben
     # esta forma igual (SQLite la soporta desde la 3.33), así que no hace falta
@@ -161,15 +195,13 @@ def _refresh_snapshots(db: Session, now: datetime) -> None:
         sa_text(
             """
             UPDATE game_players
-               SET rank_snapshot = game_players.rank_recent,
-                   rank_snapshot_at = game_players.rank_recent_at,
-                   rank_recent = puestos.puesto,
-                   rank_recent_at = :ahora
+               SET rank_snapshot = puestos.puesto,
+                   rank_snapshot_at = :ahora
               FROM (
                     SELECT id,
                            row_number() OVER (ORDER BY xp DESC, id ASC) AS puesto
                       FROM game_players
-                     WHERE xp > 0
+                     WHERE exercises_correct > 0
                    ) AS puestos
              WHERE game_players.id = puestos.id
             """
@@ -205,23 +237,43 @@ def maybe_tick(db: Session) -> bool:
     return moved > 0
 
 
-def rank_delta(player: GamePlayer, current_rank: int, now: datetime | None = None) -> int:
-    """Puestos que ganó (positivo) o perdió (negativo) en los últimos minutos.
+def hay_foto_de_hoy(db: Session, now: datetime) -> bool:
+    """Si la foto del día ya se sacó. Una lectura de la fila de estado."""
+    ultima = (
+        db.query(GameSimState.last_snapshot_at).filter(GameSimState.id == 1).scalar()
+    )
+    return ultima is not None and ultima >= inicio_del_dia(now)
 
-    Se compara contra la foto de referencia; mientras esa todavía no existe
-    (recién sembrado, o apenas arrancó la simulación) sirve la reciente. Si la
-    única que hay ya quedó fuera de la ventana devuelve 0: una flecha que habla
-    de hace media hora no dice "está pasando ahora", que es lo único que la
-    flecha tiene para decir.
+
+def rank_delta(
+    player: GamePlayer,
+    current_rank: int,
+    now: datetime,
+    *,
+    ultimo_puesto: int,
+    hay_foto: bool,
+) -> int:
+    """Puestos que ganó (positivo) o perdió (negativo) HOY.
+
+    Tres casos, y ninguno escribe nada:
+
+      · **Tiene foto de hoy**: arrancó el día en ese puesto. La flecha es la
+        diferencia.
+      · **No la tiene, y la foto de hoy ya se sacó**: entró al ranking hoy —su
+        primera derivada resuelta es de hoy—, así que arrancó de abajo de todo.
+        La referencia es el último puesto (`ultimo_puesto`, el tamaño de la
+        tabla), y la flecha cuenta desde la primera derivada. Es lo que antes
+        se perdía.
+      · **Todavía no hay foto de hoy** (los segundos entre la medianoche y el
+        primer tick): no hay contra qué comparar, y la flecha no se dibuja. Una
+        foto de ayer NO sirve de referencia: diría lo de ayer.
     """
-    reference = now or datetime.utcnow()
-    for rank, taken_at in (
-        (player.rank_snapshot, player.rank_snapshot_at),
-        (player.rank_recent, player.rank_recent_at),
+    if not hay_foto:
+        return 0
+    if (
+        player.rank_snapshot is not None
+        and player.rank_snapshot_at is not None
+        and player.rank_snapshot_at >= inicio_del_dia(now)
     ):
-        if rank is None or taken_at is None:
-            continue
-        if (reference - taken_at).total_seconds() > RANK_WINDOW_SECONDS:
-            continue
-        return rank - current_rank
-    return 0
+        return player.rank_snapshot - current_rank
+    return max(0, ultimo_puesto - current_rank)

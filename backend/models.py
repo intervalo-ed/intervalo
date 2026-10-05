@@ -971,12 +971,14 @@ class GamePlayer(Base):
     # analizar el juego.
     is_bot = Column(Boolean, nullable=False, default=False, server_default="false")
 
-    # Dos fotos del puesto, en registro de desplazamiento (ver game/simulation.py).
-    # La diferencia entre `rank_snapshot` y el puesto actual es la flechita de
-    # "se movió recién" de cada fila. Son DOS y no una porque con una sola, al
-    # refrescarla, todas las flechas del ranking se apagarían de golpe a la vez;
-    # con dos, la referencia se desliza y siempre queda entre media ventana y
-    # una ventana de antigüedad.
+    # La foto del día: con qué puesto arrancó hoy (ver game/simulation.py). La
+    # diferencia entre `rank_snapshot` y el puesto actual es la flechita de
+    # cada fila, que cuenta lo subido en el día.
+    #
+    # `rank_recent` y `rank_recent_at` quedaron SIN USO el 05/10: eran la
+    # segunda posición de un registro de desplazamiento, de cuando la flecha
+    # medía los últimos minutos. Nadie las lee ni las escribe; siguen en la
+    # tabla porque sacarlas es una migración que no arregla nada.
     rank_snapshot = Column(Integer, nullable=True)
     rank_snapshot_at = Column(DateTime, nullable=True)
     rank_recent = Column(Integer, nullable=True)

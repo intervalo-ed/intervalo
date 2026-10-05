@@ -1934,7 +1934,7 @@ const Row = memo(function Row({
             "inline-flex shrink-0 items-center gap-0.5 text-xs font-medium tabular-nums",
             delta > 0 ? "text-green-400" : "text-orange-400",
           )}
-          aria-label={`${delta > 0 ? "subió" : "bajó"} ${Math.abs(delta)} puestos`}
+          aria-label={`${delta > 0 ? "subió" : "bajó"} ${Math.abs(delta)} puestos hoy`}
         >
           {delta > 0 ? <ArrowUp size={12} /> : <ArrowDown size={12} />}
           {Math.abs(delta)}

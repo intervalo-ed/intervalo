@@ -113,10 +113,18 @@ check(
     "un tick que no avanza no toca la version",
 )
 
-print("4. fotos del puesto y flechita")
-now = datetime.utcnow()
-# Partir de cero: los ticks de arriba ya corrieron el registro, y lo que se
-# quiere probar acá es cómo arranca.
+print("4. la foto del día y la flecha")
+# Mediodía de Buenos Aires de un día fijo: lejos de la medianoche, para que el
+# check no dependa de la hora a la que corre.
+HOY = datetime(2026, 10, 5, 15, 0, 0)        # 12:00 en Buenos Aires
+AYER = HOY - timedelta(days=1)
+MANANA = HOY + timedelta(days=1)
+check(simulation.inicio_del_dia(HOY) == datetime(2026, 10, 5, 3, 0, 0),
+      "el día arranca a la medianoche de Buenos Aires (03:00 UTC)")
+check(simulation.inicio_del_dia(datetime(2026, 10, 5, 2, 59, 0)) == datetime(2026, 10, 4, 3, 0, 0),
+      "y a las 23:59 de allá todavía es el día anterior")
+
+# Partir de cero: los ticks de arriba ya sacaron una foto.
 db.query(GamePlayer).update(
     {"rank_snapshot": None, "rank_snapshot_at": None, "rank_recent": None, "rank_recent_at": None},
     synchronize_session=False,
@@ -124,44 +132,77 @@ db.query(GamePlayer).update(
 state = db.query(GameSimState).filter(GameSimState.id == 1).first()
 state.last_snapshot_at = None
 db.commit()
-simulation._refresh_snapshots(db, now)
-db.commit()
-sample = db.query(GamePlayer).filter(GamePlayer.is_bot.is_(True)).first()
-check(sample.rank_recent is not None, "la primera foto llena la reciente")
-check(sample.rank_snapshot is None, "todavía no hay foto de referencia")
-check(
-    simulation.rank_delta(sample, sample.rank_recent, now) == 0,
-    "sin movimiento no hay flecha",
-)
+check(not simulation.hay_foto_de_hoy(db, HOY), "sin foto, no hay foto de hoy")
 
-# Segundo corrimiento: la reciente pasa a referencia y se toma una nueva.
-state.last_snapshot_at = now - timedelta(seconds=simulation.SNAPSHOT_REFRESH_SECONDS + 1)
+# La población del ranking es `exercises_correct > 0`, no `xp > 0`. Uno de cada
+# clase que NO coincide, para que la foto no pueda numerar la tabla equivocada.
+solo_xp = GamePlayer(alias="soloXp", xp=10_000_000, exercises_correct=0,
+                     exercises_attempted=0, theta=0.0, n_updates=0)
+db.add(solo_xp)
 db.commit()
-later = now + timedelta(seconds=simulation.SNAPSHOT_REFRESH_SECONDS + 1)
-simulation._refresh_snapshots(db, later)
+
+simulation._refresh_snapshots(db, HOY)
+db.commit()
+check(simulation.hay_foto_de_hoy(db, HOY), "el primer refresco del día saca la foto")
+db.refresh(solo_xp)
+check(solo_xp.rank_snapshot is None,
+      "quien tiene XP sin haber resuelto nada no está en el ranking, y no sale en la foto")
+en_tabla = (db.query(GamePlayer).filter(GamePlayer.exercises_correct > 0)
+            .order_by(GamePlayer.xp.desc(), GamePlayer.id.asc()).all())
+check(all(p.rank_snapshot == i + 1 for i, p in enumerate(en_tabla)),
+      "la foto numera en el MISMO orden y la misma población que el ranking")
+check(all(p.rank_recent is None for p in en_tabla),
+      "y ya no escribe la foto reciente, que quedó sin uso")
+TOTAL = len(en_tabla)
+sample = en_tabla[TOTAL // 2]
+
+
+def flecha(p, puesto, cuando=HOY, hay=True):
+    return simulation.rank_delta(p, puesto, cuando, ultimo_puesto=TOTAL, hay_foto=hay)
+
+
+check(flecha(sample, sample.rank_snapshot) == 0, "sin movimiento no hay flecha")
+check(flecha(sample, sample.rank_snapshot - 3) == 3, "subir 3 puestos da flecha de 3")
+check(flecha(sample, sample.rank_snapshot + 2) == -2, "bajar 2 puestos da flecha de -2")
+
+# Una foto por día: horas después, el mismo día, no se vuelve a sacar.
+foto = sample.rank_snapshot_at
+simulation._refresh_snapshots(db, HOY + timedelta(hours=6))
 db.commit()
 db.refresh(sample)
-check(sample.rank_snapshot is not None, "el registro corrió: ya hay referencia")
-check(
-    sample.rank_snapshot_at is not None
-    and abs((sample.rank_snapshot_at - now).total_seconds()) < 2,
-    "la referencia es la foto vieja, no la nueva",
-)
-check(
-    simulation.rank_delta(sample, sample.rank_snapshot - 3, later) == 3,
-    "subir 3 puestos da flecha de 3",
-)
-check(
-    simulation.rank_delta(sample, sample.rank_snapshot + 2, later) == -2,
-    "bajar 2 puestos da flecha de -2",
-)
+check(sample.rank_snapshot_at == foto, "el mismo día la foto no se vuelve a sacar")
+check(flecha(sample, sample.rank_snapshot - 40, HOY + timedelta(hours=6)) == 40,
+      "y la flecha sigue contando horas después: es lo del día, no lo de los últimos minutos")
 
-print("5. una foto vieja no dibuja flecha")
-stale = later + timedelta(seconds=simulation.RANK_WINDOW_SECONDS + 10)
-check(
-    simulation.rank_delta(sample, sample.rank_snapshot - 5, stale) == 0,
-    "fuera de la ventana no hay flecha, por más que se haya movido",
-)
+print("5. quien entra hoy cuenta desde abajo, y a la medianoche se apaga")
+nuevo = GamePlayer(alias="llegoHoy", xp=15, exercises_correct=1,
+                   exercises_attempted=1, theta=0.0, n_updates=1)
+db.add(nuevo)
+db.commit()
+TOTAL += 1
+check(nuevo.rank_snapshot is None, "el que resolvió su primera derivada hoy no tiene foto")
+check(flecha(nuevo, TOTAL) == 0, "último, recién entrado: sin flecha")
+check(flecha(nuevo, TOTAL - 235) == 235,
+      "y cada puesto que sube cuenta desde su PRIMERA derivada, sin esperar una foto")
+
+# Al día siguiente, antes del primer tick: la foto de ayer no sirve.
+check(not simulation.hay_foto_de_hoy(db, MANANA), "pasada la medianoche la foto es de ayer")
+check(flecha(sample, sample.rank_snapshot - 40, MANANA, hay=False) == 0,
+      "sin foto de hoy no hay flecha, por más que ayer se haya movido")
+simulation._refresh_snapshots(db, MANANA)
+db.commit()
+db.refresh(sample)
+db.refresh(nuevo)
+check(simulation.hay_foto_de_hoy(db, MANANA), "el primer tick del día nuevo la saca")
+check(nuevo.rank_snapshot is not None, "y el que entró ayer ya sale en ella")
+check(flecha(sample, sample.rank_snapshot, MANANA) == 0,
+      "todos arrancan el día en cero")
+# Una foto con fecha de ayer en una fila, con la de hoy ya sacada: no se usa
+# como referencia (sería contar lo de ayer); cuenta como recién entrado.
+sample.rank_snapshot_at = AYER
+db.commit()
+check(flecha(sample, TOTAL - 7, MANANA) == 7,
+      "una fila con foto vieja se trata como entrada de hoy, no con el puesto de ayer")
 
 db.close()
 

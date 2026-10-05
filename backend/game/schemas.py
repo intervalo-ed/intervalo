@@ -291,9 +291,11 @@ class GameLeaderboardEntry(BaseModel):
     # orden por Elo va detrás de todos los calificados. Mismo criterio que
     # `GameUniversityRow.ranked`, una persona en vez de una universidad.
     elo_ranked: bool = False
-    # Puestos ganados (+) o perdidos (−) en los últimos minutos. 0 = sin
-    # movimiento reciente, y el front no dibuja flecha. Siempre 0 en el orden
-    # por Elo: las fotos contra las que se compara son del puesto por XP.
+    # Puestos ganados (+) o perdidos (−) HOY, contra el puesto con el que
+    # empezó el día (o contra el último, si entró al ranking hoy). 0 = no se
+    # movió, y el front no dibuja flecha. Siempre 0 en el orden por Elo y con
+    # un filtro de universidad o carrera: la foto es del ranking entero por XP
+    # (game/simulation.py).
     rank_delta: int = 0
 
 
