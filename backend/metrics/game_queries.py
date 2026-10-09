@@ -3961,7 +3961,25 @@ EXPERIMENTOS_GRUPOS: tuple[dict, ...] = (
             "una foto del top 5 en vez de como texto suelto. ¿Sube el clickrate del "
             "grupo?"
         ),
-        "cierre": None,
+        "cierre": cerrado(
+            date(2026, 10, 8),
+            "Sin diferencia detectable · cerrado por FUTILIDAD",
+            "Se paró con 77 y 85 de los 88 grupos por brazo, y no por cansancio: "
+            "el clickrate crudo dio 5,55% contra 5,56% y el ajustado por universidad "
+            "+0,27 pp (IC95 −1,13 a +1,67, p 0,71), así que el intervalo ya deja afuera "
+            "el efecto de 2,4 pp que se había propuesto detectar. Aunque a los 14 "
+            "grupos que faltaban se les regalara el efecto declarado entero, el "
+            "contraste final daría z = 0,50 contra el 1,96 que hace falta; para que "
+            "todavía diera significativo, los 3 del tratamiento tendrían que rendir "
+            "32 pp por encima de su universidad. Parar por futilidad no puede "
+            "fabricar un falso positivo: lo que infla el error de tipo I es frenar "
+            "cuando el p-valor cruza 0,05. La conclusión vale para el primer contacto "
+            "con dx en un grupo; no se probó la imagen en grupos que ya recibieron "
+            "antes un mensaje de Intervalo. Los guardarraíles tampoco se movieron "
+            "(activación 71,5% contra 74,2%, 7,5 activados por grupo en los dos). Se "
+            "vuelve al texto.",
+            pdf="https://drive.google.com/file/d/1bulCpKMVvmbvImSn-hT_G9iqLSDCE9RC/view",
+        ),
         "hipotesis": (
             "Los seis mensajes de siempre, salvo que el último —el que apela a la "
             "universidad— viaja como el pie de una foto del top 5 en vez de como "

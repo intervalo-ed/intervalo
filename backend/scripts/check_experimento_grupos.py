@@ -113,7 +113,7 @@ def escenario(por_brazo: int, efecto_pp: float, semilla: int = 5):
     return db
 
 
-def leer(db):
+def leer(db, mantener_cierre=False):
     """El payload y el HTML de la VISTA de este experimento, como los ve el panel.
 
     Con `exp` la pestaña devuelve el índice y no el bloque: desde que
@@ -122,8 +122,17 @@ def leer(db):
     """
     q.FIRST_WEEK = LUNES.date() - timedelta(days=LUNES.weekday())
     clave = q.EXPERIMENTOS_GRUPOS[0]["clave"]
-    p = q.build(db, q.FIRST_WEEK, exp=clave)
-    html = game_render.page(p, token="tok", seccion="experimentacion", exp=clave)
+    # El experimento real ya está cerrado (08/10) y una vista cerrada muestra la
+    # caja de cierre en vez de los estados que acá se prueban. Se apaga el cierre
+    # SOLO durante la lectura, para seguir ejercitando el estimador y el render
+    # de los estados abiertos; el estado cerrado tiene su propio check al final.
+    cierre = q.EXPERIMENTOS_GRUPOS[0]["cierre"]
+    q.EXPERIMENTOS_GRUPOS[0]["cierre"] = None if not mantener_cierre else cierre
+    try:
+        p = q.build(db, q.FIRST_WEEK, exp=clave)
+        html = game_render.page(p, token="tok", seccion="experimentacion", exp=clave)
+    finally:
+        q.EXPERIMENTOS_GRUPOS[0]["cierre"] = cierre
     db.close()
     return p["experimentos_grupos"][0], html
 
@@ -199,6 +208,14 @@ for efecto in (0.0, 3.0, -3.0, 6.0):
     check(f"con efecto {efecto:+.0f} pp, rechazar e IC sin el cero dicen lo mismo",
           L["rechaza"] == excluye,
           f'(rechaza={L["rechaza"]}, IC={L["ic_pp"]})')
+
+print()
+print("— el experimento cerrado —")
+exp, html = leer(escenario(0, 0.0), mantener_cierre=True)
+check("el cierre declarado viaja en el payload, con motivo y PDF",
+      exp["cierre"] and exp["cierre"]["motivo"] and exp["cierre"]["pdf"])
+check("y la vista cerrada dice por qué se paró",
+      "FUTILIDAD" in html)
 
 print()
 if fallos:
