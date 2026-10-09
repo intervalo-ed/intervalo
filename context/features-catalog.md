@@ -106,7 +106,7 @@ huérfano. Ninguna de las dos tenía un lugar visible donde entrar.
 
 Ahora está en **«Elegí tu @»** (`username-slide.tsx`), que es la primera
 pantalla que ve cualquier aparato nuevo: debajo del campo, «Vincular con
-Google» y la línea «Si ya jugaste en otro aparato, acá recuperás tu progreso».
+Google» y la línea «Vinculá tu cuenta para no perder tu progreso».
 El login es el mismo de la diapo de registro, movido a `google-login.tsx` para
 que las dos pantallas no lo repitan; si la persona ya escribió un @ antes de
 tocar, viaja como «alias deseado» y se aplica al volver.
