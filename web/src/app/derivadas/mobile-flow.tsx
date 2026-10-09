@@ -1867,12 +1867,12 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                       // mezclado con el propio fondo (`--background`) en vez
                       // de con transparencia, es una variante MÁS OSCURA del
                       // mismo color, y se lee como parte de la pantalla y no
-                      // como una capa flotando arriba. El segundo `color-mix`
-                      // (88% de este color, 12% transparente) es apenas un
-                      // dejo de traslúcido encima de eso — no vuelve a la
-                      // versión de antes.
+                      // como una capa flotando arriba. Opaco del todo desde el
+                      // 09/10: el 12% de transparencia que tenía dejaba ver el
+                      // teclado de abajo, y las teclas se mezclaban con el texto
+                      // del cartel hasta no poder leerlo.
                       style={{
-                        backgroundColor: `color-mix(in srgb, color-mix(in oklab, var(--background) 85%, ${VERDE_ACIERTO} 15%) 88%, transparent)`,
+                        backgroundColor: `color-mix(in oklab, var(--background) 85%, ${VERDE_ACIERTO} 15%)`,
                       }}
                     >
                       <div className="mx-auto w-full max-w-md text-[15px]">
@@ -1922,7 +1922,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                       )}
                       style={{
                         borderColor: `${WRONG}80`,
-                        backgroundColor: `color-mix(in srgb, color-mix(in oklab, var(--background) 75%, ${WRONG} 25%) 88%, transparent)`,
+                        backgroundColor: `color-mix(in oklab, var(--background) 75%, ${WRONG} 25%)`,
                       }}
                     >
                       <div className="mx-auto w-full max-w-md text-[15px]">
