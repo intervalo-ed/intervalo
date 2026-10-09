@@ -45,6 +45,7 @@ export function UsernameSlide({
   popup = false,
   autoFocus = false,
   keyboard = false,
+  onOpenPrivacy,
 }: {
   player: GamePlayer
   onDone: () => void
@@ -64,6 +65,8 @@ export function UsernameSlide({
   // campo) y Alt+Enter es Conectar con Google, la misma tecla que en las demás
   // diapos dispara la segunda acción (Saltear, Ahora no).
   keyboard?: boolean
+  // La hoja de «¿Qué pasa con mis datos?», la misma de la diapo de registro.
+  onOpenPrivacy?: () => void
 }) {
   const api = useGameApi()
   const sfx = useSfx()
@@ -189,6 +192,15 @@ export function UsernameSlide({
         <p className="text-xs leading-relaxed text-foreground/55">
           Vinculá tu cuenta para no perder tu progreso.
         </p>
+        {onOpenPrivacy && (
+          <button
+            type="button"
+            onClick={onOpenPrivacy}
+            className="text-center text-xs leading-relaxed text-foreground/45 underline underline-offset-2 transition-colors hover:text-foreground/70"
+          >
+            ¿Qué pasa con mis datos?
+          </button>
+        )}
       </div>
       {mensaje && <p className="text-sm text-orange-300">{mensaje}</p>}
       <Salida slot={slotSalida}>

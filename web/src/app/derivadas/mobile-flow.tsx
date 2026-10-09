@@ -1634,6 +1634,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
               <UsernameSlide
                 player={player}
                 slotSalida={salida}
+                onOpenPrivacy={() => setLegalOpen(true)}
                 // Desde la intro no hay nada que festejar y lo que sigue es la
                 // primera derivada; desde una respuesta el ranking YA se vio y
                 // lo que sigue es el resto de la escalera. `pendingRef` es lo

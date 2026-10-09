@@ -2681,6 +2681,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                       popup
                       autoFocus
                       keyboard
+                      onOpenPrivacy={abrirPrivacidad}
                     />
                   </div>
                 ) : panel === "register" && player ? (
