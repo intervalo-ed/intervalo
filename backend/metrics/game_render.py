@@ -304,6 +304,9 @@ _TONOS_TAG = {
     "pausado": "#e8c547",
     "activo": "#a3e635",
     "finalizado": "#48a06c",
+    # Fuera de la progresión a propósito: un cancelado no se asentó, se cortó.
+    # Gris, el mismo de «espera», porque no hay nada que decir de lo que midió.
+    "cancelado": "#8a8aa8",
 }
 
 
@@ -378,7 +381,7 @@ def _caja_estado(titulo: str, cuerpo: str, tono: str) -> str:
 
 
 def _estado_tag(e: dict) -> tuple[str, str]:
-    """En qué punto del ciclo está el experimento. Tres estados y nada más.
+    """En qué punto del ciclo está el experimento. Cuatro estados y nada más.
 
     **El RESULTADO no se dibuja acá a propósito.** Un «Ganó» o un «Sin efecto»
     en una tabla, sin el intervalo, el n ni el motivo al lado, es la forma más
@@ -391,6 +394,8 @@ def _estado_tag(e: dict) -> tuple[str, str]:
     interruptor de ambiente (`MURO_ENABLED`); en los demás da None y no pausa
     nada.
     """
+    if (e.get("cierre") or {}).get("cancelado"):
+        return "Cancelado", _TONOS_TAG["cancelado"]
     if e.get("cierre"):
         return "Finalizado", _TONOS_TAG["finalizado"]
     if e.get("encendido") is False:
@@ -602,8 +607,16 @@ _TAB_DE_PIEZA = {
 
 
 def _caja_cierre(e: dict) -> str:
-    """El estado de un experimento CERRADO: veredicto, motivo y el informe."""
+    """El estado de un experimento CERRADO: veredicto, motivo y el informe.
+
+    Un CANCELADO no tiene ni veredicto ni informe, y la caja no los finge: dice
+    la fecha, el motivo y que lo de abajo quedó sin contraste.
+    """
     c = e["cierre"]
+    if c.get("cancelado"):
+        return _caja_estado(
+            f'Cancelado el {c["fecha"].strftime("%d/%m/%Y")} · sin leerse',
+            esc(c["motivo"]), "plano")
     L = e.get("lectura")
     tono = "gana" if (L or {}).get("rechaza") else "plano"
     detalle = ""
@@ -2932,11 +2945,6 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
 
     if e.get("cierre"):
         estado = _caja_cierre(e)
-    elif not e["encendido"]:
-        estado = _caja_estado(
-            "Apagado",
-            '<code>BANDA_ENABLED</code> está en cero: los dos brazos apuntan a la banda '
-            'de siempre. Lo de abajo es lo que quedó de cuando estuvo prendido.', "espera")
     elif e["sin_arrancar"]:
         estado = _caja_estado(
             "Sin datos todavía",
@@ -3033,7 +3041,8 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
                   'que es lo único que puede decir dónde poner la banda la próxima vez.'),
         sub="El primero que mide percepción en vez de conducta. Un motor puede estar "
             "perfectamente calibrado y sentirse plano igual, y la profundidad no lo "
-            "distingue: sube tanto con un juego bien graduado como con uno fácil.",
+            "distingue: sube tanto con un juego bien graduado como con uno fácil. "
+            "Cancelado el 09/10: la tabla es lo que se juntó mientras corrió.",
         anchor="experimento-banda")
 
     # ── 6b · Experimentos por grupo de WhatsApp ──────────────────────────────

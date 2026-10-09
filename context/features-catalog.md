@@ -1077,7 +1077,14 @@ de rating hoy y 70 con el piso. Ese temblor ES el efecto buscado, pero a quien
 esté parado justo en un corte de nivel se le va a prender y apagar el color — y
 el corte de 3,7 acaba de dejar a 70 personas ahí cerca.
 
-### `dx-banda-1`: a qué dificultad apuntamos (desde el 28/09)
+### `dx-banda-1`: a qué dificultad apuntamos (28/09 → cancelado el 09/10)
+
+**Cancelado sin leerse.** Desde el 09/10 todos apuntan a la banda de siempre y
+el motor no sortea; el panel lo muestra con el estado «Cancelado» —el cuarto,
+después de Activo, Pausado y Finalizado— con el motivo en la caja y la tabla de
+lo que se juntó, sin contraste ni informe. La razón no fue el resultado sino
+que la dificultad se va a elegir de otra forma, y medir la banda sobre un
+selector que está por cambiar no decide nada. Lo que era:
 
 Dos brazos sorteados por hash del id en el servidor (`game/banda.py`), sin
 columna: `control` con la banda de siempre (p̂ 0,70–0,80) y `exigente` corrida un
@@ -1094,7 +1101,7 @@ fácil y entretenido.
 Corre encima de la recalibración del 27/09 (ver `context/gamification.md`), que
 ya sirvió unos diez puntos más difícil para todos. La predicción escrita de
 antemano es que este contraste salga MÁS CHICO que aquella diferencia
-antes/después. Interruptor: `BANDA_ENABLED=0`.
+antes/después.
 
 ### La flecha del ranking: lo subido hoy (`game/simulation.py`)
 

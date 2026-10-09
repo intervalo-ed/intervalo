@@ -88,14 +88,14 @@ export const OPINION_PRIMERA = 8
 //
 // **Duplicada el 27/09**, de [10, 10, 20, 30, 50, 80] a la tabla de abajo. El
 // motivo no es que la de antes molestara —el 93,6% sigue contestando— sino que
-// esta pregunta pasó a ser el TERMÓMETRO de un experimento: `dx-banda-1` mide a
-// qué tasa de acierto conviene apuntar, y su métrica es qué fracción de los
-// votos dice «muy fácil» (hoy 54,6%, y 76,2% entre los que pasaron las 250
+// esta pregunta pasó a ser el TERMÓMETRO de un experimento: `dx-banda-1` medía
+// a qué tasa de acierto conviene apuntar, y su métrica era qué fracción de los
+// votos dice «muy fácil» (54,6%, y 76,2% entre los que pasaron las 250
 // respuestas). Con la cadencia vieja llegaba al 10,3% de los jugadores y el
 // experimento se leía en meses.
 //
-// Sube para TODOS y a propósito no se sortea: un termómetro que marque distinto
-// en cada brazo no mide, decora.
+// El experimento se canceló el 09/10 sin leerse; la cadencia se queda, porque
+// es un termómetro mejor con o sin él. Sube para TODOS y no se sortea.
 //
 //   turnos nuevos: 28, 36, 44, 56, 74, 102, 142, 182, 222, 262…
 //

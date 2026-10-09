@@ -193,9 +193,16 @@ La migración es `scripts/diag/recalibrar_motor.py` y corrió una sola vez. Lo q
 cambia de acá en adelante es lo que el motor SIRVE: apuntando a 75% ahora sirve
 75%, que son unos diez puntos más difícil que antes.
 
-### A qué dificultad apuntamos (dx) — EXPERIMENTO `dx-banda-1`
+### A qué dificultad apuntamos (dx) — `dx-banda-1`, CANCELADO el 09/10
 
-Con el motor ya diciendo la verdad, queda la pregunta de producto: **¿a qué tasa
+**Corrió del 28/09 al 09/10 y se canceló sin leerse.** La banda es la de
+siempre para todos, p̂ ∈ [0,70 ; 0,80] (`elo.TARGET_LOW/HIGH`), y el motor no
+sortea nada. No se paró por lo que midió: la dificultad se va a elegir de otra
+forma, y correr la banda diez puntos sobre un selector que está por cambiar
+mide algo que no va a existir. Lo que sigue es lo que era, para que lo que se
+juntó se pueda leer en el panel.
+
+Con el motor ya diciendo la verdad, quedaba la pregunta de producto: **¿a qué tasa
 de acierto conviene apuntar?** El 54,6% de los votos de dificultad dice «muy
 fácil» y el 1,8% «muy difícil», y la proporción empeora con la experiencia —
 76,2% entre los que pasaron las 250 respuestas.
@@ -215,7 +222,8 @@ correctas, así que una banda más exigente podría retrasar la llegada y dejar
 votando solo a los más fuertes de su brazo; si eso pasa, el contraste está
 condicionado en un colisionador y ningún n lo arregla.
 
-Ver `game/banda.py` y `metrics/game_queries.py :: experimento_banda`.
+Ver `game/banda.py` (hoy solo el sorteo y las dos bandas, para el panel) y
+`metrics/game_queries.py :: experimento_banda`.
 
 ### La dificultad que la persona pide (dx)
 
@@ -238,9 +246,9 @@ de ahí los huecos crecen: 8, 8, 12, 18, 28 y 40, que es el último y se repite
 para siempre (`opinion-trigger.ts :: OPINION_CADENCIAS`). **Los huecos se
 partieron al medio el 27/09** —eran 10, 10, 20, 30, 50 y 80— porque esta
 pregunta pasó de ser un termómetro suelto a ser la MÉTRICA de un experimento
-(`dx-banda-1`): con la cadencia vieja llegaba al 10,3% de los jugadores y el
-experimento se leía en meses. Sube para todos y no se sortea: un termómetro que
-marque distinto en cada brazo no mide, decora. **No hay tope de
+(`dx-banda-1`, cancelado el 09/10): con la cadencia vieja llegaba al 10,3% de
+los jugadores y el experimento se leía en meses. La cadencia se queda aunque el
+experimento no: es un termómetro mejor con o sin él. **No hay tope de
 apariciones**; lo que corta es la falta de respuesta, tres salteos seguidos, que
 es la misma regla que el clásico usa en `feedback_survey.SKIP_STREAK_LEN`. Una
 respuesta borra la racha.
