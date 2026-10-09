@@ -1680,9 +1680,13 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
           )}
 
           {slide.kind === "username" && player && (
-            <div className="mx-auto flex w-full max-w-md flex-1 flex-col px-5 pb-[var(--cta-pb)]">
+            <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col px-5 pb-[var(--cta-pb)] pt-4">
+              <ConSalidaAbajo>
+                {({ salida }) => (
               <UsernameSlide
                 player={player}
+                slotSalida={salida}
+                onOpenPrivacy={() => setLegalOpen(true)}
                 // Desde la intro no hay nada que festejar y lo que sigue es la
                 // primera derivada; desde una respuesta el ranking YA se vio y
                 // lo que sigue es el resto de la escalera. `pendingRef` es lo
@@ -1701,6 +1705,8 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   else loadNext()
                 }}
               />
+                )}
+              </ConSalidaAbajo>
             </div>
           )}
 
