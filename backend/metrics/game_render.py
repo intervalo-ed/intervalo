@@ -3130,7 +3130,14 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
     else:
         g = di["global"]
         ca, pv = di["camada"], di["previa"]
-        contra = f'vs. la ola del {pv["label"]}' if pv else "sin ola anterior"
+        # La semana anterior del calendario puede no haber tenido envíos: ahí no
+        # hay base contra la cual restar, y se dice. Restar contra una fila vacía
+        # daría +35 personas «de más» que son simplemente las de esta ola.
+        if pv and not pv["envios"]:
+            contra = f'sin envíos la semana del {pv["label"]}'
+            pv = None
+        else:
+            contra = f'vs. la ola del {pv["label"]}' if pv else "sin ola anterior"
 
         # Intercalados y no agrupados: audiencia y clickrate de la misma copia,
         # pegados. Es la única forma de que se lean como una división —el de la
@@ -3223,7 +3230,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
                f'fue el {ca["ultimo_envio"].strftime("%d/%m")} y el clic tarda: el '
                f'79% entra el mismo día, pero recién a los {di["maduracion_dias"]} '
                f'días está el 96%. Los dos clickrates de arriba son un piso, y el '
-               f'delta contra la ola anterior se va a achicar solo.')
+               f'delta contra la semana anterior se va a achicar solo.')
             + (f'<br><br>Quedan afuera de las dos copias '
                f'{num(di["sin_copia"]["miembros"])} personas en '
                f'{num(di["sin_copia"]["grupos"])} grupos sin copia anotada, que '

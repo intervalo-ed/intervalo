@@ -1343,6 +1343,15 @@ check("y el chip dice contra qué ola se compara, con su fecha",
 check("la audiencia subió 20 y el clickrate 2 pp contra la ola anterior",
       '<span class="chip up">+20</span>' in h_dif
       and '<span class="chip up">+2 pp</span>' in h_dif)
+# La base es SIEMPRE la semana del calendario inmediatamente anterior. Si esa
+# semana no salió nada, el panel lo dice y no resta contra una fila vacía, que
+# daría una audiencia «de más» igual a la ola entera.
+_p_vacia = q.build(s, WEEK)
+_p_vacia["difusion"]["previa"] = {**_p_vacia["difusion"]["previa"], "envios": 0}
+_h_vacia = game_render.page(_p_vacia, token="tok", seccion="activacion")
+check("si la semana anterior no tuvo envíos, lo dice y no inventa una base",
+      f'sin envíos la semana del {(WEEK - timedelta(days=7)).strftime("%d/%m")}' in _h_vacia
+      and '<span class="chip up">+20</span>' not in _h_vacia)
 # La curva y su tooltip: el `<title>` es lo único que explica de cuánta gente
 # salió cada punto, y sin eso dos olas de tamaños muy distintos se leen igual.
 check("la curva semanal dibuja las dos copias",
