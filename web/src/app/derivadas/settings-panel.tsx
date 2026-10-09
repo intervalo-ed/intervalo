@@ -19,6 +19,7 @@ import {
   Coffee,
   LogOut,
   RotateCcw,
+  Trophy,
   Volume2,
   VolumeX,
 } from "lucide-react"
@@ -34,6 +35,12 @@ import { VERDE_TINTA, WhatsappGlyph } from "./cafecito-cta"
 import { SlideFlip } from "./slide-flip"
 import { SlideHorizontal, type Direccion } from "./slide-horizontal"
 import { clearGameIdentity } from "./game-storage"
+import {
+  saveFrecuenciaRanking,
+  siguienteFrecuencia,
+  textoDeFrecuencia,
+  useFrecuenciaRanking,
+} from "./ranking-frecuencia"
 import { useGameApi } from "./UseGameApi"
 import { useCta } from "./game-telemetry"
 import { gameKeys, type GamePlayer } from "./UseGamePlayer"
@@ -127,6 +134,7 @@ export function SettingsPanel({
   const queryClient = useQueryClient()
   const sfx = useSfx()
   const muted = useSoundMuted()
+  const frecuencia = useFrecuenciaRanking()
   const [section, setSection] = useState<Section>("root")
   const [alias, setAlias] = useState(player?.alias ?? "")
   const [aliasError, setAliasError] = useState<string | null>(null)
@@ -425,6 +433,32 @@ export function SettingsPanel({
             {muted ? <VolumeX size={16} /> : <Volume2 size={16} />}
           </span>
         </button>
+
+        {/* Cada cuánto aparece el ranking después de acertar. Rota al tocar,
+            como la del sonido: tres valores no justifican una pantalla aparte.
+            Solo en el teléfono: en escritorio el ranking es la columna de al
+            lado y no interrumpe nada (ranking-frecuencia.ts). */}
+        {variant === "mobile" && (
+          <button
+            type="button"
+            className={rowCls}
+            onClick={() => {
+              sfx.select()
+              const valor = siguienteFrecuencia(frecuencia)
+              saveFrecuenciaRanking(valor)
+              posthog.capture("game_ranking_frecuencia_chosen", {
+                valor,
+                via: "settings",
+              })
+            }}
+          >
+            <span className="text-muted-foreground">Ranking</span>
+            <span className="flex items-center gap-2">
+              {textoDeFrecuencia(frecuencia)}
+              <Trophy size={16} />
+            </span>
+          </button>
+        )}
 
         {/* Acá vivía la fila «Ir a Intervalo», la única puerta del juego al
             otro producto. Se sacó junto con las menciones del cafecito: dx no

@@ -66,6 +66,13 @@ import { marcarPwaDesde } from "./game-storage"
 import { marcarEncuestaMostrada, tocaEncuesta } from "./encuesta-trigger"
 import { EncuestaSlide } from "./encuesta-slide"
 import {
+  marcarFrecuenciaMostrada,
+  readFrecuenciaRanking,
+  tocaPreguntarFrecuencia,
+  tocaRanking,
+} from "./ranking-frecuencia"
+import { RankingFrecuenciaSlide } from "./ranking-frecuencia-slide"
+import {
   anotarRespuesta,
   marcarPreguntaMostrada,
   tocaPreguntar,
@@ -222,6 +229,10 @@ type Slide =
   // La pregunta abierta, una sola vez en la vida. Sin `back` ni `trigger` por
   // lo mismo que las otras dos: no se puede abrir a mano.
   | { kind: "encuesta" }
+  // «¿Cada cuánto querés ver el ranking?» (ranking-frecuencia-slide.tsx), en
+  // la 15 y una sola vez. Solo existe en el teléfono: en escritorio el ranking
+  // no interrumpe. Sin `back`, como las encuestas.
+  | { kind: "frecuencia" }
 
 // El tinte de fondo de café/reclutas, de pantalla completa (ver el `motion.div`
 // debajo de la grilla, más abajo). Antes vivía adentro de la caja de la propia
@@ -740,7 +751,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
   // (session-runner.tsx); dx lo tenía cargado y lo tocaba en un solo lugar.
   const advanceAfterAnswer = useCallback(
     (
-      consumed:
+      entrada:
         | "ranking"
         | "novedades"
         | "milestone"
@@ -751,6 +762,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
         | "opinion"
         | "repetitividad"
         | "encuesta"
+        | "frecuencia"
         | "username"
         | "reglas"
         | null,
@@ -762,6 +774,38 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
         return
       }
       const a = pending.answer
+
+      // ── ¿Esta correcta pasa por el ranking? ─────────────────────────────
+      //
+      // Hasta el 09/10 la respuesta era siempre sí. Ahora lo decide la
+      // preferencia de la persona (ranking-frecuencia.ts): cada derivada, cada
+      // cinco o solo cuando sube. Cuando NO pasa, el resto de la escalera corre
+      // igual que si acabara de salir del ranking —el @, las reglas, las
+      // novedades y los hitos miran `consumed === "ranking"`—, así que la
+      // entrada se traduce acá y una sola vez.
+      //
+      // El festejo optimista ya estaba armado esperando a la diapo que tiene
+      // el número (`release`); sin esa diapo se desarma, y el ranking se
+      // refresca directo para que la próxima vez que se abra ya tenga el
+      // puesto nuevo.
+      const subio =
+        a.rank_before != null && a.rank_after != null
+          ? a.rank_after < a.rank_before
+          : null
+      const saltaRanking =
+        entrada === null &&
+        a.correct &&
+        !tocaRanking({
+          frecuencia: readFrecuenciaRanking(),
+          totalCorrectas: a.exercises_correct,
+          subio,
+        })
+      if (saltaRanking) {
+        abortXp()
+        pendingClimbRef.current = null
+        void refrescarRankingCentrado(queryClient)
+      }
+      const consumed = saltaRanking ? ("ranking" as const) : entrada
 
       // ── El @, entre la derivada y el ranking ─────────────────────────────
       //
@@ -1023,6 +1067,14 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
         goTo({ kind: "reclutas", trigger: "hito" })
         return
       }
+      // Cada cuánto ver el ranking: en la 15, una vez, y antes de la varita de
+      // la 18. No consume el cooldown compartido, así que no corre a nadie; el
+      // porqué de la 15 está medido en ranking-frecuencia.ts.
+      if (consumed !== "frecuencia" && tocaPreguntarFrecuencia(totalCorrectas)) {
+        marcarFrecuenciaMostrada(totalCorrectas)
+        goTo({ kind: "frecuencia" })
+        return
+      }
       // La pregunta abierta va antes que la de dificultad y después de todo lo
       // que convierte. Sale UNA vez en la vida (derivada 18) y no consume el
       // cooldown compartido, así que no le corre el turno al cafecito de la 20:
@@ -1063,7 +1115,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
       }
       loadNext()
     },
-    [goTo, loadNext, player, releaseXp, chasquido],
+    [goTo, loadNext, player, releaseXp, chasquido, abortXp, queryClient],
   )
 
   // Deshace el adelanto de racha/intentos si el servidor termina en
@@ -2397,6 +2449,21 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   <EncuestaSlide
                     slotSalida={salida}
                     onContinue={() => advanceAfterAnswer("encuesta")}
+                    fullBleed
+                    className="flex-none"
+                  />
+                )}
+              </ConSalidaAbajo>
+            </div>
+          )}
+
+          {slide.kind === "frecuencia" && (
+            <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col px-5 pb-[var(--cta-pb)] pt-4">
+              <ConSalidaAbajo>
+                {({ salida }) => (
+                  <RankingFrecuenciaSlide
+                    slotSalida={salida}
+                    onContinue={() => advanceAfterAnswer("frecuencia")}
                     fullBleed
                     className="flex-none"
                   />
