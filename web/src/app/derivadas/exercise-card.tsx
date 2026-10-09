@@ -72,10 +72,6 @@ export const PANEL_CONTENT = "mx-auto w-full max-w-[32rem]"
 // xp-conteo.ts). Un solo verde para las dos mitades del mismo festejo.
 export const WRONG = "#FDD000"
 export const VERDE_ACIERTO = "#22C55E"
-// El rojo del cartel «¿Seguro?» del teléfono. `WRONG` es amarillo —el destello
-// del campo— y mezclado con el fondo oscuro daba marrón; el cartel pide un rojo
-// que diga error, y es el mismo de las filas de peligro de Ajustes.
-export const ROJO_CARTEL = "#E5484D"
 
 // El pulso del ¿Por qué? no vive acá: es blanco y arranca lleno en vez de
 // crecer desde cero (ver el `pulso === "hint"` de AnswerField), porque hace
