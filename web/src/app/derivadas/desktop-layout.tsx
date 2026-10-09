@@ -2670,6 +2670,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                       slotSalida={slotSalida}
                       popup
                       autoFocus
+                      keyboard
                     />
                   </div>
                 ) : panel === "register" && player ? (

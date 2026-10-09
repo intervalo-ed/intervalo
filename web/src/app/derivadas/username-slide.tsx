@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { useIsPresent } from "motion/react"
 import posthog from "posthog-js"
 import { useQueryClient } from "@tanstack/react-query"
 import { Button } from "@/components/ui/button"
@@ -8,8 +9,10 @@ import { cn } from "@/lib/utils"
 import { ApiError, unwrap } from "@/lib/api/client"
 import { normalizeUsername, validateUsername } from "@/lib/username"
 import { useSfx } from "@/lib/audio/useSfx"
+import { KeyCap } from "./exercise-card"
 import { GoogleIcon, saveDesiredAlias, useGoogleLogin } from "./google-login"
 import { Salida, claseDeSalida } from "./slide-salida"
+import { useTeclas } from "./teclas"
 import { useGameApi } from "./UseGameApi"
 import { gameKeys, type GamePlayer } from "./UseGamePlayer"
 
@@ -42,6 +45,7 @@ export function UsernameSlide({
   slotSalida,
   popup = false,
   autoFocus = false,
+  keyboard = false,
 }: {
   player: GamePlayer
   onDone: () => void
@@ -57,9 +61,15 @@ export function UsernameSlide({
   // y el Continuar— y achicaba el `h-dvh` con la diapo todavía deslizándose.
   // Quien quiere escribir toca el campo, que está a la vista.
   autoFocus?: boolean
+  // Atajos de teclado, solo escritorio: Enter es Continuar (lo maneja el
+  // campo) y Alt+Enter es Conectar con Google, la misma tecla que en las demás
+  // diapos dispara la segunda acción (Saltear, Ahora no).
+  keyboard?: boolean
 }) {
   const api = useGameApi()
   const sfx = useSfx()
+  const teclas = useTeclas()
+  const presente = useIsPresent()
   const queryClient = useQueryClient()
   const [alias, setAlias] = useState("")
   const campoRef = useRef<HTMLInputElement>(null)
@@ -90,6 +100,24 @@ export function UsernameSlide({
     return () => window.clearTimeout(t)
   }, [autoFocus])
   const puedeContinuar = alias.length > 0 && !error && !google.pendiente
+
+  // Alt+Enter llega siempre, esté el campo enfocado o no: nada en un `<input>`
+  // le da un uso especial. En captura y frenando la tecla, para que el
+  // Alt+Enter de Saltear del layout no la vea. Por ref, como en las otras
+  // diapos: `iniciar` es una closure nueva en cada render.
+  const iniciarRef = useRef(google.iniciar)
+  iniciarRef.current = google.iniciar
+  useEffect(() => {
+    if (!keyboard || !presente) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Enter" || !e.altKey) return
+      e.preventDefault()
+      e.stopPropagation()
+      void iniciarRef.current()
+    }
+    document.addEventListener("keydown", onKey, true)
+    return () => document.removeEventListener("keydown", onKey, true)
+  }, [keyboard, presente])
 
   const finish = async () => {
     if (savingRef.current || !puedeContinuar) return
@@ -138,7 +166,7 @@ export function UsernameSlide({
             setSubmitError(null)
           }}
           onKeyDown={(e) => {
-            if (e.key === "Enter") void finish()
+            if (e.key === "Enter" && !e.altKey) void finish()
           }}
           placeholder={player.alias}
           maxLength={15}
@@ -158,8 +186,9 @@ export function UsernameSlide({
             void google.iniciar()
           }}
         >
-          <GoogleIcon className="mr-2 size-4" />
-          {google.pendiente ? "Conectando…" : "Vincular con Google"}
+          {google.pendiente ? "Conectando…" : "Conectar con Google"}
+          <GoogleIcon className="ml-2 size-4" />
+          {keyboard && <KeyCap>{teclas.altEnter}</KeyCap>}
         </button>
         <p className="text-xs leading-relaxed text-foreground/55">
           Si ya jugaste en otro aparato, acá recuperás tu progreso.
@@ -174,6 +203,7 @@ export function UsernameSlide({
           onClick={() => void finish()}
         >
           Continuar
+          {keyboard && <KeyCap>{teclas.enter}</KeyCap>}
         </Button>
       </Salida>
     </div>
