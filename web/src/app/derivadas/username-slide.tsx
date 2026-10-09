@@ -150,7 +150,7 @@ export function UsernameSlide({
     <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col items-center justify-center gap-4 text-center">
       <h2 className="text-2xl font-bold">Elegí tu @</h2>
       <p className="text-sm leading-relaxed text-muted-foreground">
-        Así te van a ver los demás en el ranking, elegilo para arrancar.
+        Así te van a ver los demás en el ranking.
       </p>
       <div className="flex w-full max-w-xs items-center gap-1 rounded-md border border-[#7e80f7] bg-white/5 px-3">
         <span className="text-lg text-muted-foreground">@</span>
