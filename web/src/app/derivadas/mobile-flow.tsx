@@ -45,6 +45,7 @@ import {
   ExerciseCard,
   PANEL_CONTENT,
   SkipButton,
+  ROJO_CARTEL,
   VERDE_ACIERTO,
   WRONG,
   answerTone,
@@ -1921,8 +1922,12 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                           : "pb-[calc(var(--cta-pt)_+_var(--cta-h)_+_var(--cta-pb))]",
                       )}
                       style={{
-                        borderColor: `${WRONG}80`,
-                        backgroundColor: `color-mix(in oklab, var(--background) 75%, ${WRONG} 25%)`,
+                        // Rojo y no `WRONG` (que es amarillo): mezclado con el
+                        // fondo azul oscuro, el amarillo daba un marrón sucio
+                        // que no decía «error». El rojo es el mismo de las filas
+                        // de peligro de Ajustes (#E5484D), opaco y a un tercio.
+                        borderColor: `${ROJO_CARTEL}99`,
+                        backgroundColor: `color-mix(in oklab, var(--background) 66%, ${ROJO_CARTEL} 34%)`,
                       }}
                     >
                       <div className="mx-auto w-full max-w-md text-[15px]">
