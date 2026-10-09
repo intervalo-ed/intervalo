@@ -2061,6 +2061,19 @@ def cerrado(fecha: date, veredicto: str, motivo: str, pdf: str | None = None) ->
     return {"fecha": fecha, "veredicto": veredicto, "motivo": motivo, "pdf": pdf}
 
 
+def cancelado(fecha: date, motivo: str) -> dict:
+    """Un experimento que se paró ANTES de poder leerse, y no por lo que midió.
+
+    Es un cierre distinto a `cerrado` y conviene que se vea distinto: no hay
+    veredicto, no hay informe y no lo va a haber. Lo que se juntó queda a la
+    vista sin contraste, y el motivo —que acá también es obligatorio— tiene que
+    decir por qué la pregunta dejó de valer la pena, que es lo único que
+    distingue una cancelación de un «no dio, lo apagamos».
+    """
+    return {"fecha": fecha, "veredicto": "Cancelado", "motivo": motivo,
+            "pdf": None, "cancelado": True}
+
+
 def _ficha(exp: dict) -> dict:
     """Las tres claves del índice, copiadas del declarativo al payload.
 
@@ -2766,6 +2779,9 @@ def experimento_motor(data: dict) -> dict:
 
 # ── 6-quinquies · El experimento de la BANDA OBJETIVO ───────────────────────
 #
+# **Cancelado el 09/10 sin leerse** (ver `cierre`): el sorteo salió del motor y
+# `game/banda.py` conserva solo lo que hace falta para mostrar lo juntado.
+#
 # El cuarto del motor, y el primero que mide PERCEPCIÓN en vez de conducta. La
 # métrica no sale de lo que la gente hace sino de lo que dice: qué fracción de
 # los votos de dificultad contesta «muy fácil».
@@ -2809,7 +2825,16 @@ EXPERIMENTO_BANDA: dict = {
         "El 54,6% de los votos dice «muy fácil» y sube al 76,2% entre los que más "
         "juegan. ¿Apuntar a 65% de acierto en vez de a 75% se siente mejor?"
     ),
-    "cierre": None,
+    "cierre": cancelado(
+        date(2026, 10, 9),
+        "Se paró antes de llegar al n, y no por lo que midió: la pregunta dejó de "
+        "valer la pena con el algoritmo de hoy. La dificultad se va a elegir de "
+        "otra forma, y correr la banda diez puntos sobre un selector que está por "
+        "cambiar mide algo que no va a existir. Todos vuelven a la banda de "
+        "siempre (70–80%). Lo que se juntó queda abajo, sin contraste y sin "
+        "informe. Lo que dejó: la pregunta de dificultad quedó en la 8 y con la "
+        "cadencia duplicada, que es un termómetro mejor con o sin experimento.",
+    ),
     "hipotesis": (
         "El motor apuntaba a 75% y servía 82%: medido sobre 53.842 primeras "
         "respuestas sin tabla, prometía 83,86% y la gente entregaba 91,48%. La "
@@ -2999,7 +3024,6 @@ def experimento_banda(data: dict, now: datetime | None = None) -> dict:
         # el payload y no en un comentario porque es lo que justifica leerlos
         # antes: si el número no está a la vista, «se lee antes» es una frase.
         "n_dano": n_comprometido({**exp, "base": 0.018, "mde": 0.10}),
-        "encendido": game_banda.habilitado(),
         "sin_arrancar": sum(b["inscriptos"] for b in brazos) == 0,
         "bandas": {c: game_banda.BANDAS[c] for c, _ in exp["brazos"]},
     }

@@ -1894,13 +1894,28 @@ check("y compensa el borde en el padding, para que la barra no se corra",
 # tablas con una sigla, y nada se hubiera puesto rojo.
 check("y no le pisa la clase al chip de universidad",
       ".tag{" not in game_render.CSS_DX and ".estado{" in game_render.CSS_DX)
-_ESTADOS_VALIDOS = {"Activo", "Pausado", "Finalizado"}
-check("y el estado es uno de los tres declarados",
+_ESTADOS_VALIDOS = {"Activo", "Pausado", "Finalizado", "Cancelado"}
+check("y el estado es uno de los cuatro declarados",
       all(any(f'>{t}</span>' in f for t in _ESTADOS_VALIDOS) for _filas_i, f
           in enumerate(_filas)))
 check("los cerrados dicen Finalizado",
       all("Finalizado" in f for f in _filas
-          if any(e["abstract"][:40] in f for e in _TODOS if e.get("cierre"))))
+          if any(e["abstract"][:40] in f for e in _TODOS
+                 if e.get("cierre") and not e["cierre"].get("cancelado"))))
+# Un cancelado no se asentó: no dice Finalizado, no tiene PDF y su caja no finge
+# un veredicto. Es el caso de `dx-banda-1`, cortado el 09/10 antes de leerse.
+_canc = [e for e in _TODOS if (e.get("cierre") or {}).get("cancelado")]
+check("hay al menos un experimento cancelado (dx-banda-1)",
+      any(e["clave"] == "dx-banda-1" for e in _canc))
+check("y los cancelados dicen Cancelado, no Finalizado",
+      all(">Cancelado</span>" in f and "Finalizado" not in f for f in _filas
+          if any(e["abstract"][:40] in f for e in _canc)))
+check("y un cancelado no tiene informe", all(not e["cierre"].get("pdf") for e in _canc))
+_vista_canc = game_render.page(_pay, token="tok", seccion="experimentacion",
+                               exp="dx-banda-1")
+check("y su caja dice que se canceló sin leerse",
+      "Cancelado el 09/10/2026 · sin leerse" in _vista_canc
+      and "Ver el informe completo" not in _vista_canc)
 # Sin relleno: el tag no compite con las cajas de estado, que sí son bloques.
 check("los tags no llevan fondo", "background:none" in _idx)
 
@@ -2013,6 +2028,10 @@ for _e in _TODOS:
     check("y el motivo por el que se cerró", _c["motivo"][:40] in _v)
     check("y ya no dice cuánta gente falta",
           "Todavía no se puede leer" not in _v)
+    # Un cancelado no tiene informe: lo que se verifica es que no finja uno.
+    if _c.get("cancelado"):
+        check("y un cancelado no finge un informe", "Ver el informe" not in _v)
+        continue
     check("y el informe está linkeado",
           _c.get("pdf") is not None and _c["pdf"] in _v,
           f'({_c.get("pdf") or "sin PDF"})')
