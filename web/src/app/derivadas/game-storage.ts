@@ -11,6 +11,10 @@ const INSTALAR_KEY = "intervalo:game:instalar"
 const NOTIF_KEY = "intervalo:game:notificaciones"
 const OPINION_KEY = "intervalo:game:opinion"
 const ENCUESTA_KEY = "intervalo:game:encuesta"
+// Si ya se le preguntó cada cuánto quiere ver el ranking (ranking-frecuencia.ts).
+// Es la MARCA de que la diapo salió; la preferencia elegida vive en su propia
+// clave, dentro de ese módulo, y no se borra con la identidad.
+const RANKING_FRECUENCIA_KEY = "intervalo:game:ranking-frecuencia-pedido"
 // La caja vieja de las reglas guardaba `vistas: 1` con UN solo significado:
 // «las tres ya salieron», porque salían juntas. La nueva cuenta de 0 a 3, así
 // que ese mismo 1 pasó a querer decir «salió una». Son dos idiomas distintos en
@@ -179,6 +183,7 @@ export function clearGameIdentity() {
     window.localStorage.removeItem(OPINION_SALTOS_KEY)
     window.localStorage.removeItem(TOPE_VISTO_KEY)
     window.localStorage.removeItem(ENCUESTA_KEY)
+    window.localStorage.removeItem(RANKING_FRECUENCIA_KEY)
     window.localStorage.removeItem(REGLAS_KEY)
     window.localStorage.removeItem(REGLAS_V1_KEY)
     window.localStorage.removeItem(CIERRE_KEY)
@@ -254,6 +259,7 @@ export function readUltimaPantalla(): number {
     readUltimaInterrupcion(),
     readRegistroOfrecidoAt(),
     readPedidoState(ENCUESTA_KEY).ultima,
+    readPedidoState(RANKING_FRECUENCIA_KEY).ultima,
     readPedidoState(OPINION_KEY).ultima,
   )
 }
@@ -389,6 +395,10 @@ export const PEDIDO_OPINION = OPINION_KEY
  *  Caja propia y no la de la encuesta de dificultad porque son dos preguntas
  *  distintas y quien contestó una tiene que poder recibir la otra. */
 export const PEDIDO_ENCUESTA = ENCUESTA_KEY
+/** La pregunta de cada cuánto ver el ranking, que tampoco se repite. Misma caja
+ *  que la varita y por lo mismo: lo único que hay que guardar es que ya salió y
+ *  en qué derivada, para que ninguna otra pantalla comparta esa respuesta. */
+export const PEDIDO_RANKING_FRECUENCIA = RANKING_FRECUENCIA_KEY
 /** Las reglas del juego, que NO se repiten: usan la misma caja porque lo único
  *  que necesitan guardar es cuántas ya se dijeron, y una caja con dos números es
  *  más barata que una tercera forma de guardar lo mismo. `vistas` cuenta de 0 a

@@ -325,13 +325,13 @@ eso obligó a mover un tercero, porque los números no viven solos:
 |---|---|
 | 1 | el @ (`username-slide.tsx`) —en el teléfono, **después** del ranking— y la diapo de reglas: el Elo y la tabla en `control` y `teclado`. En `ayudas` y `bienvenida` la diapo sale en la 2 y dice solo el Elo |
 | 3 | carrera y universidad (`HITO_PERFIL`) |
-| 9 | invitar a un amigo (`RECLUTAS_RESTO`) |
+| 8 | la primera encuesta de la escalera (`OPINION_PRIMERA`), y de ahí vuelve para siempre |
 | 10 | registrarse (`HITO_REGISTRO`), y se vuelve a ofrecer cada 12 |
-| 14 | el cafecito, por primera vez (`CAFECITO_PRIMERA`) |
+| 14 | invitar a un amigo (`RECLUTAS_RESTO`, desde el 28/09; antes en la 9) |
+| 15 | **cada cuánto ver el ranking** (`FRECUENCIA_EN`, solo teléfono, desde el 09/10), una sola vez en la vida del aparato |
 | 18 | la pregunta de la varita (`ENCUESTA_EN`), una sola vez en la vida |
-| 20 | el cafecito otra vez, y de ahí cada 20 |
-| 24 | instalar la app, y después cada 12: 36, 48, 60, 73, 85 |
-| 28 | la primera encuesta de la escalera (`OPINION_PRIMERA`, corrida por su separación), y de ahí vuelve para siempre |
+| 20 | el cafecito, por primera vez (`CAFECITO_PRIMERA`, desde el 28/09; antes en la 14) y de ahí cada 20 |
+| 21 | instalar la app (`INSTALAR_PRIMERA`), y después cada 12 |
 | 30 | *(experimento `dx-muro-1`, la mitad de los jugadores NUEVOS — los de antes del 27/09 no tienen tope)* el **tope diario**: no hay más derivadas hasta mañana, salvo cafecito |
 
 **El tope de la 30 no es un escalón de esta escalera y por eso está en su propia
@@ -1517,6 +1517,37 @@ hay.
 
 El chat se puede apagar entero desde el server (`GAME_CHAT_ENABLED`, opt-in): eso
 frena escribir, nunca leer.
+
+### Cada cuánto ver el ranking (`ranking-frecuencia.ts`, `ranking-frecuencia-slide.tsx`)
+
+Desde el 09/10, en el **teléfono**, la persona elige después de qué correctas
+aparece la diapo del ranking: **después de cada derivada** (lo de siempre, y el
+valor por defecto), **cada 5** (`RANKING_CADA_N`, contadas sobre las correctas
+acumuladas del servidor) o **solo cuando sube de puesto** (`rank_after <
+rank_before`; sin puestos del servidor, se muestra). Cuando una correcta no pasa
+por el ranking, el festejo optimista se desarma, el ranking se refresca por
+detrás y la escalera de hitos corre igual que si acabara de salir de él.
+
+La preferencia vive en **localStorage**, como el sonido: es cómo esta persona
+quiere ver esta pantalla en este aparato, y escritorio no tiene la diapo —allá
+el ranking es la columna de al lado y no interrumpe nada—. Reiniciar el
+progreso o cerrar sesión no la borra. Se cambia desde una fila de Ajustes que
+rota al tocarla (solo teléfono).
+
+**La diapo que la ofrece sale en la derivada 15**, una vez en la vida del
+aparato, y es un aviso más que una pregunta: lo que se toca se guarda al
+instante, y pasarla de largo deja lo de siempre. El 15 salió de medir la primera
+sesión de 2.200 personas (09/10): hasta la 12 casi nadie saltea el ranking (lo
+mira 6-8 s), en la 15 el salteo (< 1,5 s) se duplica al 11,7% y la mediana cae
+a 4 s. Antes de eso la diapo ofrecería una solución a un problema que la persona
+todavía no tiene.
+
+**Sale pegada a reclutas (14), y es deliberado.** Reclutas escribe el cooldown
+compartido, así que con la separación de cuatro que usan la varita e instalar
+esta diapo se caería a la 18 y le quitaría la respuesta a la varita. Por eso
+respeta solo la regla 3 del mapa (dos pantallas no comparten respuesta) y no la
+distancia; y tampoco escribe el cooldown, así que no corre a nadie. Lo verifica
+`check:frecuencia`.
 
 ### La pregunta abierta (`encuesta-slide.tsx`, `game/encuesta.py`)
 
