@@ -23,6 +23,7 @@ import MathText from "@/components/math-text"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { KeyCap } from "./exercise-card"
+import { PULSO_IN, PULSO_MS, PULSO_OUT, usePulsoActivo } from "./pulso"
 import { enCampoDeTexto } from "./teclas"
 
 // El gráfico se baja recién cuando hay uno que dibujar.
@@ -100,30 +101,8 @@ function easeOutCubic(t: number): number {
 // quedarse tapando la esquina del gráfico todo el tiempo.
 const OCULTAR_BOTONES_MS = 900
 
-// El pulso blanco que marca cuál flecha (o tecla) acaba de actuar. Golpe
-// rápido y salida lenta — mismo criterio que el destello de Revisar en
-// exercise-card.tsx (`FLASH_IN`/`FLASH_OUT`): así se lee como un pulso y no
-// como un cambio de estado que se queda.
-const PULSO_MS = 120
-const PULSO_IN = "40ms"
-const PULSO_OUT = "260ms"
-
-// Misma mecánica que `useMoment` en exercise-card.tsx: activo mientras el
-// último pulso no se haya "asentado". Al no depender de un booleano externo
-// que cambie, alcanza con que `seq` no sea el inicial (0 = todavía ningún
-// pulso) y no coincida con el último asentado — así una segunda pulsada de
-// la MISMA flecha reinicia la animación en vez de quedarse sin disparar,
-// que es lo que pasaría si el estado "activo" no cambiara de valor.
-function usePulsoActivo(seq: number, ms: number): boolean {
-  const [asentado, setAsentado] = useState(0)
-  const activo = seq !== 0 && asentado !== seq
-  useEffect(() => {
-    if (!activo) return
-    const t = setTimeout(() => setAsentado(seq), ms)
-    return () => clearTimeout(t)
-  }, [activo, seq, ms])
-  return activo
-}
+// El pulso blanco que marca cuál flecha acaba de actuar vive en pulso.tsx:
+// lo comparte con las teclas con atajo del teclado de escritorio.
 
 // El gráfico de cierre: f y f' en los mismos ejes. Lo manda siempre el
 // servidor (game/explain.py :: Explanation); las dos vistas lo pintan, cada

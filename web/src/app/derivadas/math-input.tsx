@@ -335,6 +335,12 @@ export function MathInput({
     command: (cmd: string) => {
       fieldRef.current?.executeCommand(cmd)
       recuperarFoco(fieldRef.current)
+      // Y otra vez en el tick siguiente: `moveToNextGroup` sin ningún hueco
+      // adelante (la tecla «salir» tocada con el cursor ya al final) le pide
+      // a MathLive que pase el foco al elemento siguiente, y eso corre después
+      // de este handler. El campo no se abandona por una tecla del propio
+      // teclado.
+      window.setTimeout(() => recuperarFoco(fieldRef.current), 0)
       syncEmpty()
     },
     getLatex: () => fieldRef.current?.getValue("latex") ?? "",
@@ -412,6 +418,18 @@ export function MathInput({
         "keydown",
         (ev) => {
           const e = ev as KeyboardEvent
+          // Tab nunca saca el foco del campo. MathLive lo usa para saltar al
+          // hueco siguiente, y cuando no hay ninguno lo deja seguir al
+          // navegador, que se lo lleva al botón de al lado: la persona que
+          // tocó Tab para salir del exponente quedaba escribiendo en la nada.
+          // Acá se ejecuta el salto —si hay a dónde— y la tecla muere.
+          if (e.key === "Tab" && !e.ctrlKey && !e.metaKey && !e.altKey) {
+            e.preventDefault()
+            e.stopPropagation()
+            mf.executeCommand(e.shiftKey ? "moveToPreviousGroup" : "moveToNextGroup")
+            recuperarFoco(mf)
+            return
+          }
           if (e.key !== "Enter") return
           // stopPropagation evita además el doble disparo: el layout escucha el
           // mismo atajo en `document` para que Enter funcione aunque el foco se

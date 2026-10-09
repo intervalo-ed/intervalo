@@ -1,14 +1,15 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { useIsPresent } from "motion/react"
 import posthog from "posthog-js"
 import { useQueryClient } from "@tanstack/react-query"
 import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
 import { ApiError, unwrap } from "@/lib/api/client"
 import { normalizeUsername, validateUsername } from "@/lib/username"
 import { useSfx } from "@/lib/audio/useSfx"
 import { KeyCap } from "./exercise-card"
+import { GoogleIcon, saveDesiredAlias, useGoogleLogin } from "./google-login"
 import { Salida } from "./slide-salida"
 import { useTeclas } from "./teclas"
 import { useGameApi } from "./UseGameApi"
@@ -30,55 +31,92 @@ const ctaCls =
 // error (red, servidor caído) no es culpa de lo que se eligió, así que ahí sí
 // se sigue jugando en vez de dejar a alguien varado en esta pantalla por un
 // problema que no puede resolver escribiendo de nuevo.
+//
+// Y debajo del campo, «Vincular con Google». Es la respuesta a dos personas
+// que escribieron en la varita: una perdió su progreso porque el teléfono le
+// dio un invitado nuevo y se registró sobre ESE, y otra abrió el juego en otro
+// equipo y «no la reconoció». Las dos tenían cuenta o estaban por tenerla; lo
+// que no tenían era ningún lugar visible donde entrar. Esta pantalla es la
+// primera que ve cualquier aparato nuevo, así que es donde tiene que estar.
 export function UsernameSlide({
   player,
   onDone,
   slotSalida,
+  popup = false,
+  autoFocus = false,
+  keyboard = false,
 }: {
   player: GamePlayer
   onDone: () => void
-  // Dónde dibujar el botón de Continuar: el pie de la columna, AFUERA de la
-  // caja — misma idea que cafecito/reclutas y el registro desde Configuración
-  // (slide-salida.tsx), para que la caja mida lo mismo que la del ejercicio
-  // en vez de comerse la columna entera. Solo lo manda `desktop-layout.tsx`;
-  // en el teléfono el botón se queda adentro, donde siempre estuvo.
+  // Dónde dibujar el botón de Continuar: el pie de la columna en escritorio y
+  // el hueco de abajo de la diapo en el teléfono (`ConSalidaAbajo`), como en
+  // reglas y en el cafecito. Es el mismo botón en el mismo lugar en todas las
+  // pantallas del juego, y acá dejó de ser la excepción.
   slotSalida?: HTMLElement | null
+  // Solo escritorio: el login corre en una ventanita (ver google-login.tsx).
+  popup?: boolean
+  // Solo escritorio. En el teléfono enfocar el campo al entrar abría el
+  // teclado del sistema sobre la mitad de la diapo —tapaba el botón de Google
+  // y el Continuar— y achicaba el `h-dvh` con la diapo todavía deslizándose.
+  // Quien quiere escribir toca el campo, que está a la vista.
+  autoFocus?: boolean
+  // Atajos de teclado, solo escritorio: Enter es Continuar (lo maneja el
+  // campo) y Alt+Enter es Conectar con Google, la misma tecla que en las demás
+  // diapos dispara la segunda acción (Saltear, Ahora no).
+  keyboard?: boolean
 }) {
   const api = useGameApi()
   const sfx = useSfx()
   const teclas = useTeclas()
+  const presente = useIsPresent()
   const queryClient = useQueryClient()
   const [alias, setAlias] = useState("")
   const campoRef = useRef<HTMLInputElement>(null)
   const [submitError, setSubmitError] = useState<string | null>(null)
   const savingRef = useRef(false)
   const error = alias.length > 0 ? validateUsername(alias) : null
+  const google = useGoogleLogin({
+    popup,
+    antesDeIr: () => {
+      posthog.capture("game_username_slide_google_tap")
+      // Si ya escribió un @, que no se pierda en el viaje: se aplica al
+      // volver si la cuenta no tenía uno elegido (register-slides.tsx ::
+      // useApplyDesiredAlias).
+      saveDesiredAlias(alias)
+    },
+  })
 
-  // El campo toma el foco al entrar, pero con `preventScroll` y no con el
-  // atributo `autoFocus`, que no admite la opción.
-  //
-  // Es lo que hacía que esta diapo entrara DE GOLPE mientras el resto se
-  // desliza: el foco se pide en el primer commit, o sea con la diapo todavía en
-  // `x: 100%`, y un foco común le pide al navegador que traiga el elemento a la
-  // vista. El navegador sube hasta el ancestro scrolleable —la raíz de
-  // mobile-flow.tsx, que aunque sea `overflow-hidden` se scrollea por programa—
-  // y le escribe el scroll, con lo que el deslizamiento se colapsa a su estado
-  // final. Exactamente el mismo bug que ya tenía la diapo del cafecito, y que
-  // está contado con todas las letras en cafecito-panel.tsx.
-  //
-  // Y se pide cuando la diapo ya LLEGÓ, no en el primer commit. En Android el
-  // foco abre el teclado, el teclado achica el `h-dvh` de la pantalla, y con la
-  // diapo todavía deslizándose eso era el título, el campo y el botón
-  // reacomodándose cada uno por su lado a mitad del pase. 320 ms cubre el pase
-  // del teléfono (280) y el fundido de escritorio (220).
+  // El foco se pide cuando la diapo ya LLEGÓ, no en el primer commit: un foco
+  // en el primer commit trae el elemento a la vista y colapsa el deslizamiento
+  // (misma historia que el cafecito, cafecito-panel.tsx). 320 ms cubre el
+  // fundido de escritorio (220) con margen.
   useEffect(() => {
+    if (!autoFocus) return
     const t = window.setTimeout(
       () => campoRef.current?.focus({ preventScroll: true }),
       320,
     )
     return () => window.clearTimeout(t)
-  }, [])
-  const puedeContinuar = alias.length > 0 && !error
+  }, [autoFocus])
+  const puedeContinuar = alias.length > 0 && !error && !google.pendiente
+
+  // Alt+Enter llega siempre, esté el campo enfocado o no: nada en un `<input>`
+  // le da un uso especial. En captura y frenando la tecla, para que el
+  // Alt+Enter de Saltear del layout no la vea. Por ref, como en las otras
+  // diapos: `iniciar` es una closure nueva en cada render.
+  const iniciarRef = useRef(google.iniciar)
+  iniciarRef.current = google.iniciar
+  useEffect(() => {
+    if (!keyboard || !presente) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Enter" || !e.altKey) return
+      e.preventDefault()
+      e.stopPropagation()
+      void iniciarRef.current()
+    }
+    document.addEventListener("keydown", onKey, true)
+    return () => document.removeEventListener("keydown", onKey, true)
+  }, [keyboard, presente])
 
   const finish = async () => {
     if (savingRef.current || !puedeContinuar) return
@@ -106,13 +144,13 @@ export function UsernameSlide({
     }
   }
 
+  const mensaje = error ?? submitError ?? google.error
+
   return (
     <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col items-center justify-center gap-4 text-center">
       <h2 className="text-2xl font-bold">Elegí tu @</h2>
       <p className="text-sm leading-relaxed text-muted-foreground">
         Así te van a ver los demás en el ranking.
-        <br />
-        Elegilo para arrancar.
       </p>
       <div className="flex w-full max-w-xs items-center gap-1 rounded-md border border-[#7e80f7] bg-white/5 px-3">
         <span className="text-lg text-muted-foreground">@</span>
@@ -125,39 +163,44 @@ export function UsernameSlide({
             setSubmitError(null)
           }}
           onKeyDown={(e) => {
-            if (e.key === "Enter") void finish()
+            if (e.key === "Enter" && !e.altKey) void finish()
           }}
           placeholder={player.alias}
           maxLength={15}
           className="h-[52px] w-full bg-transparent text-foreground outline-none"
         />
       </div>
-      {(error || submitError) && (
-        <p className="text-sm text-orange-300">{error ?? submitError}</p>
-      )}
-      <Salida slot={slotSalida}>
-        {/* En el teléfono el botón mide lo mismo que la caja del @ (`max-w-xs`,
-            como el div de arriba): son la misma pregunta, uno debajo del otro, y
-            con el botón heredando el `max-w-md` del padre se veía como si
-            pertenecieran a dos pantallas distintas. En escritorio no: ahí el
-            botón se portaliza al pie de la columna (`slotSalida`), donde tiene
-            que medir lo mismo que Revisar y Saltear. */}
-        <div
-          className={cn(
-            "flex flex-col gap-2",
-            slotSalida ? "w-full" : "w-full max-w-xs",
-          )}
+      {/* Blanco sólido como el Continuar: es una acción de verdad, no una
+          salida. Mide lo mismo que el campo. */}
+      <div className="flex w-full max-w-xs flex-col gap-2">
+        <Button
+          size="lg"
+          className={ctaCls}
+          disabled={!google.listo || google.pendiente}
+          onClick={() => {
+            sfx.select()
+            void google.iniciar()
+          }}
         >
-          <Button
-            size="lg"
-            className={ctaCls}
-            disabled={!puedeContinuar}
-            onClick={() => void finish()}
-          >
-            Continuar
-            <KeyCap>{teclas.enter}</KeyCap>
-          </Button>
-        </div>
+          {google.pendiente ? "Conectando…" : "Conectar con Google"}
+          <GoogleIcon className="ml-2 size-4" />
+          {keyboard && <KeyCap>{teclas.altEnter}</KeyCap>}
+        </Button>
+        <p className="text-xs leading-relaxed text-foreground/55">
+          Vinculá tu cuenta para no perder tu progreso.
+        </p>
+      </div>
+      {mensaje && <p className="text-sm text-orange-300">{mensaje}</p>}
+      <Salida slot={slotSalida}>
+        <Button
+          size="lg"
+          className={ctaCls}
+          disabled={!puedeContinuar}
+          onClick={() => void finish()}
+        >
+          Continuar
+          {keyboard && <KeyCap>{teclas.enter}</KeyCap>}
+        </Button>
       </Salida>
     </div>
   )

@@ -7,7 +7,6 @@
 
 import { useEffect, useRef, useState } from "react"
 import { useIsPresent } from "motion/react"
-import { useSignIn } from "@clerk/nextjs"
 import { useQueryClient } from "@tanstack/react-query"
 import posthog from "posthog-js"
 import { Button } from "@/components/ui/button"
@@ -29,6 +28,7 @@ import { XpDots } from "@/components/xp-dots"
 import { ALL_SCOPE } from "@/components/leaderboard-chrome"
 import { VERDE } from "./cafecito-cta"
 import { KeyCap } from "./exercise-card"
+import { GoogleIcon, readDesiredAlias, clearDesiredAlias, saveDesiredAlias, useGoogleLogin } from "./google-login"
 import { levelColor } from "./game-colors"
 import { Salida, claseDeSalida } from "./slide-salida"
 import { SlideFlip } from "./slide-flip"
@@ -46,30 +46,17 @@ const ctaCls =
 // hay que acotarlas y centrarlas: si no, la grilla 2×2 de carreras y los chips
 // de universidad se estiran y quedan deformes.
 const panelCls = "mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col gap-6"
-const bodyCls = "flex min-h-0 flex-1 flex-col justify-center overflow-y-auto py-6"
+const bodyCls = "flex min-h-0 flex-1 flex-col overflow-y-auto py-6"
 // El mismo cuerpo, en el teléfono. Centrado de verdad quedaba ALTO a la vista:
 // debajo tiene «Ahora no», que es texto suelto y no pesa, así que el bloque se
 // leía pegado al techo con un hueco abajo. Más relleno arriba que abajo lo corre
 // ~20 px hacia los botones sin moverlos (la mitad de la diferencia, porque el
 // contenido sigue centrado en lo que queda).
 const bodyMovilCls =
-  "flex min-h-0 flex-1 flex-col justify-center overflow-y-auto pb-2 pt-12"
+  "flex min-h-0 flex-1 flex-col overflow-y-auto pb-2 pt-12"
 
-const DESIRED_ALIAS_KEY = "intervalo:game:desired-alias"
-
-export function readDesiredAlias(): string | null {
-  try {
-    return window.localStorage.getItem(DESIRED_ALIAS_KEY)
-  } catch {
-    return null
-  }
-}
-
-export function clearDesiredAlias() {
-  try {
-    window.localStorage.removeItem(DESIRED_ALIAS_KEY)
-  } catch {}
-}
+// El @ deseado (`readDesiredAlias`, `clearDesiredAlias`) vive en
+// google-login.tsx, junto con el login que lo necesita.
 
 // Persistir carrera/universidad: al jugador (backend) y como prefill del
 // onboarding de Intervalo (localStorage, solo si no había nada — semántica
@@ -312,17 +299,24 @@ export function ProfileSlides({
   // instante. Afuera, el botón no cruza con nada: cambia de golpe con
   // `phase`, que es del padre y no de la cara.
   const cuerpoCls = slotSalida ? bodyCls : bodyMovilCls
+  // `my-auto` en un hijo y no `justify-center` en el padre: con el contenido
+  // más alto que la caja, `justify-center` lo centra igual y lo que sobra se va
+  // por ARRIBA, donde el scroll no llega —el título desaparecía—. El margen
+  // automático centra cuando sobra lugar y se queda en cero cuando no.
   const cara =
     phase === "career" ? (
       <div className={cuerpoCls}>
+        <div className="my-auto">
         <CareerSelect
           value={career}
           onSelect={elegirCarrera}
           atajo={atajo}
         />
+        </div>
       </div>
     ) : (
       <div className={cuerpoCls}>
+        <div className="my-auto">
         <UniversityGrid
           university={university}
           showOther={showOther}
@@ -339,6 +333,7 @@ export function ProfileSlides({
           inputRef={inputRef}
           atajo={atajo}
         />
+        </div>
       </div>
     )
 
@@ -424,17 +419,6 @@ export function ProfileSlides({
   )
 }
 
-function GoogleIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} aria-hidden>
-      <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
-      <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
-      <path fill="#FBBC05" d="M5.84 14.1c-.22-.66-.35-1.36-.35-2.1s.13-1.44.35-2.1V7.07H2.18A10.97 10.97 0 0 0 1 12c0 1.77.43 3.45 1.18 4.93l3.66-2.83z" />
-      <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84C6.71 7.31 9.14 5.38 12 5.38z" />
-    </svg>
-  )
-}
-
 // Resaltado de "esta fila sos vos": el mismo que usa game-ranking.tsx (no
 // exportado de ahí, así que se repite el mismo literal en vez de importarlo).
 const MINE_ROW_CLASS = "bg-primary/10 ring-primary/30"
@@ -491,27 +475,6 @@ function FilaPropia({
   )
 }
 
-// Cuánto mide la ventana del login: ni tan chica que Google recorte su propio
-// diseño, ni tan grande que parezca la pestaña principal escondiéndose atrás.
-const VENTANA_ANCHO = 480
-const VENTANA_ALTO = 640
-
-/** Abre la ventanita del login, centrada sobre esta. `null` si el navegador la
- *  bloqueó — ahí quien llama sigue con el redirect de toda la vida.
- *
- *  Tiene que llamarse SIN ningún `await` antes, en el mismo gesto del click:
- *  los navegadores solo dejan abrir una ventana nueva sin bloquearla dentro
- *  del stack síncrono de un gesto del usuario. */
-function abrirVentanaDeGoogle(): Window | null {
-  const left = window.screenX + Math.max(0, (window.outerWidth - VENTANA_ANCHO) / 2)
-  const top = window.screenY + Math.max(0, (window.outerHeight - VENTANA_ALTO) / 2)
-  return window.open(
-    "",
-    "intervalo-google",
-    `width=${VENTANA_ANCHO},height=${VENTANA_ALTO},left=${left},top=${top}`,
-  )
-}
-
 // Hito 2: registro con Google. El gancho es el @ propio: el guest ve su alias
 // autogenerado y el input para elegir el definitivo; el alias deseado queda en
 // localStorage y se aplica al volver del OAuth (ver applyDesiredAlias).
@@ -560,7 +523,6 @@ export function RegisterSlide({
   // no tiene atajo propio.
   keyboard?: boolean
 }) {
-  const { signIn } = useSignIn()
   const api = useGameApi()
   const teclas = useTeclas()
   const queryClient = useQueryClient()
@@ -575,9 +537,20 @@ export function RegisterSlide({
     true,
   ).data?.pages[0]?.entries.find((e) => e.is_current_player)
   const [desired, setDesired] = useState("")
-  const [authPending, setAuthPending] = useState(false)
-  const [authError, setAuthError] = useState<string | null>(null)
   const [savingAlias, setSavingAlias] = useState(false)
+  // El login en sí vive en google-login.tsx; acá solo queda lo que esta
+  // pantalla guarda antes de irse: el @ deseado y el evento.
+  const google = useGoogleLogin({
+    popup,
+    antesDeIr: () => {
+      posthog.capture("game_register_slide_shown", { slide: "google_tap" })
+      saveDesiredAlias(desired)
+    },
+  })
+  const authPending = google.pendiente
+  const authError = google.error
+  const setAuthError = google.setError
+  const signIn = google.listo
 
   // Del mismo caché que usan la diapo de reclutar y el ranking: si ya se pidió
   // en esta sesión, esto no suma ni un pedido.
@@ -620,78 +593,7 @@ export function RegisterSlide({
     setSavingAlias(false)
   }
 
-  // Misma coreografía que el wizard (create + sso), con el retorno apuntando
-  // al juego: /sso-callback?next=/derivadas y de ahí de vuelta acá.
-  //
-  // Con `popup`, la única diferencia es ESA ventana: `sso()` acepta una
-  // (`SignInFutureSSOParams.popup`) y navega A ELLA en vez de a esta pestaña,
-  // así que `/sso-callback` corre adentro de la ventanita —ahí se cierra sola
-  // (ver sso-callback/page.tsx)— y esta pestaña nunca se mueve de `/derivadas`.
-  // Si el navegador bloqueó la ventana, sigue el redirect de toda la vida.
-  async function authenticateWithGoogle() {
-    if (!signIn || authPending) return
-    setAuthPending(true)
-    setAuthError(null)
-    posthog.capture("game_register_slide_shown", { slide: "google_tap" })
-
-    // Antes que nada y sin ningún `await` en el medio: `window.open` solo
-    // escapa al bloqueador de ventanas emergentes dentro del gesto síncrono
-    // del click.
-    const ventana = popup ? abrirVentanaDeGoogle() : null
-
-    try {
-      const cleaned = desired.trim().toLowerCase().replace(/^@/, "")
-      if (cleaned) window.localStorage.setItem(DESIRED_ALIAS_KEY, cleaned)
-    } catch {}
-
-    const origin = window.location.origin
-    const callbackUrl = `${origin}/sso-callback?next=/derivadas`
-    const completeUrl = `${origin}/derivadas`
-
-    const created = await signIn.create({
-      strategy: "oauth_google",
-      redirectUrl: callbackUrl,
-      actionCompleteRedirectUrl: completeUrl,
-    })
-    if (created.error) return failGoogleSso(created.error)
-
-    const { error } = await signIn.sso({
-      strategy: "oauth_google",
-      redirectUrl: completeUrl,
-      redirectCallbackUrl: callbackUrl,
-      ...(ventana ? { popup: ventana } : {}),
-    })
-    if (error) return failGoogleSso(error)
-
-    if (ventana) {
-      // Lo que haya pasado adentro de la ventanita ya corrió: si el login
-      // terminó, esto activa la sesión en ESTA pestaña (`finalize`, la señal
-      // que usan `useUser`/`useAuth` para enterarse). Si quedó a mitad —la
-      // persona cerró la ventana antes de terminar—, no hay nada que activar
-      // y el recargado de abajo vuelve a dejar todo como un invitado más.
-      if (signIn.status === "complete") {
-        await signIn.finalize().catch(() => {})
-      }
-      window.location.assign("/derivadas")
-      return
-    }
-
-    if (!signIn.firstFactorVerification.externalVerificationRedirectURL) {
-      failGoogleSso({ code: "no_external_verification_redirect" })
-    }
-  }
-
-  function failGoogleSso(error: { code: string }) {
-    // Sesión ya activa: no hay OAuth que correr; recargar alcanza para que el
-    // bootstrap linkee al guest con la cuenta.
-    if (error.code === "session_exists") {
-      window.location.assign("/derivadas")
-      return
-    }
-    console.error("Google SSO error", error)
-    setAuthPending(false)
-    setAuthError("No pudimos conectar con Google. Probá de nuevo.")
-  }
+  const authenticateWithGoogle = google.iniciar
 
   // Enter dentro del campo del @ lo maneja el propio `input` (ver más abajo):
   // `enCampoDeTexto` lo reconoce como campo de texto a propósito (teclas.ts) y

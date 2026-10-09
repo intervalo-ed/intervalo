@@ -91,11 +91,12 @@ import { enCampoDeTexto, enCampoHtml, useTeclas } from "./teclas"
 import { MathInput, tipFor, type MathInputHandle } from "./math-input"
 import {
   CONTENT_WIDTH,
+  ANCHOS_DE_TIRA,
   GRID_COLS,
-  LARGOS_DE_TIRA,
   MathKeyboard,
+  ROW_VARS,
   STRIP_ROW,
-  columnaDeTira,
+  columnasDeTira,
 } from "./math-keyboard"
 import { PieDeRampa, conAyudasDe } from "./pie-rampa"
 import { Barra, Hueco } from "@/components/skeleton-barra"
@@ -168,7 +169,30 @@ type Milestone = Extract<Panel, "profile" | "register">
 // los dos lados, que es la única forma de que se lea como una card dándose
 // vuelta y no como un salto. Sale de sumar sus partes (la FlipCard, el botón, el
 // piso del historial y los dos gaps de 0.75rem), no de un número a ojo.
-const PANEL_MIN_H = "min-h-[calc(26rem_+_7rem_+_1.5rem_+_var(--cta-h))]"
+//
+// Solo cuando hay alto: en una ventana baja este piso era lo que hacía que la
+// columna no pudiera encoger y el `overflow-hidden` del shell se comiera los
+// botones y el historial (ver CORTO).
+const PANEL_MIN_H =
+  "[@media(min-height:701px)]:min-h-[calc(26rem_+_7rem_+_1.5rem_+_var(--cta-h))]"
+
+// Los dos cortes del layout de escritorio. Hasta acá no tenía ninguno: pedía
+// 900 px de ancho (dos columnas de 420 más huecos) y unos 683 de alto, y lo que
+// no entraba se recortaba sin scroll, porque el layout se elige por user agent
+// y no por tamaño de ventana (game-root.tsx). Una notebook de 1366×768 con la
+// barra del navegador perdía los botones; una ventana a media pantalla perdía
+// medio ranking y la tuerca. «Hay cosas que se ocultan de la pantalla», dijo
+// alguien en la varita, y era literal.
+//
+// CORTO: pantalla baja. Se sacan los pisos de alto, la caja usa toda la
+// ventana, el historial queda en una línea y las teclas bajan de alto.
+// ANGOSTO: ventana angosta. Una sola columna, y el ranking se repliega a un
+// cajón que sale del borde derecho con una pestaña (ver `rankingAbierto`).
+//
+// Escritas LITERALES en cada clase y no interpoladas desde una constante:
+// Tailwind genera el CSS a partir de los textos que encuentra en el fuente, y
+// `${CORTO}:gap-2` no es una clase para él. Medido: la primera versión
+// interpolaba y ninguna de las dos reglas llegaba al navegador.
 
 // Mientras se lee la intro, todo lo demás va fuera de foco (ver out-of-focus.ts).
 const enIntro = (panel: Panel) => panel === "intro"
@@ -211,7 +235,7 @@ const PEEK_CHARGE_MS = 600
 function ExerciseSkeleton() {
   return (
     <div
-      className="flex min-h-[26rem] flex-1 animate-pulse flex-col overflow-hidden rounded-lg border border-border bg-card"
+      className={`flex min-h-[26rem] [@media(max-height:700px)]:min-h-[20rem] flex-1 animate-pulse flex-col overflow-hidden rounded-lg border border-border bg-card`}
       aria-hidden
     >
       <div className="flex min-h-0 flex-1 flex-col gap-3 px-4 pt-4">
@@ -231,25 +255,28 @@ function ExerciseSkeleton() {
         </div>
         <div className={cn(CAMPO_H, PANEL_CONTENT, "shrink-0 rounded-lg bg-foreground/[0.07]")} />
       </div>
-      <div className="flex shrink-0 flex-col gap-1.5 px-4 pb-8 pt-4">
-        {LARGOS_DE_TIRA.map((largo, f) => (
-          <div
-            key={f}
-            className={cn("grid shrink-0 gap-1.5", CONTENT_WIDTH)}
-            style={{
-              height: STRIP_ROW,
-              gridTemplateColumns: `repeat(${GRID_COLS}, minmax(0, 1fr))`,
-            }}
-          >
-            {Array.from({ length: largo }).map((_, i) => (
-              <Barra
-                key={i}
-                className="h-full rounded-md bg-foreground/[0.07]"
-                style={{ gridColumnStart: columnaDeTira({ total: largo, indice: i }) }}
-              />
-            ))}
-          </div>
-        ))}
+      <div className={cn("flex shrink-0 flex-col gap-1.5 px-4 pb-8 pt-4", ROW_VARS)}>
+        {ANCHOS_DE_TIRA.map((anchos, f) => {
+          const inicios = columnasDeTira(anchos)
+          return (
+            <div
+              key={f}
+              className={cn("grid shrink-0 gap-1.5", CONTENT_WIDTH)}
+              style={{
+                height: STRIP_ROW,
+                gridTemplateColumns: `repeat(${GRID_COLS}, minmax(0, 1fr))`,
+              }}
+            >
+              {anchos.map((ancho, i) => (
+                <Barra
+                  key={i}
+                  className="h-full rounded-md bg-foreground/[0.07]"
+                  style={{ gridColumn: `${inicios[i]} / span ${ancho}` }}
+                />
+              ))}
+            </div>
+          )
+        })}
       </div>
     </div>
   )
@@ -2167,7 +2194,10 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   // reacomodarse. Con el piso, lo que pasa en una ventana angosta es un scroll
   // horizontal de toda la página —previsible y contenido— en vez de contenido
   // roto adentro de una columna que se dejó angostar sin fondo.
-  const columns = "grid-cols-[minmax(420px,1fr)_420px]"
+  const columns = `grid-cols-[minmax(420px,1fr)_420px] [@media(max-width:900px)]:grid-cols-1`
+  // El cajón del ranking en una ventana angosta. En una ancha no existe: la
+  // columna está siempre a la vista y este estado no cambia nada.
+  const [rankingAbierto, setRankingAbierto] = useState(false)
 
   // Las pantallas que llevan pie —botón e historial— abajo, fuera del volteo.
   //
@@ -2273,7 +2303,9 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
           De la columna izquierda, ese aire se lo lleva entero la card del
           ejercicio: es la única pieza `flex-1` — el historial tiene alto fijo
           (97,5 px) y los botones también. */}
-      <div className="mx-auto flex h-full max-h-[calc(min(94%,880px)_+_10px)] w-full max-w-[68rem] flex-col gap-3 px-6 pb-12 pt-5">
+      <div
+        className={`mx-auto flex h-full max-h-[calc(min(94%,880px)_+_10px)] w-full max-w-[68rem] flex-col gap-3 px-6 pb-12 pt-5 [@media(max-height:700px)]:max-h-full [@media(max-height:700px)]:gap-2 [@media(max-height:700px)]:pb-3 [@media(max-height:700px)]:pt-3 [@media(max-width:900px)]:px-4`}
+      >
         {/* La `key` es lo que arranca una tanda nueva: la capa lee su caja de
             origen y su cantidad una sola vez, al montarse. Sin ella, el segundo
             acierto no despegaría. */}
@@ -2287,7 +2319,9 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
             onArrive={onOrbeLlega}
           />
         )}
-        <header className={`grid shrink-0 gap-3 ${columns}`}>
+        <header
+          className={`grid shrink-0 gap-3 ${columns} [@media(max-width:900px)]:grid-cols-[1fr_auto] [@media(max-height:700px)]:gap-2`}
+        >
           <div className="flex items-center justify-between rounded-lg border border-border bg-card px-4 py-2.5">
             {/* El logo de la presentación es este mismo: se despega de acá, se
                 escribe en el centro y vuelve (ver game-intro.tsx). */}
@@ -2438,7 +2472,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
             cambia el @ o la universidad, que es justo cuando conviene tenerlo a la
             vista. */}
         <div className="min-h-0 flex-1" style={chromeStyle}>
-          <div className={`grid h-full min-h-0 gap-3 ${columns}`}>
+          <div className={`grid h-full min-h-0 gap-3 ${columns} [@media(max-height:700px)]:gap-2`}>
             {/* `overflow-y-auto` es la válvula de escape para ventanas muy
                     bajas: en cualquier pantalla razonable nada scrollea.
                     `px-1 -mx-1` no es decorativo: en CSS no existe scrollear en
@@ -2461,7 +2495,17 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                   El alto mínimo pasó de la caja que gira a la COLUMNA: la caja
                   ahora mide solo lo suyo (26rem) y el resto lo ponen el botón y
                   el historial, que ya no están adentro. */}
-              <SlideFlip slide={panel} className="min-h-[26rem] flex-1">
+              {/* En una pantalla baja la caja no solo pierde piso: lo que hay
+                  ADENTRO se achica (`zoom`, que a diferencia de `transform`
+                  reacomoda el layout). Es lo que hace que «¿Qué estudiás?»,
+                  el cafecito o la encuesta entren enteros en vez de quedarse
+                  del mismo tamaño y perder el título por arriba. Vale para el
+                  ejercicio también: la fórmula, el campo y el teclado bajan
+                  juntos. */}
+              <SlideFlip
+                slide={panel}
+                className="min-h-[26rem] flex-1 [@media(max-height:700px)]:min-h-[20rem] [@media(max-height:700px)]:[zoom:0.85]"
+              >
                 {panel === "intro" ? (
                   <IntroPanel />
                 ) : panel === "profile" ? (
@@ -2634,6 +2678,9 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                         else loadNext()
                       }}
                       slotSalida={slotSalida}
+                      popup
+                      autoFocus
+                      keyboard
                     />
                   </div>
                 ) : panel === "register" && player ? (
@@ -2715,7 +2762,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                         qué?». Es el único cambio de cara que le queda a esta
                         caja. */}
                     <FlipCard
-                      className="min-h-[26rem] flex-1"
+                      className={`min-h-[26rem] [@media(max-height:700px)]:min-h-[20rem] flex-1`}
                       flipped={statsOpen || porqueOpen}
                       front={
                         <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-lg border border-border bg-card">
@@ -3042,7 +3089,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                       la intro (ver out-of-focus.ts). */}
                   <EventFeed
                     enabled={player !== null}
-                    className="h-[107.5px] shrink-0 py-1"
+                    className={`h-[107.5px] [@media(max-height:700px)]:h-[2.6rem] shrink-0 py-1`}
                     veiled={panel === "intro" || porqueOpen}
                   />
                 </>
@@ -3053,7 +3100,33 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                 sin importar qué dorso esté dado vuelta ni qué fila muestre el
                 ranking, y es el destino de respaldo de los orbes de XP (ver
                 `magnetTarget` en xp-conteo.ts). */}
-            <aside ref={attachRespaldo} className="flex min-h-0 flex-col gap-3">
+            <aside
+              ref={attachRespaldo}
+              className={cn(
+                "flex min-h-0 flex-col gap-3",
+                // En una ventana angosta la columna se vuelve un cajón pegado al
+                // borde derecho, con su pestaña viajando con él: cerrado, la
+                // pestaña asoma por el borde; abierto, queda a su izquierda.
+                `[@media(max-width:900px)]:fixed [@media(max-width:900px)]:inset-y-0 [@media(max-width:900px)]:right-0 [@media(max-width:900px)]:z-40 [@media(max-width:900px)]:w-[26rem] [@media(max-width:900px)]:max-w-[92vw] [@media(max-width:900px)]:border-l [@media(max-width:900px)]:border-border [@media(max-width:900px)]:bg-background [@media(max-width:900px)]:p-3 [@media(max-width:900px)]:shadow-2xl [@media(max-width:900px)]:transition-transform [@media(max-width:900px)]:duration-300`,
+                !rankingAbierto && `[@media(max-width:900px)]:translate-x-full`,
+              )}
+            >
+              <button
+                type="button"
+                onClick={() => {
+                  sfx.select()
+                  setRankingAbierto((v) => !v)
+                }}
+                aria-expanded={rankingAbierto}
+                aria-label={rankingAbierto ? "Cerrar el ranking" : "Abrir el ranking"}
+                className={`absolute right-full top-1/2 hidden -translate-y-1/2 items-center gap-1 rounded-l-lg border border-r-0 border-border bg-card px-1.5 py-4 text-xs text-muted-foreground shadow-lg transition-colors hover:text-foreground [@media(max-width:900px)]:flex`}
+              >
+                <ChevronLeft
+                  size={14}
+                  className={cn("transition-transform", rankingAbierto && "rotate-180")}
+                />
+                <span className="[writing-mode:vertical-rl]">ranking</span>
+              </button>
               {/* Esta columna tiene TRES dorsos y una sola cara: la
                       configuración, la tabla de derivadas y —desde que existe
                       el panel de estadísticas (tecla `j`)— la misma tabla con
