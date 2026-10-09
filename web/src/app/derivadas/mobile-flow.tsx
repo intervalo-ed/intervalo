@@ -47,7 +47,6 @@ import {
   SkipButton,
   ROJO_CARTEL,
   VERDE_ACIERTO,
-  WRONG,
   answerTone,
   type AnswerTone,
 } from "./exercise-card"
