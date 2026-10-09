@@ -46,14 +46,14 @@ const ctaCls =
 // hay que acotarlas y centrarlas: si no, la grilla 2×2 de carreras y los chips
 // de universidad se estiran y quedan deformes.
 const panelCls = "mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col gap-6"
-const bodyCls = "flex min-h-0 flex-1 flex-col justify-center overflow-y-auto py-6"
+const bodyCls = "flex min-h-0 flex-1 flex-col overflow-y-auto py-6"
 // El mismo cuerpo, en el teléfono. Centrado de verdad quedaba ALTO a la vista:
 // debajo tiene «Ahora no», que es texto suelto y no pesa, así que el bloque se
 // leía pegado al techo con un hueco abajo. Más relleno arriba que abajo lo corre
 // ~20 px hacia los botones sin moverlos (la mitad de la diferencia, porque el
 // contenido sigue centrado en lo que queda).
 const bodyMovilCls =
-  "flex min-h-0 flex-1 flex-col justify-center overflow-y-auto pb-2 pt-12"
+  "flex min-h-0 flex-1 flex-col overflow-y-auto pb-2 pt-12"
 
 // El @ deseado (`readDesiredAlias`, `clearDesiredAlias`) vive en
 // google-login.tsx, junto con el login que lo necesita.
@@ -299,17 +299,24 @@ export function ProfileSlides({
   // instante. Afuera, el botón no cruza con nada: cambia de golpe con
   // `phase`, que es del padre y no de la cara.
   const cuerpoCls = slotSalida ? bodyCls : bodyMovilCls
+  // `my-auto` en un hijo y no `justify-center` en el padre: con el contenido
+  // más alto que la caja, `justify-center` lo centra igual y lo que sobra se va
+  // por ARRIBA, donde el scroll no llega —el título desaparecía—. El margen
+  // automático centra cuando sobra lugar y se queda en cero cuando no.
   const cara =
     phase === "career" ? (
       <div className={cuerpoCls}>
+        <div className="my-auto">
         <CareerSelect
           value={career}
           onSelect={elegirCarrera}
           atajo={atajo}
         />
+        </div>
       </div>
     ) : (
       <div className={cuerpoCls}>
+        <div className="my-auto">
         <UniversityGrid
           university={university}
           showOther={showOther}
@@ -326,6 +333,7 @@ export function ProfileSlides({
           inputRef={inputRef}
           atajo={atajo}
         />
+        </div>
       </div>
     )
 

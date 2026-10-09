@@ -1428,9 +1428,12 @@ una ventana a media pantalla o una tablet caen en el de escritorio, que pedía
 que se ocultan de la pantalla». Dos cortes, en `desktop-layout.tsx`:
 
 - **menos de 700 px de alto**: se saca el piso de alto de la columna, la caja
-  usa toda la ventana, el historial queda en una línea y las filas del teclado
-  bajan de 2,6 a 2,25 rem (`--kb-strip`). Medido a 1366×660: entran las tres
-  filas, los botones y el historial;
+  usa toda la ventana, el historial queda en una línea y lo que hay adentro de
+  la caja que gira se achica entero (`zoom: 0.85`, que a diferencia de
+  `transform` reacomoda el layout): «¿Qué estudiás?», el cafecito, la encuesta
+  y el propio ejercicio bajan juntos en vez de quedarse del mismo tamaño y
+  perder el título por arriba. Medido a 1366×660: entran las tres filas del
+  teclado, los botones y el historial;
 - **menos de 900 px de ancho**: una sola columna, y el ranking se vuelve un
   cajón que sale del borde derecho con una pestaña («ranking»). El ranking no
   se pierde, se pide.

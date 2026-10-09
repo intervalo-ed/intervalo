@@ -249,11 +249,11 @@ export const DYNAMIC: Record<string, Key> = {
 const ROW_MIN = "var(--kb-row)"
 // `--kb-strip` es el alto de las filas de ESCRITORIO (inventario y tiras). En
 // una ventana baja —una notebook de 768 px con la barra del navegador, un zoom
-// al 125%— bajan de 2,6 a 2,25rem: con tres filas son 17 px que se recuperan
-// sin que la tecla deje de ser una tecla. El corte es el mismo que usa el
-// layout (desktop-layout.tsx :: CORTO).
+// al 125%— bajan apenas, a 2,5rem: el grueso lo pone el `zoom` de la caja en
+// desktop-layout.tsx, que achica todo lo de adentro junto. El corte es el
+// mismo.
 export const ROW_VARS =
-  "[--kb-row:2.5rem] md:[--kb-row:2.05rem] [--kb-strip:2.6rem] [@media(max-height:700px)]:[--kb-strip:2.25rem]"
+  "[--kb-row:2.5rem] md:[--kb-row:2.05rem] [--kb-strip:2.6rem] [@media(max-height:700px)]:[--kb-strip:2.5rem]"
 
 // En escritorio todas las filas comparten una grilla de DIEZ columnas: caen en
 // las mismas verticales, que es lo que hace que se lean como un teclado y no

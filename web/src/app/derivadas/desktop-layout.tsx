@@ -2495,7 +2495,17 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                   El alto mínimo pasó de la caja que gira a la COLUMNA: la caja
                   ahora mide solo lo suyo (26rem) y el resto lo ponen el botón y
                   el historial, que ya no están adentro. */}
-              <SlideFlip slide={panel} className={`min-h-[26rem] [@media(max-height:700px)]:min-h-[20rem] flex-1`}>
+              {/* En una pantalla baja la caja no solo pierde piso: lo que hay
+                  ADENTRO se achica (`zoom`, que a diferencia de `transform`
+                  reacomoda el layout). Es lo que hace que «¿Qué estudiás?»,
+                  el cafecito o la encuesta entren enteros en vez de quedarse
+                  del mismo tamaño y perder el título por arriba. Vale para el
+                  ejercicio también: la fórmula, el campo y el teclado bajan
+                  juntos. */}
+              <SlideFlip
+                slide={panel}
+                className="min-h-[26rem] flex-1 [@media(max-height:700px)]:min-h-[20rem] [@media(max-height:700px)]:[zoom:0.85]"
+              >
                 {panel === "intro" ? (
                   <IntroPanel />
                 ) : panel === "profile" ? (
