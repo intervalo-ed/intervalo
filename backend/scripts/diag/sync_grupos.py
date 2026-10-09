@@ -37,6 +37,7 @@ import argparse
 import csv
 import io
 import os
+import re
 import sys
 import urllib.request
 from datetime import date, datetime
@@ -65,6 +66,33 @@ COL = {
     "ultima_campana": ("Última campaña", "Ultima campana"),
     "producto": ("Último producto", "Ultimo producto"),
 }
+
+
+# ── Qué copia lleva cada grupo, cuando nadie la anotó ───────────────────────
+#
+# `cluster_dx` parte la difusión en «derivadas están en el temario» (analisis) y
+# el resto (generico). Hasta el 09/10 la etiqueta entraba a mano con --cluster;
+# con eso, cada ola nueva quedaba «sin copia» hasta que alguien armaba el CSV, y
+# el panel mostraba 77 grupos con 7 etiquetados.
+#
+# `--cluster-auto` la deduce de la MATERIA del tracker, solo para los grupos
+# de dx que todavía no tienen etiqueta. **Nunca pisa una que ya existe**: la
+# regla es una aproximación (reproduce 136 de las 160 etiquetas manuales que hay,
+# el 85%; los desacuerdos son sobre todo grupos de comunidades sin materia,
+# etiquetados a mano), y la mano tiene más información que ella.
+_FUERA_DEL_TEMARIO = re.compile(r"financier|num[eé]ric|estad[ií]stic|f[ií]sica|[aá]lgebra", re.I)
+_ANALISIS = re.compile(
+    r"an[aá]lisis\s+(mat|\d)|c[aá]lculo\s*(i|ii|1|2)\b|^c[aá]lculo$"
+    r"|^matem[aá]ticas?(\s+(i|1|51)\b)?$|^matem[aá]tica\s+i\b|^(1er|2do) a[nñ]o",
+    re.I)
+
+
+def cluster_por_materia(materia: str | None) -> str:
+    """«analisis» si las derivadas están en el temario de la materia; si no, «generico»."""
+    m = materia or ""
+    if _FUERA_DEL_TEMARIO.search(m) and not re.search(r"an[aá]lisis\s+mat|^(1er|2do)", m, re.I):
+        return "generico"
+    return "analisis" if _ANALISIS.search(m) else "generico"
 
 
 def _col(fila: dict, clave: str) -> str:
@@ -113,6 +141,9 @@ def main() -> int:
     # mapeo parcial no puede borrar lo que sabíamos, igual que un export parcial
     # no puede vaciar la tabla.
     ap.add_argument("--cluster", help="CSV id,cluster_dx (analisis|generico)")
+    ap.add_argument("--cluster-auto", action="store_true",
+                    help="etiquetar por materia los grupos de dx sin copia anotada "
+                         "(nunca pisa una etiqueta existente)")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
@@ -176,8 +207,15 @@ def main() -> int:
     try:
         existentes = {g.id: g for g in db.query(GameGroup).all()}
         nuevos = 0
+        auto = 0
         for gid, datos in vistos.items():
             fila = existentes.get(gid)
+            # Solo los grupos de dx sin etiqueta, ni en el CSV ni en la base.
+            if (args.cluster_auto and datos["producto"] == "dx"
+                    and "cluster_dx" not in datos
+                    and not (fila is not None and fila.cluster_dx)):
+                datos["cluster_dx"] = cluster_por_materia(datos["materia"])
+                auto += 1
             if fila is None:
                 db.add(GameGroup(**datos))
                 nuevos += 1
@@ -185,7 +223,8 @@ def main() -> int:
                 for k, v in datos.items():
                     setattr(fila, k, v)
         db.commit()
-        print(f"escritos: {nuevos} nuevos, {len(vistos) - nuevos} actualizados")
+        print(f"escritos: {nuevos} nuevos, {len(vistos) - nuevos} actualizados"
+              + (f" · {auto} etiquetados por materia" if args.cluster_auto else ""))
         # Lo que NO se toca, dicho en voz alta: un export parcial no puede vaciar
         # la tabla, así que las filas que no vinieron quedan como estaban — con
         # su `synced_at` viejo, que es lo que las delata.

@@ -3899,19 +3899,28 @@ def difusion(data: dict, week: date) -> dict:
             "global": tasa(gs),
         })
 
-    # Las dos olas comparables, que no son las dos últimas semanas: la difusión
-    # va por tandas y entre una y otra hay semanas enteras sin un envío. Con la
-    # semana del calendario, el panel de un martes tranquilo muestra cuatro
-    # guiones y un delta contra la nada.
+    # La ola de los indicadores es la última que salió, y se compara SIEMPRE
+    # contra la semana del calendario inmediatamente anterior (pedido del
+    # 09/10). Antes se comparaba contra la ola anterior que hubiera tenido
+    # envíos, saltando las semanas vacías: eso evitaba mostrar un delta contra la
+    # nada, pero hacía que el rótulo «vs. la ola del 21/09» comparara contra un
+    # momento de hace tres semanas sin decirlo. Ahora, si la semana anterior no
+    # salió nada, la fila viene con `envios == 0` y el render lo dice en vez de
+    # inventar una base.
     con_envios = [f for f in semanal if f["envios"]]
+    camada = con_envios[-1] if con_envios else None
+    previa = None
+    if camada is not None:
+        semana_previa = (date.fromisoformat(camada["week"]) - timedelta(days=7)).isoformat()
+        previa = next((f for f in semanal if f["week"] == semana_previa), None)
 
     sincro = max((g["synced_at"] for g in data["grupos"] if g["synced_at"]),
                  default=None)
     return {
         "global": tasa(tocados),
         "semanal": semanal,
-        "camada": con_envios[-1] if con_envios else None,
-        "previa": con_envios[-2] if len(con_envios) > 1 else None,
+        "camada": camada,
+        "previa": previa,
         "maduracion_dias": MADURACION_CLICS_DIAS,
         "analisis": copia("analisis"),
         "generico": copia("generico"),

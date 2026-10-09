@@ -60,6 +60,7 @@ CHECKS = [
     "check_dashboard",
     "check_exercise_cycle_no_repeat",
     "check_experimento_grupos",
+    "check_sync_grupos_cluster",
     "check_game_api",
     "check_game_cafecito_impacto",
     "check_game_chat",
