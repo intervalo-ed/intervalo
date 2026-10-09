@@ -36,7 +36,7 @@
 //
 // El teclado físico sigue funcionando en paralelo (lo maneja MathLive).
 
-import { useMemo } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { motion, useReducedMotion } from "motion/react"
 import katex from "katex"
 // Lo importa también math-text.tsx, y el bundler lo deduplica; va acá igual
@@ -45,7 +45,10 @@ import "katex/dist/katex.min.css"
 import { ArrowLeft, ArrowRight, Delete } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useSfx } from "@/lib/audio/useSfx"
+import { KeyCap } from "./exercise-card"
 import type { MathInputHandle } from "./math-input"
+import { PulsoBlanco } from "./pulso"
+import { enCampoHtml } from "./teclas"
 
 export type Key = {
   // LaTeX del glifo, o un nodo suelto para las teclas que no son matemática
@@ -68,6 +71,20 @@ export type Key = {
   // dígitos para leerse igual de bien: en KaTeX un `+` ocupa mucho menos alto
   // que un `7`.
   size?: keyof typeof SIZES
+  // Solo escritorio. `fisica` son los `e.key` del teclado físico que hacen lo
+  // mismo que esta tecla: cuando se aprieta uno, la tecla de pantalla pulsa en
+  // blanco (pulso.tsx). `atajo` es el texto del chip que lo muestra, y una
+  // tecla con chip ocupa `ancho` columnas de la tira (dos) para que el glifo y
+  // el chip entren uno al lado del otro.
+  //
+  // Es la respuesta a lo que escribió la gente en la varita: «no tenés la
+  // opción de poner la potencia o la división» (en escritorio esas dos solo
+  // aparecían al desbloquearse) y «cuando escribo potencias se pone la llave»
+  // (no sabían salir del exponente). El teclado físico ya hacía todo eso; lo
+  // que faltaba era que se viera.
+  fisica?: readonly string[]
+  atajo?: string
+  ancho?: number
 }
 
 // Color a media asta. Los tonos originales (#4ADE80, #F87171, #C084FC…) eran
@@ -176,7 +193,7 @@ const NUMPAD: Key[] = [
 // Vocabulario dinámico. Las claves son los ids que manda el backend; cualquier
 // id desconocido se ignora, así agregar teclas en v2 no rompe clientes viejos.
 export const DYNAMIC: Record<string, Key> = {
-  pow: { tex: `${BOX}^{${BOX}}`, insert: "#@^{#?}" },
+  pow: { tex: `${BOX}^{${BOX}}`, insert: "#@^{#?}", atajo: "^", fisica: ["^"] },
   sq: { tex: `${BOX}^{2}`, insert: "#@^{2}" },
   sqrt: { tex: `\\sqrt{${BOX}}`, insert: "\\sqrt{#?}" },
   // `#@` y no `#?` en el numerador: es el token de argumento implícito de
@@ -191,7 +208,7 @@ export const DYNAMIC: Record<string, Key> = {
   // `sqrt` NO lleva `#@` a propósito: `\sqrt{#@}` no deja ningún hueco, así que
   // el cursor terminaría fuera del radical en vez de adentro, que es al revés
   // de lo que se quiere en el caso común de querer escribir una raíz.
-  frac: { tex: `\\frac{${BOX}}{${BOX}}`, insert: "\\frac{#@}{#?}" },
+  frac: { tex: `\\frac{${BOX}}{${BOX}}`, insert: "\\frac{#@}{#?}", atajo: "/", fisica: ["/"] },
   e: { tex: "e", insert: "e" },
   expx: { tex: `e^{${BOX}}`, insert: "e^{#?}" },
   ln: {
@@ -230,7 +247,13 @@ export const DYNAMIC: Record<string, Key> = {
 // teléfono se queda en 2.5rem — ahí no sobra alto, pero la tecla se toca con el
 // pulgar y achicarla la vuelve imposible de acertar.
 const ROW_MIN = "var(--kb-row)"
-export const ROW_VARS = "[--kb-row:2.5rem] md:[--kb-row:2.05rem]"
+// `--kb-strip` es el alto de las filas de ESCRITORIO (inventario y tiras). En
+// una ventana baja —una notebook de 768 px con la barra del navegador, un zoom
+// al 125%— bajan de 2,6 a 2,25rem: con tres filas son 17 px que se recuperan
+// sin que la tecla deje de ser una tecla. El corte es el mismo que usa el
+// layout (desktop-layout.tsx :: CORTO).
+export const ROW_VARS =
+  "[--kb-row:2.5rem] md:[--kb-row:2.05rem] [--kb-strip:2.6rem] [@media(max-height:700px)]:[--kb-strip:2.25rem]"
 
 // En escritorio todas las filas comparten una grilla de DIEZ columnas: caen en
 // las mismas verticales, que es lo que hace que se lean como un teclado y no
@@ -276,8 +299,8 @@ export const RAMPA_ROW_APRETADO = "var(--kb-row)"
 export const RAMPA_FILAS_APRETADO = 4
 
 const DYNAMIC_ROW = "2.75rem"
-const DYNAMIC_ROW_DESKTOP = "2.6rem"
-export const STRIP_ROW = "2.6rem"
+const DYNAMIC_ROW_DESKTOP = "var(--kb-strip)"
+export const STRIP_ROW = "var(--kb-strip)"
 
 // La fila fija de escritorio, espejada por el mismo motivo que el pad del
 // teléfono: en escritorio no hay numérico —los dígitos se tipean— pero sí están
@@ -291,20 +314,72 @@ export const STRIP_ROW = "2.6rem"
 const STRIP_WRITE: Key[] = [...LEFT.slice(0, 2), ...CENTER]
 const STRIP_EDIT: Key[] = [CLEAR_KEY, ERASE_KEY, ...LEFT.slice(2)]
 
-/** Cuántas teclas tiene cada tira de escritorio. Derivado y no escrito a mano:
- *  lo lee el esqueleto de carga (desktop-layout.tsx :: ExerciseSkeleton) para
- *  dibujar las mismas celdas, y con un literal ahí las dos cosas se separaban en
- *  cuanto alguien sumara una tecla. */
-export const LARGOS_DE_TIRA = [STRIP_WRITE.length, STRIP_EDIT.length]
-
-/** En qué columna arranca la tecla `indice` de una tira de `total`, para que la
- *  tira quede centrada en las diez columnas. La usan el teclado y su esqueleto:
- *  si el centrado se calculara dos veces, alcanzaría con tocar una para que las
- *  teclas del esqueleto dejaran de caer donde caen las de verdad. */
-export function columnaDeTira({ total, indice }: { total: number; indice: number }) {
-  return Math.floor((GRID_COLS - total) / 2) + 1 + indice
+// Las mismas tiras, con el atajo físico a la vista: las teclas que tienen un
+// carácter propio en el teclado real ocupan dos columnas y llevan el chip. Las
+// que no lo tienen —la C— o cuyo glifo YA es la tecla —las flechas, la x, el +
+// y el −— quedan de una columna, pulsan igual.
+//
+// «Salir» es el Tab de MathLive (moveToNextGroup, ver math-input.tsx): sale
+// del exponente o del denominador y sigue en el renglón. Es la mitad del «se me
+// pone la llave»: la otra mitad es saber que existe.
+const conAtajo = (key: Key, atajo: string, fisica: readonly string[]): Key => ({
+  ...key,
+  atajo,
+  fisica,
+  ancho: 2,
+})
+const SALIR_KEY: Key = {
+  tex: `${BOX}\\!\\rightarrow`,
+  cmd: "moveToNextGroup",
+  tone: "nav",
+  size: "sm",
 }
+const STRIP_WRITE_ATAJOS: Key[] = [
+  conAtajo(LEFT[0], "(", ["("]),
+  conAtajo(LEFT[1], ")", [")"]),
+  { ...CENTER[0], fisica: ["x"] },
+  { ...CENTER[1], fisica: ["+"] },
+  { ...CENTER[2], fisica: ["-"] },
+  conAtajo(CENTER[3], "*", ["*"]),
+]
+const STRIP_EDIT_ATAJOS: Key[] = [
+  CLEAR_KEY,
+  conAtajo(ERASE_KEY, "⌫", ["Backspace"]),
+  { ...LEFT[2], fisica: ["ArrowLeft"] },
+  { ...LEFT[3], fisica: ["ArrowRight"] },
+  conAtajo(SALIR_KEY, "tab", ["Tab"]),
+]
+
+/** Cuántas columnas ocupa cada tecla de cada tira de escritorio. Derivado y no
+ *  escrito a mano: lo lee el esqueleto de carga (desktop-layout.tsx ::
+ *  ExerciseSkeleton) para dibujar las mismas celdas, y con un literal ahí las
+ *  dos cosas se separaban en cuanto alguien sumara una tecla. */
+export const ANCHOS_DE_TIRA: number[][] = [STRIP_WRITE_ATAJOS, STRIP_EDIT_ATAJOS].map(
+  (fila) => fila.map((key) => key.ancho ?? 1),
+)
+
+/** En qué columna arranca cada tecla de una tira, para que la tira quede
+ *  centrada en las diez columnas. Lo usan el teclado y su esqueleto: si el
+ *  centrado se calculara dos veces, alcanzaría con tocar una para que las
+ *  teclas del esqueleto dejaran de caer donde caen las de verdad. */
+export function columnasDeTira(anchos: readonly number[]): number[] {
+  const total = anchos.reduce((suma, a) => suma + a, 0)
+  let columna = Math.floor((GRID_COLS - total) / 2) + 1
+  return anchos.map((a) => {
+    const inicio = columna
+    columna += a
+    return inicio
+  })
+}
+// La tira única, para cuando el inventario pide dos filas: ahí no hay lugar
+// para los chips y las teclas vuelven a una columna. Las que tienen atajo
+// siguen pulsando.
 const STRIP: Key[] = [...STRIP_EDIT, ...STRIP_WRITE]
+
+// En escritorio la potencia y la fracción están SIEMPRE, desbloqueadas o no:
+// se tipean con `^` y `/`, y una tecla que muestra ese atajo enseña más de lo
+// que distrae. En el teléfono siguen siendo del inventario.
+const SIEMPRE_EN_ESCRITORIO = ["pow", "frac"]
 
 // El teclado de escritorio mide SIEMPRE tres filas, y lo que se acomoda para
 // lograrlo es el bloque fijo: con el inventario chico ocupa dos filas —lo que se
@@ -666,16 +741,22 @@ export function MathKeyboard({
         KEY_CLASS,
         SIZES[key.size ?? "md"],
         TONES[key.tone ?? "plain"],
+        key.fisica && !numpad && "relative overflow-hidden",
+        key.atajo && !numpad && "gap-1.5 px-2",
         opts?.className,
       )}
     >
+      {key.fisica && !numpad && <PulsoBlanco seq={pulsoDe(key)} />}
       {key.tex !== undefined ? (
         <span
-          className={GLYPH_CLASS}
+          className={cn(GLYPH_CLASS, "relative z-10")}
           dangerouslySetInnerHTML={{ __html: glyph(key.tex) }}
         />
       ) : (
-        key.node
+        <span className="relative z-10 flex">{key.node}</span>
+      )}
+      {key.atajo && !numpad && (
+        <KeyCap className="relative z-10 ml-0 text-muted-foreground">{key.atajo}</KeyCap>
       )}
     </motion.button>
   )
@@ -686,7 +767,10 @@ export function MathKeyboard({
   // fila ancha (donde puede decir `sen(□)`).
   const dynamic = useMemo(
     () =>
-      keys
+      (numpad
+        ? keys
+        : [...SIEMPRE_EN_ESCRITORIO, ...keys.filter((id) => !SIEMPRE_EN_ESCRITORIO.includes(id))]
+      )
         // El id viaja junto a la tecla: un id desconocido se descarta, y si el
         // índice se leyera después contra `keys` la columna y la React key
         // quedarían corridas a partir de ahí.
@@ -697,8 +781,30 @@ export function MathKeyboard({
           key: entry.key,
           nueva: newKeys.includes(entry.id),
         })),
-    [keys, newKeys],
+    [keys, newKeys, numpad],
   )
+
+  // El pulso de cada tecla física, por `e.key`. Escucha en captura sobre el
+  // documento porque el keydown nace en el editable del shadow DOM de MathLive
+  // y de ahí sube compuesto; no se frena nada: la tecla física sigue haciendo
+  // lo suyo en el campo y la de pantalla solo acusa recibo. Un campo HTML de
+  // verdad —el chat— no cuenta: ahí un paréntesis es un paréntesis.
+  const [pulsos, setPulsos] = useState<Record<string, number>>({})
+  useEffect(() => {
+    if (numpad) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.ctrlKey || e.metaKey || e.altKey) return
+      if (enCampoHtml(e.target)) return
+      const k = e.key
+      setPulsos((p) => ({ ...p, [k]: (p[k] ?? 0) + 1 }))
+    }
+    document.addEventListener("keydown", onKey, true)
+    return () => document.removeEventListener("keydown", onKey, true)
+  }, [numpad])
+  const pulsoDe = (key: Key) =>
+    key.fisica && !numpad
+      ? Math.max(0, ...key.fisica.map((k) => pulsos[k] ?? 0))
+      : 0
 
   // El reparto del teléfono. Las primeras entran al pad con el glifo corto; las
   // que sobran suben a la fila ancha con el largo.
@@ -941,8 +1047,12 @@ export function MathKeyboard({
         // Es lo que mantiene el teclado en tres filas siempre (ver
         // DYN_ONE_ROW_MAX). Los dos repartos son pares y la grilla también, así
         // que las dos quedan centradas exactas.
-        (dynDesktopRows.length > 1 ? [STRIP] : [STRIP_WRITE, STRIP_EDIT]).map(
-          (fila, f) => (
+        (dynDesktopRows.length > 1
+          ? [STRIP]
+          : [STRIP_WRITE_ATAJOS, STRIP_EDIT_ATAJOS]
+        ).map((fila, f) => {
+          const inicios = columnasDeTira(fila.map((key) => key.ancho ?? 1))
+          return (
             <div
               key={`tira-${f}`}
               className={cn("grid shrink-0 gap-1.5", CONTENT_WIDTH)}
@@ -951,13 +1061,13 @@ export function MathKeyboard({
               {fila.map((key, i) =>
                 button(strip(key), `strip-${f}-${i}`, {
                   style: {
-                    gridColumnStart: columnaDeTira({ total: fila.length, indice: i }),
+                    gridColumn: `${inicios[i]} / span ${key.ancho ?? 1}`,
                   },
                 }),
               )}
             </div>
-          ),
-        )
+          )
+        })
       )}
       </div>
     </div>

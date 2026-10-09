@@ -93,6 +93,36 @@ justamente a quien menos lo puede pagar.
 cuántas de las «altas» de iOS eran vueltas, que es el número que hace falta para
 saber si esto alcanzó.
 
+### Entrar con Google desde el primer aparato nuevo (desde el 09/10)
+
+El progreso vive en el `guest_token` del navegador, y la única forma de llevarlo
+a otro aparato es la cuenta de Google. Hasta acá, el botón para entrar aparecía
+solo en la diapo de registro —a las diez correctas— o tocando el @ en
+Configuración, que no dice que sirve para eso. Dos personas lo escribieron en la
+varita la misma semana: una abrió el juego «en otro equipo y no me reconoció»;
+la otra perdió diez derivadas porque el teléfono le dio un invitado nuevo (otro
+navegador, o el de WhatsApp), se registró sobre ESE, y el de la víspera quedó
+huérfano. Ninguna de las dos tenía un lugar visible donde entrar.
+
+Ahora está en **«Elegí tu @»** (`username-slide.tsx`), que es la primera
+pantalla que ve cualquier aparato nuevo: debajo del campo, «Vincular con
+Google» y la línea «Si ya jugaste en otro aparato, acá recuperás tu progreso».
+El login es el mismo de la diapo de registro, movido a `google-login.tsx` para
+que las dos pantallas no lo repitan; si la persona ya escribió un @ antes de
+tocar, viaja como «alias deseado» y se aplica al volver.
+
+Lo que NO resuelve, dicho: el servidor engancha al invitado del aparato actual y
+nada más. Quien jugó como invitado en el aparato nuevo y DESPUÉS entra, pierde
+ese rato (`_jugador_del_usuario` devuelve el jugador de la cuenta y descarta el
+invitado); y un invitado viejo del mismo aparato en otro navegador no se puede
+rescatar. El botón existe para que las dos cosas pasen menos, no para que no
+puedan pasar.
+
+De paso la diapo se ordenó como el resto: el Continuar va al pie
+(`ConSalidaAbajo` en el teléfono, el pie de la columna en escritorio), sin el
+chip de enter, y en el teléfono el campo ya no se enfoca solo —el teclado del
+sistema tapaba la mitad de la diapo, incluido el botón nuevo.
+
 ### Con qué aparato juega cada uno (`game_device_samples`)
 
 La misma fila guarda **el FCP de la primera pintura** y **el modelo del
@@ -1369,6 +1399,45 @@ que el feed deje de creerse.
 Dos decisiones de vocabulario más, las dos con chequeo propio para que no vuelvan
 solas: las rachas **alternan «errar» y «pifiar»** —la misma idea con dos
 registros, el doble de frases sin agregar ninguna— y **no se cuentan «al hilo»**.
+
+### Escritorio: los atajos a la vista, y las ventanas chicas (desde el 09/10)
+
+**Los atajos.** El teclado físico siempre hizo todo en escritorio —`^` es el
+exponente, `/` arma la fracción, Tab sale del hueco— pero solo lo contaban las
+«tips» del campo vacío, y la potencia y la fracción en pantalla aparecían recién
+al desbloquearse. «No tenés la opción de poner la potencia o la división», «se me
+pone la llave», decía la varita. Ahora (`math-keyboard.tsx`):
+
+- la potencia y la fracción están **siempre** en la fila de inventario de
+  escritorio, con el chip de su tecla (`^`, `/`);
+- en las tiras fijas, las teclas con carácter propio —`(`, `)`, `·` con `*`, el
+  retroceso— ocupan dos columnas y llevan el chip; y hay una tecla nueva,
+  «salir» (`□→`, chip `tab`), que es el `moveToNextGroup` de MathLive;
+- cuando se aprieta la tecla física, la de pantalla **pulsa en blanco**: el
+  mismo pulso de las flechas `w`/`s` de «¿Por qué?», ahora en `pulso.tsx`.
+
+Las teclas sin chip (x, +, −, C, las flechas) siguen de una columna y pulsan
+igual. Con el inventario completo (más de siete teclas desbloqueadas) las tiras
+se juntan en una sola fila de diez y los chips de las fijas no entran: ahí se
+vuelve a la fila de siempre; los de `^` y `/` quedan.
+
+**Las ventanas chicas.** El layout se elige por user agent y no por tamaño
+(`game-root.tsx`), así que una notebook de 1366×768 con la barra del navegador,
+una ventana a media pantalla o una tablet caen en el de escritorio, que pedía
+900 px de ancho y unos 683 de alto y recortaba lo demás sin scroll —«hay cosas
+que se ocultan de la pantalla». Dos cortes, en `desktop-layout.tsx`:
+
+- **menos de 700 px de alto**: se saca el piso de alto de la columna, la caja
+  usa toda la ventana, el historial queda en una línea y las filas del teclado
+  bajan de 2,6 a 2,25 rem (`--kb-strip`). Medido a 1366×660: entran las tres
+  filas, los botones y el historial;
+- **menos de 900 px de ancho**: una sola columna, y el ranking se vuelve un
+  cajón que sale del borde derecho con una pestaña («ranking»). El ranking no
+  se pierde, se pide.
+
+Las clases de los dos cortes están escritas literales en cada sitio y no
+interpoladas desde una constante: Tailwind genera el CSS a partir de los textos
+que encuentra en el fuente, y una clase armada con `${…}` no existe para él.
 
 ### El veredicto adelantado, y qué cuesta leerlo (`local-verdict.ts`)
 
