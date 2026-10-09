@@ -5,13 +5,12 @@ import { useIsPresent } from "motion/react"
 import posthog from "posthog-js"
 import { useQueryClient } from "@tanstack/react-query"
 import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
 import { ApiError, unwrap } from "@/lib/api/client"
 import { normalizeUsername, validateUsername } from "@/lib/username"
 import { useSfx } from "@/lib/audio/useSfx"
 import { KeyCap } from "./exercise-card"
 import { GoogleIcon, saveDesiredAlias, useGoogleLogin } from "./google-login"
-import { Salida, claseDeSalida } from "./slide-salida"
+import { Salida } from "./slide-salida"
 import { useTeclas } from "./teclas"
 import { useGameApi } from "./UseGameApi"
 import { gameKeys, type GamePlayer } from "./UseGamePlayer"
@@ -173,13 +172,12 @@ export function UsernameSlide({
           className="h-[52px] w-full bg-transparent text-foreground outline-none"
         />
       </div>
-      {/* El botón de Google es la salida gris de todas las diapos, no el de
-          color: lo que esta pantalla ofrece es el @, y Google es la otra
-          puerta, para quien ya tiene una. Mide lo mismo que el campo. */}
+      {/* Blanco sólido como el Continuar: es una acción de verdad, no una
+          salida. Mide lo mismo que el campo. */}
       <div className="flex w-full max-w-xs flex-col gap-2">
-        <button
-          type="button"
-          className={cn(claseDeSalida(false), "mt-0 font-medium")}
+        <Button
+          size="lg"
+          className={ctaCls}
           disabled={!google.listo || google.pendiente}
           onClick={() => {
             sfx.select()
@@ -189,7 +187,7 @@ export function UsernameSlide({
           {google.pendiente ? "Conectando…" : "Conectar con Google"}
           <GoogleIcon className="ml-2 size-4" />
           {keyboard && <KeyCap>{teclas.altEnter}</KeyCap>}
-        </button>
+        </Button>
         <p className="text-xs leading-relaxed text-foreground/55">
           Si ya jugaste en otro aparato, acá recuperás tu progreso.
         </p>
