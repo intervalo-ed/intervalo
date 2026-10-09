@@ -88,7 +88,10 @@ import {
   marcarReglasMostradas,
   tocaReglas,
 } from "./reglas-trigger"
-import { DerivativesTable, TableButton } from "./derivatives-table"
+import { DerivativesStatsTable, DerivativesTable, TableButton } from "./derivatives-table"
+import { EloStatsPanel, StatsButton } from "./elo-stats-panel"
+import { puedeVerEstadisticas } from "./stats-gate"
+import { useGameStats } from "./UseGameStats"
 import { PorQueButton, PorQuePanel, type PorQueGraph } from "./porque-panel"
 import { PieDeRampa, conAyudasDe } from "./pie-rampa"
 import { useExplainExercise } from "./UseGameExplain"
@@ -180,6 +183,10 @@ type Slide =
   // La tabla de derivadas. Guarda a dónde volver por lo mismo que configuración:
   // se entra desde el ejercicio y desde el ranking.
   | { kind: "tabla"; back: Slide }
+  // Las estadísticas personales: las tiles, la campana del Elo y la tabla
+  // enriquecida, apiladas. En escritorio son dos dorsos (tecla `j`); acá es
+  // una pantalla que scrollea entera. Guarda a dónde volver como la tabla.
+  | { kind: "stats"; back: Slide }
   // El «¿Por qué?»: de dónde salía esta derivada. Mismo trato que la tabla
   // —guarda a dónde volver— porque se entra desde dos situaciones distintas del
   // mismo ejercicio: habiéndolo acertado, y estando trabado en él.
@@ -281,6 +288,8 @@ type PendingAfter = { answer: GameAnswer } | null
 function GameHeader({
   onSettings,
   onTable,
+  onStats,
+  conStats,
   onChat,
   sinLeerChat = 0,
   onCafecito,
@@ -302,6 +311,11 @@ function GameHeader({
   // adentro del juego, y las otras dos sacan de él. Puesta al final quedaba
   // agrupada con las que se van.
   onTable: () => void
+  // Abre las estadísticas. Va pegado a la tabla porque es lo otro que se mira
+  // ADENTRO del juego. Ausente —no gris— antes de la derivada 3
+  // (stats-gate.ts :: UMBRAL_ESTADISTICAS).
+  onStats: () => void
+  conStats: boolean
   // Abre la diapo del cafecito. Vive acá arriba y no adentro del botón porque
   // hay que saber a qué pantalla volver, y eso solo lo sabe quien lo monta.
   onCafecito: () => void
@@ -320,6 +334,7 @@ function GameHeader({
       </button>
       <span className="flex items-center gap-1.5">
         {conTabla && <TableButton open={false} onToggle={onTable} keyboard={false} />}
+        <StatsButton open={false} onToggle={onStats} visible={conStats} keyboard={false} />
         <ChatButton open={false} onToggle={onChat} sinLeer={sinLeerChat} keyboard={false} />
         <ShareButton placement="header_mobile" onOpen={onReclutar} />
         <CafecitoButton
@@ -589,6 +604,24 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
   const verTabla = () => {
     peekedRef.current = true
     goTo({ kind: "tabla", back: slide })
+  }
+
+  // A partir de la derivada 3 (stats-gate.ts, mismo número que el server). El
+  // pedido es perezoso: `/stats` agrega sobre todos los jugadores calificados,
+  // y no se dispara hasta que la diapo está en pantalla.
+  const estadisticasDisponibles = puedeVerEstadisticas(player)
+  const statsQuery = useGameStats(slide.kind === "stats")
+
+  // La tabla enriquecida muestra las mismas fórmulas CON derivada que la tabla
+  // plana: mirarla cuenta como mirar la tabla (`peeked`), igual que en
+  // escritorio (desktop-layout.tsx :: flipStats).
+  const verEstadisticas = () => {
+    peekedRef.current = true
+    posthog.capture("game_stats_open", {
+      exercises_correct: player?.exercises_correct ?? 0,
+      layout: "mobile",
+    })
+    goTo({ kind: "stats", back: slide })
   }
 
   // Poner en pantalla un ejercicio que ya llegó. Se separó de `loadNext` porque
@@ -1691,6 +1724,11 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   sfx.select()
                   verTabla()
                 }}
+                conStats={estadisticasDisponibles}
+                onStats={() => {
+                  sfx.select()
+                  verEstadisticas()
+                }}
                 onChat={() => {
                   sfx.select()
                   goTo({ kind: "chat", back: { kind: "exercise" } })
@@ -2075,6 +2113,11 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                 sfx.select()
                 verTabla()
               }}
+              conStats={estadisticasDisponibles}
+              onStats={() => {
+                sfx.select()
+                verEstadisticas()
+              }}
             />
           )}
 
@@ -2159,6 +2202,41 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
             </div>
           )}
 
+          {slide.kind === "stats" && (
+            <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col gap-3 px-4 pb-[var(--cta-pb)] pt-4">
+              {/* Los MISMOS dos componentes que en escritorio, apilados en el
+                  orden en que se leen: primero los números propios (tiles),
+                  después la campana del Elo, y al final la tabla de derivadas
+                  con velocidad y efectividad. Una sola caja scrollea; cada
+                  tramo va `inline` para no scrollear por su cuenta. */}
+              <div className="no-scrollbar flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto">
+                <EloStatsPanel
+                  player={player}
+                  stats={statsQuery.data}
+                  isLoading={statsQuery.isPending}
+                  inline
+                />
+                <DerivativesStatsTable rows={statsQuery.data?.rows ?? []} inline />
+              </div>
+              {/* Volver, igual que la tabla: ancho completo abajo, donde está
+                  el pulgar, y "atras" porque esta pantalla no lleva a ninguna
+                  parte. */}
+              <Button
+                size="lg"
+                className={ctaCls}
+                onClick={() => {
+                  sfx.select()
+                  const back = slide.back
+                  if (back.kind !== "exercise") goTo(back, "atras")
+                  else if (exercise) goTo(back, "atras")
+                  else loadNext()
+                }}
+              >
+                Volver
+              </Button>
+            </div>
+          )}
+
           {slide.kind === "novedades" && (
             <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col gap-3 px-4 pb-[var(--cta-pb)] pt-4">
               {/* La misma barra que en el ejercicio y en el ranking, en vez de
@@ -2174,6 +2252,11 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                 onTable={() => {
                   sfx.select()
                   verTabla()
+                }}
+                conStats={estadisticasDisponibles}
+                onStats={() => {
+                  sfx.select()
+                  verEstadisticas()
                 }}
                 onChat={() => {
                   sfx.select()
@@ -2237,6 +2320,11 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                 onTable={() => {
                   sfx.select()
                   verTabla()
+                }}
+                conStats={estadisticasDisponibles}
+                onStats={() => {
+                  sfx.select()
+                  verEstadisticas()
                 }}
                 onChat={() => {}}
                 onCafecito={() => {
@@ -2501,6 +2589,8 @@ function RankingSlide({
   continueDisabled,
   onSettings,
   onTable,
+  onStats,
+  conStats,
   onCafecito,
   onReclutar,
 }: {
@@ -2525,6 +2615,8 @@ function RankingSlide({
   continueDisabled: boolean
   onSettings: () => void
   onTable: () => void
+  onStats: () => void
+  conStats: boolean
   onCafecito: () => void
   onReclutar: () => void
 }) {
@@ -2554,6 +2646,8 @@ function RankingSlide({
       <GameHeader
         onSettings={onSettings}
         onTable={onTable}
+        onStats={onStats}
+        conStats={conStats}
         onChat={onChat}
         sinLeerChat={sinLeerChat}
         onCafecito={onCafecito}

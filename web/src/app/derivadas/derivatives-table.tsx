@@ -15,14 +15,16 @@
 // (backend/game/stats.py :: ROW_TEMPLATES) NO tiene ninguna plantilla que las
 // genere: quedan por completitud de la tabla de bolsillo, y el panel de
 // estadísticas (tecla `j`, DerivativesStatsTable acá abajo) las marca con un
-// placeholder en vez de inventarles un número. Y al revés, media docena de
-// plantillas SÍ se sirven pero no tienen fila propia (la regla de la suma, la
-// constante multiplicativa k·u): son combinaciones de lo que ya está arriba,
-// y separarlas costaba una fila más para descartar con la vista.
+// placeholder en vez de inventarles un número. Y al revés, una plantilla SÍ
+// se sirve pero no tiene fila propia (la constante multiplicativa k·u): es una
+// combinación de lo que ya está arriba, y separarla costaba una fila más para
+// descartar con la vista. La regla de la suma estuvo en ese grupo hasta el
+// 09/10: se la pidieron a la tabla, y entró como fila (`sum`, con sus cinco
+// plantillas del lado del server, game/stats.py :: ROW_TEMPLATES).
 //
-// Las tres reglas del final no son decoración: los tiers 4 y 5 son productos y
-// cocientes, los 6 a 8 son la cadena, y sin ellas la tabla no sirve justo donde
-// más se la necesita.
+// Las cuatro reglas del final no son decoración: el tier 2 y parte del 3 son
+// sumas, los tiers 4 y 5 son productos y cocientes, los 6 a 8 son la cadena, y
+// sin ellas la tabla no sirve justo donde más se la necesita.
 
 import { useEffect, useMemo, useRef, useState } from "react"
 import { Table2 as TableIcon } from "lucide-react"
@@ -54,8 +56,8 @@ const mate = (latex: string) => `$\\displaystyle ${latex}$`
 // (un array reordenado del lado del server no tendría por qué romper esto).
 export type Fila = { f: string; d: string; slug: string }
 
-// Una sola tabla de dos columnas. Las tres reglas —producto, cociente y
-// cadena— entran como tres filas más y no en una tabla aparte: son lo mismo
+// Una sola tabla de dos columnas. Las cuatro reglas —suma, producto, cociente
+// y cadena— entran como cuatro filas más y no en una tabla aparte: son lo mismo
 // que el resto (algo y su derivada) y separarlas obligaba a una segunda
 // cabecera que repetía las mismas dos palabras.
 // Las fracciones SIMPLES —las que tienen un 1 arriba y un factor abajo— van
@@ -85,6 +87,7 @@ export const FILAS: Fila[] = [
   { slug: "sin_x", f: "\\operatorname{sen} x", d: "\\cos x" },
   { slug: "cos_x", f: "\\cos x", d: "-\\operatorname{sen} x" },
   { slug: "tan_x", f: "\\tan x", d: "1/\\cos^{2} x" },
+  { slug: "sum", f: "u + v", d: "u' + v'" },
   { slug: "prod", f: "u \\cdot v", d: "u'v + uv'" },
   { slug: "quot", f: "u/v", d: "\\left(u'v - uv'\\right)/v^{2}" },
   { slug: "chain", f: "f(u)", d: "f'(u)\\,u'" },
@@ -421,11 +424,29 @@ function RenglonStats({ fila, datos }: { fila: Fila; datos?: GameStatsRow }) {
   )
 }
 
-export function DerivativesStatsTable({ rows }: { rows: GameStatsRow[] }) {
+export function DerivativesStatsTable({
+  rows,
+  inline = false,
+}: {
+  rows: GameStatsRow[]
+  // Sin scroll propio: la tabla es el último tramo de la pantalla de
+  // estadísticas del teléfono, que scrollea entera (ver EloStatsPanel).
+  inline?: boolean
+}) {
   const porSlug = new Map(rows.map((fila) => [fila.slug, fila]))
   return (
-    <div className="no-scrollbar flex min-h-0 flex-1 flex-col overflow-y-auto text-[0.95rem]">
-      <div className="flex min-h-full shrink-0 flex-col overflow-hidden rounded-md border border-white/10">
+    <div
+      className={cn(
+        "flex flex-col text-[0.95rem]",
+        !inline && "no-scrollbar min-h-0 flex-1 overflow-y-auto",
+      )}
+    >
+      <div
+        className={cn(
+          "flex shrink-0 flex-col overflow-hidden rounded-md border border-white/10",
+          !inline && "min-h-full",
+        )}
+      >
         <div className="grid shrink-0 grid-cols-3 bg-white/[0.07] text-center text-[0.65rem] font-medium uppercase tracking-wide text-muted-foreground">
           <div className="border-r border-white/10 py-1">función</div>
           <div className="border-r border-white/10 py-1">velocidad</div>

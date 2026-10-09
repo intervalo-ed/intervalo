@@ -12,7 +12,7 @@ export type GameStatsRow = components["schemas"]["GameStatsRow"]
 /** Las estadísticas del panel que abre la tecla `j`.
  *
  * `enabled` tiene que venir en `false` hasta que el panel se abre de verdad
- * (statsOpen): pedirlas apenas el jugador cruza la derivada 10, aunque nunca
+ * (statsOpen): pedirlas apenas el jugador cruza la derivada 3, aunque nunca
  * toque `p`, sería trabajo del servidor —una agregación sobre TODOS los
  * jugadores calificados— por una tecla que quizás nadie use.
  *

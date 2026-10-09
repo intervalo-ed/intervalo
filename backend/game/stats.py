@@ -1,5 +1,6 @@
-"""Estadísticas del jugador para el panel que abre la tecla `p` (ver
-web/src/app/derivadas/elo-stats-panel.tsx y desktop-layout.tsx).
+"""Estadísticas del jugador para el panel que abre la tecla `j` en escritorio
+y el botón de la cabecera en el teléfono (ver
+web/src/app/derivadas/elo-stats-panel.tsx, desktop-layout.tsx y mobile-flow.tsx).
 
 Dos paquetes en un solo viaje porque se muestran juntos: la card del ejercicio
 se da vuelta y del otro lado va el Elo (histograma + explicación + generales),
@@ -25,13 +26,24 @@ from . import elo
 from .explain import reglas_del_ejercicio
 from .templates import TEMPLATE_BY_KEY
 
-# A partir de cuántas derivadas RESUELTAS se desbloquea el panel. Mismo número
-# que reclutas-trigger.ts (10), pero constante PROPIA y no un import cruzado:
-# allá 10 es el resto de un contador periódico (10, 30, 50…); acá es un piso
-# de una sola vez ("a partir de"). Comparten el número porque las dos leen
-# "recién a las diez derivadas el juego empieza a hablarte de otra cosa", no
-# porque sean el mismo mecanismo.
-UMBRAL_ESTADISTICAS = 10
+# A partir de cuántas derivadas RESUELTAS se desbloquea el panel. Fue 10 hasta
+# el 09/10, cuando el panel llegó al teléfono y se bajó a 3: es la misma vara
+# de la activación («3 resueltas en la primera tanda»), así que quien activó
+# ya tiene el botón, y con tres derivadas las tiles ya dicen algo (resueltas,
+# efectividad, racha). Tiene que ser el MISMO valor que
+# web/src/app/derivadas/stats-gate.ts :: UMBRAL_ESTADISTICAS.
+#
+# No es el piso de «calificado» (abajo): ver el panel y ENTRAR en la campana
+# son dos cosas distintas.
+UMBRAL_ESTADISTICAS = 3
+
+# A partir de cuántas resueltas un jugador cuenta en la campana del Elo. Se
+# quedó en 10 cuando el umbral de arriba bajó a 3: con tres derivadas el Elo
+# todavía está donde lo dejó la rampa (elo.RAMP_UPDATES), y meter a esa gente
+# en el histograma lo amontonaría alrededor del rating inicial. Quien ve el
+# panel antes de las 10 se compara contra la campana sin estar en ella —el
+# percentil se calcula igual, contra los calificados.
+UMBRAL_CALIFICADO = 10
 
 # Piso de jugadores CALIFICADOS para dibujar el histograma. Con menos, una
 # campana de pocos puntos no es un gráfico: señala quiénes son y de paso
@@ -101,6 +113,11 @@ ROW_TEMPLATES: dict[str, tuple[str, ...]] = {
     "sin_x": ("t3_sin",),
     "cos_x": ("t3_cos",),
     "tan_x": ("t3_tan",),
+    # La regla de la suma entró a la tabla el 09/10. Hasta ahí sus cinco
+    # plantillas se servían sin fila y sus intentos se tiraban al armar el
+    # accuracy; `t1_kx` (la constante multiplicativa) sigue siendo la única
+    # combinación sin fila.
+    "sum": ("t2_sum2", "t2_sum3", "t2_pow_plus_const", "t3_trig_sum", "t3_mix_sum"),
     "prod": ("t4_pow_sin", "t4_pow_exp", "t4_exp_cos", "t4_pow_ln", "t4_exp_sin"),
     "quot": ("t5_sin_over_x", "t5_pow_over_linear", "t5_exp_over_pow",
              "t5_ln_over_x", "t5_linear_over_linear"),
@@ -115,11 +132,10 @@ ROW_TEMPLATES: dict[str, tuple[str, ...]] = {
               "t8_pow_ln", "t8_prod_cadena", "t8_quot_cadena"),
 }
 
-# El reverso: de qué plantilla a qué fila visible. Las plantillas que NO
-# aparecen acá (t1_kx, t2_sum2, t2_sum3, t2_pow_plus_const, t3_trig_sum,
-# t3_mix_sum) se sirven pero no tienen fila propia — son combinaciones (suma,
-# constante multiplicativa), mismo criterio que ya usa la tabla visual. Sus
-# intentos se IGNORAN al armar el accuracy por fila: no hay dónde ponerlos.
+# El reverso: de qué plantilla a qué fila visible. La única plantilla que NO
+# aparece acá (t1_kx) se sirve pero no tiene fila propia — es la constante
+# multiplicativa, mismo criterio que ya usa la tabla visual. Sus intentos se
+# IGNORAN al armar el accuracy por fila: no hay dónde ponerlos.
 _TEMPLATE_TO_SLUG: dict[str, str] = {
     key: slug for slug, keys in ROW_TEMPLATES.items() for key in keys
 }
@@ -127,10 +143,10 @@ _TEMPLATE_TO_SLUG: dict[str, str] = {
 
 # De la regla que explica una derivada a la FILA de la tabla que la dice.
 #
-# `suma` y `constante_por` no están, y no es un olvido: no tienen fila. La
-# tabla no lista «la regla de la suma» porque es la combinación de lo que ya
-# está arriba, y el mismo criterio se aplica acá — ver el comentario de
-# ROW_TEMPLATES y el de derivatives-table.tsx.
+# `constante_por` no está, y no es un olvido: no tiene fila. La tabla no lista
+# «k·u» porque es la combinación de lo que ya está arriba — ver el comentario
+# de ROW_TEMPLATES y el de derivatives-table.tsx. `suma` sí tiene fila desde el
+# 09/10.
 _REGLA_A_SLUG: dict[str, str] = {
     "constante": "a",
     "x": "x",
@@ -142,6 +158,7 @@ _REGLA_A_SLUG: dict[str, str] = {
     "sen": "sin_x",
     "cos": "cos_x",
     "tan": "tan_x",
+    "suma": "sum",
     "producto": "prod",
     "cociente": "quot",
     "cadena": "chain",
@@ -310,19 +327,23 @@ def _xp_de_los_reclutas(db: DBSession, player_id: int) -> int:
 def _histograma(db: DBSession, player: GamePlayer) -> dict:
     """Dónde está el jugador respecto a la masa de jugadores CALIFICADOS.
 
-    Calificado = is_bot=false Y exercises_correct >= UMBRAL_ESTADISTICAS — el
+    Calificado = is_bot=false Y exercises_correct >= UMBRAL_CALIFICADO — el
     mismo número y el mismo campo que pidió el usuario ("resolvieron 10 o más
     derivadas"), no elo.RAMP_UPDATES(=5): ese gobierna la rampa de tiers al
     servir, esto es una decisión de PRODUCTO nueva sobre qué jugador tiene
     juego suficiente para no ensuciar la campana con quien probó dos veces y
     se fue.
+
+    El jugador que mira puede no ser calificado (ve el panel desde la 3): su
+    rating se ubica en la campana igual, y el percentil se cuenta contra los
+    calificados sin descontarlo a él, porque no está adentro.
     """
     ratings = sorted(
         elo.rating_of(theta)
         for (theta,) in db.query(GamePlayer.theta)
         .filter(
             GamePlayer.is_bot.is_(False),
-            GamePlayer.exercises_correct >= UMBRAL_ESTADISTICAS,
+            GamePlayer.exercises_correct >= UMBRAL_CALIFICADO,
         )
         .all()
     )
@@ -356,7 +377,11 @@ def _histograma(db: DBSession, player: GamePlayer) -> dict:
         buckets[idx_de(r)]["count"] += 1
 
     mejor_que = sum(1 for r in ratings if r < player_rating)
-    percentil = round(100 * mejor_que / (n - 1)) if n > 1 else None
+    # Si el jugador está en la campana se descuenta a sí mismo; si todavía no
+    # llegó a calificado, los n son todos "los demás".
+    esta_adentro = (not player.is_bot) and player.exercises_correct >= UMBRAL_CALIFICADO
+    otros = n - 1 if esta_adentro else n
+    percentil = round(100 * mejor_que / otros) if otros > 0 else None
 
     return {
         "enough": True, "buckets": buckets, "n_players": n,
