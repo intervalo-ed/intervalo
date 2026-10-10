@@ -1720,7 +1720,7 @@ que miran tablas que el juego no tiene.
 
 La universidad de cada jugador se dibuja como una **tag** de color (`UniTag`) con una banderita redonda a la derecha. El catálogo vive duplicado, a propósito, en `web/src/lib/university-tags.ts` (color, país, alias) y `backend/universities.py` (solo clave, nombre y país); `check_universities` frena si las claves dejan de coincidir.
 
-- **Países con catálogo:** Argentina, Uruguay, Chile (33 casas de estudios) y Paraguay (15). La bandera sale de `web/public/flags/` (circle-flags, MIT).
+- **Países con catálogo:** Argentina, Uruguay, Chile (33 casas de estudios) y Paraguay (15). La bandera sale de `web/public/flags/` (Twemoji, CC-BY 4.0).
 - **Siglas repetidas entre países.** La clave guardada es única en todo el catálogo, así que la UAI, la UNAB, la UNA, la UCA y la UNCA extranjeras se guardan como `UAI-CL`, `UNAB-CL`, `UNA-PY`, `UCA-PY` y `UNCA-PY` y se DIBUJAN sin el sufijo (`label`), con su bandera. En el selector "Otra", cada sugerencia lleva la bandera adentro de la tag, que es lo que distingue una de otra. Se busca por sigla, alias ("UC" → PUC) o país ("chile").
 - **Institución custom** ("CERN", "ISFD 99"): recibe una **tag automática** con la misma fórmula que las demás y un color estable que sale de un hash del texto; sin bandera. Un nombre largo se abrevia a iniciales. Una sola palabra corta de letras se guarda en mayúsculas ("Fing" = "FING").
 - **Basura.** `is_junk_university` (teclazos, números, una letra) saca el texto del ranking de universidades. Las siglas que son palabras corrientes ("uni") no se reconocen dentro del mensaje de una donación (`SIGLAS_AMBIGUAS`).

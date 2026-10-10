@@ -1,9 +1,9 @@
 import { estilosDeTag, etiquetaDe, PAIS_NOMBRE, tagDe, type Pais, type UniversityTag } from "@/lib/university-tags"
 
-// Banderita redonda y mínima (circle-flags, MIT). Va al lado de la tag y no
-// adentro: en el ranking la tag es de 9 px y la bandera la acompaña sin
-// competir con la sigla.
-export function Bandera({ country, size = 11 }: { country: Pais; size?: number }) {
+// Bandera rectangular de Twemoji (CC-BY 4.0, ver public/flags/LICENSE.txt). El
+// SVG es un cuadrado de 36 con la bandera ondeada adentro, así que `size` es el
+// alto y el ancho sale solo. Va al lado de la tag y no adentro, con aire.
+export function Bandera({ country, size = 17 }: { country: Pais; size?: number }) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
@@ -12,7 +12,7 @@ export function Bandera({ country, size = 11 }: { country: Pais; size?: number }
       title={PAIS_NOMBRE[country]}
       width={size}
       height={size}
-      className="inline-block shrink-0 rounded-full"
+      className="inline-block shrink-0"
       style={{ width: size, height: size }}
     />
   )
@@ -44,7 +44,7 @@ export function UniTag({ university }: { university: string }) {
   const cfg = tagDe(university)
   if (!cfg.country) return <Chip cfg={cfg} />
   return (
-    <span className="inline-flex shrink-0 items-center gap-1">
+    <span className="inline-flex shrink-0 items-center gap-1.5">
       <Chip cfg={cfg} />
       <Bandera country={cfg.country} />
     </span>
@@ -69,7 +69,7 @@ export function SugerenciaUniversidad({
       style={estilosDeTag(cfg)}
     >
       {etiquetaDe(cfg)}
-      {cfg.country && <Bandera country={cfg.country} size={12} />}
+      {cfg.country && <Bandera country={cfg.country} size={15} />}
     </button>
   )
 }
