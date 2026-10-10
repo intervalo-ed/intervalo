@@ -102,6 +102,7 @@ CHECKS = [
     "check_schema_migrations",
     "check_survey_channel_d",
     "check_table_boost",
+    "check_universities",
     "check_xp_boost",
 ]
 

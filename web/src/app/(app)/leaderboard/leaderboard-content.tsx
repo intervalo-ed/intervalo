@@ -211,7 +211,8 @@ export function LeaderboardContent() {
       <ScopeFilters
         view={view}
         withRecruits
-        onViewChange={setView}
+        // El clásico no tiene vista de países: el tipo es el del chrome compartido.
+        onViewChange={(v) => v !== "countries" && setView(v)}
         career={career}
         onCareerChange={setCareer}
         university={uni}
