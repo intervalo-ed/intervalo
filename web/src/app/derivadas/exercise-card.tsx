@@ -72,10 +72,6 @@ export const PANEL_CONTENT = "mx-auto w-full max-w-[32rem]"
 // xp-conteo.ts). Un solo verde para las dos mitades del mismo festejo.
 export const WRONG = "#FDD000"
 export const VERDE_ACIERTO = "#22C55E"
-// El fondo del cartel «¿Seguro?» del teléfono: un amarillo naranja, más vivo que
-// `WRONG`, que mezclado con el fondo oscuro se apagaba en marrón.
-export const AMARILLO_CARTEL = "#FFB300"
-
 // El pulso del ¿Por qué? no vive acá: es blanco y arranca lleno en vez de
 // crecer desde cero (ver el `pulso === "hint"` de AnswerField), porque hace
 // otro trabajo — tapar el instante del cambio, no avisar "hay algo más para
