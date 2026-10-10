@@ -45,8 +45,8 @@ import {
   ExerciseCard,
   PANEL_CONTENT,
   SkipButton,
+  NARANJA_CARTEL,
   VERDE_ACIERTO,
-  WRONG,
   answerTone,
   type AnswerTone,
 } from "./exercise-card"
@@ -1936,8 +1936,15 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                           : "pb-[calc(var(--cta-pt)_+_var(--cta-h)_+_var(--cta-pb))]",
                       )}
                       style={{
-                        borderColor: `${WRONG}80`,
-                        backgroundColor: `color-mix(in srgb, color-mix(in oklab, var(--background) 75%, ${WRONG} 25%) 88%, transparent)`,
+                        // El naranja del «¿Seguro?» de Intervalo clásico
+                        // (session-runner.tsx), y no el lima de `WRONG`, que
+                        // mezclado con el fondo se apagaba en marrón. Allá va al
+                        // 10% porque tiene un fondo claro detrás; acá, sobre el
+                        // azul oscuro del juego, hace falta el 40% para que se
+                        // lea naranja y no negro. Se mezcla en srgb, que
+                        // conserva la saturación.
+                        borderColor: `${NARANJA_CARTEL}B3`,
+                        backgroundColor: `color-mix(in srgb, color-mix(in srgb, var(--background) 60%, ${NARANJA_CARTEL} 40%) 88%, transparent)`,
                       }}
                     >
                       <div className="mx-auto w-full max-w-md text-[15px]">

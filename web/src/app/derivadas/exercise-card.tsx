@@ -72,6 +72,10 @@ export const PANEL_CONTENT = "mx-auto w-full max-w-[32rem]"
 // xp-conteo.ts). Un solo verde para las dos mitades del mismo festejo.
 export const WRONG = "#FDD000"
 export const VERDE_ACIERTO = "#22C55E"
+// El naranja del cartel «¿Seguro?» del teléfono: el mismo `orange-500` que usa el
+// de Intervalo clásico (session-runner.tsx). `WRONG` es el lima del destello del
+// campo y no sirve de fondo: sobre el azul oscuro del juego queda marrón.
+export const NARANJA_CARTEL = "#F97316"
 // El pulso del ¿Por qué? no vive acá: es blanco y arranca lleno en vez de
 // crecer desde cero (ver el `pulso === "hint"` de AnswerField), porque hace
 // otro trabajo — tapar el instante del cambio, no avisar "hay algo más para
