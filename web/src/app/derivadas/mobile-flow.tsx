@@ -45,8 +45,6 @@ import {
   ExerciseCard,
   PANEL_CONTENT,
   SkipButton,
-  NARANJA_CARTEL,
-  VERDE_ACIERTO,
   answerTone,
   type AnswerTone,
 } from "./exercise-card"
@@ -1857,12 +1855,9 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   que ¡Correcto!/¿Seguro? de las sesiones (session-runner.tsx)
                   —fijo a todo el viewport, entra deslizándose desde abajo,
                   `pointer-events-none` para no robarle el toque a los botones
-                  de encima—, con los colores del juego: verde de acertar
-                  (VERDE_ACIERTO, el mismo que ya usa session-runner) y el
-                  lima amarillento de errar (WRONG) en vez del naranja de las
-                  sesiones —acá el naranja ya se le cedió al ¿Por qué? de
-                  escritorio, y errar en el juego es este lima en todos lados
-                  menos acá sería la excepción—. Solo en el teléfono: en
+                  de encima—, y con la misma pintura: una caja opaca con el
+                  color del fondo y encima el tinte translúcido, verde al
+                  acertar y naranja al errar. Solo en el teléfono: en
                   escritorio esta transición se queda con Cara + el anillo,
                   sin banner. */}
               <AnimatePresence mode="sync" initial={false}>
@@ -1873,22 +1868,13 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                     animate={{ y: 0 }}
                     exit={{ y: "100%" }}
                     transition={{ duration: 0.25, ease: "easeOut" }}
-                    className="pointer-events-none fixed inset-x-0 bottom-0 z-0"
+                    className="pointer-events-none fixed inset-x-0 bottom-0 z-0 bg-background"
                   >
                     <div
-                      className="border-t border-green-500/50 px-5 pt-6 pb-[calc(var(--cta-pt)_+_var(--cta-h)_+_var(--cta-pb))]"
-                      // Sólido y no traslúcido: un verde/lima lleno sobre el
-                      // fondo del juego se veía como un cartel pegado encima;
-                      // mezclado con el propio fondo (`--background`) en vez
-                      // de con transparencia, es una variante MÁS OSCURA del
-                      // mismo color, y se lee como parte de la pantalla y no
-                      // como una capa flotando arriba. Opaco del todo desde el
-                      // 09/10: el 12% de transparencia que tenía dejaba ver el
-                      // teclado de abajo, y las teclas se mezclaban con el texto
-                      // del cartel hasta no poder leerlo.
-                      style={{
-                        backgroundColor: `color-mix(in oklab, var(--background) 85%, ${VERDE_ACIERTO} 15%)`,
-                      }}
+                      // Como en Intervalo clásico (session-runner.tsx): una caja OPACA con el
+                      // color del fondo (`bg-background`, en el contenedor de arriba) y
+                      // encima el tinte translúcido. Detrás no se ve nada, ni el teclado.
+                      className="border-t border-green-500/50 bg-green-500/15 px-5 pt-6 pb-[calc(var(--cta-pt)_+_var(--cta-h)_+_var(--cta-pb))]"
                     >
                       <div className="mx-auto w-full max-w-md text-[15px]">
                         <span className="font-semibold text-green-400">¡Correcto!</span>
@@ -1919,7 +1905,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                     animate={{ y: 0 }}
                     exit={{ y: "100%" }}
                     transition={{ duration: 0.25, ease: "easeOut" }}
-                    className="pointer-events-none fixed inset-x-0 bottom-0 z-0"
+                    className="pointer-events-none fixed inset-x-0 bottom-0 z-0 bg-background"
                   >
                     <div
                       className={cn(
@@ -1930,22 +1916,15 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                         // hueco: sin esto la frase «podés ayudarte con la tabla»
                         // queda cortada por los botones justo cuando es cuando
                         // más hace falta leerla.
-                        "border-t px-5 pt-6",
+                        // Como en Intervalo clásico (session-runner.tsx): caja
+                        // opaca debajo (`bg-background`, en el contenedor) y encima
+                        // el `orange-500` translúcido. El 20% fue elegido a ojo:
+                        // el 10% del clásico se leía casi negro sobre este fondo.
+                        "border-t border-orange-500/50 bg-orange-500/20 px-5 pt-6",
                         conAyudas
                           ? "pb-[calc(var(--cta-pt)_+_2_*_var(--cta-h)_+_0.5rem_+_var(--cta-pb))]"
                           : "pb-[calc(var(--cta-pt)_+_var(--cta-h)_+_var(--cta-pb))]",
                       )}
-                      style={{
-                        // El naranja del «¿Seguro?» de Intervalo clásico
-                        // (session-runner.tsx), y no el lima de `WRONG`, que
-                        // mezclado con el fondo se apagaba en marrón. Allá va al
-                        // 10% porque tiene un fondo opaco detrás; acá, sobre el
-                        // azul oscuro del juego, el 10% se leía casi negro y el
-                        // 40% marrón, y el 20% fue lo elegido a ojo. Se mezcla
-                        // en srgb, que conserva la saturación.
-                        borderColor: `${NARANJA_CARTEL}B3`,
-                        backgroundColor: `color-mix(in srgb, color-mix(in srgb, var(--background) 80%, ${NARANJA_CARTEL} 20%) 88%, transparent)`,
-                      }}
                     >
                       <div className="mx-auto w-full max-w-md text-[15px]">
                         {/* Dos carteles y no uno. `parse_ok: false` quiere
