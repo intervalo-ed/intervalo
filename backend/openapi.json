@@ -6417,6 +6417,22 @@
               }
             ],
             "title": "Rampa"
+          },
+          "dificultad": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dificultad"
+          },
+          "dificultad_disponible": {
+            "type": "boolean",
+            "title": "Dificultad Disponible",
+            "default": false
           }
         },
         "type": "object",
@@ -6469,6 +6485,17 @@
               }
             ],
             "title": "Career"
+          },
+          "dificultad": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dificultad"
           }
         },
         "type": "object",

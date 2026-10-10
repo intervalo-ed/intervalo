@@ -122,6 +122,11 @@ class GamePlayerOut(BaseModel):
     # cómo se dibuja el PIE de la pantalla —la fila de Tabla y Saltear— y eso
     # tiene que estar resuelto antes de que llegue la primera derivada.
     rampa: Optional[str] = None
+    # La posición (0-8) que eligió en la palanca de dificultad, o None si manda
+    # el motor. `dificultad_disponible` dice si el interruptor está prendido: con
+    # él apagado el front no ofrece la fila de Configuración.
+    dificultad: Optional[int] = None
+    dificultad_disponible: bool = False
 
 
 class GamePlayerCreateResponse(BaseModel):
@@ -134,6 +139,9 @@ class GameProfilePatchRequest(BaseModel):
     alias: Optional[str] = Field(default=None, max_length=_MAX_ALIAS)
     university: Optional[str] = Field(default=None, max_length=_MAX_UNIVERSIDAD)
     career: Optional[str] = Field(default=None, max_length=8)
+    # La posición (0-8) de la palanca. `null` explícito vuelve al motor, y por eso
+    # se mira `model_fields_set` en el router: ausente no es lo mismo que null.
+    dificultad: Optional[int] = None
 
 
 class GameExerciseOut(BaseModel):

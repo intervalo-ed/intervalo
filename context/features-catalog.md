@@ -1077,6 +1077,17 @@ de rating hoy y 70 con el piso. Ese temblor ES el efecto buscado, pero a quien
 esté parado justo en un corte de nivel se le va a prender y apagar el color — y
 el corte de 3,7 acaba de dejar a 70 personas ahí cerca.
 
+### La palanca de dificultad (desde el 10/10, apagada por defecto)
+
+Una fila «Dificultad» en Configuración (solo con `DIFICULTAD_ENABLED=1`) abre una
+diapo con el slider vertical: botón «<» arriba, una oración, las nueve fórmulas
+abstractas a la izquierda y el slider acumulativo a la derecha, con su Continuar
+al pie. El relleno crece desde arriba y toma, tramo a tramo, el color del nivel
+que atraviesa (blanco, azul, rosa, marrón). Abajo, dos botones partidos: «Automático» vuelve al motor y
+«Continuar» guarda la posición. En escritorio los dígitos 1-9 eligen posición,
+Enter continúa y Alt+Enter es «Automático».
+Cómo funciona por dentro, y por qué hay dos θ, está en `context/gamification.md`.
+
 ### `dx-banda-1`: a qué dificultad apuntamos (28/09 → cancelado el 09/10)
 
 **Cancelado sin leerse.** Desde el 09/10 todos apuntan a la banda de siempre y
