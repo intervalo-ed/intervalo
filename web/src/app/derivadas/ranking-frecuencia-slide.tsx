@@ -102,9 +102,22 @@ export function RankingFrecuenciaSlide({
         })}
       </div>
 
-      <p className="flex items-center justify-center gap-1.5 text-center text-xs text-muted-foreground">
-        Podés cambiar esta preferencia cuando quieras desde Ajustes
-        <Settings size={14} aria-label="Ajustes" className="flex-none" />
+      {/* El corte de renglón es a mano: con `flex` el texto se partía donde
+          entraba y el ícono quedaba pegado al borde derecho, lejos de la palabra
+          que nombra. El `nowrap` de la última frase lleva el ícono siempre junto
+          a «ajustes». */}
+      <p className="text-center text-xs leading-relaxed text-muted-foreground">
+        Podés cambiar esta preferencia
+        <br />
+        cuando quieras desde{" "}
+        <span className="whitespace-nowrap">
+          los ajustes
+          <Settings
+            size={14}
+            aria-hidden
+            className="ml-1.5 inline-block align-[-2px]"
+          />
+        </span>
       </p>
 
       <Salida slot={slotSalida}>
