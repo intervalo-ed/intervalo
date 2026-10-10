@@ -587,7 +587,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   // El empuje de la universidad sale del mismo pulso, sin pedido propio.
   const boost = useMyBoost(player?.university)
 
-  // A partir de la derivada 10 (game/stats.py :: UMBRAL_ESTADISTICAS, mismo
+  // A partir de la derivada 3 (game/stats.py :: UMBRAL_ESTADISTICAS, mismo
   // número que el server). El pedido en sí es perezoso —`enabled: statsOpen`—
   // así que cruzar el umbral no dispara ningún pedido hasta que se toca `p`.
   const estadisticasDisponibles = puedeVerEstadisticas(player)

@@ -4,7 +4,7 @@ contra un escenario armado a mano.
 Cubre las partes que un test superficial no agarra:
   - el Elo de desbloqueo de una fila con VARIAS plantillas se promedia en
     espacio θ, no promediando ratings ya redondeados;
-  - las 15 filas de la tabla tienen plantilla y ninguna plantilla propia se
+  - las 16 filas de la tabla tienen plantilla y ninguna plantilla propia se
     queda sin fila (lo que se rompió cuando entraron 1/x, √x y tan x);
   - el piso de Elo de una fila le gana a la β aprendida: si el seno se
     desplomó hasta parecer cómodo en 870, el panel igual dice 1200, que es
@@ -13,9 +13,9 @@ Cubre las partes que un test superficial no agarra:
     FECHA (no los primeros 10, no los 12 sin recortar);
   - un intento con la tabla abierta (`peeked`) o que no parseó (`parse_ok`)
     NUNCA entra en esa ventana, aunque sea el más reciente;
-  - los bots y los jugadores con `exercises_correct < UMBRAL_ESTADISTICAS` no
+  - los bots y los jugadores con `exercises_correct < UMBRAL_CALIFICADO` no
     cuentan para el histograma;
-  - el endpoint respeta el gate de visibilidad (403 antes de la derivada 10).
+  - el endpoint respeta el gate de visibilidad (403 antes de la derivada 3).
 
 Uso:
     python backend/scripts/check_game_stats.py
@@ -188,13 +188,13 @@ from game.templates import TEMPLATE_BY_KEY as _TBK  # noqa: E402
 sin_plantilla = [slug for slug, keys in game_stats.ROW_TEMPLATES.items() if not keys]
 check(not sin_plantilla, f"ninguna fila sin plantilla (vacias: {sin_plantilla})")
 
-_COMBINACIONES = {"t1_kx", "t2_sum2", "t2_sum3", "t2_pow_plus_const", "t3_trig_sum", "t3_mix_sum"}
+_COMBINACIONES = {"t1_kx"}
 mapeadas = {k for keys in game_stats.ROW_TEMPLATES.values() for k in keys}
 huerfanas = sorted(set(_TBK) - mapeadas - _COMBINACIONES)
 check(not huerfanas, f"ninguna plantilla propia sin fila (huerfanas: {huerfanas})")
 
 unlock = game_stats._unlock_ratings(db)
-check(all(v is not None for v in unlock.values()), "las 15 filas tienen un Elo de desbloqueo")
+check(all(v is not None for v in unlock.values()), "las 16 filas tienen un Elo de desbloqueo")
 
 # **El piso de las trigonometricas se saco el 28/09** (la historia esta en
 # templates.py). Hasta esa fecha esta parte probaba que el piso GANARA sobre la
@@ -267,7 +267,7 @@ Base.metadata.create_all(bind=database.engine)
 client = TestClient(main.app, raise_server_exceptions=True)
 
 bajo_umbral = GamePlayer(alias="recien-empieza", theta=0.0, xp=0,
-                          exercises_correct=5, exercises_attempted=8, is_bot=False)
+                          exercises_correct=2, exercises_attempted=4, is_bot=False)
 db.add(bajo_umbral)
 db.commit()
 token = "tok-" + bajo_umbral.alias
@@ -275,14 +275,33 @@ bajo_umbral.guest_token = token
 db.commit()
 
 r = client.get("/game/derivemos/stats", headers={"X-Game-Token": token})
-check(r.status_code == 403, f"jugador con 5 correctas: /stats da 403 (dio {r.status_code})")
+check(r.status_code == 403, f"jugador con 2 correctas: /stats da 403 (dio {r.status_code})")
+
+# Con 3 resueltas ya contesta, aunque el jugador no entre en la campana
+# (UMBRAL_CALIFICADO sigue en 10): el percentil se cuenta contra los
+# calificados sin descontarlo.
+recien = GamePlayer(alias="tres-resueltas", theta=0.0, xp=0,
+                    exercises_correct=game_stats.UMBRAL_ESTADISTICAS,
+                    exercises_attempted=5, is_bot=False)
+db.add(recien)
+db.commit()
+recien.guest_token = "tok-tres"
+db.commit()
+r3 = client.get("/game/derivemos/stats", headers={"X-Game-Token": "tok-tres"})
+check(r3.status_code == 200, f"jugador con 3 correctas: /stats da 200 (dio {r3.status_code})")
+b3 = r3.json()
+check(b3["n_rated_players"] == 21, f"el de 3 no entra en la campana (n_rated={b3['n_rated_players']})")
+check(b3["percentile"] is not None and 0 <= b3["percentile"] <= 100,
+      f"y aun asi tiene percentil contra los calificados (dio {b3['percentile']})")
 
 FOCO.guest_token = "tok-foco"
 db.commit()
 r2 = client.get("/game/derivemos/stats", headers={"X-Game-Token": "tok-foco"})
 check(r2.status_code == 200, f"jugador con 42 correctas: /stats da 200 (dio {r2.status_code})")
 body = r2.json()
-check(len(body["rows"]) == 15, f"15 filas en la respuesta (dio {len(body['rows'])})")
+check(len(body["rows"]) == 16, f"16 filas en la respuesta (dio {len(body['rows'])})")
+check([f["slug"] for f in body["rows"]].index("sum") == 12,
+      "la regla de la suma va antes del producto, como en la tabla visual")
 check(body["general"]["exercises_correct"] == 42, "general.exercises_correct viaja bien")
 fila_e_x = next(f for f in body["rows"] if f["slug"] == "e_x")
 check(fila_e_x["accuracy"] == 50, f"la fila e_x del endpoint también da 50% (dio {fila_e_x['accuracy']})")

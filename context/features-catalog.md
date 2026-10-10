@@ -1494,6 +1494,54 @@ parser que contestara `null` a todo pasaría el chequeo en verde sin haber
 comprado nada. La única divergencia aceptada es la de arriba, y está fijada
 contra la derivada que espera el servidor y no contra el motor viejo.
 
+### Las estadísticas en el teléfono, y la fila de la suma (desde el 09/10)
+
+**El panel de estadísticas** —las seis tiles, la campana del Elo y la tabla de
+derivadas con velocidad y efectividad— era de escritorio: dos dorsos que abre
+la tecla `j` (`elo-stats-panel.tsx`, `derivatives-table.tsx ::
+DerivativesStatsTable`). Ahora está también en el teléfono, como una pantalla
+propia (`mobile-flow.tsx`, diapo `stats`) que scrollea entera y apila los
+MISMOS dos componentes en el orden en que se leen: primero las tiles, después
+la campana, al final la tabla. Se abre desde un botón nuevo de la cabecera,
+pegado al de la tabla —es lo otro que se mira *adentro* del juego—, en las
+cuatro pantallas que tienen cabecera (ejercicio, ranking, novedades y chat), y
+«Volver» devuelve a la pantalla de donde se vino.
+
+**Desde la derivada 3.** El piso era 10 (`UMBRAL_ESTADISTICAS`, en
+`stats-gate.ts` y en `game/stats.py`, que lo repite y responde 403 debajo).
+Bajó a **3** para los dos layouts: es la vara de la activación («3 resueltas
+en la primera tanda»), así que quien activó ya tiene el botón, y con tres
+derivadas las tiles ya dicen algo. Antes de la 3 el botón **no está** —no gris:
+ausente—, mismo criterio que el de escritorio.
+
+**Lo que NO bajó: quién cuenta en la campana.** Entrar en el histograma del
+Elo sigue pidiendo 10 resueltas (`game/stats.py :: UMBRAL_CALIFICADO`, la
+constante nueva que se separó de la de arriba). Con tres derivadas el Elo está
+todavía donde lo dejó la rampa, y meter a esa gente en la campana la
+amontonaría alrededor del rating inicial. Quien mira el panel entre la 3 y la 9
+se compara contra la campana **sin estar en ella**: su rating se ubica en el
+bucket que le toca, y el percentil se cuenta contra los calificados sin
+descontarlo a él (a un calificado sí se lo descuenta, como siempre).
+
+**Mirar las estadísticas es mirar la tabla.** La tabla enriquecida muestra las
+mismas fórmulas con su derivada que la tabla plana, así que abrir el panel en
+medio de un ejercicio marca `peeked` igual que en escritorio: ese ejercicio
+paga la XP de tabla y no mueve el Elo. El evento es el mismo de escritorio,
+`game_stats_open`, con `layout: "mobile"`.
+
+**La regla de la suma entró a la tabla.** Hasta acá la tabla listaba tres
+reglas (producto, cociente, cadena) y la suma quedaba afuera «porque es la
+combinación de lo que ya está arriba». La pidieron, y es una fila más
+(`sum`, `u + v → u' + v'`), antes del producto. Del lado del server la fila
+agrupa las cinco plantillas que la sirven (`t2_sum2`, `t2_sum3`,
+`t2_pow_plus_const`, `t3_trig_sum`, `t3_mix_sum`, en `ROW_TEMPLATES`), así que
+en el panel tiene velocidad y efectividad de verdad y no un guion: esos
+intentos se tiraban al armar el accuracy por fila, y ahora tienen dónde ir.
+El «¿Por qué?» también la manda en `tabla_slugs`: una derivada con suma sube
+esa fila como sube cualquier otra. La única plantilla sin fila que queda es
+`t1_kx` (la constante multiplicativa). Son **16 filas**, y
+`check_game_stats.py` lo fija.
+
 ## El chat (`game/chat.py`, `chat-panel.tsx`)
 
 Una sola columna donde se intercalan las novedades del sistema y lo que escribe

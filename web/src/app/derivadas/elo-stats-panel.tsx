@@ -7,6 +7,11 @@
 // ranking (derivatives-table.tsx :: DerivativesStatsTable) — las dos caras
 // cuentan la misma historia, una en cada columna.
 //
+// En el teléfono (mobile-flow.tsx, diapo `stats`) no hay dos columnas: este
+// panel y la tabla enriquecida van apilados en una sola pantalla que scrollea
+// entera, tiles primero, campana después y la tabla al final. Para eso existe
+// `inline`.
+//
 // Sin marco propio, igual que DerivativesTable y SettingsPanel: el `rounded-lg
 // border border-border bg-card` lo pone quien lo monta (desktop-layout.tsx),
 // porque el mismo componente vive detrás de un FlipCard cuyo `back` decide el
@@ -50,17 +55,22 @@ const HIST_ALTO = 116
 
 /** El botón de la cabecera, mismo molde que `TableButton`
  * (derivatives-table.tsx): ícono + `<KeyCap>`, sin rótulo. Ausente y no
- * deshabilitado antes de la derivada 10 — un botón gris prometería un atajo
+ * deshabilitado antes de la derivada 3 — un botón gris prometería un atajo
  * que todavía no existe (game/stats.py :: UMBRAL_ESTADISTICAS). */
 export function StatsButton({
   open,
   onToggle,
   visible,
+  keyboard = true,
   className,
 }: {
   open: boolean
   onToggle: () => void
   visible: boolean
+  // El chip de la tecla solo donde hay tecla, como en `TableButton`: en el
+  // teléfono se toca, y una `j` impresa al lado prometería un atajo que no
+  // existe.
+  keyboard?: boolean
   className?: string
 }) {
   if (!visible) return null
@@ -79,7 +89,7 @@ export function StatsButton({
       )}
     >
       <StatsIcon size={15} />
-      <KeyCap className="ml-0">{TECLA_ESTADISTICAS}</KeyCap>
+      {keyboard && <KeyCap className="ml-0">{TECLA_ESTADISTICAS}</KeyCap>}
     </button>
   )
 }
@@ -410,10 +420,15 @@ export function EloStatsPanel({
   player,
   stats,
   isLoading,
+  inline = false,
 }: {
   player: GamePlayer | null
   stats: GameStats | undefined
   isLoading: boolean
+  // Sin scroll propio ni centrado vertical: el panel es un tramo de una
+  // pantalla más larga que scrollea entera (el teléfono). En escritorio es
+  // la cara entera de una card de alto fijo, y ahí sí scrollea él.
+  inline?: boolean
 }) {
   // El rating propio sale de `player.elo` (ya viaja en GamePlayerOut, sin
   // esperar a este pedido) y se pisa con el de `/stats` apenas llega — son el
@@ -426,7 +441,12 @@ export function EloStatsPanel({
     // mide lo que mide el ejercicio (min-h-[26rem]) y este contenido casi
     // seguro pide más — la página entera no scrollea nunca (h-dvh
     // overflow-hidden), así que el que cede es este panel.
-    <div className="no-scrollbar flex min-h-0 flex-1 flex-col overflow-y-auto">
+    <div
+      className={cn(
+        "flex flex-col",
+        !inline && "no-scrollbar min-h-0 flex-1 overflow-y-auto",
+      )}
+    >
       {/* `my-auto` y no `justify-center` en el padre: con `justify-center` un
           contenido más alto que la caja queda centrado Y RECORTADO por arriba
           —el flexbox clásico de "hay que scrollear para arriba para ver el
@@ -435,7 +455,7 @@ export function EloStatsPanel({
           se anula solo apenas el contenido no entra: ahí vuelve a quedar
           pegado arriba y el `overflow-y-auto` del padre scrollea desde el
           principio, como corresponde. */}
-      <div className="my-auto flex shrink-0 flex-col gap-2">
+      <div className={cn("flex shrink-0 flex-col gap-2", !inline && "my-auto")}>
         {/* Primero los números propios y después el Elo, y no al revés. Lo que
             se viene a mirar cuando se abre este dorso son las derivadas
             resueltas, la efectividad y la racha: son de uno y se entienden
