@@ -18,7 +18,7 @@ from sqlalchemy.orm import Session
 
 from models import GameExercise, GamePlayer, GameTemplateStat
 
-from . import elo
+from . import dificultad as game_dificultad, elo
 from .cycler import CyclingRandom, ForcedRandom
 from .templates import TEMPLATE_BY_KEY, TEMPLATES, GameTemplate, latex_es, x
 
@@ -222,10 +222,30 @@ def pick_template(
     rng: random.Random | None = None,
     max_tier: int | None = None,
 ) -> tuple[GameTemplate, GameTemplateStat, float]:
+    """La plantilla a servir, su estadística y el p̂ contra θ REAL.
+
+    Quien elige es `_elegir`, que puntúa contra el θ de juego (la posición de la
+    palanca, o el real si no hay ninguna). Lo que se devuelve y se guarda en el
+    ejercicio es el p̂ contra θ real: es lo que el motor cree de verdad, y la
+    calibración del panel tiene que medir eso y no la elección. Ver
+    game/dificultad.py."""
+    template, stat, p_hat = _elegir(db, player, rng, max_tier)
+    if game_dificultad.elegida(player) is not None:
+        p_hat = elo.predict(player.theta, beta_of(stat))
+    return template, stat, p_hat
+
+
+def _elegir(
+    db: Session,
+    player: GamePlayer,
+    rng: random.Random | None = None,
+    max_tier: int | None = None,
+) -> tuple[GameTemplate, GameTemplateStat, float]:
     """`max_tier` es el tope duro que usa el salteo: bajar el θ solo inclina la
     banda objetivo, y con el castigo chico el jugador podría recibir otra vez
     algo del mismo tier. El botón promete una más fácil, así que se garantiza."""
     rng = rng or random.Random()
+    theta_sel = game_dificultad.theta_de_juego(player)
     recent = _recent_template_keys(db, player)
 
     # A qué p̂ se apunta. La misma banda para todos: entre el 28/09 y el 09/10
@@ -256,7 +276,7 @@ def pick_template(
     # todavía vio poca gente está dominada por quien haya pasado por ahí, y a
     # quien pasa lo elige este mismo motor. Ver el docstring de elo.effective_beta.
     scored: list[tuple[GameTemplate, GameTemplateStat, float]] = [
-        (template, stats[template.key], elo.predict(player.theta, beta_of(stats[template.key])))
+        (template, stats[template.key], elo.predict(theta_sel, beta_of(stats[template.key])))
         for template in permitidas
     ]
 

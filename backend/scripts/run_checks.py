@@ -75,6 +75,7 @@ CHECKS = [
     "check_game_generator",
     "check_game_muro",
     "check_game_rampa",
+    "check_game_dificultad",
     "check_game_opinion",
     "check_game_ranking_sort",
     "check_game_referrals",

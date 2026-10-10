@@ -19,6 +19,7 @@ import {
   Coffee,
   LogOut,
   RotateCcw,
+  SlidersVertical,
   Trophy,
   Volume2,
   VolumeX,
@@ -34,6 +35,7 @@ import { cn } from "@/lib/utils"
 import { VERDE_TINTA, WhatsappGlyph } from "./cafecito-cta"
 import { SlideFlip } from "./slide-flip"
 import { SlideHorizontal, type Direccion } from "./slide-horizontal"
+import { textoDeDificultad } from "./dificultad"
 import { clearGameIdentity } from "./game-storage"
 import {
   saveFrecuenciaRanking,
@@ -105,6 +107,7 @@ export function SettingsPanel({
   onNeedsRegister,
   onEditCareer,
   onEditUniversity,
+  onDificultad,
 }: {
   player: GamePlayer | null
   variant?: "desktop" | "mobile"
@@ -127,6 +130,9 @@ export function SettingsPanel({
   // adentro de este mismo panel (`irA`).
   onEditCareer?: () => void
   onEditUniversity?: () => void
+  // Abre la palanca de dificultad. Quien monta esto decide a dónde se vuelve.
+  // La fila solo existe con el interruptor del servidor prendido.
+  onDificultad?: () => void
 }) {
   const api = useGameApi()
   const cta = useCta()
@@ -456,6 +462,26 @@ export function SettingsPanel({
             <span className="flex items-center gap-2">
               {textoDeFrecuencia(frecuencia)}
               <Trophy size={16} />
+            </span>
+          </button>
+        )}
+
+        {/* La palanca de dificultad (dificultad-slide.tsx). Dice la forma que
+            se practica en la posición elegida, o «Automática» si manda el
+            motor. Solo con el interruptor del servidor prendido. */}
+        {onDificultad && player?.dificultad_disponible && (
+          <button
+            type="button"
+            className={rowCls}
+            onClick={() => {
+              sfx.select()
+              onDificultad()
+            }}
+          >
+            <span className="text-muted-foreground">Dificultad</span>
+            <span className="flex items-center gap-2">
+              {textoDeDificultad(player.dificultad)}
+              <SlidersVertical size={16} />
             </span>
           </button>
         )}

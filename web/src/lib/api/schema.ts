@@ -2762,6 +2762,13 @@ export interface components {
             muro?: components["schemas"]["GameMuroOut"] | null;
             /** Rampa */
             rampa?: string | null;
+            /** Dificultad */
+            dificultad?: number | null;
+            /**
+             * Dificultad Disponible
+             * @default false
+             */
+            dificultad_disponible: boolean;
         };
         /** GameProfilePatchRequest */
         GameProfilePatchRequest: {
@@ -2771,6 +2778,8 @@ export interface components {
             university?: string | null;
             /** Career */
             career?: string | null;
+            /** Dificultad */
+            dificultad?: number | null;
         };
         /**
          * GamePulse

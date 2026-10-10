@@ -40,6 +40,7 @@ from usernames import normalize_username, validate_username
 
 from . import boosts
 from . import chat as game_chat
+from . import dificultad as game_dificultad
 from . import limits
 from . import mercadopago as mp
 from . import muro as game_muro
@@ -325,6 +326,8 @@ def _player_out(db: Session, player: GamePlayer, with_rank: bool = True) -> Game
         # quedar viejo, y con el experimento apagado devuelve None y el cliente
         # dibuja el pie de siempre.
         rampa=rampa.brazo_de(player.id) if rampa.habilitado() else None,
+        dificultad=player.dificultad if game_dificultad.habilitado() else None,
+        dificultad_disponible=game_dificultad.habilitado(),
     )
 
 
@@ -570,6 +573,14 @@ def patch_me(
         # el mismo bucket que usa el leaderboard principal.
         career = body.career.strip()
         player.career = career if career in _KNOWN_CAREERS else None
+    # La palanca de dificultad. Se mira `model_fields_set` y no `is not None`
+    # porque `null` es un valor: devuelve el control al motor.
+    if "dificultad" in body.model_fields_set:
+        if not game_dificultad.habilitado():
+            raise HTTPException(status_code=404, detail="La dificultad no está disponible.")
+        if body.dificultad is not None and not game_dificultad.es_posicion(body.dificultad):
+            raise HTTPException(status_code=422, detail="Posición de dificultad inválida.")
+        player.dificultad = body.dificultad
 
     try:
         db.commit()
@@ -616,6 +627,9 @@ def reset_player(
     player.exercises_attempted = 0
     player.theta = 0.0
     player.n_updates = 0
+    # Empezar de nuevo es volver al motor: la posición elegida era sobre un θ que
+    # ya no existe.
+    player.dificultad = None
     # El teclado también vuelve a cero: reiniciar es empezar de nuevo, y buena
     # parte de lo que se siente al empezar es ver el teclado crecer otra vez.
     player.unlocked_keys = ""
@@ -1248,7 +1262,11 @@ def _aplicar_elo(
         # motivo que no mueven β: no aportaron ninguna observación.
         if not _ya_la_habia_visto(db, player, exercise):
             stat.n_players += 1
-        stat.beta = beta_after
+        # Quien eligió una posición no le enseña nada a la β de la plantilla: la
+        # tabla es una sola para todos y alguien fuera de su banda la sesgaría
+        # (game/dificultad.py). θ real y los contadores de gente sí corren.
+        if game_dificultad.elegida(player) is None:
+            stat.beta = beta_after
         stat.n_observations += 1
         if correct:
             stat.n_correct += 1

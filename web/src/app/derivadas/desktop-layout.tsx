@@ -109,6 +109,7 @@ import { EventFeed } from "./event-feed"
 import { outOfFocus } from "./out-of-focus"
 import { useCta, useGameIdentity } from "./game-telemetry"
 import { SettingsPanel } from "./settings-panel"
+import { DificultadSlide } from "./dificultad-slide"
 import {
   useAnswerExercise,
   useNextExercise,
@@ -140,6 +141,9 @@ type Panel =
   | "register"
   | "cafecito"
   | "reclutas"
+  // La palanca de dificultad (dificultad-slide.tsx), abierta desde la
+  // configuración, a la que vuelve.
+  | "dificultad"
   | "opinion"
   // La otra mitad de la misma escalera de turnos (repetitividad-slide.tsx).
   | "repetitividad"
@@ -1741,6 +1745,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
       if (
         panel === "cafecito" ||
         panel === "reclutas" ||
+        panel === "dificultad" ||
         panel === "opinion" ||
         panel === "repetitividad" ||
         panel === "encuesta" ||
@@ -2213,6 +2218,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   const esDiapoDePedido =
     panel === "cafecito" ||
     panel === "reclutas" ||
+    panel === "dificultad" ||
     panel === "opinion" ||
     panel === "repetitividad" ||
     panel === "encuesta" ||
@@ -2588,6 +2594,23 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                       else if (!exercise) loadNext()
                     }}
                   />
+                ) : panel === "dificultad" ? (
+                  <div className="flex min-h-0 flex-1 flex-col rounded-lg border border-border bg-card p-5">
+                    <DificultadSlide
+                      player={player}
+                      keyboard
+                      fullBleed
+                      slotSalida={slotSalida}
+                      onBack={() => {
+                        setNavPanel("exercise")
+                        setSettingsOpen(true)
+                      }}
+                      onDone={() => {
+                        setNavPanel("exercise")
+                        setSettingsOpen(true)
+                      }}
+                    />
+                  </div>
                 ) : panel === "encuesta" ? (
                   <EncuestaSlide
                     keyboard
@@ -3240,6 +3263,13 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                             volverA: "settings",
                           })
                           setNavPanel("cafecito")
+                        }}
+                        onDificultad={() => {
+                          // Mismo volteo único que el cafecito: la configuración
+                          // se cierra y del otro lado ya está la palanca. Al
+                          // salir vuelve a abrirse.
+                          setSettingsOpen(false)
+                          setNavPanel("dificultad")
                         }}
                         onShare={() => {
                           // Mismo volteo único que el cafecito de acá arriba.

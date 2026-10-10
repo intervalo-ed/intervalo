@@ -802,6 +802,10 @@ class GamePlayer(Base):
     # intento que ya lo ajustaron; también gobierna la rampa inicial.
     theta = Column(Float, nullable=False, default=0.0, server_default="0")
     n_updates = Column(Integer, nullable=False, default=0, server_default="0")
+    # La posición (0-8) que la persona eligió en la palanca de dificultad
+    # (game/dificultad.py), o NULL cuando manda el motor. NULL no es «la del
+    # medio»: es «no eligió».
+    dificultad = Column(Integer, nullable=True)
 
     # Orden del ranking del juego: (xp DESC, id ASC).
     xp = Column(Integer, nullable=False, default=0, index=True, server_default="0")

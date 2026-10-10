@@ -225,6 +225,45 @@ condicionado en un colisionador y ningún n lo arregla.
 Ver `game/banda.py` (hoy solo el sorteo y las dos bandas, para el panel) y
 `metrics/game_queries.py :: experimento_banda`.
 
+### La palanca de dificultad (dx, desde el 10/10, apagada por defecto)
+
+La persona elige con qué nivel quiere practicar: nueve posiciones, desde
+«constantes y potencias» (`k·xⁿ`) hasta la cadena anidada (`f(g(h(x)))`), en una
+diapo que se abre desde Configuración (`dificultad-slide.tsx`, teléfono y
+escritorio). Reemplaza al `dx-banda-1`: en vez de sortear una banda por jugador,
+la elige cada uno.
+
+**Hay dos θ y no uno.** La posición NO escribe θ. θ real es lo que el juego mide
+—ordena el ranking por Elo, pinta el color del @, dispara los eventos de nivel,
+promedia el Elo de la universidad— y solo lo mueven las respuestas. El **θ de
+juego** es el único que mira el selector (`generator.pick_template`): la posición
+elegida (`dificultad.THETA_DE_POSICION`, de −0,4 a 2,8) o, sin elegir, el real.
+Quien se pone más arriba de lo que da recibe ejercicios con p̂ bajo y su θ real
+se mueve contra ese p̂: nada se infla a mano.
+
+- **Qué se guarda.** `game_players.dificultad`, 0 a 8 o NULL («manda el motor»).
+  `p_hat`, `theta_at_serve` y `beta_at_serve` del ejercicio siguen siendo contra
+  θ **real**, que es lo que mide la calibración del panel.
+- **La β no aprende de quien eligió.** `game_template_stats` es una tabla para
+  todos, y alguien fuera de su banda la sesgaría. Con posición elegida θ real y
+  los contadores de personas corren, pero `stat.beta` no (`router._aplicar_elo`).
+- **Lo que sigue mandando.** La rampa (`elo.max_tier_de`) y el tope del salteo
+  (`max_tier`) son filtros del pool y se aplican antes de puntuar; los tres
+  ejercicios fijos del onboarding no pasan por el selector. `/reset` la borra.
+- **Interruptor** `DIFICULTAD_ENABLED`, apagado por defecto y leído en cada
+  pedido. Apagado, `/me` dice `dificultad_disponible: false`, el PATCH da 404 y el
+  selector es el de siempre.
+- **La consecuencia que hay que tener a la vista: la XP paga por tier**
+  (`xp.XP_POR_TIER`), no por p̂. Jugar más difícil paga más por acierto, y la XP
+  ordena el ranking principal. Es a propósito mientras se mide, y es la palanca
+  de una posible monetización.
+- **Huecos del catálogo.** Con las semillas θ≈0,7 no tiene plantillas en banda y
+  el techo es 2,77 (`check_game_techo.py`): la posición 3 salta el hueco (θ 0,9) y
+  la 8 queda en el techo. Con las betas que el motor cree hoy los extremos tienen
+  3 y 5 plantillas en banda.
+- El front espeja el nivel (el color) de cada posición en `dificultad.ts`;
+  `check:dificultad` lo compara con `dificultad.py` y `elo._LEVEL_CUTS`.
+
 ### La dificultad que la persona pide (dx)
 
 El juego pregunta **«¿Cómo venís?»** —con el subtítulo «Ajustemos la

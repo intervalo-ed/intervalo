@@ -70,6 +70,7 @@ import {
   tocaRanking,
 } from "./ranking-frecuencia"
 import { RankingFrecuenciaSlide } from "./ranking-frecuencia-slide"
+import { DificultadSlide } from "./dificultad-slide"
 import {
   anotarRespuesta,
   marcarPreguntaMostrada,
@@ -238,6 +239,9 @@ type Slide =
   // la 15 y una sola vez. Solo existe en el teléfono: en escritorio el ranking
   // no interrumpe. Sin `back`, como las encuestas.
   | { kind: "frecuencia" }
+  // La palanca de dificultad (dificultad-slide.tsx). Se abre a mano desde
+  // Configuración, así que guarda a dónde volver como ella.
+  | { kind: "dificultad"; back: Slide }
 
 // El tinte de fondo de café/reclutas, de pantalla completa (ver el `motion.div`
 // debajo de la grilla, más abajo). Antes vivía adentro de la caja de la propia
@@ -2208,6 +2212,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   })
                 }
                 onShare={() => goTo({ kind: "reclutas", trigger: "pedido", back: slide })}
+                onDificultad={() => goTo({ kind: "dificultad", back: slide })}
                 onNeedsRegister={() => goTo({ kind: "register" })}
               />
             </div>
@@ -2575,6 +2580,24 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                     onContinue={() => advanceAfterAnswer("encuesta")}
                     fullBleed
                     className="flex-none"
+                  />
+                )}
+              </ConSalidaAbajo>
+            </div>
+          )}
+
+          {slide.kind === "dificultad" && (
+            <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col px-5 pb-[var(--cta-pb)] pt-4">
+              <ConSalidaAbajo>
+                {({ salida }) => (
+                  <DificultadSlide
+                    player={player}
+                    slotSalida={salida}
+                    // Vuelve HACIA ATRÁS, a la configuración de donde vino: cerrar
+                    // no es avanzar.
+                    onBack={() => goTo(slide.back, "atras")}
+                    onDone={() => goTo(slide.back, "atras")}
+                    fullBleed
                   />
                 )}
               </ConSalidaAbajo>
