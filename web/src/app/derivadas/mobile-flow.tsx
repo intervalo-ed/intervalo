@@ -1943,7 +1943,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                         // queda DEBAJO del cartel, así que lo que se asoma es
                         // el fondo de las teclas y no sus símbolos.
                         borderColor: `${AMARILLO_CARTEL}A6`,
-                        backgroundColor: `color-mix(in srgb, color-mix(in oklab, var(--background) 58%, ${AMARILLO_CARTEL} 42%) 92%, transparent)`,
+                        backgroundColor: `color-mix(in srgb, color-mix(in srgb, var(--background) 50%, ${AMARILLO_CARTEL} 50%) 92%, transparent)`,
                       }}
                     >
                       <div className="mx-auto w-full max-w-md text-[15px]">
