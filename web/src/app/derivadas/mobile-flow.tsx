@@ -22,7 +22,7 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import { AnimatePresence, motion } from "motion/react"
 import posthog from "posthog-js"
 import { useQueryClient } from "@tanstack/react-query"
-import { Settings, Table2 } from "lucide-react"
+import { ChevronLeft, Settings, Table2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { XpDots } from "@/components/xp-dots"
 import { cn } from "@/lib/utils"
@@ -2204,6 +2204,41 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
 
           {slide.kind === "stats" && (
             <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col gap-3 px-4 pb-[var(--cta-pb)] pt-4">
+              {/* Flecha para volver arriba a la izquierda, y compartir y cafecito
+                  a la derecha, como en el resto de las pantallas con cabecera.
+                  El «Volver» de abajo queda: el pulgar está ahí. */}
+              <div className="flex shrink-0 items-center justify-between">
+                <button
+                  type="button"
+                  aria-label="Volver"
+                  onClick={() => {
+                    sfx.select()
+                    const back = slide.back
+                    if (back.kind !== "exercise") goTo(back, "atras")
+                    else if (exercise) goTo(back, "atras")
+                    else loadNext()
+                  }}
+                  className="rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-accent"
+                >
+                  <ChevronLeft size={18} />
+                </button>
+                <span className="flex items-center gap-1.5">
+                  <ShareButton
+                    placement="header_mobile"
+                    onOpen={() => {
+                      sfx.select()
+                      goTo({ kind: "reclutas", trigger: "pedido", back: slide })
+                    }}
+                  />
+                  <CafecitoButton
+                    placement="header_mobile"
+                    onOpen={() => {
+                      sfx.select()
+                      goTo({ kind: "cafecito", trigger: "pedido", correctToday: 0, back: slide })
+                    }}
+                  />
+                </span>
+              </div>
               {/* Los MISMOS dos componentes que en escritorio, apilados en el
                   orden en que se leen: primero los números propios (tiles),
                   después la campana del Elo, y al final la tabla de derivadas
