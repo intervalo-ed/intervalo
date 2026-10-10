@@ -27,6 +27,7 @@ import {
   horasDe,
   impactoDelCafecito,
 } from "../src/app/derivadas/impacto-del-cafecito"
+import { vecinasDe } from "../src/app/derivadas/vecinas-universitarias"
 
 let fallos = 0
 function check(ok: boolean, label: string) {
@@ -110,6 +111,52 @@ for (let actual = 1; actual <= 3; actual += 0.1) {
   }
 }
 check(excedido === 0, `ninguna combinación se pasa de ×${MAX_MULTIPLIER}`)
+
+console.log("\nlas universidades cercanas nunca repiten una sigla")
+// Caso de producción local: con la propia primera en XP, el relleno de arriba
+// elegía «UBA» aunque UBA fuera la vecina real de abajo, y el cartel mostraba la
+// misma sigla dos veces con números distintos.
+const tabla = [
+  { university: "UTN", players: 25, xp: 263433 },
+  { university: "UBA", players: 31, xp: 220489 },
+  { university: "UNLP", players: 13, xp: 191426 },
+  { university: "UNL", players: 12, xp: 175637 },
+]
+function sinRepetidas(v: { arriba: { university: string }; propia: { university: string }; abajo: { university: string } }) {
+  const siglas = [v.arriba.university, v.propia.university, v.abajo.university]
+  return new Set(siglas).size === 3
+}
+{
+  const v = vecinasDe({ filas: tabla, university: "UTN" })
+  check(sinRepetidas(v), "primera en XP: las tres cajas son tres siglas distintas")
+  check(v.abajo.university === "UBA", "y la vecina real de abajo sigue siendo la de verdad")
+  check(!tabla.some((f) => f.university === v.arriba.university), "el relleno de arriba no coincide con ninguna del ranking")
+}
+{
+  const v = vecinasDe({ filas: tabla, university: "UNL" })
+  check(sinRepetidas(v), "última en XP: las tres cajas son tres siglas distintas")
+  check(v.arriba.university === "UNLP", "y la vecina real de arriba sigue siendo la de verdad")
+  check(!tabla.some((f) => f.university === v.abajo.university), "el relleno de abajo no coincide con ninguna del ranking")
+}
+{
+  const v = vecinasDe({ filas: tabla, university: "UBA" })
+  check(v.arriba.university === "UTN" && v.abajo.university === "UNLP", "en el medio las dos vecinas son las reales, sin relleno")
+}
+{
+  const v = vecinasDe({ filas: [], university: "UTN" })
+  check(sinRepetidas(v), "sin ranking todavía: relleno arriba y abajo, y distintos entre sí")
+}
+{
+  const v = vecinasDe({ filas: [{ university: "UBA", players: 3, xp: 10 }], university: "UTN" })
+  check(sinRepetidas(v), "con la propia fuera de la tabla: tampoco se repite UBA")
+}
+{
+  // Si el ranking ya trae las seis siglas de relleno, el nombre cae en «Otra» y
+  // sigue sin repetirse con las cajas reales.
+  const llena = ["UBA", "UTN", "UNC", "UNLP", "UCA", "UNSAM"].map((u, i) => ({ university: u, players: 5, xp: 1000 - i }))
+  const v = vecinasDe({ filas: llena, university: "UBA" })
+  check(sinRepetidas(v), "con todas las siglas de relleno ocupadas, igual son tres distintas")
+}
 
 console.log()
 if (fallos > 0) {

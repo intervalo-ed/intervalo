@@ -23,6 +23,7 @@
 // el color del café. No es una coincidencia que se aprovecha: es el mismo tono
 // que ya usan el botón de la cabecera y el multiplicador del marcador.
 
+import { vecinasDe } from "./vecinas-universitarias"
 import { useEffect, useRef, useState } from "react"
 import { motion, useIsPresent, useReducedMotion } from "motion/react"
 import { ArrowLeft, ArrowRight, Coffee, UsersIcon } from "lucide-react"
@@ -779,22 +780,6 @@ function CajaDeUniversidad({
 // mueve.
 const GRIS_VECINA = "var(--muted-foreground)"
 
-// Universidades de relleno, en el orden en que se prueban. Nunca es la propia
-// —se filtra antes de usarla— así que alcanza con una lista fija y corta.
-const UNIVERSIDADES_DE_RELLENO = ["UBA", "UTN", "UNC", "UNLP", "UCA", "UNSAM"] as const
-
-function universidadDeRelleno(
-  yaUsadas: readonly string[],
-  players: number,
-  xp: number,
-): { university: string; players: number; xp: number } {
-  const nombre = UNIVERSIDADES_DE_RELLENO.find((u) => !yaUsadas.includes(u)) ?? "Otra"
-  // Con `xp` y no en cero: la caja inventada se lee igual que las de verdad, y
-  // un cero ahí parecería un dato —"esta universidad no sumó nada"— en vez de
-  // un relleno. Se deriva de la propia, como ya se hacía con las personas.
-  return { university: nombre, players, xp: Math.max(1, Math.round(xp)) }
-}
-
 const SIN_FILTRO = { university: ALL_SCOPE, career: ALL_SCOPE }
 
 /** Las tres cajas, una debajo de la otra. */
@@ -813,22 +798,10 @@ function UniversidadesCercanas({
   // Por experiencia, que es la carrera que este cafecito mueve. El servidor las
   // manda ordenadas por Elo promedio y acá se tomaba ese orden tal cual, así que
   // las "vecinas" eran las de una tabla que el cafecito no toca.
-  const filas = porExperiencia(data?.rows ?? [])
-  const indice = filas.findIndex((f) => f.university === university)
-  const propia = indice >= 0 ? filas[indice] : { university, players: 1, xp: 0 }
-
-  const arriba =
-    indice > 0
-      ? filas[indice - 1]
-      : universidadDeRelleno([propia.university], propia.players + 15, propia.xp * 1.4)
-  const abajo =
-    indice >= 0 && indice < filas.length - 1
-      ? filas[indice + 1]
-      : universidadDeRelleno(
-          [propia.university, arriba.university],
-          Math.max(1, propia.players - 8),
-          propia.xp * 0.6,
-        )
+  const { arriba, propia, abajo } = vecinasDe({
+    filas: porExperiencia(data?.rows ?? []),
+    university,
+  })
 
   return (
     <div className="mt-4 flex flex-col gap-2">
