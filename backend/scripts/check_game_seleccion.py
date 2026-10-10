@@ -41,11 +41,6 @@ BACKEND = Path(__file__).resolve().parent.parent
 os.environ["DATABASE_URL"] = "sqlite:///" + str(
     Path(tempfile.mkdtemp()) / "game_seleccion.db"
 ).replace("\\", "/")
-# `dx-banda-1` sortea la banda objetivo por jugador, y este check mide el
-# SELECTOR y la ESCALA, no el experimento: con el sorteo prendido, la mitad
-# de los jugadores de prueba apunta a [0,58 ; 0,72] y los fixtures de abajo
-# pasan a medir un brazo u otro segun que id les toque.
-os.environ["BANDA_ENABLED"] = "0"
 sys.path.insert(0, str(BACKEND))
 sys.path.insert(0, str(BACKEND.parent))
 

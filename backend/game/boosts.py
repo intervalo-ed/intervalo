@@ -36,7 +36,7 @@ from sqlalchemy import case, func, or_
 from sqlalchemy.orm import Session
 
 from models import GameBoost, GameBoostIntent, GamePlayer
-from universities import UNIVERSITIES, canonical_university
+from universities import SIGLAS_AMBIGUAS, UNIVERSITIES, canonical_university
 
 from . import elo, events, simulation
 
@@ -202,7 +202,7 @@ def horas_de(cafecitos: int) -> int:
 
 
 # Siglas del catálogo, para reconocerlas dentro del mensaje de una donación.
-_KNOWN_SIGLAS = {sigla for sigla, _ in UNIVERSITIES}
+_KNOWN_SIGLAS = {sigla for sigla, _ in UNIVERSITIES} - SIGLAS_AMBIGUAS
 
 
 @dataclass(frozen=True)

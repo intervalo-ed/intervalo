@@ -31,7 +31,9 @@ import {
 } from "@/components/leaderboard-chrome"
 import { Spinner } from "@/components/ui/spinner"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { UniTag } from "@/components/university-tag"
+import { Bandera, UniTag } from "@/components/university-tag"
+import { tagDe } from "@/lib/university-tags"
+import { agruparPorPais } from "./ranking-por-pais"
 import { XpDots } from "@/components/xp-dots"
 import { CAREER_EMOJI } from "@/lib/career-emoji"
 import { cn } from "@/lib/utils"
@@ -688,8 +690,9 @@ export function GameRanking({
           onUniversityChange={setUniversity}
           universities={catalogo.data?.universities ?? []}
           withRecruits
+          withCountries
           withCareer={false}
-          scopeDisabled={view === "recruits" || !!boostPreview}
+          scopeDisabled={view === "recruits" || view === "countries" || !!boostPreview}
         />
         <BoostBanner boosts={boostsVigentes} myUniversity={myUniversity} />
       </div>
@@ -720,6 +723,8 @@ export function GameRanking({
           guardarMemoria={guardarMemoria}
           boostPreview={boostPreview}
         />
+      ) : view === "countries" ? (
+        <CountryRanking enabled={enabled} myUniversity={myUniversity} sort={sort} />
       ) : (
         <UniversityRanking
           scope={scope}
@@ -1942,7 +1947,7 @@ const Row = memo(function Row({
       )}
       {entry.university && (
         <span className="inline-flex shrink-0 items-center gap-1">
-          <UniTag university={entry.university} />
+          <UniTag university={entry.university} bandera="izquierda" />
         </span>
       )}
       {previewMultiplier ? (
@@ -2449,6 +2454,72 @@ function UniversityRanking({
               <EloDeUniversidad row={row} />
             )}
           </li>
+          )
+        })}
+      </ol>
+    </div>
+  )
+}
+
+/** La vista "Países": las universidades sumadas por país, con la bandera.
+ *
+ * Reusa las celdas de experiencia y de Elo de la vista de universidades: el país
+ * es, para esas celdas, una universidad más grande (ver `agruparPorPais`). No
+ * lleva el conteo del festejo ni el empuje de cafecitos: ninguno de los dos
+ * existe a escala de país. */
+function CountryRanking({
+  enabled,
+  myUniversity,
+  sort,
+}: {
+  enabled: boolean
+  myUniversity: string | null
+  sort: RankingSort
+}) {
+  const { data, isPending } = useGameUniversityLeaderboard(SIN_SCOPE, enabled)
+  const filas = useMemo(
+    () => (data ? agruparPorPais(data.rows, MIN_PLAYERS_RANKED) : []),
+    [data],
+  )
+  if (isPending) return <ListSkeleton />
+  if (filas.length === 0) {
+    return <p className="text-sm text-muted-foreground">Todavía no hay ranking de países.</p>
+  }
+  const miPais = myUniversity ? tagDe(myUniversity).country : undefined
+  const rows = sort === "experiencia" ? [...filas].sort((a, b) => b.xp - a.xp) : filas
+  return (
+    <div className="no-scrollbar relative -mx-1 min-h-0 flex-1 overflow-y-auto overscroll-contain px-1">
+      <ol className="flex flex-col gap-2 py-1">
+        {rows.map((row, index) => {
+          const mine = miPais === row.pais
+          const entra = sort === "elo" ? row.ranked : true
+          return (
+            <li
+              key={row.pais}
+              data-current={mine ? "true" : undefined}
+              className={cn(
+                "flex items-center gap-2 rounded-lg px-4 py-3 ring-1 ring-foreground/10",
+                mine && MINE_ROW_CLASS,
+                !entra && "opacity-55",
+              )}
+            >
+              <span className="w-4 shrink-0 text-center text-sm font-semibold tabular-nums text-muted-foreground">
+                {entra ? index + 1 : "—"}
+              </span>
+              <span className="flex min-w-0 flex-1 items-center gap-2">
+                <span className="truncate text-sm font-medium">{row.university}</span>
+                <Bandera country={row.pais} size={22} />
+              </span>
+              <span className="inline-flex shrink-0 items-center gap-1 text-sm font-semibold tabular-nums">
+                <CountUp value={row.players} format={fmtCount} />
+                <UsersIcon className="size-[0.9em] text-white" />
+              </span>
+              {sort === "experiencia" ? (
+                <XpDeUniversidad row={row} xp={row.xp} />
+              ) : (
+                <EloDeUniversidad row={row} />
+              )}
+            </li>
           )
         })}
       </ol>

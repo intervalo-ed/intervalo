@@ -22,6 +22,7 @@ tiene que seguir haciendo lo que hizo el día que corrió.
 
 from __future__ import annotations
 
+import re
 import unicodedata
 
 # (sigla, nombre completo) — espejo de UNIVERSITY_TAGS del front.
@@ -131,7 +132,123 @@ UNIVERSITIES: list[tuple[str, str]] = [
     ("UCU", "Universidad Católica del Uruguay"),
     ("UMontevideo", "Universidad de Montevideo"),
     ("UDE", "Universidad de la Empresa"),
+    # Chile y Paraguay. Las que comparten sigla con una universidad de otro país
+    # (UAI, UNAB, UNA, UCA, UNCA) se guardan con sufijo: la clave es única en todo
+    # el listado y dos iguales colapsarían en `_BY_NORM`. El front las dibuja sin
+    # el sufijo y con la bandera de su país (`label` en university-tags.ts).
+    ("UChile", "Universidad de Chile"),
+    ("PUC", "Pontificia Universidad Católica de Chile"),
+    ("USACH", "Universidad de Santiago de Chile"),
+    ("UTFSM", "Universidad Técnica Federico Santa María"),
+    ("UDEC", "Universidad de Concepción"),
+    ("PUCV", "Pontificia Universidad Católica de Valparaíso"),
+    ("UV", "Universidad de Valparaíso"),
+    ("UACh", "Universidad Austral de Chile"),
+    ("UFRO", "Universidad de La Frontera"),
+    ("ULS", "Universidad de La Serena"),
+    ("UANTOF", "Universidad de Antofagasta"),
+    ("UTA", "Universidad de Tarapacá"),
+    ("UDD", "Universidad del Desarrollo"),
+    ("UAI-CL", "Universidad Adolfo Ibáñez"),
+    ("UDP", "Universidad Diego Portales"),
+    ("UANDES", "Universidad de los Andes (Chile)"),
+    ("UNAB-CL", "Universidad Andrés Bello"),
+    ("UTEM", "Universidad Tecnológica Metropolitana"),
+    ("UCSC", "Universidad Católica de la Santísima Concepción"),
+    ("UCN", "Universidad Católica del Norte"),
+    ("UBB", "Universidad del Bío-Bío"),
+    ("UDLA", "Universidad de las Américas"),
+    ("UVM", "Universidad Viña del Mar"),
+    ("UCM", "Universidad Católica del Maule"),
+    ("UMAG", "Universidad de Magallanes"),
+    ("UCT", "Universidad Católica de Temuco"),
+    ("USS", "Universidad San Sebastián"),
+    ("UMayor", "Universidad Mayor"),
+    ("UCEN", "Universidad Central de Chile"),
+    ("UNAP", "Universidad Arturo Prat"),
+    ("UDA", "Universidad de Atacama"),
+    ("UOH", "Universidad de O'Higgins"),
+    ("UTalca", "Universidad de Talca"),
+    ("UNA-PY", "Universidad Nacional de Asunción"),
+    ("UCA-PY", "Universidad Católica Nuestra Señora de la Asunción"),
+    ("UNE", "Universidad Nacional del Este"),
+    ("UNI", "Universidad Nacional de Itapúa"),
+    ("UNP", "Universidad Nacional de Pilar (Paraguay)"),
+    ("UNCA-PY", "Universidad Nacional de Concepción"),
+    ("UNVES", "Universidad Nacional de Villarrica del Espíritu Santo"),
+    ("UPAP", "Universidad Politécnica y Artística del Paraguay"),
+    ("UAA", "Universidad Autónoma de Asunción"),
+    ("UNINORTE", "Universidad del Norte"),
+    ("UTIC", "Universidad Tecnológica Intercontinental"),
+    ("UPA", "Universidad Paraguayo Alemana"),
+    ("UAM", "Universidad Americana"),
+    ("UNIDA", "Universidad de la Integración de las Américas"),
+    ("Columbia", "Universidad Columbia del Paraguay"),
 ]
+
+# País de cada clave que NO es argentina. Espejo de `country` en el front; lo que
+# no está acá es de Argentina.
+PAIS_DE: dict[str, str] = {
+    "UdelaR": "UY",
+    "UTEC": "UY",
+    "ORT": "UY",
+    "UCU": "UY",
+    "UMontevideo": "UY",
+    "UDE": "UY",
+    "UChile": "CL",
+    "PUC": "CL",
+    "USACH": "CL",
+    "UTFSM": "CL",
+    "UDEC": "CL",
+    "PUCV": "CL",
+    "UV": "CL",
+    "UACh": "CL",
+    "UFRO": "CL",
+    "ULS": "CL",
+    "UANTOF": "CL",
+    "UTA": "CL",
+    "UDD": "CL",
+    "UAI-CL": "CL",
+    "UDP": "CL",
+    "UANDES": "CL",
+    "UNAB-CL": "CL",
+    "UTEM": "CL",
+    "UCSC": "CL",
+    "UCN": "CL",
+    "UBB": "CL",
+    "UDLA": "CL",
+    "UVM": "CL",
+    "UCM": "CL",
+    "UMAG": "CL",
+    "UCT": "CL",
+    "USS": "CL",
+    "UMayor": "CL",
+    "UCEN": "CL",
+    "UNAP": "CL",
+    "UDA": "CL",
+    "UOH": "CL",
+    "UTalca": "CL",
+    "UNA-PY": "PY",
+    "UCA-PY": "PY",
+    "UNE": "PY",
+    "UNI": "PY",
+    "UNP": "PY",
+    "UNCA-PY": "PY",
+    "UNVES": "PY",
+    "UPAP": "PY",
+    "UAA": "PY",
+    "UNINORTE": "PY",
+    "UTIC": "PY",
+    "UPA": "PY",
+    "UAM": "PY",
+    "UNIDA": "PY",
+    "Columbia": "PY",
+}
+
+# Siglas que además son palabras corrientes ("la uni", "se une"). Valen para
+# guardar la universidad de alguien, pero NO para reconocer una universidad
+# dentro del texto libre de una donación: ahí darían falsos positivos.
+SIGLAS_AMBIGUAS: frozenset[str] = frozenset({"UNI", "UNE", "UV", "UDA", "UTA", "UPA", "Columbia"})
 
 
 def _norm(value: str) -> str:
@@ -171,7 +288,34 @@ def canonical_university(value: str | None) -> str | None:
     pasan derecho: no todas las filas tienen universidad cargada."""
     if value is None:
         return None
-    stripped = value.strip()
+    stripped = " ".join(value.split())
     if not stripped:
         return stripped
-    return _BY_NORM.get(_norm(stripped), stripped)
+    conocida = _BY_NORM.get(_norm(stripped))
+    if conocida:
+        return conocida
+    # Institución custom ("CERN", "FING"): una sola palabra corta de letras se
+    # guarda en MAYÚSCULAS, para que "Fing", "fing" y "FING" sean la misma sigla
+    # y el ranking no las cuente como tres universidades.
+    return stripped.upper() if _SIGLA_CORTA.fullmatch(stripped) else stripped
+
+
+_SIGLA_CORTA = re.compile(r"[A-Za-z]{2,6}")
+
+
+def is_junk_university(value: str | None) -> bool:
+    """Teclazos, números sueltos o una letra: lo que NO es una institución.
+
+    Gemelo de `esUniversidadBasura` en web/src/lib/university-tags.ts: los dos
+    tienen que decidir igual. Es deliberadamente conservador —un falso positivo
+    esconde del ranking a una universidad real—, así que solo atrapa lo
+    inequívoco: menos de dos caracteres, más números que letras, o seis letras o
+    más sin una sola vocal.
+    """
+    t = (value or "").strip()
+    if len(t) < 2:
+        return True
+    letras = re.sub(r"[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ]", "", t)
+    if len(letras) < len(re.sub(r"\s", "", t)) / 2:
+        return True
+    return len(letras) >= 6 and not re.search(r"[aeiouáéíóúAEIOUÁÉÍÓÚ]", letras)

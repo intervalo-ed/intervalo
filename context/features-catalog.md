@@ -325,13 +325,13 @@ eso obligó a mover un tercero, porque los números no viven solos:
 |---|---|
 | 1 | el @ (`username-slide.tsx`) —en el teléfono, **después** del ranking— y la diapo de reglas: el Elo y la tabla en `control` y `teclado`. En `ayudas` y `bienvenida` la diapo sale en la 2 y dice solo el Elo |
 | 3 | carrera y universidad (`HITO_PERFIL`) |
-| 9 | invitar a un amigo (`RECLUTAS_RESTO`) |
+| 8 | la primera encuesta de la escalera (`OPINION_PRIMERA`), y de ahí vuelve para siempre |
 | 10 | registrarse (`HITO_REGISTRO`), y se vuelve a ofrecer cada 12 |
-| 14 | el cafecito, por primera vez (`CAFECITO_PRIMERA`) |
+| 14 | invitar a un amigo (`RECLUTAS_RESTO`, desde el 28/09; antes en la 9) |
+| 15 | **cada cuánto ver el ranking** (`FRECUENCIA_EN`, solo teléfono, desde el 09/10), una sola vez en la vida del aparato |
 | 18 | la pregunta de la varita (`ENCUESTA_EN`), una sola vez en la vida |
-| 20 | el cafecito otra vez, y de ahí cada 20 |
-| 24 | instalar la app, y después cada 12: 36, 48, 60, 73, 85 |
-| 28 | la primera encuesta de la escalera (`OPINION_PRIMERA`, corrida por su separación), y de ahí vuelve para siempre |
+| 20 | el cafecito, por primera vez (`CAFECITO_PRIMERA`, desde el 28/09; antes en la 14) y de ahí cada 20 |
+| 21 | instalar la app (`INSTALAR_PRIMERA`), y después cada 12 |
 | 30 | *(experimento `dx-muro-1`, la mitad de los jugadores NUEVOS — los de antes del 27/09 no tienen tope)* el **tope diario**: no hay más derivadas hasta mañana, salvo cafecito |
 
 **El tope de la 30 no es un escalón de esta escalera y por eso está en su propia
@@ -1077,7 +1077,14 @@ de rating hoy y 70 con el piso. Ese temblor ES el efecto buscado, pero a quien
 esté parado justo en un corte de nivel se le va a prender y apagar el color — y
 el corte de 3,7 acaba de dejar a 70 personas ahí cerca.
 
-### `dx-banda-1`: a qué dificultad apuntamos (desde el 28/09)
+### `dx-banda-1`: a qué dificultad apuntamos (28/09 → cancelado el 09/10)
+
+**Cancelado sin leerse.** Desde el 09/10 todos apuntan a la banda de siempre y
+el motor no sortea; el panel lo muestra con el estado «Cancelado» —el cuarto,
+después de Activo, Pausado y Finalizado— con el motivo en la caja y la tabla de
+lo que se juntó, sin contraste ni informe. La razón no fue el resultado sino
+que la dificultad se va a elegir de otra forma, y medir la banda sobre un
+selector que está por cambiar no decide nada. Lo que era:
 
 Dos brazos sorteados por hash del id en el servidor (`game/banda.py`), sin
 columna: `control` con la banda de siempre (p̂ 0,70–0,80) y `exigente` corrida un
@@ -1094,7 +1101,7 @@ fácil y entretenido.
 Corre encima de la recalibración del 27/09 (ver `context/gamification.md`), que
 ya sirvió unos diez puntos más difícil para todos. La predicción escrita de
 antemano es que este contraste salga MÁS CHICO que aquella diferencia
-antes/después. Interruptor: `BANDA_ENABLED=0`.
+antes/después.
 
 ### La flecha del ranking: lo subido hoy (`game/simulation.py`)
 
@@ -1566,6 +1573,37 @@ hay.
 El chat se puede apagar entero desde el server (`GAME_CHAT_ENABLED`, opt-in): eso
 frena escribir, nunca leer.
 
+### Cada cuánto ver el ranking (`ranking-frecuencia.ts`, `ranking-frecuencia-slide.tsx`)
+
+Desde el 09/10, en el **teléfono**, la persona elige después de qué correctas
+aparece la diapo del ranking: **después de cada derivada** (lo de siempre, y el
+valor por defecto), **cada 5** (`RANKING_CADA_N`, contadas sobre las correctas
+acumuladas del servidor) o **solo cuando sube de puesto** (`rank_after <
+rank_before`; sin puestos del servidor, se muestra). Cuando una correcta no pasa
+por el ranking, el festejo optimista se desarma, el ranking se refresca por
+detrás y la escalera de hitos corre igual que si acabara de salir de él.
+
+La preferencia vive en **localStorage**, como el sonido: es cómo esta persona
+quiere ver esta pantalla en este aparato, y escritorio no tiene la diapo —allá
+el ranking es la columna de al lado y no interrumpe nada—. Reiniciar el
+progreso o cerrar sesión no la borra. Se cambia desde una fila de Ajustes que
+rota al tocarla (solo teléfono).
+
+**La diapo que la ofrece sale en la derivada 15**, una vez en la vida del
+aparato, y es un aviso más que una pregunta: lo que se toca se guarda al
+instante, y pasarla de largo deja lo de siempre. El 15 salió de medir la primera
+sesión de 2.200 personas (09/10): hasta la 12 casi nadie saltea el ranking (lo
+mira 6-8 s), en la 15 el salteo (< 1,5 s) se duplica al 11,7% y la mediana cae
+a 4 s. Antes de eso la diapo ofrecería una solución a un problema que la persona
+todavía no tiene.
+
+**Sale pegada a reclutas (14), y es deliberado.** Reclutas escribe el cooldown
+compartido, así que con la separación de cuatro que usan la varita e instalar
+esta diapo se caería a la 18 y le quitaría la respuesta a la varita. Por eso
+respeta solo la regla 3 del mapa (dos pantallas no comparten respuesta) y no la
+distancia; y tampoco escribe el cooldown, así que no corre a nadie. Lo verifica
+`check:frecuencia`.
+
 ### La pregunta abierta (`encuesta-slide.tsx`, `game/encuesta.py`)
 
 Una diapo en la **derivada 18**, una sola vez en la vida, con un campo de texto y
@@ -1732,3 +1770,15 @@ que miran tablas que el juego no tiene.
 - PWA: manifest, splash screens iOS generados por script.
 
 Última verificación: 2026-09-13
+
+## Tags de universidad, países y banderas
+
+La universidad de cada jugador se dibuja como una **tag** de color (`UniTag`) con una banderita redonda a la derecha. El catálogo vive duplicado, a propósito, en `web/src/lib/university-tags.ts` (color, país, alias) y `backend/universities.py` (solo clave, nombre y país); `check_universities` frena si las claves dejan de coincidir.
+
+- **Países con catálogo:** Argentina, Uruguay, Chile (33 casas de estudios) y Paraguay (15). La bandera sale de `web/public/flags/` (Twemoji, CC-BY 4.0).
+- **Siglas repetidas entre países.** La clave guardada es única en todo el catálogo, así que la UAI, la UNAB, la UNA, la UCA y la UNCA extranjeras se guardan como `UAI-CL`, `UNAB-CL`, `UNA-PY`, `UCA-PY` y `UNCA-PY` y se DIBUJAN sin el sufijo (`label`), con su bandera. En el selector "Otra", cada sugerencia lleva la bandera adentro de la tag, que es lo que distingue una de otra. Se busca por sigla, alias ("UC" → PUC) o país ("chile").
+- **Institución custom** ("CERN", "ISFD 99"): recibe una **tag automática** con la misma fórmula que las demás y un color estable que sale de un hash del texto; sin bandera. Un nombre largo se abrevia a iniciales. Una sola palabra corta de letras se guarda en mayúsculas ("Fing" = "FING").
+- **Basura.** `is_junk_university` (teclazos, números, una letra) saca el texto del ranking de universidades. Las siglas que son palabras corrientes ("uni") no se reconocen dentro del mensaje de una donación (`SIGLAS_AMBIGUAS`).
+- **Limpieza de la base:** `backend/scripts/diag/limpiar_universidades.py` (en seco por defecto).
+- **Bots regionales para local:** `seed_game_bots.py --region` suma 40 jugadores de Uruguay, Chile y Paraguay y dos instituciones custom. Va aparte del padrón base para no mover el sorteo de los 100 ya sembrados en producción.
+- **Vistas del ranking del minijuego:** Estudiantes, Universidades, Países y Reclutas (antes Individual y Universitario; el cambio de nombre alcanza también al ranking de Intervalo clásico, que no tiene Países). «Países» suma las universidades por país en el front (`ranking-por-pais.ts`), con Elo promedio ponderado por jugadores y el mismo mínimo de 10 que una universidad. Las universidades custom sin país no entran. La bandera va a la derecha del nombre; en el ranking de Estudiantes va antes de la tag.

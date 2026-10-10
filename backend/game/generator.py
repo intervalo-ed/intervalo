@@ -18,7 +18,7 @@ from sqlalchemy.orm import Session
 
 from models import GameExercise, GamePlayer, GameTemplateStat
 
-from . import banda as game_banda, elo
+from . import elo
 from .cycler import CyclingRandom, ForcedRandom
 from .templates import TEMPLATE_BY_KEY, TEMPLATES, GameTemplate, latex_es, x
 
@@ -228,13 +228,12 @@ def pick_template(
     rng = rng or random.Random()
     recent = _recent_template_keys(db, player)
 
-    # A qué p̂ se apunta para ESTE jugador. Es el brazo de `dx-banda-1`, y es el
-    # único parámetro de dificultad que se puede sortear: β vive en una tabla
-    # compartida, así que moverla repartiría el tratamiento al otro brazo (ver
-    # game/banda.py). Con el experimento apagado devuelve la banda de siempre.
-    banda_lo, banda_hi = game_banda.banda_de(player.id)
-    banda_mid = game_banda.centro_de(banda_lo, banda_hi)
-    expl_lo, expl_hi = game_banda.exploracion_de(banda_lo, banda_hi)
+    # A qué p̂ se apunta. La misma banda para todos: entre el 28/09 y el 09/10
+    # `dx-banda-1` la sorteaba por jugador (game/banda.py), y se canceló sin
+    # leerse porque la dificultad se va a elegir de otra forma.
+    banda_lo, banda_hi = elo.TARGET_LOW, elo.TARGET_HIGH
+    banda_mid = elo.TARGET_MID
+    expl_lo, expl_hi = elo.EXPLORE_LOW, elo.EXPLORE_HIGH
 
     # `permitidas` y no TEMPLATES en TODAS las ramas de acá abajo: cada rescate
     # está para no quedarse sin nada que servir, y si alguno volviera a la lista

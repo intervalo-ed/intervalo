@@ -8,11 +8,11 @@ import { withTimeout } from "@/lib/async/with-timeout"
 import { Button } from "@/components/ui/button"
 import { Spinner } from "@/components/ui/spinner"
 import { cn } from "@/lib/utils"
+import { SugerenciaUniversidad } from "@/components/university-tag"
 import {
   ONBOARDING_UNIVERSITIES,
   UNIVERSITY_TAG_BY_KEY,
   canonicalUniversity,
-  estilosDeTag,
   matchUniversities,
 } from "@/lib/university-tags"
 
@@ -154,15 +154,7 @@ export function RecoverProfileForm({ onDone }: { onDone: () => void }) {
                   {suggestions.length > 0 && (
                     <div className="flex flex-wrap gap-2">
                       {suggestions.map((s) => (
-                        <button
-                          key={s.key}
-                          type="button"
-                          onClick={() => setUniversityOther(s.key)}
-                          className="inline-flex items-center justify-center rounded-md border px-2.5 py-1.5 text-xs transition-opacity hover:opacity-80"
-                          style={estilosDeTag(s)}
-                        >
-                          {s.key}
-                        </button>
+                        <SugerenciaUniversidad key={s.key} cfg={s} onClick={() => setUniversityOther(s.key)} />
                       ))}
                     </div>
                   )}

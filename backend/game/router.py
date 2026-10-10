@@ -31,7 +31,7 @@ from models import (
     GameTemplateStat,
     User,
 )
-from universities import UNIVERSITIES as _UNIVERSIDADES, canonical_university
+from universities import UNIVERSITIES as _UNIVERSIDADES, canonical_university, is_junk_university
 
 from . import bienvenida as game_bienvenida_mod
 import handles
@@ -1955,6 +1955,10 @@ def game_university_leaderboard(
     by_uni: dict[str, dict] = {}
     total_players = 0
     for uni, bucket, players, xp, rated, theta_sum in grouped:
+        # Teclazos y números sueltos ("jlkhjkjkhjkjh", "23213r") no son una
+        # universidad: no ocupan una fila ni cuentan en el total.
+        if is_junk_university(uni):
+            continue
         total_players += players
         agg = by_uni.setdefault(
             uni,

@@ -70,6 +70,23 @@ UNIVERSIDADES = [
     ("UADE", 2), ("UNLU", 2), ("UNICEN", 1), ("UTDT", 1), ("UNRC", 1),
 ]
 
+# Padrón REGIONAL, solo con `--region`: universidades de Uruguay, Chile y
+# Paraguay (y dos instituciones custom, sin bandera, para ver la tag
+# automática). Existe para probar en local las banderitas, el selector con
+# países y la tag generada con un ranking que las muestre. Va aparte del padrón
+# base A PROPÓSITO: sumarlas a `UNIVERSIDADES` cambiaría el sorteo de los 100
+# jugadores ya sembrados en producción, y el script se re-corre sobre esos.
+UNIVERSIDADES_REGION = [
+    ("UdelaR", 6), ("ORT", 2), ("UCU", 2),
+    ("UChile", 6), ("PUC", 6), ("USACH", 4), ("UTFSM", 3), ("UDEC", 3),
+    ("UAI-CL", 2), ("UNAB-CL", 2), ("PUCV", 2),
+    ("UNA-PY", 6), ("UCA-PY", 3), ("UNE", 2), ("UNI", 1), ("UNP", 1),
+    ("UNCA-PY", 1), ("UAA", 1),
+    ("CERN", 2), ("ISFD 99", 1),
+]
+TRAMOS_REGION = [(4, 3750, 7250), (8, 1550, 3700), (12, 525, 1525), (16, 45, 512)]
+SEED_REGION = SEED + 1
+
 # E = ingeniería, T = tecnología, S = ciencia, M = matemática (game/router.py).
 CARRERAS = [("E", 46), ("T", 27), ("S", 18), ("M", 9)]
 
@@ -135,12 +152,17 @@ def seeded_theta(rng: random.Random, xp: int) -> float:
     return round(max(THETA_FLOOR, min(THETA_AT_TOP, theta)), 3)
 
 
-def build_bots(rng: random.Random) -> list[dict]:
-    taken: set[str] = set()
+def build_bots(
+    rng: random.Random,
+    universidades: list[tuple[str, int]] = UNIVERSIDADES,
+    tramos: list[tuple[int, int, int]] = TRAMOS,
+    taken: set[str] | None = None,
+) -> list[dict]:
+    taken = set() if taken is None else taken
     bots: list[dict] = []
     now = datetime.utcnow()
 
-    for count, xp_min, xp_max in TRAMOS:
+    for count, xp_min, xp_max in tramos:
         for _ in range(count):
             xp = rng.randint(xp_min, xp_max)
             correct = max(1, round(xp / XP_POR_CORRECTA))
@@ -149,7 +171,7 @@ def build_bots(rng: random.Random) -> list[dict]:
             bots.append(
                 {
                     "alias": build_alias(rng, taken),
-                    "university": weighted(rng, UNIVERSIDADES),
+                    "university": weighted(rng, universidades),
                     "career": weighted(rng, CARRERAS),
                     "xp": xp,
                     "exercises_correct": correct,
@@ -173,6 +195,11 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--purge", action="store_true", help="borra los sembrados y sale")
+    parser.add_argument(
+        "--region",
+        action="store_true",
+        help="además del padrón base, siembra 40 de Uruguay, Chile y Paraguay (para local)",
+    )
     args = parser.parse_args()
 
     db = SessionLocal()
@@ -189,6 +216,15 @@ def main() -> int:
 
         rng = random.Random(SEED)
         bots = build_bots(rng)
+        if args.region:
+            # Los alias del padrón base quedan reservados: el regional no puede
+            # pisar a ninguno, y el base no cambia porque se arma primero.
+            bots += build_bots(
+                random.Random(SEED_REGION),
+                universidades=UNIVERSIDADES_REGION,
+                tramos=TRAMOS_REGION,
+                taken={b["alias"] for b in bots},
+            )
         existing = {
             p.alias: p
             for p in db.query(GamePlayer)

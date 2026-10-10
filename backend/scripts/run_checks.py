@@ -75,7 +75,6 @@ CHECKS = [
     "check_game_generator",
     "check_game_muro",
     "check_game_rampa",
-    "check_game_banda",
     "check_game_opinion",
     "check_game_ranking_sort",
     "check_game_referrals",
@@ -103,6 +102,7 @@ CHECKS = [
     "check_schema_migrations",
     "check_survey_channel_d",
     "check_table_boost",
+    "check_universities",
     "check_xp_boost",
 ]
 

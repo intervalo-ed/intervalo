@@ -17,6 +17,7 @@
 // el único que sabe dónde puso cada cosa.
 
 import { UniTag } from "@/components/university-tag"
+import { etiquetaDe, tagDe } from "@/lib/university-tags"
 import { XpDots } from "@/components/xp-dots"
 import { levelColor } from "./game-colors"
 
@@ -107,7 +108,7 @@ export function TextoConHuecos({
             </span>
           ) : (
             <span key={i} className="font-semibold text-foreground/90">
-              {uni}
+              {etiquetaDe(tagDe(uni))}
             </span>
           )
         }
