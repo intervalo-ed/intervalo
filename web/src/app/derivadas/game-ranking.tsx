@@ -1926,6 +1926,10 @@ const Row = memo(function Row({
         >
           {entry.alias}
         </span>
+        {/* El orden de lo que acompaña al alias: país, universidad, carrera. A
+            la derecha queda solo la experiencia, con la flecha de puestos a su
+            izquierda. */}
+        {entry.university && <UniTag university={entry.university} bandera="izquierda" />}
         {emoji && <span className="shrink-0 text-sm leading-none">{emoji}</span>}
       </span>
       {delta !== 0 && (
@@ -1938,11 +1942,6 @@ const Row = memo(function Row({
         >
           {delta > 0 ? <ArrowUp size={12} /> : <ArrowDown size={12} />}
           {Math.abs(delta)}
-        </span>
-      )}
-      {entry.university && (
-        <span className="inline-flex shrink-0 items-center gap-1">
-          <UniTag university={entry.university} />
         </span>
       )}
       {previewMultiplier ? (
