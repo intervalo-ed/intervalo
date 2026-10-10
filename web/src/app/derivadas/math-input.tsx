@@ -238,12 +238,12 @@ export function tipFor({
 export const HINT_MOBILE = "Usá el teclado 👇"
 
 // Borde del campo según el feedback. El verde es el mismo hex que usa el
-// resto del juego y las opciones del session-runner; el lima de errar es
-// el `WRONG` de exercise-card.tsx, que desde acá es propio del juego y ya no
-// coincide con el naranja de las sesiones (ver el comentario ahí).
+// resto del juego y las opciones del session-runner; el de errar es el
+// `WRONG` de exercise-card.tsx, el naranja de las sesiones (ver el comentario
+// ahí). Si cambia uno, cambian los tres.
 const TONE_BORDER = {
   correct: "#22C55E",
-  wrong: "#FDD000",
+  wrong: "#F97316",
 } as const
 
 // El campo lo crea MathLive de forma imperativa y su borde vive en un estilo

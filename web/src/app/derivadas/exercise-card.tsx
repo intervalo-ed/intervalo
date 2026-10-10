@@ -70,20 +70,21 @@ export const PANEL_CONTENT = "mx-auto w-full max-w-[32rem]"
 // El verde se exporta porque no es solo el destello de la respuesta: es EL color
 // de haber acertado, y con él se prende también la XP mientras se llena (ver
 // xp-conteo.ts). Un solo verde para las dos mitades del mismo festejo.
-export const WRONG = "#FDD000"
+//
+// **Desde el 09/10 el color de errar es el naranja de las sesiones** (`orange-500`,
+// el mismo del «¿Seguro?» de session-runner.tsx), y todo lo de arriba sobre el
+// dorado queda como registro de por qué no funcionó. El cartel «¿Seguro?» del
+// teléfono ya se pintaba con ese naranja y el marco y el destello del campo
+// tenían que acompañarlo: un mismo error en dos colores no se lee como un error.
+export const WRONG = "#F97316"
 export const VERDE_ACIERTO = "#22C55E"
-// El rojo del cartel «¿Seguro?» del teléfono. `WRONG` es amarillo —el destello
-// del campo— y mezclado con el fondo oscuro daba marrón; el cartel pide un rojo
-// que diga error, y es el mismo de las filas de peligro de Ajustes.
-export const ROJO_CARTEL = "#E5484D"
-
 // El pulso del ¿Por qué? no vive acá: es blanco y arranca lleno en vez de
 // crecer desde cero (ver el `pulso === "hint"` de AnswerField), porque hace
 // otro trabajo — tapar el instante del cambio, no avisar "hay algo más para
 // mirar" con un color.
 const TONE_PULSE = {
   correct: "rgba(34, 197, 94, 0.26)",
-  wrong: "rgba(253, 208, 0, 0.28)",
+  wrong: "rgba(249, 115, 22, 0.28)",
 } as const
 
 export type AnswerTone = "correct" | "wrong" | null
@@ -955,7 +956,7 @@ export function AnswerButton({
   const shaking = useMoment(tone === "wrong", seq, SHAKE_S * 1000 + 60) && !reduceMotion
   const flashing = useMoment(tone !== null && !sinFlash, seq, FLASH_MS)
 
-  // Solo el verde destella acá. El lima de errar (WRONG) quedó exclusivo del
+  // Solo el verde destella acá. El color de errar (WRONG) quedó exclusivo del
   // botón del «¿Por qué?» (porque-panel.tsx) — con los dos marcando el mismo
   // error a la vez quedaba redundante, y Revisar ya tiene su propio aviso de
   // "mal" con la sacudida (`shaking`) más abajo.
