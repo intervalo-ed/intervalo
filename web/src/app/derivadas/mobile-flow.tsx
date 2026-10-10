@@ -45,8 +45,8 @@ import {
   ExerciseCard,
   PANEL_CONTENT,
   SkipButton,
+  AMARILLO_CARTEL,
   VERDE_ACIERTO,
-  WRONG,
   answerTone,
   type AnswerTone,
 } from "./exercise-card"
@@ -1936,8 +1936,14 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                           : "pb-[calc(var(--cta-pt)_+_var(--cta-h)_+_var(--cta-pb))]",
                       )}
                       style={{
-                        borderColor: `${WRONG}80`,
-                        backgroundColor: `color-mix(in oklab, var(--background) 75%, ${WRONG} 25%)`,
+                        // Un amarillo naranja más vivo que `WRONG` (que es el
+                        // destello del campo): mezclado al 25% con el fondo
+                        // daba un marrón apagado. Y un dejo de transparencia
+                        // (92%) que ya no estorba: el teclado va `isolate` y
+                        // queda DEBAJO del cartel, así que lo que se asoma es
+                        // el fondo de las teclas y no sus símbolos.
+                        borderColor: `${AMARILLO_CARTEL}A6`,
+                        backgroundColor: `color-mix(in srgb, color-mix(in oklab, var(--background) 58%, ${AMARILLO_CARTEL} 42%) 92%, transparent)`,
                       }}
                     >
                       <div className="mx-auto w-full max-w-md text-[15px]">
