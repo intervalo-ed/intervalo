@@ -40,13 +40,23 @@ function Chip({ cfg }: { cfg: UniversityTag }) {
 // la bandera de su país a la derecha. Las instituciones que no están en el
 // listado ("CERN") reciben una tag generada con la misma fórmula (ver
 // `tagGenerada`) y no llevan bandera.
-export function UniTag({ university }: { university: string }) {
+export function UniTag({
+  university,
+  bandera = "derecha",
+}: {
+  university: string
+  // De qué lado de la tag va la bandera. El ranking individual la pone ANTES
+  // (la bandera, después la sigla); el resto de las pantallas, después.
+  bandera?: "izquierda" | "derecha"
+}) {
   const cfg = tagDe(university)
   if (!cfg.country) return <Chip cfg={cfg} />
+  const flag = <Bandera country={cfg.country} />
   return (
     <span className="inline-flex shrink-0 items-center gap-1.5">
+      {bandera === "izquierda" && flag}
       <Chip cfg={cfg} />
-      <Bandera country={cfg.country} />
+      {bandera === "derecha" && flag}
     </span>
   )
 }

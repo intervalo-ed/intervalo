@@ -133,14 +133,16 @@ export function FilterBox({
 // Las vistas del ranking. "recruits" es opt-in (`withRecruits`) porque no toda
 // pantalla que monta esto tiene reclutas que mostrar: la eligen los dos rankings
 // —el del minijuego y el de Intervalo clásico—, no la vista pública.
-export type RankingView = "individual" | "university" | "recruits"
+export type RankingView = "individual" | "university" | "countries" | "recruits"
 
-// "Reclutas" a secas y no "Mis reclutas": al lado de Individual y Universitario
-// el posesivo sobra, porque ya son tuyos por definición y ninguna de las otras
-// dos lo lleva.
+// Las vistas se nombran por LO QUE LISTAN, en plural: Estudiantes,
+// Universidades, Países, Reclutas. "Reclutas" a secas y no "Mis reclutas": el
+// posesivo sobra, porque ya son tuyos por definición y ninguna de las otras lo
+// lleva.
 const VIEW_LABEL: Record<RankingView, string> = {
-  individual: "Individual",
-  university: "Universitario",
+  individual: "Estudiantes",
+  university: "Universidades",
+  countries: "Países",
   recruits: "Reclutas",
 }
 
@@ -155,6 +157,8 @@ export function ScopeFilters({
   onUniversityChange,
   universities,
   withRecruits = false,
+  // Opt-in como los reclutas: solo el minijuego tiene catálogo de países.
+  withCountries = false,
   // La caja de carrera es opt-in, igual que la de reclutas. El ranking del
   // minijuego la sacó —tres selectores para elegir entre cinco carreras eran
   // más pantalla de la que ese filtro se ganaba— y el de Intervalo la
@@ -175,6 +179,7 @@ export function ScopeFilters({
   onUniversityChange: (v: string) => void
   universities: string[]
   withRecruits?: boolean
+  withCountries?: boolean
   withCareer?: boolean
   scopeDisabled?: boolean
 }) {
@@ -195,8 +200,9 @@ export function ScopeFilters({
         onChange={(v) => onViewChange(v as RankingView)}
         display={(v) => VIEW_LABEL[v as RankingView] ?? v}
       >
-        <SelectItem value="individual">Individual</SelectItem>
-        <SelectItem value="university">Universitario</SelectItem>
+        <SelectItem value="individual">Estudiantes</SelectItem>
+        <SelectItem value="university">Universidades</SelectItem>
+        {withCountries && <SelectItem value="countries">Países</SelectItem>}
         {withRecruits && <SelectItem value="recruits">Reclutas</SelectItem>}
       </FilterBox>
 
