@@ -2,7 +2,7 @@ import { estilosDeTag, etiquetaDe, PAIS_NOMBRE, tagDe, type Pais, type Universit
 
 // Bandera rectangular de Twemoji (CC-BY 4.0, ver public/flags/LICENSE.txt). El
 // SVG es un cuadrado de 36 con la bandera ondeada adentro, así que `size` es el
-// alto y el ancho sale solo. Va al lado de la tag y no adentro, con aire.
+// alto y el ancho sale solo.
 export function Bandera({ country, size = 17 }: { country: Pais; size?: number }) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
@@ -12,18 +12,26 @@ export function Bandera({ country, size = 17 }: { country: Pais; size?: number }
       title={PAIS_NOMBRE[country]}
       width={size}
       height={size}
-      className="inline-block shrink-0"
+      className="block shrink-0"
       style={{ width: size, height: size }}
     />
   )
 }
 
-// La tag en sí, sin bandera: la usan los botones de sugerencia, que ponen la
-// bandera adentro.
-function Chip({ cfg }: { cfg: UniversityTag }) {
+// Tag de universidad (leaderboard individual, ranking por universidad y las
+// secciones de ranking de la landing): color de marca + tipografía compartida,
+// con la bandera de su país ADENTRO, después de la sigla. Las instituciones que no
+// están en el listado ("CERN") reciben una tag generada con la misma fórmula
+// (ver `tagGenerada`) y no llevan bandera.
+//
+// La bandera mide 10 px y es `block`: como `inline-block` hereda el hueco de
+// descendentes de la línea y queda corrida hacia abajo. Es un hijo flex más, así
+// que `items-center` la centra contra el texto.
+export function UniTag({ university }: { university: string }) {
+  const cfg = tagDe(university)
   return (
     <span
-      className="inline-flex shrink-0 items-center justify-center rounded-md border px-1 py-1 text-center leading-none"
+      className="inline-flex shrink-0 items-center justify-center gap-[5px] rounded-md border px-[7px] py-[5px] text-center leading-none"
       style={{
         ...estilosDeTag(cfg),
         fontSize: cfg.tagFontSize,
@@ -31,32 +39,13 @@ function Chip({ cfg }: { cfg: UniversityTag }) {
       }}
     >
       {etiquetaDe(cfg)}
-    </span>
-  )
-}
-
-// Tag de universidad (leaderboard individual, ranking por universidad y las
-// secciones de ranking de la landing): color de marca + tipografía compartida y
-// la bandera de su país a la derecha. Las instituciones que no están en el
-// listado ("CERN") reciben una tag generada con la misma fórmula (ver
-// `tagGenerada`) y no llevan bandera.
-export function UniTag({
-  university,
-  bandera = "derecha",
-}: {
-  university: string
-  // De qué lado de la tag va la bandera. El ranking individual la pone ANTES
-  // (la bandera, después la sigla); el resto de las pantallas, después.
-  bandera?: "izquierda" | "derecha"
-}) {
-  const cfg = tagDe(university)
-  if (!cfg.country) return <Chip cfg={cfg} />
-  const flag = <Bandera country={cfg.country} />
-  return (
-    <span className="inline-flex shrink-0 items-center gap-1.5">
-      {bandera === "izquierda" && flag}
-      <Chip cfg={cfg} />
-      {bandera === "derecha" && flag}
+      {cfg.country && (
+        // 0,5 px más abajo: el centro óptico del texto en versalitas queda por
+        // debajo del centro de su caja, y centrada a secas la bandera se ve alta.
+        <span className="translate-y-[0.5px]">
+          <Bandera country={cfg.country} size={10} />
+        </span>
+      )}
     </span>
   )
 }

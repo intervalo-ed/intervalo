@@ -1947,7 +1947,7 @@ const Row = memo(function Row({
       )}
       {entry.university && (
         <span className="inline-flex shrink-0 items-center gap-1">
-          <UniTag university={entry.university} bandera="izquierda" />
+          <UniTag university={entry.university} />
         </span>
       )}
       {previewMultiplier ? (
