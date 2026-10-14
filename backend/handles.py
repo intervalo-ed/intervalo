@@ -220,6 +220,24 @@ def vincular(db: Session, *, user_id: int, player_id: int) -> None:
     del_jugador = activo_de_jugador(db, player_id)
     del_usuario = activo_de_usuario(db, user_id)
 
+    # Excepción: la persona que YA practicaba en Intervalo y entra al juego sin
+    # sesión recibe un @ al azar que nunca vio ni compartió. Dejarlo ganar le
+    # cambiaba el nombre en el ranking de clásico y se leía como «perdí mi
+    # cuenta». Gana el que ella eligió; el del invitado se retira (sigue
+    # resolviendo). Solo si el @ del juego sigue siendo el sorteado: uno que la
+    # persona eligió o editó es el que compartió, y ese manda como siempre.
+    if (
+        del_jugador is not None
+        and del_usuario is not None
+        and del_jugador.handle != del_usuario.handle
+        and _conserva_el_de_clasico(db, user_id, player_id)
+    ):
+        reclamar(db, del_usuario.handle, user_id=user_id, player_id=player_id)
+        p = db.get(GamePlayer, player_id)
+        if p is not None:
+            p.alias_is_generated = False
+        return
+
     if del_jugador is not None:
         # El username de clásico se retira, pero solo se puede retirar lo que
         # existe: si nunca entró al registro —el alta lo escribía derecho a
@@ -238,6 +256,17 @@ def vincular(db: Session, *, user_id: int, player_id: int) -> None:
         return
     if del_usuario is not None:
         reclamar(db, del_usuario.handle, user_id=user_id, player_id=player_id)
+
+
+def _conserva_el_de_clasico(db: Session, user_id: int, player_id: int) -> bool:
+    """¿El @ de clásico le gana al del invitado? Sí si el del invitado es el
+    sorteado y la persona ya había sumado XP practicando (no solo por reclutas:
+    mismo criterio que `main.VISIBLE_EN_RANKING`)."""
+    p = db.get(GamePlayer, player_id)
+    u = db.get(User, user_id)
+    if p is None or u is None or not p.alias_is_generated:
+        return False
+    return (u.total_xp or 0) > (u.referral_xp_earned or 0)
 
 
 class HandleTomado(Exception):
