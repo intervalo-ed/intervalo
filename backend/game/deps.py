@@ -194,6 +194,24 @@ def link_guest_to_user(db: Session, guest: GamePlayer, user: User) -> GamePlayer
         # cuenta se retira, pero no se pierde — sigue siendo suyo y sus links
         # siguen resolviendo (ver backend/handles.py :: vincular).
         handles.vincular(db, user_id=user.id, player_id=guest.id)
+        # Quien ya cargó universidad y carrera en clásico no las vuelve a elegir
+        # en el juego: el jugador nuevo las hereda del alta más antigua (las
+        # mismas que usa el ranking de clásico). Lo que el invitado ya eligió
+        # no se pisa.
+        if guest.university is None or guest.career is None:
+            from models import Enrollment  # import local, evita ciclo
+
+            alta = (
+                db.query(Enrollment)
+                .filter(Enrollment.user_id == user.id)
+                .order_by(Enrollment.enrolled_at.asc(), Enrollment.id.asc())
+                .first()
+            )
+            if alta is not None:
+                if guest.university is None and alta.university:
+                    guest.university = alta.university
+                if guest.career is None and alta.career:
+                    guest.career = alta.career
         db.commit()
         db.refresh(guest)
         return guest

@@ -10,6 +10,7 @@ Lo que se prueba es lo que NO se ve usando la app:
   registro y no una lista.
 · Que al vincular las dos caras de una persona gane el @ del JUEGO, que es el
   que vio en pantalla y compartió.
+· Que quien ya practicaba en clásico conserve su @ si el del juego es el sorteado.
 · Que las dos columnas caché (`users.username`, `game_players.alias`) sigan
   siempre al handle activo.
 
@@ -256,6 +257,76 @@ try:
 except handles.HandleTomado:
     check("nadie más se lo puede llevar", True)
 db.rollback()
+
+print("8. quien ya practicaba en clásico conserva su @ al entrar al juego sin sesión")
+# `fhorl` (clásico, con XP) abre el juego de invitado y recibe un @ sorteado. Al
+# iniciar sesión tiene que seguir siendo `fhorl`, y el sorteado se retira.
+db.add(User(id=5, clerk_user_id="c5", email="e@e.com", name="E", total_xp=316))
+db.add(User(id=6, clerk_user_id="c6", email="f@f.com", name="F", total_xp=0))
+db.add(GamePlayer(id=30, alias="tmp30", alias_is_generated=True))
+db.add(GamePlayer(id=31, alias="tmp31", alias_is_generated=False))
+db.add(GamePlayer(id=32, alias="tmp32", alias_is_generated=True))
+db.commit()
+handles.reclamar(db, "fhorl", user_id=5)
+handles.reclamar(db, "tripleapunte44", player_id=30)
+handles.reclamar(db, "elegido31", player_id=31)
+handles.reclamar(db, "nuevo6", user_id=6)
+handles.reclamar(db, "sorteado32", player_id=32)
+db.commit()
+handles.vincular(db, user_id=5, player_id=30)
+db.commit()
+check("con XP de clásico y @ sorteado: gana el de clásico",
+      handles.activo_de_usuario(db, 5).handle == "fhorl")
+check("el jugador toma ese @ y deja de ser «sorteado»",
+      db.get(GamePlayer, 30).alias == "fhorl" and not db.get(GamePlayer, 30).alias_is_generated
+      and db.get(User, 5).username == "fhorl")
+sorteado = handles.duenio(db, "tripleapunte44")
+check("el sorteado queda retirado y sigue resolviendo",
+      sorteado.status == "retired" and sorteado.player_id == 30)
+# Si el @ del juego lo eligió ella, manda el del juego como siempre.
+db.add(User(id=7, clerk_user_id="c7", email="g@g.com", name="G", total_xp=50))
+db.commit()
+handles.reclamar(db, "viejo7", user_id=7)
+db.commit()
+handles.vincular(db, user_id=7, player_id=31)
+db.commit()
+check("con @ del juego elegido: gana el del juego",
+      handles.activo_de_usuario(db, 7).handle == "elegido31")
+# Sin XP de clásico no hay nada que conservar: gana el del juego.
+handles.vincular(db, user_id=6, player_id=32)
+db.commit()
+check("sin XP de clásico: gana el del juego",
+      handles.activo_de_usuario(db, 6).handle == "sorteado32")
+# El XP que vino solo por reclutas no cuenta como haber practicado.
+db.add(User(id=8, clerk_user_id="c8", email="h@h.com", name="H", total_xp=40, referral_xp_earned=40))
+db.add(GamePlayer(id=33, alias="tmp33", alias_is_generated=True))
+db.commit()
+handles.reclamar(db, "reclutador8", user_id=8)
+handles.reclamar(db, "sorteado33", player_id=33)
+db.commit()
+handles.vincular(db, user_id=8, player_id=33)
+db.commit()
+check("XP solo de reclutas: gana el del juego",
+      handles.activo_de_usuario(db, 8).handle == "sorteado33")
+
+# La universidad y la carrera de clásico pasan al jugador nuevo.
+from models import Course, Enrollment  # noqa: E402
+from game import deps as game_deps  # noqa: E402
+
+db.add(Course(id=1, name="Cálculo", slug="calculo")) if db.get(Course, 1) is None else None
+db.add(User(id=9, clerk_user_id="c9", email="i@i.com", name="I", total_xp=10))
+db.add(GamePlayer(id=34, alias="tmp34", alias_is_generated=True, guest_token="tok34"))
+db.commit()
+db.add(Enrollment(user_id=9, course_id=1, university="UNSAM", career="S"))
+db.commit()
+handles.reclamar(db, "clasico9", user_id=9)
+handles.reclamar(db, "sorteado34", player_id=34)
+db.commit()
+game_deps.link_guest_to_user(db, db.get(GamePlayer, 34), db.get(User, 9))
+p34 = db.get(GamePlayer, 34)
+check("al registrarse hereda universidad y carrera de clásico",
+      p34.university == "UNSAM" and p34.career == "S")
+check("y conserva el @ de clásico", p34.alias == "clasico9")
 
 db.close()
 
