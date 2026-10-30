@@ -2047,7 +2047,8 @@ CATEGORIAS: tuple[tuple[str, str], ...] = (
 PDF_CARPETA = "https://drive.google.com/drive/folders/16b81RQuoezp1QVOZawV0aWx5b5oUARMY"
 
 
-def cerrado(fecha: date, veredicto: str, motivo: str, pdf: str | None = None) -> dict:
+def cerrado(fecha: date, veredicto: str, motivo: str, pdf: str | None = None,
+            informe: bool = True) -> dict:
     """El cierre de un experimento: cuándo, qué se concluyó y por qué se paró.
 
     **`motivo` es el campo que importa y por eso no tiene default.** Un
@@ -2057,8 +2058,12 @@ def cerrado(fecha: date, veredicto: str, motivo: str, pdf: str | None = None) ->
     ningún resultado posible va a cambiar la conclusión. La tercera, parar
     cuando el p-valor cruzó 0,05, es la que esta sección entera existe para no
     dejar hacer.
+
+    `informe=False` es para el cierre que no deja informe —una decisión de
+    producto sin lectura detrás— y hace que la caja no prometa uno.
     """
-    return {"fecha": fecha, "veredicto": veredicto, "motivo": motivo, "pdf": pdf}
+    return {"fecha": fecha, "veredicto": veredicto, "motivo": motivo, "pdf": pdf,
+            "informe": informe}
 
 
 def cancelado(fecha: date, motivo: str) -> dict:
@@ -2274,6 +2279,11 @@ def _brazos_del_experimento(data: dict, clave: str) -> dict[int, str]:
         `unlocked_keys` ya está poblado, así que meterlo diluiría los tres
         brazos con gente a la que no le pasó nada.
 
+    Los dos últimos están CERRADOS (30/10) y por eso tienen además un `hasta`:
+    quien nació desde el cierre juega el producto ganador sea cual sea su hash,
+    así que contarlo en un brazo sería ponerle a ese brazo un tratamiento que no
+    es el suyo.
+
     `dx-ab-imagen` no está y no es un olvido: ahí la unidad es el GRUPO de
     WhatsApp y no la persona, así que no hay brazo que asignarle a un jugador.
     """
@@ -2286,8 +2296,10 @@ def _brazos_del_experimento(data: dict, clave: str) -> dict[int, str]:
         return {p["id"]: sorteo.brazo_de(p["id"]) for p in vivos
                 if (p["n_updates"] or 0) >= sorteo.UMBRAL_N}
     if clave == game_muro.EXPERIMENTO:
+        hasta_muro = EXPERIMENTO_MURO["hasta"]
         return {p["id"]: game_muro.brazo_de(p["id"]) for p in vivos
-                if (p["created_at"] or datetime.min) >= game_muro.NACIDO_DESPUES_DE}
+                if (p["created_at"] or datetime.min) >= game_muro.NACIDO_DESPUES_DE
+                and local_date(p["created_at"]) < hasta_muro}
     if clave == game_banda.EXPERIMENTO:
         desde_banda = EXPERIMENTO_BANDA["desde"]
         return {p["id"]: game_banda.brazo_de(p["id"]) for p in vivos
@@ -2295,9 +2307,10 @@ def _brazos_del_experimento(data: dict, clave: str) -> dict[int, str]:
                 and local_date(p["created_at"]) >= desde_banda}
     if clave == game_rampa.EXPERIMENTO:
         desde_rampa = EXPERIMENTO_RAMPA["desde"]
+        hasta_rampa = EXPERIMENTO_RAMPA["hasta"]
         return {p["id"]: game_rampa.brazo_de(p["id"]) for p in vivos
                 if p["created_at"] is not None
-                and local_date(p["created_at"]) >= desde_rampa}
+                and desde_rampa <= local_date(p["created_at"]) < hasta_rampa}
     return {}
 
 
@@ -2811,10 +2824,18 @@ def experimento_motor(data: dict) -> dict:
 # primer día completo de una semana en la que el producto ya es uno solo.
 #
 # **Es un filtro del PANEL y no mueve nada del juego.** Quién está en qué brazo,
-# quién ve la pantalla de arranque (`rampa.NACIDO_DESPUES_DE`) y quién tiene
-# tope (`muro.ARRANQUE`) siguen como estaban: mover esas fechas le cambiaría el
-# juego a gente que ya está jugando. Lo que se corre es desde cuándo se CUENTA.
+# quién veía la pantalla de arranque (`rampa.NACIDO_DESPUES_DE`) y quién tenía
+# tope (`muro.ARRANQUE`) siguieron como estaban mientras los dos corrieron:
+# mover esas fechas le habría cambiado el juego a gente que ya estaba jugando.
+# Lo que se corre es desde cuándo se CUENTA.
 LECTURA_DESDE = date(2026, 10, 5)
+
+# El cierre de `dx-rampa-1` y `dx-muro-1`, el mismo día y por el mismo motivo:
+# una decisión de producto para que el juego tenga un solo flujo antes de
+# portarse a la app nativa (ver el `cierre` de cada uno). Una constante y no dos
+# fechas copiadas porque es UN deploy: desde ese día nadie tiene tope y todos
+# tienen la escalera completa.
+CIERRE_RAMPA_Y_MURO = date(2026, 10, 30)
 
 EXPERIMENTO_BANDA: dict = {
     "clave": game_banda.EXPERIMENTO,
@@ -3060,7 +3081,25 @@ EXPERIMENTO_MURO: dict = {
         "Un tope de 30 derivadas por día, y un cafecito que lo levanta para siempre. "
         "¿Un estudiante completa un pago para seguir jugando, o se va?"
     ),
-    "cierre": None,
+    "cierre": cerrado(
+        CIERRE_RAMPA_Y_MURO,
+        "Cerrado antes del n por decisión de producto · gana el control: sin tope",
+        "Se cerró por decisión de producto, sin llegar al n comprometido y NO "
+        "por lo que midió: no hay lectura detrás de esta decisión, ni a favor ni "
+        "en contra del tope. El "
+        "juego se porta a una app nativa y se quiere un solo flujo, sin lógica "
+        "de experimento que replicar del otro lado; entre los dos brazos se "
+        "queda el control —nadie tiene tope, ni nuevos ni viejos, y el cafecito "
+        "vuelve a comprar solo el multiplicador de la universidad— porque es el "
+        "juego que todos conocían y el único que no le corta nada a nadie. Lo que "
+        "se juntó queda abajo tal cual: la inscripción se cierra el día del "
+        "cierre y las ventanas que no llegaron a cumplir sus 14 días con el tope "
+        "puesto quedan abiertas para siempre, porque terminarlas sin tope sería "
+        "medir otra cosa. Que el control haya ganado es una decisión, no un "
+        "resultado: la pregunta de si un estudiante paga por seguir jugando "
+        "sigue sin contestar. No hay informe.",
+        informe=False,
+    ),
     "hipotesis": (
         "dx no cobra nada y un cafecito compra hoy un multiplicador para toda "
         "una universidad, o sea que nadie pagó nunca por algo suyo. La hipótesis "
@@ -3095,6 +3134,8 @@ EXPERIMENTO_MURO: dict = {
     # sigue decidiendo `muro.NACIDO_DESPUES_DE`. El `max` es lo que impide que,
     # si algún día el arranque se corre para adelante, el panel quede atrás.
     "desde": max(game_muro.ARRANQUE, LECTURA_DESDE),
+    # El cierre (ver `cierre`). Exclusivo: el 30/10 ya nadie tiene tope.
+    "hasta": CIERRE_RAMPA_Y_MURO,
     # La ventana de medición, igual que en el motor: nadie cuenta hasta que la
     # suya cerró. Sumar una ventana abierta sería comparar a alguien medido 14
     # días con alguien medido 3.
@@ -3161,7 +3202,8 @@ def _dias_con_resueltas(data: dict) -> dict[int, dict[date, int]]:
     return por_dia
 
 
-def _alta_en_el_muro(dias: dict[date, int], desde: date, tope: int) -> date | None:
+def _alta_en_el_muro(dias: dict[date, int], desde: date, tope: int,
+                     hasta: date | None = None) -> date | None:
     """Cuándo entró al experimento, o None si todavía no entró.
 
     **La regla es `>= tope`, no `> tope`, y eso decide si el experimento existe.**
@@ -3188,7 +3230,8 @@ def _alta_en_el_muro(dias: dict[date, int], desde: date, tope: int) -> date | No
     llama, porque es una propiedad de la persona y no de sus días. Ver la
     excepción en `experimento_muro` y el motivo en `muro.ARRANQUE`.
     """
-    candidatos = sorted(d for d, n in dias.items() if d >= desde and n >= tope)
+    candidatos = sorted(d for d, n in dias.items()
+                        if d >= desde and n >= tope and (hasta is None or d < hasta))
     return candidatos[0] if candidatos else None
 
 
@@ -3202,15 +3245,18 @@ def experimento_muro(data: dict) -> dict:
     """
     exp = EXPERIMENTO_MURO
     tope = game_muro.TOPE_DIARIO
-    desde, ventana = exp["desde"], exp["ventana_dias"]
-    hoy = local_date(datetime.utcnow())
+    desde, ventana, hasta = exp["desde"], exp["ventana_dias"], exp["hasta"]
+    # **El reloj se para en el cierre.** Desde el 30/10 nadie tiene tope, así
+    # que una ventana que cierra después habría terminado sin tratamiento: se
+    # queda abierta en vez de leerse como si lo hubiera tenido entero.
+    hoy = min(local_date(datetime.utcnow()), hasta)
     n_pedido = n_comprometido(exp)
     n_dias = _n_medias(exp["dias_sd"], exp["dias_mde"], exp["alpha"], exp["potencia"])
 
     por_dia = _dias_con_resueltas(data)
 
     # Los pagos con dueño, por persona y por día. El empuje de aforo no cuenta:
-    # no lo pagó nadie (ver `muro.tiene_pase`).
+    # no lo pagó nadie (así derivaba el pase `muro.tiene_pase` mientras corrió).
     pagos: dict[int, list[date]] = defaultdict(list)
     for b in data["boosts"]:
         if b["player_id"] is None or b["source"] == "aforo":
@@ -3254,7 +3300,7 @@ def experimento_muro(data: dict) -> dict:
             dias = por_dia.get(pid)
             if not dias:
                 continue
-            alta = _alta_en_el_muro(dias, desde, tope)
+            alta = _alta_en_el_muro(dias, desde, tope, hasta)
             if alta is None:
                 continue
             cierra = alta + timedelta(days=ventana)
@@ -3352,7 +3398,7 @@ def experimento_muro(data: dict) -> dict:
             continue
         if (p["created_at"] or datetime.min) >= game_muro.NACIDO_DESPUES_DE:
             continue
-        if _alta_en_el_muro(por_dia.get(p["id"]) or {}, desde, tope):
+        if _alta_en_el_muro(por_dia.get(p["id"]) or {}, desde, tope, hasta):
             exentos += 1
     return {
         **_ficha(exp),
@@ -3364,7 +3410,6 @@ def experimento_muro(data: dict) -> dict:
         "ventana_dias": ventana,
         "tope": tope,
         "exentos": exentos,
-        "encendido": game_muro.habilitado(),
         "metrica": exp["metrica"],
         "base": exp["base"],
         "mde_pp": round(100 * exp["mde"], 0),
@@ -3402,7 +3447,25 @@ EXPERIMENTO_RAMPA: dict = {
         "respuesta pide —y poner saltear y la tabla a la vista— hace que más "
         "gente llegue a la tercera?"
     ),
-    "cierre": None,
+    "cierre": cerrado(
+        CIERRE_RAMPA_Y_MURO,
+        "Cerrado antes del n por decisión de producto · queda la escalera "
+        "completa: rampa + ayudas + arranque",
+        "Se cerró por decisión de producto, sin llegar al n comprometido y NO "
+        "por lo que midió: ningún escalón se leyó y este cierre no afirma que "
+        "alguno haya funcionado. El "
+        "juego se porta a una app nativa y se quiere un solo flujo, sin lógica "
+        "de experimento que replicar del otro lado; entre los cuatro brazos se "
+        "queda la punta de la escalera —teclado en rampa, fila de ayudas y "
+        "pantalla de arranque con novedades, para todos, viejos y nuevos— "
+        "porque es el producto completo que se diseñó. Que los tres primeros "
+        "ejercicios no muevan el Elo nació acá y queda como regla del motor. Lo "
+        "que se juntó queda abajo tal cual, con la inscripción cerrada el día "
+        "del cierre: quien llegó después juega el brazo ganador sea cual sea su "
+        "hash. No se calcula ningún contraste: el panel no los calcula antes del "
+        "n, y cerrar no cambia esa regla. No hay informe.",
+        informe=False,
+    ),
     "hipotesis": (
         "De cada diez personas a las que el juego le sirve su primera derivada, "
         "dos la miran y NO ESCRIBEN NADA: 376 de 2.056 medidas el 27/09, y 310 "
@@ -3424,6 +3487,9 @@ EXPERIMENTO_RAMPA: dict = {
     # Corría desde el 28/09; se lee desde `LECTURA_DESDE` (ver arriba), por la
     # misma razón: lo inscripto antes del 02/10 vio otra puerta y otro teclado.
     "desde": LECTURA_DESDE,
+    # El cierre (ver `cierre`). Exclusivo: desde el 30/10 todos tienen el
+    # cuarto brazo, así que nadie que llegue después entra a ninguno.
+    "hasta": CIERRE_RAMPA_Y_MURO,
     # CUATRO brazos en ESCALERA: cada uno agrega una cosa al anterior, así que
     # cada contraste es contra el escalón previo. No es un factorial —la celda
     # «ayudas sin teclado» pediría el teclado completo MÁS dos filas de botones y
@@ -3435,8 +3501,8 @@ EXPERIMENTO_RAMPA: dict = {
     # (`game/bienvenida.py`) vive ANTES de que se sirva la primera derivada, así
     # que es la única que puede mover la BASE de la métrica y no solo el
     # numerador. Salió al 100% ese día y se volvió variable acá: los veteranos y
-    # el experimento apagado la conservan, y entre los que entran la tiene solo
-    # este brazo (`game/rampa.py :: muestra_digest`).
+    # el experimento apagado la conservaban, y entre los que entraban la tenía
+    # solo este brazo. Desde el cierre (30/10) es de todos.
     #
     # El cuarto brazo cuesta seis días sobre el contraste primario —a ~94 altas
     # por día, 547 por brazo pasa de 17,5 a 23,3 días— y se aceptó a cambio de
@@ -3549,7 +3615,7 @@ def experimento_rampa(data: dict, now: datetime | None = None) -> dict:
     la fila de botones sin teclado de por medio.
     """
     exp = EXPERIMENTO_RAMPA
-    desde = exp["desde"]
+    desde, hasta = exp["desde"], exp["hasta"]
     ahora = now or datetime.utcnow()
     corte = ahora - timedelta(minutes=SESSION_GAP_MINUTES)
 
@@ -3588,7 +3654,7 @@ def experimento_rampa(data: dict, now: datetime | None = None) -> dict:
             continue
         pid = p["id"]
         servido = primera.get(pid)
-        if servido is None or local_date(servido) < desde:
+        if servido is None or not desde <= local_date(servido) < hasta:
             continue
         tandas = _sesiones(respuestas.get(pid) or [])
         if tandas:
@@ -3700,7 +3766,7 @@ def experimento_rampa(data: dict, now: datetime | None = None) -> dict:
     # ── El guardarraíl del Elo ──────────────────────────────────────────────
     #
     # Los tres primeros ejercicios no actualizan θ EN NINGÚN BRAZO justamente
-    # para que esto no pase (ver game/rampa.py :: SIN_ELO_HASTA). Se mide igual,
+    # para que esto no pase (ver game/elo.py :: SIN_ELO_HASTA). Se mide igual,
     # porque un guardarraíl que se confía de que el código hace lo que dice no
     # es un guardarraíl: si θ al servir el cuarto ejercicio difiere entre brazos,
     # el motor les está sirviendo dificultades distintas y la profundidad deja de
@@ -3762,7 +3828,6 @@ def experimento_rampa(data: dict, now: datetime | None = None) -> dict:
         "hipotesis": exp["hipotesis"],
         "prediccion": exp["prediccion"],
         "desde": exp["desde"],
-        "encendido": game_rampa.habilitado(),
         "metrica": exp["metrica"],
         "base": exp["base"],
         "mde_pp": round(100 * exp["mde"], 0),
@@ -3779,7 +3844,7 @@ def experimento_rampa(data: dict, now: datetime | None = None) -> dict:
         # estado: es la del PRIMER escalón, que es la primaria.
         "lectura": escalones[0]["lectura"] if escalones else None,
         "elo_limpio": elo_limpio,
-        "sin_elo_hasta": game_rampa.SIN_ELO_HASTA,
+        "sin_elo_hasta": elo.SIN_ELO_HASTA,
         "escritorio": desk,
         "mecanismo": mecanismo,
         "sin_arrancar": sum(b["n"] for b in brazos) == 0,

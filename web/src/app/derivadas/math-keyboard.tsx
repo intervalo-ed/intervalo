@@ -413,7 +413,7 @@ export const DYN_ONE_ROW_MAX = 7
 // distintos. Ver ExerciseCard :: PANEL_CONTENT.
 export const CONTENT_WIDTH = "mx-auto w-full max-w-[32rem]"
 
-// ── La rampa del bloque fijo (`dx-rampa-1`, ver backend/game/rampa.py) ──────
+// ── La rampa del bloque fijo (ver backend/game/keyboard.py) ─────────────────
 //
 // Hasta acá el bloque fijo estaba SIEMPRE completo y lo único que crecía era el
 // inventario de arriba. La rampa lo mete en el mismo mecanismo: el teclado
@@ -665,7 +665,7 @@ export function MathKeyboard({
   newKeys = [],
   numpad = true,
   bare = false,
-  fijas = null,
+  fijas = [],
   newFijas = [],
   className,
 }: {
@@ -683,15 +683,14 @@ export function MathKeyboard({
   // del panel ocupada por lo más fácil de escribir. Lo que queda es lo que la
   // botonera aporta de verdad: lo que uno no sabe cómo escribir.
   numpad?: boolean
-  // Las teclas FIJAS desbloqueadas (`dx-rampa-1`). `null` = el bloque completo,
-  // que es lo que ve el brazo control y lo que veía todo el mundo antes.
+  // Las teclas FIJAS desbloqueadas, que manda el backend con cada ejercicio.
   //
   // Solo tiene efecto CON numérico, o sea en el teléfono. En escritorio no hay
   // dígitos que recortar —se tipean— y el teclado físico sigue funcionando en
   // paralelo, así que la rampa ahí no significaría nada. Que esa condición viva
   // en una sola línea es a propósito: es lo que hace que «el teclado es palanca
   // de teléfono» sea verificable y no una convención repartida.
-  fijas?: string[] | null
+  fijas?: string[]
   // Las fijas recién desbloqueadas, para que solo esas nazcan con animación.
   // Aparte de `newKeys` porque son otra familia de ids y otra fila.
   newFijas?: string[]
@@ -847,9 +846,8 @@ export function MathKeyboard({
     return [dynamic.slice(0, DYN_ONE_ROW_MAX), dynamic.slice(DYN_ONE_ROW_MAX)]
   }, [dynamic, numpad])
 
-  // ¿El teclado está en rampa? Hace falta que el backend haya mandado la lista
-  // (o sea que la persona esté en un brazo tratado), que ESTE teclado tenga
-  // numérico (o sea que sea el del teléfono) y que todavía falte alguna tecla.
+  // ¿El teclado está en rampa? Hace falta que ESTE teclado tenga numérico (o
+  // sea que sea el del teléfono) y que todavía falte alguna tecla.
   // Cuando el bloque fijo se completa, el teclado vuelve a ser el de siempre sin
   // ningún caso especial.
   //
@@ -857,7 +855,7 @@ export function MathKeyboard({
   // sus mismas cuatro filas, va el definitivo (ver `RAMPA_FILAS_A_DEFINITIVO`).
   const filasRampaONada = useMemo(
     () =>
-      fijas !== null && numpad ? rampaDibujada(fijas, dynamic, newFijas) : null,
+      numpad ? rampaDibujada(fijas, dynamic, newFijas) : null,
     [fijas, numpad, dynamic, newFijas],
   )
   const enRampa = filasRampaONada !== null

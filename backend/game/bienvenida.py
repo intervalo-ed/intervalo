@@ -469,9 +469,9 @@ def construir(
 ) -> Bienvenida:
     """El payload de la pantalla de arranque.
 
-    `inicio_del_dia` entra por parámetro y no se calcula acá por lo mismo que en
-    `game_muro.estado`: el borde del día del juego lo fija el router, y tenerlo
-    en dos lugares es tenerlo en uno y medio.
+    `inicio_del_dia` entra por parámetro y no se calcula acá: el borde del día
+    del juego lo fija el router, y tenerlo en dos lugares es tenerlo en uno y
+    medio.
     """
     ahora = ahora or datetime.utcnow()
 

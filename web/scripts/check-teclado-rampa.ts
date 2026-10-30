@@ -1,4 +1,4 @@
-// Chequeo del teclado que crece (`dx-rampa-1`).
+// Chequeo del teclado que crece.
 //
 // Corre con: bun run check:teclado
 //
@@ -9,9 +9,8 @@
 //
 // Eso pasó. El inventario desbloqueado se dibujaba en DOS lugares —las primeras
 // ocho adentro del pad, el resto en la fila ancha de arriba— y la rampa
-// reemplaza el pad entero, así que quien estaba en un brazo tratado con ocho
-// teclas o menos no veía NINGUNA. Son tres de cada cuatro jugadores nuevos
-// (`rampa.con_rampa`: teclado, ayudas y bienvenida).
+// reemplaza el pad entero, así que quien estaba en rampa con ocho teclas o
+// menos no veía NINGUNA.
 //
 // Lo que se fija acá, en orden de importancia:
 //

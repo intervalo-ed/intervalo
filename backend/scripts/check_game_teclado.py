@@ -1,8 +1,8 @@
 """Verifica que toda derivada del catálogo llegue con teclas para escribirla.
 
 El teclado del juego no está completo nunca: el vocabulario dinámico se
-desbloquea cuando una derivada lo pide (`keyboard.required_keys`) y, para quien
-cayó en un brazo de `dx-rampa-1`, el bloque fijo también
+desbloquea cuando una derivada lo pide (`keyboard.required_keys`) y el bloque
+fijo también, para todos desde que `dx-rampa-1` se cerró
 (`keyboard.fijas_requeridas` más el calendario de `ESCALONES`). La promesa está
 escrita en el docstring de `fijas_requeridas` — «la tecla que la respuesta
 necesita aparece en el ejercicio que la necesita»— y es la que hace que la rampa
@@ -255,7 +255,7 @@ for clave, tier, f, d in derivadas:
         if not servible_en(tier, n):
             continue
         combinaciones += 1
-        unlocked, _, _ = kb.unlock("", d, rampa=True, n_servidos=n)
+        unlocked, _, _ = kb.unlock("", d, n_servidos=n)
         faltan = nec_fij - kb.parse_fijas(unlocked)
         if faltan:
             sin_fija.append(f"{clave} en el ejercicio {n}: {latex_es(d)} sin {sorted(faltan)}")

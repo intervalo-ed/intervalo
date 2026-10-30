@@ -1,39 +1,36 @@
-"""Verifica la rampa del teclado y la fila de ayudas (game/rampa.py).
+"""Verifica la rampa del teclado, que es de todos desde que `dx-rampa-1` se
+cerró (30/10/2026, ver game/rampa.py).
 
-`dx-rampa-1` toca dos cosas delicadas a la vez: **qué teclas tiene alguien para
-contestar** y **qué respuestas entran al Elo**. Las dos pueden romperse en
-silencio y las dos arruinan el experimento de formas distintas, así que cada
-sección de acá existe por un agujero concreto:
+El experimento se cerró por decisión de producto con el brazo de arriba de la
+escalera —rampa + ayudas + arranque— como juego para todo el mundo. Lo que este
+chequeo cuida ahora son las invariantes de ESE juego, y cada sección existe por
+un agujero concreto:
 
   - **la tecla que la respuesta necesita SIEMPRE está.** Es el único invariante
     que hace que una rampa sea una rampa y no una jaula: si alguna derivada
     pidiera un dígito que el teclado no tiene, esa persona queda trabada sin
-    salida y el tratamiento pasa de ayudar a expulsar. Se prueba contra las tres
-    derivadas fijas del arranque Y contra un barrido de plantillas;
+    salida. Se prueba contra el recorrido real Y contra un barrido de
+    plantillas;
 
-  - **el inventario nunca encoge.** Es acumulativo por definición; si una
-    derivada "devolviera" teclas, el teclado parpadearía y el desbloqueo dejaría
-    de significar nada;
+  - **el inventario nunca encoge, y a los ocho ejercicios está COMPLETO**,
+    pase lo que pase. Es el techo que convierte la rampa en algo con fin;
 
-  - **a los ocho ejercicios está COMPLETO**, pase lo que pase. Es el techo que
-    convierte la rampa en algo con fin. Sin esto, una racha de derivadas simples
-    dejaría a alguien con cuatro teclas para siempre;
+  - **todos tienen rampa, sea cual sea su hash**, y `fijas` viaja SIEMPRE como
+    lista: el cliente ya no tiene un caso «teclado completo» que adivinar;
 
-  - **el brazo control no tiene rampa nunca.** Si esto se rompe el experimento
-    se queda sin grupo de comparación y no se nota hasta leer el panel;
+  - **el veterano que nunca tuvo rampa no pierde teclas.** Quien jugó en el
+    brazo control tiene la columna sin fijas; achicarle el teclado al cerrar el
+    experimento sería quitarle lo que usaba ayer. Recibe el bloque entero en su
+    próximo ejercicio, y sin festejarlo como nuevo;
 
-  - **los tres primeros ejercicios no mueven θ, EN LOS TRES BRAZOS.** Es el
-    guardarraíl del confound: la rampa vuelve casi seguras las tres fijas, y si
-    movieran θ el brazo tratado entraría al motor con ejercicios más difíciles y
-    perdería profundidad por algo que no es el tratamiento. Apagarlo en un solo
-    brazo sería *crear* la diferencia, así que se verifica en los tres;
+  - **los tres primeros ejercicios no mueven θ**, para todos (elo.py ::
+    SIN_ELO_HASTA): son ítems de calibración que la rampa vuelve casi seguros;
 
   - **registrarse no pierde el teclado.** La fusión invitado→usuario une las dos
-    familias de teclas; uniendo solo las dinámicas, registrarse a mitad de la
-    rampa devolvía el teclado a su estado inicial;
+    familias de teclas;
 
-  - **el interruptor apaga todo.** Una palanca de activación tiene que poder
-    apagarse desde Railway sin deploy.
+  - **no queda interruptor ni brazo a la vista.** `RAMPA_ENABLED` ya no apaga
+    nada y el jugador no anuncia brazo.
 
 Uso:
     python backend/scripts/check_game_rampa.py
@@ -52,7 +49,6 @@ BACKEND = Path(__file__).resolve().parent.parent
 os.environ["DATABASE_URL"] = "sqlite:///" + str(
     Path(tempfile.mkdtemp()) / "game_rampa.db"
 ).replace("\\", "/")
-os.environ["RAMPA_ENABLED"] = "1"
 sys.path.insert(0, str(BACKEND))
 sys.path.insert(0, str(BACKEND.parent))
 
@@ -86,40 +82,21 @@ client = TestClient(main.app, raise_server_exceptions=True)
 X = sympy.Symbol("x")
 
 
-# ── 1 · El sorteo ───────────────────────────────────────────────────────────
-print("1. el sorteo")
-reparto = {b: 0 for b in rampa.BRAZOS}
-for i in range(1, 3001):
-    reparto[rampa.brazo_de(i)] += 1
-check(all(b in reparto for b in rampa.BRAZOS), "hay cuatro brazos",
-      f"({rampa.BRAZOS})")
-# El esperado sale de `len(BRAZOS)` y no de una constante: estaba en 1.000 —tres
-# brazos— y al sumar el cuarto este chequeo falló por aritmética propia y no por
-# un sorteo roto, que es la peor forma de fallar que tiene un chequeo.
-#
-# La tolerancia sí es fija y holgada a propósito: con 3.000 sorteos el desvío de
-# un multinomial uniforme está entre 24 y 26 según cuántos brazos haya, así que
-# 50 son casi dos desvíos. Lo que esto atrapa es un hash que agrupe, no el azar.
-ESPERADO = 3000 // len(rampa.BRAZOS)
-check(all(abs(v - ESPERADO) < 50 for v in reparto.values()),
-      f"y reparte parejo (~{ESPERADO} por brazo)", f"({reparto})")
+# ── 1 · El sorteo, que solo lo lee el panel ─────────────────────────────────
+print("1. el sorteo sigue siendo determinista (el panel lo reconstruye)")
 check(all(rampa.brazo_de(7) == rampa.brazo_de(7) for _ in range(5)),
       "el mismo id da siempre el mismo brazo")
-check(rampa.con_rampa is not None
-      and all(rampa.con_rampa(i) == (rampa.brazo_de(i) in ("teclado", "ayudas", "bienvenida"))
-              for i in range(1, 200)),
-      "los TRES brazos tratados tienen rampa: cada escalón es el anterior más algo")
-check(all(rampa.con_ayudas(i) == (rampa.brazo_de(i) in ("ayudas", "bienvenida"))
-          for i in range(1, 200)),
-      "y la fila de botones la tienen `ayudas` y el escalón de arriba")
+check(set(rampa.brazo_de(i) for i in range(1, 400)) == set(rampa.BRAZOS),
+      "y usa los cuatro brazos declarados", f"({rampa.BRAZOS})")
+for viejo in ("habilitado", "con_rampa", "con_ayudas", "muestra_digest", "sin_elo",
+              "SIN_ELO_HASTA"):
+    check(not hasattr(rampa, viejo), f"`rampa.{viejo}` ya no existe")
 
 
-# ── 2 · Un jugador de cada brazo ────────────────────────────────────────────
+# ── 2 · Un jugador de cada brazo VIEJO ──────────────────────────────────────
 def nuevo(prefijo: str, brazo_buscado: str) -> GamePlayer:
-    """Un jugador del brazo pedido. El id se busca en vez de fijarse: el hash
-    lleva el nombre del experimento adentro, así que renombrarlo re-sortea a
-    todo el mundo y un id escrito a mano dejaría este archivo verde midiendo el
-    brazo equivocado."""
+    """Un jugador al que el hash habría puesto en `brazo_buscado`. Se busca uno
+    por brazo viejo justamente para probar que el brazo ya no decide nada."""
     for i in range(1, 400):
         tok = f"tok-{prefijo}{i}"
         if db.query(GamePlayer).filter(GamePlayer.guest_token == tok).first():
@@ -138,11 +115,11 @@ JUGADORES = {b: nuevo(b[:4], b) for b in rampa.BRAZOS}
 H = {b: {"X-Game-Token": j.guest_token} for b, j in JUGADORES.items()}
 
 
-print("\n2. el brazo viaja al cliente")
+print("\n2. el jugador ya no anuncia brazo")
 for brazo in rampa.BRAZOS:
     me = client.get(f"{API}/me", headers=H[brazo]).json()
-    check(me.get("rampa") == brazo, f"`{brazo}` se anuncia en el jugador",
-          f'(dio {me.get("rampa")!r})')
+    check("rampa" not in me, f"`{brazo}`: `/me` no trae `rampa`",
+          f'(trae {me.get("rampa")!r})')
 
 
 # ── 3 · La rampa, ejercicio por ejercicio ───────────────────────────────────
@@ -172,10 +149,11 @@ def recorrer(brazo: str, pasos: int) -> list[dict]:
     return salida
 
 
-pasos = recorrer("teclado", rampa.SIN_ELO_HASTA + 6)
-tam = [len(e["fijas"] or []) for e in pasos]
+pasos = recorrer("teclado", elo.SIN_ELO_HASTA + 6)
+tam = [len(e["fijas"]) for e in pasos]
 print(f"     fijas por ejercicio: {tam}")
-check(pasos[0]["fijas"] is not None, "el brazo tratado recibe la lista de fijas")
+check(all(isinstance(e["fijas"], list) for e in pasos),
+      "`fijas` viaja siempre como lista")
 check(len(pasos[0]["fijas"]) <= 3,
       "el primer ejercicio arranca con muy pocas teclas",
       f'({pasos[0]["fijas"]})')
@@ -183,7 +161,7 @@ check(all(b >= a for a, b in zip(tam, tam[1:])), "el inventario nunca encoge",
       f"({tam})")
 check(tam[-1] == len(kb.FIJAS_ORDER),
       f"a los {kb.RAMPA_COMPLETA_EN} ejercicios está completo", f"({tam[-1]} de {len(kb.FIJAS_ORDER)})")
-check(all(set(e["fijas_nuevas"]).issubset(e["fijas"] or []) for e in pasos),
+check(all(set(e["fijas_nuevas"]).issubset(e["fijas"]) for e in pasos),
       "`fijas_nuevas` siempre es subconjunto de `fijas`")
 
 
@@ -194,7 +172,7 @@ for e in pasos:
     fila = db.query(GameExercise).filter(
         GameExercise.id == e["exercise_id"]).first()
     pide = kb.fijas_requeridas(sympy.sympify(fila.expected_derivative))
-    falta = pide - set(e["fijas"] or [])
+    falta = pide - set(e["fijas"])
     if falta:
         faltantes.append((fila.expected_derivative, sorted(falta)))
 check(not faltantes, "en el recorrido real", f"({faltantes[:3]})")
@@ -209,7 +187,7 @@ for template in TEMPLATES:
     col = ""
     for n in range(1, 9):
         der = sympy.diff(template.build(CyclingRandom(rng, {})).f, X)
-        col, _din, _fij = kb.unlock(col, der, rampa=True, n_servidos=n)
+        col, _din, _fij = kb.unlock(col, der, n_servidos=n)
         falta = kb.fijas_requeridas(der) - kb.parse_fijas(col)
         if falta:
             sin_cubrir.append((template.key, str(der), sorted(falta)))
@@ -217,22 +195,60 @@ check(not sin_cubrir, f"y en un barrido de las {len(TEMPLATES)} plantillas",
       f"({sin_cubrir[:3]})")
 
 
-# ── 5 · El control no tiene rampa ───────────────────────────────────────────
-print("\n5. el brazo control")
-ctrl = recorrer("control", 3)
-check(all(e["fijas"] is None for e in ctrl),
-      "no recibe lista de fijas: el teclado le sale completo")
-check(all(not e["fijas_nuevas"] for e in ctrl),
-      "y nunca se le anuncia una fija nueva")
-fila_ctrl = db.query(GamePlayer).filter(
-    GamePlayer.id == JUGADORES["control"].id).first()
-db.expire(fila_ctrl)
-check(not kb.parse_fijas(fila_ctrl.unlocked_keys),
-      "ni se le escriben fijas en la columna", f"({fila_ctrl.unlocked_keys})")
+# ── 5 · Todos tienen rampa, y el veterano no pierde teclas ──────────────────
+print("\n5. todos tienen rampa, sea cual sea su hash")
+for brazo in ("control", "ayudas", "bienvenida"):
+    primeros = recorrer(brazo, 1)
+    check(isinstance(primeros[0]["fijas"], list) and len(primeros[0]["fijas"]) <= 3,
+          f"`{brazo}`: el primer ejercicio sale con el teclado en rampa",
+          f'({primeros[0]["fijas"]})')
+
+
+def veterano(alias: str, respondidas: int, columna: str) -> dict:
+    """Un jugador de los que jugaron SIN rampa, y lo primero que le sirve /next."""
+    j = GamePlayer(alias=alias, theta=0.0, n_updates=0, exercises_correct=0,
+                   exercises_attempted=respondidas, is_bot=False,
+                   guest_token=f"tok-{alias}", platform="android",
+                   unlocked_keys=columna)
+    db.add(j)
+    db.commit()
+    return client.post(f"{API}/next", headers={"X-Game-Token": j.guest_token}).json()
+
+
+print("\n5b. el que jugó sin rampa recibe el bloque entero, sin festejo")
+for alias, respondidas in (("vetlargo", 40), ("vetcorto", 2)):
+    ex = veterano(alias, respondidas, "pow,sq")
+    check(ex["fijas"] == list(kb.FIJAS_ORDER),
+          f"con {respondidas} respondidas: el bloque fijo completo de una",
+          f'({len(ex["fijas"])} de {len(kb.FIJAS_ORDER)})')
+    check(ex["fijas_nuevas"] == [],
+          f"con {respondidas} respondidas: y no se anuncia como nuevo",
+          f'({ex["fijas_nuevas"]})')
+    fila_v = db.query(GamePlayer).filter(GamePlayer.alias == alias).first()
+    db.refresh(fila_v)
+    check(kb.parse_fijas(fila_v.unlocked_keys) == set(kb.FIJAS_ORDER),
+          f"con {respondidas} respondidas: y queda escrito en la columna")
+    check({"pow", "sq"} <= kb.parse_unlocked(fila_v.unlocked_keys),
+          f"con {respondidas} respondidas: sin perder las dinámicas que tenía")
+
+# El que todavía no respondió nada no es veterano de nada: arranca la rampa.
+recien = veterano("vetcero", 0, "")
+check(len(recien["fijas"]) <= 3,
+      "quien no respondió nada todavía arranca la rampa desde abajo",
+      f'({recien["fijas"]})')
+# Y la otra cara: la regla del veterano no le roba la rampa a nadie, porque
+# desde el primer ejercicio la columna ya tiene alguna fija.
+col1, _d, _f = kb.unlock("", X, n_servidos=1)
+check(kb.parse_fijas(col1), "con rampa, la columna tiene fijas desde el primero",
+      f"({col1})")
+col2, _d, _f = kb.unlock(col1, 2 * X, n_servidos=2)
+check(len(kb.parse_fijas(col2)) < len(kb.FIJAS_ORDER),
+      "así que el segundo sigue en rampa y no salta al bloque entero",
+      f"({col2})")
 
 
 # ── 6 · El Elo de la rampa, en LOS TRES brazos ─────────────────────────────
-print(f"\n6. los {rampa.SIN_ELO_HASTA} primeros no mueven θ, en los tres brazos")
+print(f"\n6. los {elo.SIN_ELO_HASTA} primeros no mueven θ, para todos")
 def responder_forzado(pid: int, headers: dict) -> None:
     """Sirve un ejercicio de derivada CONOCIDA y lo responde bien de verdad.
 
@@ -255,14 +271,14 @@ def responder_forzado(pid: int, headers: dict) -> None:
 for brazo in rampa.BRAZOS:
     j = nuevo(f"elo{brazo[:3]}", brazo)
     h = {"X-Game-Token": j.guest_token}
-    for _ in range(rampa.SIN_ELO_HASTA):
+    for _ in range(elo.SIN_ELO_HASTA):
         responder_forzado(j.id, h)
     db.expire_all()
     fila_j = db.query(GamePlayer).filter(GamePlayer.id == j.id).first()
     check(fila_j.theta == 0.0 and fila_j.n_updates == 0,
           f"`{brazo}`: theta sigue en cero tras la rampa",
           f"(theta={fila_j.theta}, n={fila_j.n_updates})")
-    check(fila_j.exercises_attempted == rampa.SIN_ELO_HASTA,
+    check(fila_j.exercises_attempted == elo.SIN_ELO_HASTA,
           f"`{brazo}`: pero el contador de ejercicios SI avanzo",
           f"({fila_j.exercises_attempted})")
     # Y la consecuencia, que es la que faltaba y por eso el bug entro sin que
@@ -270,7 +286,7 @@ for brazo in rampa.BRAZOS:
     # respuestas y no con theta. Leyendo `n_updates` —que es lo que hacia el
     # generador— el tope queda en 0 con tres derivadas contestadas, y la rampa
     # pasa de cinco ejercicios a ocho sin que nadie lo decida.
-    check(elo.max_tier_de(fila_j.exercises_attempted) == rampa.SIN_ELO_HASTA
+    check(elo.max_tier_de(fila_j.exercises_attempted) == elo.SIN_ELO_HASTA
           and elo.max_tier_de(fila_j.n_updates) == 0,
           f"`{brazo}`: y el tope de tier avanzo con el, no con theta",
           f"(tope={elo.max_tier_de(fila_j.exercises_attempted)}, "
@@ -294,29 +310,15 @@ check(kb.parse_fijas(mezcla) == {"f:1", "f:2", "f:3", "f:x"},
       "y las fijas de los dos", f"({sorted(kb.parse_fijas(mezcla))})")
 
 
-# ── 8 · El interruptor ─────────────────────────────────────────────────────
-print("\n8. el interruptor")
+# ── 8 · Ya no hay interruptor ──────────────────────────────────────────────
+print("\n8. `RAMPA_ENABLED` ya no apaga nada")
 os.environ["RAMPA_ENABLED"] = "0"
 try:
-    check(not rampa.habilitado(), "`RAMPA_ENABLED=0` apaga el experimento")
-    check(not any(rampa.con_rampa(i) for i in range(1, 200)),
-          "y con eso NADIE tiene rampa, en ningún brazo")
-    check(not rampa.sin_elo(1),
-          "y los tres primeros vuelven a entrar al Elo")
-    apagado = recorrer("ayudas", 1)
-    check(apagado[0]["fijas"] is None,
-          "el ejercicio sale con el teclado completo")
-    me = client.get(f"{API}/me", headers=H["ayudas"]).json()
-    check(me.get("rampa") is None, "y el jugador no anuncia brazo")
+    check(elo.sin_elo(1), "los tres primeros siguen fuera del Elo")
+    otro = recorrer("ayudas", 1)
+    check(isinstance(otro[0]["fijas"], list), "y el ejercicio sigue trayendo sus fijas")
 finally:
-    os.environ["RAMPA_ENABLED"] = "1"
-check(rampa.habilitado(), "y volver a prenderlo lo revive, sin reiniciar nada")
-# Lo que YA se había ganado no se pierde cuando el experimento se apaga: la
-# columna conserva las fijas aunque deje de crecer.
-col, _d, _f = kb.unlock("f:1,f:2", 2 * X, rampa=False)
-check(kb.parse_fijas(col) == {"f:1", "f:2"},
-      "y apagado, lo ya desbloqueado se conserva", f"({kb.parse_fijas(col)})")
-
+    os.environ.pop("RAMPA_ENABLED", None)
 
 print()
 if FAILURES:

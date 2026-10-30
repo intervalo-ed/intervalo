@@ -74,8 +74,8 @@ function Fuerte({ children }: { children: React.ReactNode }) {
  *
  *  La instrucción es la regla 1 de `IntroParagraphs` dicha en imperativo:
  *  aquella explica qué es un ejercicio, esta pide que se resuelva. Por eso
- *  ninguna de las dos formas de decir las reglas la incluye — ya se dio acá
- *  (reglas-trigger.ts :: reglasDeLaDiapo). */
+ *  la diapo de las reglas no la incluye — ya se dio acá
+ *  (reglas-trigger.ts :: REGLAS_DE_LA_DIAPO). */
 export const BIENVENIDA_MINIMA = "¡Bienvenido!"
 
 /** Qué es esto, para quien llega por primera vez.
@@ -86,11 +86,7 @@ export const BIENVENIDA_MINIMA = "¡Bienvenido!"
  *  link, el otro recibe a quien ya entró— y atarlos obligaría a que el día que
  *  uno cambie el otro lo siga sin motivo.
  *
- *  **Va también en el texto de respaldo, y eso mueve un experimento.** El
- *  respaldo es la rama de CONTROL de `dx-rampa-1`: desde este cambio, el cuarto
- *  brazo se mide contra una puerta que ya explica el producto. Fue una decisión
- *  de producto tomada a sabiendas; quien lea el resultado de `dx-rampa-1` tiene
- *  que partir la serie en la fecha de este cambio. */
+ *  Va también en el texto de respaldo: nadie entra sin saber qué es esto. */
 export const QUE_ES =
   "Memorizá todas las derivadas y llegá mejor preparado a tus parciales con este minijuego."
 export const INSTRUCCION_MINIMA =
@@ -180,17 +176,8 @@ export function PuertaMinima() {
     return (
       <div className={cn("flex flex-col gap-5", esperando && "invisible")}>
         <p className="font-semibold text-foreground">{BIENVENIDA_MINIMA}</p>
-        {/* Que es esto, tambien aca.
-         *
-         *  Esta rama la ven los tres brazos que no reciben el digest —control,
-         *  teclado y ayudas— y hasta ahora era la unica pantalla del juego que
-         *  no decia a que vino: saludo e instruccion, sin nada en el medio.
-         *
-         *  **Y esto mueve la base de `dx-rampa-1`**, porque este texto es su
-         *  rama de control. Se hace a sabiendas: el contraste del cuarto brazo
-         *  pasa a medir la pantalla de arranque CONTRA una puerta que ya
-         *  explica el producto, que es una pregunta distinta de la que se
-         *  declaro. Lo que se gana es que nadie entre sin saber que es esto. */}
+        {/* Qué es esto, también acá: el respaldo no puede ser la única
+         *  pantalla del juego que no dice a qué vino. */}
         <p className="text-balance text-foreground/85">{QUE_ES}</p>
         <p className="text-balance font-semibold text-foreground">
           {INSTRUCCION_MINIMA}
@@ -353,10 +340,9 @@ export function IntroParagraphs({
   // separadas, ese día una de las dos se queda vieja — que es justo lo que le
   // pasó al tutorial repartido que esto reemplazó una vez.
   //
-  // Y es una lista y no un corte porque no todos ven las mismas: con la fila de
-  // ayudas, la tabla se explica antes de la primera derivada y en su propia
-  // pantalla, así que acá queda el Elo solo (reglas-trigger.ts ::
-  // reglasDeLaDiapo).
+  // Y es una lista y no un corte: la tabla se explica antes de la primera
+  // derivada y en su propia pantalla, así que acá queda el Elo solo
+  // (reglas-trigger.ts :: REGLAS_DE_LA_DIAPO).
   cuales,
 }: { className?: string; cuales: number[] }) {
   // Los párrafos se arman ACÁ y no en una constante del módulo. Cuando eran

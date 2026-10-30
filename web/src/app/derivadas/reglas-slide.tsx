@@ -43,7 +43,7 @@ export function ReglasSlide({
   slotSalida,
   keyboard = false,
 }: {
-  /** Índices de la lista de `IntroParagraphs`. Uno o dos, según el brazo. */
+  /** Índices de la lista de `IntroParagraphs` (reglas-trigger.ts :: REGLAS_DE_LA_DIAPO). */
   cuales: number[]
   onContinue: () => void
   /** Dónde dibujar el Continuar: el pie de la columna, AFUERA de la caja —

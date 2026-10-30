@@ -144,13 +144,8 @@ const FUGAZ = { duration: 0.11, ease: "easeOut" } as const
 // de marca y llega al mismo dorado, y va de 4,13 a 9,69.
 const tintaPara = (t: number) => mezclar(AMBAR_RGB, DORADO, t)
 
-// El extremo dorado de la rampa, fijo. Lo usan los datos que NO dependen del
-// slider —el «para siempre» del pase— para que no se apaguen al mover la barra:
-// lo que la tinta variable comunica es «esto es lo que estás eligiendo», y el
-// pase es el mismo con uno o con diez.
-//
-// Es además el mismo dorado del botón «Continuar derivando ahora» del cartel
-// del tope (tope-panel.tsx), que es de donde se llega hasta acá.
+// El extremo dorado de la rampa, fijo: para lo que NO depende del slider y no
+// tiene que apagarse al mover la barra.
 const DORADO_FIJO = `rgb(${DORADO.join(", ")})`
 
 // El dorado en rgba, para todo lo que se ANIMA. `color-mix(...)` no se puede
@@ -341,29 +336,12 @@ const TRIGGER_COPY: Record<CafecitoTrigger, { title: string; sub: string }> = {
     title: "¿Café?",
     sub: "Intervalo se mantiene únicamente gracias a las donaciones de los estudiantes.",
   },
-  // El tope diario. Mismo título que los otros dos y no uno propio: la persona
-  // ya vio «¿Café?» en la derivada 14 y en la 20, así que reconoce la pantalla
-  // y el tope no le presenta un producto nuevo — le da un motivo más para el
-  // mismo. El subtítulo es lo único que cambia, y dice qué se está comprando.
-  //
-  // «Para siempre»: el pase no vence (backend/game/muro.py :: tiene_pase).
-  // Duraba 30 días hasta el 03/10.
-  tope: {
-    title: "¿Café?",
-    sub: "Un cafecito te da acceso ilimitado a Intervalo para siempre.",
-  },
 }
 
 // El único disparador que la persona elige. Cambia dos cosas: no hay cuenta
 // regresiva para salir —nadie la interrumpió, así que retenerla sería cobrarle
 // por haber venido— y al salir vuelve a su ejercicio en vez de pedir uno nuevo.
-// `tope` entra acá con `pedido` aunque no lo haya abierto la persona desde la
-// barra: lo que este predicado decide es si alguien fue INTERRUMPIDO, y al
-// cartel del tope se llega apretando un botón. Retener con cuenta regresiva a
-// quien vino sola sería cobrarle por haber venido, y la salida tiene que decir
-// «Volver» —que es a dónde va— y no «Ahora no», que nombra un rechazo a algo
-// que nadie le ofreció de prepo.
-const LO_PIDIO = (t: CafecitoTrigger) => t === "pedido" || t === "tope"
+const LO_PIDIO = (t: CafecitoTrigger) => t === "pedido"
 
 /** La cuenta regresiva del botón de seguir. Devuelve los segundos que faltan, y
  *  cero cuando ya se puede. El intervalo se limpia solo al desmontar: la diapo
@@ -1278,68 +1256,7 @@ export function CafecitoPanel({
                 universidad en el techo la frase de subir sería mentira —el
                 multiplicador no se mueve— así que se cuenta lo otro, que es
                 verdad y también vale: el empuje dura más. */}
-            {/* La tercera rama, y va primero porque cambia QUÉ se está
-                comprando y no solo cómo se cuenta. Desde el cartel del tope, lo
-                que la persona vino a resolver es seguir jugando hoy; el empuje
-                de la universidad sigue estando y sigue valiendo, pero es la
-                segunda mitad de la oración y no la primera.
-
-                El «para siempre» NO depende del slider: el pase es el mismo
-                con uno o con diez, así que va en la tinta del café pero sin
-                `tintaPara(t)` — no tiene que apagarse ni encenderse cuando la
-                barra se mueve, porque no se está eligiendo. */}
-            {trigger === "tope" ? (
-              <p className="mt-4 text-sm leading-relaxed text-foreground/90">
-                Sin tope{" "}
-                <span className="font-semibold" style={{ color: DORADO_FIJO }}>
-                  para siempre
-                </span>{" "}
-                {sube ? (
-                  <>
-                    y multiplicás por{" "}
-                    <span
-                      className="font-semibold tabular-nums"
-                      style={{ color: tintaPara(t) }}
-                    >
-                      {fmtMultiplier(destino)}
-                    </span>{" "}
-                    el XP de toda la{" "}
-                    <span className="font-semibold" style={{ color: tintaPara(t) }}>
-                      {university}
-                    </span>{" "}
-                    durante{" "}
-                    <span
-                      className="font-semibold tabular-nums"
-                      style={{ color: tintaPara(t) }}
-                    >
-                      {duracionDe(n)}
-                    </span>
-                    .
-                  </>
-                ) : (
-                  <>
-                    y sostenés el{" "}
-                    <span
-                      className="font-semibold tabular-nums"
-                      style={{ color: tintaPara(t) }}
-                    >
-                      {fmtMultiplier(actual)}
-                    </span>{" "}
-                    de la{" "}
-                    <span className="font-semibold" style={{ color: tintaPara(t) }}>
-                      {university}
-                    </span>{" "}
-                    <span
-                      className="font-semibold tabular-nums"
-                      style={{ color: tintaPara(t) }}
-                    >
-                      {restanteEnPalabras(segundosGanados).texto}
-                    </span>{" "}
-                    más.
-                  </>
-                )}
-              </p>
-            ) : !sube ? (
+            {!sube ? (
               <p className="mt-4 text-sm leading-relaxed text-foreground/90">
                 La{" "}
                 <span className="font-semibold" style={{ color: tintaPara(t) }}>
@@ -1494,8 +1411,7 @@ export function CafecitoPanel({
                   // marrón apagado con el que esa barra arranca. Esta cara no
                   // tiene barra que subir, así que no hay ninguna razón para
                   // mostrar el botón en su versión más floja; y el dorado ya es
-                  // lo que dice «café» en el resto del juego (es el mismo del
-                  // «Continuar derivando ahora» del cartel del tope).
+                  // lo que dice «café» en el resto del juego.
                   //
                   // Con el fondo claro la tinta va oscura por el mismo motivo
                   // que allá: sobre este dorado, el blanco da 1,77:1.

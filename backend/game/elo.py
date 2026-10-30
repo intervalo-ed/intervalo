@@ -57,7 +57,7 @@ EXPLORE_HIGH = 0.85
 # el juego arranca en y=k, y=x aunque el θ inicial sea 0.
 #
 # **Cuenta respuestas y no updates de θ, y la diferencia no es cosmética.** Eran
-# el mismo número hasta que `rampa.SIN_ELO_HASTA` congeló `n_updates` en las tres
+# el mismo número hasta que `SIN_ELO_HASTA` (abajo) congeló `n_updates` en las tres
 # derivadas fijas del arranque (router.py :: _aplicar_elo sale antes de
 # incrementarlo). Desde ahí, leer `n_updates` acá dejaba el tope en 0 con tres
 # derivadas ya contestadas: la rampa pasó de cinco ejercicios a ocho, la cuarta
@@ -72,12 +72,34 @@ def max_tier_de(respuestas: int) -> int | None:
     """El tope de tier de la rampa inicial, o None cuando ya no hay tope.
 
     `respuestas` son las derivadas contestadas (`game_players.exercises_attempted`),
-    que es el mismo reloj que ya usan la rampa del teclado y `rampa.sin_elo`:
+    que es el mismo reloj que ya usan la rampa del teclado y `sin_elo`:
     «la rampa mide PROGRESO, no exposición» (game/router.py). La función existe
     para que el contador entre por la firma y pasarle `n_updates` sea algo que
     haya que escribir a propósito.
     """
     return respuestas if respuestas < RAMP_RESPUESTAS else None
+
+
+# Cuántos ejercicios del arranque NO mueven el Elo, para todo el mundo.
+#
+# Nació en `dx-rampa-1` (game/rampa.py), apagado en todos los brazos a la vez, y
+# quedó como comportamiento del motor cuando el experimento se cerró. Los tres
+# primeros están fijados por diseño (`x`, `x²`, `2x²`; p̂ 0,82-0,85 con θ=0) y el
+# motor recién toma el control en el cuarto, donde p̂ cae a 0,77 y la mediana de
+# tiempo salta de 5,8 a 17,7 segundos. Con el teclado en rampa esos tres son casi
+# seguros: dejarlos actualizando θ haría entrar a todos al motor con un θ inflado
+# por tres derivadas de calibración, o sea con ejercicios más difíciles de lo que
+# corresponde, por algo que no dice nada de lo que la persona sabe.
+SIN_ELO_HASTA = 3
+
+
+def sin_elo(n_servidos: int) -> bool:
+    """¿Este ejercicio queda afuera del Elo?
+
+    Va por el NÚMERO de ejercicio —`n_servidos` es 1 para el primero—, el mismo
+    reloj que la rampa del teclado.
+    """
+    return n_servidos <= SIN_ELO_HASTA
 
 
 # Desde cuándo el rating deja de ser provisorio. Esto SÍ cuenta updates de θ,

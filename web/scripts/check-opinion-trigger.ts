@@ -283,13 +283,12 @@ const pedidos: { n: number; que: string }[] = []
 // dos de la escalera. Hasta el 24/09 acá solo estaban café y reclutas, y por eso
 // el número que imprimía no era el que se ve jugando.
 //
-// Brazo `control` (las tres reglas juntas en la 1) y jugador invitado en un
-// teléfono, que es el caso con MÁS pantallas y por lo tanto el peor para las
+// Jugador invitado en un teléfono, que es el caso con MÁS pantallas y por lo tanto el peor para las
 // colisiones. `puedeOfrecerInstalar` no se llama porque necesita navegador: el
 // trigger se puede correr solo, que es justo para lo que se lo separó.
 for (let n = 1; n <= 200; n++) {
   const esRecord = n % 23 === 0
-  if (tocaReglas(n, false)) {
+  if (tocaReglas(n)) {
     pedidos.push({ n, que: "reglas" })
     marcarReglasMostradas(n)
     continue

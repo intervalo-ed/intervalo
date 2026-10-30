@@ -14,12 +14,6 @@
 // el momento en que alguien se va es justo el que esta pantalla cubre. Decirle
 // después que podía haber salteado es llegar tarde a la única vez que importaba.
 //
-// **Solo en los brazos con la fila de ayudas** (`ayudas` y `bienvenida` de
-// `dx-rampa-1`). En `control` y en `teclado` el botón de Tabla no está en el
-// pie, así que esta pantalla prometería algo que no se puede tocar; esos dos
-// brazos siguen con la regla de la tabla en la diapo de después, como siempre
-// (reglas-trigger.ts :: reglasDeLaDiapo).
-//
 // El símbolo es el MISMO del botón, no un emoji: lo que esta pantalla enseña no
 // es que la tabla exista sino cuál de los dos botones de abajo la abre, y un 📖
 // al lado de un ⊞ es una pista falsa.
