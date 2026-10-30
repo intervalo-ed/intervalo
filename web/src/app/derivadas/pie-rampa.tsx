@@ -1,20 +1,18 @@
 "use client"
 
-// El pie del brazo `ayudas` de `dx-rampa-1` (ver backend/game/rampa.py).
+// El pie del ejercicio. Nació como el brazo `ayudas` de `dx-rampa-1`, que ganó
+// el brazo `bienvenida` (ayudas + teclado que crece + digest) y quedó para todos.
 //
-// El pie de siempre pone las tres acciones en UNA fila —Revisar ancho, y a los
-// costados el «¿Por qué?» y Saltear— y deja la tabla arriba, en la barra, como
-// un ícono de 15 px al lado del chat y del cafecito. Medido: la tabla la abre el
-// **2,6%** en el primer paso, y abrirla NO predice irse (14,0% contra 18,8%,
-// p=0,41). O sea que está invisible, y la usa el que se queda.
+// El pie de antes ponía las tres acciones en UNA fila —Revisar ancho, y a los
+// costados el «¿Por qué?» y Saltear— y dejaba la tabla arriba, en la barra, como
+// un ícono de 15 px al lado del chat y del cafecito. Medido: la tabla la abría el
+// **2,6%** en el primer paso, y abrirla NO predecía irse (14,0% contra 18,8%,
+// p=0,41). O sea que estaba invisible, y la usaba el que se quedaba.
 //
 // Acá son DOS filas: las ayudas arriba, partidas por la mitad, y la acción
 // principal abajo ocupando el ancho. El alto extra sale del teclado, que en
-// rampa mide una o dos filas en vez de cuatro — por eso las dos mitades del
-// tratamiento viajan juntas y no como un factorial: la celda «ayudas sin
-// teclado» pediría el teclado completo MÁS esta fila, y ese alto no existe (ver
-// el comentario de PROMPT_H en exercise-card.tsx, que ya documenta que en Safari
-// el panel se pasaba de largo).
+// rampa mide una o dos filas en vez de cuatro (ver el comentario de PROMPT_H en
+// exercise-card.tsx, que ya documenta que en Safari el panel se pasaba de largo).
 //
 // Y si erra, el botón principal se BIFURCA: el «¿Por qué?» entra a su lado y
 // queda una grilla de 2×2. Las cuatro salidas posibles quedan a la vista al
@@ -73,27 +71,6 @@ function BotonDeAyuda({
       {atajo}
     </Button>
   )
-}
-
-/** ¿Este brazo de `dx-rampa-1` ve la fila de Tabla y Saltear?
- *
- * **La regla vive acá y no repetida en los dos layouts**, que es como se rompio:
- * los dos preguntaban `rampa === "ayudas"` y el cuarto brazo se quedaba sin la
- * fila. `dx-rampa-1` es una ESCALERA —cada escalon agrega algo al anterior— y
- * `bienvenida` es `ayudas` MAS la pantalla de intro, no otra cosa; asi lo dice
- * `backend/game/rampa.py :: con_ayudas`, que ya incluia los dos.
- *
- * Lo que costaba: el cuarto brazo corria como «teclado + bienvenida» en vez de
- * «ayudas + bienvenida», o sea dos cambios en direcciones opuestas a la vez, y
- * su contraste contra `ayudas` no medía la pantalla de intro sino la pantalla de
- * intro menos la fila de botones. Un contraste asi no se puede leer.
- *
- * Se compara contra el string que manda el server (`GamePlayerOut.rampa`) y no
- * contra un enum del front a proposito: agregar un brazo alla tiene que ser un
- * lugar donde venir a decidir si lleva la fila, no algo que el cliente adivine.
- */
-export function conAyudasDe(rampa: string | null | undefined): boolean {
-  return rampa === "ayudas" || rampa === "bienvenida"
 }
 
 export function PieDeRampa({
@@ -156,7 +133,7 @@ export function PieDeRampa({
   )
 
   // Cerrado: nada que saltear ni que consultar antes de responder. Queda el pie
-  // de una sola fila, que es el mismo que ve el brazo control.
+  // de una sola fila.
   if (cerradoVisual) {
     const fila = (
       <>

@@ -45,7 +45,6 @@ import {
 } from "./opinion-trigger"
 import { OpinionSlide } from "./opinion-slide"
 import { RepetitividadSlide } from "./repetitividad-slide"
-import { diaDelCupo, TopePanel } from "./tope-panel"
 import { marcarReclutasMostrado, tocaReclutar } from "./reclutas-trigger"
 import {
   HITO_PERFIL,
@@ -53,14 +52,12 @@ import {
   tocaRegistro,
 } from "./hitos-del-juego"
 import {
-  AnswerButton,
   AnswerField,
   CAMPO_H,
   CAMPO_MIN_H,
   ExerciseCard,
   KeyCap,
   PANEL_CONTENT,
-  SkipButton,
   answerTone,
   type AnswerTone,
 } from "./exercise-card"
@@ -70,7 +67,6 @@ import {
   DerivativesStatsTable,
   DerivativesTable,
   FlipCard,
-  TableButton,
 } from "./derivatives-table"
 import { ChatButton, ChatPanel, TECLA_CHAT } from "./chat-panel"
 import { EloStatsPanel, StatsButton, TECLA_ESTADISTICAS } from "./elo-stats-panel"
@@ -81,7 +77,7 @@ import { IntroPanel, IntroStartButton } from "./intro-panel"
 import { ReglasSlide } from "./reglas-slide"
 import { HerramientasSlide } from "./herramientas-slide"
 import {
-  reglasDeLaDiapo,
+  REGLAS_DE_LA_DIAPO,
   marcarReglasMostradas,
   tocaReglas,
 } from "./reglas-trigger"
@@ -98,7 +94,7 @@ import {
   STRIP_ROW,
   columnasDeTira,
 } from "./math-keyboard"
-import { PieDeRampa, conAyudasDe } from "./pie-rampa"
+import { PieDeRampa } from "./pie-rampa"
 import { Barra, Hueco } from "@/components/skeleton-barra"
 import { parseAnswerToMathJson } from "./parse-answer"
 import { useLocalVerdict } from "./UseLocalVerdict"
@@ -149,18 +145,12 @@ type Panel =
   | "repetitividad"
   // La pregunta abierta (encuesta-slide.tsx), una sola vez en la vida.
   | "encuesta"
-  // El cartel del tope diario (tope-panel.tsx). No es un hito del ladder: es
-  // el estado en el que queda el juego cuando no hay más derivadas por hoy, y
-  // de él solo se sale comprando o esperando a mañana.
-  | "tope"
   // Las reglas que la puerta no dijo (reglas-slide.tsx), en el Continuar de
   // después de un acierto. Las tres juntas y una sola vez (reglas-trigger.ts);
   // repartirlas de a una fue el brazo `sin-peaje`, que cerró sin diferencia.
   // Con qué contás: la tabla y el salteo (herramientas-slide.tsx). Entre la
   // puerta y la primera derivada, y una sola vez —mientras no haya contestado
-  // ninguna—. Solo en los brazos que tienen la fila de ayudas: en los otros dos
-  // el botón de Tabla no existe y la pantalla prometería algo que no se puede
-  // tocar.
+  // ninguna—.
   | "herramientas"
   | "reglas"
 
@@ -680,32 +670,16 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
   // `fresco` fuerza el pedido normal y saltea lo adelantado. Lo usan los caminos
   // en los que el servidor movió el piso —un 409, un reinicio— donde lo que haya
   // en la caja ya no vale.
-  // El 402 del tope diario, que es el único error de `/next` con pantalla
-  // propia: no hay nada que reintentar hasta mañana. Invalida el jugador porque
-  // el cartel se dibuja con `player.muro` y el de caché puede ser anterior a que
-  // el cupo se agotara.
-  const alTope = useCallback(
-    (err: unknown) => {
-      if (!(err instanceof ApiError) || err.status !== 402) return
-      queryClient.invalidateQueries({ queryKey: gameKeys.me })
-      setNavPanel("tope")
-    },
-    [queryClient, setNavPanel],
-  )
-
   const loadNext = useCallback(
     ({ fresco = false }: { fresco?: boolean } = {}) => {
       // **Todo camino que no termine sirviendo una derivada tiene que soltar el
       // adelanto.** `consumir()` prende `esperando`, y `esperando` es lo que
       // apaga el botón de Continuar; lo único que lo baja es `servir`. Si el
-      // pedido falla por cualquier motivo que no sea el 402 del tope, no se
+      // pedido falla, no se
       // sirve nada y el botón se queda apagado PARA SIEMPRE: la persona ve su
       // derivada resuelta, un Continuar muerto, y ninguna forma de seguir que no
       // sea recargar. Reportado jugando, después de la segunda derivada.
-      const falla = (err: unknown) => {
-        alTope(err)
-        descartarAdelanto()
-      }
+      const falla = () => descartarAdelanto()
       const adelantado = fresco ? null : consumirAdelanto()
       if (adelantado === null) {
         next.mutate(undefined, {
@@ -725,7 +699,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
           })
         })
     },
-    [next, consumirAdelanto, servir, alTope, descartarAdelanto],
+    [next, consumirAdelanto, servir, descartarAdelanto],
   )
 
   // Empezar de verdad: entra la primera derivada. Es lo que hace el botón y
@@ -739,7 +713,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
     //
     // Lo único que se mete en el medio es la pantalla de las herramientas, y no
     // es un pedido: es lo que hay que saber ANTES de trabarse.
-    if (conAyudasDe(player?.rampa) && (player?.exercises_attempted ?? 0) === 0) {
+    if ((player?.exercises_attempted ?? 0) === 0) {
       setNavPanel("herramientas")
       return
     }
@@ -955,10 +929,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
           // Acá y en ningún otro lado: acertar es lo único que cierra un
           // ejercicio, así que este es el primer instante en que pedir el
           // siguiente devuelve uno nuevo. Mientras corre el festejo, va y vuelve.
-          //
-          // Salvo que ésta haya sido la última del día: ahí el adelanto es un 402
-          // garantizado y pedirlo es gastar un viaje para que lo rechacen.
-          if (!data.muro?.bloqueado) adelantar()
+          adelantar()
           const rankBefore = data.rank_before ?? null
           const rankAfter = data.rank_after ?? null
           pendingClimbRef.current =
@@ -1015,10 +986,6 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
           })
           const tocaCafecito =
             trigger !== null &&
-            // Dos pedidos de plata seguidos, no: si el cartel del tope va a
-            // salir al cerrar esta respuesta, la diapo del cafecito se calla.
-            // El cartel lleva a la misma diapo, así que no se pierde nada.
-            !data.muro?.bloqueado &&
             shouldShowCafecito(totalCorrectas, trigger)
           const sinUniversidad = player !== null && !player.university
           // La universidad se pregunta UNA VEZ y no es una condición permanente. Que lo
@@ -1113,11 +1080,9 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
           }
           if (
             !reglasMostradasRef.current &&
-            tocaReglas(totalCorrectas, conAyudasDe(player?.rampa))
+            tocaReglas(totalCorrectas)
           ) {
-            reglasPendienteRef.current = {
-              cuales: reglasDeLaDiapo(conAyudasDe(player?.rampa)),
-            }
+            reglasPendienteRef.current = { cuales: REGLAS_DE_LA_DIAPO }
           }
           // Los dos con `totalCorrectas` —las acumuladas del servidor— y no con
           // el contador de la pestaña, que vuelve a cero en cada carga. Ver
@@ -1347,19 +1312,8 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
       setNavPanel("repetitividad")
       return
     }
-    // El cartel del tope va ÚLTIMO, después de todo lo que la escalera tuviera
-    // para decir: quien acaba de resolver la número 30 primero ve su festejo y
-    // recién después se entera de que no hay más por hoy.
-    //
-    // Se mira `lastAnswer` y no se espera al 402 de `/next` porque acá ya está
-    // la respuesta en la mano: el viaje que el servidor va a rechazar no hace
-    // falta hacerlo. El 402 sigue existiendo, para la recarga y el cliente viejo.
-    if (lastAnswer?.muro?.bloqueado) {
-      setNavPanel("tope")
-      return
-    }
     loadNext()
-  }, [closed, onRevisar, loadNext, cafecito, mostrarReglas, lastAnswer, setNavPanel, sfx])
+  }, [closed, onRevisar, loadNext, cafecito, mostrarReglas, setNavPanel, sfx])
 
   const onSkip = useCallback(() => {
     if (
@@ -1581,12 +1535,6 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
     else loadNext()
   }, [exercise, loadNext, sfx])
 
-  // El brazo `ayudas` de `dx-rampa-1` (backend/game/rampa.py). En escritorio la
-  // RAMPA DEL TECLADO no aplica —no hay numérico que recortar y el teclado
-  // físico sigue andando— pero la fila de ayudas sí, y eso deja un contraste
-  // regalado: acá `control` y `teclado` son idénticos, así que juntarlos y
-  // compararlos contra `ayudas` mide las ayudas SOLAS, sin teclado de por medio.
-  const conAyudas = conAyudasDe(player?.rampa)
 
   const toggleTable = useCallback(() => {
     sfx.select()
@@ -1754,11 +1702,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
         // (herramientas-slide.tsx). Sin esto el primer Enter la saltearía
         // entera y la pantalla que explica los dos botones no se vería nunca
         // en escritorio.
-        panel === "herramientas" ||
-        // El cartel del tope también escucha su propio Enter (y su
-        // Shift+Enter, que es el que compra), así que el global no puede
-        // atravesarlo: pediría una derivada que el servidor va a negar.
-        panel === "tope"
+        panel === "herramientas"
       )
         return
       if (statsOpen) {
@@ -2221,12 +2165,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
     panel === "dificultad" ||
     panel === "opinion" ||
     panel === "repetitividad" ||
-    panel === "encuesta" ||
-    // El cartel del tope comparte la FORMA con las diapos de pedido —el botón
-    // que cierra la pantalla vive en el pie— aunque lo que deja ahí abajo sea
-    // al revés que en todas las demás: la acción que CUESTA plata. Es
-    // deliberado, ver la cabecera de tope-panel.tsx.
-    panel === "tope"
+    panel === "encuesta"
   // Elegir carrera o universidad usa el MISMO pie que las diapos de pedido —
   // el botón vive abajo, por portal— porque se abre desde la configuración,
   // que sigue a la vista del otro lado: es una pausa adentro del ejercicio,
@@ -2338,9 +2277,8 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                 bajó lo mismo, ver INTRO_FONT_PX en game-intro.tsx. */}
             <GameIntroLogo intro={intro} fontSize="1.0625rem" />
             <div className="flex items-center gap-2" style={chromeStyle}>
-              {/* Con la fila de ayudas puesta la tabla vive en el pie, así
-                  que acá arriba sobra. La tecla Alt sigue abriéndola igual. */}
-              {!conAyudas && <TableButton open={tableOpen} onToggle={toggleTable} />}
+              {/* La tabla vive en el pie (`PieDeRampa`); la tecla Alt sigue
+                  abriéndola igual. */}
               <ChatButton
                 open={chatOpen}
                 sinLeer={mensajesSinLeer}
@@ -2628,30 +2566,6 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                     onContinue={(contesto) => {
                       anotarRespuesta(contesto)
                       loadNext()
-                    }}
-                  />
-                ) : panel === "tope" && player?.muro ? (
-                  <TopePanel
-                    keyboard
-                    muro={player.muro}
-                    dia={diaDelCupo(player.muro.libre_en_segundos)}
-                    // El dorado se va al pie y el de esperar se queda en la
-                    // caja, así que el orden es el mismo que en el teléfono.
-                    slotAccion={slotSalida}
-                    onEsperar={() => {
-                      sfx.select()
-                      // Acá el ranking ya está a la derecha, así que «esperar» no
-                      // navega a ningún lado: lo que hace es dejar de ofrecer. Se
-                      // vuelve a la misma pantalla, que es lo que corresponde
-                      // mientras no haya derivadas.
-                      setNavPanel("tope")
-                    }}
-                    onSeguir={() => {
-                      setCafecito({
-                        trigger: "tope",
-                        correctToday: player.muro?.hechas_hoy ?? 0,
-                      })
-                      setNavPanel("cafecito")
                     }}
                   />
                 ) : panel === "repetitividad" ? (
@@ -3005,7 +2919,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                         Volver
                         <KeyCap>{teclas.enter}</KeyCap>
                       </Button>
-                    ) : exercise && conAyudas ? (
+                    ) : exercise ? (
                       <PieDeRampa
                         tone={tone}
                         seq={answerSeq}
@@ -3032,69 +2946,6 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                         onTabla={toggleTable}
                         onPorque={porqueOpen ? cerrarPorque : abrirPorque}
                       />
-                    ) : exercise ? (
-                      <>
-                        {/* Resuelto el ejercicio el pie es UNO solo, Continuar
-                            de punta a punta: el ¿Por qué? se mudó adentro de la
-                            caja de la pista, arriba, donde estaba el cursor
-                            (mismo mecanismo en las dos plataformas — ver el
-                            `hint` de AnswerField, más abajo, y su equivalente
-                            en mobile-flow.tsx). Acá abajo quedaban dos botones
-                            para dos cosas de peso muy distinto, y el chico se
-                            llevaba la mitad del renglón del que cierra el
-                            ejercicio. */}
-                        <AnswerButton
-                          className="flex-1"
-                          tone={tone}
-                          seq={answerSeq}
-                          closed={cerradoVisual}
-                          // Sin destello cuando salió bien a la primera: ahí
-                          // el pie entero cambia de forma (¿Por qué? y
-                          // Saltear se van, este botón pasa a ocupar toda la
-                          // fila) y ese colapso ya avisa por su cuenta. El
-                          // destello es para cuando el pie NO cambia de forma
-                          // —acertar en el segundo intento o más—, que es el
-                          // único caso en que hace falta.
-                          sinFlash={primerIntento}
-                          showKeyHint
-                          disabled={
-                            answerMutation.isPending || (closed && (next.isPending || esperandoAdelanto))
-                          }
-                          onClick={onPrimary}
-                        />
-                        {/* En el MEDIO de los tres, y no al final. Los de los
-                            extremos son las dos formas de terminar con esta
-                            derivada —resolverla o irse—, y el del medio es la
-                            única que no la termina: te deja acá y te explica.
-                            Puesto último quedaba leyéndose como una tercera
-                            salida, que es lo que no es. */}
-                        {!cerradoVisual && hayPorque && (
-                          <PorQueButton
-                            showKeyHint
-                            onClick={porqueOpen ? cerrarPorque : abrirPorque}
-                            disabled={answerMutation.isPending}
-                            open={porqueOpen}
-                            blanco
-                          />
-                        )}
-                        {!cerradoVisual && (
-                          <SkipButton
-                            showKeyHint
-                            disabled={
-                              skipMutation.isPending || answerMutation.isPending
-                            }
-                            onClick={onSkip}
-                          />
-                        )}
-                        {/* Tercero en discordia cuando el ejercicio sigue
-                            abierto: Revisar se queda con el ancho que sobra y
-                            estos dos miden lo suyo. Cuando ya se acertó son solo
-                            dos —Continuar y esto—, que es el mismo pie que la
-                            rama `solved` del session-runner de Intervalo.
-                            Alterna: tocarlo con el panel abierto lo cierra, que
-                            es lo que espera quien terminó de leer. */}
-
-                      </>
                     ) : (
                       // Mientras carga la primera derivada. El hueco no puede
                       // faltar: es lo que sostiene el alto de la columna.

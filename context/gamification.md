@@ -334,12 +334,11 @@ Consecuencias que importan para el resto de la gamificación:
 
 ### Los tres primeros ejercicios NO mueven el Elo (dx)
 
-Desde `dx-rampa-1` (27/09), las **tres primeras derivadas de cualquier jugador**
-quedan fuera del Elo: no mueven θ, no suman a `n_updates`, no corrigen la β de su
+Desde el 27/09, las **tres primeras derivadas de cualquier jugador** quedan
+fuera del Elo: no mueven θ, no suman a `n_updates`, no corrigen la β de su
 plantilla ni suman observación o persona a sus estadísticas. Sí suman a
 `exercises_attempted`, a la racha y a la XP — se juegan, simplemente no se miden.
-Vale para **los tres brazos**, incluido el control (`game/rampa.py ::
-SIN_ELO_HASTA`).
+Vale para todos, sin excepción (`game/elo.py :: SIN_ELO_HASTA`, `elo.sin_elo`).
 
 **Por qué.** Esas tres están fijadas por diseño y son siempre las mismas: `x` (la
 respuesta es `1`), `x²` (`2x`) y `2x²` (`4x`), servidas con θ=0 y p̂ entre 0,82 y
@@ -347,12 +346,15 @@ respuesta es `1`), `x²` (`2x`) y `2x²` (`4x`), servidas con θ=0 y p̂ entre 0
 mediana de tiempo salta de 5,8 a 17,7 segundos. Son ítems de calibración, no de
 medición.
 
-**Y por qué ahora.** `dx-rampa-1` le da al brazo tratado un teclado que arranca
-con las teclas que la respuesta necesita, así que esas tres pasan a ser casi
-seguras. Si siguieran actualizando θ, el brazo tratado entraría al motor con un θ
-más alto —o sea con ejercicios **más difíciles**— y perdería profundidad por algo
-que no es el tratamiento. Apagarlo en **los dos** brazos es lo que evita eso:
-apagarlo en uno solo habría *creado* la diferencia en vez de sacarla.
+**Y por qué desde entonces.** Entró con `dx-rampa-1`, que le daba a parte de los
+jugadores un teclado que arranca con las teclas que la respuesta necesita —o sea
+esas tres casi seguras—. Si siguieran actualizando θ, esos jugadores entrarían al
+motor con un θ más alto —ejercicios **más difíciles**— por algo que no era el
+tratamiento, y por eso se apagó en todos los brazos y no solo en los tratados. El
+experimento se cerró el 30/10 y el teclado en rampa quedó para todos (ver
+`features-catalog.md`); la regla se queda por el mismo motivo, ahora sin brazos:
+con el teclado sirviendo la respuesta, esas tres no informan nada sobre quien las
+contesta.
 
 **Lo que cuesta, dicho:** las β de `t0_x`, `t1_pow` y `t1_kpow` quedan
 congeladas. Tienen miles de observaciones y su dificultad está bien estimada, así
@@ -492,84 +494,31 @@ total y nada más, así que un monto que dos precios explican —los múltiplos 
 $300— lo cede al webhook, que sí tiene la metadata. Solo se corre mientras el
 webhook exista; sin `MP_ACCESS_TOKEN` vuelve a ser el único canal y acredita.
 
-### El tope diario y el pase (`game/muro.py`) — EXPERIMENTO `dx-muro-1`
+### El tope diario y el pase — `dx-muro-1`, CERRADO el 30/10
 
-**Acá el cafecito deja de ser solo una donación, y eso cambia una promesa de
-este documento.** Todo lo de arriba está construido sobre que donar NO compra
-nada personal: el empuje es de toda la universidad justamente para que adentro
-de una universidad el orden no se mueva, y `game/boosts.py` lo dice con todas
-las letras («el ×3 no se compra, se junta»). El tope diario es lo primero que se
-le cobra a alguien por algo que solo recibe esa persona.
+**No hay tope diario ni pase para nadie.** Se puede jugar todo lo que se quiera
+cualquier día, y un cafecito hace lo que hacía antes del experimento: el empuje
+de toda la universidad de arriba, con la misma escala, y nada personal. La
+promesa de este documento vuelve a ser entera: donar no compra nada que reciba
+solo quien dona (`game/boosts.py`: «el ×3 no se compra, se junta»).
 
-Cómo funciona:
+**Lo que fue.** Corrió del 27/09 al 30/10 sobre la mitad de los jugadores
+nacidos después del 27/09 (hash del `player.id`, sin columna), con un
+interruptor de ambiente (`MURO_ENABLED`): **30 derivadas resueltas por día**
+(`correct_today`, día de Buenos Aires) y, al llegar, un cartel que cortaba el
+juego hasta el día siguiente salvo cafecito. **Un cafecito levantaba el tope para
+siempre** —30 días hasta el 03/10—, y el «pase» no tenía tabla: era tener una
+fila en `game_boosts` de `source` distinto de `aforo`, derivado al leer. Era lo
+primero del producto que se le cobraba a alguien por algo que solo recibía esa
+persona, y por eso se lo midió sobre jugadores nuevos y con el ranking vigilado
+(«cuántos de los 20 primeros pusieron plata»).
 
-- **30 derivadas resueltas por día** (`TOPE_DIARIO`). La unidad es la misma que
-  el juego ya contaba y ya mostraba: `correct_today`, o sea intentos con
-  `is_correct` sin mirar el número de intento. **Errar no consume cupo**;
-  acertar en el segundo intento sí.
-- El día es el de **Buenos Aires** (`router._inicio_del_dia`), igual que el
-  ranking: quien juega desde otro huso comparte el día con el público con el que
-  se compara.
-- **Un cafecito levanta el tope para siempre**, con uno o con diez. Hasta el
-  03/10 duraba 30 días (`PASE_DIAS`); se cambió antes de que `dx-muro-1`
-  empezara a leerse, y como el pase se deriva al leer, quien había donado hace
-  más de un mes lo recuperó en el mismo deploy. El empuje de la universidad sigue funcionando igual y con la misma
-  escala de siempre: el pase es **aditivo**, no lo reemplaza.
-- **El pase no tiene tabla.** Es «esta persona tiene una fila en `game_boosts`»,
-  de cualquier fecha, derivado al leer (`muro.tiene_pase`). Por eso es retroactivo —los donantes
-  que ya existían lo tuvieron desde el día uno— y por eso `grant_game_boost.py`
-  ya sirve para regalarlo. El empuje de **aforo no lo da**: ese no lo pagó
-  nadie, y si lo diera, reclutar sería la forma gratis de saltear el tope.
-- **Dos puertas, no una**: `/next` y `/skip`. Saltear cierra el ejercicio y
-  sirve otro, así que sin la segunda el cupo se esquivaría salteando. `/answer`
-  **no frena nunca**: el ejercicio que ya estaba en pantalla se responde
-  siempre.
-- **`MURO_ENABLED`**, apagado por default. Un tope es lo único del producto que
-  puede hacer daño en horas en vez de en semanas, así que tiene que poder
-  apagarse desde Railway sin un deploy.
-- **Solo lo viven los jugadores NUEVOS** (`muro.ARRANQUE`, el 27/09/2026). Quien
-  ya venía jugando antes de esa fecha **no tiene tope**, ni le toque el brazo
-  tratado ni nunca, y el panel tampoco lo cuenta como inscripto. Es la excepción
-  más importante de este experimento y está explicada abajo.
-
-**Quién lo vive**: la mitad **de los que llegaron después del arranque**,
-sorteada con un hash del `player.id` (`muro.brazo_de`) y sin columna nueva. El
-motivo original de ese hash ya no vale —se eligió porque los elegibles existían
-todos desde hacía semanas, y con la excepción son todos nuevos por construcción—
-pero la decisión se queda: está repartido y verificado en producción con el
-experimento corriendo, cambiarlo re-sortearía a los ya inscriptos, y el panel
-puede recalcular el brazo de cualquiera al leer sin depender de una columna.
-
-**Por qué solo los nuevos.** No es para que no se enoje nadie: es lo que hace
-que el experimento mida lo que dice medir. Un veterano que a los cuarenta días
-se encuentra una pared reacciona a que le **quitaron** algo que tenía; un recién
-llegado reacciona a **cómo es el producto**. Son dos cantidades distintas, y la
-que contesta «¿este producto puede tener un tope?» es la segunda. Con la
-excepción, todos los inscriptos conocieron una sola regla desde su primera
-derivada.
-
-El costo está medido (26/09): de las 270 personas que alguna vez llegaron a 30
-en un día, **232 lo hicieron el mismo día que se crearon** (86%), y el p90 de la
-demora es un día. Así que la excepción no vacía el experimento: le saca los ~117
-veteranos que ya estaban arriba del tope y después casi no se nota — el ritmo de
-inscripción pasa de ~111 a ~95 personas por semana.
-
-Y lo que **no** se va a poder concluir: el resultado vale para jugadores nuevos.
-Si sale que pagan, eso no dice qué haría un veterano, y ahí está la plata de hoy
-—los catorce donantes y la punta del ranking son todos de antes del arranque—.
-Encender el tope para todos seguiría siendo un cambio sin medir.
-
-Un efecto lateral que conviene saber: borrar el navegador crea un jugador nuevo,
-así que un veterano que limpie su `localStorage` **pierde la excepción** junto
-con su XP. Es el reverso de la puerta de atrás que este experimento ya tenía
-anotada como riesgo, y no hace falta taparlo.
-
-**El costo que hay que vigilar**: con tope, el que paga sigue sumando XP cuando
-al otro se le cortó, así que el ranking pasa a ser en parte una función de la
-plata. El panel lo mira («cuántos de los 20 primeros pusieron plata») y si ese
-número se dispara el experimento se apaga por más plata que entre. La salida, si
-se llega ahí, es topear la **XP** del día en vez de las derivadas: todos pueden
-seguir jugando y lo único que se detiene es el marcador.
+**Cómo se cerró.** Ganó el **control**, y es una decisión de producto tomada
+antes de llegar al n comprometido, no la lectura de un resultado: el juego se
+va a portar a una app nativa y se unificó el flujo en uno solo. No dice que el
+tope no pague ni que pague. El panel conserva los números que se juntaron en la
+vista del experimento; el tope, el pase, el cartel, el `402` y `MURO_ENABLED` se
+fueron del código.
 
 ### Empuje por aforo: 10 personas nuevas en un día (`game/aforo.py`)
 

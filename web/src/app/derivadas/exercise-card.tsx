@@ -988,33 +988,3 @@ export function AnswerButton({
   )
 }
 
-// Saltear. Mismo formato que el botón "Opciones" de las sesiones de Intervalo
-// (session-runner.tsx :: OptionsArea): contorno fino sobre el fondo, sin
-// relleno. Es la forma que el proyecto ya usa para "la acción secundaria de
-// este paso", y acá cumple ese mismo papel al lado del botón principal.
-//
-// Va al lado y no debajo porque el pedido fue que el bloque ocupara menos alto,
-// y una fila más para un atajo secundario iba justo en contra.
-export function SkipButton({
-  disabled,
-  onClick,
-  showKeyHint = false,
-}: {
-  disabled?: boolean
-  onClick: () => void
-  showKeyHint?: boolean
-}) {
-  const teclas = useTeclas()
-  return (
-    <Button
-      size="lg"
-      variant="outline"
-      disabled={disabled}
-      onClick={onClick}
-      className="h-[var(--cta-h)] shrink-0 rounded-md bg-background px-5 font-normal dark:bg-background"
-    >
-      Saltear
-      {showKeyHint && <KeyCap>{teclas.altEnter}</KeyCap>}
-    </Button>
-  )
-}

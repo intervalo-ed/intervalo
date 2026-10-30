@@ -43,10 +43,8 @@ from . import chat as game_chat
 from . import dificultad as game_dificultad
 from . import limits
 from . import mercadopago as mp
-from . import muro as game_muro
 from . import encuesta as game_encuesta
 from . import opinion as game_opinion
-from . import rampa
 from . import ranking
 from . import repetitividad as game_repetitividad
 from . import elo
@@ -102,7 +100,6 @@ from .schemas import (
     GameLeaderboardSummary,
     GameMessageIn,
     GameMessageOut,
-    GameMuroOut,
     GameEncuestaOut,
     GameEncuestaRequest,
     GameOpinionOut,
@@ -317,15 +314,6 @@ def _player_out(db: Session, player: GamePlayer, with_rank: bool = True) -> Game
         # una preferencia: dice «1 cafecito = $150» apenas se abre, y la
         # preferencia recién se pide cuando el slider se queda quieto.
         precio_cafecito=boosts.precio_de(boosts.pais_de(player.timezone)),
-        # El tope diario. Va con el jugador para que una RECARGA con el cupo
-        # agotado caiga en el cartel: sin esto el cliente pediría una derivada,
-        # se comería el 402 y recién ahí sabría qué dibujar.
-        muro=_muro_de(db, player),
-        # El brazo de `dx-rampa-1`. Es una funcion pura del id, asi que se
-        # calcula en cada lectura en vez de guardarse: no hay nada que pueda
-        # quedar viejo, y con el experimento apagado devuelve None y el cliente
-        # dibuja el pie de siempre.
-        rampa=rampa.brazo_de(player.id) if rampa.habilitado() else None,
         dificultad=player.dificultad if game_dificultad.habilitado() else None,
         dificultad_disponible=game_dificultad.habilitado(),
     )
@@ -701,15 +689,13 @@ def _exercise_out(exercise: GameExercise, player: GamePlayer) -> GameExerciseOut
     # los reintentos), así que al servir el k-ésimo vale k−1. Salteado no suma, y
     # eso es lo correcto acá: la rampa mide PROGRESO, no exposición.
     n_servidos = player.exercises_attempted + 1
-    con_rampa = rampa.con_rampa(player.id)
     unlocked, fresh, fijas_nuevas = game_keyboard.unlock(
         player.unlocked_keys, expr_from_stored(exercise.expected_derivative),
-        rampa=con_rampa, n_servidos=n_servidos,
+        n_servidos=n_servidos,
     )
     player.unlocked_keys = unlocked
     return GameExerciseOut(
-        fijas=(game_keyboard.fijas_en_orden(game_keyboard.parse_fijas(unlocked))
-               if con_rampa else None),
+        fijas=game_keyboard.fijas_en_orden(game_keyboard.parse_fijas(unlocked)),
         fijas_nuevas=fijas_nuevas,
         exercise_id=exercise.id,
         prompt_latex=exercise.prompt_latex,
@@ -739,13 +725,6 @@ def next_exercise(
     x_game_platform: str = Header(None),
     db: Session = Depends(get_db),
 ):
-    # El tope va ANTES de la guarda del ejercicio abierto, y ese orden importa:
-    # si fuera al revés, quien tiene uno servido de antes lo recibiría de vuelta
-    # con el cupo ya gastado. Lo que sigue estando permitido es RESPONDER el que
-    # ya tenía en pantalla (ver /answer, que no frena nunca): nadie pierde una
-    # derivada que ya estaba mirando.
-    _frenar_si_llego_al_tope(db, player)
-
     # Si ya hay uno abierto y recién servido, se devuelve ESE.
     #
     # Sin esto, /next era un salteo gratis: `serve_exercise` vence en bloque lo
@@ -942,10 +921,6 @@ def skip_exercise(
     Tampoco da XP, y como la XP escala con la dificultad, encadenar salteos
     hasta el piso rinde cada vez menos: la mecánica se autolimita.
     """
-    # La segunda puerta del tope, y la que es fácil olvidarse: saltear CIERRA el
-    # ejercicio y sirve otro, así que sin esto el cupo se esquiva salteando.
-    _frenar_si_llego_al_tope(db, player)
-
     # Ídem /answer: saltear baja el θ y corta la racha.
     player = lock_player(db, player)
 
@@ -1021,69 +996,6 @@ def _correctas_de_hoy(db: Session, player_id: int) -> int:
     )
 
 
-def _proxima_medianoche() -> datetime:
-    """Cuándo se renueva el cupo: las 00:00 de mañana acá, en UTC ingenuo.
-
-    Se calcula sumando un día a la medianoche de hoy y NO reemplazando la fecha,
-    para que los cambios de hora no muevan el corte: la aritmética sobre el
-    instante local ya convertido es la que conserva el día de 23 o 25 horas.
-    """
-    return _inicio_del_dia() + timedelta(days=1)
-
-
-def _muro_de(db: Session, player: GamePlayer, hechas_hoy: int | None = None) -> GameMuroOut:
-    """El estado del tope para esta persona, listo para viajar.
-
-    `hechas_hoy` se puede pasar hecho porque `/answer` ya lo calculó para el
-    `correct_today` que manda igual: recalcularlo ahí sería correr dos veces la
-    misma consulta en el endpoint más caliente del juego.
-
-    **Sin tope no se cuenta nada.** Con el experimento apagado, en el brazo de
-    control o con un jugador de antes del arranque no hay ninguna decisión que
-    tomar, así que este atajo es lo que mantiene a `/me` y a `/player` —que
-    llaman a `_player_out`— exactamente tan caros como eran antes para la mitad
-    de la gente, para toda la que ya estaba jugando, y para todos mientras el
-    interruptor esté en cero.
-    """
-    if game_muro.tope_de(player) is None:
-        return GameMuroOut()
-    if hechas_hoy is None:
-        hechas_hoy = _correctas_de_hoy(db, player.id)
-    e = game_muro.estado(
-        db, player, hechas_hoy, _inicio_del_dia(), _proxima_medianoche()
-    )
-    return GameMuroOut(
-        tope=e.tope,
-        hechas_hoy=e.hechas_hoy,
-        bloqueado=e.bloqueado,
-        con_pase=e.con_pase,
-        libre_en_segundos=e.libre_en_segundos,
-        minutos_jugando=e.minutos_jugando,
-        pct_mas_que=e.pct_mas_que,
-        pct_mas_rapido=e.pct_mas_rapido,
-    )
-
-
-def _frenar_si_llego_al_tope(db: Session, player: GamePlayer) -> None:
-    """402 si esta persona ya gastó su cupo de hoy y no tiene pase.
-
-    **Es el respaldo, no el mecanismo.** Quien decide cuándo se ve el cartel es
-    el cliente, con el `muro` que viaja en la respuesta anterior; esto existe
-    para el cliente viejo cacheado, para la consola abierta y para el reintento
-    de un teléfono que perdió la respuesta. Mismo reparto que la encuesta de
-    dificultad: allá se decide cuándo se muestra, acá cuánto vale.
-
-    402 y no 403: lo que falta es un pago, y el cliente lo distingue del resto
-    de los rechazos sin leer el cuerpo (`ApiError.status`, y `retriable` lo deja
-    afuera de los reintentos).
-    """
-    if game_muro.tope_de(player) is None:
-        return
-    if not _muro_de(db, player).bloqueado:
-        return
-    raise HTTPException(status_code=402, detail="Llegaste al tope de derivadas de hoy.")
-
-
 def _registrar_fallo_de_parseo(
     db: Session,
     exercise: GameExercise,
@@ -1138,7 +1050,6 @@ def _registrar_fallo_de_parseo(
         # resetee. Es el tipo de olvido que habilita tener dos constructores de la
         # respuesta a cien líneas de distancia, y por eso este es una función.
         correct_today=_correctas_de_hoy(db, player.id),
-        muro=_muro_de(db, player),
     )
     db.commit()
     return respuesta
@@ -1223,16 +1134,14 @@ def _aplicar_elo(
     if attempt_number != 1:
         return level_before, theta_before, theta_after
 
-    # Los tres ejercicios de la rampa no mueven θ, EN LOS DOS BRAZOS (ver
-    # game/rampa.py :: SIN_ELO_HASTA). Son ítems de calibración fijos —`x`, `x²`,
-    # `2x²`, servidos con θ=0— y `dx-rampa-1` los vuelve casi seguros en el brazo
-    # tratado: dejarlos actualizando θ haría que ese brazo entre al motor con un
-    # θ más alto, o sea con ejercicios más difíciles, y perdiera profundidad por
-    # algo que no es el tratamiento.
+    # Los tres ejercicios del arranque no mueven θ (ver elo.py ::
+    # SIN_ELO_HASTA). Son ítems de calibración fijos —`x`, `x²`, `2x²`, servidos
+    # con θ=0— y la rampa del teclado los vuelve casi seguros: dejarlos
+    # actualizando θ haría entrar a todos al motor con un θ inflado.
     #
     # Se mira el contador ANTES de incrementarlo, así que al responder el primero
     # vale 0 y `n_servidos` es 1.
-    if rampa.sin_elo(player.exercises_attempted + 1):
+    if elo.sin_elo(player.exercises_attempted + 1):
         player.exercises_attempted += 1
         player.current_combo = player.current_combo + 1 if correct else 0
         player.best_combo = max(player.best_combo, player.current_combo)
@@ -1392,10 +1301,6 @@ def _repetir_ultima_respuesta(
         combo_bonus=0,
         exercises_correct=player.exercises_correct,
         correct_today=_correctas_de_hoy(db, player.id),
-        # También en la respuesta repetida: un teléfono que reintenta la 30ª
-        # tiene que enterarse del tope por este camino, que es el único que le
-        # va a contestar.
-        muro=_muro_de(db, player),
         correct_answer_latex=(
             latex_es(expr_from_stored(exercise.expected_derivative)) if not correcto else None
         ),
@@ -1571,10 +1476,6 @@ def answer_exercise(
         xp_multiplier=multiplier,
         exercises_correct=player.exercises_correct,
         correct_today=correctas_hoy_previas + (1 if correct else 0),
-        # El tope, con el contador que ya tenemos en la mano. Es lo que hace que
-        # el cartel aparezca en el mismo gesto de acertar la número 30, sin un
-        # /next fallido en el medio.
-        muro=_muro_de(db, player, correctas_hoy_previas + (1 if correct else 0)),
         # Ya no hay ejercicio que se cierre sin acertar, así que este campo sale
         # siempre en None desde acá. La derivada correcta llega por un solo
         # camino y es el «¿Por qué?».
@@ -1791,18 +1692,8 @@ def game_bienvenida(
     """
     ahora = datetime.utcnow()
 
-    # **El cuarto brazo de `dx-rampa-1`.** Quien entró al experimento y no cayó
-    # ahí recibe la lista vacía, y el cliente cae al texto de siempre — que es
-    # exactamente el control que hace falta para poder medirla. Los veteranos y
-    # el experimento apagado la reciben igual (ver `rampa.muestra_digest`).
-    #
-    # Se devuelve vacío en vez de no llamar al endpoint para que el front no
-    # tenga que saber nada del sorteo: el que decide qué se muestra es el mismo
-    # que decide el brazo.
-    if not rampa.muestra_digest(player):
-        return GameBienvenidaOut(modo="control", saludo="", titulo=None,
-                                 novedades=[])
-
+    # Es de todos desde que `dx-rampa-1` se cerró (30/10): ganó el cuarto brazo,
+    # que era justamente esta pantalla (game/rampa.py).
     datos = game_bienvenida_mod.construir(
         db, player, _correctas_de_hoy(db, player.id), _inicio_del_dia(), ahora
     )

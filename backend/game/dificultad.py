@@ -62,8 +62,9 @@ THETA_DE_POSICION: tuple[float, ...] = (-0.4, 0.0, 0.4, 0.9, 1.2, 1.6, 2.0, 2.4,
 
 
 def habilitado() -> bool:
-    """Apagado por defecto, como `MURO_ENABLED`. Se lee en cada pedido: apagarlo
-    es cambiar la variable y que el próximo `/next` ya salga como siempre."""
+    """Apagado por defecto, como lo estaba `MURO_ENABLED`. Se lee en cada
+    pedido: apagarlo es cambiar la variable y que el próximo `/next` ya salga
+    como siempre."""
     return os.getenv(ENV_ENCENDIDO, "").strip().lower() in {"1", "true", "yes", "on"}
 
 

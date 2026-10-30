@@ -454,7 +454,7 @@ export function PorQueButton({
   // error ya lo dicen el borde del campo y el cartel de «¿Seguro?», y decirlo
   // una tercera vez en el botón es ruido.
   //
-  // Lo pide la grilla 2×2 del brazo `ayudas` (pie-rampa.tsx), donde este botón
+  // Lo pide la grilla 2×2 del pie (pie-rampa.tsx), donde este botón
   // queda al lado de Revisar —blanco lleno— y arriba de dos ayudas de contorno
   // fino: ahí el relleno gris competía con el blanco en vez de ordenarse debajo.
   plano = false,

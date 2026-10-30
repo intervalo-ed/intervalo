@@ -876,18 +876,16 @@ H_otro = {"X-Game-Token": otro["guest_token"]}
 otro_id = (
     db.query(GamePlayer).filter(GamePlayer.guest_token == otro["guest_token"]).first().id
 )
-# La RAMPA de `dx-rampa-1`: los tres primeros ejercicios de cualquiera quedan
-# fuera del Elo, en los tres brazos (game/rampa.py :: SIN_ELO_HASTA). Así que un
-# estudiante recién creado NO suma ni observación ni persona hasta cruzarla, y
-# eso se pin-ea explícitamente: es la diferencia entre el comportamiento nuevo y
-# una regresión que deje de contar gente para siempre.
-from game import rampa as _rampa  # noqa: E402
-
-for _ in range(_rampa.SIN_ELO_HASTA):
+# Los tres primeros ejercicios de cualquiera quedan fuera del Elo (game/elo.py
+# :: SIN_ELO_HASTA, nacido en `dx-rampa-1`). Así que un estudiante recién creado
+# NO suma ni observación ni persona hasta cruzarlos, y eso se pin-ea
+# explícitamente: es la diferencia entre el comportamiento nuevo y una regresión
+# que deje de contar gente para siempre.
+for _ in range(game_elo.SIN_ELO_HASTA):
     _resolver(otro_id, H_otro, clave="t2_sum3")
 obs_rampa, gente_rampa = _muestra()
 check(obs_rampa == obs2 and gente_rampa == gente2,
-      f"los {_rampa.SIN_ELO_HASTA} de la rampa NO entran al Elo "
+      f"los {game_elo.SIN_ELO_HASTA} de la rampa NO entran al Elo "
       f"({gente2} → {gente_rampa})")
 
 _resolver(otro_id, H_otro)

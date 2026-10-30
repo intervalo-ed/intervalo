@@ -39,12 +39,10 @@ import {
   type CafecitoTrigger,
 } from "./cafecito-cta"
 import {
-  AnswerButton,
   AnswerField,
   CAMPO_MIN_H,
   ExerciseCard,
   PANEL_CONTENT,
-  SkipButton,
   answerTone,
   type AnswerTone,
 } from "./exercise-card"
@@ -78,7 +76,6 @@ import {
 } from "./opinion-trigger"
 import { OpinionSlide } from "./opinion-slide"
 import { RepetitividadSlide } from "./repetitividad-slide"
-import { diaDelCupo, TopePanel } from "./tope-panel"
 import { marcarReclutasMostrado, tocaReclutar } from "./reclutas-trigger"
 import {
   HITO_PERFIL,
@@ -90,7 +87,7 @@ import { PuertaMinima } from "./intro-panel"
 import { ReglasSlide } from "./reglas-slide"
 import { HerramientasSlide } from "./herramientas-slide"
 import {
-  reglasDeLaDiapo,
+  REGLAS_DE_LA_DIAPO,
   marcarReglasMostradas,
   tocaReglas,
 } from "./reglas-trigger"
@@ -99,7 +96,7 @@ import { EloStatsPanel, StatsButton } from "./elo-stats-panel"
 import { puedeVerEstadisticas } from "./stats-gate"
 import { useGameStats } from "./UseGameStats"
 import { PorQueButton, PorQuePanel, type PorQueGraph } from "./porque-panel"
-import { PieDeRampa, conAyudasDe } from "./pie-rampa"
+import { PieDeRampa } from "./pie-rampa"
 import { useExplainExercise } from "./UseGameExplain"
 import {
   SLIDE_TRANSITION,
@@ -159,21 +156,10 @@ type Slide =
   | { kind: "username" }
   // Con qué contás: la tabla y el salteo (herramientas-slide.tsx). Entre la
   // puerta y la primera derivada, y una sola vez —mientras no haya contestado
-  // ninguna—. Solo en los brazos que tienen la fila de ayudas: en los otros dos
-  // el botón de Tabla no existe y la pantalla prometería algo que no se puede
-  // tocar.
+  // ninguna—.
   | { kind: "herramientas" }
   | { kind: "exercise" }
-  | { kind: "ranking"; answer: GameAnswer | null }
-  // El cartel del tope diario (tope-panel.tsx). Sin payload: el estado lo
-  // manda el servidor con el jugador (`player.muro`) y con cada respuesta, así
-  // que una recarga cae acá con los mismos números que antes de recargar.
-  //
-  // **Es la única diapo de la que no se sale hacia adelante.** Mientras el cupo
-  // esté agotado, todo lo que termina vuelve acá: el ranking porque su Continuar
-  // corre la escalera y el `/next` del final devuelve 402, y la recarga porque
-  // el estado viaja con el jugador.
-  | { kind: "tope" }
+  | { kind: "ranking"; answer: GameAnswer }
   // Las reglas que la puerta no dijo (reglas-slide.tsx), siempre después de un
   // ranking. `cuales` son índices de la lista de `IntroParagraphs`, y hoy son
   // siempre las tres de un saque —repartirlas de a una era el brazo `sin-peaje`
@@ -313,7 +299,7 @@ function GameHeader({
   // Abre el chat. En el teléfono no hay tecla, así que este botón ES el acceso.
   onChat: () => void
   sinLeerChat?: number
-  // El brazo `ayudas` de `dx-rampa-1` sube la tabla al pie, en una fila propia
+  // En el ejercicio la tabla vive en el pie, en una fila propia
   // (pie-rampa.tsx), así que acá arriba sobra: dos accesos a lo mismo en la
   // misma pantalla es justamente lo que la fila vino a evitar.
   //
@@ -377,12 +363,6 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
   const sfx = useSfx()
 
   const [slide, setSlide] = useState<Slide>({ kind: "intro" })
-  // La última respuesta, para que «Esperar hasta mañana» pueda abrir el ranking
-  // con el festejo puesto. Al recargar con el cupo agotado no hay ninguna, y el
-  // ranking se abre igual: `answer` ahí adentro es solo el disparador de
-  // `onRelease`, así que en null no hay nada que soltar y no hay nada que
-  // inventar.
-  const ultimaRespuestaRef = useRef<GameAnswer | null>(null)
   const [slideSeq, setSlideSeq] = useState(0)
   // La hoja de "¿Qué pasa con mis datos?" de la slide de registro. Afuera del
   // stack de slides a propósito: se superpone a lo que sea que esté mostrando
@@ -681,28 +661,12 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
   // `fresco` fuerza el pedido normal y saltea lo adelantado. Lo usan los caminos
   // en los que el servidor movió el piso —un 409, un reinicio— donde lo que haya
   // en la caja ya no vale.
-  // El 402 del tope diario. Es el ÚNICO error de `/next` que tiene una pantalla:
-  // el resto son transitorios y los reintenta quien corresponda. Acá no hay nada
-  // que reintentar —hasta mañana no hay derivada— así que se dibuja el cartel.
-  //
-  // Se invalida el jugador de paso: el cartel se dibuja con `player.muro`, y el
-  // que está en caché puede ser de antes de que el cupo se agotara.
-  const alTope = useCallback(
-    (err: unknown) => {
-      if (!(err instanceof ApiError) || err.status !== 402) return
-      queryClient.invalidateQueries({ queryKey: gameKeys.me })
-      goTo({ kind: "tope" })
-    },
-    [goTo, queryClient],
-  )
-
   const loadNext = useCallback(
     ({ fresco = false }: { fresco?: boolean } = {}) => {
       const adelantado = fresco ? null : consumirAdelanto()
       if (adelantado === null) {
         next.mutate(undefined, {
           onSuccess: (data) => servir(data, { adelantado: false }),
-          onError: alTope,
         })
         return
       }
@@ -711,11 +675,10 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
         .catch(() => {
           next.mutate(undefined, {
             onSuccess: (data) => servir(data, { adelantado: false }),
-            onError: alTope,
           })
         })
     },
-    [next, consumirAdelanto, servir, alTope],
+    [next, consumirAdelanto, servir],
   )
 
   // El chasquido del Continuar, con guardia contra el doble.
@@ -768,7 +731,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
     // «todavía no contestó ninguna» y sale del servidor, así que recargar antes
     // de resolver la primera la vuelve a mostrar —que es lo correcto: esa
     // persona sigue sin haber empezado—.
-    if (conAyudasDe(player?.rampa) && (player?.exercises_attempted ?? 0) === 0) {
+    if ((player?.exercises_attempted ?? 0) === 0) {
       goTo({ kind: "herramientas" })
       return
     }
@@ -961,11 +924,6 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
       const tocaCafecito =
         consumed !== "cafecito" &&
         trigger !== null &&
-        // Si el cartel del tope va a salir al final de esta misma escalera, la
-        // diapo del cafecito no sale: son dos pedidos de plata seguidos, que es
-        // exactamente lo que el mapa de hitos existe para no tener. El cartel
-        // lleva a la misma diapo, así que no se pierde nada.
-        !a.muro?.bloqueado &&
         shouldShowCafecito(totalCorrectas, trigger)
       const sinUniversidad = player !== null && !player.university
       // La universidad se pregunta UNA VEZ y no es una condición permanente. Que lo
@@ -995,11 +953,11 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
       if (
         consumed === "ranking" &&
         !reglasMostradasRef.current &&
-        tocaReglas(a.exercises_correct, conAyudasDe(player?.rampa))
+        tocaReglas(a.exercises_correct)
       ) {
         reglasMostradasRef.current = true
         marcarReglasMostradas(a.exercises_correct)
-        goTo({ kind: "reglas", cuales: reglasDeLaDiapo(conAyudasDe(player?.rampa)) })
+        goTo({ kind: "reglas", cuales: REGLAS_DE_LA_DIAPO })
         return
       }
 
@@ -1139,15 +1097,6 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
         }
       }
       pendingRef.current = null
-      // El cartel va ÚLTIMO de la escalera y no en lugar de ella: quien acaba de
-      // resolver la número 30 primero ve su ranking, su festejo y lo que le
-      // tocara, y recién después se entera de que no hay más por hoy. Al revés,
-      // el tope se comería el mejor momento de la sesión.
-      if (a.muro?.bloqueado) {
-        ultimaRespuestaRef.current = a
-        goTo({ kind: "tope" })
-        return
-      }
       loadNext()
     },
     [goTo, loadNext, player, releaseXp, chasquido, abortXp, queryClient],
@@ -1317,11 +1266,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
             // ejercicio, así que este es el primer instante en que pedir el
             // siguiente devuelve uno nuevo. Alcanza y sobra con lo que tarda la
             // slide del ranking.
-            //
-            // Salvo que ésta haya sido la última del día: ahí el adelanto es un
-            // 402 garantizado, y aunque se descarte solo, pedirlo es gastar un
-            // viaje para que lo rechacen.
-            if (!data.muro?.bloqueado) adelantar()
+            adelantar()
             pendingRef.current = { answer: data }
             // Modo `espera` porque el número que tiene que subir está en la
             // pantalla siguiente: la XP ya existe, pero contarla acá sería
@@ -1456,12 +1401,6 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
   // se erró al menos una vez. Nunca antes del primer intento — ahí sería regalar
   // la respuesta, y el servidor lo rechaza igual (409 en POST /explain).
   const hayPorque = solvedLatex !== null || fallado
-
-  // El brazo `ayudas` de `dx-rampa-1` (backend/game/rampa.py). Cambia el PIE:
-  // Tabla y Saltear suben a una fila propia y el botón principal ocupa el ancho.
-  // Con el experimento apagado el backend manda null y esto es false, o sea el
-  // pie de siempre.
-  const conAyudas = conAyudasDe(player?.rampa)
 
   // Pedir el texto. Suelto de la navegación porque el botón de reintentar, que
   // vive DENTRO de la pantalla del ¿Por qué?, tiene que volver a pedirlo sin
@@ -1773,7 +1712,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   sfx.select()
                   goTo({ kind: "settings", back: { kind: "exercise" } })
                 }}
-                conTabla={!conAyudas}
+                conTabla={false}
                 onTable={() => {
                   sfx.select()
                   verTabla()
@@ -1878,7 +1817,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   input={inputRef}
                   keys={exercise.keys}
                   newKeys={exercise.new_keys}
-                  fijas={exercise.fijas ?? null}
+                  fijas={exercise.fijas}
                   newFijas={exercise.fijas_nuevas}
                   // `isolate` NO es decoración: los glifos de las teclas llevan
                   // `relative z-10`, y sin un contexto propio se apilan en el de la
@@ -1953,8 +1892,8 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                       className={cn(
                         // El relleno de abajo reserva el alto del PIE, que es lo
                         // que deja el texto del cartel a la vista en vez de
-                        // tapado. El brazo `ayudas` tiene DOS filas de botones
-                        // (pie-rampa.tsx), así que hay que reservar una más y su
+                        // tapado. El pie tiene DOS filas de botones
+                        // (pie-rampa.tsx), así que hay que reservar las dos y su
                         // hueco: sin esto la frase «podés ayudarte con la tabla»
                         // queda cortada por los botones justo cuando es cuando
                         // más hace falta leerla.
@@ -1963,9 +1902,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                         // el `orange-500` translúcido. El 20% fue elegido a ojo:
                         // el 10% del clásico se leía casi negro sobre este fondo.
                         "border-t border-orange-500/50 bg-orange-500/20 px-5 pt-6",
-                        conAyudas
-                          ? "pb-[calc(var(--cta-pt)_+_2_*_var(--cta-h)_+_0.5rem_+_var(--cta-pb))]"
-                          : "pb-[calc(var(--cta-pt)_+_var(--cta-h)_+_var(--cta-pb))]",
+                        "pb-[calc(var(--cta-pt)_+_2_*_var(--cta-h)_+_0.5rem_+_var(--cta-pb))]",
                       )}
                     >
                       <div className="mx-auto w-full max-w-md text-[15px]">
@@ -2003,81 +1940,34 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   ejercicio, y moverlos dejaría un instante sin dónde tocar.
                   `relative z-10` para quedar ARRIBA del banner de acá encima,
                   que es fijo a toda la pantalla y si no los taparía. */}
-              {conAyudas ? (
-                <PieDeRampa
-                  tone={tone}
-                  seq={answerSeq}
-                  cerradoVisual={cerradoVisual}
-                  closed={cerradoVisual}
-                  // Cerrado y acertado la pregunta se mudó adentro del campo,
-                  // así que acá el ¿Por qué? solo entra en el otro cierre
-                  // posible: se agotaron los intentos sin acertar.
-                  hayPorque={hayPorque && (!cerradoVisual || solvedLatex === null)}
-                  primerIntento={primerIntento}
-                  principalDisabled={
-                    answerMutation.isPending ||
-                    (closed && (next.isPending || esperandoAdelanto))
-                  }
-                  skipDisabled={skipMutation.isPending || answerMutation.isPending}
-                  onPrincipal={() => {
-                    if (closed) advanceAfterAnswer(null)
-                    else void onRevisar()
-                  }}
-                  onSkip={onSkip}
-                  onTabla={() => {
-                    sfx.select()
-                    verTabla()
-                  }}
-                  onPorque={abrirPorque}
-                  keyboard={false}
-                  ayudasFijas
-                />
-              ) : (
-              <div className="relative z-10 flex items-stretch gap-2">
-                {/* Acertada, la pregunta ya se mudó adentro del campo (ver el
-                    `hint` de AnswerField, arriba) y el pie queda para el solo
-                    Continuar. Esto es para el otro cierre posible: se agotaron
-                    los intentos sin acertar, así que no hay campo-botón que la
-                    reemplace y el ¿Por qué? tiene que seguir apareciendo acá. */}
-                {closed && hayPorque && solvedLatex === null && (
-                  <PorQueButton onClick={abrirPorque} blanco />
-                )}
-                <AnswerButton
-                  className="flex-1"
-                  tone={tone}
-                  seq={answerSeq}
-                  closed={cerradoVisual}
-                  // Sin destello cuando salió bien a la primera: ahí el pie
-                  // entero cambia de forma (Revisar + Saltear se van, este
-                  // botón pasa a ocupar toda la fila) y ese colapso ya avisa
-                  // por su cuenta. El destello es para cuando el pie NO
-                  // cambia de forma —acertar en el segundo intento o
-                  // más—, que es el único caso en que hace falta.
-                  sinFlash={primerIntento}
-                  disabled={answerMutation.isPending || (closed && (next.isPending || esperandoAdelanto))}
-                  onClick={() => {
-                    if (closed) advanceAfterAnswer(null)
-                    else void onRevisar()
-                  }}
-                />
-                {/* En el medio de los tres, igual que en escritorio (ver el
-                    comentario del mismo pie en desktop-layout.tsx). En una
-                    pantalla de 375 px los tres quedan al filo —medido: 327 px de
-                    tinta contra 343 disponibles— así que este va `min-w-0` y con
-                    menos aire lateral: el que tiene que entrar entero sí o sí es
-                    Revisar. */}
-                {!cerradoVisual && hayPorque && (
-                  <PorQueButton onClick={abrirPorque} className="min-w-0 px-3" blanco />
-                )}
-                {!cerradoVisual && (
-                  <SkipButton
-                    disabled={skipMutation.isPending || answerMutation.isPending}
-                    onClick={onSkip}
-                  />
-                )}
-
-              </div>
-              )}
+              <PieDeRampa
+                tone={tone}
+                seq={answerSeq}
+                cerradoVisual={cerradoVisual}
+                closed={cerradoVisual}
+                // Cerrado y acertado la pregunta se mudó adentro del campo,
+                // así que acá el ¿Por qué? solo entra en el otro cierre
+                // posible: se agotaron los intentos sin acertar.
+                hayPorque={hayPorque && (!cerradoVisual || solvedLatex === null)}
+                primerIntento={primerIntento}
+                principalDisabled={
+                  answerMutation.isPending ||
+                  (closed && (next.isPending || esperandoAdelanto))
+                }
+                skipDisabled={skipMutation.isPending || answerMutation.isPending}
+                onPrincipal={() => {
+                  if (closed) advanceAfterAnswer(null)
+                  else void onRevisar()
+                }}
+                onSkip={onSkip}
+                onTabla={() => {
+                  sfx.select()
+                  verTabla()
+                }}
+                onPorque={abrirPorque}
+                keyboard={false}
+                ayudasFijas
+              />
             </div>
           )}
 
@@ -2637,29 +2527,6 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
             </div>
           )}
 
-          {slide.kind === "tope" && player?.muro && (
-            <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col px-5 pb-[var(--cta-pb)] pt-4">
-              <TopePanel
-                muro={player.muro}
-                dia={diaDelCupo(player.muro.libre_en_segundos)}
-                onEsperar={() => {
-                  sfx.select()
-                  goTo({ kind: "ranking", answer: ultimaRespuestaRef.current })
-                }}
-                onSeguir={() =>
-                  goTo({
-                    kind: "cafecito",
-                    trigger: "tope",
-                    correctToday: player.muro?.hechas_hoy ?? 0,
-                    back: slide,
-                  })
-                }
-                fullBleed
-                className="flex-none"
-              />
-            </div>
-          )}
-
           {slide.kind === "repetitividad" && (
             <div className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col px-5 pb-[var(--cta-pb)] pt-4">
               <ConSalidaAbajo>
@@ -2714,7 +2581,7 @@ function RankingSlide({
   onCafecito,
   onReclutar,
 }: {
-  answer: GameAnswer | null
+  answer: GameAnswer
   climbFrom: number | null
   onSaltoArranca: () => void
   leerMemoria: () => MemoriaDelRanking
@@ -2749,9 +2616,7 @@ function RankingSlide({
     releaseRef.current = onRelease
   })
   useEffect(() => {
-    // `answer` en null es el ranking abierto desde el cartel del tope después de
-    // recargar: no hubo respuesta nueva, así que no hay XP en espera que soltar.
-    if (answer !== null) releaseRef.current()
+    releaseRef.current()
   }, [answer])
 
   // Qué está mostrando el ranking. Lo dice él (`onViewChange`), porque el

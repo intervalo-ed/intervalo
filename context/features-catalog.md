@@ -288,10 +288,14 @@ correcta. Quedaron así:
 | | dónde | quién la ve |
 |---|---|---|
 | el ejercicio | la puerta, en imperativo | todos |
-| la tabla y el salteo | **antes** de la primera derivada, pantalla propia | `ayudas` y `bienvenida` |
-| el Elo | después de la primera correcta en `control` y `teclado`; de la **segunda** en `ayudas` y `bienvenida` (`reglasTras`) | todos |
-| la tabla | después de la primera correcta | `control` y `teclado` |
+| la tabla y el salteo | **antes** de la primera derivada, pantalla propia | todos |
+| el Elo | después de la **segunda** correcta | todos |
 | los cafecitos | — | nadie |
+
+Hasta el 30/10 dependía del brazo de `dx-rampa-1`: en `control` y `teclado`, que
+no tenían la fila de ayudas, la pantalla previa no salía y la tabla se explicaba
+junto con el Elo después de la primera correcta. Con el experimento cerrado la
+fila es de todos y queda un solo calendario.
 
 **Los cafecitos ya no se explican.** El cafecito sigue entero —el pedido, el
 empuje a la universidad, el ranking—; lo que se sacó es contarle la mecánica a
@@ -304,10 +308,9 @@ que el emoji de la regla tuviera dónde reconocerse.
 botones existen. La atrición por derivada es 20,4% en la PRIMERA y entre 5,7% y
 8,9% de la cuarta en adelante: el momento en que alguien se va es justo el que
 esa pantalla cubre, y decirle después que podía haber salteado es llegar tarde a
-la única vez que importaba. En `control` y en `teclado` la fila de ayudas no está
-en el pie, así que ahí la pantalla prometería un botón que no se puede tocar y la
-regla de la tabla se queda donde siempre estuvo (`reglas-trigger.ts ::
-reglasDeLaDiapo`, `herramientas-slide.tsx`).
+la única vez que importaba. Puede ir antes porque los botones que explica están
+siempre a la vista, en la fila de ayudas del pie (`herramientas-slide.tsx`,
+`reglas-trigger.ts`).
 
 La condición de la pantalla nueva es «todavía no contestó ninguna» y sale del
 servidor (`exercises_attempted`), no de localStorage: recargar antes de resolver
@@ -323,7 +326,8 @@ eso obligó a mover un tercero, porque los números no viven solos:
 
 | derivada | qué sale |
 |---|---|
-| 1 | el @ (`username-slide.tsx`) —en el teléfono, **después** del ranking— y la diapo de reglas: el Elo y la tabla en `control` y `teclado`. En `ayudas` y `bienvenida` la diapo sale en la 2 y dice solo el Elo |
+| 1 | el @ (`username-slide.tsx`) —en el teléfono, **después** del ranking— |
+| 2 | la diapo de reglas, que dice solo el Elo (la tabla y el salteo ya se explicaron antes de la primera) |
 | 3 | carrera y universidad (`HITO_PERFIL`) |
 | 8 | la primera encuesta de la escalera (`OPINION_PRIMERA`), y de ahí vuelve para siempre |
 | 10 | registrarse (`HITO_REGISTRO`), y se vuelve a ofrecer cada 12 |
@@ -332,37 +336,35 @@ eso obligó a mover un tercero, porque los números no viven solos:
 | 18 | la pregunta de la varita (`ENCUESTA_EN`), una sola vez en la vida |
 | 20 | el cafecito, por primera vez (`CAFECITO_PRIMERA`, desde el 28/09; antes en la 14) y de ahí cada 20 |
 | 21 | instalar la app (`INSTALAR_PRIMERA`), y después cada 12 |
-| 30 | *(experimento `dx-muro-1`, la mitad de los jugadores NUEVOS — los de antes del 27/09 no tienen tope)* el **tope diario**: no hay más derivadas hasta mañana, salvo cafecito |
 
-**El tope de la 30 no es un escalón de esta escalera y por eso está en su propia
-fila.** Los demás interrumpen algo que estaba pasando y se salen con un botón;
-ése **es** lo que está pasando, y solo se sale comprando o esperando a mañana.
-Sale último de la escalera —después del ranking, del festejo y de lo que tocara—
-y apaga la diapo del cafecito de esa misma respuesta, para no pedir plata dos
-veces seguidas. Ver `game/muro.py` y la sección del tope en
+No hay un tope de derivadas por día. Entre el 27/09 y el 30/10 el experimento
+`dx-muro-1` agregó una fila 30 a esta tabla —el **tope diario**, que solo se
+levantaba con un cafecito— para la mitad de los jugadores nuevos; se cerró con el
+control como ganador y se fue del código. Ver la nota del cierre en
 [gamification.md](gamification.md).
 
-#### El teclado en rampa y la fila de ayudas (`dx-rampa-1`, desde el 27/09)
+#### El teclado en rampa, la fila de ayudas y la pantalla de arranque (para todos desde el 30/10)
 
 El teclado del juego tenía **dos zonas**: un bloque FIJO que estaba siempre
 completo —numérico, `x`, las cuatro operaciones, paréntesis, flechas— y una fila
 DINÁMICA arriba que crecía a medida que las derivadas pedían teclas nuevas
-(`game/keyboard.py`, `game_players.unlocked_keys`). `dx-rampa-1` mete el bloque
-fijo en el mismo mecanismo.
+(`game/keyboard.py`, `game_players.unlocked_keys`). Hoy el bloque fijo entra en
+el mismo mecanismo, para todos.
 
 **La rampa.** El teclado arranca con las teclas que la respuesta necesita y
 crece. Como las tres primeras derivadas son fijas —`x` → `1`, `x²` → `2x`,
 `2x²` → `4x`— eso da literalmente: una tecla, después tres, después cuatro. De la
-cuarta en adelante entran los operadores, y **a la octava se desbloquea todo lo
-que falte**, haya salido o no (`RAMPA_COMPLETA_EN`). Ese techo es lo que la hace
-una rampa y no una jaula.
+cuarta en adelante entran los operadores, y **a la octava derivada servida se
+desbloquea todo lo que falte**, haya salido o no (`RAMPA_COMPLETA_EN`). Ese techo
+es lo que la hace una rampa y no una jaula. Al veterano, que ya pasó la octava
+hace rato, el calendario le da el bloque completo enseguida: no vuelve a empezar
+con una tecla.
 
 Dos invariantes que el mecanismo garantiza y `check_game_rampa.py` verifica:
 
 - **la tecla que la respuesta necesita SIEMPRE está**, porque se desbloquea en el
   mismo ejercicio que la pide. Sin esto alguien queda trabado sin salida;
-- **el inventario nunca encoge**, y lo que se ganó **no se pierde si el
-  experimento se apaga**: la columna conserva las fijas aunque dejen de crecer.
+- **el inventario nunca encoge**: lo que se ganó queda en la columna.
 
 **Mientras el bloque fijo está incompleto, el teclado se EMPAQUETA**: filas
 centradas y parejas del mismo tamaño en vez de la grilla de calculadora con
@@ -380,78 +382,48 @@ que el calendario del servidor todavía no soltó. Para quien llega a ese punto 
 rampa del cliente termina antes que `RAMPA_COMPLETA_EN`; el inventario de
 funciones se sigue desbloqueando de a una.
 
-**Es palanca de TELÉFONO.** En escritorio el teclado no tiene números —se
-tipean— y el físico sigue funcionando en paralelo, así que la rampa ahí no
-significaría nada; el cliente la ignora cuando no dibuja numérico.
+**Es cosa de TELÉFONO.** En escritorio el teclado no tiene números —se tipean—
+y el físico sigue funcionando en paralelo, así que la rampa ahí no significaría
+nada; el cliente la ignora cuando no dibuja numérico.
 
-**La fila de ayudas** (los brazos `ayudas` y `bienvenida`) sube **Tabla** y **Saltear** a una
-fila propia partida por la mitad, arriba del botón principal, con el ícono a la
-derecha de la palabra. El alto sale del teclado, que en rampa mide hasta tres
-filas en vez de cuatro — por eso las dos mitades viajan juntas y no como un
-factorial. Con la fila puesta, el botón de la tabla **sale de la barra de
-arriba** (aparecería dos veces); en la pantalla del ranking se queda, porque ahí
-no hay fila. Al errar, el botón principal se **bifurca** y queda una grilla 2×2:
-Tabla, Saltear, ¿Por qué? y Revisar a la vista al mismo tiempo, que es el momento
-en que se va el 41,5% de los que no aciertan al primer intento.
+**La fila de ayudas** sube **Tabla** y **Saltear** a una fila propia partida por
+la mitad, arriba del botón principal —que queda a todo el ancho—, con el ícono a
+la derecha de la palabra. El alto sale del teclado, que en rampa mide hasta tres
+filas en vez de cuatro — por eso las dos cosas viajan juntas. Con la fila
+puesta, el botón de la tabla **sale de la barra de arriba** (aparecería dos
+veces); en la pantalla del ranking se queda, porque ahí no hay fila. Al errar, el
+botón principal se **bifurca** y queda una grilla 2×2: Tabla, Saltear, ¿Por qué?
+y Revisar a la vista al mismo tiempo, que es el momento en que se va el 41,5% de
+los que no aciertan al primer intento. A diferencia de la rampa, la fila vale
+también en escritorio.
 
-**El cuarto escalón: la pantalla de arranque.** El 28/09 la escalera pasó de tres
-brazos a cuatro:
+**La pantalla de arranque** (`game/bienvenida.py`, ver más abajo) la ve todo el
+mundo, con su resumen de lo que pasó.
+
+**De dónde sale: `dx-rampa-1` (27/09 → cerrado el 30/10).** Todo esto fue un
+experimento del servidor en cuatro brazos, sorteados con un hash del
+`player.id`, cada uno agregando una cosa al anterior:
 
     control  →  teclado  →  + ayudas  →  + pantalla de arranque
 
-La bienvenida (`game/bienvenida.py`) había salido **al 100% el 27/09**, un día
-antes del arranque de la inscripción, y acá se vuelve variable. Tres reglas la
-gobiernan (`game/rampa.py :: muestra_digest`):
+Los veteranos (nacidos antes del 28/09) quedaban afuera y conservaban la
+bienvenida, que había salido al 100% el 27/09; entre los inscriptos, solo el
+cuarto brazo la veía. Tenía un interruptor de ambiente (`RAMPA_ENABLED`). El
+02/10 se movió la base —la puerta de respaldo ganó una oración y el digest
+cambió de contenido— y el panel lee los experimentos de esa época desde el
+lunes 05/10 (`metrics/game_queries.py :: LECTURA_DESDE`).
 
-- **el veterano la conserva.** Quien nació antes del corte no está en el
-  experimento y ya la tiene puesta; sacársela sería desinstalarle una feature
-  para medir a otra gente;
-- **con `RAMPA_ENABLED=0` vuelve a ser de todos**, porque apagar el experimento
-  tiene que devolver el producto a como estaba;
-- **entre los que entran, solo el cuarto brazo.**
+**Ganó `bienvenida`, el cuarto brazo, y no por lectura.** Se cerró antes de
+llegar al n comprometido por una decisión de producto: el juego se va a portar a
+una app nativa y se unificó el flujo en uno solo, el más completo de la escalera.
+No hay que leerlo como que la rampa o las ayudas demostraron un efecto. Se fue
+todo el ramificado por jugador (`con_rampa`, `con_ayudas`, `muestra_digest`) y
+`RAMPA_ENABLED`; lo único del experimento que sigue valiendo para todos sin
+cambios es que **las tres primeras derivadas no mueven el Elo** (ver la sección
+del Elo en [gamification.md](gamification.md)). El panel conserva los números que
+se juntaron en la vista del experimento.
 
-**Es de otra naturaleza que los otros dos escalones**, y conviene tenerlo a la
-vista al leer el resultado: el teclado y las ayudas cambian la pantalla del
-ejercicio, y la bienvenida cambia la ANTERIOR. Es la única de las tres que puede
-mover la **base** de la métrica —cuánta gente llega a que se le sirva la primera
-derivada— y no solo el numerador. Por eso su contraste hay que mirarlo también
-sobre los aterrizados, no solo sobre los que resuelven.
-
-**Y cuesta seis días.** A ~94 altas por día, 547 por brazo pasa de 17,5 a 23,3
-días sobre el contraste primario —el que de verdad tiene potencia—. Se aceptó a
-cambio de subir el caudal de las campañas de difusión; si el caudal no sube, lo
-que se retrasa es la única pregunta que este diseño puede contestar.
-
-**El 02/10 se movió la base, y hay que partir la serie ahí.** El texto de
-respaldo de la puerta —que es lo que ven `control`, `teclado` y `ayudas`— ganó
-una oración que antes no tenía: *«Memorizá todas las derivadas y llegá mejor
-preparado a tus parciales con este minijuego.»* En el mismo cambio la
-instrucción pasó a *«Resolvé la siguiente derivada para comenzar.»*, el botón a
-*«¡Vamos!»*, y el digest del cuarto brazo cambió de contenido (conteos por
-período, sin totales). Fue una decisión de producto tomada a sabiendas. Lo que
-cuesta: desde esa fecha el contraste del cuarto brazo ya no mide «pantalla de
-arranque contra puerta vacía» sino «pantalla de arranque contra una puerta que
-ya explica el producto», y los tres primeros brazos tampoco son comparables con
-sus propios inscriptos anteriores.
-
-**El panel ya parte la serie: los experimentos abiertos del juego se leen desde
-el lunes 05/10** (`metrics/game_queries.py :: LECTURA_DESDE`). Vale para
-`dx-rampa-1`, `dx-banda-1` y `dx-muro-1`: lo inscripto antes no entra a ningún
-resultado. Es un filtro del PANEL y no mueve nada del juego —quién está en qué
-brazo, quién ve la pantalla de arranque (`rampa.NACIDO_DESPUES_DE`) y quién
-tiene tope (`muro.ARRANQUE`) siguen como estaban—. En `dx-muro-1` eso separa
-dos fechas que antes eran una: el panel inscribe desde el 05/10 a un
-subconjunto de los que el servidor topea desde el 27/09, nunca al revés.
-`dx-ab-imagen` no se movió: es de difusión, por grupos, y nada de este cambio
-le toca la métrica.
-
-Un detalle que hay que respetar si alguna vez se toca de nuevo: **`sorteo.brazo_de`
-reparte con `% len(BRAZOS)`**, así que sumar o sacar un brazo re-sortea a todo el
-mundo. El cuarto entró el 27/09, con cero inscriptos, que es la única ventana en
-la que eso sale gratis.
-
-Ver `game/rampa.py`, `web/src/app/derivadas/pie-rampa.tsx` y la sección del Elo
-en [gamification.md](gamification.md), que cambia con esto.
+Ver `game/rampa.py` y `web/src/app/derivadas/pie-rampa.tsx`.
 
 **La escalera de encuestas es el único escalón que no se termina nunca.** Las dos
 preguntas del juego —dificultad y repetitividad— comparten un solo turno y
@@ -600,8 +572,9 @@ efecto» sin el intervalo, el n ni el motivo al lado es la forma más barata de
 que un «no se detectó diferencia» se lea como «no sirvió», que son dos
 afirmaciones distintas y solo una es cierta. El veredicto vive en la caja de
 estado de la vista del experimento, pegado a sus números, y en el informe.
-«Pausado» solo lo puede estar el tope, que es el único con interruptor de
-ambiente (`MURO_ENABLED`).
+«Pausado» era el estado del tope (`dx-muro-1`) con `MURO_ENABLED` apagado, el
+único experimento que tuvo interruptor de ambiente; desde su cierre el 30/10 no
+queda ninguno que pueda estarlo.
 
 **Los filtros ofrecen solo las categorías que tienen algo.** Un filtro que no
 filtra nada no es un filtro: aparecen solas el día que alguien declare el
@@ -893,7 +866,7 @@ Se probó con un umbral de horas y no cierra: con «menos de un día», quien ju
 ayer a las 23 y vuelve hoy a las 8 lleva nueve horas afuera y **cero derivadas
 hoy**, y «hoy ya resolviste 0» es un renglón roto. Ramificando por el contador la
 frase no puede decir cero, el corte es la medianoche argentina que el juego ya usa
-para el tope, y un solo booleano decide saludo, encabezado y cantidad de renglones.
+para el ranking, y un solo booleano decide saludo, encabezado y cantidad de renglones.
 
 #### Qué renglones hay, y los conteos nombran su período
 

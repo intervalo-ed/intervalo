@@ -1728,12 +1728,22 @@ html_exp = "".join(
 # cerró el check falló sin que nada de lo que el check afirma hubiera dejado de
 # ser cierto. Un check que hay que editar cada vez que se cierra un experimento
 # mide el calendario, no el panel.
+#
+# **Y si no queda ninguno abierto, se reabre uno a mano** mientras dura este
+# render. Pasó el 30/10, cuando se cerraron `dx-rampa-1` y `dx-muro-1` y no quedó
+# ningún experimento corriendo: el camino «todavía no se puede leer» sigue
+# existiendo para el próximo que se declare, y es ese camino lo que esto mide.
 _CANDIDATOS_ABIERTOS = (q.EXPERIMENTO_RAMPA, q.EXPERIMENTO_MURO, q.EXPERIMENTO_MOTOR)
 _exp_abierto = next((_x for _x in _CANDIDATOS_ABIERTOS if not _x.get("cierre")),
                    _CANDIDATOS_ABIERTOS[0])
-_abierto = game_render.page(q.build(s, WEEK, exp=_exp_abierto["clave"]),
-                            token="tok", seccion="experimentacion",
-                            exp=_exp_abierto["clave"])
+_cierre_guardado = _exp_abierto.get("cierre")
+_exp_abierto["cierre"] = None
+try:
+    _abierto = game_render.page(q.build(s, WEEK, exp=_exp_abierto["clave"]),
+                                token="tok", seccion="experimentacion",
+                                exp=_exp_abierto["clave"])
+finally:
+    _exp_abierto["cierre"] = _cierre_guardado
 check("un experimento abierto avisa que todavía no se puede leer",
       "Todavía no se puede leer" in _abierto or "Sin datos todavía" in _abierto)
 check("y no muestra un p-valor antes de tiempo",
@@ -2031,6 +2041,12 @@ for _e in _TODOS:
     # Un cancelado no tiene informe: lo que se verifica es que no finja uno.
     if _c.get("cancelado"):
         check("y un cancelado no finge un informe", "Ver el informe" not in _v)
+        continue
+    # Un cierre por decisión de producto, sin lectura detrás, tampoco tiene
+    # informe, y la caja no puede prometer uno.
+    if _c.get("informe") is False:
+        check(f'y «{_e["clave"]}», cerrado sin informe, no finge uno',
+              "Ver el informe" not in _v and "la carpeta de reportes" not in _v)
         continue
     check("y el informe está linkeado",
           _c.get("pdf") is not None and _c["pdf"] in _v,

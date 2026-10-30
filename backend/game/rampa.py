@@ -1,9 +1,28 @@
 """`dx-rampa-1`: el teclado que crece y las ayudas a la vista.
+**CERRADO el 30/10/2026, por decisión de producto y no por lectura.** Ganó el
+escalón de arriba de la escalera —`bienvenida`: teclado en rampa, fila de
+ayudas y pantalla de arranque con novedades— y eso es ahora el juego para todo
+el mundo, viejos y nuevos. Este módulo ya no decide nada: el router sirve
+siempre la rampa (`keyboard.unlock`), el front dibuja siempre la fila de Tabla
+y Saltear, y `/bienvenida` le cuenta novedades a cualquiera. Lo que queda acá es
+lo que el panel necesita para mostrar lo que se juntó mientras corrió —el
+sorteo, que es determinista, y la fecha de arranque— y nada más.
+
+**Por qué se cerró sin llegar al n comprometido.** El juego se porta a una app
+nativa (React Native) y se quiere UN flujo, sin lógica de experimento que
+replicar del otro lado. Se queda la punta de la escalera porque es el producto
+completo que se diseñó; el panel lo dice con todas las letras
+(`metrics/game_queries.py :: EXPERIMENTO_RAMPA`): no es un veredicto.
+
+Lo que sobrevivió del experimento como comportamiento del motor es que los tres
+primeros ejercicios no mueven el Elo, y vive en `elo.py :: SIN_ELO_HASTA`.
+
+## Qué era
 
 **La hipótesis.** El 18,3% de la gente a la que el juego le sirve su primera
 derivada **no escribe nada**: la ve y se va. Y de los que sí escriben, el 18,8%
 contesta una sola. Medido sobre 2.056 personas, solo el **61,92%** llega a la
-tercera derivada. Este experimento prueba dos cosas contra eso:
+tercera derivada. Este experimento probaba dos cosas contra eso:
 
   * **el teclado en rampa** — la primera derivada es `x`, o sea que la respuesta
     es `1`. Arrancar con veinticuatro teclas para eso es cobrar un impuesto de
@@ -49,15 +68,10 @@ tiene números —se tipean— y el físico sigue funcionando en paralelo, así 
 rampa ahí no significa nada. Las ayudas sí aplican en los dos. Eso deja, de
 yapa, un contraste limpio en escritorio: `control` y `teclado` son idénticos ahí,
 así que juntarlos y compararlos contra `ayudas` mide las ayudas SOLAS.
-
-**Lo que este módulo NO decide** es cómo se dibuja nada. Dice en qué brazo cayó
-cada persona y qué teclas tiene; que el teclado de escritorio ignore la rampa lo
-decide el cliente, que es el único que sabe qué está dibujando.
 """
 
 from __future__ import annotations
 
-import os
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
@@ -65,115 +79,26 @@ from . import sorteo
 
 EXPERIMENTO = "dx-rampa-1"
 
-# El índice ES el bucket (ver `sorteo.brazo_de`), así que el orden no se toca:
-# reordenarlos re-sortea a todo el mundo a mitad del experimento.
+# El índice ES el bucket (ver `sorteo.brazo_de`). Con el experimento cerrado ya
+# no reparte nada, pero el panel reconstruye el brazo de cada uno con esto, así
+# que el orden sigue sin tocarse.
 BRAZOS = ("control", "teclado", "ayudas", "bienvenida")
-
-# El interruptor. Arranca ENCENDIDO, al revés que `MURO_ENABLED`, y la asimetría
-# es a propósito: un muro puede hacer daño en horas —le corta el juego a alguien—
-# mientras que lo peor que puede hacer una rampa de teclado es no servir. Lo que
-# sí hace falta es poder apagarla desde Railway en segundos si algo sale mal, sin
-# esperar un deploy.
-ENV_ENCENDIDO = "RAMPA_ENABLED"
-
-# Cuántos ejercicios de la rampa NO mueven el Elo, en LOS DOS BRAZOS.
-#
-# Los tres primeros están fijados por diseño (`x`, `x²`, `2x²`; p̂ 0,82-0,85 con
-# θ=0) y el motor recién toma el control en el cuarto, donde p̂ cae a 0,77 y la
-# mediana de tiempo salta de 5,8 a 17,7 segundos. Como el tratamiento los vuelve
-# casi seguros, dejarlos actualizando θ le daría al brazo tratado un θ más alto
-# al entrar al motor, o sea ejercicios MÁS difíciles, y perdería profundidad por
-# algo que no es el tratamiento.
-#
-# Se apaga en los dos brazos y no solo en el tratado: si se apagara en uno, la
-# diferencia de θ sería el tratamiento. Apagado en ambos, los dos entran al motor
-# desde el mismo θ y la comparación mide lo que dice medir.
-SIN_ELO_HASTA = 3
-
-
-def habilitado() -> bool:
-    """¿Está encendido el sorteo?
-
-    Se lee en cada pedido y no una vez al importar: apagarlo tiene que ser
-    cambiar la variable en Railway y que el próximo `/next` ya pase, sin esperar
-    a que el proceso se reinicie.
-    """
-    crudo = os.getenv(ENV_ENCENDIDO)
-    if crudo is None:
-        return True
-    return crudo.strip().lower() not in {"0", "false", "no", "off", ""}
 
 
 def brazo_de(player_id: int) -> str:
-    """En qué brazo de `dx-rampa-1` cayó esta persona.
-
-    Determinístico y sin estado, igual que el del motor: la misma cuenta da el
-    mismo brazo hoy, cuando esa persona vuelva en un mes y cuando el panel lea.
-    """
+    """El brazo que le tocó a cada jugador mientras el experimento corrió. El
+    hash es determinista, así que se puede reconstruir sin columna."""
     return sorteo.brazo_de(player_id, EXPERIMENTO, BRAZOS)
 
 
-def etiqueta_de(player_id: int) -> str:
-    """`dx-rampa-1:teclado`, con el formato de `game_players.variant`."""
-    return f"{EXPERIMENTO}:{brazo_de(player_id)}"
-
-
-# Desde cuándo el brazo decide la pantalla de arranque, en UTC ingenuo — que es
-# la escala de `game_players.created_at`.
-#
-# **Existe solo para el cuarto brazo.** Los otros tres no lo necesitan: a quien
-# ya venía jugando el teclado le salió completo desde siempre y sus teclas ya
-# están desbloqueadas, así que la rampa no le pasa nada y el gate es implícito.
-# La bienvenida no tiene esa suerte — salió al 100% el 27/09 y un veterano en el
-# brazo `control` la PERDERÍA. Este corte es lo que la deja puesta para toda la
-# base que ya la tiene y la vuelve variable solo para quien entra al experimento.
+# Desde cuándo el brazo decidía la pantalla de arranque, en UTC ingenuo — que es
+# la escala de `game_players.created_at`. Mientras corrió, quien había nacido
+# antes la veía igual (salió al 100% el 27/09 y sacársela habría sido
+# desinstalarle una feature para medir a otra gente). Queda como referencia de
+# quién entró al experimento.
 _TZ_JUEGO = ZoneInfo("America/Argentina/Buenos_Aires")
 NACIDO_DESPUES_DE = (
     datetime(2026, 9, 28, tzinfo=_TZ_JUEGO)
     .astimezone(ZoneInfo("UTC"))
     .replace(tzinfo=None)
 )
-
-
-def muestra_digest(player) -> bool:
-    """Si a esta persona la pantalla de arranque le cuenta novedades.
-
-    Tres casos, y el orden importa:
-
-      1. experimento apagado → sí, para todos. `RAMPA_ENABLED=0` tiene que
-         devolver el producto a como estaba, y como estaba la bienvenida era de
-         todos;
-      2. nació antes del arranque → sí. No está en el experimento y ya la tiene
-         puesta desde el 27/09; sacársela sería desinstalarle una feature para
-         medir a otra gente;
-      3. entró al experimento → solo en el cuarto brazo, que es el punto.
-    """
-    if not habilitado():
-        return True
-    nacio = getattr(player, "created_at", None)
-    if nacio is None or nacio < NACIDO_DESPUES_DE:
-        return True
-    return brazo_de(player.id) == "bienvenida"
-
-
-def con_rampa(player_id: int) -> bool:
-    """¿A esta persona le crece el teclado?
-
-    Los dos brazos tratados la tienen: `ayudas` es `teclado` MÁS la fila de
-    botones, no otra cosa. Que sea una escalera y no un factorial vive acá.
-    """
-    return habilitado() and brazo_de(player_id) in ("teclado", "ayudas", "bienvenida")
-
-
-def con_ayudas(player_id: int) -> bool:
-    """¿Esta persona ve la fila de Tabla y Saltear?"""
-    return habilitado() and brazo_de(player_id) in ("ayudas", "bienvenida")
-
-
-def sin_elo(n_servidos: int) -> bool:
-    """¿Este ejercicio queda afuera del Elo?
-
-    Va por el NÚMERO de ejercicio y no por el brazo, justamente para que valga
-    para los tres. `n_servidos` es 1 para el primero.
-    """
-    return habilitado() and n_servidos <= SIN_ELO_HASTA

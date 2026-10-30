@@ -390,9 +390,9 @@ def _estado_tag(e: dict) -> tuple[str, str]:
     caja de estado de la vista del experimento, pegado a sus números, y en el
     informe. Acá lo único que hace falta saber es si hay algo corriendo.
 
-    `encendido` solo existe en el payload del tope, que es el único con
-    interruptor de ambiente (`MURO_ENABLED`); en los demás da None y no pausa
-    nada.
+    `encendido` lo trae un payload con interruptor de ambiente. Hoy no lo trae
+    ninguno —el último era el del tope (`MURO_ENABLED`), cerrado el 30/10— y
+    entonces da None y no pausa nada; queda para el próximo que lo necesite.
     """
     if (e.get("cierre") or {}).get("cancelado"):
         return "Cancelado", _TONOS_TAG["cancelado"]
@@ -625,10 +625,14 @@ def _caja_cierre(e: dict) -> str:
                    f'(z = {num(L["z"], dec=2)}, p-valor {_p_txt(L["p_valor"])}, '
                    f'IC95 [{num(L["ic_pp"][0])} ; {num(L["ic_pp"][1])}] pp). ')
     pdf = c.get("pdf")
-    enlace = (f' <a href="{esc(pdf)}" target="_blank" rel="noopener">'
-              f'Ver el informe completo (PDF)</a>.' if pdf else
-              f' El informe vive en <a href="{esc(PDF_CARPETA)}" '
-              f'target="_blank" rel="noopener">la carpeta de reportes</a>.')
+    if pdf:
+        enlace = (f' <a href="{esc(pdf)}" target="_blank" rel="noopener">'
+                  f'Ver el informe completo (PDF)</a>.')
+    elif c.get("informe", True):
+        enlace = (f' El informe vive en <a href="{esc(PDF_CARPETA)}" '
+                  f'target="_blank" rel="noopener">la carpeta de reportes</a>.')
+    else:
+        enlace = ""
     return _caja_estado(
         f'Cerrado el {c["fecha"].strftime("%d/%m/%Y")} · {c["veredicto"]}',
         detalle + esc(c["motivo"]) + enlace, tono)
@@ -2482,12 +2486,6 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
 
     if e.get("cierre"):
         estado = _caja_cierre(e)
-    elif not e["encendido"]:
-        estado = _caja_estado(
-            "Apagado",
-            f'<code>MURO_ENABLED</code> está en cero, así que nadie tiene tope y los dos '
-            f'brazos son el mismo juego. Lo de abajo es lo que quedó de cuando estuvo '
-            f'prendido.', "espera")
     elif e["sin_arrancar"]:
         estado = _caja_estado(
             "Sin datos todavía",
@@ -2657,12 +2655,6 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
 
     if e.get("cierre"):
         estado = _caja_cierre(e)
-    elif not e["encendido"]:
-        estado = _caja_estado(
-            "Apagado",
-            '<code>RAMPA_ENABLED</code> está en cero: nadie tiene rampa ni fila de '
-            'ayudas, y los tres brazos son el mismo juego. Lo de abajo es lo que quedó '
-            'de cuando estuvo prendido.', "espera")
     elif e["sin_arrancar"]:
         estado = _caja_estado(
             "Sin datos todavía",
@@ -2889,7 +2881,7 @@ def page(p: dict, *, token: str, seccion: str = SECCION_POR_DEFECTO,
                  f'θ y p̂ con los que el motor sirve el CUARTO ejercicio, que es donde toma '
                  f'el control. Los {num(e["sin_elo_hasta"])} primeros no actualizan θ en '
                  f'NINGÚN brazo justamente para que esto no diverja '
-                 f'(<code>game/rampa.py</code>), y se mide igual porque un guardarraíl que '
+                 f'(<code>game/elo.py</code>), y se mide igual porque un guardarraíl que '
                  f'confía en que el código hace lo que dice no es un guardarraíl.',
                  tono_elo) + _table(
                      ["Brazo", "Con 4º ejercicio", "θ al servir el 4º", "p̂ al servir el 4º"],

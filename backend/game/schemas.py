@@ -49,41 +49,6 @@ class GamePlayerCreateRequest(BaseModel):
     timezone: Optional[str] = Field(default=None, max_length=_MAX_HUSO)
 
 
-class GameMuroOut(BaseModel):
-    """El estado del tope diario de esta persona (game/muro.py).
-
-    Viaja en DOS lugares —con cada respuesta y con el jugador— y eso no es
-    duplicación: con la respuesta es como el cliente se entera en el momento de
-    que la que acaba de acertar fue la última, y con el jugador es como una
-    recarga de la página cae en el cartel en vez de en un ejercicio que el
-    servidor va a rechazar.
-    """
-
-    # `null` es «esta persona no tiene tope», y sale por dos caminos que al
-    # cliente no le sirve distinguir: el experimento está apagado, o le tocó el
-    # brazo de control.
-    tope: Optional[int] = None
-    hechas_hoy: int = 0
-    # La única que el cliente necesita mirar para decidir si dibuja el cartel.
-    # No es `hechas_hoy >= tope`: quien tiene el pase llegó al tope y sigue.
-    bloqueado: bool = False
-    # Si tiene el tope levantado porque lo compró. No vence (game/muro.py).
-    con_pase: bool = False
-    # Cuánto falta para la medianoche argentina. Lo manda el servidor ya
-    # calculado porque el «hoy» del juego es el de Buenos Aires y no el del
-    # aparato: quien juega desde Madrid comparte el día con el ranking con el
-    # que se compara.
-    libre_en_segundos: Optional[int] = None
-    # Minutos EFECTIVOS hasta llegar al tope, sin los recreos. Ver
-    # muro.minutos_jugando: el reloj de pared tiene p90 de 353 minutos y
-    # felicitar a alguien por tardar seis horas es una burla.
-    minutos_jugando: int = 0
-    # Los dos números del cartel. El primero es constante —todos los que lo ven
-    # hicieron lo mismo— y el segundo depende de cuánto tardó esta persona.
-    pct_mas_que: float = 0.0
-    pct_mas_rapido: int = 0
-
-
 class GamePlayerOut(BaseModel):
     player_id: int
     alias: str
@@ -114,14 +79,6 @@ class GamePlayerOut(BaseModel):
     # cuando se erra, que es lo que lo vuelve una medida de qué tan difícil se
     # está resolviendo y no de cuánto se jugó.
     elo: int = 1000
-    # El tope diario, para que una recarga con el cupo agotado caiga en el
-    # cartel y no en un ejercicio que el servidor va a rechazar con 402.
-    muro: Optional[GameMuroOut] = None
-    # El brazo de `dx-rampa-1`: "control" | "teclado" | "ayudas", o `None` con el
-    # experimento apagado. Va en el jugador y no en el ejercicio porque decide
-    # cómo se dibuja el PIE de la pantalla —la fila de Tabla y Saltear— y eso
-    # tiene que estar resuelto antes de que llegue la primera derivada.
-    rampa: Optional[str] = None
     # La posición (0-8) que eligió en la palanca de dificultad, o None si manda
     # el motor. `dificultad_disponible` dice si el interruptor está prendido: con
     # él apagado el front no ofrece la fila de Configuración.
@@ -168,15 +125,16 @@ class GameExerciseOut(BaseModel):
     # Viajan los slugs de fila y no la `template_key` a propósito: es lo que la
     # tabla precisa, y no delata más de lo que ya delatan `tier` y `keys`.
     tabla_slugs: list[str] = []
-    # Las teclas del bloque FIJO que este jugador tiene desbloqueadas
-    # (`dx-rampa-1`, ver game/rampa.py). `None` = el bloque completo, que es lo
-    # que ve el brazo control y lo que veía todo el mundo antes.
+    # Las teclas del bloque FIJO que este jugador tiene desbloqueadas: la rampa
+    # del teclado, que es de todos desde que `dx-rampa-1` se cerró (ver
+    # game/keyboard.py :: unlock). Siempre es una lista; quien nunca tuvo rampa
+    # recibe el bloque completo.
     #
     # Viaja aunque el cliente sea de escritorio —donde la rampa no aplica porque
     # no hay numérico y el teclado físico sigue andando— a propósito: el servidor
     # dice qué teclas tiene la persona y el cliente decide qué hacer con eso,
     # que es el único que sabe qué está dibujando.
-    fijas: Optional[list[str]] = None
+    fijas: list[str] = []
     # Las fijas que se desbloquean con ESTE ejercicio, subconjunto de `fijas`.
     # Van aparte de `new_keys` —que sigue siendo subconjunto de `keys`— porque
     # alimentan dos filas distintas del teclado.
@@ -244,10 +202,6 @@ class GameAnswerResponse(BaseModel):
     rank_after: Optional[int] = None
     best_rank: Optional[int] = None
     is_record: bool = False
-    # El tope diario DESPUÉS de esta respuesta. Es así como el cliente se entera
-    # en el mismo momento de que la que acaba de acertar fue la última del día,
-    # sin tener que pedir un ejercicio nuevo para que se lo nieguen.
-    muro: Optional[GameMuroOut] = None
 
 
 class GameExplainRequest(BaseModel):

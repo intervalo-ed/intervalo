@@ -113,6 +113,9 @@ def required_keys(expr: sympy.Expr) -> set[str]:
 
 # ── El bloque FIJO, que hasta `dx-rampa-1` no se desbloqueaba nunca ─────────
 #
+# Desde el cierre del experimento (30/10) la rampa es de todos: ganó el brazo
+# `bienvenida`, que la tenía (game/rampa.py).
+#
 # El numérico, la incógnita, las cuatro operaciones y los paréntesis estaban
 # SIEMPRE completos: el único vocabulario que crecía era el dinámico de arriba.
 # La rampa los mete en el mismo mecanismo, y por eso viven en la MISMA columna
@@ -204,7 +207,7 @@ def parse_unlocked(raw: str | None) -> set[str]:
 
 
 def parse_fijas(raw: str | None) -> set[str]:
-    """Las teclas FIJAS desbloqueadas. Vacío = nadie tocó la rampa."""
+    """Las teclas FIJAS desbloqueadas. Vacío = nunca tuvo rampa (ver `unlock`)."""
     if not raw:
         return set()
     return {k for k in raw.split(",") if k in _FIJAS_INDEX}
@@ -230,8 +233,8 @@ def parse_unlocked_ordered(raw: str | None) -> list[str]:
     return in_order(parse_unlocked(raw))
 
 
-def unlock(raw: str | None, expr: sympy.Expr, rampa: bool = False,
-           n_servidos: int = 0) -> tuple[str, list[str], list[str]]:
+def unlock(raw: str | None, expr: sympy.Expr,
+           n_servidos: int = 1) -> tuple[str, list[str], list[str]]:
     """Suma al inventario lo que esta derivada exige.
 
     Devuelve (columna nueva, dinámicas nuevas, fijas nuevas). Las dos listas van
@@ -240,15 +243,23 @@ def unlock(raw: str | None, expr: sympy.Expr, rampa: bool = False,
     un invariante que el contrato de la API promete y `check_game_unlocks`
     verifica.
 
-    Con `rampa` puesto —el jugador cayó en un brazo de `dx-rampa-1`— también
-    crece el bloque FIJO, por necesidad más calendario. Sin rampa las fijas que
-    la columna ya tuviera **se conservan pero no crecen**: si el experimento se
-    apaga a mitad de camino, nadie pierde teclas que ya se había ganado.
+    El bloque FIJO crece para todo el mundo desde que `dx-rampa-1` se cerró
+    (30/10), por necesidad más calendario.
+
+    **Los que nunca tuvieron rampa.** Quien jugó en el brazo control —o con el
+    experimento apagado— tiene la columna sin una sola fija: para él el teclado
+    fue siempre el bloque completo. Si ya respondió algo (`n_servidos > 1`), la
+    rampa no tiene nada que enseñarle y achicarle el teclado sería quitarle
+    teclas que usaba ayer, así que recibe el bloque entero de una, y sin
+    anunciarlo como nuevo: no hay nada que festejar en lo que siempre tuvo. Para
+    alguien con rampa la columna nunca está vacía de fijas pasado el primero —el
+    escalón 1 ya suelta `f:1`—, así que esta rama no le roba la rampa a nadie.
     """
     have_din = parse_unlocked(raw)
     fresh = required_keys(expr) - have_din
-    todo = have_din | fresh | parse_fijas(raw)
-    if not rampa:
-        return serialize(todo), in_order(fresh), []
+    have_fij = parse_fijas(raw)
+    todo = have_din | fresh | have_fij
+    if not have_fij and n_servidos > 1:
+        return serialize(todo | set(FIJAS_ORDER)), in_order(fresh), []
     nuevas_fij = (fijas_requeridas(expr) | fijas_del_escalon(n_servidos)) - todo
     return serialize(todo | nuevas_fij), in_order(fresh), fijas_en_orden(nuevas_fij)

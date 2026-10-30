@@ -37,8 +37,6 @@ os.environ["DATABASE_URL"] = "sqlite:///" + str(
     Path(tempfile.mkdtemp()) / "game_dificultad.db"
 ).replace("\\", "/")
 os.environ["DIFICULTAD_ENABLED"] = "1"
-# Este check mide la palanca, no las ayudas de la rampa.
-os.environ["RAMPA_ENABLED"] = "0"
 sys.path.insert(0, str(BACKEND))
 sys.path.insert(0, str(BACKEND.parent))
 
