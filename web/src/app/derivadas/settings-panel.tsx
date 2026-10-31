@@ -31,6 +31,7 @@ import { CareerSelect, UniversityGrid } from "@/components/onboarding-fields"
 import { setSoundMuted, useSoundMuted } from "@/lib/audio/sound-settings"
 import { useSfx } from "@/lib/audio/useSfx"
 import { canonicalUniversity } from "@intervalo/dx-core/university-tags"
+import { careerLabel } from "@intervalo/dx-core/carreras"
 import { cn } from "@/lib/utils"
 import { VERDE_TINTA, WhatsappGlyph } from "./cafecito-cta"
 import { SlideFlip } from "./slide-flip"
@@ -641,16 +642,6 @@ export function SettingsPanel({
       {pantalla}
     </SlideHorizontal>
   )
-}
-
-function careerLabel(career: string | null | undefined): string {
-  const names: Record<string, string> = {
-    E: "Ingeniería",
-    S: "Ciencia",
-    T: "Tecnología",
-    M: "Matemática",
-  }
-  return career ? (names[career] ?? career) : "Elegir"
 }
 
 function PanelShell({

@@ -64,7 +64,7 @@ function BotonDeAyuda({
   disabled,
 }: {
   texto: string
-  icono: string[]
+  icono: readonly string[]
   onPress: () => void
   disabled: boolean
 }) {
@@ -82,20 +82,36 @@ function BotonDeAyuda({
       <Text numberOfLines={1} style={styles.texto}>
         {texto}
       </Text>
-      <Svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke={TEMA.foreground} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-        {icono.map((d) => (
-          <Path key={d} d={d} />
-        ))}
-      </Svg>
+      <IconoDeAyuda trazos={icono} />
     </Pressable>
   )
 }
 
+// El mismo dibujo que lleva el botón, para que la diapo de las herramientas
+// (herramientas-slide.tsx) muestre cuál de los dos abre qué.
+export function IconoDeAyuda({
+  trazos,
+  color = TEMA.foreground,
+  size = 16,
+}: {
+  trazos: readonly string[]
+  color?: string
+  size?: number
+}) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+      {trazos.map((d) => (
+        <Path key={d} d={d} />
+      ))}
+    </Svg>
+  )
+}
+
 // lucide `Table2` y `SkipForward`, los de la web.
-const TRAZOS_TABLA = [
+export const TRAZOS_TABLA = [
   "M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18",
 ]
-const TRAZOS_SALTEAR = [
+export const TRAZOS_SALTEAR = [
   "M21 4v16",
   "M6.029 4.285A2 2 0 0 0 3 6v12a2 2 0 0 0 3.029 1.715l9.997-5.998a2 2 0 0 0 .003-3.432z",
 ]

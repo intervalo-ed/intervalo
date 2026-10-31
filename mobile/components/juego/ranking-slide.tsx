@@ -3,9 +3,10 @@
 // también garantiza que el conteo empiece: lo larga el toque en Continuar, y
 // esta diapo lo vuelve a intentar al montarse por si se llegó por otro camino.
 //
-// Sin GameHeader (todavía no existe en la app) ni el pie de reclutas.
+// La cabecera la pasa quien la monta (`cabecera`), arriba de todo como en la
+// web. Sin el pie de reclutas.
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, type ReactNode } from "react"
 import { StyleSheet, View } from "react-native"
 import type { RankingView } from "@intervalo/dx-core/juego/ranking-formato"
 import type { MemoriaDelRanking } from "@intervalo/dx-core/juego/ranking-orden"
@@ -30,6 +31,7 @@ export function RankingSlide({
   onRelease,
   onContinue,
   continueDisabled,
+  cabecera,
 }: {
   answer: GameAnswer
   climbFrom: number | null
@@ -47,6 +49,7 @@ export function RankingSlide({
   onRelease: () => void
   onContinue: () => void
   continueDisabled: boolean
+  cabecera?: ReactNode
 }) {
   // Red de seguridad, no el disparo: si el conteo ya se largó no hace nada.
   const releaseRef = useRef(onRelease)
@@ -59,6 +62,7 @@ export function RankingSlide({
 
   return (
     <View style={styles.pantalla}>
+      {cabecera}
       <GameRanking
         climbFrom={climbFrom}
         onSaltoArranca={onSaltoArranca}

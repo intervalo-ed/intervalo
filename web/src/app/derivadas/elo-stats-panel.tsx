@@ -25,6 +25,15 @@ import { XpDots } from "@/components/xp-dots"
 import { VERDE } from "./cafecito-cta"
 import { KeyCap } from "./exercise-card"
 import { levelColor } from "@intervalo/dx-core/juego/game-colors"
+import {
+  HIST_ALTO,
+  HIST_ESQUELETO,
+  altoDeBarra,
+  etiquetaDelEje,
+  maxCount as maxCountDe,
+  pasoEtiqueta as pasoEtiquetaDe,
+  rotuloDeBarra,
+} from "@intervalo/dx-core/juego/estadisticas-formato"
 import { useCartel } from "./game-ranking"
 import type { GamePlayer } from "@intervalo/dx-core/juego/game-keys"
 import type { GameStats } from "@intervalo/dx-core/juego/UseGameStats"
@@ -47,11 +56,6 @@ const CAFE_CLARO = `rgb(${[0xea, 0xbb, 0x74].join(", ")})`
 // `m` («mis números») antes de asentarse acá. Las cuatro teclas del juego —w,
 // i, p, j— tienen que seguir siendo distintas entre sí.
 export const TECLA_ESTADISTICAS = "j"
-
-// Alto del área de barras. Fijo y no `flex-1`: un histograma que se estira
-// con lo que sobre de la columna se ve distinto según cuántos jugadores haya
-// en la base, y la forma de la campana no tiene por qué depender de eso.
-const HIST_ALTO = 116
 
 /** El botón de la cabecera, mismo molde que `TableButton`
  * (derivatives-table.tsx): ícono + `<KeyCap>`, sin rótulo. Ausente y no
@@ -129,7 +133,7 @@ function EloHistogram({
           style={{ height: HIST_ALTO }}
           aria-hidden
         >
-          {[25, 40, 55, 75, 90, 100, 95, 80, 65, 50, 35, 25, 40, 30, 20, 15].map((alto, i) => (
+          {HIST_ESQUELETO.map((alto, i) => (
             <div key={i} className="flex-1 rounded-sm bg-white/10" style={{ height: `${alto}%` }} />
           ))}
         </div>
@@ -160,11 +164,8 @@ function EloHistogram({
     )
   }
 
-  const maxCount = Math.max(1, ...stats.histogram.map((bucket) => bucket.count))
-  const ultimo = stats.histogram[stats.histogram.length - 1]
-  // Una etiqueta cada tantos buckets, más los dos extremos siempre — con 16
-  // buckets (game/stats.py :: N_BUCKETS) da unas 9.
-  const pasoEtiqueta = Math.max(1, Math.ceil(stats.histogram.length / 9))
+  const maxCount = maxCountDe(stats.histogram)
+  const pasoEtiqueta = pasoEtiquetaDe(stats.histogram)
 
   return (
     <div className="flex flex-col gap-2">
@@ -175,10 +176,7 @@ function EloHistogram({
       >
         {stats.histogram.map((bucket, i) => {
           const esLaPropia = i === stats.player_bucket_index
-          // Piso de 6%: un bucket con un solo jugador entre otros de veinte no
-          // puede desaparecer del todo, o la barra dejaría de contar que hay
-          // alguien ahí.
-          const alto = Math.max(6, Math.round((bucket.count / maxCount) * 100))
+          const alto = altoDeBarra({ count: bucket.count, max: maxCount })
           return (
             <div
               key={bucket.from_rating}
@@ -187,7 +185,7 @@ function EloHistogram({
                 esLaPropia ? "bg-primary" : "bg-white/15",
               )}
               style={{ height: `${alto}%` }}
-              title={`${fmtCount(bucket.from_rating)}–${fmtCount(bucket.to_rating)}: ${bucket.count} jugador${bucket.count === 1 ? "" : "es"}`}
+              title={rotuloDeBarra({ bucket, fmt: fmtCount })}
             />
           )
         })}
@@ -198,19 +196,22 @@ function EloHistogram({
           los slots va vacío; solo marcan los múltiplos de `pasoEtiqueta` y
           los dos extremos. */}
       <div className="flex gap-1 text-[0.65rem] tabular-nums text-muted-foreground/70">
-        {stats.histogram.map((bucket, i, arr) => {
-          const esUltimo = i === arr.length - 1
-          const marca = i === 0 || esUltimo || i % pasoEtiqueta === 0
-          if (!marca) return <span key={bucket.from_rating} className="flex-1" />
+        {stats.histogram.map((bucket, i) => {
+          const etiqueta = etiquetaDelEje({ histogram: stats.histogram, i, paso: pasoEtiqueta })
+          if (!etiqueta) return <span key={bucket.from_rating} className="flex-1" />
           return (
             <span
               key={bucket.from_rating}
               className={cn(
                 "flex-1",
-                i === 0 ? "text-left" : esUltimo ? "text-right" : "text-center",
+                etiqueta.alinear === "left"
+                  ? "text-left"
+                  : etiqueta.alinear === "right"
+                    ? "text-right"
+                    : "text-center",
               )}
             >
-              {fmtCount(esUltimo ? ultimo.to_rating : bucket.from_rating)}
+              {fmtCount(etiqueta.valor)}
             </span>
           )
         })}

@@ -6,4 +6,6 @@ export const env = {
   clerkPublishableKey: process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY ?? "",
   posthogKey: process.env.EXPO_PUBLIC_POSTHOG_KEY ?? "",
   posthogHost: process.env.EXPO_PUBLIC_POSTHOG_HOST || "https://us.i.posthog.com",
+  // Para las páginas que siguen siendo de la web (privacidad, términos).
+  webUrl: process.env.EXPO_PUBLIC_WEB_URL || "https://www.intervalo.xyz",
 }

@@ -20,10 +20,7 @@ import { UniTag } from "@/components/university-tag"
 import { etiquetaDe, tagDe } from "@intervalo/dx-core/university-tags"
 import { XpDots } from "@/components/xp-dots"
 import { levelColor } from "@intervalo/dx-core/juego/game-colors"
-
-const SLOT = /(\{(?:a|b|u0|u1|xp:\d+)\})/
-const XP = /^\{xp:(\d+)\}$/
-const miles = new Intl.NumberFormat("es-AR")
+import { partirEnHuecos } from "@intervalo/dx-core/juego/texto-con-huecos"
 
 export function TextoConHuecos({
   texto,
@@ -45,8 +42,8 @@ export function TextoConHuecos({
 }) {
   return (
     <>
-      {texto.split(SLOT).map((chunk, i, todos) => {
-        if (chunk === "{a}") {
+      {partirEnHuecos({ texto }).map((hueco, i) => {
+        if (hueco.tipo === "a") {
           // Sin nivel —quien invita un cafecito no es necesariamente un
           // jugador— el nombre va destacado pero sin robarle un color que no le
           // corresponde.
@@ -64,7 +61,7 @@ export function TextoConHuecos({
             </span>
           ) : null
         }
-        if (chunk === "{b}") {
+        if (hueco.tipo === "b") {
           // El segundo nombre de la oración. Sin color de nivel a propósito,
           // como las siglas: el protagonista es `{a}`, y a este le alcanza con
           // destacarse sin anunciar su rango.
@@ -77,8 +74,8 @@ export function TextoConHuecos({
             </span>
           ) : null
         }
-        if (chunk === "{u0}" || chunk === "{u1}") {
-          const uni = universities?.[chunk === "{u0}" ? 0 : 1]
+        if (hueco.tipo === "uni") {
+          const uni = universities?.[hueco.indice]
           if (!uni) return null
           // **Dónde va el chip y dónde no, y por qué no es lo mismo.**
           //
@@ -102,7 +99,7 @@ export function TextoConHuecos({
               key={i}
               // Sin margen a la derecha si lo que sigue es puntuación: «la
               // UBA .» con el punto despegado se lee como un error.
-              className={`inline-flex align-baseline ${/^[.,;:!?]/.test(todos[i + 1] ?? "") ? "ml-1" : "mx-1"}`}
+              className={`inline-flex align-baseline ${hueco.antesDePuntuacion ? "ml-1" : "mx-1"}`}
             >
               <UniTag university={uni} />
             </span>
@@ -112,8 +109,7 @@ export function TextoConHuecos({
             </span>
           )
         }
-        const xp = XP.exec(chunk)
-        if (xp) {
+        if (hueco.tipo === "xp") {
           // El número y su ícono, que es como la XP se escribe en el resto del
           // juego (el ranking, el resumen): la sigla «XP» en texto corrido era
           // el único lugar donde se la nombraba con letras. `whitespace-nowrap`
@@ -123,12 +119,12 @@ export function TextoConHuecos({
               key={i}
               className="inline-flex items-baseline gap-1 whitespace-nowrap font-semibold text-foreground"
             >
-              {miles.format(Number(xp[1]))}
+              {hueco.texto}
               <XpDots className="size-[0.85em] self-center" />
             </span>
           )
         }
-        return chunk
+        return hueco.texto
       })}
     </>
   )

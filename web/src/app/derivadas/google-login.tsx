@@ -11,30 +11,14 @@
 import { useRef, useState } from "react"
 import { useSignIn } from "@clerk/nextjs"
 
-export const DESIRED_ALIAS_KEY = "intervalo:game:desired-alias"
-
-export function readDesiredAlias(): string | null {
-  try {
-    return window.localStorage.getItem(DESIRED_ALIAS_KEY)
-  } catch {
-    return null
-  }
-}
-
-export function clearDesiredAlias() {
-  try {
-    window.localStorage.removeItem(DESIRED_ALIAS_KEY)
-  } catch {}
-}
-
-/** Lo que la persona escribió como @ antes de irse a Google: se aplica al
- *  volver (ver `useApplyDesiredAlias` en register-slides.tsx). */
-export function saveDesiredAlias(alias: string) {
-  try {
-    const cleaned = alias.trim().toLowerCase().replace(/^@/, "")
-    if (cleaned) window.localStorage.setItem(DESIRED_ALIAS_KEY, cleaned)
-  } catch {}
-}
+// El @ deseado vive en dx-core (lo comparte la app nativa); se re-exporta acá
+// para los llamadores de siempre.
+export {
+  DESIRED_ALIAS_KEY,
+  clearDesiredAlias,
+  readDesiredAlias,
+  saveDesiredAlias,
+} from "@intervalo/dx-core/juego/alias-deseado"
 
 export function GoogleIcon({ className }: { className?: string }) {
   return (

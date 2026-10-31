@@ -7,10 +7,12 @@
 // que elegir distinto. Cualquier otro error (red, servidor caído) no lo arregla
 // reescribir el @, así que se sigue jugando.
 //
-// Sin «Conectar con Google» todavía: el login nativo llega con M4.
+// «Conectar con Google» guarda antes el @ que haya escrito: se aplica al volver
+// (`useGamePlayer`), si la cuenta no tenía uno elegido.
 
 import { useRef, useState } from "react"
 import {
+  ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -27,17 +29,24 @@ import { gameKeys, type GamePlayer } from "@intervalo/dx-core/juego/game-keys"
 import { USERNAME_MAX, normalizeUsername, validateUsername } from "@intervalo/dx-core/username"
 import { track } from "@/lib/analytics/track"
 import { useSfx } from "@/lib/audio/UseSfx"
+import { useGoogleLogin } from "@/lib/auth/UseGoogleLogin"
 import { BotonCta } from "./boton-cta"
+import { CTA_H } from "./exercise-card"
+import { GoogleIcon } from "./google-icon"
 
 export function UsernameSlide({
   player,
   onDone,
   onOpenPrivacy,
+  onGoogleLogin,
 }: {
   player: GamePlayer
   onDone: () => void
   /** La hoja de «¿Qué pasa con mis datos?». Sin ella, el link no se dibuja. */
   onOpenPrivacy?: () => void
+  /** Volvió de Google con la sesión activa. En la web la recarga saca a la
+   *  persona de esta diapo; acá la saca quien la monta (`onDone` si no viene). */
+  onGoogleLogin?: () => void
 }) {
   const api = useGameApi()
   const sfx = useSfx()
@@ -46,8 +55,16 @@ export function UsernameSlide({
   const [submitError, setSubmitError] = useState<string | null>(null)
   const [guardando, setGuardando] = useState(false)
   const savingRef = useRef(false)
+  const google = useGoogleLogin()
   const error = alias.length > 0 ? validateUsername(alias) : null
-  const puedeContinuar = alias.length > 0 && !error
+  const puedeContinuar = alias.length > 0 && !error && !google.cargando
+
+  const conectarConGoogle = async () => {
+    sfx.select()
+    track("game_username_slide_google_tap")
+    const ok = await google.login({ alias })
+    if (ok) (onGoogleLogin ?? onDone)()
+  }
 
   const finish = async () => {
     if (savingRef.current || !puedeContinuar) return
@@ -73,7 +90,7 @@ export function UsernameSlide({
     }
   }
 
-  const mensaje = error ?? submitError
+  const mensaje = error ?? submitError ?? google.error
 
   return (
     // `padding` en las dos plataformas: con edge-to-edge (obligatorio en
@@ -107,12 +124,33 @@ export function UsernameSlide({
             style={styles.input}
           />
         </View>
-        {mensaje && <Text style={styles.error}>{mensaje}</Text>}
-        {onOpenPrivacy && (
-          <Pressable onPress={onOpenPrivacy} accessibilityRole="link" hitSlop={8}>
-            <Text style={styles.privacidad}>¿Qué pasa con mis datos?</Text>
+        {/* Blanco sólido como el Continuar: es una acción de verdad, no una
+            salida. Mide lo mismo que el campo. */}
+        <View style={styles.bloqueGoogle}>
+          <Pressable
+            onPress={() => void conectarConGoogle()}
+            disabled={!google.listo || google.cargando}
+            accessibilityRole="button"
+            accessibilityState={{ disabled: !google.listo || google.cargando }}
+            style={({ pressed }) => [
+              styles.botonGoogle,
+              pressed && { opacity: 0.9 },
+              (!google.listo || google.cargando) && { opacity: 0.5 },
+            ]}
+          >
+            <Text style={styles.textoGoogle}>
+              {google.cargando ? "Conectando…" : "Conectar con Google"}
+            </Text>
+            {google.cargando ? <ActivityIndicator size="small" color="#000" /> : <GoogleIcon />}
           </Pressable>
-        )}
+          <Text style={styles.leyendaGoogle}>Vinculá tu cuenta para no perder tu progreso.</Text>
+          {onOpenPrivacy && (
+            <Pressable onPress={onOpenPrivacy} accessibilityRole="link" hitSlop={8}>
+              <Text style={styles.privacidad}>¿Qué pasa con mis datos?</Text>
+            </Pressable>
+          )}
+        </View>
+        {mensaje && <Text style={styles.error}>{mensaje}</Text>}
       </View>
       <BotonCta
         texto="Continuar"
@@ -144,6 +182,24 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     backgroundColor: "rgba(255,255,255,0.05)",
     paddingHorizontal: 12,
+  },
+  bloqueGoogle: { width: "100%", maxWidth: 320, gap: 8 },
+  botonGoogle: {
+    height: CTA_H,
+    borderRadius: 6,
+    backgroundColor: "#fff",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8,
+  },
+  textoGoogle: { color: "#000", fontSize: 16, fontWeight: "700" },
+  // `text-foreground/55` de la web.
+  leyendaGoogle: {
+    fontSize: 12,
+    lineHeight: 20,
+    color: "rgba(246,248,252,0.55)",
+    textAlign: "center",
   },
   arroba: { fontSize: 18, color: TEMA.mutedForeground },
   input: { flex: 1, height: 52, fontSize: 16, color: TEMA.foreground },

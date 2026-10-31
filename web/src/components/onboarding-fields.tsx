@@ -17,18 +17,9 @@ import {
   UNIVERSITY_TAG_BY_KEY,
   matchUniversities,
 } from "@intervalo/dx-core/university-tags"
+import { CAREERS } from "@intervalo/dx-core/carreras"
 
-export const CAREERS = [
-  { value: "E", label: "Ingeniería", emoji: "⚙️" },
-  { value: "S", label: "Ciencia", emoji: "🔬" },
-  { value: "T", label: "Tecnología", emoji: "🤖" },
-  { value: "M", label: "Matemática", emoji: "📐" },
-]
-
-// Los valores en el orden en que se dibujan las cinco tarjetas: las cuatro de
-// la grilla y "Otra". Quien les pone un atajo numérico —el minijuego, en
-// escritorio— lee el orden de acá, para que el 3 sea siempre la tercera tarjeta.
-export const CAREER_CHOICES = [...CAREERS.map((c) => c.value), "Otra"]
+export { CAREERS, CAREER_CHOICES } from "@intervalo/dx-core/carreras"
 
 // El atajo de teclado de una opción, si quien la muestra tiene teclado: recibe
 // el lugar de la opción (desde 0) y devuelve qué dibujar en su esquina. Este

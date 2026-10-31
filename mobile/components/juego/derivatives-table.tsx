@@ -2,13 +2,24 @@
 // reacomodo que la web (web/src/app/derivadas/derivatives-table.tsx): las
 // filas y `acomodar` viven en dx-core (juego/tabla-derivadas.ts).
 //
+// Abajo, la tabla enriquecida de la diapo de estadísticas
+// (`DerivativesStatsTable`): las mismas filas con tu velocidad y tu efectividad
+// en vez de la derivada.
+//
 // Las 32 fórmulas son fijas, así que se pueden convertir antes de que la
 // tabla se abra (`precalentarTablaDeDerivadas`) y abrirla no cuesta nada más
 // que montar vistas.
 
-import { useMemo, useState } from "react"
-import { FlatList, StyleSheet, Text, View, type StyleProp, type ViewStyle } from "react-native"
+import { useMemo, useState, type ReactNode } from "react"
+import { FlatList, Modal, Pressable, StyleSheet, Text, View, type StyleProp, type ViewStyle } from "react-native"
+import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
+import {
+  accuracyColor,
+  fmtSegundos,
+  motivoDeLaCelda,
+} from "@intervalo/dx-core/juego/estadisticas-formato"
+import type { GameStatsRow } from "@intervalo/dx-core/juego/UseGameStats"
 import { FILAS, acomodar, type Fila } from "@intervalo/dx-core/juego/tabla-derivadas"
 import { Latex } from "@/components/latex/latex"
 import { precalentarMathJax } from "@/components/latex/mathjax"
@@ -111,6 +122,130 @@ function Cabecera() {
   )
 }
 
+// ── La tabla enriquecida ─────────────────────────────────────────────────
+
+export type Cartel = { titulo: string; cuerpo: string }
+
+/** El cartel que explica una tile o una celda. En la web es un popover que abre
+ *  con el mouse encima; acá no hay mouse, así que se toca y sube una hoja desde
+ *  abajo, la misma de los selectores del ranking (leaderboard-chrome.tsx). */
+export function HojaDeCartel({ cartel, onClose }: { cartel: Cartel | null; onClose: () => void }) {
+  const insets = useSafeAreaInsets()
+  return (
+    <Modal visible={cartel !== null} transparent animationType="fade" onRequestClose={onClose}>
+      <Pressable style={styles.fondo} onPress={onClose} accessibilityLabel="Cerrar" />
+      <View style={[styles.hoja, { paddingBottom: insets.bottom + 16 }]}>
+        <Text style={styles.hojaTitulo}>{cartel?.titulo}</Text>
+        <Text style={styles.hojaCuerpo}>{cartel?.cuerpo}</Text>
+      </View>
+    </Modal>
+  )
+}
+
+// El 0.82rem de la web.
+const TAMANO_STATS = 13.1
+
+function Placeholder() {
+  return <Text style={[styles.dato, { color: "rgba(164,179,198,0.5)" }]}>—</Text>
+}
+
+function CeldaStats({
+  titulo,
+  cuerpo,
+  onCartel,
+  children,
+}: {
+  titulo: string
+  cuerpo: string
+  onCartel: (c: Cartel) => void
+  children: ReactNode
+}) {
+  return (
+    <Pressable
+      onPress={() => onCartel({ titulo, cuerpo })}
+      accessibilityRole="button"
+      accessibilityLabel={titulo}
+      accessibilityHint={cuerpo}
+      style={({ pressed }) => [styles.celdaStats, pressed && { opacity: 0.7 }]}
+    >
+      {children}
+    </Pressable>
+  )
+}
+
+function RenglonStats({
+  fila,
+  datos,
+  onCartel,
+}: {
+  fila: Fila
+  datos?: GameStatsRow
+  onCartel: (c: Cartel) => void
+}) {
+  // Sin dato para esta fila —el payload todavía no llegó, o el server manda un
+  // slug que no conocemos— es el mismo placeholder que "no hay plantilla".
+  const noExiste = datos === undefined || datos.unlock_elo === null
+  const ms = noExiste ? null : (datos.avg_response_ms ?? null)
+  const acierto = noExiste ? null : (datos.accuracy ?? null)
+  const sample = datos?.sample ?? 0
+  return (
+    <View style={styles.renglon}>
+      <View style={[styles.celda, styles.celdaIzquierda]}>
+        <Latex tex={mate(fila.f)} size={TAMANO} />
+      </View>
+      <View style={[styles.celdaStatsMarco, styles.celdaIzquierda]}>
+        <CeldaStats
+          titulo="Velocidad"
+          cuerpo={motivoDeLaCelda({ noExiste, sample, hayDato: ms !== null, quien: "Promedio de tiempo" })}
+          onCartel={onCartel}
+        >
+          {/* Sin heatmap a propósito: no hay "bien" o "mal" en cuánto tardás. */}
+          {ms !== null ? <Text style={styles.dato}>{fmtSegundos(ms)}</Text> : <Placeholder />}
+        </CeldaStats>
+      </View>
+      <View style={styles.celdaStatsMarco}>
+        <CeldaStats
+          titulo="Efectividad"
+          cuerpo={motivoDeLaCelda({ noExiste, sample, hayDato: acierto !== null, quien: "Acierto" })}
+          onCartel={onCartel}
+        >
+          {acierto !== null ? (
+            <Text style={[styles.dato, { color: accuracyColor(acierto) }]}>{acierto}%</Text>
+          ) : (
+            <Placeholder />
+          )}
+        </CeldaStats>
+      </View>
+    </View>
+  )
+}
+
+/** La tabla de derivadas con tu velocidad y tu efectividad de los últimos 10
+ *  intentos limpios en cada familia (game/stats.py :: _personal_accuracy). Sin
+ *  scroll propio: es el último tramo de la diapo de estadísticas, que scrollea
+ *  entera. `onCartel` abre la explicación de la celda tocada. */
+export function DerivativesStatsTable({
+  rows,
+  onCartel,
+}: {
+  rows: GameStatsRow[]
+  onCartel: (c: Cartel) => void
+}) {
+  const porSlug = useMemo(() => new Map(rows.map((fila) => [fila.slug, fila])), [rows])
+  return (
+    <View style={[styles.marco, { overflow: "hidden" }]}>
+      <View style={styles.cabecera}>
+        <Text style={[styles.titulo, styles.celdaIzquierda]}>función</Text>
+        <Text style={[styles.titulo, styles.celdaIzquierda]}>velocidad</Text>
+        <Text style={styles.titulo}>efectividad</Text>
+      </View>
+      {FILAS.map((fila) => (
+        <RenglonStats key={fila.slug} fila={fila} datos={porSlug.get(fila.slug)} onCartel={onCartel} />
+      ))}
+    </View>
+  )
+}
+
 const styles = StyleSheet.create({
   marco: {
     flexGrow: 0,
@@ -148,4 +283,31 @@ const styles = StyleSheet.create({
     borderRightWidth: 1,
     borderRightColor: BORDE,
   },
+  celdaStatsMarco: { flex: 1, alignItems: "stretch", justifyContent: "center" },
+  celdaStats: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 8,
+    paddingVertical: 8,
+  },
+  dato: {
+    fontSize: TAMANO_STATS,
+    color: TEMA.foreground,
+    fontVariant: ["tabular-nums"],
+  },
+  fondo: { flex: 1, backgroundColor: "rgba(0,0,0,0.5)" },
+  hoja: {
+    gap: 6,
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
+    borderWidth: 1,
+    borderBottomWidth: 0,
+    borderColor: TEMA.border,
+    backgroundColor: TEMA.card,
+    paddingHorizontal: 20,
+    paddingTop: 16,
+  },
+  hojaTitulo: { fontSize: 15, fontWeight: "600", color: TEMA.foreground },
+  hojaCuerpo: { fontSize: 14, lineHeight: 21, color: TEMA.mutedForeground },
 })
