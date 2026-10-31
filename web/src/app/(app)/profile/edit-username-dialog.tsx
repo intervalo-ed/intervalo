@@ -15,7 +15,7 @@ import {
   USERNAME_MAX,
   normalizeUsername,
   validateUsername,
-} from "@/lib/username"
+} from "@intervalo/dx-core/username"
 import { useUpdateProfile } from "./UseUpdateProfile"
 
 export function EditUsernameDialog({

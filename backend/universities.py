@@ -9,7 +9,7 @@ desconocida en vez de la tag de marca, y `/public/university-leaderboard`, que
 agrupa por el string crudo, las cuenta como instituciones separadas.
 
 El front ya canonicaliza antes de enviar (`canonicalUniversity` en
-web/src/lib/university-tags.ts), pero el backend es el dueño de la escritura:
+packages/dx-core/src/university-tags.ts), pero el backend es el dueño de la escritura:
 si solo lo hiciera el front, cualquier cliente que no sea el formulario podría
 volver a ensuciar la columna. Este módulo cierra esa puerta en `/user/enroll`.
 
@@ -306,7 +306,7 @@ _SIGLA_CORTA = re.compile(r"[A-Za-z]{2,6}")
 def is_junk_university(value: str | None) -> bool:
     """Teclazos, números sueltos o una letra: lo que NO es una institución.
 
-    Gemelo de `esUniversidadBasura` en web/src/lib/university-tags.ts: los dos
+    Gemelo de `esUniversidadBasura` en packages/dx-core/src/university-tags.ts: los dos
     tienen que decidir igual. Es deliberadamente conservador —un falso positivo
     esconde del ranking a una universidad real—, así que solo atrapa lo
     inequívoco: menos de dos caracteres, más números que letras, o seis letras o

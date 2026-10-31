@@ -23,34 +23,31 @@ import {
   readPedidoState,
   readUltimoPedidoAt,
   saveUltimoPedidoAt,
-} from "../src/app/derivadas/game-storage"
+} from "@intervalo/dx-core/juego/game-storage"
 import {
   ENCUESTA_EN,
   ENCUESTA_SEPARACION,
   marcarEncuestaMostrada,
   tocaEncuesta,
-} from "../src/app/derivadas/encuesta-trigger"
+} from "@intervalo/dx-core/juego/encuesta-trigger"
 import {
   RECLUTAS_CADA,
   RECLUTAS_RESTO,
-} from "../src/app/derivadas/reclutas-trigger"
+} from "@intervalo/dx-core/juego/reclutas-trigger"
 import {
   CAFECITO_COOLDOWN,
   CAFECITO_EVERY,
 } from "../src/app/derivadas/cafecito-cta"
-import { HITO_PERFIL, HITO_REGISTRO } from "../src/app/derivadas/hitos-del-juego"
+import { HITO_PERFIL, HITO_REGISTRO } from "@intervalo/dx-core/juego/hitos-del-juego"
+import {
+  crearAlmacenEnMemoria,
+  instalarAlmacen,
+} from "@intervalo/dx-core/almacen/key-value-store"
 
-// `game-storage` habla con localStorage y esto corre en bun, sin navegador.
+// `game-storage` lee del almacén que se le instale; acá, uno en memoria.
 const guardado = new Map<string, string>()
-Object.assign(globalThis, {
-  window: {
-    localStorage: {
-      getItem: (k: string) => guardado.get(k) ?? null,
-      setItem: (k: string, v: string) => void guardado.set(k, v),
-      removeItem: (k: string) => void guardado.delete(k),
-    },
-  },
-})
+const memoria = crearAlmacenEnMemoria({ datos: guardado })
+instalarAlmacen({ store: memoria })
 
 let fallos = 0
 function check(ok: boolean, label: string) {
@@ -156,14 +153,16 @@ console.log("8. con localStorage bloqueado no se rompe, pero insiste")
 // pregunta sale en cada respuesta a partir de la 18 porque nunca se puede
 // anotar que salió. Es molesto y es preferible a que reviente la partida, que
 // es lo que haría si `savePedidoState` no tragara el error.
-const roto = {
-  getItem: () => null,
-  setItem: () => {
-    throw new Error("bloqueado")
+instalarAlmacen({
+  store: {
+    ...memoria,
+    get: () => null,
+    set: () => {
+      throw new Error("bloqueado")
+    },
+    delete: () => {},
   },
-  removeItem: () => {},
-}
-Object.assign(globalThis, { window: { localStorage: roto } })
+})
 let reventó = false
 try {
   marcarEncuestaMostrada(ENCUESTA_EN)
@@ -172,15 +171,7 @@ try {
 }
 check(!reventó, "marcar no tira")
 check(tocaEncuesta(ENCUESTA_EN), "y la pregunta sigue apareciendo (el síntoma)")
-Object.assign(globalThis, {
-  window: {
-    localStorage: {
-      getItem: (k: string) => guardado.get(k) ?? null,
-      setItem: (k: string, v: string) => void guardado.set(k, v),
-      removeItem: (k: string) => void guardado.delete(k),
-    },
-  },
-})
+instalarAlmacen({ store: memoria })
 
 console.log(
   fallos === 0 ? "\ntodos los chequeos pasaron" : `\n${fallos} chequeos fallaron`,

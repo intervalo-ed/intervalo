@@ -61,38 +61,65 @@ jobs:
       - uses: oven-sh/setup-bun@v2
 
       - name: Instalar dependencias
-        working-directory: web
+        # En la raíz: el repo es un workspace de bun (web, mobile y
+        # packages/*) con un solo bun.lock, y los parches y overrides viven en
+        # el package.json de arriba.
         run: bun install --frozen-lockfile
 
       - name: Typecheck
         working-directory: web
         run: bunx tsc --noEmit
 
+      - name: Typecheck de dx-core
+        # El tsc de la web solo mira lo de dx-core que la web importa; los
+        # scripts de check del paquete y lo que nadie importa todavía quedan
+        # afuera sin esto.
+        working-directory: packages/dx-core
+        run: bun run typecheck
+
+      - name: Typecheck de la app
+        # La app de Expo importa dx-core con su propio React (el del SDK, no el
+        # de la web): un cambio en dx-core que compila para la web puede no
+        # compilar acá.
+        working-directory: mobile
+        run: bun run typecheck
+
       - name: Checks propios
         working-directory: web
-        # Los que no necesitan navegador ni servidor. `check:latex` estuvo
-        # sin correr desde que se escribió: se agregó el script y el `bun run`
-        # correspondiente, y nada lo llamaba.
+        # Los que no necesitan navegador ni servidor y que importan código de
+        # la web (diapos, componentes, instalacion-trigger). Los que solo
+        # prueban lógica del juego viven en dx-core, en el paso de abajo.
         run: |
-          bun run check:xp
           bun run check:reclutas
           bun run check:instalacion
           bun run check:opinion
           bun run check:encuesta
           bun run check:frecuencia
-          bun run check:dificultad
-          bun run check:tabla
           bun run check:puerta
           bun run check:universitario
           bun run check:filtros
-          bun run check:latex
           bun run check:restante
+          bun run check:preconnect
+
+      - name: Checks de dx-core
+        working-directory: packages/dx-core
+        # `check:latex` estuvo sin correr desde que se escribió: se agregó el
+        # script y el `bun run` correspondiente, y nada lo llamaba.
+        run: |
+          bun run check:xp
+          bun run check:dificultad
+          bun run check:latex
           bun run check:salto
           bun run check:ventana
           bun run check:cafecito
-          bun run check:preconnect
           bun run check:parser
+          bun run check:despues
           bun run check:teclado
+          bun run check:tabla
+          bun run check:math-text
+          bun run check:expresion
+          bun run check:ranking-orden
+          bun run check:chat
 
       - name: Build
         working-directory: web

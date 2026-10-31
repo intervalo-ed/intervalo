@@ -23,7 +23,7 @@ import {
   saveFrecuenciaRanking,
   useFrecuenciaRanking,
   type FrecuenciaRanking,
-} from "./ranking-frecuencia"
+} from "@intervalo/dx-core/juego/ranking-frecuencia"
 
 export function RankingFrecuenciaSlide({
   onContinue,

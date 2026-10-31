@@ -36,21 +36,21 @@ import {
 } from "./cafecito-cta"
 import { CafecitoPanel } from "./cafecito-panel"
 import { ReclutasPanel, type ReclutasTrigger } from "./reclutas-panel"
-import { marcarEncuestaMostrada, tocaEncuesta } from "./encuesta-trigger"
+import { marcarEncuestaMostrada, tocaEncuesta } from "@intervalo/dx-core/juego/encuesta-trigger"
 import { EncuestaSlide } from "./encuesta-slide"
 import {
   anotarRespuesta,
   marcarPreguntaMostrada,
   tocaPreguntar,
-} from "./opinion-trigger"
+} from "@intervalo/dx-core/juego/opinion-trigger"
 import { OpinionSlide } from "./opinion-slide"
 import { RepetitividadSlide } from "./repetitividad-slide"
-import { marcarReclutasMostrado, tocaReclutar } from "./reclutas-trigger"
+import { marcarReclutasMostrado, tocaReclutar } from "@intervalo/dx-core/juego/reclutas-trigger"
 import {
   HITO_PERFIL,
   marcarRegistroMostrado,
   tocaRegistro,
-} from "./hitos-del-juego"
+} from "@intervalo/dx-core/juego/hitos-del-juego"
 import {
   AnswerField,
   CAMPO_H,
@@ -62,7 +62,7 @@ import {
   type AnswerTone,
 } from "./exercise-card"
 import { PorQueButton, PorQuePanel, type PorQueGraph, TECLA_PORQUE } from "./porque-panel"
-import { useExplainExercise } from "./UseGameExplain"
+import { useExplainExercise } from "@intervalo/dx-core/juego/UseGameExplain"
 import {
   DerivativesStatsTable,
   DerivativesTable,
@@ -72,7 +72,7 @@ import { ChatButton, ChatPanel, TECLA_CHAT } from "./chat-panel"
 import { EloStatsPanel, StatsButton, TECLA_ESTADISTICAS } from "./elo-stats-panel"
 import { GameIntroLogo, type GameIntro } from "./game-intro"
 import { GameRanking, type RankingSort } from "./game-ranking"
-import { AMBAR } from "./game-colors"
+import { AMBAR } from "@intervalo/dx-core/juego/game-colors"
 import { IntroPanel, IntroStartButton } from "./intro-panel"
 import { ReglasSlide } from "./reglas-slide"
 import { HerramientasSlide } from "./herramientas-slide"
@@ -80,9 +80,9 @@ import {
   REGLAS_DE_LA_DIAPO,
   marcarReglasMostradas,
   tocaReglas,
-} from "./reglas-trigger"
+} from "@intervalo/dx-core/juego/reglas-trigger"
 import { SlideFlip } from "./slide-flip"
-import { puedeVerEstadisticas } from "./stats-gate"
+import { puedeVerEstadisticas } from "@intervalo/dx-core/juego/stats-gate"
 import { enCampoDeTexto, enCampoHtml, useTeclas } from "./teclas"
 import { MathInput, tipFor, type MathInputHandle } from "./math-input"
 import {
@@ -96,8 +96,8 @@ import {
 } from "./math-keyboard"
 import { PieDeRampa } from "./pie-rampa"
 import { Barra, Hueco } from "@/components/skeleton-barra"
-import { parseAnswerToMathJson } from "./parse-answer"
-import { useLocalVerdict } from "./UseLocalVerdict"
+import { parseAnswerToMathJson } from "@intervalo/dx-core/juego/parse-answer"
+import { useLocalVerdict } from "@intervalo/dx-core/juego/UseLocalVerdict"
 import { EditCareerPanel, EditUniversityPanel } from "./edit-profile-field"
 import { ProfileSlides, RegisterSlide } from "./register-slides"
 import { UsernameSlide } from "./username-slide"
@@ -113,15 +113,16 @@ import {
   useEjercicioAdelantado,
   type GameAnswer,
   type GameExercise,
-} from "./UseGameExercise"
-import { refrescarRankingCentrado, useGamePulse, useMyBoost } from "./UseGameLeaderboard"
-import { useDespuesDelArranque } from "./UseDespuesDelArranque"
-import { gameKeys, useGamePlayer, type GamePlayer } from "./UseGamePlayer"
-import { useGameEvents } from "./UseGameLeaderboard"
-import { useGameStats } from "./UseGameStats"
-import { comboTrasIntento } from "./racha-estimate"
-import { esVueltaUniversitaria } from "./vuelta-universitaria"
-import { estimarXp } from "./xp-estimate"
+} from "@intervalo/dx-core/juego/UseGameExercise"
+import { refrescarRankingCentrado, useGamePulse, useMyBoost } from "@intervalo/dx-core/juego/UseGameLeaderboard"
+import { useDespuesDelArranque } from "@intervalo/dx-core/juego/UseDespuesDelArranque"
+import { gameKeys, type GamePlayer } from "@intervalo/dx-core/juego/game-keys"
+import { useGamePlayer } from "./UseGamePlayer"
+import { useGameEvents } from "@intervalo/dx-core/juego/UseGameLeaderboard"
+import { useGameStats } from "@intervalo/dx-core/juego/UseGameStats"
+import { comboTrasIntento } from "@intervalo/dx-core/juego/racha-estimate"
+import { esVueltaUniversitaria } from "@intervalo/dx-core/juego/vuelta-universitaria"
+import { estimarXp } from "@intervalo/dx-core/juego/xp-estimate"
 import { useXpConteo } from "./xp-conteo"
 import { OrbFlight } from "@/components/orb-flight"
 

@@ -1,4 +1,4 @@
-import type { CourseId } from "@/lib/catalog"
+import type { CourseId } from "@intervalo/dx-core/catalog"
 
 const KEY = "intervalo:onboarding"
 

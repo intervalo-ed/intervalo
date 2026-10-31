@@ -77,7 +77,7 @@ SESSION_GAP_MINUTES = 30
 # no se eligen acá: son los del front, y hay que venir a cambiarlos cuando allá
 # cambien.
 #
-#   - carrera y universidad a las 3   (web/src/app/derivadas/hitos-del-juego.ts :: HITO_PERFIL)
+#   - carrera y universidad a las 3   (packages/dx-core/src/juego/hitos-del-juego.ts :: HITO_PERFIL)
 #   - la pregunta de dificultad a las 8 (opinion-trigger.ts :: OPINION_PRIMERA)
 #   - registro a las 10               (hitos-del-juego.ts :: HITO_REGISTRO)
 #   - reclutas a las 14               (reclutas-trigger.ts :: RECLUTAS_RESTO)
@@ -342,7 +342,7 @@ def _sin_cliente(p: dict) -> bool:
 
     `game_players.platform` sale del header `X-Game-Platform`, y ese header lo
     pone un middleware en TODOS los pedidos del cliente y no cada llamada a
-    mano (web/src/app/derivadas/game-api.ts), con un valor que `getPlatform()`
+    mano (packages/dx-core/src/juego/game-api.ts), con un valor que `getPlatform()`
     siempre devuelve —nunca nulo, siempre uno de los tres—. El server lo valida
     contra un vocabulario cerrado y lo estampa al CREAR la fila
     (game/router.py :: _platform). O sea que una fila sin plataforma es una
@@ -1699,7 +1699,7 @@ def reclutas_por_universidad(data: dict) -> list[dict]:
     """Quién trae gente, abierto por dónde estudia.
 
     **La universidad se pregunta a las 3 correctas** (`HITO_PERFIL` en
-    `web/src/app/derivadas/hitos-del-juego.ts`), así que tenerla cargada IMPLICA
+    `packages/dx-core/src/juego/hitos-del-juego.ts`), así que tenerla cargada IMPLICA
     haber jugado. Eso gobierna toda la lectura de esta tabla y conviene tenerlo
     presente antes que cualquier número:
 

@@ -3,8 +3,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useApi } from "@/lib/api/useApi"
 import { queryKeys } from "@/lib/query/keys"
-import type { CourseId } from "@/lib/catalog"
-import type { components } from "@/lib/api/schema"
+import type { CourseId } from "@intervalo/dx-core/catalog"
+import type { components } from "@intervalo/dx-core/api/schema"
 
 type Progress = components["schemas"]["UserProgressResponse"]
 type CapPreview = components["schemas"]["CapPreviewResponse"]

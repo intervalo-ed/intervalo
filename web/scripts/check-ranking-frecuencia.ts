@@ -13,7 +13,7 @@ import {
   readUltimaPantalla,
   readUltimoPedidoAt,
   saveUltimoPedidoAt,
-} from "../src/app/derivadas/game-storage"
+} from "@intervalo/dx-core/juego/game-storage"
 import {
   FRECUENCIAS,
   FRECUENCIA_DEFAULT,
@@ -25,16 +25,16 @@ import {
   siguienteFrecuencia,
   tocaPreguntarFrecuencia,
   tocaRanking,
-} from "../src/app/derivadas/ranking-frecuencia"
+} from "@intervalo/dx-core/juego/ranking-frecuencia"
 import {
   ENCUESTA_EN,
   marcarEncuestaMostrada,
   tocaEncuesta,
-} from "../src/app/derivadas/encuesta-trigger"
+} from "@intervalo/dx-core/juego/encuesta-trigger"
 import {
   RECLUTAS_CADA,
   RECLUTAS_RESTO,
-} from "../src/app/derivadas/reclutas-trigger"
+} from "@intervalo/dx-core/juego/reclutas-trigger"
 import {
   CAFECITO_EVERY,
   CAFECITO_PRIMERA,
@@ -43,24 +43,17 @@ import {
   HITO_PERFIL,
   HITO_REGISTRO,
   REGISTRO_REPITE,
-} from "../src/app/derivadas/hitos-del-juego"
-import { INSTALAR_PRIMERA } from "../src/app/derivadas/instalacion-trigger"
+} from "@intervalo/dx-core/juego/hitos-del-juego"
+import { INSTALAR_PRIMERA } from "@intervalo/dx-core/juego/instalacion-trigger"
+import {
+  crearAlmacenEnMemoria,
+  instalarAlmacen,
+} from "@intervalo/dx-core/almacen/key-value-store"
 
-// `game-storage` habla con localStorage y esto corre en bun, sin navegador.
+// `game-storage` lee del almacén que se le instale; acá, uno en memoria.
 const guardado = new Map<string, string>()
-Object.assign(globalThis, {
-  window: {
-    localStorage: {
-      getItem: (k: string) => guardado.get(k) ?? null,
-      setItem: (k: string, v: string) => void guardado.set(k, v),
-      removeItem: (k: string) => void guardado.delete(k),
-    },
-    addEventListener: () => {},
-    removeEventListener: () => {},
-    dispatchEvent: () => true,
-  },
-  Event: class {},
-})
+const memoria = crearAlmacenEnMemoria({ datos: guardado })
+instalarAlmacen({ store: memoria })
 
 let fallos = 0
 function check(ok: boolean, label: string) {

@@ -59,7 +59,7 @@ ORIGIN_LABEL = {"uba": "UBA", "utn": "UTN", "unc": "UNC", "unlp": "UNLP", "unsam
 SURVEY_NOMINAL = {"D": 0.60, "A": 0.25, "B": 0.15}
 
 # Unidades = cinturones, en el orden del curso. Espejo de BELT_ORDER del
-# catálogo del front (web/src/lib/catalog).
+# catálogo del front (packages/dx-core/src/catalog).
 BELT_ORDER = ("white", "blue", "violet", "brown")
 
 D_ORDER = ["aburrido", "justo", "interesante"]

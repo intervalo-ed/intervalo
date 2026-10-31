@@ -14,7 +14,7 @@
 import {
   readUltimoPedidoAt,
   saveUltimoPedidoAt,
-} from "../src/app/derivadas/game-storage"
+} from "@intervalo/dx-core/juego/game-storage"
 import {
   INSTALAR_CADA,
   INSTALAR_MAX,
@@ -28,13 +28,13 @@ import {
   marcarNotificacionesMostrado,
   tocaInstalar,
   tocaNotificaciones,
-} from "../src/app/derivadas/instalacion-trigger"
+} from "@intervalo/dx-core/juego/instalacion-trigger"
 import {
   RECLUTAS_CADA,
   RECLUTAS_RESTO,
   marcarReclutasMostrado,
   tocaReclutar,
-} from "../src/app/derivadas/reclutas-trigger"
+} from "@intervalo/dx-core/juego/reclutas-trigger"
 import {
   CAFECITO_COOLDOWN,
   CAFECITO_EVERY,
@@ -43,18 +43,15 @@ import {
   markCafecitoShown,
   shouldShowCafecito,
 } from "../src/app/derivadas/cafecito-cta"
+import {
+  crearAlmacenEnMemoria,
+  instalarAlmacen,
+} from "@intervalo/dx-core/almacen/key-value-store"
 
-// `game-storage` habla con localStorage y esto corre en bun, sin navegador.
+// `game-storage` lee del almacén que se le instale; acá, uno en memoria.
 const guardado = new Map<string, string>()
-Object.assign(globalThis, {
-  window: {
-    localStorage: {
-      getItem: (k: string) => guardado.get(k) ?? null,
-      setItem: (k: string, v: string) => void guardado.set(k, v),
-      removeItem: (k: string) => void guardado.delete(k),
-    },
-  },
-})
+const memoria = crearAlmacenEnMemoria({ datos: guardado })
+instalarAlmacen({ store: memoria })
 
 let fallos = 0
 function check(ok: boolean, label: string) {
@@ -223,16 +220,17 @@ console.log("7. un localStorage roto no lo apaga")
 // Safari en modo privado tira al escribir. Peor caso aceptado: se ofrece de más,
 // nunca de menos — el otro lado sería no ofrecérselo nunca a quien sí lo quería.
 limpio()
-const setItem = (globalThis as { window: { localStorage: { setItem: unknown } } }).window
-  .localStorage.setItem
-;(globalThis as unknown as { window: { localStorage: { setItem: () => void } } }).window.localStorage.setItem =
-  () => {
-    throw new Error("QuotaExceeded")
-  }
+instalarAlmacen({
+  store: {
+    ...memoria,
+    set: () => {
+      throw new Error("QuotaExceeded")
+    },
+  },
+})
 marcarInstalarMostrado(INSTALAR_PRIMERA)
 check(tocaInstalar(INSTALAR_PRIMERA), "sigue ofreciéndose si no se pudo anotar")
-;(globalThis as unknown as { window: { localStorage: { setItem: unknown } } }).window.localStorage.setItem =
-  setItem
+instalarAlmacen({ store: memoria })
 
 console.log(fallos === 0 ? "\ntodos los chequeos pasaron" : `\n${fallos} fallos`)
 process.exit(fallos === 0 ? 0 : 1)

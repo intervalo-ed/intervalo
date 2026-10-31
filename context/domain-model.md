@@ -87,6 +87,6 @@ El desbloqueo de topics nuevos **no** pasa por acá: lo maneja `session_store.py
 
 - Una unidad está "dominada" cuando `phase == "review"`.
 - Un **topic** está dominado cuando **todos** sus `exercise_type` están en `review` (`is_topic_mastered`, la única función del módulo). Es lo que dispara el desbloqueo de units nuevas.
-- El estado de un **belt** no se calcula en el backend: el front lo deriva de `topic_states` (`web/src/lib/catalog/stats.ts`).
+- El estado de un **belt** no se calcula en el backend: el front lo deriva de `topic_states` (`packages/dx-core/src/catalog/stats.ts`).
 
 Última verificación: 2026-09-13

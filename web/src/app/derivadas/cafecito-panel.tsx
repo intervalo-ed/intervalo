@@ -23,23 +23,22 @@
 // el color del café. No es una coincidencia que se aprovecha: es el mismo tono
 // que ya usan el botón de la cabecera y el multiplicador del marcador.
 
-import { vecinasDe } from "./vecinas-universitarias"
+import { vecinasDe } from "@intervalo/dx-core/juego/vecinas-universitarias"
 import { useEffect, useRef, useState } from "react"
 import { motion, useIsPresent, useReducedMotion } from "motion/react"
 import { ArrowLeft, ArrowRight, Coffee, UsersIcon } from "lucide-react"
 
 import { MercadoPagoIcon } from "./mercadopago-icon"
-import { restanteEnPalabras } from "@/components/boost-banner"
-import { ALL_SCOPE, fmtCount } from "@/components/leaderboard-chrome"
+import { ALL_SCOPE } from "@/components/leaderboard-chrome"
+import { fmtCount, fmtMultiplier, restanteEnPalabras } from "@intervalo/dx-core/juego/ranking-formato"
 import { UniTag } from "@/components/university-tag"
 import { XpDots } from "@/components/xp-dots"
-import { BELT_HEX } from "@/lib/catalog"
+import { BELT_HEX } from "@intervalo/dx-core/catalog"
 import { cn } from "@/lib/utils"
 import { useSfx } from "@/lib/audio/useSfx"
 import {
   CAFECITO_URL,
   PRECIO_CAFECITO,
-  fmtMultiplier,
   type CafecitoTrigger,
 } from "./cafecito-cta"
 import { useCachedPlayer } from "./UseGamePlayer"
@@ -48,14 +47,14 @@ import {
   SLIDER_MAX,
   horasDe,
   impactoDelCafecito,
-} from "./impacto-del-cafecito"
+} from "@intervalo/dx-core/juego/impacto-del-cafecito"
 import {
   CAFE_AMBAR_RGB as AMBAR_RGB,
   CAFE_DORADO_RGB as DORADO,
   colorDeCafe as colorPara,
   filaConEmpuje,
   mezclarRGB as mezclar,
-} from "./game-colors"
+} from "@intervalo/dx-core/juego/game-colors"
 import {
   porExperiencia,
   useCafecitoCheckout,
@@ -64,9 +63,9 @@ import {
   useGameUniversityLeaderboard,
   useMyBoost,
   type GameCafecitoStatus,
-} from "./UseGameLeaderboard"
+} from "@intervalo/dx-core/juego/UseGameLeaderboard"
 import { KeyCap } from "./exercise-card"
-import { marcarCierreMostrado, readCierreMostrado } from "./game-storage"
+import { marcarCierreMostrado, readCierreMostrado } from "@intervalo/dx-core/juego/game-storage"
 import {
   CLASE_ACCION_EN_EL_PIE,
   claseDeSalida,

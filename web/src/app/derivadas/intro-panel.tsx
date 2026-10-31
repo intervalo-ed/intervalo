@@ -19,29 +19,25 @@
 // alcanza, y a partir de ahí ocupaba el lugar donde ahora van los marcadores. El
 // trato es este —se explica en serio, y después no se repite nunca.
 
-import { useEffect, useState } from "react"
+import { Fragment, useEffect, useState } from "react"
 import { useAuth } from "@clerk/nextjs"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { KeyCap } from "./exercise-card"
 import { useTeclas } from "./teclas"
-import { useBienvenida } from "./UseBienvenida"
+import { useBienvenida } from "@intervalo/dx-core/juego/UseBienvenida"
 import { useCachedPlayer, useGameToken } from "./UseGamePlayer"
 import { TextoConHuecos } from "./texto-con-huecos"
+import {
+  BIENVENIDA_MINIMA,
+  INSTRUCCION_MINIMA,
+  QUE_ES,
+  REGLAS,
+  SEGUIMOS,
+} from "@intervalo/dx-core/juego/textos-reglas"
 
-// El texto de la intro, uno solo para las dos versiones: es lo único que se
-// explica en todo el juego y no puede decir una cosa en el teléfono y otra en
-// escritorio.
-//
-// Cada párrafo presenta una de las cosas que el juego tiene y las nombra con el
-// MISMO emoji con el que después aparecen en el marcador (exercise-card.tsx ::
-// Counters): 🧩 los ejercicios, ♟ el Elo, ☕ los cafecitos. Así, cuando la
-// partida arranca, los contadores ya se leyeron una vez y no hay que adivinar
-// qué es cada número. El cuarto —la tabla— no tiene contador, pero sigue la
-// misma forma: una palabra en negrita y su emoji.
-// El `︎` del peón fuerza presentación de TEXTO: sin él el navegador lo
-// dibuja como emoji, una imagen oscura de color fijo que sobre este fondo se
-// apaga. Es el mismo tratamiento que en el contador.
+// El texto de la intro y de las reglas está en dx-core (textos-reglas.ts),
+// compartido con la app nativa: acá solo se dibuja.
 // Lo único que resalta en estos párrafos. Antes compartía el papel con el número
 // de cada regla; sin los números, la palabra clave es la jerarquía entera.
 function Fuerte({ children }: { children: React.ReactNode }) {
@@ -70,35 +66,6 @@ function Fuerte({ children }: { children: React.ReactNode }) {
 // al mudarlo se lo puso en el momento más caro. De eso se ocupa el brazo
 // `sin-peaje` (reglas-trigger.ts), que las reparte de a una y más adelante.
 
-/** El saludo, y lo único que se explica antes de la primera derivada.
- *
- *  La instrucción es la regla 1 de `IntroParagraphs` dicha en imperativo:
- *  aquella explica qué es un ejercicio, esta pide que se resuelva. Por eso
- *  la diapo de las reglas no la incluye — ya se dio acá
- *  (reglas-trigger.ts :: REGLAS_DE_LA_DIAPO). */
-export const BIENVENIDA_MINIMA = "¡Bienvenido!"
-
-/** Qué es esto, para quien llega por primera vez.
- *
- *  Es la primera oración del preview de WhatsApp (layout.tsx :: DESCRIPCION),
- *  igual palabra por palabra. Se escribe de nuevo y no se importa de
- *  `layout.tsx` igual: son dos textos con dos trabajos distintos —uno vende el
- *  link, el otro recibe a quien ya entró— y atarlos obligaría a que el día que
- *  uno cambie el otro lo siga sin motivo.
- *
- *  Va también en el texto de respaldo: nadie entra sin saber qué es esto. */
-export const QUE_ES =
-  "Memorizá todas las derivadas y llegá mejor preparado a tus parciales con este minijuego."
-export const INSTRUCCION_MINIMA =
-  "Resolvé la siguiente derivada para comenzar."
-
-/** Lo que reemplaza a la instrucción cuando la persona ya jugó hoy.
- *
- *  A alguien que lleva ocho derivadas hechas hace dos horas no hay que
- *  explicarle qué es esto. La pregunta hace el trabajo que hacía la
- *  instrucción, y además lo hace mejor: «¿Seguimos?» es una invitación a
- *  retomar, y la instrucción era una orden para empezar algo que ya empezó. */
-export const SEGUIMOS = "¿Seguimos?"
 
 /** La puerta, entera.
  *
@@ -333,7 +300,7 @@ export function PuertaMinima() {
 // entra por `className`.
 export function IntroParagraphs({
   className,
-  // Cuáles, y en qué orden. Índices de la lista de abajo.
+  // Cuáles, y en qué orden. Índices de `REGLAS` (textos-reglas.ts).
   //
   // Quien las muestra pide una SELECCIÓN y no tiene lista propia: el día que se
   // agregue una quinta regla acá, está disponible del otro lado. Con dos listas
@@ -345,51 +312,18 @@ export function IntroParagraphs({
   // (reglas-trigger.ts :: REGLAS_DE_LA_DIAPO).
   cuales,
 }: { className?: string; cuales: number[] }) {
-  // Los párrafos se arman ACÁ y no en una constante del módulo. Cuando eran
-  // JSX de nivel de módulo, los elementos quedaban creados una sola vez al
-  // evaluarse el archivo, y Fast Refresh no puede reconciliar eso: al editar el
-  // texto convivían los viejos con los nuevos y la lista se veía duplicada en
-  // el navegador (no en el código). Armados en cada render, el problema no
-  // existe.
-  //
-  // La palabra que nombra cada cosa va en negrita y no en mayúscula: destaca
-  // igual —que es lo que se busca, que las tres se encuentren de un vistazo y
-  // se reconozcan después en el marcador— sin convertirlas en nombres propios a
-  // mitad de una oración. "Elo" sí lleva mayúscula, pero porque es un apellido
-  // (Árpád Élő), no por énfasis.
-  const parrafos: React.ReactNode[] = [
-    <>
-      Cada <Fuerte>ejercicio</Fuerte> 🧩 es una función que tenés que derivar.
-    </>,
-    <>
-      Tu puntaje <Fuerte>Elo</Fuerte> ♟︎ define la dificultad y se ajusta con tus
-      aciertos y errores.
-    </>,
-    // Acá hubo un tercero sobre los cafecitos —«para que vos y tu universidad
-    // escalen el ranking más rápido que el resto»— y se fue el 02/10. El cafecito
-    // sigue entero: el pedido, el empuje a la universidad y el ranking (el
-    // contador ☕ del marcador se fue con la regla). Lo que se sacó es EXPLICÁRSELO a alguien que todavía no
-    // resolvió nada: es la única de las reglas que no hace falta para jugar, y
-    // ocupaba un tercio de la única pantalla que el juego dedica a explicarse.
-    // La tabla se explica en los dos lados porque en los dos existe: en el
-    // teléfono se toca un botón y en escritorio se mantiene Alt.
-    //
-    // **No dice lo que cuesta, y antes lo decía** («pero esa derivada te va a
-    // sumar mucho menos»). Mirarla sigue bajando la XP del ejercicio y
-    // salteándose el ajuste de Elo —eso no cambió—; lo que se sacó es
-    // anunciárselo de entrada a alguien que todavía no se trabó. La frase
-    // convertía la única salida que el juego ofrece en una multa, y el momento
-    // en que se lee es justo el que decide si alguien sigue o se va.
-    <>
-      Si te trabás podés mirar la <Fuerte>tabla</Fuerte> 📖.
-    </>,
-  ]
   return (
     <>
       {cuales.map((idx) => (
         // La lista es fija, así que el índice en ella alcanza como clave.
         <p key={idx} className={className}>
-          {parrafos[idx]}
+          {REGLAS[idx]?.map((tramo, i) =>
+            tramo.enfasis ? (
+              <Fuerte key={i}>{tramo.texto}</Fuerte>
+            ) : (
+              <Fragment key={i}>{tramo.texto}</Fragment>
+            ),
+          )}
         </p>
       ))}
     </>

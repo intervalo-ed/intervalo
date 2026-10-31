@@ -43,6 +43,32 @@ import katex from "katex"
 // porque este módulo no debería depender de que otro haya cargado la hoja.
 import "katex/dist/katex.min.css"
 import { ArrowLeft, ArrowRight, Delete } from "lucide-react"
+import {
+  DYNAMIC_ROW_REM,
+  DYN_ONE_ROW_MAX,
+  GRID_COLS,
+  NUMPAD,
+  PAD_DYNAMIC_SLOTS,
+  PAD_FIXED,
+  PAD_ROWS,
+  RAMPA_FILAS_APRETADO,
+  RAMPA_GAP_REM,
+  RAMPA_ROW_REM,
+  STRIP,
+  STRIP_EDIT_ATAJOS,
+  STRIP_WRITE_ATAJOS,
+  accionDeTecla,
+  columnasDeRampaDibujada,
+  columnasDeTira,
+  filasDelPad,
+  inventarioDinamico,
+  rampaDibujada,
+  type EntradaDeTecla,
+  type IconoDeTecla,
+  type Key,
+  type Tamano,
+  type Tono,
+} from "@intervalo/dx-core/juego/teclado"
 import { cn } from "@/lib/utils"
 import { useSfx } from "@/lib/audio/useSfx"
 import { KeyCap } from "./exercise-card"
@@ -50,49 +76,13 @@ import type { MathInputHandle } from "./math-input"
 import { PulsoBlanco } from "./pulso"
 import { enCampoHtml } from "./teclas"
 
-export type Key = {
-  // LaTeX del glifo, o un nodo suelto para las teclas que no son matemática
-  // (las flechas de navegación y el retroceso, que son acciones del editor).
-  tex?: string
-  // La versión larga, con el argumento a completar: `sen(□)` en vez de `sen`.
-  // Es la que dice de verdad qué hace la tecla —inserta la función Y su
-  // paréntesis con el hueco adentro— y es la que se usa en escritorio, donde hay
-  // ancho. En el teléfono la tecla es un botón para el pulgar y ahí no entra:
-  // queda la corta.
-  texWide?: string
-  node?: React.ReactNode
-  insert?: string
-  cmd?: string
-  action?: "clear"
-  // Color del glifo. El fondo es siempre el mismo: teñir la tecla entera
-  // convertiría el teclado en un semáforo.
-  tone?: keyof typeof TONES
-  // Tamaño relativo del glifo. Los símbolos necesitan más cuerpo que los
-  // dígitos para leerse igual de bien: en KaTeX un `+` ocupa mucho menos alto
-  // que un `7`.
-  size?: keyof typeof SIZES
-  // Solo escritorio. `fisica` son los `e.key` del teclado físico que hacen lo
-  // mismo que esta tecla: cuando se aprieta uno, la tecla de pantalla pulsa en
-  // blanco (pulso.tsx). `atajo` es el texto del chip que lo muestra, y una
-  // tecla con chip ocupa `ancho` columnas de la tira (dos) para que el glifo y
-  // el chip entren uno al lado del otro.
-  //
-  // Es la respuesta a lo que escribió la gente en la varita: «no tenés la
-  // opción de poner la potencia o la división» (en escritorio esas dos solo
-  // aparecían al desbloquearse) y «cuando escribo potencias se pone la llave»
-  // (no sabían salir del exponente). El teclado físico ya hacía todo eso; lo
-  // que faltaba era que se viera.
-  fisica?: readonly string[]
-  atajo?: string
-  ancho?: number
-}
+// El catálogo de teclas, la rampa y los repartos viven en dx-core
+// (packages/dx-core/src/juego/teclado.ts), compartidos con la app nativa. Acá
+// queda el dibujo.
+export { ANCHOS_DE_TIRA, GRID_COLS, columnasDeTira } from "@intervalo/dx-core/juego/teclado"
 
-// Color a media asta. Los tonos originales (#4ADE80, #F87171, #C084FC…) eran
-// puros de paleta y al lado de un enunciado en KaTeX el teclado parecía de otra
-// aplicación; bajarlos hasta el tinte casi blanco fue pasarse de largo y el rol
-// de cada tecla dejaba de leerse. Esta franja —claridad ~68%, saturación ~55%—
-// es la que conserva el color sin gritar.
-const TONES = {
+// Si cambia un tono acá, cambia en `TONO_HEX` de dx-core (la app nativa).
+const TONES: Record<Tono, string> = {
   plain: "text-foreground",
   add: "text-[#7ECE9F]",
   sub: "text-[#E08E85]",
@@ -104,14 +94,12 @@ const TONES = {
   nav: "text-muted-foreground",
   clear: "text-[#DCBA74]",
   erase: "text-[#E08E85]",
-} as const
+}
 
-const SIZES = {
+const SIZES: Record<Tamano, string> = {
   // Las dinámicas de escritorio. Es el cuerpo que hace entrar al glifo MÁS ANCHO
   // del vocabulario en una tecla de la grilla de diez: medido, `log_□` pedía
-  // 45.7 px sobre una tecla de 39.4 y se salía. A 0.95rem mide 34.7 y le sobran
-  // un par de píxeles de cada lado. Si algún día se suma una tecla más ancha que
-  // esa, hay que volver a medir acá.
+  // 45.7 px sobre una tecla de 39.4 y se salía. A 0.95rem mide 34.7.
   dyn: "text-[0.95rem]",
   sm: "text-[1.05rem]",
   md: "text-[1.25rem]",
@@ -120,7 +108,13 @@ const SIZES = {
   // como estaban: ahí la tecla ya es chica y el número es lo único que la hace
   // legible de un vistazo.
   num: "text-[1.25rem] md:text-[1.1rem]",
-} as const
+}
+
+const ICONOS: Record<IconoDeTecla, React.ReactNode> = {
+  izquierda: <ArrowLeft size={19} />,
+  derecha: <ArrowRight size={19} />,
+  borrar: <Delete size={19} />,
+}
 
 // El HTML de KaTeX para un glifo depende solo del LaTeX, y el teclado repite
 // las mismas teclas ejercicio tras ejercicio: se cachea a nivel módulo para no
@@ -135,520 +129,42 @@ function glyph(tex: string): string {
   return html
 }
 
-// Hueco de los argumentos que faltan. `\square` es el mismo cuadrado hueco que
-// usa la notación de libro para un lugar a completar.
-const BOX = "\\square"
-
-// Izquierda: lo que estructura la expresión y lo que mueve el cursor.
-const LEFT: Key[] = [
-  { tex: "(", insert: "(", tone: "paren", size: "lg" },
-  { tex: ")", insert: ")", tone: "paren", size: "lg" },
-  { node: <ArrowLeft size={19} />, cmd: "moveToPreviousChar", tone: "nav" },
-  { node: <ArrowRight size={19} />, cmd: "moveToNextChar", tone: "nav" },
-]
-
-// Centro: la incógnita y las cuatro operaciones.
-//
-// Los tres operadores van en `\boldsymbol`: en la fuente matemática de KaTeX el
-// `+`, el `−` y sobre todo el `·` son trazos finos pensados para leerse DENTRO
-// de una fórmula, rodeados de letras. Solos en el centro de una tecla se veían
-// desvaídos al lado de la `x` y de los dígitos, y el punto directamente
-// desaparecía. La negrita es solo del glifo de la tecla: lo que insertan sigue
-// siendo el símbolo normal.
-const CENTER: Key[] = [
-  { tex: "x", insert: "x", tone: "unknown", size: "lg" },
-  { tex: "\\boldsymbol{+}", insert: "+", tone: "add", size: "lg" },
-  { tex: "\\boldsymbol{-}", insert: "-", tone: "sub", size: "lg" },
-  { tex: "\\boldsymbol{\\cdot}", insert: "\\cdot", tone: "mul", size: "lg" },
-]
-
-// Las mismas ocho teclas fijas, ya intercaladas para el pad del teléfono: los
-// dos bloques de dos columnas se fundieron en una grilla de cuatro, y el orden
-// de lectura que había —( ) x + arriba, ← → − · abajo— se conserva alternando
-// las listas de a dos.
-//
-// Bajan a `md`: eran `lg` porque ocupaban el doble de alto que un dígito, y a
-// igual tamaño que el numérico ese cuerpo las hacía ver desproporcionadas.
-const PAD_FIXED: Key[] = [
-  ...LEFT.slice(0, 2),
-  ...CENTER.slice(0, 2),
-  ...LEFT.slice(2),
-  ...CENTER.slice(2),
-].map((key) => ({ ...key, size: "md" as const }))
-
-const NUM = (d: string): Key => ({ tex: d, insert: d, size: "num" })
-
-const CLEAR_KEY: Key = { tex: "\\mathrm{C}", action: "clear", tone: "clear" }
-const ERASE_KEY: Key = { node: <Delete size={19} />, cmd: "deleteBackward", tone: "erase" }
-
-const NUMPAD: Key[] = [
-  NUM("7"), NUM("8"), NUM("9"),
-  NUM("4"), NUM("5"), NUM("6"),
-  NUM("1"), NUM("2"), NUM("3"),
-  { ...CLEAR_KEY, size: "num" },
-  NUM("0"),
-  ERASE_KEY,
-]
-
-// Vocabulario dinámico. Las claves son los ids que manda el backend; cualquier
-// id desconocido se ignora, así agregar teclas en v2 no rompe clientes viejos.
-export const DYNAMIC: Record<string, Key> = {
-  pow: { tex: `${BOX}^{${BOX}}`, insert: "#@^{#?}", atajo: "^", fisica: ["^"] },
-  sq: { tex: `${BOX}^{2}`, insert: "#@^{2}" },
-  sqrt: { tex: `\\sqrt{${BOX}}`, insert: "\\sqrt{#?}" },
-  // `#@` y no `#?` en el numerador: es el token de argumento implícito de
-  // MathLive —"comete lo que está justo antes del cursor"— y es lo que hace que
-  // escribir `1` y tocar esta tecla dé `1/□` con el cursor abajo, en vez de
-  // dejar el 1 al costado de una fracción vacía. `pow` y `sq` ya lo usaban;
-  // esta era la única que se había quedado con dos huecos.
-  //
-  // De paso, la tecla y la barra `/` física pasan a hacer lo mismo: aquella ya
-  // se comportaba así (ver el consejo de escritorio en math-input.tsx).
-  //
-  // `sqrt` NO lleva `#@` a propósito: `\sqrt{#@}` no deja ningún hueco, así que
-  // el cursor terminaría fuera del radical en vez de adentro, que es al revés
-  // de lo que se quiere en el caso común de querer escribir una raíz.
-  frac: { tex: `\\frac{${BOX}}{${BOX}}`, insert: "\\frac{#@}{#?}", atajo: "/", fisica: ["/"] },
-  e: { tex: "e", insert: "e" },
-  expx: { tex: `e^{${BOX}}`, insert: "e^{#?}" },
-  ln: {
-    tex: "\\ln",
-    texWide: `\\ln\\left(${BOX}\\right)`,
-    insert: "\\ln\\left(#?\\right)",
-  },
-  log: {
-    tex: `\\log_{${BOX}}`,
-    texWide: `\\log_{${BOX}}\\left(${BOX}\\right)`,
-    insert: "\\log_{#?}\\left(#?\\right)",
-  },
-  sen: {
-    tex: "\\operatorname{sen}",
-    texWide: `\\operatorname{sen}\\left(${BOX}\\right)`,
-    insert: "\\operatorname{sen}\\left(#?\\right)",
-  },
-  cos: {
-    tex: "\\cos",
-    texWide: `\\cos\\left(${BOX}\\right)`,
-    insert: "\\cos\\left(#?\\right)",
-  },
-  // El id sigue siendo `tg` —viaja al backend y está guardado en
-  // `game_players.unlocked_keys`, así que renombrarlo dejaría a todo el mundo
-  // sin su tecla— pero lo que se ve y lo que inserta es `tan`.
-  tg: {
-    tex: "\\tan",
-    texWide: `\\tan\\left(${BOX}\\right)`,
-    insert: "\\tan\\left(#?\\right)",
-  },
-}
-
 // Alto de fila del bloque fijo, en una variable CSS porque cambia por tamaño de
-// pantalla. En escritorio baja a 2.05rem: con teclas de doble alto a la
-// izquierda y al centro, el bloque medía cuatro filas de blanco de más. En el
-// teléfono se queda en 2.5rem — ahí no sobra alto, pero la tecla se toca con el
-// pulgar y achicarla la vuelve imposible de acertar.
+// pantalla. En escritorio baja a 2.05rem; en el teléfono se queda en 2.5rem
+// (`KB_ROW_TELEFONO_REM` de dx-core: `check:teclado` verifica que coincidan).
 const ROW_MIN = "var(--kb-row)"
 // `--kb-strip` es el alto de las filas de ESCRITORIO (inventario y tiras). En
-// una ventana baja —una notebook de 768 px con la barra del navegador, un zoom
-// al 125%— bajan apenas, a 2,5rem: el grueso lo pone el `zoom` de la caja en
-// desktop-layout.tsx, que achica todo lo de adentro junto. El corte es el
-// mismo.
+// una ventana baja bajan apenas, a 2,5rem: el grueso lo pone el `zoom` de la
+// caja en desktop-layout.tsx.
 export const ROW_VARS =
   "[--kb-row:2.5rem] md:[--kb-row:2.05rem] [--kb-strip:2.6rem] [@media(max-height:700px)]:[--kb-strip:2.5rem]"
 
-// En escritorio todas las filas comparten una grilla de DIEZ columnas: caen en
-// las mismas verticales, que es lo que hace que se lean como un teclado y no
-// como tres tiras sueltas.
-//
-// Eran ocho, y con el inventario completo —once teclas— eso daba dos filas
-// dinámicas (6+5) más las dos fijas: cuatro filas, que ya no entran en la card y
-// se desbordaban sobre el botón. Con diez, las fijas se juntan en UNA sola y el
-// teclado vuelve a medir tres filas incluso con todo desbloqueado.
-export const GRID_COLS = 10
-
-// El pad del teléfono: las cuatro columnas de la DERECHA, al lado del numérico.
-// Antes eran dos bloques de dos columnas con las teclas a DOBLE alto
-// —ocho teclas ocupando las cuatro filas del numérico— y el inventario vivía
-// arriba, en filas propias. Con el vocabulario completo eso eran dos filas de
-// más y el teclado se comía media pantalla.
-//
-// Ahora las fijas miden lo mismo que un dígito y el pad tiene 4×4 = 16 lugares:
-// ocho para las fijas y OCHO para el inventario, que así no necesita filas
-// aparte. Solo las que no entran suben a la fila ancha de arriba.
-const PAD_COLS = 4
-// Cuatro filas, las mismas que el numérico: es lo que hace que los dos bloques
-// midan igual.
-const PAD_ROWS = 4
-export const PAD_DYNAMIC_SLOTS = PAD_COLS * PAD_ROWS - 8
-
-// En escritorio las tres filas miden lo MISMO: el teclado se lee como una
-// grilla pareja. La dinámica supo ser más alta —era la que cambiaba entre
-// ejercicios— pero ahora es un inventario que crece, y con una sola tecla
-// desbloqueada esa fila más alta se veía como un botón suelto de otro tamaño.
-// El alto alcanza para los glifos compuestos (√□, e^□ miden 30 px).
-// El alto de una tecla del teclado empaquetado. Más que las del numérico
-// (2.5rem) porque con pocas teclas sobra alto y una tecla grande es más fácil de
-// acertar con el pulgar, que es justo lo que la rampa viene a resolver.
-//
-// "Con pocas teclas" es la condición, y hasta ahora no estaba escrita en ningún
-// lado: con el inventario casi completo son cuatro filas, y a 2,9rem el teclado
-// pide 252 px contra los 212 que deja la card en una pantalla de 667. Lo que
-// sobra lo recorta `overflow-hidden`, y lo que se recorta es el marcador.
-// Desde la cuarta fila la tecla vuelve al alto del numérico.
-export const RAMPA_ROW = "2.9rem"
-export const RAMPA_ROW_APRETADO = "var(--kb-row)"
-export const RAMPA_FILAS_APRETADO = 4
-
-const DYNAMIC_ROW = "2.75rem"
+const RAMPA_ROW = `${RAMPA_ROW_REM}rem`
+const RAMPA_ROW_APRETADO = ROW_MIN
+const DYNAMIC_ROW = `${DYNAMIC_ROW_REM}rem`
 const DYNAMIC_ROW_DESKTOP = "var(--kb-strip)"
 export const STRIP_ROW = "var(--kb-strip)"
 
-// La fila fija de escritorio, espejada por el mismo motivo que el pad del
-// teléfono: en escritorio no hay numérico —los dígitos se tipean— pero sí están
-// las cuatro operaciones, y en la calculadora esas viven contra el borde
-// DERECHO. Acá abrían la fila, que es el lugar exactamente opuesto.
-//
-// Se espeja el orden de los GRUPOS, no el contenido de cada uno: `( )` no se
-// vuelve `) (` ni las flechas apuntan al revés. Lo que cambia es dónde cae cada
-// grupo, y el resultado es que la fila TERMINA en `+ − ·`, igual que la
-// columna de la derecha de la Casio.
-const STRIP_WRITE: Key[] = [...LEFT.slice(0, 2), ...CENTER]
-const STRIP_EDIT: Key[] = [CLEAR_KEY, ERASE_KEY, ...LEFT.slice(2)]
-
-// Las mismas tiras, con el atajo físico a la vista: las teclas que tienen un
-// carácter propio en el teclado real ocupan dos columnas y llevan el chip. Las
-// que no lo tienen —la C— o cuyo glifo YA es la tecla —las flechas, la x, el +
-// y el −— quedan de una columna, pulsan igual.
-//
-// «Salir» es el Tab de MathLive (moveToNextGroup, ver math-input.tsx): sale
-// del exponente o del denominador y sigue en el renglón. Es la mitad del «se me
-// pone la llave»: la otra mitad es saber que existe.
-const conAtajo = (key: Key, atajo: string, fisica: readonly string[]): Key => ({
-  ...key,
-  atajo,
-  fisica,
-  ancho: 2,
-})
-const SALIR_KEY: Key = {
-  tex: `${BOX}\\!\\rightarrow`,
-  cmd: "moveToNextGroup",
-  tone: "nav",
-  size: "sm",
-}
-const STRIP_WRITE_ATAJOS: Key[] = [
-  conAtajo(LEFT[0], "(", ["("]),
-  conAtajo(LEFT[1], ")", [")"]),
-  { ...CENTER[0], fisica: ["x"] },
-  { ...CENTER[1], fisica: ["+"] },
-  { ...CENTER[2], fisica: ["-"] },
-  conAtajo(CENTER[3], "*", ["*"]),
-]
-const STRIP_EDIT_ATAJOS: Key[] = [
-  CLEAR_KEY,
-  conAtajo(ERASE_KEY, "⌫", ["Backspace"]),
-  { ...LEFT[2], fisica: ["ArrowLeft"] },
-  { ...LEFT[3], fisica: ["ArrowRight"] },
-  conAtajo(SALIR_KEY, "tab", ["Tab"]),
-]
-
-/** Cuántas columnas ocupa cada tecla de cada tira de escritorio. Derivado y no
- *  escrito a mano: lo lee el esqueleto de carga (desktop-layout.tsx ::
- *  ExerciseSkeleton) para dibujar las mismas celdas, y con un literal ahí las
- *  dos cosas se separaban en cuanto alguien sumara una tecla. */
-export const ANCHOS_DE_TIRA: number[][] = [STRIP_WRITE_ATAJOS, STRIP_EDIT_ATAJOS].map(
-  (fila) => fila.map((key) => key.ancho ?? 1),
-)
-
-/** En qué columna arranca cada tecla de una tira, para que la tira quede
- *  centrada en las diez columnas. Lo usan el teclado y su esqueleto: si el
- *  centrado se calculara dos veces, alcanzaría con tocar una para que las
- *  teclas del esqueleto dejaran de caer donde caen las de verdad. */
-export function columnasDeTira(anchos: readonly number[]): number[] {
-  const total = anchos.reduce((suma, a) => suma + a, 0)
-  let columna = Math.floor((GRID_COLS - total) / 2) + 1
-  return anchos.map((a) => {
-    const inicio = columna
-    columna += a
-    return inicio
-  })
-}
-// La tira única, para cuando el inventario pide dos filas: ahí no hay lugar
-// para los chips y las teclas vuelven a una columna. Las que tienen atajo
-// siguen pulsando.
-const STRIP: Key[] = [...STRIP_EDIT, ...STRIP_WRITE]
-
-// En escritorio la potencia y la fracción están SIEMPRE, desbloqueadas o no:
-// se tipean con `^` y `/`, y una tecla que muestra ese atajo enseña más de lo
-// que distrae. En el teléfono siguen siendo del inventario.
-const SIEMPRE_EN_ESCRITORIO = ["pow", "frac"]
-
-// El teclado de escritorio mide SIEMPRE tres filas, y lo que se acomoda para
-// lograrlo es el bloque fijo: con el inventario chico ocupa dos filas —lo que se
-// escribe arriba, lo que se edita abajo, que es su agrupación natural— y cuando
-// el inventario crece hasta pedir dos filas propias, las junta en una sola.
-//
-// El alto del teclado no cambia nunca, entonces, y lo que se ve crecer es el
-// inventario ocupando el lugar de lo fijo. Las teclas se reordenan en el camino
-// —de eso se trata: la posición final se alcanza con el vocabulario completo.
-//
-// Dónde se corta, con los anchos MEDIDOS de cada glifo y no a ojo. El canal es
-// el de la card menos su margen: 456,8 px.
-//
-//   compactas (□^□ □² √□ □/□ e e^□)   ~265
-//   + ln(□) 76                        ~347   ← el corte
-//   + log_□(□) 97                     ~450   (entra por 7 px: demasiado justo)
-//   + sen(□) 87                       ~543   ✗
-//
-// Y del otro lado, las cuatro que quedan —log, sen, cos, tan— suman ~375. Las
-// dos filas quedan casi iguales (377 y 375) sin que ninguna roce el borde.
-//
-// Se probó partir por la mitad (6 y 5): la segunda fila pedía 457 contra 456,8
-// y envolvía por dos décimas de píxel, o sea tres filas de inventario y cuatro
-// en total. El reparto por cantidad no sirve acá porque las teclas no miden lo
-// mismo: las compactas entran de a seis y las funciones de a cuatro.
-export const DYN_ONE_ROW_MAX = 7
-
 // Ancho del contenido, tanto acá como en la card del ejercicio: las teclas y el
-// campo donde se escribe la respuesta comparten el mismo canal centrado, así el
-// panel entero se lee como una columna y no como tres cajas de anchos
-// distintos. Ver ExerciseCard :: PANEL_CONTENT.
+// campo donde se escribe la respuesta comparten el mismo canal centrado. Ver
+// ExerciseCard :: PANEL_CONTENT.
 export const CONTENT_WIDTH = "mx-auto w-full max-w-[32rem]"
-
-// ── La rampa del bloque fijo (ver backend/game/keyboard.py) ─────────────────
-//
-// Hasta acá el bloque fijo estaba SIEMPRE completo y lo único que crecía era el
-// inventario de arriba. La rampa lo mete en el mismo mecanismo: el teclado
-// arranca con lo que la primera respuesta necesita —la derivada de `x` es `1`,
-// así que con una tecla alcanza— y crece.
-//
-// Los ids son los del backend (`keyboard.py :: FIJAS_ORDER`) y el mapa vive acá
-// porque es donde vive el dibujo. Un id desconocido se ignora, igual que en el
-// vocabulario dinámico.
-//
-// El retroceso y las flechas NO están en el mapa y no es un olvido: no se
-// desbloquean nunca. Son lo que hace falta para corregir, y un teclado del que
-// no se puede volver atrás no es una rampa, es una trampa.
-export const FIJA_A_TECLAS: Record<string, Key[]> = {
-  ...Object.fromEntries("0123456789".split("").map((d) => [`f:${d}`, [NUM(d)]])),
-  "f:x": [CENTER[0]],
-  "f:+": [CENTER[1]],
-  "f:-": [CENTER[2]],
-  "f:*": [CENTER[3]],
-  "f:()": [LEFT[0], LEFT[1]],
-  "f:C": [CLEAR_KEY],
-}
-
-/** Cuántas fijas hay en total. Derivado y no escrito a mano: con el literal, el
- *  día que el backend sume una tecla el teclado se quedaría en modo rampa para
- *  siempre, porque nunca alcanzaría el total. */
-export const FIJAS_TOTAL = Object.keys(FIJA_A_TECLAS).length
-
-// Lo que se escribe arriba y lo que se edita abajo, que es la MISMA agrupación
-// que usan las tiras de escritorio (STRIP_WRITE / STRIP_EDIT). Reusarla no es
-// ahorro de código: es que el teclado incompleto y el de escritorio se lean como
-// el mismo objeto, porque los dos son "las teclas que hay, ordenadas", sin la
-// grilla de calculadora que solo tiene sentido con el numérico entero.
-const ORDEN_ESCRIBIR = [
-  ...("0123456789".split("").map((d) => `f:${d}`)),
-  "f:x", "f:+", "f:-", "f:*", "f:()",
-]
-const ORDEN_EDITAR = ["f:C"]
-
-// Cuántas teclas entran en una fila del teclado empaquetado.
-//
-// La cuenta vieja daba cinco, y estaba hecha sobre el ancho equivocado: medía
-// contra los 358 px de la CARD en una pantalla de 390 e ignoraba el `px-4` del
-// propio teclado. El canal real es 326 ahí, y 309 en una pantalla de 375.
-//
-// Ahora la tecla no mide 52 px fijos sino `1fr` del canal (ver `anchoDeTecla`),
-// así que lo que hay que decidir no es cuántas ENTRAN a un ancho dado sino a
-// partir de qué ancho la tecla se vuelve chica para el pulgar. A seis columnas
-// la tecla mide 46,5 px en una pantalla de 375 y 44,3 en una de 360, que es el
-// ancho de casi todo Android desde 2016. Con cinco, la misma fila dejaba 85 px
-// sin usar Y metía una fila de más: doce teclas salían 4+4+4 en vez de 6+6, y
-// esa cuarta fila es la que recortaba el marcador arriba de la fórmula.
-export const RAMPA_MAX_COL = 6
-
-/** El piso de columnas. Con muy pocas teclas la fila no se estira hasta el
- *  borde: tres teclas repartidas en todo el canal dan botones de 99 px que se
- *  leen como otra cosa, no como un teclado. Con el piso quedan en 57 px —más
- *  grandes que las de antes, que es lo que la rampa quiere— y centradas. */
-export const RAMPA_MIN_COL = 5
-
-/** El hueco entre teclas, en rem. Es el `gap-1.5` de las filas, escrito acá
- *  porque `anchoDeTecla` tiene que restarlo y dos números que se tienen que
- *  mover juntos no pueden vivir en dos lugares. */
-export const RAMPA_GAP_REM = 0.375
 
 /** El ancho de una tecla del teclado empaquetado, como porcentaje del canal.
  *
  *  Se calcula en CSS y no en JS a propósito: el canal cambia con el teléfono y
  *  con el `max-w` de la card, y medirlo desde JS pediría un ResizeObserver y un
- *  primer render sin ancho. Con `calc` las teclas de TODAS las filas miden lo
- *  mismo —la fila corta queda centrada por el `justify-center` del contenedor—
- *  y la fila llena llega exacta a los dos bordes. */
+ *  primer render sin ancho. */
 function anchoDeTecla(columnas: number) {
   return `calc((100% - ${((columnas - 1) * RAMPA_GAP_REM).toFixed(3)}rem) / ${columnas})`
 }
 
-/** Cuántas filas aguanta el teclado empaquetado antes de recortar la card.
- *
- *  Cuatro, medido: con cinco filas a 2,5rem el teclado pide 248 px contra los
- *  212 que deja una pantalla de 667, y lo que `overflow-hidden` se come es el
- *  marcador de arriba de la fórmula. Bajar más el alto no es salida: cinco
- *  filas dentro del presupuesto dan teclas de 32,8 px, que ya no son teclas. */
-export const RAMPA_FILAS_MAX = 4
-
-/** Reparte una tira en filas de largo PAREJO, nunca de más de `columnas`.
- *
- *  Parejo y no "llenar hasta el tope y que sobre": nueve teclas salen 5+4 y no
- *  5+4-por-desborde, que es la diferencia entre un bloque y una fila con un
- *  resto colgando. */
-function repartir<T>(items: T[], columnas: number): T[][] {
-  if (items.length === 0) return []
-  const filas = Math.ceil(items.length / columnas)
-  const por = Math.ceil(items.length / filas)
-  return Array.from({ length: filas }, (_, i) => items.slice(i * por, (i + 1) * por))
-}
-
-/** Con cuántas columnas se reparte este teclado.
- *
- *  Seis mientras alcance; siete cuando con seis el bloque se pasaría de
- *  `RAMPA_FILAS_MAX`. El caso es real y no teórico: con el inventario casi
- *  completo —quince fijas y un par de funciones— son diecinueve teclas, que a
- *  seis columnas salen 4+4 filas y a siete, 3+1. La tecla pasa de 46,5 px a
- *  39,0 en una pantalla de 375, que es exactamente lo que ya mide la celda del
- *  pad completo: no se inventa un tamaño nuevo, se vuelve al de siempre. */
-function columnasDeRampa(escribir: number, editar: number) {
-  const filas = (c: number) => Math.ceil(escribir / c) + Math.ceil(editar / c)
-  let c = RAMPA_MAX_COL
-  while (filas(c) > RAMPA_FILAS_MAX && c < escribir + editar) c += 1
-  return c
-}
-
-/** Una tecla dibujada, con el id del que salió.
- *
- *  El id viaja al lado de la tecla y no se reconstruye desde `key.insert`: el
- *  `·` inserta "\\cdot", los paréntesis son DOS teclas de un solo id y la C no
- *  inserta nada, así que ir para atrás desde lo que inserta se rompe en tres de
- *  los dieciséis. Las de corregir —retroceso y flechas— llevan id vacío: no se
- *  desbloquean nunca, así que no hay de qué id venir. */
-export type EntradaDeTecla = { id: string; key: Key; nueva: boolean }
-
-/** Las filas del teclado empaquetado, dado lo que el servidor desbloqueó.
- *
- *  Función pura y fuera del componente para que `check:teclado` pueda recorrer
- *  TODOS los estados del inventario. Es el único lugar donde se decide qué
- *  teclas ve alguien en rampa, y la forma de fallar no es dibujar feo sino
- *  dibujar de menos: una tecla que el servidor mandó y que no se dibuja es un
- *  ejercicio que no se puede contestar. */
-export function filasDeRampa(
-  fijas: string[],
-  dinamicas: EntradaDeTecla[],
-  newFijas: string[] = [],
-): EntradaDeTecla[][] {
-  const tiene = new Set(fijas)
-  const teclas = (orden: string[]): EntradaDeTecla[] =>
-    orden
-      .filter((id) => tiene.has(id))
-      .flatMap((id) =>
-        (FIJA_A_TECLAS[id] ?? []).map((key) => ({
-          id,
-          key,
-          nueva: newFijas.includes(id),
-        })),
-      )
-  // **El inventario va ADENTRO de estas filas, y no en la fila ancha de
-  // arriba.** En rampa el pad no se dibuja, y las primeras ocho dinámicas viven
-  // adentro del pad (`padDynamic`), así que mientras el inventario tuviera ocho
-  // teclas o menos no se dibujaba NINGUNA: el servidor desbloqueaba `frac` y
-  // `sq` al servir 9/x —cuya derivada es −9/x²— y el ejercicio llegaba sin con
-  // qué escribir la respuesta.
-  //
-  // Adentro y no en una fila propia porque una fila aparte cuesta 50 px (44 de
-  // tecla más el hueco) y con doce fijas o más eso recorta el marcador.
-  // Repartidas, las mismas teclas entran en las filas que ya hay.
-  //
-  // Primero, que es donde el pad también las pone: el inventario arriba y el
-  // bloque fijo abajo. Y en cuerpo `dyn` por lo mismo que en el pad —`log_□` no
-  // entra con el cuerpo de un dígito—, que acá sobra: la tecla de la rampa mide
-  // más que la celda del pad.
-  const escribir: EntradaDeTecla[] = [
-    ...dinamicas.map((entrada) => ({
-      ...entrada,
-      key: { ...entrada.key, size: "dyn" as const },
-    })),
-    ...teclas(ORDEN_ESCRIBIR),
-  ]
-  // El retroceso y las flechas siempre están: son las de corregir, y nunca se
-  // desbloquean, así que no pueden destellar.
-  const editar: EntradaDeTecla[] = [
-    ...teclas(ORDEN_EDITAR),
-    ...[ERASE_KEY, ...LEFT.slice(2)].map((key) => ({ id: "", key, nueva: false })),
-  ]
-  // **Siempre DOS tiras, aunque entren en una.** Hubo una version que las
-  // juntaba mientras sumaran seis o menos, para no dejar una fila de una sola
-  // tecla arriba de otra de tres. El costo era peor que el sintoma: el teclado
-  // empezaba con una fila, pasaba a dos en cuanto se desbloqueaba la segunda
-  // tecla y el bloque entero saltaba de alto en medio de la partida. Partidas
-  // desde el principio, lo que crece son las teclas de adentro y el teclado se
-  // queda quieto donde esta.
-  //
-  // Y son dos tiras y no dos filas cualesquiera: arriba lo que escribe, abajo lo
-  // que corrige. Esa separacion es la misma del teclado completo y la que hace
-  // que el retroceso este siempre en el mismo lugar.
-  const cols = columnasDeRampa(escribir.length, editar.length)
-  return [...repartir(escribir, cols), ...repartir(editar, cols)]
-}
-
-/** A partir de cuántas filas el teclado empaquetado se rinde y pasa al
- *  definitivo, con el numérico.
- *
- *  Cuatro, que es lo que mide el definitivo: el empaquetado existe para ocupar
- *  MENOS que él mientras hay pocas teclas. Cuando ya pide las mismas cuatro
- *  filas no ahorra alto, y lo que se veía era lo peor de los dos —una grilla de
- *  seis columnas sin orden de calculadora, con el 5 al lado del 8 porque el 6 y
- *  el 7 todavía no estaban— a un paso de reacomodarse entera. Ahí va
- *  directamente la estructura final: el dedo aprende de una vez dónde queda
- *  cada tecla, y el teclado no vuelve a moverse.
- *
- *  El costo, asumido: en el definitivo se ven TODAS las fijas, también las que
- *  el calendario todavía no había soltado. La rampa se termina un poco antes
- *  para quien ya llegó hasta acá. */
-export const RAMPA_FILAS_A_DEFINITIVO = 4
-
-/** Las filas del teclado empaquetado, o `null` si toca el definitivo.
- *
- *  Es lo que decide qué teclado se dibuja en rampa. Pura y exportada por lo
- *  mismo que `filasDeRampa`: para que `check:teclado` la recorra. */
-export function rampaDibujada(
-  fijas: string[],
-  dinamicas: EntradaDeTecla[],
-  newFijas: string[] = [],
-): EntradaDeTecla[][] | null {
-  if (fijas.length >= FIJAS_TOTAL) return null
-  const filas = filasDeRampa(fijas, dinamicas, newFijas)
-  return filas.length >= RAMPA_FILAS_A_DEFINITIVO ? null : filas
-}
-
-/** El alto de la tecla empaquetada, según cuántas filas haya.
- *
- *  Desde que cuatro filas pasan al definitivo (`rampaDibujada`), lo que se
- *  dibuja empaquetado tiene tres como mucho y la rama «apretada» no se usa. Se
- *  queda porque `filasDeRampa` sigue siendo la cuenta completa y `check:teclado`
- *  la recorre entera: si mañana el umbral sube, el alto ya está resuelto. */
-export function altoDeRampa(filas: number) {
+function altoDeRampa(filas: number) {
   return filas >= RAMPA_FILAS_APRETADO ? RAMPA_ROW_APRETADO : RAMPA_ROW
 }
 
-/** El ancho de la tecla empaquetada.
- *
- *  Las columnas salen de la fila MÁS LARGA y no de cada fila: así las teclas de
- *  todas las filas miden lo mismo y el bloque se lee como un teclado y no como
- *  dos tiras de botones de tamaños distintos. */
-export function anchoDeRampa(filas: EntradaDeTecla[][]) {
-  return anchoDeTecla(
-    Math.max(RAMPA_MIN_COL, ...filas.map((fila) => fila.length)),
-  )
+function anchoDeRampa(filas: EntradaDeTecla[][]) {
+  return anchoDeTecla(columnasDeRampaDibujada(filas))
 }
 
 const KEY_CLASS =
@@ -701,13 +217,12 @@ export function MathKeyboard({
 
   const press = (key: Key) => {
     sfx.select()
-    if (key.action === "clear") {
+    const accion = accionDeTecla({ key })
+    if (accion?.tipo === "clear") {
       input.current?.clear()
       input.current?.focus()
-      return
-    }
-    if (key.cmd) input.current?.command(key.cmd)
-    else if (key.insert) input.current?.insert(key.insert)
+    } else if (accion?.tipo === "cmd") input.current?.command(accion.cmd)
+    else if (accion?.tipo === "insert") input.current?.insert(accion.latex)
   }
 
   const button = (
@@ -752,7 +267,7 @@ export function MathKeyboard({
           dangerouslySetInnerHTML={{ __html: glyph(key.tex) }}
         />
       ) : (
-        <span className="relative z-10 flex">{key.node}</span>
+        <span className="relative z-10 flex">{key.icono && ICONOS[key.icono]}</span>
       )}
       {key.atajo && !numpad && (
         <KeyCap className="relative z-10 ml-0 text-muted-foreground">{key.atajo}</KeyCap>
@@ -765,21 +280,7 @@ export function MathKeyboard({
   // tecla se dibuja distinto en el pad (donde la celda mide 39 px) que en la
   // fila ancha (donde puede decir `sen(□)`).
   const dynamic = useMemo(
-    () =>
-      (numpad
-        ? keys
-        : [...SIEMPRE_EN_ESCRITORIO, ...keys.filter((id) => !SIEMPRE_EN_ESCRITORIO.includes(id))]
-      )
-        // El id viaja junto a la tecla: un id desconocido se descarta, y si el
-        // índice se leyera después contra `keys` la columna y la React key
-        // quedarían corridas a partir de ahí.
-        .map((id) => ({ id, key: DYNAMIC[id] }))
-        .filter((entry) => entry.key !== undefined)
-        .map((entry) => ({
-          id: entry.id,
-          key: entry.key,
-          nueva: newKeys.includes(entry.id),
-        })),
+    () => inventarioDinamico({ keys, newKeys, numpad }),
     [keys, newKeys, numpad],
   )
 
@@ -869,8 +370,9 @@ export function MathKeyboard({
 
   const altoRampa = altoDeRampa(filasRampa.length)
 
-  const padDinFilas = Math.ceil(padDynamic.length / PAD_COLS)
-  const padFijasAlto = (PAD_ROWS - padDinFilas) / 2
+  const { dinamicas: padDinFilas, altoDeFija: padFijasAlto } = filasDelPad({
+    dinamicasEnElPad: padDynamic.length,
+  })
   const padRows = {
     gridTemplateRows: [
       padDinFilas > 0 ? `repeat(${padDinFilas}, minmax(${ROW_MIN}, 1fr))` : "",

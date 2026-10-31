@@ -9,10 +9,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import type { components } from "@/lib/api/schema"
-import type { Topic } from "@/lib/catalog/analisis.generated"
-import { topicShortLabel } from "@/lib/catalog"
-import { exerciseTypeInfo } from "@/lib/catalog/exercise-types"
+import type { components } from "@intervalo/dx-core/api/schema"
+import type { Topic } from "@intervalo/dx-core/catalog/analisis.generated"
+import { topicShortLabel } from "@intervalo/dx-core/catalog"
+import { exerciseTypeInfo } from "@intervalo/dx-core/catalog/exercise-types"
 import { cn } from "@/lib/utils"
 import { Info } from "lucide-react"
 

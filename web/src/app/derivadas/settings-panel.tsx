@@ -30,22 +30,22 @@ import { Button } from "@/components/ui/button"
 import { CareerSelect, UniversityGrid } from "@/components/onboarding-fields"
 import { setSoundMuted, useSoundMuted } from "@/lib/audio/sound-settings"
 import { useSfx } from "@/lib/audio/useSfx"
-import { canonicalUniversity } from "@/lib/university-tags"
+import { canonicalUniversity } from "@intervalo/dx-core/university-tags"
 import { cn } from "@/lib/utils"
 import { VERDE_TINTA, WhatsappGlyph } from "./cafecito-cta"
 import { SlideFlip } from "./slide-flip"
 import { SlideHorizontal, type Direccion } from "./slide-horizontal"
-import { textoDeDificultad } from "./dificultad"
-import { clearGameIdentity } from "./game-storage"
+import { textoDeDificultad } from "@intervalo/dx-core/juego/dificultad"
+import { clearGameIdentity } from "@intervalo/dx-core/juego/game-storage"
 import {
   saveFrecuenciaRanking,
   siguienteFrecuencia,
   textoDeFrecuencia,
   useFrecuenciaRanking,
-} from "./ranking-frecuencia"
-import { useGameApi } from "./UseGameApi"
+} from "@intervalo/dx-core/juego/ranking-frecuencia"
+import { useGameApi } from "@intervalo/dx-core/juego/game-api-context"
 import { useCta } from "./game-telemetry"
-import { gameKeys, type GamePlayer } from "./UseGamePlayer"
+import { gameKeys, type GamePlayer } from "@intervalo/dx-core/juego/game-keys"
 
 type Section = "root" | "alias" | "career" | "university"
 

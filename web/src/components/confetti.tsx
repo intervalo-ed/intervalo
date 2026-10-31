@@ -11,7 +11,8 @@
 // por ejemplo) — el transform captura el fixed y el confeti queda recortado.
 
 import { useEffect, useRef, useState } from "react"
-import { BELT_VIVID_COLORS } from "@/lib/catalog"
+import { BELT_VIVID_COLORS } from "@intervalo/dx-core/catalog"
+import { collectSchedule } from "@intervalo/dx-core/juego/xp-pasos"
 
 // Cuadradito que "carga energía": crece su área en ticks discretos (no
 // inflándose suave) desde apenas visible hasta su máximo, repartidos en ~0.8 s,
@@ -103,32 +104,13 @@ export type Collect = {
   onArrive?: (index: number, progress: number) => void
 }
 
-// `collectSchedule` se exporta además para el festejo del minijuego de derivadas
-// (app/derivadas/xp-conteo.ts), que ya no tiene partículas pero cuenta la XP con
-// esta misma rampa. No es reutilizar por reutilizar: esta rampa ES el ritmo del
-// conteo —cada paso es un tick— y si los dos festejos contaran a velocidades
-// distintas se oiría que son dos cosas distintas.
+// El ritmo de la recolección es `collectSchedule`, la rampa del conteo de XP:
+// vive en dx-core (juego/xp-pasos.ts) porque la comparte la app nativa.
 const SEEK_MS = 420
-const RAMP_FIRST_MS = 200
-const RAMP_DECAY = 0.82
-const RAMP_MIN_MS = 45
 const COLLECT_START_MS = 300
 
 function easeInOut(t: number) {
   return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2
-}
-
-// Momento de partida de cada partícula, acumulando la rampa acelerada.
-export function collectSchedule(count: number): number[] {
-  const out: number[] = []
-  let delay = RAMP_FIRST_MS
-  let acc = 0
-  for (let i = 0; i < count; i++) {
-    out.push(acc)
-    acc += delay
-    delay = Math.max(RAMP_MIN_MS, delay * RAMP_DECAY)
-  }
-  return out
 }
 
 // Velocidad de salida, en % de viewport por segundo. El piso es alto a

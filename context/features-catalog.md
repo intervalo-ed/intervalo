@@ -48,6 +48,17 @@ Producto aparte, con identidad y economía propias pero la misma tabla de
 cafecitos. Lo único documentado acá es **cómo elige qué ejercicio servir**, que
 es la mecánica que gobierna la experiencia entera:
 
+**La app nativa (`mobile/`, iOS y Android) juega el mismo flujo del teléfono**
+con la misma escalera de después de responder (`dx-core ::
+despues-de-responder.ts`), pero **sin el cafecito ni los dos pedidos de la
+pantalla de inicio**: no hay botón, diapo ni link para invitar cafecitos, y
+instalar y los recordatorios web no existen en una app instalada desde la
+tienda. La escalera los recibe ya apagados (`cafecito: null`,
+`puedeOfrecerInstalar` y `puedeOfrecerNotificaciones` en `false`), así que esos
+escalones del mapa de interrupciones no salen nunca ahí. El empuje de una
+universidad sí la alcanza: lo compra alguien desde la web y multiplica a todos
+sus jugadores, jueguen donde jueguen.
+
 ### Quién es cada uno cuando vuelve (la cookie `dx_token`, desde el 28/09)
 
 El juego se juega sin cuenta, así que toda la identidad de la mayoría de la
@@ -1645,6 +1656,9 @@ Dos diapos que interrumpen la partida, en ese orden y no en otro: en iOS el push
 web **no existe** fuera de la app instalada, así que instalar es el
 prerrequisito de notificar.
 
+Son solo de la web: en la app nativa no salen (ver la nota al principio del
+minijuego).
+
 - **Instalar** sale en la derivada 24 y vuelve cada 12 hasta seis veces (36, 48,
   60, 73, 85). Estuvo en la 5 con tope de tres hasta el 18/09: el cinco se había
   elegido contra una curva de 52 jugadores donde la 15 retenía el 10%, y esa
@@ -1691,6 +1705,8 @@ copy sale de tablas que el juego no toca.
   ningún aviso puede prometer XP para escalar la tabla de universidades.
 
 ### La diapo del cafecito, y sus cuatro caras
+
+Solo en la web: la app nativa no muestra el cafecito en ningún lado.
 
 **La primera sale en la derivada 14 y las siguientes cada 20**
 (`cafecito-cta.tsx :: CAFECITO_PRIMERA` y `CAFECITO_EVERY`). Son dos números
@@ -1757,7 +1773,7 @@ que miran tablas que el juego no tiene.
 
 ## Tags de universidad, países y banderas
 
-La universidad de cada jugador se dibuja como una **tag** de color (`UniTag`) con una banderita rectangular a la derecha de la sigla, dentro de la tag. El catálogo vive duplicado, a propósito, en `web/src/lib/university-tags.ts` (color, país, alias) y `backend/universities.py` (solo clave, nombre y país); `check_universities` frena si las claves dejan de coincidir.
+La universidad de cada jugador se dibuja como una **tag** de color (`UniTag`) con una banderita rectangular a la derecha de la sigla, dentro de la tag. El catálogo vive duplicado, a propósito, en `packages/dx-core/src/university-tags.ts` (color, país, alias) y `backend/universities.py` (solo clave, nombre y país); `check_universities` frena si las claves dejan de coincidir.
 
 - **Países con catálogo:** Argentina, Uruguay, Chile (33 casas de estudios) y Paraguay (15). La bandera sale de `web/public/flags/` (Twemoji, CC-BY 4.0).
 - **Siglas repetidas entre países.** La clave guardada es única en todo el catálogo, así que la UAI, la UNAB, la UNA, la UCA y la UNCA extranjeras se guardan como `UAI-CL`, `UNAB-CL`, `UNA-PY`, `UCA-PY` y `UNCA-PY` y se DIBUJAN sin el sufijo (`label`), con su bandera. En el selector "Otra", cada sugerencia lleva la bandera adentro de la tag, que es lo que distingue una de otra. Se busca por sigla, alias ("UC" → PUC) o país ("chile").

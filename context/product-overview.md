@@ -17,7 +17,7 @@ Estudiantes universitarios de Latinoamérica cursando materias de matemática de
 
 ## Cursos activos hoy
 
-Definidos en `web/src/lib/catalog/index.ts` (`COURSE_ORDER`) y en `backend/content/<slug>/course.json`:
+Definidos en `packages/dx-core/src/catalog/index.ts` (`COURSE_ORDER`) y en `backend/content/<slug>/course.json`:
 
 | Slug | Nombre |
 |---|---|

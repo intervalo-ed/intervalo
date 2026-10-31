@@ -1,5 +1,6 @@
 "use client"
 
+import "@/lib/almacen/instalar-almacen"
 import { ClerkProvider } from "@clerk/nextjs"
 import { esUY } from "@clerk/localizations"
 import { environmentManager, QueryClient, QueryClientProvider } from "@tanstack/react-query"
@@ -8,6 +9,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { PostHogUser } from "@/app/posthog-user"
 import { SplashProvider } from "@/app/splash-context"
 import { Toaster } from "@/components/ui/sonner"
+import { GameApiDeLaWeb } from "@/components/game-api-de-la-web"
 
 function makeQueryClient() {
   return new QueryClient({
@@ -44,9 +46,11 @@ export default function Providers({ children }: { children: React.ReactNode }) {
         disableTransitionOnChange
       >
         <QueryClientProvider client={queryClient}>
-          <NuqsAdapter>
-            <SplashProvider>{children}</SplashProvider>
-          </NuqsAdapter>
+          <GameApiDeLaWeb>
+            <NuqsAdapter>
+              <SplashProvider>{children}</SplashProvider>
+            </NuqsAdapter>
+          </GameApiDeLaWeb>
           {/* Arriba, no abajo: el fondo de la pantalla está ocupado por la tab
               bar y por los CTA fijos (--nav-* / --cta-*), y un toast ahí taparía
               justo el botón que el usuario está por tocar. El offset suma la

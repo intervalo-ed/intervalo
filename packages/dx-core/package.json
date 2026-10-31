@@ -1,0 +1,42 @@
+{
+  "name": "@intervalo/dx-core",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./catalog": "./src/catalog/index.ts",
+    "./*": "./src/*.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "check:verdict": "bun run scripts/check-local-verdict.ts",
+    "check:dificultad": "bun run scripts/check-dificultad.ts",
+    "check:xp": "bun run scripts/check-xp-pasos.ts",
+    "check:latex": "bun run scripts/check-latex-normalize.ts",
+    "check:salto": "bun run scripts/check-salto.ts",
+    "check:ventana": "bun run scripts/check-ventana.ts",
+    "check:cafecito": "bun run scripts/check-cafecito.ts",
+    "check:parser": "bun run scripts/check-parser.ts",
+    "check:despues": "bun run scripts/check-despues-de-responder.ts",
+    "check:teclado": "bun run scripts/check-teclado-rampa.ts",
+    "check:tabla": "bun run scripts/check-tabla-orden.ts",
+    "check:math-text": "bun run scripts/check-math-text.ts",
+    "check:expresion": "bun run scripts/check-expresion.ts",
+    "check:ranking-orden": "bun run scripts/check-ranking-orden.ts",
+    "check:chat": "bun run scripts/check-chat.ts"
+  },
+  "peerDependencies": {
+    "@tanstack/react-query": "^5",
+    "openapi-fetch": "^0.17",
+    "react": "^19"
+  },
+  "devDependencies": {
+    "@cortex-js/compute-engine": "^0.119.0",
+    "@tanstack/react-query": "5.101.4",
+    "@types/node": "^20",
+    "@types/react": "19.2.18",
+    "openapi-fetch": "0.17.0",
+    "react": "19.2.8",
+    "typescript": "^5"
+  }
+}

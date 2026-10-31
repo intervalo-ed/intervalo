@@ -13,6 +13,12 @@ import {
   useState,
   type Ref,
 } from "react"
+import {
+  ATAJOS_EN_LINEA,
+  BORDE_POR_TONO,
+  CAMPO_FONT_REM,
+  CONTENIDO_MIN_EM,
+} from "@intervalo/dx-core/juego/campo-matematico"
 import { CAMPO_MIN_H, KeyCap } from "./exercise-card"
 import type { Teclas } from "./teclas"
 
@@ -233,43 +239,14 @@ export function tipFor({
   )
 }
 
-// "de abajo" sobra: la flecha ya dice dónde, y ahora el teclado está en la misma
-// card que este campo, justo debajo.
-export const HINT_MOBILE = "Usá el teclado 👇"
-
-// Borde del campo según el feedback. El verde es el mismo hex que usa el
-// resto del juego y las opciones del session-runner; el de errar es el
-// `WRONG` de exercise-card.tsx, el naranja de las sesiones (ver el comentario
-// ahí). Si cambia uno, cambian los tres.
-const TONE_BORDER = {
-  correct: "#22C55E",
-  wrong: "#F97316",
-} as const
-
-// El campo lo crea MathLive de forma imperativa y su borde vive en un estilo
-// inline, así que el tono se aplica sobre el elemento en vez de con una clase.
-// Se llama desde los dos lados —cuando cambia el tono y cuando el campo recién
-// se termina de crear— porque el import es asíncrono y cualquiera de los dos
-// puede llegar primero.
-// Piso del alto del CONTENIDO del campo, en em contra su propio tamaño de letra
-// (`::part(content)`, que MathLive expone y que es un flex centrado: lo que entra
-// abajo de este piso queda en el medio de la caja y no arriba).
-//
-// Existe porque la caja crecía sola: MathLive mide el alto de lo que hay escrito,
-// y una `(` o un exponente son un par de píxeles más altos que una `x`, así que
-// escribir movía la caja —y con ella el teclado de abajo— un poquito todo el
-// tiempo. Con un piso, todo lo que entra en UN RENGLÓN da exactamente el mismo
-// alto y la caja se queda quieta.
-//
-// El número está puesto entre los dos casos: una expresión de un renglón mide
-// ~1,4 em y llega a ~1,7 con paréntesis y exponentes; una fracción anda por 2,4.
-// A 1,9 em, lo de un renglón nunca la mueve y una fracción sí — que es
-// justamente cuando hace falta el lugar.
-const CONTENIDO_MIN_EM = 1.9
+// La configuración del campo (atajos, tonos del borde, el piso del alto) vive
+// en dx-core: la comparte con la app nativa (mobile/components/juego/
+// math-field.dom.tsx).
+export { HINT_MOBILE } from "@intervalo/dx-core/juego/campo-matematico"
 
 function applyTone(mf: Mathfield | null, tone: "correct" | "wrong" | null) {
   if (!mf) return
-  mf.style.borderColor = tone ? TONE_BORDER[tone] : "var(--ring)"
+  mf.style.borderColor = tone ? BORDE_POR_TONO[tone] : "var(--ring)"
 }
 
 export function MathInput({
@@ -372,7 +349,7 @@ export function MathInput({
       mf.mathVirtualKeyboardPolicy = "manual"
       mf.setAttribute("inputmode", "none")
       mf.style.width = "100%"
-      mf.style.fontSize = "1.35rem"
+      mf.style.fontSize = `${CAMPO_FONT_REM}rem`
       // El aire de la caja. Sube con CAMPO_MIN_H (exercise-card.tsx): el
       // mathfield es quien dibuja la caja, así que el alto de verdad sale de
       // acá y de CONTENIDO_MIN_EM.
@@ -467,15 +444,7 @@ export function MathInput({
       applyTone(mf, toneRef.current)
       // menuItems e inlineShortcuts exigen el elemento ya montado.
       mf.menuItems = []
-      mf.inlineShortcuts = {
-        ...mf.inlineShortcuts,
-        sen: "\\operatorname{sen}",
-        // "tan" es lo que ya entiende MathLive de fábrica; el atajo queda igual
-        // para que escribir "tg" siga funcionando, que es como lo escribe medio
-        // país aunque la tecla diga otra cosa.
-        tan: "\\tan",
-        tg: "\\tan",
-      }
+      mf.inlineShortcuts = { ...mf.inlineShortcuts, ...ATAJOS_EN_LINEA }
       fieldRef.current = mf
 
       // **Con reintento.** `mf.focus()` tira «Cannot read properties of

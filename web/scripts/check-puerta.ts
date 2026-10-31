@@ -20,11 +20,11 @@ import {
   readUltimoPedidoAt,
   savePedidoState,
   saveUltimoPedidoAt,
-} from "../src/app/derivadas/game-storage"
+} from "@intervalo/dx-core/juego/game-storage"
 import { CAFECITO_PRIMERA } from "../src/app/derivadas/cafecito-cta"
-import { INSTALAR_PRIMERA } from "../src/app/derivadas/instalacion-trigger"
-import { HITO_PERFIL, HITO_REGISTRO } from "../src/app/derivadas/hitos-del-juego"
-import { RECLUTAS_CADA, RECLUTAS_RESTO } from "../src/app/derivadas/reclutas-trigger"
+import { INSTALAR_PRIMERA } from "@intervalo/dx-core/juego/instalacion-trigger"
+import { HITO_PERFIL, HITO_REGISTRO } from "@intervalo/dx-core/juego/hitos-del-juego"
+import { RECLUTAS_CADA, RECLUTAS_RESTO } from "@intervalo/dx-core/juego/reclutas-trigger"
 import {
   REGLAS_DE_LA_DIAPO,
   REGLAS_MAX,
@@ -33,24 +33,21 @@ import {
   marcarReglasMostradas,
   reglasDichas,
   tocaReglas,
-} from "../src/app/derivadas/reglas-trigger"
+} from "@intervalo/dx-core/juego/reglas-trigger"
 import {
   EN_CURSO,
   brazoDelJuego,
   variantDelJuego,
 } from "../src/lib/experiments/UseGameVariant"
+import {
+  crearAlmacenEnMemoria,
+  instalarAlmacen,
+} from "@intervalo/dx-core/almacen/key-value-store"
 
-// `game-storage` habla con localStorage y esto corre en bun, sin navegador.
+// `game-storage` lee del almacén que se le instale; acá, uno en memoria.
 const guardado = new Map<string, string>()
-Object.assign(globalThis, {
-  window: {
-    localStorage: {
-      getItem: (k: string) => guardado.get(k) ?? null,
-      setItem: (k: string, v: string) => void guardado.set(k, v),
-      removeItem: (k: string) => void guardado.delete(k),
-    },
-  },
-})
+const memoria = crearAlmacenEnMemoria({ datos: guardado })
+instalarAlmacen({ store: memoria })
 
 let fallos = 0
 function check(ok: boolean, label: string, detalle = "") {
@@ -175,16 +172,17 @@ console.log("8. si no se puede anotar, se siguen ofreciendo")
 // que cada carga de página es un jugador nuevo con cero correctas y «una vez por
 // carga» es exactamente «una vez por jugador».
 limpio()
-const store = (
-  globalThis as unknown as { window: { localStorage: { setItem: unknown } } }
-).window.localStorage
-const setItem = store.setItem
-store.setItem = () => {
-  throw new Error("QuotaExceeded")
-}
+instalarAlmacen({
+  store: {
+    ...memoria,
+    set: () => {
+      throw new Error("QuotaExceeded")
+    },
+  },
+})
 marcarReglasMostradas(REGLAS_TRAS)
 check(tocaReglas(REGLAS_TRAS), "se siguen ofreciendo si no se pudo anotar")
-store.setItem = setItem
+instalarAlmacen({ store: memoria })
 
 console.log("9. quien ya la vio con el esquema viejo no la vuelve a ver")
 // La caja vieja guardaba `vistas: 1` queriendo decir «las tres salieron», porque

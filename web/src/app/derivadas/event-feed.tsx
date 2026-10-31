@@ -16,9 +16,10 @@ import { outOfFocus } from "./out-of-focus"
 import { AnimatePresence, motion } from "motion/react"
 import { cn } from "@/lib/utils"
 import { Hueco } from "@/components/skeleton-barra"
-import { levelColor } from "./game-colors"
-import { useGameEvents, type GameEvent } from "./UseGameLeaderboard"
+import { levelColor } from "@intervalo/dx-core/juego/game-colors"
+import { useGameEvents, type GameEvent } from "@intervalo/dx-core/juego/UseGameLeaderboard"
 import { TextoConHuecos } from "./texto-con-huecos"
+import { fmtAgo } from "@intervalo/dx-core/juego/ranking-formato"
 
 // A cuántos píxeles del fondo se sigue considerando "pegado abajo".
 const STICK_SLACK_PX = 24
@@ -27,16 +28,6 @@ const STICK_SLACK_PX = 24
 // recorta a lo que se puede leer sin que el panel se vuelva un pozo de scroll.
 const SHOWN = 12
 
-/** «recién» / «12 min» / «3 h» / «2 d». Lo usa también el chat, que muestra la
- *  misma clase de renglón. */
-export function fmtAgo(seconds: number): string {
-  if (seconds < 60) return "recién"
-  const min = Math.floor(seconds / 60)
-  if (min < 60) return `${min} min`
-  const h = Math.floor(min / 60)
-  if (h < 24) return `${h} h`
-  return `${Math.floor(h / 24)} d`
-}
 
 // Los marcadores que el servidor deja en el texto: el protagonista, un segundo
 // protagonista ("{a} reclutó a {b}") y hasta dos siglas de universidad. Ver

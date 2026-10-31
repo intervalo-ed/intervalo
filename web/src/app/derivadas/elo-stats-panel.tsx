@@ -20,14 +20,14 @@
 import { BarChart3 as StatsIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { fmtCount } from "@/components/leaderboard-chrome"
+import { fmtCount } from "@intervalo/dx-core/juego/ranking-formato"
 import { XpDots } from "@/components/xp-dots"
 import { VERDE } from "./cafecito-cta"
 import { KeyCap } from "./exercise-card"
-import { levelColor } from "./game-colors"
+import { levelColor } from "@intervalo/dx-core/juego/game-colors"
 import { useCartel } from "./game-ranking"
-import type { GamePlayer } from "./UseGamePlayer"
-import type { GameStats } from "./UseGameStats"
+import type { GamePlayer } from "@intervalo/dx-core/juego/game-keys"
+import type { GameStats } from "@intervalo/dx-core/juego/UseGameStats"
 
 // `VERDE` es el mismo del aporte en reclutas-list.tsx — el verde de WhatsApp,
 // no un verde cualquiera.

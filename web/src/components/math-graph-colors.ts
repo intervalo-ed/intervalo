@@ -10,10 +10,4 @@
 // math-graph.tsx los vuelve a exportar, así que quien ya los importaba de allá
 // sigue funcionando igual.
 
-export const LINE_COLOR = "#4453E6"
-
-// Segunda curva, opcional (hoy solo la usa el minijuego /derivadas, para
-// dibujar f y f' juntas en el «¿Por qué?»). Violeta y no rojo: el rojo ya
-// significa "parte negativa del área sombreada" en math-graph.tsx
-// (SHADE_NEGATIVE_COLOR) y reusarlo acá confundiría los dos sentidos.
-export const SECOND_LINE_COLOR = "#8d31b7"
+export { AXIS_COLOR, LINE_COLOR, SECOND_LINE_COLOR } from "@intervalo/dx-core/grafico/math-graph-colors"

@@ -22,7 +22,7 @@
 // escrito que la tabla DEPENDE de eso, así que si esa columna desaparece este
 // chequeo es la miga de pan.
 
-import { readOpinionSaltos } from "../src/app/derivadas/game-storage"
+import { readOpinionSaltos } from "@intervalo/dx-core/juego/game-storage"
 import {
   OPINION_CADENCIAS,
   OPINION_PRIMERA,
@@ -34,31 +34,31 @@ import {
   marcarPreguntaMostrada,
   preguntaDelTurno,
   tocaPreguntar,
-} from "../src/app/derivadas/opinion-trigger"
+} from "@intervalo/dx-core/juego/opinion-trigger"
 import {
   INSTALAR_PRIMERA,
   marcarInstalarMostrado,
   tocaInstalar,
-} from "../src/app/derivadas/instalacion-trigger"
+} from "@intervalo/dx-core/juego/instalacion-trigger"
 import {
   ENCUESTA_EN,
   marcarEncuestaMostrada,
   tocaEncuesta,
-} from "../src/app/derivadas/encuesta-trigger"
+} from "@intervalo/dx-core/juego/encuesta-trigger"
 import {
   marcarRegistroMostrado,
   tocaRegistro,
-} from "../src/app/derivadas/hitos-del-juego"
+} from "@intervalo/dx-core/juego/hitos-del-juego"
 import {
   marcarReglasMostradas,
   tocaReglas,
-} from "../src/app/derivadas/reglas-trigger"
+} from "@intervalo/dx-core/juego/reglas-trigger"
 import {
   RECLUTAS_CADA,
   RECLUTAS_RESTO,
   marcarReclutasMostrado,
   tocaReclutar,
-} from "../src/app/derivadas/reclutas-trigger"
+} from "@intervalo/dx-core/juego/reclutas-trigger"
 import {
   CAFECITO_EVERY,
   CAFECITO_PRIMERA,
@@ -66,18 +66,15 @@ import {
   markCafecitoShown,
   shouldShowCafecito,
 } from "../src/app/derivadas/cafecito-cta"
+import {
+  crearAlmacenEnMemoria,
+  instalarAlmacen,
+} from "@intervalo/dx-core/almacen/key-value-store"
 
-// `game-storage` habla con localStorage y esto corre en bun, sin navegador.
+// `game-storage` lee del almacén que se le instale; acá, uno en memoria.
 const guardado = new Map<string, string>()
-Object.assign(globalThis, {
-  window: {
-    localStorage: {
-      getItem: (k: string) => guardado.get(k) ?? null,
-      setItem: (k: string, v: string) => void guardado.set(k, v),
-      removeItem: (k: string) => void guardado.delete(k),
-    },
-  },
-})
+const memoria = crearAlmacenEnMemoria({ datos: guardado })
+instalarAlmacen({ store: memoria })
 
 let fallos = 0
 function check(ok: boolean, label: string) {
@@ -376,18 +373,19 @@ console.log("8. si no se puede anotar, se sigue ofreciendo")
 // localStorage puede estar bloqueado (modo privado, permisos). El lado hacia el
 // que conviene errar es mostrarla una vez de más — y, con la racha, NO apagarla.
 limpio()
-const store = (
-  globalThis as unknown as { window: { localStorage: { setItem: unknown } } }
-).window.localStorage
-const setItem = store.setItem
-store.setItem = () => {
-  throw new Error("QuotaExceeded")
-}
+instalarAlmacen({
+  store: {
+    ...memoria,
+    set: () => {
+      throw new Error("QuotaExceeded")
+    },
+  },
+})
 marcarPreguntaMostrada(OPINION_PRIMERA)
 anotarRespuesta(false)
 check(tocaPreguntar(OPINION_PRIMERA) !== null, "sigue ofreciéndose si no se pudo anotar")
 check(readOpinionSaltos() === 0, "y una racha que no se pudo guardar no apaga nada")
-store.setItem = setItem
+instalarAlmacen({ store: memoria })
 
 console.log(fallos === 0 ? "\ntodos los chequeos pasaron" : `\n${fallos} fallos`)
 process.exit(fallos === 0 ? 0 : 1)

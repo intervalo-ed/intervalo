@@ -8,14 +8,14 @@
 // cosas que la hacen soportable — que caiga en los números que le tocan, y que
 // nunca salga pegada a la del cafecito.
 
-import { readUltimoPedidoAt, saveUltimoPedidoAt } from "../src/app/derivadas/game-storage"
+import { readUltimoPedidoAt, saveUltimoPedidoAt } from "@intervalo/dx-core/juego/game-storage"
 import {
   RECLUTAS_CADA,
   RECLUTAS_COOLDOWN,
   RECLUTAS_RESTO,
   marcarReclutasMostrado,
   tocaReclutar,
-} from "../src/app/derivadas/reclutas-trigger"
+} from "@intervalo/dx-core/juego/reclutas-trigger"
 import {
   CAFECITO_COOLDOWN,
   CAFECITO_EVERY,
@@ -30,18 +30,15 @@ import {
   POOL_DE_EJEMPLO,
   sortearAliasDeEjemplo,
 } from "../src/components/reclutas-ejemplos"
+import {
+  crearAlmacenEnMemoria,
+  instalarAlmacen,
+} from "@intervalo/dx-core/almacen/key-value-store"
 
-// `game-storage` habla con localStorage y esto corre en bun, sin navegador.
+// `game-storage` lee del almacén que se le instale; acá, uno en memoria.
 const guardado = new Map<string, string>()
-Object.assign(globalThis, {
-  window: {
-    localStorage: {
-      getItem: (k: string) => guardado.get(k) ?? null,
-      setItem: (k: string, v: string) => void guardado.set(k, v),
-      removeItem: (k: string) => void guardado.delete(k),
-    },
-  },
-})
+const memoria = crearAlmacenEnMemoria({ datos: guardado })
+instalarAlmacen({ store: memoria })
 
 let fallos = 0
 function check(ok: boolean, label: string) {

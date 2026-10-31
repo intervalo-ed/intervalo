@@ -1,6 +1,6 @@
 "use client"
 
-import { restanteEnPalabras } from "@/components/boost-banner"
+import { restanteEnPalabras } from "@intervalo/dx-core/juego/ranking-formato"
 import { CountUp } from "@/components/count-up"
 import { CourseSwitcher } from "@/components/course-switcher"
 import { DismissibleHint } from "@/components/dismissible-hint"
@@ -33,7 +33,7 @@ import {
   type BeltKey,
   type CourseId,
   type Topic,
-} from "@/lib/catalog"
+} from "@intervalo/dx-core/catalog"
 import { useUser } from "@clerk/nextjs"
 import { CheckIcon, ChevronDown, Info, RotateCcwIcon, SettingsIcon } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
@@ -47,7 +47,7 @@ import { EditorStepper } from "@/app/editor-stepper"
 // `motion/react`, que esta pantalla ya usa para la lista de unidades, así que no
 // agrega nada al bundle.
 import { GameLogo } from "@/app/derivadas/game-logo"
-import { AMBAR } from "@/app/derivadas/game-colors"
+import { AMBAR } from "@intervalo/dx-core/juego/game-colors"
 import { useUserProgress } from "@/app/UseUserProgress"
 import { usePracticeStats } from "./UsePracticeStats"
 import { useStartPractice } from "./UseStartPractice"

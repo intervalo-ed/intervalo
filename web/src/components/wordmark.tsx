@@ -1,4 +1,4 @@
-import { BELT_LEGEND_BAR_COLORS } from "@/lib/catalog"
+import { BELT_LEGEND_BAR_COLORS } from "@intervalo/dx-core/catalog"
 import { cn } from "@/lib/utils"
 
 const BELT_COLORS = BELT_LEGEND_BAR_COLORS

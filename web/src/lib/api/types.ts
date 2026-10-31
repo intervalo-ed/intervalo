@@ -1,4 +1,4 @@
-import type { components } from "./schema"
+import type { components } from "@intervalo/dx-core/api/schema"
 
 export type TopicProgress = components["schemas"]["TopicProgress"]
 export type TopicStates = Record<string, TopicProgress>

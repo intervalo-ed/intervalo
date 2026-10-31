@@ -17,7 +17,7 @@ import {
   shareLink,
   shareUrl,
 } from "@/app/derivadas/cafecito-cta"
-import { BELT_HEX } from "@/lib/catalog"
+import { BELT_HEX } from "@intervalo/dx-core/catalog"
 import { PORCENTAJE_POR_DEFECTO } from "@/components/reclutas-list"
 import { XpDots } from "@/components/xp-dots"
 import { ChargeBall, Confetti, ConfettiRain } from "@/components/confetti"
@@ -46,7 +46,7 @@ import {
 import { useNotificationSettingsQuery } from "@/app/(app)/profile/UseNotificationSettings"
 import { useSfx, useTick } from "@/lib/audio/useSfx"
 import { usePostOnboardingRankingVariant } from "@/lib/experiments/UsePostOnboardingRanking"
-import type { components } from "@/lib/api/schema"
+import type { components } from "@intervalo/dx-core/api/schema"
 import {
   NOTIFY_CTA_COOLDOWN_MS,
   NotifyHintAction,

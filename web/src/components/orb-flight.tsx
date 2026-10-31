@@ -29,7 +29,7 @@
 // renderizarse dentro de un contenedor con transform.
 
 import { useEffect, useRef, useState } from "react"
-import { collectSchedule } from "./confetti"
+import { collectSchedule } from "@intervalo/dx-core/juego/xp-pasos"
 
 // Diámetro de los orbes, en px. Todos iguales: son pedacitos de una fórmula, no
 // fichas, y lo único que los distingue es por dónde van.
