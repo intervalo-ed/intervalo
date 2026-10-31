@@ -54,7 +54,7 @@ Century Schoolbook y Constantia.
 
 ## 3. Paleta
 
-Sale de `web/src/lib/catalog/index.ts` y `web/src/app/globals.css`:
+Sale de `packages/dx-core/src/catalog/index.ts` y `web/src/app/globals.css`:
 
 ```python
 INDIGO      = "#5457e5"   # --primary

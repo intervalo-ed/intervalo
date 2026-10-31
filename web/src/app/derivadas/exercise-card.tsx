@@ -18,7 +18,7 @@ import { cn } from "@/lib/utils"
 import { Cara } from "./flip-face"
 import { FUNDIDO } from "./slide-flip"
 import { useTeclas } from "./teclas"
-import type { GameAnswer } from "./UseGameExercise"
+import type { GameAnswer } from "@intervalo/dx-core/juego/UseGameExercise"
 
 // No hay pregunta escrita. La consigna es siempre la misma —derivar— así que se
 // explica una vez en la intro (intro-panel.tsx) y de ahí en más la dice la

@@ -21,7 +21,7 @@ import { unwrap } from "@/lib/api/client"
 import { getTimezone, isPushSupported, subscribeToPush } from "@/lib/push/register"
 import { isStandalone } from "@/lib/platform/detect"
 
-import { useGameApi } from "./UseGameApi"
+import { useGameApi } from "@intervalo/dx-core/juego/game-api-context"
 
 export { DEFAULT_REMINDER_TIME, REMINDER_TIME_OPTIONS } from "@/lib/push/UseEnableNotifications"
 

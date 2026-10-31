@@ -108,7 +108,7 @@ class GameExerciseOut(BaseModel):
     difficulty_stars: int
     # Crudo, sin redondear a estrellas: lo necesita el festejo optimista del
     # front para estimar la XP de un acierto ANTES de que /answer conteste
-    # (ver web/src/app/derivadas/xp-estimate.ts, espejo de game/xp.py).
+    # (ver packages/dx-core/src/juego/xp-estimate.ts, espejo de game/xp.py).
     p_hat: float
     combo: int
     # Inventario COMPLETO de teclas desbloqueadas del jugador, en orden canónico

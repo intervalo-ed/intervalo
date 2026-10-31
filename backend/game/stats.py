@@ -31,7 +31,7 @@ from .templates import TEMPLATE_BY_KEY
 # de la activación («3 resueltas en la primera tanda»), así que quien activó
 # ya tiene el botón, y con tres derivadas las tiles ya dicen algo (resueltas,
 # efectividad, racha). Tiene que ser el MISMO valor que
-# web/src/app/derivadas/stats-gate.ts :: UMBRAL_ESTADISTICAS.
+# packages/dx-core/src/juego/stats-gate.ts :: UMBRAL_ESTADISTICAS.
 #
 # No es el piso de «calificado» (abajo): ver el panel y ENTRAR en la campana
 # son dos cosas distintas.

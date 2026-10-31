@@ -3,6 +3,9 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   reactCompiler: true,
+  // La lógica del juego vive en packages/dx-core como TypeScript sin compilar,
+  // compartida con la app nativa.
+  transpilePackages: ["@intervalo/dx-core"],
   skipTrailingSlashRedirect: true,
   async redirects() {
     return [

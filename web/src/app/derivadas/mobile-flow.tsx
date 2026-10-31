@@ -58,30 +58,30 @@ import {
 import { PedidoInstalar, puedeOfrecerInstalar } from "./pedido-instalar"
 import { PedidoNotificaciones } from "./pedido-notificaciones"
 import { puedeOfrecerNotificaciones } from "./UseAvisosDelJuego"
-import { marcarPwaDesde } from "./game-storage"
-import { marcarEncuestaMostrada, tocaEncuesta } from "./encuesta-trigger"
+import { marcarPwaDesde } from "@intervalo/dx-core/juego/game-storage"
+import { marcarEncuestaMostrada, tocaEncuesta } from "@intervalo/dx-core/juego/encuesta-trigger"
 import { EncuestaSlide } from "./encuesta-slide"
 import {
   marcarFrecuenciaMostrada,
   readFrecuenciaRanking,
   tocaPreguntarFrecuencia,
   tocaRanking,
-} from "./ranking-frecuencia"
+} from "@intervalo/dx-core/juego/ranking-frecuencia"
 import { RankingFrecuenciaSlide } from "./ranking-frecuencia-slide"
 import { DificultadSlide } from "./dificultad-slide"
 import {
   anotarRespuesta,
   marcarPreguntaMostrada,
   tocaPreguntar,
-} from "./opinion-trigger"
+} from "@intervalo/dx-core/juego/opinion-trigger"
 import { OpinionSlide } from "./opinion-slide"
 import { RepetitividadSlide } from "./repetitividad-slide"
-import { marcarReclutasMostrado, tocaReclutar } from "./reclutas-trigger"
+import { marcarReclutasMostrado, tocaReclutar } from "@intervalo/dx-core/juego/reclutas-trigger"
 import {
   HITO_PERFIL,
   marcarRegistroMostrado,
   tocaRegistro,
-} from "./hitos-del-juego"
+} from "@intervalo/dx-core/juego/hitos-del-juego"
 import { GameIntroLogo, type GameIntro } from "./game-intro"
 import { PuertaMinima } from "./intro-panel"
 import { ReglasSlide } from "./reglas-slide"
@@ -90,14 +90,14 @@ import {
   REGLAS_DE_LA_DIAPO,
   marcarReglasMostradas,
   tocaReglas,
-} from "./reglas-trigger"
+} from "@intervalo/dx-core/juego/reglas-trigger"
 import { DerivativesStatsTable, DerivativesTable, TableButton } from "./derivatives-table"
 import { EloStatsPanel, StatsButton } from "./elo-stats-panel"
-import { puedeVerEstadisticas } from "./stats-gate"
-import { useGameStats } from "./UseGameStats"
+import { puedeVerEstadisticas } from "@intervalo/dx-core/juego/stats-gate"
+import { useGameStats } from "@intervalo/dx-core/juego/UseGameStats"
 import { PorQueButton, PorQuePanel, type PorQueGraph } from "./porque-panel"
 import { PieDeRampa } from "./pie-rampa"
-import { useExplainExercise } from "./UseGameExplain"
+import { useExplainExercise } from "@intervalo/dx-core/juego/UseGameExplain"
 import {
   SLIDE_TRANSITION,
   SlideHorizontal,
@@ -107,11 +107,11 @@ import {
 import { ChatButton, ChatPanel } from "./chat-panel"
 import { GameRanking, memoriaEnBlanco, type MemoriaDelRanking } from "./game-ranking"
 import { ALL_SCOPE, type RankingView } from "@/components/leaderboard-chrome"
-import { AMBAR } from "./game-colors"
+import { AMBAR } from "@intervalo/dx-core/juego/game-colors"
 import { HINT_MOBILE, MathInput, type MathInputHandle } from "./math-input"
 import { MathKeyboard } from "./math-keyboard"
-import { parseAnswerToMathJson } from "./parse-answer"
-import { useLocalVerdict } from "./UseLocalVerdict"
+import { parseAnswerToMathJson } from "@intervalo/dx-core/juego/parse-answer"
+import { useLocalVerdict } from "@intervalo/dx-core/juego/UseLocalVerdict"
 import { LegalSheet } from "@/app/onboarding/legal-sheet"
 import { ProfileSlides, RegisterSlide } from "./register-slides"
 import { UsernameSlide } from "./username-slide"
@@ -123,7 +123,7 @@ import {
   useEjercicioAdelantado,
   type GameAnswer,
   type GameExercise,
-} from "./UseGameExercise"
+} from "@intervalo/dx-core/juego/UseGameExercise"
 import { useGameIdentity } from "./game-telemetry"
 import {
   refrescarRankingCentrado,
@@ -131,12 +131,13 @@ import {
   useGamePulse,
   useGameUniversityLeaderboard,
   useMyBoost,
-} from "./UseGameLeaderboard"
-import { useDespuesDelArranque } from "./UseDespuesDelArranque"
-import { gameKeys, useGamePlayer, type GamePlayer } from "./UseGamePlayer"
-import { comboTrasIntento } from "./racha-estimate"
-import { vistaInicialDelRanking } from "./vuelta-universitaria"
-import { estimarXp } from "./xp-estimate"
+} from "@intervalo/dx-core/juego/UseGameLeaderboard"
+import { useDespuesDelArranque } from "@intervalo/dx-core/juego/UseDespuesDelArranque"
+import { gameKeys, type GamePlayer } from "@intervalo/dx-core/juego/game-keys"
+import { useGamePlayer } from "./UseGamePlayer"
+import { comboTrasIntento } from "@intervalo/dx-core/juego/racha-estimate"
+import { vistaInicialDelRanking } from "@intervalo/dx-core/juego/vuelta-universitaria"
+import { estimarXp } from "@intervalo/dx-core/juego/xp-estimate"
 import { useXpConteo } from "./xp-conteo"
 
 const ctaCls =

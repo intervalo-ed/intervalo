@@ -17,7 +17,7 @@ Lo que se fija acá es la propiedad que hace que eso no pueda volver:
      combo.
   3. La tabla cubre el catálogo entero: ninguna plantilla necesita el clamp de
      `xp_base_de`.
-  4. El espejo del front (web/src/app/derivadas/xp-estimate.ts) da lo mismo que
+  4. El espejo del front (packages/dx-core/src/juego/xp-estimate.ts) da lo mismo que
      el backend. Se compara la TABLA leyéndola del archivo, no reimplementándola
      acá: dos copias de un número solo sirven si algo las mira juntas.
 
@@ -130,7 +130,7 @@ check(not faltan, f"ninguna plantilla necesita el clamp de xp_base_de (faltaría
 
 print("El espejo del front")
 
-ts = (BACKEND.parent / "web/src/app/derivadas/xp-estimate.ts").read_text(encoding="utf-8")
+ts = (BACKEND.parent / "packages/dx-core/src/juego/xp-estimate.ts").read_text(encoding="utf-8")
 m = re.search(r"XP_POR_TIER:\s*Record<number, number>\s*=\s*\{([^}]*)\}", ts)
 check(m is not None, "xp-estimate.ts tiene su tabla XP_POR_TIER")
 if m:
@@ -167,7 +167,7 @@ print("El espejo del cafecito")
 # tener respaldo acá.
 from game import boosts as game_boosts  # noqa: E402
 
-cafe = (BACKEND.parent / "web/src/app/derivadas/impacto-del-cafecito.ts").read_text(
+cafe = (BACKEND.parent / "packages/dx-core/src/juego/impacto-del-cafecito.ts").read_text(
     encoding="utf-8"
 )
 for nombre, valor in (

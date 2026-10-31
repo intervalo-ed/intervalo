@@ -5,10 +5,12 @@ Un check nuevo se agrega a la lista de `CHECKS` en ese script — la lista es
 explícita a propósito: `backend/scripts/diag/` tiene scripts que se conectan a la
 base REAL y uno de ellos renombra gente, así que un glob no sirve.
 
-Del lado del front: `bunx tsc --noEmit`, `bun run build` y los checks propios
-(`bun run check:xp`, `check:reclutas`, `check:latex`, `check:restante`,
-`check:teclado`). El CI corre todo esto en cada PR
-(`.github/workflows/ci.yml`).
+Del lado del front (workspace de bun: `bun install` en la raíz): en `web/`,
+`bunx tsc --noEmit`, `bun run build` y los checks que tocan código de la web
+(`check:reclutas`, `check:restante`, `check:teclado`, …); en `packages/dx-core/`
+—la lógica del juego, compartida con la app nativa—, `bun run typecheck` y los
+checks de lógica pura (`check:xp`, `check:latex`, `check:parser`, …). El CI
+corre todo esto en cada PR (`.github/workflows/ci.yml`).
 
 **Si tocaste `models.py`**, `check_schema_migrations` es obligatorio: hay
 precedente de una columna que existía en la base y no en el modelo.

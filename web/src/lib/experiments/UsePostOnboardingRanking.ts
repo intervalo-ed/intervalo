@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import posthog from "posthog-js"
-import { settleWithTimeout } from "@/lib/async/with-timeout"
+import { settleWithTimeout } from "@intervalo/dx-core/async/with-timeout"
 
 // Experimento "el ranking motiva": el brazo test aterriza en /leaderboard al
 // terminar el onboarding y vuelve ahí después de cada resumen de sesión; el

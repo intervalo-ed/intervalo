@@ -49,7 +49,7 @@ def check(cond: bool, msg: str) -> None:
 claves = [k for k, _ in UNIVERSITIES]
 check(len(claves) == len(set(claves)), "las claves del catálogo son únicas")
 
-ts = (BACKEND.parent / "web/src/lib/university-tags.ts").read_text(encoding="utf-8")
+ts = (BACKEND.parent / "packages/dx-core/src/university-tags.ts").read_text(encoding="utf-8")
 front = re.findall(r'key: "([^"]+)"', ts)
 check(set(front) == set(claves), f"front y backend tienen las mismas claves ({len(front)} vs {len(claves)})")
 check(set(claves) - set(front) == set() and set(front) - set(claves) == set(), "sin claves de más ni de menos")

@@ -5,7 +5,7 @@ import { useApi } from "@/lib/api/useApi"
 import { queryKeys } from "@/lib/query/keys"
 import { getTimezone } from "@/lib/push/register"
 import { isStandalone } from "@/lib/platform/detect"
-import type { CourseId } from "@/lib/catalog"
+import type { CourseId } from "@intervalo/dx-core/catalog"
 
 export function useUserProgress({ course }: { course?: CourseId } = {}) {
   const api = useApi()

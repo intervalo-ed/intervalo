@@ -16,7 +16,7 @@ import {
   readUltimaInterrupcion,
   readUltimaPantalla,
   saveUltimoPedidoAt,
-} from "./game-storage"
+} from "@intervalo/dx-core/juego/game-storage"
 import { INSTALAR_SEPARACION } from "./instalacion-trigger"
 import { useCta } from "./game-telemetry"
 

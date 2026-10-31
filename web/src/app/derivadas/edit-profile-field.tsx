@@ -3,12 +3,12 @@
 import { useRef, useState } from "react"
 import { useQueryClient } from "@tanstack/react-query"
 import { CareerSelect, UniversityGrid } from "@/components/onboarding-fields"
-import { canonicalUniversity } from "@/lib/university-tags"
+import { canonicalUniversity } from "@intervalo/dx-core/university-tags"
 import { useSfx } from "@/lib/audio/useSfx"
 import { cn } from "@/lib/utils"
 import { Salida } from "./slide-salida"
-import { useGameApi } from "./UseGameApi"
-import { gameKeys } from "./UseGamePlayer"
+import { useGameApi } from "@intervalo/dx-core/juego/game-api-context"
+import { gameKeys } from "@intervalo/dx-core/juego/game-keys"
 
 // Blanco, como Continuar/Empezar: a diferencia de las diapos de cafecito y
 // reclutas —donde el botón del pie es Volver/Ahora no, una salida—, acá es la

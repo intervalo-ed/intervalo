@@ -1,5 +1,5 @@
 /**
- * Generates src/lib/catalog/{slug}.generated.ts for every course found under
+ * Generates packages/dx-core/src/catalog/{slug}.generated.ts for every course found under
  * backend/content/[slug]/course.json.
  *
  * The runtime shape is always belts -> units -> topics -> skills. If a
@@ -17,7 +17,7 @@ import { fileURLToPath } from "node:url"
 
 const here = dirname(fileURLToPath(import.meta.url))
 const CONTENT_ROOT = resolve(here, "../../backend/content")
-const OUT_DIR = resolve(here, "../src/lib/catalog")
+const OUT_DIR = resolve(here, "../../packages/dx-core/src/catalog")
 
 // Only these courses are surfaced to the frontend. Add more as they become
 // available in the dashboard UI.

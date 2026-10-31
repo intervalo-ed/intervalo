@@ -3,7 +3,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useApi } from "@/lib/api/useApi"
 import { queryKeys } from "@/lib/query/keys"
-import type { components } from "@/lib/api/schema"
+import type { components } from "@intervalo/dx-core/api/schema"
 
 type EmojiState = components["schemas"]["EmojiStateResponse"]
 

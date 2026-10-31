@@ -36,7 +36,7 @@ import { KeyCap } from "./exercise-card"
 import { Cara } from "./flip-face"
 import { useCartel } from "./game-ranking"
 import { useTeclas } from "./teclas"
-import type { GameStatsRow } from "./UseGameStats"
+import type { GameStatsRow } from "@intervalo/dx-core/juego/UseGameStats"
 
 // Todas las fórmulas se dibujan en `\displaystyle`, y no es cosmético: en
 // modo texto —el de `$...$`— KaTeX arma las fracciones con numerador y

@@ -5,7 +5,7 @@
 // Reejecutar tras cambiar colores/logo: bun run scripts/gen-og-image.ts
 import sharp from "sharp"
 import { join } from "node:path"
-import { BELT_LEGEND_BAR_COLORS } from "../src/lib/catalog"
+import { BELT_LEGEND_BAR_COLORS } from "@intervalo/dx-core/catalog"
 
 const OUT = new URL("../src/app/", import.meta.url).pathname.replace(/^\/(\w:)/, "$1")
 const BG  = "#131324"

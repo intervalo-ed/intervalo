@@ -16,7 +16,7 @@ import {
   ONBOARDING_UNIVERSITIES,
   UNIVERSITY_TAG_BY_KEY,
   matchUniversities,
-} from "@/lib/university-tags"
+} from "@intervalo/dx-core/university-tags"
 
 export const CAREERS = [
   { value: "E", label: "Ingeniería", emoji: "⚙️" },

@@ -2313,10 +2313,12 @@ check("y la caja de pérdida las conserva, que ahí no se mezcla nada",
 # que tenerlos viejos corre el escalón que se está buscando; esto lo convierte
 # en un check en vez de una advertencia.
 _WEB = BACKEND.parent / "web" / "src" / "app" / "derivadas"
+_CORE = BACKEND.parent / "packages" / "dx-core" / "src" / "juego"
 
 
 def _const_ts(archivo: str, nombre: str) -> int | None:
-    txt = (_WEB / archivo).read_text(encoding="utf-8")
+    ruta = _CORE / archivo if (_CORE / archivo).exists() else _WEB / archivo
+    txt = ruta.read_text(encoding="utf-8")
     m = _re.search(rf"export const {nombre}\s*=\s*(\d+)", txt)
     return int(m.group(1)) if m else None
 

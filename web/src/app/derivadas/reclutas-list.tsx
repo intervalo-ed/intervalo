@@ -19,8 +19,8 @@ import {
   useFilasDeEjemplo,
   type FilaRecluta,
 } from "@/components/reclutas-list"
-import { levelColor } from "./game-colors"
-import type { GameRecruitEntry } from "./UseGameLeaderboard"
+import { levelColor } from "@intervalo/dx-core/juego/game-colors"
+import type { GameRecruitEntry } from "@intervalo/dx-core/juego/UseGameLeaderboard"
 
 export { EJEMPLOS_COUNT, EJEMPLOS_XP_TOTAL } from "@/components/reclutas-list"
 

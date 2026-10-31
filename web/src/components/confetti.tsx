@@ -11,7 +11,7 @@
 // por ejemplo) — el transform captura el fixed y el confeti queda recortado.
 
 import { useEffect, useRef, useState } from "react"
-import { BELT_VIVID_COLORS } from "@/lib/catalog"
+import { BELT_VIVID_COLORS } from "@intervalo/dx-core/catalog"
 
 // Cuadradito que "carga energía": crece su área en ticks discretos (no
 // inflándose suave) desde apenas visible hasta su máximo, repartidos en ~0.8 s,

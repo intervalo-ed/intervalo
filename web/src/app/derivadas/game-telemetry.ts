@@ -17,7 +17,7 @@
 
 import { useCallback, useEffect } from "react"
 import posthog from "posthog-js"
-import { useGameApi } from "./UseGameApi"
+import { useGameApi } from "@intervalo/dx-core/juego/game-api-context"
 
 // Vocabulario cerrado, espejo de _CTA_KINDS/_CTA_ACTIONS en game/router.py. Lo
 // que el server no reconoce lo descarta en silencio, así que un typo acá se

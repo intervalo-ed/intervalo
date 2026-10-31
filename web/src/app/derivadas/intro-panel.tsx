@@ -25,7 +25,7 @@ import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { KeyCap } from "./exercise-card"
 import { useTeclas } from "./teclas"
-import { useBienvenida } from "./UseBienvenida"
+import { useBienvenida } from "@intervalo/dx-core/juego/UseBienvenida"
 import { useCachedPlayer, useGameToken } from "./UseGamePlayer"
 import { TextoConHuecos } from "./texto-con-huecos"
 

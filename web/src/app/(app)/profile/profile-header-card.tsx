@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { PencilIcon } from "lucide-react"
 import { useMe } from "@/app/UseMe"
-import { badgeWithCrown, CAREER_EMOJI } from "@/lib/career-emoji"
+import { badgeWithCrown, CAREER_EMOJI } from "@intervalo/dx-core/career-emoji"
 import { findNode } from "@/lib/emoji-tree"
 import { useBadgesAvailable } from "@/lib/nav/UseBadgesAvailable"
 import { cn } from "@/lib/utils"

@@ -47,7 +47,7 @@ import {
 } from "./slide-salida"
 import { enCampoDeTexto, useTeclas } from "./teclas"
 import { useCachedPlayer } from "./UseGamePlayer"
-import { useGameRecruits } from "./UseGameLeaderboard"
+import { useGameRecruits } from "@intervalo/dx-core/juego/UseGameLeaderboard"
 
 // Cuánto tarda en habilitarse el botón de salir cuando la diapo la sacó el
 // juego. Dos segundos menos que la del cafecito: allá hay una barra que mover y

@@ -1,7 +1,7 @@
 "use client"
 
 import { useSplash } from "@/app/splash-context"
-import { BELT_LEGEND_BAR_COLORS } from "@/lib/catalog"
+import { BELT_LEGEND_BAR_COLORS } from "@intervalo/dx-core/catalog"
 import { AnimatePresence, motion, useReducedMotion } from "motion/react"
 import { useEffect, useRef, useState } from "react"
 

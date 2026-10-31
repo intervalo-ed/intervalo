@@ -57,7 +57,7 @@ _table = theme.table
 
 
 # Colores de marca de las universidades, espejo de UNIVERSITY_TAGS del front
-# (web/src/lib/university-tags.ts). Es la TERCERA copia de esta lista — el
+# (packages/dx-core/src/university-tags.ts). Es la TERCERA copia de esta lista — el
 # docstring de backend/universities.py ya advierte de las otras dos. Acá van
 # solo las que tienen tag propia; el resto cae en el chip gris genérico, igual
 # que hace <UniTag/>.

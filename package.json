@@ -1,0 +1,22 @@
+{
+  "name": "intervalo",
+  "private": true,
+  "workspaces": [
+    "web",
+    "packages/*"
+  ],
+  "ignoreScripts": [
+    "sharp",
+    "unrs-resolver"
+  ],
+  "trustedDependencies": [
+    "sharp",
+    "unrs-resolver"
+  ],
+  "patchedDependencies": {
+    "use-resize-observer@9.1.0": "patches/use-resize-observer@9.1.0.patch"
+  },
+  "overrides": {
+    "@napi-rs/wasm-runtime": "1.1.6"
+  }
+}
