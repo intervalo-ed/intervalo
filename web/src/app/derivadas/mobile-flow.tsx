@@ -115,6 +115,7 @@ import {
   type GameExercise,
 } from "@intervalo/dx-core/juego/UseGameExercise"
 import { useGameIdentity } from "./game-telemetry"
+import { useNovedades } from "@intervalo/dx-core/juego/UseNovedades"
 import {
   refrescarRankingCentrado,
   useGameEvents,
@@ -531,35 +532,16 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
   // esperar una request con la persona mirando una pantalla en blanco.
   //
   // Correrlas al final del arranque mueve además la línea de corte de lo que
-  // cuenta como novedad —la fija la PRIMERA lista que llega (`visto`, abajo)— y
+  // cuenta como novedad —la fija la PRIMERA lista que llega (`useNovedades`, abajo)— y
   // eso es un segundo, no un cambio de sentido: sigue siendo «lo que había
   // cuando me senté a jugar».
   const eventos = useGameEvents(arrancado)
 
-  // El id de la última novedad que esta persona YA VIO. Arranca en null y se fija
-  // con la primera lista que llega: lo que pasó antes de sentarse a jugar no es
-  // novedad para nadie.
-  //
-  // Estado y no un ref, y se ajusta durante el render: es el patrón que React
-  // documenta para acomodar estado cuando cambian los datos de afuera, y además
-  // el lint del compilador no deja leer un ref mientras se renderiza.
-  const [visto, setVisto] = useState<number | null>(null)
-  const novedades = eventos.data?.events ?? []
-  const ultimoId =
-    novedades.length > 0 ? Math.max(...novedades.map((e) => e.id)) : null
-  if (visto === null && ultimoId !== null) setVisto(ultimoId)
-  const sinVer = visto === null ? 0 : novedades.filter((e) => e.id > visto).length
-
-  // Lo mismo para el chat, con su propio contador: las novedades y los mensajes
-  // se miran en pantallas distintas, así que haber leído unas no es haber leído
-  // los otros.
-  const [vistoChat, setVistoChat] = useState<number | null>(null)
-  const mensajes = eventos.data?.messages ?? []
-  const ultimoMensajeId =
-    mensajes.length > 0 ? Math.max(...mensajes.map((m) => m.id)) : null
-  if (vistoChat === null && ultimoMensajeId !== null) setVistoChat(ultimoMensajeId)
-  const sinVerChat =
-    vistoChat === null ? 0 : mensajes.filter((m) => m.id > vistoChat).length
+  // Lo que cuenta como novedad y lo que el chat tiene sin leer: las marcas de
+  // visto se fijan con la primera lista que llega (UseNovedades.ts).
+  const { sinVer, sinVerChat, marcarVisto, marcarVistoChat } = useNovedades({
+    data: eventos.data,
+  })
 
   // Espejo para los handlers. `advanceAfterAnswer` está memoizada y este número
   // cambia con cada latido de las novedades: en sus dependencias la rehacía cada
@@ -2054,8 +2036,8 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   // Los mensajes también: la pantalla ahora los muestra, así que
                   // dejarlos sin marcar haría que el botón del chat siguiera con
                   // su punto de "hay algo sin leer" apenas salido de leerlo.
-                  if (ultimoId !== null) setVisto(ultimoId)
-                  if (ultimoMensajeId !== null) setVistoChat(ultimoMensajeId)
+                  marcarVisto()
+                  marcarVistoChat()
                   advanceAfterAnswer("novedades")
                 }}
               >
@@ -2101,7 +2083,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
                   // Leídos al SALIR y no al entrar, igual que las novedades: si
                   // alguien cierra la pestaña con el chat abierto, lo que no
                   // llegó a leer le sigue esperando.
-                  if (ultimoMensajeId !== null) setVistoChat(ultimoMensajeId)
+                  marcarVistoChat()
                   goTo(slide.back, "atras")
                 }}
               >

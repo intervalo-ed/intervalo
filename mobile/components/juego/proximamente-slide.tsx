@@ -1,6 +1,7 @@
-// El lugar de una diapo de la escalera que la app todavía no tiene (ranking, el
-// @, las reglas, el registro, las encuestas…). Se ve, se nombra y se sale con
-// Continuar, que retoma la escalera como lo haría la diapo de verdad.
+// El lugar de una diapo de la escalera que la app todavía no tiene (las
+// herramientas, el perfil, el registro, reclutas, las encuestas…). Se ve, se
+// nombra y se sale con Continuar, que retoma la escalera como lo haría la diapo
+// de verdad.
 
 import { StyleSheet, Text, View } from "react-native"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"

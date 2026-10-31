@@ -1,7 +1,9 @@
 // Solo en desarrollo: juega solo, para probar el flujo en el simulador sin
 // tocar la pantalla (`xcrun simctl` no toca). Se abre con
 // `derivadas://?auto=1`. Usa los mismos caminos que el dedo: las teclas entran
-// por `onKey` y los botones llaman a sus mismos handlers.
+// por `onKey` y los botones llaman a sus mismos handlers. Las diapos de después
+// de responder (ranking, el @, reglas, novedades, «próximamente») se pasan con
+// `continuar`, que toca su Continuar o Seguir; el @ se deja como está.
 //
 // Habla con dos cosas del host, si están: el backend local (la respuesta
 // esperada sale de una ruta de desarrollo, `/__dev/respuesta/<id>`) y un
@@ -15,6 +17,8 @@ import { env } from "@/lib/env"
 
 export type EstadoDelJuego = {
   slide: string
+  // El conteo de XP del ranking sigue corriendo.
+  contando: boolean
   exerciseId: number | null
   tone: "correct" | "wrong" | null
   closed: boolean
@@ -91,15 +95,24 @@ async function jugar({
       await pausa(140)
     }
   }
-  const pasarPendientes = async (capturar?: string) => {
-    let primera = true
+  // Una captura por diapo nueva (`08-ranking`, `09-reglas`…), la primera vez
+  // que aparece cada una.
+  const capturadas = new Set<string>()
+  const pasarPendientes = async ({ capturar = false }: { capturar?: boolean } = {}) => {
     for (;;) {
       await esperar((e) => e.slide === "exercise" || !e.ocupado, "diapo")
+      if (c().estado().slide === "ranking") {
+        // Que el número termine de subir antes de seguir.
+        await esperar((e) => !e.contando, "fin del conteo", 15000)
+        await pausa(600)
+      }
       const e = c().estado()
       if (e.slide === "exercise") return
-      if (primera && capturar) await captura(capturar)
-      primera = false
-      log("pendiente", e.slide)
+      if (capturar && !capturadas.has(e.slide)) {
+        capturadas.add(e.slide)
+        await captura(`${String(7 + capturadas.size).padStart(2, "0")}-${e.slide.replace(":", "-")}`)
+      }
+      log("diapo", e.slide)
       c().continuar()
       await esperar((d) => d.slide !== e.slide, `salir de ${e.slide}`, 8000)
       await pausa(400)
@@ -155,7 +168,7 @@ async function jugar({
   await captura("04-correcto")
   c().principal()
   await esperar((e) => e.slide !== "exercise", "salir del ejercicio")
-  await pasarPendientes("08-proximamente")
+  await pasarPendientes({ capturar: true })
 
   // Una salteada.
   await esperar((e) => e.slide === "exercise" && !e.ocupado, "segundo ejercicio")
@@ -173,7 +186,7 @@ async function jugar({
     await pausa(500)
     c().principal()
     await esperar((e) => e.slide !== "exercise", "salir del ejercicio")
-    await pasarPendientes()
+    await pasarPendientes({ capturar: true })
   }
   await esperar((e) => e.slide === "exercise", "último")
   log("listo · montajes del campo:", c().estado().montajes)

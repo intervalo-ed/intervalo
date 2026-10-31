@@ -1,10 +1,10 @@
 // El flujo del juego en la app: el par de web/src/app/derivadas/mobile-flow.tsx.
 // La navegación es la misma —una diapo por vez, de derecha a izquierda, y la
-// escalera de después de responder sale de dx-core (`despuesDeResponder`)—
-// pero de las diapos solo existen de verdad la portada, el ejercicio, la tabla
-// y el «¿Por qué?». El resto de los escalones se ven como «próximamente» y su
-// Continuar retoma la escalera sin correr los `marcar*` ni las refs del paso,
-// así vuelven a salir el día que la diapo exista.
+// escalera de después de responder sale de dx-core (`despuesDeResponder`)—.
+// Existen de verdad la portada, el ejercicio, la tabla, el «¿Por qué?», el
+// ranking, el @, las reglas y las novedades. El resto de los escalones se ven
+// como «próximamente» y su Continuar retoma la escalera sin correr los
+// `marcar*`, así vuelven a salir el día que la diapo exista.
 //
 // El campo de la respuesta es un WebView y montarlo cuesta segundos: vive UNA
 // vez en la capa del ejercicio, que no se desmonta nunca. Ir a la tabla o al
@@ -19,13 +19,30 @@ import * as Haptics from "expo-haptics"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { useQueryClient } from "@tanstack/react-query"
 import { ApiError } from "@intervalo/dx-core/api/client"
-import { TEMA } from "@intervalo/dx-core/juego/game-colors"
+import { AMBAR, TEMA } from "@intervalo/dx-core/juego/game-colors"
 import { HINT_MOBILE } from "@intervalo/dx-core/juego/campo-matematico"
 import {
   despuesDeResponder,
   type EntradaDespuesDeResponder,
 } from "@intervalo/dx-core/juego/despues-de-responder"
 import { readFrecuenciaRanking } from "@intervalo/dx-core/juego/ranking-frecuencia"
+import { memoriaEnBlanco, type MemoriaDelRanking } from "@intervalo/dx-core/juego/ranking-orden"
+import type { RankingView } from "@intervalo/dx-core/juego/ranking-formato"
+import { ALL_SCOPE } from "@intervalo/dx-core/juego/ranking-scope"
+import { SIN_SCOPE } from "@intervalo/dx-core/juego/ranking-reglas"
+import { marcarReglasMostradas } from "@intervalo/dx-core/juego/reglas-trigger"
+import { vistaInicialDelRanking } from "@intervalo/dx-core/juego/vuelta-universitaria"
+import { estimarXp } from "@intervalo/dx-core/juego/xp-estimate"
+import { useXpConteo } from "@intervalo/dx-core/juego/UseXpConteo"
+import { useNovedades } from "@intervalo/dx-core/juego/UseNovedades"
+import { useDespuesDelArranque } from "@intervalo/dx-core/juego/UseDespuesDelArranque"
+import {
+  refrescarRankingCentrado,
+  useGameEvents,
+  useGamePulse,
+  useGameUniversityLeaderboard,
+  useMyBoost,
+} from "@intervalo/dx-core/juego/UseGameLeaderboard"
 import { parseAnswerToMathJson } from "@intervalo/dx-core/juego/parse-answer"
 import { useLocalVerdict } from "@intervalo/dx-core/juego/UseLocalVerdict"
 import { useExplainExercise } from "@intervalo/dx-core/juego/UseGameExplain"
@@ -44,7 +61,7 @@ import {
 import { ESCALA_MATE, Latex } from "@/components/latex/latex"
 import { track } from "@/lib/analytics/track"
 import { useGameIdentity } from "@/lib/analytics/UseGameIdentity"
-import { useSfx } from "@/lib/audio/UseSfx"
+import { useSfx, useTick } from "@/lib/audio/UseSfx"
 import { useGamePlayer } from "@/lib/juego/UseGamePlayer"
 import { useAutoplay, type ControlDelJuego } from "@/lib/juego/UseAutoplay"
 import { BotonCta } from "./boton-cta"
@@ -57,25 +74,26 @@ import {
   CAMPO_MIN_H,
   ExerciseCard,
   PorQueButton,
+  VERDE_ACIERTO,
   answerTone,
   type AnswerTone,
 } from "./exercise-card"
 import { IntroSlide } from "./intro-slide"
 import { MathField, type MathFieldHandle } from "./math-field"
 import { MathKeyboard, type EtiquetaDeTecla } from "./math-keyboard"
+import { NovedadesSlide } from "./novedades-slide"
 import { PieRampa } from "./pie-rampa"
 import { PorQuePanel } from "./porque-panel"
 import { ProximamenteSlide } from "./proximamente-slide"
+import { RankingSlide } from "./ranking-slide"
+import { ReglasSlide } from "./reglas-slide"
+import { UsernameSlide } from "./username-slide"
 
 // Los escalones de la escalera (y la pantalla de herramientas de la portada)
 // que todavía no tienen diapo. Cada uno ocupa el lugar del `kind` homónimo del
 // `Slide` de la web.
 type PasoPendiente =
   | "herramientas"
-  | "ranking"
-  | "username"
-  | "reglas"
-  | "novedades"
   | "perfil"
   | "registro"
   | "instalar"
@@ -93,6 +111,10 @@ type Slide =
   // `back` es a dónde vuelve al cerrar, como en la web.
   | { kind: "tabla"; back: Slide }
   | { kind: "porque"; back: Slide }
+  | { kind: "ranking"; answer: GameAnswer }
+  | { kind: "username" }
+  | { kind: "reglas"; cuales: number[] }
+  | { kind: "novedades" }
   | { kind: "proximamente"; paso: PasoPendiente }
 
 type EnPila = { seq: number; slide: Slide }
@@ -141,6 +163,9 @@ export function MobileFlow({ auto }: { auto?: string }) {
   const [porqueGraph, setPorqueGraph] = useState<PorQueGraph | null>(null)
   const [tonoLocal, setTonoLocal] = useState<AnswerTone>(null)
   const anticipadoRef = useRef(false)
+  // Si el festejo (el conteo, guardado hasta Continuar) YA se armó por el
+  // veredicto local: `anticipadoRef` también es true con un "incorrecto".
+  const festejoAdelantadoRef = useRef(false)
   const rachaAdelantadaRef = useRef(false)
   const rachaPrevioRef = useRef<{ combo: number; exercises_attempted: number } | null>(null)
   const [answerSeq, setAnswerSeq] = useState(0)
@@ -152,17 +177,72 @@ export function MobileFlow({ auto }: { auto?: string }) {
   const servedAtRef = useRef(0)
   const enPantallaRef = useRef<number | null>(null)
   const pendingRef = useRef<PendingAfter>(null)
+  const pendingClimbRef = useRef<number | null>(null)
   const attemptRef = useRef(0)
   const peekedRef = useRef(false)
-  // La diapo del @ todavía no existe, así que su `askedUsernameRef` no se
-  // escribe. Esto es lo mínimo para que la escalera no la vuelva a ofrecer
-  // dentro de la MISMA respuesta: se limpia con cada correcta nueva.
-  const usernameEnEstaRespuestaRef = useRef(false)
-  // Por lo mismo, los escalones que ya se mostraron como «próximamente» en
-  // esta respuesta: sin sus `marcar*`, dos disparadores pueden turnarse para
-  // siempre (reclutas → opinión → reclutas…). Si la escalera vuelve a uno, la
-  // respuesta se da por terminada.
-  const pasosEnEstaRespuestaRef = useRef(new Set<PasoPendiente>())
+  // El @ se pide una vez por sesión: la condición de verdad es del servidor
+  // (`alias_is_generated`) y esto cubre la PATCH que falla por red.
+  const askedUsernameRef = useRef(false)
+  // Las reglas se anotan en el almacén (reglas-trigger.ts); esto cubre el rato
+  // entre que se muestran y se anotan.
+  const reglasMostradasRef = useRef(false)
+  // TODO(M5): los «próximamente» no corren sus `marcar*`, así que dos
+  // disparadores pueden turnarse para siempre (reclutas → opinión →
+  // reclutas…). Si la escalera vuelve a un «próximamente» ya mostrado en esta
+  // respuesta, la respuesta se da por terminada. Se va con la última diapo.
+  const pendientesEnEstaRespuestaRef = useRef(new Set<PasoPendiente>())
+
+  const [climbFrom, setClimbFrom] = useState<number | null>(null)
+  // Lo que el ranking se acuerda entre una diapo y otra: la diapo se remonta
+  // con cada navegación, así que vive acá. Se reinicia una vez por derivada.
+  const memoriaRanking = useRef<MemoriaDelRanking>(memoriaEnBlanco())
+  // En estado y no en el ref porque es el estado inicial del ranking y se lee
+  // en el render.
+  const [scopeRanking, setScopeRanking] = useState<{ view: RankingView; university: string }>({
+    view: "individual",
+    university: ALL_SCOPE,
+  })
+  const leerMemoriaRanking = useCallback(() => memoriaRanking.current, [])
+  const guardarMemoriaRanking = useCallback((m: MemoriaDelRanking) => {
+    memoriaRanking.current = m
+  }, [])
+
+  // Cuando termina el conteo: recién ahí el ranking estrena orden y sube.
+  const onBurstComplete = useCallback(() => {
+    void refrescarRankingCentrado(queryClient)
+    setClimbFrom(pendingClimbRef.current)
+    pendingClimbRef.current = null
+  }, [queryClient])
+
+  const tick = useTick()
+  const {
+    liveXp,
+    xpSumada: liveXpDelta,
+    counting,
+    xpColor,
+    release: releaseXp,
+    fireProvisional: fireXpProvisional,
+    reconcile: reconcileXp,
+    abort: abortXp,
+  } = useXpConteo({ tick, color: VERDE_ACIERTO, onComplete: onBurstComplete })
+
+  // Los precalentamientos, después de lo urgente del arranque (como la web).
+  const arrancado = useDespuesDelArranque()
+  // El latido del ranking, quieto mientras dura el conteo.
+  useGamePulse({ enabled: player !== null && arrancado, paused: counting })
+  // La lista de universidades tibia desde el arranque, para que la primera
+  // vuelta universitaria no caiga sobre un esqueleto.
+  useGameUniversityLeaderboard(SIN_SCOPE, player !== null && arrancado)
+  const boost = useMyBoost(player?.university)
+
+  // Las novedades se consultan siempre, para que el dato ya esté al decidir.
+  const eventos = useGameEvents(arrancado)
+  const { sinVer, marcarVisto, marcarVistoChat } = useNovedades({ data: eventos.data })
+  // Espejo para `advanceAfterAnswer`, que está memoizada.
+  const sinVerRef = useRef(0)
+  useEffect(() => {
+    sinVerRef.current = sinVer
+  })
 
   useGameIdentity(player)
 
@@ -193,6 +273,7 @@ export function MobileFlow({ auto }: { auto?: string }) {
       setExercise(data)
       setLastAnswer(null)
       setTonoLocal(null)
+      setClimbFrom(null)
       setDeslizar(false)
       peekedRef.current = false
       setPorqueTexto(null)
@@ -241,6 +322,10 @@ export function MobileFlow({ auto }: { auto?: string }) {
     ultimoChasquidoRef.current = ahora
     sfx.continue()
   }, [sfx])
+  // Las diapos que ya tocaron su propio sonido avisan antes del embudo.
+  const yaSono = useCallback(() => {
+    ultimoChasquidoRef.current = Date.now()
+  }, [])
 
   const veredicto = useCallback(
     (correcto: boolean) => {
@@ -274,17 +359,17 @@ export function MobileFlow({ auto }: { auto?: string }) {
         return
       }
       const a = pending.answer
+      const totalCorrectas = a.exercises_correct
 
       const despues = despuesDeResponder({
         entrada,
         respuesta: a,
         jugador: player,
-        yaPreguntoUsername: usernameEnEstaRespuestaRef.current,
-        reglasMostradas: false,
+        yaPreguntoUsername: askedUsernameRef.current,
+        reglasMostradas: reglasMostradasRef.current,
         yaPreguntoPerfil: false,
         yaPreguntoRegistro: false,
-        // TODO(M3): las novedades (`useGameEvents`) llegan con su diapo.
-        sinVer: 0,
+        sinVer: sinVerRef.current,
         frecuenciaRanking: readFrecuenciaRanking(),
         // La app no tiene cafecito ni pedido de instalar ni avisos web.
         cafecito: null,
@@ -292,37 +377,80 @@ export function MobileFlow({ auto }: { auto?: string }) {
         puedeOfrecerNotificaciones: false,
       })
 
-      // TODO(M3): sin la diapo del ranking no hay festejo que desarmar
-      // (`abortXp`) ni ranking que refrescar (`refrescarRankingCentrado`).
+      // Sin la diapo del ranking, el festejo que la esperaba se desarma y el
+      // ranking se refresca para que la próxima vez ya tenga el puesto nuevo.
+      if (despues.saltaRanking) {
+        abortXp()
+        pendingClimbRef.current = null
+        void refrescarRankingCentrado(queryClient)
+      }
 
       switch (despues.paso) {
         case "ranking":
           if (despues.subida !== null) {
+            pendingClimbRef.current = despues.subida.desde
             track("game_rank_change", {
               from: despues.subida.desde,
               to: despues.subida.hasta,
               delta: despues.subida.delta,
             })
           }
-          // TODO(M3): `releaseXp`, la memoria y la vista inicial del ranking.
-          goTo({ kind: "proximamente", paso: "ranking" })
+          // El conteo arranca en el toque, mientras la diapo entra.
+          releaseXp()
+          // El único lugar donde nace una diapo de ranking nueva, y por eso el
+          // único donde su memoria se reinicia.
+          memoriaRanking.current = memoriaEnBlanco()
+          // La vuelta universitaria se decide eligiendo la vista inicial.
+          setScopeRanking({
+            view: vistaInicialDelRanking(a.exercises_correct, player?.university ?? null),
+            university: ALL_SCOPE,
+          })
+          goTo({ kind: "ranking", answer: a })
+          return
+        case "username":
+          askedUsernameRef.current = true
+          goTo({ kind: "username" })
+          return
+        case "reglas":
+          reglasMostradasRef.current = true
+          marcarReglasMostradas(totalCorrectas)
+          goTo({ kind: "reglas", cuales: despues.cuales })
+          return
+        case "novedades":
+          goTo({ kind: "novedades" })
           return
         case "siguiente-ejercicio":
           pendingRef.current = null
           loadNext()
           return
         default:
-          if (pasosEnEstaRespuestaRef.current.has(despues.paso)) {
+          if (pendientesEnEstaRespuestaRef.current.has(despues.paso)) {
             pendingRef.current = null
             loadNext()
             return
           }
-          pasosEnEstaRespuestaRef.current.add(despues.paso)
+          pendientesEnEstaRespuestaRef.current.add(despues.paso)
           goTo({ kind: "proximamente", paso: despues.paso })
       }
     },
-    [goTo, loadNext, player, chasquido],
+    [goTo, loadNext, player, chasquido, abortXp, releaseXp, queryClient],
   )
+
+  // El @ no es un escalón: es una pausa ADENTRO del del ranking, así que se
+  // retoma como `"ranking"`. Desde la portada (sin respuesta pendiente) sigue
+  // la primera derivada.
+  const usernameListo = useCallback(() => {
+    yaSono()
+    if (pendingRef.current) advanceAfterAnswer("ranking")
+    else loadNext()
+  }, [yaSono, advanceAfterAnswer, loadNext])
+
+  // Leídas al SALIR, por si alguien cierra la app con la pantalla abierta.
+  const novedadesListas = () => {
+    marcarVisto()
+    marcarVistoChat()
+    advanceAfterAnswer("novedades")
+  }
 
   // Continuar de un «próximamente»: retoma la escalera con la entrada que
   // usaría la diapo de verdad (mobile-flow.tsx de la web, diapo por diapo).
@@ -331,11 +459,6 @@ export function MobileFlow({ auto }: { auto?: string }) {
       case "herramientas":
         chasquido()
         loadNext()
-        return
-      case "username":
-        usernameEnEstaRespuestaRef.current = true
-        if (pendingRef.current) advanceAfterAnswer("ranking")
-        else loadNext()
         return
       case "perfil":
       case "registro":
@@ -393,7 +516,20 @@ export function MobileFlow({ auto }: { auto?: string }) {
         })
       }
     }
-    // TODO(M3): el festejo optimista de XP (`fireXpProvisional`) es del ranking.
+    festejoAdelantadoRef.current = local === true
+    if (local) {
+      // El festejo queda armado (en espera) con una XP estimada desde el
+      // veredicto local; `reconcileXp` la corrige con la de `/answer`.
+      fireXpProvisional(
+        estimarXp({
+          attemptNumber: attemptRef.current,
+          tier: exercise.tier,
+          comboAfter: attemptRef.current === 1 && !peekedRef.current ? exercise.combo + 1 : 0,
+          peeked: peekedRef.current,
+        }),
+        { modo: "espera" },
+      )
+    }
 
     answerMutation.mutate(
       {
@@ -425,6 +561,7 @@ export function MobileFlow({ auto }: { auto?: string }) {
             response_ms: Date.now() - servedAtRef.current,
           })
           if (!data.parse_ok) {
+            if (festejoAdelantadoRef.current) abortXp()
             // El servidor no lo contó como intento: la racha vuelve a mano.
             revertirRacha()
             if (local === true) setSolvedLatex(null)
@@ -441,11 +578,15 @@ export function MobileFlow({ auto }: { auto?: string }) {
             if (!anticipadoRef.current) veredicto(true)
             adelantar()
             pendingRef.current = { answer: data }
-            usernameEnEstaRespuestaRef.current = false
-            pasosEnEstaRespuestaRef.current = new Set()
+            pendientesEnEstaRespuestaRef.current = new Set()
+            // En espera: el número que sube está en la diapo siguiente.
+            if (!festejoAdelantadoRef.current) fireXpProvisional(data.xp_awarded, { modo: "espera" })
+            reconcileXp(data)
             if (data.is_record) track("game_record", { best_rank: data.best_rank ?? null })
-          } else if (!anticipadoRef.current) {
-            veredicto(false)
+          } else {
+            if (!anticipadoRef.current) veredicto(false)
+            // Desacuerdo: se desarma el festejo que el local había armado.
+            if (festejoAdelantadoRef.current) abortXp()
           }
         },
         onError: (err) => {
@@ -456,6 +597,7 @@ export function MobileFlow({ auto }: { auto?: string }) {
             setExercise(null)
             setLastAnswer(null)
             setTonoLocal(null)
+            if (festejoAdelantadoRef.current) abortXp()
             revertirRacha()
             descartarAdelanto()
             loadNext({ fresco: true })
@@ -467,6 +609,9 @@ export function MobileFlow({ auto }: { auto?: string }) {
     exercise,
     answerMutation,
     veredicto,
+    fireXpProvisional,
+    reconcileXp,
+    abortXp,
     queryClient,
     revertirRacha,
     evaluarLocal,
@@ -639,6 +784,7 @@ export function MobileFlow({ auto }: { auto?: string }) {
     controlRef.current = {
       estado: () => ({
         slide: slide.kind === "proximamente" ? `proximamente:${slide.paso}` : slide.kind,
+        contando: counting,
         exerciseId: exercise?.exercise_id ?? null,
         tone,
         closed,
@@ -661,6 +807,11 @@ export function MobileFlow({ auto }: { auto?: string }) {
       continuar: () => {
         if (slide.kind === "intro") startFromIntro()
         else if (slide.kind === "proximamente") continuarPendiente(slide.paso)
+        else if (slide.kind === "ranking") advanceAfterAnswer("ranking")
+        else if (slide.kind === "reglas") advanceAfterAnswer("reglas")
+        else if (slide.kind === "novedades") novedadesListas()
+        // Sin tocar el @: el mismo final que una PATCH que falla por red.
+        else if (slide.kind === "username") usernameListo()
       },
     }
   })
@@ -774,6 +925,32 @@ export function MobileFlow({ auto }: { auto?: string }) {
                 {s.kind === "intro" && (
                   <IntroSlide onStart={startFromIntro} startDisabled={player === null || next.isPending} />
                 )}
+                {s.kind === "ranking" && (
+                  <RankingSlide
+                    answer={s.answer}
+                    climbFrom={climbFrom}
+                    // El salto se da por visto apenas arranca.
+                    onSaltoArranca={() => setClimbFrom(null)}
+                    leerMemoria={leerMemoriaRanking}
+                    guardarMemoria={guardarMemoriaRanking}
+                    scopeInicial={scopeRanking}
+                    onScopeElegido={setScopeRanking}
+                    liveXp={liveXp}
+                    liveXpDelta={liveXpDelta}
+                    counting={counting}
+                    xpColor={xpColor && (boost?.multiplier ?? 1) > 1 ? AMBAR : xpColor}
+                    myUniversity={player?.university ?? null}
+                    enabled={player !== null}
+                    onRelease={releaseXp}
+                    onContinue={() => advanceAfterAnswer("ranking")}
+                    continueDisabled={continueDisabled}
+                  />
+                )}
+                {s.kind === "username" && player && <UsernameSlide player={player} onDone={usernameListo} />}
+                {s.kind === "reglas" && (
+                  <ReglasSlide cuales={s.cuales} onContinue={() => advanceAfterAnswer("reglas")} />
+                )}
+                {s.kind === "novedades" && <NovedadesSlide player={player} onSeguir={novedadesListas} />}
                 {s.kind === "proximamente" && (
                   <ProximamenteSlide
                     paso={s.paso}
