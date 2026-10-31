@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { COURSE_LABEL, type CourseId } from "@/lib/catalog"
+import { COURSE_LABEL, type CourseId } from "@intervalo/dx-core/catalog"
 import {
   markEditorGearSeen,
   useEditorGearSeen,

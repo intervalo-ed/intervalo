@@ -17,7 +17,7 @@ const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-sans" });
 const notoSansMono = Noto_Sans_Mono({ subsets: ["latin"], variable: "--font-noto-mono" });
 
 // Tipografía compartida por todas las tags de universidad (slide de universidad
-// del onboarding y tag del leaderboard). Ver web/src/lib/university-tags.ts.
+// del onboarding y tag del leaderboard). Ver packages/dx-core/src/university-tags.ts.
 const itbaFont = Outfit({ subsets: ["latin"], variable: "--font-itba" });
 
 export const metadata: Metadata = {

@@ -32,25 +32,25 @@ import {
 import { Spinner } from "@/components/ui/spinner"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Bandera, UniTag } from "@/components/university-tag"
-import { tagDe } from "@/lib/university-tags"
-import { agruparPorPais } from "./ranking-por-pais"
+import { tagDe } from "@intervalo/dx-core/university-tags"
+import { agruparPorPais } from "@intervalo/dx-core/juego/ranking-por-pais"
 import { XpDots } from "@/components/xp-dots"
-import { CAREER_EMOJI } from "@/lib/career-emoji"
+import { CAREER_EMOJI } from "@intervalo/dx-core/career-emoji"
 import { cn } from "@/lib/utils"
 import { Hueco } from "@/components/skeleton-barra"
 import {
   BoostBanner,
   useBoostMultipliers,
 } from "@/components/boost-banner"
-import { filaConEmpuje, levelColor } from "./game-colors"
+import { filaConEmpuje, levelColor } from "@intervalo/dx-core/juego/game-colors"
 import {
   ALTO_FILA_PX,
   curvaDelSalto,
   filasConLugar,
   filasDelSalto,
   ritmoDelSalto,
-} from "./salto-ranking"
-import { corrimientoDelBache, filaALaVista } from "./ventana-ranking"
+} from "@intervalo/dx-core/juego/salto-ranking"
+import { corrimientoDelBache, filaALaVista } from "@intervalo/dx-core/juego/ventana-ranking"
 import { VERDE, fmtMultiplier } from "./cafecito-cta"
 import { EJEMPLOS_COUNT, EJEMPLOS_XP_TOTAL, ListaDeReclutas } from "./reclutas-list"
 import {
@@ -64,7 +64,7 @@ import {
   type GameRecruits,
   type GameUniversityRow,
   type Scope,
-} from "./UseGameLeaderboard"
+} from "@intervalo/dx-core/juego/UseGameLeaderboard"
 
 // Acá vivía la escalada: la fila propia subía de a UN puesto por vez, con un
 // resorte por paso, para que se viera a quién estabas pasando. Se cambió por un

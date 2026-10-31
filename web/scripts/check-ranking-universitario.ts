@@ -17,10 +17,10 @@ import {
   VUELTA_UNIVERSITARIA_CADA,
   esVueltaUniversitaria,
   vistaInicialDelRanking,
-} from "../src/app/derivadas/vuelta-universitaria"
-import { RECLUTAS_CADA, RECLUTAS_RESTO } from "../src/app/derivadas/reclutas-trigger"
+} from "@intervalo/dx-core/juego/vuelta-universitaria"
+import { RECLUTAS_CADA, RECLUTAS_RESTO } from "@intervalo/dx-core/juego/reclutas-trigger"
 import { CAFECITO_EVERY } from "../src/app/derivadas/cafecito-cta"
-import { HITO_PERFIL, HITO_REGISTRO } from "../src/app/derivadas/hitos-del-juego"
+import { HITO_PERFIL, HITO_REGISTRO } from "@intervalo/dx-core/juego/hitos-del-juego"
 import {
   INSTALAR_CADA,
   INSTALAR_PRIMERA,

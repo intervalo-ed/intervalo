@@ -26,7 +26,7 @@
 // archivo esté en `em`, contra el tamaño de letra del contenedor.
 
 import { motion } from "motion/react"
-import { BELT_LEGEND_BAR_COLORS } from "@/lib/catalog"
+import { BELT_LEGEND_BAR_COLORS } from "@intervalo/dx-core/catalog"
 
 export const LOGO_WORD = "intervalo"
 

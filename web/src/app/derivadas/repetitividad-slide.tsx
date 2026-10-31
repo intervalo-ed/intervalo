@@ -27,7 +27,7 @@ import posthog from "posthog-js"
 import { cn } from "@/lib/utils"
 import { useSfx } from "@/lib/audio/useSfx"
 
-import { useGameApi } from "./UseGameApi"
+import { useGameApi } from "@intervalo/dx-core/juego/game-api-context"
 import { KeyCap } from "./exercise-card"
 import { Salida } from "./slide-salida"
 import { digitoDe, enCampoDeTexto, enCampoHtml, useTeclas } from "./teclas"

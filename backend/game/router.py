@@ -1328,7 +1328,7 @@ def answer_exercise(
 
     Todo lo que va después de la validación es contabilidad: el cliente ya sabe
     si acertó porque lo calculó él mismo con la misma regla (ver
-    web/src/app/derivadas/local-verdict.ts).
+    packages/dx-core/src/juego/local-verdict.ts).
     """
     # Candado del jugador antes de leer nada suyo: esta respuesta va a sumarle XP,
     # ejercicios y racha, y dos en vuelo se pisan (ver deps.lock_player).

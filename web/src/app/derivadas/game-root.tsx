@@ -4,10 +4,11 @@
 // flujo infinito de slides; desktop = todo en una vista. `usePlatform` devuelve
 // null hasta montar (SSR), así que hasta ahí se muestra el fondo pelado.
 
+import "@/lib/almacen/instalar-almacen"
 import { useEffect, useRef, useState } from "react"
 import dynamic from "next/dynamic"
 import { getPlatform, usePlatform } from "@/lib/platform/detect"
-import { adoptarTokenDeRescate } from "./game-storage"
+import { adoptarTokenDeRescate } from "@intervalo/dx-core/juego/game-storage"
 import { GameIntroBackdrop, useGameIntro } from "./game-intro"
 import { useApplyDesiredAlias } from "./register-slides"
 import { useGamePlayer } from "./UseGamePlayer"

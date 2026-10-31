@@ -23,8 +23,8 @@
 import { useEffect } from "react"
 
 import { getPlatform } from "@/lib/platform/detect"
-import type { Rescate } from "./game-storage"
-import { useGameApi } from "./UseGameApi"
+import type { Rescate } from "@intervalo/dx-core/juego/game-storage"
+import { useGameApi } from "@intervalo/dx-core/juego/game-api-context"
 
 // Una por carga de página y no una por montaje: `GameRoot` y el layout que
 // elige se montan los dos, y sin esto habría dos filas por visita. Misma

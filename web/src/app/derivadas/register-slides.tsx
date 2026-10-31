@@ -19,7 +19,7 @@ import { readOnboarding, saveOnboarding } from "@/lib/onboarding/storage"
 import {
   ONBOARDING_UNIVERSITIES,
   canonicalUniversity,
-} from "@/lib/university-tags"
+} from "@intervalo/dx-core/university-tags"
 import { cn } from "@/lib/utils"
 import { useSfx } from "@/lib/audio/useSfx"
 import { ApiError, unwrap } from "@/lib/api/client"
@@ -29,14 +29,14 @@ import { ALL_SCOPE } from "@/components/leaderboard-chrome"
 import { VERDE } from "./cafecito-cta"
 import { KeyCap } from "./exercise-card"
 import { GoogleIcon, readDesiredAlias, clearDesiredAlias, saveDesiredAlias, useGoogleLogin } from "./google-login"
-import { levelColor } from "./game-colors"
+import { levelColor } from "@intervalo/dx-core/juego/game-colors"
 import { Salida, claseDeSalida } from "./slide-salida"
 import { SlideFlip } from "./slide-flip"
 import { SlideHorizontal } from "./slide-horizontal"
 import { digitoDe, enCampoDeTexto, enCampoHtml, useTeclas } from "./teclas"
-import { useGameApi } from "./UseGameApi"
-import { useGameLeaderboard, useGameRecruits } from "./UseGameLeaderboard"
-import { gameKeys, type GamePlayer } from "./UseGamePlayer"
+import { useGameApi } from "@intervalo/dx-core/juego/game-api-context"
+import { useGameLeaderboard, useGameRecruits } from "@intervalo/dx-core/juego/UseGameLeaderboard"
+import { gameKeys, type GamePlayer } from "@intervalo/dx-core/juego/game-keys"
 
 const ctaCls =
   "h-[var(--cta-h)] w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"

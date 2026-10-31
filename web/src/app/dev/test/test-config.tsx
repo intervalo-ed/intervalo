@@ -11,7 +11,7 @@ import {
   ScreenHeader,
 } from "@/components/ui/screen"
 import { Spinner } from "@/components/ui/spinner"
-import { exerciseTypeInfo } from "@/lib/catalog/exercise-types"
+import { exerciseTypeInfo } from "@intervalo/dx-core/catalog/exercise-types"
 import {
   BELT_HEX,
   beltInfo,
@@ -21,7 +21,7 @@ import {
   topicShortLabel,
   type BeltKey,
   type CourseId,
-} from "@/lib/catalog"
+} from "@intervalo/dx-core/catalog"
 import { ChevronLeft } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"

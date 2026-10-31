@@ -17,9 +17,9 @@
 // el único que sabe dónde puso cada cosa.
 
 import { UniTag } from "@/components/university-tag"
-import { etiquetaDe, tagDe } from "@/lib/university-tags"
+import { etiquetaDe, tagDe } from "@intervalo/dx-core/university-tags"
 import { XpDots } from "@/components/xp-dots"
-import { levelColor } from "./game-colors"
+import { levelColor } from "@intervalo/dx-core/juego/game-colors"
 
 const SLOT = /(\{(?:a|b|u0|u1|xp:\d+)\})/
 const XP = /^\{xp:(\d+)\}$/

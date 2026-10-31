@@ -1,4 +1,4 @@
-import { estilosDeTag, etiquetaDe, PAIS_NOMBRE, tagDe, type Pais, type UniversityTag } from "@/lib/university-tags"
+import { estilosDeTag, etiquetaDe, PAIS_NOMBRE, tagDe, type Pais, type UniversityTag } from "@intervalo/dx-core/university-tags"
 
 // Bandera rectangular de Twemoji (CC-BY 4.0, ver public/flags/LICENSE.txt). El
 // SVG es un cuadrado de 36 con la bandera ondeada adentro, así que `size` es el

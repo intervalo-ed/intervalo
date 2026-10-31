@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { useApi } from "@/lib/api/useApi"
 import { queryKeys } from "@/lib/query/keys"
-import type { CourseId } from "@/lib/catalog"
+import type { CourseId } from "@intervalo/dx-core/catalog"
 
 export function usePracticeStats({ course }: { course?: CourseId } = {}) {
   const api = useApi()

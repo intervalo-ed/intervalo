@@ -28,8 +28,8 @@ import { cn } from "@/lib/utils"
 import { useSfx } from "@/lib/audio/useSfx"
 import { fmtAgo } from "./event-feed"
 import { KeyCap } from "./exercise-card"
-import { levelColor } from "./game-colors"
-import { readEnviosRecientes, registrarEnvio } from "./game-storage"
+import { levelColor } from "@intervalo/dx-core/juego/game-colors"
+import { readEnviosRecientes, registrarEnvio } from "@intervalo/dx-core/juego/game-storage"
 import { claseDeSalida } from "./slide-salida"
 import {
   hayMasHistorial,
@@ -39,7 +39,7 @@ import {
   type ConTiempo,
   type GameEvent,
   type GameMessage,
-} from "./UseGameLeaderboard"
+} from "@intervalo/dx-core/juego/UseGameLeaderboard"
 import { useCachedPlayer } from "./UseGamePlayer"
 
 // Lo mismo que acepta el servidor (chat.MAX_TEXTO). Se repite acá para poder

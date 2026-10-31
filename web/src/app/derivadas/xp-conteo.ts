@@ -30,9 +30,9 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import { collectSchedule } from "@/components/confetti"
 import type { Box } from "@/components/orb-flight"
 import { useTick } from "@/lib/audio/useSfx"
-import type { GameAnswer } from "./UseGameExercise"
+import type { GameAnswer } from "@intervalo/dx-core/juego/UseGameExercise"
 import { VERDE_ACIERTO } from "./exercise-card"
-import { coloresDelFestejo, pasosDe, repartir } from "./xp-pasos"
+import { coloresDelFestejo, pasosDe, repartir } from "@intervalo/dx-core/juego/xp-pasos"
 
 // Quién empuja el conteo.
 //

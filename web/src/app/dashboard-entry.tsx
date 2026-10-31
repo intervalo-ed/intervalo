@@ -27,7 +27,7 @@ import { Screen, ScreenBody, ScreenHeader } from "@/components/ui/screen"
 import { Spinner } from "@/components/ui/spinner"
 import { useSfx } from "@/lib/audio/useSfx"
 import { cn } from "@/lib/utils"
-import type { components } from "@/lib/api/schema"
+import type { components } from "@intervalo/dx-core/api/schema"
 import {
   beltOrderFor,
   BELT_UNIT_TEXT_COLORS,
@@ -35,14 +35,14 @@ import {
   getBelt,
   type BeltKey,
   type CourseId,
-} from "@/lib/catalog"
-import type { Topic } from "@/lib/catalog/analisis.generated"
+} from "@intervalo/dx-core/catalog"
+import type { Topic } from "@intervalo/dx-core/catalog/analisis.generated"
 import {
   actionableUnitCount,
   beltStats,
   courseUnitTotals,
   pendingUnitCount,
-} from "@/lib/catalog/stats"
+} from "@intervalo/dx-core/catalog/stats"
 import { useSplash } from "@/app/splash-context"
 import { marcarSesionHecha } from "@/lib/nav/bienvenida"
 import { CourseSwitcher } from "@/components/course-switcher"
@@ -57,7 +57,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { topicShortLabel } from "@/lib/catalog"
+import { topicShortLabel } from "@intervalo/dx-core/catalog"
 import { useUser } from "@clerk/nextjs"
 import { CheckIcon, InfoIcon, RotateCcwIcon, SettingsIcon } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
@@ -73,7 +73,7 @@ import { useCourseEditor } from "./UseCourseEditor"
 import { useStartSession } from "./UseStartSession"
 import { useUserProgress } from "./UseUserProgress"
 import { startSessionTransition } from "@/lib/nav/session-transition"
-import { AMBAR } from "@/app/derivadas/game-colors"
+import { AMBAR } from "@intervalo/dx-core/juego/game-colors"
 
 // Exportada porque /onboarding/complete siembra este mismo valor al terminar
 // el wizard: con la literal duplicada, cambiar una sola de las dos dejaba al

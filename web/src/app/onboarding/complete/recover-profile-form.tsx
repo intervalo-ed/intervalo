@@ -4,7 +4,7 @@ import { useState } from "react"
 import { useUser } from "@clerk/nextjs"
 import { CAREERS, CareerCard, OptionButton, UNIVERSITY_LOGOS } from "@/app/onboarding/onboarding-wizard"
 import { useEnrollMutation } from "@/app/onboarding/UseEnrollMutation"
-import { withTimeout } from "@/lib/async/with-timeout"
+import { withTimeout } from "@intervalo/dx-core/async/with-timeout"
 import { Button } from "@/components/ui/button"
 import { Spinner } from "@/components/ui/spinner"
 import { cn } from "@/lib/utils"
@@ -14,7 +14,7 @@ import {
   UNIVERSITY_TAG_BY_KEY,
   canonicalUniversity,
   matchUniversities,
-} from "@/lib/university-tags"
+} from "@intervalo/dx-core/university-tags"
 
 /**
  * Usuarios con progreso real (unit_states) pero sin Enrollment nunca llegaron

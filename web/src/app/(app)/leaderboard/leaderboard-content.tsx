@@ -11,8 +11,8 @@ import { Spinner } from "@/components/ui/spinner"
 import { LeaderboardSkeleton } from "@/components/tab-skeletons"
 import { Metric, ScopeFilters, fmtCount } from "@/components/leaderboard-chrome"
 import { cn } from "@/lib/utils"
-import { badgeWithCrown, CAREER_EMOJI } from "@/lib/career-emoji"
-import { BELT_UNIT_TEXT_COLORS } from "@/lib/catalog"
+import { badgeWithCrown, CAREER_EMOJI } from "@intervalo/dx-core/career-emoji"
+import { BELT_UNIT_TEXT_COLORS } from "@intervalo/dx-core/catalog"
 import { UniTag } from "@/components/university-tag"
 import { LayersIcon, UsersIcon } from "lucide-react"
 // El verde y el glifo de WhatsApp salen del minijuego: son la misma acción y
@@ -36,7 +36,7 @@ import {
   useFilasDeEjemplo,
   type FilaRecluta,
 } from "@/components/reclutas-list"
-import { filaConEmpuje } from "@/app/derivadas/game-colors"
+import { filaConEmpuje } from "@intervalo/dx-core/juego/game-colors"
 import { useRecruits } from "./UseRecruits"
 import { ALL, useLeaderboard } from "./UseLeaderboard"
 import { useLeaderboardSummary } from "./UseLeaderboardSummary"

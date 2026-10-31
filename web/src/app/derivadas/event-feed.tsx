@@ -16,8 +16,8 @@ import { outOfFocus } from "./out-of-focus"
 import { AnimatePresence, motion } from "motion/react"
 import { cn } from "@/lib/utils"
 import { Hueco } from "@/components/skeleton-barra"
-import { levelColor } from "./game-colors"
-import { useGameEvents, type GameEvent } from "./UseGameLeaderboard"
+import { levelColor } from "@intervalo/dx-core/juego/game-colors"
+import { useGameEvents, type GameEvent } from "@intervalo/dx-core/juego/UseGameLeaderboard"
 import { TextoConHuecos } from "./texto-con-huecos"
 
 // A cuántos píxeles del fondo se sigue considerando "pegado abajo".

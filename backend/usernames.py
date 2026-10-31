@@ -1,7 +1,7 @@
 """
 usernames.py — Generación y validación de usernames (handles estilo Instagram).
 
-Reglas de formato (espejadas en el frontend, web/src/lib/username.ts):
+Reglas de formato (espejadas en el frontend, packages/dx-core/src/username.ts):
 - minúsculas, solo `a-z 0-9 . _`
 - largo 3–15
 - no empieza ni termina en `.`, sin `..` consecutivos

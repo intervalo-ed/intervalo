@@ -14,9 +14,9 @@ import {
   CATALOGS,
   type BeltKey,
   type CourseId,
-} from "@/lib/catalog"
+} from "@intervalo/dx-core/catalog"
 import { useGridLayout } from "@/lib/latex-visual-length"
-import { canonicalUniversity } from "@/lib/university-tags"
+import { canonicalUniversity } from "@intervalo/dx-core/university-tags"
 import { CareerSelect, UniversityGrid } from "@/components/onboarding-fields"
 import {
   Dialog,

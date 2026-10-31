@@ -18,7 +18,7 @@ import { XpDots } from "@/components/xp-dots"
 import { UniTag } from "@/components/university-tag"
 import { cn } from "@/lib/utils"
 import { fmtMultiplier } from "@/app/derivadas/cafecito-cta"
-import { AMBAR, boostStrength } from "@/app/derivadas/game-colors"
+import { AMBAR, boostStrength } from "@intervalo/dx-core/juego/game-colors"
 
 /** Un empuje vigente, ya agregado por universidad. `university` nulo = global.
  *

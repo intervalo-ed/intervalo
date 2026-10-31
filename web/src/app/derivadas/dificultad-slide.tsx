@@ -26,12 +26,12 @@ import {
   POSICION_MAX,
   colorDePosicion,
   posicionInicial,
-} from "./dificultad"
+} from "@intervalo/dx-core/juego/dificultad"
 import { SliderVertical, mezclar } from "./slider-vertical"
 import { Salida } from "./slide-salida"
 import { enCampoHtml, digitoDe, useTeclas } from "./teclas"
-import { useGameApi } from "./UseGameApi"
-import { gameKeys, type GamePlayer } from "./UseGamePlayer"
+import { useGameApi } from "@intervalo/dx-core/juego/game-api-context"
+import { gameKeys, type GamePlayer } from "@intervalo/dx-core/juego/game-keys"
 
 const ctaCls = "h-[var(--cta-h)] w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
 

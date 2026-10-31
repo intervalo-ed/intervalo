@@ -14,9 +14,9 @@ import {
 } from "@/components/ui/select"
 import { ChevronDownIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { ALL_SCOPE } from "@intervalo/dx-core/juego/ranking-scope"
 
-// Valor del filtro "sin acotar", compartido por los selectores.
-export const ALL_SCOPE = "all"
+export { ALL_SCOPE }
 
 // Carreras en orden fijo + catch-all "Otra". Nombre completo, sin abreviar y
 // sin emoji, tanto en el valor colapsado del filtro como en el desplegable.

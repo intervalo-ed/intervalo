@@ -21,7 +21,7 @@ Tokens base:
 
 ## Colores de belt — única fuente de verdad
 
-`web/src/lib/catalog/index.ts::BELT_HEX` (espejado en `web/src/components/app-icon.tsx`). **No hardcodear paletas de belt en ningún componente nuevo — importar de acá.**
+`packages/dx-core/src/catalog/index.ts::BELT_HEX` (espejado en `web/src/components/app-icon.tsx`). **No hardcodear paletas de belt en ningún componente nuevo — importar de acá.**
 
 | Belt | `solid` (marca) | `onDark` (legible sobre fondo oscuro) |
 |---|---|---|
