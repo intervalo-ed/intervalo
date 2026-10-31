@@ -30,6 +30,13 @@ import {
 import { fmtCount, fmtMultiplier, type RankingView } from "@intervalo/dx-core/juego/ranking-formato"
 import { type MemoriaDelRanking } from "@intervalo/dx-core/juego/ranking-orden"
 import { useStagedOrder } from "@intervalo/dx-core/juego/UseStagedOrder"
+import {
+  MIN_PLAYERS_RANKED,
+  RAMP_UPDATES,
+  ROWS_ABOVE,
+  SIN_SCOPE,
+  type RankingSort,
+} from "@intervalo/dx-core/juego/ranking-reglas"
 import { Spinner } from "@/components/ui/spinner"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Bandera, UniTag } from "@/components/university-tag"
@@ -173,20 +180,6 @@ function tweenDelSalto(ms: number, curva: (t: number) => number): Transition {
 // el techo de la vista. Antes era `p ** 1.5` sobre el scroll, que era eso mismo
 // sin la cota.
 const ADELANTO_PX = ALTO_FILA_PX * 1.5
-
-// Filas que quedan por encima de la propia cuando la lista descansa. No es el
-// centro: se mira hacia arriba, a quién falta pasar, más que hacia abajo.
-const ROWS_ABOVE = 4
-
-// Espejo de backend/game/boosts.py :: MIN_PLAYERS_RANKED. Acá solo se usa para
-// escribir cuántos jugadores le faltan a una universidad; quién entra al ranking
-// lo decide el server y viaja en `row.ranked`.
-const MIN_PLAYERS_RANKED = 10
-
-// Espejo de backend/game/elo.py :: RAMP_UPDATES. Igual que arriba: acá solo se
-// usa para escribir cuántas respuestas le faltan a una persona; quién tiene el
-// Elo firme lo decide el server y viaja en `entry.elo_ranked`.
-const RAMP_UPDATES = 5
 
 // El `py-1` de la lista, que no forma parte de ninguna fila.
 const LIST_TOP_PADDING = 4
@@ -345,18 +338,9 @@ export type GameRankingProps = {
   className?: string
 }
 
-/** Por qué ordena el ranking, en las dos vistas. Exportado para que el selector
- *  de la cabecera (desktop-layout.tsx) hable el mismo tipo.
- *
- *  Se dice "experiencia" y no "xp" porque es la palabra que se lee en la
- *  pantalla; el servidor usa la otra (UseGameLeaderboard.ts :: LeaderboardSort)
- *  y la traducción se hace acá, en el único lugar donde los dos se tocan. */
-export type RankingSort = "experiencia" | "elo"
-
-// El scope sin acotar, con identidad estable. Es la clave de caché del catálogo
-// de universidades y del resumen sin filtrar, así que tiene que ser SIEMPRE el
-// mismo objeto o cada render pediría de nuevo.
-const SIN_SCOPE: Scope = { university: ALL_SCOPE, career: ALL_SCOPE }
+// Re-exportado para que el selector de la cabecera (desktop-layout.tsx) hable
+// el mismo tipo.
+export type { RankingSort }
 
 // Con qué arranca el ranking cuando nadie dice lo contrario: la lista de
 // personas, sin filtrar. Constante de módulo para que su identidad no cambie.
@@ -2281,7 +2265,7 @@ function CountryRanking({
     return <p className="text-sm text-muted-foreground">Todavía no hay ranking de países.</p>
   }
   const miPais = myUniversity ? tagDe(myUniversity).country : undefined
-  const rows = sort === "experiencia" ? [...filas].sort((a, b) => b.xp - a.xp) : filas
+  const rows = sort === "experiencia" ? porExperiencia(filas) : filas
   return (
     <div className="no-scrollbar relative -mx-1 min-h-0 flex-1 overflow-y-auto overscroll-contain px-1">
       <ol className="flex flex-col gap-2 py-1">

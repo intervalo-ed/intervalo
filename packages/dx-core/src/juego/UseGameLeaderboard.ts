@@ -663,7 +663,7 @@ export function useGameRecruits(enabled: boolean) {
  *  `[...]` y no un `.sort()` sobre el array que llega: ese es el mismo objeto
  *  que React Query cachea, y mutarlo in place correría el orden por debajo de
  *  cualquier otra vista que lo esté leyendo al mismo tiempo. */
-export function porExperiencia(rows: readonly GameUniversityRow[]): GameUniversityRow[] {
+export function porExperiencia<T extends { xp: number }>(rows: readonly T[]): T[] {
   return [...rows].sort((a, b) => b.xp - a.xp)
 }
 

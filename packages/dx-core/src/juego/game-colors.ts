@@ -111,11 +111,25 @@ export const ORO_CHIP_PCT = 55
  *  se mueven ALREDEDOR de los que ya estaban afinados a ojo —9% de relleno,
  *  68% de borde—, no desde cero. */
 export function filaConEmpuje(multiplier: number): React.CSSProperties {
-  const f = boostStrength(multiplier)
+  const k = intensidadDeFila(multiplier)
   return {
-    backgroundColor: `color-mix(in oklab, ${AMBAR} ${7 + 5 * f}%, transparent)`,
-    "--tw-ring-color": `color-mix(in oklab, ${AMBAR} ${60 + 18 * f}%, transparent)`,
+    backgroundColor: `color-mix(in oklab, ${AMBAR} ${k.fondo}%, transparent)`,
+    "--tw-ring-color": `color-mix(in oklab, ${AMBAR} ${k.borde}%, transparent)`,
   } as React.CSSProperties
+}
+
+/** Las intensidades de `filaConEmpuje`, en porcentaje de ámbar. */
+export function intensidadDeFila(multiplier: number): { fondo: number; borde: number } {
+  const f = boostStrength(multiplier)
+  return { fondo: 7 + 5 * f, borde: 60 + 18 * f }
+}
+
+/** `filaConEmpuje` para la app, sin `color-mix`: el ámbar mezclado con
+ *  transparente al N% es el ámbar con alfa N%. */
+export function filaConEmpujeRGBA(multiplier: number): { backgroundColor: string; borderColor: string } {
+  const k = intensidadDeFila(multiplier)
+  const alfa = (pct: number) => `rgba(${CAFE_AMBAR_RGB.join(", ")}, ${pct / 100})`
+  return { backgroundColor: alfa(k.fondo), borderColor: alfa(k.borde) }
 }
 
 /** El tema del juego en hex, para donde no hay variables CSS (la app nativa).

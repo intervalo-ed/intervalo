@@ -20,7 +20,7 @@
 // gris al pie. Los frenos que quedan viven en el server (tres por minuto, 140
 // caracteres, allowlist de caracteres; ver game/chat.py).
 
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
+import { useEffect, useLayoutEffect, useRef } from "react"
 import { motion } from "motion/react"
 import { MessageCircle, SendHorizontal } from "lucide-react"
 import { UniTag } from "@/components/university-tag"
@@ -29,33 +29,16 @@ import { useSfx } from "@/lib/audio/useSfx"
 import { fmtAgo } from "@intervalo/dx-core/juego/ranking-formato"
 import { KeyCap } from "./exercise-card"
 import { levelColor } from "@intervalo/dx-core/juego/game-colors"
-import { readEnviosRecientes, registrarEnvio } from "@intervalo/dx-core/juego/game-storage"
-import { claseDeSalida } from "./slide-salida"
 import {
-  hayMasHistorial,
-  useGameEvents,
-  useHistorialViejo,
-  useSendMessage,
-  type ConTiempo,
-  type GameEvent,
-  type GameMessage,
-} from "@intervalo/dx-core/juego/UseGameLeaderboard"
+  MAX_TEXTO,
+  mensajeDePendiente,
+  renglonesDelCampo,
+  textoPlano,
+} from "@intervalo/dx-core/juego/chat"
+import { useChat } from "@intervalo/dx-core/juego/UseChat"
+import { claseDeSalida } from "./slide-salida"
+import type { ConTiempo, GameEvent, GameMessage } from "@intervalo/dx-core/juego/UseGameLeaderboard"
 import { useCachedPlayer } from "./UseGamePlayer"
-
-// Lo mismo que acepta el servidor (chat.MAX_TEXTO). Se repite acá para poder
-// avisar ANTES de mandar; quien manda de verdad es el backend.
-const MAX_TEXTO = 140
-
-// Espejo de chat.MAX_LINEAS: hasta dónde crece el textarea solo. El tope de
-// verdad lo pone igual el servidor (`limpiar()`); esto es nada más para que
-// el campo no empuje un dibujo entero fuera de la pantalla mientras se
-// escribe.
-const MAX_LINEAS = 6
-
-// Hasta tres mensajes por minuto, espejo de `limits.por_jugador(3)`. Acá solo
-// sirve para que el botón sepa esperar en vez de comerse un 429.
-const VENTANA_MS = 60_000
-const MAX_POR_MINUTO = 3
 
 // Sin tope de líneas visibles. Lo hubo —cuarenta, sobre las hasta ochenta que
 // traía el historial— con el argumento de que mostrarlas todas era scroll que
@@ -93,38 +76,6 @@ const UMBRAL_ARRIBA_PX = 120
 export const TECLA_CHAT = "u"
 
 const MARGEN_PEGADO_PX = 24
-
-/** Segundos que faltan para poder volver a escribir.
- *
- * Cero mientras haya lugar en la ventana de un minuto (menos de
- * `MAX_POR_MINUTO` envíos recientes) — recién cuando se llena hay que esperar
- * a que el más viejo de esos envíos cumpla el minuto y se caiga de la cuenta. */
-function restante(): number {
-  const ahora = Date.now()
-  const vigentes = readEnviosRecientes().filter((t) => t > ahora - VENTANA_MS)
-  if (vigentes.length < MAX_POR_MINUTO) return 0
-  const masViejo = Math.min(...vigentes)
-  return Math.max(0, Math.ceil((masViejo + VENTANA_MS - ahora) / 1000))
-}
-
-type Linea =
-  | { tipo: "evento"; at: number; clave: string; evento: ConTiempo<GameEvent> }
-  | { tipo: "mensaje"; at: number; clave: string; mensaje: ConTiempo<GameMessage> }
-
-/** Un mensaje propio que todavía no confirmó el servidor (ver `mandar`). */
-type MensajePendiente = {
-  localId: number
-  text: string
-  failed: boolean
-  // Capturados al escribir, no releídos si se reintenta: es la misma foto
-  // del jugador con la que se vería si el servidor ya hubiera contestado.
-  alias: string
-  level: number
-  university: string | null
-  // Sellado al crearlo (evento, no render) para armar el `ConTiempo` que
-  // `MensajeRow` espera sin llamar a `Date.now()` durante el dibujado.
-  at: number
-}
 
 /** El renglón de un mensaje.
  *
@@ -235,7 +186,7 @@ function NovedadRow({ evento }: { evento: ConTiempo<GameEvent> }) {
         {/* Sin los marcadores resueltos: acá la línea es contexto, no el evento
             protagonista, y el texto plano alcanza. Resolverlos pide el mismo
             trabajo que hace EventText y no cambiaría lo que se entiende. */}
-        {textoPlano(evento.text, evento.actor_alias, evento.actor_b_alias, evento.universities)}{" "}
+        {textoPlano(evento)}{" "}
         <span aria-hidden>{evento.emoji}</span>
       </span>
       <span className="shrink-0 tabular-nums text-[0.68rem] text-muted-foreground/60">
@@ -243,20 +194,6 @@ function NovedadRow({ evento }: { evento: ConTiempo<GameEvent> }) {
       </span>
     </motion.li>
   )
-}
-
-/** Los marcadores del feed, reemplazados a texto pelado. Ver events.py. */
-function textoPlano(
-  text: string,
-  alias: string | null | undefined,
-  aliasB: string | null | undefined,
-  unis: string[],
-): string {
-  return text
-    .replace("{a}", alias ?? "alguien")
-    .replace("{b}", aliasB ?? "alguien")
-    .replace("{u0}", unis[0] ?? "")
-    .replace("{u1}", unis[1] ?? "")
 }
 
 /** El botón de la cabecera. Mismo molde que los otros cuatro.
@@ -337,75 +274,26 @@ export function ChatPanel({
   onClose?: () => void
   className?: string
 }) {
-  const { data } = useGameEvents(enabled)
-  const enviar = useSendMessage()
   const player = useCachedPlayer()
   const sfx = useSfx()
-  const [texto, setTexto] = useState("")
-  const [error, setError] = useState<string | null>(null)
+  // El estado (lista intercalada, envíos optimistas, enfriamiento) vive en
+  // dx-core para compartirlo con la app nativa. Ver UseChat.ts.
+  const {
+    lineas,
+    pendientes,
+    texto,
+    setTexto,
+    error,
+    falta,
+    apagado,
+    puedeEscribir,
+    puedeMandar,
+    mandar: mandarChat,
+    reintentar,
+    hayMas,
+    cargarViejas,
+  } = useChat({ enabled, player, onEnviado: sfx.select })
   const inputRef = useRef<HTMLTextAreaElement | null>(null)
-
-  // El mensaje propio se ve al toque, sin esperar la confirmación real (ver
-  // `MensajePendiente` más arriba en el archivo): el cuadro se vacía y el
-  // mensaje aparece "enviando" de inmediato, y pasa a confirmado (se saca de
-  // acá, ya vive en `data.messages`) o a "fallo" según lo que conteste el
-  // servidor. Sin esto, entre el toque y el `onSuccess` —que puede tardar por
-  // la moderación del lado del server— el cuadro vacío y la lista sin
-  // cambios se leen como "no se mandó".
-  const [pendientes, setPendientes] = useState<MensajePendiente[]>([])
-  // Negativos: los ids reales son autoincrement positivo de la base
-  // (GameMessageOut), así que nunca chocan.
-  const nextLocalIdRef = useRef(-1)
-
-  // El chat puede estar apagado del lado del servidor (GAME_CHAT_ENABLED). Se
-  // asume prendido mientras no llegó la primera respuesta: apagar el campo por
-  // no saber todavía sería mostrar el peor de los dos estados durante el
-  // arranque.
-  //
-  // Y es lo ÚNICO que lo apaga: ser invitado ya no. Al registrado sin sesión
-  // viva el server le contesta 403 y el motivo se muestra tal cual (ver
-  // `mandar`), que es el único caso que queda en el que mandar puede fallar por
-  // quién sos.
-  const apagado = data !== undefined && !data.chatEnabled
-  const puedeEscribir = !apagado
-
-  // Las dos listas, intercaladas por cuándo pasó cada cosa. Vienen de la más
-  // nueva a la más vieja y se dan vuelta al final, igual que el feed: así lo
-  // último queda abajo, que es donde se lo busca en un chat.
-  const lineas = useMemo<Linea[]>(() => {
-    const eventos: Linea[] = (data?.events ?? []).map((e) => ({
-      tipo: "evento",
-      at: e.at,
-      clave: `e${e.id}`,
-      evento: e,
-    }))
-    const mensajes: Linea[] = (data?.messages ?? []).map((m) => ({
-      tipo: "mensaje",
-      at: m.at,
-      clave: `m${m.id}`,
-      mensaje: m,
-    }))
-    return [...eventos, ...mensajes].sort((a, b) => b.at - a.at).reverse()
-  }, [data])
-
-  // El enfriamiento, en segundos que faltan — cero salvo que ya se hayan
-  // gastado los `MAX_POR_MINUTO` envíos de la ventana.
-  //
-  // El valor inicial sale del propio render (`useState` con función) y no de un
-  // efecto: escribir estado adentro de un efecto es justo lo que el lint del
-  // compilador de React rechaza, y acá además no hace falta — el dato ya está en
-  // localStorage antes del primer pintado.
-  //
-  // El intervalo corre mientras el panel esté abierto y no se apaga al llegar a
-  // cero. Es a propósito: es lo que hace que la cuenta vuelva a arrancar sola en
-  // cuanto el envío más viejo de la ventana cumple el minuto, sin depender de
-  // que nadie la reinicie. Cuesta una lectura de localStorage por segundo, y
-  // cuando el valor no cambia React ni redibuja.
-  const [falta, setFalta] = useState(restante)
-  useEffect(() => {
-    const t = setInterval(() => setFalta(restante()), 1000)
-    return () => clearInterval(t)
-  }, [])
 
   // Al abrir, el foco va al campo — pero solo donde se pidió (ver
   // `enfocaAlAbrir`). En escritorio se llegó tecleando `u` y lo que sigue es
@@ -438,8 +326,6 @@ export function ChatPanel({
   // empuja todo hacia abajo y lo que se estaba leyendo se va de la pantalla. Se
   // anota el alto de antes y después del pintado se le suma la diferencia al
   // scroll, así el renglón que estaba bajo el dedo queda donde estaba.
-  const cargarViejas = useHistorialViejo()
-  const hayMas = hayMasHistorial(data)
   const altoAntesRef = useRef<number | null>(null)
   useLayoutEffect(() => {
     const el = scrollRef.current
@@ -454,75 +340,8 @@ export function ChatPanel({
     el.scrollTop = el.scrollHeight
   })
 
-  // Sin `!enviar.isPending`: cada envío se rastrea solo, por su propia
-  // entrada en `pendientes` — nada se serializa por un flag compartido, así
-  // que escribir un mensaje nuevo no espera a que el anterior confirme.
-  const puedeMandar = puedeEscribir && texto.trim().length > 0 && falta === 0
-
-  /** El motivo del error tal cual lo manda el servidor: en español y
-   *  dirigido a la persona (422 del saneado, 429 del tope, 403 de invitado).
-   *  Mostrar el suyo y no uno inventado acá es lo que hace que sea cierto. */
-  function detalleDeError(e: unknown): string {
-    return typeof e === "object" && e !== null && "message" in e
-      ? String((e as { message: unknown }).message)
-      : "No se pudo mandar."
-  }
-
   const mandar = () => {
-    if (!puedeMandar || player === null) return
-    const limpio = texto.trim()
-    const localId = nextLocalIdRef.current--
-    // Se vacía y se muestra YA, no en el `onSuccess`: es lo que hace que
-    // escribir el mensaje siguiente no tenga que esperar a que este
-    // confirme, y que el toque se sienta recibido al instante en vez de
-    // depender de la moderación del servidor para dar cualquier señal.
-    setPendientes((ps) => [
-      ...ps,
-      {
-        localId,
-        text: limpio,
-        failed: false,
-        alias: player.alias,
-        level: player.level,
-        university: player.university ?? null,
-        at: Date.now(),
-      },
-    ])
-    setTexto("")
-    setError(null)
-    pegadoRef.current = true
-    enviar.mutate(limpio, {
-      onSuccess: () => {
-        sfx.select()
-        setPendientes((ps) => ps.filter((p) => p.localId !== localId))
-        registrarEnvio(Date.now(), VENTANA_MS)
-        // Recién calculado y no `0` a mano: si todavía queda lugar en la
-        // ventana (este no fue el tercero), el compositor sigue sirviendo.
-        setFalta(restante())
-      },
-      onError: (e: unknown) => {
-        setPendientes((ps) => ps.map((p) => (p.localId === localId ? { ...p, failed: true } : p)))
-        setError(detalleDeError(e))
-      },
-    })
-  }
-
-  /** Reintenta un mensaje que falló, con el mismo texto — sin que la persona
-   *  tenga que volver a escribirlo. */
-  const reintentar = (p: MensajePendiente) => {
-    setPendientes((ps) => ps.map((x) => (x.localId === p.localId ? { ...x, failed: false } : x)))
-    enviar.mutate(p.text, {
-      onSuccess: () => {
-        sfx.select()
-        setPendientes((ps) => ps.filter((x) => x.localId !== p.localId))
-        registrarEnvio(Date.now(), VENTANA_MS)
-        setFalta(restante())
-      },
-      onError: (e: unknown) => {
-        setPendientes((ps) => ps.map((x) => (x.localId === p.localId ? { ...x, failed: true } : x)))
-        setError(detalleDeError(e))
-      },
-    })
+    if (mandarChat()) pegadoRef.current = true
   }
 
   return (
@@ -561,16 +380,7 @@ export function ChatPanel({
             {pendientes.map((p) => (
               <MensajeRow
                 key={`pend-${p.localId}`}
-                mensaje={{
-                  id: p.localId,
-                  alias: p.alias,
-                  level: p.level,
-                  university: p.university,
-                  text: p.text,
-                  is_mine: true,
-                  seconds_ago: 0,
-                  at: p.at,
-                }}
+                mensaje={mensajeDePendiente(p)}
                 pendiente={p.failed ? "fallo" : "enviando"}
                 onReintentar={() => reintentar(p)}
               />
@@ -609,11 +419,8 @@ export function ChatPanel({
             <textarea
               ref={inputRef}
               value={texto}
-              rows={Math.min(MAX_LINEAS, Math.max(1, texto.split("\n").length))}
-              onChange={(e) => {
-                setTexto(e.target.value)
-                if (error) setError(null)
-              }}
+              rows={renglonesDelCampo(texto)}
+              onChange={(e) => setTexto(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key !== "Enter") return
                 if (e.shiftKey) {
