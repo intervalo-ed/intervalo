@@ -57,7 +57,14 @@ tienda. La escalera los recibe ya apagados (`cafecito: null`,
 `puedeOfrecerInstalar` y `puedeOfrecerNotificaciones` en `false`), así que esos
 escalones del mapa de interrupciones no salen nunca ahí. El empuje de una
 universidad sí la alcanza: lo compra alguien desde la web y multiplica a todos
-sus jugadores, jueguen donde jueguen.
+sus jugadores, jueguen donde jueguen. En las estadísticas tampoco está la
+tarjeta de «XP extra por cafecitos».
+
+La identidad es la misma que en la web (invitado con token, cuenta con Google
+vía Clerk), con dos diferencias porque la app no recarga: al entrar con Google
+o cerrar sesión, `UseGamePlayer` vuelve a dar de alta al jugador (ese segundo
+`POST /player` es el que linkea invitado→cuenta) y aplica ahí el @ deseado; y
+el token del invitado vive en MMKV con copia en el llavero del sistema.
 
 ### Quién es cada uno cuando vuelve (la cookie `dx_token`, desde el 28/09)
 
