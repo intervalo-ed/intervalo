@@ -61,9 +61,9 @@ jobs:
       - uses: oven-sh/setup-bun@v2
 
       - name: Instalar dependencias
-        # En la raíz: el repo es un workspace de bun (web + packages/*) con un
-        # solo bun.lock, y los parches y overrides viven en el package.json de
-        # arriba.
+        # En la raíz: el repo es un workspace de bun (web, mobile y
+        # packages/*) con un solo bun.lock, y los parches y overrides viven en
+        # el package.json de arriba.
         run: bun install --frozen-lockfile
 
       - name: Typecheck
@@ -75,6 +75,13 @@ jobs:
         # scripts de check del paquete y lo que nadie importa todavía quedan
         # afuera sin esto.
         working-directory: packages/dx-core
+        run: bun run typecheck
+
+      - name: Typecheck de la app
+        # La app de Expo importa dx-core con su propio React (el del SDK, no el
+        # de la web): un cambio en dx-core que compila para la web puede no
+        # compilar acá.
+        working-directory: mobile
         run: bun run typecheck
 
       - name: Checks propios
