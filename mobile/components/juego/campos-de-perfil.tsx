@@ -80,7 +80,7 @@ function CareerCard({
 }) {
   return (
     <Opcion selected={selected} onPress={onPress} style={styles.carrera}>
-      <Text style={styles.emoji}>{emoji}</Text>
+      <Text style={[styles.emoji, selected && styles.textoElegido]}>{emoji}</Text>
       <Text style={[styles.textoOpcion, styles.textoCarrera, selected && styles.textoElegido]}>
         {label}
       </Text>
@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
   textoOpcion: { fontSize: 16, fontWeight: "500", color: "rgba(246,248,252,0.8)" },
   textoElegido: { color: SELECCIONADO },
   carrera: { flex: 1, paddingVertical: 24, gap: 8 },
-  emoji: { fontSize: 24, lineHeight: 28 },
+  emoji: { fontSize: 24, lineHeight: 28, color: "rgba(246,248,252,0.8)" },
   textoCarrera: { fontSize: 14 },
   chip: { flex: 1, height: 52, paddingHorizontal: 16 },
   chipConLogo: { paddingHorizontal: 8, paddingVertical: 8 },

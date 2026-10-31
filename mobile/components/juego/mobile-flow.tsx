@@ -945,6 +945,7 @@ export function MobileFlow({ auto }: { auto?: string }) {
         startDisabled: player === null || next.isPending,
         porqueListo: porqueTexto !== null || explainMutation.isError,
         montajes: montajesDelCampo,
+        statsDisponibles: estadisticasDisponibles,
       }),
       tecla: onKey,
       escribir: (latex) => inputRef.current?.setValue(latex),
@@ -955,7 +956,25 @@ export function MobileFlow({ auto }: { auto?: string }) {
         verTabla()
       },
       porque: abrirPorque,
-      volver,
+      // Los mismos caminos que los botones de la cabecera del ejercicio.
+      configuracion: () => {
+        sfx.select()
+        goTo({ kind: "settings", back: slide })
+      },
+      estadisticas: () => {
+        if (!estadisticasDisponibles) return
+        sfx.select()
+        verEstadisticas()
+      },
+      chat: () => {
+        sfx.select()
+        goTo({ kind: "chat", back: slide })
+      },
+      volver: () => {
+        if (slide.kind !== "settings") return volver()
+        sfx.select()
+        cerrarConfiguracion(slide.back)
+      },
       continuar: () => {
         if (slide.kind === "intro") startFromIntro()
         else if (slide.kind === "herramientas") herramientasListas()

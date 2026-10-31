@@ -28,6 +28,7 @@ export type EstadoDelJuego = {
   startDisabled: boolean
   porqueListo: boolean
   montajes: number
+  statsDisponibles: boolean
 }
 
 export type ControlDelJuego = {
@@ -38,6 +39,10 @@ export type ControlDelJuego = {
   saltear: () => void
   tabla: () => void
   porque: () => void
+  // Los botones de la cabecera; `volver` también cierra la configuración.
+  configuracion: () => void
+  estadisticas: () => void
+  chat: () => void
   volver: () => void
   continuar: () => void
 }
@@ -100,6 +105,8 @@ async function jugar({
   // Una captura por diapo nueva (`08-ranking`, `09-reglas`…), la primera vez
   // que aparece cada una.
   const capturadas = new Set<string>()
+  // Las diapos que ya pasaron, capturadas o no: el juego sigue hasta el registro.
+  const vistas = new Set<string>()
   const pasarPendientes = async ({ capturar = false }: { capturar?: boolean } = {}) => {
     for (;;) {
       await esperar((e) => e.slide === "exercise" || !e.ocupado, "diapo")
@@ -117,6 +124,7 @@ async function jugar({
       if (e.slide === "profile") log("diapo profile · se saltea")
       else if (e.slide === "register") log("diapo register · «Ahora no», sin Google")
       else log("diapo", e.slide)
+      vistas.add(e.slide)
       c().continuar()
       await esperar((d) => d.slide !== e.slide, `salir de ${e.slide}`, 8000)
       await pausa(400)
@@ -183,7 +191,12 @@ async function jugar({
   log("salteado", antes, "→", c().estado().exerciseId)
   await pausa(800)
 
-  for (let i = 0; i < 5; i++) {
+  // Hasta pasar el registro (su hito es la 10.ª correcta), con un tope.
+  for (let i = 0; !vistas.has("register"); i++) {
+    if (i >= 14) {
+      log("el registro no salió en 14 ejercicios; sigo igual")
+      break
+    }
     await esperar((e) => e.slide === "exercise" && !e.ocupado, `ejercicio ${i + 3}`)
     await pausa(600)
     await responderBien()
@@ -192,7 +205,28 @@ async function jugar({
     await esperar((e) => e.slide !== "exercise", "salir del ejercicio")
     await pasarPendientes({ capturar: true })
   }
-  await esperar((e) => e.slide === "exercise", "último")
+  await esperar((e) => e.slide === "exercise" && !e.ocupado, "último")
+  await pausa(600)
+
+  // Las pantallas de la cabecera, desde el ejercicio. Nunca Google, ni cerrar
+  // sesión, ni reiniciar: solo abrir, mirar y volver.
+  const cabecera: { slide: string; captura: string; abrir: () => void }[] = [
+    { slide: "settings", captura: "20-settings", abrir: () => c().configuracion() },
+    ...(c().estado().statsDisponibles
+      ? [{ slide: "stats", captura: "21-stats", abrir: () => c().estadisticas() }]
+      : []),
+    { slide: "chat", captura: "22-chat", abrir: () => c().chat() },
+  ]
+  for (const p of cabecera) {
+    log("cabecera", p.slide)
+    p.abrir()
+    await esperar((e) => e.slide === p.slide, p.slide)
+    await pausa(1500)
+    await captura(p.captura)
+    c().volver()
+    await esperar((e) => e.slide === "exercise", `vuelta de ${p.slide}`)
+    await pausa(500)
+  }
   log("listo · montajes del campo:", c().estado().montajes)
   await fetch(`${AYUDANTE}/fin?montajes=${c().estado().montajes}`).catch(() => {})
 }
