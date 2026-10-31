@@ -1,9 +1,11 @@
 // Solo en desarrollo: juega solo, para probar el flujo en el simulador sin
 // tocar la pantalla (`xcrun simctl` no toca). Se abre con
 // `derivadas://?auto=1`. Usa los mismos caminos que el dedo: las teclas entran
-// por `onKey` y los botones llaman a sus mismos handlers. Las diapos de después
-// de responder (ranking, el @, reglas, novedades, «próximamente») se pasan con
-// `continuar`, que toca su Continuar o Seguir; el @ se deja como está.
+// por `onKey` y los botones llaman a sus mismos handlers. Las herramientas de la
+// portada y las diapos de después de responder (ranking, el @, reglas,
+// novedades, «próximamente») se pasan con `continuar`, que toca su Continuar o
+// Seguir; el @ se deja como está, y el perfil y el registro se saltean con su
+// «Ahora no»: nunca se abre Google.
 //
 // Habla con dos cosas del host, si están: el backend local (la respuesta
 // esperada sale de una ruta de desarrollo, `/__dev/respuesta/<id>`) y un
@@ -112,7 +114,9 @@ async function jugar({
         capturadas.add(e.slide)
         await captura(`${String(7 + capturadas.size).padStart(2, "0")}-${e.slide.replace(":", "-")}`)
       }
-      log("diapo", e.slide)
+      if (e.slide === "profile") log("diapo profile · se saltea")
+      else if (e.slide === "register") log("diapo register · «Ahora no», sin Google")
+      else log("diapo", e.slide)
       c().continuar()
       await esperar((d) => d.slide !== e.slide, `salir de ${e.slide}`, 8000)
       await pausa(400)
