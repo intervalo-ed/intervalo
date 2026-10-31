@@ -28,7 +28,7 @@
 //      descarta en silencio, que es la otra forma de servir un ejercicio sin
 //      con qué escribirlo.
 
-import { readFileSync } from "node:fs"
+import { existsSync, readFileSync } from "node:fs"
 import { fileURLToPath } from "node:url"
 import {
   DYNAMIC,
@@ -40,16 +40,14 @@ import {
   RAMPA_FILAS_MAX,
   RAMPA_GAP_REM,
   RAMPA_MIN_COL,
-  RAMPA_ROW,
-  RAMPA_ROW_APRETADO,
-  ROW_VARS,
-  altoDeRampa,
-  anchoDeRampa,
+  KB_ROW_TELEFONO_REM,
+  RAMPA_ROW_REM,
+  altoDeRampaRem,
   filasDeRampa,
   rampaDibujada,
   RAMPA_FILAS_A_DEFINITIVO,
   type EntradaDeTecla,
-} from "../src/app/derivadas/math-keyboard"
+} from "../src/juego/teclado"
 
 let fallos = 0
 function check(ok: boolean, label: string) {
@@ -79,24 +77,10 @@ const AIRE_PROPIO = 8 + 16
 const PX_POR_REM = 16
 const GAP = RAMPA_GAP_REM * PX_POR_REM
 
-/** Los rem de una medida CSS, resolviendo `var(--kb-row)` contra `ROW_VARS`.
- *
- *  El alto apretado es una variable CSS a propósito —el teclado de escritorio
- *  usa otra— así que para sumar píxeles hay que resolverla, y resolverla contra
- *  la declaración de verdad y no contra un número copiado acá. */
-function aPx(medida: string): number {
-  if (medida === "var(--kb-row)") {
-    const m = ROW_VARS.match(/\[--kb-row:([\d.]+)rem\]/)
-    if (!m) throw new Error(`ROW_VARS no declara --kb-row: ${ROW_VARS}`)
-    return Number(m[1]) * PX_POR_REM
-  }
-  const m = medida.match(/^([\d.]+)rem$/)
-  if (!m) throw new Error(`medida que no sé convertir: ${medida}`)
-  return Number(m[1]) * PX_POR_REM
-}
+const aPx = (rem: number) => rem * PX_POR_REM
 
 function altoTotal(filas: EntradaDeTecla[][]): number {
-  const alto = aPx(altoDeRampa(filas.length))
+  const alto = aPx(altoDeRampaRem(filas.length))
   return AIRE_PROPIO + filas.length * alto + Math.max(0, filas.length - 1) * GAP
 }
 
@@ -310,9 +294,28 @@ check(
   `el alto apretado entra en juego antes del tope de filas (${RAMPA_FILAS_APRETADO} ≤ ${RAMPA_FILAS_MAX})`,
 )
 check(
-  aPx(RAMPA_ROW_APRETADO) < aPx(RAMPA_ROW),
-  `y aprieta de verdad: ${aPx(RAMPA_ROW)} px pasa a ${aPx(RAMPA_ROW_APRETADO)}`,
+  aPx(KB_ROW_TELEFONO_REM) < aPx(RAMPA_ROW_REM),
+  `y aprieta de verdad: ${aPx(RAMPA_ROW_REM)} px pasa a ${aPx(KB_ROW_TELEFONO_REM)}`,
 )
+
+// El alto apretado de la web es una variable CSS (`--kb-row`, declarada en las
+// clases de `ROW_VARS` de math-keyboard.tsx), y Tailwind pide que esas clases
+// sean literales: no pueden salir de `KB_ROW_TELEFONO_REM`. Se lee la fuente y
+// se compara, para que las cuentas de arriba sean las de lo que se dibuja.
+{
+  const MATH_KEYBOARD = fileURLToPath(
+    new URL("../../../web/src/app/derivadas/math-keyboard.tsx", import.meta.url),
+  )
+  if (existsSync(MATH_KEYBOARD)) {
+    const m = readFileSync(MATH_KEYBOARD, "utf-8").match(/"\[--kb-row:([\d.]+)rem\]/)
+    check(
+      m !== null && Number(m[1]) === KB_ROW_TELEFONO_REM,
+      `la web declara --kb-row en ${m?.[1] ?? "?"}rem, igual que KB_ROW_TELEFONO_REM`,
+    )
+  } else {
+    console.log("  [skip] no está web/: no se compara --kb-row")
+  }
+}
 
 // ── 4 · Fuera de la rampa tampoco se pierde inventario ──────────────────────
 //
@@ -338,7 +341,7 @@ check(
 // copiarlas acá por el mismo motivo que `check_openapi_sync` lee el contrato.
 console.log("\n5. los ids que manda el backend tienen dibujo en el front")
 const KEYBOARD_PY = fileURLToPath(
-  new URL("../../backend/game/keyboard.py", import.meta.url),
+  new URL("../../../backend/game/keyboard.py", import.meta.url),
 )
 const fuente = readFileSync(KEYBOARD_PY, "utf-8")
 

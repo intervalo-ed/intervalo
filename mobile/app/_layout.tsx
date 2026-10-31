@@ -9,7 +9,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { PostHogProvider } from "posthog-react-native"
 import { GameApiProvider } from "@intervalo/dx-core/juego/game-api-context"
 import type { Rescate } from "@intervalo/dx-core/juego/game-storage"
+import { precalentarTablaDeDerivadas } from "@/components/juego/derivatives-table"
+import { precalentarMathJax } from "@/components/latex/mathjax"
 import { posthog } from "@/lib/analytics/posthog"
+import { precargarSonidosDelJuego } from "@/lib/audio/UseSfx"
 import { useGameApiNativo } from "@/lib/api/UseGameApiNativo"
 import { RescateProvider } from "@/lib/almacen/rescate-context"
 import { restaurarToken } from "@/lib/almacen/token-seguro"
@@ -37,6 +40,12 @@ export default function RootLayout() {
     void restaurarToken().then((r) => {
       if (vivo) setRescate(r)
     })
+    // Lo que la primera pantalla del juego va a necesitar, mientras el splash
+    // sigue arriba: MathJax armado (con las fórmulas de la tabla ya
+    // convertidas) y los reproductores de los sonidos.
+    precargarSonidosDelJuego()
+    precalentarMathJax()
+    precalentarTablaDeDerivadas()
     return () => {
       vivo = false
     }

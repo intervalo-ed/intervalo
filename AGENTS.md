@@ -7,9 +7,9 @@ base REAL y uno de ellos renombra gente, así que un glob no sirve.
 
 Del lado del front (workspace de bun: `bun install` en la raíz): en `web/`,
 `bunx tsc --noEmit`, `bun run build` y los checks que tocan código de la web
-(`check:reclutas`, `check:restante`, `check:teclado`, …); en `packages/dx-core/`
+(`check:reclutas`, `check:restante`, …); en `packages/dx-core/`
 —la lógica del juego, compartida con la app nativa—, `bun run typecheck` y los
-checks de lógica pura (`check:xp`, `check:latex`, `check:parser`, …); en
+checks de lógica pura (`check:xp`, `check:latex`, `check:teclado`, …); en
 `mobile/` —la app de Expo—, `bun run typecheck` y `bunx expo-doctor` (este no
 está en el CI). El CI corre todo lo demás en cada PR (`.github/workflows/ci.yml`).
 

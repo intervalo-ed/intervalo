@@ -28,7 +28,7 @@ import {
   marcarNotificacionesMostrado,
   tocaInstalar,
   tocaNotificaciones,
-} from "../src/app/derivadas/instalacion-trigger"
+} from "@intervalo/dx-core/juego/instalacion-trigger"
 import {
   RECLUTAS_CADA,
   RECLUTAS_RESTO,

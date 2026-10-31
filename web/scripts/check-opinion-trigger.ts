@@ -39,7 +39,7 @@ import {
   INSTALAR_PRIMERA,
   marcarInstalarMostrado,
   tocaInstalar,
-} from "../src/app/derivadas/instalacion-trigger"
+} from "@intervalo/dx-core/juego/instalacion-trigger"
 import {
   ENCUESTA_EN,
   marcarEncuestaMostrada,

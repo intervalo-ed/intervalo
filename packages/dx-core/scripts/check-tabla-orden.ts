@@ -4,7 +4,7 @@
 //
 // La tabla de escritorio sube arriba las filas que la derivada en curso
 // necesita, y solo cuando no entra entera (ver `acomodar` en
-// derivatives-table.tsx). Son seis líneas de `filter`, y las seis líneas de
+// src/juego/tabla-derivadas.ts). Son seis líneas de `filter`, y las seis líneas de
 // `filter` son justo donde se pierde o se duplica una fila sin que nadie lo
 // note: el síntoma sería un agujero en la tabla de derivadas en la mitad de
 // una partida, con la persona buscando la regla del cociente que ya no está.
@@ -24,7 +24,7 @@
 //      NO subió, así que un off-by-one acá pinta el borde grueso en el renglón
 //      equivocado.
 
-import { FILAS, acomodar } from "../src/app/derivadas/derivatives-table"
+import { FILAS, acomodar } from "../src/juego/tabla-derivadas"
 
 let fallos = 0
 function check(ok: boolean, label: string) {

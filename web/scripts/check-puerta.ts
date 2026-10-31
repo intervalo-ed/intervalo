@@ -22,7 +22,7 @@ import {
   saveUltimoPedidoAt,
 } from "@intervalo/dx-core/juego/game-storage"
 import { CAFECITO_PRIMERA } from "../src/app/derivadas/cafecito-cta"
-import { INSTALAR_PRIMERA } from "../src/app/derivadas/instalacion-trigger"
+import { INSTALAR_PRIMERA } from "@intervalo/dx-core/juego/instalacion-trigger"
 import { HITO_PERFIL, HITO_REGISTRO } from "@intervalo/dx-core/juego/hitos-del-juego"
 import { RECLUTAS_CADA, RECLUTAS_RESTO } from "@intervalo/dx-core/juego/reclutas-trigger"
 import {

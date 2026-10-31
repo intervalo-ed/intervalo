@@ -26,7 +26,7 @@ import {
   INSTALAR_PRIMERA,
   NOTIF_CADA,
   NOTIF_PRIMERA,
-} from "../src/app/derivadas/instalacion-trigger"
+} from "@intervalo/dx-core/juego/instalacion-trigger"
 
 let fallos = 0
 function check(ok: boolean, label: string) {

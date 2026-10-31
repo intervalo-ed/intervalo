@@ -17,7 +17,8 @@ import {
   readUltimaPantalla,
   saveUltimoPedidoAt,
 } from "@intervalo/dx-core/juego/game-storage"
-import { INSTALAR_SEPARACION } from "./instalacion-trigger"
+import type { CafecitoTrigger } from "@intervalo/dx-core/juego/cafecito-trigger"
+import { INSTALAR_SEPARACION } from "@intervalo/dx-core/juego/instalacion-trigger"
 import { useCta } from "./game-telemetry"
 
 // Perfil propio del juego, separado del de Intervalo. Ojo con este valor: ya
@@ -77,11 +78,7 @@ export const CAFECITO_EVERY = 20
 // 40: adelantar la primera retrasaba todo lo demás.
 export const CAFECITO_COOLDOWN = 5
 
-// Por qué apareció la diapo. Los tres primeros los decide el juego después de
-// una respuesta; `pedido` es cuando la persona la abrió ella misma con el botón
-// de la barra, y eso cambia dos cosas: no se la felicita por un hito que no
-// acaba de pasar, y al salir vuelve a SU ejercicio en vez de pedir uno nuevo.
-export type CafecitoTrigger = "record" | "big_climb" | "milestone" | "pedido"
+export type { CafecitoTrigger }
 
 // Las teclas de los dos botones de la barra que sacan del ejercicio.
 //

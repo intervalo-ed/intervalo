@@ -16,7 +16,12 @@
     "check:salto": "bun run scripts/check-salto.ts",
     "check:ventana": "bun run scripts/check-ventana.ts",
     "check:cafecito": "bun run scripts/check-cafecito.ts",
-    "check:parser": "bun run scripts/check-parser.ts"
+    "check:parser": "bun run scripts/check-parser.ts",
+    "check:despues": "bun run scripts/check-despues-de-responder.ts",
+    "check:teclado": "bun run scripts/check-teclado-rampa.ts",
+    "check:tabla": "bun run scripts/check-tabla-orden.ts",
+    "check:math-text": "bun run scripts/check-math-text.ts",
+    "check:expresion": "bun run scripts/check-expresion.ts"
   },
   "peerDependencies": {
     "@tanstack/react-query": "^5",

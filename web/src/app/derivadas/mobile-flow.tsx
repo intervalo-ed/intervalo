@@ -52,45 +52,33 @@ import { ConSalidaAbajo } from "./slide-salida"
 import {
   marcarInstalarMostrado,
   marcarNotificacionesMostrado,
-  tocaInstalar,
-  tocaNotificaciones,
-} from "./instalacion-trigger"
+} from "@intervalo/dx-core/juego/instalacion-trigger"
+import {
+  despuesDeResponder,
+  type EntradaDespuesDeResponder,
+} from "@intervalo/dx-core/juego/despues-de-responder"
 import { PedidoInstalar, puedeOfrecerInstalar } from "./pedido-instalar"
 import { PedidoNotificaciones } from "./pedido-notificaciones"
 import { puedeOfrecerNotificaciones } from "./UseAvisosDelJuego"
 import { marcarPwaDesde } from "@intervalo/dx-core/juego/game-storage"
-import { marcarEncuestaMostrada, tocaEncuesta } from "@intervalo/dx-core/juego/encuesta-trigger"
+import { marcarEncuestaMostrada } from "@intervalo/dx-core/juego/encuesta-trigger"
 import { EncuestaSlide } from "./encuesta-slide"
 import {
   marcarFrecuenciaMostrada,
   readFrecuenciaRanking,
-  tocaPreguntarFrecuencia,
-  tocaRanking,
 } from "@intervalo/dx-core/juego/ranking-frecuencia"
 import { RankingFrecuenciaSlide } from "./ranking-frecuencia-slide"
 import { DificultadSlide } from "./dificultad-slide"
-import {
-  anotarRespuesta,
-  marcarPreguntaMostrada,
-  tocaPreguntar,
-} from "@intervalo/dx-core/juego/opinion-trigger"
+import { anotarRespuesta, marcarPreguntaMostrada } from "@intervalo/dx-core/juego/opinion-trigger"
 import { OpinionSlide } from "./opinion-slide"
 import { RepetitividadSlide } from "./repetitividad-slide"
-import { marcarReclutasMostrado, tocaReclutar } from "@intervalo/dx-core/juego/reclutas-trigger"
-import {
-  HITO_PERFIL,
-  marcarRegistroMostrado,
-  tocaRegistro,
-} from "@intervalo/dx-core/juego/hitos-del-juego"
+import { marcarReclutasMostrado } from "@intervalo/dx-core/juego/reclutas-trigger"
+import { marcarRegistroMostrado } from "@intervalo/dx-core/juego/hitos-del-juego"
 import { GameIntroLogo, type GameIntro } from "./game-intro"
 import { PuertaMinima } from "./intro-panel"
 import { ReglasSlide } from "./reglas-slide"
 import { HerramientasSlide } from "./herramientas-slide"
-import {
-  REGLAS_DE_LA_DIAPO,
-  marcarReglasMostradas,
-  tocaReglas,
-} from "@intervalo/dx-core/juego/reglas-trigger"
+import { marcarReglasMostradas } from "@intervalo/dx-core/juego/reglas-trigger"
 import { DerivativesStatsTable, DerivativesTable, TableButton } from "./derivatives-table"
 import { EloStatsPanel, StatsButton } from "./elo-stats-panel"
 import { puedeVerEstadisticas } from "@intervalo/dx-core/juego/stats-gate"
@@ -255,18 +243,6 @@ function fondoDeSlide(kind: Slide["kind"]): string {
   if (kind === "reclutas") return tintaDe(VERDE)
   return SIN_TINTE
 }
-
-// Cuántas novedades sin ver hacen falta para frenar a alguien y mostrárselas.
-//
-// El pedido era "cada vez que haya novedades", y ese número es 1 — pero con la
-// actividad del juego corriendo hay eventos casi todo el tiempo, así que con 1
-// la pantalla aparecería después de CADA respuesta y dejaría de ser una novedad
-// para ser un peaje. Con tres, la interrupción llega cuando de verdad pasó algo
-// y el resto del tiempo el juego no se detiene.
-//
-// Es la perilla de esta feature: subirlo la hace más rara, bajarlo más
-// frecuente.
-const NOVEDADES_MINIMAS = 3
 
 // La slide del @ tuvo un pase propio, más lento (0,45 s contra los 0,28 del
 // resto), y se sacó el 03/10. La transición se elegía por la diapo ACTUAL, pero
@@ -749,23 +725,7 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
   // `continue_sound.mp3` que suena en cada Continuar de Intervalo clásico
   // (session-runner.tsx); dx lo tenía cargado y lo tocaba en un solo lugar.
   const advanceAfterAnswer = useCallback(
-    (
-      entrada:
-        | "ranking"
-        | "novedades"
-        | "milestone"
-        | "cafecito"
-        | "reclutas"
-        | "instalar"
-        | "notificaciones"
-        | "opinion"
-        | "repetitividad"
-        | "encuesta"
-        | "frecuencia"
-        | "username"
-        | "reglas"
-        | null,
-    ) => {
+    (entrada: EntradaDespuesDeResponder) => {
       chasquido()
       const pending = pendingRef.current
       if (!pending) {
@@ -773,332 +733,148 @@ export function MobileFlow({ intro }: { intro: GameIntro }) {
         return
       }
       const a = pending.answer
+      const totalCorrectas = a.exercises_correct
 
-      // ── ¿Esta correcta pasa por el ranking? ─────────────────────────────
-      //
-      // Hasta el 09/10 la respuesta era siempre sí. Ahora lo decide la
-      // preferencia de la persona (ranking-frecuencia.ts): cada derivada, cada
-      // cinco o solo cuando sube. Cuando NO pasa, el resto de la escalera corre
-      // igual que si acabara de salir del ranking —el @, las reglas, las
-      // novedades y los hitos miran `consumed === "ranking"`—, así que la
-      // entrada se traduce acá y una sola vez.
-      //
-      // El festejo optimista ya estaba armado esperando a la diapo que tiene
-      // el número (`release`); sin esa diapo se desarma, y el ranking se
-      // refresca directo para que la próxima vez que se abra ya tenga el
-      // puesto nuevo.
-      const subio =
-        a.rank_before != null && a.rank_after != null
-          ? a.rank_after < a.rank_before
-          : null
-      const saltaRanking =
-        entrada === null &&
-        a.correct &&
-        !tocaRanking({
-          frecuencia: readFrecuenciaRanking(),
-          totalCorrectas: a.exercises_correct,
-          subio,
-        })
-      if (saltaRanking) {
+      // La regla del cafecito vive en cafecito-cta.tsx, compartida con
+      // escritorio; el orden en que compite con el resto, en despues-de-responder.ts.
+      const rankBefore = a.rank_before ?? null
+      const rankAfter = a.rank_after ?? null
+      const trigger = elegirTriggerDeCafecito({
+        isRecord: a.is_record,
+        delta: rankBefore !== null && rankAfter !== null ? rankBefore - rankAfter : 0,
+        totalCorrectas,
+      })
+
+      const despues = despuesDeResponder({
+        entrada,
+        respuesta: a,
+        jugador: player,
+        yaPreguntoUsername: askedUsernameRef.current,
+        reglasMostradas: reglasMostradasRef.current,
+        yaPreguntoPerfil: askedProfileRef.current,
+        yaPreguntoRegistro: askedRegisterRef.current,
+        sinVer: sinVerRef.current,
+        frecuenciaRanking: readFrecuenciaRanking(),
+        cafecito:
+          trigger === null
+            ? null
+            : { trigger, toca: shouldShowCafecito(totalCorrectas, trigger) },
+        puedeOfrecerInstalar: puedeOfrecerInstalar(),
+        puedeOfrecerNotificaciones: puedeOfrecerNotificaciones(),
+      })
+
+      // Sin la diapo del ranking, el festejo optimista que la esperaba
+      // (`release`) se desarma, y el ranking se refresca directo para que la
+      // próxima vez que se abra ya tenga el puesto nuevo.
+      if (despues.saltaRanking) {
         abortXp()
         pendingClimbRef.current = null
         void refrescarRankingCentrado(queryClient)
       }
-      const consumed = saltaRanking ? ("ranking" as const) : entrada
+      if (despues.anotarPwaDesde) marcarPwaDesde(totalCorrectas)
 
-      // ── El @, entre la derivada y el ranking ─────────────────────────────
-      //
-      // Va ANTES del ranking y no después, y ese orden es la mitad de la idea:
-      // la pantalla siguiente es la fila propia subiendo con la XP recién
-      // ganada, y tiene que llevar el nombre que la persona acaba de elegir. Al
-      // revés —ranking primero— el primer puesto que ve dice un @ generado que
-      // no reconoce, y el que eligió no lo ve moverse nunca.
-      //
-      // La condición de fondo es del servidor (`alias_is_generated`), así que se
-      // apaga sola en cuanto hay un @ elegido y no hace falta anotar nada. La
-      // pregunta no es «primera vez en este aparato» sino «todavía no
-      // elegiste», y a quien se fue antes de resolver la primera hay que poder
-      // preguntarle cuando vuelva.
-      //
-      // **Correrlo a la tercera fue el brazo `sin-peaje` de `dx-puerta-2`.** La
-      // apuesta era la atrición —en la primera correcta se va el 20,4% y en la
-      // tercera el 6,2%, así que el mismo pedido costaría un tercio— y no se
-      // pagó: el brazo terminó +2,2 pp en llegar a tres, con el intervalo
-      // conteniendo al cero y sin futuro posible que lo hiciera significativo.
-      // Queda donde estaba, en la primera.
-      // Toda correcta pasa por el ranking: ahí está el marcador y ahí sube el
-      // número. Las erradas siguen de largo al próximo ejercicio.
-      //
-      // Es lo PRIMERO que sale después de responder, antes incluso del @ (ver
-      // abajo): el festejo es la respuesta al toque, y cualquier cosa que se
-      // meta en el medio lo corre de donde se ganó.
-      if (consumed === null && a.correct) {
-        const rankBefore = a.rank_before ?? null
-        const rankAfter = a.rank_after ?? null
-        if (rankBefore !== null && rankAfter !== null && rankAfter < rankBefore) {
-          pendingClimbRef.current = rankBefore
-          posthog.capture("game_rank_change", {
-            from: rankBefore,
-            to: rankAfter,
-            delta: rankBefore - rankAfter,
+      switch (despues.paso) {
+        case "ranking":
+          if (despues.subida !== null) {
+            pendingClimbRef.current = despues.subida.desde
+            posthog.capture("game_rank_change", {
+              from: despues.subida.desde,
+              to: despues.subida.hasta,
+              delta: despues.subida.delta,
+            })
+          }
+          // El conteo arranca ACÁ, en el toque, y no cuando la slide del ranking
+          // termina de entrar. Los dos pases corren juntos: la pantalla entra
+          // mientras el conteo agota su media espera, y para cuando el ranking se
+          // asienta el número empieza a subir. Esperar al final del pase para
+          // recién ahí empezar a esperar dejaba casi un segundo de nada entre el
+          // dedo y el festejo.
+          releaseXp()
+          // La memoria del ranking arranca en blanco: ESTE es el único lugar donde
+          // nace una diapo de ranking nueva, y por eso es el único donde se
+          // reinicia. Hacerlo en `goTo` sería el bug: volver del chat llama a
+          // `goTo(slide.back)` con la MISMA diapo de ranking, y ahí reiniciar es
+          // exactamente lo que arrancaba a la persona de donde estaba mirando.
+          memoriaRanking.current = memoriaEnBlanco()
+          // Y con qué lista arranca. Acá se decide la vuelta universitaria: cada 3
+          // correctas el festejo se cuenta sobre la universidad, así que la lista
+          // que aparece al tocar Continuar es la de universidades y el número que
+          // trepa es el de la propia (ver vuelta-universitaria.ts).
+          //
+          // Se dice ACÁ, eligiendo la vista inicial, y no con la prop
+          // `universityRound` del ranking. Esa prop la lee escritorio, donde el
+          // «acabo de acertar» es el cambio de `centerKey` sobre un componente que
+          // NUNCA se desmonta. En el teléfono el ranking se monta de cero con cada
+          // derivada, así que `elegido.key` nace igual a `centerKey` y esa señal no
+          // puede dispararse jamás: la vuelta universitaria estuvo muerta en el
+          // teléfono desde que se escribió. El montaje ES el «acabo de acertar».
+          setScopeRanking({
+            view: vistaInicialDelRanking(a.exercises_correct, player?.university ?? null),
+            university: ALL_SCOPE,
           })
-        }
-        // El conteo arranca ACÁ, en el toque, y no cuando la slide del ranking
-        // termina de entrar. Los dos pases corren juntos: la pantalla entra
-        // mientras el conteo agota su media espera, y para cuando el ranking se
-        // asienta el número empieza a subir. Esperar al final del pase para
-        // recién ahí empezar a esperar dejaba casi un segundo de nada entre el
-        // dedo y el festejo.
-        releaseXp()
-        // La memoria del ranking arranca en blanco: ESTE es el único lugar donde
-        // nace una diapo de ranking nueva, y por eso es el único donde se
-        // reinicia. Hacerlo en `goTo` sería el bug: volver del chat llama a
-        // `goTo(slide.back)` con la MISMA diapo de ranking, y ahí reiniciar es
-        // exactamente lo que arrancaba a la persona de donde estaba mirando.
-        memoriaRanking.current = memoriaEnBlanco()
-        // Y con qué lista arranca. Acá se decide la vuelta universitaria: cada 3
-        // correctas el festejo se cuenta sobre la universidad, así que la lista
-        // que aparece al tocar Continuar es la de universidades y el número que
-        // trepa es el de la propia (ver vuelta-universitaria.ts).
-        //
-        // Se dice ACÁ, eligiendo la vista inicial, y no con la prop
-        // `universityRound` del ranking. Esa prop la lee escritorio, donde el
-        // «acabo de acertar» es el cambio de `centerKey` sobre un componente que
-        // NUNCA se desmonta. En el teléfono el ranking se monta de cero con cada
-        // derivada, así que `elegido.key` nace igual a `centerKey` y esa señal no
-        // puede dispararse jamás: la vuelta universitaria estuvo muerta en el
-        // teléfono desde que se escribió. El montaje ES el «acabo de acertar».
-        setScopeRanking({
-          view: vistaInicialDelRanking(a.exercises_correct, player?.university ?? null),
-          university: ALL_SCOPE,
-        })
-        goTo({ kind: "ranking", answer: a })
-        return
-      }
-
-      // ── El @, DESPUÉS del ranking ────────────────────────────────────────
-      //
-      // **Esto rompe a propósito el trato que tenía esta pantalla.** El @ entraba
-      // antes del ranking para que la XP cayera en una fila que ya tenía el
-      // nombre elegido; invertido, el primer festejo se mira con el alias
-      // generado y el nombre llega después. Se aceptó ese costo para que el
-      // orden sea el mismo en los dos layouts: en escritorio el ranking es la
-      // columna de al lado y la XP vuela hacia ella en el instante de responder,
-      // así que allá el ranking SIEMPRE se vio primero. El teléfono era la
-      // excepción, y lo que se pide primero cuando recién se acierta no puede
-      // depender del aparato.
-      //
-      // Sigue sin `isFirstVisit`: la pregunta no es «primera vez en este
-      // aparato» sino «todavía no elegiste», y a quien se fue antes de resolver
-      // la primera hay que poder preguntarle cuando vuelva.
-      //
-      // **Correrlo a la tercera fue el brazo `sin-peaje` de `dx-puerta-2`.** La
-      // apuesta era la atrición —en la primera correcta se va el 20,4% y en la
-      // tercera el 6,2%, así que el mismo pedido costaría un tercio— y no se
-      // pagó: el brazo terminó +2,2 pp en llegar a tres, con el intervalo
-      // conteniendo al cero. Queda en la primera.
-      if (
-        consumed === "ranking" &&
-        a.correct &&
-        !askedUsernameRef.current &&
-        player?.is_guest &&
-        player.alias_is_generated
-      ) {
-        askedUsernameRef.current = true
-        goTo({ kind: "username" })
-        return
-      }
-
-      // El disparador del cafecito se calcula ACÁ ARRIBA, antes que los hitos de
-      // perfil y registro, porque uno de ellos depende de él. La regla vive en
-      // cafecito-cta.tsx, compartida con escritorio.
-      const rankBefore = a.rank_before ?? null
-      const rankAfter = a.rank_after ?? null
-      const delta =
-        rankBefore !== null && rankAfter !== null ? rankBefore - rankAfter : 0
-      const totalCorrectas = a.exercises_correct
-      const trigger = elegirTriggerDeCafecito({
-        isRecord: a.is_record,
-        delta,
-        totalCorrectas,
-      })
-      const tocaCafecito =
-        consumed !== "cafecito" &&
-        trigger !== null &&
-        shouldShowCafecito(totalCorrectas, trigger)
-      const sinUniversidad = player !== null && !player.university
-      // La universidad se pregunta UNA VEZ y no es una condición permanente. Que lo
-      // fuera es lo que rompió esto: como el paso se pregunta una sola vez por
-      // visita, quien lo salteaba quedaba sin universidad Y sin la pregunta, y el
-      // cafecito no volvía a salir nunca.
-      //
-      // Ahora el adelanto vale solo mientras la pregunta esté pendiente. Preguntada
-      // —contestada o salteada— el cafecito sale igual, y si todavía no hay
-      // universidad la diapo se encarga sola: tiene su propia versión para ese caso.
-      const faltaPreguntarUniversidad = sinUniversidad && !askedProfileRef.current
-
-      // ── Las reglas, después del ranking ──────────────────────────────────
-      //
-      // Antes que las novedades y que todo el resto del ladder, que es lo único
-      // que hace que la explicación caiga donde se pensó: pegada al festejo del
-      // que habla.
-      //
-      // Las tres de un saque, después del primer ranking. Con una sola correcta
-      // encima ninguno de los otros escalones dispara, así que en la práctica no
-      // le saca el turno a nada.
-      //
-      // Repartirlas de a una —en la 5, la 12 y la 17— era el brazo `sin-peaje`
-      // de `dx-puerta-2`. Se fue con el experimento: el calendario entero vive
-      // en el git y en el PDF del cierre, no colgando de un `if` que nadie
-      // puede tomar.
-      if (
-        consumed === "ranking" &&
-        !reglasMostradasRef.current &&
-        tocaReglas(a.exercises_correct)
-      ) {
-        reglasMostradasRef.current = true
-        marcarReglasMostradas(a.exercises_correct)
-        goTo({ kind: "reglas", cuales: REGLAS_DE_LA_DIAPO })
-        return
-      }
-
-      // Recién salido del ranking: si mientras jugaba pasaron cosas, se muestran
-      // antes de seguir. Va acá y no antes del ranking porque el orden importa —
-      // primero el marcador propio, que es la consecuencia de LO QUE ACABA DE
-      // HACER, y después el mundo.
-      if (consumed === "ranking" && sinVerRef.current >= NOVEDADES_MINIMAS) {
-        goTo({ kind: "novedades" })
-        return
-      }
-
-      if (consumed === null || consumed === "ranking" || consumed === "novedades") {
-        // La universidad va ANTES que el cafecito, siempre. La diapo del café
-        // ofrece multiplicar el XP "de toda tu universidad": sin universidad no
-        // tiene qué ofrecer, y lo que quedaba era una pantalla que pedía algo y
-        // de paso pedía otra cosa primero.
-        //
-        // Este hito NUNCA se adelanta —antes se adelantaba apenas el café
-        // quería salir, pero eso lo disparaba en el PRIMER acierto casi
-        // siempre: alcanza con pasarle a un solo jugador con más XP en cero
-        // (`delta >= 3`, "big_climb") para que un invitado nuevo dispare esta
-        // condición en su primera derivada, mucho antes de `HITO_PERFIL`.
-        // Sale justo en `HITO_PERFIL` y en ningún otro momento, sea cual sea
-        // el motivo que tenga el café para querer salir ese mismo acierto
-        // (mientras tanto, el café se queda callado sin gastar su cooldown,
-        // ver más abajo).
-        //
-        // Los dos van con `totalCorrectas` —las acumuladas que manda el
-        // servidor— y no con `solvedCount`, que vuelve a cero en cada carga de
-        // página. Ver hitos-del-juego.ts.
-        if (faltaPreguntarUniversidad && totalCorrectas >= HITO_PERFIL) {
+          goTo({ kind: "ranking", answer: a })
+          return
+        case "username":
+          askedUsernameRef.current = true
+          goTo({ kind: "username" })
+          return
+        case "reglas":
+          reglasMostradasRef.current = true
+          marcarReglasMostradas(totalCorrectas)
+          goTo({ kind: "reglas", cuales: despues.cuales })
+          return
+        case "novedades":
+          goTo({ kind: "novedades" })
+          return
+        case "perfil":
           askedProfileRef.current = true
           posthog.capture("game_register_slide_shown", { slide: "career" })
           goTo({ kind: "profile" })
           return
-        }
-        if (
-          tocaRegistro(totalCorrectas) &&
-          player !== null &&
-          player.is_guest &&
-          !askedRegisterRef.current
-        ) {
+        case "registro":
           askedRegisterRef.current = true
           marcarRegistroMostrado(totalCorrectas)
           posthog.capture("game_register_slide_shown", { slide: "register" })
           goTo({ kind: "register" })
           return
-        }
-      }
-      // La pantalla de inicio va después de los hitos de perfil y registro
-      // —que son del embudo— y antes de los dos pedidos, porque es lo único de
-      // acá que no le pide nada a la persona.
-      //
-      // No consume el cooldown compartido y por eso no desplaza al resto: ver
-      // INSTALAR_SEPARACION en instalacion-trigger.ts. La condición de aparato
-      // va en `puedeOfrecerInstalar` y no en el trigger, que tiene que poder
-      // correrse sin navegador (web/scripts/check-instalacion-trigger.ts).
-      if (
-        consumed !== "instalar" &&
-        tocaInstalar(totalCorrectas) &&
-        puedeOfrecerInstalar()
-      ) {
-        marcarInstalarMostrado(totalCorrectas)
-        goTo({ kind: "instalar" })
-        return
-      }
-      // Y adentro de la app instalada, los recordatorios. La cadencia se cuenta
-      // desde que se instaló y no desde el total: quien instaló en la derivada
-      // 30 ya demostró todo lo que había que demostrar, y hacerlo esperar hasta
-      // la 50 es perder a la persona más comprometida del embudo.
-      //
-      // `marcarPwaDesde` escribe una sola vez, la primera que se detecta la app
-      // instalada, y devuelve ese número siempre.
-      if (consumed !== "notificaciones" && puedeOfrecerNotificaciones()) {
-        const desde = marcarPwaDesde(totalCorrectas)
-        if (tocaNotificaciones({ enPwa: totalCorrectas - desde, totalCorrectas })) {
-          marcarNotificacionesMostrado({
-            enPwa: totalCorrectas - desde,
-            totalCorrectas,
-          })
+        case "instalar":
+          marcarInstalarMostrado(totalCorrectas)
+          goTo({ kind: "instalar" })
+          return
+        case "notificaciones":
+          marcarNotificacionesMostrado({ enPwa: despues.enPwa, totalCorrectas })
           goTo({ kind: "notificaciones" })
           return
-        }
-      }
-      // Sin universidad no se marca el cooldown: el cafecito no se mostró, así
-      // que no gastó su turno y vuelve en el próximo hito, ya con una
-      // universidad que nombrar.
-      if (trigger !== null && tocaCafecito && !faltaPreguntarUniversidad) {
-        markCafecitoShown(totalCorrectas)
-        goTo({ kind: "cafecito", trigger, correctToday: a.correct_today })
-        return
-      }
-      // Reclutar va DESPUÉS del café en el orden de este ladder, pero antes en el
-      // tiempo: el primero sale a las diez resueltas y el primer café a las
-      // veinte. Nunca compiten en la misma respuesta —el cooldown que comparten
-      // no lo permite— así que quién está escrito primero acá no cambia nada.
-      if (consumed !== "reclutas" && tocaReclutar(totalCorrectas)) {
-        marcarReclutasMostrado(totalCorrectas)
-        goTo({ kind: "reclutas", trigger: "hito" })
-        return
-      }
-      // Cada cuánto ver el ranking: en la 15, una vez, y antes de la varita de
-      // la 18. No consume el cooldown compartido, así que no corre a nadie; el
-      // porqué de la 15 está medido en ranking-frecuencia.ts.
-      if (consumed !== "frecuencia" && tocaPreguntarFrecuencia(totalCorrectas)) {
-        marcarFrecuenciaMostrada(totalCorrectas)
-        goTo({ kind: "frecuencia" })
-        return
-      }
-      // La pregunta abierta va antes que la de dificultad y después de todo lo
-      // que convierte. Sale UNA vez en la vida (derivada 18) y no consume el
-      // cooldown compartido, así que no le corre el turno al cafecito de la 20:
-      // el porqué de las dos cosas está medido en encuesta-trigger.ts.
-      if (consumed !== "encuesta" && tocaEncuesta(totalCorrectas)) {
-        marcarEncuestaMostrada(totalCorrectas)
-        goTo({ kind: "encuesta" })
-        return
-      }
-      // Las dos encuestas van ÚLTIMAS del ladder y es deliberado: no convierten a nadie,
-      // así que no pueden quedarse con el turno de algo que sí. Igual salen, y
-      // temprano — los otros escalones piden en hitos puntuales y la mayoría de
-      // las respuestas no los dispara, así que el turno libre aparece enseguida.
-      //
-      // Comparten una sola escalera y el ocupante alterna, así que el ladder
-      // pregunta una vez y despacha lo que le contesten (opinion-trigger.ts). Los
-      // dos `consumed` se chequean juntos: el que acaba de cerrarse no puede
-      // volver a abrirse en la misma respuesta, y tampoco puede abrir al otro.
-      if (consumed !== "opinion" && consumed !== "repetitividad") {
-        const pregunta = tocaPreguntar(totalCorrectas)
-        if (pregunta !== null) {
-          marcarPreguntaMostrada(totalCorrectas)
+        case "cafecito":
+          markCafecitoShown(totalCorrectas)
           goTo({
-            kind: pregunta === "dificultad" ? "opinion" : "repetitividad",
+            kind: "cafecito",
+            trigger: despues.trigger,
+            correctToday: despues.correctToday,
           })
           return
-        }
+        case "reclutas":
+          marcarReclutasMostrado(totalCorrectas)
+          goTo({ kind: "reclutas", trigger: despues.trigger })
+          return
+        case "frecuencia":
+          marcarFrecuenciaMostrada(totalCorrectas)
+          goTo({ kind: "frecuencia" })
+          return
+        case "encuesta":
+          marcarEncuestaMostrada(totalCorrectas)
+          goTo({ kind: "encuesta" })
+          return
+        case "opinion":
+        case "repetitividad":
+          marcarPreguntaMostrada(totalCorrectas)
+          goTo({ kind: despues.paso })
+          return
+        case "siguiente-ejercicio":
+          pendingRef.current = null
+          loadNext()
+          return
       }
-      pendingRef.current = null
-      loadNext()
     },
     [goTo, loadNext, player, releaseXp, chasquido, abortXp, queryClient],
   )

@@ -44,7 +44,7 @@ import {
   HITO_REGISTRO,
   REGISTRO_REPITE,
 } from "@intervalo/dx-core/juego/hitos-del-juego"
-import { INSTALAR_PRIMERA } from "../src/app/derivadas/instalacion-trigger"
+import { INSTALAR_PRIMERA } from "@intervalo/dx-core/juego/instalacion-trigger"
 import {
   crearAlmacenEnMemoria,
   instalarAlmacen,

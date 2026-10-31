@@ -91,3 +91,17 @@ export function filaConEmpuje(multiplier: number): React.CSSProperties {
     "--tw-ring-color": `color-mix(in oklab, ${AMBAR} ${60 + 18 * f}%, transparent)`,
   } as React.CSSProperties
 }
+
+/** El tema del juego en hex, para donde no hay variables CSS (la app nativa).
+ *  Es copia de `web/src/app/globals.css` (`:root, .dark`): el juego tiene un
+ *  solo tema, oscuro. */
+export const TEMA = {
+  background: "#131324",
+  foreground: "#f6f8fc",
+  card: "#1a1a2a",
+  primary: "#5457e5",
+  mutedForeground: "#a4b3c6",
+  accent: "#38385a",
+  border: "#38385a",
+  ring: "#7e80f7",
+} as const

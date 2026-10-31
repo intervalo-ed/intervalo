@@ -15,8 +15,8 @@ import {
   readUltimoPedidoAt,
   savePedidoState,
   saveUltimoPedidoAt,
-} from "@intervalo/dx-core/juego/game-storage"
-import { INSTALAR_SEPARACION } from "@intervalo/dx-core/juego/instalar-separacion"
+} from "./game-storage"
+import { INSTALAR_SEPARACION } from "./instalar-separacion"
 
 // En qué derivada sale la primera vez, y cada cuántas vuelve si no instaló.
 //

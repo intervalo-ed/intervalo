@@ -21,6 +21,7 @@
 // de los que sí.
 
 import { SkipForward, Table2 } from "lucide-react"
+import { filaDeAyudas } from "@intervalo/dx-core/juego/pie-de-rampa"
 
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -134,7 +135,8 @@ export function PieDeRampa({
 
   // Cerrado: nada que saltear ni que consultar antes de responder. Queda el pie
   // de una sola fila.
-  if (cerradoVisual) {
+  const ayudas = filaDeAyudas({ cerradoVisual, ayudasFijas })
+  if (ayudas !== "visibles") {
     const fila = (
       <>
         {hayPorque && (
@@ -143,7 +145,7 @@ export function PieDeRampa({
         {principal}
       </>
     )
-    if (!ayudasFijas) {
+    if (ayudas === "ninguna") {
       return (
         <div className={cn("relative z-10 flex w-full items-stretch gap-2", className)}>
           {fila}

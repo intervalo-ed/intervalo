@@ -95,13 +95,11 @@ jobs:
           bun run check:opinion
           bun run check:encuesta
           bun run check:frecuencia
-          bun run check:tabla
           bun run check:puerta
           bun run check:universitario
           bun run check:filtros
           bun run check:restante
           bun run check:preconnect
-          bun run check:teclado
 
       - name: Checks de dx-core
         working-directory: packages/dx-core
@@ -115,6 +113,11 @@ jobs:
           bun run check:ventana
           bun run check:cafecito
           bun run check:parser
+          bun run check:despues
+          bun run check:teclado
+          bun run check:tabla
+          bun run check:math-text
+          bun run check:expresion
 
       - name: Build
         working-directory: web

@@ -423,6 +423,10 @@ y desde el cruce eso vale también en Intervalo clásico:
 que `game/boosts.py` ya entiende y le pregunta a él. No hay una segunda mecánica
 ni una segunda tabla.
 
+El cafecito se invita solo desde la web: la app nativa del minijuego no lo
+ofrece (ni botón, ni diapo, ni link), aunque sus jugadores cobran el empuje
+de su universidad igual que los de la web.
+
 Los dos multiplicadores se aplican **juntos, redondeando una sola vez sobre el
 producto** (`effective_multiplier`), con un tope propio de **×4,0**
 (`MAX_TOTAL_MULTIPLIER`), no el ×3,0 del juego. El tope es 4,0 y no 3,0 porque la

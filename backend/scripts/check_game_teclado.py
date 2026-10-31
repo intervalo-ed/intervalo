@@ -50,7 +50,7 @@ def check(condition: bool, label: str) -> None:
 
 # ── Lo que hace falta para TIPEAR la forma canónica ──────────────────────────
 #
-# Es el modelo del teclado real (web/src/app/derivadas/math-keyboard.tsx), y el
+# Es el modelo del teclado real (packages/dx-core/src/juego/teclado.ts), y el
 # único punto donde pide criterio es el paréntesis. MathLive escribe en CAJAS: el
 # numerador y el denominador de `\frac`, el interior de `\sqrt` y el argumento de
 # una función ya están delimitados, así que una suma adentro de una caja NO
