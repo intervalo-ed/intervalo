@@ -60,3 +60,44 @@ export function playSfx(nombre: string): void {
     // Un sonido que falla no puede romper el toque que lo disparó.
   }
 }
+
+// El tick del conteo de XP es el único sonido POLIFÓNICO, como en la web: cada
+// paso cae cada vez más rápido (hasta 45 ms) y el tick dura 240 ms, así que con
+// un solo reproductor cada paso cortaría la cola del anterior —o, peor, el
+// `seekTo` todavía en vuelo— y el conteo tartamudearía. Va rotando entre unas
+// voces: con seis, a la velocidad máxima, ninguna se reusa mientras suena.
+// Sin throttle: la secuencia es deliberada y no hay doble toque que filtrar.
+const VOCES_DEL_TICK = 6
+const vocesDelTick: AudioPlayer[] = []
+let proximaVoz = 0
+
+/** Arma las voces del tick. Va después de `precargarSfx`, que fija el modo de
+ *  audio y escucha la preferencia de menos movimiento. */
+export function precargarTick({ fuente, volumen }: Sonido): void {
+  if (vocesDelTick.length > 0) return
+  for (let i = 0; i < VOCES_DEL_TICK; i++) {
+    try {
+      const voz = createAudioPlayer(fuente)
+      voz.volume = volumen
+      // Sin corrección: el tono tiene que subir con la velocidad, que es todo
+      // el punto de que el conteo "suba".
+      voz.shouldCorrectPitch = false
+      vocesDelTick.push(voz)
+    } catch {
+      // Sin tick el conteo sigue igual, mudo.
+    }
+  }
+}
+
+export function playTick({ rate }: { rate: number }): void {
+  if (menosMovimiento || vocesDelTick.length === 0) return
+  const voz = vocesDelTick[proximaVoz % vocesDelTick.length]
+  proximaVoz = (proximaVoz + 1) % vocesDelTick.length
+  try {
+    voz.setPlaybackRate(rate)
+    void voz.seekTo(0).catch(() => {})
+    voz.play()
+  } catch {
+    // Un tick que falla no puede cortar el conteo.
+  }
+}

@@ -61,6 +61,32 @@ export function boostStrength(multiplier: number): number {
   return Math.min(1, Math.max(0, t))
 }
 
+/** Las intensidades del chip de un empuje, en porcentaje de ámbar. Las aplica
+ *  cada plataforma a su manera (la web con `color-mix`, la app en RGB).
+ *
+ *  El BRILLO lo decide el multiplicador, no de quién es: un ×3 se ve de lejos y
+ *  un ×1,1 apenas se insinúa. El halo solo aparece de verdad en la mitad de
+ *  arriba de la escala: a fuerza baja queda en nada. */
+export function intensidadDelChip(multiplier: number): {
+  fondo: number
+  texto: number
+  borde: number
+  haloRadio: number
+  haloOpacidad: number
+} {
+  const f = boostStrength(multiplier)
+  return {
+    fondo: 10 + 12 * f,
+    texto: 68 + 22 * f,
+    borde: 45 + 35 * f,
+    haloRadio: 6 + 10 * f,
+    haloOpacidad: 13 * f,
+  }
+}
+
+// Para el chip propio, aclarado hasta que se lee como oro sobre el fondo.
+export const ORO_CHIP_PCT = 55
+
 // La fila (o caja) de alguien cuya universidad tiene un empuje corriendo. Era
 // un ☕ al lado de la sigla —un ícono más en un renglón que ya tiene cinco
 // cosas— y ahí no lo miraba nadie. Ahora se pinta la fila ENTERA: un ámbar de

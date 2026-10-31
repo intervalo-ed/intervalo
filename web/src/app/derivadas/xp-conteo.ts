@@ -26,53 +26,26 @@
 // orden y la fila sube. Por eso `onComplete` es quien dispara la invalidación del
 // ranking, y no la respuesta del servidor.
 
-import { useCallback, useEffect, useRef, useState } from "react"
-import { collectSchedule } from "@/components/confetti"
+import { useCallback, useRef, useState } from "react"
 import type { Box } from "@/components/orb-flight"
 import { useTick } from "@/lib/audio/useSfx"
-import type { GameAnswer } from "@intervalo/dx-core/juego/UseGameExercise"
+import {
+  useXpConteo as useXpConteoMotor,
+  type ModoDeConteo,
+} from "@intervalo/dx-core/juego/UseXpConteo"
 import { VERDE_ACIERTO } from "./exercise-card"
-import { coloresDelFestejo, pasosDe, repartir } from "@intervalo/dx-core/juego/xp-pasos"
+import { coloresDelFestejo } from "@intervalo/dx-core/juego/xp-pasos"
 
-// Quién empuja el conteo.
-//
-// `vuelo` es escritorio: no hay temporizadores: el ritmo lo ponen las llegadas
-// de los orbes, que ya vienen agendadas con la misma rampa.
-// `espera` es el teléfono: el conteo queda guardado hasta que `release` lo larga,
-// que es cuando la persona pasa a la pantalla donde está el número.
-export type ModoDeConteo = "vuelo" | "espera"
-
-// Los "unos momentos" entre el Continuar y el conteo, en el teléfono.
-//
-// No es una demora técnica, es la pausa que separa dos cosas que se dicen: el
-// pase de pantalla primero, y recién cuando el ranking se asentó, el número. Sin
-// pausa las dos ocurren encimadas y el conteo se pierde adentro del pase.
-//
-// Nadie queda esperando estos milisegundos: el Continuar está habilitado desde el
-// primer frame y el conteo sigue corriendo si la persona ya siguió de largo.
-const ESPERA_MS = 500
+// El motor —pasos, reloj del teléfono, reconciliación, aborto, salvavidas— vive
+// en dx-core (juego/UseXpConteo.ts) porque lo comparte la app nativa. Acá queda
+// lo que es de escritorio: medir la fórmula y el destino en el DOM y armar la
+// tanda de orbes.
+export type { ModoDeConteo }
 
 // El color del conteo: el verde del acierto, importado de donde ya vivía en vez
 // de copiado. Si algún día ese verde cambia, cambia en los dos lados a la vez,
 // que es todo el punto de que sean el mismo.
 const COLOR_DEL_CONTEO = VERDE_ACIERTO
-
-// Cuánto se queda el color después del último paso antes de que el número vuelva
-// al suyo. Corto, pero no cero: sin esto el número se apaga en el mismo frame en
-// que entra el último orbe y el final del conteo se lee como si algo se hubiera
-// roto.
-const DESCANSO_MS = 700
-
-// Salvavidas del modo vuelo: si a esta altura todavía faltan pasos, se dan por
-// dados sin sonido y el conteo se cierra igual.
-//
-// No es paranoia: de que el conteo TERMINE cuelga el refresco del ranking, y
-// mientras `counting` sea true el latido que lo refrescaría solo está pausado
-// (ver useGamePulse). Un festejo que se corta a la mitad —porque la capa de
-// orbes se desmontó, porque la pestaña pasó a segundo plano y el navegador dejó
-// de dar frames— dejaría la tabla congelada hasta el próximo acierto. El vuelo
-// más largo de un acierto grande son unos 1,6 s; esto es casi el doble.
-const SALVAVIDAS_MS = 3000
 
 /** El centro del destino, en el lugar donde va a QUEDAR.
  *
@@ -168,86 +141,10 @@ export type XpConteo = ReturnType<typeof useXpConteo>
 
 export function useXpConteo({ onComplete }: { onComplete?: () => void } = {}) {
   const tick = useTick()
-  // La XP que había antes de este acierto; el conteo arranca acá. Sale de la
-  // respuesta (`xp_total - xp_awarded`) y no de la query del jugador, así no
-  // depende de que esa query ya se haya refrescado.
-  const [base, setBase] = useState<number | null>(null)
-  const [total, setTotal] = useState(0)
-  const [sumado, setSumado] = useState(0)
-  // `null` es "el número está en su color de siempre", que es el estado normal:
-  // el color solo existe mientras dura el festejo.
-  const [color, setColor] = useState<string | null>(null)
+  const motor = useXpConteoMotor({ tick, color: COLOR_DEL_CONTEO, onComplete })
   const [vuelo, setVuelo] = useState<Vuelo | null>(null)
 
-  const doneRef = useRef(onComplete)
-  useEffect(() => {
-    doneRef.current = onComplete
-  })
-
-  // Los temporizadores del modo espera, más el que apaga el color y el
-  // salvavidas. Se guardan todos para poder cancelarlos: un acierto nuevo pisa al
-  // anterior, y desmontar en medio del conteo no puede dejar timers escribiendo
-  // estado.
-  const relojesRef = useRef<ReturnType<typeof setTimeout>[]>([])
-  const limpiar = useCallback(() => {
-    for (const r of relojesRef.current) clearTimeout(r)
-    relojesRef.current = []
-  }, [])
-  useEffect(() => limpiar, [limpiar])
-
-  const partesRef = useRef<number[]>([])
-  // Qué pasos ya se cobraron. Es un conjunto y no un contador porque lo que hay
-  // que garantizar es "una vez cada uno", no "tantas veces en total".
-  const dadosRef = useRef<Set<number>>(new Set())
-
-  const terminar = useCallback(() => {
-    limpiar()
-    relojesRef.current.push(setTimeout(() => setColor(null), DESCANSO_MS))
-    doneRef.current?.()
-  }, [limpiar])
-
-  /** Un paso del conteo: suena, cambia de color y sube el número. La llaman los
-   *  dos motores, y por eso el ritmo y el sonido son idénticos en las dos
-   *  pantallas aunque lo que se vea sea distinto.
-   *
-   *  Un paso se cobra UNA vez. El descarte no es de trámite: si un índice entrara
-   *  dos veces —dos capas de orbes vivas a la vez, un frame que se repite— el
-   *  número treparía por encima de la XP que el servidor otorgó, y ahí se
-   *  quedaría: `counting` ya sería false y el ranking muestra el mayor entre el
-   *  conteo y su propio dato, así que el número inflado le ganaría al verdadero
-   *  hasta el próximo acierto. Un paso perdido no se ve; uno de más se queda. */
-  const paso = useCallback(
-    (i: number, progreso: number) => {
-      const partes = partesRef.current
-      if (i < 0 || i >= partes.length || dadosRef.current.has(i)) return
-      dadosRef.current.add(i)
-      tick(0.9 + progreso * 0.6)
-      // Se enciende con el primer paso y no al disparar el festejo: en escritorio
-      // los orbes todavía están en el aire durante medio segundo, y prender el
-      // número antes de que llegue el primero sería anunciar lo que está por
-      // pasar en vez de acompañarlo. `setColor` con el mismo valor no re-renderiza.
-      setColor(COLOR_DEL_CONTEO)
-      setSumado((s) => s + partes[i])
-      if (dadosRef.current.size >= partes.length) terminar()
-    },
-    [terminar, tick],
-  )
-
-  const arrancarReloj = useCallback(() => {
-    const partes = partesRef.current
-    const rampa = collectSchedule(partes.length)
-    const ultimo = partes.length - 1
-    partes.forEach((_, i) => {
-      relojesRef.current.push(
-        setTimeout(
-          () => paso(i, i / Math.max(1, ultimo)),
-          ESPERA_MS + rampa[i],
-        ),
-      )
-    })
-  }, [paso])
-
-  const pendienteRef = useRef(false)
+  const { fireProvisional: dispararMotor, abort: abortarMotor } = motor
   const seqRef = useRef(0)
   const promptRef = useRef<HTMLDivElement | null>(null)
   const targetRef = useRef<HTMLElement | null>(null)
@@ -269,28 +166,20 @@ export function useXpConteo({ onComplete }: { onComplete?: () => void } = {}) {
       xp: number,
       { modo, intento, multiplicador }: { modo: ModoDeConteo; intento: number; multiplicador: number },
     ) => {
-      if (xp <= 0) return
-      limpiar()
-      setBase(null)
-      setTotal(xp)
-      setSumado(0)
-      setColor(null)
-      partesRef.current = repartir(xp, pasosDe(xp))
-      dadosRef.current = new Set()
+      const cuantos = dispararMotor(xp, { modo })
+      if (cuantos === 0) return
 
       if (modo === "espera") {
-        pendienteRef.current = true
         setVuelo(null)
         return
       }
 
-      pendienteRef.current = false
       seqRef.current += 1
       setVuelo({
         seq: seqRef.current,
-        count: partesRef.current.length,
+        count: cuantos,
         colores: coloresDelFestejo({
-          cuantos: partesRef.current.length,
+          cuantos,
           xp,
           multiplicador,
           intento,
@@ -308,97 +197,16 @@ export function useXpConteo({ onComplete }: { onComplete?: () => void } = {}) {
           bottom: window.innerHeight * 0.42 + FRANJA,
         },
       })
-      relojesRef.current.push(
-        setTimeout(() => {
-          const partes = partesRef.current
-          if (dadosRef.current.size >= partes.length) return
-          // No `xp`: la reconciliación puede haber cambiado `partesRef` desde
-          // que esto se agendó, y lo que hay que dar por cerrado es la suma de
-          // ESE reparto, no la estimación original.
-          setSumado(partes.reduce((a, b) => a + b, 0))
-          for (let i = 0; i < partes.length; i++) dadosRef.current.add(i)
-          terminar()
-        }, SALVAVIDAS_MS),
-      )
     },
-    [limpiar, terminar],
+    [dispararMotor],
   )
 
-  /** Ajusta en silencio el conteo ya arrancado por `fireProvisional` a la XP
-   *  REAL que trajo `/answer`. Si coinciden (el caso esperable, sobre todo con
-   *  el `p_hat` ya expuesto al front), solo fija `base` y no toca nada más.
-   *  Si difieren, reparte la diferencia entre los pasos que todavía no se
-   *  cobraron —los que ya sonaron quedan como sonaron, nunca en reversa. */
-  const reconcile = useCallback(
-    (answer: GameAnswer) => {
-      const xp = answer.xp_awarded
-      setBase(answer.xp_total - xp)
-      // **El total pasa a ser el REAL, y eso no es prolijidad.** `counting` es
-      // `sumado < total`, y `total` lo había fijado la estimación: cuando el
-      // servidor paga MENOS que lo estimado, el conteo llega a su fin —termina
-      // en `xp`— pero `sumado < total` sigue siendo cierto, así que `counting`
-      // se queda en true para siempre. Y de `counting` cuelga el latido del
-      // ranking (`useGamePulse({ paused })`), o sea que la tabla dejaba de
-      // actualizarse hasta el próximo acierto, y la fila propia se quedaba
-      // mostrando el conteo en vez del dato del servidor.
-      //
-      // Pagar menos que lo estimado no es raro: `estimarXp` NO cubre
-      // `explained`, así que acertar después de leer el «¿Por qué?» estima la
-      // XP entera (20 en un t3) y el servidor paga XP_EXPLICADO, que son 3.
-      setTotal(xp)
-      const partes = partesRef.current
-      const totalActual = partes.reduce((a, b) => a + b, 0)
-      if (xp === totalActual) return
-      const pendientes = partes
-        .map((_, i) => i)
-        .filter((i) => !dadosRef.current.has(i))
-      const yaSumado = totalActual - pendientes.reduce((acc, i) => acc + partes[i], 0)
-      const restante = xp - yaSumado
-      // Sin pasos que ajustar, o la estimación ya se pasó de la XP real: no
-      // hay forma de bajar un número que ya se mostró sin que se vea un salto
-      // hacia atrás, así que se cierra directo en el valor real.
-      if (pendientes.length === 0 || restante <= 0) {
-        limpiar()
-        setSumado(xp)
-        for (let i = 0; i < partes.length; i++) dadosRef.current.add(i)
-        terminar()
-        return
-      }
-      const nuevos = repartir(restante, pendientes.length)
-      pendientes.forEach((idx, k) => {
-        partes[idx] = nuevos[k]
-      })
-    },
-    [limpiar, terminar],
-  )
-
-  /** Desarma un festejo que `fireProvisional` ya arrancó, para el caso
-   *  rarísimo en que el servidor termina en desacuerdo con el veredicto
-   *  local (ver local-verdict.ts). No llama a `onComplete`: no pasó nada, no
-   *  hay ranking que refrescar. */
+  /** Desarma un festejo ya arrancado (ver `abort` en dx-core) y la tanda de
+   *  orbes que hubiera en el aire. */
   const abort = useCallback(() => {
-    limpiar()
-    pendienteRef.current = false
-    dadosRef.current = new Set()
-    partesRef.current = []
+    abortarMotor()
     setVuelo(null)
-    setBase(null)
-    setTotal(0)
-    setSumado(0)
-    setColor(null)
-  }, [limpiar])
-
-  /** Larga el conteo que estaba guardado. Lo llama la pantalla que TIENE el
-   *  número, cuando la persona pasa a ella.
-   *
-   *  No hace nada si no hay nada guardado, y eso es lo que la hace segura de
-   *  llamar dos veces: en el teléfono la larga el toque en Continuar y además,
-   *  por las dudas, la slide del ranking al montarse. */
-  const release = useCallback(() => {
-    if (!pendienteRef.current) return
-    pendienteRef.current = false
-    arrancarReloj()
-  }, [arrancarReloj])
+  }, [abortarMotor])
 
   // Se devuelven ref callbacks y no los refs: un objeto que contiene refs hace
   // que cualquier lectura suya cuente como acceso a un ref durante el render.
@@ -449,28 +257,12 @@ export function useXpConteo({ onComplete }: { onComplete?: () => void } = {}) {
   )
 
   return {
-    // XP a mostrar en la fila propia. Queda en el valor final cuando el conteo
-    // termina: si volviera a null habría un parpadeo al valor viejo mientras el
-    // ranking se refresca.
-    liveXp: base === null ? null : base + sumado,
-    // Cuánta XP lleva contada ESTE festejo, sin la base. Es lo que hay que
-    // sumarle a un total que no es el del jugador —el de su universidad, que en
-    // la vuelta universitaria es el número que trepa— porque ahí la base es
-    // otra y `liveXp`, que es absoluta, no sirve.
-    xpSumada: base === null ? null : sumado,
-    // Mientras esto sea true el conteo MANDA sobre el dato del ranking: si no,
-    // una lista ya refrescada mostraría el total desde el primer paso y el número
-    // no subiría nunca.
-    counting: base !== null && sumado < total,
-    // El color del número mientras se llena, o null para el de siempre.
-    xpColor: color,
+    // liveXp, xpSumada, counting, xpColor, reconcile, release y paso, del motor.
+    ...motor,
     fireProvisional,
-    reconcile,
     abort,
-    release,
     // Solo para el modo vuelo.
     vuelo,
-    paso,
     attachPrompt,
     attachTarget,
     attachRespaldo,

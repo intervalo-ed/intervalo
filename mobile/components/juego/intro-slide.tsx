@@ -1,17 +1,17 @@
 // La portada del juego: el logo, qué es esto y «¡Vamos!». Es el respaldo de
-// `PuertaMinima` de la web (intro-panel.tsx), palabra por palabra; el saludo
-// con el digest de `/bienvenida` y la presentación animada del logo quedan
-// para después.
+// `PuertaMinima` de la web (intro-panel.tsx), con los mismos textos de dx-core
+// (textos-reglas.ts); el saludo con el digest de `/bienvenida` y la
+// presentación animada del logo quedan para después.
 
 import { StyleSheet, Text, View } from "react-native"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
+import {
+  BIENVENIDA_MINIMA,
+  INSTRUCCION_MINIMA,
+  QUE_ES,
+} from "@intervalo/dx-core/juego/textos-reglas"
 import { BotonCta } from "./boton-cta"
 import { GameLogo } from "./game-logo"
-
-const BIENVENIDA_MINIMA = "¡Bienvenido!"
-const QUE_ES =
-  "Memorizá todas las derivadas y llegá mejor preparado a tus parciales con este minijuego."
-const INSTRUCCION_MINIMA = "Resolvé la siguiente derivada para comenzar."
 
 export function IntroSlide({
   onStart,

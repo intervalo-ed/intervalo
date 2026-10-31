@@ -22,6 +22,27 @@ const XP_POR_PASO = 3
 const PASOS_MIN = 4
 const PASOS_MAX = 14
 
+// La rampa del conteo: el primer paso tarda, los siguientes aceleran hasta un
+// piso. Es el ritmo de TODOS los conteos de XP —el reloj del teléfono, los orbes
+// de escritorio, la recolección del confeti del resumen— y por eso vive acá: si
+// contaran a velocidades distintas se oiría que son cosas distintas.
+const RAMPA_PRIMERO_MS = 200
+const RAMPA_DECAIMIENTO = 0.82
+const RAMPA_MIN_MS = 45
+
+/** Cuándo cae cada paso, en ms desde el primero, acumulando la rampa. */
+export function collectSchedule(count: number): number[] {
+  const out: number[] = []
+  let delay = RAMPA_PRIMERO_MS
+  let acc = 0
+  for (let i = 0; i < count; i++) {
+    out.push(acc)
+    acc += delay
+    delay = Math.max(RAMPA_MIN_MS, delay * RAMPA_DECAIMIENTO)
+  }
+  return out
+}
+
 /** En cuántos pasos se cuenta un acierto de `xp`.
  *
  * El `min` contra la XP es lo que evita pasos de cero: con 2 de XP y un piso de
