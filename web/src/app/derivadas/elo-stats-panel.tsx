@@ -20,7 +20,7 @@
 import { BarChart3 as StatsIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { fmtCount } from "@/components/leaderboard-chrome"
+import { fmtCount } from "@intervalo/dx-core/juego/ranking-formato"
 import { XpDots } from "@/components/xp-dots"
 import { VERDE } from "./cafecito-cta"
 import { KeyCap } from "./exercise-card"

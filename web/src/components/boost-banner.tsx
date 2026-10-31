@@ -17,43 +17,13 @@ import { useEffect, useMemo, useState } from "react"
 import { XpDots } from "@/components/xp-dots"
 import { UniTag } from "@/components/university-tag"
 import { cn } from "@/lib/utils"
-import { fmtMultiplier } from "@/app/derivadas/cafecito-cta"
+import {
+  fmtMultiplier,
+  fmtRemaining,
+  tituloDe,
+  type EmpujeVigente,
+} from "@intervalo/dx-core/juego/ranking-formato"
 import { AMBAR, boostStrength } from "@intervalo/dx-core/juego/game-colors"
-
-/** Un empuje vigente, ya agregado por universidad. `university` nulo = global.
- *
- *  Estructural y no un `components["schemas"][...]`: los dos productos mandan
- *  este mismo objeto por dos endpoints distintos (GameBoostOut y BoostTramo),
- *  que son la misma proyección de `game.boosts.BoostView`. Atarlo a uno de los
- *  dos nombres haría que el otro tenga que convertir para nada. */
-export type EmpujeVigente = {
-  university?: string | null
-  multiplier: number
-  cafecitos: number
-  donor_name?: string | null
-  expires_in_seconds: number
-  /** Parte del multiplicador la puso el aforo del día y no una donación
-   *  (backend game/aforo.py). `cafecitos` cuenta SOLO los donados, así que un
-   *  empuje de aforo puro llega con cafecitos=0 y esta bandera en true. */
-  aforo?: boolean
-}
-
-/** Qué dice el globito del chip. Son tres casos y no dos, desde que el empuje
- *  puede venir del aforo del día: solo donaciones, solo aforo, o las dos
- *  sumadas. Decir "0 cafecito(s)" en el caso del medio sería peor que no decir
- *  nada, porque el multiplicador está ahí a la vista. */
-function tituloDe(boost: EmpujeVigente): string {
-  const invitados = boost.cafecitos > 0
-    ? boost.donor_name
-      ? `${boost.donor_name} invitó ${boost.cafecitos} cafecito(s)`
-      : `${boost.cafecitos} cafecito(s)`
-    : null
-  // Sin el número: el umbral vive en el backend (aforo.UMBRAL_PERSONAS) y
-  // espejarlo acá es la misma trampa en la que ya cayeron las constantes del
-  // cafecito. El feed sí lo dice, porque lo escribe el server con el conteo real.
-  const porAforo = boost.aforo ? "las personas que entraron hoy" : null
-  return [invitados, porAforo].filter(Boolean).join(" + ") || "Empuje vigente"
-}
 
 // Para el chip propio, aclarado hasta que se lee como oro sobre el fondo.
 const ORO_CHIP = `color-mix(in oklab, ${AMBAR} 55%, #FFFFFF)`
@@ -63,53 +33,6 @@ const ORO_CHIP = `color-mix(in oklab, ${AMBAR} 55%, #FFFFFF)`
 // filas llenas el cartel sigue siendo una cabecera; de ahí para arriba se
 // convierte en una lista y le come el lugar a lo que la gente vino a mirar.
 const BOOSTS_SHOWN = 4
-
-// Un solo formato, siempre HH:MM:SS ("23:40:12", "00:18:24").
-//
-// Antes eran dos regímenes: "23h 40m" arriba de la hora y "18:24" abajo. Se
-// unificó porque el cambio de formato a mitad de la cuenta es lo que hace dudar
-// del número — el cartel pasaba de una etiqueta a un reloj sin avisar, y el
-// mismo empuje se leía de dos maneras según cuándo lo mirabas. Con un solo
-// formato el ancho tampoco salta, así que los cuatro chips quedan alineados en
-// una vertical de punta a punta de la cuenta.
-//
-// Y el segundero corre siempre. La objeción vieja era que "un segundero cuando
-// faltan veinte horas promete una urgencia que no existe": es cierto que no hay
-// urgencia, pero un reloj que no se mueve no se lee como calma sino como algo
-// que se colgó.
-export function fmtRemaining(seconds: number): string {
-  const s = Math.max(0, seconds)
-  const dosDigitos = (n: number) => String(n).padStart(2, "0")
-  return [
-    dosDigitos(Math.floor(s / 3600)),
-    dosDigitos(Math.floor((s % 3600) / 60)),
-    dosDigitos(s % 60),
-  ].join(":")
-}
-
-/** Lo que queda, en palabras: `{ texto: "23 horas", enHoras: true }`.
- *
- * Vive al lado de `fmtRemaining` porque las dos tienen que decir lo MISMO. El
- * copy del cafecito y el de Practicar tenían cada uno su versión, las dos con
- * `Math.round`: con hora y media restante decían "2 horas" mientras el chip del
- * ranking, en la misma pantalla del producto, decía "1h 30m". Redondear para
- * arriba promete tiempo que no hay, así que las tres truncan.
- *
- * Devuelve las piezas y no la frase armada porque el artículo cambia con la
- * unidad ("las próximas 23 horas" contra "los próximos 40 minutos"), y eso lo
- * resuelve mejor cada copy que un parámetro más acá. */
-export function restanteEnPalabras(seconds: number): {
-  texto: string
-  enHoras: boolean
-} {
-  const s = Math.max(0, seconds)
-  if (s >= 3600) {
-    const h = Math.max(1, Math.floor(s / 3600))
-    return { texto: `${h} ${h === 1 ? "hora" : "horas"}`, enHoras: true }
-  }
-  const m = Math.max(1, Math.floor(s / 60))
-  return { texto: `${m} ${m === 1 ? "minuto" : "minutos"}`, enHoras: false }
-}
 
 /** Cuenta regresiva de un empuje.
  *

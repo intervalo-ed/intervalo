@@ -29,8 +29,8 @@ import { motion, useIsPresent, useReducedMotion } from "motion/react"
 import { ArrowLeft, ArrowRight, Coffee, UsersIcon } from "lucide-react"
 
 import { MercadoPagoIcon } from "./mercadopago-icon"
-import { restanteEnPalabras } from "@/components/boost-banner"
-import { ALL_SCOPE, fmtCount } from "@/components/leaderboard-chrome"
+import { ALL_SCOPE } from "@/components/leaderboard-chrome"
+import { fmtCount, fmtMultiplier, restanteEnPalabras } from "@intervalo/dx-core/juego/ranking-formato"
 import { UniTag } from "@/components/university-tag"
 import { XpDots } from "@/components/xp-dots"
 import { BELT_HEX } from "@intervalo/dx-core/catalog"
@@ -39,7 +39,6 @@ import { useSfx } from "@/lib/audio/useSfx"
 import {
   CAFECITO_URL,
   PRECIO_CAFECITO,
-  fmtMultiplier,
   type CafecitoTrigger,
 } from "./cafecito-cta"
 import { useCachedPlayer } from "./UseGamePlayer"

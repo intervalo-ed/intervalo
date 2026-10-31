@@ -463,8 +463,3 @@ export function WhatsappGlyph({ size = 16 }: { size?: number }) {
     </svg>
   )
 }
-
-// El multiplicador siempre con la coma decimal de acá y una sola cifra: es el
-// mismo formato en el slider, en el cartel del ranking y en el marcador de la
-// card, así que vive en un solo lugar.
-export const fmtMultiplier = (m: number) => `×${m.toFixed(1).replace(".", ",")}`

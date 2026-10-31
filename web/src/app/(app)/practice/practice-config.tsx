@@ -1,6 +1,6 @@
 "use client"
 
-import { restanteEnPalabras } from "@/components/boost-banner"
+import { restanteEnPalabras } from "@intervalo/dx-core/juego/ranking-formato"
 import { CountUp } from "@/components/count-up"
 import { CourseSwitcher } from "@/components/course-switcher"
 import { DismissibleHint } from "@/components/dismissible-hint"

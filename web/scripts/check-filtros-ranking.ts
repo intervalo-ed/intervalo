@@ -21,7 +21,8 @@
 // navegador — que es justo lo que faltaba: este bug sobrevivió a un arreglo
 // porque no había nada que lo mirara.
 
-import { ALL_SCOPE, opcionesDeUniversidad } from "../src/components/leaderboard-chrome"
+import { ALL_SCOPE } from "@intervalo/dx-core/juego/ranking-scope"
+import { opcionesDeUniversidad } from "@intervalo/dx-core/juego/ranking-formato"
 
 let fallos = 0
 function check(ok: boolean, label: string) {

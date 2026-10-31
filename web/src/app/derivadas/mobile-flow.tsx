@@ -93,8 +93,10 @@ import {
   type Direccion,
 } from "./slide-horizontal"
 import { ChatButton, ChatPanel } from "./chat-panel"
-import { GameRanking, memoriaEnBlanco, type MemoriaDelRanking } from "./game-ranking"
-import { ALL_SCOPE, type RankingView } from "@/components/leaderboard-chrome"
+import { GameRanking } from "./game-ranking"
+import { memoriaEnBlanco, type MemoriaDelRanking } from "@intervalo/dx-core/juego/ranking-orden"
+import { ALL_SCOPE } from "@/components/leaderboard-chrome"
+import { type RankingView } from "@intervalo/dx-core/juego/ranking-formato"
 import { AMBAR } from "@intervalo/dx-core/juego/game-colors"
 import { HINT_MOBILE, MathInput, type MathInputHandle } from "./math-input"
 import { MathKeyboard } from "./math-keyboard"

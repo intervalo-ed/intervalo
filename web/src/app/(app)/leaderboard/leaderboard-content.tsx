@@ -9,7 +9,8 @@ import { XpDots } from "@/components/xp-dots"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Spinner } from "@/components/ui/spinner"
 import { LeaderboardSkeleton } from "@/components/tab-skeletons"
-import { Metric, ScopeFilters, fmtCount } from "@/components/leaderboard-chrome"
+import { Metric, ScopeFilters } from "@/components/leaderboard-chrome"
+import { fmtCount, type EmpujeVigente } from "@intervalo/dx-core/juego/ranking-formato"
 import { cn } from "@/lib/utils"
 import { badgeWithCrown, CAREER_EMOJI } from "@intervalo/dx-core/career-emoji"
 import { BELT_UNIT_TEXT_COLORS } from "@intervalo/dx-core/catalog"
@@ -27,7 +28,6 @@ import {
 import {
   BoostBanner,
   useBoostMultipliers,
-  type EmpujeVigente,
 } from "@/components/boost-banner"
 import {
   EJEMPLOS_COUNT,

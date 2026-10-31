@@ -118,6 +118,7 @@ jobs:
           bun run check:tabla
           bun run check:math-text
           bun run check:expresion
+          bun run check:ranking-orden
 
       - name: Build
         working-directory: web

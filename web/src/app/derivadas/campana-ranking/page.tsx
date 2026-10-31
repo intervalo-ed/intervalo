@@ -21,7 +21,7 @@
 import { useSearchParams } from "next/navigation"
 import { Suspense, type ReactNode } from "react"
 import { LayersIcon, UsersIcon } from "lucide-react"
-import { fmtCount } from "@/components/leaderboard-chrome"
+import { fmtCount } from "@intervalo/dx-core/juego/ranking-formato"
 import { UniTag } from "@/components/university-tag"
 import { XpDots } from "@/components/xp-dots"
 import { GRID_BG_STYLE } from "@/components/grid-bg"

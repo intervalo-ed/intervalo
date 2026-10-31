@@ -15,7 +15,7 @@
 // empuje se leía de dos maneras según cuándo lo mirabas. El copy sigue hablando
 // en palabras, que es otra cosa y se lee en un párrafo.
 
-import { fmtRemaining, restanteEnPalabras } from "../src/components/boost-banner"
+import { fmtRemaining, restanteEnPalabras } from "@intervalo/dx-core/juego/ranking-formato"
 
 let fallos = 0
 function check(ok: boolean, label: string) {
