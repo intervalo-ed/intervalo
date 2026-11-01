@@ -21,8 +21,3 @@ If a React component file is only used in one place put it alongside the page wh
 ## File Naming
 
 Use kebab-case for React component files and PascalCase for React hooks.
-
-## Output Format
-
-When reporting information to me, be extremely concise and sacrifice grammar for the sake of concision.
-

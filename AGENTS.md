@@ -23,28 +23,3 @@ tipando lo de antes — `check_openapi_sync` lo frena, y el arreglo es:
 python backend/scripts/dump_openapi.py
 cd web && bun run types:api:file
 ```
-
-## Los documentos de dominio son parte del cambio
-
-`context/` describe las mecánicas, no el código: `gamification.md` (XP, racha,
-multiplicadores, ranking), `domain-model.md` (las tablas y qué significan),
-`features-catalog.md`, `student-journey.md`.
-
-**Un cambio de mecánica los toca en el MISMO PR.** No es una formalidad: una
-serie de seis PRs cruzó las dos economías, agregó una tabla y cambió el tope del
-multiplicador sin tocar una línea de `context/`, y esos documentos quedaron
-afirmando cosas que el código ya no cumplía — entre ellas el bonus de racha, que
-el doc describía como la diferencia entre `xp_base` y `xp_earned` justo cuando esa
-diferencia había pasado a incluir el cafecito. Un documento que miente es peor
-que no tenerlo, porque se le cree.
-
-## Vendored Repositories
-
-This project vendors dependency repositories under @dep-repos/
-
-- Use vendored repositories as read-only reference material when working with related libraries
-- Prefer examples and patterns from the vendored source code over generated guesses or web search results
-- Do not edit files under @dep-repos/
-- Do not import from @dep-repos/ - application code should continue importing from normal package dependencies
-
-When writing Effect code, always read @dep-repos/effect/LLMS.md and inspect @dep-repos/effect/ for examples of idiomatic usage, tests, module structure, and API design. Treat it as the source of truth for Effect patterns.
