@@ -6,7 +6,7 @@
 // La impresión y la respuesta van al servidor sin esperar: que falle la
 // telemetría no puede frenar la partida.
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useImperativeHandle, useRef, useState, type Ref } from "react"
 import {
   KeyboardAvoidingView,
   StyleSheet,
@@ -15,6 +15,7 @@ import {
   View,
   type TextInputInstance,
 } from "react-native"
+import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
 import { useGameApi } from "@intervalo/dx-core/juego/game-api-context"
 import { MAX_LARGO_ENCUESTA, PREGUNTA_ENCUESTA } from "@intervalo/dx-core/juego/textos-encuestas"
@@ -26,8 +27,16 @@ import { BotonCta } from "./boton-cta"
 // llegó, no a mitad del pase.
 const FOCO_MS = 320
 
-export function EncuestaSlide({ onContinue }: { onContinue: () => void }) {
+// Solo el autoplay: escribe y toca Continuar por los mismos caminos que el dedo.
+export type EncuestaHandle = {
+  escribir: (texto: string) => void
+  // false si Continuar está apagado (el campo vacío).
+  continuar: () => boolean
+}
+
+export function EncuestaSlide({ onContinue, ref }: { onContinue: () => void; ref?: Ref<EncuestaHandle> }) {
   const api = useGameApi()
+  const insets = useSafeAreaInsets()
   const sfx = useSfx()
   const [texto, setTexto] = useState("")
   const [enfocado, setEnfocado] = useState(false)
@@ -67,10 +76,21 @@ export function EncuestaSlide({ onContinue }: { onContinue: () => void }) {
     onContinue()
   }
 
+  useImperativeHandle(ref, () => ({
+    escribir: (t) => setTexto(t.slice(0, MAX_LARGO_ENCUESTA)),
+    continuar: () => {
+      if (!puedeSeguir) return false
+      enviar()
+      return true
+    },
+  }))
+
   return (
     // `padding` en las dos plataformas, como en «Elegí tu @»: con edge-to-edge
-    // el teclado hay que esquivarlo a mano.
-    <KeyboardAvoidingView style={styles.pantalla} behavior="padding">
+    // el teclado hay que esquivarlo a mano. El desfase es el `paddingTop` de la
+    // raíz del flujo, como el chat: el KeyboardAvoidingView mide su marco
+    // relativo al padre.
+    <KeyboardAvoidingView style={styles.pantalla} behavior="padding" keyboardVerticalOffset={insets.top}>
       <View style={styles.centro}>
         <Text style={styles.titulo}>
           Si tuvieras una varita mágica,{"\n"}¿qué le cambiarías o le agregarías a Intervalo?

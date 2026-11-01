@@ -50,15 +50,24 @@ es la mecánica que gobierna la experiencia entera:
 
 **La app nativa (`mobile/`, iOS y Android) juega el mismo flujo del teléfono**
 con la misma escalera de después de responder (`dx-core ::
-despues-de-responder.ts`), pero **sin el cafecito ni los dos pedidos de la
-pantalla de inicio**: no hay botón, diapo ni link para invitar cafecitos, y
-instalar y los recordatorios web no existen en una app instalada desde la
-tienda. La escalera los recibe ya apagados (`cafecito: null`,
+despues-de-responder.ts`): reclutas, la frecuencia del ranking, la pregunta
+abierta y las encuestas de opinión y repetitividad salen en el mismo orden, con
+los mismos disparadores y contra los mismos endpoints que en la web; la palanca
+de dificultad y la vista «Reclutas» del ranking también están. Lo que no tiene
+es **el cafecito ni los dos pedidos de la pantalla de inicio**: no hay botón,
+diapo ni link para invitar cafecitos, instalar no existe en una app instalada
+desde la tienda y los avisos nativos todavía no llegaron (los recordatorios web
+no aplican). La escalera los recibe ya apagados (`cafecito: null`,
 `puedeOfrecerInstalar` y `puedeOfrecerNotificaciones` en `false`), así que esos
 escalones del mapa de interrupciones no salen nunca ahí. El empuje de una
 universidad sí la alcanza: lo compra alguien desde la web y multiplica a todos
 sus jugadores, jueguen donde jueguen. En las estadísticas tampoco está la
 tarjeta de «XP extra por cafecitos».
+
+Reclutar se abre por el hito, desde el botón de compartir de la cabecera y
+desde Configuración. En vez del link a wa.me, comparte por la hoja del sistema
+(se elige WhatsApp o lo que sea) el mismo link `…/derivadas?r=<@>`. El click se
+anota al tocar el botón, como en la web.
 
 La identidad es la misma que en la web (invitado con token, cuenta con Google
 vía Clerk), con dos diferencias porque la app no recarga: al entrar con Google
@@ -1076,7 +1085,9 @@ abstractas a la izquierda y el slider acumulativo a la derecha, con su Continuar
 al pie. El relleno crece desde arriba y toma, tramo a tramo, el color del nivel
 que atraviesa (blanco, azul, rosa, marrón). Abajo, dos botones partidos: «Automático» vuelve al motor y
 «Continuar» guarda la posición. En escritorio los dígitos 1-9 eligen posición,
-Enter continúa y Alt+Enter es «Automático».
+Enter continúa y Alt+Enter es «Automático». En la app nativa la fila sale con
+el mismo criterio (`dificultad_disponible` del jugador) y la diapo guarda igual,
+con `PATCH /game/derivemos/me` al Continuar.
 Cómo funciona por dentro, y por qué hay dos θ, está en `context/gamification.md`.
 
 ### `dx-banda-1`: a qué dificultad apuntamos (28/09 → cancelado el 09/10)
@@ -1589,7 +1600,8 @@ La preferencia vive en **localStorage**, como el sonido: es cómo esta persona
 quiere ver esta pantalla en este aparato, y escritorio no tiene la diapo —allá
 el ranking es la columna de al lado y no interrumpe nada—. Reiniciar el
 progreso o cerrar sesión no la borra. Se cambia desde una fila de Ajustes que
-rota al tocarla (solo teléfono).
+rota al tocarla (solo teléfono). En la app nativa es igual, guardada en el
+almacén del aparato (MMKV) en vez de localStorage.
 
 **La diapo que la ofrece sale en la derivada 15**, una vez en la vida del
 aparato, y es un aviso más que una pregunta: lo que se toca se guarda al
@@ -1627,7 +1639,8 @@ alcanza) y la pantalla no se convierte en un peaje. Agregarle un largo mínimo
 cierra la salida y la vuelve la puerta que `dx-puerta-1` midió en 668 respuestas
 perdidas. El «.» se guarda como cualquier otra respuesta y se clasifica **al
 leer**: son tres estados y no dos —se fue sin contestar, dijo que no, contestó— y
-el primero es el que decide si la pregunta se saca.
+el primero es el que decide si la pregunta se saca. La app nativa tiene la
+misma diapo, en la misma derivada y sin saltar, y manda al mismo endpoint.
 
 **Por qué la 18 y no la 20**, que era el número pedido. Se simuló el ladder
 entero con las constantes reales (18/09):

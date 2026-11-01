@@ -3,9 +3,11 @@
 // `derivadas://?auto=1`. Usa los mismos caminos que el dedo: las teclas entran
 // por `onKey` y los botones llaman a sus mismos handlers. Las herramientas de la
 // portada y las diapos de después de responder (ranking, el @, reglas,
-// novedades, «próximamente») se pasan con `continuar`, que toca su Continuar o
-// Seguir; el @ se deja como está, y el perfil y el registro se saltean con su
-// «Ahora no»: nunca se abre Google.
+// novedades, reclutar, frecuencia, encuestas) se pasan con `continuar`, que
+// toca su Continuar o Seguir; el @ se deja como está, las encuestas se saltean
+// sin escribir ni votar (salvo la abierta que se abre con `mostrar` al final),
+// y el perfil y el registro se saltean con su «Ahora
+// no»: nunca se abre Google ni la hoja de compartir.
 //
 // Habla con dos cosas del host, si están: el backend local (la respuesta
 // esperada sale de una ruta de desarrollo, `/__dev/respuesta/<id>`) y un
@@ -29,6 +31,9 @@ export type EstadoDelJuego = {
   porqueListo: boolean
   montajes: number
   statsDisponibles: boolean
+  dificultadDisponible: boolean
+  // La vista inicial del ranking (o la que se eligió en él).
+  vistaRanking: string
 }
 
 export type ControlDelJuego = {
@@ -43,9 +48,21 @@ export type ControlDelJuego = {
   configuracion: () => void
   estadisticas: () => void
   chat: () => void
+  // Desde la configuración, la palanca (si el jugador la tiene).
+  dificultad: () => void
+  // El compartir de la cabecera: la diapo de reclutar «pedido».
+  reclutar: () => void
+  // El próximo ranking abre en la vista de reclutas.
+  vistaReclutas: () => void
+  // Abre en el acto una diapo que la partida no alcanza (salen por conteo o
+  // por `dificultad_disponible`); su Continuar vuelve al ejercicio.
+  mostrar: (slide: DiapoAMostrar) => void
+  escribirEncuesta: (texto: string) => void
   volver: () => void
   continuar: () => void
 }
+
+export type DiapoAMostrar = "frecuencia" | "encuesta" | "repetitividad" | "dificultad" | "reclutas-hito"
 
 const AYUDANTE = "http://localhost:8797"
 
@@ -117,9 +134,10 @@ async function jugar({
       }
       const e = c().estado()
       if (e.slide === "exercise") return
-      if (capturar && !capturadas.has(e.slide)) {
-        capturadas.add(e.slide)
-        await captura(`${String(7 + capturadas.size).padStart(2, "0")}-${e.slide.replace(":", "-")}`)
+      const nombre = e.slide === "ranking" && e.vistaRanking === "recruits" ? "ranking-reclutas" : e.slide
+      if (capturar && !capturadas.has(nombre)) {
+        capturadas.add(nombre)
+        await captura(`${String(7 + capturadas.size).padStart(2, "0")}-${nombre}`)
       }
       if (e.slide === "profile") log("diapo profile · se saltea")
       else if (e.slide === "register") log("diapo register · «Ahora no», sin Google")
@@ -181,6 +199,8 @@ async function jugar({
   c().principal()
   await esperar((e) => e.slide !== "exercise", "salir del ejercicio")
   await pasarPendientes({ capturar: true })
+  // El ranking que venga después, en la vista de reclutas (una vez).
+  c().vistaReclutas()
 
   // Una salteada.
   await esperar((e) => e.slide === "exercise" && !e.ocupado, "segundo ejercicio")
@@ -227,6 +247,60 @@ async function jugar({
     await esperar((e) => e.slide === "exercise", `vuelta de ${p.slide}`)
     await pausa(500)
   }
+
+  // La palanca, desde la configuración (solo si el jugador la tiene).
+  if (c().estado().dificultadDisponible) {
+    log("configuración → dificultad")
+    c().configuracion()
+    await esperar((e) => e.slide === "settings", "settings")
+    await pausa(800)
+    c().dificultad()
+    await esperar((e) => e.slide === "dificultad", "dificultad")
+    await pausa(1500)
+    await captura("23-dificultad")
+    c().volver()
+    await esperar((e) => e.slide === "settings", "vuelta de dificultad")
+    await pausa(500)
+    c().volver()
+    await esperar((e) => e.slide === "exercise", "vuelta de settings")
+    await pausa(500)
+  } else log("sin dificultad_disponible: no hay captura de la palanca")
+
+  // Reclutar abierto desde la cabecera: la diapo, nunca la hoja de compartir.
+  log("cabecera reclutas")
+  c().reclutar()
+  await esperar((e) => e.slide === "reclutas", "reclutas")
+  await pausa(1500)
+  await captura("24-reclutas")
+  c().volver()
+  await esperar((e) => e.slide === "exercise", "vuelta de reclutas")
+  await pausa(500)
+
+  // Las de la escalera que no salieron, abiertas desde el ejercicio y cerradas
+  // como con el dedo: Continuar, o «<» en la palanca.
+  const sueltas: { cual: DiapoAMostrar; slide: string; captura: string }[] = [
+    { cual: "frecuencia", slide: "frecuencia", captura: "25-frecuencia" },
+    { cual: "encuesta", slide: "encuesta", captura: "26-encuesta" },
+    { cual: "repetitividad", slide: "repetitividad", captura: "27-repetitividad" },
+    { cual: "dificultad", slide: "dificultad", captura: "28-dificultad" },
+    { cual: "reclutas-hito", slide: "reclutas", captura: "29-reclutas-hito" },
+  ]
+  for (const p of sueltas) {
+    log("mostrar", p.cual)
+    c().mostrar(p.cual)
+    await esperar((e) => e.slide === p.slide, p.slide)
+    await pausa(1500)
+    if (p.cual === "encuesta") {
+      c().escribirEncuesta("Más ejercicios de integrales")
+      await pausa(300)
+    }
+    await captura(p.captura)
+    if (p.cual === "dificultad") c().volver()
+    else c().continuar()
+    await esperar((e) => e.slide === "exercise", `vuelta de ${p.slide}`)
+    await pausa(500)
+  }
+
   log("listo · montajes del campo:", c().estado().montajes)
   await fetch(`${AYUDANTE}/fin?montajes=${c().estado().montajes}`).catch(() => {})
 }

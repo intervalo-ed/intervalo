@@ -23,8 +23,7 @@ export function GameHeader({
   onStats,
   onChat,
   chatSinVer = false,
-  compartir = false,
-  alias = null,
+  onReclutar,
 }: {
   onSettings?: () => void
   onTable?: () => void
@@ -32,10 +31,9 @@ export function GameHeader({
   onChat?: () => void
   // El punto del chat: hay algo sin ver. Un punto y no un número, como en la web.
   chatSinVer?: boolean
-  // Compartir, el último de la derecha como en la web. Abre la hoja de compartir
-  // con el link del @ propio (`alias`) y anota su impresión una vez por sesión.
-  compartir?: boolean
-  alias?: string | null
+  // Compartir, el último de la derecha como en la web: abre la diapo de
+  // reclutar (el botón ya toca su sonido y anota impresión y click).
+  onReclutar?: () => void
 }) {
   return (
     <View style={styles.barra}>
@@ -69,7 +67,7 @@ export function GameHeader({
             {chatSinVer && <View style={styles.punto} />}
           </BotonDeCabecera>
         )}
-        {compartir && <BotonCompartirCabecera alias={alias} placement="header_mobile" />}
+        {onReclutar && <BotonCompartirCabecera placement="header_mobile" onOpen={onReclutar} />}
       </View>
     </View>
   )

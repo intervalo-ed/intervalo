@@ -88,9 +88,18 @@ export function ReclutarButton({
 // de la web: la cabecera se remonta en cada cambio de diapo.
 const impresionesAnotadas = new Set<string>()
 
-/** El botón de compartir de la cabecera del juego. En la web abre la diapo
- *  `¿Reclutas?`; acá comparte directo. */
-export function BotonCompartirCabecera({ alias, placement }: { alias?: string | null; placement: string }) {
+/** El botón de compartir de la cabecera del juego. Con `onOpen` abre la diapo
+ *  `¿Reclutas?` como la web (quien lo monta sabe a qué pantalla volver); sin
+ *  él, comparte directo. */
+export function BotonCompartirCabecera({
+  alias,
+  placement,
+  onOpen,
+}: {
+  alias?: string | null
+  placement: string
+  onOpen?: () => void
+}) {
   const cta = useCta()
   const sfx = useSfx()
   useEffect(() => {
@@ -104,10 +113,11 @@ export function BotonCompartirCabecera({ alias, placement }: { alias?: string | 
       onPress={() => {
         sfx.select()
         cta("share", "click", { placement })
-        void compartir(alias)
+        if (onOpen) onOpen()
+        else void compartir(alias)
       }}
       accessibilityRole="button"
-      accessibilityLabel="Reclutar por WhatsApp"
+      accessibilityLabel={onOpen ? "Reclutar compañeros" : "Reclutar por WhatsApp"}
       hitSlop={4}
       style={({ pressed }) => [styles.cabecera, pressed && styles.apretado]}
     >
