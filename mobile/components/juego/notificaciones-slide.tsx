@@ -62,9 +62,10 @@ export function NotificacionesSlide({ onContinue }: { onContinue: () => void }) 
             <IconoCampana size={32} color={INDIGO} />
           </View>
           <Text style={styles.titulo}>Activá los recordatorios</Text>
+          {/* Sin el cafecito de la web: en la app no existe. */}
           <Text style={styles.parrafo}>
-            Te van a llegar a la hora que elijas: cuando alguien te pase en el ranking, cuando haya
-            cafecito para tu universidad, o simplemente para no perder el ritmo.
+            Te van a llegar a la hora que elijas: cuando alguien te pase en el ranking o simplemente
+            para no perder el ritmo.
           </Text>
 
           <View style={styles.etiqueta}>

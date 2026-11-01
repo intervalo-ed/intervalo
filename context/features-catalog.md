@@ -53,13 +53,13 @@ con la misma escalera de después de responder (`dx-core ::
 despues-de-responder.ts`): reclutas, la frecuencia del ranking, la pregunta
 abierta y las encuestas de opinión y repetitividad salen en el mismo orden, con
 los mismos disparadores y contra los mismos endpoints que en la web; la palanca
-de dificultad y la vista «Reclutas» del ranking también están. Lo que no tiene
-es **el cafecito ni los dos pedidos de la pantalla de inicio**: no hay botón,
-diapo ni link para invitar cafecitos, instalar no existe en una app instalada
-desde la tienda y los avisos nativos todavía no llegaron (los recordatorios web
-no aplican). La escalera los recibe ya apagados (`cafecito: null`,
-`puedeOfrecerInstalar` y `puedeOfrecerNotificaciones` en `false`), así que esos
-escalones del mapa de interrupciones no salen nunca ahí. El empuje de una
+de dificultad y la vista «Reclutas» del ranking también están, y el pedido de
+**recordatorios** también (ver «Los dos pedidos de la pantalla de inicio»). Lo
+que no tiene es **el cafecito ni el pedido de instalar**: no hay botón, diapo ni
+link para invitar cafecitos, e instalar no existe en una app instalada desde la
+tienda. La escalera los recibe ya apagados (`cafecito: null`,
+`puedeOfrecerInstalar` en `false`), así que esos escalones del mapa de
+interrupciones no salen nunca ahí. El empuje de una
 universidad sí la alcanza: lo compra alguien desde la web y multiplica a todos
 sus jugadores, jueguen donde jueguen. En las estadísticas tampoco está la
 tarjeta de «XP extra por cafecitos».
@@ -1676,8 +1676,8 @@ Dos diapos que interrumpen la partida, en ese orden y no en otro: en iOS el push
 web **no existe** fuera de la app instalada, así que instalar es el
 prerrequisito de notificar.
 
-Son solo de la web: en la app nativa no salen (ver la nota al principio del
-minijuego).
+En la app nativa sale solo el segundo: instalar no tiene sentido en una app de
+la tienda (ver la nota al principio del minijuego).
 
 - **Instalar** sale en la derivada 24 y vuelve cada 12 hasta seis veces (36, 48,
   60, 73, 85). Estuvo en la 5 con tope de tres hasta el 18/09: el cinco se había
@@ -1699,6 +1699,19 @@ minijuego).
 - Los dos se apagan solos cuando la persona acciona: `isStandalone()` para el
   primero y `Notification.permission !== "default"` para el segundo, sin marcador
   que mantener.
+- **En la app nativa**, recordatorios corre con la misma cadencia que en la web
+  instalada (3, y después cada 20, tres veces, con el mismo cooldown): la app
+  cuenta como «instalada desde siempre», y el punto de partida se anota la
+  primera vez que la escalera mira este escalón. La puerta es el permiso de
+  notificaciones del sistema: sale solo mientras todavía no se preguntó (ni
+  dado ni negado), y se lee al arrancar la app. La diapo tiene la misma cuenta
+  regresiva antes de «Ahora no», y el horario se elige ahí mismo, en una tira
+  deslizable de horarios. Activar pide el permiso, registra el token de Expo del
+  aparato y recién después guarda el horario, en ese orden, como en la web. Al
+  arrancar con el permiso ya dado, la app vuelve a mandar el token en silencio
+  (puede haber rotado o haberse podado). **Mientras la app no tenga proyecto en
+  EAS** no hay token de Expo: pide el permiso y guarda el horario, pero el
+  aparato todavía no queda registrado y no le llega nada.
 
 ### Avisos del minijuego (`game/notifications.py`, `game/notification_copy.py`)
 
@@ -1708,6 +1721,13 @@ copy sale de tablas que el juego no toca.
 
 - **Le llega al invitado**, que es la mitad del punto: `game_push_subscriptions`
   cuelga del jugador y los endpoints van con el token de invitado.
+- **Dos canales, una sola tabla**: cada suscripción es de la web (Web Push) o de
+  la app nativa (un token de Expo, que se registra con `POST`/`DELETE
+  /game/derivemos/push/expo`). El cupo, el copy y la idempotencia son los
+  mismos; lo único que cambia es por dónde sale el envío. Un token que Expo
+  rechaza porque el aparato ya no está registrado (app desinstalada, token
+  rotado) se poda igual que una suscripción web muerta. Tocar el aviso en el
+  teléfono lo marca como abierto, con el mismo beacon que el click en la web.
 - **Tres por día como máximo, y el cupo es de la PERSONA**: uno programado en el
   horario elegido y hasta dos reactivos. Un jugador registrado reclama contra los
   contadores de su `User`, así que un día en que dx tenga tres cosas que decir

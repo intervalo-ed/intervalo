@@ -6,8 +6,8 @@
 // novedades, reclutar, frecuencia, encuestas) se pasan con `continuar`, que
 // toca su Continuar o Seguir; el @ se deja como está, las encuestas se saltean
 // sin escribir ni votar (salvo la abierta que se abre con `mostrar` al final),
-// y el perfil y el registro se saltean con su «Ahora
-// no»: nunca se abre Google ni la hoja de compartir.
+// y el perfil, el registro y los avisos se saltean con su «Ahora no»: nunca se
+// abre Google, ni la hoja de compartir, ni el pedido de permiso del sistema.
 //
 // Habla con dos cosas del host, si están: el backend local (la respuesta
 // esperada sale de una ruta de desarrollo, `/__dev/respuesta/<id>`) y un
@@ -62,7 +62,13 @@ export type ControlDelJuego = {
   continuar: () => void
 }
 
-export type DiapoAMostrar = "frecuencia" | "encuesta" | "repetitividad" | "dificultad" | "reclutas-hito"
+export type DiapoAMostrar =
+  | "frecuencia"
+  | "encuesta"
+  | "repetitividad"
+  | "dificultad"
+  | "reclutas-hito"
+  | "notificaciones"
 
 const AYUDANTE = "http://localhost:8797"
 
@@ -141,6 +147,7 @@ async function jugar({
       }
       if (e.slide === "profile") log("diapo profile · se saltea")
       else if (e.slide === "register") log("diapo register · «Ahora no», sin Google")
+      else if (e.slide === "notificaciones") log("diapo notificaciones · «Ahora no», sin permiso")
       else log("diapo", e.slide)
       vistas.add(e.slide)
       c().continuar()
@@ -284,6 +291,7 @@ async function jugar({
     { cual: "repetitividad", slide: "repetitividad", captura: "27-repetitividad" },
     { cual: "dificultad", slide: "dificultad", captura: "28-dificultad" },
     { cual: "reclutas-hito", slide: "reclutas", captura: "29-reclutas-hito" },
+    { cual: "notificaciones", slide: "notificaciones", captura: "30-notificaciones" },
   ]
   for (const p of sueltas) {
     log("mostrar", p.cual)

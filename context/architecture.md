@@ -16,6 +16,7 @@ Despliegue: Railway, un servicio por repo-root (`notifier/` como root directory 
 - `web` habla solo con `backend` (API pública, auth Clerk).
 - `notifier` habla solo con `backend`, vía endpoints internos guardados con header `X-Internal-Secret` (`GET /internal/notifications/due`, `POST /internal/push/prune`, `POST /internal/emails/run`). El worker nunca abre conexión a la DB.
 - Push: `notifier` llama a `/internal/notifications/due` (el backend selecciona y **claimea atómicamente** usuarios due, evitando doble envío), envía vía `web-push` (VAPID), reporta suscripciones muertas (404/410) a `/internal/push/prune`. El copy del mensaje lo arma `backend/notification_copy.py`, el service worker (`web/public/sw.js`) solo renderiza lo que llega.
+- Push del minijuego a la app nativa: cada suscripción del juego que llega en el payload trae su `kind`; las `expo` no van por `web-push` sino al servicio de push de Expo (`notifier/src/expo-push.ts`, en lotes de a 100), que las reparte a APNs/FCM. Un ticket con `DeviceNotRegistered` se reporta como suscripción muerta y se poda por el mismo camino que un 404/410 web. Pendiente: los receipts de Expo — un ticket «ok» solo dice que Expo lo aceptó, y los tokens que rebotan recién en APNs/FCM se podan cuando el próximo envío los rechaza en el ticket.
 - Emails de lifecycle: `notifier` solo dispara `/internal/emails/run` una vez por hora; todo el envío (vía Resend) pasa por `backend/lifecycle_emails.py`, idempotente.
 
 ## Pitfalls operativos conocidos

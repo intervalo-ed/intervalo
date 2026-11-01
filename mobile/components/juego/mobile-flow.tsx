@@ -6,8 +6,8 @@
 // ranking (con la vista de reclutas), el @, las reglas, las novedades, el
 // perfil, el registro, reclutar (por hito o abierta a mano desde la cabecera y
 // la configuración) y las encuestas: frecuencia del ranking, la abierta,
-// opinión y repetitividad. Instalar y el cafecito no existen en la app; los
-// avisos llegan con M6.
+// opinión y repetitividad, y el pedido de avisos. Instalar y el cafecito no
+// existen en la app.
 //
 // El campo de la respuesta es un WebView y montarlo cuesta segundos: vive UNA
 // vez en la capa del ejercicio, que no se desmonta nunca. Ir a la tabla o al
@@ -39,6 +39,8 @@ import { marcarFrecuenciaMostrada } from "@intervalo/dx-core/juego/ranking-frecu
 import { marcarEncuestaMostrada } from "@intervalo/dx-core/juego/encuesta-trigger"
 import { anotarRespuesta, marcarPreguntaMostrada } from "@intervalo/dx-core/juego/opinion-trigger"
 import { marcarReclutasMostrado } from "@intervalo/dx-core/juego/reclutas-trigger"
+import { marcarNotificacionesMostrado } from "@intervalo/dx-core/juego/instalacion-trigger"
+import { marcarPwaDesde } from "@intervalo/dx-core/juego/game-storage"
 import type { ReclutasTrigger } from "@intervalo/dx-core/juego/reclutas"
 import { puedeVerEstadisticas } from "@intervalo/dx-core/juego/stats-gate"
 import { vistaInicialDelRanking } from "@intervalo/dx-core/juego/vuelta-universitaria"
@@ -74,6 +76,7 @@ import { useGameIdentity } from "@/lib/analytics/UseGameIdentity"
 import { useSfx, useTick } from "@/lib/audio/UseSfx"
 import { useGamePlayer } from "@/lib/juego/UseGamePlayer"
 import { useAutoplay, type ControlDelJuego } from "@/lib/juego/UseAutoplay"
+import { puedeOfrecerAvisosNativos } from "@/lib/avisos/registro-push"
 import { abrirPrivacidad } from "@/lib/legal"
 import { BotonCta } from "./boton-cta"
 import { BotonCompartirCabecera } from "./boton-reclutar"
@@ -100,6 +103,7 @@ import { HerramientasSlide } from "./herramientas-slide"
 import { IntroSlide } from "./intro-slide"
 import { MathField, type MathFieldHandle } from "./math-field"
 import { MathKeyboard, type EtiquetaDeTecla } from "./math-keyboard"
+import { NotificacionesSlide } from "./notificaciones-slide"
 import { NovedadesSlide } from "./novedades-slide"
 import { OpinionSlide } from "./opinion-slide"
 import { PerfilSlides } from "./perfil-slides"
@@ -140,6 +144,7 @@ type Slide =
   | { kind: "encuesta" }
   | { kind: "opinion" }
   | { kind: "repetitividad" }
+  | { kind: "notificaciones" }
   // Se abre desde Configuración y vuelve a ella.
   | { kind: "dificultad"; back: Slide }
 
@@ -408,10 +413,10 @@ export function MobileFlow({ auto }: { auto?: string }) {
         yaPreguntoRegistro: askedRegisterRef.current,
         sinVer: sinVerRef.current,
         frecuenciaRanking: readFrecuenciaRanking(),
-        // La app no tiene cafecito ni pedido de instalar ni avisos web.
+        // La app no tiene cafecito ni pedido de instalar.
         cafecito: null,
         puedeOfrecerInstalar: false,
-        puedeOfrecerNotificaciones: false,
+        puedeOfrecerNotificaciones: puedeOfrecerAvisosNativos(),
       })
 
       // Sin la diapo del ranking, el festejo que la esperaba se desarma y el
@@ -421,6 +426,9 @@ export function MobileFlow({ auto }: { auto?: string }) {
         pendingClimbRef.current = null
         void refrescarRankingCentrado(queryClient)
       }
+      // En la app «instalada» es desde siempre: se anota la primera vez que se
+      // mira, y de ahí corre la cadencia de los avisos.
+      if (despues.anotarPwaDesde) marcarPwaDesde(totalCorrectas)
 
       switch (despues.paso) {
         case "ranking":
@@ -492,10 +500,10 @@ export function MobileFlow({ auto }: { auto?: string }) {
           pendingRef.current = null
           loadNext()
           return
-        // Tampoco todavía (`puedeOfrecerNotificaciones` false): llegan con M6.
+        // Solo con el permiso del sistema sin preguntar (`puedeOfrecerAvisosNativos`).
         case "notificaciones":
-          pendingRef.current = null
-          loadNext()
+          marcarNotificacionesMostrado({ enPwa: despues.enPwa, totalCorrectas })
+          goTo({ kind: "notificaciones" })
           return
         // Sin cafecito en la app (`cafecito: null`).
         case "cafecito":
@@ -1080,6 +1088,8 @@ export function MobileFlow({ auto }: { auto?: string }) {
         else if (slide.kind === "stats" || slide.kind === "chat") volver()
         else if (slide.kind === "reclutas") reclutasListo(slide)
         else if (slide.kind === "frecuencia") seguirEscalera("frecuencia")
+        // Su «Ahora no»: nunca «Activar», que abriría el pedido de permiso.
+        else if (slide.kind === "notificaciones") seguirEscalera("notificaciones")
         // Con algo escrito, su Continuar; si no, el mismo final sin enviar nada.
         else if (slide.kind === "encuesta") {
           if (!encuestaRef.current?.continuar()) seguirEscalera("encuesta")
@@ -1312,6 +1322,9 @@ export function MobileFlow({ auto }: { auto?: string }) {
                   )}
                   {s.kind === "repetitividad" && (
                     <RepetitividadSlide onContinue={(contesto) => preguntaLista("repetitividad", contesto)} />
+                  )}
+                  {s.kind === "notificaciones" && (
+                    <NotificacionesSlide onContinue={() => seguirEscalera("notificaciones")} />
                   )}
                   {s.kind === "dificultad" && (
                     <DificultadSlide
