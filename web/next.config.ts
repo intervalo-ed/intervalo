@@ -1,4 +1,18 @@
+import { createRequire } from "node:module";
+import path from "node:path";
+
 import type { NextConfig } from "next";
+
+// La copia de react-query que resuelve la app (web), no la de dx-core. Relativa
+// al cwd porque resolveAlias de Turbopack no acepta rutas absolutas.
+const reactQuery = path
+  .relative(
+    process.cwd(),
+    path.dirname(createRequire(import.meta.url).resolve("@tanstack/react-query/package.json")),
+  )
+  .split(path.sep)
+  .join("/")
+
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -6,6 +20,16 @@ const nextConfig: NextConfig = {
   // La lógica del juego vive en packages/dx-core como TypeScript sin compilar,
   // compartida con la app nativa.
   transpilePackages: ["@intervalo/dx-core"],
+  // UNA sola copia de react-query. dx-core lo declara como peer y como
+  // devDependency, y en el install de Vercel cada paquete del workspace puede
+  // quedar con su propia copia: el bundle terminaba con dos contextos, el
+  // QueryClientProvider de la app en uno y los hooks de dx-core leyendo el otro
+  // ("No QueryClient set") y /derivadas caía al error boundary.
+  turbopack: {
+    resolveAlias: {
+      "@tanstack/react-query": reactQuery.startsWith(".") ? reactQuery : `./${reactQuery}`,
+    },
+  },
   skipTrailingSlashRedirect: true,
   async redirects() {
     return [
