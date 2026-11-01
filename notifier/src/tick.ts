@@ -5,6 +5,7 @@ import {
   HttpClientResponse,
 } from "effect/unstable/http"
 import webpush from "web-push"
+import { sendExpoPushes } from "./expo-push"
 
 export interface NotifierConfig {
   apiBaseUrl: string
@@ -12,11 +13,15 @@ export interface NotifierConfig {
   vapid: { publicKey: string; privateKey: string; subject: string }
 }
 
-interface PushSub {
+export interface PushSub {
   id: number
   endpoint: string
   p256dh: string
   auth: string
+  // Solo lo trae el minijuego: "expo" es la app nativa, con el token de Expo en
+  // `endpoint` y las claves vacías. Sin el campo es "web" —Intervalo no lo
+  // manda, y el backend puede ir un deploy atrás del notifier—.
+  kind?: "web" | "expo"
 }
 
 interface DueNotification {
@@ -62,7 +67,7 @@ export function setupWebPush(config: NotifierConfig): void {
  * estado a guardar en notification_sends. El backend crea esa fila al elegir el
  * copy, o sea antes de que se intente mandar, así que si el estado no vuelve
  * acá un envío que nunca salió queda igual que uno exitoso. */
-interface SendOutcome {
+export interface SendOutcome {
   deadSubscriptionId: number | null
   notificationId: number
   status: string
@@ -174,8 +179,10 @@ const correrTanda = (
     )
     if (jobs.length === 0) return
 
-    const results = yield* Effect.forEach(
-      jobs,
+    const jobsExpo = jobs.filter((job) => job.sub.kind === "expo")
+    const jobsWeb = jobs.filter((job) => job.sub.kind !== "expo")
+    const resultsWeb = yield* Effect.forEach(
+      jobsWeb,
       (job) =>
         sendPush(job.sub, {
           title: job.title,
@@ -186,6 +193,10 @@ const correrTanda = (
         }),
       { concurrency: 5 },
     )
+    const results = [
+      ...resultsWeb,
+      ...(yield* sendExpoPushes(jobsExpo, { app })),
+    ]
     // El reporte de entrega va antes del prune: si el tick se cae a la mitad,
     // preferimos haber guardado por qué falló antes que haber limpiado la
     // suscripción y perder el motivo.

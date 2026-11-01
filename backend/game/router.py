@@ -77,6 +77,7 @@ from .mathjson import MathJsonError, to_sympy
 from .schemas import (
     GameNotificationSettings,
     GameNotificationSettingsRequest,
+    GameExpoPushTokenRequest,
     GamePushSubscribeRequest,
     GamePushUnsubscribeRequest,
     GameAnswerRequest,
@@ -2722,6 +2723,41 @@ def game_push_unsubscribe(
     from . import notifications as avisos
 
     avisos.delete_subscription(db, player, body.endpoint)
+    return avisos.get_settings(player)
+
+
+_EXPO_TOKEN_PREFIJOS = ("ExponentPushToken[", "ExpoPushToken[")
+
+
+def _validar_token_expo(token: str) -> str:
+    token = token.strip()
+    if not token.startswith(_EXPO_TOKEN_PREFIJOS) or not token.endswith("]"):
+        raise HTTPException(status_code=422, detail="invalid Expo push token")
+    return token
+
+
+@router.post("/push/expo", response_model=GameNotificationSettings)
+def game_push_expo_subscribe(
+    body: GameExpoPushTokenRequest,
+    player: GamePlayer = Depends(get_current_player),
+    db: Session = Depends(get_db),
+):
+    """El gemelo de `/push/subscribe` para la app nativa: guarda el token de Expo."""
+    from . import notifications as avisos
+
+    avisos.upsert_expo_token(db, player, _validar_token_expo(body.token))
+    return avisos.get_settings(player)
+
+
+@router.delete("/push/expo", response_model=GameNotificationSettings)
+def game_push_expo_unsubscribe(
+    body: GameExpoPushTokenRequest,
+    player: GamePlayer = Depends(get_current_player),
+    db: Session = Depends(get_db),
+):
+    from . import notifications as avisos
+
+    avisos.delete_expo_token(db, player, _validar_token_expo(body.token))
     return avisos.get_settings(player)
 
 

@@ -432,6 +432,87 @@ cliente.post("/internal/push/game-prune", headers=cab, json={"subscription_ids":
 s.expire_all()
 check("y el prune borra la suscripción muerta", s.get(GamePushSubscription, sub_id) is None)
 
+# ── 10 · La app nativa: tokens de Expo ─────────────────────────────────────
+print("\n— avisos nativos (Expo) —")
+from game import deps as deps_del_juego  # noqa: E402
+
+main.app.dependency_overrides[deps_del_juego.get_db] = _sesion
+quien = {"p": p1}
+main.app.dependency_overrides[deps_del_juego.get_current_player] = lambda: quien["p"]
+
+TOKEN = "ExponentPushToken[abc123]"
+r = cliente.post("/game/derivemos/push/expo", json={"token": TOKEN})
+check("registrar el token responde las preferencias", r.status_code == 200
+      and "enabled" in r.json(), f"({r.status_code} {r.text[:80]})")
+s.expire_all()
+fila = s.query(GamePushSubscription).filter_by(endpoint=TOKEN).one_or_none()
+check("y queda como fila expo, sin claves",
+      fila is not None and fila.kind == "expo" and fila.player_id == 1
+      and fila.p256dh == "" and fila.auth == "",
+      f"({fila and (fila.kind, fila.player_id)})")
+cliente.post("/game/derivemos/push/expo", json={"token": TOKEN})
+check("registrarlo dos veces no duplica",
+      s.query(GamePushSubscription).filter_by(endpoint=TOKEN).count() == 1)
+check("el prefijo nuevo también vale", cliente.post(
+    "/game/derivemos/push/expo", json={"token": "ExpoPushToken[xyz]"}).status_code == 200)
+check("un token que no es de Expo da 422", cliente.post(
+    "/game/derivemos/push/expo", json={"token": "https://push.test/x"}).status_code == 422)
+check("y uno vacío también", cliente.post(
+    "/game/derivemos/push/expo", json={"token": ""}).status_code == 422)
+
+limpiar_envios()
+r = cliente.get("/internal/notifications/game?force=true", headers=cab)
+del_uno = [x for x in r.json() if x["player_id"] == 1]
+subs_uno = {sub["endpoint"]: sub for x in del_uno for sub in x["subscriptions"]}
+check("el payload programado trae el token con kind expo",
+      subs_uno.get(TOKEN, {}).get("kind") == "expo", f"({list(subs_uno.values())})")
+de_navegador = [sub for x in r.json() for sub in x["subscriptions"]
+                if sub["endpoint"].startswith("https://")]
+check("y las del navegador siguen siendo web",
+      de_navegador and all(sub["kind"] == "web" for sub in de_navegador),
+      f"({len(de_navegador)})")
+limpiar_envios()
+s.query(GameNotificationSend).delete()
+s.commit()
+r_ev = cliente.get("/internal/notifications/game-events?force=true", headers=cab)
+kinds_ev = {sub["kind"] for x in r_ev.json() if x["player_id"] == 1
+            for sub in x["subscriptions"]}
+check("el reactivo también lleva kind", r_ev.status_code == 200 and "expo" in kinds_ev,
+      f"({r_ev.status_code} {kinds_ev})")
+
+# El tap de la app nativa llega con el token como endpoint.
+envio_expo = del_uno[0]["notification_id"] if del_uno else -1
+check("el tap con el token marca abierto",
+      avisos.mark_notification_opened(s, envio_expo, TOKEN))
+
+# Si el teléfono pasa a otro jugador, la fila se muda.
+quien["p"] = p3
+cliente.post("/game/derivemos/push/expo", json={"token": TOKEN})
+s.expire_all()
+filas = s.query(GamePushSubscription).filter_by(endpoint=TOKEN).all()
+check("el token se muda de jugador sin duplicarse",
+      len(filas) == 1 and filas[0].player_id == 3, f"({[f.player_id for f in filas]})")
+# Borrar desde otro jugador no toca la fila ajena.
+quien["p"] = p1
+cliente.request("DELETE", "/game/derivemos/push/expo", json={"token": TOKEN})
+s.expire_all()
+check("borrar el token de otro no hace nada",
+      s.query(GamePushSubscription).filter_by(endpoint=TOKEN).count() == 1)
+quien["p"] = p3
+r = cliente.request("DELETE", "/game/derivemos/push/expo", json={"token": TOKEN})
+s.expire_all()
+check("y el dueño sí lo borra", r.status_code == 200
+      and s.query(GamePushSubscription).filter_by(endpoint=TOKEN).count() == 0)
+
+# El prune del notifier (DeviceNotRegistered) usa el mismo camino que el web.
+quien["p"] = p1
+cliente.post("/game/derivemos/push/expo", json={"token": TOKEN})
+s.expire_all()
+expo_id = s.query(GamePushSubscription).filter_by(endpoint=TOKEN).one().id
+cliente.post("/internal/push/game-prune", headers=cab, json={"subscription_ids": [expo_id]})
+s.expire_all()
+check("el prune borra el token muerto", s.get(GamePushSubscription, expo_id) is None)
+
 print()
 if fallos:
     print(f"{len(fallos)} fallo(s): " + ", ".join(fallos))

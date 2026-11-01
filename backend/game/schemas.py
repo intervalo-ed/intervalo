@@ -760,6 +760,10 @@ class GamePushUnsubscribeRequest(BaseModel):
     endpoint: str
 
 
+class GameExpoPushTokenRequest(BaseModel):
+    token: str = Field(max_length=1000)
+
+
 class GameNotificationSettings(BaseModel):
     enabled: bool
     time: Optional[str] = None      # "HH:MM", pasos de 15 minutos

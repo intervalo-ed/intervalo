@@ -778,6 +778,27 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/game/derivemos/push/expo": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Game Push Expo Subscribe
+         * @description El gemelo de `/push/subscribe` para la app nativa: guarda el token de Expo.
+         */
+        post: operations["game_push_expo_subscribe_game_derivemos_push_expo_post"];
+        /** Game Push Expo Unsubscribe */
+        delete: operations["game_push_expo_unsubscribe_game_derivemos_push_expo_delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/game/derivemos/notification-settings": {
         parameters: {
             query?: never;
@@ -1971,7 +1992,7 @@ export interface components {
             /** Url */
             url: string;
             /** Subscriptions */
-            subscriptions: components["schemas"]["PushSubscriptionOut"][];
+            subscriptions: components["schemas"]["GamePushSubscriptionOut"][];
         };
         /** DueNotification */
         DueNotification: {
@@ -2462,6 +2483,11 @@ export interface components {
             /** Exercise Id */
             exercise_id: number;
         };
+        /** GameExpoPushTokenRequest */
+        GameExpoPushTokenRequest: {
+            /** Token */
+            token: string;
+        };
         /** GameLeaderboardEntry */
         GameLeaderboardEntry: {
             /** Rank */
@@ -2765,6 +2791,28 @@ export interface components {
             /** Endpoint */
             endpoint: string;
             keys: components["schemas"]["GamePushKeys"];
+        };
+        /**
+         * GamePushSubscriptionOut
+         * @description La suscripción de un jugador, con el canal por el que sale.
+         *
+         *     Aparte de `PushSubscriptionOut` para no tocar el contrato de Intervalo. En
+         *     las de Expo `endpoint` es el token y las claves vienen vacías.
+         */
+        GamePushSubscriptionOut: {
+            /** Id */
+            id: number;
+            /** Endpoint */
+            endpoint: string;
+            /** P256Dh */
+            p256dh: string;
+            /** Auth */
+            auth: string;
+            /**
+             * Kind
+             * @enum {string}
+             */
+            kind: "web" | "expo";
         };
         /** GamePushUnsubscribeRequest */
         GamePushUnsubscribeRequest: {
@@ -4560,6 +4608,78 @@ export interface operations {
         requestBody: {
             content: {
                 "application/json": components["schemas"]["GamePushUnsubscribeRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GameNotificationSettings"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    game_push_expo_subscribe_game_derivemos_push_expo_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+                "x-game-token"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["GameExpoPushTokenRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GameNotificationSettings"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    game_push_expo_unsubscribe_game_derivemos_push_expo_delete: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+                "x-game-token"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["GameExpoPushTokenRequest"];
             };
         };
         responses: {

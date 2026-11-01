@@ -42,6 +42,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     ["@clerk/expo", { appleSignIn: false }],
     "expo-web-browser",
     "expo-localization",
+    // Solo avisos visibles: nada de pushes silenciosos que despierten la app.
+    ["expo-notifications", { enableBackgroundRemoteNotifications: false }],
   ],
   experiments: {
     reactCompiler: true,

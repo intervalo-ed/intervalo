@@ -15,6 +15,8 @@ import { precalentarMathJax } from "@/components/latex/mathjax"
 import { posthog } from "@/lib/analytics/posthog"
 import { precargarSonidosDelJuego } from "@/lib/audio/UseSfx"
 import { useGameApiNativo } from "@/lib/api/UseGameApiNativo"
+import { reafirmarTokenDeAvisos, refrescarPermisoDeAvisos } from "@/lib/avisos/registro-push"
+import { useTapDeAviso } from "@/lib/avisos/UseTapDeAviso"
 import { RescateProvider } from "@/lib/almacen/rescate-context"
 import { restaurarToken } from "@/lib/almacen/token-seguro"
 import { env } from "@/lib/env"
@@ -35,6 +37,7 @@ export default function RootLayout() {
   // El splash queda arriba hasta que el respaldo del llavero se adoptó: el alta
   // del jugador no puede salir antes, o crearía un invitado nuevo.
   const [rescate, setRescate] = useState<Rescate | null>(null)
+  useTapDeAviso()
 
   useEffect(() => {
     let vivo = true
@@ -86,6 +89,12 @@ export default function RootLayout() {
 
 function GameApi({ children }: { children: ReactNode }) {
   const api = useGameApiNativo()
+  // Al arrancar: el permiso para el ladder y, si ya estaba dado, el token de
+  // vuelta al backend (el cliente es estable; si cambia, reafirmar no daña).
+  useEffect(() => {
+    void refrescarPermisoDeAvisos()
+    void reafirmarTokenDeAvisos({ api })
+  }, [api])
   return <GameApiProvider value={api}>{children}</GameApiProvider>
 }
 
