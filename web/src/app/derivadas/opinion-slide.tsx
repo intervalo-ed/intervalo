@@ -25,48 +25,19 @@ import { cn } from "@/lib/utils"
 import { useSfx } from "@/lib/audio/useSfx"
 
 import { useGameApi } from "@intervalo/dx-core/juego/game-api-context"
+import {
+  OPCIONES_OPINION as OPCIONES,
+  RESPUESTA_OPINION as RESPUESTA,
+  type VotoDificultad,
+} from "@intervalo/dx-core/juego/textos-encuestas"
 import { KeyCap } from "./exercise-card"
 import { Salida } from "./slide-salida"
 import { digitoDe, enCampoDeTexto, enCampoHtml, useTeclas } from "./teclas"
-
-export type VotoDificultad = "muy_facil" | "justo" | "muy_dificil"
 
 // Con qué tecla se vota cada una, en escritorio. El índice ES el orden en que
 // se dibujan: 1 la de arriba. Si alguna vez se suma una cuarta opción, hay que
 // sumarle su tecla acá o queda muda.
 const TECLAS = ["1", "2", "3"]
-
-const OPCIONES: { voto: VotoDificultad; emoji: string; texto: string }[] = [
-  { voto: "muy_facil", emoji: "😴", texto: "Muy fáciles" },
-  { voto: "justo", emoji: "👌", texto: "Justas" },
-  { voto: "muy_dificil", emoji: "🤯", texto: "Muy difíciles" },
-]
-
-// El renglón que aparece debajo apenas se elige una opción, y cambia si se
-// cambia de opción. Es la respuesta del juego a lo que la persona acaba de
-// decir: sin él, tocar una opción solo la pintaba y no se sabía si eso servía
-// para algo.
-//
-// Hubo uno parecido que se fue —«Anotado.», «Te subimos la vara.»— y se fue por
-// dos motivos que este esquiva. Salía DESPUÉS de mandar el voto, y hoy el voto
-// no se manda hasta Continuar; este depende solo de lo elegido, así que no
-// espera a nadie. Y el más frecuente era «Anotado.», que acusaba recibo sin
-// decir nada; estos dicen qué va a pasar.
-//
-// En primera del plural, como el subtítulo («Ajustemos la dificultad»): la
-// dificultad se decide entre los dos, y el renglón es la mitad del juego
-// contestando.
-//
-// **Prometen más de lo que el servidor garantiza, y es una decisión de
-// producto.** El voto decide el signo del ajuste y el registro de la persona
-// decide el tamaño (backend/game/opinion.py): quien dice «muy fáciles» sin
-// venir ganándole al motor no se mueve. «Aumentamos» es cierto para quien tiene
-// el registro que lo respalda y es una intención para el resto.
-const RESPUESTA: Record<VotoDificultad, string> = {
-  muy_facil: "Aumentamos entonces.",
-  justo: "La dejamos igual entonces.",
-  muy_dificil: "Bajamos entonces.",
-}
 
 export function OpinionSlide({
   onContinue,

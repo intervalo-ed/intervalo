@@ -29,7 +29,7 @@ import {
   LARGO_MAXIMO,
   POOL_DE_EJEMPLO,
   sortearAliasDeEjemplo,
-} from "../src/components/reclutas-ejemplos"
+} from "@intervalo/dx-core/juego/reclutas-ejemplos"
 import {
   crearAlmacenEnMemoria,
   instalarAlmacen,

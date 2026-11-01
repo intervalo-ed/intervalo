@@ -28,21 +28,13 @@ import { cn } from "@/lib/utils"
 import { useSfx } from "@/lib/audio/useSfx"
 
 import { useGameApi } from "@intervalo/dx-core/juego/game-api-context"
+import {
+  MAX_LARGO_ENCUESTA as MAX_LARGO,
+  PREGUNTA_ENCUESTA as PREGUNTA,
+} from "@intervalo/dx-core/juego/textos-encuestas"
 import { KeyCap } from "./exercise-card"
 import { Salida } from "./slide-salida"
 import { enCampoDeTexto, useTeclas } from "./teclas"
-
-/** La clave de la pregunta, gemela de `backend/game/encuesta.py :: VARITA`.
- *
- * Viaja en el POST para que la respuesta quede atada a lo que la persona
- * realmente leyó: el enunciado se puede retocar sin que eso quiera decir que la
- * pregunta es otra, y el día que SÍ sea otra, las dos tandas quedan separadas. */
-export const PREGUNTA = "varita_v1"
-
-// El mismo tope que `encuesta.MAX_LARGO`. Cortar acá y no solo allá es lo que
-// hace que el contador no mienta: si el campo dejara escribir 900 y el servidor
-// guardara 500, la persona vería desaparecer el final de lo que escribió.
-const MAX_LARGO = 500
 
 export function EncuestaSlide({
   onContinue,

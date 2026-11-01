@@ -16,6 +16,7 @@ import { motion, useReducedMotion } from "motion/react"
 import { ArrowDown, ArrowUp } from "lucide-react"
 
 import { cn } from "@/lib/utils"
+import { mezclar, rgbaDeRgb } from "@intervalo/dx-core/juego/dificultad"
 
 // El mismo desplazamiento fugaz del cafecito (FUGAZ): 110 ms con salida suave,
 // sin rebote, para que el pulgar no parezca pasarse del valor elegido.
@@ -24,31 +25,6 @@ const FUGAZ = { duration: 0.11, ease: "easeOut" } as const
 // El mismo período del café (RESPIRO_S): a este ritmo no se ve «una animación»,
 // se ve que la cosa está viva. Late el aura, nunca el tamaño.
 const RESPIRO_S = 5.2
-
-// Cada posición toma un tercio del color de sus vecinas: el cambio de nivel se
-// reparte en dos pasos en vez de caer de golpe, y la barra se lee como un
-// degradado de calor y no como cuatro bandas.
-export function mezclar(colores: readonly string[]): string[] {
-  const rgb = (hex: string) => {
-    const m = /^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i.exec(hex)
-    return m ? [parseInt(m[1], 16), parseInt(m[2], 16), parseInt(m[3], 16)] : [255, 255, 255]
-  }
-  // Una pasada, con el tono propio pesando la mitad: el cambio de nivel se
-  // reparte en tres posiciones sin lavar el color de cada nivel.
-  const pasada = (cs: number[][]) =>
-    cs.map((_, i) => {
-      const a = cs[Math.max(0, i - 1)]
-      const b = cs[i]
-      const c = cs[Math.min(cs.length - 1, i + 1)]
-      return [0, 1, 2].map((k) => a[k] * 0.25 + b[k] * 0.5 + c[k] * 0.25)
-    })
-  return pasada(colores.map(rgb)).map((v) => `rgb(${v.map(Math.round).join(", ")})`)
-}
-
-function rgbaDeRgb(color: string, a: number): string {
-  const m = /(\d+),\s*(\d+),\s*(\d+)/.exec(color)
-  return m ? `rgba(${m[1]}, ${m[2]}, ${m[3]}, ${a})` : color
-}
 
 function Flecha({
   hacia,

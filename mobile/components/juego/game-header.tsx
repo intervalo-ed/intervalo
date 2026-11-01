@@ -1,17 +1,17 @@
 // La barra de arriba del juego (web/src/app/derivadas/mobile-flow.tsx ::
-// GameHeader): configuración a la izquierda, y a la derecha tabla, estadísticas
-// y chat. Va en el ejercicio, el ranking, las novedades y el chat.
+// GameHeader): configuración a la izquierda, y a la derecha tabla, estadísticas,
+// chat y compartir. Va en el ejercicio, el ranking, las novedades y el chat.
 //
 // Cada botón aparece solo si viene su callback: así quien la monta decide qué
 // va en cada pantalla (la tabla no va en el ejercicio, que la tiene en el pie;
-// las estadísticas, recién desde la derivada 3) y compartir entra después sin
-// tocar a nadie. El cafecito no va.
+// las estadísticas, recién desde la derivada 3). El cafecito no va.
 //
 // No se ocupa del área segura: la raíz del flujo ya baja todo `insets.top`.
 
 import type { ReactNode } from "react"
 import { Pressable, StyleSheet, View } from "react-native"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
+import { BotonCompartirCabecera } from "./boton-reclutar"
 import { IconoChat, IconoConfiguracion, IconoEstadisticas, IconoTabla } from "./iconos-cabecera"
 
 const ICONO = 15
@@ -23,6 +23,8 @@ export function GameHeader({
   onStats,
   onChat,
   chatSinVer = false,
+  compartir = false,
+  alias = null,
 }: {
   onSettings?: () => void
   onTable?: () => void
@@ -30,6 +32,10 @@ export function GameHeader({
   onChat?: () => void
   // El punto del chat: hay algo sin ver. Un punto y no un número, como en la web.
   chatSinVer?: boolean
+  // Compartir, el último de la derecha como en la web. Abre la hoja de compartir
+  // con el link del @ propio (`alias`) y anota su impresión una vez por sesión.
+  compartir?: boolean
+  alias?: string | null
 }) {
   return (
     <View style={styles.barra}>
@@ -63,6 +69,7 @@ export function GameHeader({
             {chatSinVer && <View style={styles.punto} />}
           </BotonDeCabecera>
         )}
+        {compartir && <BotonCompartirCabecera alias={alias} placement="header_mobile" />}
       </View>
     </View>
   )
