@@ -13,6 +13,16 @@ const { getDefaultConfig } = require("expo/metro-config")
 
 const config = getDefaultConfig(__dirname)
 
+// La caché de transformaciones de Metro (en $TMPDIR, compartida por todas las
+// copias del proyecto en la máquina) indexa cada archivo por su ruta RELATIVA
+// al proyecto, pero el plugin de "use dom" de babel-preset-expo hornea en la
+// salida la ruta ABSOLUTA del DOM component. Un build local de EAS copia el
+// repo a otra carpeta, reusa lo que dejó `expo start` y el bundle de
+// `math-field.dom.tsx` termina apuntando a la checkout de desarrollo, fuera de
+// los watchFolders: "Unable to resolve ./../../…/Users/…/math-field.dom.tsx".
+// Meter la ruta en `cacheVersion` separa la caché por carpeta.
+config.cacheVersion = [config.cacheVersion, __dirname].filter(Boolean).join(":")
+
 // Metro ve los archivos por su ruta real, no por el symlink de node_modules.
 const dxCore = fs.realpathSync(path.join(__dirname, "node_modules/@intervalo/dx-core"))
 const peers = Object.keys(require(path.join(dxCore, "package.json")).peerDependencies ?? {})
