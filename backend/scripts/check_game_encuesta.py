@@ -90,7 +90,8 @@ check(encuesta.PREGUNTAS[encuesta.ACTUAL].endswith("?"),
 # es el que la persona lee; este es el que queda documentado al lado de las
 # respuestas. Si divergen, el panel dice que la gente contestó algo que nadie le
 # preguntó.
-SLIDE = (BACKEND.parent / "web/src/app/derivadas/encuesta-slide.tsx").read_text(
+# La clave vive en dx-core, compartida por la web y la app nativa.
+SLIDE = (BACKEND.parent / "packages/dx-core/src/juego/textos-encuestas.ts").read_text(
     encoding="utf-8")
 check(f'"{encuesta.ACTUAL}"' in SLIDE,
       f"el front manda la misma clave de pregunta ({encuesta.ACTUAL})")

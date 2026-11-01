@@ -1,9 +1,13 @@
 // Solo en desarrollo: juega solo, para probar el flujo en el simulador sin
 // tocar la pantalla (`xcrun simctl` no toca). Se abre con
 // `derivadas://?auto=1`. Usa los mismos caminos que el dedo: las teclas entran
-// por `onKey` y los botones llaman a sus mismos handlers. Las diapos de después
-// de responder (ranking, el @, reglas, novedades, «próximamente») se pasan con
-// `continuar`, que toca su Continuar o Seguir; el @ se deja como está.
+// por `onKey` y los botones llaman a sus mismos handlers. Las herramientas de la
+// portada y las diapos de después de responder (ranking, el @, reglas,
+// novedades, reclutar, frecuencia, encuestas) se pasan con `continuar`, que
+// toca su Continuar o Seguir; el @ se deja como está, las encuestas se saltean
+// sin escribir ni votar (salvo la abierta que se abre con `mostrar` al final),
+// y el perfil, el registro y los avisos se saltean con su «Ahora no»: nunca se
+// abre Google, ni la hoja de compartir, ni el pedido de permiso del sistema.
 //
 // Habla con dos cosas del host, si están: el backend local (la respuesta
 // esperada sale de una ruta de desarrollo, `/__dev/respuesta/<id>`) y un
@@ -26,6 +30,10 @@ export type EstadoDelJuego = {
   startDisabled: boolean
   porqueListo: boolean
   montajes: number
+  statsDisponibles: boolean
+  dificultadDisponible: boolean
+  // La vista inicial del ranking (o la que se eligió en él).
+  vistaRanking: string
 }
 
 export type ControlDelJuego = {
@@ -36,9 +44,31 @@ export type ControlDelJuego = {
   saltear: () => void
   tabla: () => void
   porque: () => void
+  // Los botones de la cabecera; `volver` también cierra la configuración.
+  configuracion: () => void
+  estadisticas: () => void
+  chat: () => void
+  // Desde la configuración, la palanca (si el jugador la tiene).
+  dificultad: () => void
+  // El compartir de la cabecera: la diapo de reclutar «pedido».
+  reclutar: () => void
+  // El próximo ranking abre en la vista de reclutas.
+  vistaReclutas: () => void
+  // Abre en el acto una diapo que la partida no alcanza (salen por conteo o
+  // por `dificultad_disponible`); su Continuar vuelve al ejercicio.
+  mostrar: (slide: DiapoAMostrar) => void
+  escribirEncuesta: (texto: string) => void
   volver: () => void
   continuar: () => void
 }
+
+export type DiapoAMostrar =
+  | "frecuencia"
+  | "encuesta"
+  | "repetitividad"
+  | "dificultad"
+  | "reclutas-hito"
+  | "notificaciones"
 
 const AYUDANTE = "http://localhost:8797"
 
@@ -98,6 +128,8 @@ async function jugar({
   // Una captura por diapo nueva (`08-ranking`, `09-reglas`…), la primera vez
   // que aparece cada una.
   const capturadas = new Set<string>()
+  // Las diapos que ya pasaron, capturadas o no: el juego sigue hasta el registro.
+  const vistas = new Set<string>()
   const pasarPendientes = async ({ capturar = false }: { capturar?: boolean } = {}) => {
     for (;;) {
       await esperar((e) => e.slide === "exercise" || !e.ocupado, "diapo")
@@ -108,11 +140,16 @@ async function jugar({
       }
       const e = c().estado()
       if (e.slide === "exercise") return
-      if (capturar && !capturadas.has(e.slide)) {
-        capturadas.add(e.slide)
-        await captura(`${String(7 + capturadas.size).padStart(2, "0")}-${e.slide.replace(":", "-")}`)
+      const nombre = e.slide === "ranking" && e.vistaRanking === "recruits" ? "ranking-reclutas" : e.slide
+      if (capturar && !capturadas.has(nombre)) {
+        capturadas.add(nombre)
+        await captura(`${String(7 + capturadas.size).padStart(2, "0")}-${nombre}`)
       }
-      log("diapo", e.slide)
+      if (e.slide === "profile") log("diapo profile · se saltea")
+      else if (e.slide === "register") log("diapo register · «Ahora no», sin Google")
+      else if (e.slide === "notificaciones") log("diapo notificaciones · «Ahora no», sin permiso")
+      else log("diapo", e.slide)
+      vistas.add(e.slide)
       c().continuar()
       await esperar((d) => d.slide !== e.slide, `salir de ${e.slide}`, 8000)
       await pausa(400)
@@ -169,6 +206,8 @@ async function jugar({
   c().principal()
   await esperar((e) => e.slide !== "exercise", "salir del ejercicio")
   await pasarPendientes({ capturar: true })
+  // El ranking que venga después, en la vista de reclutas (una vez).
+  c().vistaReclutas()
 
   // Una salteada.
   await esperar((e) => e.slide === "exercise" && !e.ocupado, "segundo ejercicio")
@@ -179,7 +218,12 @@ async function jugar({
   log("salteado", antes, "→", c().estado().exerciseId)
   await pausa(800)
 
-  for (let i = 0; i < 5; i++) {
+  // Hasta pasar el registro (su hito es la 10.ª correcta), con un tope.
+  for (let i = 0; !vistas.has("register"); i++) {
+    if (i >= 14) {
+      log("el registro no salió en 14 ejercicios; sigo igual")
+      break
+    }
     await esperar((e) => e.slide === "exercise" && !e.ocupado, `ejercicio ${i + 3}`)
     await pausa(600)
     await responderBien()
@@ -188,7 +232,83 @@ async function jugar({
     await esperar((e) => e.slide !== "exercise", "salir del ejercicio")
     await pasarPendientes({ capturar: true })
   }
-  await esperar((e) => e.slide === "exercise", "último")
+  await esperar((e) => e.slide === "exercise" && !e.ocupado, "último")
+  await pausa(600)
+
+  // Las pantallas de la cabecera, desde el ejercicio. Nunca Google, ni cerrar
+  // sesión, ni reiniciar: solo abrir, mirar y volver.
+  const cabecera: { slide: string; captura: string; abrir: () => void }[] = [
+    { slide: "settings", captura: "20-settings", abrir: () => c().configuracion() },
+    ...(c().estado().statsDisponibles
+      ? [{ slide: "stats", captura: "21-stats", abrir: () => c().estadisticas() }]
+      : []),
+    { slide: "chat", captura: "22-chat", abrir: () => c().chat() },
+  ]
+  for (const p of cabecera) {
+    log("cabecera", p.slide)
+    p.abrir()
+    await esperar((e) => e.slide === p.slide, p.slide)
+    await pausa(1500)
+    await captura(p.captura)
+    c().volver()
+    await esperar((e) => e.slide === "exercise", `vuelta de ${p.slide}`)
+    await pausa(500)
+  }
+
+  // La palanca, desde la configuración (solo si el jugador la tiene).
+  if (c().estado().dificultadDisponible) {
+    log("configuración → dificultad")
+    c().configuracion()
+    await esperar((e) => e.slide === "settings", "settings")
+    await pausa(800)
+    c().dificultad()
+    await esperar((e) => e.slide === "dificultad", "dificultad")
+    await pausa(1500)
+    await captura("23-dificultad")
+    c().volver()
+    await esperar((e) => e.slide === "settings", "vuelta de dificultad")
+    await pausa(500)
+    c().volver()
+    await esperar((e) => e.slide === "exercise", "vuelta de settings")
+    await pausa(500)
+  } else log("sin dificultad_disponible: no hay captura de la palanca")
+
+  // Reclutar abierto desde la cabecera: la diapo, nunca la hoja de compartir.
+  log("cabecera reclutas")
+  c().reclutar()
+  await esperar((e) => e.slide === "reclutas", "reclutas")
+  await pausa(1500)
+  await captura("24-reclutas")
+  c().volver()
+  await esperar((e) => e.slide === "exercise", "vuelta de reclutas")
+  await pausa(500)
+
+  // Las de la escalera que no salieron, abiertas desde el ejercicio y cerradas
+  // como con el dedo: Continuar, o «<» en la palanca.
+  const sueltas: { cual: DiapoAMostrar; slide: string; captura: string }[] = [
+    { cual: "frecuencia", slide: "frecuencia", captura: "25-frecuencia" },
+    { cual: "encuesta", slide: "encuesta", captura: "26-encuesta" },
+    { cual: "repetitividad", slide: "repetitividad", captura: "27-repetitividad" },
+    { cual: "dificultad", slide: "dificultad", captura: "28-dificultad" },
+    { cual: "reclutas-hito", slide: "reclutas", captura: "29-reclutas-hito" },
+    { cual: "notificaciones", slide: "notificaciones", captura: "30-notificaciones" },
+  ]
+  for (const p of sueltas) {
+    log("mostrar", p.cual)
+    c().mostrar(p.cual)
+    await esperar((e) => e.slide === p.slide, p.slide)
+    await pausa(1500)
+    if (p.cual === "encuesta") {
+      c().escribirEncuesta("Más ejercicios de integrales")
+      await pausa(300)
+    }
+    await captura(p.captura)
+    if (p.cual === "dificultad") c().volver()
+    else c().continuar()
+    await esperar((e) => e.slide === "exercise", `vuelta de ${p.slide}`)
+    await pausa(500)
+  }
+
   log("listo · montajes del campo:", c().estado().montajes)
   await fetch(`${AYUDANTE}/fin?montajes=${c().estado().montajes}`).catch(() => {})
 }

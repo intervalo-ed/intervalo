@@ -232,6 +232,20 @@ class DueNotification(BaseModel):
     subscriptions: list[PushSubscriptionOut]
 
 
+class GamePushSubscriptionOut(BaseModel):
+    """La suscripción de un jugador, con el canal por el que sale.
+
+    Aparte de `PushSubscriptionOut` para no tocar el contrato de Intervalo. En
+    las de Expo `endpoint` es el token y las claves vienen vacías.
+    """
+
+    id: int
+    endpoint: str
+    p256dh: str
+    auth: str
+    kind: Literal["web", "expo"]
+
+
 class DueGameNotification(BaseModel):
     """Un aviso del minijuego listo para mandar.
 
@@ -251,7 +265,7 @@ class DueGameNotification(BaseModel):
     body: str
     notification_id: int
     url: str
-    subscriptions: list[PushSubscriptionOut]
+    subscriptions: list[GamePushSubscriptionOut]
 
 
 # ── Leaderboard ───────────────────────────────────────────────────────────────

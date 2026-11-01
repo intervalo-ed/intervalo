@@ -30,7 +30,11 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import { Table2 as TableIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import MathText from "@/components/math-text"
-import { accuracyColor } from "@/components/metric-card"
+import {
+  accuracyColor,
+  fmtSegundos,
+  motivoDeLaCelda,
+} from "@intervalo/dx-core/juego/estadisticas-formato"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { KeyCap } from "./exercise-card"
 import { Cara } from "./flip-face"
@@ -232,12 +236,6 @@ export function DerivativesTable({ destacar }: { destacar?: string[] } = {}) {
 // desktop-layout.tsx).
 const CELDA_STATS = "flex items-center justify-center px-2 py-2 text-center text-[0.82rem] leading-none tabular-nums"
 
-// Segundos con un decimal, mismo criterio que el panel interno
-// (metrics/game_queries.py divide por 1000 antes de mostrar "seg").
-function fmtSegundos(ms: number): string {
-  return `${(ms / 1000).toFixed(1)}s`
-}
-
 // El "—" pelado: la explicación de POR QUÉ no hay dato ya no vive acá, vive
 // en el `Tip` que envuelve `CeldaConTip` — dos placeholders con el mismo
 // aspecto pueden decir cosas distintas (ver `motivoDeLaCelda`).
@@ -286,25 +284,6 @@ function CeldaConTip({
   )
 }
 
-/** El cuerpo del tooltip de una celda, con o sin dato — un solo lugar que
- *  decide el texto, para que velocidad y efectividad no puedan desalinearse
- *  entre sí (las dos salen de la MISMA ventana de intentos, ver
- *  game/stats.py :: _personal_accuracy). */
-function motivoDeLaCelda(
-  noExiste: boolean,
-  sample: number,
-  hayDato: boolean,
-  quien: string,
-): string {
-  if (noExiste) return "El juego todavía no pide esta derivada."
-  if (!hayDato) {
-    return sample > 0
-      ? `Resolviste ${sample} de este tipo, todavía poco para calcular un dato.`
-      : "Todavía no la intentaste."
-  }
-  return `${quien} de tus últimos ${sample} intentos limpios de este tipo (como mucho, los últimos 10).`
-}
-
 function RenglonStats({ fila, datos }: { fila: Fila; datos?: GameStatsRow }) {
   // Sin dato para esta fila —el payload todavía no llegó, o el server nunca
   // manda un slug que el front no conoce— es el mismo placeholder que "no hay
@@ -324,7 +303,12 @@ function RenglonStats({ fila, datos }: { fila: Fila; datos?: GameStatsRow }) {
       <div className={cn(CELDA_STATS, "border-r border-white/10")}>
         <CeldaConTip
           title="Velocidad"
-          body={motivoDeLaCelda(noExiste, datos?.sample ?? 0, hayVelocidad, "Promedio de tiempo")}
+          body={motivoDeLaCelda({
+            noExiste,
+            sample: datos?.sample ?? 0,
+            hayDato: hayVelocidad,
+            quien: "Promedio de tiempo",
+          })}
         >
           {hayVelocidad ? (
             // Sin heatmap a propósito: no hay "bien" o "mal" en cuánto
@@ -339,7 +323,12 @@ function RenglonStats({ fila, datos }: { fila: Fila; datos?: GameStatsRow }) {
       <div className={CELDA_STATS}>
         <CeldaConTip
           title="Efectividad"
-          body={motivoDeLaCelda(noExiste, datos?.sample ?? 0, hayEfectividad, "Acierto")}
+          body={motivoDeLaCelda({
+            noExiste,
+            sample: datos?.sample ?? 0,
+            hayDato: hayEfectividad,
+            quien: "Acierto",
+          })}
         >
           {hayEfectividad ? (
             <span style={{ color: accuracyColor(datos!.accuracy!) }}>{datos!.accuracy}%</span>

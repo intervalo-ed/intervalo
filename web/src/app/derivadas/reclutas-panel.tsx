@@ -28,14 +28,9 @@
 
 import { useEffect, useRef } from "react"
 import { useIsPresent } from "motion/react"
-import { PORCENTAJE_POR_DEFECTO } from "@/components/reclutas-list"
 import { cn } from "@/lib/utils"
 import { useSfx } from "@/lib/audio/useSfx"
-import {
-  ReclutarButton,
-  VERDE,
-  WhatsappGlyph,
-} from "./cafecito-cta"
+import { ReclutarButton, WhatsappGlyph } from "./cafecito-cta"
 import { KeyCap } from "./exercise-card"
 import { useCta } from "./game-telemetry"
 import { ListaDeReclutas } from "./reclutas-list"
@@ -48,6 +43,11 @@ import {
 import { enCampoDeTexto, useTeclas } from "./teclas"
 import { useCachedPlayer } from "./UseGamePlayer"
 import { useGameRecruits } from "@intervalo/dx-core/juego/UseGameLeaderboard"
+import {
+  PORCENTAJE_POR_DEFECTO,
+  VERDE,
+  type ReclutasTrigger,
+} from "@intervalo/dx-core/juego/reclutas"
 
 // Cuánto tarda en habilitarse el botón de salir cuando la diapo la sacó el
 // juego. Dos segundos menos que la del cafecito: allá hay una barra que mover y
@@ -57,9 +57,7 @@ import { useGameRecruits } from "@intervalo/dx-core/juego/UseGameLeaderboard"
 const EN_DESARROLLO = process.env.NODE_ENV === "development"
 const ESPERA_S = EN_DESARROLLO ? 0 : 8
 
-// `record` sigue reservado para el cafecito: la diapo de reclutar que sale sola
-// lo hace por conteo, y "hito" es lo que la distingue de la que abrió la persona.
-export type ReclutasTrigger = "pedido" | "hito"
+export type { ReclutasTrigger }
 
 /** La abrió la persona con el botón de la barra. Cambia dos cosas: no hay cuenta
  *  regresiva para salir —nadie la interrumpió, así que retenerla sería cobrarle

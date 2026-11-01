@@ -8,14 +8,18 @@
 | `web` | Next.js (App Router, versión custom — ver advertencia abajo) | Frontend, consume la API vía cliente OpenAPI generado. |
 | `notifier` | Node + Effect (`notifier/`) | Worker liviano, **nunca toca la DB directo**. Dos cron loops: push cada 15 min, emails de lifecycle cada 1h. |
 | `BBDD` | Postgres (Railway) | Persistencia. |
+| `mobile` | Expo (React Native, Expo Router), lógica del juego en `packages/dx-core` | App nativa del minijuego de derivadas (iOS y Android), solo el flujo del teléfono. Habla con `backend` como la web. |
 
 Despliegue: Railway, un servicio por repo-root (`notifier/` como root directory propio). **Los nombres de servicio en Railway son mutables y pueden cambiar sin aviso** (renombrados manualmente desde el dashboard) — no asumir un nombre fijo, correr `railway service status --all` para confirmar antes de operar.
+
+`mobile` no corre en Railway: se compila y distribuye con EAS (proyecto `@intervalo-ed/intervalo-app`). Perfiles en `mobile/eas.json` (dev build, preview interna, production para las tiendas); las `EXPO_PUBLIC_*` salen del environment de EAS de cada perfil, no del `.env`, y por ahora solo `production` las tiene. **Todavía no está publicada en las tiendas**: faltan las cuentas de Apple/Play, FCM y la config nativa de la instancia de producción de Clerk. Detalle y checklist en `mobile/README.md`.
 
 ## Cómo se comunican
 
 - `web` habla solo con `backend` (API pública, auth Clerk).
 - `notifier` habla solo con `backend`, vía endpoints internos guardados con header `X-Internal-Secret` (`GET /internal/notifications/due`, `POST /internal/push/prune`, `POST /internal/emails/run`). El worker nunca abre conexión a la DB.
 - Push: `notifier` llama a `/internal/notifications/due` (el backend selecciona y **claimea atómicamente** usuarios due, evitando doble envío), envía vía `web-push` (VAPID), reporta suscripciones muertas (404/410) a `/internal/push/prune`. El copy del mensaje lo arma `backend/notification_copy.py`, el service worker (`web/public/sw.js`) solo renderiza lo que llega.
+- Push del minijuego a la app nativa: cada suscripción del juego que llega en el payload trae su `kind`; las `expo` no van por `web-push` sino al servicio de push de Expo (`notifier/src/expo-push.ts`, en lotes de a 100), que las reparte a APNs/FCM. Un ticket con `DeviceNotRegistered` se reporta como suscripción muerta y se poda por el mismo camino que un 404/410 web. Pendiente: los receipts de Expo — un ticket «ok» solo dice que Expo lo aceptó, y los tokens que rebotan recién en APNs/FCM se podan cuando el próximo envío los rechaza en el ticket.
 - Emails de lifecycle: `notifier` solo dispara `/internal/emails/run` una vez por hora; todo el envío (vía Resend) pasa por `backend/lifecycle_emails.py`, idempotente.
 
 ## Pitfalls operativos conocidos

@@ -28,7 +28,8 @@ import { XpDots } from "@/components/xp-dots"
 import { ALL_SCOPE } from "@/components/leaderboard-chrome"
 import { VERDE } from "./cafecito-cta"
 import { KeyCap } from "./exercise-card"
-import { GoogleIcon, readDesiredAlias, clearDesiredAlias, saveDesiredAlias, useGoogleLogin } from "./google-login"
+import { GoogleIcon, saveDesiredAlias, useGoogleLogin } from "./google-login"
+import { aplicarAliasDeseado } from "@intervalo/dx-core/juego/alias-deseado"
 import { levelColor } from "@intervalo/dx-core/juego/game-colors"
 import { Salida, claseDeSalida } from "./slide-salida"
 import { SlideFlip } from "./slide-flip"
@@ -55,8 +56,8 @@ const bodyCls = "flex min-h-0 flex-1 flex-col overflow-y-auto py-6"
 const bodyMovilCls =
   "flex min-h-0 flex-1 flex-col overflow-y-auto pb-2 pt-12"
 
-// El @ deseado (`readDesiredAlias`, `clearDesiredAlias`) vive en
-// google-login.tsx, junto con el login que lo necesita.
+// El @ deseado (`saveDesiredAlias`, `aplicarAliasDeseado`) vive en
+// dx-core/juego/alias-deseado.ts, compartido con la app nativa.
 
 // Persistir carrera/universidad: al jugador (backend) y como prefill del
 // onboarding de Intervalo (localStorage, solo si no había nada — semántica
@@ -809,24 +810,8 @@ export function RegisterSlide({
 export function useApplyDesiredAlias() {
   const api = useGameApi()
   return async (player: GamePlayer | null) => {
-    if (!player || player.is_guest) return null
-    const desired = readDesiredAlias()
-    if (!desired || desired === player.alias) {
-      clearDesiredAlias()
-      return null
-    }
-    try {
-      const updated = unwrap(
-        await api.PATCH("/game/derivemos/me", { body: { alias: desired } }),
-      )
-      clearDesiredAlias()
-      posthog.capture("game_alias_edited", { via: "register" })
-      return updated
-    } catch {
-      // 409 (tomado) o red: se descarta el deseo; el alias derivado del
-      // username de Google queda como definitivo.
-      clearDesiredAlias()
-      return null
-    }
+    const updated = await aplicarAliasDeseado({ api, player })
+    if (updated) posthog.capture("game_alias_edited", { via: "register" })
+    return updated
   }
 }

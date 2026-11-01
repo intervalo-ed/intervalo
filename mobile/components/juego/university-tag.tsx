@@ -2,9 +2,9 @@
 // colores y la etiqueta salen de dx-core (`university-tags.ts`); acá solo se
 // dibujan.
 
-import { StyleSheet, Text, View } from "react-native"
+import { Pressable, StyleSheet, Text, View } from "react-native"
 import { SvgXml } from "react-native-svg"
-import { estilosDeTag, etiquetaDe, PAIS_NOMBRE, tagDe, type Pais } from "@intervalo/dx-core/university-tags"
+import { estilosDeTag, etiquetaDe, PAIS_NOMBRE, tagDe, type Pais, type UniversityTag } from "@intervalo/dx-core/university-tags"
 
 // Banderas rectangulares de Twemoji (CC-BY 4.0, ver web/public/flags/LICENSE.txt),
 // las mismas de la web pegadas como texto: son cuatro y chicas, y así no hace
@@ -58,6 +58,36 @@ export function UniTag({ university }: { university: string }) {
   )
 }
 
+// Botón de sugerencia del campo "Otra": la bandera va ADENTRO de la tag, que es
+// lo que distingue dos universidades con la misma sigla de países distintos.
+export function SugerenciaUniversidad({
+  cfg,
+  onPress,
+}: {
+  cfg: UniversityTag
+  onPress: () => void
+}) {
+  const { color, borderColor, backgroundColor } = estilosDeTag(cfg)
+  return (
+    <Pressable
+      onPress={onPress}
+      accessibilityRole="button"
+      accessibilityLabel={cfg.fullName}
+      style={({ pressed }) => [
+        styles.sugerencia,
+        {
+          borderColor: borderColor as string,
+          backgroundColor: backgroundColor as string,
+          opacity: pressed ? 0.8 : 1,
+        },
+      ]}
+    >
+      <Text style={[styles.textoSugerencia, { color: color as string }]}>{etiquetaDe(cfg)}</Text>
+      {cfg.country && <Bandera country={cfg.country} size={15} />}
+    </Pressable>
+  )
+}
+
 const styles = StyleSheet.create({
   tag: {
     flexDirection: "row",
@@ -72,4 +102,15 @@ const styles = StyleSheet.create({
   },
   // `letterSpacing: 0.02em` de la web, a 9 px.
   texto: { fontWeight: "500", letterSpacing: 0.18, lineHeight: 10, textAlign: "center" },
+  sugerencia: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 6,
+    borderRadius: 6,
+    borderWidth: 1,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+  },
+  textoSugerencia: { fontSize: 12, lineHeight: 16, fontWeight: "500" },
 })

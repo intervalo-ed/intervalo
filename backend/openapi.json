@@ -1813,6 +1813,127 @@
         }
       }
     },
+    "/game/derivemos/push/expo": {
+      "post": {
+        "tags": [
+          "game"
+        ],
+        "summary": "Game Push Expo Subscribe",
+        "description": "El gemelo de `/push/subscribe` para la app nativa: guarda el token de Expo.",
+        "operationId": "game_push_expo_subscribe_game_derivemos_push_expo_post",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          },
+          {
+            "name": "x-game-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "X-Game-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GameExpoPushTokenRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameNotificationSettings"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "game"
+        ],
+        "summary": "Game Push Expo Unsubscribe",
+        "operationId": "game_push_expo_unsubscribe_game_derivemos_push_expo_delete",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          },
+          {
+            "name": "x-game-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "X-Game-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GameExpoPushTokenRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GameNotificationSettings"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/game/derivemos/notification-settings": {
       "get": {
         "tags": [
@@ -4600,7 +4721,7 @@
           },
           "subscriptions": {
             "items": {
-              "$ref": "#/components/schemas/PushSubscriptionOut"
+              "$ref": "#/components/schemas/GamePushSubscriptionOut"
             },
             "type": "array",
             "title": "Subscriptions"
@@ -5706,6 +5827,20 @@
         ],
         "title": "GameExplainRequest"
       },
+      "GameExpoPushTokenRequest": {
+        "properties": {
+          "token": {
+            "type": "string",
+            "maxLength": 1000,
+            "title": "Token"
+          }
+        },
+        "type": "object",
+        "required": [
+          "token"
+        ],
+        "title": "GameExpoPushTokenRequest"
+      },
       "GameLeaderboardEntry": {
         "properties": {
           "rank": {
@@ -6461,6 +6596,44 @@
           "keys"
         ],
         "title": "GamePushSubscribeRequest"
+      },
+      "GamePushSubscriptionOut": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "endpoint": {
+            "type": "string",
+            "title": "Endpoint"
+          },
+          "p256dh": {
+            "type": "string",
+            "title": "P256Dh"
+          },
+          "auth": {
+            "type": "string",
+            "title": "Auth"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "web",
+              "expo"
+            ],
+            "title": "Kind"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "endpoint",
+          "p256dh",
+          "auth",
+          "kind"
+        ],
+        "title": "GamePushSubscriptionOut",
+        "description": "La suscripci\u00f3n de un jugador, con el canal por el que sale.\n\nAparte de `PushSubscriptionOut` para no tocar el contrato de Intervalo. En\nlas de Expo `endpoint` es el token y las claves vienen vac\u00edas."
       },
       "GamePushUnsubscribeRequest": {
         "properties": {

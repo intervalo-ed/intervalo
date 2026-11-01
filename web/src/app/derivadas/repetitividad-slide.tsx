@@ -28,25 +28,17 @@ import { cn } from "@/lib/utils"
 import { useSfx } from "@/lib/audio/useSfx"
 
 import { useGameApi } from "@intervalo/dx-core/juego/game-api-context"
+import {
+  OPCIONES_REPETITIVIDAD as OPCIONES,
+  type VotoRepetitividad,
+} from "@intervalo/dx-core/juego/textos-encuestas"
 import { KeyCap } from "./exercise-card"
 import { Salida } from "./slide-salida"
 import { digitoDe, enCampoDeTexto, enCampoHtml, useTeclas } from "./teclas"
 
-export type VotoRepetitividad = "variado" | "justo" | "repetitivo"
-
 // Con qué tecla se vota cada una, en escritorio. El índice ES el orden en que se
 // dibujan, igual que en la de dificultad.
 const TECLAS = ["1", "2", "3"]
-
-// El orden va de variado a repetitivo para que coincida con el de la otra diapo:
-// arriba lo que sobra, abajo lo que falta. Con el orden invertido, las dos
-// preguntas se leerían al revés una de la otra y el 1 significaría cosas
-// opuestas en dos pantallas que salen alternadas.
-const OPCIONES: { voto: VotoRepetitividad; emoji: string; texto: string }[] = [
-  { voto: "variado", emoji: "🎲", texto: "Bien variadas" },
-  { voto: "justo", emoji: "👌", texto: "Está bien así" },
-  { voto: "repetitivo", emoji: "🔁", texto: "Muy repetidas" },
-]
 
 export function RepetitividadSlide({
   onContinue,

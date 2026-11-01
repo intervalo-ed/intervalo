@@ -25,9 +25,10 @@ import {
   POSICIONES,
   POSICION_MAX,
   colorDePosicion,
+  mezclar,
   posicionInicial,
 } from "@intervalo/dx-core/juego/dificultad"
-import { SliderVertical, mezclar } from "./slider-vertical"
+import { SliderVertical } from "./slider-vertical"
 import { Salida } from "./slide-salida"
 import { enCampoHtml, digitoDe, useTeclas } from "./teclas"
 import { useGameApi } from "@intervalo/dx-core/juego/game-api-context"

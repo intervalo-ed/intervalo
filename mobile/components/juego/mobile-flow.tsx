@@ -1,10 +1,13 @@
 // El flujo del juego en la app: el par de web/src/app/derivadas/mobile-flow.tsx.
 // La navegación es la misma —una diapo por vez, de derecha a izquierda, y la
 // escalera de después de responder sale de dx-core (`despuesDeResponder`)—.
-// Existen de verdad la portada, el ejercicio, la tabla, el «¿Por qué?», el
-// ranking, el @, las reglas y las novedades. El resto de los escalones se ven
-// como «próximamente» y su Continuar retoma la escalera sin correr los
-// `marcar*`, así vuelven a salir el día que la diapo exista.
+// Están la portada, las herramientas, el ejercicio, la tabla, el «¿Por qué?»,
+// las estadísticas, el chat, la configuración con su palanca de dificultad, el
+// ranking (con la vista de reclutas), el @, las reglas, las novedades, el
+// perfil, el registro, reclutar (por hito o abierta a mano desde la cabecera y
+// la configuración) y las encuestas: frecuencia del ranking, la abierta,
+// opinión y repetitividad, y el pedido de avisos. Instalar y el cafecito no
+// existen en la app.
 //
 // El campo de la respuesta es un WebView y montarlo cuesta segundos: vive UNA
 // vez en la capa del ejercicio, que no se desmonta nunca. Ir a la tabla o al
@@ -12,7 +15,7 @@
 // ejercicio nuevo es `clear()` sobre el mismo campo.
 
 import { useCallback, useEffect, useRef, useState } from "react"
-import { StyleSheet, Text, View } from "react-native"
+import { KeyboardAvoidingView, StyleSheet, Text, View } from "react-native"
 import { router } from "expo-router"
 import { StatusBar } from "expo-status-bar"
 import * as Haptics from "expo-haptics"
@@ -31,6 +34,15 @@ import type { RankingView } from "@intervalo/dx-core/juego/ranking-formato"
 import { ALL_SCOPE } from "@intervalo/dx-core/juego/ranking-scope"
 import { SIN_SCOPE } from "@intervalo/dx-core/juego/ranking-reglas"
 import { marcarReglasMostradas } from "@intervalo/dx-core/juego/reglas-trigger"
+import { marcarRegistroMostrado } from "@intervalo/dx-core/juego/hitos-del-juego"
+import { marcarFrecuenciaMostrada } from "@intervalo/dx-core/juego/ranking-frecuencia"
+import { marcarEncuestaMostrada } from "@intervalo/dx-core/juego/encuesta-trigger"
+import { anotarRespuesta, marcarPreguntaMostrada } from "@intervalo/dx-core/juego/opinion-trigger"
+import { marcarReclutasMostrado } from "@intervalo/dx-core/juego/reclutas-trigger"
+import { marcarNotificacionesMostrado } from "@intervalo/dx-core/juego/instalacion-trigger"
+import { marcarPwaDesde } from "@intervalo/dx-core/juego/game-storage"
+import type { ReclutasTrigger } from "@intervalo/dx-core/juego/reclutas"
+import { puedeVerEstadisticas } from "@intervalo/dx-core/juego/stats-gate"
 import { vistaInicialDelRanking } from "@intervalo/dx-core/juego/vuelta-universitaria"
 import { estimarXp } from "@intervalo/dx-core/juego/xp-estimate"
 import { useXpConteo } from "@intervalo/dx-core/juego/UseXpConteo"
@@ -64,9 +76,16 @@ import { useGameIdentity } from "@/lib/analytics/UseGameIdentity"
 import { useSfx, useTick } from "@/lib/audio/UseSfx"
 import { useGamePlayer } from "@/lib/juego/UseGamePlayer"
 import { useAutoplay, type ControlDelJuego } from "@/lib/juego/UseAutoplay"
+import { puedeOfrecerAvisosNativos } from "@/lib/avisos/registro-push"
+import { abrirPrivacidad } from "@/lib/legal"
 import { BotonCta } from "./boton-cta"
+import { BotonCompartirCabecera } from "./boton-reclutar"
+import { ChatPanel } from "./chat-panel"
 import { CapaDeslizante, PASE_MS, type Direccion } from "./capa-deslizante"
 import { DerivativesTable } from "./derivatives-table"
+import { DificultadSlide } from "./dificultad-slide"
+import { EncuestaSlide, type EncuestaHandle } from "./encuesta-slide"
+import { EstadisticasSlide } from "./elo-stats-panel"
 import {
   AnswerButton,
   AnswerField,
@@ -78,44 +97,56 @@ import {
   answerTone,
   type AnswerTone,
 } from "./exercise-card"
+import { FrecuenciaSlide } from "./frecuencia-slide"
+import { GameHeader } from "./game-header"
+import { HerramientasSlide } from "./herramientas-slide"
 import { IntroSlide } from "./intro-slide"
 import { MathField, type MathFieldHandle } from "./math-field"
 import { MathKeyboard, type EtiquetaDeTecla } from "./math-keyboard"
+import { NotificacionesSlide } from "./notificaciones-slide"
 import { NovedadesSlide } from "./novedades-slide"
+import { OpinionSlide } from "./opinion-slide"
+import { PerfilSlides } from "./perfil-slides"
 import { PieRampa } from "./pie-rampa"
 import { PorQuePanel } from "./porque-panel"
-import { ProximamenteSlide } from "./proximamente-slide"
 import { RankingSlide } from "./ranking-slide"
+import { ReclutasPanel } from "./reclutas-panel"
+import { RegistroSlide } from "./registro-slide"
 import { ReglasSlide } from "./reglas-slide"
+import { RepetitividadSlide } from "./repetitividad-slide"
+import { SettingsPanel } from "./settings-panel"
 import { UsernameSlide } from "./username-slide"
 
-// Los escalones de la escalera (y la pantalla de herramientas de la portada)
-// que todavía no tienen diapo. Cada uno ocupa el lugar del `kind` homónimo del
-// `Slide` de la web.
-type PasoPendiente =
-  | "herramientas"
-  | "perfil"
-  | "registro"
-  | "instalar"
-  | "notificaciones"
-  | "cafecito"
-  | "reclutas"
-  | "frecuencia"
-  | "encuesta"
-  | "opinion"
-  | "repetitividad"
+// El tinte de reclutas-panel.tsx (el 6% de `VERDE`), para el pedazo de
+// pantalla que queda debajo de sus botones.
+const TINTE_RECLUTAS = "rgba(37, 211, 102, 0.06)"
 
 type Slide =
   | { kind: "intro" }
+  | { kind: "herramientas" }
   | { kind: "exercise" }
   // `back` es a dónde vuelve al cerrar, como en la web.
   | { kind: "tabla"; back: Slide }
   | { kind: "porque"; back: Slide }
+  | { kind: "stats"; back: Slide }
+  | { kind: "chat"; back: Slide }
+  | { kind: "settings"; back: Slide }
+  | { kind: "profile" }
+  | { kind: "register" }
   | { kind: "ranking"; answer: GameAnswer }
   | { kind: "username" }
   | { kind: "reglas"; cuales: number[] }
   | { kind: "novedades" }
-  | { kind: "proximamente"; paso: PasoPendiente }
+  // "pedido" la abre la persona y vuelve a `back`; "hito" llega después de
+  // responder y sigue la escalera.
+  | { kind: "reclutas"; trigger: ReclutasTrigger; back?: Slide }
+  | { kind: "frecuencia" }
+  | { kind: "encuesta" }
+  | { kind: "opinion" }
+  | { kind: "repetitividad" }
+  | { kind: "notificaciones" }
+  // Se abre desde Configuración y vuelve a ella.
+  | { kind: "dificultad"; back: Slide }
 
 type EnPila = { seq: number; slide: Slide }
 
@@ -136,7 +167,7 @@ let montajesDelCampo = 0
 
 export function MobileFlow({ auto }: { auto?: string }) {
   const insets = useSafeAreaInsets()
-  const { player } = useGamePlayer()
+  const { player, refetch: refetchPlayer } = useGamePlayer()
   const queryClient = useQueryClient()
   const next = useNextExercise()
   const answerMutation = useAnswerExercise()
@@ -183,14 +214,16 @@ export function MobileFlow({ auto }: { auto?: string }) {
   // El @ se pide una vez por sesión: la condición de verdad es del servidor
   // (`alias_is_generated`) y esto cubre la PATCH que falla por red.
   const askedUsernameRef = useRef(false)
+  // Una sola vez por visita: saltearlos no los vuelve a pedir hasta la próxima
+  // sesión (en la app, hasta cerrar sesión: la web ahí recarga).
+  const askedProfileRef = useRef(false)
+  const askedRegisterRef = useRef(false)
   // Las reglas se anotan en el almacén (reglas-trigger.ts); esto cubre el rato
   // entre que se muestran y se anotan.
   const reglasMostradasRef = useRef(false)
-  // TODO(M5): los «próximamente» no corren sus `marcar*`, así que dos
-  // disparadores pueden turnarse para siempre (reclutas → opinión →
-  // reclutas…). Si la escalera vuelve a un «próximamente» ya mostrado en esta
-  // respuesta, la respuesta se da por terminada. Se va con la última diapo.
-  const pendientesEnEstaRespuestaRef = useRef(new Set<PasoPendiente>())
+  // Solo el autoplay: el próximo ranking abre en la vista de reclutas.
+  const forzarVistaReclutasRef = useRef(false)
+  const encuestaRef = useRef<EncuestaHandle>(null)
 
   const [climbFrom, setClimbFrom] = useState<number | null>(null)
   // Lo que el ranking se acuerda entre una diapo y otra: la diapo se remonta
@@ -237,7 +270,7 @@ export function MobileFlow({ auto }: { auto?: string }) {
 
   // Las novedades se consultan siempre, para que el dato ya esté al decidir.
   const eventos = useGameEvents(arrancado)
-  const { sinVer, marcarVisto, marcarVistoChat } = useNovedades({ data: eventos.data })
+  const { sinVer, sinVerChat, marcarVisto, marcarVistoChat } = useNovedades({ data: eventos.data })
   // Espejo para `advanceAfterAnswer`, que está memoizada.
   const sinVerRef = useRef(0)
   useEffect(() => {
@@ -265,6 +298,15 @@ export function MobileFlow({ auto }: { auto?: string }) {
   const verTabla = () => {
     peekedRef.current = true
     goTo({ kind: "tabla", back: slide })
+  }
+
+  // A partir de la derivada 3 (stats-gate.ts). La tabla enriquecida muestra las
+  // fórmulas CON derivada: mirarla cuenta como mirar la tabla (`peeked`).
+  const estadisticasDisponibles = puedeVerEstadisticas(player)
+  const verEstadisticas = () => {
+    peekedRef.current = true
+    track("game_stats_open", { exercises_correct: player?.exercises_correct ?? 0, layout: "mobile" })
+    goTo({ kind: "stats", back: slide })
   }
 
   const servir = useCallback(
@@ -344,7 +386,7 @@ export function MobileFlow({ auto }: { auto?: string }) {
     track("game_intro_done", { layout: "mobile" })
     chasquido()
     if ((player?.exercises_attempted ?? 0) === 0) {
-      goTo({ kind: "proximamente", paso: "herramientas" })
+      goTo({ kind: "herramientas" })
       return
     }
     loadNext()
@@ -367,14 +409,14 @@ export function MobileFlow({ auto }: { auto?: string }) {
         jugador: player,
         yaPreguntoUsername: askedUsernameRef.current,
         reglasMostradas: reglasMostradasRef.current,
-        yaPreguntoPerfil: false,
-        yaPreguntoRegistro: false,
+        yaPreguntoPerfil: askedProfileRef.current,
+        yaPreguntoRegistro: askedRegisterRef.current,
         sinVer: sinVerRef.current,
         frecuenciaRanking: readFrecuenciaRanking(),
-        // La app no tiene cafecito ni pedido de instalar ni avisos web.
+        // La app no tiene cafecito ni pedido de instalar.
         cafecito: null,
         puedeOfrecerInstalar: false,
-        puedeOfrecerNotificaciones: false,
+        puedeOfrecerNotificaciones: puedeOfrecerAvisosNativos(),
       })
 
       // Sin la diapo del ranking, el festejo que la esperaba se desarma y el
@@ -384,6 +426,9 @@ export function MobileFlow({ auto }: { auto?: string }) {
         pendingClimbRef.current = null
         void refrescarRankingCentrado(queryClient)
       }
+      // En la app «instalada» es desde siempre: se anota la primera vez que se
+      // mira, y de ahí corre la cadencia de los avisos.
+      if (despues.anotarPwaDesde) marcarPwaDesde(totalCorrectas)
 
       switch (despues.paso) {
         case "ranking":
@@ -402,9 +447,12 @@ export function MobileFlow({ auto }: { auto?: string }) {
           memoriaRanking.current = memoriaEnBlanco()
           // La vuelta universitaria se decide eligiendo la vista inicial.
           setScopeRanking({
-            view: vistaInicialDelRanking(a.exercises_correct, player?.university ?? null),
+            view: forzarVistaReclutasRef.current
+              ? "recruits"
+              : vistaInicialDelRanking(a.exercises_correct, player?.university ?? null),
             university: ALL_SCOPE,
           })
+          forzarVistaReclutasRef.current = false
           goTo({ kind: "ranking", answer: a })
           return
         case "username":
@@ -419,18 +467,57 @@ export function MobileFlow({ auto }: { auto?: string }) {
         case "novedades":
           goTo({ kind: "novedades" })
           return
+        case "perfil":
+          askedProfileRef.current = true
+          track("game_register_slide_shown", { slide: "career" })
+          goTo({ kind: "profile" })
+          return
+        case "registro":
+          askedRegisterRef.current = true
+          marcarRegistroMostrado(totalCorrectas)
+          track("game_register_slide_shown", { slide: "register" })
+          goTo({ kind: "register" })
+          return
+        case "reclutas":
+          marcarReclutasMostrado(totalCorrectas)
+          goTo({ kind: "reclutas", trigger: despues.trigger })
+          return
+        case "frecuencia":
+          marcarFrecuenciaMostrada(totalCorrectas)
+          goTo({ kind: "frecuencia" })
+          return
+        case "encuesta":
+          marcarEncuestaMostrada(totalCorrectas)
+          goTo({ kind: "encuesta" })
+          return
+        case "opinion":
+        case "repetitividad":
+          marcarPreguntaMostrada(totalCorrectas)
+          goTo({ kind: despues.paso })
+          return
+        // No salen en la app: `puedeOfrecerInstalar` es false.
+        case "instalar":
+          pendingRef.current = null
+          loadNext()
+          return
+        // Solo con el permiso del sistema sin preguntar (`puedeOfrecerAvisosNativos`).
+        case "notificaciones":
+          marcarNotificacionesMostrado({ enPwa: despues.enPwa, totalCorrectas })
+          goTo({ kind: "notificaciones" })
+          return
+        // Sin cafecito en la app (`cafecito: null`).
+        case "cafecito":
+          pendingRef.current = null
+          loadNext()
+          return
         case "siguiente-ejercicio":
           pendingRef.current = null
           loadNext()
           return
-        default:
-          if (pendientesEnEstaRespuestaRef.current.has(despues.paso)) {
-            pendingRef.current = null
-            loadNext()
-            return
-          }
-          pendientesEnEstaRespuestaRef.current.add(despues.paso)
-          goTo({ kind: "proximamente", paso: despues.paso })
+        default: {
+          const sinCubrir: never = despues
+          void sinCubrir
+        }
       }
     },
     [goTo, loadNext, player, chasquido, abortXp, releaseXp, queryClient],
@@ -444,6 +531,27 @@ export function MobileFlow({ auto }: { auto?: string }) {
     if (pendingRef.current) advanceAfterAnswer("ranking")
     else loadNext()
   }, [yaSono, advanceAfterAnswer, loadNext])
+  // Volvió de Google: en la web la recarga saca a la persona de la diapo; acá
+  // sigue como el @, con su chasquido (no sonó ningún `continue`).
+  const usernameConGoogle = () => {
+    if (pendingRef.current) advanceAfterAnswer("ranking")
+    else loadNext()
+  }
+
+  // El perfil y el registro retoman la escalera como `"milestone"`. El
+  // registro también se abre desde Configuración, sin respuesta pendiente: ahí
+  // vuelve al ejercicio (o pide uno), como la web.
+  const perfilListo = () => {
+    yaSono()
+    void refetchPlayer()
+    void queryClient.invalidateQueries({ queryKey: gameKeys.leaderboard })
+    advanceAfterAnswer("milestone")
+  }
+  const registroListo = () => {
+    if (pendingRef.current) advanceAfterAnswer("milestone")
+    else if (exercise) goTo({ kind: "exercise" })
+    else loadNext()
+  }
 
   // Leídas al SALIR, por si alguien cierra la app con la pantalla abierta.
   const novedadesListas = () => {
@@ -452,21 +560,27 @@ export function MobileFlow({ auto }: { auto?: string }) {
     advanceAfterAnswer("novedades")
   }
 
-  // Continuar de un «próximamente»: retoma la escalera con la entrada que
-  // usaría la diapo de verdad (mobile-flow.tsx de la web, diapo por diapo).
-  const continuarPendiente = (paso: PasoPendiente) => {
-    switch (paso) {
-      case "herramientas":
-        chasquido()
-        loadNext()
-        return
-      case "perfil":
-      case "registro":
-        advanceAfterAnswer("milestone")
-        return
-      default:
-        advanceAfterAnswer(paso)
+  // La salida de las diapos de la escalera. Sin respuesta pendiente solo llegan
+  // por el `mostrar` del autoplay: ahí vuelven al ejercicio abierto en vez de
+  // pedir otro (`/next` devolvería el mismo, pero `servir` lo limpia).
+  const seguirEscalera = (paso: EntradaDespuesDeResponder) => {
+    if (pendingRef.current || !exercise) {
+      advanceAfterAnswer(paso)
+      return
     }
+    chasquido()
+    goTo({ kind: "exercise" })
+  }
+
+  // Las dos preguntas anotan si se contestaron o se saltearon (opinion-trigger.ts).
+  const preguntaLista = (paso: "opinion" | "repetitividad", contesto: boolean) => {
+    if (pendingRef.current) anotarRespuesta(contesto)
+    seguirEscalera(paso)
+  }
+
+  const herramientasListas = () => {
+    chasquido()
+    loadNext()
   }
 
   const revertirRacha = useCallback(() => {
@@ -578,7 +692,6 @@ export function MobileFlow({ auto }: { auto?: string }) {
             if (!anticipadoRef.current) veredicto(true)
             adelantar()
             pendingRef.current = { answer: data }
-            pendientesEnEstaRespuestaRef.current = new Set()
             // En espera: el número que sube está en la diapo siguiente.
             if (!festejoAdelantadoRef.current) fireXpProvisional(data.xp_awarded, { modo: "espera" })
             reconcileXp(data)
@@ -760,19 +873,130 @@ export function MobileFlow({ auto }: { auto?: string }) {
     inputRef.current?.press(key)
   }, [])
 
-  // Volver de la tabla o del «¿Por qué?».
+  // Al ejercicio solo se vuelve si hay uno servido; a cualquier otra pantalla,
+  // a la misma. Y HACIA ATRÁS: cerrar no es avanzar.
+  const volverA = (back: Slide) => {
+    if (back.kind !== "exercise") goTo(back, "atras")
+    else if (exercise) goTo(back, "atras")
+    else loadNext()
+  }
+
+  // Volver de la tabla, del «¿Por qué?», de las estadísticas o del chat.
   const volver = () => {
-    if (slide.kind !== "tabla" && slide.kind !== "porque") return
+    if (
+      slide.kind !== "tabla" &&
+      slide.kind !== "porque" &&
+      slide.kind !== "stats" &&
+      slide.kind !== "chat"
+    ) {
+      return
+    }
     sfx.select()
     if (slide.kind === "porque" && pendingRef.current) {
       advanceAfterAnswer(null)
       return
     }
-    const back = slide.back
-    if (back.kind !== "exercise") goTo(back, "atras")
-    else if (exercise) goTo(back, "atras")
-    else loadNext()
+    // Leídos al SALIR, como las novedades.
+    if (slide.kind === "chat") {
+      marcarVistoChat()
+      goTo(slide.back, "atras")
+      return
+    }
+    volverA(slide.back)
   }
+
+  // Reclutar abierto a mano (cabecera, configuración): vuelve a donde estaba.
+  // Los botones que llegan acá ya tocaron su sonido.
+  const abrirReclutas = (back: Slide) => goTo({ kind: "reclutas", trigger: "pedido", back })
+  const reclutasListo = (s: Extract<Slide, { kind: "reclutas" }>) => {
+    if (s.trigger !== "pedido") seguirEscalera("reclutas")
+    else volverA(s.back ?? { kind: "exercise" })
+  }
+
+  const cerrarConfiguracion = (back: Slide) => {
+    void refetchPlayer()
+    volverA(back)
+  }
+
+  // Lo que el reinicio y el cierre de sesión tiran: el ejercicio servido (y el
+  // adelantado) quedan vencidos del lado del server.
+  const soltarLoServido = () => {
+    setExercise(null)
+    setLastAnswer(null)
+    setTonoLocal(null)
+    setClimbFrom(null)
+    memoriaRanking.current = memoriaEnBlanco()
+    setScopeRanking({ view: "individual", university: ALL_SCOPE })
+    pendingRef.current = null
+    descartarAdelanto()
+  }
+
+  const onReset = () => {
+    void refetchPlayer()
+    soltarLoServido()
+    loadNext({ fresco: true })
+  }
+
+  // La web recarga la página: acá se reinicia a mano lo que vive por sesión y se
+  // vuelve a la portada, que espera al invitado nuevo.
+  const onSignedOut = () => {
+    soltarLoServido()
+    abortXp()
+    pendingClimbRef.current = null
+    peekedRef.current = false
+    askedUsernameRef.current = false
+    askedProfileRef.current = false
+    askedRegisterRef.current = false
+    reglasMostradasRef.current = false
+    forzarVistaReclutasRef.current = false
+    goTo({ kind: "intro" }, "atras")
+  }
+
+  // La barra de arriba, la misma en el ejercicio, el ranking, las novedades y
+  // el chat. `desde` es a dónde vuelven configuración, estadísticas y chat.
+  const cabecera = ({
+    desde,
+    conTabla = true,
+    enChat = false,
+  }: {
+    desde: Slide
+    conTabla?: boolean
+    enChat?: boolean
+  }) => (
+    <GameHeader
+      onSettings={() => {
+        sfx.select()
+        goTo({ kind: "settings", back: desde })
+      }}
+      onTable={
+        conTabla
+          ? () => {
+              sfx.select()
+              verTabla()
+            }
+          : undefined
+      }
+      onStats={
+        estadisticasDisponibles
+          ? () => {
+              sfx.select()
+              verEstadisticas()
+            }
+          : undefined
+      }
+      // En el chat, el botón está y no hace nada (como la web).
+      onChat={
+        enChat
+          ? () => {}
+          : () => {
+              sfx.select()
+              goTo({ kind: "chat", back: desde })
+            }
+      }
+      chatSinVer={!enChat && sinVerChat > 0}
+      onReclutar={() => abrirReclutas(desde)}
+    />
+  )
 
   const continueDisabled = next.isPending || esperandoAdelanto
   const principalDisabled =
@@ -783,7 +1007,7 @@ export function MobileFlow({ auto }: { auto?: string }) {
     if (!__DEV__) return
     controlRef.current = {
       estado: () => ({
-        slide: slide.kind === "proximamente" ? `proximamente:${slide.paso}` : slide.kind,
+        slide: slide.kind,
         contando: counting,
         exerciseId: exercise?.exercise_id ?? null,
         tone,
@@ -793,6 +1017,9 @@ export function MobileFlow({ auto }: { auto?: string }) {
         startDisabled: player === null || next.isPending,
         porqueListo: porqueTexto !== null || explainMutation.isError,
         montajes: montajesDelCampo,
+        statsDisponibles: estadisticasDisponibles,
+        dificultadDisponible: player?.dificultad_disponible === true,
+        vistaRanking: scopeRanking.view,
       }),
       tecla: onKey,
       escribir: (latex) => inputRef.current?.setValue(latex),
@@ -803,10 +1030,73 @@ export function MobileFlow({ auto }: { auto?: string }) {
         verTabla()
       },
       porque: abrirPorque,
-      volver,
+      // Los mismos caminos que los botones de la cabecera del ejercicio.
+      configuracion: () => {
+        sfx.select()
+        goTo({ kind: "settings", back: slide })
+      },
+      estadisticas: () => {
+        if (!estadisticasDisponibles) return
+        sfx.select()
+        verEstadisticas()
+      },
+      chat: () => {
+        sfx.select()
+        goTo({ kind: "chat", back: slide })
+      },
+      // Desde la configuración, como su fila.
+      dificultad: () => {
+        if (slide.kind !== "settings" || !player?.dificultad_disponible) return
+        sfx.select()
+        goTo({ kind: "dificultad", back: slide })
+      },
+      // El botón de compartir de la cabecera: abre la diapo, nunca la hoja.
+      reclutar: () => {
+        sfx.select()
+        abrirReclutas(slide)
+      },
+      vistaReclutas: () => {
+        forzarVistaReclutasRef.current = true
+      },
+      // Las diapos que la partida del autoplay no alcanza, abiertas en el acto:
+      // sin `marcar*` ni respuesta pendiente (las saca `seguirEscalera`).
+      mostrar: (cual) => {
+        if (cual === "dificultad") goTo({ kind: "dificultad", back: slide })
+        else if (cual === "reclutas-hito") goTo({ kind: "reclutas", trigger: "hito" })
+        else goTo({ kind: cual })
+      },
+      escribirEncuesta: (texto) => encuestaRef.current?.escribir(texto),
+      volver: () => {
+        if (slide.kind === "settings") {
+          sfx.select()
+          cerrarConfiguracion(slide.back)
+        } else if (slide.kind === "dificultad") {
+          sfx.select()
+          goTo(slide.back, "atras")
+        } else if (slide.kind === "reclutas" && slide.trigger === "pedido") {
+          sfx.select()
+          reclutasListo(slide)
+        } else volver()
+      },
       continuar: () => {
         if (slide.kind === "intro") startFromIntro()
-        else if (slide.kind === "proximamente") continuarPendiente(slide.paso)
+        else if (slide.kind === "herramientas") herramientasListas()
+        // El perfil y el registro se saltean («Ahora no»): nunca Google.
+        else if (slide.kind === "profile") advanceAfterAnswer("milestone")
+        else if (slide.kind === "register") registroListo()
+        else if (slide.kind === "settings") cerrarConfiguracion(slide.back)
+        else if (slide.kind === "stats" || slide.kind === "chat") volver()
+        else if (slide.kind === "reclutas") reclutasListo(slide)
+        else if (slide.kind === "frecuencia") seguirEscalera("frecuencia")
+        // Su «Ahora no»: nunca «Activar», que abriría el pedido de permiso.
+        else if (slide.kind === "notificaciones") seguirEscalera("notificaciones")
+        // Con algo escrito, su Continuar; si no, el mismo final sin enviar nada.
+        else if (slide.kind === "encuesta") {
+          if (!encuestaRef.current?.continuar()) seguirEscalera("encuesta")
+        }
+        else if (slide.kind === "opinion" || slide.kind === "repetitividad") {
+          preguntaLista(slide.kind, false)
+        }
         else if (slide.kind === "ranking") advanceAfterAnswer("ranking")
         else if (slide.kind === "reglas") advanceAfterAnswer("reglas")
         else if (slide.kind === "novedades") novedadesListas()
@@ -832,6 +1122,7 @@ export function MobileFlow({ auto }: { auto?: string }) {
       <View style={styles.escena}>
         <CapaDeslizante activa={enEjercicio} direccion={direccion} entrarAlMontar={false}>
           <View style={[styles.ejercicio, { paddingBottom: abajo }]}>
+            {cabecera({ desde: { kind: "exercise" }, conTabla: false })}
             <View style={styles.marcoCard}>
               <ExerciseCard
                 streak={player?.combo ?? 0}
@@ -921,63 +1212,149 @@ export function MobileFlow({ auto }: { auto?: string }) {
           const activa = seq === pila[pila.length - 1].seq
           return (
             <CapaDeslizante key={seq} activa={activa} direccion={direccion} entrarAlMontar={seq !== 0}>
-              <View style={[styles.diapo, { paddingBottom: abajo }]}>
-                {s.kind === "intro" && (
-                  <IntroSlide onStart={startFromIntro} startDisabled={player === null || next.isPending} />
-                )}
-                {s.kind === "ranking" && (
-                  <RankingSlide
-                    answer={s.answer}
-                    climbFrom={climbFrom}
-                    // El salto se da por visto apenas arranca.
-                    onSaltoArranca={() => setClimbFrom(null)}
-                    leerMemoria={leerMemoriaRanking}
-                    guardarMemoria={guardarMemoriaRanking}
-                    scopeInicial={scopeRanking}
-                    onScopeElegido={setScopeRanking}
-                    liveXp={liveXp}
-                    liveXpDelta={liveXpDelta}
-                    counting={counting}
-                    xpColor={xpColor && (boost?.multiplier ?? 1) > 1 ? AMBAR : xpColor}
-                    myUniversity={player?.university ?? null}
-                    enabled={player !== null}
-                    onRelease={releaseXp}
-                    onContinue={() => advanceAfterAnswer("ranking")}
-                    continueDisabled={continueDisabled}
-                  />
-                )}
-                {s.kind === "username" && player && <UsernameSlide player={player} onDone={usernameListo} />}
-                {s.kind === "reglas" && (
-                  <ReglasSlide cuales={s.cuales} onContinue={() => advanceAfterAnswer("reglas")} />
-                )}
-                {s.kind === "novedades" && <NovedadesSlide player={player} onSeguir={novedadesListas} />}
-                {s.kind === "proximamente" && (
-                  <ProximamenteSlide
-                    paso={s.paso}
-                    disabled={continueDisabled}
-                    onContinue={() => continuarPendiente(s.paso)}
-                  />
-                )}
-                {s.kind === "tabla" && (
-                  <View style={styles.conVolver}>
-                    <DerivativesTable destacar={exercise?.tabla_slugs} style={{ flexShrink: 1 }} />
-                    <View style={{ flex: 1 }} />
-                    <BotonCta texto="Volver" onPress={volver} />
-                  </View>
-                )}
-                {s.kind === "porque" && (
-                  <View style={styles.conVolver}>
-                    <PorQuePanel
-                      explanation={porqueTexto}
-                      isPending={explainMutation.isPending}
-                      isError={explainMutation.isError}
-                      onRetry={pedirPorque}
-                      graph={porqueGraph}
+              {/* El panel pinta su tinte y su relleno: va sin el marco de las
+                  demás, así el verde llega a los bordes; abajo, el mismo tinte
+                  hace de margen del pulgar. */}
+              {s.kind === "reclutas" ? (
+                <View style={styles.pantallaCompleta}>
+                  <ReclutasPanel player={player} trigger={s.trigger} onContinue={() => reclutasListo(s)} />
+                  <View style={{ height: abajo, backgroundColor: TINTE_RECLUTAS }} />
+                </View>
+              ) : (
+                <View style={[styles.diapo, { paddingBottom: abajo }]}>
+                  {s.kind === "intro" && (
+                    <IntroSlide onStart={startFromIntro} startDisabled={player === null || next.isPending} />
+                  )}
+                  {s.kind === "herramientas" && <HerramientasSlide onContinue={herramientasListas} />}
+                  {s.kind === "ranking" && (
+                    <RankingSlide
+                      answer={s.answer}
+                      climbFrom={climbFrom}
+                      // El salto se da por visto apenas arranca.
+                      onSaltoArranca={() => setClimbFrom(null)}
+                      leerMemoria={leerMemoriaRanking}
+                      guardarMemoria={guardarMemoriaRanking}
+                      scopeInicial={scopeRanking}
+                      onScopeElegido={setScopeRanking}
+                      liveXp={liveXp}
+                      liveXpDelta={liveXpDelta}
+                      counting={counting}
+                      xpColor={xpColor && (boost?.multiplier ?? 1) > 1 ? AMBAR : xpColor}
+                      myUniversity={player?.university ?? null}
+                      alias={player?.alias ?? null}
+                      enabled={player !== null}
+                      onRelease={releaseXp}
+                      onContinue={() => advanceAfterAnswer("ranking")}
+                      continueDisabled={continueDisabled}
+                      cabecera={cabecera({ desde: s })}
                     />
-                    <BotonCta texto={solvedLatex !== null ? "Continuar" : "Volver"} onPress={volver} />
-                  </View>
-                )}
-              </View>
+                  )}
+                  {s.kind === "username" && player && (
+                    <UsernameSlide
+                      player={player}
+                      onDone={usernameListo}
+                      onGoogleLogin={usernameConGoogle}
+                      onOpenPrivacy={() => void abrirPrivacidad()}
+                    />
+                  )}
+                  {s.kind === "reglas" && (
+                    <ReglasSlide cuales={s.cuales} onContinue={() => advanceAfterAnswer("reglas")} />
+                  )}
+                  {s.kind === "novedades" && (
+                    <View style={styles.conCabecera}>
+                      <View style={styles.cabecera}>{cabecera({ desde: s })}</View>
+                      <NovedadesSlide player={player} onSeguir={novedadesListas} />
+                    </View>
+                  )}
+                  {s.kind === "chat" && (
+                    // `padding` y el desfase de la raíz, como las novedades.
+                    <KeyboardAvoidingView
+                      style={styles.conVolver}
+                      behavior="padding"
+                      keyboardVerticalOffset={insets.top}
+                    >
+                      {cabecera({ desde: s, enChat: true })}
+                      <ChatPanel enabled={player !== null} player={player} />
+                      <BotonCta texto="Volver" onPress={volver} />
+                    </KeyboardAvoidingView>
+                  )}
+                  {s.kind === "stats" && (
+                    <EstadisticasSlide
+                      player={player}
+                      onVolver={volver}
+                      derecha={<BotonCompartirCabecera placement="header_mobile" onOpen={() => abrirReclutas(s)} />}
+                    />
+                  )}
+                  {s.kind === "settings" && (
+                    <SettingsPanel
+                      player={player}
+                      onClose={() => cerrarConfiguracion(s.back)}
+                      onReset={onReset}
+                      onNeedsRegister={() => goTo({ kind: "register" })}
+                      onSignedOut={onSignedOut}
+                      onReclutar={() => abrirReclutas(s)}
+                      // La fila sale sola con `dificultad_disponible`.
+                      onDificultad={() => goTo({ kind: "dificultad", back: s })}
+                      // La fila rota y guarda sola; sin callback no se dibuja.
+                      onFrecuencia={() => {}}
+                    />
+                  )}
+                  {s.kind === "profile" && (
+                    <PerfilSlides onDone={perfilListo} onSkip={() => advanceAfterAnswer("milestone")} />
+                  )}
+                  {s.kind === "register" && player && (
+                    <RegistroSlide
+                      player={player}
+                      onSkip={registroListo}
+                      onLoggedIn={registroListo}
+                      onOpenPrivacy={() => void abrirPrivacidad()}
+                    />
+                  )}
+                  {s.kind === "frecuencia" && (
+                    <FrecuenciaSlide onContinue={() => seguirEscalera("frecuencia")} />
+                  )}
+                  {/* Trae su propio KeyboardAvoidingView. */}
+                  {s.kind === "encuesta" && (
+                    <EncuestaSlide ref={encuestaRef} onContinue={() => seguirEscalera("encuesta")} />
+                  )}
+                  {s.kind === "opinion" && (
+                    <OpinionSlide onContinue={(contesto) => preguntaLista("opinion", contesto)} />
+                  )}
+                  {s.kind === "repetitividad" && (
+                    <RepetitividadSlide onContinue={(contesto) => preguntaLista("repetitividad", contesto)} />
+                  )}
+                  {s.kind === "notificaciones" && (
+                    <NotificacionesSlide onContinue={() => seguirEscalera("notificaciones")} />
+                  )}
+                  {s.kind === "dificultad" && (
+                    <DificultadSlide
+                      player={player}
+                      // Hacia atrás, a la configuración: cerrar no es avanzar.
+                      onBack={() => goTo(s.back, "atras")}
+                      onDone={() => goTo(s.back, "atras")}
+                    />
+                  )}
+                  {s.kind === "tabla" && (
+                    <View style={styles.conVolver}>
+                      <DerivativesTable destacar={exercise?.tabla_slugs} style={{ flexShrink: 1 }} />
+                      <View style={{ flex: 1 }} />
+                      <BotonCta texto="Volver" onPress={volver} />
+                    </View>
+                  )}
+                  {s.kind === "porque" && (
+                    <View style={styles.conVolver}>
+                      <PorQuePanel
+                        explanation={porqueTexto}
+                        isPending={explainMutation.isPending}
+                        isError={explainMutation.isError}
+                        onRetry={pedirPorque}
+                        graph={porqueGraph}
+                      />
+                      <BotonCta texto={solvedLatex !== null ? "Continuar" : "Volver"} onPress={volver} />
+                    </View>
+                  )}
+                </View>
+              )}
             </CapaDeslizante>
           )
         })}
@@ -1001,5 +1378,8 @@ const styles = StyleSheet.create({
   pie: { gap: 8, zIndex: 10 },
   filaPrincipal: { flexDirection: "row", gap: 8 },
   diapo: { flex: 1, paddingTop: 16 },
+  pantallaCompleta: { flex: 1 },
   conVolver: { flex: 1, gap: 12, paddingHorizontal: 16 },
+  conCabecera: { flex: 1, gap: 12 },
+  cabecera: { paddingHorizontal: 16 },
 })

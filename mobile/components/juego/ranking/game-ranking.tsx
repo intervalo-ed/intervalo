@@ -3,8 +3,8 @@
 // elegida. Es también el marcador del juego: muestra el XP mientras el conteo
 // del festejo lo va llenando (`liveXp`), pintado del color de ese paso.
 //
-// Sin la vista de reclutas (llega con las reclutas, M5) y sin `boostPreview` ni
-// `viewOverride`, que solo existen para las diapos del café y de reclutas.
+// Sin `boostPreview` ni `viewOverride`, que solo existen para las diapos del
+// café y de reclutas.
 
 import { useEffect, useRef, useState } from "react"
 import { StyleSheet, Text, View, type HostInstance, type StyleProp, type ViewStyle } from "react-native"
@@ -12,19 +12,23 @@ import Svg, { Circle, Path } from "react-native-svg"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
 import { ALL_SCOPE } from "@intervalo/dx-core/juego/ranking-scope"
 import { fmtCount, type RankingView } from "@intervalo/dx-core/juego/ranking-formato"
+import { EJEMPLOS_COUNT, EJEMPLOS_XP_TOTAL, VERDE } from "@intervalo/dx-core/juego/reclutas"
 import { type MemoriaDelRanking } from "@intervalo/dx-core/juego/ranking-orden"
 import { SIN_SCOPE, type RankingSort } from "@intervalo/dx-core/juego/ranking-reglas"
 import {
   useGameBoosts,
   useGameLeaderboardSummary,
+  useGameRecruits,
   useGameUniversityLeaderboard,
   type Scope,
 } from "@intervalo/dx-core/juego/UseGameLeaderboard"
 import { BoostBanner } from "../boost-banner"
 import { CountUp } from "../count-up"
 import { Metric, METRIC_VALOR, ScopeFilters } from "../leaderboard-chrome"
+import { XpDots } from "../xp-dots"
 import { CountryRanking } from "./country-ranking"
 import { IndividualRanking } from "./individual-ranking"
+import { RecruitsRanking } from "./recruits-ranking"
 import { UniversityRanking } from "./university-ranking"
 
 export type { RankingSort }
@@ -63,16 +67,15 @@ const SCOPE_INICIAL = { view: "individual" as RankingView, university: ALL_SCOPE
 const iconoProps = {
   viewBox: "0 0 24 24",
   fill: "none",
-  stroke: TEMA.primary,
   strokeWidth: 2,
   strokeLinecap: "round",
   strokeLinejoin: "round",
 } as const
 
 // `UsersIcon` de lucide.
-function IconoUsuarios({ size }: { size: number }) {
+function IconoUsuarios({ size, color = TEMA.primary }: { size: number; color?: string }) {
   return (
-    <Svg width={size} height={size} {...iconoProps} accessibilityElementsHidden importantForAccessibility="no">
+    <Svg width={size} height={size} {...iconoProps} stroke={color} accessibilityElementsHidden importantForAccessibility="no">
       <Path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
       <Circle cx="9" cy="7" r="4" />
       <Path d="M22 21v-2a4 4 0 0 0-3-3.87" />
@@ -84,7 +87,7 @@ function IconoUsuarios({ size }: { size: number }) {
 // `LayersIcon` de lucide.
 function IconoCapas({ size }: { size: number }) {
   return (
-    <Svg width={size} height={size} {...iconoProps} accessibilityElementsHidden importantForAccessibility="no">
+    <Svg width={size} height={size} {...iconoProps} stroke={TEMA.primary} accessibilityElementsHidden importantForAccessibility="no">
       <Path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z" />
       <Path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65" />
       <Path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65" />
@@ -167,56 +170,104 @@ export function GameRanking({
   const boostsVigentes = useGameBoosts()
   // Se pide siempre, para que la vuelta universitaria no caiga sobre un esqueleto.
   useGameUniversityLeaderboard(scope, enabled)
+  // Solo con la vista abierta: son los reclutas de UNA persona. Alimenta los
+  // indicadores de arriba y la lista, así que se pide una vez acá.
+  const recruits = useGameRecruits(enabled && view === "recruits")
+  // Sin reclutas propios la lista muestra los ejemplos, y los indicadores
+  // cuentan lo mismo que esos renglones en vez de un cero que los contradiga.
+  const reclutasVacio = (recruits.data?.entries.length ?? 0) === 0
+  const reclutasCount = reclutasVacio ? EJEMPLOS_COUNT : (recruits.data?.total_recruits ?? 0)
+  const reclutasXp = reclutasVacio ? EJEMPLOS_XP_TOTAL : (recruits.data?.total_xp_given ?? 0)
 
   return (
     <View style={[styles.raiz, style]}>
       <View style={styles.cabecera}>
         <View style={styles.metricas}>
-          <View style={styles.metrica}>
-            <Metric
-              label="Estudiantes"
-              value={
-                <>
-                  {summary.isPending ? (
-                    <HuecoMetrica />
-                  ) : (
-                    <CountUp value={summary.data?.players ?? 0} format={fmtCount} style={METRIC_VALOR} />
-                  )}
-                  <IconoUsuarios size={ICONO} />
-                </>
-              }
-            />
-          </View>
-          <View style={styles.metrica}>
-            {/* Por Elo, el promedio con "ELO" pegado al número, como en cada fila. */}
-            <Metric
-              label={sort === "elo" ? "Promedio" : "Derivadas"}
-              value={
-                sort === "elo" ? (
-                  <View style={styles.conElo}>
-                    {summary.isPending ? (
-                      <HuecoMetrica />
-                    ) : summary.data?.elo_avg == null ? (
-                      // El guion es un dato: todavía no hay partidas para promediar.
-                      <Text style={[METRIC_VALOR, styles.tenue]}>—</Text>
+          {view === "recruits" ? (
+            <>
+              {/* Lo tuyo: cuántos reclutas tenés y cuánto te aportaron, en el
+                  verde de la columna de aporte de cada renglón. */}
+              <View style={styles.metrica}>
+                <Metric
+                  label="Reclutas"
+                  value={
+                    <>
+                      {recruits.isPending ? (
+                        <HuecoMetrica />
+                      ) : (
+                        <CountUp value={reclutasCount} format={fmtCount} style={[METRIC_VALOR, styles.verde]} />
+                      )}
+                      <IconoUsuarios size={ICONO} color={VERDE} />
+                    </>
+                  }
+                />
+              </View>
+              <View style={styles.metrica}>
+                <Metric
+                  label="Te aportaron"
+                  value={
+                    <>
+                      <Text style={[METRIC_VALOR, styles.verde]}>+</Text>
+                      {recruits.isPending ? (
+                        <HuecoMetrica />
+                      ) : (
+                        <CountUp value={reclutasXp} format={fmtCount} style={[METRIC_VALOR, styles.verde]} />
+                      )}
+                      <XpDots size={ICONO} color={VERDE} />
+                    </>
+                  }
+                />
+              </View>
+            </>
+          ) : (
+            <>
+              <View style={styles.metrica}>
+                <Metric
+                  label="Estudiantes"
+                  value={
+                    <>
+                      {summary.isPending ? (
+                        <HuecoMetrica />
+                      ) : (
+                        <CountUp value={summary.data?.players ?? 0} format={fmtCount} style={METRIC_VALOR} />
+                      )}
+                      <IconoUsuarios size={ICONO} />
+                    </>
+                  }
+                />
+              </View>
+              <View style={styles.metrica}>
+                {/* Por Elo, el promedio con "ELO" pegado al número, como en cada fila. */}
+                <Metric
+                  label={sort === "elo" ? "Promedio" : "Derivadas"}
+                  value={
+                    sort === "elo" ? (
+                      <View style={styles.conElo}>
+                        {summary.isPending ? (
+                          <HuecoMetrica />
+                        ) : summary.data?.elo_avg == null ? (
+                          // El guion es un dato: todavía no hay partidas para promediar.
+                          <Text style={[METRIC_VALOR, styles.tenue]}>—</Text>
+                        ) : (
+                          <CountUp value={summary.data.elo_avg} format={fmtCount} style={METRIC_VALOR} />
+                        )}
+                        <Text style={styles.elo}>ELO</Text>
+                      </View>
                     ) : (
-                      <CountUp value={summary.data.elo_avg} format={fmtCount} style={METRIC_VALOR} />
-                    )}
-                    <Text style={styles.elo}>ELO</Text>
-                  </View>
-                ) : (
-                  <>
-                    {summary.isPending ? (
-                      <HuecoMetrica />
-                    ) : (
-                      <CountUp value={summary.data?.exercises ?? 0} format={fmtCount} style={METRIC_VALOR} />
-                    )}
-                    <IconoCapas size={ICONO} />
-                  </>
-                )
-              }
-            />
-          </View>
+                      <>
+                        {summary.isPending ? (
+                          <HuecoMetrica />
+                        ) : (
+                          <CountUp value={summary.data?.exercises ?? 0} format={fmtCount} style={METRIC_VALOR} />
+                        )}
+                        <IconoCapas size={ICONO} />
+                      </>
+                    )
+                  }
+                />
+              </View>
+            </>
+          )}
         </View>
         <ScopeFilters
           view={view}
@@ -224,14 +275,17 @@ export function GameRanking({
           university={university}
           onUniversityChange={setUniversity}
           universities={catalogo.data?.universities ?? []}
+          withRecruits
           withCountries
           withCareer={false}
-          scopeDisabled={view === "countries"}
+          scopeDisabled={view === "recruits" || view === "countries"}
         />
         <BoostBanner boosts={boostsVigentes} myUniversity={myUniversity} />
       </View>
 
-      {view === "individual" ? (
+      {view === "recruits" ? (
+        <RecruitsRanking data={recruits.data} myUniversity={myUniversity} />
+      ) : view === "individual" ? (
         <IndividualRanking
           scope={scope}
           enabled={enabled}
@@ -275,6 +329,7 @@ const styles = StyleSheet.create({
   conElo: { flexDirection: "row", alignItems: "baseline", gap: 4 },
   elo: { fontSize: 12.6, letterSpacing: 0.8, color: TEMA.mutedForeground },
   tenue: { color: TEMA.mutedForeground },
+  verde: { color: VERDE },
   hueco: { height: METRIC_VALOR.lineHeight, width: 40, justifyContent: "center" },
   barra: { height: 14, borderRadius: 4, backgroundColor: "rgba(246, 248, 252, 0.1)" },
 })

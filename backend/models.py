@@ -1074,6 +1074,9 @@ class GamePushSubscription(Base):
     endpoint = Column(String(1000), nullable=False)
     p256dh = Column(String(1000), nullable=False)
     auth = Column(String(1000), nullable=False)
+    # "web" (Web Push, con claves) o "expo" (la app nativa: el token de Expo va
+    # en `endpoint` y las claves quedan vacías). El notifier elige el canal por acá.
+    kind = Column(String(10), nullable=False, default="web", server_default="web")
 
     created_at = Column(DateTime, default=datetime.utcnow)
     last_used_at = Column(DateTime, nullable=True)

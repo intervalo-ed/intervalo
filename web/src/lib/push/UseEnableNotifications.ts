@@ -7,13 +7,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import posthog from "posthog-js"
 import { toast } from "sonner"
 
-export const DEFAULT_REMINDER_TIME = "19:00"
-
-// Horarios de recordatorio: en punto, de 08:00 a 22:00 (paso de 1 hora).
-export const REMINDER_TIME_OPTIONS: string[] = Array.from(
-  { length: 22 - 8 + 1 },
-  (_, i) => `${String(8 + i).padStart(2, "0")}:00`,
-)
+export { DEFAULT_REMINDER_TIME, REMINDER_TIME_OPTIONS } from "@intervalo/dx-core/juego/horarios-de-aviso"
 
 // Activación de recordatorios push (permiso del navegador + suscripción +
 // persistencia). Compartida entre los ajustes del perfil y la pestaña de

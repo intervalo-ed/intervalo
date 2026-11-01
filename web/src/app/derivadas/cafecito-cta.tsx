@@ -20,6 +20,12 @@ import {
 import type { CafecitoTrigger } from "@intervalo/dx-core/juego/cafecito-trigger"
 import { INSTALAR_SEPARACION } from "@intervalo/dx-core/juego/instalacion-trigger"
 import { useCta } from "./game-telemetry"
+import {
+  VERDE,
+  VERDE_TINTA,
+  VERDE_TINTA_OSCURA,
+  shareLink as shareLinkCon,
+} from "@intervalo/dx-core/juego/reclutas"
 
 // Perfil propio del juego, separado del de Intervalo. Ojo con este valor: ya
 // una vez apuntó a `/intervalo`, que había dejado de existir, y durante todo ese
@@ -300,36 +306,13 @@ export function CafecitoButton({
 // lo que se ve es la misma tarjeta para todos.
 const SHARE_BASE = "https://www.intervalo.xyz/derivadas"
 
-// El verde de WhatsApp, con el mismo tratamiento que el marrón del cafecito:
-// `VERDE` para el relleno del botón y `VERDE_TINTA` para lo que es tinta sobre el
-// fondo oscuro.
-//
-// El relleno lleva letra OSCURA y no blanca. #25D366 es un color claro: contra
-// blanco da 1,9:1 —ilegible— y contra este verde muy oscuro, 9,6:1. Es la misma
-// decisión que toma el botón del cafecito cuando el slider lo lleva al dorado.
-export const VERDE = "#25D366"
-export const VERDE_TINTA_OSCURA = "#07271A"
-// El verde de la TINTA: el de la barra de arriba y el de las filas de color de
-// configuración. Va apagado contra el relleno, porque al lado tiene al marrón
-// del cafecito y con los dos al mismo brillo el verde se lo comía.
-//
-// Pero estaba apagado de más. Medido sobre el fondo del juego (#131324):
-// #25D366 da 9,2:1 y el marrón #EABB74 da 10,3:1 — o sea que el verde nunca
-// tuvo más contraste que su vecino, y el #2E9E5B que había acá daba 5,4:1, la
-// mitad. Lo que hacía que se comiera al otro no era el contraste sino la
-// saturación: un verde saturado tira más del ojo que un ámbar suave con el
-// mismo brillo. Así que el freno se mantiene, pero apenas: este da 7,1:1, se
-// lee bastante más verde de WhatsApp y sigue estando por debajo del marrón.
-//
-// Un comentario decía que el marrón daba 4,1:1. No lo da; el número estaba mal
-// y con él la conclusión de cuánto había que bajar el verde.
-export const VERDE_TINTA = "#2CB863"
+// El verde de WhatsApp vive en dx-core (juego/reclutas.ts), compartido con la
+// app nativa; se reexporta porque media web lo importa de acá.
+export { VERDE, VERDE_TINTA, VERDE_TINTA_OSCURA }
 
-/** El link con el @ de quien comparte, que es lo que después permite contar
- *  cuánta gente entró por cada persona (ver FIRST_REFERRER en
- *  lib/analytics/attribution.ts). Sin alias, el link pelado. */
+/** El link con el @ de quien comparte; sin alias, el link pelado. */
 export function shareLink(alias?: string | null) {
-  return alias ? `${SHARE_BASE}?r=${encodeURIComponent(alias)}` : SHARE_BASE
+  return shareLinkCon({ alias, base: SHARE_BASE })
 }
 
 /** El link de WhatsApp, listo para abrir. Es lo único que se manda. */

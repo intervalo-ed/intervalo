@@ -91,15 +91,52 @@ def upsert_subscription(
     )
     if fila is None:
         fila = GamePushSubscription(
-            player_id=player.id, endpoint=endpoint, p256dh=p256dh, auth=auth
+            player_id=player.id, endpoint=endpoint, p256dh=p256dh, auth=auth,
+            kind="web",
         )
         db.add(fila)
     else:
         fila.player_id = player.id
         fila.p256dh = p256dh
         fila.auth = auth
+        fila.kind = "web"
     db.commit()
     return fila
+
+
+def upsert_expo_token(db: DBSession, player: GamePlayer, token: str) -> GamePushSubscription:
+    """Guarda (o muda) el token de Expo de un teléfono con la app nativa.
+
+    Misma fila y misma regla que el navegador: el token va en `endpoint`, que es
+    único a secas, así que si el aparato cambia de jugador la fila se muda en vez
+    de duplicarse. Las claves de Web Push no existen acá y quedan vacías.
+    """
+    fila = (
+        db.query(GamePushSubscription)
+        .filter(GamePushSubscription.endpoint == token)
+        .first()
+    )
+    if fila is None:
+        fila = GamePushSubscription(
+            player_id=player.id, endpoint=token, p256dh="", auth="", kind="expo"
+        )
+        db.add(fila)
+    else:
+        fila.player_id = player.id
+        fila.p256dh = ""
+        fila.auth = ""
+        fila.kind = "expo"
+    db.commit()
+    return fila
+
+
+def delete_expo_token(db: DBSession, player: GamePlayer, token: str) -> None:
+    db.query(GamePushSubscription).filter(
+        GamePushSubscription.player_id == player.id,
+        GamePushSubscription.endpoint == token,
+        GamePushSubscription.kind == "expo",
+    ).delete()
+    db.commit()
 
 
 def delete_subscription(db: DBSession, player: GamePlayer, endpoint: str) -> None:
@@ -539,7 +576,13 @@ def _payload(envio: GameNotificationSend, subs: list[GamePushSubscription]) -> d
         "notification_id": envio.id,
         "url": copy.URL,
         "subscriptions": [
-            {"id": s.id, "endpoint": s.endpoint, "p256dh": s.p256dh, "auth": s.auth}
+            {
+                "id": s.id,
+                "endpoint": s.endpoint,
+                "p256dh": s.p256dh,
+                "auth": s.auth,
+                "kind": s.kind or "web",
+            }
             for s in subs
         ],
     }

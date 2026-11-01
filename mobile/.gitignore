@@ -42,3 +42,6 @@ yarn-error.*
 # generated native folders (CNG: los genera `expo prebuild`, no se commitean)
 /ios
 /android
+
+# FCM: en EAS llega como variable de tipo archivo (GOOGLE_SERVICES_JSON)
+google-services.json

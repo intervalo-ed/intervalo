@@ -50,14 +50,30 @@ es la mecánica que gobierna la experiencia entera:
 
 **La app nativa (`mobile/`, iOS y Android) juega el mismo flujo del teléfono**
 con la misma escalera de después de responder (`dx-core ::
-despues-de-responder.ts`), pero **sin el cafecito ni los dos pedidos de la
-pantalla de inicio**: no hay botón, diapo ni link para invitar cafecitos, y
-instalar y los recordatorios web no existen en una app instalada desde la
+despues-de-responder.ts`): reclutas, la frecuencia del ranking, la pregunta
+abierta y las encuestas de opinión y repetitividad salen en el mismo orden, con
+los mismos disparadores y contra los mismos endpoints que en la web; la palanca
+de dificultad y la vista «Reclutas» del ranking también están, y el pedido de
+**recordatorios** también (ver «Los dos pedidos de la pantalla de inicio»). Lo
+que no tiene es **el cafecito ni el pedido de instalar**: no hay botón, diapo ni
+link para invitar cafecitos, e instalar no existe en una app instalada desde la
 tienda. La escalera los recibe ya apagados (`cafecito: null`,
-`puedeOfrecerInstalar` y `puedeOfrecerNotificaciones` en `false`), así que esos
-escalones del mapa de interrupciones no salen nunca ahí. El empuje de una
+`puedeOfrecerInstalar` en `false`), así que esos escalones del mapa de
+interrupciones no salen nunca ahí. El empuje de una
 universidad sí la alcanza: lo compra alguien desde la web y multiplica a todos
-sus jugadores, jueguen donde jueguen.
+sus jugadores, jueguen donde jueguen. En las estadísticas tampoco está la
+tarjeta de «XP extra por cafecitos».
+
+Reclutar se abre por el hito, desde el botón de compartir de la cabecera y
+desde Configuración. En vez del link a wa.me, comparte por la hoja del sistema
+(se elige WhatsApp o lo que sea) el mismo link `…/derivadas?r=<@>`. El click se
+anota al tocar el botón, como en la web.
+
+La identidad es la misma que en la web (invitado con token, cuenta con Google
+vía Clerk), con dos diferencias porque la app no recarga: al entrar con Google
+o cerrar sesión, `UseGamePlayer` vuelve a dar de alta al jugador (ese segundo
+`POST /player` es el que linkea invitado→cuenta) y aplica ahí el @ deseado; y
+el token del invitado vive en MMKV con copia en el llavero del sistema.
 
 ### Quién es cada uno cuando vuelve (la cookie `dx_token`, desde el 28/09)
 
@@ -1069,7 +1085,9 @@ abstractas a la izquierda y el slider acumulativo a la derecha, con su Continuar
 al pie. El relleno crece desde arriba y toma, tramo a tramo, el color del nivel
 que atraviesa (blanco, azul, rosa, marrón). Abajo, dos botones partidos: «Automático» vuelve al motor y
 «Continuar» guarda la posición. En escritorio los dígitos 1-9 eligen posición,
-Enter continúa y Alt+Enter es «Automático».
+Enter continúa y Alt+Enter es «Automático». En la app nativa la fila sale con
+el mismo criterio (`dificultad_disponible` del jugador) y la diapo guarda igual,
+con `PATCH /game/derivemos/me` al Continuar.
 Cómo funciona por dentro, y por qué hay dos θ, está en `context/gamification.md`.
 
 ### `dx-banda-1`: a qué dificultad apuntamos (28/09 → cancelado el 09/10)
@@ -1582,7 +1600,8 @@ La preferencia vive en **localStorage**, como el sonido: es cómo esta persona
 quiere ver esta pantalla en este aparato, y escritorio no tiene la diapo —allá
 el ranking es la columna de al lado y no interrumpe nada—. Reiniciar el
 progreso o cerrar sesión no la borra. Se cambia desde una fila de Ajustes que
-rota al tocarla (solo teléfono).
+rota al tocarla (solo teléfono). En la app nativa es igual, guardada en el
+almacén del aparato (MMKV) en vez de localStorage.
 
 **La diapo que la ofrece sale en la derivada 15**, una vez en la vida del
 aparato, y es un aviso más que una pregunta: lo que se toca se guarda al
@@ -1620,7 +1639,8 @@ alcanza) y la pantalla no se convierte en un peaje. Agregarle un largo mínimo
 cierra la salida y la vuelve la puerta que `dx-puerta-1` midió en 668 respuestas
 perdidas. El «.» se guarda como cualquier otra respuesta y se clasifica **al
 leer**: son tres estados y no dos —se fue sin contestar, dijo que no, contestó— y
-el primero es el que decide si la pregunta se saca.
+el primero es el que decide si la pregunta se saca. La app nativa tiene la
+misma diapo, en la misma derivada y sin saltar, y manda al mismo endpoint.
 
 **Por qué la 18 y no la 20**, que era el número pedido. Se simuló el ladder
 entero con las constantes reales (18/09):
@@ -1656,8 +1676,8 @@ Dos diapos que interrumpen la partida, en ese orden y no en otro: en iOS el push
 web **no existe** fuera de la app instalada, así que instalar es el
 prerrequisito de notificar.
 
-Son solo de la web: en la app nativa no salen (ver la nota al principio del
-minijuego).
+En la app nativa sale solo el segundo: instalar no tiene sentido en una app de
+la tienda (ver la nota al principio del minijuego).
 
 - **Instalar** sale en la derivada 24 y vuelve cada 12 hasta seis veces (36, 48,
   60, 73, 85). Estuvo en la 5 con tope de tres hasta el 18/09: el cinco se había
@@ -1679,6 +1699,20 @@ minijuego).
 - Los dos se apagan solos cuando la persona acciona: `isStandalone()` para el
   primero y `Notification.permission !== "default"` para el segundo, sin marcador
   que mantener.
+- **En la app nativa**, recordatorios corre con la misma cadencia que en la web
+  instalada (3, y después cada 20, tres veces, con el mismo cooldown): la app
+  cuenta como «instalada desde siempre», y el punto de partida se anota la
+  primera vez que la escalera mira este escalón. La puerta es el permiso de
+  notificaciones del sistema: sale solo mientras todavía no se preguntó (ni
+  dado ni negado), y se lee al arrancar la app. La diapo tiene la misma cuenta
+  regresiva antes de «Ahora no», y el horario se elige ahí mismo, en una tira
+  deslizable de horarios. Activar pide el permiso, registra el token de Expo del
+  aparato y recién después guarda el horario, en ese orden, como en la web. Al
+  arrancar con el permiso ya dado, la app vuelve a mandar el token en silencio
+  (puede haber rotado o haberse podado). El token sale del proyecto de EAS
+  (`extra.eas.projectId`); en Android, además, hace falta el
+  `google-services.json` de FCM, que todavía no está: sin él la build sale
+  sin avisos.
 
 ### Avisos del minijuego (`game/notifications.py`, `game/notification_copy.py`)
 
@@ -1688,6 +1722,13 @@ copy sale de tablas que el juego no toca.
 
 - **Le llega al invitado**, que es la mitad del punto: `game_push_subscriptions`
   cuelga del jugador y los endpoints van con el token de invitado.
+- **Dos canales, una sola tabla**: cada suscripción es de la web (Web Push) o de
+  la app nativa (un token de Expo, que se registra con `POST`/`DELETE
+  /game/derivemos/push/expo`). El cupo, el copy y la idempotencia son los
+  mismos; lo único que cambia es por dónde sale el envío. Un token que Expo
+  rechaza porque el aparato ya no está registrado (app desinstalada, token
+  rotado) se poda igual que una suscripción web muerta. Tocar el aviso en el
+  teléfono lo marca como abierto, con el mismo beacon que el click en la web.
 - **Tres por día como máximo, y el cupo es de la PERSONA**: uno programado en el
   horario elegido y hasta dos reactivos. Un jugador registrado reclama contra los
   contadores de su `User`, así que un día en que dx tenga tres cosas que decir
