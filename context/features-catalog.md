@@ -1709,9 +1709,10 @@ la tienda (ver la nota al principio del minijuego).
   deslizable de horarios. Activar pide el permiso, registra el token de Expo del
   aparato y recién después guarda el horario, en ese orden, como en la web. Al
   arrancar con el permiso ya dado, la app vuelve a mandar el token en silencio
-  (puede haber rotado o haberse podado). **Mientras la app no tenga proyecto en
-  EAS** no hay token de Expo: pide el permiso y guarda el horario, pero el
-  aparato todavía no queda registrado y no le llega nada.
+  (puede haber rotado o haberse podado). El token sale del proyecto de EAS
+  (`extra.eas.projectId`); en Android, además, hace falta el
+  `google-services.json` de FCM, que todavía no está: sin él la build sale
+  sin avisos.
 
 ### Avisos del minijuego (`game/notifications.py`, `game/notification_copy.py`)
 

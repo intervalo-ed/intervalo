@@ -8,8 +8,11 @@
 | `web` | Next.js (App Router, versión custom — ver advertencia abajo) | Frontend, consume la API vía cliente OpenAPI generado. |
 | `notifier` | Node + Effect (`notifier/`) | Worker liviano, **nunca toca la DB directo**. Dos cron loops: push cada 15 min, emails de lifecycle cada 1h. |
 | `BBDD` | Postgres (Railway) | Persistencia. |
+| `mobile` | Expo (React Native, Expo Router), lógica del juego en `packages/dx-core` | App nativa del minijuego de derivadas (iOS y Android), solo el flujo del teléfono. Habla con `backend` como la web. |
 
 Despliegue: Railway, un servicio por repo-root (`notifier/` como root directory propio). **Los nombres de servicio en Railway son mutables y pueden cambiar sin aviso** (renombrados manualmente desde el dashboard) — no asumir un nombre fijo, correr `railway service status --all` para confirmar antes de operar.
+
+`mobile` no corre en Railway: se compila y distribuye con EAS (proyecto `@intervalo-ed/intervalo-app`). Perfiles en `mobile/eas.json` (dev build, preview interna, production para las tiendas); las `EXPO_PUBLIC_*` salen del environment de EAS de cada perfil, no del `.env`, y por ahora solo `production` las tiene. **Todavía no está publicada en las tiendas**: faltan las cuentas de Apple/Play, FCM y la config nativa de la instancia de producción de Clerk. Detalle y checklist en `mobile/README.md`.
 
 ## Cómo se comunican
 
