@@ -7,7 +7,7 @@
 // responde en `onPressIn` y no al soltar, que es lo que lo hace sentir
 // inmediato.
 
-import { memo, useMemo, type ReactNode } from "react"
+import { memo, useCallback, useMemo, type ReactNode } from "react"
 import { Pressable, StyleSheet, View, type StyleProp, type ViewStyle } from "react-native"
 import { Text } from "@/components/texto"
 import Animated, {
@@ -18,6 +18,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated"
 import * as Haptics from "expo-haptics"
+import { useSfx } from "@/lib/audio/UseSfx"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import Svg, { Path } from "react-native-svg"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
@@ -95,6 +96,17 @@ export function MathKeyboard({
   style,
 }: MathKeyboardProps) {
   const insets = useSafeAreaInsets()
+  const sfx = useSfx()
+  // El mismo chasquido que la tecla de la web (math-keyboard.tsx). Una sola vez
+  // acá y no en cada tecla: así no hay un `useSfx` por tecla y la referencia
+  // sigue estable para el memo de <Tecla>.
+  const alTocar = useCallback(
+    (key: Key) => {
+      sfx.select()
+      onKey(key)
+    },
+    [sfx, onKey],
+  )
   const dynamic = useMemo(
     () => inventarioDinamico({ keys, newKeys, numpad: true }),
     [keys, newKeys],
@@ -123,7 +135,7 @@ export function MathKeyboard({
       ancha={ancha}
       celda={celda}
       estilo={estilo}
-      onKey={onKey}
+      onKey={alTocar}
       renderEtiqueta={renderEtiqueta}
     />
   )

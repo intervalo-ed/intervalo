@@ -14,7 +14,7 @@ import type { Rescate } from "@intervalo/dx-core/juego/game-storage"
 import { precalentarTablaDeDerivadas } from "@/components/juego/derivatives-table"
 import { precalentarMathJax } from "@/components/latex/mathjax"
 import { posthog } from "@/lib/analytics/posthog"
-import { precargarSonidosDelJuego } from "@/lib/audio/UseSfx"
+import { liberarSonidosDelJuego, precargarSonidosDelJuego } from "@/lib/audio/UseSfx"
 import { useGameApiNativo } from "@/lib/api/UseGameApiNativo"
 import { reafirmarTokenDeAvisos, refrescarPermisoDeAvisos } from "@/lib/avisos/registro-push"
 import { useTapDeAviso } from "@/lib/avisos/UseTapDeAviso"
@@ -60,6 +60,7 @@ export default function RootLayout() {
     precalentarTablaDeDerivadas()
     return () => {
       vivo = false
+      liberarSonidosDelJuego()
     }
   }, [])
 
