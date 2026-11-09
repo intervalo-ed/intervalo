@@ -15,7 +15,6 @@ import Animated, {
   type LayoutAnimationsValues,
   useAnimatedStyle,
   useSharedValue,
-  withSpring,
   withTiming,
 } from "react-native-reanimated"
 import { vib } from "@/lib/haptics"
@@ -63,7 +62,6 @@ const CUERPO: Record<Tamano, number> = {
   num: 1.25 * REM * KATEX_EM,
 }
 
-const RESORTE = { stiffness: 420, damping: 26 }
 
 /** Lo que recibe `renderEtiqueta`. `ancha` es la forma larga (`sen(□)`), la de
  *  la fila ancha del inventario. */
@@ -336,12 +334,12 @@ function textoAncho(key: Key) {
   return `${key.texto}(□)`
 }
 
-// Cuando entra una tecla nueva las demás se corren. La web (motion `layout`) las
-// MUEVE con el resorte pero no las estira; `LinearTransition.springify` animaba
-// también el ancho y el alto con el mismo resorte, que rebota, y las teclas se
-// ensanchaban y encogían como gelatina. Acá el resorte es solo de la posición y el
-// tamaño se acomoda sin rebote.
-const AJUSTE_DE_TAMANO = { duration: 140, easing: Easing.out(Easing.quad) }
+// Cuando entra una tecla nueva las demás se corren. Un resorte (también
+// `LinearTransition.springify`) rebota y las teclas se ensanchaban y encogían como
+// gelatina.
+// Todo con la misma curva de desaceleración y sin rebote: las teclas se deslizan
+// a su lugar y frenan suave, sin pasarse ni vibrar.
+const DESLIZAR = { duration: 240, easing: Easing.out(Easing.cubic) }
 
 function correrTecla(valores: LayoutAnimationsValues) {
   "worklet"
@@ -353,10 +351,10 @@ function correrTecla(valores: LayoutAnimationsValues) {
       height: valores.currentHeight,
     },
     animations: {
-      originX: withSpring(valores.targetOriginX, RESORTE),
-      originY: withSpring(valores.targetOriginY, RESORTE),
-      width: withTiming(valores.targetWidth, AJUSTE_DE_TAMANO),
-      height: withTiming(valores.targetHeight, AJUSTE_DE_TAMANO),
+      originX: withTiming(valores.targetOriginX, DESLIZAR),
+      originY: withTiming(valores.targetOriginY, DESLIZAR),
+      width: withTiming(valores.targetWidth, DESLIZAR),
+      height: withTiming(valores.targetHeight, DESLIZAR),
     },
   }
 }
@@ -366,8 +364,8 @@ function nacer() {
   return {
     initialValues: { opacity: 0, transform: [{ scale: 0.4 }] },
     animations: {
-      opacity: withSpring(1, RESORTE),
-      transform: [{ scale: withSpring(1, RESORTE) }],
+      opacity: withTiming(1, DESLIZAR),
+      transform: [{ scale: withTiming(1, DESLIZAR) }],
     },
   }
 }

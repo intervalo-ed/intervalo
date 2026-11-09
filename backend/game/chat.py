@@ -29,8 +29,8 @@ Las tres defensas, en orden de importancia:
 Lo que este módulo NO hace, a propósito: no filtra malas palabras. No hay lista ni
 clasificador, y escribir una a mano es garantizar falsos positivos en un país
 donde media conversación es puteada afectuosa. Bajar un mensaje se hace con un
-UPDATE sobre `hidden`, y con la puerta abierta a los invitados esa sigue siendo
-la única herramienta de moderación que hay.
+UPDATE sobre `hidden`; además, quien lo lee puede reportarlo o bloquear a su
+autor, y con tres reportes se baja solo (game/moderacion.py).
 """
 
 from __future__ import annotations
@@ -41,7 +41,7 @@ from datetime import datetime
 
 from sqlalchemy.orm import Session
 
-from models import GameMessage, GamePlayer
+from models import GameBlock, GameMessage, GameMessageReport, GamePlayer
 
 from . import elo
 
@@ -213,6 +213,7 @@ def recent(
     after_id: int = 0,
     limit: int = CHAT_LIMIT,
     before_id: int = 0,
+    lector_id: int | None = None,
 ) -> list[MessageView]:
     """Los últimos mensajes, del más nuevo al más viejo.
 
@@ -224,9 +225,23 @@ def recent(
     Con `before_id`, lo de MÁS ATRÁS de esa línea: es lo que pide el panel cuando
     se llega arriba de todo scrolleando. Excluyente con `after_id` — son dos
     direcciones, no dos filtros.
+
+    Con `lector_id` se saca lo que esa persona no quiere ver: lo de quienes
+    bloqueó y lo que ella misma reportó (game/moderacion.py).
     """
     now = datetime.utcnow()
     q = db.query(GameMessage).filter(GameMessage.hidden.is_(False))
+    if lector_id is not None:
+        q = q.filter(
+            GameMessage.player_id.notin_(
+                db.query(GameBlock.blocked_id).filter(GameBlock.blocker_id == lector_id)
+            ),
+            GameMessage.id.notin_(
+                db.query(GameMessageReport.message_id).filter(
+                    GameMessageReport.reporter_id == lector_id
+                )
+            ),
+        )
     if before_id:
         q = q.filter(GameMessage.id < before_id)
     elif after_id:

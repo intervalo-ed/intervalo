@@ -591,6 +591,50 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/game/derivemos/messages/{message_id}/report": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Report Message
+         * @description Reporta un mensaje del chat (Apple 1.2). Idempotente: reportar dos veces el
+         *     mismo mensaje no suma. Con tres reportes distintos se baja solo, y cada
+         *     reporte nuevo le llega por mail a quien modera (game/moderacion.py).
+         */
+        post: operations["report_message_game_derivemos_messages__message_id__report_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/game/derivemos/messages/{message_id}/block": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Block Message Author
+         * @description Bloquea a quien escribió ese mensaje: lo suyo deja de llegarte. Va por el
+         *     id del mensaje y no por el del jugador para no mostrarle ids de jugadores al
+         *     cliente. Idempotente.
+         */
+        post: operations["block_message_author_game_derivemos_messages__message_id__block_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/game/derivemos/cta": {
         parameters: {
             query?: never;
@@ -4410,6 +4454,70 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["GameMessageOut"];
                 };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    report_message_game_derivemos_messages__message_id__report_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+                "x-game-token"?: string;
+            };
+            path: {
+                message_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    block_message_author_game_derivemos_messages__message_id__block_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+                "x-game-token"?: string;
+            };
+            path: {
+                message_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
             /** @description Validation Error */
             422: {

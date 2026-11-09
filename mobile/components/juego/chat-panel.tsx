@@ -9,10 +9,10 @@
 // novedades-slide.tsx): acá no se sabe a qué altura de la pantalla está.
 
 import { useMemo, useRef } from "react"
-import { FlatList, Pressable, StyleSheet, View } from "react-native"
+import { Alert, FlatList, Pressable, StyleSheet, View } from "react-native"
 import { Text, TextInput } from "@/components/texto"
 import Animated, { FadeIn } from "react-native-reanimated"
-import Svg, { Path } from "react-native-svg"
+import Svg, { Circle, Path } from "react-native-svg"
 import { levelColor, TEMA } from "@intervalo/dx-core/juego/game-colors"
 import { fmtAgo } from "@intervalo/dx-core/juego/ranking-formato"
 import {
@@ -42,11 +42,14 @@ function MensajeRow({
   mensaje,
   pendiente,
   onReintentar,
+  onOpciones,
 }: {
   mensaje: ConTiempo<GameMessage>
   /** `undefined` = mensaje confirmado por el servidor. */
   pendiente?: "enviando" | "fallo"
   onReintentar?: () => void
+  /** El `⋯` de reportar o bloquear: solo en mensajes ajenos ya confirmados. */
+  onOpciones?: () => void
 }) {
   const multilinea = mensaje.text.includes("\n")
   return (
@@ -64,6 +67,16 @@ function MensajeRow({
         </Text>
         {mensaje.university && <UniTag university={mensaje.university} />}
         {pendiente === undefined && <Text style={styles.hace}>{fmtAgo(mensaje.seconds_ago)}</Text>}
+        {onOpciones && (
+          <Pressable
+            onPress={onOpciones}
+            hitSlop={10}
+            accessibilityRole="button"
+            accessibilityLabel={`Opciones del mensaje de ${mensaje.alias}`}
+          >
+            <IconoPuntos />
+          </Pressable>
+        )}
       </View>
       {/* Monoespaciada solo con más de un renglón: es lo que deja que un dibujo
           ASCII se vea como se escribió. */}
@@ -90,6 +103,16 @@ function NovedadRow({ evento }: { evento: ConTiempo<GameEvent> }) {
   )
 }
 
+function IconoPuntos() {
+  return (
+    <Svg width={16} height={16} viewBox="0 0 24 24" fill="rgba(164,179,198,0.7)">
+      <Circle cx={5} cy={12} r={1.8} />
+      <Circle cx={12} cy={12} r={1.8} />
+      <Circle cx={19} cy={12} r={1.8} />
+    </Svg>
+  )
+}
+
 function IconoMandar({ color }: { color: string }) {
   // `SendHorizontal` de lucide, el mismo de la web.
   return (
@@ -113,6 +136,8 @@ export function ChatPanel({ enabled, player }: { enabled: boolean; player: GameP
     puedeMandar,
     mandar,
     reintentar,
+    reportar,
+    bloquear,
     hayMas,
     cargarViejas,
   } = useChat({ enabled, player, onEnviado: sfx.select })
@@ -124,6 +149,31 @@ export function ChatPanel({ enabled, player }: { enabled: boolean; player: GameP
     const propios: Fila[] = pendientes.map((p) => ({ tipo: "pendiente", clave: `pend-${p.localId}`, pendiente: p }))
     return [...propios.reverse(), ...[...lineas].reverse()]
   }, [lineas, pendientes])
+
+  // El menú del `⋯`. Reportar no pide confirmación (es reversible para quien
+  // lo ve: solo se esconde); bloquear sí, porque no hay vuelta atrás desde acá.
+  const opciones = (m: ConTiempo<GameMessage>) => {
+    sfx.select()
+    Alert.alert(`@${m.alias}`, undefined, [
+      {
+        text: "Reportar mensaje",
+        onPress: () =>
+          void reportar(m.id).then((ok) => {
+            if (ok) Alert.alert("Gracias", "Lo vamos a revisar.")
+          }),
+      },
+      {
+        text: `Bloquear a @${m.alias}`,
+        style: "destructive",
+        onPress: () =>
+          Alert.alert(`¿Bloquear a @${m.alias}?`, "No vas a ver más lo que escriba.", [
+            { text: "Cancelar", style: "cancel" },
+            { text: "Bloquear", style: "destructive", onPress: () => void bloquear(m.id, m.alias) },
+          ]),
+      },
+      { text: "Cancelar", style: "cancel" },
+    ])
+  }
 
   const enviar = () => {
     if (!mandar()) return
@@ -145,7 +195,10 @@ export function ChatPanel({ enabled, player }: { enabled: boolean; player: GameP
           keyExtractor={(f) => f.clave}
           renderItem={({ item }) =>
             item.tipo === "mensaje" ? (
-              <MensajeRow mensaje={item.mensaje} />
+              <MensajeRow
+                mensaje={item.mensaje}
+                onOpciones={item.mensaje.is_mine ? undefined : () => opciones(item.mensaje)}
+              />
             ) : item.tipo === "evento" ? (
               <NovedadRow evento={item.evento} />
             ) : (

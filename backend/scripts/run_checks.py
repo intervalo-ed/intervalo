@@ -65,6 +65,7 @@ CHECKS = [
     "check_game_cafecito_impacto",
     "check_game_borrado",
     "check_game_chat",
+    "check_game_moderacion",
     "check_game_bienvenida",
     "check_game_dashboard",
     "check_game_dispositivo",

@@ -1439,6 +1439,114 @@
         }
       }
     },
+    "/game/derivemos/messages/{message_id}/report": {
+      "post": {
+        "tags": [
+          "game"
+        ],
+        "summary": "Report Message",
+        "description": "Reporta un mensaje del chat (Apple 1.2). Idempotente: reportar dos veces el\nmismo mensaje no suma. Con tres reportes distintos se baja solo, y cada\nreporte nuevo le llega por mail a quien modera (game/moderacion.py).",
+        "operationId": "report_message_game_derivemos_messages__message_id__report_post",
+        "parameters": [
+          {
+            "name": "message_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Message Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          },
+          {
+            "name": "x-game-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "X-Game-Token"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/game/derivemos/messages/{message_id}/block": {
+      "post": {
+        "tags": [
+          "game"
+        ],
+        "summary": "Block Message Author",
+        "description": "Bloquea a quien escribi\u00f3 ese mensaje: lo suyo deja de llegarte. Va por el\nid del mensaje y no por el del jugador para no mostrarle ids de jugadores al\ncliente. Idempotente.",
+        "operationId": "block_message_author_game_derivemos_messages__message_id__block_post",
+        "parameters": [
+          {
+            "name": "message_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Message Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          },
+          {
+            "name": "x-game-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "X-Game-Token"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/game/derivemos/cta": {
       "post": {
         "tags": [

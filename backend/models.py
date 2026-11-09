@@ -1835,6 +1835,46 @@ class GameMessage(Base):
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow, index=True)
 
 
+class GameMessageReport(Base):
+    """Alguien reportó un mensaje del chat (Apple 1.2: reportar contenido).
+
+    Una fila por persona y mensaje: reportar dos veces no suma. Con
+    `game/moderacion.UMBRAL_REPORTES` reportes distintos el mensaje se baja solo
+    (`game_messages.hidden`), y cada reporte nuevo manda un mail para que alguien
+    lo mire, que es lo que permite responder en el día.
+    """
+
+    __tablename__ = "game_message_reports"
+
+    id = Column(Integer, primary_key=True, index=True)
+    message_id = Column(Integer, ForeignKey("game_messages.id"), nullable=False, index=True)
+    reporter_id = Column(Integer, ForeignKey("game_players.id"), nullable=False, index=True)
+    created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
+
+    __table_args__ = (
+        UniqueConstraint("message_id", "reporter_id", name="uq_game_message_reports"),
+    )
+
+
+class GameBlock(Base):
+    """`blocker` no quiere ver más lo que escribe `blocked` en el chat.
+
+    Es del lado de quien mira: al bloqueado no se le avisa ni se le cambia nada,
+    simplemente su texto deja de llegarle a quien lo bloqueó.
+    """
+
+    __tablename__ = "game_blocks"
+
+    id = Column(Integer, primary_key=True, index=True)
+    blocker_id = Column(Integer, ForeignKey("game_players.id"), nullable=False, index=True)
+    blocked_id = Column(Integer, ForeignKey("game_players.id"), nullable=False, index=True)
+    created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
+
+    __table_args__ = (
+        UniqueConstraint("blocker_id", "blocked_id", name="uq_game_blocks"),
+    )
+
+
 class GameSurveyAnswer(Base):
     """Lo que alguien escribió cuando el juego le preguntó algo abierto.
 
