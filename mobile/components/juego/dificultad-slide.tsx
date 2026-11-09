@@ -6,7 +6,8 @@
 // mirando, todavía eligiendo. «<» vuelve sin guardar.
 
 import { useEffect, useState } from "react"
-import { Platform, Pressable, StyleSheet, Text, View } from "react-native"
+import { Pressable, StyleSheet, View } from "react-native"
+import { Text } from "@/components/texto"
 import Animated, {
   Easing,
   useAnimatedStyle,
@@ -33,6 +34,7 @@ import { useSfx } from "@/lib/audio/UseSfx"
 import { BotonCta } from "./boton-cta"
 import { CTA_H } from "./exercise-card"
 import { SliderVertical } from "./slider-vertical"
+import { FUENTE } from "@/lib/tipografia"
 
 // Lo que ocupa la fila elegida: la fórmula agrandada y dos renglones de texto.
 const ALTO_ELEGIDA = 92
@@ -43,7 +45,6 @@ const COLORES = POSICIONES.map((_, i) => colorDePosicion(i))
 const TONOS = mezclar(COLORES)
 const APAGADO = "#a4b3c6"
 const NARANJA = "#fdba74"
-const MONO = Platform.select({ ios: "Menlo", default: "monospace" })
 
 // La lista se desliza con la misma curva corta del slider: llega antes que el ojo.
 const DESLIZ = { duration: 200, easing: Easing.bezier(0.2, 0.8, 0.2, 1) }
@@ -264,7 +265,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 16,
     lineHeight: 22,
-    fontWeight: "600",
+    fontFamily: FUENTE.seminegrita,
     color: TEMA.foreground,
   },
   cuerpo: {
@@ -283,17 +284,16 @@ const styles = StyleSheet.create({
   formula: {
     alignSelf: "flex-start",
     transformOrigin: "left",
-    fontFamily: MONO,
+    fontFamily: FUENTE.monoMedio,
     fontSize: 17,
     lineHeight: 21,
-    fontWeight: "600",
   },
   texto: {
     marginTop: 12,
     maxWidth: 200,
     fontSize: 14,
     lineHeight: 19,
-    fontWeight: "500",
+    fontFamily: FUENTE.medio,
     color: TEMA.foreground,
   },
   error: { marginTop: 12, textAlign: "center", fontSize: 14, color: NARANJA },
@@ -308,6 +308,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  textoAutomatico: { color: TEMA.foreground, fontSize: 16, fontWeight: "700" },
+  textoAutomatico: { color: TEMA.foreground, fontSize: 16, fontFamily: FUENTE.negrita },
   mitad: { flex: 1, minWidth: 0 },
 })

@@ -6,19 +6,11 @@
 // arriba si no.
 
 import { useCallback, useRef, useState, type ReactNode } from "react"
-import {
-  Modal,
-  Pressable,
-  StyleSheet,
-  Text,
-  useWindowDimensions,
-  View,
-  type HostInstance,
-  type StyleProp,
-  type ViewStyle,
-} from "react-native"
+import { Modal, Pressable, StyleSheet, useWindowDimensions, View, type HostInstance, type StyleProp, type ViewStyle } from "react-native"
+import { Text } from "@/components/texto"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
+import { FUENTE } from "@/lib/tipografia"
 
 const ANCHO_MAX = 288
 const MARGEN = 16
@@ -130,5 +122,5 @@ const estilos = StyleSheet.create({
   },
   texto: { fontSize: 12, lineHeight: 19.5, color: TEMA.foreground },
   nota: { marginTop: 8, color: TEMA.mutedForeground },
-  fuerte: { fontWeight: "600", color: TEMA.foreground },
+  fuerte: { fontFamily: FUENTE.seminegrita, color: TEMA.foreground },
 })

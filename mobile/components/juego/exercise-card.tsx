@@ -8,15 +8,8 @@
 // como hijo de `AnswerField`, así ninguna de estas piezas puede remontarlo.
 
 import { useEffect, useRef, useState, type ReactNode } from "react"
-import {
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-  type StyleProp,
-  type ViewStyle,
-} from "react-native"
+import { Pressable, ScrollView, StyleSheet, View, type StyleProp, type ViewStyle } from "react-native"
+import { Text } from "@/components/texto"
 import Animated, {
   Easing,
   FadeIn,
@@ -37,6 +30,7 @@ import { TEMA } from "@intervalo/dx-core/juego/game-colors"
 import type { GameAnswer } from "@intervalo/dx-core/juego/UseGameExercise"
 import { ESCALA_MATE, Latex } from "@/components/latex/latex"
 import { texASvg } from "@/components/latex/mathjax"
+import { FUENTE } from "@/lib/tipografia"
 
 export const WRONG = "#F97316"
 export const VERDE_ACIERTO = "#22C55E"
@@ -553,7 +547,7 @@ const styles = StyleSheet.create({
     lineHeight: LINE_PX,
     textAlign: "center",
     fontSize: 16,
-    fontWeight: "500",
+    fontFamily: FUENTE.medio,
     color: TEMA.foreground,
   },
   emoji: { fontSize: 16, lineHeight: LINE_PX },
@@ -590,7 +584,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  principalTexto: { color: "#000", fontSize: 16, fontWeight: "700" },
+  principalTexto: { color: "#000", fontSize: 16, fontFamily: FUENTE.negrita },
   porque: {
     borderRadius: 6,
     alignItems: "center",
@@ -599,11 +593,11 @@ const styles = StyleSheet.create({
   },
   porquePlano: { borderWidth: 2, borderColor: TEMA.border, backgroundColor: TEMA.background },
   porqueBlanco: { backgroundColor: "#fff" },
-  porqueTexto: { fontSize: 16, fontWeight: "700" },
+  porqueTexto: { fontSize: 16, fontFamily: FUENTE.negrita },
   banner: { position: "absolute", left: 0, right: 0, bottom: 0, backgroundColor: TEMA.background },
   bannerTinte: { borderTopWidth: 1, paddingTop: 24, paddingHorizontal: 20 },
   tinteCorrecto: { borderTopColor: "rgba(34,197,94,0.5)", backgroundColor: "rgba(34,197,94,0.15)" },
   tinteSeguro: { borderTopColor: "rgba(249,115,22,0.5)", backgroundColor: "rgba(249,115,22,0.20)" },
-  bannerTitulo: { fontSize: 15, fontWeight: "600" },
+  bannerTitulo: { fontSize: 15, fontFamily: FUENTE.seminegrita },
   bannerCuerpo: { marginTop: 12, fontSize: 15, lineHeight: 22, color: "rgba(246,248,252,0.85)" },
 })

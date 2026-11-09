@@ -7,7 +7,8 @@
 // el ejercicio se ve; cerrado, en el teléfono, la fila conserva su lugar sin
 // dibujarse para que el teclado de arriba no se corra al responder.
 
-import { Pressable, StyleSheet, Text, View, type StyleProp, type ViewStyle } from "react-native"
+import { Pressable, StyleSheet, View, type StyleProp, type ViewStyle } from "react-native"
+import { Text } from "@/components/texto"
 import Svg, { Path } from "react-native-svg"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
 import { filaDeAyudas } from "@intervalo/dx-core/juego/pie-de-rampa"

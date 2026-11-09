@@ -9,8 +9,8 @@
 // ancho no se mueve mientras gira.
 
 import { useEffect, useState } from "react"
-import { Text, type StyleProp, type TextStyle } from "react-native"
-
+import { type StyleProp, type TextStyle } from "react-native"
+import { Text } from "@/components/texto"
 export function CountUp({
   value,
   format,

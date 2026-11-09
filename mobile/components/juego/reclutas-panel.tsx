@@ -10,7 +10,8 @@
 // no hay capa de pantalla completa, así que es el fondo de la propia diapo.
 
 import { useEffect, useState } from "react"
-import { Pressable, StyleSheet, Text, View } from "react-native"
+import { Pressable, StyleSheet, View } from "react-native"
+import { Text } from "@/components/texto"
 import { mezclarRGB, TEMA } from "@intervalo/dx-core/juego/game-colors"
 import type { GamePlayer } from "@intervalo/dx-core/juego/game-keys"
 import { PORCENTAJE_POR_DEFECTO, VERDE, type ReclutasTrigger } from "@intervalo/dx-core/juego/reclutas"
@@ -20,6 +21,7 @@ import { useSfx } from "@/lib/audio/UseSfx"
 import { ReclutarButton, WhatsappGlyph } from "./boton-reclutar"
 import { CTA_H } from "./exercise-card"
 import { ListaDeReclutas } from "./reclutas-list"
+import { FUENTE } from "@/lib/tipografia"
 
 // Dos segundos menos que la del cafecito; en cero en desarrollo para que el
 // autoplay no se trabe.
@@ -140,7 +142,7 @@ const styles = StyleSheet.create({
   titulo: {
     marginTop: 8,
     fontSize: 24,
-    fontWeight: "500",
+    fontFamily: FUENTE.medio,
     color: TEMA.foreground,
     textAlign: "center",
   },
@@ -151,7 +153,7 @@ const styles = StyleSheet.create({
     color: "rgba(246, 248, 252, 0.9)",
     textAlign: "center",
   },
-  verde: { color: VERDE, fontWeight: "600" },
+  verde: { color: VERDE, fontFamily: FUENTE.seminegrita },
   numero: { fontVariant: ["tabular-nums"] },
   salida: {
     marginTop: 12,

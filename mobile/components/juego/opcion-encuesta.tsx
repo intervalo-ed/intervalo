@@ -8,7 +8,8 @@
 // encuestas, el radio de la frecuencia en la suya.
 
 import { useEffect, useRef, type ReactNode } from "react"
-import { Pressable, StyleSheet, Text, View, type StyleProp, type ViewStyle } from "react-native"
+import { Pressable, StyleSheet, View, type StyleProp, type ViewStyle } from "react-native"
+import { Text } from "@/components/texto"
 import Animated, {
   Easing,
   useAnimatedStyle,
@@ -18,6 +19,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
+import { FUENTE } from "@/lib/tipografia"
 
 const ENTRADA_MS = 220
 const ESCALON_MS = 50
@@ -125,5 +127,5 @@ const styles = StyleSheet.create({
   },
   elegida: { borderColor: TEMA.ring, backgroundColor: FONDO_ELEGIDA },
   emoji: { fontSize: 24, lineHeight: 32 },
-  texto: { fontSize: 16, fontWeight: "500", color: TEMA.foreground },
+  texto: { fontSize: 16, fontFamily: FUENTE.medio, color: TEMA.foreground },
 })

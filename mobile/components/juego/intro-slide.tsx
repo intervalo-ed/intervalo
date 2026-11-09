@@ -4,7 +4,8 @@
 // y el texto de siempre como respaldo si el digest falla, tarda o viene vacío.
 
 import { useEffect, useState } from "react"
-import { StyleSheet, Text, View } from "react-native"
+import { StyleSheet, View } from "react-native"
+import { Text } from "@/components/texto"
 import { useAuth } from "@clerk/expo"
 import { useQuery } from "@tanstack/react-query"
 import { unwrap } from "@intervalo/dx-core/api/client"
@@ -22,6 +23,7 @@ import { useGameToken } from "@/lib/juego/UseGamePlayer"
 import { BotonCta } from "./boton-cta"
 import { GameLogo } from "./game-logo"
 import { TextoConHuecos } from "./texto-con-huecos"
+import { FUENTE } from "@/lib/tipografia"
 
 // El techo de la espera al digest, no la espera normal (ver ESPERA_MAX_MS en
 // intro-panel.tsx). Vencido, sale el respaldo; si el digest llega después, lo
@@ -154,7 +156,7 @@ const styles = StyleSheet.create({
   textoSigue: { gap: 24 },
   invisible: { opacity: 0 },
   parrafo: { textAlign: "center", fontSize: 16, lineHeight: 26, color: "rgba(246,248,252,0.85)" },
-  fuerte: { fontWeight: "600", color: TEMA.foreground },
+  fuerte: { fontFamily: FUENTE.seminegrita, color: TEMA.foreground },
   caja: {
     alignSelf: "center",
     marginHorizontal: -16,

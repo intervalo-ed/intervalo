@@ -3,7 +3,8 @@
 // desplegable; acá abre una hoja desde abajo con las opciones.
 
 import { useState, type ReactNode } from "react"
-import { Modal, Pressable, ScrollView, StyleSheet, Text, View } from "react-native"
+import { Modal, Pressable, ScrollView, StyleSheet, View } from "react-native"
+import { Text } from "@/components/texto"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import Svg, { Path } from "react-native-svg"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
@@ -14,6 +15,7 @@ import {
   opcionesDeUniversidad,
   type RankingView,
 } from "@intervalo/dx-core/juego/ranking-formato"
+import { FUENTE } from "@/lib/tipografia"
 
 const TENUE = "rgba(246,248,252,0.6)"
 
@@ -22,7 +24,7 @@ const TENUE = "rgba(246,248,252,0.6)"
 export const METRIC_VALOR = {
   fontSize: 18,
   lineHeight: 20,
-  fontWeight: "600",
+  fontFamily: FUENTE.seminegrita,
   color: TEMA.foreground,
   fontVariant: ["tabular-nums"],
 } as const
@@ -119,7 +121,7 @@ export function FilterBox({
                   accessibilityState={{ selected: elegida }}
                   style={({ pressed }) => [styles.opcion, pressed && { backgroundColor: "rgba(255,255,255,0.05)" }]}
                 >
-                  <Text style={[styles.opcionTexto, elegida && { fontWeight: "600" }]} numberOfLines={1}>
+                  <Text style={[styles.opcionTexto, elegida && { fontFamily: FUENTE.seminegrita }]} numberOfLines={1}>
                     {o.label}
                   </Text>
                   {elegida && <Tilde />}
@@ -243,7 +245,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 10,
   },
-  disparadorValor: { fontSize: 12, lineHeight: 13, fontWeight: "600", color: TEMA.foreground },
+  disparadorValor: { fontSize: 12, lineHeight: 13, fontFamily: FUENTE.seminegrita, color: TEMA.foreground },
   disparadorPie: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 4 },
   disparadorRotulo: { flexShrink: 1, fontSize: 10.4, lineHeight: 13, color: TENUE },
   fondo: { flex: 1, backgroundColor: "rgba(0,0,0,0.5)" },
@@ -261,7 +263,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingBottom: 8,
     fontSize: 12,
-    fontWeight: "600",
+    fontFamily: FUENTE.seminegrita,
     color: TENUE,
     textTransform: "uppercase",
     letterSpacing: 0.6,

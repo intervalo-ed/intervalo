@@ -4,7 +4,8 @@
 // sin contestar (`contesto: false`), que es lo que lleva la racha de salteos.
 
 import { useEffect, useRef, useState } from "react"
-import { StyleSheet, Text, View } from "react-native"
+import { StyleSheet, View } from "react-native"
+import { Text } from "@/components/texto"
 import * as Haptics from "expo-haptics"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
 import { useGameApi } from "@intervalo/dx-core/juego/game-api-context"
@@ -17,6 +18,7 @@ import { track } from "@/lib/analytics/track"
 import { useSfx } from "@/lib/audio/UseSfx"
 import { BotonCta } from "./boton-cta"
 import { EmojiYTexto, ListaDeOpciones, OpcionEncuesta } from "./opcion-encuesta"
+import { FUENTE } from "@/lib/tipografia"
 
 export function OpinionSlide({ onContinue }: { onContinue: (contesto: boolean) => void }) {
   const api = useGameApi()
@@ -86,7 +88,7 @@ export function OpinionSlide({ onContinue }: { onContinue: (contesto: boolean) =
 const styles = StyleSheet.create({
   pantalla: { flex: 1, paddingHorizontal: 20 },
   centro: { flex: 1, justifyContent: "center", gap: 24 },
-  titulo: { fontSize: 20, fontWeight: "600", color: TEMA.foreground, textAlign: "center" },
+  titulo: { fontSize: 20, fontFamily: FUENTE.seminegrita, color: TEMA.foreground, textAlign: "center" },
   subtitulo: {
     marginTop: 8,
     fontSize: 14,

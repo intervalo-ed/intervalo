@@ -11,17 +11,8 @@
 // la web mide en el DOM acá se cuenta: la fila `i` está en `4 + i × 52`.
 
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
-import {
-  ActivityIndicator,
-  StyleSheet,
-  Text,
-  View,
-  type FlatList,
-  type HostInstance,
-  type LayoutChangeEvent,
-  type NativeScrollEvent,
-  type NativeSyntheticEvent,
-} from "react-native"
+import { ActivityIndicator, StyleSheet, View, type FlatList, type HostInstance, type LayoutChangeEvent, type NativeScrollEvent, type NativeSyntheticEvent } from "react-native"
+import { Text } from "@/components/texto"
 import Animated, {
   cancelAnimation,
   scrollTo,

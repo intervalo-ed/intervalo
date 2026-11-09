@@ -2,12 +2,14 @@
 // El corte en tramos sale de dx-core; acá solo se dibuja. Devuelve tramos sueltos:
 // va adentro de un <Text>, que es el que pone el cuerpo y el color de la oración.
 
-import { StyleSheet, Text, View } from "react-native"
+import { StyleSheet, View } from "react-native"
+import { Text } from "@/components/texto"
 import { etiquetaDe, tagDe } from "@intervalo/dx-core/university-tags"
 import { levelColor, TEMA } from "@intervalo/dx-core/juego/game-colors"
 import { partirEnHuecos } from "@intervalo/dx-core/juego/texto-con-huecos"
 import { UniTag } from "./university-tag"
 import { XpDots } from "./xp-dots"
+import { FUENTE } from "@/lib/tipografia"
 
 export function TextoConHuecos({
   texto,
@@ -86,7 +88,7 @@ export function TextoConHuecos({
 }
 
 const styles = StyleSheet.create({
-  fuerte: { fontWeight: "600" },
+  fuerte: { fontFamily: FUENTE.seminegrita },
   secundario: { color: "rgba(246,248,252,0.9)" },
   // Los Views dentro de un Text se apoyan en la línea de base: el chip baja un
   // poco para quedar centrado con el renglón.

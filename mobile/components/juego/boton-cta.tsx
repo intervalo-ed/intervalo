@@ -1,8 +1,10 @@
 // El botón blanco de ancho completo de las diapos (`ctaCls` de mobile-flow.tsx
 // en la web): ¡Vamos!, Volver, Continuar.
 
-import { Pressable, StyleSheet, Text } from "react-native"
+import { Pressable, StyleSheet } from "react-native"
+import { Text } from "@/components/texto"
 import { CTA_H } from "./exercise-card"
+import { FUENTE } from "@/lib/tipografia"
 
 export function BotonCta({
   texto,
@@ -34,5 +36,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  texto: { color: "#000", fontSize: 16, fontWeight: "700" },
+  texto: { color: "#000", fontSize: 16, fontFamily: FUENTE.negrita },
 })

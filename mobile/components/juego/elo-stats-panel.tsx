@@ -8,7 +8,8 @@
 // cabecera: el cafecito no está en la app.
 
 import { useEffect, useState, type ReactNode } from "react"
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native"
+import { Pressable, ScrollView, StyleSheet, View } from "react-native"
+import { Text } from "@/components/texto"
 import Animated, {
   Easing,
   useAnimatedStyle,
@@ -33,6 +34,7 @@ import type { GamePlayer } from "@intervalo/dx-core/juego/game-keys"
 import { BotonCta } from "./boton-cta"
 import { DerivativesStatsTable, HojaDeCartel, type Cartel } from "./derivatives-table"
 import { XpDots } from "./xp-dots"
+import { FUENTE } from "@/lib/tipografia"
 
 // El verde de WhatsApp, el mismo de reclutas en la web (cafecito-cta.tsx :: VERDE).
 const VERDE = "#25D366"
@@ -102,7 +104,7 @@ function EloHistogram({
 
   const max = maxCount(stats.histogram)
   const paso = pasoEtiqueta(stats.histogram)
-  const tinta = { color: levelColor(nivel), fontWeight: "600" } as const
+  const tinta = { color: levelColor(nivel), fontFamily: FUENTE.seminegrita } as const
 
   return (
     <View style={styles.histo}>
@@ -387,7 +389,7 @@ const styles = StyleSheet.create({
   tileValor: {
     fontSize: 18,
     lineHeight: 20,
-    fontWeight: "600",
+    fontFamily: FUENTE.seminegrita,
     color: TEMA.foreground,
     fontVariant: ["tabular-nums"],
   },
@@ -406,7 +408,7 @@ const styles = StyleSheet.create({
   histo: { gap: 8 },
   tituloSeccion: {
     fontSize: 12.5,
-    fontWeight: "500",
+    fontFamily: FUENTE.medio,
     letterSpacing: 0.8,
     textTransform: "uppercase",
     color: TEMA.mutedForeground,
@@ -424,9 +426,9 @@ const styles = StyleSheet.create({
   },
   etiquetaCentro: { left: -20, right: -20, textAlign: "center" },
   frase: { textAlign: "center", fontSize: 14, lineHeight: 20, color: TEMA.mutedForeground },
-  fuerte: { fontWeight: "600", color: TEMA.foreground },
+  fuerte: { fontFamily: FUENTE.seminegrita, color: TEMA.foreground },
   sinCampana: { alignItems: "center", gap: 8, paddingVertical: 8 },
-  ratingSolo: { fontSize: 24, fontWeight: "700", color: TEMA.foreground, fontVariant: ["tabular-nums"] },
+  ratingSolo: { fontSize: 24, fontFamily: FUENTE.negrita, color: TEMA.foreground, fontVariant: ["tabular-nums"] },
   sinCampanaTexto: { textAlign: "center", fontSize: 12, lineHeight: 19.5, color: TEMA.mutedForeground },
   explicacion: { fontSize: 14, lineHeight: 22.75, color: TEMA.mutedForeground },
 })

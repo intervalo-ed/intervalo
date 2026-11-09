@@ -10,17 +10,8 @@
 // el pie dice "Guardar": el mismo PATCH de Configuración, no el registro.
 
 import { useState } from "react"
-import {
-  ActivityIndicator,
-  KeyboardAvoidingView,
-  Platform,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native"
+import { ActivityIndicator, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, View } from "react-native"
+import { Text, TextInput } from "@/components/texto"
 import Svg, { Path } from "react-native-svg"
 import { useQueryClient } from "@tanstack/react-query"
 import { ApiError, unwrap } from "@intervalo/dx-core/api/client"
@@ -38,6 +29,7 @@ import { CTA_H } from "./exercise-card"
 import { GoogleIcon } from "./google-icon"
 import { ESTILOS_FILA } from "./ranking/skeleton"
 import { XpDots } from "./xp-dots"
+import { FUENTE } from "@/lib/tipografia"
 
 // El `VERDE` de cafecito-cta.tsx en la web: la XP que dieron los reclutas.
 const VERDE = "#25D366"
@@ -278,17 +270,17 @@ const styles = StyleSheet.create({
     paddingTop: 48,
     paddingBottom: 8,
   },
-  titulo: { fontSize: 24, fontWeight: "700", color: TEMA.foreground, textAlign: "center" },
+  titulo: { fontSize: 24, fontFamily: FUENTE.negrita, color: TEMA.foreground, textAlign: "center" },
   numero: { fontVariant: ["tabular-nums"] },
   parrafo: { fontSize: 14, lineHeight: 22, color: TEMA.mutedForeground, textAlign: "center" },
   resaltado: { color: TEMA.foreground },
   filaPropia: { width: "100%", maxWidth: 320 },
-  filaAlias: { flex: 1, minWidth: 0, fontSize: 14, lineHeight: 20, fontWeight: "500" },
+  filaAlias: { flex: 1, minWidth: 0, fontSize: 14, lineHeight: 20, fontFamily: FUENTE.medio },
   filaDelta: { flexShrink: 0, flexDirection: "row", alignItems: "center", gap: 2 },
   filaDeltaNumero: {
     fontSize: 12,
     lineHeight: 16,
-    fontWeight: "500",
+    fontFamily: FUENTE.medio,
     color: VERDE_400,
     fontVariant: ["tabular-nums"],
   },
@@ -296,7 +288,7 @@ const styles = StyleSheet.create({
   filaXpNumero: {
     fontSize: 14,
     lineHeight: 20,
-    fontWeight: "600",
+    fontFamily: FUENTE.seminegrita,
     color: TEMA.foreground,
     fontVariant: ["tabular-nums"],
   },
@@ -329,7 +321,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     gap: 8,
   },
-  textoGoogle: { color: "#000", fontSize: 16, fontWeight: "700" },
+  textoGoogle: { color: "#000", fontSize: 16, fontFamily: FUENTE.negrita },
   // `text-foreground/45`.
   privacidad: {
     fontSize: 12,

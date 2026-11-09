@@ -11,7 +11,8 @@
 // que montar vistas.
 
 import { useMemo, useState, type ReactNode } from "react"
-import { FlatList, Modal, Pressable, StyleSheet, Text, View, type StyleProp, type ViewStyle } from "react-native"
+import { FlatList, Modal, Pressable, StyleSheet, View, type StyleProp, type ViewStyle } from "react-native"
+import { Text } from "@/components/texto"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
 import {

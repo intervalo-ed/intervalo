@@ -2,6 +2,7 @@ import "@/lib/almacen/instalar-almacen"
 import { useEffect, useState, type ReactNode } from "react"
 import { StyleSheet, Text, View } from "react-native"
 import { Stack } from "expo-router"
+import { useFonts } from "expo-font"
 import { GestureHandlerRootView } from "react-native-gesture-handler"
 import * as SplashScreen from "expo-splash-screen"
 import { ClerkProvider } from "@clerk/expo"
@@ -20,6 +21,7 @@ import { useTapDeAviso } from "@/lib/avisos/UseTapDeAviso"
 import { RescateProvider } from "@/lib/almacen/rescate-context"
 import { restaurarToken } from "@/lib/almacen/token-seguro"
 import { env } from "@/lib/env"
+import { FUENTES_CRITICAS, FUENTES_DIFERIDAS } from "@/lib/tipografia"
 
 void SplashScreen.preventAutoHideAsync()
 
@@ -37,6 +39,12 @@ export default function RootLayout() {
   // El splash queda arriba hasta que el respaldo del llavero se adoptó: el alta
   // del jugador no puede salir antes, o crearía un invitado nuevo.
   const [rescate, setRescate] = useState<Rescate | null>(null)
+  // Las fuentes también se esperan con el splash arriba: si no, el primer
+  // cuadro saldría en la tipografía del sistema y después saltaría. Si fallan
+  // en cargar se sigue igual (cae a la del sistema) para no bloquear el juego.
+  const [fuentesListas, errorDeFuentes] = useFonts(FUENTES_CRITICAS)
+  useFonts(FUENTES_DIFERIDAS)
+  const fuentesResueltas = fuentesListas || errorDeFuentes !== null
   useTapDeAviso()
 
   useEffect(() => {
@@ -56,8 +64,8 @@ export default function RootLayout() {
   }, [])
 
   useEffect(() => {
-    if (rescate !== null || !env.clerkPublishableKey) SplashScreen.hide()
-  }, [rescate])
+    if ((rescate !== null && fuentesResueltas) || !env.clerkPublishableKey) SplashScreen.hide()
+  }, [rescate, fuentesResueltas])
 
   if (!env.clerkPublishableKey) {
     return (
@@ -68,7 +76,7 @@ export default function RootLayout() {
     )
   }
 
-  if (rescate === null) return null
+  if (rescate === null || !fuentesResueltas) return null
 
   return (
     <GestureHandlerRootView style={styles.raiz}>

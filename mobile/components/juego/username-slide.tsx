@@ -11,16 +11,8 @@
 // (`useGamePlayer`), si la cuenta no tenía uno elegido.
 
 import { useRef, useState } from "react"
-import {
-  ActivityIndicator,
-  KeyboardAvoidingView,
-  Platform,
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native"
+import { ActivityIndicator, KeyboardAvoidingView, Platform, Pressable, StyleSheet, View } from "react-native"
+import { Text, TextInput } from "@/components/texto"
 import { useQueryClient } from "@tanstack/react-query"
 import { ApiError, unwrap } from "@intervalo/dx-core/api/client"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
@@ -33,6 +25,7 @@ import { useGoogleLogin } from "@/lib/auth/UseGoogleLogin"
 import { BotonCta } from "./boton-cta"
 import { CTA_H } from "./exercise-card"
 import { GoogleIcon } from "./google-icon"
+import { FUENTE } from "@/lib/tipografia"
 
 export function UsernameSlide({
   player,
@@ -164,7 +157,7 @@ export function UsernameSlide({
 const styles = StyleSheet.create({
   pantalla: { flex: 1, paddingHorizontal: 20 },
   centro: { flex: 1, alignItems: "center", justifyContent: "center", gap: 16 },
-  titulo: { fontSize: 24, fontWeight: "700", color: TEMA.foreground, textAlign: "center" },
+  titulo: { fontSize: 24, fontFamily: FUENTE.negrita, color: TEMA.foreground, textAlign: "center" },
   subtitulo: {
     fontSize: 14,
     lineHeight: 22,
@@ -193,7 +186,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     gap: 8,
   },
-  textoGoogle: { color: "#000", fontSize: 16, fontWeight: "700" },
+  textoGoogle: { color: "#000", fontSize: 16, fontFamily: FUENTE.negrita },
   // `text-foreground/55` de la web.
   leyendaGoogle: {
     fontSize: 12,

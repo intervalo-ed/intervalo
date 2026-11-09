@@ -3,7 +3,8 @@
 // explica qué mide (web/src/app/derivadas/game-ranking.tsx). Los textos de los
 // carteles son los de la web palabra por palabra: tienen que envejecer juntos.
 
-import { StyleSheet, Text, View, type HostInstance } from "react-native"
+import { StyleSheet, View, type HostInstance } from "react-native"
+import { Text } from "@/components/texto"
 import Svg, { Circle, Path } from "react-native-svg"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
 import { fmtCount } from "@intervalo/dx-core/juego/ranking-formato"
@@ -12,6 +13,7 @@ import type { GameUniversityRow } from "@intervalo/dx-core/juego/UseGameLeaderbo
 import { CountUp } from "../count-up"
 import { XpDots } from "../xp-dots"
 import { Cartel, CartelNota, CartelTexto, Fuerte } from "./cartel"
+import { FUENTE } from "@/lib/tipografia"
 
 // `size-[0.85em]` de `text-sm`.
 const ICONO_XP = 12
@@ -205,12 +207,12 @@ const estilos = StyleSheet.create({
   numero: {
     fontSize: 14,
     lineHeight: 20,
-    fontWeight: "600",
+    fontFamily: FUENTE.seminegrita,
     color: TEMA.foreground,
     fontVariant: ["tabular-nums"],
   },
   tenue: { color: TEMA.mutedForeground },
   // Versalita con aire: pegado, "ELO" se lee como una sola mancha.
-  elo: { fontSize: 9.8, fontWeight: "400", letterSpacing: 0.5, color: TEMA.mutedForeground },
+  elo: { fontSize: 9.8, fontFamily: FUENTE.normal, letterSpacing: 0.5, color: TEMA.mutedForeground },
   jugadores: { flexDirection: "row", flexShrink: 0, alignItems: "center", gap: 4 },
 })

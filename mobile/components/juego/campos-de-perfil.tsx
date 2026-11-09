@@ -9,20 +9,13 @@
 
 import type { ReactNode, Ref } from "react"
 import { Image, type ImageSource } from "expo-image"
-import {
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  type TextInputInstance,
-  type StyleProp,
-  type ViewStyle,
-} from "react-native"
+import { Pressable, StyleSheet, View, type TextInputInstance, type StyleProp, type ViewStyle } from "react-native"
+import { Text, TextInput } from "@/components/texto"
 import { CAREERS } from "@intervalo/dx-core/carreras"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
 import { ONBOARDING_UNIVERSITIES, matchUniversities } from "@intervalo/dx-core/university-tags"
 import { SugerenciaUniversidad } from "./university-tag"
+import { FUENTE } from "@/lib/tipografia"
 
 // Logos monocromos (gris), los de `web/public/universities`. El tamaño natural va
 // al lado porque el ancho sale de la proporción: el alto es fijo, como en la web.
@@ -230,7 +223,7 @@ export function UniversityGrid({
 const styles = StyleSheet.create({
   bloque: { width: "100%", gap: 20 },
   encabezado: { gap: 8 },
-  titulo: { fontSize: 24, fontWeight: "700", color: TEMA.foreground, textAlign: "center" },
+  titulo: { fontSize: 24, fontFamily: FUENTE.negrita, color: TEMA.foreground, textAlign: "center" },
   subtitulo: { fontSize: 16, lineHeight: 24, color: "rgba(246,248,252,0.85)", textAlign: "center" },
   grilla: { gap: 10 },
   fila: { flexDirection: "row", gap: 10 },
@@ -244,7 +237,7 @@ const styles = StyleSheet.create({
   },
   opcionElegida: { borderColor: TEMA.ring },
   opcionApretada: { borderColor: "rgba(255,255,255,0.2)" },
-  textoOpcion: { fontSize: 16, fontWeight: "500", color: "rgba(246,248,252,0.8)" },
+  textoOpcion: { fontSize: 16, fontFamily: FUENTE.medio, color: "rgba(246,248,252,0.8)" },
   textoElegido: { color: SELECCIONADO },
   carrera: { flex: 1, paddingVertical: 24, gap: 8 },
   emoji: { fontSize: 24, lineHeight: 28, color: "rgba(246,248,252,0.8)" },

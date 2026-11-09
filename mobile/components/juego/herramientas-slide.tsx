@@ -6,11 +6,13 @@
 // lo que se enseña es cuál de los dos botones de abajo hace qué.
 
 import { useEffect, type ReactNode } from "react"
-import { StyleSheet, Text, View } from "react-native"
+import { StyleSheet, View } from "react-native"
+import { Text } from "@/components/texto"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
 import { track } from "@/lib/analytics/track"
 import { BotonCta } from "./boton-cta"
 import { IconoDeAyuda, TRAZOS_SALTEAR, TRAZOS_TABLA } from "./pie-rampa"
+import { FUENTE } from "@/lib/tipografia"
 
 export function HerramientasSlide({ onContinue }: { onContinue: () => void }) {
   useEffect(() => {
@@ -58,5 +60,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   parrafo: { flex: 1, fontSize: 16, lineHeight: 26, color: "rgba(246,248,252,0.85)" },
-  fuerte: { fontWeight: "600", color: TEMA.foreground },
+  fuerte: { fontFamily: FUENTE.seminegrita, color: TEMA.foreground },
 })

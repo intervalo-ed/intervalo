@@ -3,11 +3,13 @@
 // ir adentro de un <Text>, alineada a la línea de base del texto de al lado.
 
 import { memo, type ReactNode } from "react"
-import { Platform, ScrollView, StyleSheet, Text, View, type StyleProp, type TextStyle, type ViewStyle } from "react-native"
+import { ScrollView, StyleSheet, View, type StyleProp, type TextStyle, type ViewStyle } from "react-native"
+import { Text } from "@/components/texto"
 import { SvgAst } from "react-native-svg"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
 import { parseMathText, type MathSegment } from "@intervalo/dx-core/latex/math-text"
 import { texASvg } from "./mathjax"
+import { FUENTE } from "@/lib/tipografia"
 
 // Cuánto más grande que el texto de al lado se dibuja la fórmula. Es lo que
 // hace la web: KaTeX dibuja a 1.21em y math-text.tsx le suma un 5%
@@ -192,7 +194,7 @@ function enLinea({
 }
 
 const styles = StyleSheet.create({
-  crudo: { color: TEMA.mutedForeground, fontFamily: Platform.select({ ios: "Menlo", default: "monospace" }) },
+  crudo: { color: TEMA.mutedForeground, fontFamily: FUENTE.mono },
   negrita: { fontWeight: "700" },
   display: { marginVertical: 12, flexGrow: 0 },
   displayAdentro: { flexGrow: 1, justifyContent: "center" },

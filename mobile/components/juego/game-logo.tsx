@@ -3,9 +3,11 @@
 // la presentación (el typewriter que lo escribe en el centro y lo deja en su
 // lugar): acá aparece entero, con un fundido.
 
-import { StyleSheet, Text, View } from "react-native"
+import { StyleSheet, View } from "react-native"
+import { Text } from "@/components/texto"
 import Animated, { FadeIn } from "react-native-reanimated"
 import { BELT_LEGEND_BAR_COLORS } from "@intervalo/dx-core/catalog"
+import { FUENTE } from "@/lib/tipografia"
 
 const GAP_EM = 0.16
 const BAR_EM = 0.12
@@ -57,6 +59,7 @@ export function GameLogo({ fontSize }: { fontSize: number }) {
 const styles = StyleSheet.create({
   fila: { flexDirection: "row", alignItems: "center" },
   filaEstirada: { flexDirection: "row", alignItems: "stretch" },
-  texto: { color: COLOR, fontWeight: "600" },
+  // Noto Serif 600: el `font-heading` de la web (ver lib/tipografia.ts).
+  texto: { color: COLOR, fontFamily: FUENTE.logo },
   barra: { flexDirection: "row", alignSelf: "stretch", borderRadius: 2, overflow: "hidden" },
 })

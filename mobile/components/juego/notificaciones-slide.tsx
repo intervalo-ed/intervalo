@@ -9,7 +9,8 @@
 // y se elige con un toque, sin abrir nada encima de la diapo.
 
 import { useEffect, useRef, useState } from "react"
-import { Pressable, ScrollView, StyleSheet, Text, View, type ScrollViewInstance } from "react-native"
+import { Pressable, ScrollView, StyleSheet, View, type ScrollViewInstance } from "react-native"
+import { Text } from "@/components/texto"
 import * as Haptics from "expo-haptics"
 import Svg, { Circle, Path } from "react-native-svg"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
@@ -18,6 +19,7 @@ import { track } from "@/lib/analytics/track"
 import { useSfx } from "@/lib/audio/UseSfx"
 import { usePrenderAvisosNativos } from "@/lib/avisos/UseAvisosNativos"
 import { CTA_H } from "./exercise-card"
+import { FUENTE } from "@/lib/tipografia"
 
 // Lo mismo que espera la diapo de reclutas; en cero en desarrollo para que el
 // autoplay no se trabe.
@@ -159,7 +161,7 @@ function TiraDeHorarios({ hora, onElegir }: { hora: string; onElegir: (t: string
               pressed && !activo && { backgroundColor: TEMA.accent },
             ]}
           >
-            <Text style={[styles.textoChip, activo && { color: TEMA.foreground, fontWeight: "600" }]}>{t}</Text>
+            <Text style={[styles.textoChip, activo && { color: TEMA.foreground, fontFamily: FUENTE.seminegrita }]}>{t}</Text>
           </Pressable>
         )
       })}
@@ -217,7 +219,7 @@ const styles = StyleSheet.create({
   titulo: {
     marginTop: 8,
     fontSize: 24,
-    fontWeight: "500",
+    fontFamily: FUENTE.medio,
     color: TEMA.foreground,
     textAlign: "center",
   },
@@ -283,5 +285,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     gap: 8,
   },
-  textoActivar: { color: "#fff", fontSize: 16, fontWeight: "600" },
+  textoActivar: { color: "#fff", fontSize: 16, fontFamily: FUENTE.seminegrita },
 })

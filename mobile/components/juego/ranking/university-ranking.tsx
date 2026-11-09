@@ -6,7 +6,8 @@
 // sobre el total que ya estaba en pantalla.
 
 import { useCallback, useEffect, useMemo, useRef } from "react"
-import { StyleSheet, Text, View, type FlatList, type HostInstance } from "react-native"
+import { StyleSheet, View, type FlatList, type HostInstance } from "react-native"
+import { Text } from "@/components/texto"
 import Animated, { LinearTransition } from "react-native-reanimated"
 import { filaConEmpujeRGBA } from "@intervalo/dx-core/juego/game-colors"
 import { scrollEnReposo, type RankingSort } from "@intervalo/dx-core/juego/ranking-reglas"

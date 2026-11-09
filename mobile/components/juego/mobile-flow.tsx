@@ -15,7 +15,8 @@
 // ejercicio nuevo es `clear()` sobre el mismo campo.
 
 import { useCallback, useEffect, useRef, useState } from "react"
-import { KeyboardAvoidingView, StyleSheet, Text, View } from "react-native"
+import { KeyboardAvoidingView, StyleSheet, View } from "react-native"
+import { Text } from "@/components/texto"
 import { router } from "expo-router"
 import { StatusBar } from "expo-status-bar"
 import * as Haptics from "expo-haptics"

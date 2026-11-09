@@ -9,7 +9,8 @@
 // novedades-slide.tsx): acá no se sabe a qué altura de la pantalla está.
 
 import { useMemo, useRef } from "react"
-import { FlatList, Platform, Pressable, StyleSheet, Text, TextInput, View } from "react-native"
+import { FlatList, Pressable, StyleSheet, View } from "react-native"
+import { Text, TextInput } from "@/components/texto"
 import Animated, { FadeIn } from "react-native-reanimated"
 import Svg, { Path } from "react-native-svg"
 import { levelColor, TEMA } from "@intervalo/dx-core/juego/game-colors"
@@ -26,6 +27,7 @@ import type { GamePlayer } from "@intervalo/dx-core/juego/game-keys"
 import type { ConTiempo, GameEvent, GameMessage } from "@intervalo/dx-core/juego/UseGameLeaderboard"
 import { useSfx } from "@/lib/audio/UseSfx"
 import { UniTag } from "./university-tag"
+import { FUENTE } from "@/lib/tipografia"
 
 const FUNDIDO = FadeIn.duration(200)
 
@@ -211,7 +213,7 @@ const styles = StyleSheet.create({
   // `bg-primary/10`.
   mensajePropio: { backgroundColor: "rgba(84,87,229,0.1)" },
   cabecera: { flexDirection: "row", alignItems: "center", gap: 6 },
-  alias: { flexShrink: 1, fontSize: 12, fontWeight: "500" },
+  alias: { flexShrink: 1, fontSize: 12, fontFamily: FUENTE.medio },
   hace: {
     marginLeft: "auto",
     fontSize: 11,
@@ -219,7 +221,7 @@ const styles = StyleSheet.create({
     fontVariant: ["tabular-nums"],
   },
   texto: { fontSize: 12, lineHeight: 17, color: "rgba(246,248,252,0.9)" },
-  textoMono: { fontSize: 11, lineHeight: 13, fontFamily: Platform.select({ ios: "Menlo", default: "monospace" }), color: "rgba(246,248,252,0.9)" },
+  textoMono: { fontSize: 11, lineHeight: 13, fontFamily: FUENTE.mono, color: "rgba(246,248,252,0.9)" },
   enviando: { fontSize: 10.5, color: "rgba(164,179,198,0.7)" },
   reintentar: { fontSize: 11, color: NARANJA, textDecorationLine: "underline" },
   novedad: { flexDirection: "row", alignItems: "baseline", gap: 8, paddingHorizontal: 8, paddingVertical: 4 },

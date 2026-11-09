@@ -4,15 +4,8 @@
 // diapo. Todo se puede saltear con «Ahora no».
 
 import { useEffect, useRef, useState } from "react"
-import {
-  KeyboardAvoidingView,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-  type TextInputInstance,
-} from "react-native"
+import { KeyboardAvoidingView, Pressable, ScrollView, StyleSheet, View, type TextInputInstance } from "react-native"
+import { Text } from "@/components/texto"
 import Animated, { SlideInRight, SlideOutLeft } from "react-native-reanimated"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
 import { useGameApi } from "@intervalo/dx-core/juego/game-api-context"

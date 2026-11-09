@@ -18,6 +18,7 @@ import Animated, {
 } from "react-native-reanimated"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
 import { ALTO_FILA_PX } from "@intervalo/dx-core/juego/salto-ranking"
+import { FUENTE } from "@/lib/tipografia"
 
 // Separación entre filas (`gap-2`). Fila + separación = ALTO_FILA_PX, que es con
 // lo que salto-ranking.ts convierte puestos en píxeles.
@@ -49,7 +50,7 @@ export const ESTILOS_FILA = StyleSheet.create({
     textAlign: "center",
     fontSize: 14,
     lineHeight: 20,
-    fontWeight: "600",
+    fontFamily: FUENTE.seminegrita,
     color: TEMA.mutedForeground,
     fontVariant: ["tabular-nums"],
   },

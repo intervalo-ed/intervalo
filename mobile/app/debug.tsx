@@ -2,7 +2,8 @@
 // alta del jugador funcionan de punta a punta. Solo en desarrollo: se llega
 // manteniendo apretado el marcador del ejercicio.
 
-import { Platform, ScrollView, StyleSheet, Text, View } from "react-native"
+import { Platform, ScrollView, StyleSheet, View } from "react-native"
+import { Text } from "@/components/texto"
 import { Redirect, Stack } from "expo-router"
 import { useAuth } from "@clerk/expo"
 import { useRescate } from "@/lib/almacen/rescate-context"

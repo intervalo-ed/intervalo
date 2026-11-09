@@ -9,17 +9,8 @@
 // se dibujan solo si quien monta el panel pasa su callback.
 
 import { useRef, useState, type ReactNode } from "react"
-import {
-  KeyboardAvoidingView,
-  Platform,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  type TextInputInstance,
-} from "react-native"
+import { KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, View, type TextInputInstance } from "react-native"
+import { Text, TextInput } from "@/components/texto"
 import Animated, {
   Easing,
   LayoutAnimationConfig,
@@ -53,6 +44,7 @@ import { abrirPrivacidad } from "@/lib/legal"
 import { BotonCta } from "./boton-cta"
 import { CareerSelect, UniversityGrid } from "./campos-de-perfil"
 import { PASE_MS } from "./capa-deslizante"
+import { FUENTE } from "@/lib/tipografia"
 
 type Section = "root" | "alias" | "career" | "university"
 
@@ -327,7 +319,7 @@ export function SettingsPanel({
                   busy && { opacity: 0.45 },
                 ]}
               >
-                <Text style={[styles.texto, { color: ROJO, fontWeight: "500" }]}>Reiniciar</Text>
+                <Text style={[styles.texto, { color: ROJO, fontFamily: FUENTE.medio }]}>Reiniciar</Text>
               </Pressable>
             </View>
           </View>
@@ -663,7 +655,7 @@ const styles = StyleSheet.create({
   shell: { flex: 1, width: "100%", maxWidth: 448, alignSelf: "center", paddingHorizontal: 16, gap: 16 },
   cabecera: { flexDirection: "row", alignItems: "center", gap: 8 },
   volver: { borderRadius: 6, padding: 6 },
-  titulo: { fontSize: 18, fontWeight: "600", color: TEMA.foreground },
+  titulo: { fontSize: 18, fontFamily: FUENTE.seminegrita, color: TEMA.foreground },
   filas: { gap: 8, paddingBottom: 8 },
   crece: { flexGrow: 1, paddingBottom: 16 },
   fila: {
@@ -681,7 +673,7 @@ const styles = StyleSheet.create({
   texto: { fontSize: 14, color: TEMA.foreground },
   conIcono: { flexDirection: "row", alignItems: "center", gap: 8, flexShrink: 1 },
   confirmar: { borderColor: "rgba(229,72,77,0.5)" },
-  confirmarTitulo: { fontSize: 14, fontWeight: "500", color: ROJO },
+  confirmarTitulo: { fontSize: 14, fontFamily: FUENTE.medio, color: ROJO },
   confirmarTexto: { marginTop: 4, fontSize: 12, lineHeight: 19.5, color: "rgba(246,248,252,0.85)" },
   confirmarBotones: { marginTop: 12, flexDirection: "row", gap: 8 },
   botonChico: {

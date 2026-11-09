@@ -7,7 +7,8 @@
 // web. Mirando "Reclutas", el pie ofrece reclutar y deja Seguir al lado.
 
 import { useEffect, useRef, useState, type ReactNode } from "react"
-import { Pressable, StyleSheet, Text, View } from "react-native"
+import { Pressable, StyleSheet, View } from "react-native"
+import { Text } from "@/components/texto"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
 import type { RankingView } from "@intervalo/dx-core/juego/ranking-formato"
 import type { MemoriaDelRanking } from "@intervalo/dx-core/juego/ranking-orden"
@@ -16,6 +17,7 @@ import { BotonCta } from "./boton-cta"
 import { ReclutarButton } from "./boton-reclutar"
 import { CTA_H } from "./exercise-card"
 import { GameRanking } from "./ranking/game-ranking"
+import { FUENTE } from "@/lib/tipografia"
 
 export function RankingSlide({
   answer,
@@ -124,5 +126,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   apretado: { backgroundColor: TEMA.accent },
-  seguirTexto: { color: TEMA.foreground, fontSize: 16, fontWeight: "500" },
+  seguirTexto: { color: TEMA.foreground, fontSize: 16, fontFamily: FUENTE.medio },
 })

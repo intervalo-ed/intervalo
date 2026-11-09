@@ -6,7 +6,8 @@
 // empuje de cafecitos: ninguno de los dos existe a escala de país.
 
 import { useMemo } from "react"
-import { StyleSheet, Text, View } from "react-native"
+import { StyleSheet, View } from "react-native"
+import { Text } from "@/components/texto"
 import Animated, { LinearTransition } from "react-native-reanimated"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
 import { agruparPorPais } from "@intervalo/dx-core/juego/ranking-por-pais"
@@ -17,6 +18,7 @@ import { tagDe } from "@intervalo/dx-core/university-tags"
 import { Bandera } from "../university-tag"
 import { EloDeUniversidad, JugadoresDe, XpDeUniversidad } from "./celdas"
 import { ALTO_FILA, ESTILOS_FILA, ListSkeleton } from "./skeleton"
+import { FUENTE } from "@/lib/tipografia"
 
 export function CountryRanking({
   enabled,
@@ -77,5 +79,5 @@ const estilos = StyleSheet.create({
   lista: { flex: 1, minHeight: 0 },
   fila: { gap: 8 },
   nombre: { flex: 1, minWidth: 0, flexDirection: "row", alignItems: "center", gap: 8 },
-  pais: { flexShrink: 1, fontSize: 14, lineHeight: 20, fontWeight: "500", color: TEMA.foreground },
+  pais: { flexShrink: 1, fontSize: 14, lineHeight: 20, fontFamily: FUENTE.medio, color: TEMA.foreground },
 })
