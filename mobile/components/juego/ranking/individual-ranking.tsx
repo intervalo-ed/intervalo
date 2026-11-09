@@ -24,7 +24,8 @@ import Animated, {
 } from "react-native-reanimated"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
 import type { MemoriaDelRanking } from "@intervalo/dx-core/juego/ranking-orden"
-import { ROWS_ABOVE, scrollEnReposo, type RankingSort } from "@intervalo/dx-core/juego/ranking-reglas"
+import { ROWS_ABOVE, scrollEnReposo, SIN_SCOPE, type RankingSort } from "@intervalo/dx-core/juego/ranking-reglas"
+import { ALL_SCOPE } from "@intervalo/dx-core/juego/ranking-scope"
 import {
   ALTO_FILA_PX,
   filasConLugar,
@@ -35,6 +36,7 @@ import { useBoostMultipliers } from "@intervalo/dx-core/juego/UseBoosts"
 import {
   useGameBoosts,
   useGameLeaderboard,
+  useGameUniversityLeaderboard,
   type GameLeaderboardEntry,
   type Scope,
 } from "@intervalo/dx-core/juego/UseGameLeaderboard"
@@ -42,6 +44,10 @@ import { useStagedOrder } from "@intervalo/dx-core/juego/UseStagedOrder"
 import { filaALaVista } from "@intervalo/dx-core/juego/ventana-ranking"
 import { curvaEnUI, Row, transicionDeFila } from "./row"
 import { ALTO_FILA, ESTILOS_FILA, FilaHueca, ListSkeleton, SEPARACION_FILAS } from "./skeleton"
+
+// Las filas que caben en pantalla: lo que se dibuja de esqueleto cuando no se
+// sabe cuánta gente va a venir.
+const FILAS_DE_PANTALLA = 8
 
 // Las mismas props que la web. `attachXpTarget` recibe el nodo nativo.
 export type IndividualRankingProps = {
@@ -121,6 +127,19 @@ export function IndividualRanking({
     hasPreviousPage,
     isFetchingPreviousPage,
   } = useGameLeaderboard(scope, enabled, sort === "elo" ? "elo" : "xp")
+
+  // Cuántas filas esperar mientras carga. Filtrando por una universidad ya se
+  // sabe cuánta gente tiene (la tabla de universidades suele estar en caché):
+  // un esqueleto de ocho filas para una de siete jugadores promete lo que no va
+  // a haber. Sin ese dato, las que llenan la pantalla.
+  const universidades = useGameUniversityLeaderboard(SIN_SCOPE, enabled).data
+  const filasEsperadas =
+    scope.university !== ALL_SCOPE
+      ? Math.min(
+          FILAS_DE_PANTALLA,
+          Math.max(1, universidades?.rows.find((r) => r.university === scope.university)?.players ?? FILAS_DE_PANTALLA),
+        )
+      : FILAS_DE_PANTALLA
 
   // Deduplicada (la ventana `around_me` puede repetir a alguien que otra página
   // ya traía) y ordenada por puesto (las páginas no llegan en orden).
@@ -629,7 +648,7 @@ export function IndividualRanking({
   // `isPending` y no `isLoading`: con la consulta deshabilitada (todavía no hay
   // jugador) `isLoading` da falso y la lista diría «no hay ranking» sobre datos
   // que nunca se pidieron.
-  if (isPending) return <ListSkeleton />
+  if (isPending) return <ListSkeleton forma="individual" filas={filasEsperadas} />
   if (entries.length === 0) {
     return <Text style={ESTILOS_FILA.vacio}>Todavía no hay ranking.</Text>
   }

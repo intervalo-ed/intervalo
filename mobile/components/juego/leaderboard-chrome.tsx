@@ -1,9 +1,9 @@
 // Cabecera del ranking: los números grandes y los selectores
 // (web/src/components/leaderboard-chrome.tsx). En la web cada selector es un
-// desplegable; acá abre una hoja desde abajo con las opciones.
+// desplegable, y acá también: una lista colgada del selector.
 
-import { useState, type ReactNode } from "react"
-import { Modal, Pressable, ScrollView, StyleSheet, View } from "react-native"
+import { useRef, useState, type ComponentRef, type ReactNode } from "react"
+import { Modal, Pressable, ScrollView, StyleSheet, useWindowDimensions, View } from "react-native"
 import { Text } from "@/components/texto"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import Svg, { Path } from "react-native-svg"
@@ -48,6 +48,12 @@ export function Metric({ label, value }: { label: ReactNode; value: ReactNode })
 
 export type OpcionFiltro = { value: string; label: string }
 
+type Ancla = { x: number; y: number; w: number; h: number }
+
+const MIN_ANCHO = 144
+const ALTO_OPCION = 36
+const TOPE_ALTO = 320
+
 function Chevron() {
   return (
     <Svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke={TENUE} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
@@ -79,18 +85,38 @@ export function FilterBox({
   options: OpcionFiltro[]
   disabled?: boolean
 }) {
-  const [abierto, setAbierto] = useState(false)
+  const [ancla, setAncla] = useState<Ancla | null>(null)
+  const disparadorRef = useRef<ComponentRef<typeof View>>(null)
+  const { width: anchoPantalla, height: altoPantalla } = useWindowDimensions()
   const insets = useSafeAreaInsets()
   const actual = options.find((o) => o.value === value)?.label ?? value
+
+  const abrir = () => {
+    disparadorRef.current?.measureInWindow((x, y, w, h) => setAncla({ x, y, w, h }))
+  }
+  const cerrar = () => setAncla(null)
+
+  // El desplegable de la web (`SelectContent alignItemWithTrigger={false}`):
+  // colgado del disparador, del ancho de este (mínimo 144 px), con su propio
+  // scroll. Si abajo no entra, se abre hacia arriba.
+  const ancho = ancla ? Math.max(ancla.w, MIN_ANCHO) : 0
+  const izquierda = ancla ? Math.max(8, Math.min(ancla.x, anchoPantalla - ancho - 8)) : 0
+  const altoOpciones = options.length * ALTO_OPCION + 8
+  const libreAbajo = ancla ? altoPantalla - insets.bottom - (ancla.y + ancla.h) - 12 : 0
+  const libreArriba = ancla ? ancla.y - insets.top - 12 : 0
+  const haciaArriba = ancla !== null && altoOpciones > libreAbajo && libreArriba > libreAbajo
+  const alto = Math.min(altoOpciones, Math.min(TOPE_ALTO, haciaArriba ? libreArriba : libreAbajo))
 
   return (
     <>
       <Pressable
-        onPress={() => setAbierto(true)}
+        ref={disparadorRef}
+        collapsable={false}
+        onPress={abrir}
         disabled={disabled}
         accessibilityRole="button"
         accessibilityLabel={label}
-        accessibilityState={{ disabled }}
+        accessibilityState={{ disabled, expanded: ancla !== null }}
         style={({ pressed }) => [styles.disparador, pressed && { opacity: 0.8 }]}
       >
         <Text style={styles.disparadorValor} numberOfLines={1}>
@@ -103,33 +129,44 @@ export function FilterBox({
           <Chevron />
         </View>
       </Pressable>
-      <Modal visible={abierto} transparent animationType="fade" onRequestClose={() => setAbierto(false)}>
-        <Pressable style={styles.fondo} onPress={() => setAbierto(false)} accessibilityLabel="Cerrar" />
-        <View style={[styles.hoja, { paddingBottom: insets.bottom + 8 }]}>
-          <Text style={styles.hojaTitulo}>{label}</Text>
-          <ScrollView>
-            {options.map((o) => {
-              const elegida = o.value === value
-              return (
-                <Pressable
-                  key={o.value}
-                  onPress={() => {
-                    setAbierto(false)
-                    if (!elegida) onChange(o.value)
-                  }}
-                  accessibilityRole="button"
-                  accessibilityState={{ selected: elegida }}
-                  style={({ pressed }) => [styles.opcion, pressed && { backgroundColor: "rgba(255,255,255,0.05)" }]}
-                >
-                  <Text style={[styles.opcionTexto, elegida && { fontFamily: FUENTE.seminegrita }]} numberOfLines={1}>
-                    {o.label}
-                  </Text>
-                  {elegida && <Tilde />}
-                </Pressable>
-              )
-            })}
-          </ScrollView>
-        </View>
+      <Modal visible={ancla !== null} transparent animationType="fade" onRequestClose={cerrar}>
+        <Pressable style={StyleSheet.absoluteFill} onPress={cerrar} accessibilityLabel="Cerrar" />
+        {ancla && (
+          <View
+            style={[
+              styles.lista,
+              {
+                left: izquierda,
+                width: ancho,
+                height: alto,
+                ...(haciaArriba ? { bottom: altoPantalla - ancla.y + 4 } : { top: ancla.y + ancla.h + 4 }),
+              },
+            ]}
+          >
+            <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.listaContenido}>
+              {options.map((o) => {
+                const elegida = o.value === value
+                return (
+                  <Pressable
+                    key={o.value}
+                    onPress={() => {
+                      cerrar()
+                      if (!elegida) onChange(o.value)
+                    }}
+                    accessibilityRole="button"
+                    accessibilityState={{ selected: elegida }}
+                    style={({ pressed }) => [styles.opcion, pressed && { backgroundColor: "rgba(255,255,255,0.06)" }]}
+                  >
+                    <Text style={[styles.opcionTexto, elegida && { fontFamily: FUENTE.seminegrita }]} numberOfLines={1}>
+                      {o.label}
+                    </Text>
+                    {elegida && <Tilde />}
+                  </Pressable>
+                )
+              })}
+            </ScrollView>
+          </View>
+        )}
       </Modal>
     </>
   )
@@ -248,33 +285,29 @@ const styles = StyleSheet.create({
   disparadorValor: { fontSize: 12, lineHeight: 13, fontFamily: FUENTE.seminegrita, color: TEMA.foreground },
   disparadorPie: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 4 },
   disparadorRotulo: { flexShrink: 1, fontSize: 10.4, lineHeight: 13, color: TENUE },
-  fondo: { flex: 1, backgroundColor: "rgba(0,0,0,0.5)" },
-  hoja: {
-    maxHeight: "60%",
-    borderTopLeftRadius: 12,
-    borderTopRightRadius: 12,
+  // El popover de la web: del color de las cartas, con borde y sombra.
+  lista: {
+    position: "absolute",
+    borderRadius: 8,
     borderWidth: 1,
-    borderBottomWidth: 0,
     borderColor: TEMA.border,
     backgroundColor: TEMA.card,
-    paddingTop: 12,
+    overflow: "hidden",
+    shadowColor: "#000",
+    shadowOpacity: 0.4,
+    shadowRadius: 12,
+    shadowOffset: { width: 0, height: 6 },
+    elevation: 8,
   },
-  hojaTitulo: {
-    paddingHorizontal: 20,
-    paddingBottom: 8,
-    fontSize: 12,
-    fontFamily: FUENTE.seminegrita,
-    color: TENUE,
-    textTransform: "uppercase",
-    letterSpacing: 0.6,
-  },
+  listaContenido: { padding: 4 },
   opcion: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    gap: 12,
-    paddingHorizontal: 20,
-    paddingVertical: 14,
+    gap: 8,
+    height: ALTO_OPCION,
+    paddingHorizontal: 10,
+    borderRadius: 6,
   },
-  opcionTexto: { flexShrink: 1, fontSize: 16, color: TEMA.foreground },
+  opcionTexto: { flexShrink: 1, fontSize: 14, color: TEMA.foreground },
 })

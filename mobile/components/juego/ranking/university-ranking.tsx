@@ -85,7 +85,7 @@ export function UniversityRanking({
     colocar()
   })
 
-  if (isPending) return <ListSkeleton />
+  if (isPending) return <ListSkeleton forma="universidad" />
   if (!data || data.rows.length === 0) {
     return <Text style={ESTILOS_FILA.vacio}>Todavía no hay ranking de universidades.</Text>
   }

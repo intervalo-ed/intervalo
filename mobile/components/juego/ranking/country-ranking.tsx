@@ -33,7 +33,7 @@ export function CountryRanking({
   const filas = useMemo(() => (data ? agruparPorPais(data.rows, MIN_PLAYERS_RANKED) : []), [data])
   const rows = useMemo(() => (sort === "experiencia" ? porExperiencia(filas) : filas), [filas, sort])
 
-  if (isPending) return <ListSkeleton />
+  if (isPending) return <ListSkeleton forma="pais" filas={6} />
   if (filas.length === 0) {
     return <Text style={ESTILOS_FILA.vacio}>Todavía no hay ranking de países.</Text>
   }
