@@ -9,9 +9,11 @@ import { ClerkProvider } from "@clerk/expo"
 import { tokenCache } from "@clerk/expo/token-cache"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { PostHogProvider } from "posthog-react-native"
+import { TEMA } from "@intervalo/dx-core/juego/game-colors"
 import { GameApiProvider } from "@intervalo/dx-core/juego/game-api-context"
 import type { Rescate } from "@intervalo/dx-core/juego/game-storage"
 import { precalentarTablaDeDerivadas } from "@/components/juego/derivatives-table"
+import { SplashAnimado } from "@/components/splash-animado"
 import { precalentarMathJax } from "@/components/latex/mathjax"
 import { posthog } from "@/lib/analytics/posthog"
 import { liberarSonidosDelJuego, precargarSonidosDelJuego } from "@/lib/audio/UseSfx"
@@ -64,9 +66,12 @@ export default function RootLayout() {
     }
   }, [])
 
+  // El splash nativo es solo el fondo: apenas está la tipografía del logo se
+  // retira y queda el splash animado (components/splash-animado.tsx), que es
+  // quien tapa el arranque del resto de la app.
   useEffect(() => {
-    if ((rescate !== null && fuentesResueltas) || !env.clerkPublishableKey) SplashScreen.hide()
-  }, [rescate, fuentesResueltas])
+    if (fuentesResueltas || !env.clerkPublishableKey) SplashScreen.hide()
+  }, [fuentesResueltas])
 
   if (!env.clerkPublishableKey) {
     return (
@@ -77,21 +82,26 @@ export default function RootLayout() {
     )
   }
 
-  if (rescate === null || !fuentesResueltas) return null
+  if (!fuentesResueltas) return null
 
   return (
     <GestureHandlerRootView style={styles.raiz}>
-      <ClerkProvider publishableKey={env.clerkPublishableKey} tokenCache={tokenCache}>
-        <QueryClientProvider client={queryClient}>
-          <ConPostHog>
-            <GameApi>
-              <RescateProvider value={rescate}>
-                <Stack />
-              </RescateProvider>
-            </GameApi>
-          </ConPostHog>
-        </QueryClientProvider>
-      </ClerkProvider>
+      {/* El árbol del juego se arma debajo del splash, que lo tapa hasta que el
+          logo sale hacia su lugar. */}
+      {rescate !== null && (
+        <ClerkProvider publishableKey={env.clerkPublishableKey} tokenCache={tokenCache}>
+          <QueryClientProvider client={queryClient}>
+            <ConPostHog>
+              <GameApi>
+                <RescateProvider value={rescate}>
+                  <Stack />
+                </RescateProvider>
+              </GameApi>
+            </ConPostHog>
+          </QueryClientProvider>
+        </ClerkProvider>
+      )}
+      <SplashAnimado />
     </GestureHandlerRootView>
   )
 }
@@ -119,7 +129,7 @@ function ConPostHog({ children }: { children: ReactNode }) {
 }
 
 const styles = StyleSheet.create({
-  raiz: { flex: 1 },
+  raiz: { flex: 1, backgroundColor: TEMA.background },
   falta: { flex: 1, justifyContent: "center", padding: 24, gap: 8 },
   faltaTitulo: { fontSize: 18, fontWeight: "600", color: "#b00020" },
 })

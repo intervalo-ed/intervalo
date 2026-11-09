@@ -52,10 +52,14 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     "expo-router",
     [
       "expo-splash-screen",
+      // El logo ya viene en el splash nativo (captura del que dibuja el splash
+      // animado de JS, components/splash-animado.tsx): así se ve apenas se
+      // abre la app y de ahí viaja hasta su lugar en la portada. 290 pt es el
+      // ancho de la captura a 3x.
       {
         backgroundColor: FONDO,
-        image: "./assets/images/splash-icon.png",
-        imageWidth: 200,
+        image: "./assets/images/splash-logo.png",
+        imageWidth: 290,
       },
     ],
     "expo-secure-store",

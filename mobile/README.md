@@ -89,3 +89,15 @@ config en `eas.json` (pregunta los datos de App Store Connect la primera vez).
       hizo en la de desarrollo).
 - [ ] Las fichas de las tiendas: capturas de teléfono, política de
       privacidad, privacy labels (App Store) y data safety (Play).
+
+## Splash: cómo se regenera la imagen del logo
+
+El splash nativo muestra `assets/images/splash-logo.png`, una captura del logo
+que dibuja `components/splash-animado.tsx` (a `TAMANO_GRANDE`), recortada
+SIMÉTRICA respecto al centro de la pantalla (iPhone 3x). Así el traspaso del
+splash nativo al de JS es invisible. Si cambia el logo, `TAMANO_GRANDE` o la
+tipografía, hay que sacarla de nuevo: dejar el splash de JS quieto (subir
+`QUIETO_MIN_MS` y `TOPE_MS` a mano), capturar el simulador, recortar el logo
+con una caja simétrica al centro, actualizar `imageWidth` en `app.config.ts`
+(= ancho en píxeles / 3) y correr `bunx expo prebuild --platform ios` más un
+rebuild nativo.

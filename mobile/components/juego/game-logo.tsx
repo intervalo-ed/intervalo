@@ -19,7 +19,15 @@ const BRACKET_ARM_EM = 0.055
 const BRACKET_PAD_EM = 0.13
 const COLOR = "#F6F8FC"
 
-export function GameLogo({ fontSize }: { fontSize: number }) {
+export function GameLogo({
+  fontSize,
+  conFundido = true,
+}: {
+  fontSize: number
+  /** El fundido de entrada. Se apaga cuando quien lo usa lo anima por su cuenta
+   *  (el splash) o cuando tiene que estar puesto desde el primer cuadro. */
+  conFundido?: boolean
+}) {
   const em = (n: number) => n * fontSize
   const corchete = (lado: "left" | "right") => (
     <View
@@ -34,7 +42,11 @@ export function GameLogo({ fontSize }: { fontSize: number }) {
   )
   const op = em(OP_EM)
   return (
-    <Animated.View entering={FadeIn.duration(500)} style={[styles.fila, { gap: em(GAP_EM) }]} accessibilityLabel="intervalo">
+    <Animated.View
+      entering={conFundido ? FadeIn.duration(500) : undefined}
+      style={[styles.fila, { gap: em(GAP_EM) }]}
+      accessibilityLabel="intervalo"
+    >
       <View style={{ alignItems: "center", gap: em(OP_BAR_EM * 1.6 * OP_EM) }}>
         <Text style={[styles.texto, { fontSize: op, lineHeight: op }]}>d</Text>
         <View style={{ height: em(OP_BAR_EM * OP_EM), alignSelf: "stretch", backgroundColor: COLOR }} />
