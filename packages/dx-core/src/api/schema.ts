@@ -48,7 +48,16 @@ export interface paths {
         get: operations["get_me_game_derivemos_me_get"];
         put?: never;
         post?: never;
-        delete?: never;
+        /**
+         * Delete Me
+         * @description Borra la cuenta: el jugador, todo lo suyo y, si tiene login, la cuenta de
+         *     Clerk (ver game/borrado.py). No se puede deshacer.
+         *
+         *     Una cuenta con login pide la sesión viva, igual que escribir en el chat: el
+         *     token de invitado se conserva después del link y sin este chequeo alcanzaría
+         *     con ese token guardado para borrar la cuenta de alguien registrado.
+         */
+        delete: operations["delete_me_game_derivemos_me_delete"];
         options?: never;
         head?: never;
         /** Patch Me */
@@ -3720,6 +3729,36 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["GamePlayerOut"];
                 };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    delete_me_game_derivemos_me_delete: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+                "x-game-token"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
             /** @description Validation Error */
             422: {

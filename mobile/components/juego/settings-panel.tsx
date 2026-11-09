@@ -95,7 +95,7 @@ export function SettingsPanel({
 }) {
   const api = useGameApi()
   const queryClient = useQueryClient()
-  const { cerrarSesion } = useGamePlayer()
+  const { cerrarSesion, borrarCuenta } = useGamePlayer()
   const sfx = useSfx()
   const muted = useSoundMuted()
   const vibOff = useHapticsOff()
@@ -105,6 +105,8 @@ export function SettingsPanel({
   const [aliasError, setAliasError] = useState<string | null>(null)
   const [aliasSaved, setAliasSaved] = useState(false)
   const [confirmReset, setConfirmReset] = useState(false)
+  const [confirmBorrar, setConfirmBorrar] = useState(false)
+  const [borrarError, setBorrarError] = useState<string | null>(null)
   const [busy, setBusy] = useState(false)
   const [career, setCareer] = useState(player?.career ?? "")
   const [university, setUniversity] = useState(player?.university ?? "")
@@ -180,6 +182,21 @@ export function SettingsPanel({
       onSignedOut()
     } catch {
       // El signOut de Clerk falló: la sesión sigue como estaba.
+      setBusy(false)
+    }
+  }
+
+  const borrar = async () => {
+    if (busy) return
+    setBusy(true)
+    setBorrarError(null)
+    try {
+      await borrarCuenta()
+      track("game_account_deleted")
+      onSignedOut()
+    } catch (err) {
+      // El servidor no borró nada: la cuenta sigue y se puede reintentar.
+      setBorrarError(err instanceof ApiError ? err.message : "No se pudo borrar. Probá de nuevo.")
       setBusy(false)
     }
   }
@@ -368,6 +385,50 @@ export function SettingsPanel({
           <Fila onPress={() => void signOut()} borde={ROJO_BORDE} disabled={busy}>
             <Text style={[styles.texto, { color: ROJO_TINTA }]}>Cerrar sesión</Text>
             <IconoSalir color={ROJO_TINTA} />
+          </Fila>
+        )}
+
+        {confirmBorrar ? (
+          <View style={[styles.fila, styles.confirmar]}>
+            <Text style={styles.confirmarTitulo}>¿Borrar tu cuenta?</Text>
+            <Text style={styles.confirmarTexto}>
+              Se borran tu usuario, tu progreso, tus mensajes y tu lugar en el ranking.
+              {player?.is_guest ? "" : " También se borra tu cuenta de Intervalo, la de la web incluida."} No se puede
+              deshacer.
+            </Text>
+            {borrarError !== null && <Text style={[styles.confirmarTexto, { color: ROJO }]}>{borrarError}</Text>}
+            <View style={styles.confirmarBotones}>
+              <Pressable
+                onPress={() => {
+                  setConfirmBorrar(false)
+                  setBorrarError(null)
+                }}
+                disabled={busy}
+                accessibilityRole="button"
+                style={({ pressed }) => [styles.botonChico, pressed && styles.apretada]}
+              >
+                <Text style={styles.texto}>Cancelar</Text>
+              </Pressable>
+              <Pressable
+                onPress={() => void borrar()}
+                disabled={busy}
+                accessibilityRole="button"
+                accessibilityState={{ disabled: busy }}
+                style={({ pressed }) => [
+                  styles.botonChico,
+                  { borderColor: "rgba(229,72,77,0.5)" },
+                  pressed && styles.apretada,
+                  busy && { opacity: 0.45 },
+                ]}
+              >
+                <Text style={[styles.texto, { color: ROJO, fontFamily: FUENTE.medio }]}>Borrar cuenta</Text>
+              </Pressable>
+            </View>
+          </View>
+        ) : (
+          <Fila onPress={() => setConfirmBorrar(true)} borde={ROJO_BORDE}>
+            <Text style={[styles.texto, { color: ROJO_TINTA }]}>Borrar cuenta</Text>
+            <IconoBasura color={ROJO_TINTA} />
           </Fila>
         )}
       </ScrollView>
@@ -652,6 +713,18 @@ function IconoReiniciar({ color = TEMA.foreground }: IconoProps) {
     <Trazo color={color}>
       <Path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
       <Path d="M3 3v5h5" />
+    </Trazo>
+  )
+}
+
+function IconoBasura({ color = TEMA.foreground }: IconoProps) {
+  return (
+    <Trazo color={color}>
+      <Path d="M3 6h18" />
+      <Path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+      <Path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+      <Path d="M10 11v6" />
+      <Path d="M14 11v6" />
     </Trazo>
   )
 }

@@ -201,6 +201,49 @@
             }
           }
         }
+      },
+      "delete": {
+        "tags": [
+          "game"
+        ],
+        "summary": "Delete Me",
+        "description": "Borra la cuenta: el jugador, todo lo suyo y, si tiene login, la cuenta de\nClerk (ver game/borrado.py). No se puede deshacer.\n\nUna cuenta con login pide la sesi\u00f3n viva, igual que escribir en el chat: el\ntoken de invitado se conserva despu\u00e9s del link y sin este chequeo alcanzar\u00eda\ncon ese token guardado para borrar la cuenta de alguien registrado.",
+        "operationId": "delete_me_game_derivemos_me_delete",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Authorization"
+            }
+          },
+          {
+            "name": "x-game-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "X-Game-Token"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/game/derivemos/reset": {

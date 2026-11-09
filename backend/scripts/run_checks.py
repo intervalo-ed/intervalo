@@ -63,6 +63,7 @@ CHECKS = [
     "check_sync_grupos_cluster",
     "check_game_api",
     "check_game_cafecito_impacto",
+    "check_game_borrado",
     "check_game_chat",
     "check_game_bienvenida",
     "check_game_dashboard",

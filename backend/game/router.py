@@ -38,6 +38,7 @@ import handles
 import xp_boost
 from usernames import normalize_username, validate_username
 
+from . import borrado as game_borrado
 from . import boosts
 from . import chat as game_chat
 from . import dificultad as game_dificultad
@@ -633,6 +634,37 @@ def reset_player(
     db.commit()
     db.refresh(player)
     return _player_out(db, player)
+
+
+@router.delete("/me", status_code=204)
+def delete_me(
+    player: GamePlayer = Depends(get_current_player),
+    authorization: str = Header(None),
+    db: Session = Depends(get_db),
+):
+    """Borra la cuenta: el jugador, todo lo suyo y, si tiene login, la cuenta de
+    Clerk (ver game/borrado.py). No se puede deshacer.
+
+    Una cuenta con login pide la sesión viva, igual que escribir en el chat: el
+    token de invitado se conserva después del link y sin este chequeo alcanzaría
+    con ese token guardado para borrar la cuenta de alguien registrado.
+    """
+    if player.user_id is not None and not authorization:
+        raise HTTPException(
+            status_code=403, detail="Iniciá sesión de nuevo para borrar la cuenta."
+        )
+    try:
+        game_borrado.borrar_cuenta(db, player)
+    except game_borrado.ClerkNoRespondio:
+        db.rollback()
+        raise HTTPException(
+            status_code=502,
+            detail="No pudimos borrar la cuenta ahora. Probá de nuevo en un rato.",
+        )
+    # Salir del ranking mueve el puesto de los demás.
+    simulation.bump_version(db)
+    db.commit()
+    return Response(status_code=204)
 
 
 def _ya_la_habia_visto(db: Session, player: GamePlayer, exercise: GameExercise) -> bool:
