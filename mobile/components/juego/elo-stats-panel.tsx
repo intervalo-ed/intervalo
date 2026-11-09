@@ -32,7 +32,8 @@ import {
 import { useGameStats, type GameStats } from "@intervalo/dx-core/juego/UseGameStats"
 import type { GamePlayer } from "@intervalo/dx-core/juego/game-keys"
 import { BotonCta } from "./boton-cta"
-import { DerivativesStatsTable, HojaDeCartel, type Cartel } from "./derivatives-table"
+import { DerivativesStatsTable } from "./derivatives-table"
+import { Cartel, CartelTexto, Fuerte } from "./ranking/cartel"
 import { XpDots } from "./xp-dots"
 import { FUENTE } from "@/lib/tipografia"
 
@@ -170,30 +171,30 @@ function Tile({
   label,
   value,
   explicacion,
-  onCartel,
   destacada,
   ancha = false,
 }: {
   label: string
   value: ReactNode
   explicacion: string
-  onCartel: (c: Cartel) => void
   // Borde y valor de color propio: el del canal que ya tiñe el resto del juego.
   destacada?: { borde: string; tinta: string }
   ancha?: boolean
 }) {
   return (
-    <Pressable
-      onPress={() => onCartel({ titulo: label, cuerpo: explicacion })}
-      accessibilityRole="button"
+    <Cartel
       accessibilityLabel={label}
-      accessibilityHint={explicacion}
-      style={({ pressed }) => [
+      style={[
         styles.tile,
+        { flexDirection: "column", gap: 0 },
         ancha ? styles.tileAncha : styles.tileMitad,
         destacada && { borderColor: destacada.borde },
-        pressed && { opacity: 0.8 },
       ]}
+      contenido={
+        <CartelTexto>
+          <Fuerte>{label}</Fuerte>. {explicacion}
+        </CartelTexto>
+      }
     >
       <View style={styles.tileValorFila}>
         <Text style={[styles.tileValor, destacada && { color: destacada.tinta }]}>{value}</Text>
@@ -202,44 +203,34 @@ function Tile({
       <Text style={styles.tileRotulo} numberOfLines={1}>
         {label}
       </Text>
-    </Pressable>
+    </Cartel>
   )
 }
 
 // Qué dice cada cartel: chequeado contra el backend, igual que en la web
 // (backend/game/router.py, game/stats.py).
-function GeneralTiles({
-  general,
-  onCartel,
-}: {
-  general: GameStats["general"]
-  onCartel: (c: Cartel) => void
-}) {
+function GeneralTiles({ general }: { general: GameStats["general"] }) {
   return (
     <View style={styles.grilla}>
       <Tile
         label="Derivadas resueltas"
         value={`${fmtCount(general.exercises_correct)} 🧩`}
         explicacion="Las que terminaste bien. Los intentos son ilimitados: equivocarte no te saca la derivada de encima, y cuando sale suma igual."
-        onCartel={onCartel}
       />
       <Tile
         label="Efectividad"
         value={`${general.accuracy_overall === null ? "—" : `${general.accuracy_overall}%`} 🎯`}
         explicacion="De todo lo que respondiste, cuánto salió bien. Cada intento cuenta, así que acertar de una la sube y llegar después de errar la baja. Saltear no cuenta como intento."
-        onCartel={onCartel}
       />
       <Tile
         label="Racha más larga"
         value={`${fmtCount(general.best_combo)} 🔥`}
         explicacion="La mayor cantidad de derivadas que resolviste bien una atrás de la otra. Errar la corta, y saltear también; mirar la tabla o este panel no."
-        onCartel={onCartel}
       />
       <Tile
         label="Mejor puesto"
         value={general.best_rank == null ? "—" : `#${fmtCount(general.best_rank)}`}
         explicacion="El puesto más alto al que llegaste en el ranking. Se queda con el mejor que hiciste, aunque después bajes."
-        onCartel={onCartel}
       />
       {/* Ancha: sin la de cafecitos quedaba sola en su fila, a media pantalla. */}
       <Tile
@@ -248,7 +239,6 @@ function GeneralTiles({
         value={fmtCount(general.xp_from_referrals)}
         explicacion="Cada persona que entra por tu link de reclutar te suma el 10% de la experiencia que gana, sin que a ella le reste nada. Es para siempre: sigue sumando cada vez que juega."
         destacada={{ borde: VERDE_BORDE, tinta: VERDE }}
-        onCartel={onCartel}
       />
     </View>
   )
@@ -278,12 +268,10 @@ export function EloStatsPanel({
   player,
   stats,
   isLoading,
-  onCartel,
 }: {
   player: GamePlayer | null
   stats: GameStats | undefined
   isLoading: boolean
-  onCartel: (c: Cartel) => void
 }) {
   // `player.elo` ya viaja sin esperar a `/stats`; se pisa apenas llega.
   const rating = stats?.player_rating ?? player?.elo ?? 1000
@@ -291,7 +279,7 @@ export function EloStatsPanel({
   return (
     <View style={styles.panel}>
       {stats ? (
-        <GeneralTiles general={stats.general} onCartel={onCartel} />
+        <GeneralTiles general={stats.general} />
       ) : isLoading ? (
         <TilesSkeleton />
       ) : null}
@@ -329,7 +317,6 @@ export function EstadisticasSlide({
   derecha?: ReactNode
 }) {
   const statsQuery = useGameStats(true)
-  const [cartel, setCartel] = useState<Cartel | null>(null)
   return (
     <View style={styles.pantalla}>
       <View style={styles.cabecera}>
@@ -353,12 +340,10 @@ export function EstadisticasSlide({
           player={player}
           stats={statsQuery.data}
           isLoading={statsQuery.isPending}
-          onCartel={setCartel}
         />
-        <DerivativesStatsTable rows={statsQuery.data?.rows ?? []} onCartel={setCartel} />
+        <DerivativesStatsTable rows={statsQuery.data?.rows ?? []} />
       </ScrollView>
       <BotonCta texto="Volver" onPress={onVolver} />
-      <HojaDeCartel cartel={cartel} onClose={() => setCartel(null)} />
     </View>
   )
 }

@@ -267,7 +267,10 @@ export function SettingsPanel({
             }
           }}
         >
-          <Text style={styles.valor}>{vibOff ? "Apagada" : "Encendida"}</Text>
+          <View style={styles.conIcono}>
+            <Text style={styles.valor}>{vibOff ? "Apagada" : "Encendida"}</Text>
+            <IconoVibracion apagada={vibOff} />
+          </View>
         </Fila>
 
         {onFrecuencia && (
@@ -599,6 +602,18 @@ function IconoSinSonido({ color = TEMA.foreground }: IconoProps) {
       <Path d={PARLANTE} />
       <Line x1={22} x2={16} y1={9} y2={15} />
       <Line x1={16} x2={22} y1={9} y2={15} />
+    </Trazo>
+  )
+}
+
+// El "vibrate" de lucide: el teléfono con rayitas a los costados; apagado, tachado.
+function IconoVibracion({ apagada, color = TEMA.foreground }: IconoProps & { apagada: boolean }) {
+  return (
+    <Trazo color={color}>
+      <Path d="m2 8 2 2-2 2 2 2-2 2" />
+      <Path d="m22 8-2 2 2 2-2 2 2 2" />
+      <Path d="M8 8v8a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2z" />
+      {apagada && <Line x1={4} x2={20} y1={3} y2={21} />}
     </Trazo>
   )
 }
