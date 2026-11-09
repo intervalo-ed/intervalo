@@ -1337,8 +1337,7 @@ export function MobileFlow({ auto }: { auto?: string }) {
                   )}
                   {s.kind === "tabla" && (
                     <View style={styles.conVolver}>
-                      <DerivativesTable destacar={exercise?.tabla_slugs} style={{ flexShrink: 1 }} />
-                      <View style={{ flex: 1 }} />
+                      <DerivativesTable destacar={exercise?.tabla_slugs} style={{ flexGrow: 1, flexShrink: 1, flexBasis: 0 }} />
                       <BotonCta texto="Volver" onPress={volver} />
                     </View>
                   )}

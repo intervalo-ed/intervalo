@@ -11,7 +11,7 @@
 // que montar vistas.
 
 import { useMemo, useState, type ReactNode } from "react"
-import { FlatList, Modal, Pressable, StyleSheet, View, type StyleProp, type ViewStyle } from "react-native"
+import { Modal, Pressable, ScrollView, StyleSheet, View, type StyleProp, type ViewStyle } from "react-native"
 import { Text } from "@/components/texto"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
@@ -93,24 +93,27 @@ export function DerivativesTable({
   const { filas, subidas, pedidas } = useMemo(() => acomodar(clave, desborda), [clave, desborda])
 
   return (
-    <FlatList
-      data={filas}
-      keyExtractor={(f) => f.slug}
-      renderItem={({ item, index }) => (
-        <Renglon
-          fila={item}
-          pedida={pedidas.has(item.slug)}
-          costura={subidas > 0 && index === subidas}
-        />
-      )}
-      ListHeaderComponent={Cabecera}
+    // ScrollView y no FlatList: los renglones tienen que poder crecer (`flexGrow`)
+    // para repartirse el sobrante de la caja, como en la web, y la FlatList los
+    // envuelve en celdas que no crecen. Son 16 filas fijas, no hace falta virtualizar.
+    <ScrollView
       stickyHeaderIndices={[0]}
-      initialNumToRender={FILAS.length}
       showsVerticalScrollIndicator={false}
+      contentContainerStyle={styles.contenido}
       onLayout={(e) => setCaja(e.nativeEvent.layout.height)}
       onContentSizeChange={(_w, h) => setContenido(h)}
       style={[styles.marco, style]}
-    />
+    >
+      <Cabecera />
+      {filas.map((fila, index) => (
+        <Renglon
+          key={fila.slug}
+          fila={fila}
+          pedida={pedidas.has(fila.slug)}
+          costura={subidas > 0 && index === subidas}
+        />
+      ))}
+    </ScrollView>
   )
 }
 
@@ -253,7 +256,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: BORDE,
     borderRadius: 6,
+    overflow: "hidden",
   },
+  contenido: { flexGrow: 1 },
   cabecera: {
     flexDirection: "row",
     backgroundColor: "#1f1f30",
@@ -268,7 +273,11 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
     color: TEMA.mutedForeground,
   },
+  // `flex: 1 0 auto` como el renglón de la web: reparte el sobrante de la caja
+  // sin encoger nunca, así el que tiene una raíz sigue siendo más alto.
   renglon: {
+    flexGrow: 1,
+    flexShrink: 0,
     flexDirection: "row",
     borderTopWidth: 1,
     borderTopColor: BORDE,
