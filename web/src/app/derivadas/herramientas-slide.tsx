@@ -33,7 +33,7 @@ import { enCampoDeTexto, useTeclas } from "./teclas"
 // Igual que el Continuar de la intro y el de las reglas: es la única acción de
 // la pantalla, así que va en blanco. Acá no hay nada que declinar.
 const ctaCls =
-  "h-[var(--cta-h)] w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
+  "h-[calc(var(--cta-h)-4px)] mb-1 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black shadow-[0_4px_0_0_#A8ADBF] transition-[transform,box-shadow,background-color] active:translate-y-1 active:shadow-[0_0_0_0_#A8ADBF]"
 
 function Fuerte({ children }: { children: React.ReactNode }) {
   return <strong className="font-semibold text-foreground">{children}</strong>

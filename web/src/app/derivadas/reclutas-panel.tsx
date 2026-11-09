@@ -278,7 +278,7 @@ export function ReclutasPanel({
             onClick={registrarReclutamiento}
             className={
               slotAccion
-                ? CLASE_ACCION_EN_EL_PIE
+                ? cn(CLASE_ACCION_EN_EL_PIE, "h-[calc(var(--cta-h)-4px)]")
                 : "mt-5 w-full rounded-md px-4 py-3"
             }
             keycap={keyboard ? <KeyCap>{teclas.shiftEnter}</KeyCap> : null}

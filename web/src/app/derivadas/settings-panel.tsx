@@ -86,7 +86,7 @@ function Guardar({ disabled, onClick }: { disabled?: boolean; onClick: () => voi
       size="lg"
       disabled={disabled}
       onClick={onClick}
-      className="mt-auto h-[var(--cta-h)] w-full shrink-0 rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
+      className="mt-auto h-[calc(var(--cta-h)-4px)] mb-1 w-full shrink-0 rounded-md bg-white text-black hover:bg-white/90 hover:text-black shadow-[0_4px_0_0_#A8ADBF] transition-[transform,box-shadow,background-color] active:translate-y-1 active:shadow-[0_0_0_0_#A8ADBF]"
     >
       Guardar
     </Button>
@@ -509,7 +509,7 @@ export function SettingsPanel({
           // acá cambiarlo en un lado dejaba dos verdes distintos en la misma
           // pantalla. Va en `style` y no en una clase porque Tailwind no puede
           // generar una clase de un valor que no ve escrito.
-          style={{ color: VERDE_TINTA, borderColor: `${VERDE_TINTA}D9` }}
+          style={{ color: "#4DAA76", borderColor: "#4DAA7680" }}
           className={rowCls}
         >
           {/* «Reclutar» a secas se leía como una orden sin objeto. Lo que se
@@ -557,7 +557,7 @@ export function SettingsPanel({
         <a
           href={mailtoCafecito(player?.alias)}
           onClick={() => cta("cafecito", "click", { placement: "settings_reclamo" })}
-          className={cn(rowCls, "border-[#E5484D]/85 text-[#E5484D]/80")}
+          className={cn(rowCls, "border-[#E5484D]/50 text-[#D9686C]")}
         >
           <span>Mi cafecito no apareció</span>
           <Coffee size={16} />
@@ -593,7 +593,7 @@ export function SettingsPanel({
         ) : (
           <button
             type="button"
-            className={cn(rowCls, "border-[#E5484D]/85 text-[#E5484D]/80")}
+            className={cn(rowCls, "border-[#E5484D]/50 text-[#D9686C]")}
             onClick={() => setConfirmReset(true)}
           >
             <span>Reiniciar progreso</span>
@@ -610,7 +610,7 @@ export function SettingsPanel({
         {!player?.is_guest && (
           <button
             type="button"
-            className={cn(rowCls, "border-[#E5484D]/85 text-[#E5484D]/80")}
+            className={cn(rowCls, "border-[#E5484D]/50 text-[#D9686C]")}
             onClick={() => void signOutAndReset()}
           >
             <span>Cerrar sesión</span>

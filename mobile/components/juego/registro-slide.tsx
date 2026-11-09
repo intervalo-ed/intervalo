@@ -25,6 +25,7 @@ import { track } from "@/lib/analytics/track"
 import { useSfx } from "@/lib/audio/UseSfx"
 import { useGoogleLogin } from "@/lib/auth/UseGoogleLogin"
 import { BotonCta } from "./boton-cta"
+import { Boton3D } from "./boton-3d"
 import { CTA_H } from "./exercise-card"
 import { GoogleIcon } from "./google-icon"
 import { ESTILOS_FILA } from "./ranking/skeleton"
@@ -144,22 +145,12 @@ export function RegistroSlide({
   const googleDeshabilitado = !google.listo || google.cargando
 
   const botonGoogle = (
-    <Pressable
-      onPress={() => void conectarConGoogle()}
-      disabled={googleDeshabilitado}
-      accessibilityRole="button"
-      accessibilityState={{ disabled: googleDeshabilitado }}
-      style={({ pressed }) => [
-        styles.botonGoogle,
-        pressed && { opacity: 0.9 },
-        googleDeshabilitado && { opacity: 0.5 },
-      ]}
-    >
+    <Boton3D alto={CTA_H} onPress={() => void conectarConGoogle()} disabled={googleDeshabilitado}>
       {google.cargando ? <ActivityIndicator size="small" color="#000" /> : <GoogleIcon />}
       <Text style={styles.textoGoogle}>
         {google.cargando ? "Conectando…" : "Continuar con Google"}
       </Text>
-    </Pressable>
+    </Boton3D>
   )
 
   const linkPrivacidad = onOpenPrivacy && (
@@ -312,15 +303,6 @@ const styles = StyleSheet.create({
   pie: { gap: 8 },
   ahoraNo: { paddingVertical: 8, alignItems: "center" },
   textoAhoraNo: { fontSize: 14, color: TEMA.mutedForeground },
-  botonGoogle: {
-    height: CTA_H,
-    borderRadius: 6,
-    backgroundColor: "#fff",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 8,
-  },
   textoGoogle: { color: "#000", fontSize: 16, fontFamily: FUENTE.negrita },
   // `text-foreground/45`.
   privacidad: {

@@ -31,6 +31,7 @@ import {
 } from "@intervalo/dx-core/juego/dificultad"
 import { track } from "@/lib/analytics/track"
 import { useSfx } from "@/lib/audio/UseSfx"
+import { Boton3D } from "./boton-3d"
 import { BotonCta } from "./boton-cta"
 import { CTA_H } from "./exercise-card"
 import { SliderVertical } from "./slider-vertical"
@@ -178,19 +179,11 @@ export function DificultadSlide({
       {/* Dos botones partidos: «Automático» devuelve el control al motor y
           «Continuar» guarda la posición elegida. */}
       <View style={styles.pie}>
-        <Pressable
-          onPress={() => void continuar(null)}
-          disabled={guardando}
-          accessibilityRole="button"
-          accessibilityState={{ disabled: guardando }}
-          style={({ pressed }) => [
-            styles.automatico,
-            pressed && { backgroundColor: TEMA.accent },
-            guardando && { opacity: 0.5 },
-          ]}
-        >
-          <Text style={styles.textoAutomatico}>Automático</Text>
-        </Pressable>
+        <View style={styles.mitad}>
+          <Boton3D contorno alto={CTA_H} disabled={guardando} onPress={() => void continuar(null)}>
+            <Text style={styles.textoAutomatico}>Automático</Text>
+          </Boton3D>
+        </View>
         <View style={styles.mitad}>
           <BotonCta texto="Continuar" disabled={guardando} onPress={() => void continuar(valor)} />
         </View>
@@ -298,16 +291,6 @@ const styles = StyleSheet.create({
   },
   error: { marginTop: 12, textAlign: "center", fontSize: 14, color: NARANJA },
   pie: { marginTop: 12, flexDirection: "row", gap: 8 },
-  automatico: {
-    flex: 1,
-    minWidth: 0,
-    height: CTA_H,
-    borderRadius: 6,
-    borderWidth: 1,
-    borderColor: TEMA.border,
-    alignItems: "center",
-    justifyContent: "center",
-  },
   textoAutomatico: { color: TEMA.foreground, fontSize: 16, fontFamily: FUENTE.negrita },
   mitad: { flex: 1, minWidth: 0 },
 })

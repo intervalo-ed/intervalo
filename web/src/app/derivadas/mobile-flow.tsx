@@ -132,7 +132,7 @@ import { estimarXp } from "@intervalo/dx-core/juego/xp-estimate"
 import { useXpConteo } from "./xp-conteo"
 
 const ctaCls =
-  "h-[var(--cta-h)] w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
+  "h-[calc(var(--cta-h)-4px)] mb-1 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black shadow-[0_4px_0_0_#A8ADBF] transition-[transform,box-shadow,background-color] active:translate-y-1 active:shadow-[0_0_0_0_#A8ADBF]"
 
 type Slide =
   | { kind: "intro" }
@@ -243,7 +243,6 @@ const SIN_TINTE = "rgba(0, 0, 0, 0)"
 
 function fondoDeSlide(kind: Slide["kind"]): string {
   if (kind === "cafecito") return tintaDe(CAFE)
-  if (kind === "reclutas") return tintaDe(VERDE)
   return SIN_TINTE
 }
 
@@ -2435,7 +2434,7 @@ function RankingSlide({
           <ReclutarButton
             alias={alias}
             placement="ranking_reclutas"
-            className="h-[var(--cta-h)] flex-1 rounded-md"
+            className="h-[calc(var(--cta-h)-4px)] flex-1 rounded-md"
           />
           <Button
             size="lg"

@@ -18,6 +18,7 @@ import { DEFAULT_REMINDER_TIME, REMINDER_TIME_OPTIONS } from "@intervalo/dx-core
 import { track } from "@/lib/analytics/track"
 import { useSfx } from "@/lib/audio/UseSfx"
 import { usePrenderAvisosNativos } from "@/lib/avisos/UseAvisosNativos"
+import { Boton3D } from "./boton-3d"
 import { CTA_H } from "./exercise-card"
 import { FUENTE } from "@/lib/tipografia"
 
@@ -26,6 +27,7 @@ import { FUENTE } from "@/lib/tipografia"
 const ESPERA_S = __DEV__ ? 0 : 8
 
 const INDIGO = "#7e80f7"
+const LABIO_INDIGO = "#4F52C9"
 const INDIGO_RGB = [0x7e, 0x80, 0xf7] as const
 
 const ANCHO_CHIP = 64
@@ -92,34 +94,36 @@ export function NotificacionesSlide({ onContinue }: { onContinue: () => void }) 
         </View>
       </View>
 
-      <Pressable
-        disabled={!listo}
-        onPress={() => {
-          sfx.select()
-          onContinue()
-        }}
-        accessibilityRole="button"
-        accessibilityState={{ disabled: !listo }}
-        style={({ pressed }) => [styles.salida, pressed && { backgroundColor: TEMA.accent }]}
-      >
-        <Text style={[styles.textoSalida, !listo && { color: "rgba(164, 179, 198, 0.5)" }]}>
-          {listo ? "Ahora no" : `Ahora no (${restante})`}
-        </Text>
-      </Pressable>
-      <Pressable
-        disabled={cargando}
-        onPress={() => {
-          sfx.select()
-          setFallo(false)
-          prender(hora)
-        }}
-        accessibilityRole="button"
-        accessibilityState={{ disabled: cargando, busy: cargando }}
-        style={({ pressed }) => [styles.activar, pressed && { opacity: 0.9 }, cargando && { opacity: 0.6 }]}
-      >
-        <IconoCampana size={20} color="#fff" />
-        <Text style={styles.textoActivar}>{cargando ? "Activando…" : "Activar"}</Text>
-      </Pressable>
+      <View style={styles.salida}>
+        <Boton3D
+          contorno
+          alto={CTA_H}
+          disabled={!listo}
+          onPress={() => {
+            sfx.select()
+            onContinue()
+          }}
+        >
+          <Text style={styles.textoSalida}>{listo ? "Ahora no" : `Ahora no (${restante})`}</Text>
+        </Boton3D>
+      </View>
+      <View style={styles.activar}>
+        <Boton3D
+          cara={INDIGO}
+          labio={LABIO_INDIGO}
+          alto={CTA_H}
+          disabled={cargando}
+          accessibilityState={{ busy: cargando }}
+          onPress={() => {
+            sfx.select()
+            setFallo(false)
+            prender(hora)
+          }}
+        >
+          <IconoCampana size={20} color="#fff" />
+          <Text style={styles.textoActivar}>{cargando ? "Activando…" : "Activar"}</Text>
+        </Boton3D>
+      </View>
     </View>
   )
 }
@@ -264,26 +268,8 @@ const styles = StyleSheet.create({
     color: "rgba(246, 248, 252, 0.6)",
     textAlign: "center",
   },
-  salida: {
-    marginTop: 12,
-    height: CTA_H,
-    borderRadius: 6,
-    borderWidth: 1,
-    borderColor: TEMA.border,
-    backgroundColor: TEMA.background,
-    alignItems: "center",
-    justifyContent: "center",
-  },
+  salida: { marginTop: 12 },
   textoSalida: { fontSize: 16, color: TEMA.mutedForeground },
-  activar: {
-    marginTop: 8,
-    height: CTA_H,
-    borderRadius: 6,
-    backgroundColor: INDIGO,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 8,
-  },
+  activar: { marginTop: 8 },
   textoActivar: { color: "#fff", fontSize: 16, fontFamily: FUENTE.seminegrita },
 })

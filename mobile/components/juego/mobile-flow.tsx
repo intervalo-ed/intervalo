@@ -118,9 +118,6 @@ import { RepetitividadSlide } from "./repetitividad-slide"
 import { SettingsPanel } from "./settings-panel"
 import { UsernameSlide } from "./username-slide"
 
-// El tinte de reclutas-panel.tsx (el 6% de `VERDE`), para el pedazo de
-// pantalla que queda debajo de sus botones.
-const TINTE_RECLUTAS = "rgba(37, 211, 102, 0.06)"
 
 type Slide =
   | { kind: "intro" }
@@ -153,8 +150,9 @@ type EnPila = { seq: number; slide: Slide }
 
 type PendingAfter = { answer: GameAnswer } | null
 
-// La etiqueta de cada tecla en LaTeX, como la web con KaTeX: el glifo ocupa la
-// tecla a su cuerpo (`.katex` a 1em), y `Latex` dibuja a ESCALA_MATE del suyo.
+// La etiqueta de cada tecla en LaTeX, como la web con KaTeX: el glifo sale al
+// cuerpo de la tecla (ya con el 1,21 de KaTeX, ver CUERPO), y `Latex` dibuja a
+// ESCALA_MATE del suyo.
 function etiquetaDeTecla({ key, ancha, color, fontSize }: EtiquetaDeTecla) {
   const crudo = ancha && key.texWide ? key.texWide : key.tex
   // `\boldsymbol` es de un paquete que el MathJax de la app no carga; el
@@ -1219,7 +1217,7 @@ export function MobileFlow({ auto }: { auto?: string }) {
               {s.kind === "reclutas" ? (
                 <View style={styles.pantallaCompleta}>
                   <ReclutasPanel player={player} trigger={s.trigger} onContinue={() => reclutasListo(s)} />
-                  <View style={{ height: abajo, backgroundColor: TINTE_RECLUTAS }} />
+                  <View style={{ height: abajo }} />
                 </View>
               ) : (
                 <View style={[styles.diapo, { paddingBottom: abajo }]}>
@@ -1375,7 +1373,8 @@ const styles = StyleSheet.create({
     backgroundColor: TEMA.card,
     overflow: "hidden",
   },
-  pie: { gap: 8, zIndex: 10 },
+  // 12 como el `gap-3` de la web: el mismo aire que hay entre la card y los botones.
+  pie: { gap: 12, zIndex: 10 },
   filaPrincipal: { flexDirection: "row", gap: 8 },
   diapo: { flex: 1, paddingTop: 16 },
   pantallaCompleta: { flex: 1 },

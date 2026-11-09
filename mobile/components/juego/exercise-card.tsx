@@ -31,7 +31,9 @@ import type { GameAnswer } from "@intervalo/dx-core/juego/UseGameExercise"
 import { ESCALA_MATE, Latex } from "@/components/latex/latex"
 import { texASvg } from "@/components/latex/mathjax"
 import { FUENTE } from "@/lib/tipografia"
+import { Boton3D, LABIO_BLANCO } from "./boton-3d"
 
+const LABIO_ACIERTO = "#15803D"
 export const WRONG = "#F97316"
 export const VERDE_ACIERTO = "#22C55E"
 const VERDE_400 = "#4ade80"
@@ -396,22 +398,18 @@ export function AnswerButton({
     )
   })
   const sacudon = useAnimatedStyle(() => ({ transform: [{ translateX: x.value }] }))
+  // El destello pinta la cara de verde y el labio del verde oscuro de al lado.
   const fondo = useAnimatedStyle(() => ({
     backgroundColor: interpolateColor(flash.value, [0, 1], ["#FFFFFF", VERDE_ACIERTO]),
   }))
+  const labio = useAnimatedStyle(() => ({
+    backgroundColor: interpolateColor(flash.value, [0, 1], [LABIO_BLANCO, LABIO_ACIERTO]),
+  }))
   return (
     <Animated.View style={[{ flex: 1 }, sacudon, style]}>
-      <Pressable
-        onPress={onPress}
-        disabled={disabled}
-        accessibilityRole="button"
-        accessibilityState={{ disabled }}
-        style={({ pressed }) => [pressed && { opacity: 0.9 }, disabled && { opacity: 0.5 }]}
-      >
-        <Animated.View style={[styles.principal, fondo]}>
-          <Text style={styles.principalTexto}>{closed ? "Continuar" : "Revisar"}</Text>
-        </Animated.View>
-      </Pressable>
+      <Boton3D onPress={onPress} disabled={disabled} alto={CTA_H} caraStyle={fondo} labioStyle={labio}>
+        <Text style={styles.principalTexto}>{closed ? "Continuar" : "Revisar"}</Text>
+      </Boton3D>
     </Animated.View>
   )
 }
@@ -430,19 +428,9 @@ export function PorQueButton({
   style?: StyleProp<ViewStyle>
 }) {
   return (
-    <Pressable
-      onPress={onPress}
-      accessibilityRole="button"
-      style={({ pressed }) => [
-        styles.porque,
-        { minHeight: alto },
-        plano ? styles.porquePlano : styles.porqueBlanco,
-        pressed && { opacity: 0.9 },
-        style,
-      ]}
-    >
+    <Boton3D onPress={onPress} alto={alto} contorno={plano} style={style}>
       <Text style={[styles.porqueTexto, { color: plano ? TEMA.foreground : "#000" }]}>¿Por qué?</Text>
-    </Pressable>
+    </Boton3D>
   )
 }
 
@@ -578,21 +566,7 @@ const styles = StyleSheet.create({
   promptCaja: { flex: 1, justifyContent: "center", paddingHorizontal: PROMPT_PAD_X },
   formula: { flexGrow: 1, justifyContent: "center", alignItems: "center" },
   aro: { borderRadius: 8, borderWidth: 2, borderColor: "#fff" },
-  principal: {
-    height: CTA_H,
-    borderRadius: 6,
-    alignItems: "center",
-    justifyContent: "center",
-  },
   principalTexto: { color: "#000", fontSize: 16, fontFamily: FUENTE.negrita },
-  porque: {
-    borderRadius: 6,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: 20,
-  },
-  porquePlano: { borderWidth: 2, borderColor: TEMA.border, backgroundColor: TEMA.background },
-  porqueBlanco: { backgroundColor: "#fff" },
   porqueTexto: { fontSize: 16, fontFamily: FUENTE.negrita },
   banner: { position: "absolute", left: 0, right: 0, bottom: 0, backgroundColor: TEMA.background },
   bannerTinte: { borderTopWidth: 1, paddingTop: 24, paddingHorizontal: 20 },

@@ -40,7 +40,7 @@ import { useGameLeaderboard, useGameRecruits } from "@intervalo/dx-core/juego/Us
 import { gameKeys, type GamePlayer } from "@intervalo/dx-core/juego/game-keys"
 
 const ctaCls =
-  "h-[var(--cta-h)] w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
+  "h-[calc(var(--cta-h)-4px)] mb-1 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black shadow-[0_4px_0_0_#A8ADBF] transition-[transform,box-shadow,background-color] active:translate-y-1 active:shadow-[0_0_0_0_#A8ADBF]"
 
 // Las slides están dibujadas para una columna de teléfono (`max-w-md`, el mismo
 // ancho del onboarding). En el panel de escritorio, que es bastante más ancho,

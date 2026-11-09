@@ -201,8 +201,8 @@ export const CLASE_ACCION_EN_EL_PIE =
  * ya lo posiciona. */
 export function claseDeSalida(enElPie: boolean): string {
   const comun =
-    "flex w-full items-center justify-center rounded-md border border-border text-base text-muted-foreground transition-colors hover:bg-accent hover:text-foreground disabled:pointer-events-none disabled:opacity-45"
+    "mb-1 flex w-full items-center justify-center rounded-md border border-border text-base text-muted-foreground shadow-[0_4px_0_0_#2B2B45] transition-[transform,box-shadow,background-color,color] active:translate-y-1 active:shadow-[0_0_0_0_#2B2B45] hover:bg-accent hover:text-foreground disabled:pointer-events-none disabled:opacity-45"
   return enElPie
-    ? `${comun} h-[var(--cta-h)] bg-background px-5`
+    ? `${comun} h-[calc(var(--cta-h)-4px)] bg-background px-5`
     : `${comun} mt-3 px-4 py-3`
 }

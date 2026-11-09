@@ -48,13 +48,18 @@ const GAP = RAMPA_GAP_REM * REM
 const ROW = KB_ROW_TELEFONO_REM * REM
 const ALTO_BLOQUE = PAD_ROWS * ROW + (PAD_ROWS - 1) * GAP
 
-// Los cuerpos del teléfono en la web (math-keyboard.tsx :: SIZES, sin `md:`).
+// Los cuerpos del teléfono en la web (math-keyboard.tsx :: SIZES, sin `md:`),
+// POR el 1,21 de KaTeX. La web pretende `.katex` a 1em (GLYPH_CLASS), pero medido
+// en el navegador el glifo sale a 1,21 veces el cuerpo: un dígito `text-[1.25rem]`
+// mide 24,2 px, no 20. Con el cuerpo pelado los glifos de la app quedaban un 17%
+// más chicos que los de la web.
+const KATEX_EM = 1.21
 const CUERPO: Record<Tamano, number> = {
-  dyn: 0.95 * REM,
-  sm: 1.05 * REM,
-  md: 1.25 * REM,
-  lg: 1.5 * REM,
-  num: 1.25 * REM,
+  dyn: 0.95 * REM * KATEX_EM,
+  sm: 1.05 * REM * KATEX_EM,
+  md: 1.25 * REM * KATEX_EM,
+  lg: 1.5 * REM * KATEX_EM,
+  num: 1.25 * REM * KATEX_EM,
 }
 
 const RESORTE = { stiffness: 420, damping: 26 }

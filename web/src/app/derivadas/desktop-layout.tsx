@@ -2915,7 +2915,7 @@ export function DesktopLayout({ intro }: { intro: GameIntro }) {
                           sfx.select()
                           setStatsOpen(false)
                         }}
-                        className="h-[var(--cta-h)] w-full shrink-0 rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
+                        className="h-[calc(var(--cta-h)-4px)] mb-1 w-full shrink-0 rounded-md bg-white text-black hover:bg-white/90 hover:text-black shadow-[0_4px_0_0_#A8ADBF] transition-[transform,box-shadow,background-color] active:translate-y-1 active:shadow-[0_0_0_0_#A8ADBF]"
                       >
                         Volver
                         <KeyCap>{teclas.enter}</KeyCap>

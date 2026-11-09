@@ -49,10 +49,12 @@ import { FUENTE } from "@/lib/tipografia"
 type Section = "root" | "alias" | "career" | "university"
 
 // El verde de la tinta de reclutar (cafecito-cta.tsx :: VERDE_TINTA en la web).
-const VERDE_TINTA = "#2CB863"
+// Más suave que el `VERDE_TINTA` de la web (#2CB863): sobre la pantalla del
+// iPhone ese verde y el borde al 85% se hacían muy intensos.
+const VERDE_TINTA = "#4DAA76"
 const ROJO = "#E5484D"
-const ROJO_TINTA = "rgba(229,72,77,0.8)"
-const ROJO_BORDE = "rgba(229,72,77,0.85)"
+const ROJO_TINTA = "#D9686C"
+const ROJO_BORDE = "rgba(229,72,77,0.5)"
 
 // Las subpantallas entran por la derecha y salen por la derecha (solo se sale
 // de ellas volviendo); la raíz, al revés. Fijo por pantalla y no por pase: la
@@ -285,8 +287,20 @@ export function SettingsPanel({
           </Fila>
         )}
 
+        {/* No está en la configuración de la web, que la tiene en el pie de
+            página; en la app no hay pie. */}
+        <Fila
+          onPress={() => {
+            sfx.select()
+            void abrirPrivacidad()
+          }}
+        >
+          <Text style={styles.texto}>Privacidad</Text>
+          <IconoEscudo />
+        </Fila>
+
         {onReclutar && (
-          <Fila onPress={reclutar} borde="rgba(44,184,99,0.85)">
+          <Fila onPress={reclutar} borde="rgba(77,170,118,0.5)">
             <Text style={[styles.texto, { color: VERDE_TINTA }]}>Reclutar compañeros</Text>
             <IconoWhatsapp color={VERDE_TINTA} />
           </Fila>
@@ -330,18 +344,6 @@ export function SettingsPanel({
           </Fila>
         )}
 
-        {/* No está en la configuración de la web, que la tiene en el pie de
-            página; en la app no hay pie. */}
-        <Fila
-          onPress={() => {
-            sfx.select()
-            void abrirPrivacidad()
-          }}
-        >
-          <Text style={styles.texto}>Privacidad</Text>
-          <IconoEscudo />
-        </Fila>
-
         {/* El invitado no tiene sesión de Clerk que cerrar. */}
         {!player?.is_guest && (
           <Fila onPress={() => void signOut()} borde={ROJO_BORDE} disabled={busy}>
@@ -357,7 +359,7 @@ export function SettingsPanel({
     section === "career" ? (
       // Sin título: la pantalla es una sola pregunta.
       <PanelShell onBack={volver}>
-        <ScrollView contentContainerStyle={styles.crece} showsVerticalScrollIndicator={false}>
+        <ScrollView contentContainerStyle={styles.centrado} showsVerticalScrollIndicator={false}>
           <CareerSelect
             value={career}
             onSelect={(value) => {
@@ -418,7 +420,7 @@ export function SettingsPanel({
       // Sin título: `UniversityGrid` ya entra con su «¿Dónde?».
       <PanelShell onBack={volver}>
         <ScrollView
-          contentContainerStyle={styles.crece}
+          contentContainerStyle={styles.centrado}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
@@ -658,6 +660,10 @@ const styles = StyleSheet.create({
   titulo: { fontSize: 18, fontFamily: FUENTE.seminegrita, color: TEMA.foreground },
   filas: { gap: 8, paddingBottom: 8 },
   crece: { flexGrow: 1, paddingBottom: 16 },
+  // Carrera y universidad: el bloque centrado entre la flecha y «Guardar», como
+  // en el perfil (perfil-slides.tsx), un poco por arriba del centro exacto (el
+  // `paddingBottom` lo sube) porque centrado de verdad se lee bajo; si no entra, scrollea.
+  centrado: { flexGrow: 1, justifyContent: "center", paddingBottom: 72 },
   fila: {
     borderRadius: 8,
     borderWidth: 1,
