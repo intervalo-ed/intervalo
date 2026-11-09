@@ -29,7 +29,9 @@ import { Boton3D } from "./boton-3d"
 import { CTA_H } from "./exercise-card"
 import { GoogleIcon } from "./google-icon"
 import { ESTILOS_FILA } from "./ranking/skeleton"
+import { UniTag } from "./university-tag"
 import { XpDots } from "./xp-dots"
+import { CAREER_EMOJI } from "@intervalo/dx-core/career-emoji"
 import { FUENTE } from "@/lib/tipografia"
 
 // El `VERDE` de cafecito-cta.tsx en la web: la XP que dieron los reclutas.
@@ -41,12 +43,16 @@ const VERDE_400 = "#4ade80"
  *  cuánto subió y XP. Con la caja de las filas de verdad (`ESTILOS_FILA`). */
 function FilaPropia({ player, delta }: { player: GamePlayer; delta: number }) {
   const rank = player.rank ?? null
+  const emoji = player.career ? CAREER_EMOJI[player.career] : undefined
   return (
     <View style={[ESTILOS_FILA.fila, ESTILOS_FILA.propia, styles.filaPropia]}>
       {rank !== null && <Text style={ESTILOS_FILA.puesto}>{rank}</Text>}
-      <Text style={[styles.filaAlias, { color: levelColor(player.level) }]} numberOfLines={1}>
-        {player.alias}
-      </Text>
+      <View style={styles.filaNombre}>
+        <Text style={[styles.filaAlias, { color: levelColor(player.level) }]} numberOfLines={1}>
+          {player.alias}
+        </Text>
+        {emoji && <Text style={styles.filaEmoji}>{emoji}</Text>}
+      </View>
       {delta > 0 && (
         <View style={styles.filaDelta} accessible accessibilityLabel={`subió ${delta} puestos`}>
           <Svg
@@ -62,6 +68,11 @@ function FilaPropia({ player, delta }: { player: GamePlayer; delta: number }) {
             <Path d="m5 12 7-7 7 7M12 19V5" />
           </Svg>
           <Text style={styles.filaDeltaNumero}>{delta}</Text>
+        </View>
+      )}
+      {player.university && (
+        <View style={styles.filaUni}>
+          <UniTag university={player.university} />
         </View>
       )}
       <View style={styles.filaXp}>
@@ -155,7 +166,7 @@ export function RegistroSlide({
 
   const linkPrivacidad = onOpenPrivacy && (
     <Pressable onPress={onOpenPrivacy} accessibilityRole="link" hitSlop={8}>
-      <Text style={styles.privacidad}>¿Qué pasa con mis datos?</Text>
+      <Text style={[styles.parrafo, styles.subrayado]}>¿Qué pasa con mis datos?</Text>
     </Pressable>
   )
 
@@ -180,6 +191,7 @@ export function RegistroSlide({
                 : `${reclutas.gente} personas entraron por tu link y suman para vos.`}
               {"\n"}Sin cuenta, todo eso vive solo en este teléfono.
             </Text>
+            {linkPrivacidad}
           </>
         ) : (
           <>
@@ -189,6 +201,7 @@ export function RegistroSlide({
               {player.exercises_correct === 1 ? "derivada resuelta" : "derivadas resueltas"}.
             </Text>
             <FilaPropia player={player} delta={miEntrada?.rank_delta ?? 0} />
+            {linkPrivacidad}
           </>
         )}
         {desdeConfiguracion && (
@@ -235,13 +248,13 @@ export function RegistroSlide({
         />
       ) : (
         // "Ahora no" arriba del botón de color, como el pie del teléfono en la
-        // web; el link de datos último: no es una salida, es una aclaración.
+        // web. El link de datos va bajo la fila del ranking: es una aclaración
+        // del contenido, no una salida.
         <View style={styles.pie}>
-          <Pressable onPress={onSkip} accessibilityRole="button" style={styles.ahoraNo}>
+          <Boton3D contorno alto={CTA_H} onPress={onSkip}>
             <Text style={styles.textoAhoraNo}>Ahora no</Text>
-          </Pressable>
+          </Boton3D>
           {botonGoogle}
-          {linkPrivacidad}
         </View>
       )}
     </KeyboardAvoidingView>
@@ -264,9 +277,13 @@ const styles = StyleSheet.create({
   titulo: { fontSize: 24, fontFamily: FUENTE.negrita, color: TEMA.foreground, textAlign: "center" },
   numero: { fontVariant: ["tabular-nums"] },
   parrafo: { fontSize: 14, lineHeight: 22, color: TEMA.mutedForeground, textAlign: "center" },
+  subrayado: { textDecorationLine: "underline" },
   resaltado: { color: TEMA.foreground },
   filaPropia: { width: "100%", maxWidth: 320 },
-  filaAlias: { flex: 1, minWidth: 0, fontSize: 14, lineHeight: 20, fontFamily: FUENTE.medio },
+  filaNombre: { flex: 1, minWidth: 0, flexDirection: "row", alignItems: "center", gap: 6 },
+  filaAlias: { flexShrink: 1, fontSize: 14, lineHeight: 20, fontFamily: FUENTE.medio },
+  filaEmoji: { flexShrink: 0, fontSize: 14, lineHeight: 20, color: TEMA.foreground },
+  filaUni: { flexShrink: 0, flexDirection: "row", alignItems: "center", gap: 4 },
   filaDelta: { flexShrink: 0, flexDirection: "row", alignItems: "center", gap: 2 },
   filaDeltaNumero: {
     fontSize: 12,
@@ -300,16 +317,7 @@ const styles = StyleSheet.create({
   // `text-orange-300`.
   error: { fontSize: 14, color: "#fdba74", textAlign: "center" },
   bloque: { width: "100%", maxWidth: 320, gap: 8 },
-  pie: { gap: 8 },
-  ahoraNo: { paddingVertical: 8, alignItems: "center" },
-  textoAhoraNo: { fontSize: 14, color: TEMA.mutedForeground },
+  pie: { gap: 12 },
+  textoAhoraNo: { fontSize: 16, color: TEMA.mutedForeground },
   textoGoogle: { color: "#000", fontSize: 16, fontFamily: FUENTE.negrita },
-  // `text-foreground/45`.
-  privacidad: {
-    fontSize: 12,
-    lineHeight: 20,
-    color: "rgba(246,248,252,0.45)",
-    textDecorationLine: "underline",
-    textAlign: "center",
-  },
 })

@@ -11,7 +11,8 @@ import { memo, useCallback, useMemo, type ReactNode } from "react"
 import { Pressable, StyleSheet, View, type StyleProp, type ViewStyle } from "react-native"
 import { Text } from "@/components/texto"
 import Animated, {
-  LinearTransition,
+  Easing,
+  type LayoutAnimationsValues,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
@@ -289,7 +290,7 @@ const Tecla = memo(function Tecla({
   return (
     <Animated.View
       entering={nueva ? nacer : undefined}
-      layout={LinearTransition.springify().stiffness(RESORTE.stiffness).damping(RESORTE.damping)}
+      layout={correrTecla}
       style={celda}
     >
     <Animated.View style={[styles.tecla, estilo, animado]}>
@@ -333,6 +334,31 @@ const Tecla = memo(function Tecla({
 // forma larga (`sen(□)`) en texto plano.
 function textoAncho(key: Key) {
   return `${key.texto}(□)`
+}
+
+// Cuando entra una tecla nueva las demás se corren. La web (motion `layout`) las
+// MUEVE con el resorte pero no las estira; `LinearTransition.springify` animaba
+// también el ancho y el alto con el mismo resorte, que rebota, y las teclas se
+// ensanchaban y encogían como gelatina. Acá el resorte es solo de la posición y el
+// tamaño se acomoda sin rebote.
+const AJUSTE_DE_TAMANO = { duration: 140, easing: Easing.out(Easing.quad) }
+
+function correrTecla(valores: LayoutAnimationsValues) {
+  "worklet"
+  return {
+    initialValues: {
+      originX: valores.currentOriginX,
+      originY: valores.currentOriginY,
+      width: valores.currentWidth,
+      height: valores.currentHeight,
+    },
+    animations: {
+      originX: withSpring(valores.targetOriginX, RESORTE),
+      originY: withSpring(valores.targetOriginY, RESORTE),
+      width: withTiming(valores.targetWidth, AJUSTE_DE_TAMANO),
+      height: withTiming(valores.targetHeight, AJUSTE_DE_TAMANO),
+    },
+  }
 }
 
 function nacer() {

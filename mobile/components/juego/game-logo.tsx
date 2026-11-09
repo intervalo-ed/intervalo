@@ -17,6 +17,8 @@ const BRACKET_W_EM = 0.2
 const BRACKET_STEM_EM = 0.07
 const BRACKET_ARM_EM = 0.055
 const BRACKET_PAD_EM = 0.13
+// Cuánto sobra de aire bajo la línea de base de la palabra en iOS respecto de la web.
+const BAJADA_EM = 0.15
 const COLOR = "#F6F8FC"
 
 export function GameLogo({
@@ -55,7 +57,10 @@ export function GameLogo({
       <View style={[styles.filaEstirada, { gap: em(BRACKET_PAD_EM) }]}>
         {corchete("left")}
         <View style={{ alignItems: "center", gap: em(GAP_EM), paddingVertical: em(BRACKET_PAD_EM) }}>
-          <Text style={[styles.texto, { fontSize, lineHeight: fontSize * 1.1 }]}>intervalo</Text>
+          {/* El margen negativo compensa cómo iOS reparte el interlineado de la Noto
+              Serif: con la caja de 1em de la web el subrayado queda a ~0,27em de
+              la línea de base, y sin él quedaba a ~0,43em, despegado de la palabra. */}
+          <Text style={[styles.texto, { fontSize, lineHeight: fontSize, marginBottom: -em(BAJADA_EM) }]}>intervalo</Text>
           <View style={[styles.barra, { height: em(BAR_EM) }]}>
             {BELT_LEGEND_BAR_COLORS.map((color, i) => (
               <View key={i} style={{ flex: 1, backgroundColor: color }} />

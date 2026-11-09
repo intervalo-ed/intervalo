@@ -5,21 +5,21 @@
 // de poder saltearla.
 //
 // El horario se elige acá y no después en ajustes. En la web es un `<select>`;
-// acá es una tira de horarios que se desliza: son quince, se ven varios a la vez
-// y se elige con un toque, sin abrir nada encima de la diapo.
+// acá es una rueda de hora y minutos (de a 15) que se desliza, sin abrir nada
+// encima de la diapo.
 
-import { useEffect, useRef, useState } from "react"
-import { Pressable, ScrollView, StyleSheet, View, type ScrollViewInstance } from "react-native"
+import { useEffect, useState } from "react"
+import { StyleSheet, View } from "react-native"
 import { Text } from "@/components/texto"
-import { vib } from "@/lib/haptics"
 import Svg, { Circle, Path } from "react-native-svg"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
-import { DEFAULT_REMINDER_TIME, REMINDER_TIME_OPTIONS } from "@intervalo/dx-core/juego/horarios-de-aviso"
+import { DEFAULT_REMINDER_TIME } from "@intervalo/dx-core/juego/horarios-de-aviso"
 import { track } from "@/lib/analytics/track"
 import { useSfx } from "@/lib/audio/UseSfx"
 import { usePrenderAvisosNativos } from "@/lib/avisos/UseAvisosNativos"
 import { Boton3D } from "./boton-3d"
 import { CTA_H } from "./exercise-card"
+import { RuedaDeHora } from "./rueda-de-hora"
 import { FUENTE } from "@/lib/tipografia"
 
 // Lo mismo que espera la diapo de reclutas; en cero en desarrollo para que el
@@ -28,10 +28,6 @@ const ESPERA_S = __DEV__ ? 0 : 8
 
 const INDIGO = "#7e80f7"
 const LABIO_INDIGO = "#4F52C9"
-const INDIGO_RGB = [0x7e, 0x80, 0xf7] as const
-
-const ANCHO_CHIP = 64
-const HUECO_CHIP = 8
 
 function useCuentaRegresiva(segundos: number): number {
   const [restante, setRestante] = useState(segundos)
@@ -76,15 +72,16 @@ export function NotificacionesSlide({ onContinue }: { onContinue: () => void }) 
             <IconoReloj size={16} color={TEXTO_SUAVE} />
             <Text style={styles.textoEtiqueta}>Recordarme a las</Text>
           </View>
-          <TiraDeHorarios
-            hora={hora}
-            onElegir={(t) => {
-              if (t === hora) return
-              sfx.select()
-              vib.elegir()
-              setHora(t)
-            }}
-          />
+          <View style={styles.rueda}>
+            <RuedaDeHora
+              hora={hora}
+              onCambio={(t) => {
+                if (t === hora) return
+                sfx.select()
+                setHora(t)
+              }}
+            />
+          </View>
 
           {fallo && (
             <Text style={styles.error}>
@@ -125,51 +122,6 @@ export function NotificacionesSlide({ onContinue }: { onContinue: () => void }) 
         </Boton3D>
       </View>
     </View>
-  )
-}
-
-function TiraDeHorarios({ hora, onElegir }: { hora: string; onElegir: (t: string) => void }) {
-  const ref = useRef<ScrollViewInstance>(null)
-  const [ancho, setAncho] = useState(0)
-
-  // Arranca con el horario elegido centrado: el de por defecto (19:00) cae
-  // cerca del final y sin esto quedaría fuera de la pantalla.
-  useEffect(() => {
-    if (!ancho) return
-    const i = Math.max(0, REMINDER_TIME_OPTIONS.indexOf(hora))
-    const x = i * (ANCHO_CHIP + HUECO_CHIP) - (ancho - ANCHO_CHIP) / 2
-    ref.current?.scrollTo({ x: Math.max(0, x), animated: false })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ancho])
-
-  return (
-    <ScrollView
-      ref={ref}
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      onLayout={(e) => setAncho(e.nativeEvent.layout.width)}
-      style={styles.tira}
-      contentContainerStyle={styles.tiraContenido}
-    >
-      {REMINDER_TIME_OPTIONS.map((t) => {
-        const activo = t === hora
-        return (
-          <Pressable
-            key={t}
-            onPress={() => onElegir(t)}
-            accessibilityRole="radio"
-            accessibilityState={{ selected: activo }}
-            style={({ pressed }) => [
-              styles.chip,
-              activo && styles.chipActivo,
-              pressed && !activo && { backgroundColor: TEMA.accent },
-            ]}
-          >
-            <Text style={[styles.textoChip, activo && { color: TEMA.foreground, fontFamily: FUENTE.seminegrita }]}>{t}</Text>
-          </Pressable>
-        )
-      })}
-    </ScrollView>
   )
 }
 
@@ -243,23 +195,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   textoEtiqueta: { fontSize: 16, color: TEXTO_SUAVE },
-  // La tira sale del relleno de la caja para que los horarios lleguen al borde.
-  tira: { marginTop: 10, marginHorizontal: -24, flexGrow: 0 },
-  tiraContenido: { paddingHorizontal: 24, gap: HUECO_CHIP },
-  chip: {
-    width: ANCHO_CHIP,
-    paddingVertical: 6,
-    borderRadius: 6,
-    borderWidth: 1,
-    borderColor: TEMA.border,
-    backgroundColor: TEMA.background,
-    alignItems: "center",
-  },
-  chipActivo: {
-    borderColor: INDIGO,
-    backgroundColor: `rgba(${INDIGO_RGB.join(", ")}, 0.18)`,
-  },
-  textoChip: { fontSize: 15, color: TEMA.mutedForeground, fontVariant: ["tabular-nums"] },
+  rueda: { marginTop: 10 },
   // `mt-3 text-sm text-foreground/60`.
   error: {
     marginTop: 12,
