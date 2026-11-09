@@ -43,9 +43,13 @@ export const ESTILOS_FILA = StyleSheet.create({
   propia: { backgroundColor: "rgba(84, 87, 229, 0.1)", borderColor: "rgba(84, 87, 229, 0.3)" },
   // La que no entra en el orden por Elo.
   fuera: { opacity: 0.55 },
-  // El puesto: ancho fijo (`w-4`), centrado.
+  // El puesto: ancho fijo, centrado. 44 y no los 16 de la web (`w-4`): con dos
+  // cifras el número se partía en dos renglones (el «20» se veía como un 2
+  // sobre un 0), y con cuatro cifras 32 y 40 quedaban justos y iOS cortaba
+  // algunos («1080» salía como «10…»). La fila individual además achica la letra
+  // en vez de cortar.
   puesto: {
-    width: 16,
+    width: 44,
     flexShrink: 0,
     textAlign: "center",
     fontSize: 14,
@@ -118,7 +122,7 @@ export function FilaHueca({ quieto }: { quieto: boolean }) {
 const estilos = StyleSheet.create({
   contenedor: { flex: 1, minHeight: 0, overflow: "hidden" },
   flex: { flex: 1, minWidth: 0 },
-  puesto: { width: 16, flexShrink: 0 },
+  puesto: { width: 44, flexShrink: 0 },
   numero: { width: 48, flexShrink: 0 },
   hueco: { height: 20, justifyContent: "center" },
   barra: { height: 14, borderRadius: 4, backgroundColor: "rgba(246, 248, 252, 0.1)" },

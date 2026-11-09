@@ -203,6 +203,7 @@ export function MobileFlow({ auto }: { auto?: string }) {
   // El enunciado se desliza solo al saltear (ver PromptBox).
   const [deslizar, setDeslizar] = useState(false)
   const [altoPie, setAltoPie] = useState(0)
+  const [altoFilaPrincipal, setAltoFilaPrincipal] = useState(0)
   const inputRef = useRef<MathFieldHandle>(null)
   const servedAtRef = useRef(0)
   const enPantallaRef = useRef<number | null>(null)
@@ -1178,7 +1179,15 @@ export function MobileFlow({ auto }: { auto?: string }) {
                 areaSegura={false}
               />
             </View>
-            <BannerDelVeredicto tone={tone} answer={lastAnswer} reservaAbajo={altoPie + abajo + 8} />
+            {/* Cerrado, la fila de Tabla y Saltear conserva su lugar pero no se dibuja:
+                el cartel no tiene por qué taparla con un hueco vacío, termina donde
+                empieza el botón. Con el ejercicio abierto (¿Seguro?) esa fila se ve
+                encima del cartel y su alto sí cuenta. */}
+            <BannerDelVeredicto
+              tone={tone}
+              answer={lastAnswer}
+              reservaAbajo={(cerradoVisual ? altoFilaPrincipal + 12 : altoPie) + abajo + 8}
+            />
             <View style={styles.pie} onLayout={(e) => setAltoPie(e.nativeEvent.layout.height)}>
               <PieRampa
                 cerradoVisual={cerradoVisual}
@@ -1189,7 +1198,7 @@ export function MobileFlow({ auto }: { auto?: string }) {
                 }}
                 onSaltear={onSkip}
               />
-              <View style={styles.filaPrincipal}>
+              <View style={styles.filaPrincipal} onLayout={(e) => setAltoFilaPrincipal(e.nativeEvent.layout.height)}>
                 {hayPorque && (!cerradoVisual || solvedLatex === null) && (
                   <PorQueButton onPress={abrirPorque} plano={!cerradoVisual} style={!cerradoVisual && { flex: 1 }} />
                 )}

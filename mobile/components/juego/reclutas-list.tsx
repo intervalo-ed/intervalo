@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   },
   nombreYEmoji: { flex: 1, minWidth: 0, flexDirection: "row", alignItems: "center", gap: 6 },
   nombre: { flexShrink: 1, fontSize: 14, fontFamily: FUENTE.medio },
-  emoji: { fontSize: 14, lineHeight: 16 },
+  emoji: { fontSize: 14, lineHeight: 20, color: TEMA.foreground },
   aporte: { flexDirection: "row", alignItems: "center", gap: 4 },
   aporteTexto: { fontSize: 14, fontFamily: FUENTE.seminegrita, fontVariant: ["tabular-nums"], color: VERDE },
 })

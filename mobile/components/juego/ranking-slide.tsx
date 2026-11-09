@@ -4,15 +4,16 @@
 // esta diapo lo vuelve a intentar al montarse por si se llegó por otro camino.
 //
 // La cabecera la pasa quien la monta (`cabecera`), arriba de todo como en la
-// web. Mirando "Reclutas", el pie ofrece reclutar y deja Seguir al lado.
+// web. Mirando "Reclutas", el pie ofrece reclutar y deja Continuar al lado.
 
 import { useEffect, useRef, useState, type ReactNode } from "react"
-import { Pressable, StyleSheet, View } from "react-native"
+import { StyleSheet, View } from "react-native"
 import { Text } from "@/components/texto"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
 import type { RankingView } from "@intervalo/dx-core/juego/ranking-formato"
 import type { MemoriaDelRanking } from "@intervalo/dx-core/juego/ranking-orden"
 import type { GameAnswer } from "@intervalo/dx-core/juego/UseGameExercise"
+import { Boton3D } from "./boton-3d"
 import { BotonCta } from "./boton-cta"
 import { ReclutarButton } from "./boton-reclutar"
 import { CTA_H } from "./exercise-card"
@@ -94,15 +95,9 @@ export function RankingSlide({
       {vista === "recruits" ? (
         <View style={styles.pie}>
           <ReclutarButton alias={alias} placement="ranking_reclutas" style={styles.reclutar} />
-          <Pressable
-            onPress={onContinue}
-            disabled={continueDisabled}
-            accessibilityRole="button"
-            accessibilityState={{ disabled: continueDisabled }}
-            style={({ pressed }) => [styles.seguir, pressed && styles.apretado, continueDisabled && { opacity: 0.5 }]}
-          >
-            <Text style={styles.seguirTexto}>Seguir</Text>
-          </Pressable>
+          <Boton3D contorno alto={CTA_H} onPress={onContinue} disabled={continueDisabled} caraEstilo={styles.continuarCara}>
+            <Text style={styles.seguirTexto}>Continuar</Text>
+          </Boton3D>
         </View>
       ) : (
         <BotonCta texto="Continuar" onPress={onContinue} disabled={continueDisabled} />
@@ -116,15 +111,6 @@ const styles = StyleSheet.create({
   ranking: { flex: 1 },
   pie: { flexDirection: "row", alignItems: "stretch", gap: 8, height: CTA_H },
   reclutar: { flex: 1 },
-  seguir: {
-    borderRadius: 6,
-    borderWidth: 1,
-    borderColor: TEMA.border,
-    backgroundColor: TEMA.background,
-    paddingHorizontal: 20,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  apretado: { backgroundColor: TEMA.accent },
+  continuarCara: { paddingHorizontal: 20 },
   seguirTexto: { color: TEMA.foreground, fontSize: 16, fontFamily: FUENTE.medio },
 })

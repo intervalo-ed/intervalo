@@ -88,7 +88,7 @@ def main() -> None:
                     alias=alias,
                     alias_is_generated=False,
                     university=rng.choice(UNIVERSIDADES),
-                    career=rng.choice(["A", "B", "C", None]),
+                    career=rng.choice(["E", "S", "T", "M", "Otra", None]),
                     theta=rng.gauss(0, 1.2),
                     n_updates=max(correctas, 12),
                     xp=xp,

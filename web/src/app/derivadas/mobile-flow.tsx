@@ -48,6 +48,7 @@ import {
 } from "./exercise-card"
 import { CafecitoPanel, CAFE } from "./cafecito-panel"
 import { ReclutasPanel, type ReclutasTrigger } from "./reclutas-panel"
+import { Boton3D, CARA_3D, LABIO_CONTORNO } from "./boton-3d"
 import { ConSalidaAbajo } from "./slide-salida"
 import {
   marcarInstalarMostrado,
@@ -2427,8 +2428,7 @@ function RankingSlide({
           lista de arriba son las personas que trajiste y lo que te dieron, o los
           ejemplos de lo que darían. Un "Continuar" blanco ahí es la única
           pantalla del juego que muestra una promesa y abajo pone la puerta.
-          Seguir sigue estando, al lado y en secundario, con la misma geometría
-          que Revisar/Saltear en el ejercicio. */}
+          Continuar sigue estando, al lado, en secundario y en 3D. */}
       {vista === "recruits" ? (
         <div className="flex items-stretch gap-2">
           <ReclutarButton
@@ -2436,15 +2436,17 @@ function RankingSlide({
             placement="ranking_reclutas"
             className="h-[calc(var(--cta-h)-4px)] flex-1 rounded-md"
           />
-          <Button
-            size="lg"
-            variant="outline"
-            className="h-[var(--cta-h)] rounded-md bg-background px-5"
-            disabled={continueDisabled}
-            onClick={onContinue}
-          >
-            Seguir
-          </Button>
+          <Boton3D labio={LABIO_CONTORNO}>
+            <Button
+              size="lg"
+              variant="outline"
+              className={cn(CARA_3D, "bg-background px-5")}
+              disabled={continueDisabled}
+              onClick={onContinue}
+            >
+              Continuar
+            </Button>
+          </Boton3D>
         </div>
       ) : (
         <Button
