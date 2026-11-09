@@ -31,6 +31,14 @@ const POR_PESO: Record<string, string> = {
 
 const BASE = { fontFamily: FUENTE.normal } as const
 
+// El tamaño de letra del sistema (Dynamic Type de iOS) NO agranda el texto de la
+// app. Todo está portado píxel por píxel de la web, que no escala: las filas del
+// ranking, las teclas y el botón principal tienen alto fijo y el logo es texto,
+// así que con la letra grande del iPhone el texto se salía de su caja, el alias
+// se cortaba y el logo ya no coincidía con la captura del splash. Se puede
+// pisar en un Text puntual con `maxFontSizeMultiplier`.
+const SIN_ESCALA = 1
+
 /** El estilo con la fuente resuelta. Sin nada que resolver devuelve el mismo
  *  `style` (misma referencia), para no invalidar a los hijos memoizados. */
 function conFuente(style: ComponentProps<typeof RNText>["style"], anidado: boolean) {
@@ -45,12 +53,12 @@ function conFuente(style: ComponentProps<typeof RNText>["style"], anidado: boole
 export function Text({ style, children, ...resto }: ComponentProps<typeof RNText>) {
   const anidado = useContext(DentroDeText)
   return (
-    <RNText {...resto} style={conFuente(style, anidado)}>
+    <RNText maxFontSizeMultiplier={SIN_ESCALA} {...resto} style={conFuente(style, anidado)}>
       <DentroDeText.Provider value={true}>{children}</DentroDeText.Provider>
     </RNText>
   )
 }
 
 export function TextInput({ style, ...resto }: ComponentProps<typeof RNTextInput>) {
-  return <RNTextInput {...resto} style={conFuente(style, false)} />
+  return <RNTextInput maxFontSizeMultiplier={SIN_ESCALA} {...resto} style={conFuente(style, false)} />
 }
