@@ -17,6 +17,7 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from "react-native-reanimated"
+import { vib } from "@/lib/haptics"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
 
 export const LABIO = 4
@@ -78,9 +79,11 @@ export function Boton3D({
       onPress={onPress}
       onPressIn={() => {
         hundida.value = quieto ? 1 : withTiming(1, BAJADA)
+        vib.botonBaja()
       }}
       onPressOut={() => {
         hundida.value = quieto ? 0 : withTiming(0, SUBIDA)
+        vib.botonSube()
       }}
       disabled={disabled}
       accessibilityRole={accessibilityRole}

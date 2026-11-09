@@ -17,7 +17,7 @@ import Animated, {
   withSpring,
   withTiming,
 } from "react-native-reanimated"
-import * as Haptics from "expo-haptics"
+import { vib } from "@/lib/haptics"
 import { useSfx } from "@/lib/audio/UseSfx"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import Svg, { Path } from "react-native-svg"
@@ -298,7 +298,7 @@ const Tecla = memo(function Tecla({
         onPressIn={() => {
           apretada.value = 1
           onKey(key)
-          void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
+          vib.tecla()
         }}
         onPressOut={() => {
           apretada.value = 0

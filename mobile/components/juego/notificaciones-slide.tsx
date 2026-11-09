@@ -11,7 +11,7 @@
 import { useEffect, useRef, useState } from "react"
 import { Pressable, ScrollView, StyleSheet, View, type ScrollViewInstance } from "react-native"
 import { Text } from "@/components/texto"
-import * as Haptics from "expo-haptics"
+import { vib } from "@/lib/haptics"
 import Svg, { Circle, Path } from "react-native-svg"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
 import { DEFAULT_REMINDER_TIME, REMINDER_TIME_OPTIONS } from "@intervalo/dx-core/juego/horarios-de-aviso"
@@ -81,7 +81,7 @@ export function NotificacionesSlide({ onContinue }: { onContinue: () => void }) 
             onElegir={(t) => {
               if (t === hora) return
               sfx.select()
-              void Haptics.selectionAsync()
+              vib.elegir()
               setHora(t)
             }}
           />

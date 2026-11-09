@@ -10,9 +10,20 @@
 // tabla se abra (`precalentarTablaDeDerivadas`) y abrirla no cuesta nada más
 // que montar vistas.
 
-import { useMemo, useState, type ReactNode } from "react"
-import { Modal, Pressable, ScrollView, StyleSheet, View, type StyleProp, type ViewStyle } from "react-native"
+import { useMemo, useRef, useState, type ReactNode } from "react"
+import {
+  Modal,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  View,
+  type NativeScrollEvent,
+  type NativeSyntheticEvent,
+  type StyleProp,
+  type ViewStyle,
+} from "react-native"
 import { Text } from "@/components/texto"
+import { vib } from "@/lib/haptics"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
 import {
@@ -90,6 +101,17 @@ export function DerivativesTable({
   // El +1 por el redondeo subpíxel, igual que la web.
   const desborda = clave !== "" && caja > 0 && contenido > caja + 1
 
+  // Un roce al llegar a un extremo de la tabla, una sola vez por llegada.
+  const enExtremoRef = useRef(false)
+  const alScrollear = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const { contentOffset, contentSize, layoutMeasurement } = e.nativeEvent
+    const maximo = contentSize.height - layoutMeasurement.height
+    if (maximo <= 1) return
+    const extremo = contentOffset.y <= 0 || contentOffset.y >= maximo - 1
+    if (extremo && !enExtremoRef.current) vib.roce()
+    enExtremoRef.current = extremo
+  }
+
   const { filas, subidas, pedidas } = useMemo(() => acomodar(clave, desborda), [clave, desborda])
 
   return (
@@ -102,6 +124,8 @@ export function DerivativesTable({
       contentContainerStyle={styles.contenido}
       onLayout={(e) => setCaja(e.nativeEvent.layout.height)}
       onContentSizeChange={(_w, h) => setContenido(h)}
+      onScroll={alScrollear}
+      scrollEventThrottle={32}
       style={[styles.marco, style]}
     >
       <Cabecera />

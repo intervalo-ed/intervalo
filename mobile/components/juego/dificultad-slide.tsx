@@ -15,7 +15,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated"
 import Svg, { Path } from "react-native-svg"
-import * as Haptics from "expo-haptics"
+import { vib } from "@/lib/haptics"
 import { useQueryClient } from "@tanstack/react-query"
 import { unwrap } from "@intervalo/dx-core/api/client"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
@@ -82,7 +82,7 @@ export function DificultadSlide({
   const cambiar = (v: number) => {
     if (v === valor) return
     sfx.select()
-    void Haptics.selectionAsync()
+    vib.elegir()
     setValor(v)
   }
 

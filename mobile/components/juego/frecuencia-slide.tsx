@@ -5,7 +5,7 @@
 import { useEffect } from "react"
 import { StyleSheet, View } from "react-native"
 import { Text } from "@/components/texto"
-import * as Haptics from "expo-haptics"
+import { vib } from "@/lib/haptics"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
 import {
   FRECUENCIAS,
@@ -31,7 +31,7 @@ export function FrecuenciaSlide({ onContinue }: { onContinue: () => void }) {
   const elegir = (valor: FrecuenciaRanking) => {
     if (valor === elegida) return
     sfx.select()
-    void Haptics.selectionAsync()
+    vib.elegir()
     saveFrecuenciaRanking(valor)
     track("game_ranking_frecuencia_chosen", { valor, via: "slide" })
   }

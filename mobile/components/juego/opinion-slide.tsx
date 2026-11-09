@@ -6,7 +6,7 @@
 import { useEffect, useRef, useState } from "react"
 import { StyleSheet, View } from "react-native"
 import { Text } from "@/components/texto"
-import * as Haptics from "expo-haptics"
+import { vib } from "@/lib/haptics"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
 import { useGameApi } from "@intervalo/dx-core/juego/game-api-context"
 import {
@@ -35,7 +35,7 @@ export function OpinionSlide({ onContinue }: { onContinue: (contesto: boolean) =
 
   const elegir = (voto: VotoDificultad) => {
     sfx.select()
-    void Haptics.selectionAsync()
+    vib.elegir()
     setVotado(voto)
   }
 

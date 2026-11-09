@@ -8,6 +8,7 @@
 // llevan a diapos que todavía no existen acá (dificultad, frecuencia, reclutar)
 // se dibujan solo si quien monta el panel pasa su callback.
 
+import { setHapticsOff, useHapticsOff, vib } from "@/lib/haptics"
 import { useRef, useState, type ReactNode } from "react"
 import { KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, View, type TextInputInstance } from "react-native"
 import { Text, TextInput } from "@/components/texto"
@@ -97,6 +98,7 @@ export function SettingsPanel({
   const { cerrarSesion } = useGamePlayer()
   const sfx = useSfx()
   const muted = useSoundMuted()
+  const vibOff = useHapticsOff()
   const frecuencia = useFrecuenciaRanking()
   const [section, setSection] = useState<Section>("root")
   const [alias, setAlias] = useState(player?.alias ?? "")
@@ -252,6 +254,20 @@ export function SettingsPanel({
             <Text style={styles.valor}>{muted ? "Apagado" : "Encendido"}</Text>
             {muted ? <IconoSinSonido /> : <IconoSonido />}
           </View>
+        </Fila>
+
+        <Fila
+          etiqueta="Vibración"
+          onPress={() => {
+            setHapticsOff(!vibOff)
+            // Se siente solo al prenderla.
+            if (vibOff) {
+              sfx.select()
+              vib.acierto(false)
+            }
+          }}
+        >
+          <Text style={styles.valor}>{vibOff ? "Apagada" : "Encendida"}</Text>
         </Fila>
 
         {onFrecuencia && (

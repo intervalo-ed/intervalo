@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from "react"
 import { StyleSheet, View } from "react-native"
 import { Text } from "@/components/texto"
 import Animated, { FadeIn, useReducedMotion } from "react-native-reanimated"
-import * as Haptics from "expo-haptics"
+import { vib } from "@/lib/haptics"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
 import { useGameApi } from "@intervalo/dx-core/juego/game-api-context"
 import {
@@ -41,7 +41,7 @@ export function RepetitividadSlide({ onContinue }: { onContinue: (contesto: bool
     votadoRef.current = true
     setVotado(voto)
     sfx.select()
-    void Haptics.selectionAsync()
+    vib.elegir()
     track("game_repetitividad_answered", { voto })
     void api
       .POST("/game/derivemos/repetitividad", { body: { accion: "answer", voto } })

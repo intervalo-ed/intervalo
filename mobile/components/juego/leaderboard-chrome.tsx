@@ -3,6 +3,7 @@
 // desplegable, y acá también: una lista colgada del selector.
 
 import { useRef, useState, type ComponentRef, type ReactNode } from "react"
+import { vib } from "@/lib/haptics"
 import { Modal, Pressable, ScrollView, StyleSheet, useWindowDimensions, View } from "react-native"
 import { Text } from "@/components/texto"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
@@ -92,6 +93,7 @@ export function FilterBox({
   const actual = options.find((o) => o.value === value)?.label ?? value
 
   const abrir = () => {
+    vib.abrir()
     disparadorRef.current?.measureInWindow((x, y, w, h) => setAncla({ x, y, w, h }))
   }
   const cerrar = () => setAncla(null)
@@ -151,7 +153,10 @@ export function FilterBox({
                     key={o.value}
                     onPress={() => {
                       cerrar()
-                      if (!elegida) onChange(o.value)
+                      if (!elegida) {
+                        vib.elegir()
+                        onChange(o.value)
+                      }
                     }}
                     accessibilityRole="button"
                     accessibilityState={{ selected: elegida }}

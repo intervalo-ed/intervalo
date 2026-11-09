@@ -19,7 +19,7 @@ import { KeyboardAvoidingView, StyleSheet, View } from "react-native"
 import { Text } from "@/components/texto"
 import { router } from "expo-router"
 import { StatusBar } from "expo-status-bar"
-import * as Haptics from "expo-haptics"
+import { vib } from "@/lib/haptics"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { useQueryClient } from "@tanstack/react-query"
 import { ApiError } from "@intervalo/dx-core/api/client"
@@ -371,15 +371,22 @@ export function MobileFlow({ auto }: { auto?: string }) {
 
   const veredicto = useCallback(
     (correcto: boolean) => {
+      // La racha de ANTES de este intento; solo el primero la mueve.
+      const comboAntes = exercise?.combo ?? 0
+      const primero = attemptRef.current === 1
+      const perfecto = primero && !peekedRef.current
       if (correcto) {
         sfx.correct()
-        void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
+        vib.acierto(perfecto)
+        // El latido de la racha entra cuando el acierto ya terminó de sonar.
+        if (perfecto && comboAntes + 1 >= 2) setTimeout(() => vib.combo(comboAntes + 1), 320)
       } else {
         sfx.wrong()
-        void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error)
+        vib.error()
+        if (primero && comboAntes >= 3) setTimeout(() => vib.comboPerdido(), 330)
       }
     },
-    [sfx],
+    [sfx, exercise?.combo],
   )
 
   const startFromIntro = useCallback(() => {

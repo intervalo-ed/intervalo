@@ -43,6 +43,7 @@ import {
 import { useStagedOrder } from "@intervalo/dx-core/juego/UseStagedOrder"
 import { filaALaVista } from "@intervalo/dx-core/juego/ventana-ranking"
 import { curvaEnUI, Row, transicionDeFila } from "./row"
+import { vib } from "@/lib/haptics"
 import { ALTO_FILA, ESTILOS_FILA, FilaHueca, ListSkeleton, SEPARACION_FILAS } from "./skeleton"
 
 // Las filas que caben en pantalla: lo que se dibuja de esqueleto cuando no se
@@ -338,6 +339,33 @@ export function IndividualRanking({
     curva: fase === "viajando" ? curvaDelViaje : ritmo.curvaDelLugar,
   })
 
+  // ── Vibración ──────────────────────────────────────────────────────────────
+  // Mientras la XP propia cuenta, un tic cada ~90 ms que se afirma con el avance
+  // del número (la ruleta que frena); al terminar, el clac. Lo que ya cargó
+  // `useXp` no se toca: solo se mira `liveXp`.
+  const ultimoTicRef = useRef(0)
+  const ticsRef = useRef(0)
+  useEffect(() => {
+    if (!counting || liveXp === null) {
+      ticsRef.current = 0
+      return
+    }
+    const ahora = Date.now()
+    if (ahora - ultimoTicRef.current < 90) return
+    ultimoTicRef.current = ahora
+    ticsRef.current += 1
+    vib.digito(Math.min(1, ticsRef.current / 14))
+  }, [counting, liveXp])
+  const contabaRef = useRef(false)
+  useEffect(() => {
+    if (contabaRef.current && !counting) vib.contadorTrabado()
+    contabaRef.current = counting
+  }, [counting])
+  // Tu fila despega hacia el puesto nuevo: la rampa de leve a fuerte.
+  useEffect(() => {
+    if (listaFase === "viajando") vib.subePuesto()
+  }, [listaFase])
+
   // ── Scroll ─────────────────────────────────────────────────────────────────
   // Ref animado: el mismo nodo lo mueve JS (`scrollToOffset`) y el hilo de UI
   // durante el salto (`scrollTo`).
@@ -604,10 +632,35 @@ export function IndividualRanking({
     armarRecentrado()
   }, [armarRecentrado, guardarMemoria, manoSV, progreso])
 
+  // Una muesca cada 10 puestos, un golpe más lleno al cruzar 1000, 100 y 10, y
+  // otro al tocar el puesto 1. No vibra mientras el salto de la propia fila
+  // mueve la lista a mano: ahí la lista no la mueve el dedo.
+  const decenaRef = useRef<number | null>(null)
+  const ordenadoRef = useRef(ordered)
+  ordenadoRef.current = ordered
+  const muescasDelScroll = useCallback(
+    (y: number) => {
+      if (listaFase !== "listo") return
+      const i = Math.max(0, Math.round((y - LIST_TOP_PADDING) / ALTO_FILA_PX))
+      const fila = ordenadoRef.current[i]
+      if (!fila) return
+      const decena = Math.floor(fila.rank / 10)
+      const antes = decenaRef.current
+      decenaRef.current = decena
+      if (antes === null || antes === decena) return
+      const hito = [10, 100, 1000].some((h) => (antes * 10 < h) !== (decena * 10 < h))
+      if (fila.rank <= 1 && y <= LIST_TOP_PADDING) vib.tope()
+      else if (hito) vib.hito()
+      else vib.muesca()
+    },
+    [listaFase],
+  )
+
   const alScrollear = useCallback(
     (e: NativeSyntheticEvent<NativeScrollEvent>) => {
       const y = e.nativeEvent.contentOffset.y
       scrollYRef.current = y
+      muescasDelScroll(y)
       // Dónde QUEDÓ la lista (el momentum sigue después de soltar), que es lo
       // que se restaura al volver a montarse; y dónde quedó la fila propia
       // respecto de la ventana, que es lo que el salto conserva al agacharse.
@@ -616,7 +669,7 @@ export function IndividualRanking({
       if (iPropia >= 0) relRef.current = offsetDeFila(iPropia) - y
       armarRecentrado()
     },
-    [armarRecentrado, guardarMemoria, iPropia],
+    [armarRecentrado, guardarMemoria, iPropia, muescasDelScroll],
   )
 
   const alMedir = useCallback(
