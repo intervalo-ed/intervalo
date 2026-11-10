@@ -12,11 +12,11 @@ const FONDO = "#131324"
 // `newArchEnabled` ni `edgeToEdgeEnabled`.
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
-  name: "Derivadas",
+  name: "Intervalo",
   slug: "intervalo-app",
   owner: "intervalo-ed",
   scheme: "derivadas",
-  version: "1.0.0",
+  version: "1.0.1",
   orientation: "portrait",
   icon: "./assets/images/icon.png",
   // El juego tiene un solo tema, oscuro.
