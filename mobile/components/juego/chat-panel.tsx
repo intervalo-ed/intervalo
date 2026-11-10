@@ -9,9 +9,10 @@
 // novedades-slide.tsx): acá no se sabe a qué altura de la pantalla está.
 
 import { useMemo, useRef } from "react"
-import { FlatList, Platform, Pressable, StyleSheet, Text, TextInput, View } from "react-native"
+import { Alert, FlatList, Pressable, StyleSheet, View } from "react-native"
+import { Text, TextInput } from "@/components/texto"
 import Animated, { FadeIn } from "react-native-reanimated"
-import Svg, { Path } from "react-native-svg"
+import Svg, { Circle, Path } from "react-native-svg"
 import { levelColor, TEMA } from "@intervalo/dx-core/juego/game-colors"
 import { fmtAgo } from "@intervalo/dx-core/juego/ranking-formato"
 import {
@@ -26,6 +27,8 @@ import type { GamePlayer } from "@intervalo/dx-core/juego/game-keys"
 import type { ConTiempo, GameEvent, GameMessage } from "@intervalo/dx-core/juego/UseGameLeaderboard"
 import { useSfx } from "@/lib/audio/UseSfx"
 import { UniTag } from "./university-tag"
+import { Boton3D } from "./boton-3d"
+import { FUENTE } from "@/lib/tipografia"
 
 const FUNDIDO = FadeIn.duration(200)
 
@@ -40,11 +43,14 @@ function MensajeRow({
   mensaje,
   pendiente,
   onReintentar,
+  onOpciones,
 }: {
   mensaje: ConTiempo<GameMessage>
   /** `undefined` = mensaje confirmado por el servidor. */
   pendiente?: "enviando" | "fallo"
   onReintentar?: () => void
+  /** El `⋯` de reportar o bloquear: solo en mensajes ajenos ya confirmados. */
+  onOpciones?: () => void
 }) {
   const multilinea = mensaje.text.includes("\n")
   return (
@@ -62,6 +68,16 @@ function MensajeRow({
         </Text>
         {mensaje.university && <UniTag university={mensaje.university} />}
         {pendiente === undefined && <Text style={styles.hace}>{fmtAgo(mensaje.seconds_ago)}</Text>}
+        {onOpciones && (
+          <Pressable
+            onPress={onOpciones}
+            hitSlop={10}
+            accessibilityRole="button"
+            accessibilityLabel={`Opciones del mensaje de ${mensaje.alias}`}
+          >
+            <IconoPuntos />
+          </Pressable>
+        )}
       </View>
       {/* Monoespaciada solo con más de un renglón: es lo que deja que un dibujo
           ASCII se vea como se escribió. */}
@@ -88,6 +104,16 @@ function NovedadRow({ evento }: { evento: ConTiempo<GameEvent> }) {
   )
 }
 
+function IconoPuntos() {
+  return (
+    <Svg width={16} height={16} viewBox="0 0 24 24" fill="rgba(164,179,198,0.7)">
+      <Circle cx={5} cy={12} r={1.8} />
+      <Circle cx={12} cy={12} r={1.8} />
+      <Circle cx={19} cy={12} r={1.8} />
+    </Svg>
+  )
+}
+
 function IconoMandar({ color }: { color: string }) {
   // `SendHorizontal` de lucide, el mismo de la web.
   return (
@@ -111,6 +137,8 @@ export function ChatPanel({ enabled, player }: { enabled: boolean; player: GameP
     puedeMandar,
     mandar,
     reintentar,
+    reportar,
+    bloquear,
     hayMas,
     cargarViejas,
   } = useChat({ enabled, player, onEnviado: sfx.select })
@@ -122,6 +150,31 @@ export function ChatPanel({ enabled, player }: { enabled: boolean; player: GameP
     const propios: Fila[] = pendientes.map((p) => ({ tipo: "pendiente", clave: `pend-${p.localId}`, pendiente: p }))
     return [...propios.reverse(), ...[...lineas].reverse()]
   }, [lineas, pendientes])
+
+  // El menú del `⋯`. Reportar no pide confirmación (es reversible para quien
+  // lo ve: solo se esconde); bloquear sí, porque no hay vuelta atrás desde acá.
+  const opciones = (m: ConTiempo<GameMessage>) => {
+    sfx.select()
+    Alert.alert(`@${m.alias}`, undefined, [
+      {
+        text: "Reportar mensaje",
+        onPress: () =>
+          void reportar(m.id).then((ok) => {
+            if (ok) Alert.alert("Gracias", "Lo vamos a revisar.")
+          }),
+      },
+      {
+        text: `Bloquear a @${m.alias}`,
+        style: "destructive",
+        onPress: () =>
+          Alert.alert(`¿Bloquear a @${m.alias}?`, "No vas a ver más lo que escriba.", [
+            { text: "Cancelar", style: "cancel" },
+            { text: "Bloquear", style: "destructive", onPress: () => void bloquear(m.id, m.alias) },
+          ]),
+      },
+      { text: "Cancelar", style: "cancel" },
+    ])
+  }
 
   const enviar = () => {
     if (!mandar()) return
@@ -143,7 +196,10 @@ export function ChatPanel({ enabled, player }: { enabled: boolean; player: GameP
           keyExtractor={(f) => f.clave}
           renderItem={({ item }) =>
             item.tipo === "mensaje" ? (
-              <MensajeRow mensaje={item.mensaje} />
+              <MensajeRow
+                mensaje={item.mensaje}
+                onOpciones={item.mensaje.is_mine ? undefined : () => opciones(item.mensaje)}
+              />
             ) : item.tipo === "evento" ? (
               <NovedadRow evento={item.evento} />
             ) : (
@@ -186,20 +242,26 @@ export function ChatPanel({ enabled, player }: { enabled: boolean; player: GameP
           selectionColor={TEMA.ring}
           style={[styles.input, !puedeEscribir && { opacity: 0.6 }]}
         />
-        <Pressable
+        <Boton3D
           onPress={enviar}
           disabled={!puedeMandar}
-          accessibilityRole="button"
+          alto={ALTO_MANDAR}
+          cara={TEMA.primary}
+          labio={LABIO_MANDAR}
+          radio={6}
           accessibilityLabel="Mandar"
-          accessibilityState={{ disabled: !puedeMandar }}
-          style={({ pressed }) => [styles.mandar, pressed && { opacity: 0.9 }, !puedeMandar && { opacity: 0.4 }]}
+          style={styles.mandar}
         >
           <IconoMandar color="#fff" />
-        </Pressable>
+        </Boton3D>
       </View>
     </View>
   )
 }
+
+const ALTO_MANDAR = 40
+// El labio del botón de mandar: el violeta de la cara, más oscuro.
+const LABIO_MANDAR = "#373995"
 
 const styles = StyleSheet.create({
   panel: { flex: 1, minHeight: 0, gap: 8 },
@@ -211,7 +273,7 @@ const styles = StyleSheet.create({
   // `bg-primary/10`.
   mensajePropio: { backgroundColor: "rgba(84,87,229,0.1)" },
   cabecera: { flexDirection: "row", alignItems: "center", gap: 6 },
-  alias: { flexShrink: 1, fontSize: 12, fontWeight: "500" },
+  alias: { flexShrink: 1, fontSize: 12, fontFamily: FUENTE.medio },
   hace: {
     marginLeft: "auto",
     fontSize: 11,
@@ -219,7 +281,7 @@ const styles = StyleSheet.create({
     fontVariant: ["tabular-nums"],
   },
   texto: { fontSize: 12, lineHeight: 17, color: "rgba(246,248,252,0.9)" },
-  textoMono: { fontSize: 11, lineHeight: 13, fontFamily: Platform.select({ ios: "Menlo", default: "monospace" }), color: "rgba(246,248,252,0.9)" },
+  textoMono: { fontSize: 11, lineHeight: 13, fontFamily: FUENTE.mono, color: "rgba(246,248,252,0.9)" },
   enviando: { fontSize: 10.5, color: "rgba(164,179,198,0.7)" },
   reintentar: { fontSize: 11, color: NARANJA, textDecorationLine: "underline" },
   novedad: { flexDirection: "row", alignItems: "baseline", gap: 8, paddingHorizontal: 8, paddingVertical: 4 },
@@ -241,12 +303,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: TEMA.foreground,
   },
-  mandar: {
-    width: 40,
-    height: 40,
-    borderRadius: 6,
-    backgroundColor: TEMA.primary,
-    alignItems: "center",
-    justifyContent: "center",
-  },
+  mandar: { width: ALTO_MANDAR },
 })

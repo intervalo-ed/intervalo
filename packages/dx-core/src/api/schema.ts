@@ -48,7 +48,16 @@ export interface paths {
         get: operations["get_me_game_derivemos_me_get"];
         put?: never;
         post?: never;
-        delete?: never;
+        /**
+         * Delete Me
+         * @description Borra la cuenta: el jugador, todo lo suyo y, si tiene login, la cuenta de
+         *     Clerk (ver game/borrado.py). No se puede deshacer.
+         *
+         *     Una cuenta con login pide la sesión viva, igual que escribir en el chat: el
+         *     token de invitado se conserva después del link y sin este chequeo alcanzaría
+         *     con ese token guardado para borrar la cuenta de alguien registrado.
+         */
+        delete: operations["delete_me_game_derivemos_me_delete"];
         options?: never;
         head?: never;
         /** Patch Me */
@@ -576,6 +585,50 @@ export interface paths {
          *     escribir lo decide `_puede_escribir`, que corre antes (ver ahí por qué).
          */
         post: operations["post_message_game_derivemos_message_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/game/derivemos/messages/{message_id}/report": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Report Message
+         * @description Reporta un mensaje del chat (Apple 1.2). Idempotente: reportar dos veces el
+         *     mismo mensaje no suma. Con tres reportes distintos se baja solo, y cada
+         *     reporte nuevo le llega por mail a quien modera (game/moderacion.py).
+         */
+        post: operations["report_message_game_derivemos_messages__message_id__report_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/game/derivemos/messages/{message_id}/block": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Block Message Author
+         * @description Bloquea a quien escribió ese mensaje: lo suyo deja de llegarte. Va por el
+         *     id del mensaje y no por el del jugador para no mostrarle ids de jugadores al
+         *     cliente. Idempotente.
+         */
+        post: operations["block_message_author_game_derivemos_messages__message_id__block_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3732,6 +3785,36 @@ export interface operations {
             };
         };
     };
+    delete_me_game_derivemos_me_delete: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+                "x-game-token"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     patch_me_game_derivemos_me_patch: {
         parameters: {
             query?: never;
@@ -4371,6 +4454,70 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["GameMessageOut"];
                 };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    report_message_game_derivemos_messages__message_id__report_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+                "x-game-token"?: string;
+            };
+            path: {
+                message_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    block_message_author_game_derivemos_messages__message_id__block_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                authorization?: string;
+                "x-game-token"?: string;
+            };
+            path: {
+                message_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
             /** @description Validation Error */
             422: {

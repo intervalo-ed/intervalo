@@ -14,7 +14,7 @@ import re
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
-from fastapi import APIRouter, Depends, Header, HTTPException, Query, Response
+from fastapi import APIRouter, BackgroundTasks, Depends, Header, HTTPException, Query, Response
 from sqlalchemy import and_ as sa_and, case, func, or_ as sa_or
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session, load_only
@@ -38,7 +38,9 @@ import handles
 import xp_boost
 from usernames import normalize_username, validate_username
 
+from . import borrado as game_borrado
 from . import boosts
+from . import moderacion
 from . import chat as game_chat
 from . import dificultad as game_dificultad
 from . import limits
@@ -633,6 +635,37 @@ def reset_player(
     db.commit()
     db.refresh(player)
     return _player_out(db, player)
+
+
+@router.delete("/me", status_code=204)
+def delete_me(
+    player: GamePlayer = Depends(get_current_player),
+    authorization: str = Header(None),
+    db: Session = Depends(get_db),
+):
+    """Borra la cuenta: el jugador, todo lo suyo y, si tiene login, la cuenta de
+    Clerk (ver game/borrado.py). No se puede deshacer.
+
+    Una cuenta con login pide la sesión viva, igual que escribir en el chat: el
+    token de invitado se conserva después del link y sin este chequeo alcanzaría
+    con ese token guardado para borrar la cuenta de alguien registrado.
+    """
+    if player.user_id is not None and not authorization:
+        raise HTTPException(
+            status_code=403, detail="Iniciá sesión de nuevo para borrar la cuenta."
+        )
+    try:
+        game_borrado.borrar_cuenta(db, player)
+    except game_borrado.ClerkNoRespondio:
+        db.rollback()
+        raise HTTPException(
+            status_code=502,
+            detail="No pudimos borrar la cuenta ahora. Probá de nuevo en un rato.",
+        )
+    # Salir del ranking mueve el puesto de los demás.
+    simulation.bump_version(db)
+    db.commit()
+    return Response(status_code=204)
 
 
 def _ya_la_habia_visto(db: Session, player: GamePlayer, exercise: GameExercise) -> bool:
@@ -1632,6 +1665,7 @@ def game_events_feed(
         db,
         after_id=after_msg_id,
         before_id=before_msg_id,
+        lector_id=player.id,
         **({"limit": n} if n else {}),
     )
     return GameEventsResponse(
@@ -2203,6 +2237,56 @@ def post_message(
         is_mine=True,
         seconds_ago=0,
     )
+
+
+@router.post("/messages/{message_id}/report", status_code=204)
+def report_message(
+    message_id: int,
+    tareas: BackgroundTasks,
+    player: GamePlayer = Depends(get_current_player),
+    db: Session = Depends(get_db),
+    _tope: None = Depends(limits.por_jugador(10, "report")),
+):
+    """Reporta un mensaje del chat (Apple 1.2). Idempotente: reportar dos veces el
+    mismo mensaje no suma. Con tres reportes distintos se baja solo, y cada
+    reporte nuevo le llega por mail a quien modera (game/moderacion.py)."""
+    try:
+        nuevo = moderacion.reportar(db, player, message_id)
+    except moderacion.MensajeNoExiste:
+        raise HTTPException(status_code=404, detail="Ese mensaje ya no está.")
+    except moderacion.EsTuyo:
+        raise HTTPException(status_code=400, detail="No podés reportar tu propio mensaje.")
+    if nuevo is not None:
+        mensaje, total = nuevo
+        tareas.add_task(
+            moderacion.avisar_del_reporte,
+            mensaje_id=mensaje.id,
+            autor_id=mensaje.player_id,
+            alias=mensaje.alias,
+            texto=mensaje.text,
+            total=total,
+            quien=player.alias,
+        )
+    return Response(status_code=204)
+
+
+@router.post("/messages/{message_id}/block", status_code=204)
+def block_message_author(
+    message_id: int,
+    player: GamePlayer = Depends(get_current_player),
+    db: Session = Depends(get_db),
+    _tope: None = Depends(limits.por_jugador(10, "report")),
+):
+    """Bloquea a quien escribió ese mensaje: lo suyo deja de llegarte. Va por el
+    id del mensaje y no por el del jugador para no mostrarle ids de jugadores al
+    cliente. Idempotente."""
+    try:
+        moderacion.bloquear(db, player, message_id)
+    except moderacion.MensajeNoExiste:
+        raise HTTPException(status_code=404, detail="Ese mensaje ya no está.")
+    except moderacion.EsTuyo:
+        raise HTTPException(status_code=400, detail="No podés bloquearte a vos mismo.")
+    return Response(status_code=204)
 
 
 # Vocabulario cerrado a propósito: sin esto la tabla se llena de variantes con

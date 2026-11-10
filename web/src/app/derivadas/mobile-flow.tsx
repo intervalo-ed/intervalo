@@ -48,6 +48,7 @@ import {
 } from "./exercise-card"
 import { CafecitoPanel, CAFE } from "./cafecito-panel"
 import { ReclutasPanel, type ReclutasTrigger } from "./reclutas-panel"
+import { Boton3D, CARA_3D, LABIO_CONTORNO } from "./boton-3d"
 import { ConSalidaAbajo } from "./slide-salida"
 import {
   marcarInstalarMostrado,
@@ -132,7 +133,7 @@ import { estimarXp } from "@intervalo/dx-core/juego/xp-estimate"
 import { useXpConteo } from "./xp-conteo"
 
 const ctaCls =
-  "h-[var(--cta-h)] w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
+  "h-[calc(var(--cta-h)-4px)] mb-1 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black shadow-[0_4px_0_0_#A8ADBF] transition-[transform,box-shadow,background-color] active:translate-y-1 active:shadow-[0_0_0_0_#A8ADBF]"
 
 type Slide =
   | { kind: "intro" }
@@ -243,7 +244,6 @@ const SIN_TINTE = "rgba(0, 0, 0, 0)"
 
 function fondoDeSlide(kind: Slide["kind"]): string {
   if (kind === "cafecito") return tintaDe(CAFE)
-  if (kind === "reclutas") return tintaDe(VERDE)
   return SIN_TINTE
 }
 
@@ -2428,24 +2428,25 @@ function RankingSlide({
           lista de arriba son las personas que trajiste y lo que te dieron, o los
           ejemplos de lo que darían. Un "Continuar" blanco ahí es la única
           pantalla del juego que muestra una promesa y abajo pone la puerta.
-          Seguir sigue estando, al lado y en secundario, con la misma geometría
-          que Revisar/Saltear en el ejercicio. */}
+          Continuar sigue estando, al lado, en secundario y en 3D. */}
       {vista === "recruits" ? (
         <div className="flex items-stretch gap-2">
           <ReclutarButton
             alias={alias}
             placement="ranking_reclutas"
-            className="h-[var(--cta-h)] flex-1 rounded-md"
+            className="h-[calc(var(--cta-h)-4px)] flex-1 rounded-md"
           />
-          <Button
-            size="lg"
-            variant="outline"
-            className="h-[var(--cta-h)] rounded-md bg-background px-5"
-            disabled={continueDisabled}
-            onClick={onContinue}
-          >
-            Seguir
-          </Button>
+          <Boton3D labio={LABIO_CONTORNO}>
+            <Button
+              size="lg"
+              variant="outline"
+              className={cn(CARA_3D, "bg-background px-5")}
+              disabled={continueDisabled}
+              onClick={onContinue}
+            >
+              Continuar
+            </Button>
+          </Boton3D>
         </div>
       ) : (
         <Button

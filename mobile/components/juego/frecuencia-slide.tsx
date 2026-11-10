@@ -3,8 +3,9 @@
 // tocarla, no al Continuar: quien la pasa de largo se queda con lo de siempre.
 
 import { useEffect } from "react"
-import { StyleSheet, Text, View } from "react-native"
-import * as Haptics from "expo-haptics"
+import { StyleSheet, View } from "react-native"
+import { Text } from "@/components/texto"
+import { vib } from "@/lib/haptics"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
 import {
   FRECUENCIAS,
@@ -17,6 +18,7 @@ import { useSfx } from "@/lib/audio/UseSfx"
 import { BotonCta } from "./boton-cta"
 import { IconoConfiguracion } from "./iconos-cabecera"
 import { ListaDeOpciones, OpcionEncuesta } from "./opcion-encuesta"
+import { FUENTE } from "@/lib/tipografia"
 
 export function FrecuenciaSlide({ onContinue }: { onContinue: () => void }) {
   const sfx = useSfx()
@@ -29,7 +31,7 @@ export function FrecuenciaSlide({ onContinue }: { onContinue: () => void }) {
   const elegir = (valor: FrecuenciaRanking) => {
     if (valor === elegida) return
     sfx.select()
-    void Haptics.selectionAsync()
+    vib.elegir()
     saveFrecuenciaRanking(valor)
     track("game_ranking_frecuencia_chosen", { valor, via: "slide" })
   }
@@ -81,7 +83,7 @@ export function FrecuenciaSlide({ onContinue }: { onContinue: () => void }) {
 const styles = StyleSheet.create({
   pantalla: { flex: 1, paddingHorizontal: 20 },
   centro: { flex: 1, justifyContent: "center", gap: 24 },
-  titulo: { fontSize: 20, fontWeight: "600", color: TEMA.foreground, textAlign: "center" },
+  titulo: { fontSize: 20, fontFamily: FUENTE.seminegrita, color: TEMA.foreground, textAlign: "center" },
   subtitulo: {
     marginTop: 8,
     fontSize: 14,
@@ -100,7 +102,7 @@ const styles = StyleSheet.create({
   // `bg-chart-5` con el anillo interior del color de fondo: el punto lleno.
   radioActivo: { borderColor: TEMA.ring, padding: 2 },
   punto: { flex: 1, borderRadius: 8, backgroundColor: TEMA.ring },
-  textoOpcion: { flexShrink: 1, fontSize: 16, fontWeight: "500", color: TEMA.foreground },
+  textoOpcion: { flexShrink: 1, fontSize: 16, fontFamily: FUENTE.medio, color: TEMA.foreground },
   nota: { fontSize: 12, lineHeight: 19, color: TEMA.mutedForeground, textAlign: "center" },
   renglonIcono: { flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 6 },
 })

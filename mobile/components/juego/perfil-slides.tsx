@@ -4,21 +4,16 @@
 // diapo. Todo se puede saltear con «Ahora no».
 
 import { useEffect, useRef, useState } from "react"
-import {
-  KeyboardAvoidingView,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-  type TextInputInstance,
-} from "react-native"
+import { KeyboardAvoidingView, ScrollView, StyleSheet, View, type TextInputInstance } from "react-native"
+import { Text } from "@/components/texto"
 import Animated, { SlideInRight, SlideOutLeft } from "react-native-reanimated"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
 import { useGameApi } from "@intervalo/dx-core/juego/game-api-context"
 import { canonicalUniversity } from "@intervalo/dx-core/university-tags"
 import { track } from "@/lib/analytics/track"
 import { useSfx } from "@/lib/audio/UseSfx"
+import { Boton3D } from "./boton-3d"
+import { CTA_H } from "./exercise-card"
 import { BotonCta } from "./boton-cta"
 import { CareerSelect, UniversityGrid } from "./campos-de-perfil"
 import { PASE_MS } from "./capa-deslizante"
@@ -158,9 +153,9 @@ export function PerfilSlides({
       </View>
       {/* «Ahora no» arriba y Continuar abajo, donde llega el pulgar. */}
       <View style={styles.pie}>
-        <Pressable onPress={saltar} accessibilityRole="button" style={styles.ahoraNo}>
+        <Boton3D contorno alto={CTA_H} onPress={saltar}>
           <Text style={styles.textoAhoraNo}>Ahora no</Text>
-        </Pressable>
+        </Boton3D>
         <BotonCta texto="Continuar" onPress={continuar.onPress} disabled={continuar.disabled} />
       </View>
     </KeyboardAvoidingView>
@@ -174,7 +169,6 @@ const styles = StyleSheet.create({
   // Más aire arriba que abajo: «Ahora no» es texto suelto y no pesa, y centrado
   // de verdad el bloque se leía pegado al techo (`pt-12 pb-2` de la web).
   cuerpo: { flexGrow: 1, justifyContent: "center", paddingTop: 48, paddingBottom: 8 },
-  pie: { gap: 8 },
-  ahoraNo: { paddingVertical: 8, alignItems: "center" },
-  textoAhoraNo: { fontSize: 14, color: TEMA.mutedForeground },
+  pie: { gap: 12 },
+  textoAhoraNo: { fontSize: 16, color: TEMA.mutedForeground },
 })

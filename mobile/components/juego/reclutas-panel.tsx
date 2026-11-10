@@ -5,32 +5,28 @@
 // Cuando la sacó el juego ("hito") salir tarda unos segundos en habilitarse: la
 // persona viene despachando derivadas y sin la espera la diapo se salta antes de
 // verse. Cuando la abrió ella ("pedido") no hay espera y el botón dice Volver.
-//
-// El tinte verde en la web cubre toda la pantalla desde mobile-flow; acá todavía
-// no hay capa de pantalla completa, así que es el fondo de la propia diapo.
 
 import { useEffect, useState } from "react"
-import { Pressable, StyleSheet, Text, View } from "react-native"
-import { mezclarRGB, TEMA } from "@intervalo/dx-core/juego/game-colors"
+import { Pressable, StyleSheet, View } from "react-native"
+import { Text } from "@/components/texto"
+import { TEMA } from "@intervalo/dx-core/juego/game-colors"
 import type { GamePlayer } from "@intervalo/dx-core/juego/game-keys"
 import { PORCENTAJE_POR_DEFECTO, VERDE, type ReclutasTrigger } from "@intervalo/dx-core/juego/reclutas"
 import { useGameRecruits } from "@intervalo/dx-core/juego/UseGameLeaderboard"
 import { useCta } from "@/lib/analytics/UseCta"
 import { useSfx } from "@/lib/audio/UseSfx"
 import { ReclutarButton, WhatsappGlyph } from "./boton-reclutar"
+import { Boton3D } from "./boton-3d"
 import { CTA_H } from "./exercise-card"
 import { ListaDeReclutas } from "./reclutas-list"
+import { FUENTE } from "@/lib/tipografia"
 
 // Dos segundos menos que la del cafecito; en cero en desarrollo para que el
 // autoplay no se trabe.
 const ESPERA_S = __DEV__ ? 0 : 8
 
-const VERDE_RGB = [0x25, 0xd3, 0x66] as const
-const FONDO_RGB = [0x13, 0x13, 0x24] as const
 // El 6% de `fondoDeSlide` (mobile-flow.tsx de la web).
-const TINTE = `rgba(${VERDE_RGB.join(", ")}, 0.06)`
 // El botón de salir: ni gris ni verde, el 70% de ese 6% sobre el fondo.
-const FONDO_SALIDA = mezclarRGB(FONDO_RGB, VERDE_RGB, 0.042)
 
 function useCuentaRegresiva(segundos: number): number {
   const [restante, setRestante] = useState(segundos)
@@ -108,20 +104,21 @@ export function ReclutasPanel({
         </View>
       </View>
 
-      <Pressable
-        disabled={!listo}
-        onPress={() => {
-          sfx.select()
-          onContinue()
-        }}
-        accessibilityRole="button"
-        accessibilityState={{ disabled: !listo }}
-        style={({ pressed }) => [styles.salida, pressed && { backgroundColor: TEMA.accent }]}
-      >
-        <Text style={[styles.textoSalida, !listo && { color: "rgba(164, 179, 198, 0.5)" }]}>
-          {loPidio ? "Volver" : listo ? "Ahora no" : `Ahora no (${restante})`}
-        </Text>
-      </Pressable>
+      <View style={styles.salida}>
+        <Boton3D
+          contorno
+          alto={CTA_H}
+          disabled={!listo}
+          onPress={() => {
+            sfx.select()
+            onContinue()
+          }}
+        >
+          <Text style={styles.textoSalida}>
+            {loPidio ? "Volver" : listo ? "Ahora no" : `Ahora no (${restante})`}
+          </Text>
+        </Boton3D>
+      </View>
       <ReclutarButton
         alias={player?.alias}
         placement={trigger}
@@ -133,14 +130,14 @@ export function ReclutasPanel({
 }
 
 const styles = StyleSheet.create({
-  pantalla: { flex: 1, backgroundColor: TINTE, paddingHorizontal: 20, paddingTop: 16 },
+  pantalla: { flex: 1, paddingHorizontal: 20, paddingTop: 16 },
   centro: { flex: 1, minHeight: 0, justifyContent: "center" },
   caja: { width: "100%", maxWidth: 384, alignSelf: "center", padding: 24 },
   icono: { alignSelf: "center" },
   titulo: {
     marginTop: 8,
     fontSize: 24,
-    fontWeight: "500",
+    fontFamily: FUENTE.medio,
     color: TEMA.foreground,
     textAlign: "center",
   },
@@ -151,17 +148,8 @@ const styles = StyleSheet.create({
     color: "rgba(246, 248, 252, 0.9)",
     textAlign: "center",
   },
-  verde: { color: VERDE, fontWeight: "600" },
+  verde: { color: VERDE, fontFamily: FUENTE.seminegrita },
   numero: { fontVariant: ["tabular-nums"] },
-  salida: {
-    marginTop: 12,
-    height: CTA_H,
-    borderRadius: 6,
-    borderWidth: 1,
-    borderColor: TEMA.border,
-    backgroundColor: FONDO_SALIDA,
-    alignItems: "center",
-    justifyContent: "center",
-  },
+  salida: { marginTop: 12 },
   textoSalida: { fontSize: 16, color: TEMA.mutedForeground },
 })

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react"
+import { useGameApi } from "./game-api-context"
 import { registrarEnvio } from "./game-storage"
 import {
   detalleDeError,
@@ -30,6 +31,7 @@ export function useChat({
   /** Cuando el servidor confirmó un mensaje (el sonido, en los dos lados). */
   onEnviado?: () => void
 }) {
+  const api = useGameApi()
   const { data } = useGameEvents(enabled)
   const enviar = useSendMessage()
   const [texto, setTextoCrudo] = useState("")
@@ -53,10 +55,55 @@ export function useChat({
   const apagado = data !== undefined && !data.chatEnabled
   const puedeEscribir = !apagado
 
+  // Lo que el lector reportó o bloqueó desaparece AL TOQUE, sin esperar al
+  // servidor. El servidor ya lo filtra en cada respuesta nueva (chat.recent con
+  // `lector_id`); esto cubre lo que ya estaba bajado. Un bloqueo se esconde por
+  // @ porque el mensaje no trae el id de su autor (a propósito).
+  const [idsOcultos, setIdsOcultos] = useState<ReadonlySet<number>>(new Set())
+  const [aliasBloqueados, setAliasBloqueados] = useState<ReadonlySet<string>>(new Set())
+
   const lineas = useMemo<Linea[]>(
-    () => intercalar({ events: data?.events ?? [], messages: data?.messages ?? [] }),
-    [data],
+    () =>
+      intercalar({
+        events: data?.events ?? [],
+        messages: (data?.messages ?? []).filter(
+          (m) => !idsOcultos.has(m.id) && !aliasBloqueados.has(m.alias),
+        ),
+      }),
+    [data, idsOcultos, aliasBloqueados],
   )
+
+  /** Reportar un mensaje ajeno. Se esconde ya; si el servidor no lo recibe, vuelve. */
+  const reportar = async (mensajeId: number): Promise<boolean> => {
+    setIdsOcultos((s) => new Set(s).add(mensajeId))
+    const { error: fallo } = await api.POST("/game/derivemos/messages/{message_id}/report", {
+      params: { path: { message_id: mensajeId } },
+    })
+    if (fallo === undefined) return true
+    setIdsOcultos((s) => {
+      const n = new Set(s)
+      n.delete(mensajeId)
+      return n
+    })
+    setError("No se pudo reportar. Probá de nuevo.")
+    return false
+  }
+
+  /** Bloquear a quien escribió ese mensaje. */
+  const bloquear = async (mensajeId: number, alias: string): Promise<boolean> => {
+    setAliasBloqueados((s) => new Set(s).add(alias))
+    const { error: fallo } = await api.POST("/game/derivemos/messages/{message_id}/block", {
+      params: { path: { message_id: mensajeId } },
+    })
+    if (fallo === undefined) return true
+    setAliasBloqueados((s) => {
+      const n = new Set(s)
+      n.delete(alias)
+      return n
+    })
+    setError("No se pudo bloquear. Probá de nuevo.")
+    return false
+  }
 
   // El enfriamiento, en segundos que faltan. El intervalo no se apaga al llegar
   // a cero a propósito: es lo que hace que la cuenta vuelva a arrancar sola en
@@ -140,6 +187,8 @@ export function useChat({
     puedeMandar,
     mandar,
     reintentar,
+    reportar,
+    bloquear,
     hayMas,
     cargarViejas,
   }

@@ -8,18 +8,10 @@
 // llevan a diapos que todavía no existen acá (dificultad, frecuencia, reclutar)
 // se dibujan solo si quien monta el panel pasa su callback.
 
+import { setHapticsOff, useHapticsOff, vib } from "@/lib/haptics"
 import { useRef, useState, type ReactNode } from "react"
-import {
-  KeyboardAvoidingView,
-  Platform,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  type TextInputInstance,
-} from "react-native"
+import { KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, View, type TextInputInstance } from "react-native"
+import { Text, TextInput } from "@/components/texto"
 import Animated, {
   Easing,
   LayoutAnimationConfig,
@@ -53,14 +45,16 @@ import { abrirPrivacidad } from "@/lib/legal"
 import { BotonCta } from "./boton-cta"
 import { CareerSelect, UniversityGrid } from "./campos-de-perfil"
 import { PASE_MS } from "./capa-deslizante"
+import { FUENTE } from "@/lib/tipografia"
 
 type Section = "root" | "alias" | "career" | "university"
 
 // El verde de la tinta de reclutar (cafecito-cta.tsx :: VERDE_TINTA en la web).
-const VERDE_TINTA = "#2CB863"
-const ROJO = "#E5484D"
-const ROJO_TINTA = "rgba(229,72,77,0.8)"
-const ROJO_BORDE = "rgba(229,72,77,0.85)"
+// Más suave que el `VERDE_TINTA` de la web (#2CB863): sobre la pantalla del
+// iPhone ese verde y el borde al 85% se hacían muy intensos.
+const VERDE_TINTA = "#4DAA76"
+const ROJO_TINTA = "#D9686C"
+const ROJO_BORDE = "rgba(229,72,77,0.5)"
 
 // Las subpantallas entran por la derecha y salen por la derecha (solo se sale
 // de ellas volviendo); la raíz, al revés. Fijo por pantalla y no por pase: la
@@ -100,15 +94,18 @@ export function SettingsPanel({
 }) {
   const api = useGameApi()
   const queryClient = useQueryClient()
-  const { cerrarSesion } = useGamePlayer()
+  const { cerrarSesion, borrarCuenta } = useGamePlayer()
   const sfx = useSfx()
   const muted = useSoundMuted()
+  const vibOff = useHapticsOff()
   const frecuencia = useFrecuenciaRanking()
   const [section, setSection] = useState<Section>("root")
   const [alias, setAlias] = useState(player?.alias ?? "")
   const [aliasError, setAliasError] = useState<string | null>(null)
   const [aliasSaved, setAliasSaved] = useState(false)
   const [confirmReset, setConfirmReset] = useState(false)
+  const [confirmBorrar, setConfirmBorrar] = useState(false)
+  const [borrarError, setBorrarError] = useState<string | null>(null)
   const [busy, setBusy] = useState(false)
   const [career, setCareer] = useState(player?.career ?? "")
   const [university, setUniversity] = useState(player?.university ?? "")
@@ -188,6 +185,21 @@ export function SettingsPanel({
     }
   }
 
+  const borrar = async () => {
+    if (busy) return
+    setBusy(true)
+    setBorrarError(null)
+    try {
+      await borrarCuenta()
+      track("game_account_deleted")
+      onSignedOut()
+    } catch (err) {
+      // El servidor no borró nada: la cuenta sigue y se puede reintentar.
+      setBorrarError(err instanceof ApiError ? err.message : "No se pudo borrar. Probá de nuevo.")
+      setBusy(false)
+    }
+  }
+
   const confirmOther = () => {
     const value = canonicalUniversity(otherUniversity)
     if (!value) return
@@ -260,6 +272,23 @@ export function SettingsPanel({
           </View>
         </Fila>
 
+        <Fila
+          etiqueta="Vibración"
+          onPress={() => {
+            setHapticsOff(!vibOff)
+            // Se siente solo al prenderla.
+            if (vibOff) {
+              sfx.select()
+              vib.acierto(false)
+            }
+          }}
+        >
+          <View style={styles.conIcono}>
+            <Text style={styles.valor}>{vibOff ? "Apagada" : "Encendida"}</Text>
+            <IconoVibracion apagada={vibOff} />
+          </View>
+        </Fila>
+
         {onFrecuencia && (
           <Fila
             etiqueta="Ranking"
@@ -293,8 +322,20 @@ export function SettingsPanel({
           </Fila>
         )}
 
+        {/* No está en la configuración de la web, que la tiene en el pie de
+            página; en la app no hay pie. */}
+        <Fila
+          onPress={() => {
+            sfx.select()
+            void abrirPrivacidad()
+          }}
+        >
+          <Text style={styles.texto}>Privacidad</Text>
+          <IconoEscudo />
+        </Fila>
+
         {onReclutar && (
-          <Fila onPress={reclutar} borde="rgba(44,184,99,0.85)">
+          <Fila onPress={reclutar} borde="rgba(77,170,118,0.5)">
             <Text style={[styles.texto, { color: VERDE_TINTA }]}>Reclutar compañeros</Text>
             <IconoWhatsapp color={VERDE_TINTA} />
           </Fila>
@@ -327,7 +368,7 @@ export function SettingsPanel({
                   busy && { opacity: 0.45 },
                 ]}
               >
-                <Text style={[styles.texto, { color: ROJO, fontWeight: "500" }]}>Reiniciar</Text>
+                <Text style={[styles.texto, { color: ROJO_TINTA, fontFamily: FUENTE.medio }]}>Reiniciar</Text>
               </Pressable>
             </View>
           </View>
@@ -338,23 +379,55 @@ export function SettingsPanel({
           </Fila>
         )}
 
-        {/* No está en la configuración de la web, que la tiene en el pie de
-            página; en la app no hay pie. */}
-        <Fila
-          onPress={() => {
-            sfx.select()
-            void abrirPrivacidad()
-          }}
-        >
-          <Text style={styles.texto}>Privacidad</Text>
-          <IconoEscudo />
-        </Fila>
-
         {/* El invitado no tiene sesión de Clerk que cerrar. */}
         {!player?.is_guest && (
           <Fila onPress={() => void signOut()} borde={ROJO_BORDE} disabled={busy}>
             <Text style={[styles.texto, { color: ROJO_TINTA }]}>Cerrar sesión</Text>
             <IconoSalir color={ROJO_TINTA} />
+          </Fila>
+        )}
+
+        {confirmBorrar ? (
+          <View style={[styles.fila, styles.confirmar]}>
+            <Text style={styles.confirmarTitulo}>¿Borrar tu cuenta?</Text>
+            <Text style={styles.confirmarTexto}>
+              Se borran tu usuario, tu progreso, tus mensajes y tu lugar en el ranking.
+              {player?.is_guest ? "" : " También se borra tu cuenta de Intervalo, la de la web incluida."} No se puede
+              deshacer.
+            </Text>
+            {borrarError !== null && <Text style={[styles.confirmarTexto, { color: ROJO_TINTA }]}>{borrarError}</Text>}
+            <View style={styles.confirmarBotones}>
+              <Pressable
+                onPress={() => {
+                  setConfirmBorrar(false)
+                  setBorrarError(null)
+                }}
+                disabled={busy}
+                accessibilityRole="button"
+                style={({ pressed }) => [styles.botonChico, pressed && styles.apretada]}
+              >
+                <Text style={styles.texto}>Cancelar</Text>
+              </Pressable>
+              <Pressable
+                onPress={() => void borrar()}
+                disabled={busy}
+                accessibilityRole="button"
+                accessibilityState={{ disabled: busy }}
+                style={({ pressed }) => [
+                  styles.botonChico,
+                  { borderColor: "rgba(229,72,77,0.5)" },
+                  pressed && styles.apretada,
+                  busy && { opacity: 0.45 },
+                ]}
+              >
+                <Text style={[styles.texto, { color: ROJO_TINTA, fontFamily: FUENTE.medio }]}>Borrar cuenta</Text>
+              </Pressable>
+            </View>
+          </View>
+        ) : (
+          <Fila onPress={() => setConfirmBorrar(true)} borde={ROJO_BORDE}>
+            <Text style={[styles.texto, { color: ROJO_TINTA }]}>Borrar cuenta</Text>
+            <IconoBasura color={ROJO_TINTA} />
           </Fila>
         )}
       </ScrollView>
@@ -365,7 +438,7 @@ export function SettingsPanel({
     section === "career" ? (
       // Sin título: la pantalla es una sola pregunta.
       <PanelShell onBack={volver}>
-        <ScrollView contentContainerStyle={styles.crece} showsVerticalScrollIndicator={false}>
+        <ScrollView contentContainerStyle={styles.centrado} showsVerticalScrollIndicator={false}>
           <CareerSelect
             value={career}
             onSelect={(value) => {
@@ -426,7 +499,7 @@ export function SettingsPanel({
       // Sin título: `UniversityGrid` ya entra con su «¿Dónde?».
       <PanelShell onBack={volver}>
         <ScrollView
-          contentContainerStyle={styles.crece}
+          contentContainerStyle={styles.centrado}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
@@ -593,6 +666,18 @@ function IconoSinSonido({ color = TEMA.foreground }: IconoProps) {
   )
 }
 
+// El "vibrate" de lucide: el teléfono con rayitas a los costados; apagado, tachado.
+function IconoVibracion({ apagada, color = TEMA.foreground }: IconoProps & { apagada: boolean }) {
+  return (
+    <Trazo color={color}>
+      <Path d="m2 8 2 2-2 2 2 2-2 2" />
+      <Path d="m22 8-2 2 2 2-2 2 2 2" />
+      <Path d="M8 8v8a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2z" />
+      {apagada && <Line x1={4} x2={20} y1={3} y2={21} />}
+    </Trazo>
+  )
+}
+
 function IconoTrofeo({ color = TEMA.foreground }: IconoProps) {
   return (
     <Trazo color={color}>
@@ -631,6 +716,18 @@ function IconoReiniciar({ color = TEMA.foreground }: IconoProps) {
   )
 }
 
+function IconoBasura({ color = TEMA.foreground }: IconoProps) {
+  return (
+    <Trazo color={color}>
+      <Path d="M3 6h18" />
+      <Path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+      <Path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+      <Path d="M10 11v6" />
+      <Path d="M14 11v6" />
+    </Trazo>
+  )
+}
+
 function IconoEscudo({ color = TEMA.foreground }: IconoProps) {
   return (
     <Trazo color={color}>
@@ -663,9 +760,13 @@ const styles = StyleSheet.create({
   shell: { flex: 1, width: "100%", maxWidth: 448, alignSelf: "center", paddingHorizontal: 16, gap: 16 },
   cabecera: { flexDirection: "row", alignItems: "center", gap: 8 },
   volver: { borderRadius: 6, padding: 6 },
-  titulo: { fontSize: 18, fontWeight: "600", color: TEMA.foreground },
+  titulo: { fontSize: 18, fontFamily: FUENTE.seminegrita, color: TEMA.foreground },
   filas: { gap: 8, paddingBottom: 8 },
   crece: { flexGrow: 1, paddingBottom: 16 },
+  // Carrera y universidad: el bloque centrado entre la flecha y «Guardar», como
+  // en el perfil (perfil-slides.tsx), un poco por arriba del centro exacto (el
+  // `paddingBottom` lo sube) porque centrado de verdad se lee bajo; si no entra, scrollea.
+  centrado: { flexGrow: 1, justifyContent: "center", paddingBottom: 72 },
   fila: {
     borderRadius: 8,
     borderWidth: 1,
@@ -681,7 +782,7 @@ const styles = StyleSheet.create({
   texto: { fontSize: 14, color: TEMA.foreground },
   conIcono: { flexDirection: "row", alignItems: "center", gap: 8, flexShrink: 1 },
   confirmar: { borderColor: "rgba(229,72,77,0.5)" },
-  confirmarTitulo: { fontSize: 14, fontWeight: "500", color: ROJO },
+  confirmarTitulo: { fontSize: 14, fontFamily: FUENTE.medio, color: ROJO_TINTA },
   confirmarTexto: { marginTop: 4, fontSize: 12, lineHeight: 19.5, color: "rgba(246,248,252,0.85)" },
   confirmarBotones: { marginTop: 12, flexDirection: "row", gap: 8 },
   botonChico: {

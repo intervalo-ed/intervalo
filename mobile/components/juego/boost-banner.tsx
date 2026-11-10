@@ -6,7 +6,8 @@
 // Sin `color-mix` en RN: mezclar el ámbar con transparente al N% es el ámbar con
 // alfa N%, y la mezcla con blanco se hace en RGB.
 
-import { StyleSheet, Text, View } from "react-native"
+import { StyleSheet, View } from "react-native"
+import { Text } from "@/components/texto"
 import {
   CAFE_AMBAR_RGB,
   intensidadDelChip,
@@ -17,6 +18,7 @@ import { fmtMultiplier, fmtRemaining, type EmpujeVigente } from "@intervalo/dx-c
 import { useCountdown, useEmpujesAMostrar } from "@intervalo/dx-core/juego/UseBoosts"
 import { UniTag } from "./university-tag"
 import { XpDots } from "./xp-dots"
+import { FUENTE } from "@/lib/tipografia"
 
 const BLANCO = [255, 255, 255] as const
 const ambarAlfa = (pct: number) => `rgba(${CAFE_AMBAR_RGB.join(", ")}, ${pct / 100})`
@@ -30,7 +32,7 @@ export function BoostChip({ boost, mine }: { boost: EmpujeVigente; mine: boolean
   if (left <= 0) return null
   const k = intensidadDelChip(boost.multiplier)
   const color = mine ? ORO_CHIP : ambarConBlanco(k.texto)
-  const peso = mine ? "600" : "400"
+  const fuente = mine ? FUENTE.seminegrita : FUENTE.normal
   return (
     <View
       style={[
@@ -50,12 +52,12 @@ export function BoostChip({ boost, mine }: { boost: EmpujeVigente; mine: boolean
       )}
       {/* El multiplicador con el ícono de XP pegado: dice QUÉ se multiplica. */}
       <View style={styles.multiplicador}>
-        <Text style={[styles.texto, { color, fontWeight: "600" }]}>{fmtMultiplier(boost.multiplier)}</Text>
+        <Text style={[styles.texto, { color, fontFamily: FUENTE.seminegrita }]}>{fmtMultiplier(boost.multiplier)}</Text>
         <XpDots size={10} color={color} />
       </View>
       {/* Contra el borde derecho: con los chips del mismo ancho, los relojes
           quedan en una vertical. */}
-      <Text style={[styles.texto, styles.reloj, { color, fontWeight: peso }, mine && { opacity: 0.8 }]}>
+      <Text style={[styles.texto, styles.reloj, { color, fontFamily: fuente }, mine && { opacity: 0.8 }]}>
         {fmtRemaining(left)}
       </Text>
     </View>

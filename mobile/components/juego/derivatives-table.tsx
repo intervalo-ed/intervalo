@@ -10,9 +10,18 @@
 // tabla se abra (`precalentarTablaDeDerivadas`) y abrirla no cuesta nada más
 // que montar vistas.
 
-import { useMemo, useState, type ReactNode } from "react"
-import { FlatList, Modal, Pressable, StyleSheet, Text, View, type StyleProp, type ViewStyle } from "react-native"
-import { useSafeAreaInsets } from "react-native-safe-area-context"
+import { useMemo, useRef, useState, type ReactNode } from "react"
+import {
+  ScrollView,
+  StyleSheet,
+  View,
+  type NativeScrollEvent,
+  type NativeSyntheticEvent,
+  type StyleProp,
+  type ViewStyle,
+} from "react-native"
+import { Text } from "@/components/texto"
+import { vib } from "@/lib/haptics"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
 import {
   accuracyColor,
@@ -21,6 +30,7 @@ import {
 } from "@intervalo/dx-core/juego/estadisticas-formato"
 import type { GameStatsRow } from "@intervalo/dx-core/juego/UseGameStats"
 import { FILAS, acomodar, type Fila } from "@intervalo/dx-core/juego/tabla-derivadas"
+import { Cartel, CartelTexto, Fuerte } from "./ranking/cartel"
 import { Latex } from "@/components/latex/latex"
 import { precalentarMathJax } from "@/components/latex/mathjax"
 
@@ -89,27 +99,43 @@ export function DerivativesTable({
   // El +1 por el redondeo subpíxel, igual que la web.
   const desborda = clave !== "" && caja > 0 && contenido > caja + 1
 
+  // Un roce al llegar a un extremo de la tabla, una sola vez por llegada.
+  const enExtremoRef = useRef(false)
+  const alScrollear = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const { contentOffset, contentSize, layoutMeasurement } = e.nativeEvent
+    const maximo = contentSize.height - layoutMeasurement.height
+    if (maximo <= 1) return
+    const extremo = contentOffset.y <= 0 || contentOffset.y >= maximo - 1
+    if (extremo && !enExtremoRef.current) vib.roce()
+    enExtremoRef.current = extremo
+  }
+
   const { filas, subidas, pedidas } = useMemo(() => acomodar(clave, desborda), [clave, desborda])
 
   return (
-    <FlatList
-      data={filas}
-      keyExtractor={(f) => f.slug}
-      renderItem={({ item, index }) => (
-        <Renglon
-          fila={item}
-          pedida={pedidas.has(item.slug)}
-          costura={subidas > 0 && index === subidas}
-        />
-      )}
-      ListHeaderComponent={Cabecera}
+    // ScrollView y no FlatList: los renglones tienen que poder crecer (`flexGrow`)
+    // para repartirse el sobrante de la caja, como en la web, y la FlatList los
+    // envuelve en celdas que no crecen. Son 16 filas fijas, no hace falta virtualizar.
+    <ScrollView
       stickyHeaderIndices={[0]}
-      initialNumToRender={FILAS.length}
       showsVerticalScrollIndicator={false}
+      contentContainerStyle={styles.contenido}
       onLayout={(e) => setCaja(e.nativeEvent.layout.height)}
       onContentSizeChange={(_w, h) => setContenido(h)}
+      onScroll={alScrollear}
+      scrollEventThrottle={32}
       style={[styles.marco, style]}
-    />
+    >
+      <Cabecera />
+      {filas.map((fila, index) => (
+        <Renglon
+          key={fila.slug}
+          fila={fila}
+          pedida={pedidas.has(fila.slug)}
+          costura={subidas > 0 && index === subidas}
+        />
+      ))}
+    </ScrollView>
   )
 }
 
@@ -124,24 +150,6 @@ function Cabecera() {
 
 // ── La tabla enriquecida ─────────────────────────────────────────────────
 
-export type Cartel = { titulo: string; cuerpo: string }
-
-/** El cartel que explica una tile o una celda. En la web es un popover que abre
- *  con el mouse encima; acá no hay mouse, así que se toca y sube una hoja desde
- *  abajo, la misma de los selectores del ranking (leaderboard-chrome.tsx). */
-export function HojaDeCartel({ cartel, onClose }: { cartel: Cartel | null; onClose: () => void }) {
-  const insets = useSafeAreaInsets()
-  return (
-    <Modal visible={cartel !== null} transparent animationType="fade" onRequestClose={onClose}>
-      <Pressable style={styles.fondo} onPress={onClose} accessibilityLabel="Cerrar" />
-      <View style={[styles.hoja, { paddingBottom: insets.bottom + 16 }]}>
-        <Text style={styles.hojaTitulo}>{cartel?.titulo}</Text>
-        <Text style={styles.hojaCuerpo}>{cartel?.cuerpo}</Text>
-      </View>
-    </Modal>
-  )
-}
-
 // El 0.82rem de la web.
 const TAMANO_STATS = 13.1
 
@@ -149,39 +157,23 @@ function Placeholder() {
   return <Text style={[styles.dato, { color: "rgba(164,179,198,0.5)" }]}>—</Text>
 }
 
-function CeldaStats({
-  titulo,
-  cuerpo,
-  onCartel,
-  children,
-}: {
-  titulo: string
-  cuerpo: string
-  onCartel: (c: Cartel) => void
-  children: ReactNode
-}) {
+function CeldaStats({ titulo, cuerpo, children }: { titulo: string; cuerpo: string; children: ReactNode }) {
   return (
-    <Pressable
-      onPress={() => onCartel({ titulo, cuerpo })}
-      accessibilityRole="button"
+    <Cartel
       accessibilityLabel={titulo}
-      accessibilityHint={cuerpo}
-      style={({ pressed }) => [styles.celdaStats, pressed && { opacity: 0.7 }]}
+      style={[styles.celdaStats, { flexShrink: 1 }]}
+      contenido={
+        <CartelTexto>
+          <Fuerte>{titulo}</Fuerte>. {cuerpo}
+        </CartelTexto>
+      }
     >
       {children}
-    </Pressable>
+    </Cartel>
   )
 }
 
-function RenglonStats({
-  fila,
-  datos,
-  onCartel,
-}: {
-  fila: Fila
-  datos?: GameStatsRow
-  onCartel: (c: Cartel) => void
-}) {
+function RenglonStats({ fila, datos }: { fila: Fila; datos?: GameStatsRow }) {
   // Sin dato para esta fila —el payload todavía no llegó, o el server manda un
   // slug que no conocemos— es el mismo placeholder que "no hay plantilla".
   const noExiste = datos === undefined || datos.unlock_elo === null
@@ -190,24 +182,22 @@ function RenglonStats({
   const sample = datos?.sample ?? 0
   return (
     <View style={styles.renglon}>
-      <View style={[styles.celda, styles.celdaIzquierda]}>
+      <View style={[styles.celda, styles.celdaIzquierda, styles.tercio]}>
         <Latex tex={mate(fila.f)} size={TAMANO} />
       </View>
-      <View style={[styles.celdaStatsMarco, styles.celdaIzquierda]}>
+      <View style={[styles.celdaStatsMarco, styles.celdaIzquierda, styles.tercio]}>
         <CeldaStats
           titulo="Velocidad"
           cuerpo={motivoDeLaCelda({ noExiste, sample, hayDato: ms !== null, quien: "Promedio de tiempo" })}
-          onCartel={onCartel}
         >
           {/* Sin heatmap a propósito: no hay "bien" o "mal" en cuánto tardás. */}
           {ms !== null ? <Text style={styles.dato}>{fmtSegundos(ms)}</Text> : <Placeholder />}
         </CeldaStats>
       </View>
-      <View style={styles.celdaStatsMarco}>
+      <View style={[styles.celdaStatsMarco, styles.tercio]}>
         <CeldaStats
           titulo="Efectividad"
           cuerpo={motivoDeLaCelda({ noExiste, sample, hayDato: acierto !== null, quien: "Acierto" })}
-          onCartel={onCartel}
         >
           {acierto !== null ? (
             <Text style={[styles.dato, { color: accuracyColor(acierto) }]}>{acierto}%</Text>
@@ -223,24 +213,18 @@ function RenglonStats({
 /** La tabla de derivadas con tu velocidad y tu efectividad de los últimos 10
  *  intentos limpios en cada familia (game/stats.py :: _personal_accuracy). Sin
  *  scroll propio: es el último tramo de la diapo de estadísticas, que scrollea
- *  entera. `onCartel` abre la explicación de la celda tocada. */
-export function DerivativesStatsTable({
-  rows,
-  onCartel,
-}: {
-  rows: GameStatsRow[]
-  onCartel: (c: Cartel) => void
-}) {
+ *  entera. Tocar una celda abre su explicación, el mismo cartel del ranking. */
+export function DerivativesStatsTable({ rows }: { rows: GameStatsRow[] }) {
   const porSlug = useMemo(() => new Map(rows.map((fila) => [fila.slug, fila])), [rows])
   return (
     <View style={[styles.marco, { overflow: "hidden" }]}>
       <View style={styles.cabecera}>
-        <Text style={[styles.titulo, styles.celdaIzquierda]}>función</Text>
-        <Text style={[styles.titulo, styles.celdaIzquierda]}>velocidad</Text>
-        <Text style={styles.titulo}>efectividad</Text>
+        <Text style={[styles.titulo, styles.celdaIzquierda, styles.tercio]}>función</Text>
+        <Text style={[styles.titulo, styles.celdaIzquierda, styles.tercio]}>velocidad</Text>
+        <Text style={[styles.titulo, styles.tercio]}>efectividad</Text>
       </View>
       {FILAS.map((fila) => (
-        <RenglonStats key={fila.slug} fila={fila} datos={porSlug.get(fila.slug)} onCartel={onCartel} />
+        <RenglonStats key={fila.slug} fila={fila} datos={porSlug.get(fila.slug)} />
       ))}
     </View>
   )
@@ -252,7 +236,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: BORDE,
     borderRadius: 6,
+    overflow: "hidden",
   },
+  contenido: { flexGrow: 1 },
   cabecera: {
     flexDirection: "row",
     backgroundColor: "#1f1f30",
@@ -267,7 +253,11 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
     color: TEMA.mutedForeground,
   },
+  // `flex: 1 0 auto` como el renglón de la web: reparte el sobrante de la caja
+  // sin encoger nunca, así el que tiene una raíz sigue siendo más alto.
   renglon: {
+    flexGrow: 1,
+    flexShrink: 0,
     flexDirection: "row",
     borderTopWidth: 1,
     borderTopColor: BORDE,
@@ -279,6 +269,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 8,
   },
+  // Tres columnas idénticas: con `flex: 1` el contenido (una fórmula ancha)
+  // empujaba la primera y la cabecera quedaba corrida respecto de las filas.
+  tercio: { flex: 0, flexGrow: 0, flexShrink: 0, flexBasis: "auto", width: "33.3333%" },
   celdaIzquierda: {
     borderRightWidth: 1,
     borderRightColor: BORDE,
@@ -296,18 +289,4 @@ const styles = StyleSheet.create({
     color: TEMA.foreground,
     fontVariant: ["tabular-nums"],
   },
-  fondo: { flex: 1, backgroundColor: "rgba(0,0,0,0.5)" },
-  hoja: {
-    gap: 6,
-    borderTopLeftRadius: 12,
-    borderTopRightRadius: 12,
-    borderWidth: 1,
-    borderBottomWidth: 0,
-    borderColor: TEMA.border,
-    backgroundColor: TEMA.card,
-    paddingHorizontal: 20,
-    paddingTop: 16,
-  },
-  hojaTitulo: { fontSize: 15, fontWeight: "600", color: TEMA.foreground },
-  hojaCuerpo: { fontSize: 14, lineHeight: 21, color: TEMA.mutedForeground },
 })

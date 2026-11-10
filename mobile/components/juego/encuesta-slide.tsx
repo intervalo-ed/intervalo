@@ -7,14 +7,8 @@
 // telemetría no puede frenar la partida.
 
 import { useEffect, useImperativeHandle, useRef, useState, type Ref } from "react"
-import {
-  KeyboardAvoidingView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  type TextInputInstance,
-} from "react-native"
+import { KeyboardAvoidingView, StyleSheet, View, type TextInputInstance } from "react-native"
+import { Text, TextInput } from "@/components/texto"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
 import { useGameApi } from "@intervalo/dx-core/juego/game-api-context"
@@ -22,6 +16,7 @@ import { MAX_LARGO_ENCUESTA, PREGUNTA_ENCUESTA } from "@intervalo/dx-core/juego/
 import { track } from "@/lib/analytics/track"
 import { useSfx } from "@/lib/audio/UseSfx"
 import { BotonCta } from "./boton-cta"
+import { FUENTE } from "@/lib/tipografia"
 
 // Mismo número que en «Elegí tu @»: el teclado se abre cuando la diapo ya
 // llegó, no a mitad del pase.
@@ -130,7 +125,7 @@ const styles = StyleSheet.create({
   titulo: {
     fontSize: 20,
     lineHeight: 28,
-    fontWeight: "600",
+    fontFamily: FUENTE.seminegrita,
     color: TEMA.foreground,
     textAlign: "center",
   },

@@ -7,9 +7,12 @@
 // el ejercicio se ve; cerrado, en el teléfono, la fila conserva su lugar sin
 // dibujarse para que el teclado de arriba no se corra al responder.
 
-import { Pressable, StyleSheet, Text, View, type StyleProp, type ViewStyle } from "react-native"
+import { StyleSheet, View, type StyleProp, type ViewStyle } from "react-native"
+import { Text } from "@/components/texto"
 import Svg, { Path } from "react-native-svg"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
+import { Boton3D } from "./boton-3d"
+import { CTA_H } from "./exercise-card"
 import { filaDeAyudas } from "@intervalo/dx-core/juego/pie-de-rampa"
 
 export type PieRampaProps = {
@@ -69,21 +72,12 @@ function BotonDeAyuda({
   disabled: boolean
 }) {
   return (
-    <Pressable
-      onPress={onPress}
-      disabled={disabled}
-      accessibilityRole="button"
-      accessibilityState={{ disabled }}
-      style={({ pressed }) => [
-        styles.boton,
-        pressed && { opacity: 0.9, transform: [{ translateY: 2 }] },
-      ]}
-    >
+    <Boton3D onPress={onPress} disabled={disabled} contorno alto={CTA_H} style={styles.boton}>
       <Text numberOfLines={1} style={styles.texto}>
         {texto}
       </Text>
       <IconoDeAyuda trazos={icono} />
-    </Pressable>
+    </Boton3D>
   )
 }
 
@@ -119,19 +113,6 @@ export const TRAZOS_SALTEAR = [
 const styles = StyleSheet.create({
   fila: { flexDirection: "row", gap: 8 },
   invisible: { opacity: 0 },
-  boton: {
-    flex: 1,
-    minWidth: 0,
-    // `--cta-h` de la web: 3.3rem.
-    height: 52.8,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 8,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: TEMA.border,
-    backgroundColor: TEMA.background,
-  },
+  boton: { flex: 1, minWidth: 0 },
   texto: { color: TEMA.foreground, fontSize: 14, flexShrink: 1 },
 })

@@ -2,9 +2,11 @@
 // colores y la etiqueta salen de dx-core (`university-tags.ts`); acá solo se
 // dibujan.
 
-import { Pressable, StyleSheet, Text, View } from "react-native"
+import { Pressable, StyleSheet, View } from "react-native"
+import { Text } from "@/components/texto"
 import { SvgXml } from "react-native-svg"
 import { estilosDeTag, etiquetaDe, PAIS_NOMBRE, tagDe, type Pais, type UniversityTag } from "@intervalo/dx-core/university-tags"
+import { FUENTE } from "@/lib/tipografia"
 
 // Banderas rectangulares de Twemoji (CC-BY 4.0, ver web/public/flags/LICENSE.txt),
 // las mismas de la web pegadas como texto: son cuatro y chicas, y así no hace
@@ -30,8 +32,8 @@ export function Bandera({ country, size = 17 }: { country: Pais; size?: number }
 // reciben una tag generada (ver `tagGenerada`) y no llevan bandera.
 export function UniTag({ university }: { university: string }) {
   const cfg = tagDe(university)
-  // Solo los colores: la tipografía de la web (`var(--font-itba)`, Outfit) no
-  // está en la app y va la del sistema con el mismo peso.
+  // Solo los colores: la tipografía (Outfit 500, `--font-itba` en la web) va en
+  // el estilo `texto`.
   const { color, borderColor, backgroundColor } = estilosDeTag(cfg)
   return (
     <View
@@ -101,7 +103,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
   // `letterSpacing: 0.02em` de la web, a 9 px.
-  texto: { fontWeight: "500", letterSpacing: 0.18, lineHeight: 10, textAlign: "center" },
+  texto: { fontFamily: FUENTE.tag, letterSpacing: 0.18, lineHeight: 10, textAlign: "center" },
   sugerencia: {
     flexDirection: "row",
     alignItems: "center",
@@ -112,5 +114,5 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 6,
   },
-  textoSugerencia: { fontSize: 12, lineHeight: 16, fontWeight: "500" },
+  textoSugerencia: { fontSize: 12, lineHeight: 16, fontFamily: FUENTE.medio },
 })

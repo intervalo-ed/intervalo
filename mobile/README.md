@@ -2,7 +2,8 @@
 
 La app de Expo del minijuego de derivadas: el mismo flujo del teléfono que la
 web, con la lógica compartida en `packages/dx-core`. Proyecto de EAS
-`@intervalo-ed/intervalo-app`; bundle y package `xyz.intervalo.derivadas`.
+`@intervalo-ed/intervalo-app`; bundle de iOS `xyz.intervalo` y package de
+Android `xyz.intervalo.derivadas`.
 Todavía no está publicada en las tiendas.
 
 ## Correrla en local
@@ -64,18 +65,50 @@ Sin `GOOGLE_SERVICES_JSON` la build de Android sale igual, pero sin avisos.
 
 ## Publicar
 
+Las builds se hacen en local (`--local`), no en los servidores de EAS.
+
+### iOS a TestFlight
+
+Hace falta una Mac con Xcode (y la plataforma de iOS instalada desde
+Xcode → Settings → Components), CocoaPods y fastlane:
+
 ```bash
-eas build --profile production --platform ios      # o android, o all
-eas submit --profile production --platform ios     # o android
+brew install cocoapods fastlane
+npm install -g eas-cli
 ```
 
-El submit de Android va al track `internal` de Play. El de iOS todavía no tiene
-config en `eas.json` (pregunta los datos de App Store Connect la primera vez).
+Una sola vez: aceptar la invitación a la cuenta `intervalo-ed` de Expo (rol
+Developer o más) y loguearse con `eas login`. No hace falta cuenta de Apple:
+el certificado, el provisioning profile y la API key de App Store Connect
+están guardados en EAS.
+
+Desde la raíz del repo, en `main` y actualizado:
+
+```bash
+bun install
+cd mobile
+eas build --platform ios --profile production --local --output ./build.ipa
+eas submit --platform ios --profile production --path ./build.ipa
+```
+
+- El build tarda unos minutos. EAS sube solo el número de build y trae las
+  variables del environment `production`.
+- El submit sube el `.ipa` a la app `6829495442` de App Store Connect. Después
+  de que Apple la procesa (entre 5 y 30 minutos), aparece en TestFlight.
+- Si pide loguearse en Apple, los credentials de EAS vencieron o cambiaron:
+  avisarle al dueño de la cuenta.
+
+### Android
+
+```bash
+eas build --platform android --profile production --local --output ./build.aab
+eas submit --platform android --profile production --path ./build.aab
+```
+
+Va al track `internal` de Play.
 
 ## Pendiente (lo hace el dueño de las cuentas)
 
-- [ ] Cuenta de Apple Developer y la app en App Store Connect con el bundle
-      `xyz.intervalo.derivadas`.
 - [ ] La primera build de iOS (`eas build -p ios`), que genera el certificado
       y la key de APNs.
 - [ ] Firebase: subir `google-services.json` como variable de tipo archivo
@@ -89,3 +122,15 @@ config en `eas.json` (pregunta los datos de App Store Connect la primera vez).
       hizo en la de desarrollo).
 - [ ] Las fichas de las tiendas: capturas de teléfono, política de
       privacidad, privacy labels (App Store) y data safety (Play).
+
+## Splash: cómo se regenera la imagen del logo
+
+El splash nativo muestra `assets/images/splash-logo.png`, una captura del logo
+que dibuja `components/splash-animado.tsx` (a `TAMANO_GRANDE`), recortada
+SIMÉTRICA respecto al centro de la pantalla (iPhone 3x). Así el traspaso del
+splash nativo al de JS es invisible. Si cambia el logo, `TAMANO_GRANDE` o la
+tipografía, hay que sacarla de nuevo: dejar el splash de JS quieto (subir
+`QUIETO_MIN_MS` y `TOPE_MS` a mano), capturar el simulador, recortar el logo
+con una caja simétrica al centro, actualizar `imageWidth` en `app.config.ts`
+(= ancho en píxeles / 3) y correr `bunx expo prebuild --platform ios` más un
+rebuild nativo.

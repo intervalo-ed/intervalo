@@ -9,19 +9,24 @@
 // ancho no se mueve mientras gira.
 
 import { useEffect, useState } from "react"
-import { Text, type StyleProp, type TextStyle } from "react-native"
-
+import { type StyleProp, type TextStyle } from "react-native"
+import { Text } from "@/components/texto"
+import { vib } from "@/lib/haptics"
 export function CountUp({
   value,
   format,
   duration = 1000,
   flickerMs = 60,
+  haptico = false,
   style,
 }: {
   value: number
   format?: (n: number) => string
   duration?: number
   flickerMs?: number
+  /** Vibra al trabarse cada dígito. Solo para los números que protagonizan la
+   *  pantalla: la lista del ranking monta decenas y no debe zumbar. */
+  haptico?: boolean
   style?: StyleProp<TextStyle>
 }) {
   const finalStr = format ? format(value) : String(value)
@@ -37,23 +42,32 @@ export function CountUp({
     }
     const lockAt = digitIdx.map((_, k) => ((k + 1) / n) * duration)
     const start = performance.now()
+    let trabados = 0
     const id = setInterval(() => {
       const elapsed = performance.now() - start
       const out = chars.slice()
       let allLocked = true
+      let ahora = 0
       digitIdx.forEach((pos, k) => {
         if (elapsed >= lockAt[k]) {
           out[pos] = finalStr[pos]
+          ahora += 1
         } else {
           out[pos] = String(Math.floor(Math.random() * 10))
           allLocked = false
         }
       })
+      // Un pulso por dígito que se traba, cada vez más firme; el último, el clac.
+      if (haptico && ahora > trabados) {
+        if (allLocked) vib.contadorTrabado()
+        else vib.digito(ahora / n)
+        trabados = ahora
+      }
       setText(allLocked ? finalStr : out.join(""))
       if (allLocked) clearInterval(id)
     }, flickerMs)
     return () => clearInterval(id)
-  }, [finalStr, duration, flickerMs])
+  }, [finalStr, duration, flickerMs, haptico])
 
   return (
     <Text style={[{ fontVariant: ["tabular-nums"] }, style]} numberOfLines={1}>

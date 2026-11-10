@@ -6,7 +6,8 @@
 // mirando, todavía eligiendo. «<» vuelve sin guardar.
 
 import { useEffect, useState } from "react"
-import { Platform, Pressable, StyleSheet, Text, View } from "react-native"
+import { Pressable, StyleSheet, View } from "react-native"
+import { Text } from "@/components/texto"
 import Animated, {
   Easing,
   useAnimatedStyle,
@@ -14,7 +15,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated"
 import Svg, { Path } from "react-native-svg"
-import * as Haptics from "expo-haptics"
+import { vib } from "@/lib/haptics"
 import { useQueryClient } from "@tanstack/react-query"
 import { unwrap } from "@intervalo/dx-core/api/client"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
@@ -24,15 +25,17 @@ import {
   POSICIONES,
   POSICION_MAX,
   colorDePosicion,
-  mezclar,
+  tonosDeNivel,
   posicionInicial,
   rgbaDeRgb,
 } from "@intervalo/dx-core/juego/dificultad"
 import { track } from "@/lib/analytics/track"
 import { useSfx } from "@/lib/audio/UseSfx"
+import { Boton3D } from "./boton-3d"
 import { BotonCta } from "./boton-cta"
 import { CTA_H } from "./exercise-card"
 import { SliderVertical } from "./slider-vertical"
+import { FUENTE } from "@/lib/tipografia"
 
 // Lo que ocupa la fila elegida: la fórmula agrandada y dos renglones de texto.
 const ALTO_ELEGIDA = 92
@@ -40,10 +43,10 @@ const ALTO_ELEGIDA = 92
 const COLORES = POSICIONES.map((_, i) => colorDePosicion(i))
 // Los mismos tonos que pinta la barra, para que cada derivada lleve el color de
 // su celda.
-const TONOS = mezclar(COLORES)
-const APAGADO = "#a4b3c6"
+const TONOS = tonosDeNivel(COLORES)
+// Las de más abajo llevan el color de su nivel, pero más tenue.
+const APAGADA = 0.55
 const NARANJA = "#fdba74"
-const MONO = Platform.select({ ios: "Menlo", default: "monospace" })
 
 // La lista se desliza con la misma curva corta del slider: llega antes que el ojo.
 const DESLIZ = { duration: 200, easing: Easing.bezier(0.2, 0.8, 0.2, 1) }
@@ -80,7 +83,7 @@ export function DificultadSlide({
   const cambiar = (v: number) => {
     if (v === valor) return
     sfx.select()
-    void Haptics.selectionAsync()
+    vib.elegir()
     setValor(v)
   }
 
@@ -133,6 +136,9 @@ export function DificultadSlide({
       </Pressable>
 
       <Text style={styles.titulo}>Elegí con qué nivel querés practicar.</Text>
+      <Text style={styles.aclaracion}>
+        Tu Elo se va acomodando solo con tus respuestas, elijas el nivel que elijas.
+      </Text>
 
       <View style={styles.cuerpo}>
         {/* La lista mide lo mismo que la columna del slider: la primera
@@ -151,7 +157,7 @@ export function DificultadSlide({
                 y={y}
                 opacidad={sel ? 1 : Math.max(0.38, 0.85 - Math.abs(d) * 0.1)}
                 elegida={sel}
-                color={i <= valor ? TONOS[i] : APAGADO}
+                color={i <= valor ? TONOS[i] : rgbaDeRgb(TONOS[i], APAGADA)}
                 // El resplandor de la elegida crece con lo que se llenó la
                 // barra, como el de la barra misma.
                 brillo={sel ? rgbaDeRgb(TONOS[i], 0.04 + 0.08 * (valor / POSICION_MAX)) : null}
@@ -177,19 +183,11 @@ export function DificultadSlide({
       {/* Dos botones partidos: «Automático» devuelve el control al motor y
           «Continuar» guarda la posición elegida. */}
       <View style={styles.pie}>
-        <Pressable
-          onPress={() => void continuar(null)}
-          disabled={guardando}
-          accessibilityRole="button"
-          accessibilityState={{ disabled: guardando }}
-          style={({ pressed }) => [
-            styles.automatico,
-            pressed && { backgroundColor: TEMA.accent },
-            guardando && { opacity: 0.5 },
-          ]}
-        >
-          <Text style={styles.textoAutomatico}>Automático</Text>
-        </Pressable>
+        <View style={styles.mitad}>
+          <Boton3D contorno alto={CTA_H} disabled={guardando} onPress={() => void continuar(null)}>
+            <Text style={styles.textoAutomatico}>Automático</Text>
+          </Boton3D>
+        </View>
         <View style={styles.mitad}>
           <BotonCta texto="Continuar" disabled={guardando} onPress={() => void continuar(valor)} />
         </View>
@@ -262,10 +260,19 @@ const styles = StyleSheet.create({
   titulo: {
     marginTop: 48,
     textAlign: "center",
-    fontSize: 16,
-    lineHeight: 22,
-    fontWeight: "600",
+    fontSize: 19,
+    lineHeight: 25,
+    fontFamily: FUENTE.seminegrita,
     color: TEMA.foreground,
+  },
+  aclaracion: {
+    marginTop: 10,
+    paddingHorizontal: 8,
+    textAlign: "center",
+    fontSize: 15,
+    lineHeight: 21,
+    fontFamily: FUENTE.normal,
+    color: TEMA.mutedForeground,
   },
   cuerpo: {
     flex: 1,
@@ -283,31 +290,20 @@ const styles = StyleSheet.create({
   formula: {
     alignSelf: "flex-start",
     transformOrigin: "left",
-    fontFamily: MONO,
+    fontFamily: FUENTE.monoMedio,
     fontSize: 17,
     lineHeight: 21,
-    fontWeight: "600",
   },
   texto: {
     marginTop: 12,
     maxWidth: 200,
     fontSize: 14,
     lineHeight: 19,
-    fontWeight: "500",
+    fontFamily: FUENTE.medio,
     color: TEMA.foreground,
   },
   error: { marginTop: 12, textAlign: "center", fontSize: 14, color: NARANJA },
   pie: { marginTop: 12, flexDirection: "row", gap: 8 },
-  automatico: {
-    flex: 1,
-    minWidth: 0,
-    height: CTA_H,
-    borderRadius: 6,
-    borderWidth: 1,
-    borderColor: TEMA.border,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  textoAutomatico: { color: TEMA.foreground, fontSize: 16, fontWeight: "700" },
+  textoAutomatico: { color: TEMA.foreground, fontSize: 16, fontFamily: FUENTE.negrita },
   mitad: { flex: 1, minWidth: 0 },
 })

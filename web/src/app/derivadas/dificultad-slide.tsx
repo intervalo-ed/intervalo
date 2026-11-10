@@ -25,7 +25,8 @@ import {
   POSICIONES,
   POSICION_MAX,
   colorDePosicion,
-  mezclar,
+  tonosDeNivel,
+  rgbaDeRgb,
   posicionInicial,
 } from "@intervalo/dx-core/juego/dificultad"
 import { SliderVertical } from "./slider-vertical"
@@ -34,7 +35,7 @@ import { enCampoHtml, digitoDe, useTeclas } from "./teclas"
 import { useGameApi } from "@intervalo/dx-core/juego/game-api-context"
 import { gameKeys, type GamePlayer } from "@intervalo/dx-core/juego/game-keys"
 
-const ctaCls = "h-[var(--cta-h)] w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
+const ctaCls = "h-[calc(var(--cta-h)-4px)] mb-1 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black shadow-[0_4px_0_0_#A8ADBF] transition-[transform,box-shadow,background-color] active:translate-y-1 active:shadow-[0_0_0_0_#A8ADBF]"
 
 // Lo que ocupa la fila elegida: la fórmula agrandada y dos renglones de texto.
 const ALTO_ELEGIDA = 92
@@ -42,8 +43,9 @@ const ALTO_ELEGIDA = 92
 const COLORES = POSICIONES.map((_, i) => colorDePosicion(i))
 // Los mismos tonos que pinta la barra, para que cada derivada lleve el color de
 // su celda.
-const TONOS = mezclar(COLORES)
-const APAGADO = "#a4b3c6"
+const TONOS = tonosDeNivel(COLORES)
+// Las de más abajo llevan el color de su nivel, pero más tenue.
+const APAGADA = 0.55
 
 // La lista se desliza con la misma curva corta del slider: llega antes que el ojo.
 const DESLIZ = { duration: 0.2, ease: [0.2, 0.8, 0.2, 1] } as const
@@ -178,8 +180,11 @@ export function DificultadSlide({
         <ChevronLeft size={24} />
       </button>
 
-      <p className="mt-12 text-center text-base font-semibold leading-snug text-foreground">
+      <p className="mt-12 text-center text-[19px] font-semibold leading-snug text-foreground">
         Elegí con qué nivel querés practicar.
+      </p>
+      <p className="mt-2.5 px-2 text-center text-[15px] leading-snug text-muted-foreground">
+        Tu Elo se va acomodando solo con tus respuestas, elijas el nivel que elijas.
       </p>
 
       <div className="relative mx-auto my-auto flex max-h-[22rem] min-h-0 w-full max-w-[17.5rem] flex-1 pt-3">
@@ -220,12 +225,12 @@ export function DificultadSlide({
                     className="block origin-left whitespace-nowrap font-mono text-[17px] font-semibold leading-tight"
                     initial={false}
                     // Las que la barra ya recorrió (hasta la elegida) llevan el
-                    // color de su celda; las de más abajo siguen apagadas. El
+                    // color de su celda; las de más abajo, más tenues. El
                     // resplandor de la elegida crece con lo que se llenó la barra,
                     // como el de la barra misma.
                     animate={{
                       scale: sel ? 1.6 : 1,
-                      color: i <= valor ? TONOS[i] : APAGADO,
+                      color: i <= valor ? TONOS[i] : rgbaDeRgb(TONOS[i], APAGADA),
                       textShadow: sel
                         ? `0 0 2px ${TONOS[i].replace("rgb", "rgba").replace(")", `, ${(0.04 + 0.08 * (valor / POSICION_MAX)).toFixed(2)})`)}`
                         : "0 0 0px rgba(0, 0, 0, 0)",

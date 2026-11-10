@@ -5,9 +5,10 @@
 // voto se guarda y no mueve nada.
 
 import { useEffect, useRef, useState } from "react"
-import { StyleSheet, Text, View } from "react-native"
+import { StyleSheet, View } from "react-native"
+import { Text } from "@/components/texto"
 import Animated, { FadeIn, useReducedMotion } from "react-native-reanimated"
-import * as Haptics from "expo-haptics"
+import { vib } from "@/lib/haptics"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
 import { useGameApi } from "@intervalo/dx-core/juego/game-api-context"
 import {
@@ -18,6 +19,7 @@ import { track } from "@/lib/analytics/track"
 import { useSfx } from "@/lib/audio/UseSfx"
 import { BotonCta } from "./boton-cta"
 import { EmojiYTexto, ListaDeOpciones, OpcionEncuesta } from "./opcion-encuesta"
+import { FUENTE } from "@/lib/tipografia"
 
 export function RepetitividadSlide({ onContinue }: { onContinue: (contesto: boolean) => void }) {
   const api = useGameApi()
@@ -39,7 +41,7 @@ export function RepetitividadSlide({ onContinue }: { onContinue: (contesto: bool
     votadoRef.current = true
     setVotado(voto)
     sfx.select()
-    void Haptics.selectionAsync()
+    vib.elegir()
     track("game_repetitividad_answered", { voto })
     void api
       .POST("/game/derivemos/repetitividad", { body: { accion: "answer", voto } })
@@ -96,7 +98,7 @@ export function RepetitividadSlide({ onContinue }: { onContinue: (contesto: bool
 const styles = StyleSheet.create({
   pantalla: { flex: 1, paddingHorizontal: 20 },
   centro: { flex: 1, justifyContent: "center", gap: 24 },
-  titulo: { fontSize: 20, fontWeight: "600", color: TEMA.foreground, textAlign: "center" },
+  titulo: { fontSize: 20, fontFamily: FUENTE.seminegrita, color: TEMA.foreground, textAlign: "center" },
   subtitulo: {
     marginTop: 8,
     fontSize: 14,
@@ -105,5 +107,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   renglon: { minHeight: 20 },
-  respuesta: { fontSize: 14, lineHeight: 20, color: TEMA.mutedForeground, textAlign: "center" },
+  // `Animated.Text` no pasa por components/texto.tsx: la fuente va explícita.
+  respuesta: { fontSize: 14, lineHeight: 20, fontFamily: FUENTE.normal, color: TEMA.mutedForeground, textAlign: "center" },
 })

@@ -7,16 +7,18 @@
 // responde en `onPressIn` y no al soltar, que es lo que lo hace sentir
 // inmediato.
 
-import { memo, useMemo, type ReactNode } from "react"
-import { Pressable, StyleSheet, Text, View, type StyleProp, type ViewStyle } from "react-native"
+import { memo, useCallback, useMemo, type ReactNode } from "react"
+import { Pressable, StyleSheet, View, type StyleProp, type ViewStyle } from "react-native"
+import { Text } from "@/components/texto"
 import Animated, {
-  LinearTransition,
+  Easing,
+  type LayoutAnimationsValues,
   useAnimatedStyle,
   useSharedValue,
-  withSpring,
   withTiming,
 } from "react-native-reanimated"
-import * as Haptics from "expo-haptics"
+import { vib } from "@/lib/haptics"
+import { useSfx } from "@/lib/audio/UseSfx"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import Svg, { Path } from "react-native-svg"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
@@ -46,16 +48,20 @@ const GAP = RAMPA_GAP_REM * REM
 const ROW = KB_ROW_TELEFONO_REM * REM
 const ALTO_BLOQUE = PAD_ROWS * ROW + (PAD_ROWS - 1) * GAP
 
-// Los cuerpos del teléfono en la web (math-keyboard.tsx :: SIZES, sin `md:`).
+// Los cuerpos del teléfono en la web (math-keyboard.tsx :: SIZES, sin `md:`),
+// POR el 1,21 de KaTeX. La web pretende `.katex` a 1em (GLYPH_CLASS), pero medido
+// en el navegador el glifo sale a 1,21 veces el cuerpo: un dígito `text-[1.25rem]`
+// mide 24,2 px, no 20. Con el cuerpo pelado los glifos de la app quedaban un 17%
+// más chicos que los de la web.
+const KATEX_EM = 1.21
 const CUERPO: Record<Tamano, number> = {
-  dyn: 0.95 * REM,
-  sm: 1.05 * REM,
-  md: 1.25 * REM,
-  lg: 1.5 * REM,
-  num: 1.25 * REM,
+  dyn: 0.95 * REM * KATEX_EM,
+  sm: 1.05 * REM * KATEX_EM,
+  md: 1.25 * REM * KATEX_EM,
+  lg: 1.5 * REM * KATEX_EM,
+  num: 1.25 * REM * KATEX_EM,
 }
 
-const RESORTE = { stiffness: 420, damping: 26 }
 
 /** Lo que recibe `renderEtiqueta`. `ancha` es la forma larga (`sen(□)`), la de
  *  la fila ancha del inventario. */
@@ -94,6 +100,17 @@ export function MathKeyboard({
   style,
 }: MathKeyboardProps) {
   const insets = useSafeAreaInsets()
+  const sfx = useSfx()
+  // El mismo chasquido que la tecla de la web (math-keyboard.tsx). Una sola vez
+  // acá y no en cada tecla: así no hay un `useSfx` por tecla y la referencia
+  // sigue estable para el memo de <Tecla>.
+  const alTocar = useCallback(
+    (key: Key) => {
+      sfx.select()
+      onKey(key)
+    },
+    [sfx, onKey],
+  )
   const dynamic = useMemo(
     () => inventarioDinamico({ keys, newKeys, numpad: true }),
     [keys, newKeys],
@@ -122,7 +139,7 @@ export function MathKeyboard({
       ancha={ancha}
       celda={celda}
       estilo={estilo}
-      onKey={onKey}
+      onKey={alTocar}
       renderEtiqueta={renderEtiqueta}
     />
   )
@@ -271,7 +288,7 @@ const Tecla = memo(function Tecla({
   return (
     <Animated.View
       entering={nueva ? nacer : undefined}
-      layout={LinearTransition.springify().stiffness(RESORTE.stiffness).damping(RESORTE.damping)}
+      layout={correrTecla}
       style={celda}
     >
     <Animated.View style={[styles.tecla, estilo, animado]}>
@@ -280,7 +297,7 @@ const Tecla = memo(function Tecla({
         onPressIn={() => {
           apretada.value = 1
           onKey(key)
-          void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
+          vib.tecla()
         }}
         onPressOut={() => {
           apretada.value = 0
@@ -317,13 +334,38 @@ function textoAncho(key: Key) {
   return `${key.texto}(□)`
 }
 
+// Cuando entra una tecla nueva las demás se corren. Un resorte (también
+// `LinearTransition.springify`) rebota y las teclas se ensanchaban y encogían como
+// gelatina.
+// Todo con la misma curva de desaceleración y sin rebote: las teclas se deslizan
+// a su lugar y frenan suave, sin pasarse ni vibrar.
+const DESLIZAR = { duration: 240, easing: Easing.out(Easing.cubic) }
+
+function correrTecla(valores: LayoutAnimationsValues) {
+  "worklet"
+  return {
+    initialValues: {
+      originX: valores.currentOriginX,
+      originY: valores.currentOriginY,
+      width: valores.currentWidth,
+      height: valores.currentHeight,
+    },
+    animations: {
+      originX: withTiming(valores.targetOriginX, DESLIZAR),
+      originY: withTiming(valores.targetOriginY, DESLIZAR),
+      width: withTiming(valores.targetWidth, DESLIZAR),
+      height: withTiming(valores.targetHeight, DESLIZAR),
+    },
+  }
+}
+
 function nacer() {
   "worklet"
   return {
     initialValues: { opacity: 0, transform: [{ scale: 0.4 }] },
     animations: {
-      opacity: withSpring(1, RESORTE),
-      transform: [{ scale: withSpring(1, RESORTE) }],
+      opacity: withTiming(1, DESLIZAR),
+      transform: [{ scale: withTiming(1, DESLIZAR) }],
     },
   }
 }

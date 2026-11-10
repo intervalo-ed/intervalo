@@ -7,11 +7,12 @@
 // que la transición sale de la fila y la arma `transicionDeFila` para la lista.
 
 import { memo, useEffect, useState } from "react"
-import { StyleSheet, Text, View, type HostInstance } from "react-native"
+import { StyleSheet, View, type HostInstance } from "react-native"
+import { Text } from "@/components/texto"
 import { LinearTransition } from "react-native-reanimated"
 import Svg, { Path } from "react-native-svg"
 import { CAREER_EMOJI } from "@intervalo/dx-core/career-emoji"
-import { filaConEmpujeRGBA, levelColor } from "@intervalo/dx-core/juego/game-colors"
+import { filaConEmpujeRGBA, levelColor, TEMA } from "@intervalo/dx-core/juego/game-colors"
 import { fmtMultiplier } from "@intervalo/dx-core/juego/ranking-formato"
 import type { RankingSort } from "@intervalo/dx-core/juego/ranking-reglas"
 import { curvaDelSalto } from "@intervalo/dx-core/juego/salto-ranking"
@@ -20,6 +21,7 @@ import { UniTag } from "../university-tag"
 import { XpDots } from "../xp-dots"
 import { EloDeJugador, XpDeJugador } from "./celdas"
 import { ESTILOS_FILA } from "./skeleton"
+import { FUENTE } from "@/lib/tipografia"
 
 // `text-green-400` / `text-orange-400`.
 const VERDE_400 = "#4ade80"
@@ -196,7 +198,7 @@ export const Row = memo(function Row({
       ]}
     >
       {/* `w-8` y no `w-4`: con tres cifras el número no entraba. */}
-      <Text style={[ESTILOS_FILA.puesto, estilos.puesto]}>
+      <Text style={ESTILOS_FILA.puesto} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.7}>
         {rankDesde === null ? (
           shownRank
         ) : (
@@ -243,13 +245,15 @@ export const Row = memo(function Row({
 })
 
 const estilos = StyleSheet.create({
-  puesto: { width: 32 },
   nombre: { flex: 1, minWidth: 0, flexDirection: "row", alignItems: "center", gap: 6 },
-  alias: { flexShrink: 1, fontSize: 14, lineHeight: 20, fontWeight: "500" },
-  emoji: { flexShrink: 0, fontSize: 14, lineHeight: 16 },
+  alias: { flexShrink: 1, fontSize: 14, lineHeight: 20, fontFamily: FUENTE.medio },
+  // 20 como el alias: con 16 el emoji (más alto que la letra) quedaba cortado arriba y abajo.
+  // `✦` (la carrera «Otra») no es un emoji sino un símbolo de texto: sin color
+  // propio sale en negro sobre el fondo oscuro.
+  emoji: { flexShrink: 0, fontSize: 14, lineHeight: 20, color: TEMA.foreground },
   delta: { flexShrink: 0, flexDirection: "row", alignItems: "center", gap: 2 },
-  deltaNumero: { fontSize: 12, lineHeight: 16, fontWeight: "500", fontVariant: ["tabular-nums"] },
+  deltaNumero: { fontSize: 12, lineHeight: 16, fontFamily: FUENTE.medio, fontVariant: ["tabular-nums"] },
   uni: { flexShrink: 0, flexDirection: "row", alignItems: "center", gap: 4 },
   preview: { flexShrink: 0, flexDirection: "row", alignItems: "center", gap: 4 },
-  previewNumero: { fontSize: 14, lineHeight: 20, fontWeight: "600", fontVariant: ["tabular-nums"] },
+  previewNumero: { fontSize: 14, lineHeight: 20, fontFamily: FUENTE.seminegrita, fontVariant: ["tabular-nums"] },
 })

@@ -9,21 +9,14 @@
 // no abra el «¿Por qué?»— y queda montado mientras el panel exista.
 
 import { useEffect, useRef, useState } from "react"
-import {
-  Animated,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-  type StyleProp,
-  type ViewStyle,
-} from "react-native"
+import { Animated, Pressable, ScrollView, StyleSheet, View, type StyleProp, type ViewStyle } from "react-native"
+import { Text } from "@/components/texto"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
 import { LINE_COLOR, SECOND_LINE_COLOR } from "@intervalo/dx-core/grafico/math-graph-colors"
 import { GRAPH_INTRO, GRAPH_POINTS, type PorQueGraph } from "@intervalo/dx-core/juego/porque"
 import { MathText } from "@/components/latex/latex"
 import PorQueGrafico from "./porque-grafico.dom"
+import { FUENTE } from "@/lib/tipografia"
 
 export type { PorQueGraph }
 
@@ -196,7 +189,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 6,
   },
-  reintentarTexto: { fontSize: 14, color: TEMA.foreground, fontWeight: "500" },
+  reintentarTexto: { fontSize: 14, color: TEMA.foreground, fontFamily: FUENTE.medio },
   bloqueGrafico: { marginTop: 8, gap: 6 },
   puntos: { gap: 8 },
   punto: { flexDirection: "row", paddingLeft: 4 },

@@ -1,7 +1,7 @@
 import { useEffect, useSyncExternalStore } from "react"
 import { useAuth, useClerk } from "@clerk/expo"
 import { useMutation, useQuery, useQueryClient, type QueryClient } from "@tanstack/react-query"
-import { unwrap } from "@intervalo/dx-core/api/client"
+import { ApiError, unwrap } from "@intervalo/dx-core/api/client"
 import { aplicarAliasDeseado, readDesiredAlias } from "@intervalo/dx-core/juego/alias-deseado"
 import { useGameApi } from "@intervalo/dx-core/juego/game-api-context"
 import { gameKeys } from "@intervalo/dx-core/juego/game-keys"
@@ -143,12 +143,36 @@ export function useGamePlayer() {
     }
   }
 
+  /** Borrar la cuenta (Apple 5.1.1(v)). El servidor borra al jugador y, si hay
+   *  login, la cuenta de Clerk; acá se tira lo local y se da de alta un
+   *  invitado nuevo, como al cerrar sesión. Si el servidor falla, la promesa
+   *  rechaza y no se toca nada local: se puede reintentar. */
+  const borrarCuenta = async () => {
+    if (cerrandoSesion) return
+    cerrandoSesion = true
+    try {
+      // 204 sin cuerpo: `unwrap` lo leería como error, así que se mira `error`.
+      const res = await api.DELETE("/game/derivemos/me")
+      if (res.error !== undefined) throw new ApiError(res.response.status, res.error)
+      clearGameIdentity()
+      // La cuenta de Clerk ya no existe del lado del servidor: el signOut puede
+      // protestar y no importa, lo que cuenta es dejar la sesión local limpia.
+      if (isSignedIn) await signOut().catch(() => {})
+      queryClient.removeQueries({ queryKey: raizDelJuego })
+      bootstrapPara = "invitado"
+      ensureMutate({ cambioDeIdentidad: false })
+    } finally {
+      cerrandoSesion = false
+    }
+  }
+
   return {
     player,
     isSignedIn: isSignedIn ?? false,
     refetch: () => queryClient.refetchQueries({ queryKey: gameKeys.me }),
     ensurePlayer: () => ensureMutate({ cambioDeIdentidad: false }),
     cerrarSesion,
+    borrarCuenta,
     error: me.error ?? ensure.error ?? null,
   }
 }

@@ -11,16 +11,8 @@
 // (`useGamePlayer`), si la cuenta no tenía uno elegido.
 
 import { useRef, useState } from "react"
-import {
-  ActivityIndicator,
-  KeyboardAvoidingView,
-  Platform,
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native"
+import { ActivityIndicator, KeyboardAvoidingView, Platform, Pressable, StyleSheet, View } from "react-native"
+import { Text, TextInput } from "@/components/texto"
 import { useQueryClient } from "@tanstack/react-query"
 import { ApiError, unwrap } from "@intervalo/dx-core/api/client"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
@@ -31,8 +23,10 @@ import { track } from "@/lib/analytics/track"
 import { useSfx } from "@/lib/audio/UseSfx"
 import { useGoogleLogin } from "@/lib/auth/UseGoogleLogin"
 import { BotonCta } from "./boton-cta"
+import { Boton3D } from "./boton-3d"
 import { CTA_H } from "./exercise-card"
 import { GoogleIcon } from "./google-icon"
+import { FUENTE } from "@/lib/tipografia"
 
 export function UsernameSlide({
   player,
@@ -127,22 +121,16 @@ export function UsernameSlide({
         {/* Blanco sólido como el Continuar: es una acción de verdad, no una
             salida. Mide lo mismo que el campo. */}
         <View style={styles.bloqueGoogle}>
-          <Pressable
+          <Boton3D
+            alto={CTA_H}
             onPress={() => void conectarConGoogle()}
             disabled={!google.listo || google.cargando}
-            accessibilityRole="button"
-            accessibilityState={{ disabled: !google.listo || google.cargando }}
-            style={({ pressed }) => [
-              styles.botonGoogle,
-              pressed && { opacity: 0.9 },
-              (!google.listo || google.cargando) && { opacity: 0.5 },
-            ]}
           >
             <Text style={styles.textoGoogle}>
               {google.cargando ? "Conectando…" : "Conectar con Google"}
             </Text>
             {google.cargando ? <ActivityIndicator size="small" color="#000" /> : <GoogleIcon />}
-          </Pressable>
+          </Boton3D>
           <Text style={styles.leyendaGoogle}>Vinculá tu cuenta para no perder tu progreso.</Text>
           {onOpenPrivacy && (
             <Pressable onPress={onOpenPrivacy} accessibilityRole="link" hitSlop={8}>
@@ -164,7 +152,7 @@ export function UsernameSlide({
 const styles = StyleSheet.create({
   pantalla: { flex: 1, paddingHorizontal: 20 },
   centro: { flex: 1, alignItems: "center", justifyContent: "center", gap: 16 },
-  titulo: { fontSize: 24, fontWeight: "700", color: TEMA.foreground, textAlign: "center" },
+  titulo: { fontSize: 24, fontFamily: FUENTE.negrita, color: TEMA.foreground, textAlign: "center" },
   subtitulo: {
     fontSize: 14,
     lineHeight: 22,
@@ -184,16 +172,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
   },
   bloqueGoogle: { width: "100%", maxWidth: 320, gap: 8 },
-  botonGoogle: {
-    height: CTA_H,
-    borderRadius: 6,
-    backgroundColor: "#fff",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 8,
-  },
-  textoGoogle: { color: "#000", fontSize: 16, fontWeight: "700" },
+  textoGoogle: { color: "#000", fontSize: 16, fontFamily: FUENTE.negrita },
   // `text-foreground/55` de la web.
   leyendaGoogle: {
     fontSize: 12,

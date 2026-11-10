@@ -1,7 +1,7 @@
 // El slider de la palanca de dificultad, el par nativo de
 // `web/src/app/derivadas/slider-vertical.tsx`: un riel vertical que se arrastra
-// de a un paso, con un relleno ACUMULATIVO que crece desde arriba y toma, tramo
-// a tramo, el color del nivel que atraviesa, y un pulgar que respira. Arriba es
+// de a un paso, con un relleno que crece desde arriba y un pulgar que respira,
+// ambos del color del nivel (los cuatro del ranking), que cambia al cruzar de nivel. Arriba es
 // más suave y abajo más exigente, como se dibuja.
 
 import { useEffect, useState } from "react"
@@ -18,7 +18,7 @@ import Animated, {
 } from "react-native-reanimated"
 import Svg, { Path } from "react-native-svg"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
-import { mezclar, rgbaDeRgb } from "@intervalo/dx-core/juego/dificultad"
+import { tonosDeNivel, rgbaDeRgb } from "@intervalo/dx-core/juego/dificultad"
 
 // El desplazamiento fugaz del cafecito (FUGAZ): 110 ms con salida suave, sin
 // rebote, para que el pulgar no parezca pasarse del valor elegido.
@@ -99,14 +99,8 @@ export function SliderVertical({
   const quieto = useReducedMotion()
   const [alto, setAlto] = useState(0)
   const t = valor / max
-  const suaves = mezclar(colores)
-  const color = suaves[valor]
-
-  // El relleno es el degradado de toda la barra, recortado hasta donde se
-  // eligió: lo que se ve crecer es el calor.
-  const relleno = `linear-gradient(180deg, ${suaves
-    .map((c, i) => `${c} ${(i / max) * 100}%`)
-    .join(", ")})`
+  const tonos = tonosDeNivel(colores)
+  const color = tonos[valor]
 
   const lleno = useSharedValue(t)
   const respiro = useSharedValue(1)
@@ -127,7 +121,9 @@ export function SliderVertical({
     return () => cancelAnimation(respiro)
   }, [quieto, respiro])
 
-  const estiloRelleno = useAnimatedStyle(() => ({ height: lleno.value * alto }))
+  const estiloRelleno = useAnimatedStyle(() => ({
+    height: lleno.value * alto,
+  }))
   const estiloPulgar = useAnimatedStyle(() => ({
     transform: [{ translateY: lleno.value * alto - PULGAR / 2 }],
   }))
@@ -179,12 +175,10 @@ export function SliderVertical({
           <Animated.View
             style={[
               styles.relleno,
-              { boxShadow: `0 0 1px ${rgbaDeRgb(color, 0.03 + 0.1 * t)}` },
+              { backgroundColor: color, boxShadow: `0 0 1px ${rgbaDeRgb(color, 0.03 + 0.1 * t)}` },
               estiloRelleno,
             ]}
-          >
-            <View style={[styles.degradado, { height: alto, backgroundImage: relleno }]} />
-          </Animated.View>
+          />
           <Animated.View
             pointerEvents="none"
             style={[styles.pulgar, { borderColor: color }, estiloAura, estiloPulgar]}
@@ -227,7 +221,6 @@ const styles = StyleSheet.create({
     borderRadius: 999,
     overflow: "hidden",
   },
-  degradado: { width: RIEL },
   pulgar: {
     position: "absolute",
     top: 0,

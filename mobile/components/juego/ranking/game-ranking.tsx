@@ -7,7 +7,8 @@
 // café y de reclutas.
 
 import { useEffect, useRef, useState } from "react"
-import { StyleSheet, Text, View, type HostInstance, type StyleProp, type ViewStyle } from "react-native"
+import { StyleSheet, View, type HostInstance, type StyleProp, type ViewStyle } from "react-native"
+import { Text } from "@/components/texto"
 import Svg, { Circle, Path } from "react-native-svg"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
 import { ALL_SCOPE } from "@intervalo/dx-core/juego/ranking-scope"

@@ -1,8 +1,12 @@
 // El botón blanco de ancho completo de las diapos (`ctaCls` de mobile-flow.tsx
-// en la web): ¡Vamos!, Volver, Continuar.
+// en la web): ¡Vamos!, Volver, Continuar, Guardar. En 3D, como los de abajo del
+// ejercicio (boton-3d.tsx).
 
-import { Pressable, StyleSheet, Text } from "react-native"
+import { StyleSheet } from "react-native"
+import { Text } from "@/components/texto"
+import { Boton3D } from "./boton-3d"
 import { CTA_H } from "./exercise-card"
+import { FUENTE } from "@/lib/tipografia"
 
 export function BotonCta({
   texto,
@@ -14,25 +18,12 @@ export function BotonCta({
   disabled?: boolean
 }) {
   return (
-    <Pressable
-      onPress={onPress}
-      disabled={disabled}
-      accessibilityRole="button"
-      accessibilityState={{ disabled }}
-      style={({ pressed }) => [styles.boton, pressed && { opacity: 0.9 }, disabled && { opacity: 0.5 }]}
-    >
+    <Boton3D onPress={onPress} disabled={disabled} alto={CTA_H}>
       <Text style={styles.texto}>{texto}</Text>
-    </Pressable>
+    </Boton3D>
   )
 }
 
 const styles = StyleSheet.create({
-  boton: {
-    height: CTA_H,
-    borderRadius: 6,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  texto: { color: "#000", fontSize: 16, fontWeight: "700" },
+  texto: { color: "#000", fontSize: 16, fontFamily: FUENTE.negrita },
 })

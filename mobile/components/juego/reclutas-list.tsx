@@ -6,7 +6,8 @@
 // Cada renglón no lleva la XP propia del recluta: con los dos números al lado
 // el ojo compara y el que importa pierde.
 
-import { StyleSheet, Text, View } from "react-native"
+import { StyleSheet, View } from "react-native"
+import { Text } from "@/components/texto"
 import { badgeWithCrown, CAREER_EMOJI } from "@intervalo/dx-core/career-emoji"
 import { levelColor, TEMA } from "@intervalo/dx-core/juego/game-colors"
 import { EJEMPLOS_COUNT, VERDE, type FilaRecluta } from "@intervalo/dx-core/juego/reclutas"
@@ -14,6 +15,7 @@ import { useFilasDeEjemplo } from "@intervalo/dx-core/juego/UseFilasDeEjemplo"
 import type { GameRecruitEntry } from "@intervalo/dx-core/juego/UseGameLeaderboard"
 import { UniTag } from "./university-tag"
 import { XpDots } from "./xp-dots"
+import { FUENTE } from "@/lib/tipografia"
 
 const VERDE_RGB = [0x25, 0xd3, 0x66].join(", ")
 
@@ -102,13 +104,13 @@ const styles = StyleSheet.create({
     width: 16,
     textAlign: "center",
     fontSize: 14,
-    fontWeight: "600",
+    fontFamily: FUENTE.seminegrita,
     fontVariant: ["tabular-nums"],
     color: TEMA.mutedForeground,
   },
   nombreYEmoji: { flex: 1, minWidth: 0, flexDirection: "row", alignItems: "center", gap: 6 },
-  nombre: { flexShrink: 1, fontSize: 14, fontWeight: "500" },
-  emoji: { fontSize: 14, lineHeight: 16 },
+  nombre: { flexShrink: 1, fontSize: 14, fontFamily: FUENTE.medio },
+  emoji: { fontSize: 14, lineHeight: 20, color: TEMA.foreground },
   aporte: { flexDirection: "row", alignItems: "center", gap: 4 },
-  aporteTexto: { fontSize: 14, fontWeight: "600", fontVariant: ["tabular-nums"], color: VERDE },
+  aporteTexto: { fontSize: 14, fontFamily: FUENTE.seminegrita, fontVariant: ["tabular-nums"], color: VERDE },
 })

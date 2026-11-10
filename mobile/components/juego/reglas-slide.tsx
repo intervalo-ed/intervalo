@@ -4,11 +4,13 @@
 // (reglas-trigger.ts :: REGLAS_DE_LA_DIAPO). Sin numerar, como en la web.
 
 import { useEffect } from "react"
-import { StyleSheet, Text, View } from "react-native"
+import { StyleSheet, View } from "react-native"
+import { Text } from "@/components/texto"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
 import { REGLAS } from "@intervalo/dx-core/juego/textos-reglas"
 import { track } from "@/lib/analytics/track"
 import { BotonCta } from "./boton-cta"
+import { FUENTE } from "@/lib/tipografia"
 
 export function ReglasSlide({
   cuales,
@@ -44,5 +46,5 @@ const styles = StyleSheet.create({
   pantalla: { flex: 1, paddingHorizontal: 20 },
   centro: { flex: 1, justifyContent: "center", gap: 12 },
   parrafo: { fontSize: 16, lineHeight: 26, color: "rgba(246,248,252,0.85)" },
-  fuerte: { fontWeight: "600", color: TEMA.foreground },
+  fuerte: { fontFamily: FUENTE.seminegrita, color: TEMA.foreground },
 })

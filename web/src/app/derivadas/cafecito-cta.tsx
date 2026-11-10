@@ -372,13 +372,17 @@ export function ReclutarButton({
         })
       }
       className={cn(
-        "flex items-center justify-center gap-2 text-base font-semibold transition-opacity hover:opacity-90",
+        // En 3D como los demás botones blancos (boton-3d.tsx): el labio sale de
+        // un box-shadow y `mb-1` le guarda su lugar.
+        "mb-1 flex items-center justify-center gap-2 bg-white text-base font-semibold text-black shadow-[0_4px_0_0_#A8ADBF] transition-[transform,box-shadow,opacity] hover:opacity-90 active:translate-y-1 active:shadow-[0_0_0_0_#A8ADBF]",
         className,
       )}
-      style={{ backgroundColor: VERDE, color: VERDE_TINTA_OSCURA }}
     >
       Reclutar
-      <WhatsappGlyph size={18} />
+      {/* El verde de WhatsApp pegaba fuerte contra el blanco: el mismo tono, menos saturado. */}
+      <span className="flex" style={{ color: "#3F9F68" }}>
+        <WhatsappGlyph size={18} />
+      </span>
       {keycap}
     </a>
   )

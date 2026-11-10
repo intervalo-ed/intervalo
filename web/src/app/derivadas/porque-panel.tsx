@@ -22,6 +22,7 @@ import { LINE_COLOR, SECOND_LINE_COLOR } from "@/components/math-graph-colors"
 import MathText from "@/components/math-text"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { Boton3D, CARA_3D, LABIO_BLANCO, LABIO_CONTORNO } from "./boton-3d"
 import { KeyCap } from "./exercise-card"
 import { PULSO_IN, PULSO_MS, PULSO_OUT, usePulsoActivo } from "./pulso"
 import { enCampoDeTexto } from "./teclas"
@@ -433,7 +434,16 @@ export function PorQueButton({
   blanco?: boolean
   className?: string
 }) {
+  // El labio del 3D (boton-3d.tsx): del tono de la cara, un escalón más oscuro.
+  const labio = blanco
+    ? LABIO_BLANCO
+    : open
+      ? "#71717A"
+      : plano
+        ? LABIO_CONTORNO
+        : "#1E1E32"
   return (
+    <Boton3D labio={labio} className={className}>
     <Button
       size="lg"
       variant="outline"
@@ -464,7 +474,8 @@ export function PorQueButton({
         // `font-bold` y no el `font-normal` de antes: la misma negrita que ya
         // tiene Revisar/Continuar (`AnswerButton`, que hereda `font-bold` del
         // variant `default` del Button base).
-        "h-[var(--cta-h)] shrink-0 rounded-md font-bold transition-colors",
+        CARA_3D,
+        "shrink-0 font-bold",
         !plano && "border-transparent",
         plano &&
           "border-2 border-border bg-background px-5 hover:bg-accent dark:bg-background",
@@ -473,11 +484,11 @@ export function PorQueButton({
           !blanco &&
           "bg-foreground/[0.14] px-5 text-foreground hover:bg-foreground/25 dark:bg-foreground/[0.14] dark:hover:bg-foreground/25",
         (open || blanco) && "px-5 hover:opacity-90",
-        className,
       )}
     >
       {open ? "Volver" : "¿Por qué?"}
       {showKeyHint && <KeyCap>{TECLA_PORQUE}</KeyCap>}
     </Button>
+    </Boton3D>
   )
 }

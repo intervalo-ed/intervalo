@@ -4,7 +4,14 @@
 
 import { useCallback, useMemo } from "react"
 import { isSoundMuted } from "./sound-settings"
-import { playSfx, playTick, precargarSfx, precargarTick, type Sonido } from "./sfx-engine"
+import {
+  liberarSfx,
+  playSfx,
+  playTick,
+  precargarSfx,
+  precargarTick,
+  type Sonido,
+} from "./sfx-engine"
 
 const VOLUME = 0.1
 
@@ -25,6 +32,11 @@ export type SfxName = keyof typeof SONIDOS
 export function precargarSonidosDelJuego(): void {
   precargarSfx(SONIDOS)
   precargarTick(TICK)
+}
+
+/** Suelta los reproductores (al desmontarse el layout raíz). */
+export function liberarSonidosDelJuego(): void {
+  liberarSfx()
 }
 
 /** El tick del conteo, para inyectarlo en `useXpConteo` de dx-core. Estable

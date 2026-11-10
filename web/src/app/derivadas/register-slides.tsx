@@ -25,6 +25,8 @@ import { useSfx } from "@/lib/audio/useSfx"
 import { ApiError, unwrap } from "@/lib/api/client"
 import { ArrowUp } from "lucide-react"
 import { XpDots } from "@/components/xp-dots"
+import { UniTag } from "@/components/university-tag"
+import { CAREER_EMOJI } from "@intervalo/dx-core/career-emoji"
 import { ALL_SCOPE } from "@/components/leaderboard-chrome"
 import { VERDE } from "./cafecito-cta"
 import { KeyCap } from "./exercise-card"
@@ -40,7 +42,7 @@ import { useGameLeaderboard, useGameRecruits } from "@intervalo/dx-core/juego/Us
 import { gameKeys, type GamePlayer } from "@intervalo/dx-core/juego/game-keys"
 
 const ctaCls =
-  "h-[var(--cta-h)] w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black"
+  "h-[calc(var(--cta-h)-4px)] mb-1 w-full rounded-md bg-white text-black hover:bg-white/90 hover:text-black shadow-[0_4px_0_0_#A8ADBF] transition-[transform,box-shadow,background-color] active:translate-y-1 active:shadow-[0_0_0_0_#A8ADBF]"
 
 // Las slides están dibujadas para una columna de teléfono (`max-w-md`, el mismo
 // ancho del onboarding). En el panel de escritorio, que es bastante más ancho,
@@ -408,7 +410,7 @@ export function ProfileSlides({
             className={
               slotSalida
                 ? cn(claseDeSalida(true), "w-auto shrink-0")
-                : "py-2 text-sm text-muted-foreground"
+                : claseDeSalida(true)
             }
           >
             Ahora no
@@ -444,6 +446,7 @@ function FilaPropia({
   delta: number
 }) {
   const rank = player.rank ?? null
+  const emoji = player.career ? CAREER_EMOJI[player.career] : undefined
   return (
     <ul className="w-full max-w-xs">
       <li className={cn("flex items-center gap-3 rounded-lg px-4 py-3 ring-1 ring-foreground/10", MINE_ROW_CLASS)}>
@@ -452,11 +455,14 @@ function FilaPropia({
             {rank}
           </span>
         )}
-        <span
-          className="min-w-0 flex-1 truncate text-left text-sm font-medium"
-          style={{ color: levelColor(player.level) }}
-        >
-          {player.alias}
+        <span className="flex min-w-0 flex-1 items-center gap-1.5">
+          <span
+            className="truncate text-left text-sm font-medium"
+            style={{ color: levelColor(player.level) }}
+          >
+            {player.alias}
+          </span>
+          {emoji && <span className="shrink-0 text-sm leading-none">{emoji}</span>}
         </span>
         {delta > 0 && (
           <span
@@ -465,6 +471,11 @@ function FilaPropia({
           >
             <ArrowUp size={12} />
             {delta}
+          </span>
+        )}
+        {player.university && (
+          <span className="inline-flex shrink-0 items-center gap-1">
+            <UniTag university={player.university} />
           </span>
         )}
         <span className="inline-flex shrink-0 items-center gap-1 text-sm font-semibold tabular-nums">
@@ -706,7 +717,7 @@ export function RegisterSlide({
             (ver `Salida` más abajo): al lado de Ahora no, no adentro de la
             caja. Acá adentro, en esa variante, solo queda el link de
             privacidad. */}
-        {slotSalida && (
+        {(slotSalida || !desdeConfiguracion) && (
           <div className="flex w-full max-w-xs flex-col gap-2">
             {desdeConfiguracion && player.is_guest && (
               <Button
@@ -724,7 +735,7 @@ export function RegisterSlide({
               <button
                 type="button"
                 onClick={onOpenPrivacy}
-                className="text-center text-xs leading-relaxed text-foreground/45 underline underline-offset-2 transition-colors hover:text-foreground/70"
+                className="text-center text-sm leading-relaxed text-muted-foreground underline underline-offset-2 transition-colors hover:text-foreground"
               >
                 ¿Qué pasa con mis datos?
               </button>
@@ -776,7 +787,7 @@ export function RegisterSlide({
             <button
               type="button"
               onClick={onSkip}
-              className="py-2 text-sm text-muted-foreground"
+              className={claseDeSalida(true)}
             >
               Ahora no
             </button>
@@ -789,15 +800,6 @@ export function RegisterSlide({
               <GoogleIcon className="mr-2 size-4" />
               {authPending ? "Conectando…" : "Continuar con Google"}
             </Button>
-            {onOpenPrivacy && (
-              <button
-                type="button"
-                onClick={onOpenPrivacy}
-                className="text-center text-xs leading-relaxed text-foreground/45 underline underline-offset-2 transition-colors hover:text-foreground/70"
-              >
-                ¿Qué pasa con mis datos?
-              </button>
-            )}
           </div>
         )}
       </Salida>

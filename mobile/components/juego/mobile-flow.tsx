@@ -15,10 +15,11 @@
 // ejercicio nuevo es `clear()` sobre el mismo campo.
 
 import { useCallback, useEffect, useRef, useState } from "react"
-import { KeyboardAvoidingView, StyleSheet, Text, View } from "react-native"
+import { KeyboardAvoidingView, StyleSheet, View } from "react-native"
+import { Text } from "@/components/texto"
 import { router } from "expo-router"
 import { StatusBar } from "expo-status-bar"
-import * as Haptics from "expo-haptics"
+import { vib } from "@/lib/haptics"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { useQueryClient } from "@tanstack/react-query"
 import { ApiError } from "@intervalo/dx-core/api/client"
@@ -117,9 +118,6 @@ import { RepetitividadSlide } from "./repetitividad-slide"
 import { SettingsPanel } from "./settings-panel"
 import { UsernameSlide } from "./username-slide"
 
-// El tinte de reclutas-panel.tsx (el 6% de `VERDE`), para el pedazo de
-// pantalla que queda debajo de sus botones.
-const TINTE_RECLUTAS = "rgba(37, 211, 102, 0.06)"
 
 type Slide =
   | { kind: "intro" }
@@ -152,8 +150,9 @@ type EnPila = { seq: number; slide: Slide }
 
 type PendingAfter = { answer: GameAnswer } | null
 
-// La etiqueta de cada tecla en LaTeX, como la web con KaTeX: el glifo ocupa la
-// tecla a su cuerpo (`.katex` a 1em), y `Latex` dibuja a ESCALA_MATE del suyo.
+// La etiqueta de cada tecla en LaTeX, como la web con KaTeX: el glifo sale al
+// cuerpo de la tecla (ya con el 1,21 de KaTeX, ver CUERPO), y `Latex` dibuja a
+// ESCALA_MATE del suyo.
 function etiquetaDeTecla({ key, ancha, color, fontSize }: EtiquetaDeTecla) {
   const crudo = ancha && key.texWide ? key.texWide : key.tex
   // `\boldsymbol` es de un paquete que el MathJax de la app no carga; el
@@ -204,6 +203,7 @@ export function MobileFlow({ auto }: { auto?: string }) {
   // El enunciado se desliza solo al saltear (ver PromptBox).
   const [deslizar, setDeslizar] = useState(false)
   const [altoPie, setAltoPie] = useState(0)
+  const [altoFilaPrincipal, setAltoFilaPrincipal] = useState(0)
   const inputRef = useRef<MathFieldHandle>(null)
   const servedAtRef = useRef(0)
   const enPantallaRef = useRef<number | null>(null)
@@ -371,15 +371,22 @@ export function MobileFlow({ auto }: { auto?: string }) {
 
   const veredicto = useCallback(
     (correcto: boolean) => {
+      // La racha de ANTES de este intento; solo el primero la mueve.
+      const comboAntes = exercise?.combo ?? 0
+      const primero = attemptRef.current === 1
+      const perfecto = primero && !peekedRef.current
       if (correcto) {
         sfx.correct()
-        void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
+        vib.acierto(perfecto)
+        // El latido de la racha entra cuando el acierto ya terminó de sonar.
+        if (perfecto && comboAntes + 1 >= 2) setTimeout(() => vib.combo(comboAntes + 1), 320)
       } else {
         sfx.wrong()
-        void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error)
+        vib.error()
+        if (primero && comboAntes >= 3) setTimeout(() => vib.comboPerdido(), 330)
       }
     },
-    [sfx],
+    [sfx, exercise?.combo],
   )
 
   const startFromIntro = useCallback(() => {
@@ -1179,7 +1186,15 @@ export function MobileFlow({ auto }: { auto?: string }) {
                 areaSegura={false}
               />
             </View>
-            <BannerDelVeredicto tone={tone} answer={lastAnswer} reservaAbajo={altoPie + abajo + 8} />
+            {/* Cerrado, la fila de Tabla y Saltear conserva su lugar pero no se dibuja:
+                el cartel no tiene por qué taparla con un hueco vacío, termina donde
+                empieza el botón. Con el ejercicio abierto (¿Seguro?) esa fila se ve
+                encima del cartel y su alto sí cuenta. */}
+            <BannerDelVeredicto
+              tone={tone}
+              answer={lastAnswer}
+              reservaAbajo={(cerradoVisual ? altoFilaPrincipal + 12 : altoPie) + abajo + 8}
+            />
             <View style={styles.pie} onLayout={(e) => setAltoPie(e.nativeEvent.layout.height)}>
               <PieRampa
                 cerradoVisual={cerradoVisual}
@@ -1190,7 +1205,7 @@ export function MobileFlow({ auto }: { auto?: string }) {
                 }}
                 onSaltear={onSkip}
               />
-              <View style={styles.filaPrincipal}>
+              <View style={styles.filaPrincipal} onLayout={(e) => setAltoFilaPrincipal(e.nativeEvent.layout.height)}>
                 {hayPorque && (!cerradoVisual || solvedLatex === null) && (
                   <PorQueButton onPress={abrirPorque} plano={!cerradoVisual} style={!cerradoVisual && { flex: 1 }} />
                 )}
@@ -1218,7 +1233,7 @@ export function MobileFlow({ auto }: { auto?: string }) {
               {s.kind === "reclutas" ? (
                 <View style={styles.pantallaCompleta}>
                   <ReclutasPanel player={player} trigger={s.trigger} onContinue={() => reclutasListo(s)} />
-                  <View style={{ height: abajo, backgroundColor: TINTE_RECLUTAS }} />
+                  <View style={{ height: abajo }} />
                 </View>
               ) : (
                 <View style={[styles.diapo, { paddingBottom: abajo }]}>
@@ -1336,8 +1351,7 @@ export function MobileFlow({ auto }: { auto?: string }) {
                   )}
                   {s.kind === "tabla" && (
                     <View style={styles.conVolver}>
-                      <DerivativesTable destacar={exercise?.tabla_slugs} style={{ flexShrink: 1 }} />
-                      <View style={{ flex: 1 }} />
+                      <DerivativesTable destacar={exercise?.tabla_slugs} style={{ flexGrow: 1, flexShrink: 1, flexBasis: 0 }} />
                       <BotonCta texto="Volver" onPress={volver} />
                     </View>
                   )}
@@ -1375,7 +1389,8 @@ const styles = StyleSheet.create({
     backgroundColor: TEMA.card,
     overflow: "hidden",
   },
-  pie: { gap: 8, zIndex: 10 },
+  // 12 como el `gap-3` de la web: el mismo aire que hay entre la card y los botones.
+  pie: { gap: 12, zIndex: 10 },
   filaPrincipal: { flexDirection: "row", gap: 8 },
   diapo: { flex: 1, paddingTop: 16 },
   pantallaCompleta: { flex: 1 },

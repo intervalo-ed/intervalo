@@ -25,6 +25,7 @@ import { filaDeAyudas } from "@intervalo/dx-core/juego/pie-de-rampa"
 
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { Boton3D, CARA_3D, LABIO_CONTORNO } from "./boton-3d"
 import { AnswerButton, KeyCap, type AnswerTone } from "./exercise-card"
 import { PorQueButton } from "./porque-panel"
 import { useTeclas } from "./teclas"
@@ -52,25 +53,28 @@ function BotonDeAyuda({
   atajo?: React.ReactNode
 }) {
   return (
+    <Boton3D labio={LABIO_CONTORNO}>
     <Button
       size="lg"
       variant="outline"
       disabled={disabled}
       onClick={onClick}
-      // La pulsación es la del botón principal (AnswerButton): baja medio píxel
-      // al apretar y apenas se atenúa al pasar por encima. Lo que se apaga es lo
-      // que traía la variante `outline` y el principal no tiene:
+      // La pulsación es la del botón principal (AnswerButton): la cara baja
+      // hasta tapar el labio (boton-3d.tsx) y apenas se atenúa al pasar por
+      // encima. Lo que se apaga es lo que traía la variante `outline` y el
+      // principal no tiene:
       //   · el cambio de fondo al pasar/apretar (`hover:bg-*`), que con
       //     `transition-all` se veía como un latido de color;
       //   · el 50% de opacidad de `disabled`. Saltear se deshabilita mientras
       //     viaja su propio pedido, o sea que se atenuaba y volvía en cada
       //     toque. El toque doble ya lo frena `onSkip`; no hace falta avisarlo.
-      className="h-[var(--cta-h)] w-full min-w-0 gap-2 rounded-md bg-background font-normal transition-colors hover:bg-background hover:opacity-90 disabled:opacity-100 dark:bg-background dark:hover:bg-background"
+      className={cn(CARA_3D, "min-w-0 gap-2 bg-background font-normal hover:bg-background hover:opacity-90 disabled:opacity-100 dark:bg-background dark:hover:bg-background")}
     >
       <span className="truncate">{children}</span>
       {icono}
       {atajo}
     </Button>
+    </Boton3D>
   )
 }
 
@@ -156,7 +160,7 @@ export function PieDeRampa({
       // La fila de ayudas va `invisible`: reserva el alto y no se dibuja. El
       // `relative z-10` lo lleva la fila del botón principal, que tiene que
       // quedar por encima del cartel.
-      <div className={cn("flex w-full flex-col gap-2", className)}>
+      <div className={cn("flex w-full flex-col gap-3", className)}>
         <div className="invisible grid grid-cols-2 gap-2" aria-hidden>
           <BotonDeAyuda icono={<Table2 size={16} />} onClick={onTabla} disabled>
             Tabla
@@ -171,7 +175,7 @@ export function PieDeRampa({
   }
 
   return (
-    <div className={cn("relative z-10 flex w-full flex-col gap-2", className)}>
+    <div className={cn("relative z-10 flex w-full flex-col gap-3", className)}>
       <div className="grid grid-cols-2 gap-2">
         <BotonDeAyuda
           icono={<Table2 size={16} />}

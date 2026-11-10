@@ -16,7 +16,7 @@ import { motion, useReducedMotion } from "motion/react"
 import { ArrowDown, ArrowUp } from "lucide-react"
 
 import { cn } from "@/lib/utils"
-import { mezclar, rgbaDeRgb } from "@intervalo/dx-core/juego/dificultad"
+import { tonosDeNivel, rgbaDeRgb } from "@intervalo/dx-core/juego/dificultad"
 
 // El mismo desplazamiento fugaz del cafecito (FUGAZ): 110 ms con salida suave,
 // sin rebote, para que el pulgar no parezca pasarse del valor elegido.
@@ -70,15 +70,8 @@ export function SliderVertical({
   const rielRef = useRef<HTMLDivElement>(null)
   const t = valor / max
   const pct = t * 100
-  const suaves = mezclar(colores)
-  const color = suaves[valor]
-
-  // El relleno es el degradado de toda la barra, recortado hasta donde se
-  // eligió: lo que se ve crecer es el calor. Las posiciones donde descansa el
-  // pulgar se marcan con puntos vacíos, sin cortar la barra.
-  const relleno = `linear-gradient(180deg, ${suaves
-    .map((c, i) => `${c} ${(i / max) * 100}%`)
-    .join(", ")})`
+  const tonos = tonosDeNivel(colores)
+  const color = tonos[valor]
 
   const desdeElPuntero = (e: React.PointerEvent) => {
     const r = rielRef.current?.getBoundingClientRect()
@@ -117,9 +110,11 @@ export function SliderVertical({
         >
           <motion.div
             className="size-full rounded-full"
-            style={{ backgroundImage: relleno }}
             initial={false}
-            animate={{ clipPath: `inset(0 0 ${100 - pct}% 0 round 999px)` }}
+            animate={{
+              backgroundColor: color,
+              clipPath: `inset(0 0 ${100 - pct}% 0 round 999px)`,
+            }}
             transition={FUGAZ}
           />
         </motion.div>

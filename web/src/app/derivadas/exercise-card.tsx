@@ -15,6 +15,7 @@ import { motion, useReducedMotion } from "motion/react"
 import MathText from "@/components/math-text"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { Boton3D, CARA_3D, LABIO_ACIERTO, LABIO_BLANCO } from "./boton-3d"
 import { Cara } from "./flip-face"
 import { FUNDIDO } from "./slide-flip"
 import { useTeclas } from "./teclas"
@@ -968,22 +969,27 @@ export function AnswerButton({
       animate={shaking ? { x: SHAKE } : { x: 0 }}
       transition={shaking ? { duration: SHAKE_S, ease: "easeInOut" } : { duration: 0 }}
     >
-      <Button
-        size="lg"
-        // El color va inline y no por clase: son los mismos hex que el resto
-        // del feedback, y Tailwind no genera clases interpoladas.
-        style={{
-          backgroundColor: bg,
-          color: "#000",
-          transitionDuration: flashing ? FLASH_IN : FLASH_OUT,
-        }}
-        className="h-[var(--cta-h)] w-full rounded-md transition-colors hover:opacity-90"
-        disabled={disabled}
-        onClick={onClick}
+      <Boton3D
+        labio={flashing && tone === "correct" ? LABIO_ACIERTO : LABIO_BLANCO}
+        style={{ transitionDuration: flashing ? FLASH_IN : FLASH_OUT }}
       >
-        {closed ? "Continuar" : "Revisar"}
-        {showKeyHint && <KeyCap>{teclas.enter}</KeyCap>}
-      </Button>
+        <Button
+          size="lg"
+          // El color va inline y no por clase: son los mismos hex que el resto
+          // del feedback, y Tailwind no genera clases interpoladas.
+          style={{
+            backgroundColor: bg,
+            color: "#000",
+            transitionDuration: flashing ? FLASH_IN : FLASH_OUT,
+          }}
+          className={cn(CARA_3D, "hover:opacity-90")}
+          disabled={disabled}
+          onClick={onClick}
+        >
+          {closed ? "Continuar" : "Revisar"}
+          {showKeyHint && <KeyCap>{teclas.enter}</KeyCap>}
+        </Button>
+      </Boton3D>
     </motion.div>
   )
 }
