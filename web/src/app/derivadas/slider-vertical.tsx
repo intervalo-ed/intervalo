@@ -73,13 +73,6 @@ export function SliderVertical({
   const suaves = mezclar(colores)
   const color = suaves[valor]
 
-  // El relleno es el degradado de toda la barra, recortado hasta donde se
-  // eligió: lo que se ve crecer es el calor. Las posiciones donde descansa el
-  // pulgar se marcan con puntos vacíos, sin cortar la barra.
-  const relleno = `linear-gradient(180deg, ${suaves
-    .map((c, i) => `${c} ${(i / max) * 100}%`)
-    .join(", ")})`
-
   const desdeElPuntero = (e: React.PointerEvent) => {
     const r = rielRef.current?.getBoundingClientRect()
     if (!r || r.height === 0) return
@@ -117,9 +110,11 @@ export function SliderVertical({
         >
           <motion.div
             className="size-full rounded-full"
-            style={{ backgroundImage: relleno }}
             initial={false}
-            animate={{ clipPath: `inset(0 0 ${100 - pct}% 0 round 999px)` }}
+            animate={{
+              backgroundColor: color,
+              clipPath: `inset(0 0 ${100 - pct}% 0 round 999px)`,
+            }}
             transition={FUGAZ}
           />
         </motion.div>

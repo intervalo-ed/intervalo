@@ -1,7 +1,7 @@
 // El slider de la palanca de dificultad, el par nativo de
 // `web/src/app/derivadas/slider-vertical.tsx`: un riel vertical que se arrastra
-// de a un paso, con un relleno ACUMULATIVO que crece desde arriba y toma, tramo
-// a tramo, el color del nivel que atraviesa, y un pulgar que respira. Arriba es
+// de a un paso, con un relleno que crece desde arriba y un pulgar que respira,
+// ambos de un único color que cambia con la posición y con el nivel. Arriba es
 // más suave y abajo más exigente, como se dibuja.
 
 import { useEffect, useState } from "react"
@@ -10,6 +10,7 @@ import { GestureDetector, usePanGesture } from "react-native-gesture-handler"
 import Animated, {
   Easing,
   cancelAnimation,
+  interpolateColor,
   useAnimatedStyle,
   useReducedMotion,
   useSharedValue,
@@ -102,11 +103,9 @@ export function SliderVertical({
   const suaves = mezclar(colores)
   const color = suaves[valor]
 
-  // El relleno es el degradado de toda la barra, recortado hasta donde se
-  // eligió: lo que se ve crecer es el calor.
-  const relleno = `linear-gradient(180deg, ${suaves
-    .map((c, i) => `${c} ${(i / max) * 100}%`)
-    .join(", ")})`
+  // Un solo color para la barra y el pulgar: el de la posición, que se
+  // interpola mientras el pulgar se mueve y cambia de tono al cruzar cada nivel.
+  const posiciones = suaves.map((_, i) => i / max)
 
   const lleno = useSharedValue(t)
   const respiro = useSharedValue(1)
@@ -127,9 +126,16 @@ export function SliderVertical({
     return () => cancelAnimation(respiro)
   }, [quieto, respiro])
 
-  const estiloRelleno = useAnimatedStyle(() => ({ height: lleno.value * alto }))
+  const estiloRelleno = useAnimatedStyle(() => ({
+    height: lleno.value * alto,
+    backgroundColor: interpolateColor(lleno.value, posiciones, suaves),
+  }))
   const estiloPulgar = useAnimatedStyle(() => ({
     transform: [{ translateY: lleno.value * alto - PULGAR / 2 }],
+    borderColor: interpolateColor(lleno.value, posiciones, suaves),
+  }))
+  const estiloPulgarRelleno = useAnimatedStyle(() => ({
+    backgroundColor: interpolateColor(lleno.value, posiciones, suaves),
   }))
   // El aura del pulgar del cafecito (auraPulgar): crece con la posición y
   // respira, y en lo más suave no hay ninguna.
@@ -182,14 +188,12 @@ export function SliderVertical({
               { boxShadow: `0 0 1px ${rgbaDeRgb(color, 0.03 + 0.1 * t)}` },
               estiloRelleno,
             ]}
-          >
-            <View style={[styles.degradado, { height: alto, backgroundImage: relleno }]} />
-          </Animated.View>
+          />
           <Animated.View
             pointerEvents="none"
-            style={[styles.pulgar, { borderColor: color }, estiloAura, estiloPulgar]}
+            style={[styles.pulgar, estiloAura, estiloPulgar]}
           >
-            <View style={[styles.pulgarRelleno, { backgroundColor: color }]} />
+            <Animated.View style={[styles.pulgarRelleno, estiloPulgarRelleno]} />
           </Animated.View>
         </View>
       </GestureDetector>
@@ -227,7 +231,6 @@ const styles = StyleSheet.create({
     borderRadius: 999,
     overflow: "hidden",
   },
-  degradado: { width: RIEL },
   pulgar: {
     position: "absolute",
     top: 0,
