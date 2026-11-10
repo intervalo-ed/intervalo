@@ -27,6 +27,7 @@ import type { GamePlayer } from "@intervalo/dx-core/juego/game-keys"
 import type { ConTiempo, GameEvent, GameMessage } from "@intervalo/dx-core/juego/UseGameLeaderboard"
 import { useSfx } from "@/lib/audio/UseSfx"
 import { UniTag } from "./university-tag"
+import { Boton3D } from "./boton-3d"
 import { FUENTE } from "@/lib/tipografia"
 
 const FUNDIDO = FadeIn.duration(200)
@@ -241,20 +242,26 @@ export function ChatPanel({ enabled, player }: { enabled: boolean; player: GameP
           selectionColor={TEMA.ring}
           style={[styles.input, !puedeEscribir && { opacity: 0.6 }]}
         />
-        <Pressable
+        <Boton3D
           onPress={enviar}
           disabled={!puedeMandar}
-          accessibilityRole="button"
+          alto={ALTO_MANDAR}
+          cara={TEMA.primary}
+          labio={LABIO_MANDAR}
+          radio={6}
           accessibilityLabel="Mandar"
-          accessibilityState={{ disabled: !puedeMandar }}
-          style={({ pressed }) => [styles.mandar, pressed && { opacity: 0.9 }, !puedeMandar && { opacity: 0.4 }]}
+          style={styles.mandar}
         >
           <IconoMandar color="#fff" />
-        </Pressable>
+        </Boton3D>
       </View>
     </View>
   )
 }
+
+const ALTO_MANDAR = 40
+// El labio del botón de mandar: el violeta de la cara, más oscuro.
+const LABIO_MANDAR = "#373995"
 
 const styles = StyleSheet.create({
   panel: { flex: 1, minHeight: 0, gap: 8 },
@@ -296,12 +303,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: TEMA.foreground,
   },
-  mandar: {
-    width: 40,
-    height: 40,
-    borderRadius: 6,
-    backgroundColor: TEMA.primary,
-    alignItems: "center",
-    justifyContent: "center",
-  },
+  mandar: { width: ALTO_MANDAR },
 })
