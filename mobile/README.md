@@ -65,15 +65,47 @@ Sin `GOOGLE_SERVICES_JSON` la build de Android sale igual, pero sin avisos.
 
 ## Publicar
 
+Las builds se hacen en local (`--local`), no en los servidores de EAS.
+
+### iOS a TestFlight
+
+Hace falta una Mac con Xcode (y la plataforma de iOS instalada desde
+Xcode → Settings → Components), CocoaPods y fastlane:
+
 ```bash
-eas build --profile production --platform ios      # o android, o all
-eas submit --profile production --platform ios     # o android
+brew install cocoapods fastlane
+npm install -g eas-cli
 ```
 
-El submit de Android va al track `internal` de Play. El de iOS va a la app
-`6829495442` de App Store Connect con la API key guardada en EAS, así que
-cualquiera del equipo de Expo (rol Developer o más) sube a TestFlight sin
-cuenta de Apple.
+Una sola vez: aceptar la invitación a la cuenta `intervalo-ed` de Expo (rol
+Developer o más) y loguearse con `eas login`. No hace falta cuenta de Apple:
+el certificado, el provisioning profile y la API key de App Store Connect
+están guardados en EAS.
+
+Desde la raíz del repo, en `main` y actualizado:
+
+```bash
+bun install
+cd mobile
+eas build --platform ios --profile production --local --output ./build.ipa
+eas submit --platform ios --profile production --path ./build.ipa
+```
+
+- El build tarda unos minutos. EAS sube solo el número de build y trae las
+  variables del environment `production`.
+- El submit sube el `.ipa` a la app `6829495442` de App Store Connect. Después
+  de que Apple la procesa (entre 5 y 30 minutos), aparece en TestFlight.
+- Si pide loguearse en Apple, los credentials de EAS vencieron o cambiaron:
+  avisarle al dueño de la cuenta.
+
+### Android
+
+```bash
+eas build --platform android --profile production --local --output ./build.aab
+eas submit --platform android --profile production --path ./build.aab
+```
+
+Va al track `internal` de Play.
 
 ## Pendiente (lo hace el dueño de las cuentas)
 
