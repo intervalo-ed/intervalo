@@ -2,7 +2,8 @@
 
 La app de Expo del minijuego de derivadas: el mismo flujo del teléfono que la
 web, con la lógica compartida en `packages/dx-core`. Proyecto de EAS
-`@intervalo-ed/intervalo-app`; bundle y package `xyz.intervalo.derivadas`.
+`@intervalo-ed/intervalo-app`; bundle de iOS `xyz.intervalo` y package de
+Android `xyz.intervalo.derivadas`.
 Todavía no está publicada en las tiendas.
 
 ## Correrla en local
@@ -69,13 +70,13 @@ eas build --profile production --platform ios      # o android, o all
 eas submit --profile production --platform ios     # o android
 ```
 
-El submit de Android va al track `internal` de Play. El de iOS todavía no tiene
-config en `eas.json` (pregunta los datos de App Store Connect la primera vez).
+El submit de Android va al track `internal` de Play. El de iOS va a la app
+`6829495442` de App Store Connect con la API key guardada en EAS, así que
+cualquiera del equipo de Expo (rol Developer o más) sube a TestFlight sin
+cuenta de Apple.
 
 ## Pendiente (lo hace el dueño de las cuentas)
 
-- [ ] Cuenta de Apple Developer y la app en App Store Connect con el bundle
-      `xyz.intervalo.derivadas`.
 - [ ] La primera build de iOS (`eas build -p ios`), que genera el certificado
       y la key de APNs.
 - [ ] Firebase: subir `google-services.json` como variable de tipo archivo

@@ -26,7 +26,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   backgroundColor: FONDO,
   // buildNumber y versionCode los lleva EAS (`appVersionSource: "remote"`).
   ios: {
-    bundleIdentifier: "xyz.intervalo.derivadas",
+    // El bundle con el que está creada la app en App Store Connect (6829495442).
+    bundleIdentifier: "xyz.intervalo",
     // Solo el flujo de teléfono: con iPad, la App Store pide capturas de iPad.
     supportsTablet: false,
     infoPlist: {
