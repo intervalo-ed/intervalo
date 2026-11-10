@@ -44,7 +44,8 @@ const COLORES = POSICIONES.map((_, i) => colorDePosicion(i))
 // Los mismos tonos que pinta la barra, para que cada derivada lleve el color de
 // su celda.
 const TONOS = tonosDeNivel(COLORES)
-const APAGADO = "#a4b3c6"
+// Las de más abajo llevan el color de su nivel, pero más tenue.
+const APAGADA = 0.55
 const NARANJA = "#fdba74"
 
 // La lista se desliza con la misma curva corta del slider: llega antes que el ojo.
@@ -136,7 +137,7 @@ export function DificultadSlide({
 
       <Text style={styles.titulo}>Elegí con qué nivel querés practicar.</Text>
       <Text style={styles.aclaracion}>
-        Elegir no cambia tu Elo: se va acomodando solo con tus respuestas. Si apuntás más alto o más bajo de lo que te toca, vas a fallar o acertar más de lo normal y tu Elo se mueve más despacio.
+        Tu Elo se va acomodando solo con tus respuestas, elijas el nivel que elijas.
       </Text>
 
       <View style={styles.cuerpo}>
@@ -156,7 +157,7 @@ export function DificultadSlide({
                 y={y}
                 opacidad={sel ? 1 : Math.max(0.38, 0.85 - Math.abs(d) * 0.1)}
                 elegida={sel}
-                color={i <= valor ? TONOS[i] : APAGADO}
+                color={i <= valor ? TONOS[i] : rgbaDeRgb(TONOS[i], APAGADA)}
                 // El resplandor de la elegida crece con lo que se llenó la
                 // barra, como el de la barra misma.
                 brillo={sel ? rgbaDeRgb(TONOS[i], 0.04 + 0.08 * (valor / POSICION_MAX)) : null}

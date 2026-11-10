@@ -26,6 +26,7 @@ import {
   POSICION_MAX,
   colorDePosicion,
   tonosDeNivel,
+  rgbaDeRgb,
   posicionInicial,
 } from "@intervalo/dx-core/juego/dificultad"
 import { SliderVertical } from "./slider-vertical"
@@ -43,7 +44,8 @@ const COLORES = POSICIONES.map((_, i) => colorDePosicion(i))
 // Los mismos tonos que pinta la barra, para que cada derivada lleve el color de
 // su celda.
 const TONOS = tonosDeNivel(COLORES)
-const APAGADO = "#a4b3c6"
+// Las de más abajo llevan el color de su nivel, pero más tenue.
+const APAGADA = 0.55
 
 // La lista se desliza con la misma curva corta del slider: llega antes que el ojo.
 const DESLIZ = { duration: 0.2, ease: [0.2, 0.8, 0.2, 1] } as const
@@ -182,7 +184,7 @@ export function DificultadSlide({
         Elegí con qué nivel querés practicar.
       </p>
       <p className="mt-2.5 px-2 text-center text-[15px] leading-snug text-muted-foreground">
-        Elegir no cambia tu Elo: se va acomodando solo con tus respuestas. Si apuntás más alto o más bajo de lo que te toca, vas a fallar o acertar más de lo normal y tu Elo se mueve más despacio.
+        Tu Elo se va acomodando solo con tus respuestas, elijas el nivel que elijas.
       </p>
 
       <div className="relative mx-auto my-auto flex max-h-[22rem] min-h-0 w-full max-w-[17.5rem] flex-1 pt-3">
@@ -223,12 +225,12 @@ export function DificultadSlide({
                     className="block origin-left whitespace-nowrap font-mono text-[17px] font-semibold leading-tight"
                     initial={false}
                     // Las que la barra ya recorrió (hasta la elegida) llevan el
-                    // color de su celda; las de más abajo siguen apagadas. El
+                    // color de su celda; las de más abajo, más tenues. El
                     // resplandor de la elegida crece con lo que se llenó la barra,
                     // como el de la barra misma.
                     animate={{
                       scale: sel ? 1.6 : 1,
-                      color: i <= valor ? TONOS[i] : APAGADO,
+                      color: i <= valor ? TONOS[i] : rgbaDeRgb(TONOS[i], APAGADA),
                       textShadow: sel
                         ? `0 0 2px ${TONOS[i].replace("rgb", "rgba").replace(")", `, ${(0.04 + 0.08 * (valor / POSICION_MAX)).toFixed(2)})`)}`
                         : "0 0 0px rgba(0, 0, 0, 0)",
