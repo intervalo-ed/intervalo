@@ -25,7 +25,7 @@ import {
   POSICIONES,
   POSICION_MAX,
   colorDePosicion,
-  mezclar,
+  tonosDeNivel,
   posicionInicial,
   rgbaDeRgb,
 } from "@intervalo/dx-core/juego/dificultad"
@@ -43,7 +43,7 @@ const ALTO_ELEGIDA = 92
 const COLORES = POSICIONES.map((_, i) => colorDePosicion(i))
 // Los mismos tonos que pinta la barra, para que cada derivada lleve el color de
 // su celda.
-const TONOS = mezclar(COLORES)
+const TONOS = tonosDeNivel(COLORES)
 const APAGADO = "#a4b3c6"
 const NARANJA = "#fdba74"
 

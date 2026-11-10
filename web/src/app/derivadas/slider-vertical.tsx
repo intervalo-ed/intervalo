@@ -16,7 +16,7 @@ import { motion, useReducedMotion } from "motion/react"
 import { ArrowDown, ArrowUp } from "lucide-react"
 
 import { cn } from "@/lib/utils"
-import { mezclar, rgbaDeRgb } from "@intervalo/dx-core/juego/dificultad"
+import { tonosDeNivel, rgbaDeRgb } from "@intervalo/dx-core/juego/dificultad"
 
 // El mismo desplazamiento fugaz del cafecito (FUGAZ): 110 ms con salida suave,
 // sin rebote, para que el pulgar no parezca pasarse del valor elegido.
@@ -70,8 +70,8 @@ export function SliderVertical({
   const rielRef = useRef<HTMLDivElement>(null)
   const t = valor / max
   const pct = t * 100
-  const suaves = mezclar(colores)
-  const color = suaves[valor]
+  const tonos = tonosDeNivel(colores)
+  const color = tonos[valor]
 
   const desdeElPuntero = (e: React.PointerEvent) => {
     const r = rielRef.current?.getBoundingClientRect()

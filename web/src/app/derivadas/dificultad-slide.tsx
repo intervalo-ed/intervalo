@@ -25,7 +25,7 @@ import {
   POSICIONES,
   POSICION_MAX,
   colorDePosicion,
-  mezclar,
+  tonosDeNivel,
   posicionInicial,
 } from "@intervalo/dx-core/juego/dificultad"
 import { SliderVertical } from "./slider-vertical"
@@ -42,7 +42,7 @@ const ALTO_ELEGIDA = 92
 const COLORES = POSICIONES.map((_, i) => colorDePosicion(i))
 // Los mismos tonos que pinta la barra, para que cada derivada lleve el color de
 // su celda.
-const TONOS = mezclar(COLORES)
+const TONOS = tonosDeNivel(COLORES)
 const APAGADO = "#a4b3c6"
 
 // La lista se desliza con la misma curva corta del slider: llega antes que el ojo.

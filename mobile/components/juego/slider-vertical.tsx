@@ -1,7 +1,7 @@
 // El slider de la palanca de dificultad, el par nativo de
 // `web/src/app/derivadas/slider-vertical.tsx`: un riel vertical que se arrastra
 // de a un paso, con un relleno que crece desde arriba y un pulgar que respira,
-// ambos de un único color que cambia con la posición y con el nivel. Arriba es
+// ambos del color del nivel (los cuatro del ranking), que cambia al cruzar de nivel. Arriba es
 // más suave y abajo más exigente, como se dibuja.
 
 import { useEffect, useState } from "react"
@@ -10,7 +10,6 @@ import { GestureDetector, usePanGesture } from "react-native-gesture-handler"
 import Animated, {
   Easing,
   cancelAnimation,
-  interpolateColor,
   useAnimatedStyle,
   useReducedMotion,
   useSharedValue,
@@ -19,7 +18,7 @@ import Animated, {
 } from "react-native-reanimated"
 import Svg, { Path } from "react-native-svg"
 import { TEMA } from "@intervalo/dx-core/juego/game-colors"
-import { mezclar, rgbaDeRgb } from "@intervalo/dx-core/juego/dificultad"
+import { tonosDeNivel, rgbaDeRgb } from "@intervalo/dx-core/juego/dificultad"
 
 // El desplazamiento fugaz del cafecito (FUGAZ): 110 ms con salida suave, sin
 // rebote, para que el pulgar no parezca pasarse del valor elegido.
@@ -100,12 +99,8 @@ export function SliderVertical({
   const quieto = useReducedMotion()
   const [alto, setAlto] = useState(0)
   const t = valor / max
-  const suaves = mezclar(colores)
-  const color = suaves[valor]
-
-  // Un solo color para la barra y el pulgar: el de la posición, que se
-  // interpola mientras el pulgar se mueve y cambia de tono al cruzar cada nivel.
-  const posiciones = suaves.map((_, i) => i / max)
+  const tonos = tonosDeNivel(colores)
+  const color = tonos[valor]
 
   const lleno = useSharedValue(t)
   const respiro = useSharedValue(1)
@@ -128,14 +123,9 @@ export function SliderVertical({
 
   const estiloRelleno = useAnimatedStyle(() => ({
     height: lleno.value * alto,
-    backgroundColor: interpolateColor(lleno.value, posiciones, suaves),
   }))
   const estiloPulgar = useAnimatedStyle(() => ({
     transform: [{ translateY: lleno.value * alto - PULGAR / 2 }],
-    borderColor: interpolateColor(lleno.value, posiciones, suaves),
-  }))
-  const estiloPulgarRelleno = useAnimatedStyle(() => ({
-    backgroundColor: interpolateColor(lleno.value, posiciones, suaves),
   }))
   // El aura del pulgar del cafecito (auraPulgar): crece con la posición y
   // respira, y en lo más suave no hay ninguna.
@@ -185,15 +175,15 @@ export function SliderVertical({
           <Animated.View
             style={[
               styles.relleno,
-              { boxShadow: `0 0 1px ${rgbaDeRgb(color, 0.03 + 0.1 * t)}` },
+              { backgroundColor: color, boxShadow: `0 0 1px ${rgbaDeRgb(color, 0.03 + 0.1 * t)}` },
               estiloRelleno,
             ]}
           />
           <Animated.View
             pointerEvents="none"
-            style={[styles.pulgar, estiloAura, estiloPulgar]}
+            style={[styles.pulgar, { borderColor: color }, estiloAura, estiloPulgar]}
           >
-            <Animated.View style={[styles.pulgarRelleno, estiloPulgarRelleno]} />
+            <View style={[styles.pulgarRelleno, { backgroundColor: color }]} />
           </Animated.View>
         </View>
       </GestureDetector>
