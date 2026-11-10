@@ -53,7 +53,6 @@ type Section = "root" | "alias" | "career" | "university"
 // Más suave que el `VERDE_TINTA` de la web (#2CB863): sobre la pantalla del
 // iPhone ese verde y el borde al 85% se hacían muy intensos.
 const VERDE_TINTA = "#4DAA76"
-const ROJO = "#E5484D"
 const ROJO_TINTA = "#D9686C"
 const ROJO_BORDE = "rgba(229,72,77,0.5)"
 
@@ -369,7 +368,7 @@ export function SettingsPanel({
                   busy && { opacity: 0.45 },
                 ]}
               >
-                <Text style={[styles.texto, { color: ROJO, fontFamily: FUENTE.medio }]}>Reiniciar</Text>
+                <Text style={[styles.texto, { color: ROJO_TINTA, fontFamily: FUENTE.medio }]}>Reiniciar</Text>
               </Pressable>
             </View>
           </View>
@@ -396,7 +395,7 @@ export function SettingsPanel({
               {player?.is_guest ? "" : " También se borra tu cuenta de Intervalo, la de la web incluida."} No se puede
               deshacer.
             </Text>
-            {borrarError !== null && <Text style={[styles.confirmarTexto, { color: ROJO }]}>{borrarError}</Text>}
+            {borrarError !== null && <Text style={[styles.confirmarTexto, { color: ROJO_TINTA }]}>{borrarError}</Text>}
             <View style={styles.confirmarBotones}>
               <Pressable
                 onPress={() => {
@@ -421,7 +420,7 @@ export function SettingsPanel({
                   busy && { opacity: 0.45 },
                 ]}
               >
-                <Text style={[styles.texto, { color: ROJO, fontFamily: FUENTE.medio }]}>Borrar cuenta</Text>
+                <Text style={[styles.texto, { color: ROJO_TINTA, fontFamily: FUENTE.medio }]}>Borrar cuenta</Text>
               </Pressable>
             </View>
           </View>
@@ -783,7 +782,7 @@ const styles = StyleSheet.create({
   texto: { fontSize: 14, color: TEMA.foreground },
   conIcono: { flexDirection: "row", alignItems: "center", gap: 8, flexShrink: 1 },
   confirmar: { borderColor: "rgba(229,72,77,0.5)" },
-  confirmarTitulo: { fontSize: 14, fontFamily: FUENTE.medio, color: ROJO },
+  confirmarTitulo: { fontSize: 14, fontFamily: FUENTE.medio, color: ROJO_TINTA },
   confirmarTexto: { marginTop: 4, fontSize: 12, lineHeight: 19.5, color: "rgba(246,248,252,0.85)" },
   confirmarBotones: { marginTop: 12, flexDirection: "row", gap: 8 },
   botonChico: {
