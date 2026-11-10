@@ -135,6 +135,9 @@ export function DificultadSlide({
       </Pressable>
 
       <Text style={styles.titulo}>Elegí con qué nivel querés practicar.</Text>
+      <Text style={styles.aclaracion}>
+        Elegir no cambia tu Elo: se va acomodando solo con tus respuestas. Si apuntás más alto o más bajo de lo que te toca, vas a fallar o acertar más de lo normal y tu Elo se mueve más despacio.
+      </Text>
 
       <View style={styles.cuerpo}>
         {/* La lista mide lo mismo que la columna del slider: la primera
@@ -256,10 +259,19 @@ const styles = StyleSheet.create({
   titulo: {
     marginTop: 48,
     textAlign: "center",
-    fontSize: 16,
-    lineHeight: 22,
+    fontSize: 19,
+    lineHeight: 25,
     fontFamily: FUENTE.seminegrita,
     color: TEMA.foreground,
+  },
+  aclaracion: {
+    marginTop: 10,
+    paddingHorizontal: 8,
+    textAlign: "center",
+    fontSize: 15,
+    lineHeight: 21,
+    fontFamily: FUENTE.normal,
+    color: TEMA.mutedForeground,
   },
   cuerpo: {
     flex: 1,

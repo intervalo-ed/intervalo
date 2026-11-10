@@ -178,8 +178,11 @@ export function DificultadSlide({
         <ChevronLeft size={24} />
       </button>
 
-      <p className="mt-12 text-center text-base font-semibold leading-snug text-foreground">
+      <p className="mt-12 text-center text-[19px] font-semibold leading-snug text-foreground">
         Elegí con qué nivel querés practicar.
+      </p>
+      <p className="mt-2.5 px-2 text-center text-[15px] leading-snug text-muted-foreground">
+        Elegir no cambia tu Elo: se va acomodando solo con tus respuestas. Si apuntás más alto o más bajo de lo que te toca, vas a fallar o acertar más de lo normal y tu Elo se mueve más despacio.
       </p>
 
       <div className="relative mx-auto my-auto flex max-h-[22rem] min-h-0 w-full max-w-[17.5rem] flex-1 pt-3">
