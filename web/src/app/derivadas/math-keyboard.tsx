@@ -314,8 +314,13 @@ export function MathKeyboard({
   // arriba es justamente lo que gana con la forma extendida —`sen(□)` dice que
   // inserta el paréntesis y el hueco; `sen` no dice nada— y lo que baja es lo
   // que entra sin apretarse en una celda del pad.
-  const padDynamic = dynamic.slice(0, PAD_DYNAMIC_SLOTS)
-  const wideDynamic = dynamic.slice(PAD_DYNAMIC_SLOTS)
+  //
+  // Si sobra UNA sola, baja una más del pad: una fila ancha con una tecla suelta
+  // se lee como un botón perdido y se come un renglón de pantalla.
+  const enPad =
+    dynamic.length - PAD_DYNAMIC_SLOTS === 1 ? PAD_DYNAMIC_SLOTS - 1 : PAD_DYNAMIC_SLOTS
+  const padDynamic = dynamic.slice(0, enPad)
+  const wideDynamic = dynamic.slice(enPad)
 
   // Las teclas fijas de escritorio bajan de cuerpo: contra una fila dinámica
   // más alta, el `lg` de antes las hacía competir con lo que sí cambia.
