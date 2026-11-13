@@ -95,6 +95,9 @@ eas submit --platform ios --profile production --path ./build.ipa
   variables del environment `production`.
 - El submit sube el `.ipa` a la app `6829495442` de App Store Connect. Después
   de que Apple la procesa (entre 5 y 30 minutos), aparece en TestFlight.
+- El submit también agrega la build al grupo externo `Beta Pública`
+  (`groups` en `eas.json`), que la manda a la revisión de beta de Apple. Cuando
+  Apple la aprueba, les llega a los testers públicos sin tocar nada más.
 - Si pide loguearse en Apple, los credentials de EAS vencieron o cambiaron:
   avisarle al dueño de la cuenta.
 

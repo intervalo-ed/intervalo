@@ -23,3 +23,11 @@ tipando lo de antes — `check_openapi_sync` lo frena, y el arreglo es:
 python backend/scripts/dump_openapi.py
 cd web && bun run types:api:file
 ```
+
+## Builds de la app
+
+**Siempre en local, nunca en los servidores de EAS:** todo `eas build` lleva
+`--local` (los comandos están en `mobile/README.md`). Nada de `eas build` sin
+`--local` ni `eas workflow:run`. En Claude Code un hook
+(`.claude/hooks/solo-builds-locales.mjs`) lo frena; en otros agentes la regla es
+esta.

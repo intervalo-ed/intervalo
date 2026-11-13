@@ -1,4 +1,8 @@
-.claude
+# .claude/ queda local, salvo la config compartida de los agentes (el hook que
+# frena las builds en la nube de EAS).
+.claude/*
+!.claude/settings.json
+!.claude/hooks/
 .idea
 node_modules/
 dist/
